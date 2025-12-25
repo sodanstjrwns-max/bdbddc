@@ -76,7 +76,7 @@
   <meta property="article:publisher" content="https://bdbddc.com">
   <meta property="article:author" content="서울비디치과">
   <meta property="article:published_time" content="2024-01-01T09:00:00+09:00">
-  <meta property="article:modified_time" content="2024-12-22T20:00:00+09:00">
+  <meta property="article:modified_time" content="2024-12-21T12:00:00+09:00">
   
   <!-- ■ E-E-A-T 강화 메타 -->
   <meta name="author" content="문석준, 서울비디치과 대표원장">
@@ -1083,44 +1083,20 @@
     
     <!-- 애니메이션 배경 레이어 + 비주얼 플레이스홀더 -->
     <div class="hero-bg">
-      <!-- 📸 히어로 배경 - 프리미엄 비주얼 플레이스홀더 -->
-      <div class="hero-bg-image hero-bg-overlay" style="position: absolute; inset: 0; z-index: 1;">
-        <!-- 🎬 실제 영상/이미지 업로드 전 - 고급 플레이스홀더 -->
-        <div class="hero-visual-placeholder" style="position: absolute; inset: 0; overflow: hidden;">
-          <!-- 그라데이션 배경 -->
-          <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0a0806 0%, #1a1410 30%, #0d0b09 70%, #000 100%);"></div>
-          
-          <!-- 은은한 치과 실루엣 패턴 -->
-          <div style="position: absolute; inset: 0; opacity: 0.03; background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><text x=\"50\" y=\"60\" font-size=\"40\" text-anchor=\"middle\" fill=\"%23C9A962\">🦷</text></svg>'); background-size: 80px 80px;"></div>
-          
-          <!-- 동적 빛 라인들 -->
-          <div class="hero-light-lines" style="position: absolute; inset: 0; overflow: hidden;">
-            <div style="position: absolute; top: 20%; left: -10%; width: 120%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,98,0.3), transparent); transform: rotate(-5deg); animation: lightLine 8s ease-in-out infinite;"></div>
-            <div style="position: absolute; top: 50%; left: -10%; width: 120%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent); transform: rotate(3deg); animation: lightLine 10s ease-in-out infinite 2s;"></div>
-            <div style="position: absolute; top: 75%; left: -10%; width: 120%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,98,0.25), transparent); transform: rotate(-2deg); animation: lightLine 7s ease-in-out infinite 4s;"></div>
-          </div>
-          
-          <!-- 코너 장식 -->
-          <div style="position: absolute; top: 40px; left: 40px; width: 60px; height: 60px; border-left: 1px solid rgba(201,169,98,0.2); border-top: 1px solid rgba(201,169,98,0.2);"></div>
-          <div style="position: absolute; bottom: 40px; right: 40px; width: 60px; height: 60px; border-right: 1px solid rgba(201,169,98,0.2); border-bottom: 1px solid rgba(201,169,98,0.2);"></div>
-          
-          <!-- 📷 이미지/영상 업로드 안내 (개발용 - 나중에 제거) -->
-          <!--
-          <div style="position: absolute; bottom: 20px; left: 20px; background: rgba(0,0,0,0.7); padding: 8px 16px; border-radius: 8px; font-size: 12px; color: rgba(255,255,255,0.5);">
-            📷 /images/hero-bg.jpg 또는 영상 업로드 후 활성화
-          </div>
-          -->
-        </div>
-        
-        <!-- ✅ 실제 이미지 사용시 아래 주석 해제 -->
-        <!-- <img src="/images/hero-bg.jpg" alt="서울비디치과 내부 전경" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" loading="eager"> -->
-        
-        <!-- ✅ 실제 영상 사용시 아래 주석 해제 -->
-        <!--
-        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.4;">
-          <source src="/videos/hero-intro.mp4" type="video/mp4">
-        </video>
-        -->
+      <!-- 📸 히어로 배경 - YouTube 영상 -->
+      <div class="hero-bg-image hero-bg-overlay" style="position: absolute; inset: 0; z-index: 1; overflow: hidden;">
+        <!-- 🎬 YouTube 영상 배경 -->
+        <iframe 
+          src="https://www.youtube.com/embed/vMafU02A_pI?autoplay=1&mute=1&loop=1&playlist=vMafU02A_pI&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=https://bdbddc.com"
+          style="position: absolute; top: 50%; left: 50%; width: 180%; height: 180%; transform: translate(-50%, -50%); pointer-events: none; opacity: 0.5;"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="eager"
+          title="서울비디치과 소개 영상"
+        ></iframe>
+        <!-- 영상 위 어두운 오버레이 -->
+        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); pointer-events: none;"></div>
       </div>
       
       <!-- 오버레이 그라데이션 -->
@@ -1179,12 +1155,12 @@
         </style>
         
         <!-- 🔥 메인 후킹 메시지 - 가장 먼저! 가장 크게! -->
-        <h1 class="hero-hook-main" data-i18n-html="home.heroHookMain" style="font-size: clamp(2.2rem, 10vw, 6rem); font-weight: 900; letter-spacing: -0.02em; color: #fff; line-height: 1.08; margin-bottom: 24px; text-shadow: 0 0 80px rgba(255,255,255,0.15);">
+        <h1 class="hero-hook-main" style="font-size: clamp(2.2rem, 10vw, 6rem); font-weight: 900; letter-spacing: -0.02em; color: #fff; line-height: 1.08; margin-bottom: 24px; text-shadow: 0 0 80px rgba(255,255,255,0.15);">
           "이건 치료<br>안하셔도 됩니다"
         </h1>
         
         <!-- 서브 메시지 -->
-        <p class="hero-hook-sub" data-i18n="home.heroHookSub" style="font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 400; color: rgba(255,255,255,0.7); line-height: 1.5; margin-bottom: 35px;">
+        <p class="hero-hook-sub" style="font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 400; color: rgba(255,255,255,0.7); line-height: 1.5; margin-bottom: 35px;">
           저희가 가장 자주 하는 말입니다.
         </p>
         
@@ -1194,7 +1170,7 @@
           <div class="hero-brand-glow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.2) 0%, transparent 70%); filter: blur(30px); z-index: 0; animation: brandPulse 3s ease-in-out infinite;"></div>
           
           <!-- 메인 브랜드명 - 골드 그라데이션 -->
-          <p class="hero-brand" data-i18n="common.clinicName" style="position: relative; z-index: 1; font-size: clamp(1.6rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: 0.1em; line-height: 1; margin: 0; padding: 8px 0; background: linear-gradient(135deg, #B8860B 0%, #FFD700 25%, #FFFACD 50%, #FFD700 75%, #B8860B 100%); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: goldShimmer 4s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));">
+          <p class="hero-brand" style="position: relative; z-index: 1; font-size: clamp(1.6rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: 0.1em; line-height: 1; margin: 0; padding: 8px 0; background: linear-gradient(135deg, #B8860B 0%, #FFD700 25%, #FFFACD 50%, #FFD700 75%, #B8860B 100%); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: goldShimmer 4s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));">
             서울비디치과
           </p>
           
@@ -1204,17 +1180,17 @@
         
         <!-- 신뢰 뱃지 - 심플하게 -->
         <div class="hero-trust" style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 45px; font-size: clamp(0.95rem, 1.8vw, 1.15rem); color: rgba(255,255,255,0.5);">
-          <span data-i18n="home.heroTrust15">서울대 15인 협진</span>
+          <span>서울대 15인 협진</span>
           <span>·</span>
-          <span data-i18n="home.heroTrust365">365일 진료</span>
+          <span>365일 진료</span>
           <span>·</span>
-          <span data-i18n="home.heroTrustLocation">천안 불당동</span>
+          <span>천안 불당동</span>
         </div>
         
         <!-- CTA 버튼 -->
         <div class="hero-cta" style="display: flex; justify-content: center;">
-          <a href="reservation.html" class="btn btn-primary btn-lg btn-ripple" data-i18n="home.heroCTA" style="padding: 20px 48px; font-size: 1.15rem; font-weight: 600;">
-            편하게 상담 예약
+          <a href="reservation.html" class="btn btn-primary btn-lg btn-ripple" style="padding: 20px 48px; font-size: 1.15rem; font-weight: 600;">
+            상담 예약하기
           </a>
         </div>
         
@@ -1652,9 +1628,9 @@
     <div class="container">
       <div class="philosophy-header">
         <span class="section-badge">
-          <i class="fas fa-quote-left"></i> <span data-i18n="home.philosophyBadge">우리의 철학</span>
+          <i class="fas fa-quote-left"></i> 우리의 철학
         </span>
-        <h2 data-i18n-html="home.philosophyTitle">
+        <h2>
           치료를 잘하는 건 <span class="highlight">기본</span>,<br>
           경험을 다르게 만드는 게 저희의 일입니다.
         </h2>
@@ -1667,10 +1643,10 @@
             <i class="fas fa-heart"></i>
           </div>
           <div class="content">
-            <p data-i18n-html="home.philosophy1">
+            <p>
               "환자분이 느끼는 <span class="highlight">감정</span>까지 포함해 진료를 설계합니다."
             </p>
-            <p class="sub-text" data-i18n="home.philosophy1Sub">
+            <p class="sub-text">
               불안함, 두려움, 기대... 모든 감정을 고려합니다.
             </p>
           </div>
@@ -1682,10 +1658,10 @@
             <i class="fas fa-hand-holding-heart"></i>
           </div>
           <div class="content">
-            <p data-i18n-html="home.philosophy2">
+            <p>
               "기계로는 못 만드는 <span class="highlight">따뜻함</span>을 저희의 기준으로 삼습니다."
             </p>
-            <p class="sub-text" data-i18n="home.philosophy2Sub">
+            <p class="sub-text">
               좋은 장비보다 중요한 건 사람의 마음입니다.
             </p>
           </div>
@@ -1918,20 +1894,20 @@
       <div class="reviews-more-cta">
         <a href="https://m.place.naver.com/서울비디치과" target="_blank">
           <i class="fas fa-external-link-alt"></i>
-          <span data-i18n="home.viewMoreReviews">네이버에서 더 많은 후기 보기</span>
+          네이버에서 더 많은 후기 보기
         </a>
       </div>
       
       <!-- 리뷰 작성 유도 -->
       <div class="review-write-cta">
-        <h3 data-i18n="home.reviewWriteTitle">치료에 만족하셨나요?</h3>
-        <p data-i18n="home.reviewWriteDesc">소중한 후기를 남겨주시면 다른 분들에게 큰 도움이 됩니다</p>
+        <h3>치료에 만족하셨나요?</h3>
+        <p>소중한 후기를 남겨주시면 다른 분들에게 큰 도움이 됩니다</p>
         <div class="review-write-btns">
           <a href="https://m.place.naver.com/서울비디치과/review" target="_blank" class="btn-naver">
-            <i class="fas fa-pen"></i> <span data-i18n="home.reviewWriteNaver">네이버 후기 작성</span>
+            <i class="fas fa-pen"></i> 네이버 후기 작성
           </a>
           <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" class="btn-kakao">
-            <i class="fas fa-comment"></i> <span data-i18n="home.reviewWriteKakao">카카오톡 후기</span>
+            <i class="fas fa-comment"></i> 카카오톡 후기
           </a>
         </div>
       </div>
@@ -1943,10 +1919,10 @@
     <div class="container">
       <div class="section-title animate-fade-in-up">
         <span class="section-badge">
-          <i class="fas fa-check-circle"></i> <span data-i18n="home.recommendBadge">이런 분들께 추천드려요</span>
+          <i class="fas fa-check-circle"></i> 이런 분들께 추천드려요
         </span>
-        <h2 data-i18n-html="home.recommendTitle">서울비디치과에 <span class="highlight">오시면 좋은 분들</span></h2>
-        <p data-i18n="home.recommendSubtitle">해당되신다면, 저희가 도와드릴 수 있습니다</p>
+        <h2>서울비디치과에 <span class="highlight">오시면 좋은 분들</span></h2>
+        <p>해당되신다면, 저희가 도와드릴 수 있습니다</p>
       </div>
       
       <div class="promise-grid">
@@ -1954,48 +1930,48 @@
           <div class="icon-wrap">
             <i class="fas fa-ghost"></i>
           </div>
-          <h4 data-i18n="home.recommendCard1Title">겁이 너무 많으신 분</h4>
-          <p data-i18n-html="home.recommendCard1Desc">치과만 생각하면 긴장되시나요?<br>수면치료, 웃음가스로 편안하게 진료받으실 수 있어요.</p>
+          <h4>겁이 너무 많으신 분</h4>
+          <p>치과만 생각하면 긴장되시나요?<br>수면치료, 웃음가스로 편안하게 진료받으실 수 있어요.</p>
         </div>
         
         <div class="promise-card">
           <div class="icon-wrap">
             <i class="fas fa-briefcase"></i>
           </div>
-          <h4 data-i18n="home.recommendCard2Title">바빠서 시간 내기 어려우신 분</h4>
-          <p data-i18n-html="home.recommendCard2Desc">평일 야간, 주말, 공휴일까지<br>365일 진료로 원하시는 시간에 오세요.</p>
+          <h4>바빠서 시간 내기 어려우신 분</h4>
+          <p>평일 야간, 주말, 공휴일까지<br>365일 진료로 원하시는 시간에 오세요.</p>
         </div>
         
         <div class="promise-card">
           <div class="icon-wrap">
             <i class="fas fa-times-circle"></i>
           </div>
-          <h4 data-i18n="home.recommendCard3Title">다른 곳에서 안 된다고 하신 분</h4>
-          <p data-i18n-html="home.recommendCard3Desc">고난도 케이스도 포기하지 않습니다.<br>15인 전문의가 함께 방법을 찾아드려요.</p>
+          <h4>다른 곳에서 안 된다고 하신 분</h4>
+          <p>고난도 케이스도 포기하지 않습니다.<br>15인 전문의가 함께 방법을 찾아드려요.</p>
         </div>
         
         <div class="promise-card">
           <div class="icon-wrap">
             <i class="fas fa-question-circle"></i>
           </div>
-          <h4 data-i18n="home.recommendCard4Title">설명을 충분히 듣고 싶으신 분</h4>
-          <p data-i18n-html="home.recommendCard4Desc">왜 이 치료가 필요한지, 비용은 얼마인지<br>납득될 때까지 설명드립니다.</p>
+          <h4>설명을 충분히 듣고 싶으신 분</h4>
+          <p>왜 이 치료가 필요한지, 비용은 얼마인지<br>납득될 때까지 설명드립니다.</p>
         </div>
         
         <div class="promise-card">
           <div class="icon-wrap">
             <i class="fas fa-search"></i>
           </div>
-          <h4 data-i18n="home.recommendCard5Title">좋은 치과 찾는데 지치신 분</h4>
-          <p data-i18n-html="home.recommendCard5Desc">여기저기 알아보느라 지치셨죠?<br>이제 그만 찾으셔도 됩니다.</p>
+          <h4>좋은 치과 찾는데 지치신 분</h4>
+          <p>여기저기 알아보느라 지치셨죠?<br>이제 그만 찾으셔도 됩니다.</p>
         </div>
         
         <div class="promise-card">
           <div class="icon-wrap">
             <i class="fas fa-teeth"></i>
           </div>
-          <h4 data-i18n="home.recommendCard6Title">가지런한 치아를 가지고 싶으신 분</h4>
-          <p data-i18n-html="home.recommendCard6Desc">서울대 교정 전문의 2인이<br>인비절라인 전문 센터에서 진료합니다.</p>
+          <h4>가지런한 치아를 가지고 싶으신 분</h4>
+          <p>서울대 교정 전문의 2인이<br>인비절라인 전문 센터에서 진료합니다.</p>
         </div>
       </div>
     </div>
@@ -2038,37 +2014,37 @@
         <div class="footer-brand">
           <a href="/" class="footer-logo">
             <span class="logo-icon">🦷</span>
-            <span class="logo-text" data-i18n="common.clinicName">서울비디치과</span>
+            <span class="logo-text">서울비디치과</span>
           </a>
-          <p class="footer-slogan" data-i18n="common.slogan">Best Dedication - 정성을 다하는 헌신</p>
+          <p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p>
         </div>
         
         <div class="footer-links">
           <div class="footer-col">
-            <h4 data-i18n="centers.specialCenters">전문센터</h4>
+            <h4>전문센터</h4>
             <ul>
-              <li><a href="treatments/implant.html" data-i18n="centers.implant">임플란트센터</a></li>
-              <li><a href="treatments/invisalign.html" data-i18n="centers.orthodontics">교정센터</a></li>
-              <li><a href="treatments/pediatric.html" data-i18n="centers.pediatric">소아치과</a></li>
-              <li><a href="treatments/glownate.html" data-i18n="centers.aesthetic">심미치료</a></li>
+              <li><a href="treatments/implant.html">임플란트센터</a></li>
+              <li><a href="treatments/invisalign.html">교정센터</a></li>
+              <li><a href="treatments/pediatric.html">소아치과</a></li>
+              <li><a href="treatments/glownate.html">심미치료</a></li>
             </ul>
           </div>
           <div class="footer-col">
-            <h4 data-i18n="nav.about">병원 안내</h4>
+            <h4>병원 안내</h4>
             <ul>
-              <li><a href="doctors/index.html" data-i18n="nav.doctors">의료진 소개</a></li>
-              <li><a href="bdx/index.html" data-i18n="nav.checkup">BDX 검진센터</a></li>
-              <li><a href="floor-guide.html" data-i18n="nav.floorGuide">층별 안내</a></li>
-              <li><a href="cases/gallery.html" data-i18n="nav.beforeAfter">Before/After</a></li>
+              <li><a href="doctors/index.html">의료진 소개</a></li>
+              <li><a href="bdx/index.html">BDX 검진센터</a></li>
+              <li><a href="floor-guide.html">층별 안내</a></li>
+              <li><a href="cases/gallery.html">Before/After</a></li>
             </ul>
           </div>
           <div class="footer-col">
-            <h4 data-i18n="footer.customerSupport">고객 지원</h4>
+            <h4>고객 지원</h4>
             <ul>
-              <li><a href="reservation.html" data-i18n="reservation.title">예약/상담</a></li>
-              <li><a href="column/columns.html" data-i18n="nav.column">칼럼/콘텐츠</a></li>
-              <li><a href="faq.html" data-i18n="nav.faq">자주 묻는 질문</a></li>
-              <li><a href="directions.html" data-i18n="nav.directions">오시는 길</a></li>
+              <li><a href="reservation.html">예약/상담</a></li>
+              <li><a href="column/columns.html">칼럼/콘텐츠</a></li>
+              <li><a href="faq.html">자주 묻는 질문</a></li>
+              <li><a href="directions.html">오시는 길</a></li>
             </ul>
           </div>
         </div>
@@ -2076,13 +2052,13 @@
       
       <div class="footer-info">
         <div class="footer-contact">
-          <p><i class="fas fa-map-marker-alt"></i> <span data-i18n="contact.address">충남 천안시 서북구 불당34길 14, 1~5층</span></p>
-          <p><i class="fas fa-phone"></i> <span data-i18n="contact.phoneNumber">041-415-2892</span></p>
+          <p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p>
+          <p><i class="fas fa-phone"></i> 041-415-2892</p>
           <div class="footer-hours">
-            <p><i class="fas fa-clock"></i> <strong data-i18n="hero.stats365">365일 진료</strong></p>
-            <p data-i18n="footer.weekdayHours">평일 09:00-20:00 (점심 12:30-14:00)</p>
-            <p data-i18n="footer.weekendHours">토·일 09:00-17:00</p>
-            <p data-i18n="footer.holidayHours">공휴일 09:00-13:00</p>
+            <p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p>
+            <p>평일 09:00-20:00 (점심 12:30-14:00)</p>
+            <p>토·일 09:00-17:00</p>
+            <p>공휴일 09:00-13:00</p>
           </div>
         </div>
         <div class="footer-social">
@@ -2094,23 +2070,23 @@
       
       <div class="footer-legal">
         <div class="legal-links">
-          <a href="privacy.html" data-i18n="footer.privacy">개인정보 처리방침</a>
+          <a href="privacy.html">개인정보 처리방침</a>
           <span>|</span>
-          <a href="terms.html" data-i18n="footer.terms">이용약관</a>
+          <a href="terms.html">이용약관</a>
           <span>|</span>
-          <a href="sitemap.html" data-i18n="footer.sitemap">사이트맵</a>
+          <a href="sitemap.html">사이트맵</a>
         </div>
-        <p class="legal-notice" data-i18n="footer.legalNotice">
+        <p class="legal-notice">
           *본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 
           특정 개인의 결과는 개인에 따라 달라질 수 있습니다.
         </p>
-        <p class="copyright" data-i18n="footer.copyright">© 2018 Seoul BD Dental Clinic. All rights reserved.</p>
+        <p class="copyright">© 2018 Seoul BD Dental Clinic. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Mobile Navigation - 기본 숨김 (메뉴 버튼 클릭시 active 클래스로 표시) -->
-  <nav class="mobile-nav" id="mobileNav" style="right: -100%; visibility: hidden; opacity: 0; pointer-events: none;">
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" id="mobileNav">
     <div class="mobile-nav-header">
       <span class="logo-icon">🦷</span>
       <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
@@ -2123,18 +2099,18 @@
           <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="treatments/index.html" data-i18n="nav.allTreatments">전체 진료</a></li>
-          <li class="submenu-divider" data-i18n="centers.specialCenters">전문센터</li>
-          <li><a href="treatments/glownate.html" style="color: #C9A962; font-weight: 600; background: rgba(201, 169, 98, 0.1);">✨ <span data-i18n="centers.glownate">글로우네이트</span> <span style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; margin-left: 6px;">HOT</span></a></li>
-          <li><a href="treatments/implant.html" data-i18n="centers.implant">임플란트센터</a></li>
-          <li><a href="treatments/invisalign.html" data-i18n="centers.orthodontics">교정센터 (인비절라인)</a></li>
-          <li><a href="treatments/pediatric.html" data-i18n="centers.pediatric">소아치과</a></li>
-          <li><a href="treatments/aesthetic.html" data-i18n="centers.aesthetic">심미치료(현정민 원장)</a></li>
-          <li class="submenu-divider" data-i18n="nav.generalTreatments">일반 진료</li>
-          <li><a href="treatments/cavity.html" data-i18n="treatments.cavity">충치치료</a></li>
-          <li><a href="treatments/resin.html" data-i18n="treatments.resin">레진치료</a></li>
-          <li><a href="treatments/scaling.html" data-i18n="treatments.scaling">스케일링</a></li>
-          <li><a href="treatments/gum.html" data-i18n="treatments.gumTreatment">잇몸치료</a></li>
+          <li><a href="treatments/index.html">전체 진료</a></li>
+          <li class="submenu-divider">전문센터</li>
+          <li><a href="treatments/glownate.html" style="color: #C9A962; font-weight: 600; background: rgba(201, 169, 98, 0.1);">✨ 글로우네이트 <span style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; margin-left: 6px;">HOT</span></a></li>
+          <li><a href="treatments/implant.html">임플란트센터</a></li>
+          <li><a href="treatments/invisalign.html">교정센터 (인비절라인)</a></li>
+          <li><a href="treatments/pediatric.html">소아치과</a></li>
+          <li><a href="treatments/aesthetic.html">심미치료(현정민 원장)</a></li>
+          <li class="submenu-divider">일반 진료</li>
+          <li><a href="treatments/cavity.html">충치치료</a></li>
+          <li><a href="treatments/resin.html">레진치료</a></li>
+          <li><a href="treatments/scaling.html">스케일링</a></li>
+          <li><a href="treatments/gum.html">잇몸치료</a></li>
         </ul>
       </li>
       <!-- 의료진 소개 -->
@@ -2144,13 +2120,13 @@
       <!-- 콘텐츠 (3개 메뉴) -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-newspaper"></i> <span data-i18n="nav.contents">콘텐츠</span>
+          <i class="fas fa-newspaper"></i> 콘텐츠
           <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="column/columns.html"><i class="fas fa-pen-fancy"></i> <span data-i18n="nav.columns">칼럼</span></a></li>
-          <li><a href="video/index.html"><i class="fab fa-youtube"></i> <span data-i18n="nav.videos">영상</span></a></li>
-          <li><a href="cases/gallery.html"><i class="fas fa-lock"></i> <span data-i18n="nav.beforeAfterCases">비포/애프터</span></a></li>
+          <li><a href="column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+          <li><a href="video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+          <li><a href="cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
         </ul>
       </li>
       <!-- 병원 안내 (공지사항 포함) -->
@@ -2160,11 +2136,11 @@
           <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="pricing.html" class="nav-highlight">💰 <span data-i18n="nav.pricing">비용 안내</span></a></li>
-          <li><a href="floor-guide.html" data-i18n="nav.floorGuide">층별 안내</a></li>
-          <li><a href="directions.html" data-i18n="nav.directions">오시는 길</a></li>
-          <li><a href="faq.html" data-i18n="nav.faq">자주 묻는 질문</a></li>
-          <li><a href="notice/index.html"><i class="fas fa-bullhorn"></i> <span data-i18n="nav.notice">공지사항</span></a></li>
+          <li><a href="pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+          <li><a href="floor-guide.html">층별 안내</a></li>
+          <li><a href="directions.html">오시는 길</a></li>
+          <li><a href="faq.html">자주 묻는 질문</a></li>
+          <li><a href="notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
         </ul>
       </li>
       <!-- 예약하기 -->
@@ -2240,8 +2216,8 @@
   
   <!-- ■ 다국어 번역 시스템 (즉시 로드) -->
   <link rel="stylesheet" href="/css/language-switcher.css">
-  <script src="/js/translations.js?v=20241222"></script>
-  <script src="/js/language-switcher.js?v=20241222" defer></script>
+  <script src="/js/translations.js"></script>
+  <script src="/js/language-switcher.js" defer></script>
   
   <!-- ■ 지연 로딩 스크립트 -->
   <script>
@@ -2278,11 +2254,5 @@
   
   <!-- ■ Analytics Lazy Loader (First Paint 최적화) -->
   <script defer src="/js/analytics-loader.js"></script>
-  
-  <!-- ■ AI 상담 챗봇 (인라인) -->
-  <script>
-  (function(){const state={isOpen:false,messages:[],isLoading:false};const INITIAL_MESSAGE=`안녕하세요! 서울비디치과 AI 상담 도우미입니다 🦷\n\n궁금하신 점을 편하게 물어보세요:\n• 진료 시간 및 예약\n• 치료 비용 안내\n• 임플란트, 교정, 소아치과 정보\n• 오시는 길\n\n무엇이든 도와드릴게요!`;const DISCLAIMER='※ AI 상담은 일반 정보 제공 목적이며, 정확한 진단 및 치료는 내원 상담이 필요합니다.';function createChatbotHTML(){const chatbotHTML=`<button id="chatbot-toggle" class="chatbot-toggle" aria-label="AI 상담 열기"><svg class="chatbot-icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><svg class="chatbot-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg><span class="chatbot-badge">AI</span></button><div id="chatbot-window" class="chatbot-window"><div class="chatbot-header"><div class="chatbot-header-info"><div class="chatbot-avatar"><span>🦷</span></div><div class="chatbot-header-text"><h3>서울비디치과 AI 상담</h3><p>보통 즉시 응답</p></div></div><button id="chatbot-close" class="chatbot-close" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div><div class="chatbot-disclaimer">${DISCLAIMER}</div><div id="chatbot-messages" class="chatbot-messages"></div><div class="chatbot-input-area"><div class="chatbot-input-wrapper"><textarea id="chatbot-input" placeholder="메시지를 입력하세요..." rows="1" maxlength="500"></textarea><button id="chatbot-send" class="chatbot-send" aria-label="전송"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button></div><div class="chatbot-powered">Powered by AI · 365일 상담 가능</div></div></div>`;const container=document.createElement('div');container.id='chatbot-container';container.innerHTML=chatbotHTML;document.body.appendChild(container)}function createChatbotCSS(){const css=`#chatbot-container{--chatbot-primary:#B8860B;--chatbot-primary-dark:#8B6914;--chatbot-bg:#0a0a0a;--chatbot-surface:#141414;--chatbot-border:#2a2a2a;--chatbot-text:#fff;--chatbot-text-secondary:rgba(255,255,255,0.6);font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif}.chatbot-toggle{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--chatbot-primary) 0%,var(--chatbot-primary-dark) 100%);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(184,134,11,0.4);z-index:9998;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease}.chatbot-toggle:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(184,134,11,0.5)}.chatbot-toggle svg{width:28px;height:28px;color:#fff;transition:all 0.3s ease}.chatbot-toggle .chatbot-icon-close{display:none}.chatbot-toggle.active .chatbot-icon-chat{display:none}.chatbot-toggle.active .chatbot-icon-close{display:block}.chatbot-badge{position:absolute;top:-4px;right:-4px;background:#22c55e;color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;border:2px solid var(--chatbot-bg)}.chatbot-window{position:fixed;bottom:100px;right:24px;width:380px;height:560px;max-height:calc(100vh - 140px);background:var(--chatbot-bg);border-radius:20px;box-shadow:0 10px 50px rgba(0,0,0,0.5);border:1px solid var(--chatbot-border);z-index:9999;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(20px) scale(0.95);transition:all 0.3s ease}.chatbot-window.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}@media(max-width:480px){.chatbot-window{width:calc(100vw - 20px);height:calc(100vh - 100px);max-height:none;bottom:80px;right:10px;border-radius:16px}.chatbot-toggle{bottom:16px;right:16px;width:56px;height:56px}}.chatbot-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:linear-gradient(135deg,var(--chatbot-primary) 0%,var(--chatbot-primary-dark) 100%);border-radius:20px 20px 0 0}.chatbot-header-info{display:flex;align-items:center;gap:12px}.chatbot-avatar{width:44px;height:44px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px}.chatbot-header-text h3{margin:0;font-size:15px;font-weight:700;color:#fff}.chatbot-header-text p{margin:2px 0 0;font-size:12px;color:rgba(255,255,255,0.8)}.chatbot-close{background:rgba(255,255,255,0.2);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s}.chatbot-close:hover{background:rgba(255,255,255,0.3)}.chatbot-close svg{width:18px;height:18px;color:#fff}.chatbot-disclaimer{padding:10px 16px;background:rgba(184,134,11,0.1);border-bottom:1px solid var(--chatbot-border);font-size:11px;color:var(--chatbot-text-secondary);text-align:center;line-height:1.4}.chatbot-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px}.chatbot-messages::-webkit-scrollbar{width:6px}.chatbot-messages::-webkit-scrollbar-track{background:transparent}.chatbot-messages::-webkit-scrollbar-thumb{background:var(--chatbot-border);border-radius:3px}.chatbot-message{display:flex;gap:10px;max-width:85%}.chatbot-message.bot{align-self:flex-start}.chatbot-message.user{align-self:flex-end;flex-direction:row-reverse}.chatbot-message-avatar{width:32px;height:32px;border-radius:50%;background:var(--chatbot-surface);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}.chatbot-message.user .chatbot-message-avatar{background:var(--chatbot-primary);color:#fff;font-size:14px}.chatbot-message-content{background:var(--chatbot-surface);padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.5;color:var(--chatbot-text);white-space:pre-wrap}.chatbot-message.user .chatbot-message-content{background:var(--chatbot-primary);color:#fff;border-bottom-right-radius:4px}.chatbot-message.bot .chatbot-message-content{border-bottom-left-radius:4px}.chatbot-typing{display:flex;gap:4px;padding:8px 0}.chatbot-typing span{width:8px;height:8px;background:var(--chatbot-text-secondary);border-radius:50%;animation:typing 1.4s infinite ease-in-out}.chatbot-typing span:nth-child(1){animation-delay:0s}.chatbot-typing span:nth-child(2){animation-delay:0.2s}.chatbot-typing span:nth-child(3){animation-delay:0.4s}@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}.chatbot-input-area{padding:16px;border-top:1px solid var(--chatbot-border)}.chatbot-input-wrapper{display:flex;gap:10px;align-items:flex-end;background:var(--chatbot-surface);border-radius:24px;padding:8px 8px 8px 16px;border:1px solid var(--chatbot-border);transition:border-color 0.2s}.chatbot-input-wrapper:focus-within{border-color:var(--chatbot-primary)}#chatbot-input{flex:1;background:transparent;border:none;outline:none;color:var(--chatbot-text);font-size:14px;resize:none;max-height:100px;font-family:inherit;line-height:1.4}#chatbot-input::placeholder{color:var(--chatbot-text-secondary)}.chatbot-send{width:36px;height:36px;border-radius:50%;background:var(--chatbot-primary);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}.chatbot-send:hover{background:var(--chatbot-primary-dark);transform:scale(1.05)}.chatbot-send:disabled{opacity:0.5;cursor:not-allowed;transform:none}.chatbot-send svg{width:18px;height:18px;color:#fff}.chatbot-powered{text-align:center;font-size:11px;color:var(--chatbot-text-secondary);margin-top:10px}.chatbot-quick-replies{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chatbot-quick-reply{background:transparent;border:1px solid var(--chatbot-border);color:var(--chatbot-text);padding:8px 14px;border-radius:20px;font-size:13px;cursor:pointer;transition:all 0.2s}.chatbot-quick-reply:hover{background:var(--chatbot-primary);border-color:var(--chatbot-primary)}`;const style=document.createElement('style');style.textContent=css;document.head.appendChild(style)}function addMessage(content,isBot=true,quickReplies=null){const messagesContainer=document.getElementById('chatbot-messages');if(!messagesContainer)return;const messageDiv=document.createElement('div');messageDiv.className=`chatbot-message ${isBot?'bot':'user'}`;messageDiv.innerHTML=`<div class="chatbot-message-avatar">${isBot?'🦷':'👤'}</div><div class="chatbot-message-content">${content}</div>`;messagesContainer.appendChild(messageDiv);if(quickReplies&&quickReplies.length>0){const quickRepliesDiv=document.createElement('div');quickRepliesDiv.className='chatbot-quick-replies';quickReplies.forEach(reply=>{const btn=document.createElement('button');btn.className='chatbot-quick-reply';btn.textContent=reply;btn.onclick=()=>sendMessage(reply);quickRepliesDiv.appendChild(btn)});messagesContainer.appendChild(quickRepliesDiv)}messagesContainer.scrollTop=messagesContainer.scrollHeight}function showLoading(){const messagesContainer=document.getElementById('chatbot-messages');if(!messagesContainer)return;const loadingDiv=document.createElement('div');loadingDiv.id='chatbot-loading';loadingDiv.className='chatbot-message bot';loadingDiv.innerHTML=`<div class="chatbot-message-avatar">🦷</div><div class="chatbot-message-content"><div class="chatbot-typing"><span></span><span></span><span></span></div></div>`;messagesContainer.appendChild(loadingDiv);messagesContainer.scrollTop=messagesContainer.scrollHeight}function hideLoading(){const loading=document.getElementById('chatbot-loading');if(loading)loading.remove()}async function sendMessage(userMessage){if(!userMessage.trim()||state.isLoading)return;addMessage(userMessage,false);const input=document.getElementById('chatbot-input');if(input)input.value='';document.querySelectorAll('.chatbot-quick-replies').forEach(el=>el.remove());state.isLoading=true;showLoading();try{const response=await fetch('/api/chatbot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:userMessage,history:state.messages.slice(-10)})});if(!response.ok)throw new Error('API Error');const data=await response.json();hideLoading();addMessage(data.reply,true,data.quickReplies);state.messages.push({role:'user',content:userMessage});state.messages.push({role:'assistant',content:data.reply})}catch(error){console.error('Chatbot error:',error);hideLoading();addMessage('죄송합니다. 일시적인 오류가 발생했습니다.\n잠시 후 다시 시도하시거나, 전화(041-415-2892)로 문의해 주세요.',true)}state.isLoading=false}function bindEvents(){const toggle=document.getElementById('chatbot-toggle');const win=document.getElementById('chatbot-window');const close=document.getElementById('chatbot-close');const input=document.getElementById('chatbot-input');const send=document.getElementById('chatbot-send');toggle?.addEventListener('click',()=>{state.isOpen=!state.isOpen;toggle.classList.toggle('active',state.isOpen);win?.classList.toggle('open',state.isOpen);if(state.isOpen&&state.messages.length===0){setTimeout(()=>{addMessage(INITIAL_MESSAGE,true,['진료시간 알려주세요','임플란트 비용','예약하기'])},300)}});close?.addEventListener('click',()=>{state.isOpen=false;toggle?.classList.remove('active');win?.classList.remove('open')});send?.addEventListener('click',()=>{sendMessage(input?.value||'')});input?.addEventListener('keydown',(e)=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage(input.value)}});input?.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,100)+'px'})}function init(){createChatbotCSS();createChatbotHTML();bindEvents();console.log('🦷 서울비디치과 AI 챗봇 초기화 완료')}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}})();
-  </script>
 </body>
 </html>
-<!-- chatbot trigger -->
