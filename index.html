@@ -216,24 +216,20 @@
     a:focus-visible,button:focus-visible{outline:2px solid var(--brand-gold);outline-offset:2px}
     /* 애니메이션 감소 모드 지원 */
     @media(prefers-reduced-motion:reduce){*{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
+    /* CLS 방지: 폰트 로딩 중 레이아웃 시프트 방지 */
+    @font-face{font-family:'Pretendard-Fallback';src:local('Apple SD Gothic Neo'),local('Malgun Gothic'),local('sans-serif');ascent-override:105%;descent-override:25%;line-gap-override:0%;size-adjust:100%}
+    body{font-family:'Pretendard','Pretendard-Fallback',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+    /* 히어로 콘텐츠 고정 크기 - CLS 완전 방지 */
+    .hero-content{min-height:calc(100vh - 72px)}
+    .hero-text{min-height:400px}
+    /* 애니메이션 GPU 가속 (non-composited 방지) */
+    .card:hover,.btn:hover,.treatment-card:hover{will-change:transform;transform:translateZ(0)}
   </style>
   
-  <!-- ■ Fonts - Pretendard 서브셋 (한글 최적화, 50KB → 15KB) -->
-  <!-- 
-    기존: pretendard.min.css (전체 폰트, ~50KB)
-    변경: Pretendard Variable 서브셋 (한글+영문+숫자만, ~15KB)
-    - subset: KS X 1001 한글 2,350자 + 영문/숫자/특수문자
-    - font-display: swap으로 FOUT 방지
-  -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" as="style" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <!-- 
-    Dynamic Subset 특징:
-    - Unicode-range 기반으로 필요한 글리프만 로드
-    - 첫 로드: ~15KB (기본 한글+영문)
-    - 추가 글리프는 필요 시 자동 로드
-    - font-display: swap 내장
-  -->
+  <!-- ■ Fonts - Pretendard (font-display: swap 적용) -->
+  <!-- CLS 방지: preload + onload 패턴으로 FOIT/FOUT 최소화 -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   
   <!-- ■ Icons (지연 로딩) -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">

@@ -32,22 +32,14 @@ const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/offline.html',
-  // CSS 번들 (4개 → 1개, 2개 → 1개 최적화)
+  // CSS 번들
   '/css/core-bundle.min.css',
   '/css/mobile-bundle.min.css',
-  // 지연 로드 CSS (인터랙션 후 로드)
-  '/css/liquid-metal.css',
-  '/css/hero-animations.css',
   // 핵심 JS
   '/js/main.js',
   '/js/gnb.js',
   // PWA
-  '/manifest.json',
-  // 주요 페이지 (네비게이션 프리캐시)
-  '/pricing.html',
-  '/reservation.html',
-  '/directions.html',
-  '/faq.html'
+  '/manifest.json'
 ];
 
 // 외부 리소스 (CDN) - 서브셋 폰트로 변경
@@ -57,13 +49,10 @@ const EXTERNAL_ASSETS = [
   'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css'
 ];
 
-// 네비게이션 프리페치 URL (백그라운드에서 미리 캐시)
+// 네비게이션 프리페치 URL (백그라운드에서 미리 캐시 - 선택)
 const PREFETCH_URLS = [
-  '/treatments/implant.html',
-  '/treatments/invisalign.html',
-  '/treatments/glownate.html',
-  '/doctors/index.html',
-  '/bdx/index.html'
+  '/pricing.html',
+  '/reservation.html'
 ];
 
 // 캐시하지 않을 URL 패턴
