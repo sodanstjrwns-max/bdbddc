@@ -129,33 +129,32 @@
   
   <!-- ■ Hero 폰트 - Pretendard 산세리프 (이미 CDN 로드됨) -->
   
-  <!-- ■ Critical CSS (인라인) - First Paint 최적화 -->
+  <!-- ■ Critical CSS (인라인) - First Paint 최적화 + CLS 방지 -->
   <style>
     /* Critical CSS - Above-the-fold 렌더링 필수 */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;overflow-x:hidden}
     body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.5;color:#e5e5e5;background:#000;letter-spacing:0.025em;overflow-x:hidden}
     :root{--brand-primary:#8B5A2B;--brand-gold:#C9A962;--brand-gradient:linear-gradient(135deg,#8B5A2B 0%,#C9A962 100%);--glass-bg:rgba(20,18,16,0.85);--glass-blur:blur(20px);--z-fixed:300}
-    .header,.site-header{position:fixed;top:0;left:0;right:0;z-index:var(--z-fixed);background:rgba(0,0,0,0.9);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid rgba(255,255,255,0.1)}
-    .header-container{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:12px 16px}
+    /* CLS 방지 - 고정 높이 설정 */
+    .site-header{position:fixed;top:0;left:0;right:0;z-index:var(--z-fixed);background:rgba(0,0,0,0.9);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid rgba(255,255,255,0.1);height:64px}
+    @media(min-width:768px){.site-header{height:72px}}
+    .header-spacer{height:64px}@media(min-width:768px){.header-spacer{height:72px}}
+    .header-container{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:12px 16px;height:100%}
     @media(min-width:768px){.header-container{padding:16px 24px}}
     .logo,.site-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#fff}
     .logo-icon{font-size:1.5rem}@media(min-width:768px){.logo-icon{font-size:1.75rem}}
     .logo-text{font-size:1rem;font-weight:700}@media(min-width:768px){.logo-text{font-size:1.25rem}}
-    .gnb,.header-nav{display:none;flex:1;justify-content:center}@media(min-width:768px){.gnb,.header-nav{display:flex}}
+    .gnb,.header-nav,.main-nav{display:none;flex:1;justify-content:center}@media(min-width:768px){.gnb,.header-nav,.main-nav{display:flex}}
     .mobile-menu-btn{display:flex;flex-direction:column;gap:5px;padding:8px;background:none;border:none;cursor:pointer}
     .mobile-menu-btn span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
     @media(min-width:768px){.mobile-menu-btn{display:none}}
-    .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:80px}
+    /* 히어로 - CLS 방지 위해 min-height 고정 */
+    .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:0;contain:layout style}
     .hero-gradient{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#0a0a0a 0%,#1a1512 30%,#12100e 60%,#0a0a0a 100%);z-index:-1}
     .container{width:100%;max-width:1280px;margin:0 auto;padding:0 16px}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;font-family:inherit;font-size:1rem;font-weight:500;text-decoration:none;border:none;border-radius:1rem;cursor:pointer;transition:all 0.2s;min-height:44px}
     .btn-primary{background:var(--brand-gradient);color:#fff;box-shadow:0 4px 15px rgba(139,90,43,0.4);font-weight:600}
-    .page-loading-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center}
-    .loading-spinner{display:flex;flex-direction:column;align-items:center;gap:16px}
-    .loading-spinner-ring{width:50px;height:50px;border:3px solid rgba(201,169,98,0.2);border-top-color:#C9A962;border-radius:50%;animation:spin 1s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .fonts-loading body{opacity:0}.fonts-loaded body{opacity:1;transition:opacity 0.2s}
     /* 헤더 액션 & 인증 버튼 */
     .header-actions{display:flex;align-items:center;gap:12px}
     .header-phone{display:none;align-items:center;justify-content:center;width:40px;height:40px;color:#C9A962;text-decoration:none;font-size:1.1rem;background:rgba(201,169,98,0.1);border-radius:50%;transition:all 0.2s}
@@ -168,6 +167,15 @@
     @media(max-width:991px){.auth-buttons{display:none}}
     .btn-reserve{display:none;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(135deg,#8B5A2B,#C9A962);color:#fff;text-decoration:none;font-weight:600;font-size:0.9rem;border-radius:25px}
     @media(min-width:992px){.btn-reserve{display:flex}}
+    /* 히어로 텍스트 크기 고정 - CLS 방지 */
+    .hero-brand{font-size:clamp(2.8rem,12vw,8rem);font-weight:900;letter-spacing:0.08em;line-height:1}
+    .hero-hook-main{font-size:clamp(2rem,8vw,5rem);font-weight:800;line-height:1.1}
+    .hero-hook-sub{font-size:clamp(1.2rem,2.5vw,1.7rem);font-weight:400;line-height:1.5}
+    /* YouTube Lite - 고정 비율 */
+    .youtube-lite{aspect-ratio:16/9;background:#000}
+    .youtube-lite img{object-fit:cover}
+    /* Accessibility 개선 - 색상 대비 */
+    .section-subtitle,.hero-hook-sub{color:rgba(255,255,255,0.85)}
   </style>
   
   <!-- ■ Fonts (font-display: swap 적용) -->
@@ -178,12 +186,8 @@
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   
-  <!-- ■ Core Styles v3.0 - Modern Trendy + Warm Brown Redesign -->
-  <link rel="stylesheet" href="/css/design-system-v3.css">
-  <link rel="stylesheet" href="/css/hero-v3.css">
-  <link rel="stylesheet" href="/css/sections-v3.css">
-  <link rel="stylesheet" href="/css/header-footer-v3.css">
-  <!-- Legacy CSS for compatibility -->
+  <!-- ■ Core Styles - 최적화 (Performance 개선) -->
+  <link rel="stylesheet" href="/css/design-system.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/gnb.css">
   <link rel="stylesheet" href="/css/homepage-refactored.css">
@@ -304,10 +308,9 @@
     }
   </style>
   
-  <!-- ■ 비필수 CSS (지연 로드) -->
-  <link rel="preload" href="/css/liquid-metal.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="/css/responsive-devices.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="/css/image-placeholders.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <!-- ■ 비필수 CSS (지연 로드 - 성능 최적화) -->
+  <link rel="preload" href="/css/liquid-metal.css" as="style" onload="this.onload=null;this.rel='stylesheet'" fetchpriority="low">
+  <noscript><link rel="stylesheet" href="/css/liquid-metal.css"></noscript>
   
   <!-- ■ Prefetch Next Pages -->
   <link rel="prefetch" href="treatments/index.html" as="document">
@@ -1182,9 +1185,9 @@
           <div class="hero-brand-glow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.25) 0%, transparent 70%); filter: blur(40px); z-index: 0; animation: brandPulse 3s ease-in-out infinite;"></div>
           
           <!-- 메인 브랜드명 -->
-          <h2 class="hero-brand" style="position: relative; z-index: 1; font-size: clamp(2.8rem, 12vw, 8rem); font-weight: 900; letter-spacing: 0.08em; line-height: 1; margin: 0; padding: 10px 0; color: #FFFFFF; text-shadow: 0 0 40px rgba(201, 169, 98, 0.5), 0 0 80px rgba(201, 169, 98, 0.3), 0 4px 20px rgba(0, 0, 0, 0.5);">
+          <p class="hero-brand" style="position: relative; z-index: 1; font-size: clamp(2.8rem, 12vw, 8rem); font-weight: 900; letter-spacing: 0.08em; line-height: 1; margin: 0; padding: 10px 0; color: #FFFFFF; text-shadow: 0 0 40px rgba(201, 169, 98, 0.5), 0 0 80px rgba(201, 169, 98, 0.3), 0 4px 20px rgba(0, 0, 0, 0.5);" role="heading" aria-level="2">
             서울비디치과
-          </h2>
+          </p>
           
           <!-- 장식 라인 -->
           <div class="hero-brand-line" style="width: 120px; height: 3px; background: linear-gradient(90deg, transparent, #FFD700, transparent); margin: 20px auto 0; border-radius: 3px; animation: lineExpand 2s ease-out forwards;"></div>
@@ -1237,19 +1240,41 @@
         <p class="section-subtitle" data-i18n="home.videoSubtitle">Best Dedication - 정성을 다하는 헌신으로 환자분을 모십니다</p>
       </div>
       
-      <!-- 📹 영상 플레이어 - YouTube 임베드 (5층 로비 영상) -->
+      <!-- 📹 영상 플레이어 - YouTube Lite Embed (Performance 최적화) -->
       <div class="video-wrapper animate-fade-in-up">
-        <div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
-          <iframe 
-            src="https://www.youtube.com/embed/vMafU02A_pI?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=vMafU02A_pI" 
-            title="서울비디치과 5층 로비 소개 영상"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen
+        <div class="youtube-lite" data-video-id="vMafU02A_pI" style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); background: #000; cursor: pointer;">
+          <!-- 썸네일 이미지 (LCP 개선) -->
+          <img 
+            src="https://i.ytimg.com/vi/vMafU02A_pI/hqdefault.jpg" 
+            alt="서울비디치과 5층 로비 소개 영상 썸네일"
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: auto; min-height: 100%;"
             loading="lazy"
-          ></iframe>
+            decoding="async"
+          >
+          <!-- 재생 버튼 오버레이 -->
+          <div class="youtube-play-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 68px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 14px; display: flex; align-items: center; justify-content: center; transition: background 0.2s;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+          </div>
         </div>
       </div>
+      <script>
+        // YouTube Lite - 클릭 시 iframe 로드
+        document.addEventListener('DOMContentLoaded', function() {
+          document.querySelectorAll('.youtube-lite').forEach(function(el) {
+            el.addEventListener('click', function() {
+              var videoId = this.dataset.videoId;
+              var iframe = document.createElement('iframe');
+              iframe.src = 'https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1&autoplay=1&mute=0';
+              iframe.title = '서울비디치과 5층 로비 소개 영상';
+              iframe.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;';
+              iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+              iframe.allowFullscreen = true;
+              this.innerHTML = '';
+              this.appendChild(iframe);
+            });
+          });
+        });
+      </script>
       
       <!-- 영상 하단 키 메시지 -->
       <div class="video-highlights animate-fade-in-up">

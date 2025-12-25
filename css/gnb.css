@@ -69,13 +69,13 @@
 }
 
 .clinic-status.open {
-    background: rgba(72, 187, 120, 0.2);
-    color: #48bb78;
+    background: rgba(72, 187, 120, 0.25);
+    color: #68d391; /* 대비율 개선 - 더 밝은 녹색 */
 }
 
 .clinic-status.closed {
-    background: rgba(245, 101, 101, 0.2);
-    color: #f56565;
+    background: rgba(245, 101, 101, 0.25);
+    color: #fc8181; /* 대비율 개선 - 더 밝은 빨간색 */
 }
 
 .clinic-status .status-dot {
