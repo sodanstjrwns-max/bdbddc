@@ -276,8 +276,8 @@
             <!-- 📸 프로필 사진 -->
             <div class="profile-photo-wrapper">
                 <div class="profile-photo-frame">
-                    <!-- 실제 프로필 이미지 업로드 후 활성화: <img src="/images/doctors/moon-profile.jpg" alt="문석준 대표원장 프로필 사진"> -->
-                    <div class="profile-photo-placeholder">
+                    <img src="/images/doctors/moon-profile.jpg" alt="문석준 대표원장 프로필 사진" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="profile-photo-placeholder" style="display: none;">
                         <i class="fas fa-user-md"></i>
                         <span>프로필 사진 촬영 예정</span>
                     </div>
