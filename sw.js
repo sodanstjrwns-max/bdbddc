@@ -1,15 +1,15 @@
 /* ============================================
-   서울비디치과 Service Worker v2.0
+   서울비디치과 Service Worker v3.0
    Workbox 스타일 캐싱 전략 + 오프라인 지원 + 성능 최적화
-   v2.0.0 (2024-12-10) - 고급 캐싱 전략
+   v3.0.0 (2024-12-25) - 재방문 즉시 로드 최적화
    ============================================ */
 
 // Service Worker는 콘솔 로그를 최소화 (성능 영향 미미)
 const DEBUG = false;
 const log = DEBUG ? console.log.bind(console, '[SW]') : () => {};
 
-// 캐시 버전 관리
-const CACHE_VERSION = '2.0.0';
+// 캐시 버전 관리 - 버전 변경 시 자동 업데이트
+const CACHE_VERSION = '3.0.0';
 const PRECACHE_NAME = `seoulbd-precache-v${CACHE_VERSION}`;
 const RUNTIME_CACHE = `seoulbd-runtime-v${CACHE_VERSION}`;
 const IMAGE_CACHE = `seoulbd-images-v${CACHE_VERSION}`;
@@ -27,32 +27,43 @@ const CACHE_EXPIRATION = {
 // 이미지 캐시 최대 개수
 const MAX_IMAGE_CACHE_ENTRIES = 100;
 
-// 프리캐시할 정적 리소스 (필수)
+// 프리캐시할 정적 리소스 - 번들 최적화 버전 (필수)
 const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/offline.html',
-  '/css/critical.css',
-  '/css/design-system.css',
-  '/css/main.css',
-  '/css/gnb.css',
-  '/css/pricing.css',
-  '/css/treatment-detail.css',
-  '/css/ux-enhancements.css',
-  '/css/mobile-ux-enhanced.css',
-  '/css/mobile-optimize.css',
-  '/css/homepage-refactored.css',
+  // CSS 번들 (4개 → 1개, 2개 → 1개 최적화)
+  '/css/core-bundle.min.css',
+  '/css/mobile-bundle.min.css',
+  // 지연 로드 CSS (인터랙션 후 로드)
+  '/css/liquid-metal.css',
+  '/css/hero-animations.css',
+  // 핵심 JS
   '/js/main.js',
   '/js/gnb.js',
-  '/js/header-loader.js',
-  '/js/footer-loader.js',
-  '/manifest.json'
+  // PWA
+  '/manifest.json',
+  // 주요 페이지 (네비게이션 프리캐시)
+  '/pricing.html',
+  '/reservation.html',
+  '/directions.html',
+  '/faq.html'
 ];
 
-// 외부 리소스 (CDN)
+// 외부 리소스 (CDN) - 서브셋 폰트로 변경
 const EXTERNAL_ASSETS = [
-  'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css',
+  // Pretendard 서브셋 (50KB → ~15KB)
+  'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css',
   'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css'
+];
+
+// 네비게이션 프리페치 URL (백그라운드에서 미리 캐시)
+const PREFETCH_URLS = [
+  '/treatments/implant.html',
+  '/treatments/invisalign.html',
+  '/treatments/glownate.html',
+  '/doctors/index.html',
+  '/bdx/index.html'
 ];
 
 // 캐시하지 않을 URL 패턴
@@ -68,19 +79,20 @@ const EXCLUDE_FROM_CACHE = [
   /\/admin\//
 ];
 
-// ■ 설치 이벤트 - 프리캐싱
+// ■ 설치 이벤트 - 프리캐싱 + 프리페칭
 self.addEventListener('install', event => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(PRECACHE_NAME);
       
-      // 내부 리소스 프리캐시
+      // 1. 핵심 리소스 프리캐시 (필수 - 병렬 로드)
       log('프리캐싱 시작...');
-      await cache.addAll(PRECACHE_URLS).catch(err => {
-        log('프리캐싱 일부 실패:', err);
-      });
+      const internalPromises = PRECACHE_URLS.map(url => 
+        cache.add(url).catch(err => log('프리캐시 실패:', url, err))
+      );
+      await Promise.all(internalPromises);
       
-      // 외부 CDN 리소스 프리캐시 (실패해도 계속)
+      // 2. 외부 CDN 리소스 프리캐시 (실패해도 계속)
       for (const url of EXTERNAL_ASSETS) {
         try {
           await cache.add(url);
@@ -89,6 +101,18 @@ self.addEventListener('install', event => {
           log('외부 리소스 캐싱 실패:', url);
         }
       }
+      
+      // 3. 네비게이션 프리페치 (백그라운드 - 우선순위 낮음)
+      setTimeout(async () => {
+        for (const url of PREFETCH_URLS) {
+          try {
+            await cache.add(url);
+            log('프리페치 완료:', url);
+          } catch (err) {
+            // 프리페치 실패는 무시
+          }
+        }
+      }, 3000); // 3초 후 백그라운드 실행
       
       log('프리캐싱 완료');
       await self.skipWaiting();
@@ -139,35 +163,91 @@ self.addEventListener('fetch', event => {
   event.respondWith(handleRequest(request, url));
 });
 
-// ■ 요청 핸들러 - 리소스 타입별 전략 적용
+// ■ 요청 핸들러 - 리소스 타입별 전략 적용 (재방문 최적화)
 async function handleRequest(request, url) {
   // 1. 네비게이션 요청 (HTML 페이지)
+  // 재방문 시: 캐시 우선 반환 후 백그라운드 업데이트 (즉시 로드)
   if (request.mode === 'navigate') {
-    return networkFirstWithTimeout(request, 3000);
+    return staleWhileRevalidateForNavigation(request);
   }
   
-  // 2. 정적 리소스 (CSS, JS)
+  // 2. 핵심 정적 리소스 (번들 CSS, JS) - 캐시 우선
+  if (isCriticalAsset(url)) {
+    return cacheFirst(request, PRECACHE_NAME);
+  }
+  
+  // 3. 일반 정적 리소스 (CSS, JS)
   if (isStaticAsset(url)) {
     return staleWhileRevalidate(request, RUNTIME_CACHE);
   }
   
-  // 3. 폰트
+  // 4. 폰트 - 캐시 우선 (1년)
   if (isFontAsset(url)) {
     return cacheFirst(request, FONT_CACHE);
   }
   
-  // 4. 이미지
+  // 5. 이미지 - 캐시 우선 + 크기 제한
   if (isImageAsset(url)) {
     return cacheFirstWithLimit(request, IMAGE_CACHE, MAX_IMAGE_CACHE_ENTRIES);
   }
   
-  // 5. API 요청 (네트워크 전용)
+  // 6. API 요청 (네트워크 전용)
   if (url.pathname.includes('/api/') || url.pathname.includes('/tables/')) {
     return networkOnly(request);
   }
   
-  // 6. 기타 요청
+  // 7. 기타 요청
   return networkFirst(request, RUNTIME_CACHE);
+}
+
+/**
+ * 핵심 에셋 판별 (번들 파일)
+ */
+function isCriticalAsset(url) {
+  const criticalPaths = [
+    '/css/core-bundle.min.css',
+    '/css/mobile-bundle.min.css',
+    '/js/main.js',
+    '/js/gnb.js'
+  ];
+  return criticalPaths.some(path => url.pathname === path);
+}
+
+/**
+ * Stale While Revalidate for Navigation
+ * 재방문 시 캐시 즉시 반환 + 백그라운드 업데이트
+ * 첫 방문 시 네트워크 우선
+ */
+async function staleWhileRevalidateForNavigation(request) {
+  const cache = await caches.open(RUNTIME_CACHE);
+  const cachedResponse = await cache.match(request);
+  
+  // 캐시가 있으면 즉시 반환 (재방문 시 즉시 로드)
+  if (cachedResponse) {
+    // 백그라운드에서 업데이트
+    fetch(request)
+      .then(networkResponse => {
+        if (networkResponse.ok) {
+          cache.put(request, networkResponse.clone());
+        }
+      })
+      .catch(() => {}); // 오프라인이어도 무시
+    
+    return cachedResponse;
+  }
+  
+  // 캐시 없음: 네트워크에서 가져오기 (첫 방문)
+  try {
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok) {
+      cache.put(request, networkResponse.clone());
+    }
+    return networkResponse;
+  } catch (error) {
+    // 오프라인 폴백
+    const offlinePage = await caches.match('/offline.html');
+    return offlinePage || new Response('Offline', { status: 503 });
+  }
 }
 
 // ■ 캐싱 전략 함수들
