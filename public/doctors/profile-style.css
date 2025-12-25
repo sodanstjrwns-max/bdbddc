@@ -103,13 +103,20 @@ body.doctor-profile-page .profile-photo-placeholder,
     width: 100% !important;
     height: 100% !important;
     min-height: 400px !important;
-    display: flex !important;
+    /* display: flex로 기본값, inline style로 none 가능하도록 !important 제거 */
+    display: flex;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 16px !important;
     color: rgba(201, 169, 98, 0.4) !important;
     background: linear-gradient(145deg, #1a1510, #15120d) !important;
+}
+
+/* 이미지가 있을 때 placeholder 숨김 */
+body.doctor-profile-page .profile-photo-placeholder[style*="display: none"],
+.doctor-profile-page .profile-photo-placeholder[style*="display: none"] {
+    display: none !important;
 }
 
 body.doctor-profile-page .profile-photo-placeholder i,
