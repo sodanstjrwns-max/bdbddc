@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="서울비디치과 Before/After - 실제 치료 사례를 확인하세요. 라미네이트, 인비절라인, 임플란트 등 다양한 치료 전후 결과.">
+  <meta name="keywords" content="치과케이스, 치료사례, 라미네이트전후, 인비절라인전후, 임플란트전후, 서울비디치과">
+  <link rel="canonical" href="https://bdbddc.com/cases/">
+  
+  <title>Before/After | 서울비디치과</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/gnb.css">
+  
+  <style>
+    .case-filter {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-8);
+    }
+    
+    .filter-btn {
+      padding: var(--space-2) var(--space-5);
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: var(--font-medium);
+      color: var(--color-gray-600);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    
+    .filter-btn:hover {
+      background: var(--color-white);
+      color: var(--color-primary);
+    }
+    
+    .filter-btn.active {
+      background: var(--color-primary);
+      color: var(--color-white);
+      border-color: var(--color-primary);
+    }
+    
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-6);
+    }
+    
+    .case-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--color-gray-800);
+      transition: all var(--transition-base);
+    }
+    
+    .case-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .case-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .case-image {
+      position: relative;
+      aspect-ratio: 1;
+      background: var(--color-gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .case-image.before {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+    }
+    
+    .case-image.after {
+      background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    }
+    
+    .case-image i {
+      font-size: 2.5rem;
+      color: rgba(0,0,0,0.1);
+    }
+    
+    .case-image-label {
+      position: absolute;
+      top: var(--space-2);
+      left: var(--space-2);
+      padding: var(--space-1) var(--space-2);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      font-size: var(--text-xs);
+      font-weight: var(--font-medium);
+      border-radius: var(--radius-sm);
+    }
+    
+    .case-content {
+      padding: var(--space-5);
+    }
+    
+    .case-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-3);
+    }
+    
+    .case-category {
+      padding: var(--space-1) var(--space-3);
+      background: var(--color-primary);
+      color: var(--color-white);
+      font-size: var(--text-xs);
+      font-weight: var(--font-medium);
+      border-radius: var(--radius-full);
+    }
+    
+    .case-doctor {
+      font-size: var(--text-xs);
+      color: var(--color-gray-400);
+    }
+    
+    .case-title {
+      font-size: var(--text-lg);
+      font-weight: var(--font-semibold);
+      margin-bottom: var(--space-2);
+    }
+    
+    .case-info {
+      font-size: var(--text-sm);
+      color: var(--color-gray-500);
+      margin-bottom: var(--space-3);
+    }
+    
+    .case-legal {
+      font-size: var(--text-xs);
+      color: var(--color-gray-400);
+      font-style: italic;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-gray-200);
+    }
+    
+    .legal-banner {
+      padding: var(--space-6);
+      background: var(--color-gray-100);
+      border-radius: var(--radius-xl);
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+    
+    .legal-banner p {
+      font-size: var(--text-sm);
+      color: var(--color-gray-500);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <!-- ■ 통합 헤더 -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="../index.html" class="site-logo">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text">서울비디치과</span>
+        </a>
+        <div class="clinic-status open">
+          <span class="status-dot"></span>
+          <span class="status-text">진료중</span>
+          <span class="status-time">20:00까지</span>
+        </div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li class="nav-item has-dropdown">
+            <a href="../treatments/index.html">진료 안내</a>
+            <div class="mega-dropdown">
+              <div class="mega-dropdown-grid">
+                <div class="mega-dropdown-section">
+                  <h4>전문센터</h4>
+                  <ul>
+                    <li><a href="../treatments/glownate.html" class="nav-highlight">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li>
+                    <li><a href="../treatments/implant.html">임플란트센터 <span class="badge">6개 수술실</span></a></li>
+                    <li><a href="../treatments/invisalign.html">교정센터(인비절라인) <span class="badge">대규모</span></a></li>
+                    <li><a href="../treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li>
+                    <li><a href="../treatments/aesthetic.html">심미치료(현정민 원장)</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4>일반/보존 진료</h4>
+                  <ul>
+                    <li><a href="../treatments/cavity.html">충치치료</a></li>
+                    <li><a href="../treatments/resin.html">레진치료</a></li>
+                    <li><a href="../treatments/crown.html">크라운</a></li>
+                    <li><a href="../treatments/inlay.html">인레이/온레이</a></li>
+                    <li><a href="../treatments/root-canal.html">신경치료</a></li>
+                    <li><a href="../treatments/whitening.html">미백</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4>잇몸/외과</h4>
+                  <ul>
+                    <li><a href="../treatments/scaling.html">스케일링</a></li>
+                    <li><a href="../treatments/gum.html">잇몸치료</a></li>
+                    <li><a href="../treatments/periodontitis.html">치주염</a></li>
+                    <li><a href="../treatments/wisdom-tooth.html">사랑니 발치</a></li>
+                    <li><a href="../treatments/tmj.html">턱관절장애</a></li>
+                    <li><a href="../treatments/bruxism.html">이갈이/이악물기</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="../doctors/index.html">의료진 소개</a></li>
+          <li class="nav-item"><a href="../bdx/index.html">검진센터</a></li>
+          <li class="nav-item has-dropdown active">
+            <a href="../column/columns.html">콘텐츠</a>
+            <ul class="simple-dropdown">
+              <li><a href="../column/columns.html">칼럼</a></li>
+              <li><a href="../video/index.html">영상</a></li>
+              <li><a href="gallery.html">비포/애프터</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-dropdown">
+            <a href="../directions.html">병원 안내</a>
+            <ul class="simple-dropdown">
+              <li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+              <li><a href="../directions.html">오시는 길</a></li>
+              <li><a href="../faq.html">자주 묻는 질문</a></li>
+              <li><a href="../notice/index.html">공지사항</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
+        <a href="../reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="text-h1">Before/After</h1>
+      <p>서울비디치과의 실제 치료 사례를 확인하세요</p>
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a>
+        <span>/</span>
+        <span>Before/After</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cases Section -->
+  <section class="section">
+    <div class="container">
+      <!-- Legal Banner -->
+      <div class="legal-banner">
+        <p>
+          <i class="fas fa-info-circle"></i>
+          본 페이지의 모든 치료 사례는 의료법 및 의료광고 심의 기준을 준수하여 제공됩니다.<br>
+          개인별 결과는 환자의 구강 상태, 치료 방법에 따라 다를 수 있습니다.
+        </p>
+      </div>
+
+      <!-- Filter -->
+      <div class="case-filter">
+        <button class="filter-btn active" data-filter="all">전체</button>
+        <button class="filter-btn" data-filter="laminate">글로우네이트</button>
+        <button class="filter-btn" data-filter="invisalign">인비절라인</button>
+        <button class="filter-btn" data-filter="implant">임플란트</button>
+        <button class="filter-btn" data-filter="whitening">미백</button>
+        <button class="filter-btn" data-filter="general">일반진료</button>
+      </div>
+
+      <!-- Cases Grid -->
+      <div class="cases-grid">
+        <!-- Case 1 -->
+        <div class="case-card" data-category="laminate">
+          <div class="case-images">
+            <div class="case-image before">
+              <span class="case-image-label">Before</span>
+              <i class="fas fa-tooth"></i>
+            </div>
+            <div class="case-image after">
+              <span class="case-image-label">After</span>
+              <i class="fas fa-sparkles"></i>
+            </div>
+          </div>
+          <div class="case-content">
+            <div class="case-meta">
+              <span class="case-category">글로우네이트</span>
+              <span class="case-doctor">문석준 원장</span>
+            </div>
+            <h3 class="case-title">전치부 8본 라미네이트</h3>
+            <p class="case-info">30대 여성 | 치료기간 3주</p>
+            <p class="case-legal">*개인별 결과 차이가 있으며, 이는 특정 환자의 사례입니다.</p>
+          </div>
+        </div>
+
+        <!-- Case 2 -->
+        <div class="case-card" data-category="invisalign">
+          <div class="case-images">
+            <div class="case-image before">
+              <span class="case-image-label">Before</span>
+              <i class="fas fa-teeth"></i>
+            </div>
+            <div class="case-image after">
+              <span class="case-image-label">After</span>
+              <i class="fas fa-smile"></i>
+            </div>
+          </div>
+          <div class="case-content">
+            <div class="case-meta">
+              <span class="case-category">인비절라인</span>
+              <span class="case-doctor">협진</span>
+            </div>
+            <h3 class="case-title">덧니 교정</h3>
+            <p class="case-info">20대 여성 | 치료기간 12개월</p>
+            <p class="case-legal">*개인별 결과 차이가 있으며, 이는 특정 환자의 사례입니다.</p>
+          </div>
+        </div>
+
+        <!-- Case 3 -->
+        <div class="case-card" data-category="implant">
+          <div class="case-images">
+            <div class="case-image before">
+              <span class="case-image-label">Before</span>
+              <i class="fas fa-tooth"></i>
+            </div>
+            <div class="case-image after">
+              <span class="case-image-label">After</span>
+              <i class="fas fa-check-circle"></i>
+            </div>
+          </div>
+          <div class="case-content">
+            <div class="case-meta">
+              <span class="case-category">임플란트</span>
+              <span class="case-doctor">협진</span>
+            </div>
+            <h3 class="case-title">상악동 거상술 + 임플란트 2본</h3>
+            <p class="case-info">50대 남성 | 치료기간 6개월</p>
+            <p class="case-legal">*개인별 결과 차이가 있으며, 이는 특정 환자의 사례입니다.</p>
+          </div>
+        </div>
+
+        <!-- Case 4 -->
+        <div class="case-card" data-category="laminate">
+          <div class="case-images">
+            <div class="case-image before">
+              <span class="case-image-label">Before</span>
+              <i class="fas fa-tooth"></i>
+            </div>
+            <div class="case-image after">
+              <span class="case-image-label">After</span>
+              <i class="fas fa-sparkles"></i>
+            </div>
+          </div>
+          <div class="case-content">
+            <div class="case-meta">
+              <span class="case-category">글로우네이트</span>
+              <span class="case-doctor">문석준 원장</span>
+            </div>
+            <h3 class="case-title">치아 사이 공간 개선</h3>
+            <p class="case-info">20대 남성 | 치료기간 2주</p>
+            <p class="case-legal">*개인별 결과 차이가 있으며, 이는 특정 환자의 사례입니다.</p>
+          </div>
+        </div>
+
+        <!-- Case 5 -->
+        <div class="case-card" data-category="whitening">
+          <div class="case-images">
+            <div class="case-image before">
+              <span class="case-image-label">Before</span>
+              <i class="fas fa-tooth"></i>
+            </div>
+            <div class="case-image after">
+              <span class="case-image-label">After</span>
+              <i class="fas fa-sun"></i>
+            </div>
+          </div>
+          <div class="case-content">
+            <div class="case-meta">
+              <span class="case-category">미백</span>
+              <span class="case-doctor">협진</span>
+            </div>
+            <h3 class="case-title">전문가 미백</h3>
+            <p class="case-info">30대 여성 | 치료기간 2주</p>
+            <p class="case-legal">*개인별 결과 차이가 있으며, 이는 특정 환자의 사례입니다.</p>
+          </div>
+        </div>
+
+        <!-- Case 6 -->
+        <div class="case-card" data-category="invisalign">
+          <div class="case-images">
+            <div class="case-image before">
+              <span class="case-image-label">Before</span>
+              <i class="fas fa-teeth"></i>
+            </div>
+            <div class="case-image after">
+              <span class="case-image-label">After</span>
+              <i class="fas fa-smile"></i>
+            </div>
+          </div>
+          <div class="case-content">
+            <div class="case-meta">
+              <span class="case-category">인비절라인</span>
+              <span class="case-doctor">협진</span>
+            </div>
+            <h3 class="case-title">전치부 배열 교정</h3>
+            <p class="case-info">30대 남성 | 치료기간 8개월</p>
+            <p class="case-legal">*개인별 결과 차이가 있으며, 이는 특정 환자의 사례입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-wrapper glass-card">
+        <div class="cta-content">
+          <h2 class="text-h2">나도 변화하고 싶다면?</h2>
+          <p class="text-body-lg">
+            서울비디치과의 BDX 정밀검진으로<br>
+            나에게 맞는 최적의 치료를 상담받으세요.
+          </p>
+          <div class="cta-buttons">
+            <a href="../reservation.html" class="btn btn-primary btn-lg">
+              <i class="fas fa-calendar-check"></i>
+              상담 예약하기
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="../index.html" class="footer-logo">
+            <span class="logo-icon">🦷</span>
+            <span class="logo-text">서울비디치과</span>
+          </a>
+          <p class="footer-slogan">치과 경험의 혁신을 위한 헌신</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>진료 안내</h4>
+            <ul>
+              <li><a href="../treatments/glownate.html">글로우네이트</a></li>
+              <li><a href="../treatments/invisalign.html">인비절라인</a></li>
+              <li><a href="../treatments/implant.html">임플란트</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>병원 안내</h4>
+            <ul>
+              <li><a href="../doctors/index.html">의료진 소개</a></li>
+              <li><a href="../bdx/index.html">BDX 검진센터</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>고객 지원</h4>
+            <ul>
+              <li><a href="../reservation.html">예약/상담</a></li>
+              <li><a href="../column/columns.html">칼럼/콘텐츠</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <p class="legal-notice">
+          *본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 
+          특정 개인의 결과는 개인에 따라 달라질 수 있습니다.
+        </p>
+        <p class="copyright">© 2018 Seoul BD Dental Clinic. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+      <span class="logo-icon">🦷</span>
+      <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-nav-menu">
+      <li><a href="../treatments/index.html"><i class="fas fa-tooth"></i> 진료 안내</a></li>
+      <li><a href="../doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
+      <li><a href="../bdx/index.html"><i class="fas fa-microscope"></i> 검진센터(BDX)</a></li>
+      <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> Before/After</a></li>
+      <li><a href="../reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+    </ul>
+  </nav>
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+  <script src="../js/gnb.js" defer></script>
+<script src="../js/main.js" defer></script>
+  <script>
+    // Case Filter
+    const filterBtns = document.querySelectorAll('.case-filter .filter-btn');
+    const caseCards = document.querySelectorAll('.case-card');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const filter = this.dataset.filter;
+        
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter cases
+        caseCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+    
+    // Check URL params for filter
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    if (category) {
+      const targetBtn = document.querySelector(`.filter-btn[data-filter="${category}"]`);
+      if (targetBtn) {
+        targetBtn.click();
+      }
+    }
+  </script>
+</body>
+</html>

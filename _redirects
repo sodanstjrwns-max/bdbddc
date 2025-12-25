@@ -1,0 +1,5 @@
+# Cloudflare Pages Redirects
+# Inblog 서브디렉토리 연동
+
+/blog https://proxy.inblog.dev/bdbddc 200
+/blog/* https://proxy.inblog.dev/bdbddc/:splat 200

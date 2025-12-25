@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Before/After 관리 | 서울비디치과 관리자</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../images/icons/favicon.svg">
+  
+  <!-- Fonts & Icons -->
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+    
+    /* ========== 관리자 레이아웃 ========== */
+    .admin-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* 사이드바 */
+    .admin-sidebar {
+      width: 260px;
+      background: #111;
+      border-right: 1px solid rgba(139,90,43,0.2);
+      padding: 24px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    
+    .admin-logo {
+      padding: 0 24px 24px;
+      border-bottom: 1px solid rgba(139,90,43,0.2);
+      margin-bottom: 24px;
+    }
+    
+    .admin-logo h1 {
+      font-size: 1.25rem;
+      color: #C9A962;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .admin-logo span {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      display: block;
+      margin-top: 4px;
+    }
+    
+    .admin-nav {
+      list-style: none;
+    }
+    
+    .admin-nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    
+    .admin-nav a:hover {
+      background: rgba(201,169,98,0.1);
+      color: #C9A962;
+    }
+    
+    .admin-nav a.active {
+      background: linear-gradient(90deg, rgba(201,169,98,0.2), transparent);
+      color: #C9A962;
+      border-left: 3px solid #C9A962;
+    }
+    
+    .admin-nav i {
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* 메인 콘텐츠 */
+    .admin-main {
+      flex: 1;
+      margin-left: 260px;
+      padding: 24px;
+    }
+    
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(139,90,43,0.2);
+    }
+    
+    .admin-header h2 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .admin-header h2 i {
+      color: #C9A962;
+    }
+    
+    .admin-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .btn-logout {
+      padding: 8px 16px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 6px;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+    
+    .btn-logout:hover {
+      background: rgba(239,68,68,0.2);
+    }
+    
+    /* ========== 통계 카드 ========== */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .stat-card {
+      background: rgba(26, 20, 16, 0.6);
+      border: 1px solid rgba(139, 90, 43, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #C9A962;
+    }
+    
+    .stat-card .label {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+    
+    /* ========== 툴바 ========== */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      width: 280px;
+    }
+    
+    .search-box i {
+      color: rgba(255,255,255,0.4);
+      margin-right: 8px;
+    }
+    
+    .search-box input {
+      background: none;
+      border: none;
+      color: #fff;
+      outline: none;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+    
+    .filter-select {
+      padding: 10px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    
+    .filter-select option {
+      background: #1a1510;
+      color: #fff;
+    }
+    
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #8B5A2B, #C9A962);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,169,98,0.3);
+    }
+    
+    /* ========== 테이블 ========== */
+    .data-table {
+      background: rgba(26, 20, 16, 0.6);
+      border: 1px solid rgba(139, 90, 43, 0.2);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .data-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .data-table th,
+    .data-table td {
+      padding: 14px 16px;
+      text-align: left;
+    }
+    
+    .data-table th {
+      background: rgba(139,90,43,0.1);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #C9A962;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .data-table tr:not(:last-child) {
+      border-bottom: 1px solid rgba(139,90,43,0.1);
+    }
+    
+    .data-table tbody tr:hover {
+      background: rgba(201,169,98,0.05);
+    }
+    
+    .case-thumbnail {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .case-thumbnail img {
+      width: 60px;
+      height: 45px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid rgba(139,90,43,0.3);
+    }
+    
+    .case-thumbnail .placeholder {
+      width: 60px;
+      height: 45px;
+      background: rgba(139,90,43,0.2);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.4);
+      border: 1px dashed rgba(139,90,43,0.4);
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .status-badge.published {
+      background: rgba(34,197,94,0.2);
+      color: #22c55e;
+    }
+    
+    .status-badge.draft {
+      background: rgba(234,179,8,0.2);
+      color: #eab308;
+    }
+    
+    .category-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(201,169,98,0.15);
+      color: #C9A962;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .action-btns {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-icon:hover {
+      background: rgba(201,169,98,0.1);
+      border-color: rgba(201,169,98,0.3);
+      color: #C9A962;
+    }
+    
+    .btn-icon.delete:hover {
+      background: rgba(239,68,68,0.1);
+      border-color: rgba(239,68,68,0.3);
+      color: #ef4444;
+    }
+    
+    /* ========== 모달 ========== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+    }
+    
+    .modal {
+      background: #1a1510;
+      border: 1px solid rgba(139,90,43,0.3);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(139,90,43,0.2);
+      position: sticky;
+      top: 0;
+      background: #1a1510;
+      z-index: 10;
+    }
+    
+    .modal-header h3 {
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .modal-header h3 i {
+      color: #C9A962;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    
+    .modal-close:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    
+    .modal-body {
+      padding: 24px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+    
+    .form-group label .required {
+      color: #ef4444;
+      margin-left: 4px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: rgba(201,169,98,0.5);
+    }
+    
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+    
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .form-group select option {
+      background: #1a1510;
+      color: #fff;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    
+    /* ========== 이미지 업로드 영역 (강화) ========== */
+    .image-upload-section {
+      margin-bottom: 24px;
+    }
+    
+    .image-upload-section h4 {
+      font-size: 1rem;
+      color: #C9A962;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .image-upload-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .image-upload-box {
+      background: rgba(0,0,0,0.3);
+      border: 2px dashed rgba(139,90,43,0.4);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      min-height: 200px;
+    }
+    
+    .image-upload-box:hover {
+      border-color: rgba(201,169,98,0.6);
+      background: rgba(201,169,98,0.05);
+    }
+    
+    .image-upload-box.dragover {
+      border-color: #C9A962;
+      background: rgba(201,169,98,0.1);
+      transform: scale(1.02);
+    }
+    
+    .image-upload-box.has-image {
+      border-style: solid;
+      border-color: rgba(201,169,98,0.5);
+    }
+    
+    .image-upload-box .upload-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .image-upload-box.before .upload-label {
+      background: rgba(239,68,68,0.8);
+      color: #fff;
+    }
+    
+    .image-upload-box.after .upload-label {
+      background: rgba(34,197,94,0.8);
+      color: #fff;
+    }
+    
+    .image-upload-box .upload-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 160px;
+    }
+    
+    .image-upload-box .upload-content i {
+      font-size: 2.5rem;
+      color: rgba(201,169,98,0.5);
+      margin-bottom: 12px;
+    }
+    
+    .image-upload-box .upload-content p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+    
+    .image-upload-box .upload-content small {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+    }
+    
+    .image-upload-box input[type="file"] {
+      display: none;
+    }
+    
+    .image-preview-container {
+      position: relative;
+      height: 160px;
+      display: none;
+    }
+    
+    .image-preview-container.active {
+      display: block;
+    }
+    
+    .image-preview-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.5);
+    }
+    
+    .image-preview-container .remove-image {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      background: rgba(239,68,68,0.9);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      transition: all 0.3s;
+    }
+    
+    .image-preview-container .remove-image:hover {
+      background: #ef4444;
+      transform: scale(1.1);
+    }
+    
+    .image-url-input {
+      margin-top: 12px;
+    }
+    
+    .image-url-input input {
+      padding: 10px 12px;
+      font-size: 0.85rem;
+    }
+    
+    .image-url-input small {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+    }
+    
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      border-top: 1px solid rgba(139,90,43,0.2);
+      position: sticky;
+      bottom: 0;
+      background: #1a1510;
+    }
+    
+    .modal-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+    }
+    
+    .modal-footer-right {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .btn-secondary {
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    /* ========== 로딩/빈 상태 ========== */
+    .loading-state,
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(201,169,98,0.2);
+      border-top-color: #C9A962;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      color: rgba(201,169,98,0.3);
+      margin-bottom: 16px;
+    }
+    
+    .empty-state h3 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    
+    /* ========== 알림 토스트 ========== */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 16px 24px;
+      background: #1a1510;
+      border: 1px solid rgba(139,90,43,0.3);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .toast.success {
+      border-color: rgba(34,197,94,0.5);
+    }
+    
+    .toast.success i {
+      color: #22c55e;
+    }
+    
+    .toast.error {
+      border-color: rgba(239,68,68,0.5);
+    }
+    
+    .toast.error i {
+      color: #ef4444;
+    }
+    
+    /* ========== 반응형 ========== */
+    @media (max-width: 1024px) {
+      .admin-sidebar {
+        display: none;
+      }
+      
+      .admin-main {
+        margin-left: 0;
+      }
+      
+      .form-row,
+      .image-upload-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .toolbar-left {
+        flex-direction: column;
+      }
+      
+      .search-box {
+        width: 100%;
+      }
+      
+      .data-table {
+        overflow-x: auto;
+      }
+      
+      .data-table table {
+        min-width: 800px;
+      }
+      
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 관리자 레이아웃 -->
+  <div class="admin-layout" id="adminLayout">
+    <!-- 사이드바 -->
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <h1>🦷 서울비디치과</h1>
+        <span>관리자 패널</span>
+      </div>
+      <nav>
+        <ul class="admin-nav">
+          <li><a href="index.html"><i class="fas fa-home"></i> 대시보드</a></li>
+          <li><a href="cases.html" class="active"><i class="fas fa-images"></i> Before/After</a></li>
+          <li><a href="notices.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+          <li><a href="../index.html" target="_blank"><i class="fas fa-external-link-alt"></i> 사이트 보기</a></li>
+        </ul>
+      </nav>
+    </aside>
+    
+    <!-- 메인 콘텐츠 -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h2><i class="fas fa-images"></i> Before/After 관리</h2>
+        <div class="admin-header-actions">
+          <a href="../cases/gallery.html" target="_blank" class="btn-secondary" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+            <i class="fas fa-eye"></i> 갤러리 미리보기
+          </a>
+        </div>
+      </header>
+      
+      <!-- 통계 카드 -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="number" id="statTotal">0</div>
+          <div class="label">총 케이스</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="statPublished">0</div>
+          <div class="label">공개 중</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="statDraft">0</div>
+          <div class="label">비공개</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="statThisMonth">0</div>
+          <div class="label">이번 달 등록</div>
+        </div>
+      </div>
+      
+      <!-- 툴바 -->
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="제목, 담당의로 검색..." id="searchInput" oninput="filterCases()">
+          </div>
+          <select class="filter-select" id="categoryFilter" onchange="filterCases()">
+            <option value="all">전체 카테고리</option>
+            <option value="implant">임플란트</option>
+            <option value="orthodontic">교정</option>
+            <option value="aesthetic">심미치료</option>
+            <option value="whitening">미백</option>
+            <option value="gum">잇몸치료</option>
+            <option value="general">일반진료</option>
+          </select>
+          <select class="filter-select" id="statusFilter" onchange="filterCases()">
+            <option value="all">전체 상태</option>
+            <option value="published">공개</option>
+            <option value="draft">비공개</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="openModal()">
+          <i class="fas fa-plus"></i> 새 케이스 추가
+        </button>
+      </div>
+      
+      <!-- 데이터 테이블 -->
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>이미지</th>
+              <th>제목</th>
+              <th>카테고리</th>
+              <th>담당의</th>
+              <th>치료기간</th>
+              <th>상태</th>
+              <th>등록일</th>
+              <th>관리</th>
+            </tr>
+          </thead>
+          <tbody id="casesTableBody">
+            <!-- 동적으로 채워짐 -->
+          </tbody>
+        </table>
+        
+        <!-- 로딩 상태 -->
+        <div id="loadingState" class="loading-state" style="display: none;">
+          <div class="loading-spinner"></div>
+          <p>데이터를 불러오는 중...</p>
+        </div>
+        
+        <!-- 빈 상태 -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+          <i class="fas fa-folder-open"></i>
+          <h3>등록된 케이스가 없습니다</h3>
+          <p>새 케이스를 추가하여 Before/After 갤러리를 채워보세요!</p>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- 케이스 추가/수정 모달 -->
+  <div class="modal-overlay" id="caseModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-plus-circle"></i> <span id="modalTitle">새 케이스 추가</span></h3>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="caseForm">
+          <input type="hidden" id="caseId">
+          
+          <div class="form-group">
+            <label>제목 <span class="required">*</span></label>
+            <input type="text" id="caseTitle" required placeholder="예: 전악 임플란트 수복, 인비절라인 교정 완료">
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>카테고리 <span class="required">*</span></label>
+              <select id="caseCategory" required>
+                <option value="">선택하세요</option>
+                <option value="implant">임플란트</option>
+                <option value="orthodontic">교정</option>
+                <option value="aesthetic">심미치료</option>
+                <option value="whitening">미백</option>
+                <option value="gum">잇몸치료</option>
+                <option value="general">일반진료</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>담당 원장 <span class="required">*</span></label>
+              <select id="doctorName" required>
+                <option value="">선택하세요</option>
+                <optgroup label="대표원장">
+                  <option value="문석준 원장">문석준 원장 (통합치의학)</option>
+                </optgroup>
+                <optgroup label="임플란트 센터">
+                  <option value="이승엽 원장">이승엽 원장 (임플란트 센터장)</option>
+                  <option value="강경민 원장">강경민 원장 (구강외과)</option>
+                </optgroup>
+                <optgroup label="교정과">
+                  <option value="김민규 원장">김민규 원장 (교정과 전문의)</option>
+                </optgroup>
+                <optgroup label="치과보존과">
+                  <option value="조설아 원장">조설아 원장 (치과보존과 전문의)</option>
+                  <option value="강민지 원장">강민지 원장 (치과보존과)</option>
+                </optgroup>
+                <optgroup label="소아치과">
+                  <option value="김민진 원장">김민진 원장 (소아치과 전문의)</option>
+                  <option value="박상현 원장">박상현 원장 (소아치과)</option>
+                </optgroup>
+                <optgroup label="구강내과">
+                  <option value="이병민 원장">이병민 원장 (구강내과 전문의)</option>
+                </optgroup>
+                <optgroup label="심미치료">
+                  <option value="현정민 원장">현정민 원장 (심미치료)</option>
+                  <option value="서희원 원장">서희원 원장 (보철과)</option>
+                </optgroup>
+                <optgroup label="종합진료">
+                  <option value="최종훈 원장">최종훈 원장 (종합진료센터장)</option>
+                  <option value="김민수 원장">김민수 원장 (종합진료)</option>
+                  <option value="임지원 원장">임지원 원장 (종합진료)</option>
+                  <option value="박수빈 원장">박수빈 원장 (종합진료)</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>치료 기간</label>
+              <input type="text" id="treatmentPeriod" placeholder="예: 6개월, 1년, 2주">
+            </div>
+            <div class="form-group">
+              <label>상태</label>
+              <select id="caseStatus">
+                <option value="published">공개</option>
+                <option value="draft">비공개</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>설명</label>
+            <textarea id="caseDescription" placeholder="케이스에 대한 상세 설명을 입력하세요. 치료 과정, 특이사항 등"></textarea>
+          </div>
+          
+          <!-- 이미지 업로드 섹션 -->
+          <div class="image-upload-section">
+            <h4><i class="fas fa-camera"></i> Before / After 이미지</h4>
+            <div class="image-upload-row">
+              <!-- Before 이미지 -->
+              <div class="image-upload-box before" 
+                   onclick="document.getElementById('beforeImage').click()"
+                   ondragover="handleDragOver(event, this)"
+                   ondragleave="handleDragLeave(event, this)"
+                   ondrop="handleDrop(event, this, 'before')">
+                <span class="upload-label">Before</span>
+                <div class="upload-content" id="beforeUploadContent">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>클릭 또는 드래그하여 업로드</p>
+                  <small>JPG, PNG, WebP (5MB 이하)</small>
+                </div>
+                <div class="image-preview-container" id="beforePreviewContainer">
+                  <img id="beforePreview" src="" alt="Before Preview">
+                  <button type="button" class="remove-image" onclick="removeImage(event, 'before')">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                <input type="file" id="beforeImage" accept="image/*" onchange="handleFileSelect(this, 'before')">
+              </div>
+              
+              <!-- After 이미지 -->
+              <div class="image-upload-box after" 
+                   onclick="document.getElementById('afterImage').click()"
+                   ondragover="handleDragOver(event, this)"
+                   ondragleave="handleDragLeave(event, this)"
+                   ondrop="handleDrop(event, this, 'after')">
+                <span class="upload-label">After</span>
+                <div class="upload-content" id="afterUploadContent">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>클릭 또는 드래그하여 업로드</p>
+                  <small>JPG, PNG, WebP (5MB 이하)</small>
+                </div>
+                <div class="image-preview-container" id="afterPreviewContainer">
+                  <img id="afterPreview" src="" alt="After Preview">
+                  <button type="button" class="remove-image" onclick="removeImage(event, 'after')">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                <input type="file" id="afterImage" accept="image/*" onchange="handleFileSelect(this, 'after')">
+              </div>
+            </div>
+            
+            <!-- URL 직접 입력 옵션 -->
+            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed rgba(139,90,43,0.3);">
+              <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-bottom: 12px;">
+                <i class="fas fa-link"></i> 또는 이미지 URL을 직접 입력하세요
+              </p>
+              <div class="form-row">
+                <div class="image-url-input">
+                  <input type="url" id="beforeImageUrl" placeholder="Before 이미지 URL (https://...)" 
+                         oninput="loadImageFromUrl(this.value, 'before')">
+                </div>
+                <div class="image-url-input">
+                  <input type="url" id="afterImageUrl" placeholder="After 이미지 URL (https://...)"
+                         oninput="loadImageFromUrl(this.value, 'after')">
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-footer-left">
+          <i class="fas fa-info-circle"></i>
+          <span>이미지는 브라우저 로컬에 저장됩니다</span>
+        </div>
+        <div class="modal-footer-right">
+          <button class="btn-secondary" type="button" onclick="closeModal()">취소</button>
+          <button class="btn-primary" type="button" onclick="saveCase()">
+            <i class="fas fa-save"></i> 저장하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 알림 토스트 -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">저장되었습니다</span>
+  </div>
+
+  <script>
+    /**
+     * Before/After 관리자 페이지 - Enhanced Version
+     * localStorage 기반 데이터 저장
+     */
+    
+    const STORAGE_KEY = 'bdbddc_before_after_cases';
+    let allCases = [];
+    let filteredCases = [];
+    let editingId = null;
+    let beforeImageData = null;
+    let afterImageData = null;
+    
+    // 페이지 로드
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCases();
+    });
+    
+    // ========== 데이터 관리 ==========
+    
+    function loadCases() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        allCases = stored ? JSON.parse(stored) : [];
+      } catch (e) {
+        console.error('데이터 로드 실패:', e);
+        allCases = [];
+      }
+      
+      filteredCases = [...allCases];
+      renderTable();
+      updateStats();
+    }
+    
+    function saveCasesToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(allCases));
+        return true;
+      } catch (e) {
+        console.error('저장 실패:', e);
+        if (e.name === 'QuotaExceededError') {
+          showToast('저장 공간이 부족합니다. 일부 이미지를 삭제해주세요.', 'error');
+        }
+        return false;
+      }
+    }
+    
+    // ========== 통계 업데이트 ==========
+    
+    function updateStats() {
+      const total = allCases.length;
+      const published = allCases.filter(c => c.status === 'published').length;
+      const draft = allCases.filter(c => c.status === 'draft').length;
+      
+      const now = new Date();
+      const thisMonth = allCases.filter(c => {
+        const date = new Date(c.created_at);
+        return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+      }).length;
+      
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statPublished').textContent = published;
+      document.getElementById('statDraft').textContent = draft;
+      document.getElementById('statThisMonth').textContent = thisMonth;
+    }
+    
+    // ========== 테이블 렌더링 ==========
+    
+    function renderTable() {
+      const tableBody = document.getElementById('casesTableBody');
+      const loadingState = document.getElementById('loadingState');
+      const emptyState = document.getElementById('emptyState');
+      
+      loadingState.style.display = 'none';
+      
+      if (filteredCases.length === 0) {
+        tableBody.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+      
+      emptyState.style.display = 'none';
+      tableBody.innerHTML = filteredCases.map(c => createTableRow(c)).join('');
+    }
+    
+    function createTableRow(caseItem) {
+      const categoryLabels = {
+        implant: '임플란트',
+        orthodontic: '교정',
+        aesthetic: '심미치료',
+        whitening: '미백',
+        gum: '잇몸치료',
+        general: '일반진료'
+      };
+      
+      const statusClass = caseItem.status === 'published' ? 'published' : 'draft';
+      const statusLabel = caseItem.status === 'published' ? '공개' : '비공개';
+      const date = new Date(caseItem.created_at).toLocaleDateString('ko-KR');
+      
+      // 썸네일 생성
+      const beforeThumb = caseItem.before_image 
+        ? `<img src="${caseItem.before_image}" alt="Before">`
+        : `<div class="placeholder">Before</div>`;
+      const afterThumb = caseItem.after_image 
+        ? `<img src="${caseItem.after_image}" alt="After">`
+        : `<div class="placeholder">After</div>`;
+      
+      return `
+        <tr data-id="${caseItem.id}">
+          <td>
+            <div class="case-thumbnail">
+              ${beforeThumb}
+              ${afterThumb}
+            </div>
+          </td>
+          <td><strong>${escapeHtml(caseItem.title)}</strong></td>
+          <td><span class="category-badge">${categoryLabels[caseItem.category] || caseItem.category}</span></td>
+          <td>${escapeHtml(caseItem.doctor_name || '-')}</td>
+          <td>${escapeHtml(caseItem.treatment_period || '-')}</td>
+          <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+          <td>${date}</td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-icon" onclick="editCase('${caseItem.id}')" title="수정">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn-icon" onclick="toggleStatus('${caseItem.id}')" title="상태 변경">
+                <i class="fas fa-eye${caseItem.status === 'published' ? '' : '-slash'}"></i>
+              </button>
+              <button class="btn-icon delete" onclick="deleteCase('${caseItem.id}')" title="삭제">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+    
+    // ========== 필터링 ==========
+    
+    function filterCases() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const category = document.getElementById('categoryFilter').value;
+      const status = document.getElementById('statusFilter').value;
+      
+      filteredCases = allCases.filter(c => {
+        const matchSearch = !search || 
+          c.title.toLowerCase().includes(search) || 
+          (c.doctor_name && c.doctor_name.toLowerCase().includes(search));
+        const matchCategory = category === 'all' || c.category === category;
+        const matchStatus = status === 'all' || c.status === status;
+        
+        return matchSearch && matchCategory && matchStatus;
+      });
+      
+      renderTable();
+    }
+    
+    // ========== 모달 관리 ==========
+    
+    function openModal(id = null) {
+      editingId = id;
+      beforeImageData = null;
+      afterImageData = null;
+      
+      // 모달 제목 설정
+      document.getElementById('modalTitle').innerHTML = id 
+        ? '<i class="fas fa-edit"></i> 케이스 수정' 
+        : '<i class="fas fa-plus-circle"></i> 새 케이스 추가';
+      
+      // 폼 초기화
+      document.getElementById('caseForm').reset();
+      resetImageUpload('before');
+      resetImageUpload('after');
+      
+      if (id) {
+        // 수정 모드: 기존 데이터 로드
+        const caseItem = allCases.find(c => c.id === id);
+        if (caseItem) {
+          document.getElementById('caseId').value = caseItem.id;
+          document.getElementById('caseTitle').value = caseItem.title || '';
+          document.getElementById('caseCategory').value = caseItem.category || '';
+          document.getElementById('doctorName').value = caseItem.doctor_name || '';
+          document.getElementById('treatmentPeriod').value = caseItem.treatment_period || '';
+          document.getElementById('caseStatus').value = caseItem.status || 'published';
+          document.getElementById('caseDescription').value = caseItem.description || '';
+          
+          // 이미지 로드
+          if (caseItem.before_image) {
+            beforeImageData = caseItem.before_image;
+            showImagePreview('before', caseItem.before_image);
+            document.getElementById('beforeImageUrl').value = caseItem.before_image.startsWith('data:') ? '' : caseItem.before_image;
+          }
+          if (caseItem.after_image) {
+            afterImageData = caseItem.after_image;
+            showImagePreview('after', caseItem.after_image);
+            document.getElementById('afterImageUrl').value = caseItem.after_image.startsWith('data:') ? '' : caseItem.after_image;
+          }
+        }
+      }
+      
+      document.getElementById('caseModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      document.getElementById('caseModal').classList.remove('active');
+      document.body.style.overflow = '';
+      editingId = null;
+      beforeImageData = null;
+      afterImageData = null;
+    }
+    
+    // ========== 이미지 처리 ==========
+    
+    function handleDragOver(e, element) {
+      e.preventDefault();
+      e.stopPropagation();
+      element.classList.add('dragover');
+    }
+    
+    function handleDragLeave(e, element) {
+      e.preventDefault();
+      e.stopPropagation();
+      element.classList.remove('dragover');
+    }
+    
+    function handleDrop(e, element, type) {
+      e.preventDefault();
+      e.stopPropagation();
+      element.classList.remove('dragover');
+      
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        processImageFile(files[0], type);
+      }
+    }
+    
+    function handleFileSelect(input, type) {
+      if (input.files && input.files[0]) {
+        processImageFile(input.files[0], type);
+      }
+    }
+    
+    function processImageFile(file, type) {
+      // 파일 유효성 검사
+      if (!file.type.startsWith('image/')) {
+        showToast('이미지 파일만 업로드 가능합니다.', 'error');
+        return;
+      }
+      
+      if (file.size > 5 * 1024 * 1024) {
+        showToast('5MB 이하의 파일만 업로드 가능합니다.', 'error');
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const imageData = e.target.result;
+        
+        // 이미지 리사이징 (저장 공간 절약)
+        resizeImage(imageData, 800, 600, function(resizedData) {
+          if (type === 'before') {
+            beforeImageData = resizedData;
+          } else {
+            afterImageData = resizedData;
+          }
+          showImagePreview(type, resizedData);
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+    
+    function resizeImage(dataUrl, maxWidth, maxHeight, callback) {
+      const img = new Image();
+      img.onload = function() {
+        let width = img.width;
+        let height = img.height;
+        
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width *= ratio;
+          height *= ratio;
+        }
+        
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        callback(canvas.toDataURL('image/jpeg', 0.8));
+      };
+      img.src = dataUrl;
+    }
+    
+    function loadImageFromUrl(url, type) {
+      if (!url) return;
+      
+      // URL 유효성 검사
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        return;
+      }
+      
+      if (type === 'before') {
+        beforeImageData = url;
+      } else {
+        afterImageData = url;
+      }
+      showImagePreview(type, url);
+    }
+    
+    function showImagePreview(type, src) {
+      const uploadContent = document.getElementById(`${type}UploadContent`);
+      const previewContainer = document.getElementById(`${type}PreviewContainer`);
+      const preview = document.getElementById(`${type}Preview`);
+      const uploadBox = document.querySelector(`.image-upload-box.${type}`);
+      
+      preview.src = src;
+      uploadContent.style.display = 'none';
+      previewContainer.classList.add('active');
+      uploadBox.classList.add('has-image');
+    }
+    
+    function resetImageUpload(type) {
+      const uploadContent = document.getElementById(`${type}UploadContent`);
+      const previewContainer = document.getElementById(`${type}PreviewContainer`);
+      const preview = document.getElementById(`${type}Preview`);
+      const uploadBox = document.querySelector(`.image-upload-box.${type}`);
+      const fileInput = document.getElementById(`${type}Image`);
+      const urlInput = document.getElementById(`${type}ImageUrl`);
+      
+      preview.src = '';
+      uploadContent.style.display = 'flex';
+      previewContainer.classList.remove('active');
+      uploadBox.classList.remove('has-image');
+      fileInput.value = '';
+      urlInput.value = '';
+      
+      if (type === 'before') {
+        beforeImageData = null;
+      } else {
+        afterImageData = null;
+      }
+    }
+    
+    function removeImage(e, type) {
+      e.preventDefault();
+      e.stopPropagation();
+      resetImageUpload(type);
+    }
+    
+    // ========== CRUD 작업 ==========
+    
+    function saveCase() {
+      const title = document.getElementById('caseTitle').value.trim();
+      const category = document.getElementById('caseCategory').value;
+      const doctorName = document.getElementById('doctorName').value;
+      
+      // 필수 필드 검증
+      if (!title) {
+        showToast('제목을 입력해주세요.', 'error');
+        document.getElementById('caseTitle').focus();
+        return;
+      }
+      
+      if (!category) {
+        showToast('카테고리를 선택해주세요.', 'error');
+        document.getElementById('caseCategory').focus();
+        return;
+      }
+      
+      if (!doctorName) {
+        showToast('담당 원장을 선택해주세요.', 'error');
+        document.getElementById('doctorName').focus();
+        return;
+      }
+      
+      const caseData = {
+        title: title,
+        category: category,
+        doctor_name: doctorName,
+        treatment_period: document.getElementById('treatmentPeriod').value.trim(),
+        status: document.getElementById('caseStatus').value,
+        description: document.getElementById('caseDescription').value.trim(),
+        before_image: beforeImageData || document.getElementById('beforeImageUrl').value.trim(),
+        after_image: afterImageData || document.getElementById('afterImageUrl').value.trim(),
+        updated_at: Date.now()
+      };
+      
+      if (editingId) {
+        // 수정
+        const index = allCases.findIndex(c => c.id === editingId);
+        if (index > -1) {
+          allCases[index] = { ...allCases[index], ...caseData };
+        }
+      } else {
+        // 새로 추가
+        caseData.id = Date.now().toString();
+        caseData.created_at = Date.now();
+        allCases.unshift(caseData);
+      }
+      
+      if (saveCasesToStorage()) {
+        showToast(editingId ? '케이스가 수정되었습니다.' : '새 케이스가 추가되었습니다.', 'success');
+        closeModal();
+        filterCases();
+        updateStats();
+      }
+    }
+    
+    function editCase(id) {
+      openModal(id);
+    }
+    
+    function toggleStatus(id) {
+      const index = allCases.findIndex(c => c.id === id);
+      if (index > -1) {
+        allCases[index].status = allCases[index].status === 'published' ? 'draft' : 'published';
+        allCases[index].updated_at = Date.now();
+        
+        if (saveCasesToStorage()) {
+          const newStatus = allCases[index].status === 'published' ? '공개' : '비공개';
+          showToast(`케이스가 ${newStatus}로 변경되었습니다.`, 'success');
+          filterCases();
+          updateStats();
+        }
+      }
+    }
+    
+    function deleteCase(id) {
+      if (!confirm('정말 이 케이스를 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.')) {
+        return;
+      }
+      
+      allCases = allCases.filter(c => c.id !== id);
+      
+      if (saveCasesToStorage()) {
+        showToast('케이스가 삭제되었습니다.', 'success');
+        filterCases();
+        updateStats();
+      }
+    }
+    
+    // ========== 유틸리티 ==========
+    
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const icon = toast.querySelector('i');
+      
+      toastMessage.textContent = message;
+      toast.className = `toast ${type}`;
+      icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+      
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+    
+    // ESC로 모달 닫기
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+    
+    // 모달 외부 클릭으로 닫기
+    document.getElementById('caseModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!--
+  서울비디치과 SEO/접근성 템플릿 v1.0
+  
+  이 파일은 새 페이지 생성 시 참조용 템플릿입니다.
+  각 섹션을 해당 페이지에 맞게 수정하여 사용하세요.
+-->
+
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+     1. 메타 태그 템플릿 (페이지별 고유하게 작성)
+     ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- ★ 필수: 페이지별 고유 title (50-60자 권장) -->
+  <title>[페이지 제목] | 서울비디치과</title>
+  
+  <!-- ★ 필수: 페이지별 고유 description (120-160자 권장) -->
+  <meta name="description" content="[페이지 설명 - 해당 페이지의 핵심 내용을 간결하게 설명]">
+  
+  <!-- ★ 필수: 페이지별 고유 keywords -->
+  <meta name="keywords" content="[키워드1], [키워드2], [키워드3], 서울비디치과, 천안치과">
+  
+  <!-- Canonical URL (중복 콘텐츠 방지) -->
+  <link rel="canonical" href="https://bdbddc.com/[페이지경로]">
+  
+  <!-- Robots -->
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph (Facebook, LinkedIn 등) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="서울비디치과">
+  <meta property="og:title" content="[페이지 제목] | 서울비디치과">
+  <meta property="og:description" content="[페이지 설명]">
+  <meta property="og:url" content="https://bdbddc.com/[페이지경로]">
+  <meta property="og:image" content="https://bdbddc.com/images/og/[페이지명]-og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ko_KR">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="[페이지 제목] | 서울비디치과">
+  <meta name="twitter:description" content="[페이지 설명]">
+  <meta name="twitter:image" content="https://bdbddc.com/images/og/[페이지명]-og.jpg">
+  
+  <!-- 다국어 지원 대비 (향후) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/[페이지경로]">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/[페이지경로]">
+  
+  <!-- 파비콘 -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  
+  <!-- CSS 로딩 (Critical CSS 인라인 + 비동기 로딩) -->
+  <style>
+    /* Critical CSS - 위 fold 콘텐츠 렌더링에 필수적인 스타일 */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{font-family:'Pretendard',-apple-system,sans-serif;line-height:1.5;color:#e5e5e5;background:#000}
+    :root{--brand-primary:#8B5A2B;--brand-gold:#C9A962}
+    .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.1)}
+    .container{max-width:1280px;margin:0 auto;padding:0 16px}
+  </style>
+  
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/gnb.css">
+</head>
+
+
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+     2. Schema.org 구조화 데이터 템플릿
+     ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+
+<!-- 의료 페이지용 Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  "name": "[페이지 제목]",
+  "description": "[페이지 설명]",
+  "url": "https://bdbddc.com/[페이지경로]",
+  "datePublished": "2024-01-01",
+  "dateModified": "2024-12-03",
+  "inLanguage": "ko-KR",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "서울비디치과",
+    "url": "https://bdbddc.com"
+  },
+  "about": {
+    "@type": "MedicalProcedure",
+    "name": "[치료명]",
+    "procedureType": "[NonSurgicalProcedure/SurgicalProcedure]"
+  },
+  "mainEntity": {
+    "@type": "MedicalBusiness",
+    "name": "서울비디치과",
+    "url": "https://bdbddc.com",
+    "telephone": "+82-41-415-2892"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "홈", "item": "https://bdbddc.com/"},
+      {"@type": "ListItem", "position": 2, "name": "[상위 카테고리]", "item": "https://bdbddc.com/[상위경로]"},
+      {"@type": "ListItem", "position": 3, "name": "[현재 페이지]", "item": "https://bdbddc.com/[페이지경로]"}
+    ]
+  }
+}
+</script>
+
+<!-- FAQPage Schema (FAQ가 있는 페이지에 필수) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "dateModified": "2024-12-03",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "[질문1]",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "[답변1]"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "[질문2]",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "[답변2]"
+      }
+    }
+    // ... 최대 10개 권장
+  ]
+}
+</script>
+
+
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+     3. 접근성 필수 요소
+     ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+
+<body>
+  <!-- 스킵 링크 (키보드 사용자용) -->
+  <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+  
+  <!-- 헤더 -->
+  <header class="site-header" role="banner">
+    <nav aria-label="메인 네비게이션">
+      <!-- 네비게이션 내용 -->
+    </nav>
+  </header>
+  
+  <!-- 메인 콘텐츠 -->
+  <main id="main-content" role="main">
+    <!-- 페이지 콘텐츠 -->
+    
+    <!-- 동적 알림용 (스크린 리더) -->
+    <div id="a11y-announcer" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+  </main>
+  
+  <!-- 푸터 -->
+  <footer role="contentinfo">
+    <!-- 푸터 내용 -->
+  </footer>
+  
+  <!-- JS 로딩 (defer로 비동기) -->
+  <script src="/js/main.js" defer></script>
+  <script src="/js/accessibility.js" defer></script>
+</body>
+
+
+<!-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+     4. 체크리스트
+     ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ -->
+
+<!--
+SEO 체크리스트:
+☐ title 태그 - 페이지별 고유, 50-60자
+☐ meta description - 페이지별 고유, 120-160자
+☐ meta keywords - 페이지별 고유
+☐ canonical URL 설정
+☐ Open Graph 메타태그 완성
+☐ Twitter Card 메타태그 완성
+☐ Schema.org 구조화 데이터 추가
+☐ dateModified 최신 날짜로 업데이트
+☐ 브레드크럼 구조화 데이터 추가
+
+접근성 체크리스트:
+☐ 스킵 링크 추가
+☐ role="banner/main/contentinfo" 설정
+☐ aria-label 네비게이션에 추가
+☐ 모든 이미지에 alt 텍스트
+☐ 폼 필드에 label 연결
+☐ 버튼에 명확한 텍스트/aria-label
+☐ 색상 대비 4.5:1 이상 확인
+☐ 키보드로 모든 기능 접근 가능
+☐ focus 상태 시각적으로 명확
+
+성능 체크리스트:
+☐ Critical CSS 인라인
+☐ CSS/JS 비동기 로딩
+☐ 폰트 preload
+☐ 이미지 lazy loading
+☐ preconnect CDN 설정
+-->

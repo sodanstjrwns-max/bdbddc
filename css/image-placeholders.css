@@ -1,0 +1,512 @@
+/**
+ * 서울비디치과 - Image Placeholders CSS
+ * 실제 이미지가 없을 때 사용하는 placeholder 스타일
+ * Version: 1.0.0
+ */
+
+/* ============================
+   공통 Placeholder 스타일
+   ============================ */
+.img-placeholder,
+[data-placeholder] {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2520 50%, #1a1a1a 100%);
+  overflow: hidden;
+}
+
+.img-placeholder::before,
+[data-placeholder]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(201, 169, 98, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(139, 90, 43, 0.1) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.img-placeholder::after {
+  content: attr(data-text);
+  font-family: 'Pretendard', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(201, 169, 98, 0.6);
+  text-align: center;
+  padding: 1rem;
+  z-index: 1;
+}
+
+/* ============================
+   의료진 프로필 Placeholder
+   ============================ */
+.doctor-photo-placeholder,
+.profile-photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background: linear-gradient(180deg, #1e1a16 0%, #141210 100%);
+  border-radius: inherit;
+}
+
+.doctor-photo-placeholder i,
+.profile-photo-placeholder i {
+  font-size: 4rem;
+  background: linear-gradient(135deg, var(--brand-gold, #C9A962), var(--brand-primary, #8B5A2B));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.7;
+}
+
+.doctor-photo-placeholder span,
+.profile-photo-placeholder span {
+  font-size: 0.85rem;
+  color: rgba(201, 169, 98, 0.5);
+  text-align: center;
+}
+
+/* ============================
+   시설 이미지 Placeholder
+   ============================ */
+.facility-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #1a1512 0%, #0f0e0d 100%);
+  border-radius: 16px;
+}
+
+.facility-placeholder i {
+  font-size: 3rem;
+  color: var(--brand-gold, #C9A962);
+  opacity: 0.5;
+}
+
+.facility-placeholder span {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ============================
+   Hero 배경 Placeholder
+   ============================ */
+.hero-bg-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(135deg, #0a0908 0%, #1a1512 30%, #0f0e0d 60%, #0a0908 100%);
+  z-index: -1;
+}
+
+.hero-bg-placeholder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(201, 169, 98, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(139, 90, 43, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(201, 169, 98, 0.05) 0%, transparent 60%);
+  animation: heroGradientShift 10s ease-in-out infinite;
+}
+
+@keyframes heroGradientShift {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ============================
+   치료 페이지 Hero Placeholder
+   ============================ */
+.treatment-hero-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #121110 0%, #1f1a16 50%, #121110 100%);
+  z-index: -1;
+}
+
+.treatment-hero-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(201, 169, 98, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 70% 80%, rgba(139, 90, 43, 0.08) 0%, transparent 40%);
+}
+
+/* ============================
+   갤러리 아이템 Placeholder
+   ============================ */
+.gallery-item-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+  background: linear-gradient(135deg, #1a1614 0%, #0f0e0c 100%);
+  border-radius: 12px;
+}
+
+.gallery-item-placeholder i {
+  font-size: 2.5rem;
+  color: var(--brand-gold, #C9A962);
+  opacity: 0.4;
+}
+
+.gallery-item-placeholder span {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ============================
+   OG Image / Logo Placeholder (CSS만 - 실제 표시용이 아님)
+   ============================ */
+
+/* ============================
+   비디오 포스터 Placeholder
+   ============================ */
+.video-poster-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #0a0908 0%, #1a1512 50%, #0a0908 100%);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.video-poster-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at center, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
+}
+
+.video-poster-placeholder i {
+  font-size: 4rem;
+  color: var(--brand-gold, #C9A962);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* ============================
+   이미지 로딩 실패 처리
+   ============================ */
+img[data-src-failed="true"],
+img.img-load-failed {
+  display: none !important;
+}
+
+img[data-src-failed="true"] + .img-placeholder-fallback,
+img.img-load-failed + .img-placeholder-fallback {
+  display: flex !important;
+}
+
+.img-placeholder-fallback {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #1a1614 0%, #0f0e0c 100%);
+  border-radius: inherit;
+}
+
+/* ============================
+   반응형 조정
+   ============================ */
+@media (max-width: 768px) {
+  .doctor-photo-placeholder i,
+  .profile-photo-placeholder i {
+    font-size: 3rem;
+  }
+  
+  .facility-placeholder {
+    height: 150px;
+  }
+  
+  .facility-placeholder i {
+    font-size: 2.5rem;
+  }
+  
+  .gallery-item-placeholder {
+    min-height: 120px;
+  }
+  
+  .gallery-item-placeholder i {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .doctor-photo-placeholder i,
+  .profile-photo-placeholder i {
+    font-size: 2.5rem;
+  }
+  
+  .doctor-photo-placeholder span,
+  .profile-photo-placeholder span,
+  .facility-placeholder span,
+  .gallery-item-placeholder span {
+    font-size: 0.75rem;
+  }
+}
+
+/* ============================
+   향상된 시설 갤러리 Placeholder
+   ============================ */
+.facility-card-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  background: linear-gradient(135deg, #1a1512 0%, #0f0e0c 100%);
+}
+
+.facility-card-placeholder i {
+  font-size: 48px;
+  color: rgba(201, 169, 98, 0.4);
+}
+
+.facility-card-placeholder span {
+  color: #666;
+  font-size: 14px;
+}
+
+/* 시설 카드 스타일 */
+.facility-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: #1a1410;
+  border: 1px solid rgba(139, 90, 43, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.facility-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(201, 169, 98, 0.15);
+}
+
+.facility-card-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+}
+
+.facility-card-info h3 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.facility-card-info p {
+  color: #b8a99a;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* 시설 그리드 */
+.facility-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 992px) {
+  .facility-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .facility-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .facility-card-placeholder i {
+    font-size: 36px;
+  }
+}
+
+/* ============================
+   비디오 섹션 Placeholder
+   ============================ */
+.video-intro-section {
+  background: linear-gradient(180deg, #0a0a0a 0%, #0d0906 100%);
+  padding: 80px 5%;
+}
+
+.video-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  border: 1px solid rgba(139, 90, 43, 0.3);
+}
+
+.video-placeholder {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background: linear-gradient(135deg, #1a1410 0%, #0d0906 100%);
+}
+
+.video-placeholder-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.video-placeholder-content i {
+  font-size: 64px;
+  color: var(--brand-gold, #C9A962);
+  opacity: 0.5;
+}
+
+.video-placeholder-content span {
+  color: #888;
+  font-size: 15px;
+}
+
+/* ============================
+   섹션 공통 스타일
+   ============================ */
+.section-badge {
+  display: inline-block;
+  background: rgba(139, 90, 43, 0.3);
+  color: #C9A962;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: #b8a99a;
+  margin: 0;
+}
+
+/* 섹션 공통 컨테이너 */
+.container-lg {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* 시설 갤러리 섹션 배경 */
+.facility-gallery-section {
+  background: #0d0906;
+  padding: 80px 5%;
+}
+
+/* 비디오 섹션 인라인 스타일 대체 */
+.video-highlights {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.video-highlight-item {
+  text-align: center;
+}
+
+.video-highlight-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: #C9A962;
+}
+
+.video-highlight-label {
+  font-size: 14px;
+  color: #9a8b7a;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .facility-gallery-section {
+    padding: 60px 4%;
+  }
+  
+  .section-badge {
+    padding: 6px 16px;
+    font-size: 0.8rem;
+  }
+  
+  .section-title {
+    font-size: clamp(20px, 5vw, 28px);
+  }
+  
+  .section-subtitle {
+    font-size: 14px;
+  }
+  
+  .video-highlights {
+    gap: 24px;
+  }
+  
+  .video-highlight-num {
+    font-size: 24px;
+  }
+  
+  .video-highlight-label {
+    font-size: 12px;
+  }
+}

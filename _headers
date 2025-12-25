@@ -1,0 +1,55 @@
+# Cloudflare Pages Headers - 캐싱 및 보안 최적화
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+
+# HTML - 짧은 캐싱 (항상 최신 버전)
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+  
+/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# CSS/JS - 긴 캐싱 (버전 쿼리스트링 사용)
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 이미지 - 긴 캐싱
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 폰트 - 긴 캐싱
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# JSON/XML - 중간 캐싱
+/*.json
+  Cache-Control: public, max-age=86400
+  
+/*.xml
+  Cache-Control: public, max-age=86400
+
+# LLMs.txt - AI 검색 최적화
+/llms.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+
+# 의료진 페이지 - 중간 캐싱
+/doctors/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400
+
+# 진료 안내 페이지 - 중간 캐싱
+/treatments/*
+  Cache-Control: public, max-age=7200, stale-while-revalidate=86400

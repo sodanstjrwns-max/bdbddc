@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="서울비디치과 이갈이/이악물기 치료 - 수면 중 이갈이, 낮 이악물기 전문 진료. 나이트가드 제작, 보톡스 치료, 생활 습관 교정. 천안 이갈이 치료 전문.">
+  <meta name="keywords" content="이갈이, 이악물기, 브룩시즘, 나이트가드, 수면이갈이, 교합장치, 서울비디치과, 천안이갈이치료">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="서울비디치과">
+  <link rel="canonical" href="https://bdbddc.com/treatments/bruxism.html">
+  
+  <title>이갈이/이악물기 | 서울비디치과 - 프리미엄 치료</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  
+  <!-- Premium Critical CSS -->
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6;color:#e5e5e5;background:#0a0a0a;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;height:auto}
+    
+    :root{
+      --color-primary:#8B5A2B;--color-accent:#C9A962;--color-accent-light:#D4B896;
+      --color-text:#e5e5e5;--color-text-secondary:#999;
+      --color-bg-card:rgba(20,20,20,0.85);--glass-border:rgba(255,255,255,0.1);
+      --gradient-gold:linear-gradient(135deg,#8B5A2B 0%,#C9A962 50%,#D4B896 100%);
+      --gradient-dark:linear-gradient(135deg,#0a0a0a 0%,#1a1512 50%,#0a0a0a 100%);
+      --shadow-gold:0 10px 40px rgba(201,169,98,0.3);
+      --radius-lg:24px;--radius-xl:32px;
+    }
+    
+    .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border)}
+    .header-container{display:flex;align-items:center;justify-content:space-between;max-width:1400px;margin:0 auto;padding:12px 20px}
+    .site-logo{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}
+    .logo-icon{font-size:1.5rem}.logo-text{font-size:1.1rem}
+    .btn-reserve{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--gradient-gold);color:#fff;font-weight:600;font-size:0.875rem;border-radius:50px;transition:all 0.3s}
+    .btn-reserve:hover{transform:translateY(-2px);box-shadow:var(--shadow-gold)}
+    .mobile-menu-btn{display:flex;flex-direction:column;gap:5px;padding:8px;background:none;border:none;cursor:pointer}
+    .mobile-menu-btn span{width:24px;height:2px;background:#fff;border-radius:2px}
+    @media(min-width:992px){.mobile-menu-btn{display:none}}
+    
+    main{padding-top:70px}
+    .container{width:100%;max-width:1400px;margin:0 auto;padding:0 20px}
+    
+    /* Premium Hero */
+    .treatment-hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:120px 20px 80px}
+    .hero-bg{position:absolute;inset:0;z-index:-2}
+    .hero-gradient{position:absolute;inset:0;background:var(--gradient-dark)}
+    .hero-gradient::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(201,169,98,0.15) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(139,90,43,0.1) 0%,transparent 40%)}
+    
+    .hero-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+    .hero-particles::before,.hero-particles::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;filter:blur(100px);animation:float 10s ease-in-out infinite}
+    .hero-particles::before{top:10%;left:15%;background:rgba(201,169,98,0.1)}
+    .hero-particles::after{bottom:15%;right:10%;background:rgba(139,90,43,0.08);animation-delay:5s}
+    @keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+    
+    .hero-content{position:relative;max-width:1000px;text-align:center;z-index:1}
+    .hero-badge{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;background:rgba(201,169,98,0.12);border:1px solid rgba(201,169,98,0.3);border-radius:50px;margin-bottom:32px;animation:fadeInDown 0.8s ease forwards;backdrop-filter:blur(10px)}
+    .hero-badge i{font-size:1.25rem;color:var(--color-accent)}
+    .hero-badge span{font-size:0.9rem;font-weight:600;color:var(--color-accent);letter-spacing:0.1em;text-transform:uppercase}
+    
+    .hero-title{font-size:clamp(2.5rem,7vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:28px;animation:fadeInUp 0.8s ease 0.2s backwards}
+    .text-shimmer{background:linear-gradient(135deg,#8B5A2B 0%,#C9A962 25%,#D4B896 50%,#C9A962 75%,#8B5A2B 100%);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s ease-in-out infinite}
+    @keyframes shimmer{0%,100%{background-position:0% center}50%{background-position:100% center}}
+    
+    .hero-subtitle{font-size:clamp(1.125rem,3vw,1.5rem);color:rgba(255,255,255,0.9);margin-bottom:20px;font-weight:500;animation:fadeInUp 0.8s ease 0.3s backwards}
+    .hero-desc{font-size:1.125rem;color:var(--color-text-secondary);line-height:1.9;margin-bottom:48px;animation:fadeInUp 0.8s ease 0.4s backwards;max-width:700px;margin-left:auto;margin-right:auto}
+    .hero-desc strong{color:var(--color-accent);font-weight:600}
+    
+    .hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:48px;animation:fadeInUp 0.8s ease 0.5s backwards}
+    .hero-stat{text-align:center;padding:20px 28px;background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:var(--radius-lg);backdrop-filter:blur(10px);transition:all 0.3s}
+    .hero-stat:hover{transform:translateY(-4px);border-color:rgba(201,169,98,0.4)}
+    .hero-stat-number{font-size:2rem;font-weight:800;background:var(--gradient-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;line-height:1.2}
+    .hero-stat-label{font-size:0.875rem;color:var(--color-text-secondary);margin-top:4px}
+    
+    .hero-cta{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;animation:fadeInUp 0.8s ease 0.6s backwards}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;font-size:1rem;font-weight:600;border:none;border-radius:16px;cursor:pointer;transition:all 0.3s}
+    .btn-primary{background:var(--gradient-gold);color:#fff;box-shadow:var(--shadow-gold)}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 50px rgba(201,169,98,0.5)}
+    .btn-secondary{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--glass-border)}
+    .btn-lg{padding:18px 40px;font-size:1.125rem}
+    
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+    
+    /* Sections */
+    .section{padding:100px 0}
+    .section-dark{background:linear-gradient(180deg,#0f0f0f 0%,#0a0a0a 100%)}
+    .section-gradient{background:linear-gradient(180deg,#0a0a0a 0%,#12100e 50%,#0a0a0a 100%)}
+    
+    .section-header{text-align:center;margin-bottom:64px}
+    .section-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:rgba(201,169,98,0.12);border:1px solid rgba(201,169,98,0.25);border-radius:50px;margin-bottom:24px;font-size:0.875rem;color:var(--color-accent);font-weight:500;letter-spacing:0.05em}
+    .section-title{font-size:clamp(1.875rem,4vw,2.75rem);font-weight:700;color:#fff;margin-bottom:16px;line-height:1.3}
+    .section-desc{font-size:1.125rem;color:var(--color-text-secondary);max-width:650px;margin:0 auto;line-height:1.8}
+    
+    /* Comparison Cards */
+    .comparison-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:900px;margin:0 auto}
+    @media(max-width:768px){.comparison-grid{grid-template-columns:1fr}}
+    .comparison-card{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:var(--radius-xl);padding:40px;transition:all 0.4s;position:relative;overflow:hidden}
+    .comparison-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient-gold);transform:scaleX(0);transition:transform 0.4s}
+    .comparison-card:hover{transform:translateY(-8px);border-color:rgba(201,169,98,0.4)}
+    .comparison-card:hover::before{transform:scaleX(1)}
+    .comparison-icon{width:80px;height:80px;display:flex;align-items:center;justify-content:center;background:var(--gradient-gold);border-radius:24px;font-size:2rem;color:#fff;margin-bottom:24px}
+    .comparison-card h3{font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:8px}
+    .comparison-card .subtitle{font-size:0.9rem;color:var(--color-accent);margin-bottom:16px}
+    .comparison-card p{color:var(--color-text-secondary);line-height:1.8;margin-bottom:20px}
+    .comparison-list{list-style:none}
+    .comparison-list li{display:flex;align-items:center;gap:12px;padding:10px 0;color:var(--color-text-secondary);border-bottom:1px solid rgba(255,255,255,0.05)}
+    .comparison-list li:last-child{border-bottom:none}
+    .comparison-list li i{color:var(--color-accent);font-size:0.875rem;width:20px}
+    
+    /* Symptom Grid */
+    .symptom-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+    .symptom-card{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:32px;text-align:center;transition:all 0.4s}
+    .symptom-card:hover{transform:translateY(-8px);border-color:rgba(201,169,98,0.4)}
+    .symptom-icon{width:72px;height:72px;display:flex;align-items:center;justify-content:center;background:rgba(201,169,98,0.15);border:1px solid rgba(201,169,98,0.3);border-radius:20px;font-size:1.75rem;color:var(--color-accent);margin:0 auto 20px}
+    .symptom-card h3{font-size:1.125rem;font-weight:700;color:#fff;margin-bottom:10px}
+    .symptom-card p{color:var(--color-text-secondary);font-size:0.95rem;line-height:1.6}
+    
+    /* Cause Cards */
+    .cause-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+    .cause-card{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:28px;display:flex;gap:20px;transition:all 0.3s}
+    .cause-card:hover{border-color:rgba(201,169,98,0.4);transform:translateY(-4px)}
+    .cause-icon{width:56px;height:56px;min-width:56px;display:flex;align-items:center;justify-content:center;background:var(--gradient-gold);border-radius:16px;font-size:1.25rem;color:#fff}
+    .cause-content h4{font-size:1.125rem;font-weight:700;color:#fff;margin-bottom:8px}
+    .cause-content p{color:var(--color-text-secondary);font-size:0.95rem;line-height:1.6}
+    
+    /* Treatment Options */
+    .treatment-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+    .treatment-card{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:var(--radius-xl);padding:36px;transition:all 0.4s;position:relative}
+    .treatment-card:hover{transform:translateY(-8px);border-color:rgba(201,169,98,0.4)}
+    .treatment-card.featured{border-color:var(--color-accent);background:linear-gradient(135deg,rgba(139,90,43,0.15) 0%,var(--color-bg-card) 100%)}
+    .treatment-card.featured::before{content:'추천';position:absolute;top:-12px;right:24px;padding:6px 16px;background:var(--gradient-gold);color:#fff;font-size:0.75rem;font-weight:700;border-radius:50px}
+    .treatment-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .treatment-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:var(--gradient-gold);border-radius:16px;font-size:1.5rem;color:#fff}
+    .treatment-card h3{font-size:1.25rem;font-weight:700;color:#fff}
+    .treatment-card>p{color:var(--color-text-secondary);line-height:1.7;margin-bottom:20px}
+    .treatment-list{list-style:none}
+    .treatment-list li{display:flex;align-items:center;gap:10px;padding:8px 0;color:var(--color-text-secondary);font-size:0.95rem}
+    .treatment-list li i{color:var(--color-accent);font-size:0.75rem}
+    .treatment-note{margin-top:16px;padding:12px 16px;background:rgba(201,169,98,0.1);border-left:3px solid var(--color-accent);border-radius:0 8px 8px 0;font-size:0.875rem;color:var(--color-accent)}
+    
+    /* Process Cards */
+    .process-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:10px 0 20px;margin:0 -20px;padding-left:20px;padding-right:20px}
+    .process-wrapper::-webkit-scrollbar{height:6px}
+    .process-wrapper::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:10px}
+    .process-wrapper::-webkit-scrollbar-thumb{background:var(--gradient-gold);border-radius:10px}
+    .process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;min-width:100%}
+    .process-card{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:28px 20px;text-align:center;transition:all 0.4s;min-height:240px;display:flex;flex-direction:column}
+    .process-card:hover{transform:translateY(-8px);border-color:rgba(201,169,98,0.4)}
+    .process-num{width:52px;height:52px;display:flex;align-items:center;justify-content:center;background:var(--gradient-gold);border-radius:50%;font-size:1.25rem;font-weight:800;color:#fff;margin:0 auto 16px}
+    .process-card h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:10px}
+    .process-card p{color:var(--color-text-secondary);font-size:0.85rem;line-height:1.6;flex:1}
+    @media(max-width:1024px){.process-grid{grid-template-columns:repeat(5,200px);width:max-content}}
+    @media(max-width:768px){.process-grid{grid-template-columns:repeat(5,180px)}.process-card{padding:20px 16px;min-height:200px}}
+    
+    /* Warning Section */
+    .warning-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+    .warning-card{background:rgba(255,100,100,0.05);border:1px solid rgba(255,100,100,0.2);border-radius:var(--radius-lg);padding:28px;text-align:center;transition:all 0.3s}
+    .warning-card:hover{border-color:rgba(255,100,100,0.4)}
+    .warning-icon{width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:rgba(255,100,100,0.1);border-radius:50%;font-size:1.5rem;color:#ff6b6b;margin:0 auto 16px}
+    .warning-card h4{font-size:1.125rem;font-weight:700;color:#ff6b6b;margin-bottom:8px}
+    .warning-card p{color:var(--color-text-secondary);font-size:0.9rem;line-height:1.6}
+    
+    /* FAQ */
+    .faq-list{display:flex;flex-direction:column;gap:16px;max-width:900px;margin:0 auto}
+    .faq-item{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:var(--radius-lg);overflow:hidden;transition:all 0.3s}
+    .faq-item:hover{border-color:rgba(201,169,98,0.3)}
+    .faq-item.active{border-color:var(--color-accent)}
+    .faq-question{width:100%;display:flex;justify-content:space-between;align-items:center;padding:24px 28px;background:none;border:none;font-size:1.0625rem;font-weight:600;color:#fff;cursor:pointer;text-align:left;transition:all 0.3s}
+    .faq-question:hover{color:var(--color-accent)}
+    .faq-question i{color:var(--color-accent);transition:transform 0.3s;font-size:0.875rem}
+    .faq-item.active .faq-question i{transform:rotate(180deg)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1)}
+    .faq-answer-inner{padding:0 28px 24px;color:var(--color-text-secondary);line-height:1.8}
+    .faq-item.active .faq-answer{max-height:500px}
+    
+    /* CTA Section */
+    .cta-section{padding:100px 0;background:linear-gradient(180deg,#0f0d0c 0%,#0a0a0a 100%)}
+    .cta-wrapper{max-width:800px;margin:0 auto;text-align:center;padding:60px 40px;background:linear-gradient(135deg,rgba(139,90,43,0.2) 0%,var(--color-bg-card) 100%);border:1px solid rgba(201,169,98,0.3);border-radius:var(--radius-xl);position:relative;overflow:hidden}
+    .cta-wrapper::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(201,169,98,0.15) 0%,transparent 50%)}
+    .cta-badge{display:inline-block;padding:8px 20px;background:var(--gradient-gold);color:#fff;font-size:0.875rem;font-weight:600;border-radius:50px;margin-bottom:24px}
+    .cta-wrapper h2{font-size:clamp(1.5rem,4vw,2.25rem);font-weight:700;color:#fff;margin-bottom:16px;position:relative}
+    .cta-wrapper>p{color:var(--color-text-secondary);font-size:1.125rem;margin-bottom:32px;position:relative}
+    .cta-buttons{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;position:relative}
+    .cta-note{margin-top:24px;font-size:0.9rem;color:var(--color-text-secondary);position:relative}
+    .cta-note i{color:var(--color-accent)}
+    
+    /* Footer */
+    .footer{padding:60px 0 40px;background:#0a0a0a;border-top:1px solid var(--glass-border)}
+    .footer-content{text-align:center}
+    .footer-brand{font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:16px}
+    .footer-brand .logo-icon{font-size:1.5rem}
+    .footer p{color:var(--color-text-secondary);font-size:0.9rem;margin-bottom:8px}
+    
+    /* Responsive */
+    @media(max-width:768px){
+      .treatment-hero{min-height:auto;padding:100px 20px 60px}
+      .hero-stats{flex-direction:column;align-items:center;gap:16px}
+      .hero-stat{width:100%;max-width:280px}
+      .hero-cta{flex-direction:column;align-items:center}
+      .hero-cta .btn{width:100%;max-width:300px}
+      .comparison-card{padding:28px}
+      .treatment-grid{grid-template-columns:1fr}
+      .cta-wrapper{padding:40px 24px}
+    }
+  </style>
+  
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/gnb.css">
+  <link rel="stylesheet" href="/css/language-switcher.css">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalProcedure",
+    "name": "이갈이/이악물기 치료 (Bruxism Treatment)",
+    "description": "수면 중 이갈이, 낮 이악물기에 대한 전문 진료. 나이트가드, 보톡스, 생활습관 교정 등 맞춤 치료.",
+    "procedureType": "NonSurgicalProcedure",
+    "performedBy": {"@type": "Dentist", "name": "서울비디치과"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "이갈이를 하는지 어떻게 알 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "아침에 일어났을 때 턱이나 관자놀이 통증, 두통, 치아 시림, 치아 마모, 함께 자는 사람의 증언 등으로 알 수 있습니다."}},
+      {"@type": "Question", "name": "나이트가드는 어떤 역할을 하나요?", "acceptedAnswer": {"@type": "Answer", "text": "나이트가드는 취침 시 착용하는 맞춤형 마우스피스입니다. 이갈이로 인한 치아 마모와 손상을 방지하고, 턱관절과 저작근의 부담을 줄여 두통, 턱통증 등의 증상을 완화합니다."}},
+      {"@type": "Question", "name": "보톡스로 이갈이 치료가 가능한가요?", "acceptedAnswer": {"@type": "Answer", "text": "네, 교근에 보톡스를 주사하면 근육의 힘이 감소하여 이갈이 강도를 줄일 수 있습니다. 효과는 3~6개월 지속됩니다."}},
+      {"@type": "Question", "name": "이갈이를 치료하지 않으면 어떻게 되나요?", "acceptedAnswer": {"@type": "Answer", "text": "치아 마모와 파절, 보철물 손상, 치아 시림, 턱관절장애, 만성 두통 등이 발생할 수 있습니다."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="../index.html" class="site-logo">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text" data-i18n="common.clinicName">서울비디치과</span>
+        </a>
+        <div class="clinic-status open">
+          <span class="status-dot"></span>
+          <span class="status-text" data-i18n="common.open">진료중</span>
+          <span class="status-time"><span data-i18n="common.until">20:00까지</span></span>
+        </div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li class="nav-item has-dropdown">
+            <a href="/" data-i18n="nav.treatments">진료 안내</a>
+            <div class="mega-dropdown">
+              <div class="mega-dropdown-grid">
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="nav.specialtyCenters">전문센터</h4>
+                  <ul>
+                    <li><a href="glownate.html" class="nav-highlight">✨ <span data-i18n="nav.glownate">글로우네이트</span> <span class="badge" style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff;">HOT</span></a></li>
+                    <li><a href="implant.html"><span data-i18n="centers.implant">임플란트</span> <span class="badge" data-i18n="centers.implantDesc">6개 수술실</span></a></li>
+                    <li><a href="invisalign.html"><span data-i18n="centers.orthodontics">치아교정</span> <span class="badge" data-i18n="centers.orthodonticsDesc">국내 최대</span></a></li>
+                    <li><a href="pediatric.html"><span data-i18n="nav.pediatric">소아치과</span> <span class="badge" data-i18n="nav.pediatricBadge">전문의 3인</span></a></li>
+                    <li><a href="aesthetic.html" data-i18n="nav.aesthetic">심미치료(현정민 원장)</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="treatments.generalTreatment">일반/보존 진료</h4>
+                  <ul>
+                    <li><a href="cavity.html" data-i18n="treatments.cavity">충치치료</a></li>
+                    <li><a href="resin.html" data-i18n="treatments.resin">레진치료</a></li>
+                    <li><a href="crown.html" data-i18n="treatments.crown">크라운</a></li>
+                    <li><a href="inlay.html" data-i18n="treatments.inlay">인레이/온레이</a></li>
+                    <li><a href="root-canal.html" data-i18n="treatments.rootCanal">신경치료</a></li>
+                    <li><a href="whitening.html" data-i18n="treatments.whitening">미백</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="treatments.gumSurgery">잇몸/외과</h4>
+                  <ul>
+                    <li><a href="scaling.html" data-i18n="treatments.scaling">스케일링</a></li>
+                    <li><a href="gum.html" data-i18n="treatments.gumTreatment">잇몸치료</a></li>
+                    <li><a href="periodontitis.html">치주염</a></li>
+                    <li><a href="wisdom-tooth.html" data-i18n="treatments.wisdomTooth">사랑니 발치</a></li>
+                    <li><a href="tmj.html" data-i18n="treatments.tmj">턱관절장애</a></li>
+                    <li><a href="bruxism.html">이갈이/이악물기</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="../doctors/index.html" data-i18n="nav.doctors">의료진 소개</a></li>
+          <li class="nav-item"><a href="../bdx/index.html" data-i18n="nav.checkup">검진센터</a></li>
+          <li class="nav-item has-dropdown">
+            <a href="../column/columns.html">콘텐츠</a>
+            <ul class="simple-dropdown">
+              <li><a href="../column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+              <li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+              <li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-dropdown">
+            <a href="../directions.html">병원 안내</a>
+            <ul class="simple-dropdown">
+              <li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+              <li><a href="../directions.html">오시는 길</a></li>
+              <li><a href="../faq.html">자주 묻는 질문</a></li>
+              <li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
+        <div class="auth-buttons" id="authButtons">
+          <a href="../login.html" class="btn-auth btn-login" data-i18n="auth.login">로그인</a>
+          <a href="../register.html" class="btn-auth btn-register" data-i18n="auth.register">회원가입</a>
+        </div>
+        <a href="../reservation.html" class="btn-reserve" data-i18n="common.reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="treatment-hero">
+      <div class="hero-bg">
+        <div class="hero-gradient"></div>
+        <div class="hero-particles"></div>
+      </div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="fas fa-moon"></i>
+            <span>Bruxism Treatment</span>
+          </div>
+          <h1 class="hero-title">
+            이갈이 · 이악물기<br>
+            <span class="text-shimmer">프리미엄 치료</span>
+          </h1>
+          <p class="hero-subtitle">치아와 턱관절을 보호하는 맞춤 솔루션</p>
+          <p class="hero-desc">
+            수면 중 이갈이, 낮 동안 이악물기가<br>
+            <strong>치아 마모, 턱통증, 두통</strong>의 원인이 될 수 있습니다.
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="hero-stat-number">맞춤</span>
+              <span class="hero-stat-label">나이트가드 제작</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-number">1:1</span>
+              <span class="hero-stat-label">원인 분석</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-number">복합</span>
+              <span class="hero-stat-label">치료 접근</span>
+            </div>
+          </div>
+          <div class="hero-cta">
+            <a href="../reservation.html" class="btn btn-primary btn-lg">
+              <i class="fas fa-calendar-check"></i> 진료 예약
+            </a>
+            <a href="tel:041-415-2892" class="btn btn-secondary btn-lg">
+              <i class="fas fa-phone"></i> 041-415-2892
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fas fa-balance-scale"></i> 이해하기</div>
+          <h2 class="section-title">이갈이 vs <span class="text-shimmer">이악물기</span></h2>
+          <p class="section-desc">브룩시즘(Bruxism)이라고도 불리는 무의식적 습관입니다</p>
+        </div>
+        
+        <div class="comparison-grid">
+          <div class="comparison-card">
+            <div class="comparison-icon"><i class="fas fa-arrows-alt-h"></i></div>
+            <h3>이갈이</h3>
+            <div class="subtitle">Grinding</div>
+            <p>위아래 치아를 좌우로 갈아대는 동작으로, 특유의 소리가 납니다.</p>
+            <ul class="comparison-list">
+              <li><i class="fas fa-check"></i> 주로 수면 중 발생</li>
+              <li><i class="fas fa-check"></i> 갈리는 소리가 남</li>
+              <li><i class="fas fa-check"></i> 치아 마모가 주증상</li>
+              <li><i class="fas fa-check"></i> 법랑질 손상 심함</li>
+            </ul>
+          </div>
+          <div class="comparison-card">
+            <div class="comparison-icon"><i class="fas fa-compress"></i></div>
+            <h3>이악물기</h3>
+            <div class="subtitle">Clenching</div>
+            <p>치아를 꽉 무는 동작으로, 소리 없이 발생해 인지하기 어렵습니다.</p>
+            <ul class="comparison-list">
+              <li><i class="fas fa-check"></i> 낮과 밤 모두 발생</li>
+              <li><i class="fas fa-check"></i> 소리가 거의 없음</li>
+              <li><i class="fas fa-check"></i> 턱통증, 두통 유발</li>
+              <li><i class="fas fa-check"></i> 근육 긴장 심함</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Symptoms Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fas fa-stethoscope"></i> Symptoms</div>
+          <h2 class="section-title">이런 증상이 <span class="text-shimmer">있다면?</span></h2>
+          <p class="section-desc">아래 증상 중 2가지 이상이면 진료를 권장합니다</p>
+        </div>
+        
+        <div class="symptom-grid">
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-tooth"></i></div>
+            <h3>치아 마모</h3>
+            <p>치아가 평평해지거나 깨짐, 금이 감</p>
+          </div>
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-head-side-virus"></i></div>
+            <h3>아침 두통</h3>
+            <p>기상 시 관자놀이, 이마 부위 두통</p>
+          </div>
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-grimace"></i></div>
+            <h3>턱 통증</h3>
+            <p>씹을 때 통증, 턱 주변 뻐근함</p>
+          </div>
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-tired"></i></div>
+            <h3>턱 근육 피로</h3>
+            <p>아침에 턱이 뻣뻣하고 피곤함</p>
+          </div>
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-temperature-high"></i></div>
+            <h3>치아 시림</h3>
+            <p>마모로 인한 치아 민감도 증가</p>
+          </div>
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-bed"></i></div>
+            <h3>수면 방해</h3>
+            <p>옆 사람이 이갈이 소리에 깸</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Causes Section -->
+    <section class="section section-gradient">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fas fa-search"></i> Causes</div>
+          <h2 class="section-title">이갈이 / 이악물기 <span class="text-shimmer">원인</span></h2>
+          <p class="section-desc">여러 요인이 복합적으로 작용합니다</p>
+        </div>
+        
+        <div class="cause-grid">
+          <div class="cause-card">
+            <div class="cause-icon"><i class="fas fa-brain"></i></div>
+            <div class="cause-content">
+              <h4>스트레스 · 불안</h4>
+              <p>심리적 긴장이 근육 긴장으로 이어져 이갈이/이악물기를 유발합니다.</p>
+            </div>
+          </div>
+          <div class="cause-card">
+            <div class="cause-icon"><i class="fas fa-bed"></i></div>
+            <div class="cause-content">
+              <h4>수면장애</h4>
+              <p>수면무호흡증, 불면증 등 수면의 질 저하와 연관됩니다.</p>
+            </div>
+          </div>
+          <div class="cause-card">
+            <div class="cause-icon"><i class="fas fa-teeth"></i></div>
+            <div class="cause-content">
+              <h4>부정교합</h4>
+              <p>치아 맞물림이 불균형하면 무의식적 갈기가 발생할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="cause-card">
+            <div class="cause-icon"><i class="fas fa-coffee"></i></div>
+            <div class="cause-content">
+              <h4>카페인 · 알코올</h4>
+              <p>신경 자극 물질이 이갈이를 악화시킬 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="cause-card">
+            <div class="cause-icon"><i class="fas fa-pills"></i></div>
+            <div class="cause-content">
+              <h4>약물 부작용</h4>
+              <p>일부 항우울제, ADHD 약물 등이 이갈이와 관련됩니다.</p>
+            </div>
+          </div>
+          <div class="cause-card">
+            <div class="cause-icon"><i class="fas fa-dna"></i></div>
+            <div class="cause-content">
+              <h4>유전적 요인</h4>
+              <p>가족력이 있는 경우 발생률이 증가합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Treatment Options -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fas fa-hand-holding-medical"></i> Treatment</div>
+          <h2 class="section-title">맞춤 <span class="text-shimmer">치료 방법</span></h2>
+          <p class="section-desc">증상과 원인에 따른 복합적 접근</p>
+        </div>
+        
+        <div class="treatment-grid">
+          <div class="treatment-card featured">
+            <div class="treatment-header">
+              <div class="treatment-icon"><i class="fas fa-teeth"></i></div>
+              <h3>나이트가드</h3>
+            </div>
+            <p>개인 맞춤형 마우스피스로 치아와 턱관절을 보호합니다.</p>
+            <ul class="treatment-list">
+              <li><i class="fas fa-check"></i> 정밀 인상 채득 후 맞춤 제작</li>
+              <li><i class="fas fa-check"></i> 치아 마모 및 파절 방지</li>
+              <li><i class="fas fa-check"></i> 턱관절 부담 경감</li>
+              <li><i class="fas fa-check"></i> 기성품 대비 우수한 착용감</li>
+            </ul>
+            <div class="treatment-note">
+              <i class="fas fa-info-circle"></i> 소프트/하드 타입 선택 가능
+            </div>
+          </div>
+          
+          <div class="treatment-card">
+            <div class="treatment-header">
+              <div class="treatment-icon"><i class="fas fa-syringe"></i></div>
+              <h3>보톡스 치료</h3>
+            </div>
+            <p>과발달된 저작근의 힘을 줄여 이갈이 강도를 낮춥니다.</p>
+            <ul class="treatment-list">
+              <li><i class="fas fa-check"></i> 교근(깨물근) 이완</li>
+              <li><i class="fas fa-check"></i> 근육 비대 개선</li>
+              <li><i class="fas fa-check"></i> 나이트가드와 병행 효과적</li>
+              <li><i class="fas fa-check"></i> 3~6개월 효과 지속</li>
+            </ul>
+          </div>
+          
+          <div class="treatment-card">
+            <div class="treatment-header">
+              <div class="treatment-icon"><i class="fas fa-user-md"></i></div>
+              <h3>행동 요법</h3>
+            </div>
+            <p>낮 동안의 이악물기 습관을 인지하고 교정합니다.</p>
+            <ul class="treatment-list">
+              <li><i class="fas fa-check"></i> 자가 인지 훈련</li>
+              <li><i class="fas fa-check"></i> 이완 운동 교육</li>
+              <li><i class="fas fa-check"></i> 스트레스 관리 상담</li>
+              <li><i class="fas fa-check"></i> 알람 설정 활용</li>
+            </ul>
+          </div>
+          
+          <div class="treatment-card">
+            <div class="treatment-header">
+              <div class="treatment-icon"><i class="fas fa-tooth"></i></div>
+              <h3>교합 조정</h3>
+            </div>
+            <p>교합 불균형이 원인인 경우 치아 맞물림을 조정합니다.</p>
+            <ul class="treatment-list">
+              <li><i class="fas fa-check"></i> 교합 분석 및 진단</li>
+              <li><i class="fas fa-check"></i> 치아 표면 미세 조정</li>
+              <li><i class="fas fa-check"></i> 보철물 교합 재조정</li>
+              <li><i class="fas fa-check"></i> 필요시 교정 치료 연계</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fas fa-list-ol"></i> Process</div>
+          <h2 class="section-title">나이트가드 <span class="text-shimmer">제작 과정</span></h2>
+          <p class="section-desc">맞춤 제작으로 최적의 착용감을 제공합니다</p>
+        </div>
+        
+        <div class="process-wrapper">
+          <div class="process-grid">
+            <div class="process-card">
+              <div class="process-num">1</div>
+              <h3>진단 및 상담</h3>
+              <p>이갈이/이악물기 여부와 심각도를 확인하고 치료 계획을 수립합니다.</p>
+            </div>
+            <div class="process-card">
+              <div class="process-num">2</div>
+              <h3>정밀 인상 채득</h3>
+              <p>개인의 치아 형태에 맞는 정밀 본을 뜹니다.</p>
+            </div>
+            <div class="process-card">
+              <div class="process-num">3</div>
+              <h3>맞춤 제작</h3>
+              <p>기공소에서 개인 맞춤형 나이트가드를 제작합니다. (약 1주일)</p>
+            </div>
+            <div class="process-card">
+              <div class="process-num">4</div>
+              <h3>장착 및 조정</h3>
+              <p>제작된 나이트가드를 착용해보고 필요시 미세 조정합니다.</p>
+            </div>
+            <div class="process-card">
+              <div class="process-num">5</div>
+              <h3>사용법 안내</h3>
+              <p>착용 방법, 관리법을 설명드리고 정기 점검 일정을 안내합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Warning Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fas fa-exclamation-triangle"></i> Warning</div>
+          <h2 class="section-title">이갈이 방치 시 <span style="color:#ff6b6b">문제점</span></h2>
+          <p class="section-desc">조기 치료가 중요합니다</p>
+        </div>
+        
+        <div class="warning-grid">
+          <div class="warning-card">
+            <div class="warning-icon"><i class="fas fa-tooth"></i></div>
+            <h4>치아 마모</h4>
+            <p>법랑질 손상으로 치아가 짧아지고 민감해집니다</p>
+          </div>
+          <div class="warning-card">
+            <div class="warning-icon"><i class="fas fa-crack"></i></div>
+            <h4>치아 파절</h4>
+            <p>치아에 금이 가거나 깨짐, 보철물 손상</p>
+          </div>
+          <div class="warning-card">
+            <div class="warning-icon"><i class="fas fa-bone"></i></div>
+            <h4>턱관절장애</h4>
+            <p>관절 통증, 소리, 개구장애로 진행</p>
+          </div>
+          <div class="warning-card">
+            <div class="warning-icon"><i class="fas fa-head-side-cough"></i></div>
+            <h4>만성 두통</h4>
+            <p>긴장성 두통, 편두통 유발</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section-gradient">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge"><i class="fas fa-question-circle"></i> FAQ</div>
+          <h2 class="section-title">자주 묻는 <span class="text-shimmer">질문</span></h2>
+        </div>
+        
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>이갈이를 하는지 어떻게 알 수 있나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">아침에 일어났을 때 턱이나 관자놀이 통증, 두통, 치아 시림, 치아 마모(치아가 평평해짐), 함께 자는 사람의 증언 등으로 알 수 있습니다. 치과 검진 시 치아 마모도와 근육 상태로도 확인 가능합니다.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>나이트가드는 어떤 역할을 하나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">나이트가드는 취침 시 착용하는 맞춤형 마우스피스입니다. 이갈이로 인한 치아 마모와 손상을 방지하고, 턱관절과 저작근의 부담을 줄여 두통, 턱통증 등의 증상을 완화합니다.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>나이트가드 착용이 불편하지 않나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">처음 1~2주는 이물감이 있을 수 있으나, 개인 치아에 맞춤 제작되어 금방 적응됩니다. 약국에서 판매하는 기성품보다 훨씬 편안하고 효과적입니다.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>보톡스로 이갈이 치료가 가능한가요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">네, 교근에 보톡스를 주사하면 근육의 힘이 감소하여 이갈이 강도를 줄일 수 있습니다. 나이트가드와 병행하면 더 효과적이며, 효과는 3~6개월 지속됩니다.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>이갈이와 이악물기의 차이는 무엇인가요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">이갈이는 위아래 치아를 좌우로 갈아대는 것이고, 이악물기는 치아를 꽉 무는 것입니다. 이갈이는 주로 수면 중, 이악물기는 낮 동안 무의식적으로 발생합니다. 둘 다 치아와 턱관절에 해롭습니다.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>나이트가드 관리는 어떻게 하나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">착용 후 흐르는 물과 부드러운 칫솔로 세척하고 완전히 건조시켜 전용 케이스에 보관하세요. 뜨거운 물은 변형을 유발하므로 피해야 합니다.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>이갈이 치료를 안 하면 어떻게 되나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">치아가 심하게 마모되어 짧아지고, 치아에 금이 가거나 깨질 수 있습니다. 턱관절장애, 만성 두통, 치아 시림 등의 문제가 발생할 수 있습니다. 조기 치료로 예방이 중요합니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-wrapper">
+          <span class="cta-badge">무료 상담</span>
+          <h2>이갈이, 치아 손상 전에 치료하세요</h2>
+          <p>맞춤 나이트가드로 치아와 턱관절을 보호하세요.</p>
+          <div class="cta-buttons">
+            <a href="../reservation.html" class="btn btn-primary btn-lg">
+              <i class="fas fa-calendar-check"></i> 진료 예약하기
+            </a>
+            <a href="tel:041-415-2892" class="btn btn-secondary btn-lg">
+              <i class="fas fa-phone"></i> 전화 상담
+            </a>
+          </div>
+          <p class="cta-note">
+            <i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand"><span class="logo-icon">🦷</span> 서울비디치과</div>
+        <p>충남 천안시 서북구 불당34길 14, 1~5층</p>
+        <p>Tel: 041-415-2892</p>
+        <p>© 2024 서울비디치과. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/gnb.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/translations.js" defer></script>
+  <script src="/js/language-switcher.js" defer></script>
+  <script>
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isActive = item.classList.contains('active');
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        // Open clicked if not already active
+        if (!isActive) item.classList.add('active');
+      });
+    });
+    
+    // Scroll Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.symptom-card, .cause-card, .treatment-card, .process-card, .warning-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

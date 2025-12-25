@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="서울비디치과 이용약관 - 서비스 이용에 관한 사항을 안내합니다.">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <title>이용약관 | 서울비디치과</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  
+  <style>
+    :root {
+      --brand-primary: #8B5A2B;
+      --brand-gold: #C9A962;
+      --text-primary: #e5e5e5;
+      --text-secondary: #999;
+      --bg-dark: #0a0a0a;
+      --bg-card: rgba(20, 18, 16, 0.85);
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      color: var(--text-primary);
+      background: var(--bg-dark);
+    }
+    
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #fff;
+    }
+    
+    .logo-icon { font-size: 1.5rem; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; }
+    
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--bg-card);
+      color: var(--brand-gold);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    
+    .btn-back:hover {
+      background: rgba(201, 169, 98, 0.1);
+    }
+    
+    main {
+      padding-top: 100px;
+      padding-bottom: 80px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    .page-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .page-meta {
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+    
+    .terms-section {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .terms-section h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--brand-gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .terms-section h2 i {
+      font-size: 1rem;
+    }
+    
+    .terms-section p,
+    .terms-section li {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    
+    .terms-section ul,
+    .terms-section ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    
+    .terms-section strong {
+      color: var(--text-primary);
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+    }
+    
+    @media (max-width: 768px) {
+      .page-title { font-size: 1.5rem; }
+      .terms-section { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🦷</span>
+        <span class="logo-text">서울비디치과</span>
+      </a>
+      <a href="javascript:history.back()" class="btn-back">
+        <i class="fas fa-arrow-left"></i> 돌아가기
+      </a>
+    </div>
+  </header>
+  
+  <main>
+    <div class="container">
+      <h1 class="page-title">이용약관</h1>
+      <p class="page-meta">시행일: 2024년 12월 1일 | 최종 수정: 2024년 12월 1일</p>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-file-contract"></i> 제1조 (목적)</h2>
+        <p>본 약관은 서울비디치과(이하 "병원")가 제공하는 온라인 서비스(이하 "서비스")의 이용과 관련하여 병원과 이용자 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-book"></i> 제2조 (용어의 정의)</h2>
+        <ol>
+          <li><strong>"서비스"</strong>란 병원이 제공하는 온라인 예약, 진료 정보 안내, 회원 관리 등의 인터넷 서비스를 말합니다.</li>
+          <li><strong>"이용자"</strong>란 병원의 서비스에 접속하여 본 약관에 따라 서비스를 이용하는 회원 및 비회원을 말합니다.</li>
+          <li><strong>"회원"</strong>이란 병원에 개인정보를 제공하고 회원 등록을 한 자로서, 병원의 서비스를 계속적으로 이용할 수 있는 자를 말합니다.</li>
+          <li><strong>"비회원"</strong>이란 회원에 가입하지 않고 병원이 제공하는 서비스를 이용하는 자를 말합니다.</li>
+        </ol>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-check-circle"></i> 제3조 (약관의 효력 및 변경)</h2>
+        <ol>
+          <li>본 약관은 서비스를 이용하고자 하는 모든 이용자에 대하여 그 효력을 발생합니다.</li>
+          <li>병원은 필요하다고 인정되는 경우 본 약관을 변경할 수 있으며, 변경된 약관은 병원 홈페이지에 공지함으로써 효력이 발생합니다.</li>
+          <li>이용자는 변경된 약관에 동의하지 않을 경우 서비스 이용을 중단하고 탈퇴할 수 있습니다. 변경된 약관 공지 후 계속하여 서비스를 이용하는 경우에는 변경된 약관에 동의한 것으로 간주됩니다.</li>
+        </ol>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-user-plus"></i> 제4조 (회원가입)</h2>
+        <ol>
+          <li>이용자는 병원이 정한 가입 양식에 따라 회원정보를 기입한 후 본 약관에 동의한다는 의사표시를 함으로써 회원가입을 신청합니다.</li>
+          <li>병원은 제1항과 같이 회원으로 가입할 것을 신청한 이용자가 다음 각 호에 해당하지 않는 한 회원으로 등록합니다.
+            <ul>
+              <li>가입신청자가 본 약관에 의하여 이전에 회원자격을 상실한 적이 있는 경우</li>
+              <li>등록 내용에 허위, 기재누락, 오기가 있는 경우</li>
+              <li>기타 회원으로 등록하는 것이 병원의 운영에 현저히 지장을 초래하는 것으로 인정되는 경우</li>
+            </ul>
+          </li>
+          <li>회원가입 시기는 병원의 승낙이 회원에게 도달한 시점으로 합니다.</li>
+        </ol>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-tasks"></i> 제5조 (서비스의 제공 및 변경)</h2>
+        <ol>
+          <li>병원은 다음과 같은 서비스를 제공합니다.
+            <ul>
+              <li>온라인 진료 예약 서비스</li>
+              <li>진료 안내 및 의료 정보 제공</li>
+              <li>의료진 소개 및 병원 시설 안내</li>
+              <li>기타 병원이 정하는 서비스</li>
+            </ul>
+          </li>
+          <li>병원은 서비스의 내용을 변경할 수 있으며, 변경 시 홈페이지를 통해 공지합니다.</li>
+        </ol>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-pause-circle"></i> 제6조 (서비스의 중단)</h2>
+        <ol>
+          <li>병원은 컴퓨터 등 정보통신설비의 보수점검, 교체 및 고장, 통신의 두절 등의 사유가 발생한 경우에는 서비스의 제공을 일시적으로 중단할 수 있습니다.</li>
+          <li>제1항에 의한 서비스 중단의 경우 병원은 사전 또는 사후에 이를 공지합니다.</li>
+          <li>병원은 서비스 중단으로 인한 이용자의 손해에 대해 고의 또는 과실이 없는 한 책임을 부담하지 않습니다.</li>
+        </ol>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-user-cog"></i> 제7조 (회원의 의무)</h2>
+        <ol>
+          <li>회원은 다음 행위를 하여서는 안 됩니다.
+            <ul>
+              <li>신청 또는 변경 시 허위내용의 등록</li>
+              <li>타인의 정보 도용</li>
+              <li>병원에 게시된 정보의 변경</li>
+              <li>병원이 정한 정보 이외의 정보(컴퓨터 프로그램 등)의 송신 또는 게시</li>
+              <li>병원 및 기타 제3자의 저작권 등 지적재산권에 대한 침해</li>
+              <li>병원 및 기타 제3자의 명예를 손상시키거나 업무를 방해하는 행위</li>
+              <li>외설 또는 폭력적인 메시지, 화상, 음성, 기타 공서양속에 반하는 정보를 서비스에 공개 또는 게시하는 행위</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-copyright"></i> 제8조 (저작권의 귀속)</h2>
+        <ol>
+          <li>병원이 작성한 저작물에 대한 저작권 기타 지적재산권은 병원에 귀속합니다.</li>
+          <li>이용자는 병원을 이용함으로써 얻은 정보를 병원의 사전 승낙 없이 복제, 송신, 출판, 배포, 방송 기타 방법에 의하여 영리목적으로 이용하거나 제3자에게 이용하게 하여서는 안 됩니다.</li>
+        </ol>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-exclamation-triangle"></i> 제9조 (면책조항)</h2>
+        <ol>
+          <li>병원은 천재지변 또는 이에 준하는 불가항력으로 인하여 서비스를 제공할 수 없는 경우에는 서비스 제공에 관한 책임이 면제됩니다.</li>
+          <li>병원은 이용자의 귀책사유로 인한 서비스 이용의 장애에 대하여 책임을 지지 않습니다.</li>
+          <li>병원은 서비스를 통하여 제공되는 의료정보에 대해 진료 목적이 아닌 참고용 정보로 활용할 것을 권장하며, 구체적인 의료 사항에 대해서는 반드시 병원을 방문하여 전문의와 상담하시기 바랍니다.</li>
+        </ol>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-gavel"></i> 제10조 (분쟁해결 및 관할법원)</h2>
+        <ol>
+          <li>병원과 이용자 간에 발생한 분쟁에 관해서는 상호 협의하여 해결합니다.</li>
+          <li>협의가 되지 않을 경우, 민사소송법상의 관할법원에 소를 제기할 수 있습니다.</li>
+        </ol>
+      </section>
+      
+      <section class="terms-section">
+        <h2><i class="fas fa-info-circle"></i> 부칙</h2>
+        <p>본 약관은 2024년 12월 1일부터 시행됩니다.</p>
+      </section>
+    </div>
+  </main>
+  
+  <footer class="footer">
+    <p>© 2018 서울비디치과. All rights reserved.</p>
+  </footer>
+</body>
+</html>

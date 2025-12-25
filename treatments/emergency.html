@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="서울비디치과 응급치과 - 365일 진료, 야간진료 가능. 치아 탈구, 파절, 급성 통증 등 치과 응급상황 대처. 천안 응급치과.">
+  <meta name="keywords" content="응급치과, 야간치과, 치아외상, 치아탈구, 치아파절, 급성치통, 365일치과, 서울비디치과">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="서울비디치과">
+  <link rel="canonical" href="https://bdbddc.com/treatments/emergency.html">
+  
+  <title>응급치과 | 서울비디치과 - 365일 진료, 야간진료</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/gnb.css">
+  
+  <!-- Schema.org - MedicalClinic (Emergency) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalClinic",
+    "name": "서울비디치과 응급치과",
+    "description": "365일 진료, 야간진료 가능한 천안 응급치과. 치아 외상, 급성 통증, 치아 탈구 등 응급상황 대처.",
+    "medicalSpecialty": "Emergency Medicine",
+    "availableService": [
+      {"@type": "MedicalProcedure", "name": "치아 외상 응급처치"},
+      {"@type": "MedicalProcedure", "name": "급성 치통 치료"},
+      {"@type": "MedicalProcedure", "name": "치아 탈구/파절 응급처치"},
+      {"@type": "MedicalProcedure", "name": "치아 재식립"}
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "20:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      }
+    ],
+    "telephone": "+82-41-415-2892"
+  }
+  </script>
+  
+  <!-- Schema.org - FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "치아가 빠졌어요. 어떻게 해야 하나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "빠진 치아를 우유나 식염수에 담가 보관하고, 가능한 30분 이내에 치과에 내원하세요. 재식립 성공률이 높아집니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "야간에 갑자기 이가 아프면 어떻게 하나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "진통제 복용 후 다음날 바로 치과 방문을 권장합니다. 서울비디치과는 365일 진료하며, 평일 야간(20시)까지 운영합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "일요일에도 응급치료 가능한가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "네, 서울비디치과는 365일 진료합니다. 일요일도 09:00~17:00 운영하며 응급치료가 가능합니다."
+        }
+      }
+    ]
+  }
+  </script>
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Pretendard', -apple-system, sans-serif; line-height: 1.6; color: #e5e5e5; background: #0a0a0a; }
+    a { color: inherit; text-decoration: none; }
+    
+    :root {
+      --color-primary: #8B5A2B;
+      --color-accent: #C9A962;
+      --color-emergency: #ef4444;
+      --color-border: rgba(255, 255, 255, 0.1);
+      --color-text-muted: #999;
+      --gradient-brand: linear-gradient(135deg, #8B5A2B, #C9A962);
+      --gradient-card: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(15, 15, 15, 0.95));
+    }
+    
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .header-container {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1280px; margin: 0 auto; padding: 14px 24px;
+    }
+    .site-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 700; font-size: 1.1rem; }
+    .logo-icon { font-size: 1.6rem; }
+    .btn-emergency {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; background: var(--color-emergency); color: #fff;
+      border-radius: 50px; font-weight: 600; font-size: 0.95rem;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      50% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+    }
+    
+    main { padding-top: 70px; }
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    
+    /* 히어로 */
+    .hero-section {
+      position: relative; padding: 80px 0; overflow: hidden;
+      background: linear-gradient(180deg, #1a0a0a 0%, #0a0a0a 100%);
+    }
+    .hero-section::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, transparent 70%);
+    }
+    .hero-content { position: relative; z-index: 1; text-align: center; max-width: 700px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px; background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 50px;
+      color: var(--color-emergency); font-size: 1rem; font-weight: 700;
+      margin-bottom: 24px; animation: pulse 2s infinite;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 16px;
+      color: #fff;
+    }
+    .hero-title span { color: var(--color-emergency); }
+    .hero-subtitle { font-size: 1.25rem; color: var(--color-text-muted); margin-bottom: 32px; }
+    .hero-phone {
+      display: inline-flex; align-items: center; gap: 16px;
+      padding: 20px 40px; background: var(--color-emergency); border-radius: 16px;
+      color: #fff; font-size: 1.5rem; font-weight: 800;
+      transition: transform 0.2s;
+    }
+    .hero-phone:hover { transform: scale(1.05); }
+    .hero-phone i { font-size: 1.75rem; }
+    .hero-info {
+      display: flex; justify-content: center; gap: 40px; margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .hero-info-item { text-align: center; }
+    .hero-info-item i { font-size: 1.5rem; color: var(--color-accent); margin-bottom: 8px; }
+    .hero-info-item p { color: var(--color-text-muted); font-size: 0.9rem; }
+    .hero-info-item strong { color: #fff; display: block; font-size: 1.1rem; }
+    
+    /* 섹션 */
+    .section { padding: 100px 0; }
+    .section-dark { background: linear-gradient(180deg, #0a0a0a 0%, #0f0d0a 50%, #0a0a0a 100%); }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 16px; background: rgba(201, 169, 98, 0.1);
+      border: 1px solid rgba(201, 169, 98, 0.2); border-radius: 50px;
+      color: var(--color-accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 16px;
+    }
+    .section-title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .section-desc { font-size: 1.1rem; color: var(--color-text-muted); max-width: 600px; margin: 0 auto; }
+    
+    /* 응급 상황 카드 */
+    .emergency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .emergency-card {
+      background: var(--gradient-card); border: 1px solid var(--color-border);
+      border-radius: 20px; padding: 32px; transition: transform 0.3s, border-color 0.3s;
+    }
+    .emergency-card:hover { transform: translateY(-8px); border-color: rgba(239, 68, 68, 0.3); }
+    .emergency-card.urgent { border-color: rgba(239, 68, 68, 0.3); }
+    .emergency-icon {
+      width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
+      border-radius: 16px; font-size: 1.5rem; margin-bottom: 20px;
+    }
+    .emergency-icon.red { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+    .emergency-icon.orange { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+    .emergency-icon.yellow { background: rgba(234, 179, 8, 0.15); color: #eab308; }
+    .emergency-icon.purple { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+    .emergency-card h3 { font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 16px; }
+    .emergency-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .emergency-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6;
+    }
+    .emergency-list li i { color: var(--color-accent); margin-top: 4px; flex-shrink: 0; }
+    .emergency-list li strong { color: #fff; }
+    
+    /* 타임라인 */
+    .timeline-box {
+      max-width: 800px; margin: 0 auto;
+      background: var(--gradient-card); border: 2px solid rgba(239, 68, 68, 0.3);
+      border-radius: 24px; padding: 48px; text-align: center;
+    }
+    .timeline-title {
+      font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 32px;
+    }
+    .timeline-title span { color: var(--color-emergency); }
+    .timeline-steps { display: flex; justify-content: space-between; position: relative; }
+    .timeline-steps::before {
+      content: ''; position: absolute; top: 30px; left: 60px; right: 60px;
+      height: 3px; background: var(--gradient-brand);
+    }
+    .timeline-step { text-align: center; position: relative; z-index: 1; flex: 1; }
+    .step-circle {
+      width: 60px; height: 60px; margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gradient-brand); border-radius: 50%;
+      font-size: 1.25rem; font-weight: 700; color: #fff;
+    }
+    .step-time { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .step-desc { font-size: 0.9rem; color: var(--color-text-muted); }
+    
+    @media (max-width: 768px) {
+      .timeline-steps { flex-direction: column; gap: 24px; }
+      .timeline-steps::before { display: none; }
+    }
+    
+    /* CTA */
+    .cta-section { padding: 80px 0; background: linear-gradient(180deg, #1a0a0a 0%, #0a0a0a 100%); }
+    .cta-box {
+      background: var(--gradient-card); border: 2px solid rgba(239, 68, 68, 0.3);
+      border-radius: 32px; padding: 60px 40px; text-align: center;
+    }
+    .cta-box h2 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .cta-box p { color: var(--color-text-muted); font-size: 1.1rem; margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 18px 36px; font-size: 1.1rem; font-weight: 600;
+      border-radius: 50px; border: none; cursor: pointer; transition: all 0.3s;
+    }
+    .btn-emergency-lg { background: var(--color-emergency); color: #fff; }
+    .btn-emergency-lg:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4); }
+    .btn-secondary { background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid var(--color-border); }
+    
+    .footer { background: #0a0a0a; border-top: 1px solid var(--color-border); padding: 40px 0; text-align: center; }
+    .footer p { color: var(--color-text-muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <!-- Header (통일된 GNB) -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="../index.html" class="site-logo">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text" data-i18n="common.clinicName">서울비디치과</span>
+        </a>
+        <div class="clinic-status open">
+          <span class="status-dot"></span>
+          <span class="status-text" data-i18n="common.open">진료중</span>
+          <span class="status-time"><span data-i18n="common.until">20:00까지</span></span>
+        </div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li class="nav-item has-dropdown">
+            <a href="index.html" data-i18n="nav.treatments">진료 안내</a>
+            <div class="mega-dropdown">
+              <div class="mega-dropdown-grid">
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="nav.specialtyCenters">전문센터</h4>
+                  <ul>
+                    <li><a href="glownate.html" class="nav-highlight">✨ <span data-i18n="nav.glownate">글로우네이트</span> <span class="badge" style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff;">HOT</span></a></li>
+                    <li><a href="implant.html"><span data-i18n="centers.implant">임플란트</span> <span class="badge" data-i18n="centers.implantDesc">6개 수술실</span></a></li>
+                    <li><a href="invisalign.html"><span data-i18n="centers.orthodontics">치아교정</span> <span class="badge" data-i18n="centers.orthodonticsDesc">대규모</span></a></li>
+                    <li><a href="pediatric.html"><span data-i18n="nav.pediatric">소아치과</span> <span class="badge" data-i18n="nav.pediatricBadge">전문의 3인</span></a></li>
+                    <li><a href="aesthetic.html" data-i18n="nav.aesthetic">심미치료(현정민 원장)</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="treatments.generalTreatment">일반/보존 진료</h4>
+                  <ul>
+                    <li><a href="cavity.html" data-i18n="treatments.cavity">충치치료</a></li>
+                    <li><a href="resin.html" data-i18n="treatments.resin">레진치료</a></li>
+                    <li><a href="crown.html" data-i18n="treatments.crown">크라운</a></li>
+                    <li><a href="inlay.html" data-i18n="treatments.inlay">인레이/온레이</a></li>
+                    <li><a href="root-canal.html" data-i18n="treatments.rootCanal">신경치료</a></li>
+                    <li><a href="whitening.html" data-i18n="treatments.whitening">미백</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="treatments.gumSurgery">잇몸/외과</h4>
+                  <ul>
+                    <li><a href="scaling.html" data-i18n="treatments.scaling">스케일링</a></li>
+                    <li><a href="gum.html" data-i18n="treatments.gumTreatment">잇몸치료</a></li>
+                    <li><a href="periodontitis.html">치주염</a></li>
+                    <li><a href="wisdom-tooth.html" data-i18n="treatments.wisdomTooth">사랑니 발치</a></li>
+                    <li><a href="tmj.html" data-i18n="treatments.tmj">턱관절장애</a></li>
+                    <li><a href="bruxism.html">이갈이/이악물기</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="../doctors/index.html" data-i18n="nav.doctors">의료진 소개</a></li>
+          <li class="nav-item"><a href="../bdx/index.html" data-i18n="nav.checkup">검진센터</a></li>
+          <li class="nav-item has-dropdown">
+            <a href="../column/columns.html">콘텐츠</a>
+            <ul class="simple-dropdown">
+              <li><a href="../column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+              <li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+              <li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-dropdown">
+            <a href="../directions.html">병원 안내</a>
+            <ul class="simple-dropdown">
+              <li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+              <li><a href="../directions.html">오시는 길</a></li>
+              <li><a href="../faq.html">자주 묻는 질문</a></li>
+              <li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
+        <div class="auth-buttons" id="authButtons">
+          <a href="../login.html" class="btn-auth btn-login" data-i18n="auth.login">로그인</a>
+          <a href="../register.html" class="btn-auth btn-register" data-i18n="auth.register">회원가입</a>
+        </div>
+        <a href="../reservation.html" class="btn-reserve" data-i18n="common.reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>365일 응급진료</span>
+          </div>
+          <h1 class="hero-title">치과 <span>응급상황</span>이신가요?</h1>
+          <p class="hero-subtitle">치아 외상, 급성 통증 등 긴급 상황 시<br>지금 바로 연락주세요</p>
+          <a href="tel:0414152892" class="hero-phone">
+            <i class="fas fa-phone-alt"></i>
+            <span>041-415-2892</span>
+          </a>
+          <div class="hero-info">
+            <div class="hero-info-item">
+              <i class="fas fa-clock"></i>
+              <strong>365일 진료</strong>
+              <p>일요일, 공휴일 포함</p>
+            </div>
+            <div class="hero-info-item">
+              <i class="fas fa-moon"></i>
+              <strong>야간 진료</strong>
+              <p>평일 20:00까지</p>
+            </div>
+            <div class="hero-info-item">
+              <i class="fas fa-ambulance"></i>
+              <strong>응급 대응</strong>
+              <p>당일 즉시 진료</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">
+            <i class="fas fa-first-aid"></i>
+            <span>응급 상황별 대처법</span>
+          </div>
+          <h2 class="section-title">상황별 응급 대처법</h2>
+          <p class="section-desc">내원 전 알아두면 치료 성공률을 높일 수 있습니다</p>
+        </div>
+        
+        <div class="emergency-grid">
+          <div class="emergency-card urgent">
+            <div class="emergency-icon red"><i class="fas fa-tooth"></i></div>
+            <h3>치아가 빠졌을 때 (탈구)</h3>
+            <ul class="emergency-list">
+              <li><i class="fas fa-check"></i> 빠진 치아를 <strong>우유나 식염수</strong>에 담그세요</li>
+              <li><i class="fas fa-check"></i> 치아 <strong>뿌리를 만지지 마세요</strong></li>
+              <li><i class="fas fa-check"></i> <strong>30분 이내</strong> 내원 시 재식 성공률 UP</li>
+              <li><i class="fas fa-check"></i> 씻지 말고 그대로 가져오세요</li>
+            </ul>
+          </div>
+          
+          <div class="emergency-card">
+            <div class="emergency-icon orange"><i class="fas fa-bolt"></i></div>
+            <h3>심한 치아 통증</h3>
+            <ul class="emergency-list">
+              <li><i class="fas fa-check"></i> <strong>얼음찜질</strong>로 통증을 완화하세요</li>
+              <li><i class="fas fa-check"></i> 진통제(이부프로펜 등) 복용 가능</li>
+              <li><i class="fas fa-check"></i> 뜨겁거나 차가운 음식 피하세요</li>
+              <li><i class="fas fa-check"></i> 가능한 빨리 내원하세요</li>
+            </ul>
+          </div>
+          
+          <div class="emergency-card">
+            <div class="emergency-icon yellow"><i class="fas fa-band-aid"></i></div>
+            <h3>치아가 깨졌을 때 (파절)</h3>
+            <ul class="emergency-list">
+              <li><i class="fas fa-check"></i> 깨진 <strong>조각을 보관</strong>하세요</li>
+              <li><i class="fas fa-check"></i> 날카로운 부분에 왁스/껌으로 보호</li>
+              <li><i class="fas fa-check"></i> 신경 노출 시 즉시 내원 필요</li>
+              <li><i class="fas fa-check"></i> 빨리 내원해 수복 여부 확인</li>
+            </ul>
+          </div>
+          
+          <div class="emergency-card">
+            <div class="emergency-icon purple"><i class="fas fa-viruses"></i></div>
+            <h3>잇몸 부종/농양</h3>
+            <ul class="emergency-list">
+              <li><i class="fas fa-check"></i> <strong>따뜻한 소금물</strong>로 가글하세요</li>
+              <li><i class="fas fa-check"></i> 얼음찜질은 피하세요</li>
+              <li><i class="fas fa-check"></i> <strong>항생제 처방</strong>이 필요합니다</li>
+              <li><i class="fas fa-check"></i> 열이 나면 즉시 내원하세요</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">
+            <i class="fas fa-clock"></i>
+            <span>골든타임</span>
+          </div>
+          <h2 class="section-title">치아 외상의 골든타임</h2>
+          <p class="section-desc">빠진 치아는 시간이 생명입니다</p>
+        </div>
+        
+        <div class="timeline-box">
+          <h3 class="timeline-title">치아 탈구 시 <span>재식 성공률</span></h3>
+          <div class="timeline-steps">
+            <div class="timeline-step">
+              <div class="step-circle">90%</div>
+              <div class="step-time">30분 이내</div>
+              <div class="step-desc">가장 높은 성공률</div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-circle">50%</div>
+              <div class="step-time">30분~1시간</div>
+              <div class="step-desc">성공 가능성 있음</div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-circle">10%</div>
+              <div class="step-time">1시간 이상</div>
+              <div class="step-desc">성공률 급감</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box">
+          <h2>치과 응급상황이신가요?</h2>
+          <p>365일, 야간에도 진료합니다. 지금 바로 연락주세요.</p>
+          <div class="cta-buttons">
+            <a href="tel:0414152892" class="btn btn-emergency-lg">
+              <i class="fas fa-phone-alt"></i>
+              <span>041-415-2892</span>
+            </a>
+            <a href="../reservation.html" class="btn btn-secondary">
+              <i class="fas fa-calendar-check"></i>
+              <span>온라인 예약</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2018 서울비디치과. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="../js/gnb.js" defer></script>
+<script src="../js/main.js" defer></script>
+</body>
+</html>

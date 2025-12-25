@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="서울비디치과 의료진 소개 - 서울대 출신 15인 원장의 체계적 협진 시스템. 심미보철, 교정 2인, 임플란트, 소아치과 3인 등 각 분야 전문가들의 협진.">
+  <meta name="keywords" content="서울비디치과, 의료진, 치과의사, 전문의, 협진, 서울대, 천안치과, 아산치과, 소아치과, 교정전문의">
+  
+  <title>의료진 소개 | 서울비디치과 - 서울대 출신 15인 원장</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  
+  <!-- Preconnect (성능 최적화) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  
+  <!-- Font (display: swap - FOIT 방지) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  
+  <!-- Critical CSS (인라인) -->
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.5;color:#e5e5e5;background:#000;letter-spacing:0.025em}
+    :root{--brand-primary:#8B5A2B;--brand-gold:#C9A962;--brand-gradient:linear-gradient(135deg,#8B5A2B 0%,#C9A962 100%);--glass-bg:rgba(20,18,16,0.85);--glass-blur:blur(20px);--radius-xl:1rem;--z-fixed:300}
+    .header,.site-header{position:fixed;top:0;left:0;right:0;z-index:var(--z-fixed);background:rgba(0,0,0,0.9);backdrop-filter:var(--glass-blur);border-bottom:1px solid rgba(255,255,255,0.1)}
+    .header-container{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:12px 16px}
+    .logo,.site-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#fff}
+    .logo-icon{font-size:1.5rem}.logo-text{font-size:1rem;font-weight:700}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;font-family:inherit;font-size:1rem;font-weight:500;text-decoration:none;border:none;border-radius:var(--radius-xl);cursor:pointer;transition:all 0.2s;min-height:44px}
+    .btn-primary{background:var(--brand-gradient);color:#fff;box-shadow:0 4px 15px rgba(139,90,43,0.4)}
+    .container{width:100%;max-width:1280px;margin:0 auto;padding:0 16px}
+    .page-loading-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center}
+    .loading-spinner-ring{width:50px;height:50px;border:3px solid rgba(201,169,98,0.2);border-top-color:#C9A962;border-radius:50%;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+  
+  <!-- Core CSS (지연 로딩) -->
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/gnb.css">
+  <link rel="stylesheet" href="/css/doctors.css">
+  <link rel="stylesheet" href="/css/liquid-metal.css">
+  <link rel="stylesheet" href="/css/ux-enhancements.css">
+  <link rel="stylesheet" href="/css/mobile-ux-enhanced.css">
+  <link rel="stylesheet" href="/css/responsive-devices.css">
+  <link rel="stylesheet" href="/css/language-switcher.css">
+  <link rel="stylesheet" href="/css/image-placeholders.css">
+  
+  <!-- Prefetch -->
+  <link rel="prefetch" href="../reservation.html" as="document">
+  
+  <!-- E-E-A-T Enhanced Schema.org - Medical Team -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalOrganization",
+    "@id": "https://bdbddc.com/doctors/#medical-team",
+    "name": "서울비디치과 의료진",
+    "description": "서울대 출신 15인 원장의 체계적 협진 시스템. 통합치의학과, 교정과, 소아치과 전문의 다수 포함.",
+    "url": "https://bdbddc.com/doctors/",
+    "parentOrganization": {
+      "@type": "Dentist",
+      "@id": "https://bdbddc.com/#dentist",
+      "name": "서울비디치과"
+    },
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "value": 15,
+      "unitText": "원장급 의료진"
+    },
+    "medicalSpecialty": [
+      "Comprehensive Dentistry",
+      "Orthodontics", 
+      "Implant Dentistry", 
+      "Pediatric Dentistry",
+      "Cosmetic Dentistry",
+      "Prosthodontics"
+    ],
+    "employee": [
+      {
+        "@type": "Physician",
+        "@id": "https://bdbddc.com/doctors/moon.html#physician",
+        "name": "문석준",
+        "jobTitle": "대표원장",
+        "medicalSpecialty": "통합치의학과 전문의",
+        "alumniOf": "서울대학교 치의학대학원",
+        "url": "https://bdbddc.com/doctors/moon.html"
+      },
+      {
+        "@type": "Physician",
+        "name": "현정민",
+        "jobTitle": "원장 (심미치료센터장)",
+        "medicalSpecialty": "심미보철",
+        "alumniOf": "서울대학교 치의학대학원",
+        "url": "https://bdbddc.com/doctors/hyun.html"
+      },
+      {
+        "@type": "Physician",
+        "name": "최종훈",
+        "jobTitle": "원장 (종합진료센터장)",
+        "alumniOf": "서울대학교 치의학대학원",
+        "url": "https://bdbddc.com/doctors/choi.html"
+      }
+    ],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "통합치의학과 전문의",
+        "credentialCategory": "의료 전문의 자격"
+      },
+      {
+        "@type": "EducationalOccupationalCredential", 
+        "name": "교정과 전문의 2인",
+        "credentialCategory": "의료 전문의 자격"
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "소아치과 전문의 3인",
+        "credentialCategory": "의료 전문의 자격"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- AEO: AI 검색 최적화 메타 태그 (의료진) -->
+  <meta name="ai.medical-team" content="서울비디치과는 서울대학교 출신 15인 원장이 협진하는 천안 최대 규모 치과입니다. 통합치의학과 전문의, 교정 전문의 2인, 소아치과 전문의 3인이 각 분야에서 전문 진료를 제공합니다.">
+  <meta name="ai.expertise" content="임플란트, 인비절라인 교정, 소아치과, 심미치료(라미네이트), 일반 치과 진료">
+  <meta name="ai.trust-signals" content="서울대학교 출신, 전문의 자격 보유, 13,000+ 시술 케이스, 98% 환자 만족도">
+</head>
+<body>
+  <!-- 🫧 GLOBAL LIQUID METAL BACKGROUND -->
+  <div class="liquid-metal-bg" aria-hidden="true">
+    <div class="liquid-blob liquid-blob-1"></div>
+    <div class="liquid-blob liquid-blob-2"></div>
+    <div class="liquid-blob liquid-blob-3"></div>
+  </div>
+  <div class="film-grain" aria-hidden="true"></div>
+  
+  <!-- ■ Header / GNB (통합 버전) -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <!-- 로고 + 진료상태 -->
+      <div class="header-brand">
+        <a href="../index.html" class="site-logo">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text" data-i18n="common.clinicName">서울비디치과</span>
+        </a>
+        <div class="clinic-status open">
+          <span class="status-dot"></span>
+          <span class="status-text" data-i18n="common.open">진료중</span>
+          <span class="status-time">20:00<span data-i18n="common.until">까지</span></span>
+        </div>
+      </div>
+      
+      <!-- 메인 네비게이션 -->
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <!-- 진료 안내 (메가 드롭다운) -->
+          <li class="nav-item has-dropdown">
+            <a href="../treatments/index.html" data-i18n="nav.treatments">진료 안내</a>
+            <div class="mega-dropdown">
+              <div class="mega-dropdown-grid">
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="centers.specialCenters">전문센터</h4>
+                  <ul>
+                    <li><a href="../treatments/glownate.html" class="nav-highlight">✨ <span data-i18n="centers.glownate">글로우네이트</span> <span class="badge badge-hot">HOT</span></a></li>
+                    <li><a href="../treatments/implant.html"><span data-i18n="centers.implant">임플란트센터</span> <span class="badge" data-i18n="centers.implantDesc">6개 수술실</span></a></li>
+                    <li><a href="../treatments/invisalign.html"><span data-i18n="centers.orthodontics">교정센터(인비절라인)</span> <span class="badge" data-i18n="centers.orthodonticsDesc">국내 최대</span></a></li>
+                    <li><a href="../treatments/pediatric.html"><span data-i18n="centers.pediatric">소아치과</span> <span class="badge" data-i18n="centers.pediatricDesc">전문의 3인</span></a></li>
+                    <li><a href="../treatments/aesthetic.html"><span data-i18n="centers.aesthetic">심미치료(현정민 원장)</span></a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="treatments.generalTreatment">일반/보존 진료</h4>
+                  <ul>
+                    <li><a href="../treatments/cavity.html" data-i18n="treatments.cavity">충치치료</a></li>
+                    <li><a href="../treatments/resin.html" data-i18n="treatments.resin">레진치료</a></li>
+                    <li><a href="../treatments/crown.html" data-i18n="treatments.crown">크라운</a></li>
+                    <li><a href="../treatments/inlay.html" data-i18n="treatments.inlay">인레이/온레이</a></li>
+                    <li><a href="../treatments/root-canal.html" data-i18n="treatments.rootCanal">신경치료</a></li>
+                    <li><a href="../treatments/whitening.html" data-i18n="treatments.whitening">미백</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="treatments.gumSurgery">잇몸/외과</h4>
+                  <ul>
+                    <li><a href="../treatments/scaling.html" data-i18n="treatments.scaling">스케일링</a></li>
+                    <li><a href="../treatments/gum.html" data-i18n="treatments.gumTreatment">잇몸치료</a></li>
+                    <li><a href="../treatments/periodontitis.html">치주염</a></li>
+                    <li><a href="../treatments/wisdom-tooth.html" data-i18n="treatments.wisdomTooth">사랑니 발치</a></li>
+                    <li><a href="../treatments/tmj.html" data-i18n="treatments.tmj">턱관절장애</a></li>
+                    <li><a href="../treatments/bruxism.html">이갈이/이악물기</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          
+          <!-- 의료진 소개 -->
+          <li class="nav-item">
+            <a href="../doctors/index.html" data-i18n="nav.doctors">의료진 소개</a>
+          </li>
+          
+          <!-- 검진센터 -->
+          <li class="nav-item">
+            <a href="../bdx/index.html" data-i18n="nav.checkup">검진센터</a>
+          </li>
+          
+          <!-- 콘텐츠 (드롭다운) - 3개 메뉴 -->
+          <li class="nav-item has-dropdown">
+            <a href="../column/columns.html">콘텐츠</a>
+            <ul class="simple-dropdown">
+              <li><a href="../column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+              <li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+              <li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+            </ul>
+          </li>
+          
+          <!-- 병원 안내 (드롭다운) - 공지사항 포함 -->
+          <li class="nav-item has-dropdown">
+            <a href="../directions.html" data-i18n="nav.about">병원 안내</a>
+            <ul class="simple-dropdown">
+              <li><a href="../pricing.html" class="nav-highlight">💰 <span data-i18n="nav.pricing">비용 안내</span></a></li>
+              <li><a href="../floor-guide.html" data-i18n="nav.floorGuide">층별 안내</a></li>
+              <li><a href="../directions.html" data-i18n="nav.directions">오시는 길</a></li>
+              <li><a href="../faq.html" data-i18n="nav.faq">자주 묻는 질문</a></li>
+              <li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- 헤더 액션 -->
+      <div class="header-actions">
+        <a href="tel:0414152892" class="header-phone">
+          <i class="fas fa-phone"></i>
+          041-415-2892
+        </a>
+        <!-- 인증 버튼 (Firebase 상태에 따라 동적 변경) -->
+        <div class="auth-buttons">
+          <a href="../auth/login.html" class="btn-auth btn-login">
+            <i class="fas fa-sign-in-alt"></i>
+            <span data-i18n="auth.login">로그인</span>
+          </a>
+          <a href="../auth/register.html" class="btn-auth btn-register">
+            <i class="fas fa-user-plus"></i>
+            <span data-i18n="auth.register">회원가입</span>
+          </a>
+        </div>
+        <a href="../reservation.html" class="btn-reserve">
+          <i class="fas fa-calendar-check"></i>
+          <span data-i18n="common.reserve">예약하기</span>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div style="height: 72px;"></div>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="text-h1">의료진 소개</h1>
+      <p>서울대 출신 15인 원장의 체계적 협진 시스템</p>
+      <div class="breadcrumb">
+        <a href="../index.html">홈</a>
+        <span>/</span>
+        <span>의료진 소개</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collaboration System -->
+  <section class="section">
+    <div class="container">
+      <div class="collab-intro glass-card">
+        <div class="collab-icon">
+          <i class="fas fa-users-medical"></i>
+        </div>
+        <h2 class="text-h3">15인 체계적 협진 시스템</h2>
+        <p class="text-body-lg">
+          서울비디치과는 각 분야 전문 원장들이 함께 모여<br>
+          환자 한 분 한 분을 위한 최적의 치료 계획을 수립합니다.
+        </p>
+        <div class="collab-stats">
+          <div class="stat-item">
+            <span class="stat-num">15</span>
+            <span class="stat-label">서울대 출신 원장</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">6</span>
+            <span class="stat-label">전문 분야</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">서울대 출신</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specialty Highlight -->
+  <section class="section bg-dark">
+    <div class="container">
+      <div class="specialty-grid">
+        <div class="specialty-card glass-card">
+          <div class="specialty-icon"><i class="fas fa-user-md"></i></div>
+          <h3>대표원장</h3>
+          <div class="specialty-count">3인</div>
+          <p>서울대 통합치의학과 전문의 3인이<br>병원을 대표합니다</p>
+        </div>
+        <div class="specialty-card glass-card">
+          <div class="specialty-icon"><i class="fas fa-baby"></i></div>
+          <h3>소아치과</h3>
+          <div class="specialty-count">3인</div>
+          <p>서울대 소아치과 전문의 3인이<br>아이들을 위한 진료를 합니다</p>
+        </div>
+        <div class="specialty-card glass-card">
+          <div class="specialty-icon"><i class="fas fa-teeth"></i></div>
+          <h3>교정과</h3>
+          <div class="specialty-count">1인</div>
+          <p>서울대 치과교정과 전문의가<br>교정치료를 담당합니다</p>
+        </div>
+        <div class="specialty-card glass-card">
+          <div class="specialty-icon"><i class="fas fa-tooth"></i></div>
+          <h3>보존과/구강내과</h3>
+          <div class="specialty-count">3인</div>
+          <p>보존과, 구강내과 전문의들이<br>종합진료를 담당합니다</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Doctors - 15인 동등 표시 -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>전체 의료진</h2>
+        <p>각 분야 전문가들의 협진으로 최상의 결과를 만듭니다</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="doctor-filter">
+        <button class="filter-btn active" data-filter="all">전체 <span class="filter-count">15</span></button>
+        <button class="filter-btn" data-filter="representative">대표원장 <span class="filter-count">3</span></button>
+        <button class="filter-btn" data-filter="pediatric">소아치과 <span class="filter-count">3</span></button>
+        <button class="filter-btn" data-filter="orthodontics">교정과 <span class="filter-count">1</span></button>
+        <button class="filter-btn" data-filter="general">일반진료 <span class="filter-count">8</span></button>
+      </div>
+
+      <!-- Doctors Grid - 15인 전체 -->
+      <div class="doctors-grid">
+        
+        <!-- 🔶 대표원장진 -->
+        <!-- 1. 문석준 대표원장 -->
+        <a href="moon.html" class="doctor-card glass-card" data-specialty="representative">
+          <div class="doctor-photo">
+            <img src="/images/doctors/moon-profile.jpg" alt="문석준 대표원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role representative">대표원장</span>
+            <h3 class="doctor-card-name">문석준</h3>
+            <p class="doctor-card-specialty">통합치의학과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>통합치의학과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 2. 김민수 대표원장 -->
+        <a href="kim.html" class="doctor-card glass-card" data-specialty="representative">
+          <div class="doctor-photo">
+            <img src="/images/doctors/kim-profile.jpg" alt="김민수 대표원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role representative">대표원장</span>
+            <h3 class="doctor-card-name">김민수</h3>
+            <p class="doctor-card-specialty">통합치의학과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>통합치의학과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 3. 현정민 대표원장 -->
+        <a href="hyun.html" class="doctor-card glass-card" data-specialty="representative">
+          <div class="doctor-photo">
+            <img src="/images/doctors/hyun-profile.jpg" alt="현정민 대표원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role representative">대표원장</span>
+            <h3 class="doctor-card-name">현정민</h3>
+            <p class="doctor-card-specialty">통합치의학과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>통합치의학과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 🔶 의료진 -->
+        <!-- 4. 최종훈 원장 -->
+        <a href="choi.html" class="doctor-card glass-card" data-specialty="general">
+          <div class="doctor-photo">
+            <img src="/images/doctors/choi-profile.jpg" alt="최종훈 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role">통합치의학과 전문의</span>
+            <h3 class="doctor-card-name">최종훈</h3>
+            <p class="doctor-card-specialty">통합치의학과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>통합치의학과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 5. 이승엽 원장 -->
+        <a href="lee.html" class="doctor-card glass-card" data-specialty="general">
+          <div class="doctor-photo">
+            <img src="/images/doctors/lee-profile.jpg" alt="이승엽 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role">통합치의학과 전문의</span>
+            <h3 class="doctor-card-name">이승엽</h3>
+            <p class="doctor-card-specialty">통합치의학과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>통합치의학과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 6. 강경민 원장 -->
+        <a href="kang.html" class="doctor-card glass-card" data-specialty="general">
+          <div class="doctor-photo">
+            <img src="/images/doctors/kang-profile.jpg" alt="강경민 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role">원장</span>
+            <h3 class="doctor-card-name">강경민</h3>
+            <p class="doctor-card-specialty">서울대학교 치과병원 종합진료실</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>서울대학교 치과병원 종합진료실</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 7. 임지원 원장 -->
+        <a href="lim.html" class="doctor-card glass-card" data-specialty="general">
+          <div class="doctor-photo">
+            <img src="/images/doctors/lim-profile.jpg" alt="임지원 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role">통합치의학과 전문의</span>
+            <h3 class="doctor-card-name">임지원</h3>
+            <p class="doctor-card-specialty">통합치의학과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>통합치의학과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 8. 김민규 원장 -->
+        <a href="kim-mg.html" class="doctor-card glass-card" data-specialty="orthodontics">
+          <div class="doctor-photo">
+            <img src="/images/doctors/kim-mg-profile.jpg" alt="김민규 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role orthodontics">치과교정과 전문의</span>
+            <h3 class="doctor-card-name">김민규</h3>
+            <p class="doctor-card-specialty">치과교정과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>서울대학교 치의학대학원 박사 수료</li>
+              <li>치과교정과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 9. 강민지 원장 -->
+        <a href="kang-mj.html" class="doctor-card glass-card" data-specialty="general">
+          <div class="doctor-photo">
+            <img src="/images/doctors/kang-mj-profile.jpg" alt="강민지 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role">인증 보존과 전문의</span>
+            <h3 class="doctor-card-name">강민지</h3>
+            <p class="doctor-card-specialty">인증 보존과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>서울대학교 치의학대학원 박사 수료</li>
+              <li>인증 보존과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 10. 조설아 원장 -->
+        <a href="jo.html" class="doctor-card glass-card" data-specialty="general">
+          <div class="doctor-photo">
+            <img src="/images/doctors/jo-profile.jpg" alt="조설아 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role">치과보존과, 통합치의학과 전문의</span>
+            <h3 class="doctor-card-name">조설아</h3>
+            <p class="doctor-card-specialty">치과보존과, 통합치의학과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>서울대학교 치의학대학원 박사</li>
+              <li>치과보존과 전문의, 통합치의학과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 11. 김민진 원장 -->
+        <a href="kim-mj.html" class="doctor-card glass-card" data-specialty="pediatric">
+          <div class="doctor-photo">
+            <img src="/images/doctors/kim-mj-profile.jpg" alt="김민진 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role pediatric">소아치과 전문의</span>
+            <h3 class="doctor-card-name">김민진</h3>
+            <p class="doctor-card-specialty">소아치과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>서울대학교 치의학대학원 박사 수료</li>
+              <li>소아치과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 12. 서희원 원장 -->
+        <a href="seo.html" class="doctor-card glass-card" data-specialty="pediatric">
+          <div class="doctor-photo">
+            <img src="/images/doctors/seo-profile.jpg" alt="서희원 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role pediatric">소아치과 전문의</span>
+            <h3 class="doctor-card-name">서희원</h3>
+            <p class="doctor-card-specialty">소아치과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>서울대학교 치의학대학원 박사 수료</li>
+              <li>소아치과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 13. 박상현 원장 -->
+        <a href="park.html" class="doctor-card glass-card" data-specialty="pediatric">
+          <div class="doctor-photo">
+            <img src="/images/doctors/park-profile.jpg" alt="박상현 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role pediatric">소아치과 전문의</span>
+            <h3 class="doctor-card-name">박상현</h3>
+            <p class="doctor-card-specialty">소아치과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>서울대학교 치의학대학원 박사 수료</li>
+              <li>소아치과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 14. 박수빈 원장 -->
+        <a href="park-sb.html" class="doctor-card glass-card" data-specialty="general">
+          <div class="doctor-photo">
+            <img src="/images/doctors/park-sb-profile.jpg" alt="박수빈 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role">원장</span>
+            <h3 class="doctor-card-name">박수빈</h3>
+            <p class="doctor-card-specialty">서울대학교 치과병원 종합진료실</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>서울대학교 치과병원 종합진료실</li>
+            </ul>
+          </div>
+        </a>
+
+        <!-- 15. 이병민 원장 -->
+        <a href="lee-bm.html" class="doctor-card glass-card" data-specialty="general">
+          <div class="doctor-photo">
+            <img src="/images/doctors/lee-bm-profile.jpg" alt="이병민 원장" class="doctor-photo-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="doctor-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i></div>
+          </div>
+          <div class="doctor-card-info">
+            <span class="doctor-role">구강내과 전문의</span>
+            <h3 class="doctor-card-name">이병민</h3>
+            <p class="doctor-card-specialty">구강내과 전문의</p>
+            <ul class="doctor-card-credentials">
+              <li>서울대학교 치의학과</li>
+              <li>서울대학교 치의학대학원 석사</li>
+              <li>구강내과 전문의</li>
+            </ul>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- E-E-A-T Notice -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="eeat-notice glass-card">
+        <h3><i class="fas fa-shield-alt"></i> 의료진 정보 안내</h3>
+        <p>
+          서울비디치과의 모든 의료진 정보는 사실에 기반하여 작성되었습니다.
+          학력, 경력, 자격 사항은 모두 검증된 정보이며, 
+          의료법 및 의료광고 심의 기준을 준수하여 제공됩니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-wrapper glass-card">
+        <div class="cta-content">
+          <p class="cta-badge">365일 진료 · 평일 야간진료</p>
+          <h2 class="text-h2">전문 의료진에게 상담받으세요</h2>
+          <p class="text-body-lg">
+            서울비디치과 15인 협진 시스템으로<br>
+            나에게 맞는 최적의 치료를 제안받으세요.
+          </p>
+          <div class="cta-buttons">
+            <a href="../reservation.html" class="btn btn-primary btn-lg">
+              <i class="fas fa-calendar-check"></i>
+              상담 예약하기
+            </a>
+            <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" class="btn btn-accent btn-lg">
+              <i class="fab fa-comment"></i>
+              카카오톡 상담
+            </a>
+          </div>
+          <p class="cta-tel">
+            <i class="fas fa-phone"></i>
+            전화 예약: <a href="tel:041-415-2892">041-415-2892</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="../index.html" class="footer-logo">
+            <span class="logo-icon">🦷</span>
+            <span class="logo-text">서울비디치과</span>
+          </a>
+          <p class="footer-slogan">Best Dedication - 최고의 헌신</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>전문센터</h4>
+            <ul>
+              <li><a href="../treatments/implant.html">임플란트센터</a></li>
+              <li><a href="../treatments/invisalign.html">교정센터</a></li>
+              <li><a href="../treatments/pediatric.html">소아치과</a></li>
+              <li><a href="../treatments/glownate.html">심미치료</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>병원 안내</h4>
+            <ul>
+              <li><a href="/">의료진 소개</a></li>
+              <li><a href="../bdx/index.html">BDX 검진센터</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>고객 지원</h4>
+            <ul>
+              <li><a href="../reservation.html">예약/상담</a></li>
+              <li><a href="../faq.html">자주 묻는 질문</a></li>
+              <li><a href="../directions.html">오시는 길</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-contact">
+          <p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p>
+          <p><i class="fas fa-phone"></i> 041-415-2892</p>
+          <div class="footer-hours">
+            <p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p>
+            <p>평일 09:00-20:00 (점심 12:30-14:00)</p>
+            <p>토·일 09:00-17:00</p>
+            <p>공휴일 09:00-13:00</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <p class="legal-notice">
+          *본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 
+          특정 개인의 결과는 개인에 따라 달라질 수 있습니다.
+        </p>
+        <p class="copyright">© 2018 Seoul BD Dental Clinic. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+      <span class="logo-icon">🦷</span>
+      <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-nav-menu">
+      <li><a href="../treatments/index.html"><i class="fas fa-tooth"></i> 진료 안내</a></li>
+      <li><a href="/" class="active"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
+      <li><a href="../bdx/index.html"><i class="fas fa-microscope"></i> 검진센터(BDX)</a></li>
+      <li><a href="../cases/gallery.html"><i class="fas fa-images"></i> Before/After</a></li>
+      <li><a href="../faq.html"><i class="fas fa-question-circle"></i> 자주 묻는 질문</a></li>
+      <li><a href="../directions.html"><i class="fas fa-map-marker-alt"></i> 오시는 길</a></li>
+      <li><a href="../reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+      <p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p>
+      <a href="tel:041-415-2892" class="btn btn-primary btn-lg">
+        <i class="fas fa-phone"></i> 전화 예약
+      </a>
+    </div>
+  </nav>
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+  <script src="/js/image-fallback.js" defer></script>
+<script src="/js/gnb.js" defer></script>
+<script src="/js/main.js" defer></script>
+  <script>
+    // Doctor Filter - 다중 전공 지원
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const filter = this.dataset.filter;
+        
+        // Update active button
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter doctors (supports multiple specialties)
+        document.querySelectorAll('.doctor-card').forEach(card => {
+          const specialties = card.dataset.specialty.split(' ');
+          if (filter === 'all' || specialties.includes(filter)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+  <script src="/js/translations.js" defer></script>
+  <script src="/js/language-switcher.js" defer></script>
+  
+  <!-- Firebase SDK (지연 로딩) -->
+  <script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script defer src="/js/firebase-auth.js"></script>
+  
+  <!-- Amplitude Event Tracking -->
+  <script defer src="/js/amplitude-events.js"></script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공지사항 | 서울비디치과</title>
+  <meta name="description" content="서울비디치과의 중요한 공지사항과 새소식을 확인하세요. 진료 안내, 이벤트, 휴진 안내 등 다양한 정보를 제공합니다.">
+  <meta name="keywords" content="서울비디치과, 공지사항, 치과소식, 진료안내, 휴진안내">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://bdbddc.com/notice/index.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="공지사항 | 서울비디치과">
+  <meta property="og:description" content="서울비디치과의 중요한 공지사항과 새소식">
+  <meta property="og:url" content="https://bdbddc.com/notice/index.html">
+  
+  <link rel="icon" type="image/svg+xml" href="../images/icons/favicon.svg">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/gnb.css">
+  
+  <style>
+    .page-container {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #0a0a0a 0%, #12100d 100%);
+      color: #fff;
+    }
+    
+    .page-hero {
+      padding: 120px 5% 60px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 90, 43, 0.05) 100%);
+    }
+    
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .breadcrumb a {
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+    }
+    
+    .breadcrumb a:hover {
+      color: #C9A962;
+    }
+    
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .page-hero p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.1rem;
+    }
+    
+    .content-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 24px 5%;
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+      position: sticky;
+      top: 72px;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    
+    .tab-btn {
+      padding: 12px 28px;
+      background: transparent;
+      border: 1px solid rgba(139, 90, 43, 0.3);
+      border-radius: 50px;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    
+    .tab-btn:hover {
+      border-color: rgba(201, 169, 98, 0.6);
+      color: #C9A962;
+    }
+    
+    .tab-btn.active {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      border-color: transparent;
+      color: #fff;
+    }
+    
+    .content-section {
+      padding: 40px 5% 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .loading-state {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(59, 130, 246, 0.2);
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .notice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .notice-item {
+      background: rgba(26, 20, 16, 0.6);
+      border: 1px solid rgba(139, 90, 43, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .notice-item:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+    
+    .notice-item.pinned {
+      border-color: rgba(201, 169, 98, 0.4);
+      background: linear-gradient(135deg, rgba(201, 169, 98, 0.1), rgba(26, 20, 16, 0.6));
+    }
+    
+    .notice-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+    }
+    
+    .notice-badges {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    
+    .badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .badge.pinned {
+      background: linear-gradient(135deg, #8B5A2B, #C9A962);
+      color: #fff;
+    }
+    
+    .badge.new {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+    
+    .badge.important {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+    
+    .badge.event {
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+    }
+    
+    .badge.general {
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+    }
+    
+    .notice-title-wrap {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .notice-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    
+    .notice-date {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .notice-arrow {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+    
+    .notice-item.expanded .notice-arrow {
+      transform: rotate(90deg);
+    }
+    
+    .notice-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .notice-item.expanded .notice-content {
+      max-height: 500px;
+    }
+    
+    .notice-body {
+      padding: 0 24px 24px;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.8;
+      border-top: 1px solid rgba(139, 90, 43, 0.1);
+      padding-top: 20px;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 100px 20px;
+    }
+    
+    .empty-state i {
+      font-size: 5rem;
+      color: rgba(59, 130, 246, 0.3);
+      margin-bottom: 24px;
+    }
+    
+    .empty-state h3 {
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    
+    .empty-state p {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: 100px 5% 40px;
+      }
+      
+      .content-tabs {
+        gap: 6px;
+        padding: 16px 3%;
+      }
+      
+      .tab-btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+      }
+      
+      .notice-header {
+        padding: 16px;
+        flex-wrap: wrap;
+      }
+      
+      .notice-badges {
+        order: -1;
+        width: 100%;
+        margin-bottom: 8px;
+      }
+    }
+  </style>
+</head>
+<body class="page-container">
+  <div id="header-placeholder"></div>
+  
+  <section class="page-hero">
+    <div class="breadcrumb">
+      <a href="../index.html">홈</a>
+      <span>/</span>
+      <span>공지사항</span>
+    </div>
+    <h1><i class="fas fa-bullhorn" style="margin-right: 12px;"></i>공지사항</h1>
+    <p>서울비디치과의 중요한 공지사항과 새소식을 확인하세요</p>
+  </section>
+  
+  <!-- 병원 안내 하위 메뉴 (공지사항은 병원 안내 섹션) -->
+  <nav class="content-tabs">
+    <a href="../pricing.html" class="tab-btn"><i class="fas fa-won-sign"></i> 비용 안내</a>
+    <a href="../floor-guide.html" class="tab-btn"><i class="fas fa-building"></i> 층별 안내</a>
+    <a href="../directions.html" class="tab-btn"><i class="fas fa-map-marker-alt"></i> 오시는 길</a>
+    <a href="../faq.html" class="tab-btn"><i class="fas fa-question-circle"></i> FAQ</a>
+    <a href="index.html" class="tab-btn active"><i class="fas fa-bullhorn"></i> 공지사항</a>
+  </nav>
+  
+  <main class="content-section">
+    <div id="loadingState" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>공지사항을 불러오는 중...</p>
+    </div>
+    
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <i class="fas fa-bell-slash"></i>
+      <h3>아직 등록된 공지사항이 없습니다</h3>
+      <p>새로운 공지사항이 등록되면 알려드리겠습니다.</p>
+    </div>
+    
+    <div id="noticeList" class="notice-list" style="display: none;"></div>
+  </main>
+  
+  <script src="../js/header-loader.js" defer></script>
+  <script>
+    const loadingState = document.getElementById('loadingState');
+    const emptyState = document.getElementById('emptyState');
+    const noticeList = document.getElementById('noticeList');
+    
+    async function loadNotices() {
+      try {
+        const response = await fetch('../tables/notices?limit=50&sort=-is_pinned,-created_at');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.data && result.data.length > 0) {
+            renderNotices(result.data);
+            return;
+          }
+        }
+      } catch (error) {
+        console.error('공지사항 로드 오류:', error);
+      }
+      renderDemoNotices();
+    }
+    
+    function renderNotices(notices) {
+      noticeList.innerHTML = '';
+      notices.forEach(notice => {
+        const item = createNoticeItem(notice);
+        noticeList.appendChild(item);
+      });
+      showContent();
+    }
+    
+    function createNoticeItem(notice) {
+      const item = document.createElement('article');
+      item.className = `notice-item${notice.is_pinned ? ' pinned' : ''}`;
+      
+      const isNew = notice.created_at && (Date.now() - new Date(notice.created_at).getTime()) < 7 * 24 * 60 * 60 * 1000;
+      
+      let categoryBadge = '';
+      switch (notice.category) {
+        case '중요': categoryBadge = '<span class="badge important">중요</span>'; break;
+        case '이벤트': categoryBadge = '<span class="badge event">이벤트</span>'; break;
+        default: categoryBadge = '<span class="badge general">일반</span>';
+      }
+      
+      item.innerHTML = `
+        <div class="notice-header">
+          <div class="notice-badges">
+            ${notice.is_pinned ? '<span class="badge pinned">📌 고정</span>' : ''}
+            ${isNew ? '<span class="badge new">NEW</span>' : ''}
+            ${categoryBadge}
+          </div>
+          <div class="notice-title-wrap">
+            <h3 class="notice-title">${notice.title}</h3>
+            <span class="notice-date"><i class="far fa-calendar-alt"></i> ${formatDate(notice.created_at)}</span>
+          </div>
+          <i class="fas fa-chevron-right notice-arrow"></i>
+        </div>
+        <div class="notice-content">
+          <div class="notice-body">${notice.content || '내용이 없습니다.'}</div>
+        </div>
+      `;
+      
+      item.querySelector('.notice-header').addEventListener('click', () => {
+        item.classList.toggle('expanded');
+      });
+      
+      return item;
+    }
+    
+    function renderDemoNotices() {
+      const demoData = [
+        { id: '1', title: '2024년 연말 진료 안내', content: '<p>12월 24일(화): 정상 진료<br>12월 25일(수): 휴진<br>12월 31일(화): 오전 진료<br>1월 1일(수): 휴진</p><p>새해 복 많이 받으세요!</p>', category: '중요', is_pinned: true, created_at: Date.now() - 2 * 24 * 60 * 60 * 1000 },
+        { id: '2', title: '12월 인비절라인 특별 프로모션', content: '<p>12월 한 달간 인비절라인 교정 10% 할인!</p><p>선착순 10명 한정</p>', category: '이벤트', is_pinned: true, created_at: Date.now() - 5 * 24 * 60 * 60 * 1000 },
+        { id: '3', title: '신규 의료진 영입 안내', content: '<p>박OO 원장님이 새로 합류하셨습니다.</p><p>전문 분야: 심미보철, 임플란트</p>', category: '일반', is_pinned: false, created_at: Date.now() - 10 * 24 * 60 * 60 * 1000 },
+        { id: '4', title: '주차장 이용 안내', content: '<p>건물 지하 주차장을 무료로 이용하실 수 있습니다.</p><p>주차권은 접수대에서 수령해주세요.</p>', category: '일반', is_pinned: false, created_at: Date.now() - 20 * 24 * 60 * 60 * 1000 }
+      ];
+      
+      noticeList.innerHTML = '';
+      demoData.forEach(notice => {
+        const item = createNoticeItem(notice);
+        noticeList.appendChild(item);
+      });
+      showContent();
+    }
+    
+    function showContent() {
+      loadingState.style.display = 'none';
+      emptyState.style.display = 'none';
+      noticeList.style.display = 'flex';
+    }
+    
+    function formatDate(timestamp) {
+      if (!timestamp) return '';
+      const date = new Date(timestamp);
+      return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+    }
+    
+    document.addEventListener('DOMContentLoaded', loadNotices);
+  </script>
+</body>
+</html>

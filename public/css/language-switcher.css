@@ -1,0 +1,291 @@
+/* ============================================
+   언어 전환 (Language Switcher) 스타일
+   v1.0 - 영어/일어/중국어 지원
+   ============================================ */
+
+/* 언어 전환 버튼 컨테이너 */
+.language-switcher {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+
+/* 현재 언어 버튼 */
+.lang-current {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(139, 90, 43, 0.2);
+    border: 1px solid rgba(201, 169, 98, 0.3);
+    border-radius: 8px;
+    color: #C9A962;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 38px;
+}
+
+.lang-current:hover {
+    background: rgba(139, 90, 43, 0.3);
+    border-color: rgba(201, 169, 98, 0.5);
+}
+
+.lang-current .lang-icon {
+    font-size: 1.1rem;
+}
+
+.lang-current .lang-code {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.lang-current .lang-arrow {
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+    margin-left: 2px;
+}
+
+.language-switcher.open .lang-current .lang-arrow {
+    transform: rotate(180deg);
+}
+
+/* 언어 드롭다운 */
+.lang-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 160px;
+    background: rgba(20, 18, 16, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(201, 169, 98, 0.2);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.25s ease;
+    z-index: 1000;
+}
+
+.language-switcher.open .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* 언어 옵션 */
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.lang-option:hover {
+    background: rgba(139, 90, 43, 0.2);
+    color: #fff;
+}
+
+.lang-option.active {
+    background: rgba(139, 90, 43, 0.3);
+    color: #C9A962;
+}
+
+.lang-option .lang-flag {
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+}
+
+.lang-option .lang-name {
+    flex: 1;
+}
+
+.lang-option .lang-native {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+}
+
+.lang-option.active .lang-native {
+    color: rgba(201, 169, 98, 0.7);
+}
+
+/* 언어별 폰트 최적화 */
+[lang="ja"] body,
+[lang="ja"] * {
+    font-family: 'Pretendard', 'Hiragino Kaku Gothic Pro', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+[lang="zh"] body,
+[lang="zh"] * {
+    font-family: 'Pretendard', 'PingFang SC', 'Microsoft YaHei', 'SimHei', sans-serif;
+}
+
+[lang="en"] body,
+[lang="en"] * {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 다국어 텍스트 표시 제어 */
+[data-lang] {
+    display: none;
+}
+
+[lang="ko"] [data-lang="ko"],
+[lang="en"] [data-lang="en"],
+[lang="ja"] [data-lang="ja"],
+[lang="zh"] [data-lang="zh"] {
+    display: inline;
+}
+
+/* 블록 레벨 다국어 요소 */
+[data-lang-block] {
+    display: none;
+}
+
+[lang="ko"] [data-lang-block="ko"],
+[lang="en"] [data-lang-block="en"],
+[lang="ja"] [data-lang-block="ja"],
+[lang="zh"] [data-lang-block="zh"] {
+    display: block;
+}
+
+/* 모바일 언어 전환 */
+@media (max-width: 992px) {
+    /* 모바일에서 헤더 언어 스위처 숨기기 (모바일 메뉴에서 표시) */
+    .language-switcher {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .language-switcher {
+        margin-left: 8px;
+    }
+    
+    .lang-current {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        min-height: 34px;
+    }
+    
+    .lang-current .lang-icon {
+        font-size: 1rem;
+    }
+    
+    .lang-current .lang-code {
+        display: none;
+    }
+    
+    .lang-dropdown {
+        right: -10px;
+        min-width: 150px;
+    }
+    
+    .lang-option {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+}
+
+/* 모바일 메뉴 내 언어 전환 */
+.mobile-lang-switcher {
+    display: none;
+    padding: 20px;
+    border-top: 1px solid rgba(201, 169, 98, 0.2);
+    margin-top: 30px;
+    background: rgba(15, 13, 11, 0.95);
+}
+
+.mobile-lang-switcher .lang-title {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mobile-lang-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.mobile-lang-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(20, 18, 16, 0.8);
+    border: 1px solid rgba(201, 169, 98, 0.15);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.mobile-lang-btn:hover,
+.mobile-lang-btn.active {
+    background: rgba(139, 90, 43, 0.2);
+    border-color: rgba(201, 169, 98, 0.4);
+    color: #C9A962;
+}
+
+.mobile-lang-btn .flag {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 992px) {
+    .mobile-lang-switcher {
+        display: block;
+    }
+}
+
+/* 로딩 인디케이터 */
+.lang-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--brand-gradient, linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: 9999;
+}
+
+.lang-loading.active {
+    transform: scaleX(1);
+}
+
+/* 애니메이션 */
+@keyframes langFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.lang-changed [data-lang],
+.lang-changed [data-lang-block] {
+    animation: langFadeIn 0.3s ease forwards;
+}

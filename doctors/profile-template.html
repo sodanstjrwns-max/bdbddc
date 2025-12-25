@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[의료진명] 원장 | [전문분야] | 서울비디치과</title>
+    <meta name="description" content="서울비디치과 [의료진명] 원장. 서울대학교 치의학대학원 졸업. [전문분야] 전문의. [주요경력/특기사항].">
+    <meta name="keywords" content="[의료진명], 서울비디치과, [전문분야], 천안치과, 서울대치과">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="[의료진명] 원장 | 서울비디치과">
+    <meta property="og:description" content="서울대 출신 [전문분야] 전문의">
+    <meta property="og:url" content="https://bdbddc.com/doctors/[profile-slug]">
+    <meta property="og:site_name" content="서울비디치과">
+    
+    <!-- Schema.org Person/Physician -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Physician",
+        "name": "[의료진명]",
+        "jobTitle": "치과의사",
+        "medicalSpecialty": "[전문분야]",
+        "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "서울대학교 치의학대학원"
+        },
+        "worksFor": {
+            "@type": "Dentist",
+            "name": "서울비디치과",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "불당34길 14, 1~5층",
+                "addressLocality": "천안시",
+                "addressRegion": "충청남도",
+                "postalCode": "31156"
+            }
+        },
+        "description": "[의료진 소개 설명]"
+    }
+    </script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/gnb.css">
+    
+    <style>
+        /* 의료진 프로필 페이지 전용 스타일 */
+        .profile-hero {
+            background: linear-gradient(135deg, #5D3A1A 0%, #8B5A2B 100%);
+            padding: 80px 5%;
+            color: white;
+        }
+        
+        .profile-hero-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        
+        .doctor-photo-section {
+            text-align: center;
+        }
+        
+        .doctor-photo {
+            width: 280px;
+            height: 350px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            margin-bottom: 1rem;
+        }
+        
+        .doctor-badges {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .doctor-intro h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .doctor-intro .specialty {
+            font-size: 1.3rem;
+            color: #90cdf4;
+            margin-bottom: 1.5rem;
+        }
+        
+        .doctor-intro .philosophy {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            padding-left: 20px;
+            border-left: 3px solid #90cdf4;
+        }
+        
+        .quick-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 2rem;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fbd38d;
+        }
+        
+        .stat .label {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+        
+        /* 경력 섹션 */
+        .career-section {
+            padding: 80px 5%;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 3rem;
+        }
+        
+        .career-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .career-category {
+            background: #f7fafc;
+            border-radius: 16px;
+            padding: 35px;
+        }
+        
+        .career-category h3 {
+            color: #8B5A2B;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #bee3f8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .career-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .career-list li {
+            padding: 12px 0;
+            color: #4a5568;
+            border-bottom: 1px solid #e2e8f0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .career-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .career-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #C9A962;
+            font-weight: bold;
+        }
+        
+        /* 전문 분야 */
+        .expertise-section {
+            padding: 80px 5%;
+            background: #edf2f7;
+        }
+        
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .expertise-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .expertise-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .expertise-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .expertise-card h4 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .expertise-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* 치료 철학 */
+        .philosophy-section {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #8B5A2B 0%, #5D3A1A 100%);
+            color: white;
+        }
+        
+        .philosophy-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .philosophy-section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .philosophy-text {
+            font-size: 1.3rem;
+            line-height: 2;
+            opacity: 0.95;
+        }
+        
+        .philosophy-values {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .value-item {
+            text-align: center;
+        }
+        
+        .value-item .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .value-item span {
+            display: block;
+            font-size: 1.1rem;
+        }
+        
+        /* 케이스 갤러리 */
+        .cases-section {
+            padding: 80px 5%;
+        }
+        
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .case-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .case-image {
+            height: 200px;
+            background: linear-gradient(135deg, #e2e8f0, #edf2f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #a0aec0;
+        }
+        
+        .case-info {
+            padding: 25px;
+        }
+        
+        .case-info h4 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .case-info p {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .case-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .case-tag {
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        /* E-E-A-T 신뢰 신호 */
+        .trust-section {
+            padding: 60px 5%;
+            background: #f0fff4;
+        }
+        
+        .trust-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .trust-item .icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .trust-item h4 {
+            color: #5D3A1A;
+            margin-bottom: 5px;
+        }
+        
+        .trust-item p {
+            color: #C9A962;
+            font-size: 0.9rem;
+        }
+        
+        /* 예약 CTA */
+        .cta-section {
+            background: linear-gradient(135deg, #C9A962 0%, #8B5A2B 100%);
+            padding: 80px 5%;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .cta-btn.primary {
+            background: white;
+            color: #8B5A2B;
+        }
+        
+        .cta-btn.secondary {
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .profile-hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .doctor-photo {
+                width: 200px;
+                height: 250px;
+                margin: 0 auto 1rem;
+            }
+            
+            .doctor-intro .philosophy {
+                border-left: none;
+                padding-left: 0;
+                border-top: 3px solid #90cdf4;
+                padding-top: 20px;
+            }
+            
+            .quick-stats {
+                justify-content: center;
+            }
+            
+            .career-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ■ 통합 헤더 -->
+    <header class="site-header" id="siteHeader">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="../index.html" class="site-logo">
+                    <span class="logo-icon">🦷</span>
+                    <span class="logo-text">서울비디치과</span>
+                </a>
+                <div class="clinic-status open">
+                    <span class="status-dot"></span>
+                    <span class="status-text">진료중</span>
+                    <span class="status-time">20:00까지</span>
+                </div>
+            </div>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li class="nav-item has-dropdown">
+                        <a href="../treatments/index.html">진료 안내</a>
+                        <div class="mega-dropdown">
+                            <div class="mega-dropdown-grid">
+                                <div class="mega-dropdown-section">
+                                    <h4>전문센터</h4>
+                                    <ul>
+                                        <li><a href="../treatments/glownate.html" class="nav-highlight">✨ 글로우네이트 <span class="badge" style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff;">HOT</span></a></li>
+                                        <li><a href="../treatments/implant.html">임플란트센터 <span class="badge">6개 수술실</span></a></li>
+                                        <li><a href="../treatments/invisalign.html">교정센터(인비절라인) <span class="badge">대규모</span></a></li>
+                                        <li><a href="../treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li>
+                                        <li><a href="../treatments/aesthetic.html">심미치료(현정민 원장)</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-dropdown-section">
+                                    <h4>일반/보존 진료</h4>
+                                    <ul>
+                                        <li><a href="../treatments/cavity.html">충치치료</a></li>
+                                        <li><a href="../treatments/resin.html">레진치료</a></li>
+                                        <li><a href="../treatments/crown.html">크라운</a></li>
+                                        <li><a href="../treatments/inlay.html">인레이/온레이</a></li>
+                                        <li><a href="../treatments/root-canal.html">신경치료</a></li>
+                                        <li><a href="../treatments/whitening.html">미백</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-dropdown-section">
+                                    <h4>잇몸/외과</h4>
+                                    <ul>
+                                        <li><a href="../treatments/scaling.html">스케일링</a></li>
+                                        <li><a href="../treatments/gum.html">잇몸치료</a></li>
+                                        <li><a href="../treatments/periodontitis.html">치주염</a></li>
+                                        <li><a href="../treatments/wisdom-tooth.html">사랑니 발치</a></li>
+                                        <li><a href="../treatments/tmj.html">턱관절장애</a></li>
+                                        <li><a href="../treatments/bruxism.html">이갈이/이악물기</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item active"><a href="index.html">의료진 소개</a></li>
+                    <li class="nav-item"><a href="../bdx/index.html">검진센터</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../column/columns.html">콘텐츠</a>
+                        <ul class="simple-dropdown">
+                            <li><a href="../column/columns.html">칼럼</a></li>
+                            <li><a href="../video/index.html">영상</a></li>
+                            <li><a href="../cases/gallery.html">비포/애프터</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../directions.html">병원 안내</a>
+                        <ul class="simple-dropdown">
+                            <li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+                            <li><a href="../floor-guide.html">층별 안내</a></li>
+                            <li><a href="../directions.html">오시는 길</a></li>
+                            <li><a href="../faq.html">자주 묻는 질문</a></li>
+                            <li><a href="../notice/index.html">공지사항</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
+                <a href="../reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 프로필 Hero -->
+    <section class="profile-hero">
+        <div class="profile-hero-content">
+            <div class="doctor-photo-section">
+                <div class="doctor-photo">👨‍⚕️</div>
+                <div class="doctor-badges">
+                    <span class="badge">대표원장</span>
+                    <span class="badge">서울대 출신</span>
+                </div>
+            </div>
+            
+            <div class="doctor-intro">
+                <h1>[의료진명] 원장</h1>
+                <p class="specialty">[전문분야] 전문의</p>
+                
+                <blockquote class="philosophy">
+                    "환자분의 건강한 치아와 아름다운 미소를 위해<br>
+                    최선의 치료를 약속드립니다.<br>
+                    정확한 진단, 정직한 치료가 저의 신념입니다."
+                </blockquote>
+                
+                <div class="quick-stats">
+                    <div class="stat">
+                        <div class="number">XX년</div>
+                        <div class="label">진료 경력</div>
+                    </div>
+                    <div class="stat">
+                        <div class="number">X,XXX+</div>
+                        <div class="label">시술 건수</div>
+                    </div>
+                    <div class="stat">
+                        <div class="number">98%</div>
+                        <div class="label">환자 만족도</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 경력 섹션 -->
+    <section class="career-section">
+        <h2 class="section-title">학력 및 경력</h2>
+        
+        <div class="career-content">
+            <div class="career-category">
+                <h3>🎓 학력</h3>
+                <ul class="career-list">
+                    <li>서울대학교 치의학대학원 졸업</li>
+                    <li>서울대학교 치과대학 학사</li>
+                    <li>[관련 석·박사 학위]</li>
+                </ul>
+            </div>
+            
+            <div class="career-category">
+                <h3>🏥 경력</h3>
+                <ul class="career-list">
+                    <li>현) 서울비디치과 [직위]</li>
+                    <li>전) [이전 경력 1]</li>
+                    <li>전) [이전 경력 2]</li>
+                    <li>[인턴/레지던트 수료]</li>
+                </ul>
+            </div>
+            
+            <div class="career-category">
+                <h3>📜 자격 및 면허</h3>
+                <ul class="career-list">
+                    <li>대한치과의사협회 정회원</li>
+                    <li>[전문의 자격증]</li>
+                    <li>[관련 학회 자격]</li>
+                    <li>[인비절라인 공인의 등]</li>
+                </ul>
+            </div>
+            
+            <div class="career-category">
+                <h3>🏆 학회 활동</h3>
+                <ul class="career-list">
+                    <li>대한[관련]학회 정회원</li>
+                    <li>[관련 학회 1] 정회원</li>
+                    <li>[관련 학회 2] 정회원</li>
+                    <li>[학술대회 발표 등]</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 전문 분야 -->
+    <section class="expertise-section">
+        <h2 class="section-title">전문 진료 분야</h2>
+        
+        <div class="expertise-grid">
+            <div class="expertise-card">
+                <div class="icon">🦷</div>
+                <h4>[전문분야 1]</h4>
+                <p>[해당 분야에 대한 간단한 설명과 원장의 특장점]</p>
+            </div>
+            <div class="expertise-card">
+                <div class="icon">✨</div>
+                <h4>[전문분야 2]</h4>
+                <p>[해당 분야에 대한 간단한 설명과 원장의 특장점]</p>
+            </div>
+            <div class="expertise-card">
+                <div class="icon">💎</div>
+                <h4>[전문분야 3]</h4>
+                <p>[해당 분야에 대한 간단한 설명과 원장의 특장점]</p>
+            </div>
+            <div class="expertise-card">
+                <div class="icon">🔬</div>
+                <h4>[전문분야 4]</h4>
+                <p>[해당 분야에 대한 간단한 설명과 원장의 특장점]</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 치료 철학 -->
+    <section class="philosophy-section">
+        <div class="philosophy-content">
+            <h2>[의료진명] 원장의 치료 철학</h2>
+            <p class="philosophy-text">
+                "[환자 중심의 치료 철학에 대한 메시지]<br>
+                [정확한 진단과 정직한 치료에 대한 신념]<br>
+                [환자와의 소통과 신뢰 구축에 대한 가치]"
+            </p>
+            
+            <div class="philosophy-values">
+                <div class="value-item">
+                    <div class="icon">🎯</div>
+                    <span>정확한 진단</span>
+                </div>
+                <div class="value-item">
+                    <div class="icon">💬</div>
+                    <span>충분한 설명</span>
+                </div>
+                <div class="value-item">
+                    <div class="icon">🤝</div>
+                    <span>환자 중심</span>
+                </div>
+                <div class="value-item">
+                    <div class="icon">⭐</div>
+                    <span>최선의 결과</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 치료 케이스 -->
+    <section class="cases-section">
+        <h2 class="section-title">[의료진명] 원장 치료 케이스</h2>
+        
+        <div class="cases-grid">
+            <div class="case-card">
+                <div class="case-image">🦷</div>
+                <div class="case-info">
+                    <h4>[케이스 제목 1]</h4>
+                    <p>[간단한 케이스 설명]</p>
+                    <div class="case-tags">
+                        <span class="case-tag">[태그1]</span>
+                        <span class="case-tag">[태그2]</span>
+                    </div>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image">✨</div>
+                <div class="case-info">
+                    <h4>[케이스 제목 2]</h4>
+                    <p>[간단한 케이스 설명]</p>
+                    <div class="case-tags">
+                        <span class="case-tag">[태그1]</span>
+                        <span class="case-tag">[태그2]</span>
+                    </div>
+                </div>
+            </div>
+            <div class="case-card">
+                <div class="case-image">💎</div>
+                <div class="case-info">
+                    <h4>[케이스 제목 3]</h4>
+                    <p>[간단한 케이스 설명]</p>
+                    <div class="case-tags">
+                        <span class="case-tag">[태그1]</span>
+                        <span class="case-tag">[태그2]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- E-E-A-T 신뢰 신호 -->
+    <section class="trust-section">
+        <div class="trust-content">
+            <div class="trust-item">
+                <div class="icon">✅</div>
+                <div>
+                    <h4>자격 검증 완료</h4>
+                    <p>대한치과의사협회 정회원 자격 확인</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="icon">🎓</div>
+                <div>
+                    <h4>학력 검증 완료</h4>
+                    <p>서울대학교 치의학대학원 졸업 확인</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="icon">📋</div>
+                <div>
+                    <h4>의료법 준수</h4>
+                    <p>의료광고 심의 기준 준수</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>[의료진명] 원장에게 상담받으세요</h2>
+        <p>[전문분야] 관련 고민이 있으시다면<br>정확한 진단과 맞춤 치료 계획을 안내드립니다</p>
+        
+        <div class="cta-buttons">
+            <a href="../reservation.html" class="cta-btn primary">상담 예약하기</a>
+            <a href="tel:0414152892" class="cta-btn secondary">📞 041-415-2892</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>서울비디치과</h3>
+                <p>충남 천안시 서북구 불당34길 14, 1~5층</p>
+                <p>대표전화: 041-415-2892</p>
+            </div>
+            <div class="footer-hours">
+                <h4>진료시간</h4>
+                <p>평일: 09:00 - 20:00 (점심 12:30-14:00)</p>
+                <p>토/일: 09:00 - 17:00</p>
+                <p>공휴일: 09:00 - 13:00</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">의료진 전체</a>
+                <a href="../treatments/index.html">진료 안내</a>
+                <a href="../directions.html">오시는 길</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2018 서울비디치과. All rights reserved.</p>
+        </div>
+    </footer>
+<script src="../js/gnb.js" defer></script>
+</body>
+</html>

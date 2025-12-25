@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO -->
+  <title>회원가입 | 서울비디치과</title>
+  <meta name="description" content="서울비디치과 회원가입 페이지입니다. 회원이 되시면 예약 관리, 진료 이력 확인 등 다양한 서비스를 이용하실 수 있습니다.">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --brand-primary: #8B5A2B;
+      --brand-gold: #C9A962;
+      --brand-gradient: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+      --bg-dark: #0a0806;
+      --bg-card: rgba(26, 20, 16, 0.95);
+      --text-primary: #fff;
+      --text-secondary: #b8a99a;
+      --text-muted: #666;
+      --border-color: rgba(139, 90, 43, 0.3);
+      --error-color: #e74c3c;
+      --success-color: #27ae60;
+    }
+    
+    html { font-size: 16px; scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Header */
+    .auth-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .auth-header a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    
+    .auth-header .logo-icon { font-size: 1.5rem; }
+    
+    /* Main Container */
+    .auth-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    
+    .auth-card {
+      width: 100%;
+      max-width: 500px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 48px 40px;
+      backdrop-filter: blur(20px);
+    }
+    
+    .auth-title {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .auth-title h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: var(--brand-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .auth-title p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    
+    /* Progress Steps */
+    .progress-steps {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    
+    .step {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border-color);
+      transition: all 0.3s;
+    }
+    
+    .step.active {
+      background: var(--brand-gold);
+      width: 32px;
+      border-radius: 5px;
+    }
+    
+    .step.completed {
+      background: var(--success-color);
+    }
+    
+    /* Form Styles */
+    .form-step {
+      display: none;
+    }
+    
+    .form-step.active {
+      display: block;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    
+    .form-label .required {
+      color: var(--error-color);
+      margin-left: 2px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    .form-input:focus {
+      border-color: var(--brand-gold);
+      box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.1);
+    }
+    
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .form-input.error {
+      border-color: var(--error-color);
+    }
+    
+    .form-input.success {
+      border-color: var(--success-color);
+    }
+    
+    .input-wrapper {
+      position: relative;
+    }
+    
+    .input-wrapper .form-input {
+      padding-right: 48px;
+    }
+    
+    .input-icon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .input-icon:hover {
+      color: var(--brand-gold);
+    }
+    
+    .input-hint {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    .input-hint.error {
+      color: var(--error-color);
+    }
+    
+    .input-hint.success {
+      color: var(--success-color);
+    }
+    
+    /* Password Strength */
+    .password-strength {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    
+    .strength-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+    
+    .strength-bar.active {
+      background: var(--error-color);
+    }
+    
+    .strength-bar.active.medium {
+      background: #f39c12;
+    }
+    
+    .strength-bar.active.strong {
+      background: var(--success-color);
+    }
+    
+    /* Row Layout */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    
+    /* Select */
+    .form-select {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+    }
+    
+    .form-select option {
+      background: #1a1410;
+      color: var(--text-primary);
+    }
+    
+    /* Checkbox */
+    .checkbox-group {
+      margin-bottom: 16px;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .checkbox-label input {
+      display: none;
+    }
+    
+    .checkbox-custom {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .checkbox-label input:checked + .checkbox-custom {
+      background: var(--brand-gold);
+      border-color: var(--brand-gold);
+    }
+    
+    .checkbox-custom i {
+      color: #fff;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .checkbox-label input:checked + .checkbox-custom i {
+      opacity: 1;
+    }
+    
+    .checkbox-text a {
+      color: var(--brand-gold);
+      text-decoration: underline;
+    }
+    
+    .check-all {
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .check-all .checkbox-text {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    /* Error/Success Messages */
+    .error-message, .success-message {
+      display: none;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    
+    .error-message {
+      background: rgba(231, 76, 60, 0.1);
+      border: 1px solid var(--error-color);
+      color: var(--error-color);
+    }
+    
+    .success-message {
+      background: rgba(39, 174, 96, 0.1);
+      border: 1px solid var(--success-color);
+      color: var(--success-color);
+    }
+    
+    .error-message.show, .success-message.show {
+      display: block;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background: var(--brand-gradient);
+      color: #fff;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139, 90, 43, 0.4);
+    }
+    
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    
+    .btn-group .btn {
+      flex: 1;
+    }
+    
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 28px 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+    
+    .divider span {
+      padding: 0 16px;
+    }
+    
+    /* Social Buttons */
+    .social-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .btn-social {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+    
+    .btn-social:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--brand-gold);
+    }
+    
+    .btn-social img {
+      width: 20px;
+      height: 20px;
+    }
+    
+    /* Links */
+    .auth-links {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .auth-links a {
+      color: var(--brand-gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .auth-links a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Loading */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    .loading-overlay.show {
+      display: flex;
+    }
+    
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(201, 169, 98, 0.2);
+      border-top-color: var(--brand-gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 480px) {
+      .auth-card {
+        padding: 32px 20px;
+        border-radius: 20px;
+      }
+      
+      .auth-title h1 {
+        font-size: 1.5rem;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="auth-header">
+    <a href="../index.html">
+      <span class="logo-icon">🦷</span>
+      <span data-i18n="common.clinicName">서울비디치과</span>
+    </a>
+    <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh">中文</option>
+    </select>
+  </header>
+  
+  <style>
+    .lang-select {
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+  </style>
+
+  <!-- Main Container -->
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-title">
+        <h1 data-i18n="auth.registerTitle">회원가입</h1>
+        <p data-i18n="auth.registerWelcome">서울비디치과 회원이 되어 다양한 혜택을 누리세요</p>
+      </div>
+      
+      <!-- Progress Steps -->
+      <div class="progress-steps">
+        <div class="step active" data-step="1"></div>
+        <div class="step" data-step="2"></div>
+        <div class="step" data-step="3"></div>
+      </div>
+      
+      <!-- Messages -->
+      <div id="errorMessage" class="error-message"></div>
+      <div id="successMessage" class="success-message"></div>
+      
+      <!-- Registration Form -->
+      <form id="registerForm">
+        <!-- Step 1: 기본 정보 -->
+        <div class="form-step active" data-step="1">
+          <div class="form-group">
+            <label class="form-label" for="email">
+              <span data-i18n="auth.email">이메일</span> <span class="required">*</span>
+            </label>
+            <input 
+              type="email" 
+              id="email" 
+              class="form-input" 
+              data-i18n-placeholder="auth.emailPlaceholder"
+              placeholder="이메일 주소를 입력하세요"
+              required
+            >
+            <p class="input-hint" id="emailHint"></p>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="password">
+              <span data-i18n="auth.password">비밀번호</span> <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                id="password" 
+                class="form-input" 
+                data-i18n-placeholder="auth.passwordPlaceholder"
+                placeholder="비밀번호를 입력하세요"
+                required
+                minlength="8"
+              >
+              <i class="fas fa-eye input-icon" onclick="togglePassword('password')"></i>
+            </div>
+            <div class="password-strength" id="passwordStrength">
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+            </div>
+            <p class="input-hint" data-i18n="auth.passwordHint">8자 이상, 영문+숫자 조합 필수</p>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="passwordConfirm">
+              <span data-i18n="auth.passwordConfirm">비밀번호 확인</span> <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                id="passwordConfirm" 
+                class="form-input" 
+                data-i18n-placeholder="auth.passwordConfirmPlaceholder"
+                placeholder="비밀번호를 다시 입력하세요"
+                required
+              >
+              <i class="fas fa-eye input-icon" onclick="togglePassword('passwordConfirm')"></i>
+            </div>
+            <p class="input-hint" id="passwordConfirmHint"></p>
+          </div>
+          
+          <button type="button" class="btn btn-primary" onclick="nextStep(1)">
+            <span data-i18n="auth.nextStep">다음 단계</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+          
+          <div class="divider">
+            <span data-i18n="auth.continueWith">또는</span>
+          </div>
+          
+          <div class="social-buttons">
+            <button type="button" class="btn btn-social" onclick="handleGoogleRegister()">
+              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+              <span data-i18n="auth.googleRegister">Google로 가입하기</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Step 2: 개인 정보 -->
+        <div class="form-step" data-step="2">
+          <div class="form-group">
+            <label class="form-label" for="name">
+              <span data-i18n="auth.name">이름</span> <span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="name" 
+              class="form-input" 
+              data-i18n-placeholder="auth.namePlaceholder"
+              placeholder="실명을 입력하세요"
+              required
+            >
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="phone">
+              <span data-i18n="auth.phone">휴대폰 번호</span> <span class="required">*</span>
+            </label>
+            <input 
+              type="tel" 
+              id="phone" 
+              class="form-input" 
+              data-i18n-placeholder="auth.phonePlaceholder"
+              placeholder="010-0000-0000"
+              required
+            >
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="birthdate" data-i18n="auth.birthdate">생년월일</label>
+              <input 
+                type="date" 
+                id="birthdate" 
+                class="form-input"
+              >
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="gender" data-i18n="auth.gender">성별</label>
+              <select id="gender" class="form-select">
+                <option value="" data-i18n="auth.notSelected">선택 안함</option>
+                <option value="male" data-i18n="auth.male">남성</option>
+                <option value="female" data-i18n="auth.female">여성</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">
+              <i class="fas fa-arrow-left"></i>
+              <span data-i18n="auth.prevStep">이전</span>
+            </button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+              <span data-i18n="auth.nextStep">다음 단계</span>
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Step 3: 약관 동의 -->
+        <div class="form-step" data-step="3">
+          <div class="checkbox-group check-all">
+            <label class="checkbox-label">
+              <input type="checkbox" id="agreeAll" onchange="toggleAllAgree()">
+              <span class="checkbox-custom"><i class="fas fa-check"></i></span>
+              <span class="checkbox-text" data-i18n="auth.agreeAll">전체 동의</span>
+            </label>
+          </div>
+          
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="agreedTerms" required>
+              <span class="checkbox-custom"><i class="fas fa-check"></i></span>
+              <span class="checkbox-text">
+                <span data-i18n="auth.agreeTermsPrefix">[필수]</span> <a href="javascript:void(0)" onclick="showTerms('terms')" data-i18n="footer.terms">이용약관</a> <span data-i18n="auth.agreeTermsSuffix">동의</span>
+              </span>
+            </label>
+          </div>
+          
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="agreedPrivacy" required>
+              <span class="checkbox-custom"><i class="fas fa-check"></i></span>
+              <span class="checkbox-text">
+                <span data-i18n="auth.agreePrivacyPrefix">[필수]</span> <a href="javascript:void(0)" onclick="showTerms('privacy')" data-i18n="footer.privacy">개인정보 처리방침</a> <span data-i18n="auth.agreePrivacySuffix">동의</span>
+              </span>
+            </label>
+          </div>
+          
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="agreedMarketing">
+              <span class="checkbox-custom"><i class="fas fa-check"></i></span>
+              <span class="checkbox-text" data-i18n="auth.agreeMarketing">
+                [선택] 마케팅 정보 수신 동의 (이벤트, 할인 혜택 등)
+              </span>
+            </label>
+          </div>
+          
+          <div class="btn-group" style="margin-top: 24px;">
+            <button type="button" class="btn btn-secondary" onclick="prevStep(3)">
+              <i class="fas fa-arrow-left"></i>
+              <span data-i18n="auth.prevStep">이전</span>
+            </button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              <i class="fas fa-user-plus"></i>
+              <span data-i18n="auth.completeRegister">가입 완료</span>
+            </button>
+          </div>
+        </div>
+      </form>
+      
+      <div class="auth-links">
+        <span data-i18n="auth.haveAccount">이미 계정이 있으신가요?</span> <a href="login.html" data-i18n="auth.login">로그인</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Loading Overlay -->
+  <div id="authLoader" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-auth.js"></script>
+  
+  <script>
+    let currentStep = 1;
+    
+    // 비밀번호 표시/숨김
+    function togglePassword(fieldId) {
+      const input = document.getElementById(fieldId);
+      const icon = input.nextElementSibling;
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+    
+    // 이메일 유효성 검사
+    document.getElementById('email').addEventListener('input', function() {
+      const hint = document.getElementById('emailHint');
+      const isValid = window.firebaseAuth?.validateEmail(this.value);
+      
+      if (this.value && !isValid) {
+        this.classList.add('error');
+        this.classList.remove('success');
+        hint.textContent = '올바른 이메일 형식이 아닙니다';
+        hint.classList.add('error');
+      } else if (this.value && isValid) {
+        this.classList.remove('error');
+        this.classList.add('success');
+        hint.textContent = '';
+        hint.classList.remove('error');
+      } else {
+        this.classList.remove('error', 'success');
+        hint.textContent = '';
+      }
+    });
+    
+    // 비밀번호 강도 표시
+    document.getElementById('password').addEventListener('input', function() {
+      const strength = window.firebaseAuth?.validatePassword(this.value);
+      const bars = document.querySelectorAll('.strength-bar');
+      
+      bars.forEach((bar, index) => {
+        bar.classList.remove('active', 'medium', 'strong');
+        
+        if (strength && index < strength.strength) {
+          bar.classList.add('active');
+          if (strength.strength >= 3) bar.classList.add('strong');
+          else if (strength.strength >= 2) bar.classList.add('medium');
+        }
+      });
+      
+      checkPasswordMatch();
+    });
+    
+    // 비밀번호 확인
+    document.getElementById('passwordConfirm').addEventListener('input', checkPasswordMatch);
+    
+    function checkPasswordMatch() {
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('passwordConfirm').value;
+      const hint = document.getElementById('passwordConfirmHint');
+      const input = document.getElementById('passwordConfirm');
+      
+      if (confirm && password !== confirm) {
+        input.classList.add('error');
+        input.classList.remove('success');
+        hint.textContent = '비밀번호가 일치하지 않습니다';
+        hint.classList.add('error');
+        hint.classList.remove('success');
+      } else if (confirm && password === confirm) {
+        input.classList.remove('error');
+        input.classList.add('success');
+        hint.textContent = '비밀번호가 일치합니다';
+        hint.classList.remove('error');
+        hint.classList.add('success');
+      } else {
+        input.classList.remove('error', 'success');
+        hint.textContent = '';
+        hint.classList.remove('error', 'success');
+      }
+    }
+    
+    // 전화번호 자동 포맷팅
+    document.getElementById('phone').addEventListener('input', function() {
+      let value = this.value.replace(/\D/g, '');
+      if (value.length > 3 && value.length <= 7) {
+        value = value.replace(/(\d{3})(\d+)/, '$1-$2');
+      } else if (value.length > 7) {
+        value = value.replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3');
+      }
+      this.value = value.substring(0, 13);
+    });
+    
+    // 단계 이동
+    function nextStep(step) {
+      hideMessages();
+      
+      // 유효성 검사
+      if (step === 1) {
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const passwordConfirm = document.getElementById('passwordConfirm').value;
+        
+        if (!email || !window.firebaseAuth?.validateEmail(email)) {
+          showError('올바른 이메일을 입력해주세요.');
+          return;
+        }
+        
+        const strength = window.firebaseAuth?.validatePassword(password);
+        if (!strength?.isValid) {
+          showError('비밀번호는 8자 이상, 영문+숫자 조합이어야 합니다.');
+          return;
+        }
+        
+        if (password !== passwordConfirm) {
+          showError('비밀번호가 일치하지 않습니다.');
+          return;
+        }
+      }
+      
+      if (step === 2) {
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        
+        if (!name) {
+          showError('이름을 입력해주세요.');
+          return;
+        }
+        
+        if (!phone || phone.replace(/-/g, '').length < 10) {
+          showError('올바른 휴대폰 번호를 입력해주세요.');
+          return;
+        }
+      }
+      
+      // 다음 단계로 이동
+      goToStep(step + 1);
+    }
+    
+    function prevStep(step) {
+      goToStep(step - 1);
+    }
+    
+    function goToStep(step) {
+      currentStep = step;
+      
+      // 모든 스텝 숨기기
+      document.querySelectorAll('.form-step').forEach(el => {
+        el.classList.remove('active');
+      });
+      
+      // 현재 스텝 표시
+      document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+      
+      // 프로그레스 업데이트
+      document.querySelectorAll('.progress-steps .step').forEach(el => {
+        const stepNum = parseInt(el.dataset.step);
+        el.classList.remove('active', 'completed');
+        
+        if (stepNum === step) {
+          el.classList.add('active');
+        } else if (stepNum < step) {
+          el.classList.add('completed');
+        }
+      });
+    }
+    
+    // 전체 동의
+    function toggleAllAgree() {
+      const allChecked = document.getElementById('agreeAll').checked;
+      document.getElementById('agreedTerms').checked = allChecked;
+      document.getElementById('agreedPrivacy').checked = allChecked;
+      document.getElementById('agreedMarketing').checked = allChecked;
+    }
+    
+    // 개별 체크박스 변경 시 전체 동의 상태 업데이트
+    ['agreedTerms', 'agreedPrivacy', 'agreedMarketing'].forEach(id => {
+      document.getElementById(id).addEventListener('change', function() {
+        const terms = document.getElementById('agreedTerms').checked;
+        const privacy = document.getElementById('agreedPrivacy').checked;
+        const marketing = document.getElementById('agreedMarketing').checked;
+        document.getElementById('agreeAll').checked = terms && privacy && marketing;
+      });
+    });
+    
+    // 약관 보기
+    function showTerms(type) {
+      const urls = {
+        terms: '../terms.html',
+        privacy: '../privacy.html'
+      };
+      window.open(urls[type] || '#', '_blank', 'width=600,height=700');
+    }
+    
+    // 에러/성공 메시지
+    function showError(message) {
+      const el = document.getElementById('errorMessage');
+      el.textContent = message;
+      el.classList.add('show');
+      document.getElementById('successMessage').classList.remove('show');
+    }
+    
+    function showSuccess(message) {
+      const el = document.getElementById('successMessage');
+      el.textContent = message;
+      el.classList.add('show');
+      document.getElementById('errorMessage').classList.remove('show');
+    }
+    
+    function hideMessages() {
+      document.getElementById('errorMessage').classList.remove('show');
+      document.getElementById('successMessage').classList.remove('show');
+    }
+    
+    // 회원가입 제출
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      hideMessages();
+      
+      // 약관 동의 확인
+      if (!document.getElementById('agreedTerms').checked) {
+        showError('이용약관에 동의해주세요.');
+        return;
+      }
+      
+      if (!document.getElementById('agreedPrivacy').checked) {
+        showError('개인정보 처리방침에 동의해주세요.');
+        return;
+      }
+      
+      const userData = {
+        name: document.getElementById('name').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        birthdate: document.getElementById('birthdate').value,
+        gender: document.getElementById('gender').value,
+        agreedTerms: document.getElementById('agreedTerms').checked,
+        agreedPrivacy: document.getElementById('agreedPrivacy').checked,
+        agreedMarketing: document.getElementById('agreedMarketing').checked
+      };
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      
+      const result = await window.firebaseAuth.registerWithEmail(email, password, userData);
+      
+      if (result.success) {
+        showSuccess('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+      } else {
+        showError(result.error);
+      }
+    });
+    
+    // Google 회원가입
+    async function handleGoogleRegister() {
+      hideMessages();
+      
+      const result = await window.firebaseAuth.loginWithGoogle();
+      
+      if (result.success) {
+        if (result.isNewUser) {
+          showSuccess('회원가입이 완료되었습니다!');
+        } else {
+          showSuccess('이미 가입된 계정입니다. 로그인되었습니다.');
+        }
+        setTimeout(() => {
+          window.location.href = '../index.html';
+        }, 1500);
+      } else {
+        showError(result.error);
+      }
+    }
+    
+    // ========== 다국어 지원 ==========
+    function changeLanguage(lang) {
+      localStorage.setItem('seoulbd_language', lang);
+      applyTranslations(lang);
+    }
+    
+    function getTranslation(key, lang) {
+      if (!window.TRANSLATIONS) return null;
+      const keys = key.split('.');
+      let value = window.TRANSLATIONS;
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      // 해당 언어 값이 없으면 한국어 기본값 반환
+      return value ? (value[lang] || value['ko']) : null;
+    }
+    
+    function applyTranslations(lang) {
+      if (!window.TRANSLATIONS) return;
+      
+      // 일반 텍스트 번역
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+          el.textContent = translation;
+        }
+      });
+      
+      // placeholder 번역
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+          el.placeholder = translation;
+        }
+      });
+      
+      // select 옵션 번역
+      document.querySelectorAll('select option[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+          el.textContent = translation;
+        }
+      });
+      
+      // HTML 속성 업데이트
+      document.documentElement.lang = lang;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('seoulbd_language') || 'ko';
+      document.getElementById('langSelect').value = savedLang;
+      applyTranslations(savedLang);
+    });
+  </script>
+  <script src="../js/gnb.js" defer></script>
+  <script src="../js/translations.js"></script>
+</body>
+</html>

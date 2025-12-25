@@ -1,0 +1,124 @@
+# ═══════════════════════════════════════════════════════════════
+# 서울비디치과 (Seoul BD Dental) - robots.txt
+# https://bdbddc.com
+# Updated: 2024-12-22
+# 
+# 이 파일은 검색엔진 및 AI 봇의 크롤링을 최적화합니다.
+# SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
+# ═══════════════════════════════════════════════════════════════
+
+# ===== 모든 검색엔진 허용 =====
+User-agent: *
+Allow: /
+Allow: /treatments/
+Allow: /doctors/
+Allow: /column/
+Allow: /video/
+Allow: /notice/
+Allow: /pricing.html
+Allow: /reservation.html
+Allow: /directions.html
+Allow: /faq.html
+Crawl-delay: 1
+
+# 사이트맵 위치 (다중)
+Sitemap: https://bdbddc.com/sitemap.xml
+Sitemap: https://bdbddc.com/sitemap-treatments.xml
+Sitemap: https://bdbddc.com/sitemap-doctors.xml
+
+# 크롤링 제외 (내부용/개발 파일)
+Disallow: /components/
+Disallow: /offline.html
+Disallow: /admin/
+Disallow: /css/_deprecated/
+Disallow: /docs/
+Disallow: /*.json$
+Disallow: /sw.js
+
+# ===== Google 봇 최적화 =====
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /images/
+
+User-agent: Googlebot-Video
+Allow: /
+
+# ===== Naver 봇 최적화 =====
+User-agent: Yeti
+Allow: /
+Crawl-delay: 1
+
+# ===== Bing 봇 =====
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: msnbot
+Allow: /
+
+# ===== Daum 봇 =====
+User-agent: Daumoa
+Allow: /
+Crawl-delay: 1
+
+# ===== AI 검색엔진 봇 (GEO 최적화) =====
+# OpenAI GPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic Claude
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Google AI (Bard/Gemini)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Siri/Spotlight
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# Microsoft Copilot
+User-agent: Copilot
+Allow: /
+
+# ===== 기타 유용한 봇 =====
+# Schema.org 검증
+User-agent: Validator.nu/LV
+Allow: /
+
+# W3C 검증
+User-agent: W3C-checklink
+Allow: /
+
+# Rich Results Test
+User-agent: Google-InspectionTool
+Allow: /
+
+# ===== AI/LLM 전용 문서 =====
+# llms.txt - AI 검색엔진을 위한 구조화된 정보
+# https://llmstxt.org/ 표준 준수
+# 위치: https://bdbddc.com/llms.txt

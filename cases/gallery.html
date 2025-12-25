@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": true
+    });
+  </script>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Before & After 케이스 갤러리 | 서울비디치과</title>
+  <meta name="description" content="서울비디치과 실제 치료 사례 Before & After 갤러리. 임플란트, 인비절라인, 라미네이트 등 다양한 치료 전후 사진을 확인하세요.">
+  <meta name="keywords" content="치과케이스, 임플란트전후, 교정전후, 라미네이트전후, 치료사례, 비포애프터">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Before & After 케이스 갤러리 | 서울비디치과">
+  <meta property="og:description" content="서울비디치과 실제 치료 전후 사진을 확인하세요.">
+  <meta property="og:url" content="https://bdbddc.com/cases/gallery">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../images/icons/favicon.svg">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/gnb.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
+  <style>
+    /* ========== 기본 스타일 ========== */
+    body {
+      background: #0a0a0a;
+      color: #fff;
+    }
+    
+    /* 페이지 히어로 */
+    .page-hero {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1510 100%);
+      padding: 140px 5% 80px;
+      text-align: center;
+    }
+    
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff, #C9A962);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .page-hero p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .page-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    
+    .page-tab {
+      padding: 10px 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+    }
+    
+    .page-tab:hover {
+      background: rgba(201,169,98,0.1);
+      border-color: rgba(201,169,98,0.3);
+      color: #C9A962;
+    }
+    
+    .page-tab.active {
+      background: linear-gradient(135deg, #8B5A2B, #C9A962);
+      border-color: transparent;
+      color: #fff;
+    }
+    
+    /* ========== 필터 섹션 ========== */
+    .filter-section {
+      padding: 24px 5%;
+      background: rgba(26, 20, 16, 0.6);
+      border-bottom: 1px solid rgba(139, 90, 43, 0.2);
+      position: sticky;
+      top: 72px;
+      z-index: 100;
+    }
+    
+    .filter-container {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .filter-btn {
+      padding: 10px 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      transition: all 0.3s;
+    }
+    
+    .filter-btn:hover {
+      border-color: rgba(201,169,98,0.3);
+      color: #C9A962;
+    }
+    
+    .filter-btn.active {
+      background: linear-gradient(135deg, #8B5A2B, #C9A962);
+      border-color: transparent;
+      color: #fff;
+    }
+    
+    .filter-btn .count {
+      display: inline-block;
+      background: rgba(0,0,0,0.3);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      margin-left: 6px;
+    }
+    
+    /* ========== 갤러리 그리드 ========== */
+    .gallery-section {
+      padding: 60px 5%;
+      min-height: 60vh;
+    }
+    
+    .gallery-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 24px;
+    }
+    
+    .case-card {
+      background: rgba(26, 20, 16, 0.6);
+      border: 1px solid rgba(139, 90, 43, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    
+    .case-card:hover {
+      border-color: rgba(201, 169, 98, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    
+    .case-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+    
+    .case-images::after {
+      content: '→';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 36px;
+      height: 36px;
+      background: #C9A962;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      font-size: 1rem;
+      z-index: 5;
+    }
+    
+    .case-image {
+      aspect-ratio: 4/3;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .case-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .case-card:hover .case-image img {
+      transform: scale(1.05);
+    }
+    
+    .case-image .placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .case-image .placeholder i {
+      font-size: 2rem;
+      opacity: 0.5;
+    }
+    
+    .case-image.before {
+      background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(220,38,38,0.1));
+    }
+    
+    .case-image.after {
+      background: linear-gradient(135deg, rgba(201,169,98,0.1), rgba(139,90,43,0.1));
+    }
+    
+    .case-image .label {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+    
+    .case-image.before .label {
+      background: rgba(239,68,68,0.8);
+      color: #fff;
+    }
+    
+    .case-image.after .label {
+      background: rgba(34,197,94,0.8);
+      color: #fff;
+    }
+    
+    .case-content {
+      padding: 20px;
+    }
+    
+    .case-category {
+      display: inline-block;
+      background: rgba(201,169,98,0.15);
+      color: #C9A962;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .case-content h3 {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    .case-content p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .case-meta {
+      display: flex;
+      gap: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(139, 90, 43, 0.2);
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+    }
+    
+    .case-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    /* ========== 로딩/빈 상태 ========== */
+    .loading-state,
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(201,169,98,0.2);
+      border-top-color: #C9A962;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .empty-state i {
+      font-size: 4rem;
+      color: rgba(201,169,98,0.3);
+      margin-bottom: 20px;
+    }
+    
+    .empty-state h3 {
+      font-size: 1.25rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    
+    /* ========== 통계 섹션 ========== */
+    .stats-section {
+      padding: 60px 5%;
+      background: linear-gradient(135deg, rgba(139,90,43,0.2), rgba(201,169,98,0.1));
+      text-align: center;
+    }
+    
+    .stats-grid {
+      display: flex;
+      gap: 60px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-item .number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #C9A962;
+      margin-bottom: 4px;
+    }
+    
+    .stat-item .label {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+    }
+    
+    /* ========== 주의사항 ========== */
+    .notice-section {
+      padding: 40px 5%;
+      background: rgba(26, 20, 16, 0.6);
+    }
+    
+    .notice-box {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+      border-radius: 12px;
+      border-left: 4px solid #C9A962;
+      background: rgba(201,169,98,0.05);
+    }
+    
+    .notice-box h3 {
+      color: #C9A962;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .notice-box p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    
+    /* ========== 이미지 모달 ========== */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .image-modal.active {
+      display: flex;
+    }
+    
+    .image-modal-content {
+      max-width: 1200px;
+      width: 100%;
+      position: relative;
+    }
+    
+    .image-modal-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 8px;
+    }
+    
+    .image-modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .image-modal-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .image-modal-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .image-modal-item .modal-label {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .image-modal-item.before .modal-label {
+      background: rgba(239,68,68,0.9);
+      color: #fff;
+    }
+    
+    .image-modal-item.after .modal-label {
+      background: rgba(34,197,94,0.9);
+      color: #fff;
+    }
+    
+    .image-modal-info {
+      margin-top: 24px;
+      text-align: center;
+    }
+    
+    .image-modal-info h3 {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    
+    .image-modal-info p {
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    
+    .image-modal-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 16px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+    }
+    
+    /* ========== 반응형 ========== */
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-container {
+        gap: 6px;
+      }
+      
+      .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+      
+      .stats-grid {
+        gap: 30px;
+      }
+      
+      .page-tabs {
+        gap: 6px;
+      }
+      
+      .page-tab {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+      
+      .image-modal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <h1><i class="fas fa-images" style="margin-right: 12px;"></i>비포 / 애프터</h1>
+    <p>서울비디치과 실제 치료 전후 사례를 확인하세요</p>
+    
+    <!-- 탭 네비게이션 -->
+    <div class="page-tabs">
+      <a href="../column/columns.html" class="page-tab"><i class="fas fa-pen-fancy"></i> 칼럼</a>
+      <a href="../video/index.html" class="page-tab"><i class="fab fa-youtube"></i> 영상</a>
+      <a href="gallery.html" class="page-tab active"><i class="fas fa-images"></i> 비포/애프터</a>
+    </div>
+  </section>
+  
+  <!-- 필터 섹션 -->
+  <section class="filter-section" id="filterSection">
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">전체 <span class="count" id="countAll">0</span></button>
+      <button class="filter-btn" data-filter="implant">임플란트 <span class="count" id="countImplant">0</span></button>
+      <button class="filter-btn" data-filter="orthodontic">교정 <span class="count" id="countOrthodontic">0</span></button>
+      <button class="filter-btn" data-filter="aesthetic">심미치료 <span class="count" id="countAesthetic">0</span></button>
+      <button class="filter-btn" data-filter="whitening">미백 <span class="count" id="countWhitening">0</span></button>
+      <button class="filter-btn" data-filter="gum">잇몸치료 <span class="count" id="countGum">0</span></button>
+    </div>
+  </section>
+  
+  <!-- 갤러리 섹션 -->
+  <section class="gallery-section" id="gallerySection">
+    <div class="gallery-container">
+      <!-- 로딩 상태 -->
+      <div id="loadingState" class="loading-state">
+        <div class="loading-spinner"></div>
+        <p>케이스를 불러오는 중...</p>
+      </div>
+      
+      <!-- 갤러리 그리드 -->
+      <div id="galleryGrid" class="gallery-grid" style="display: none;"></div>
+      
+      <!-- 빈 상태 -->
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <i class="fas fa-images"></i>
+        <h3>등록된 케이스가 없습니다</h3>
+        <p>곧 새로운 치료 사례가 업데이트됩니다.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 통계 섹션 -->
+  <section class="stats-section" id="statsSection">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="number" id="statTotal">0</div>
+        <div class="label">총 케이스</div>
+      </div>
+      <div class="stat-item">
+        <div class="number" id="statImplant">0</div>
+        <div class="label">임플란트</div>
+      </div>
+      <div class="stat-item">
+        <div class="number" id="statOrthodontic">0</div>
+        <div class="label">교정</div>
+      </div>
+      <div class="stat-item">
+        <div class="number" id="statAesthetic">0</div>
+        <div class="label">심미치료</div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 주의사항 -->
+  <section class="notice-section" id="noticeSection">
+    <div class="notice-box">
+      <h3><i class="fas fa-info-circle"></i> 안내사항</h3>
+      <p>
+        본 갤러리의 모든 이미지는 환자분의 동의를 받아 게시되었습니다.
+        무단 복제, 배포, 상업적 사용은 엄격히 금지됩니다.
+        치료 결과는 개인에 따라 다를 수 있으며, 정확한 진단은 내원 상담을 통해 받으시기 바랍니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- 이미지 상세보기 모달 -->
+  <div class="image-modal" id="imageModal">
+    <div class="image-modal-content">
+      <button class="image-modal-close" onclick="closeImageModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="image-modal-grid" id="modalImageGrid">
+        <!-- 동적으로 채워짐 -->
+      </div>
+      <div class="image-modal-info">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+        <div class="image-modal-meta">
+          <span><i class="fas fa-clock"></i> <span id="modalPeriod"></span></span>
+          <span><i class="fas fa-user-md"></i> <span id="modalDoctor"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer style="background: #0a0908; border-top: 1px solid rgba(139,90,43,0.2); padding: 40px 5%; text-align: center;">
+    <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem;">© 2024 서울비디치과. All rights reserved.</p>
+    <p style="margin-top: 12px;">
+      <a href="../index.html" style="color: #C9A962; text-decoration: none;">← 홈으로</a>
+    </p>
+  </footer>
+
+  <!-- Header Loader -->
+  <script src="../js/header-loader.js" defer></script>
+  <script src="../js/gnb.js" defer></script>
+  
+  <script>
+    /**
+     * Before/After 갤러리 - localStorage 연동
+     * admin/cases.html에서 등록한 데이터를 표시
+     */
+    
+    const STORAGE_KEY = 'bdbddc_before_after_cases';
+    let currentFilter = 'all';
+    let allCases = [];
+    
+    // 페이지 로드
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCases();
+      setupFilterButtons();
+    });
+    
+    /**
+     * 필터 버튼 설정
+     */
+    function setupFilterButtons() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.filter;
+          renderCases();
+        });
+      });
+    }
+    
+    /**
+     * 케이스 불러오기 (localStorage에서)
+     */
+    function loadCases() {
+      const loadingState = document.getElementById('loadingState');
+      const galleryGrid = document.getElementById('galleryGrid');
+      const emptyState = document.getElementById('emptyState');
+      
+      loadingState.style.display = 'block';
+      galleryGrid.style.display = 'none';
+      emptyState.style.display = 'none';
+      
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        allCases = stored ? JSON.parse(stored) : [];
+        
+        // 공개된 케이스만 필터링
+        allCases = allCases.filter(c => c.status === 'published');
+        
+        // 최신순 정렬
+        allCases.sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+        
+      } catch (error) {
+        console.error('데이터 로드 실패:', error);
+        allCases = [];
+      }
+      
+      // 로딩 완료 (애니메이션 효과를 위해 약간의 딜레이)
+      setTimeout(() => {
+        loadingState.style.display = 'none';
+        renderCases();
+        updateStats();
+        updateFilterCounts();
+      }, 300);
+    }
+    
+    /**
+     * 케이스 렌더링
+     */
+    function renderCases() {
+      const galleryGrid = document.getElementById('galleryGrid');
+      const emptyState = document.getElementById('emptyState');
+      
+      // 필터링
+      let filtered = allCases;
+      if (currentFilter !== 'all') {
+        filtered = allCases.filter(c => c.category === currentFilter);
+      }
+      
+      if (filtered.length === 0) {
+        galleryGrid.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+      }
+      
+      galleryGrid.innerHTML = filtered.map(caseItem => createCaseCard(caseItem)).join('');
+      galleryGrid.style.display = 'grid';
+      emptyState.style.display = 'none';
+    }
+    
+    /**
+     * 케이스 카드 HTML 생성
+     */
+    function createCaseCard(caseItem) {
+      const categoryLabels = {
+        implant: '임플란트',
+        orthodontic: '교정',
+        aesthetic: '심미치료',
+        whitening: '미백',
+        gum: '잇몸치료',
+        general: '일반진료'
+      };
+      
+      const beforeImg = caseItem.before_image 
+        ? `<img src="${caseItem.before_image}" alt="Before" loading="lazy">`
+        : `<div class="placeholder"><i class="fas fa-camera"></i><span>Before</span></div>`;
+      
+      const afterImg = caseItem.after_image 
+        ? `<img src="${caseItem.after_image}" alt="After" loading="lazy">`
+        : `<div class="placeholder"><i class="fas fa-camera"></i><span>After</span></div>`;
+      
+      return `
+        <div class="case-card" data-id="${caseItem.id}" onclick="openImageModal('${caseItem.id}')">
+          <div class="case-images">
+            <div class="case-image before">
+              <span class="label">Before</span>
+              ${beforeImg}
+            </div>
+            <div class="case-image after">
+              <span class="label">After</span>
+              ${afterImg}
+            </div>
+          </div>
+          <div class="case-content">
+            <span class="case-category">${categoryLabels[caseItem.category] || caseItem.category}</span>
+            <h3>${escapeHtml(caseItem.title)}</h3>
+            <p>${escapeHtml(caseItem.description || '')}</p>
+            <div class="case-meta">
+              <span><i class="fas fa-clock"></i> ${escapeHtml(caseItem.treatment_period || '-')}</span>
+              <span><i class="fas fa-user-md"></i> ${escapeHtml(caseItem.doctor_name || '-')}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    /**
+     * 이미지 모달 열기
+     */
+    function openImageModal(id) {
+      const caseItem = allCases.find(c => c.id === id);
+      if (!caseItem) return;
+      
+      const modalGrid = document.getElementById('modalImageGrid');
+      
+      const beforeImg = caseItem.before_image 
+        ? `<img src="${caseItem.before_image}" alt="Before">`
+        : `<div style="background: rgba(0,0,0,0.5); height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">이미지 준비 중</div>`;
+      
+      const afterImg = caseItem.after_image 
+        ? `<img src="${caseItem.after_image}" alt="After">`
+        : `<div style="background: rgba(0,0,0,0.5); height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">이미지 준비 중</div>`;
+      
+      modalGrid.innerHTML = `
+        <div class="image-modal-item before">
+          <span class="modal-label">Before</span>
+          ${beforeImg}
+        </div>
+        <div class="image-modal-item after">
+          <span class="modal-label">After</span>
+          ${afterImg}
+        </div>
+      `;
+      
+      document.getElementById('modalTitle').textContent = caseItem.title || '';
+      document.getElementById('modalDescription').textContent = caseItem.description || '';
+      document.getElementById('modalPeriod').textContent = caseItem.treatment_period || '-';
+      document.getElementById('modalDoctor').textContent = caseItem.doctor_name || '-';
+      
+      document.getElementById('imageModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    /**
+     * 이미지 모달 닫기
+     */
+    function closeImageModal() {
+      document.getElementById('imageModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    /**
+     * 통계 업데이트
+     */
+    function updateStats() {
+      const total = allCases.length;
+      const implant = allCases.filter(c => c.category === 'implant').length;
+      const orthodontic = allCases.filter(c => c.category === 'orthodontic').length;
+      const aesthetic = allCases.filter(c => c.category === 'aesthetic').length;
+      
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statImplant').textContent = implant;
+      document.getElementById('statOrthodontic').textContent = orthodontic;
+      document.getElementById('statAesthetic').textContent = aesthetic;
+    }
+    
+    /**
+     * 필터 카운트 업데이트
+     */
+    function updateFilterCounts() {
+      const counts = {
+        all: allCases.length,
+        implant: allCases.filter(c => c.category === 'implant').length,
+        orthodontic: allCases.filter(c => c.category === 'orthodontic').length,
+        aesthetic: allCases.filter(c => c.category === 'aesthetic').length,
+        whitening: allCases.filter(c => c.category === 'whitening').length,
+        gum: allCases.filter(c => c.category === 'gum').length
+      };
+      
+      document.getElementById('countAll').textContent = counts.all;
+      document.getElementById('countImplant').textContent = counts.implant;
+      document.getElementById('countOrthodontic').textContent = counts.orthodontic;
+      document.getElementById('countAesthetic').textContent = counts.aesthetic;
+      document.getElementById('countWhitening').textContent = counts.whitening;
+      document.getElementById('countGum').textContent = counts.gum;
+    }
+    
+    /**
+     * HTML 이스케이프
+     */
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    // ESC로 모달 닫기
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeImageModal();
+      }
+    });
+    
+    // 모달 외부 클릭으로 닫기
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeImageModal();
+      }
+    });
+  </script>
+</body>
+</html>

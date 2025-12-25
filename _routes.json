@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "include": ["/api/*"],
+  "exclude": [
+    "/images/*",
+    "/css/*",
+    "/js/*",
+    "/fonts/*",
+    "/*.html",
+    "/*.xml",
+    "/*.json",
+    "/*.txt",
+    "/*.ico"
+  ]
+}

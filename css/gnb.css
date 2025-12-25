@@ -1,0 +1,973 @@
+/**
+ * 서울비디치과 통합 GNB (Global Navigation Bar)
+ * 전체 사이트에서 공통으로 사용되는 헤더/네비게이션 스타일
+ */
+
+/* ========================================
+   GNB 기본 스타일
+======================================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(139, 90, 43, 0.2);
+    transition: all 0.3s ease;
+}
+
+.site-header.scrolled {
+    background: rgba(10, 10, 10, 0.98);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+}
+
+/* 로고 */
+.site-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.site-logo .logo-icon {
+    font-size: 1.8rem;
+}
+
+.site-logo .logo-text {
+    background: linear-gradient(135deg, #C9A962, #D4B896);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* 실시간 진료 상태 */
+.clinic-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.clinic-status.open {
+    background: rgba(72, 187, 120, 0.2);
+    color: #48bb78;
+}
+
+.clinic-status.closed {
+    background: rgba(245, 101, 101, 0.2);
+    color: #f56565;
+}
+
+.clinic-status .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.clinic-status.open .status-dot {
+    background: #48bb78;
+}
+
+.clinic-status.closed .status-dot {
+    background: #f56565;
+    animation: none;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* ========================================
+   메인 네비게이션
+======================================== */
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.main-nav > ul {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-item > a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 16px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.nav-item > a:hover,
+.nav-item.active > a {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item > a .nav-icon {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* 드롭다운 화살표 */
+.nav-item.has-dropdown > a::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    margin-left: 5px;
+    transition: transform 0.3s;
+}
+
+.nav-item.has-dropdown:hover > a::after {
+    transform: rotate(-135deg);
+}
+
+/* ========================================
+   메가 드롭다운 메뉴
+======================================== */
+.mega-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    min-width: 600px;
+    background: rgba(20, 20, 20, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 25px;
+}
+
+.nav-item.has-dropdown:hover .mega-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.mega-dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.mega-dropdown-section h4 {
+    color: #a0aec0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(139, 90, 43, 0.2);
+}
+
+.mega-dropdown-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mega-dropdown-section li a {
+    display: block;
+    padding: 8px 0;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.mega-dropdown-section li a:hover {
+    color: #8B5A2B;
+    padding-left: 8px;
+}
+
+.mega-dropdown-section li a .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    margin-left: 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #8B5A2B, #C9A962);
+    color: white;
+}
+
+/* 단일 드롭다운 */
+.simple-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: rgba(20, 20, 20, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 10px;
+    transform: translateY(10px);
+}
+
+.nav-item.has-dropdown:hover .simple-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.simple-dropdown li a {
+    display: block;
+    padding: 10px 15px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.simple-dropdown li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* ========================================
+   헤더 액션 버튼
+======================================== */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-phone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.header-phone:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-reserve {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 25px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(139, 90, 43, 0.3);
+}
+
+.btn-reserve:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 90, 43, 0.4);
+}
+
+/* ========================================
+   인증 버튼 (로그인/마이페이지)
+======================================== */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 8px;
+}
+
+.btn-auth {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.btn-auth i {
+    font-size: 0.85rem;
+}
+
+.btn-auth span {
+    display: inline;
+}
+
+/* 로그인 버튼 - 골드 텍스트 */
+.btn-login {
+    background: transparent;
+    color: #C9A962;
+    padding: 8px 10px;
+}
+
+.btn-login:hover {
+    color: #e0c67d;
+    text-decoration: underline;
+}
+
+/* 회원가입 버튼 - 골드 텍스트 */
+.btn-register {
+    background: transparent;
+    color: #C9A962;
+    padding: 8px 10px;
+}
+
+.btn-register:hover {
+    color: #e0c67d;
+    text-decoration: underline;
+}
+
+/* 구분선 */
+.auth-buttons .btn-login::after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    background: rgba(201, 169, 98, 0.4);
+    margin-left: 10px;
+}
+
+/* 마이페이지 버튼 */
+.btn-mypage {
+    background: transparent;
+    color: #C9A962;
+    padding: 8px 10px;
+}
+
+.btn-mypage:hover {
+    color: #e0c67d;
+    text-decoration: underline;
+}
+
+.auth-buttons .btn-mypage::after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    background: rgba(201, 169, 98, 0.4);
+    margin-left: 10px;
+}
+
+/* 로그아웃 버튼 */
+.btn-logout {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 8px 10px;
+}
+
+.btn-logout:hover {
+    color: #e74c3c;
+}
+
+/* PC에서 인증 버튼 텍스트 숨김 (아이콘만 표시) - 선택사항 */
+@media (min-width: 993px) and (max-width: 1100px) {
+    .btn-auth span {
+        display: none;
+    }
+    .btn-auth {
+        padding: 10px;
+        border-radius: 50%;
+    }
+}
+
+/* 모바일에서 인증 버튼 */
+@media (max-width: 992px) {
+    .auth-buttons {
+        display: none; /* 헤더에서는 숨김 */
+    }
+    
+    /* 모바일 메뉴 내 인증 버튼 */
+    .mobile-auth-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        border-top: 1px solid rgba(139, 90, 43, 0.3);
+        margin-top: auto;
+    }
+    
+    .mobile-auth-buttons .btn-auth {
+        justify-content: center;
+        padding: 14px;
+        font-size: 1rem;
+        border-radius: 12px;
+    }
+    
+    .mobile-auth-buttons .btn-login {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .mobile-auth-buttons .btn-register {
+        background: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+        border: none;
+        color: #fff;
+    }
+    
+    .mobile-auth-buttons .btn-mypage {
+        background: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+        border: none;
+        color: #fff;
+    }
+    
+    .mobile-auth-buttons .btn-logout {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .mobile-auth-buttons .btn-logout:hover,
+    .mobile-auth-buttons .btn-logout:active {
+        background: rgba(231, 76, 60, 0.2);
+        border-color: rgba(231, 76, 60, 0.5);
+        color: #e74c3c;
+    }
+}
+
+/* ========================================
+   모바일 메뉴
+======================================== */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ========================================
+   반응형
+======================================== */
+@media (max-width: 1200px) {
+    .mega-dropdown {
+        min-width: 500px;
+    }
+    
+    .mega-dropdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .main-nav {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(10, 10, 10, 0.98);
+        padding: 20px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+    }
+    
+    .main-nav.active {
+        transform: translateX(0);
+    }
+    
+    .main-nav > ul {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .nav-item > a {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+    
+    .mega-dropdown,
+    .simple-dropdown {
+        position: static;
+        transform: none;
+        min-width: 100%;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        border: none;
+        background: rgba(255, 255, 255, 0.05);
+        margin-top: 10px;
+        display: none;
+    }
+    
+    .nav-item.has-dropdown.open .mega-dropdown,
+    .nav-item.has-dropdown.open .simple-dropdown {
+        display: block;
+    }
+    
+    .mega-dropdown-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .header-phone {
+        display: none;
+    }
+    
+    .clinic-status {
+        display: none;
+    }
+}
+
+/* ========================================
+   플로팅 CTA 버튼
+======================================== */
+.floating-cta {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.floating-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.floating-btn:hover {
+    transform: scale(1.1);
+}
+
+.floating-btn.phone {
+    background: linear-gradient(135deg, #8B5A2B, #C9A962);
+    color: white;
+}
+
+.floating-btn.kakao {
+    background: #fee500;
+    color: #3c1e1e;
+}
+
+.floating-btn.naver {
+    background: #03c75a;
+    color: white;
+}
+
+.floating-btn.top {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.floating-btn.top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.floating-btn .tooltip {
+    position: absolute;
+    right: 70px;
+    white-space: nowrap;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.floating-btn:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 카카오톡 상담 위젯 */
+.kakao-widget {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 998;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s;
+}
+
+.kakao-widget.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.kakao-widget-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.kakao-widget-header .icon {
+    width: 45px;
+    height: 45px;
+    background: #fee500;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.kakao-widget-header h4 {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+}
+
+.kakao-widget-header p {
+    font-size: 0.8rem;
+    color: #666;
+    margin: 0;
+}
+
+.kakao-widget-body p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.kakao-widget-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #fee500;
+    color: #3c1e1e;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.kakao-widget-btn:hover {
+    background: #fdd835;
+}
+
+.kakao-widget-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 24px;
+    height: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    font-size: 1.2rem;
+}
+
+/* 모바일 플로팅 */
+@media (max-width: 768px) {
+    .floating-cta {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .floating-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .floating-btn .tooltip {
+        display: none;
+    }
+    
+    .kakao-widget {
+        right: 15px;
+        left: 15px;
+        width: auto;
+        bottom: 80px;
+    }
+}
+
+/* ========================================
+   통합 푸터
+======================================== */
+.site-footer {
+    background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+    padding: 80px 5% 40px;
+    color: white;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.footer-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+.footer-brand .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.footer-brand .logo-icon {
+    font-size: 2rem;
+}
+
+.footer-brand .slogan {
+    color: #a0aec0;
+    font-size: 1rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.footer-brand .contact-info {
+    margin-bottom: 25px;
+}
+
+.footer-brand .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    color: #cbd5e0;
+    font-size: 0.95rem;
+}
+
+.footer-brand .contact-item i {
+    width: 20px;
+    color: #8B5A2B;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.footer-social a:hover {
+    background: #8B5A2B;
+    transform: translateY(-3px);
+}
+
+.footer-links h4 {
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: #a0aec0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #8B5A2B;
+}
+
+.footer-hours .hours-list {
+    font-size: 0.9rem;
+    color: #a0aec0;
+}
+
+.footer-hours .hours-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(139, 90, 43, 0.2);
+}
+
+.footer-hours .hours-item .day {
+    color: #cbd5e0;
+}
+
+.footer-hours .hours-item .time {
+    color: #48bb78;
+}
+
+.footer-bottom {
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-copyright {
+    color: #718096;
+    font-size: 0.85rem;
+}
+
+.footer-legal {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-legal a {
+    color: #718096;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+}
+
+.footer-legal a:hover {
+    color: #8B5A2B;
+}
+
+@media (max-width: 992px) {
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-main {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+}

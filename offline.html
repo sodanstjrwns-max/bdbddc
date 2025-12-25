@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오프라인 | 서울비디치과</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1512 50%, #0a0a0a 100%);
+      color: #e5e5e5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .offline-container {
+      text-align: center;
+      max-width: 450px;
+    }
+    
+    .offline-icon {
+      font-size: 5rem;
+      margin-bottom: 24px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.95); }
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    
+    .logo-icon { font-size: 2rem; }
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #C9A962, #D4B896);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+    
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 50px;
+      margin-bottom: 24px;
+      font-size: 0.875rem;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    
+    .status-indicator.online {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    
+    .status-indicator.online .status-dot {
+      background: #10b981;
+      animation: none;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #8B5A2B, #C9A962);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(139, 90, 43, 0.4);
+    }
+    
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .cached-pages {
+      background: rgba(201, 169, 98, 0.08);
+      border: 1px solid rgba(201, 169, 98, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    
+    .cached-pages h3 {
+      font-size: 1rem;
+      color: #C9A962;
+      margin-bottom: 16px;
+    }
+    
+    .cached-pages-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    
+    .cached-link {
+      display: block;
+      padding: 10px 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+    
+    .cached-link:hover {
+      background: rgba(201, 169, 98, 0.2);
+      color: #C9A962;
+    }
+    
+    .contact-info {
+      padding-top: 24px;
+      border-top: 1px solid rgba(201, 169, 98, 0.2);
+    }
+    
+    .contact-info p {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+    
+    .phone-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #C9A962;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .phone-link:hover {
+      color: #D4B896;
+    }
+    
+    .hours-info {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    /* 연결 복구 토스트 */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+    
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    @media (max-width: 480px) {
+      .cached-pages-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .btn-group {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <!-- 로고 -->
+    <div class="logo">
+      <span class="logo-icon">🦷</span>
+      <span class="logo-text">서울비디치과</span>
+    </div>
+    
+    <!-- 상태 아이콘 -->
+    <div class="offline-icon" id="statusIcon">📶</div>
+    
+    <!-- 상태 표시 -->
+    <div class="status-indicator" id="statusIndicator">
+      <span class="status-dot"></span>
+      <span id="statusText">오프라인</span>
+    </div>
+    
+    <!-- 메시지 -->
+    <h1 id="title">인터넷 연결을 확인해주세요</h1>
+    <p id="message">현재 오프라인 상태입니다.<br>Wi-Fi 또는 모바일 데이터 연결을 확인해주세요.</p>
+    
+    <!-- 버튼 그룹 -->
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="retryConnection()">
+        🔄 다시 시도
+      </button>
+      <a href="/" class="btn btn-secondary">
+        🏠 홈으로
+      </a>
+    </div>
+    
+    <!-- 캐시된 페이지 (있을 경우) -->
+    <div class="cached-pages" id="cachedPages" style="display: none;">
+      <h3>📂 오프라인에서 볼 수 있는 페이지</h3>
+      <div class="cached-pages-grid" id="cachedPagesGrid">
+        <!-- 동적으로 채워짐 -->
+      </div>
+    </div>
+    
+    <!-- 연락처 정보 -->
+    <div class="contact-info">
+      <p>긴급 문의는 전화로 연락해주세요</p>
+      <a href="tel:0414152892" class="phone-link">
+        📞 041-415-2892
+      </a>
+      <div class="hours-info">
+        🕐 365일 진료 | 평일 09:30~20:00 | 주말·공휴일 09:30~14:30
+      </div>
+    </div>
+  </div>
+  
+  <!-- 연결 복구 토스트 -->
+  <div class="toast" id="toast">✅ 인터넷 연결이 복구되었습니다!</div>
+  
+  <script>
+    // 온라인 상태 감지
+    function updateOnlineStatus() {
+      const isOnline = navigator.onLine;
+      const statusIndicator = document.getElementById('statusIndicator');
+      const statusText = document.getElementById('statusText');
+      const statusIcon = document.getElementById('statusIcon');
+      const title = document.getElementById('title');
+      const message = document.getElementById('message');
+      
+      if (isOnline) {
+        statusIndicator.classList.add('online');
+        statusText.textContent = '온라인';
+        statusIcon.textContent = '✅';
+        title.textContent = '연결이 복구되었습니다!';
+        message.textContent = '페이지를 새로고침하여 최신 내용을 확인하세요.';
+        
+        // 토스트 표시
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+        
+        // 3초 후 자동 새로고침
+        setTimeout(() => window.location.reload(), 2000);
+      } else {
+        statusIndicator.classList.remove('online');
+        statusText.textContent = '오프라인';
+        statusIcon.textContent = '📶';
+        title.textContent = '인터넷 연결을 확인해주세요';
+        message.textContent = '현재 오프라인 상태입니다.\nWi-Fi 또는 모바일 데이터 연결을 확인해주세요.';
+      }
+    }
+    
+    // 다시 시도 버튼
+    function retryConnection() {
+      if (navigator.onLine) {
+        window.location.reload();
+      } else {
+        // 네트워크 연결 시도
+        fetch('/', { method: 'HEAD', cache: 'no-cache' })
+          .then(() => window.location.reload())
+          .catch(() => {
+            alert('아직 오프라인 상태입니다. 네트워크 연결을 확인해주세요.');
+          });
+      }
+    }
+    
+    // 캐시된 페이지 표시
+    async function showCachedPages() {
+      if ('caches' in window) {
+        try {
+          const cacheNames = await caches.keys();
+          const allCached = [];
+          
+          for (const name of cacheNames) {
+            const cache = await caches.open(name);
+            const keys = await cache.keys();
+            
+            keys.forEach(request => {
+              const url = new URL(request.url);
+              if (url.pathname.endsWith('.html') && !url.pathname.includes('offline')) {
+                allCached.push({
+                  url: url.pathname,
+                  name: getPageName(url.pathname)
+                });
+              }
+            });
+          }
+          
+          // 중복 제거 및 표시
+          const unique = [...new Map(allCached.map(item => [item.url, item])).values()];
+          
+          if (unique.length > 0) {
+            const grid = document.getElementById('cachedPagesGrid');
+            const container = document.getElementById('cachedPages');
+            
+            grid.innerHTML = unique.slice(0, 8).map(page => 
+              `<a href="${page.url}" class="cached-link">${page.name}</a>`
+            ).join('');
+            
+            container.style.display = 'block';
+          }
+        } catch (err) {
+          console.log('캐시 조회 실패:', err);
+        }
+      }
+    }
+    
+    // 페이지 이름 추출
+    function getPageName(pathname) {
+      const names = {
+        '/': '홈',
+        '/index.html': '홈',
+        '/pricing.html': '비용 안내',
+        '/reservation.html': '예약하기',
+        '/directions.html': '오시는 길',
+        '/faq.html': '자주 묻는 질문',
+        '/doctors/index.html': '의료진 소개',
+        '/treatments/index.html': '진료 안내',
+        '/treatments/implant.html': '임플란트',
+        '/treatments/invisalign.html': '인비절라인',
+        '/treatments/pediatric.html': '소아치과',
+        '/bdx/index.html': '검진센터'
+      };
+      
+      return names[pathname] || pathname.split('/').pop().replace('.html', '');
+    }
+    
+    // 이벤트 리스너
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    
+    // 초기화
+    updateOnlineStatus();
+    showCachedPages();
+  </script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="서울비디치과 개인정보 처리방침 - 개인정보의 수집, 이용, 보관 및 파기에 관한 사항을 안내합니다.">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <title>개인정보 처리방침 | 서울비디치과</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  
+  <style>
+    :root {
+      --brand-primary: #8B5A2B;
+      --brand-gold: #C9A962;
+      --text-primary: #e5e5e5;
+      --text-secondary: #999;
+      --bg-dark: #0a0a0a;
+      --bg-card: rgba(20, 18, 16, 0.85);
+    }
+    
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      color: var(--text-primary);
+      background: var(--bg-dark);
+    }
+    
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #fff;
+    }
+    
+    .logo-icon { font-size: 1.5rem; }
+    .logo-text { font-size: 1.1rem; font-weight: 700; }
+    
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--bg-card);
+      color: var(--brand-gold);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    
+    .btn-back:hover {
+      background: rgba(201, 169, 98, 0.1);
+    }
+    
+    main {
+      padding-top: 100px;
+      padding-bottom: 80px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    .page-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .page-meta {
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+    
+    .policy-section {
+      margin-bottom: 40px;
+      padding: 30px;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .policy-section h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--brand-gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .policy-section h2 i {
+      font-size: 1rem;
+    }
+    
+    .policy-section p,
+    .policy-section li {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    
+    .policy-section ul,
+    .policy-section ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    
+    .policy-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+    
+    .policy-table th,
+    .policy-table td {
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: left;
+    }
+    
+    .policy-table th {
+      background: rgba(201, 169, 98, 0.1);
+      color: var(--brand-gold);
+      font-weight: 600;
+    }
+    
+    .policy-table td {
+      color: var(--text-secondary);
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+    }
+    
+    @media (max-width: 768px) {
+      .page-title { font-size: 1.5rem; }
+      .policy-section { padding: 20px; }
+      .policy-table { font-size: 0.9rem; }
+      .policy-table th, .policy-table td { padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🦷</span>
+        <span class="logo-text">서울비디치과</span>
+      </a>
+      <a href="javascript:history.back()" class="btn-back">
+        <i class="fas fa-arrow-left"></i> 돌아가기
+      </a>
+    </div>
+  </header>
+  
+  <main>
+    <div class="container">
+      <h1 class="page-title">개인정보 처리방침</h1>
+      <p class="page-meta">시행일: 2024년 12월 1일 | 최종 수정: 2024년 12월 1일</p>
+      
+      <section class="policy-section">
+        <h2><i class="fas fa-shield-alt"></i> 제1조 (개인정보의 수집 및 이용목적)</h2>
+        <p>서울비디치과(이하 "병원")는 다음과 같은 목적으로 개인정보를 수집·이용합니다.</p>
+        <ol>
+          <li><strong>진료 서비스 제공:</strong> 진료 예약, 진료 기록 관리, 치료 계획 수립, 처방전 발급</li>
+          <li><strong>회원 관리:</strong> 회원 가입, 본인 확인, 불량 회원 부정 이용 방지</li>
+          <li><strong>마케팅 및 광고:</strong> 신규 서비스 안내, 이벤트 및 광고성 정보 제공 (동의한 경우에 한함)</li>
+          <li><strong>고객 상담:</strong> 문의 사항 처리, 불만 처리, 고지사항 전달</li>
+        </ol>
+      </section>
+      
+      <section class="policy-section">
+        <h2><i class="fas fa-list-alt"></i> 제2조 (수집하는 개인정보의 항목)</h2>
+        <table class="policy-table">
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th>수집 항목</th>
+              <th>수집 목적</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>필수</td>
+              <td>성명, 연락처, 생년월일, 성별</td>
+              <td>진료 서비스 제공, 본인 확인</td>
+            </tr>
+            <tr>
+              <td>필수</td>
+              <td>이메일 주소</td>
+              <td>회원 가입, 예약 확인 안내</td>
+            </tr>
+            <tr>
+              <td>선택</td>
+              <td>주소, 직업</td>
+              <td>맞춤 서비스 제공</td>
+            </tr>
+            <tr>
+              <td>자동수집</td>
+              <td>IP 주소, 방문 기록, 접속 로그</td>
+              <td>서비스 개선, 보안</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      
+      <section class="policy-section">
+        <h2><i class="fas fa-clock"></i> 제3조 (개인정보의 보유 및 이용기간)</h2>
+        <p>병원은 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 다만, 관련 법령에 따라 보존할 필요가 있는 경우에는 해당 기간 동안 보관합니다.</p>
+        <ul>
+          <li><strong>의료법에 따른 진료기록:</strong> 10년</li>
+          <li><strong>전자상거래 등에서의 소비자보호법:</strong> 계약 또는 청약철회에 관한 기록 5년, 소비자 불만 또는 분쟁 처리에 관한 기록 3년</li>
+          <li><strong>회원 탈퇴 시:</strong> 즉시 파기 (법령에서 정한 보관 기간 제외)</li>
+        </ul>
+      </section>
+      
+      <section class="policy-section">
+        <h2><i class="fas fa-user-shield"></i> 제4조 (개인정보의 제3자 제공)</h2>
+        <p>병원은 원칙적으로 이용자의 개인정보를 제3자에게 제공하지 않습니다. 다만, 아래의 경우에는 예외로 합니다.</p>
+        <ul>
+          <li>이용자가 사전에 동의한 경우</li>
+          <li>법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우</li>
+        </ul>
+      </section>
+      
+      <section class="policy-section">
+        <h2><i class="fas fa-trash-alt"></i> 제5조 (개인정보의 파기절차 및 방법)</h2>
+        <p>병원은 개인정보 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체 없이 해당 개인정보를 파기합니다.</p>
+        <ul>
+          <li><strong>전자적 파일:</strong> 복원이 불가능한 방법으로 영구 삭제</li>
+          <li><strong>종이 문서:</strong> 분쇄기로 분쇄하거나 소각</li>
+        </ul>
+      </section>
+      
+      <section class="policy-section">
+        <h2><i class="fas fa-cog"></i> 제6조 (이용자의 권리와 그 행사방법)</h2>
+        <p>이용자는 언제든지 자신의 개인정보에 대해 다음과 같은 권리를 행사할 수 있습니다.</p>
+        <ul>
+          <li>개인정보 열람 요구</li>
+          <li>오류 등이 있을 경우 정정 요구</li>
+          <li>삭제 요구</li>
+          <li>처리 정지 요구</li>
+        </ul>
+        <p>권리 행사는 병원 고객센터(041-415-2892) 또는 이메일(info@bdbddc.com)을 통해 요청하실 수 있습니다.</p>
+      </section>
+      
+      <section class="policy-section">
+        <h2><i class="fas fa-headset"></i> 제7조 (개인정보 보호책임자)</h2>
+        <table class="policy-table">
+          <tbody>
+            <tr>
+              <td><strong>개인정보 보호책임자</strong></td>
+              <td>문석준 (대표원장)</td>
+            </tr>
+            <tr>
+              <td><strong>연락처</strong></td>
+              <td>041-415-2892</td>
+            </tr>
+            <tr>
+              <td><strong>이메일</strong></td>
+              <td>info@bdbddc.com</td>
+            </tr>
+            <tr>
+              <td><strong>주소</strong></td>
+              <td>충청남도 천안시 서북구 불당34길 14, 4~5층</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      
+      <section class="policy-section">
+        <h2><i class="fas fa-cookie-bite"></i> 제8조 (쿠키 및 분석 도구 사용)</h2>
+        <p>병원은 서비스 개선 및 이용자 경험 향상을 위해 다음과 같은 쿠키 및 분석 도구를 사용합니다.</p>
+        
+        <table class="policy-table">
+          <thead>
+            <tr>
+              <th>도구명</th>
+              <th>목적</th>
+              <th>수집 정보</th>
+              <th>보유 기간</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Google Analytics</strong></td>
+              <td>웹사이트 이용 통계 분석</td>
+              <td>방문 페이지, 체류 시간, 유입 경로, 기기 정보</td>
+              <td>26개월</td>
+            </tr>
+            <tr>
+              <td><strong>Amplitude</strong></td>
+              <td>사용자 행동 분석 및 서비스 개선</td>
+              <td>클릭 이벤트, 페이지 조회, 세션 정보, 폼 상호작용</td>
+              <td>12개월</td>
+            </tr>
+            <tr>
+              <td><strong>Firebase</strong></td>
+              <td>회원 인증 및 사용자 관리</td>
+              <td>로그인 정보, 인증 토큰</td>
+              <td>회원 탈퇴 시까지</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p style="margin-top: 16px;"><strong>쿠키 관리 방법:</strong></p>
+        <ul>
+          <li>브라우저 설정에서 쿠키를 차단하거나 삭제할 수 있습니다.</li>
+          <li>쿠키를 차단할 경우 일부 서비스 이용에 제한이 있을 수 있습니다.</li>
+          <li>Google Analytics 수집 거부: <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" style="color: var(--brand-gold);">https://tools.google.com/dlpage/gaoptout</a></li>
+        </ul>
+        
+        <p style="margin-top: 16px;"><strong>주요 브라우저별 쿠키 설정:</strong></p>
+        <ul>
+          <li><strong>Chrome:</strong> 설정 → 개인정보 및 보안 → 쿠키 및 기타 사이트 데이터</li>
+          <li><strong>Safari:</strong> 환경설정 → 개인 정보 보호 → 쿠키 및 웹사이트 데이터</li>
+          <li><strong>Firefox:</strong> 설정 → 개인 정보 및 보안 → 쿠키 및 사이트 데이터</li>
+          <li><strong>Edge:</strong> 설정 → 쿠키 및 사이트 권한 → 쿠키 및 사이트 데이터</li>
+        </ul>
+      </section>
+      
+      <section class="policy-section">
+        <h2><i class="fas fa-edit"></i> 제9조 (개인정보 처리방침의 변경)</h2>
+        <p>이 개인정보 처리방침은 2024년 12월 1일부터 적용됩니다. 변경이 있을 경우 병원 홈페이지를 통해 공지합니다.</p>
+      </section>
+    </div>
+  </main>
+  
+  <footer class="footer">
+    <p>© 2018 서울비디치과. All rights reserved.</p>
+  </footer>
+</body>
+</html>

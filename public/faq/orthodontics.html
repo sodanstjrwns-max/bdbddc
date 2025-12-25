@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3NQP355YQM');
+    </script>
+    
+    <!-- Amplitude Analytics -->
+    <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+    <script>
+      window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+      window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+        "fetchRemoteConfig": true,
+        "autocapture": {
+          "attribution": true,
+          "fileDownloads": true,
+          "formInteractions": true,
+          "pageViews": true,
+          "sessions": true,
+          "elementInteractions": true,
+          "networkTracking": true,
+          "webVitals": true,
+          "frustrationInteractions": true
+        }
+      });
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교정 FAQ | 인비절라인 자주 묻는 질문 | 서울비디치과</title>
+    <meta name="description" content="교정/인비절라인 자주 묻는 질문 FAQ. 교정 기간, 비용, 통증, 관리 방법 등 모든 궁금증을 해결해 드립니다. 서울비디치과 교정 전문의 답변.">
+    <meta name="keywords" content="교정FAQ, 인비절라인FAQ, 치아교정질문, 교정비용, 교정기간, 투명교정">
+    
+    <!-- Schema.org FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "인비절라인 교정 기간은 얼마나 걸리나요?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "케이스에 따라 다르지만, 일반적으로 12~24개월 정도 소요됩니다. 부분 교정은 6~12개월이 소요됩니다."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "인비절라인은 얼마나 끼고 있어야 하나요?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "하루 20~22시간 착용해야 최적의 결과를 얻을 수 있습니다. 식사와 칫솔질 시에만 제거합니다."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/gnb.css">
+    
+    <style>
+        .faq-hero {
+            background: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+            padding: 80px 5%;
+            color: white;
+            text-align: center;
+        }
+        
+        .faq-hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .faq-hero .lead { font-size: 1.2rem; opacity: 0.95; max-width: 600px; margin: 0 auto; }
+        
+        .faq-nav {
+            padding: 30px 5%;
+            background: #f7fafc;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .faq-nav-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .faq-nav-item {
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            color: #4a5568;
+            background: white;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+        
+        .faq-nav-item:hover { border-color: #f5576c; color: #f5576c; }
+        .faq-nav-item.active { background: #f5576c; border-color: #f5576c; color: white; }
+        
+        .faq-section { padding: 60px 5%; max-width: 900px; margin: 0 auto; }
+        .faq-category { margin-bottom: 50px; }
+        
+        .faq-category h2 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #f5576c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 22px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .faq-question:hover { background: #f7fafc; }
+        .faq-question::after { content: '+'; font-size: 1.5rem; color: #f5576c; transition: transform 0.3s; }
+        .faq-item.active .faq-question::after { transform: rotate(45deg); }
+        
+        .faq-answer { padding: 0 25px; max-height: 0; overflow: hidden; transition: max-height 0.4s, padding 0.4s; }
+        .faq-item.active .faq-answer { padding: 0 25px 25px; max-height: 500px; }
+        .faq-answer p { color: #555; line-height: 1.8; margin-bottom: 1rem; }
+        .faq-answer ul { margin: 10px 0; padding-left: 25px; color: #555; }
+        .faq-answer ul li { margin-bottom: 8px; line-height: 1.6; }
+        
+        .faq-answer .highlight-box {
+            background: #fef2f2;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #f5576c;
+            margin-top: 15px;
+        }
+        
+        .faq-answer .highlight-box p { color: #be185d; margin: 0; }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+            padding: 80px 5%;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-section h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .cta-section p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 2rem; }
+        .cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        
+        .cta-btn {
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .cta-btn.primary { background: white; color: #f5576c; }
+        .cta-btn.secondary { border: 2px solid white; color: white; }
+        .cta-btn:hover { transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+    <!-- ■ 통합 헤더 -->
+    <header class="site-header" id="siteHeader">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="../index.html" class="site-logo">
+                    <span class="logo-icon">🦷</span>
+                    <span class="logo-text">서울비디치과</span>
+                </a>
+                <div class="clinic-status open">
+                    <span class="status-dot"></span>
+                    <span class="status-text">진료중</span>
+                    <span class="status-time">20:00까지</span>
+                </div>
+            </div>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li class="nav-item has-dropdown">
+                        <a href="../treatments/index.html">진료 안내</a>
+                        <div class="mega-dropdown">
+                            <div class="mega-dropdown-grid">
+                                <div class="mega-dropdown-section">
+                                    <h4>전문센터</h4>
+                                    <ul>
+                                        <li><a href="../treatments/glownate.html" class="nav-highlight">✨ 글로우네이트 <span class="badge" style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff;">HOT</span></a></li>
+                                        <li><a href="../treatments/implant.html">임플란트센터 <span class="badge">6개 수술실</span></a></li>
+                                        <li><a href="../treatments/invisalign.html">교정센터(인비절라인) <span class="badge">국내 최대</span></a></li>
+                                        <li><a href="../treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li>
+                                        <li><a href="../treatments/aesthetic.html">심미치료(현정민 원장)</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-dropdown-section">
+                                    <h4>일반/보존 진료</h4>
+                                    <ul>
+                                        <li><a href="../treatments/cavity.html">충치치료</a></li>
+                                        <li><a href="../treatments/resin.html">레진치료</a></li>
+                                        <li><a href="../treatments/crown.html">크라운</a></li>
+                                        <li><a href="../treatments/inlay.html">인레이/온레이</a></li>
+                                        <li><a href="../treatments/root-canal.html">신경치료</a></li>
+                                        <li><a href="../treatments/whitening.html">미백</a></li>
+                                    </ul>
+                                </div>
+                                <div class="mega-dropdown-section">
+                                    <h4>잇몸/외과</h4>
+                                    <ul>
+                                        <li><a href="../treatments/scaling.html">스케일링</a></li>
+                                        <li><a href="../treatments/gum.html">잇몸치료</a></li>
+                                        <li><a href="../treatments/periodontitis.html">치주염</a></li>
+                                        <li><a href="../treatments/wisdom-tooth.html">사랑니 발치</a></li>
+                                        <li><a href="../treatments/tmj.html">턱관절장애</a></li>
+                                        <li><a href="../treatments/bruxism.html">이갈이/이악물기</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="../doctors/index.html">의료진 소개</a></li>
+                    <li class="nav-item"><a href="../bdx/index.html">검진센터</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../column/columns.html">콘텐츠</a>
+                        <ul class="simple-dropdown">
+                            <li><a href="../column/columns.html">칼럼</a></li>
+                            <li><a href="../video/index.html">영상</a></li>
+                            <li><a href="../cases/gallery.html">비포/애프터</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown active">
+                        <a href="../directions.html">병원 안내</a>
+                        <ul class="simple-dropdown">
+                            <li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+                            <li><a href="../floor-guide.html">층별 안내</a></li>
+                            <li><a href="../directions.html">오시는 길</a></li>
+                            <li><a href="../faq.html">자주 묻는 질문</a></li>
+                            <li><a href="../notice/index.html">공지사항</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
+                <a href="../reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="faq-hero">
+        <h1>😁 교정/인비절라인 FAQ</h1>
+        <p class="lead">치아교정에 관한 모든 궁금증을 해결해 드립니다<br>서울대 출신 교정 전문의가 답변합니다</p>
+    </section>
+
+    <section class="faq-nav">
+        <div class="faq-nav-container">
+            <a href="implant.html" class="faq-nav-item">임플란트</a>
+            <a href="orthodontics.html" class="faq-nav-item active">교정</a>
+            <a href="pediatric.html" class="faq-nav-item">소아치과</a>
+            <a href="aesthetic.html" class="faq-nav-item">심미치료</a>
+            <a href="../faq.html" class="faq-nav-item">전체 FAQ</a>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="faq-category">
+            <h2>📋 인비절라인 기본 정보</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">인비절라인이란 무엇인가요?</div>
+                <div class="faq-answer">
+                    <p>인비절라인은 투명한 플라스틱 재질의 교정 장치입니다. 기존 금속 브라켓과 달리 눈에 거의 보이지 않아 심미적으로 우수하며, 탈착이 가능해 식사와 칫솔질이 편리합니다.</p>
+                    <p>서울비디치과는 <strong>한국 최대 규모의 인비절라인 센터</strong>를 운영하고 있습니다.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">인비절라인 교정 기간은 얼마나 걸리나요?</div>
+                <div class="faq-answer">
+                    <p>케이스에 따라 다르지만:</p>
+                    <ul>
+                        <li><strong>전체 교정 (풀):</strong> 12~24개월</li>
+                        <li><strong>부분 교정 (라이트):</strong> 6~12개월</li>
+                        <li><strong>전치부 교정:</strong> 3~6개월</li>
+                    </ul>
+                    <p>정확한 기간은 3D 스캔 후 시뮬레이션을 통해 안내드립니다.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">인비절라인은 하루에 몇 시간 착용해야 하나요?</div>
+                <div class="faq-answer">
+                    <p><strong>하루 20~22시간</strong> 착용해야 최적의 결과를 얻을 수 있습니다.</p>
+                    <p>식사와 칫솔질 시에만 제거하며, 착용 시간이 부족하면 치료 기간이 늘어날 수 있습니다.</p>
+                    <div class="highlight-box">
+                        <p>💡 착용 시간을 기록하는 앱을 활용하면 관리가 편해집니다!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>💰 비용 및 결제</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">인비절라인 비용은 얼마인가요?</div>
+                <div class="faq-answer">
+                    <ul>
+                        <li><strong>인비절라인 풀:</strong> 500~700만원</li>
+                        <li><strong>인비절라인 라이트:</strong> 300~400만원</li>
+                        <li><strong>인비절라인 퍼스트 (소아):</strong> 400~500만원</li>
+                        <li><strong>부분 앞니 교정:</strong> 150~250만원</li>
+                    </ul>
+                    <p>정확한 비용은 상담 후 결정됩니다. 무이자 할부도 가능합니다.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">교정 비용에는 무엇이 포함되나요?</div>
+                <div class="faq-answer">
+                    <p>서울비디치과 교정 비용에는 아래가 포함됩니다:</p>
+                    <ul>
+                        <li>전체 치료 기간의 장치 비용</li>
+                        <li>정기 내원 시 점검 비용</li>
+                        <li>추가 장치 제작 비용 (필요시)</li>
+                        <li>교정 후 유지장치 1세트</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>⚠️ 주의사항 및 관리</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">인비절라인 착용 중 음식 제한이 있나요?</div>
+                <div class="faq-answer">
+                    <p>인비절라인은 식사 시 <strong>제거</strong>하므로, 음식 제한이 없습니다! 이는 기존 브라켓 교정 대비 큰 장점입니다.</p>
+                    <p>다만, 장치 착용 중에는 물 외의 음료(커피, 주스 등)는 피하는 것이 좋습니다. 색소 침착과 충치 위험이 있습니다.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">인비절라인 관리는 어떻게 하나요?</div>
+                <div class="faq-answer">
+                    <ul>
+                        <li>매일 흐르는 물에 부드러운 칫솔로 세척</li>
+                        <li>뜨거운 물 사용 금지 (변형 위험)</li>
+                        <li>전용 세정제 사용 권장</li>
+                        <li>착용 전 반드시 칫솔질</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">교정 중 통증이 심한가요?</div>
+                <div class="faq-answer">
+                    <p>새로운 장치로 교체 후 2~3일간 약간의 압박감과 불편함이 있을 수 있습니다. 이는 치아가 이동하는 정상적인 과정입니다.</p>
+                    <p>기존 브라켓 교정보다 통증이 <strong>훨씬 적은</strong> 것으로 알려져 있습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>🏥 서울비디치과 교정 장점</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">서울비디치과 교정이 특별한 이유는?</div>
+                <div class="faq-answer">
+                    <ul>
+                        <li><strong>한국 최대 인비절라인 센터:</strong> 풍부한 경험과 노하우</li>
+                        <li><strong>서울대 출신 전문의 2인:</strong> 교정과 전문의 상주</li>
+                        <li><strong>일요일 진료:</strong> 바쁜 직장인/학생도 편리하게</li>
+                        <li><strong>3D 측정 + AI 진단:</strong> 정확한 치료 계획</li>
+                        <li><strong>소아치과 협진:</strong> 성장기 교정 전문</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>교정 상담이 필요하신가요?</h2>
+        <p>무료 3D 시뮬레이션으로 교정 후 모습을 미리 확인하세요</p>
+        
+        <div class="cta-buttons">
+            <a href="../reservation.html" class="cta-btn primary">무료 상담 예약</a>
+            <a href="tel:0414152892" class="cta-btn secondary">📞 041-415-2892</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>서울비디치과</h3>
+                <p>충남 천안시 서북구 불당34길 14, 1~5층</p>
+                <p>대표전화: 041-415-2892</p>
+            </div>
+            <div class="footer-hours">
+                <h4>진료시간</h4>
+                <p>평일: 09:00 - 20:00 (점심 12:30-14:00)</p>
+                <p>토/일: 09:00 - 17:00</p>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2018 서울비디치과. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
+        });
+    </script>
+<script src="/js/gnb.js" defer></script>
+</body>
+</html>

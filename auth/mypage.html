@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO -->
+  <title>마이페이지 | 서울비디치과</title>
+  <meta name="description" content="서울비디치과 마이페이지입니다. 회원 정보 확인 및 수정이 가능합니다.">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --brand-primary: #8B5A2B;
+      --brand-gold: #C9A962;
+      --brand-gradient: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+      --bg-dark: #0a0806;
+      --bg-card: rgba(26, 20, 16, 0.95);
+      --text-primary: #fff;
+      --text-secondary: #b8a99a;
+      --text-muted: #666;
+      --border-color: rgba(139, 90, 43, 0.3);
+      --error-color: #e74c3c;
+      --success-color: #27ae60;
+    }
+    
+    html { font-size: 16px; }
+    
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    .auth-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .auth-header a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    
+    .btn-outline-sm {
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      background: transparent;
+    }
+    
+    .btn-outline-sm:hover {
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+    
+    /* Main */
+    .mypage-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    /* Profile Header */
+    .profile-header {
+      text-align: center;
+      padding: 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      margin-bottom: 24px;
+    }
+    
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--brand-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2.5rem;
+      color: #fff;
+      overflow: hidden;
+    }
+    
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .profile-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .profile-email {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+    
+    .profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(201, 169, 98, 0.2);
+      color: var(--brand-gold);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    .profile-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--brand-gold);
+    }
+    
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    
+    /* Cards */
+    .mypage-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .card-title i {
+      color: var(--brand-gold);
+    }
+    
+    .btn-edit {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-edit:hover {
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+    
+    /* Info List */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .info-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .info-value {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    
+    /* Form */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    .form-input:focus {
+      border-color: var(--brand-gold);
+    }
+    
+    .form-input:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .form-select {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      cursor: pointer;
+      appearance: none;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .edit-form {
+      display: none;
+    }
+    
+    .edit-form.active {
+      display: block;
+    }
+    
+    .view-mode {
+      display: block;
+    }
+    
+    .view-mode.hidden {
+      display: none;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background: var(--brand-gradient);
+      color: #fff;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 90, 43, 0.4);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--brand-gold);
+      color: var(--brand-gold);
+    }
+    
+    .btn-danger {
+      background: rgba(231, 76, 60, 0.2);
+      border: 1px solid var(--error-color);
+      color: var(--error-color);
+    }
+    
+    .btn-danger:hover {
+      background: var(--error-color);
+      color: #fff;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    
+    /* Quick Actions */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    
+    .action-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.3s;
+    }
+    
+    .action-card:hover {
+      border-color: var(--brand-gold);
+      transform: translateY(-2px);
+    }
+    
+    .action-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--brand-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: #fff;
+    }
+    
+    .action-text h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .action-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    /* Messages */
+    .message {
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    
+    .message.show {
+      display: block;
+    }
+    
+    .message.error {
+      background: rgba(231, 76, 60, 0.1);
+      border: 1px solid var(--error-color);
+      color: var(--error-color);
+    }
+    
+    .message.success {
+      background: rgba(39, 174, 96, 0.1);
+      border: 1px solid var(--success-color);
+      color: var(--success-color);
+    }
+    
+    /* Loading */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    .loading-overlay.show {
+      display: flex;
+    }
+    
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(201, 169, 98, 0.2);
+      border-top-color: var(--brand-gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Not Logged In */
+    .not-logged-in {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    
+    .not-logged-in i {
+      font-size: 4rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    
+    .not-logged-in h2 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+    
+    .not-logged-in p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      .profile-stats {
+        gap: 24px;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="auth-header">
+    <a href="../index.html">
+      <span>🦷</span>
+      <span data-i18n="common.clinicName">서울비디치과</span>
+    </a>
+    <div class="header-actions">
+      <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)" style="margin-right: 8px;">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="zh">中文</option>
+      </select>
+      <a href="../index.html" class="btn-sm btn-outline-sm">
+        <i class="fas fa-home"></i>
+      </a>
+      <button onclick="handleLogout()" class="btn-sm btn-outline-sm">
+        <i class="fas fa-sign-out-alt"></i> <span data-i18n="auth.logout">로그아웃</span>
+      </button>
+    </div>
+  </header>
+  
+  <style>
+    .lang-select {
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+  </style>
+
+  <!-- Main Content -->
+  <main class="mypage-container" id="mypageContent">
+    <!-- 로그인 필요 메시지 (기본 표시) -->
+    <div class="not-logged-in" id="notLoggedIn">
+      <i class="fas fa-lock"></i>
+      <h2 data-i18n="auth.loginRequired">로그인이 필요합니다</h2>
+      <p data-i18n="auth.loginRequiredDesc">마이페이지를 이용하시려면 로그인해주세요.</p>
+      <a href="login.html" class="btn btn-primary">
+        <i class="fas fa-sign-in-alt"></i> <span data-i18n="auth.goToLogin">로그인하기</span>
+      </a>
+    </div>
+
+    <!-- 로그인 후 표시 -->
+    <div id="loggedInContent" style="display: none;">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="profile-avatar" id="profileAvatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <h1 class="profile-name" id="profileName">회원</h1>
+        <p class="profile-email" id="profileEmail">-</p>
+        <span class="profile-badge">
+          <i class="fas fa-crown"></i>
+          일반 회원
+        </span>
+        <div class="profile-stats">
+          <div class="stat-item">
+            <div class="stat-value" id="statReservations">0</div>
+            <div class="stat-label">예약 내역</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="statVisits">0</div>
+            <div class="stat-label">방문 횟수</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="statPoints">0</div>
+            <div class="stat-label">적립 포인트</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="mypage-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <i class="fas fa-bolt"></i>
+            빠른 메뉴
+          </h2>
+        </div>
+        <div class="quick-actions">
+          <a href="../reservation.html" class="action-card">
+            <div class="action-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="action-text">
+              <h4>진료 예약</h4>
+              <p>새로운 예약하기</p>
+            </div>
+          </a>
+          <a href="javascript:void(0)" class="action-card" onclick="alert('준비 중인 기능입니다.')">
+            <div class="action-icon">
+              <i class="fas fa-clipboard-list"></i>
+            </div>
+            <div class="action-text">
+              <h4>예약 내역</h4>
+              <p>예약 확인 및 관리</p>
+            </div>
+          </a>
+          <a href="../directions.html" class="action-card">
+            <div class="action-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="action-text">
+              <h4>오시는 길</h4>
+              <p>위치 및 주차 안내</p>
+            </div>
+          </a>
+          <a href="https://pf.kakao.com/_Cxivlxb" class="action-card" target="_blank">
+            <div class="action-icon">
+              <i class="fas fa-comment-dots"></i>
+            </div>
+            <div class="action-text">
+              <h4>카카오 상담</h4>
+              <p>실시간 문의하기</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Personal Info -->
+      <div class="mypage-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <i class="fas fa-user-circle"></i>
+            회원 정보
+          </h2>
+          <button class="btn-edit" onclick="toggleEditMode('profile')">
+            <i class="fas fa-pen"></i> 수정
+          </button>
+        </div>
+        
+        <div id="messageProfile" class="message"></div>
+        
+        <!-- View Mode -->
+        <div class="view-mode" id="profileView">
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-label">이름</span>
+              <span class="info-value" id="infoName">-</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">이메일</span>
+              <span class="info-value" id="infoEmail">-</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">휴대폰</span>
+              <span class="info-value" id="infoPhone">-</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">생년월일</span>
+              <span class="info-value" id="infoBirthdate">-</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">성별</span>
+              <span class="info-value" id="infoGender">-</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">가입일</span>
+              <span class="info-value" id="infoCreatedAt">-</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Edit Mode -->
+        <form class="edit-form" id="profileEdit" onsubmit="handleProfileUpdate(event)">
+          <div class="form-group">
+            <label class="form-label" data-i18n="auth.name">이름</label>
+            <input type="text" class="form-input" id="editName" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="auth.email">이메일</label>
+            <input type="email" class="form-input" id="editEmail" disabled>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="auth.phone">휴대폰</label>
+            <input type="tel" class="form-input" id="editPhone" data-i18n-placeholder="auth.phonePlaceholder" placeholder="010-0000-0000">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" data-i18n="auth.birthdate">생년월일</label>
+              <input type="date" class="form-input" id="editBirthdate">
+            </div>
+            <div class="form-group">
+              <label class="form-label" data-i18n="auth.gender">성별</label>
+              <select class="form-select" id="editGender">
+                <option value="" data-i18n="auth.notSelected">선택 안함</option>
+                <option value="male" data-i18n="auth.male">남성</option>
+                <option value="female" data-i18n="auth.female">여성</option>
+              </select>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary" onclick="toggleEditMode('profile')" data-i18n="auth.cancel">취소</button>
+            <button type="submit" class="btn btn-primary" data-i18n="auth.save">저장</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Marketing Agreement -->
+      <div class="mypage-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <i class="fas fa-bell"></i>
+            <span data-i18n="auth.marketingConsent">마케팅 수신 동의</span>
+          </h2>
+        </div>
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-label" data-i18n="auth.eventInfo">이벤트/할인 정보 수신</span>
+            <label style="display: flex; align-items: center; cursor: pointer;">
+              <input type="checkbox" id="marketingAgree" style="width: 18px; height: 18px; margin-right: 8px;" onchange="updateMarketing()">
+              <span id="marketingStatus" class="info-value">-</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="mypage-card" style="border-color: rgba(231, 76, 60, 0.3);">
+        <div class="card-header">
+          <h2 class="card-title" style="color: var(--error-color);">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span data-i18n="auth.accountManagement">계정 관리</span>
+          </h2>
+        </div>
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-label" data-i18n="auth.changePassword">비밀번호 변경</span>
+            <button class="btn btn-secondary" onclick="handlePasswordReset()" style="padding: 8px 16px; font-size: 0.85rem;" data-i18n="auth.sendResetEmail">
+              재설정 이메일 발송
+            </button>
+          </div>
+          <div class="info-item" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+            <span class="info-label" data-i18n="auth.deleteAccount">회원 탈퇴</span>
+            <button class="btn btn-danger" onclick="handleDeleteAccount()" style="padding: 8px 16px; font-size: 0.85rem;">
+              <span data-i18n="auth.deleteAccountBtn">탈퇴하기</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Loading Overlay -->
+  <div id="authLoader" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../js/firebase-auth.js"></script>
+  
+  <script>
+    let currentUserData = null;
+    
+    // 인증 상태 변경 감지
+    window.addEventListener('authStateChanged', async (e) => {
+      const user = e.detail.user;
+      
+      if (user) {
+        document.getElementById('notLoggedIn').style.display = 'none';
+        document.getElementById('loggedInContent').style.display = 'block';
+        
+        // Firestore에서 사용자 데이터 가져오기
+        const result = await window.firebaseAuth.getUserFromFirestore(user.uid);
+        if (result.success) {
+          currentUserData = result.data;
+          updateUI(user, currentUserData);
+        } else {
+          // Firestore에 데이터가 없으면 기본 정보로 표시
+          updateUI(user, {});
+        }
+      } else {
+        document.getElementById('notLoggedIn').style.display = 'block';
+        document.getElementById('loggedInContent').style.display = 'none';
+      }
+    });
+    
+    // UI 업데이트
+    function updateUI(user, data) {
+      // 프로필 헤더
+      document.getElementById('profileName').textContent = data.name || user.displayName || '회원';
+      document.getElementById('profileEmail').textContent = user.email;
+      
+      // 프로필 아바타
+      const avatar = document.getElementById('profileAvatar');
+      if (user.photoURL) {
+        avatar.innerHTML = `<img src="${user.photoURL}" alt="프로필">`;
+      } else {
+        const initial = (data.name || user.displayName || user.email || 'U')[0].toUpperCase();
+        avatar.innerHTML = initial;
+      }
+      
+      // 상세 정보
+      document.getElementById('infoName').textContent = data.name || user.displayName || '-';
+      document.getElementById('infoEmail').textContent = user.email;
+      document.getElementById('infoPhone').textContent = data.phone || '-';
+      document.getElementById('infoBirthdate').textContent = data.birthdate || '-';
+      document.getElementById('infoGender').textContent = 
+        data.gender === 'male' ? '남성' : 
+        data.gender === 'female' ? '여성' : '-';
+      
+      // 가입일
+      if (data.createdAt) {
+        const date = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+        document.getElementById('infoCreatedAt').textContent = date.toLocaleDateString('ko-KR');
+      }
+      
+      // 수정 폼 값 설정
+      document.getElementById('editName').value = data.name || user.displayName || '';
+      document.getElementById('editEmail').value = user.email;
+      document.getElementById('editPhone').value = data.phone || '';
+      document.getElementById('editBirthdate').value = data.birthdate || '';
+      document.getElementById('editGender').value = data.gender || '';
+      
+      // 마케팅 동의
+      const marketingAgree = document.getElementById('marketingAgree');
+      marketingAgree.checked = data.agreedMarketing || false;
+      document.getElementById('marketingStatus').textContent = data.agreedMarketing ? '동의' : '미동의';
+    }
+    
+    // 수정 모드 토글
+    function toggleEditMode(section) {
+      const viewEl = document.getElementById(`${section}View`);
+      const editEl = document.getElementById(`${section}Edit`);
+      const btnEl = viewEl.closest('.mypage-card').querySelector('.btn-edit');
+      
+      if (editEl.classList.contains('active')) {
+        viewEl.classList.remove('hidden');
+        editEl.classList.remove('active');
+        btnEl.innerHTML = '<i class="fas fa-pen"></i> 수정';
+      } else {
+        viewEl.classList.add('hidden');
+        editEl.classList.add('active');
+        btnEl.innerHTML = '<i class="fas fa-times"></i> 취소';
+      }
+    }
+    
+    // 프로필 업데이트
+    async function handleProfileUpdate(e) {
+      e.preventDefault();
+      
+      const user = window.firebaseAuth.getCurrentUser();
+      if (!user) return;
+      
+      const updateData = {
+        name: document.getElementById('editName').value.trim(),
+        phone: document.getElementById('editPhone').value.trim(),
+        birthdate: document.getElementById('editBirthdate').value,
+        gender: document.getElementById('editGender').value
+      };
+      
+      const result = await window.firebaseAuth.updateUserProfile(user.uid, updateData);
+      
+      const messageEl = document.getElementById('messageProfile');
+      if (result.success) {
+        messageEl.textContent = '회원 정보가 수정되었습니다.';
+        messageEl.className = 'message success show';
+        
+        // UI 업데이트
+        currentUserData = { ...currentUserData, ...updateData };
+        updateUI(user, currentUserData);
+        
+        // 수정 모드 종료
+        setTimeout(() => {
+          toggleEditMode('profile');
+          messageEl.classList.remove('show');
+        }, 1500);
+      } else {
+        messageEl.textContent = result.error;
+        messageEl.className = 'message error show';
+      }
+    }
+    
+    // 마케팅 동의 업데이트
+    async function updateMarketing() {
+      const user = window.firebaseAuth.getCurrentUser();
+      if (!user) return;
+      
+      const agreed = document.getElementById('marketingAgree').checked;
+      
+      await window.firebaseAuth.updateUserProfile(user.uid, {
+        agreedMarketing: agreed
+      });
+      
+      document.getElementById('marketingStatus').textContent = agreed ? '동의' : '미동의';
+    }
+    
+    // 로그아웃
+    async function handleLogout() {
+      await window.firebaseAuth.logout();
+      window.location.href = 'login.html';
+    }
+    
+    // 비밀번호 재설정
+    async function handlePasswordReset() {
+      const user = window.firebaseAuth.getCurrentUser();
+      if (!user) return;
+      
+      if (confirm('비밀번호 재설정 이메일을 발송하시겠습니까?')) {
+        const result = await window.firebaseAuth.sendPasswordReset(user.email);
+        if (result.success) {
+          alert('비밀번호 재설정 이메일을 발송했습니다.\n메일함을 확인해주세요.');
+        } else {
+          alert(result.error);
+        }
+      }
+    }
+    
+    // 회원 탈퇴
+    async function handleDeleteAccount() {
+      if (!confirm('정말 탈퇴하시겠습니까?\n모든 데이터가 삭제되며 복구할 수 없습니다.')) {
+        return;
+      }
+      
+      if (!confirm('마지막 확인입니다.\n정말 회원 탈퇴를 진행하시겠습니까?')) {
+        return;
+      }
+      
+      // TODO: 실제 탈퇴 구현 (Firebase Auth에서 사용자 삭제 필요)
+      alert('회원 탈퇴 기능은 고객센터(041-415-2892)로 문의해주세요.');
+    }
+    
+    // 전화번호 포맷팅
+    document.getElementById('editPhone').addEventListener('input', function() {
+      let value = this.value.replace(/\D/g, '');
+      if (value.length > 3 && value.length <= 7) {
+        value = value.replace(/(\d{3})(\d+)/, '$1-$2');
+      } else if (value.length > 7) {
+        value = value.replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3');
+      }
+      this.value = value.substring(0, 13);
+    });
+    
+    // ========== 다국어 지원 ==========
+    function changeLanguage(lang) {
+      localStorage.setItem('seoulbd_language', lang);
+      applyTranslations(lang);
+    }
+    
+    function getTranslation(key, lang) {
+      if (!window.TRANSLATIONS) return null;
+      const keys = key.split('.');
+      let value = window.TRANSLATIONS;
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      // 해당 언어 값이 없으면 한국어 기본값 반환
+      return value ? (value[lang] || value['ko']) : null;
+    }
+    
+    function applyTranslations(lang) {
+      if (!window.TRANSLATIONS) return;
+      
+      // 일반 텍스트 번역
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+          el.textContent = translation;
+        }
+      });
+      
+      // placeholder 번역
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+          el.placeholder = translation;
+        }
+      });
+      
+      // select 옵션 번역
+      document.querySelectorAll('select option[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+          el.textContent = translation;
+        }
+      });
+      
+      // HTML 속성 업데이트
+      document.documentElement.lang = lang;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('seoulbd_language') || 'ko';
+      document.getElementById('langSelect').value = savedLang;
+      applyTranslations(savedLang);
+    });
+  </script>
+  <script src="../js/gnb.js" defer></script>
+  <script src="../js/translations.js"></script>
+</body>
+</html>

@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="서울비디치과 레진 치료 - 자연치아와 동일한 색상의 심미적 충전 치료. 당일 완료, 최소 삭제, 앞니/어금니 모두 가능. 천안 레진 치료 전문 치과.">
+  <meta name="keywords" content="레진, 레진치료, 복합레진, 치아충전, 심미치료, 앞니레진, 어금니레진, 서울비디치과, 천안레진, 당일레진치료">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="서울비디치과">
+  <link rel="canonical" href="https://bdbddc.com/treatments/resin.html">
+  
+  <title>레진 치료 | 서울비디치과 - 자연스러운 심미 충전</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  
+  <!-- Premium Critical CSS -->
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px;scroll-behavior:smooth}
+    body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6;color:#e5e5e5;background:#0a0a0a;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    
+    :root{
+      --color-primary:#8B5A2B;--color-accent:#C9A962;--color-accent-light:#D4B896;
+      --color-text:#e5e5e5;--color-text-secondary:#999;
+      --color-bg-card:rgba(20,20,20,0.85);--glass-border:rgba(255,255,255,0.1);
+      --gradient-gold:linear-gradient(135deg,#8B5A2B 0%,#C9A962 50%,#D4B896 100%);
+      --gradient-dark:linear-gradient(135deg,#0a0a0a 0%,#1a1512 50%,#0a0a0a 100%);
+      --shadow-gold:0 10px 40px rgba(201,169,98,0.3);
+    }
+    
+    .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border)}
+    .header-container{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:12px 20px}
+    .site-logo{display:flex;align-items:center;gap:8px;color:#fff;font-weight:700}
+    .logo-icon{font-size:1.5rem}.logo-text{font-size:1.1rem}
+    .btn-reserve{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--gradient-gold);color:#fff;font-weight:600;font-size:0.875rem;border-radius:50px}
+    .mobile-menu-btn{display:flex;flex-direction:column;gap:5px;padding:8px;background:none;border:none;cursor:pointer}
+    .mobile-menu-btn span{width:24px;height:2px;background:#fff;border-radius:2px}
+    @media(min-width:768px){.mobile-menu-btn{display:none}}
+    
+    main{padding-top:70px}
+    .container{width:100%;max-width:1280px;margin:0 auto;padding:0 20px}
+    
+    /* Premium Hero with Particles */
+    .treatment-hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;z-index:-2}
+    .hero-gradient{position:absolute;inset:0;background:var(--gradient-dark)}
+    .hero-gradient::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(201,169,98,0.2) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(139,90,43,0.15) 0%,transparent 40%)}
+    
+    .hero-particles{position:absolute;inset:0;overflow:hidden}
+    .particle{position:absolute;width:4px;height:4px;background:var(--color-accent);border-radius:50%;opacity:0.3;animation:float 6s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0) scale(1);opacity:0.3}50%{transform:translateY(-100px) scale(1.5);opacity:0.6}}
+    
+    .hero-content{max-width:900px;text-align:center;padding:60px 20px;position:relative;z-index:1}
+    .hero-badge{display:inline-flex;align-items:center;gap:10px;padding:12px 24px;background:rgba(201,169,98,0.15);border:1px solid rgba(201,169,98,0.4);border-radius:50px;margin-bottom:32px;animation:fadeInUp 0.8s ease}
+    .hero-badge i{font-size:1.25rem;color:var(--color-accent)}
+    .hero-badge span{font-size:0.9rem;font-weight:600;color:var(--color-accent);letter-spacing:0.05em}
+    
+    .hero-title{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:24px;animation:fadeInUp 0.8s ease 0.2s backwards}
+    .text-gradient{background:var(--gradient-gold);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s ease-in-out infinite}
+    @keyframes shimmer{0%,100%{background-position:0% center}50%{background-position:100% center}}
+    
+    .hero-subtitle{font-size:clamp(1.25rem,3vw,1.75rem);color:rgba(255,255,255,0.9);margin-bottom:16px;animation:fadeInUp 0.8s ease 0.3s backwards}
+    .hero-desc{font-size:1.125rem;color:var(--color-text-secondary);line-height:1.8;margin-bottom:40px;animation:fadeInUp 0.8s ease 0.4s backwards}
+    .hero-desc strong{color:var(--color-accent)}
+    
+    .hero-stats{display:flex;justify-content:center;gap:48px;margin-bottom:40px;animation:fadeInUp 0.8s ease 0.5s backwards}
+    .stat-item{text-align:center}
+    .stat-number{display:block;font-size:2.5rem;font-weight:800;background:var(--gradient-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .stat-label{font-size:0.875rem;color:var(--color-text-secondary)}
+    
+    .hero-cta{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;animation:fadeInUp 0.8s ease 0.6s backwards}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 32px;font-size:1rem;font-weight:600;border:none;border-radius:12px;cursor:pointer;transition:all 0.3s}
+    .btn-primary{background:var(--gradient-gold);color:#fff;box-shadow:var(--shadow-gold)}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 15px 50px rgba(201,169,98,0.4)}
+    .btn-secondary{background:rgba(255,255,255,0.1);color:#fff;border:1px solid var(--glass-border)}
+    .btn-lg{padding:18px 40px;font-size:1.125rem}
+    
+    .scroll-indicator{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:bounce 2s ease-in-out infinite}
+    .scroll-indicator span{font-size:0.75rem;color:var(--color-text-secondary);letter-spacing:0.1em}
+    .scroll-indicator i{font-size:1.25rem;color:var(--color-accent)}
+    @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+    
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    
+    .section{padding:100px 0}
+    .section-dark{background:linear-gradient(180deg,#0f0f0f 0%,#0a0a0a 100%)}
+    .section-header{text-align:center;margin-bottom:60px}
+    .section-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(201,169,98,0.15);border:1px solid rgba(201,169,98,0.3);border-radius:50px;margin-bottom:20px;font-size:0.875rem;color:var(--color-accent);font-weight:500}
+    .section-title{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;color:#fff;margin-bottom:16px}
+    .section-desc{font-size:1.125rem;color:var(--color-text-secondary);max-width:600px;margin:0 auto}
+    
+    /* Empathy Cards */
+    .empathy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto}
+    @media(max-width:900px){.empathy-grid{grid-template-columns:1fr}}
+    .empathy-card{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:24px;padding:32px;text-align:center;transition:all 0.4s}
+    .empathy-card:hover{transform:translateY(-8px);border-color:rgba(201,169,98,0.3)}
+    .empathy-icon{width:80px;height:80px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(201,169,98,0.2) 0%,rgba(139,90,43,0.1) 100%);border-radius:50%;margin:0 auto 20px;font-size:2rem}
+    .empathy-card h3{font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:12px}
+    .empathy-card p{color:var(--color-text-secondary);line-height:1.7}
+    
+    /* Benefits Grid */
+    .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+    .benefit-card{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:24px;padding:32px;transition:all 0.4s;text-align:center}
+    .benefit-card:hover{transform:translateY(-8px);border-color:rgba(201,169,98,0.3)}
+    .benefit-icon{width:72px;height:72px;display:flex;align-items:center;justify-content:center;background:var(--gradient-gold);border-radius:20px;font-size:1.75rem;color:#fff;margin:0 auto 20px}
+    .benefit-card h3{font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:12px}
+    .benefit-card p{color:var(--color-text-secondary);line-height:1.7}
+    
+    /* Process Timeline - Horizontal Card Layout */
+    .resin-process{display:flex;flex-direction:column;gap:0;max-width:900px;margin:0 auto;position:relative}
+    .resin-process::before{content:'';position:absolute;left:36px;top:40px;bottom:40px;width:3px;background:linear-gradient(180deg,var(--color-primary) 0%,var(--color-accent) 50%,var(--color-primary) 100%);border-radius:3px}
+    .resin-step{display:flex;gap:24px;align-items:flex-start;padding:24px;background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:16px;margin-bottom:16px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);position:relative}
+    .resin-step:hover{transform:translateX(8px);border-color:rgba(201,169,98,0.3);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+    .resin-step:last-child{margin-bottom:0}
+    .resin-step .step-indicator{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:60px}
+    .resin-step .step-number{width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:var(--gradient-gold);border-radius:16px;font-size:1.25rem;font-weight:800;color:#fff;position:relative;z-index:2;transition:transform 0.3s,box-shadow 0.3s;flex-shrink:0}
+    .resin-step:hover .step-number{transform:scale(1.1);box-shadow:0 6px 20px rgba(201,169,98,0.4)}
+    .resin-step .step-content{flex:1;min-width:0}
+    .resin-step .step-content h3{font-size:1.125rem;font-weight:700;color:#fff;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+    .resin-step .step-content h3 i{color:var(--color-accent);font-size:0.9rem}
+    .resin-step .step-content p{font-size:0.9rem;color:var(--color-text-secondary);line-height:1.7}
+    .resin-step .step-time{display:inline-block;padding:5px 14px;background:rgba(201,169,98,0.15);border:1px solid rgba(201,169,98,0.3);border-radius:50px;font-size:0.75rem;color:var(--color-accent);font-weight:600;margin-top:12px}
+    
+    /* Use Cases */
+    .use-cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+    .use-case{display:flex;align-items:center;gap:16px;padding:20px 24px;background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:16px;transition:all 0.3s}
+    .use-case:hover{border-color:rgba(201,169,98,0.3);transform:translateX(8px)}
+    .use-case-icon{width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:var(--gradient-gold);border-radius:12px;font-size:1.25rem;color:#fff;flex-shrink:0}
+    .use-case-text h4{font-size:1rem;font-weight:600;color:#fff;margin-bottom:4px}
+    .use-case-text p{font-size:0.875rem;color:var(--color-text-secondary)}
+    
+    /* Differentiation */
+    .diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+    .diff-card{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:20px;padding:28px;display:flex;gap:20px;transition:all 0.3s}
+    .diff-card:hover{border-color:rgba(201,169,98,0.3)}
+    .diff-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:var(--gradient-gold);border-radius:16px;font-size:1.25rem;color:#fff;flex-shrink:0}
+    .diff-content h4{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:8px}
+    .diff-content p{font-size:0.9rem;color:var(--color-text-secondary);line-height:1.7}
+    
+    /* Care Tips */
+    .care-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+    .care-card{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:16px;padding:24px;text-align:center;transition:all 0.3s}
+    .care-card:hover{border-color:rgba(201,169,98,0.3);transform:translateY(-5px)}
+    .care-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(201,169,98,0.15);border-radius:50%;margin:0 auto 16px;font-size:1.5rem;color:var(--color-accent)}
+    .care-card h4{font-size:1rem;font-weight:600;color:#fff;margin-bottom:8px}
+    .care-card p{font-size:0.875rem;color:var(--color-text-secondary);line-height:1.6}
+    
+    /* FAQ */
+    .faq-list{display:flex;flex-direction:column;gap:16px;max-width:800px;margin:0 auto}
+    .faq-item{background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden;transition:all 0.3s}
+    .faq-item:hover{border-color:rgba(201,169,98,0.3)}
+    .faq-item.open{border-color:var(--color-accent)}
+    .faq-question{width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:none;border:none;font-size:1rem;font-weight:600;color:#fff;cursor:pointer;text-align:left}
+    .faq-question i{color:var(--color-accent);transition:transform 0.3s}
+    .faq-item.open .faq-question i{transform:rotate(180deg)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
+    .faq-item.open .faq-answer{max-height:500px}
+    .faq-answer p{padding:0 24px 20px;color:var(--color-text-secondary);line-height:1.8}
+    
+    /* CTA */
+    .cta-section{padding:100px 0;background:linear-gradient(135deg,#1a1512 0%,#0a0a0a 100%);position:relative;overflow:hidden}
+    .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(201,169,98,0.1) 0%,transparent 70%)}
+    .cta-box{max-width:800px;margin:0 auto;padding:60px 40px;text-align:center;background:var(--color-bg-card);border:1px solid var(--glass-border);border-radius:32px;position:relative}
+    .cta-box h2{font-size:1.75rem;font-weight:700;color:#fff;margin-bottom:12px}
+    .cta-box>p{color:var(--color-text-secondary);margin-bottom:32px}
+    .cta-buttons{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+    .cta-info{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--glass-border)}
+    .cta-info-item{display:flex;align-items:center;gap:8px;color:var(--color-text-secondary);font-size:0.9rem}
+    .cta-info-item i{color:var(--color-accent)}
+    
+    .footer{background:#0a0a0a;border-top:1px solid var(--glass-border);padding:40px 0;text-align:center}
+    .footer p{color:var(--color-text-secondary);font-size:0.875rem}
+    
+    /* Scroll Animations */
+    [data-animate]{opacity:0;transform:translateY(30px);transition:all 0.6s ease}
+    [data-animate].visible{opacity:1;transform:translateY(0)}
+    [data-stagger] > *{opacity:0;transform:translateY(20px)}
+    [data-stagger].visible > *{opacity:1;transform:translateY(0);transition:all 0.5s ease}
+    [data-stagger].visible > *:nth-child(1){transition-delay:0.1s}
+    [data-stagger].visible > *:nth-child(2){transition-delay:0.2s}
+    [data-stagger].visible > *:nth-child(3){transition-delay:0.3s}
+    [data-stagger].visible > *:nth-child(4){transition-delay:0.4s}
+    [data-stagger].visible > *:nth-child(5){transition-delay:0.5s}
+    [data-stagger].visible > *:nth-child(6){transition-delay:0.6s}
+    
+    @media(max-width:1024px){
+      .resin-process::before{left:30px;top:36px;bottom:36px}
+      .resin-step .step-number{width:54px;height:54px;font-size:1.125rem;border-radius:14px}
+      .resin-step .step-indicator{min-width:54px}
+    }
+    @media(max-width:768px){
+      .hero-stats{gap:24px;flex-wrap:wrap}
+      .stat-number{font-size:2rem}
+      .benefits-grid,.diff-grid{grid-template-columns:1fr}
+      .resin-process{gap:0}
+      .resin-process::before{left:24px;top:32px;bottom:32px;width:2px}
+      .resin-step{padding:20px;gap:16px;margin-bottom:12px}
+      .resin-step .step-number{width:48px;height:48px;font-size:1rem;border-radius:12px}
+      .resin-step .step-indicator{min-width:48px}
+      .resin-step .step-content h3{font-size:1rem}
+      .resin-step .step-content p{font-size:0.85rem}
+      .cta-box{padding:40px 20px}
+      .cta-info{flex-direction:column;gap:16px}
+    }
+    @media(max-width:480px){
+      .resin-process::before{left:20px;top:28px;bottom:28px}
+      .resin-step{padding:16px;gap:12px;margin-bottom:10px}
+      .resin-step .step-number{width:40px;height:40px;font-size:0.875rem;border-radius:10px}
+      .resin-step .step-indicator{min-width:40px}
+      .resin-step .step-content h3{font-size:0.95rem}
+      .resin-step .step-time{padding:4px 10px;font-size:0.7rem}
+    }
+  </style>
+  
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/gnb.css">
+  <link rel="stylesheet" href="../css/treatment-detail.css">
+  <link rel="stylesheet" href="../css/treatment-animations.css">
+  <link rel="stylesheet" href="../css/mobile-optimize.css" media="screen and (max-width: 991px)">
+  <link rel="stylesheet" href="../css/language-switcher.css">
+  
+  <!-- Schema.org MedicalProcedure + FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalProcedure",
+        "@id": "https://bdbddc.com/treatments/resin.html#procedure",
+        "name": "레진 치료 (복합레진 충전)",
+        "alternateName": ["Composite Resin Filling", "레진충전", "치아레진"],
+        "procedureType": "Therapeutic",
+        "description": "복합레진을 이용한 심미적 치아 수복 치료. 자연치아와 동일한 색상으로 당일 완료 가능.",
+        "bodyLocation": "치아",
+        "preparation": "충치 부위 최소 삭제 후 레진 충전",
+        "followup": "정기 검진 및 연마",
+        "howPerformed": "충치 제거 → 접착제 도포 → 레진 충전 → 광경화 → 연마",
+        "status": "EventScheduled",
+        "potentialRisk": ["변색 가능성", "파절 가능성", "2차 충치"],
+        "typicalAgeRange": "모든 연령",
+        "provider": {
+          "@type": "Dentist",
+          "name": "서울비디치과",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "천안시",
+            "addressRegion": "충청남도",
+            "addressCountry": "KR"
+          },
+          "telephone": "041-415-2892"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://bdbddc.com/treatments/resin.html#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "레진 치료 수명은 얼마나 되나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "관리에 따라 5-10년 정도입니다. 작은 충치에 적합하며, 큰 충치는 인레이가 더 오래갑니다. 정기 검진을 통해 상태를 확인하고, 필요시 연마나 교체를 진행합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "레진이 변색되나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "시간이 지나면 커피, 와인, 카레, 담배 등으로 약간 변색될 수 있습니다. 표면 연마로 개선되며, 심한 경우 교체가 필요합니다. 변색을 최소화하려면 착색 음식 섭취 후 양치를 권장합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "레진과 인레이 중 무엇이 좋나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "작은 충치(치아의 1/3 이하)는 레진이 경제적이고 당일 완료됩니다. 중간-큰 충치(치아의 1/3~2/3)는 인레이가 내구성이 뛰어나고 오래갑니다. 의료진 상담을 통해 최적의 치료법을 결정하세요."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "레진 치료 시 아프나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "작은 충치는 마취 없이도 가능합니다. 깊은 충치는 마취 후 진행하여 치료 중 통증이 없습니다. 마취 후 2-3시간 정도 감각이 없으니 입술이나 볼을 깨물지 않도록 주의하세요."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "레진 치료 후 바로 식사해도 되나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "레진은 빛으로 경화되어 치료 직후 바로 식사 가능합니다. 단, 마취한 경우 감각이 돌아온 후(약 2-3시간) 드시는 것이 안전합니다. 당일은 너무 딱딱하거나 끈적한 음식은 피하세요."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "앞니 레진과 어금니 레진의 차이가 있나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "앞니 레진은 심미성이 중요하여 여러 층의 색상을 쌓아 자연스러운 투명도를 재현합니다. 어금니 레진은 저작력을 견딜 수 있도록 강도가 높은 재료를 사용합니다. 서울비디치과는 부위별 최적의 레진을 사용합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "아말감을 레진으로 교체할 수 있나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네, 가능합니다. 기존 아말감을 제거하고 레진이나 인레이로 교체할 수 있습니다. 심미적으로도 훨씬 자연스럽고, 수은 걱정 없이 안전합니다. 아말감 상태에 따라 인레이를 권장하는 경우도 있습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "레진이 깨지거나 빠지면 어떻게 하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "레진이 깨지거나 빠지면 빨리 치과에 방문하세요. 대부분 재시술로 복원 가능합니다. 방치하면 2차 충치가 발생할 수 있으므로 조기 치료가 중요합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "레진 치료 비용은 얼마인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "레진 치료 비용은 충치 크기, 위치, 재료에 따라 달라집니다. 일반적으로 인레이나 크라운보다 경제적입니다. 정확한 비용은 검진 후 안내받으실 수 있습니다. 건강보험 적용 여부도 확인해 드립니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "어린이도 레진 치료가 가능한가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "네, 어린이도 레진 치료가 가능합니다. 특히 유치의 경우 자연치아 색상과 동일하여 심리적으로도 좋습니다. 서울비디치과 소아치과 전문의가 아이 눈높이에서 편안하게 치료합니다."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Header (통일된 GNB) -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="../index.html" class="site-logo">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text" data-i18n="common.clinicName">서울비디치과</span>
+        </a>
+        <div class="clinic-status open">
+          <span class="status-dot"></span>
+          <span class="status-text" data-i18n="common.open">진료중</span>
+          <span class="status-time"><span data-i18n="common.until">20:00까지</span></span>
+        </div>
+      </div>
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li class="nav-item has-dropdown">
+            <a href="index.html" data-i18n="nav.treatments">진료 안내</a>
+            <div class="mega-dropdown">
+              <div class="mega-dropdown-grid">
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="nav.specialtyCenters">전문센터</h4>
+                  <ul>
+                    <li><a href="glownate.html" class="nav-highlight">✨ <span data-i18n="nav.glownate">글로우네이트</span> <span class="badge" style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff;">HOT</span></a></li>
+                    <li><a href="implant.html"><span data-i18n="centers.implant">임플란트</span> <span class="badge" data-i18n="centers.implantDesc">6개 수술실</span></a></li>
+                    <li><a href="invisalign.html"><span data-i18n="centers.orthodontics">치아교정</span> <span class="badge" data-i18n="centers.orthodonticsDesc">대규모</span></a></li>
+                    <li><a href="pediatric.html"><span data-i18n="nav.pediatric">소아치과</span> <span class="badge" data-i18n="nav.pediatricBadge">전문의 3인</span></a></li>
+                    <li><a href="aesthetic.html" data-i18n="nav.aesthetic">심미치료(현정민 원장)</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="treatments.generalTreatment">일반/보존 진료</h4>
+                  <ul>
+                    <li><a href="cavity.html" data-i18n="treatments.cavity">충치치료</a></li>
+                    <li><a href="resin.html" data-i18n="treatments.resin">레진치료</a></li>
+                    <li><a href="crown.html" data-i18n="treatments.crown">크라운</a></li>
+                    <li><a href="inlay.html" data-i18n="treatments.inlay">인레이/온레이</a></li>
+                    <li><a href="root-canal.html" data-i18n="treatments.rootCanal">신경치료</a></li>
+                    <li><a href="whitening.html" data-i18n="treatments.whitening">미백</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4 data-i18n="treatments.gumSurgery">잇몸/외과</h4>
+                  <ul>
+                    <li><a href="scaling.html" data-i18n="treatments.scaling">스케일링</a></li>
+                    <li><a href="gum.html" data-i18n="treatments.gumTreatment">잇몸치료</a></li>
+                    <li><a href="periodontitis.html">치주염</a></li>
+                    <li><a href="wisdom-tooth.html" data-i18n="treatments.wisdomTooth">사랑니 발치</a></li>
+                    <li><a href="tmj.html" data-i18n="treatments.tmj">턱관절장애</a></li>
+                    <li><a href="bruxism.html">이갈이/이악물기</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="../doctors/index.html" data-i18n="nav.doctors">의료진 소개</a></li>
+          <li class="nav-item"><a href="../bdx/index.html" data-i18n="nav.checkup">검진센터</a></li>
+          <li class="nav-item has-dropdown">
+            <a href="../column/columns.html">콘텐츠</a>
+            <ul class="simple-dropdown">
+              <li><a href="../column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+              <li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+              <li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-dropdown">
+            <a href="../directions.html">병원 안내</a>
+            <ul class="simple-dropdown">
+              <li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+              <li><a href="../directions.html">오시는 길</a></li>
+              <li><a href="../faq.html">자주 묻는 질문</a></li>
+              <li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
+        <div class="auth-buttons" id="authButtons">
+          <a href="../login.html" class="btn-auth btn-login" data-i18n="auth.login">로그인</a>
+          <a href="../register.html" class="btn-auth btn-register" data-i18n="auth.register">회원가입</a>
+        </div>
+        <a href="../reservation.html" class="btn-reserve" data-i18n="common.reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section with Particles -->
+    <section class="treatment-hero">
+      <div class="hero-bg">
+        <div class="hero-gradient"></div>
+        <div class="hero-particles">
+          <div class="particle" style="left:10%;top:20%;animation-delay:0s"></div>
+          <div class="particle" style="left:20%;top:60%;animation-delay:1s"></div>
+          <div class="particle" style="left:35%;top:30%;animation-delay:2s"></div>
+          <div class="particle" style="left:50%;top:70%;animation-delay:0.5s"></div>
+          <div class="particle" style="left:65%;top:40%;animation-delay:1.5s"></div>
+          <div class="particle" style="left:80%;top:20%;animation-delay:2.5s"></div>
+          <div class="particle" style="left:90%;top:60%;animation-delay:3s"></div>
+        </div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-syringe"></i>
+          <span>COMPOSITE RESIN FILLING</span>
+        </div>
+        <h1 class="hero-title"><span class="text-gradient">레진 치료</span></h1>
+        <p class="hero-subtitle">자연치아와 동일한 심미적 충전</p>
+        <p class="hero-desc">
+          복합레진(Composite Resin)을 사용하여<br>
+          치아색과 동일한 <strong>자연스러운 수복</strong>이 가능합니다.<br>
+          <strong>당일 완료</strong>되는 빠르고 경제적인 충치 치료입니다.
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number" data-count="1">1</span>
+            <span class="stat-label">회 방문 완료</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="30">30</span>
+            <span class="stat-label">분 내 시술</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="10">10</span>
+            <span class="stat-label">년+ 수명</span>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 진료 예약</a>
+          <a href="tel:0414152892" class="btn btn-secondary btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span>SCROLL</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </section>
+
+    <!-- Empathy Section -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <div class="section-badge"><i class="fas fa-heart"></i> 이런 고민이 있으신가요?</div>
+          <h2 class="section-title">레진 치료가 <span class="text-gradient">필요한 분</span></h2>
+        </div>
+        
+        <div class="empathy-grid" data-stagger>
+          <div class="empathy-card">
+            <div class="empathy-icon">😰</div>
+            <h3>충치가 생겼어요</h3>
+            <p>초기 충치부터 중기 충치까지<br>레진으로 당일 해결 가능합니다</p>
+          </div>
+          <div class="empathy-card">
+            <div class="empathy-icon">😬</div>
+            <h3>앞니가 깨졌어요</h3>
+            <p>앞니 파절, 틈새 메우기<br>자연치아처럼 복원해 드립니다</p>
+          </div>
+          <div class="empathy-card">
+            <div class="empathy-icon">🦷</div>
+            <h3>아말감이 보기 싫어요</h3>
+            <p>은색 아말감을 자연색 레진으로<br>심미적으로 교체해 드립니다</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <div class="section-badge"><i class="fas fa-star"></i> Benefits</div>
+          <h2 class="section-title">레진 치료의 <span class="text-gradient">장점</span></h2>
+          <p class="section-desc">심미성과 기능성을 모두 갖춘 현대적 수복 재료</p>
+        </div>
+        
+        <div class="benefits-grid" data-stagger>
+          <div class="benefit-card">
+            <div class="benefit-icon"><i class="fas fa-palette"></i></div>
+            <h3>자연스러운 색상</h3>
+            <p>다양한 색상 선택이 가능해<br>본인 치아와 구분이 어려울 정도로<br>자연스럽습니다.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon"><i class="fas fa-bolt"></i></div>
+            <h3>당일 완료</h3>
+            <p>인레이와 달리 기공 과정이 없어<br>한 번의 방문으로<br>치료가 완료됩니다.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon"><i class="fas fa-tooth"></i></div>
+            <h3>최소 삭제</h3>
+            <p>충치 부분만 정확히 제거하고<br>건강한 치아 조직은<br>최대한 보존합니다.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon"><i class="fas fa-wallet"></i></div>
+            <h3>경제적</h3>
+            <p>인레이나 크라운보다<br>비용이 저렴하면서도<br>좋은 결과를 얻을 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Treatment Process -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <div class="section-badge"><i class="fas fa-list-ol"></i> Process</div>
+          <h2 class="section-title">레진 치료 <span class="text-gradient">과정</span></h2>
+          <p class="section-desc">간단하고 빠른 당일 치료 프로세스</p>
+        </div>
+        
+        <div class="resin-process" data-animate>
+          <div class="resin-step">
+            <div class="step-indicator">
+              <div class="step-number">1</div>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-search"></i> 충치 검진</h3>
+              <p>X-ray 촬영과 정밀 검진으로 충치 범위와 깊이를 정확히 파악합니다.</p>
+              <span class="step-time">약 10분</span>
+            </div>
+          </div>
+          <div class="resin-step">
+            <div class="step-indicator">
+              <div class="step-number">2</div>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-syringe"></i> 마취 (필요시)</h3>
+              <p>깊은 충치의 경우 국소 마취를 진행합니다. 작은 충치는 마취 없이 가능합니다.</p>
+              <span class="step-time">약 3분</span>
+            </div>
+          </div>
+          <div class="resin-step">
+            <div class="step-indicator">
+              <div class="step-number">3</div>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-tooth"></i> 충치 제거</h3>
+              <p>충치 부위만 정밀하게 제거하고, 건강한 치아 조직은 최대한 보존합니다.</p>
+              <span class="step-time">약 5분</span>
+            </div>
+          </div>
+          <div class="resin-step">
+            <div class="step-indicator">
+              <div class="step-number">4</div>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-fill-drip"></i> 레진 충전</h3>
+              <p>치아 색상에 맞는 레진을 여러 층으로 채워 자연스럽게 복원합니다.</p>
+              <span class="step-time">약 10분</span>
+            </div>
+          </div>
+          <div class="resin-step">
+            <div class="step-indicator">
+              <div class="step-number">5</div>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-sun"></i> 광경화 & 연마</h3>
+              <p>특수 광선으로 레진을 경화시키고, 표면을 연마하여 자연스러운 광택을 냅니다.</p>
+              <span class="step-time">약 5분</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <div class="section-badge"><i class="fas fa-check-circle"></i> Applications</div>
+          <h2 class="section-title">레진 치료 <span class="text-gradient">적용 사례</span></h2>
+        </div>
+        
+        <div class="use-cases" data-stagger>
+          <div class="use-case">
+            <div class="use-case-icon"><i class="fas fa-bacteria"></i></div>
+            <div class="use-case-text">
+              <h4>작은 충치</h4>
+              <p>초기~중기 충치 치료</p>
+            </div>
+          </div>
+          <div class="use-case">
+            <div class="use-case-icon"><i class="fas fa-times-circle"></i></div>
+            <div class="use-case-text">
+              <h4>앞니 파절</h4>
+              <p>깨진 앞니 심미 복원</p>
+            </div>
+          </div>
+          <div class="use-case">
+            <div class="use-case-icon"><i class="fas fa-minus"></i></div>
+            <div class="use-case-text">
+              <h4>치아 틈새</h4>
+              <p>벌어진 치아 사이 메우기</p>
+            </div>
+          </div>
+          <div class="use-case">
+            <div class="use-case-icon"><i class="fas fa-exchange-alt"></i></div>
+            <div class="use-case-text">
+              <h4>아말감 교체</h4>
+              <p>은색 아말감을 레진으로</p>
+            </div>
+          </div>
+          <div class="use-case">
+            <div class="use-case-icon"><i class="fas fa-water"></i></div>
+            <div class="use-case-text">
+              <h4>치경부 마모</h4>
+              <p>잇몸 경계 시린 부위</p>
+            </div>
+          </div>
+          <div class="use-case">
+            <div class="use-case-icon"><i class="fas fa-shapes"></i></div>
+            <div class="use-case-text">
+              <h4>치아 형태 수정</h4>
+              <p>작은 치아 형태 개선</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Differentiation Section -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <div class="section-badge"><i class="fas fa-award"></i> Why Seoul BD</div>
+          <h2 class="section-title">서울비디치과 <span class="text-gradient">차별점</span></h2>
+        </div>
+        
+        <div class="diff-grid" data-stagger>
+          <div class="diff-card">
+            <div class="diff-icon"><i class="fas fa-microscope"></i></div>
+            <div class="diff-content">
+              <h4>정밀 진단</h4>
+              <p>디지털 X-ray와 구강카메라로 충치 범위를 정확히 파악합니다.</p>
+            </div>
+          </div>
+          <div class="diff-card">
+            <div class="diff-icon"><i class="fas fa-gem"></i></div>
+            <div class="diff-content">
+              <h4>프리미엄 레진</h4>
+              <p>3M, GC 등 세계적 브랜드의 최고급 복합레진만 사용합니다.</p>
+            </div>
+          </div>
+          <div class="diff-card">
+            <div class="diff-icon"><i class="fas fa-user-md"></i></div>
+            <div class="diff-content">
+              <h4>풍부한 경험</h4>
+              <p>연간 수천 건의 레진 치료 경험으로 자연스러운 결과를 위해 노력합니다.</p>
+            </div>
+          </div>
+          <div class="diff-card">
+            <div class="diff-icon"><i class="fas fa-palette"></i></div>
+            <div class="diff-content">
+              <h4>정밀 색상 매칭</h4>
+              <p>10가지 이상의 레진 색상으로 개인별 맞춤 색상을 적용합니다.</p>
+            </div>
+          </div>
+          <div class="diff-card">
+            <div class="diff-icon"><i class="fas fa-clock"></i></div>
+            <div class="diff-content">
+              <h4>당일 완료</h4>
+              <p>한 번 방문으로 치료 완료. 바쁜 직장인도 점심시간에 가능합니다.</p>
+            </div>
+          </div>
+          <div class="diff-card">
+            <div class="diff-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="diff-content">
+              <h4>사후 관리</h4>
+              <p>치료 후 정기 검진과 연마 서비스를 무료로 제공합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Care Tips Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <div class="section-badge"><i class="fas fa-heart"></i> Aftercare</div>
+          <h2 class="section-title">레진 치료 후 <span class="text-gradient">관리법</span></h2>
+        </div>
+        
+        <div class="care-grid" data-stagger>
+          <div class="care-card">
+            <div class="care-icon"><i class="fas fa-utensils"></i></div>
+            <h4>식사 주의</h4>
+            <p>치료 당일은 딱딱하고 끈적한 음식을 피하세요</p>
+          </div>
+          <div class="care-card">
+            <div class="care-icon"><i class="fas fa-coffee"></i></div>
+            <h4>착색 음식</h4>
+            <p>커피, 와인, 카레 후에는 바로 양치하세요</p>
+          </div>
+          <div class="care-card">
+            <div class="care-icon"><i class="fas fa-tooth"></i></div>
+            <h4>올바른 양치</h4>
+            <p>부드러운 칫솔로 치아 경계면까지 깨끗이</p>
+          </div>
+          <div class="care-card">
+            <div class="care-icon"><i class="fas fa-times-circle"></i></div>
+            <h4>습관 개선</h4>
+            <p>손톱 물어뜯기, 이갈이 등을 피하세요</p>
+          </div>
+          <div class="care-card">
+            <div class="care-icon"><i class="fas fa-calendar-check"></i></div>
+            <h4>정기 검진</h4>
+            <p>6개월마다 검진으로 상태를 확인하세요</p>
+          </div>
+          <div class="care-card">
+            <div class="care-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <h4>이상 증상</h4>
+            <p>시림, 통증, 빠짐 시 즉시 내원하세요</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header" data-animate>
+          <div class="section-badge"><i class="fas fa-question-circle"></i> FAQ</div>
+          <h2 class="section-title">자주 묻는 <span class="text-gradient">질문</span></h2>
+        </div>
+        
+        <div class="faq-list" data-animate>
+          <div class="faq-item">
+            <button class="faq-question"><span>레진 치료 수명은 얼마나 되나요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>관리에 따라 5-10년 정도입니다. 작은 충치에 적합하며, 큰 충치는 인레이가 더 오래갑니다. 정기 검진을 통해 상태를 확인하고, 필요시 연마나 교체를 진행합니다.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question"><span>레진이 변색되나요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>시간이 지나면 커피, 와인, 카레, 담배 등으로 약간 변색될 수 있습니다. 표면 연마로 개선되며, 심한 경우 교체가 필요합니다. 변색을 최소화하려면 착색 음식 섭취 후 양치를 권장합니다.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question"><span>레진과 인레이 중 무엇이 좋나요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>작은 충치(치아의 1/3 이하)는 레진이 경제적이고 당일 완료됩니다. 중간-큰 충치(치아의 1/3~2/3)는 인레이가 내구성이 뛰어나고 오래갑니다. 의료진 상담을 통해 최적의 치료법을 결정하세요.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question"><span>레진 치료 시 아프나요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>작은 충치는 마취 없이도 가능합니다. 깊은 충치는 마취 후 진행하여 치료 중 통증이 없습니다. 마취 후 2-3시간 정도 감각이 없으니 입술이나 볼을 깨물지 않도록 주의하세요.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question"><span>레진 치료 후 바로 식사해도 되나요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>레진은 빛으로 경화되어 치료 직후 바로 식사 가능합니다. 단, 마취한 경우 감각이 돌아온 후(약 2-3시간) 드시는 것이 안전합니다. 당일은 너무 딱딱하거나 끈적한 음식은 피하세요.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question"><span>앞니 레진과 어금니 레진의 차이가 있나요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>앞니 레진은 심미성이 중요하여 여러 층의 색상을 쌓아 자연스러운 투명도를 재현합니다. 어금니 레진은 저작력을 견딜 수 있도록 강도가 높은 재료를 사용합니다. 서울비디치과는 부위별 최적의 레진을 사용합니다.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question"><span>아말감을 레진으로 교체할 수 있나요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>네, 가능합니다. 기존 아말감을 제거하고 레진이나 인레이로 교체할 수 있습니다. 심미적으로도 훨씬 자연스럽고, 수은 걱정 없이 안전합니다. 아말감 상태에 따라 인레이를 권장하는 경우도 있습니다.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question"><span>레진이 깨지거나 빠지면 어떻게 하나요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>레진이 깨지거나 빠지면 빨리 치과에 방문하세요. 대부분 재시술로 복원 가능합니다. 방치하면 2차 충치가 발생할 수 있으므로 조기 치료가 중요합니다.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question"><span>레진 치료 비용은 얼마인가요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>레진 치료 비용은 충치 크기, 위치, 재료에 따라 달라집니다. 일반적으로 인레이나 크라운보다 경제적입니다. 정확한 비용은 검진 후 안내받으실 수 있습니다. 건강보험 적용 여부도 확인해 드립니다.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question"><span>어린이도 레진 치료가 가능한가요?</span><i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer"><p>네, 어린이도 레진 치료가 가능합니다. 특히 유치의 경우 자연치아 색상과 동일하여 심리적으로도 좋습니다. 서울비디치과 소아치과 전문의가 아이 눈높이에서 편안하게 치료합니다.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box" data-animate>
+          <h2>자연스럽고 경제적인 충치 치료</h2>
+          <p>당일 완료되는 레진 치료로 빠르게 충치를 해결하세요.</p>
+          <div class="cta-buttons">
+            <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 진료 예약</a>
+            <a href="tel:0414152892" class="btn btn-secondary btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+          </div>
+          <div class="cta-info">
+            <div class="cta-info-item"><i class="fas fa-map-marker-alt"></i> 천안시 서북구 불당대로 111</div>
+            <div class="cta-info-item"><i class="fas fa-clock"></i> 평일 09:30 ~ 20:00</div>
+            <div class="cta-info-item"><i class="fas fa-parking"></i> 건물 내 주차 무료</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><p>© 2018 Seoul BD Dental Clinic. All Rights Reserved.</p></div>
+  </footer>
+
+  <script src="../js/gnb.js" defer></script>
+<script src="../js/main.js" defer></script>
+  <script>
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+    
+    // Scroll Animation
+    const animateOnScroll = () => {
+      document.querySelectorAll('[data-animate], [data-stagger]').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.85) {
+          el.classList.add('visible');
+        }
+      });
+    };
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+    
+    // Counter Animation
+    const counters = document.querySelectorAll('[data-count]');
+    const animateCounter = (counter) => {
+      const target = parseInt(counter.dataset.count);
+      const duration = 1500;
+      const step = target / (duration / 16);
+      let current = 0;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          counter.textContent = target;
+          clearInterval(timer);
+        } else {
+          counter.textContent = Math.floor(current);
+        }
+      }, 16);
+    };
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => counterObserver.observe(counter));
+  </script>
+</body>
+</html>

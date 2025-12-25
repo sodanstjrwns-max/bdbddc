@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 대시보드 | 서울비디치과</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <link rel="icon" type="image/svg+xml" href="../images/icons/favicon.svg">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Pretendard', sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; }
+    
+    .admin-layout { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 260px; background: #111; border-right: 1px solid rgba(139,90,43,0.2); padding: 24px 0; position: fixed; height: 100vh; }
+    .admin-logo { padding: 0 24px 24px; border-bottom: 1px solid rgba(139,90,43,0.2); margin-bottom: 24px; }
+    .admin-logo h1 { font-size: 1.25rem; color: #C9A962; display: flex; align-items: center; gap: 8px; }
+    .admin-logo span { font-size: 0.75rem; color: rgba(255,255,255,0.5); display: block; margin-top: 4px; }
+    .admin-nav { list-style: none; }
+    .admin-nav a { display: flex; align-items: center; gap: 12px; padding: 12px 24px; color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.3s; }
+    .admin-nav a:hover { background: rgba(201,169,98,0.1); color: #C9A962; }
+    .admin-nav a.active { background: linear-gradient(90deg, rgba(201,169,98,0.2), transparent); color: #C9A962; border-left: 3px solid #C9A962; }
+    .admin-nav i { width: 20px; text-align: center; }
+    
+    .admin-main { flex: 1; margin-left: 260px; padding: 24px; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid rgba(139,90,43,0.2); }
+    .admin-header h2 { font-size: 1.5rem; display: flex; align-items: center; gap: 12px; }
+    .admin-header h2 i { color: #C9A962; }
+    
+    .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 32px; }
+    .stat-card { background: rgba(26, 20, 16, 0.6); border: 1px solid rgba(139, 90, 43, 0.2); border-radius: 16px; padding: 24px; }
+    .stat-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .stat-card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+    .stat-card-icon.cases { background: rgba(59,130,246,0.2); color: #3b82f6; }
+    .stat-card-icon.notices { background: rgba(34,197,94,0.2); color: #22c55e; }
+    .stat-card-icon.views { background: rgba(201,169,98,0.2); color: #C9A962; }
+    .stat-card-icon.members { background: rgba(168,85,247,0.2); color: #a855f7; }
+    .stat-card-value { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .stat-card-label { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+    
+    .quick-actions { background: rgba(26, 20, 16, 0.6); border: 1px solid rgba(139, 90, 43, 0.2); border-radius: 16px; padding: 24px; }
+    .quick-actions h3 { font-size: 1.1rem; margin-bottom: 16px; color: #C9A962; }
+    .action-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .action-btn { display: flex; align-items: center; gap: 12px; padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: #fff; text-decoration: none; transition: all 0.3s; }
+    .action-btn:hover { background: rgba(201,169,98,0.1); border-color: rgba(201,169,98,0.3); }
+    .action-btn i { font-size: 1.25rem; color: #C9A962; }
+    
+    @media (max-width: 1024px) { .admin-sidebar { display: none; } .admin-main { margin-left: 0; } }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <h1>🦷 서울비디치과</h1>
+        <span>관리자 패널</span>
+      </div>
+      <nav>
+        <ul class="admin-nav">
+          <li><a href="index.html" class="active"><i class="fas fa-home"></i> 대시보드</a></li>
+          <li><a href="cases.html"><i class="fas fa-images"></i> Before/After</a></li>
+          <li><a href="notices.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+          <li><a href="../index.html" target="_blank"><i class="fas fa-external-link-alt"></i> 사이트 보기</a></li>
+        </ul>
+      </nav>
+    </aside>
+    
+    <main class="admin-main">
+      <header class="admin-header">
+        <h2><i class="fas fa-home"></i> 대시보드</h2>
+      </header>
+      
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div class="stat-card-icon cases"><i class="fas fa-images"></i></div>
+          </div>
+          <div class="stat-card-value">6</div>
+          <div class="stat-card-label">Before/After 케이스</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div class="stat-card-icon notices"><i class="fas fa-bullhorn"></i></div>
+          </div>
+          <div class="stat-card-value">5</div>
+          <div class="stat-card-label">공지사항</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div class="stat-card-icon views"><i class="fas fa-eye"></i></div>
+          </div>
+          <div class="stat-card-value">1,234</div>
+          <div class="stat-card-label">이번 달 방문자</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <div class="stat-card-icon members"><i class="fas fa-users"></i></div>
+          </div>
+          <div class="stat-card-value">89</div>
+          <div class="stat-card-label">가입 회원</div>
+        </div>
+      </div>
+      
+      <div class="quick-actions">
+        <h3><i class="fas fa-bolt"></i> 빠른 작업</h3>
+        <div class="action-grid">
+          <a href="cases.html" class="action-btn">
+            <i class="fas fa-plus"></i>
+            <span>새 케이스 추가</span>
+          </a>
+          <a href="notices.html" class="action-btn">
+            <i class="fas fa-edit"></i>
+            <span>공지사항 작성</span>
+          </a>
+          <a href="../cases/gallery.html" target="_blank" class="action-btn">
+            <i class="fas fa-images"></i>
+            <span>갤러리 보기</span>
+          </a>
+          <a href="../notice/index.html" target="_blank" class="action-btn">
+            <i class="fas fa-bullhorn"></i>
+            <span>공지 페이지 보기</span>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

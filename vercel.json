@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/blog",
+      "destination": "https://proxy.inblog.dev/bdbddc"
+    },
+    {
+      "source": "/blog/:path*",
+      "destination": "https://proxy.inblog.dev/bdbddc/:path*"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "https://proxy.inblog.dev/bdbddc/robots.txt"
+    }
+  ]
+}

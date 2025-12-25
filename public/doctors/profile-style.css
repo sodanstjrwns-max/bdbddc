@@ -1,0 +1,1032 @@
+/**
+ * 서울비디치과 의료진 프로필 페이지 통합 스타일 v2.3
+ * 15명 원장 프로필 페이지 통일 CSS
+ * design-system.css 충돌 방지용 강화 선택자 적용
+ */
+
+/* ========== 기본 레이아웃 ========== */
+body.doctor-profile-page {
+    min-height: 100vh !important;
+    background: linear-gradient(180deg, #0a0a0a 0%, #1a1510 100%) !important;
+}
+
+.doctor-profile-page * {
+    box-sizing: border-box;
+}
+
+/* ========== 컨테이너 리셋 (design-system.css 오버라이드) ========== */
+body.doctor-profile-page .container {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* ========== 프로필 헤더 섹션 ========== */
+body.doctor-profile-page .profile-header,
+.doctor-profile-page section.profile-header {
+    padding: 120px 5% 60px !important;
+    background: linear-gradient(135deg, rgba(139, 90, 43, 0.1) 0%, rgba(201, 169, 98, 0.1) 100%) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    display: block !important;
+}
+
+.profile-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 1), transparent);
+}
+
+.profile-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(ellipse at 70% 30%, rgba(201, 169, 98, 0.1) 0%, transparent 60%);
+}
+
+body.doctor-profile-page .profile-header .container,
+body.doctor-profile-page .profile-header > .container,
+.doctor-profile-page .profile-header .container,
+.doctor-profile-page section.profile-header .container,
+.doctor-profile-page section.profile-header > .container {
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    grid-template-columns: 320px 1fr !important;
+    gap: 60px !important;
+    align-items: start !important;
+    position: relative !important;
+    z-index: 1 !important;
+    padding: 0 20px !important;
+}
+
+/* ========== 프로필 사진 ========== */
+body.doctor-profile-page .profile-photo-wrapper,
+.doctor-profile-page .profile-photo-wrapper {
+    position: relative !important;
+    display: block !important;
+    width: 320px !important;
+    min-width: 280px !important;
+}
+
+body.doctor-profile-page .profile-photo-frame,
+.doctor-profile-page .profile-photo-frame {
+    width: 100% !important;
+    aspect-ratio: 4/5 !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    background: linear-gradient(145deg, #1a1510, #15120d) !important;
+    border: 1px solid rgba(201, 169, 98, 0.3) !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4) !important;
+    display: block !important;
+    min-height: 400px !important;
+}
+
+.profile-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+body.doctor-profile-page .profile-photo-placeholder,
+.doctor-profile-page .profile-photo-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 400px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    color: rgba(201, 169, 98, 0.4) !important;
+    background: linear-gradient(145deg, #1a1510, #15120d) !important;
+}
+
+body.doctor-profile-page .profile-photo-placeholder i,
+.profile-photo-placeholder i {
+    font-size: 80px !important;
+    display: block !important;
+}
+
+body.doctor-profile-page .profile-photo-placeholder span,
+.profile-photo-placeholder span {
+    font-size: 14px !important;
+    color: #666 !important;
+    display: block !important;
+}
+
+/* ========== 프로필 배지 ========== */
+.doctor-profile-page .profile-badges {
+    display: flex !important;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.badge {
+    background: rgba(201, 169, 98, 0.2);
+    color: #C9A962;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-primary {
+    background: linear-gradient(135deg, #8B5A2B, #C9A962);
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(139, 90, 43, 0.4);
+}
+
+/* ========== 프로필 정보 ========== */
+.doctor-profile-page .profile-info {
+    padding-top: 20px;
+    color: #fff;
+}
+
+.doctor-profile-page .profile-role {
+    display: inline-block;
+    background: linear-gradient(135deg, #8B5A2B, #C9A962);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.doctor-profile-page .profile-name {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff 0%, #e5e5e5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.doctor-profile-page .profile-specialty {
+    font-size: 1.3rem;
+    color: #C9A962;
+    margin-bottom: 24px;
+    font-weight: 500;
+}
+
+.doctor-profile-page .profile-quote {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #d4c4b0;
+    padding: 24px;
+    background: rgba(139, 90, 43, 0.15);
+    border-left: 4px solid #C9A962;
+    border-radius: 0 16px 16px 0;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.profile-quote::before {
+    content: '"';
+    font-size: 3rem;
+    color: #C9A962;
+    line-height: 0;
+    vertical-align: -0.5em;
+    margin-right: 8px;
+}
+
+/* ========== 액션 버튼 ========== */
+.doctor-profile-page .profile-actions {
+    display: flex !important;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.doctor-profile-page .btn-consult {
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #8B5A2B, #C9A962);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.btn-consult:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(139, 90, 43, 0.4);
+}
+
+.doctor-profile-page .btn-call {
+    padding: 16px 32px;
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.btn-call:hover {
+    border-color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ========== 갤러리 섹션 ========== */
+body.doctor-profile-page .gallery-section,
+.doctor-profile-page section.gallery-section {
+    padding: 80px 5% !important;
+    background: #0d0906 !important;
+    display: block !important;
+}
+
+body.doctor-profile-page .section-header,
+.doctor-profile-page .gallery-section .section-header {
+    text-align: center !important;
+    margin-bottom: 48px !important;
+    display: block !important;
+}
+
+body.doctor-profile-page .section-header h2,
+.doctor-profile-page .section-header h2 {
+    font-size: clamp(24px, 4vw, 32px) !important;
+    color: #fff !important;
+    margin-bottom: 12px !important;
+}
+
+body.doctor-profile-page .section-header p,
+.doctor-profile-page .section-header p {
+    color: #9a8b7a !important;
+}
+
+body.doctor-profile-page .gallery-grid,
+.doctor-profile-page .gallery-section .gallery-grid,
+.doctor-profile-page section.gallery-section .gallery-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+    max-width: 1000px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+}
+
+body.doctor-profile-page .gallery-item,
+.doctor-profile-page .gallery-section .gallery-item,
+.doctor-profile-page .gallery-grid .gallery-item {
+    position: relative !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    aspect-ratio: 16/10 !important;
+    background: #1a1410 !important;
+    border: 1px solid rgba(139, 90, 43, 0.2) !important;
+    display: block !important;
+    width: 100% !important;
+    min-height: 200px !important;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+body.doctor-profile-page .gallery-item-placeholder,
+.doctor-profile-page .gallery-item .gallery-item-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 180px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    color: rgba(201, 169, 98, 0.3) !important;
+    background: linear-gradient(145deg, #1a1510, #15120d) !important;
+}
+
+body.doctor-profile-page .gallery-item-placeholder i,
+.gallery-item-placeholder i {
+    font-size: 48px !important;
+    display: block !important;
+}
+
+body.doctor-profile-page .gallery-item-placeholder span,
+.gallery-item-placeholder span {
+    font-size: 14px !important;
+    color: #666 !important;
+    display: block !important;
+}
+
+body.doctor-profile-page .gallery-item-label,
+.doctor-profile-page .gallery-item .gallery-item-label {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 20px !important;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8)) !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+
+/* ========== 인터뷰/원장이야기 섹션 ========== */
+.interview-section {
+    padding: 80px 5%;
+    background: linear-gradient(180deg, #0d0906 0%, #1a1410 50%, #0d0906 100%);
+}
+
+.interview-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.interview-content {
+    background: rgba(26, 20, 16, 0.8);
+    border: 1px solid rgba(139, 90, 43, 0.3);
+    border-radius: 24px;
+    padding: 48px;
+}
+
+.interview-qa {
+    margin-bottom: 32px;
+}
+
+.interview-qa:last-child {
+    margin-bottom: 0;
+}
+
+.interview-q {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #C9A962;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.interview-q::before {
+    content: 'Q';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #8B5A2B, #C9A962);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.interview-a {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.9;
+    padding-left: 40px;
+}
+
+/* ========== 스토리 섹션 (원장 이야기 확장형) ========== */
+body.doctor-profile-page .story-section,
+.doctor-profile-page section.story-section {
+    padding: 100px 5% !important;
+    background: linear-gradient(180deg, #0d0906 0%, #12100d 100%) !important;
+    display: block !important;
+}
+
+body.doctor-profile-page .story-container,
+.doctor-profile-page .story-section .story-container {
+    max-width: 800px !important;
+    margin: 0 auto !important;
+}
+
+body.doctor-profile-page .story-header,
+.doctor-profile-page .story-section .story-header {
+    text-align: center !important;
+    margin-bottom: 60px !important;
+    display: block !important;
+}
+
+body.doctor-profile-page .story-header h2,
+.doctor-profile-page .story-header h2 {
+    font-size: clamp(28px, 5vw, 40px) !important;
+    color: #fff !important;
+    margin-bottom: 16px !important;
+    font-weight: 700 !important;
+}
+
+body.doctor-profile-page .story-header .subtitle,
+.doctor-profile-page .story-header .subtitle {
+    color: #C9A962 !important;
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+}
+
+body.doctor-profile-page .story-content,
+.doctor-profile-page .story-section .story-content {
+    background: rgba(26, 20, 16, 0.6) !important;
+    border: 1px solid rgba(139, 90, 43, 0.2) !important;
+    border-radius: 32px !important;
+    padding: clamp(32px, 6vw, 64px) !important;
+    position: relative !important;
+    display: block !important;
+}
+
+.story-content::before {
+    content: '"';
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    font-size: 120px;
+    color: rgba(201, 169, 98, 0.08);
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+body.doctor-profile-page .story-block,
+.doctor-profile-page .story-section .story-block {
+    margin-bottom: 48px !important;
+    position: relative !important;
+    display: block !important;
+}
+
+.doctor-profile-page .story-block:last-child {
+    margin-bottom: 0;
+}
+
+.doctor-profile-page .story-block h3 {
+    font-size: 1.3rem;
+    color: #C9A962;
+    margin-bottom: 20px;
+    font-weight: 600;
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+}
+
+.doctor-profile-page .story-block h3::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, #C9A962, #8B5A2B);
+    border-radius: 2px;
+}
+
+.doctor-profile-page .story-block p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.1rem;
+    line-height: 2;
+    margin-bottom: 20px;
+}
+
+.doctor-profile-page .story-block p:last-child {
+    margin-bottom: 0;
+}
+
+.doctor-profile-page .story-highlight {
+    background: linear-gradient(135deg, rgba(139, 90, 43, 0.15), rgba(201, 169, 98, 0.1));
+    border-left: 4px solid #C9A962;
+    padding: 24px 28px;
+    border-radius: 0 16px 16px 0;
+    margin: 32px 0;
+    font-style: italic;
+    color: #d4c4b0;
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+.doctor-profile-page .story-highlight strong {
+    color: #C9A962;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.doctor-profile-page .story-divider {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    margin: 48px 0;
+    gap: 16px;
+}
+
+.doctor-profile-page .story-divider span {
+    color: #C9A962;
+    font-size: 1.2rem;
+}
+
+.doctor-profile-page .story-divider::before,
+.doctor-profile-page .story-divider::after {
+    content: '';
+    flex: 1;
+    max-width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 169, 98, 0.3), transparent);
+}
+
+.doctor-profile-page .closing-message {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(139, 90, 43, 0.2), rgba(201, 169, 98, 0.1));
+    border-radius: 24px;
+    margin-top: 48px;
+}
+
+.doctor-profile-page .closing-message p {
+    font-size: 1.25rem;
+    color: #fff;
+    line-height: 1.8;
+    margin-bottom: 0;
+}
+
+.doctor-profile-page .closing-message p strong {
+    color: #C9A962;
+}
+
+/* ========== 콘텐츠 그리드 (학력/경력/전문분야) ========== */
+.profile-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 5%;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+.content-card {
+    background: linear-gradient(145deg, rgba(26, 21, 16, 0.8), rgba(21, 18, 13, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 36px;
+    margin-bottom: 32px;
+}
+
+.content-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.content-card h3 i {
+    color: #8B5A2B;
+    font-size: 20px;
+}
+
+.career-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.career-list li {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.career-list li:last-child {
+    border-bottom: none;
+}
+
+.career-list li i {
+    color: #10b981;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+/* ========== 전문 분야 태그 ========== */
+.specialty-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.specialty-tag {
+    background: rgba(139, 90, 43, 0.15);
+    color: #C9A962;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ========== 진료 시간표 ========== */
+.schedule-table {
+    width: 100%;
+}
+
+.schedule-table tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.schedule-table td {
+    padding: 14px 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+}
+
+.schedule-table td:first-child {
+    color: white;
+    font-weight: 600;
+    width: 100px;
+}
+
+.schedule-table .available {
+    color: #10b981;
+}
+
+.schedule-table .unavailable {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== 진료 철학 ========== */
+.philosophy-section {
+    background: linear-gradient(135deg, rgba(139, 90, 43, 0.1) 0%, rgba(201, 169, 98, 0.1) 100%);
+    border-radius: 24px;
+    padding: 48px;
+    margin-top: 40px;
+}
+
+.philosophy-section h3 {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.philosophy-section p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.9;
+}
+
+/* ========== 다른 의료진 보기 ========== */
+.other-doctors {
+    margin-top: 60px;
+    padding-top: 60px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.other-doctors h3 {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.doctors-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.doctor-mini-card {
+    background: linear-gradient(145deg, rgba(26, 21, 16, 0.8), rgba(21, 18, 13, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.doctor-mini-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(201, 169, 98, 0.3);
+}
+
+.doctor-mini-card .mini-photo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #8B5A2B, #C9A962);
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doctor-mini-card .mini-photo i {
+    font-size: 32px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.doctor-mini-card .mini-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.doctor-mini-card .mini-specialty {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ========== Footer CTA ========== */
+.footer-cta {
+    background: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+    padding: 60px 5%;
+    text-align: center;
+}
+
+.footer-cta h2 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+.footer-cta p {
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 32px;
+}
+
+.footer-cta .btn-white {
+    display: inline-block;
+    padding: 18px 48px;
+    background: white;
+    color: #8B5A2B;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.footer-cta .btn-white:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* ========== Simple Footer ========== */
+.simple-footer {
+    background: #0a0806;
+    padding: 40px 5%;
+    text-align: center;
+    color: #666;
+}
+
+.simple-footer a {
+    color: #C9A962;
+    text-decoration: none;
+}
+
+/* ========== 원데이 레진 하이라이트 (현정민 원장 전용) ========== */
+.oneday-highlight {
+    background: linear-gradient(135deg, rgba(139, 90, 43, 0.15) 0%, rgba(201, 169, 98, 0.15) 100%);
+    border: 1px solid rgba(139, 90, 43, 0.3);
+    border-radius: 24px;
+    padding: 36px;
+    margin-bottom: 32px;
+}
+
+.oneday-highlight h3 i {
+    color: #fbbf24;
+}
+
+.oneday-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.oneday-item {
+    background: rgba(255,255,255,0.05);
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.oneday-item .icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.oneday-item .title {
+    color: white;
+    font-weight: 600;
+}
+
+.oneday-item .desc {
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+}
+
+/* ========== 공통 인라인 스타일 대체 클래스 ========== */
+/* 강조 텍스트 */
+.highlight-text {
+    color: #C9A962;
+}
+
+.highlight-text-bold {
+    color: #C9A962;
+    font-weight: 600;
+}
+
+.highlight-text-medium {
+    color: #C9A962;
+    font-weight: 500;
+}
+
+/* 프로필 이름 뒤 '원장' 텍스트 */
+.profile-name .title-suffix {
+    font-size: 0.5em;
+    font-weight: 400;
+}
+
+/* 작은 안내 텍스트 */
+.small-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 16px;
+}
+
+/* 특징 목록 아이템 */
+.feature-item {
+    padding: 10px 0;
+    color: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-item .fa-check-circle {
+    color: #10b981;
+}
+
+/* 소아치과 특징 아이콘 */
+.feature-item .fa-door-open,
+.feature-item .fa-cloud,
+.feature-item .fa-gamepad,
+.feature-item i[class*="fa-"] {
+    color: #C9A962;
+}
+
+/* 수술 실적 통계 카드 */
+.stat-card {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.stat-card .stat-number {
+    font-size: 48px;
+    font-weight: 800;
+    color: #C9A962;
+}
+
+.stat-card .stat-label {
+    color: rgba(255,255,255,0.6);
+}
+
+/* 통계 카드 스타일 */
+.stat-number {
+    font-size: 36px;
+    font-weight: 800;
+    color: #C9A962;
+}
+
+.stat-number-large {
+    font-size: 48px;
+    font-weight: 800;
+    color: #C9A962;
+}
+
+/* 사이드바 텍스트 */
+.sidebar-text {
+    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.sidebar-highlight {
+    color: #C9A962;
+    font-weight: 600;
+}
+
+/* 철학 섹션 스타일 보완 */
+.philosophy-section .philosophy-quote {
+    color: #C9A962;
+    font-weight: 600;
+}
+
+/* ========== 반응형 디자인 ========== */
+@media (max-width: 900px) {
+    body.doctor-profile-page .profile-header .container,
+    .doctor-profile-page .profile-header .container {
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+    }
+    
+    body.doctor-profile-page .profile-photo-wrapper,
+    .doctor-profile-page .profile-photo-wrapper {
+        max-width: 280px !important;
+        margin: 0 auto !important;
+    }
+    
+    .profile-quote {
+        border-left: none;
+        padding: 20px;
+        border-radius: 16px;
+    }
+    
+    .profile-quote::before {
+        display: none;
+    }
+    
+    .profile-actions {
+        justify-content: center;
+    }
+    
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    body.doctor-profile-page .gallery-grid,
+    .doctor-profile-page .gallery-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .interview-content {
+        padding: 32px 24px;
+    }
+    
+    .story-section {
+        padding: 60px 4%;
+    }
+    
+    .story-content {
+        padding: 28px;
+    }
+    
+    .story-content::before {
+        font-size: 80px;
+        top: 12px;
+        left: 16px;
+    }
+    
+    .story-block p {
+        font-size: 1rem;
+        line-height: 1.9;
+    }
+    
+    .story-highlight {
+        padding: 20px;
+        font-size: 1rem;
+    }
+    
+    .closing-message p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-actions {
+        flex-direction: column;
+    }
+    
+    .btn-consult,
+    .btn-call {
+        width: 100%;
+        justify-content: center;
+    }
+}

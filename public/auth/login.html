@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM');
+  </script>
+  
+  <!-- Amplitude Analytics -->
+  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
+  <script>
+    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      "fetchRemoteConfig": true,
+      "autocapture": {
+        "attribution": true,
+        "fileDownloads": true,
+        "formInteractions": true,
+        "pageViews": true,
+        "sessions": true,
+        "elementInteractions": true,
+        "networkTracking": true,
+        "webVitals": true,
+        "frustrationInteractions": true
+      }
+    });
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO -->
+  <title>로그인 | 서울비디치과</title>
+  <meta name="description" content="서울비디치과 회원 로그인 페이지입니다. 이메일 또는 소셜 계정으로 로그인하세요.">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --brand-primary: #8B5A2B;
+      --brand-gold: #C9A962;
+      --brand-gradient: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+      --bg-dark: #0a0806;
+      --bg-card: rgba(26, 20, 16, 0.95);
+      --text-primary: #fff;
+      --text-secondary: #b8a99a;
+      --text-muted: #666;
+      --border-color: rgba(139, 90, 43, 0.3);
+      --error-color: #e74c3c;
+      --success-color: #27ae60;
+    }
+    
+    html { font-size: 16px; }
+    
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Header */
+    .auth-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .auth-header a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    
+    .auth-header .logo-icon { font-size: 1.5rem; }
+    
+    /* Main Container */
+    .auth-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    
+    .auth-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 48px 40px;
+      backdrop-filter: blur(20px);
+    }
+    
+    .auth-title {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .auth-title h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: var(--brand-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .auth-title p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    .form-input:focus {
+      border-color: var(--brand-gold);
+      box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.1);
+    }
+    
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .input-wrapper {
+      position: relative;
+    }
+    
+    .input-wrapper .form-input {
+      padding-right: 48px;
+    }
+    
+    .input-icon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .input-icon:hover {
+      color: var(--brand-gold);
+    }
+    
+    /* Error Message */
+    .error-message {
+      display: none;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      background: rgba(231, 76, 60, 0.1);
+      border: 1px solid var(--error-color);
+      border-radius: 12px;
+      color: var(--error-color);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    
+    .error-message.show {
+      display: block;
+    }
+    
+    /* Success Message */
+    .success-message {
+      display: none;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      background: rgba(39, 174, 96, 0.1);
+      border: 1px solid var(--success-color);
+      border-radius: 12px;
+      color: var(--success-color);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    
+    .success-message.show {
+      display: block;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background: var(--brand-gradient);
+      color: #fff;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139, 90, 43, 0.4);
+    }
+    
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 28px 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+    
+    .divider span {
+      padding: 0 16px;
+    }
+    
+    /* Social Buttons */
+    .social-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .btn-social {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+    
+    .btn-social:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--brand-gold);
+    }
+    
+    .btn-social img {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .btn-google { }
+    .btn-kakao { background: #FEE500; color: #000; border-color: #FEE500; }
+    .btn-kakao:hover { background: #F5DC00; }
+    .btn-naver { background: #03C75A; color: #fff; border-color: #03C75A; }
+    .btn-naver:hover { background: #02b351; }
+    
+    /* Links */
+    .auth-links {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .auth-links a {
+      color: var(--brand-gold);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    
+    .auth-links a:hover {
+      color: var(--text-primary);
+      text-decoration: underline;
+    }
+    
+    .forgot-password {
+      display: block;
+      margin-top: 12px;
+      text-align: center;
+    }
+    
+    .forgot-password a {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+    
+    .forgot-password a:hover {
+      color: var(--brand-gold);
+    }
+    
+    /* Loading Overlay */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    .loading-overlay.show {
+      display: flex;
+    }
+    
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(201, 169, 98, 0.2);
+      border-top-color: var(--brand-gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 480px) {
+      .auth-card {
+        padding: 32px 24px;
+        border-radius: 20px;
+      }
+      
+      .auth-title h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="auth-header">
+    <a href="../index.html">
+      <span class="logo-icon">🦷</span>
+      <span data-i18n="common.clinicName">서울비디치과</span>
+    </a>
+    <!-- Language Selector -->
+    <select id="langSelect" class="lang-select" onchange="changeLanguage(this.value)">
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+      <option value="zh">中文</option>
+    </select>
+  </header>
+  
+  <style>
+    .lang-select {
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+  </style>
+
+  <!-- Main Container -->
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-title">
+        <h1 data-i18n="auth.loginTitle">로그인</h1>
+        <p data-i18n="auth.loginWelcome">서울비디치과에 오신 것을 환영합니다</p>
+      </div>
+      
+      <!-- Error/Success Messages -->
+      <div id="errorMessage" class="error-message"></div>
+      <div id="successMessage" class="success-message"></div>
+      
+      <!-- Login Form -->
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="email" data-i18n="auth.email">이메일</label>
+          <input 
+            type="email" 
+            id="email" 
+            class="form-input" 
+            data-i18n-placeholder="auth.emailPlaceholder"
+            placeholder="이메일 주소를 입력하세요"
+            required
+            autocomplete="email"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="password" data-i18n="auth.password">비밀번호</label>
+          <div class="input-wrapper">
+            <input 
+              type="password" 
+              id="password" 
+              class="form-input" 
+              data-i18n-placeholder="auth.passwordPlaceholder"
+              placeholder="비밀번호를 입력하세요"
+              required
+              autocomplete="current-password"
+            >
+            <i class="fas fa-eye input-icon" onclick="togglePassword()"></i>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" id="loginBtn">
+          <i class="fas fa-sign-in-alt"></i>
+          <span data-i18n="auth.login">로그인</span>
+        </button>
+      </form>
+      
+      <div class="forgot-password">
+        <a href="javascript:void(0)" onclick="showForgotPassword(event)" data-i18n="auth.forgotPassword">비밀번호를 잊으셨나요?</a>
+      </div>
+      
+      <div class="divider">
+        <span data-i18n="auth.continueWith">또는</span>
+      </div>
+      
+      <!-- Social Login -->
+      <div class="social-buttons">
+        <button type="button" class="btn btn-social btn-google" onclick="handleGoogleLogin()">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+          <span data-i18n="auth.googleLogin">Google로 계속하기</span>
+        </button>
+      </div>
+      
+      <div class="auth-links">
+        <span data-i18n="auth.noAccount">계정이 없으신가요?</span> <a href="register.html" data-i18n="auth.register">회원가입</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Loading Overlay -->
+  <div id="authLoader" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="/js/firebase-auth.js"></script>
+  
+  <script>
+    // 비밀번호 표시/숨김 토글
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const icon = document.querySelector('.input-icon');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+    
+    // 에러 메시지 표시
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = message;
+      errorDiv.classList.add('show');
+      
+      // 성공 메시지 숨김
+      document.getElementById('successMessage').classList.remove('show');
+    }
+    
+    // 성공 메시지 표시
+    function showSuccess(message) {
+      const successDiv = document.getElementById('successMessage');
+      successDiv.textContent = message;
+      successDiv.classList.add('show');
+      
+      // 에러 메시지 숨김
+      document.getElementById('errorMessage').classList.remove('show');
+    }
+    
+    // 메시지 숨김
+    function hideMessages() {
+      document.getElementById('errorMessage').classList.remove('show');
+      document.getElementById('successMessage').classList.remove('show');
+    }
+    
+    // 이메일 로그인 처리
+    async function handleLogin(event) {
+      event.preventDefault();
+      hideMessages();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      
+      // 유효성 검사
+      if (!email || !password) {
+        showError('이메일과 비밀번호를 모두 입력해주세요.');
+        return;
+      }
+      
+      const result = await window.firebaseAuth.loginWithEmail(email, password);
+      
+      if (result.success) {
+        showSuccess('로그인 성공! 메인 페이지로 이동합니다.');
+        setTimeout(() => {
+          window.location.href = '../index.html';
+        }, 1000);
+      } else {
+        showError(result.error);
+      }
+    }
+    
+    // Google 로그인 처리
+    async function handleGoogleLogin() {
+      hideMessages();
+      
+      const result = await window.firebaseAuth.loginWithGoogle();
+      
+      if (result.success) {
+        showSuccess('로그인 성공! 메인 페이지로 이동합니다.');
+        setTimeout(() => {
+          window.location.href = '../index.html';
+        }, 1000);
+      } else {
+        showError(result.error);
+      }
+    }
+    
+    // 비밀번호 찾기
+    async function showForgotPassword(event) {
+      event.preventDefault();
+      hideMessages();
+      
+      const email = document.getElementById('email').value.trim();
+      
+      if (!email) {
+        showError('비밀번호 재설정을 위해 이메일을 먼저 입력해주세요.');
+        document.getElementById('email').focus();
+        return;
+      }
+      
+      if (!window.firebaseAuth.validateEmail(email)) {
+        showError('올바른 이메일 형식을 입력해주세요.');
+        return;
+      }
+      
+      const result = await window.firebaseAuth.sendPasswordReset(email);
+      
+      if (result.success) {
+        showSuccess('비밀번호 재설정 이메일을 발송했습니다. 메일함을 확인해주세요.');
+      } else {
+        showError(result.error);
+      }
+    }
+    
+    // 이미 로그인된 경우 메인으로 리다이렉트
+    window.addEventListener('authStateChanged', (e) => {
+      if (e.detail.user) {
+        // 이미 로그인됨 - 메인으로 이동
+        // window.location.href = '../index.html';
+      }
+    });
+    
+    // ========== 다국어 지원 ==========
+    function changeLanguage(lang) {
+      localStorage.setItem('seoulbd_language', lang);
+      applyTranslations(lang);
+    }
+    
+    function getTranslation(key, lang) {
+      if (!window.TRANSLATIONS) return null;
+      const keys = key.split('.');
+      let value = window.TRANSLATIONS;
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      // 해당 언어 값이 없으면 한국어 기본값 반환
+      return value ? (value[lang] || value['ko']) : null;
+    }
+    
+    function applyTranslations(lang) {
+      if (!window.TRANSLATIONS) return;
+      
+      // 일반 텍스트 번역
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+          el.textContent = translation;
+        }
+      });
+      
+      // placeholder 번역
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+          el.placeholder = translation;
+        }
+      });
+      
+      // select 옵션 번역
+      document.querySelectorAll('select option[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const translation = getTranslation(key, lang);
+        if (translation) {
+          el.textContent = translation;
+        }
+      });
+      
+      // HTML 속성 업데이트
+      document.documentElement.lang = lang;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('seoulbd_language') || 'ko';
+      document.getElementById('langSelect').value = savedLang;
+      applyTranslations(savedLang);
+    });
+  </script>
+  <script src="/js/gnb.js" defer></script>
+  <script src="/js/translations.js"></script>
+</body>
+</html>

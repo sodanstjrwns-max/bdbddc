@@ -1,0 +1,235 @@
+<!--
+  서울비디치과 통합 헤더 컴포넌트 v2.0
+  이 파일의 내용을 각 페이지 <body> 시작 직후에 삽입하세요.
+  
+  필요한 파일:
+  - css/gnb.css
+  - js/gnb.js
+  
+  메뉴 구조: 진료 안내 / 의료진 소개 / 검진센터 / 칼럼·케이스 / 병원 안내
+-->
+
+<!-- ■ 통합 헤더 -->
+<header class="site-header" id="siteHeader">
+    <div class="header-container">
+        <!-- 로고 + 진료상태 -->
+        <div class="header-brand">
+            <a href="/index.html" class="site-logo">
+                <span class="logo-icon">🦷</span>
+                <span class="logo-text">서울비디치과</span>
+            </a>
+            <div class="clinic-status open">
+                <span class="status-dot"></span>
+                <span class="status-text">진료중</span>
+                <span class="status-time">20:00까지</span>
+            </div>
+        </div>
+        
+        <!-- 메인 네비게이션 -->
+        <nav class="main-nav" id="mainNav">
+            <ul>
+                <!-- 진료 안내 (메가 드롭다운) -->
+                <li class="nav-item has-dropdown">
+                    <a href="/treatments/index.html">진료 안내</a>
+                    <div class="mega-dropdown">
+                        <div class="mega-dropdown-grid">
+                            <div class="mega-dropdown-section">
+                                <h4>전문센터</h4>
+                                <ul>
+                                    <li><a href="/treatments/glownate.html" class="nav-highlight">✨ 글로우네이트 <span class="badge" style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff;">HOT</span></a></li>
+                                    <li><a href="/treatments/implant.html">임플란트센터 <span class="badge">6개 수술실</span></a></li>
+                                    <li><a href="/treatments/invisalign.html">교정센터(인비절라인) <span class="badge">대규모</span></a></li>
+                                    <li><a href="/treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li>
+                                    <li><a href="/treatments/aesthetic.html">심미치료(현정민 원장)</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-dropdown-section">
+                                <h4>일반/보존 진료</h4>
+                                <ul>
+                                    <li><a href="/treatments/cavity.html">충치치료</a></li>
+                                    <li><a href="/treatments/resin.html">레진치료</a></li>
+                                    <li><a href="/treatments/crown.html">크라운</a></li>
+                                    <li><a href="/treatments/inlay.html">인레이/온레이</a></li>
+                                    <li><a href="/treatments/root-canal.html">신경치료</a></li>
+                                    <li><a href="/treatments/whitening.html">미백</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-dropdown-section">
+                                <h4>잇몸/외과</h4>
+                                <ul>
+                                    <li><a href="/treatments/scaling.html">스케일링</a></li>
+                                    <li><a href="/treatments/gum.html">잇몸치료</a></li>
+                                    <li><a href="/treatments/periodontitis.html">치주염</a></li>
+                                    <li><a href="/treatments/wisdom-tooth.html">사랑니 발치</a></li>
+                                    <li><a href="/treatments/tmj.html">턱관절장애</a></li>
+                                    <li><a href="/treatments/bruxism.html">이갈이/이악물기</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                
+                <!-- 의료진 소개 -->
+                <li class="nav-item">
+                    <a href="/doctors/index.html">의료진 소개</a>
+                </li>
+                
+                <!-- 검진센터 -->
+                <li class="nav-item">
+                    <a href="/bdx/index.html">검진센터</a>
+                </li>
+                
+                <!-- 콘텐츠 (드롭다운) - 3개 메뉴 -->
+                <li class="nav-item has-dropdown">
+                    <a href="/column/columns.html">콘텐츠</a>
+                    <ul class="simple-dropdown">
+                        <li><a href="/column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+                        <li><a href="/video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+                        <li><a href="/cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+                    </ul>
+                </li>
+                
+                <!-- 병원 안내 (드롭다운) - 공지사항 포함 -->
+                <li class="nav-item has-dropdown">
+                    <a href="/directions.html">병원 안내</a>
+                    <ul class="simple-dropdown">
+                        <li><a href="/pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+                        <li><a href="/floor-guide.html">층별 안내</a></li>
+                        <li><a href="/directions.html">오시는 길</a></li>
+                        <li><a href="/faq.html">자주 묻는 질문</a></li>
+                        <li><a href="/notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- 헤더 액션 -->
+        <div class="header-actions">
+            <a href="tel:0414152892" class="header-phone">
+                <i class="fas fa-phone"></i>
+                041-415-2892
+            </a>
+            <a href="/reservation.html" class="btn-reserve">
+                <i class="fas fa-calendar-check"></i>
+                예약하기
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- 헤더 높이만큼 여백 -->
+<div style="height: 72px;"></div>
+
+<!-- ■ Mobile Navigation -->
+<nav class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+        <span class="logo-icon">🦷</span>
+        <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-nav-menu">
+        <!-- 진료 안내 -->
+        <li class="mobile-nav-item has-submenu">
+            <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+                <i class="fas fa-tooth"></i> 진료 안내
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </a>
+            <ul class="mobile-nav-submenu">
+                <li><a href="/treatments/index.html">전체 진료</a></li>
+                <li class="submenu-divider">전문센터</li>
+                <li><a href="/treatments/glownate.html" style="color: #C9A962; font-weight: 600; background: rgba(201, 169, 98, 0.1);">✨ 글로우네이트 <span style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; margin-left: 6px;">HOT</span></a></li>
+                <li><a href="/treatments/implant.html">임플란트센터</a></li>
+                <li><a href="/treatments/invisalign.html">교정센터 (인비절라인)</a></li>
+                <li><a href="/treatments/pediatric.html">소아치과</a></li>
+                <li><a href="/treatments/aesthetic.html">심미치료(현정민 원장)</a></li>
+                <li class="submenu-divider">일반 진료</li>
+                <li><a href="/treatments/cavity.html">충치치료</a></li>
+                <li><a href="/treatments/resin.html">레진치료</a></li>
+                <li><a href="/treatments/scaling.html">스케일링</a></li>
+                <li><a href="/treatments/gum.html">잇몸치료</a></li>
+            </ul>
+        </li>
+        <!-- 의료진 소개 -->
+        <li><a href="/doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
+        <!-- 검진센터 -->
+        <li><a href="/bdx/index.html"><i class="fas fa-microscope"></i> 검진센터</a></li>
+        <!-- 콘텐츠 (3개 메뉴) -->
+        <li class="mobile-nav-item has-submenu">
+            <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+                <i class="fas fa-newspaper"></i> 콘텐츠
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </a>
+            <ul class="mobile-nav-submenu">
+                <li><a href="/column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+                <li><a href="/video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+                <li><a href="/cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+            </ul>
+        </li>
+        <!-- 병원 안내 (공지사항 포함) -->
+        <li class="mobile-nav-item has-submenu">
+            <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+                <i class="fas fa-hospital"></i> 병원 안내
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </a>
+            <ul class="mobile-nav-submenu">
+                <li><a href="/pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+                <li><a href="/floor-guide.html">층별 안내</a></li>
+                <li><a href="/directions.html">오시는 길</a></li>
+                <li><a href="/faq.html">자주 묻는 질문</a></li>
+                <li><a href="/notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+            </ul>
+        </li>
+        <!-- 예약하기 -->
+        <li><a href="/reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+    </ul>
+    <div class="mobile-nav-footer">
+        <p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p>
+        <div class="mobile-nav-quick-btns">
+            <a href="/pricing.html" class="btn btn-secondary btn-lg">
+                <i class="fas fa-won-sign"></i> 비용 안내
+            </a>
+            <a href="tel:041-415-2892" class="btn btn-primary btn-lg">
+                <i class="fas fa-phone"></i> 전화 예약
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+<!-- ■ 플로팅 CTA 버튼 -->
+<div class="floating-cta">
+    <a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" role="button" id="scrollToTopBtn">
+        <i class="fas fa-arrow-up"></i>
+        <span class="tooltip">맨 위로</span>
+    </a>
+    <a href="https://pf.kakao.com/_Cxivlxb" class="floating-btn kakao" target="_blank" aria-label="카카오톡 상담">
+        <i class="fas fa-comment"></i>
+        <span class="tooltip">카카오톡 상담</span>
+    </a>
+    <a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담">
+        <i class="fas fa-phone"></i>
+        <span class="tooltip">전화 상담</span>
+    </a>
+</div>
+
+<!-- 카카오톡 상담 위젯 -->
+<div class="kakao-widget" id="kakaoWidget">
+    <button class="kakao-widget-close" aria-label="닫기">×</button>
+    <div class="kakao-widget-header">
+        <div class="icon">💬</div>
+        <div>
+            <h4>카카오톡 상담</h4>
+            <p>서울비디치과</p>
+        </div>
+    </div>
+    <div class="kakao-widget-body">
+        <p>궁금한 점이 있으시면 편하게 문의해 주세요! 빠르게 답변 드리겠습니다.</p>
+        <a href="https://pf.kakao.com/_Cxivlxb" class="kakao-widget-btn" target="_blank">
+            카카오톡으로 상담하기
+        </a>
+    </div>
+</div>
