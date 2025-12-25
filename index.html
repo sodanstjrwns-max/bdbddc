@@ -1083,20 +1083,26 @@
     
     <!-- 애니메이션 배경 레이어 + 비주얼 플레이스홀더 -->
     <div class="hero-bg">
-      <!-- 📸 히어로 배경 - YouTube 영상 -->
-      <div class="hero-bg-image hero-bg-overlay" style="position: absolute; inset: 0; z-index: 1; overflow: hidden;">
-        <!-- 🎬 YouTube 영상 배경 v2 -->
-        <iframe 
-          src="https://www.youtube.com/embed/vMafU02A_pI?autoplay=1&mute=1&loop=1&playlist=vMafU02A_pI&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=https://bdbddc.com"
-          style="position: absolute; top: 50%; left: 50%; width: 180%; height: 180%; transform: translate(-50%, -50%); pointer-events: none; opacity: 0.5;"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="eager"
-          title="서울비디치과 소개 영상"
-        ></iframe>
-        <!-- 영상 위 어두운 오버레이 -->
-        <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); pointer-events: none;"></div>
+      <!-- 📸 히어로 배경 - 프리미엄 비주얼 플레이스홀더 -->
+      <div class="hero-bg-image hero-bg-overlay" style="position: absolute; inset: 0; z-index: 1;">
+        <div class="hero-visual-placeholder" style="position: absolute; inset: 0; overflow: hidden;">
+          <!-- 그라데이션 배경 -->
+          <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0a0806 0%, #1a1410 30%, #0d0b09 70%, #000 100%);"></div>
+          
+          <!-- 은은한 치과 실루엣 패턴 -->
+          <div style="position: absolute; inset: 0; opacity: 0.03; background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><text x=\"50\" y=\"60\" font-size=\"40\" text-anchor=\"middle\" fill=\"%23C9A962\">🦷</text></svg>'); background-size: 80px 80px;"></div>
+          
+          <!-- 동적 빛 라인들 -->
+          <div class="hero-light-lines" style="position: absolute; inset: 0; overflow: hidden;">
+            <div style="position: absolute; top: 20%; left: -10%; width: 120%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,98,0.3), transparent); transform: rotate(-5deg); animation: lightLine 8s ease-in-out infinite;"></div>
+            <div style="position: absolute; top: 50%; left: -10%; width: 120%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent); transform: rotate(3deg); animation: lightLine 10s ease-in-out infinite 2s;"></div>
+            <div style="position: absolute; top: 75%; left: -10%; width: 120%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,98,0.25), transparent); transform: rotate(-2deg); animation: lightLine 7s ease-in-out infinite 4s;"></div>
+          </div>
+          
+          <!-- 코너 장식 -->
+          <div style="position: absolute; top: 40px; left: 40px; width: 60px; height: 60px; border-left: 1px solid rgba(201,169,98,0.2); border-top: 1px solid rgba(201,169,98,0.2);"></div>
+          <div style="position: absolute; bottom: 40px; right: 40px; width: 60px; height: 60px; border-right: 1px solid rgba(201,169,98,0.2); border-bottom: 1px solid rgba(201,169,98,0.2);"></div>
+        </div>
       </div>
       
       <!-- 오버레이 그라데이션 -->
