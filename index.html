@@ -186,15 +186,11 @@
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   
-  <!-- ■ Core Styles - 최적화 (Performance 개선) -->
-  <link rel="stylesheet" href="/css/design-system.css">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/gnb.css">
-  <link rel="stylesheet" href="/css/homepage-refactored.css">
+  <!-- ■ Core Styles - 번들링 최적화 (4개 → 1개 파일, HTTP 요청 감소) -->
+  <link rel="stylesheet" href="/css/core-bundle.min.css">
   
-  <!-- ■ Mobile (조건부) -->
-  <link rel="stylesheet" href="/css/mobile-optimize.css" media="screen and (max-width: 991px)">
-  <link rel="stylesheet" href="/css/mobile-cta.css" media="screen and (max-width: 991px)">
+  <!-- ■ Mobile (조건부 - 2개 → 1개 파일) -->
+  <link rel="stylesheet" href="/css/mobile-bundle.min.css" media="screen and (max-width: 991px)">
   
   <!-- ■ Cinematic Intro - JS에서 스타일 주입 -->
   
@@ -307,10 +303,6 @@
       }
     }
   </style>
-  
-  <!-- ■ 비필수 CSS (지연 로드 - 성능 최적화) -->
-  <link rel="preload" href="/css/liquid-metal.css" as="style" onload="this.onload=null;this.rel='stylesheet'" fetchpriority="low">
-  <noscript><link rel="stylesheet" href="/css/liquid-metal.css"></noscript>
   
   <!-- ■ Prefetch Next Pages -->
   <link rel="prefetch" href="treatments/index.html" as="document">
@@ -2257,49 +2249,59 @@
   <!-- ■ Cinematic Intro (오프닝 무비) -->
   <!-- 인트로 제거됨 -->
   
-  <!-- ■ Core Scripts (최적화됨) -->
+  <!-- ■ Core Scripts (최적화 - defer로 비동기 로드) -->
   <script src="/js/main.js" defer></script>
   <script src="/js/gnb.js" defer></script>
   
-  <!-- ■ 다국어 번역 시스템 (즉시 로드) -->
-  <link rel="stylesheet" href="/css/language-switcher.css">
-  <script src="/js/translations.js"></script>
-  <script src="/js/language-switcher.js" defer></script>
-  
-  <!-- ■ 지연 로딩 스크립트 -->
+  <!-- ■ 지연 로딩 스크립트 (사용자 인터랙션 후 로드 - Performance 최적화) -->
   <script>
     (function(){
       var loaded=false;
       function loadDeferred(){
         if(loaded)return;loaded=true;
-        // 추가 JS
-        ['js/image-fallback.js','js/hero-animations.js'].forEach(function(s){
-          var sc=document.createElement('script');sc.src=s;sc.defer=true;document.body.appendChild(sc);
+        
+        // 1. 다국어 시스템 (77KB translations.js 지연 로드)
+        var langCSS=document.createElement('link');
+        langCSS.rel='stylesheet';langCSS.href='/css/language-switcher.css';
+        document.head.appendChild(langCSS);
+        
+        ['js/translations.js','js/language-switcher.js'].forEach(function(s){
+          var sc=document.createElement('script');sc.src='/'+s;sc.defer=true;document.body.appendChild(sc);
         });
-        // 추가 CSS
-        ['css/hero-animations.css'].forEach(function(h){
-          var lk=document.createElement('link');lk.rel='stylesheet';lk.href=h;document.head.appendChild(lk);
+        
+        // 2. 히어로 애니메이션 & 이미지 폴백
+        ['js/image-fallback.js'].forEach(function(s){
+          var sc=document.createElement('script');sc.src='/'+s;sc.defer=true;document.body.appendChild(sc);
         });
-        // Firebase (2초 후)
+        
+        // 3. 비필수 CSS (liquid-metal 효과)
+        var liquidCSS=document.createElement('link');
+        liquidCSS.rel='stylesheet';liquidCSS.href='/css/liquid-metal.css';
+        document.head.appendChild(liquidCSS);
+        
+        // 4. Analytics (2초 후)
+        setTimeout(function(){
+          ['js/amplitude-events.js','js/analytics-loader.js'].forEach(function(s){
+            var sc=document.createElement('script');sc.src='/'+s;sc.defer=true;document.body.appendChild(sc);
+          });
+        },2000);
+        
+        // 5. Firebase Auth (3초 후)
         setTimeout(function(){
           ['https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
            'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js',
-           'js/firebase-auth.js'].forEach(function(s){
+           '/js/firebase-auth.js'].forEach(function(s){
             var sc=document.createElement('script');sc.src=s;document.body.appendChild(sc);
           });
-        },2000);
+        },3000);
       }
-      ['scroll','click','touchstart'].forEach(function(e){
+      
+      // 사용자 인터랙션 시 또는 2초 후 로드
+      ['scroll','click','touchstart','mousemove'].forEach(function(e){
         window.addEventListener(e,loadDeferred,{once:true,passive:true});
       });
-      setTimeout(loadDeferred,3000);
+      setTimeout(loadDeferred,2000);
     })();
   </script>
-  
-  <!-- ■ Amplitude Event Tracking (주요 액션 추적) -->
-  <script defer src="/js/amplitude-events.js"></script>
-  
-  <!-- ■ Analytics Lazy Loader (First Paint 최적화) -->
-  <script defer src="/js/analytics-loader.js"></script>
 </body>
 </html>
