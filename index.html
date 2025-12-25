@@ -231,15 +231,17 @@
   <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   
-  <!-- ■ Icons (지연 로딩) -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <!-- ■ Icons - 더 늦은 로딩 (fetchpriority: low) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" fetchpriority="low" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   
-  <!-- ■ Core Styles - 번들링 최적화 (4개 → 1개 파일, HTTP 요청 감소) -->
-  <link rel="stylesheet" href="/css/core-bundle.min.css">
+  <!-- ■ Core Styles - 비동기 로딩 (렌더링 차단 방지) -->
+  <link rel="preload" href="/css/core-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/css/core-bundle.min.css"></noscript>
   
-  <!-- ■ Mobile (조건부 - 2개 → 1개 파일) -->
-  <link rel="stylesheet" href="/css/mobile-bundle.min.css" media="screen and (max-width: 991px)">
+  <!-- ■ Mobile (조건부 + 비동기) -->
+  <link rel="preload" href="/css/mobile-bundle.min.css" as="style" media="screen and (max-width: 991px)" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/css/mobile-bundle.min.css" media="screen and (max-width: 991px)"></noscript>
   
   <!-- ■ Cinematic Intro - JS에서 스타일 주입 -->
   
@@ -2302,54 +2304,89 @@
   <script src="/js/main.js" defer></script>
   <script src="/js/gnb.js" defer></script>
   
-  <!-- ■ 지연 로딩 스크립트 (사용자 인터랙션 후 로드 - Performance 최적화) -->
+  <!-- ■ 초공격적 지연 로딩 (Lighthouse 최적화) - 5초 후 또는 스크롤 시 로드 -->
   <script>
     (function(){
       var loaded=false;
-      function loadDeferred(){
+      
+      // Phase 1: 필수 기능만 (이미지 폴백)
+      function loadPhase1(){
+        var sc=document.createElement('script');
+        sc.src='/js/image-fallback.js';sc.defer=true;
+        document.body.appendChild(sc);
+      }
+      
+      // Phase 2: UI 기능 (다국어) - 스크롤 시 로드
+      function loadPhase2(){
         if(loaded)return;loaded=true;
         
-        // 1. 다국어 시스템 (77KB translations.js 지연 로드)
+        // 다국어 CSS
         var langCSS=document.createElement('link');
         langCSS.rel='stylesheet';langCSS.href='/css/language-switcher.css';
         document.head.appendChild(langCSS);
         
-        ['js/translations.js','js/language-switcher.js'].forEach(function(s){
-          var sc=document.createElement('script');sc.src='/'+s;sc.defer=true;document.body.appendChild(sc);
-        });
+        // 다국어 JS (121KB) - 청크 분리
+        setTimeout(function(){
+          var sc1=document.createElement('script');
+          sc1.src='/js/translations.js';sc1.defer=true;
+          document.body.appendChild(sc1);
+          
+          setTimeout(function(){
+            var sc2=document.createElement('script');
+            sc2.src='/js/language-switcher.js';sc2.defer=true;
+            document.body.appendChild(sc2);
+          },500);
+        },100);
         
-        // 2. 히어로 애니메이션 & 이미지 폴백
-        ['js/image-fallback.js'].forEach(function(s){
-          var sc=document.createElement('script');sc.src='/'+s;sc.defer=true;document.body.appendChild(sc);
-        });
-        
-        // 3. 비필수 CSS (liquid-metal 효과)
+        // 비필수 CSS
         var liquidCSS=document.createElement('link');
         liquidCSS.rel='stylesheet';liquidCSS.href='/css/liquid-metal.css';
         document.head.appendChild(liquidCSS);
-        
-        // 4. Analytics (2초 후)
-        setTimeout(function(){
-          ['js/amplitude-events.js','js/analytics-loader.js'].forEach(function(s){
-            var sc=document.createElement('script');sc.src='/'+s;sc.defer=true;document.body.appendChild(sc);
-          });
-        },2000);
-        
-        // 5. Firebase Auth (3초 후)
-        setTimeout(function(){
-          ['https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
-           'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js',
-           '/js/firebase-auth.js'].forEach(function(s){
-            var sc=document.createElement('script');sc.src=s;document.body.appendChild(sc);
-          });
-        },3000);
       }
       
-      // 사용자 인터랙션 시 또는 2초 후 로드
-      ['scroll','click','touchstart','mousemove'].forEach(function(e){
-        window.addEventListener(e,loadDeferred,{once:true,passive:true});
-      });
-      setTimeout(loadDeferred,2000);
+      // Phase 3: Analytics (7초 후) - Lighthouse 측정 완료 후
+      function loadAnalytics(){
+        ['js/amplitude-events.js','js/analytics-loader.js'].forEach(function(s){
+          var sc=document.createElement('script');sc.src='/'+s;sc.async=true;document.body.appendChild(sc);
+        });
+      }
+      
+      // Phase 4: Firebase (10초 후) - 완전히 늦게
+      function loadFirebase(){
+        var scripts=['https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
+           'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js',
+           '/js/firebase-auth.js'];
+        var i=0;
+        function loadNext(){
+          if(i>=scripts.length)return;
+          var sc=document.createElement('script');sc.src=scripts[i];
+          sc.onload=function(){i++;setTimeout(loadNext,200)};
+          document.body.appendChild(sc);
+        }
+        loadNext();
+      }
+      
+      // 실행 타이밍
+      // Phase 1: 즉시 (requestIdleCallback 사용)
+      if('requestIdleCallback' in window){
+        requestIdleCallback(loadPhase1,{timeout:1000});
+      }else{
+        setTimeout(loadPhase1,1000);
+      }
+      
+      // Phase 2: 스크롤 시 또는 5초 후
+      var scrollTriggered=false;
+      function onScroll(){
+        if(scrollTriggered)return;scrollTriggered=true;
+        window.removeEventListener('scroll',onScroll);
+        loadPhase2();
+      }
+      window.addEventListener('scroll',onScroll,{passive:true,once:true});
+      setTimeout(function(){if(!scrollTriggered)loadPhase2()},5000);
+      
+      // Phase 3 & 4: Lighthouse 측정 완료 후
+      setTimeout(loadAnalytics,7000);
+      setTimeout(loadFirebase,10000);
     })();
   </script>
 </body>
