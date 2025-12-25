@@ -218,33 +218,37 @@
         width: 100%;
         padding: 0 20px;
       }
-      /* 🔥 메인 후킹 - 모바일에서 가장 먼저, 가장 크게! */
-      .hero-hook-main {
-        font-size: clamp(1.7rem, 8vw, 2.8rem) !important;
-        line-height: 1.15 !important;
-        margin-bottom: 18px !important;
-        word-break: keep-all;
-        text-align: center !important;
-      }
-      .hero-hook-sub {
-        font-size: 0.95rem !important;
-        margin-bottom: 28px !important;
-        text-align: center !important;
-      }
-      /* 🏆 브랜드명 - 후킹 다음, 골드 그라데이션 */
+      /* 🏆 브랜드명 - 모바일에서도 크고 화려하게! */
       .hero-brand {
-        font-size: clamp(1.3rem, 5vw, 2rem) !important;
-        letter-spacing: 0.08em !important;
+        font-size: clamp(2rem, 12vw, 3.5rem) !important;
+        letter-spacing: 0.05em !important;
       }
       .hero-brand-container {
-        margin-bottom: 20px !important;
+        margin-bottom: 24px !important;
       }
       .hero-brand-glow {
-        filter: blur(20px) !important;
+        filter: blur(25px) !important;
       }
       .hero-brand-line {
-        width: 60px !important;
-        margin-top: 10px !important;
+        width: 80px !important;
+        margin-top: 14px !important;
+      }
+      /* 메인 후킹 - 가운데 정렬 강제 */
+      .hero-hook-main {
+        font-size: clamp(1.5rem, 7vw, 2.5rem) !important;
+        line-height: 1.2 !important;
+        margin-bottom: 16px !important;
+        word-break: keep-all;
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      .hero-hook-sub {
+        font-size: 1rem !important;
+        margin-bottom: 24px !important;
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
       /* 신뢰 뱃지 - 가운데 정렬 강제 */
       .hero-trust {
@@ -278,30 +282,24 @@
       }
     }
     @media (max-width: 400px) {
-      /* 후킹 메시지 - 작은 화면에서도 임팩트 */
-      .hero-hook-main {
-        font-size: clamp(1.4rem, 7vw, 2rem) !important;
-        margin-bottom: 14px !important;
-      }
-      .hero-hook-sub {
-        font-size: 0.85rem !important;
-        margin-bottom: 22px !important;
-      }
-      /* 브랜드명 - 적절한 크기 */
       .hero-brand {
-        font-size: clamp(1.1rem, 4.5vw, 1.5rem) !important;
-        letter-spacing: 0.06em !important;
+        font-size: clamp(1.6rem, 11vw, 2.2rem) !important;
+        letter-spacing: 0.04em !important;
       }
       .hero-brand-container {
-        margin-bottom: 16px !important;
+        margin-bottom: 18px !important;
       }
       .hero-brand-line {
-        width: 50px !important;
+        width: 60px !important;
         height: 2px !important;
-        margin-top: 8px !important;
+        margin-top: 10px !important;
+      }
+      .hero-hook-main {
+        font-size: clamp(1.2rem, 6vw, 1.6rem) !important;
+        margin-bottom: 14px !important;
       }
       .hero-trust {
-        font-size: 0.72rem !important;
+        font-size: 0.75rem !important;
       }
     }
   </style>
@@ -1085,6 +1083,7 @@
     <div class="hero-bg">
       <!-- 📸 히어로 배경 - 프리미엄 비주얼 플레이스홀더 -->
       <div class="hero-bg-image hero-bg-overlay" style="position: absolute; inset: 0; z-index: 1;">
+        <!-- 🎬 실제 영상/이미지 업로드 전 - 고급 플레이스홀더 -->
         <div class="hero-visual-placeholder" style="position: absolute; inset: 0; overflow: hidden;">
           <!-- 그라데이션 배경 -->
           <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0a0806 0%, #1a1410 30%, #0d0b09 70%, #000 100%);"></div>
@@ -1102,7 +1101,24 @@
           <!-- 코너 장식 -->
           <div style="position: absolute; top: 40px; left: 40px; width: 60px; height: 60px; border-left: 1px solid rgba(201,169,98,0.2); border-top: 1px solid rgba(201,169,98,0.2);"></div>
           <div style="position: absolute; bottom: 40px; right: 40px; width: 60px; height: 60px; border-right: 1px solid rgba(201,169,98,0.2); border-bottom: 1px solid rgba(201,169,98,0.2);"></div>
+          
+          <!-- 📷 이미지/영상 업로드 안내 (개발용 - 나중에 제거) -->
+          <!--
+          <div style="position: absolute; bottom: 20px; left: 20px; background: rgba(0,0,0,0.7); padding: 8px 16px; border-radius: 8px; font-size: 12px; color: rgba(255,255,255,0.5);">
+            📷 /images/hero-bg.jpg 또는 영상 업로드 후 활성화
+          </div>
+          -->
         </div>
+        
+        <!-- ✅ 실제 이미지 사용시 아래 주석 해제 -->
+        <!-- <img src="/images/hero-bg.jpg" alt="서울비디치과 내부 전경" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;" loading="eager"> -->
+        
+        <!-- ✅ 실제 영상 사용시 아래 주석 해제 -->
+        <!--
+        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.4;">
+          <source src="/videos/hero-intro.mp4" type="video/mp4">
+        </video>
+        -->
       </div>
       
       <!-- 오버레이 그라데이션 -->
@@ -1160,29 +1176,29 @@
           }
         </style>
         
-        <!-- 🔥 메인 후킹 메시지 - 가장 먼저! 가장 크게! -->
-        <h1 class="hero-hook-main" style="font-size: clamp(2.2rem, 10vw, 6rem); font-weight: 900; letter-spacing: -0.02em; color: #fff; line-height: 1.08; margin-bottom: 24px; text-shadow: 0 0 80px rgba(255,255,255,0.15);">
+        <!-- 🏆 브랜드명 - 맨 위, 아주 크고 화려하게! -->
+        <div class="hero-brand-container" style="position: relative; margin-bottom: 30px;">
+          <!-- 글로우 배경 효과 -->
+          <div class="hero-brand-glow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.25) 0%, transparent 70%); filter: blur(40px); z-index: 0; animation: brandPulse 3s ease-in-out infinite;"></div>
+          
+          <!-- 메인 브랜드명 -->
+          <h2 class="hero-brand" style="position: relative; z-index: 1; font-size: clamp(2.8rem, 12vw, 8rem); font-weight: 900; letter-spacing: 0.08em; line-height: 1; margin: 0; padding: 10px 0; color: #FFFFFF; text-shadow: 0 0 40px rgba(201, 169, 98, 0.5), 0 0 80px rgba(201, 169, 98, 0.3), 0 4px 20px rgba(0, 0, 0, 0.5);">
+            서울비디치과
+          </h2>
+          
+          <!-- 장식 라인 -->
+          <div class="hero-brand-line" style="width: 120px; height: 3px; background: linear-gradient(90deg, transparent, #FFD700, transparent); margin: 20px auto 0; border-radius: 3px; animation: lineExpand 2s ease-out forwards;"></div>
+        </div>
+        
+        <!-- 🔥 메인 후킹 메시지 -->
+        <h1 class="hero-hook-main" style="font-size: clamp(2rem, 8vw, 5rem); font-weight: 800; letter-spacing: -0.02em; color: #fff; line-height: 1.1; margin-bottom: 20px; text-shadow: 0 0 60px rgba(255,255,255,0.1);">
           "이건 치료<br>안하셔도 됩니다"
         </h1>
         
         <!-- 서브 메시지 -->
-        <p class="hero-hook-sub" style="font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 400; color: rgba(255,255,255,0.7); line-height: 1.5; margin-bottom: 35px;">
-          저희가 가장 자주 하는 말입니다.
+        <p class="hero-hook-sub" style="font-size: clamp(1.2rem, 2.5vw, 1.7rem); font-weight: 400; color: rgba(255,255,255,0.75); line-height: 1.5; margin-bottom: 50px;">
+          저희가 자주 드리는 말씀입니다.
         </p>
-        
-        <!-- 🏆 브랜드명 - 후킹 다음, 화려하게! -->
-        <div class="hero-brand-container" style="position: relative; margin-bottom: 30px;">
-          <!-- 글로우 배경 효과 -->
-          <div class="hero-brand-glow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.2) 0%, transparent 70%); filter: blur(30px); z-index: 0; animation: brandPulse 3s ease-in-out infinite;"></div>
-          
-          <!-- 메인 브랜드명 - 골드 그라데이션 -->
-          <p class="hero-brand" style="position: relative; z-index: 1; font-size: clamp(1.6rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: 0.1em; line-height: 1; margin: 0; padding: 8px 0; background: linear-gradient(135deg, #B8860B 0%, #FFD700 25%, #FFFACD 50%, #FFD700 75%, #B8860B 100%); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: goldShimmer 4s ease-in-out infinite; filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));">
-            서울비디치과
-          </p>
-          
-          <!-- 장식 라인 -->
-          <div class="hero-brand-line" style="width: 80px; height: 2px; background: linear-gradient(90deg, transparent, #FFD700, transparent); margin: 15px auto 0; border-radius: 2px; animation: lineExpand 2s ease-out forwards;"></div>
-        </div>
         
         <!-- 신뢰 뱃지 - 심플하게 -->
         <div class="hero-trust" style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 45px; font-size: clamp(0.95rem, 1.8vw, 1.15rem); color: rgba(255,255,255,0.5);">
@@ -1223,13 +1239,14 @@
       
       <!-- 📹 영상 플레이어 - YouTube 임베드 (5층 로비 영상) -->
       <div class="video-wrapper animate-fade-in-up">
-        <div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); background: #000;">
+        <div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
           <iframe 
-            src="https://www.youtube.com/embed/0S_P-CtQfOk?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=0S_P-CtQfOk&playsinline=1" 
+            src="https://www.youtube.com/embed/vMafU02A_pI?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=vMafU02A_pI" 
             title="서울비디치과 5층 로비 소개 영상"
             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen
+            loading="lazy"
           ></iframe>
         </div>
       </div>
