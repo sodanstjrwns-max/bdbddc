@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <defs>
+    <linearGradient id="bgApple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0908"/>
+      <stop offset="100%" style="stop-color:#1a1510"/>
+    </linearGradient>
+    <linearGradient id="goldApple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C9A962"/>
+      <stop offset="50%" style="stop-color:#D4B896"/>
+      <stop offset="100%" style="stop-color:#8B5A2B"/>
+    </linearGradient>
+    <linearGradient id="toothApple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#f0f0f0"/>
+    </linearGradient>
+    <filter id="glowApple">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#C9A962" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  
+  <!-- Background - solid for Apple touch icon (no rounded corners, iOS adds them) -->
+  <rect width="180" height="180" fill="url(#bgApple)"/>
+  
+  <!-- Decorative ring -->
+  <circle cx="90" cy="90" r="70" fill="none" stroke="url(#goldApple)" stroke-width="1" opacity="0.2"/>
+  
+  <!-- Tooth -->
+  <g transform="translate(90, 80) scale(0.85)" filter="url(#glowApple)">
+    <path d="M0,-70 C35,-70 55,-45 55,-15 C55,20 40,45 25,75 C20,85 10,85 5,75 C0,65 0,55 0,45 C0,55 0,65 -5,75 C-10,85 -20,85 -25,75 C-40,45 -55,20 -55,-15 C-55,-45 -35,-70 0,-70 Z" 
+          fill="url(#toothApple)" 
+          stroke="url(#goldApple)" 
+          stroke-width="3"/>
+    <ellipse cx="0" cy="-40" rx="20" ry="12" fill="white" opacity="0.5"/>
+  </g>
+  
+  <!-- Brand text -->
+  <text x="90" y="165" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="url(#goldApple)" text-anchor="middle">BD</text>
+</svg>
