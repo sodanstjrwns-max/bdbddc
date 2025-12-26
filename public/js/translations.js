@@ -33,10 +33,10 @@ window.TRANSLATIONS = {
       zh: '咨询预约'
     },
     freeConsultation: {
-      ko: '무료 상담 예약',
-      en: 'Free Consultation',
-      ja: '無料相談予約',
-      zh: '免费咨询预约'
+      ko: '상담 예약',
+      en: 'Consultation',
+      ja: '相談予約',
+      zh: '咨询预约'
     },
     call: {
       ko: '전화문의',
