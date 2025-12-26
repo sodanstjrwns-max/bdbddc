@@ -513,9 +513,11 @@
             el.innerHTML = t('aesthetic.ctaDesc', lang).replace(/\n/g, '<br>');
         });
         
-        // CTA 버튼
+        // CTA 버튼 - 한국어는 HTML 텍스트 유지
         document.querySelectorAll('.cta-btn.primary').forEach(el => {
-            el.textContent = t('common.freeConsultation', lang);
+            if (lang !== 'ko') {
+                el.textContent = t('common.reserve', lang);
+            }
         });
     }
     
@@ -610,10 +612,12 @@
             }
         });
         
-        // 히어로 CTA 버튼
+        // 히어로 CTA 버튼 - 한국어는 HTML 텍스트 유지
         document.querySelectorAll('.hero-cta .btn-primary').forEach(el => {
-            const icon = el.querySelector('i');
-            el.innerHTML = (icon ? icon.outerHTML + ' ' : '') + t('common.freeConsultation', lang);
+            if (lang !== 'ko') {
+                const icon = el.querySelector('i');
+                el.innerHTML = (icon ? icon.outerHTML + ' ' : '') + t('common.reserve', lang);
+            }
         });
         document.querySelectorAll('.hero-cta .btn-secondary').forEach(el => {
             const icon = el.querySelector('i');
