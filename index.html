@@ -2341,12 +2341,12 @@
         // 다국어 JS (121KB) - 청크 분리
         setTimeout(function(){
           var sc1=document.createElement('script');
-          sc1.src='/js/translations.js';sc1.defer=true;
+          sc1.src='/js/translations.js?v=20241226';sc1.defer=true;
           document.body.appendChild(sc1);
           
           setTimeout(function(){
             var sc2=document.createElement('script');
-            sc2.src='/js/language-switcher.js';sc2.defer=true;
+            sc2.src='/js/language-switcher.js?v=20241226';sc2.defer=true;
             document.body.appendChild(sc2);
           },500);
         },100);
