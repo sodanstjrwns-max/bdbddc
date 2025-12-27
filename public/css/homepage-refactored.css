@@ -175,6 +175,13 @@
   transition: all 0.3s ease;
 }
 
+.facility-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: contain;
+  background: rgba(26, 20, 16, 0.9);
+}
+
 .facility-card:hover {
   transform: translateY(-8px);
   border-color: rgba(139, 90, 43, 0.5);

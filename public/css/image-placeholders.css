@@ -309,10 +309,16 @@ img.img-load-failed + .img-placeholder-fallback {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  aspect-ratio: 4/3;
   background: #1a1410;
   border: 1px solid rgba(139, 90, 43, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.facility-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: contain;
+  background: rgba(26, 20, 16, 0.9);
 }
 
 .facility-card:hover {
