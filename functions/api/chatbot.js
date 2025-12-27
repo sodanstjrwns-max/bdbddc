@@ -78,7 +78,7 @@ const SYSTEM_PROMPT = `당신은 서울비디치과의 AI 상담 도우미입니
 ✅ 서울대 출신 전문의 협진
 
 정확한 비용은 CT 촬영 후 상담 시 안내드려요.
-무료 상담 예약해 드릴까요? 😊"`;
+상담 예약해 드릴까요? 😊"`;
 
 // 빠른 응답 생성
 function generateQuickReplies(message, reply) {

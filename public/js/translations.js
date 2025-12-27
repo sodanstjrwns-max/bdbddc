@@ -1595,7 +1595,7 @@ window.TRANSLATIONS = {
     // CTA 섹션
     ctaTitle: {
       ko: '지금 바로 상담 받아보세요',
-      en: 'Get a Free Consultation Now',
+      en: 'Book a Consultation Now',
       ja: '今すぐご相談ください',
       zh: '立即获取免费咨询'
     },
