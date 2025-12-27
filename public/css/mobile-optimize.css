@@ -1251,6 +1251,28 @@ a, button, input, select, textarea,
   /* 시설 갤러리 */
   .facility-grid {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  
+  .facility-card {
+    border-radius: 12px !important;
+  }
+  
+  .facility-card img {
+    aspect-ratio: 4/3 !important;
+    object-fit: contain !important;
+  }
+  
+  .facility-card-info {
+    padding: 12px !important;
+  }
+  
+  .facility-card-info h3 {
+    font-size: 14px !important;
+  }
+  
+  .facility-card-info p {
+    font-size: 11px !important;
   }
   
   /* Hero 카드 */

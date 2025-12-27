@@ -1422,7 +1422,19 @@
   }
   
   .cta-buttons .btn-naver,
-  .cta-buttons .btn-kakao {
+  .cta-buttons .btn-kakao,
+  .cta-buttons .btn-google {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .review-write-btns {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .review-write-btns .btn-naver,
+  .review-write-btns .btn-google {
     width: 100%;
     justify-content: center;
   }
