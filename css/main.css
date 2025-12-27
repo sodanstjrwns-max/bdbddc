@@ -1166,24 +1166,23 @@
 .mobile-nav {
   position: fixed;
   top: 0;
-  right: -100% !important;
+  right: -300px;
   width: 300px;
   height: 100vh;
   background: #0f0f0f;
   z-index: var(--z-modal);
-  transition: right 0.3s ease, visibility 0.3s ease, opacity 0.3s ease;
+  transition: right var(--transition-slow), visibility 0s linear 0.3s;
   display: flex;
   flex-direction: column;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .mobile-nav.active {
-  right: 0 !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
+  right: 0;
+  visibility: visible;
+  opacity: 1;
+  transition: right var(--transition-slow), visibility 0s linear 0s;
 }
 
 .mobile-nav-header {
@@ -2096,49 +2095,4 @@
 
 .bg-white {
   background: #0f0f0f;
-}
-
-/* ■ Accessibility 개선 - 색상 대비 (WCAG 2.1 AA 기준 4.5:1) */
-.section-subtitle,
-.hero-hook-sub,
-.why-desc,
-.footer-slogan,
-.review-text,
-.philosophy-item .sub-text {
-  color: rgba(255, 255, 255, 0.85); /* 대비율 4.5:1 이상 */
-}
-
-/* 링크 및 버튼 텍스트 대비 개선 */
-.gnb-item > a,
-.nav-item > a {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.gnb-item > a:hover,
-.nav-item > a:hover {
-  color: #fff;
-}
-
-/* 배지 및 작은 텍스트 대비 개선 */
-.badge,
-.treatment-badge,
-.section-badge {
-  color: rgba(255, 255, 255, 0.95);
-}
-
-/* 설명 텍스트 대비 개선 */
-.card-desc,
-.treatment-card p,
-.why-card p {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* Focus 상태 접근성 */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid #C9A962;
-  outline-offset: 2px;
 }

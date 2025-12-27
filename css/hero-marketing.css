@@ -1,0 +1,1153 @@
+/* ================================================
+   Seoul BD Dental Clinic - Hero & Marketing CSS
+   새로운 마케팅 섹션 스타일
+   ================================================ */
+
+/* ■ Hero Section Enhanced */
+.hero-badges {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-badge.badge-highlight {
+  background: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(139, 90, 43, 0.3);
+}
+
+.hero-brand-meaning {
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  color: rgba(212, 184, 150, 0.9);
+}
+
+.hero-brand-meaning strong {
+  color: #D4B896;
+  font-weight: 600;
+}
+
+.bd-logo {
+  display: inline-block;
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #C9A962 0%, #D4B896 50%, #8B5A2B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-right: 0.5rem;
+  text-shadow: 0 2px 10px rgba(201, 169, 98, 0.3);
+}
+
+.bd-korean {
+  display: inline-block;
+  color: #C9A962;
+  font-size: 0.95rem;
+  margin-left: 0.5rem;
+  font-weight: 500;
+}
+
+/* ■ Features Banner - Ticker Style */
+.features-banner {
+  background: linear-gradient(135deg, #5D3A1A 0%, #8B5A2B 50%, #A67C52 100%);
+  padding: 1rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(201, 169, 98, 0.3);
+  border-bottom: 1px solid rgba(201, 169, 98, 0.3);
+}
+
+.features-ticker {
+  display: flex;
+  gap: 3rem;
+  animation: ticker 30s linear infinite;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  color: white;
+  font-weight: 500;
+}
+
+.feature-item i {
+  font-size: 1.25rem;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ■ Center Sections - 전문센터 */
+.center-section {
+  padding: 6rem 0;
+}
+
+.center-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.center-badge {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 15px rgba(139, 90, 43, 0.3);
+}
+
+.center-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  margin-top: 0.75rem;
+}
+
+/* Feature Grid */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.feature-card {
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.feature-card h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.feature-card p {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Center Stats */
+.center-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  padding: 2rem 3rem;
+  margin-top: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-stats .stat-item {
+  text-align: center;
+}
+
+.center-stats .stat-num {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.center-stats .stat-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ■ Orthodontic Center Highlight */
+.ortho-highlight {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ortho-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--color-accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.ortho-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.ortho-icon {
+  font-size: 3rem;
+  color: var(--color-primary);
+}
+
+.ortho-text h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.ortho-text p {
+  color: var(--color-text-secondary);
+}
+
+/* ■ Pediatric Center */
+.pedo-center {
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.pedo-main {
+  padding: 3rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.1), rgba(var(--color-accent-rgb), 0.1));
+}
+
+.pedo-main-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.pedo-icon-large {
+  font-size: 4rem;
+  color: var(--color-primary);
+}
+
+.pedo-main-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pedo-main-content p {
+  color: var(--color-text-secondary);
+}
+
+/* ■ Aesthetic Center */
+.aesthetic-main {
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.aesthetic-doctor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.doctor-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.doctor-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.doctor-info p {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.aesthetic-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.aesthetic-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.aesthetic-feature i {
+  color: var(--color-primary);
+}
+
+/* ■ Floor Section */
+.floor-section {
+  padding: 6rem 0;
+}
+
+.floor-visual {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.floor-building {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.floor-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.floor-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(10px);
+}
+
+.floor-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  min-width: 50px;
+}
+
+.floor-content {
+  flex: 1;
+}
+
+.floor-content h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-text-primary);
+}
+
+.floor-content p {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.floor-icon {
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+.floor-item.floor-5 { border-left-color: #48bb78; }
+.floor-item.floor-4 { border-left-color: #8B5A2B; }
+.floor-item.floor-3 { border-left-color: #D4B896; }
+.floor-item.floor-2 { border-left-color: #f6ad55; }
+.floor-item.floor-1 { border-left-color: #4fd1c5; }
+
+.floor-cta {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* ■ Differentiators Section */
+.diff-section {
+  padding: 6rem 0;
+}
+
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.diff-card {
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.diff-card:hover {
+  transform: translateY(-5px);
+}
+
+.diff-icon {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.2), rgba(var(--color-accent-rgb), 0.2));
+  border-radius: 50%;
+  margin: 0 auto 1.25rem;
+  font-size: 1.75rem;
+  color: var(--color-primary);
+}
+
+.diff-card h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+}
+
+.diff-card p {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* ■ Trust Section - Light Theme */
+.trust-section.bg-light {
+  background: #f8f9fa;
+}
+
+.trust-section.bg-light .glass-card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* ■ CTA Badge */
+.cta-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: white;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* ■ Mobile Navigation Hours */
+.mobile-nav-hours {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.mobile-nav-hours i {
+  margin-right: 0.5rem;
+  color: var(--color-primary);
+}
+
+/* ■ Floating CTA */
+.floating-cta {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 1000;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: all;
+}
+
+.floating-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+}
+
+.floating-btn-main {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  width: auto;
+  padding: 0 1.5rem;
+  border-radius: 50px;
+  gap: 0.5rem;
+}
+
+.floating-btn-main span {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.floating-btn-phone {
+  background: #28a745;
+}
+
+.floating-btn-kakao {
+  background: #FEE500;
+  color: #3C1E1E;
+}
+
+/* ■ Responsive - Tablet */
+@media (max-width: 1024px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .diff-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ■ Responsive - Mobile */
+@media (max-width: 768px) {
+  .hero-badges {
+    justify-content: center;
+  }
+  
+  .hero-brand-meaning {
+    text-align: center;
+  }
+  
+  .features-ticker {
+    gap: 2rem;
+  }
+  
+  .feature-item {
+    font-size: 0.875rem;
+  }
+  
+  .center-section {
+    padding: 4rem 0;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .feature-card {
+    padding: 1.5rem;
+  }
+  
+  .center-stats {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  
+  .stat-divider {
+    width: 60px;
+    height: 1px;
+  }
+  
+  .ortho-highlight {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .ortho-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .pedo-main-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .aesthetic-main {
+    text-align: center;
+  }
+  
+  .aesthetic-doctor {
+    flex-direction: column;
+  }
+  
+  .aesthetic-features {
+    align-items: center;
+  }
+  
+  .floor-item {
+    padding: 1rem 1.25rem;
+    gap: 1rem;
+  }
+  
+  .floor-number {
+    font-size: 1.25rem;
+    min-width: 40px;
+  }
+  
+  .floor-content h3 {
+    font-size: 1rem;
+  }
+  
+  .floor-icon {
+    display: none;
+  }
+  
+  .diff-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .diff-card {
+    padding: 1.5rem;
+  }
+  
+  /* Floating CTA Mobile */
+  .floating-cta {
+    bottom: 1rem;
+    right: 1rem;
+    gap: 0.5rem;
+  }
+  
+  .floating-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
+  
+  .floating-btn-main {
+    width: 48px;
+    padding: 0;
+  }
+  
+  .floating-btn-main span {
+    display: none;
+  }
+}
+
+/* ■ Animation Delays */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
+/* =============================================
+   🆕 NEW: Hero Premium Enhancements
+============================================= */
+
+/* 1. 타이핑 애니메이션 */
+.typing-animation {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 2s steps(20, end) forwards, blink 0.8s step-end infinite;
+  border-right: 2px solid rgba(201,169,98,0.8);
+  width: 0;
+  display: inline-block;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.typing-animation.done {
+  border-right: none;
+  width: auto;
+  white-space: normal;
+}
+
+/* 2. 뱃지 툴팁 */
+.badge-tooltip {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.badge-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(0,0,0,0.9);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  border: 1px solid rgba(201,169,98,0.3);
+}
+
+.badge-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(0,0,0,0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.badge-tooltip:hover::after,
+.badge-tooltip:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.badge-tooltip:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139, 90, 43, 0.4);
+}
+
+/* 3. 부드러운 빛 효과 배경 */
+.hero-ambient-light {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  animation: ambientFloat 15s ease-in-out infinite;
+}
+
+.ambient-orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(201,169,98,0.4) 0%, transparent 70%);
+  top: -15%;
+  left: -10%;
+  animation-delay: 0s;
+}
+
+.ambient-orb-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(180,150,100,0.3) 0%, transparent 70%);
+  bottom: -10%;
+  right: -5%;
+  animation-delay: -5s;
+}
+
+.ambient-orb-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -10s;
+}
+
+@keyframes ambientFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -20px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 30px) scale(0.95);
+  }
+  75% {
+    transform: translate(20px, 20px) scale(1.05);
+  }
+}
+
+/* 4. 스크롤 유도 바운스 */
+@keyframes scrollBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-15px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-8px);
+  }
+}
+
+/* 5. 숫자 카운트업 강조 */
+.hero-stat-num span {
+  display: inline-block;
+}
+
+/* 6. CTA 버튼 강조 */
+.hero-cta .btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta .btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255,255,255,0.2) 50%,
+    transparent 100%
+  );
+  transform: rotate(30deg);
+  animation: ctaShine 3s ease-in-out infinite;
+}
+
+@keyframes ctaShine {
+  0% { transform: rotate(30deg) translateX(-100%); }
+  50%, 100% { transform: rotate(30deg) translateX(100%); }
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .badge-tooltip::after {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+  
+  .hero-stats {
+    gap: 25px !important;
+  }
+  
+  .ambient-orb-1 { width: 300px; height: 300px; }
+  .ambient-orb-2 { width: 250px; height: 250px; }
+  .ambient-orb-3 { width: 200px; height: 200px; }
+}
+
+/* =============================================
+   🎬 Hero Background Video
+============================================= */
+.hero-bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0.25;
+  filter: blur(3px) brightness(0.7);
+  z-index: 0;
+}
+
+/* 영상 없을 때 대체 배경 */
+.hero-bg-video:not([src]),
+.hero-bg-video[src=""],
+.hero-bg-video:-moz-loading {
+  display: none;
+}
+
+/* =============================================
+   🔄 Before/After Slider Preview
+============================================= */
+.hero-before-after {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 420px;
+}
+
+.ba-preview-container {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(201,169,98,0.2);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.ba-preview-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(201,169,98,0.9);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ba-preview-title i {
+  font-size: 1rem;
+}
+
+.ba-slider-wrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.ba-slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  cursor: ew-resize;
+  user-select: none;
+}
+
+.ba-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ba-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 이미지 없을 때 플레이스홀더 */
+.ba-image[src*="sample"],
+.ba-image:not([src]),
+.ba-image[src=""] {
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+}
+
+.ba-before[src*="sample"]::after,
+.ba-after[src*="sample"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.ba-image-container::before {
+  content: '📸 실제 케이스 이미지 준비중';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255,255,255,0.4);
+  font-size: 0.8rem;
+  z-index: 2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ba-before {
+  z-index: 1;
+  clip-path: inset(0 50% 0 0);
+}
+
+.ba-after {
+  z-index: 0;
+}
+
+.ba-slider-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: ew-resize;
+}
+
+.ba-handle-line {
+  flex: 1;
+  width: 2px;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.ba-handle-circle {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #C9A962, #8B5A2B);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+
+.ba-slider:hover .ba-handle-circle {
+  transform: scale(1.1);
+}
+
+.ba-labels {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.ba-label {
+  background: rgba(0,0,0,0.6);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: white;
+}
+
+.ba-label-before {
+  color: #ff6b6b;
+}
+
+.ba-label-after {
+  color: #51cf66;
+}
+
+.ba-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  color: rgba(201,169,98,0.9);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.ba-more-link:hover {
+  color: #C9A962;
+  gap: 12px;
+}
+
+.ba-more-link i {
+  transition: transform 0.3s ease;
+}
+
+.ba-more-link:hover i {
+  transform: translateX(4px);
+}
+
+/* Before/After 반응형 */
+@media (max-width: 1024px) {
+  .hero-before-after {
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-before-after {
+    max-width: 100%;
+    margin-top: 30px;
+  }
+  
+  .ba-preview-container {
+    padding: 15px;
+  }
+  
+  .ba-handle-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+}
+
+/* =============================================
+   💬 Hero Quote (원장님 한마디)
+============================================= */
+.hero-quote {
+  animation: fadeInUp 1s ease 0.5s both;
+}
+
+.hero-quote blockquote {
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.hero-quote cite strong {
+  color: #C9A962;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

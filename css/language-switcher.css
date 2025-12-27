@@ -162,6 +162,13 @@
 }
 
 /* 모바일 언어 전환 */
+@media (max-width: 992px) {
+    /* 모바일에서 헤더 언어 스위처 숨기기 (모바일 메뉴에서 표시) */
+    .language-switcher {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
     .language-switcher {
         margin-left: 8px;
@@ -196,8 +203,9 @@
 .mobile-lang-switcher {
     display: none;
     padding: 20px;
-    border-top: 1px solid rgba(201, 169, 98, 0.1);
-    margin-top: auto;
+    border-top: 1px solid rgba(201, 169, 98, 0.2);
+    margin-top: 30px;
+    background: rgba(15, 13, 11, 0.95);
 }
 
 .mobile-lang-switcher .lang-title {
@@ -241,7 +249,7 @@
     font-size: 1.2rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .mobile-lang-switcher {
         display: block;
     }

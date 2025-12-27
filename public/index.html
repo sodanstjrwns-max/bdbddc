@@ -178,14 +178,15 @@
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   
   <!-- ■ Core Styles v3.0 - Modern Trendy + Warm Brown Redesign -->
+  <!-- Critical CSS: 헤더, 히어로 필수 (render-blocking) -->
   <link rel="stylesheet" href="/css/design-system-v3.css">
   <link rel="stylesheet" href="/css/hero-v3.css">
-  <link rel="stylesheet" href="/css/sections-v3.css">
   <link rel="stylesheet" href="/css/header-footer-v3.css">
-  <!-- Legacy CSS for compatibility -->
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/gnb.css">
-  <link rel="stylesheet" href="/css/homepage-refactored.css">
+  <!-- Non-critical CSS: 비동기 로드 (print trick) -->
+  <link rel="stylesheet" href="/css/sections-v3.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/main.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/gnb.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/homepage-refactored.css" media="print" onload="this.media='all'">
   
   <!-- ■ Mobile (조건부) -->
   <link rel="stylesheet" href="/css/mobile-optimize.css" media="screen and (max-width: 991px)">
@@ -1290,7 +1291,10 @@
         
         <!-- 시설 1: 로비/대기실 -->
         <div class="facility-card">
-          <img src="/images/facility/waiting-room.jpg" loading="lazy" alt="프리미엄 로비 - 편안한 대기 공간">
+          <picture>
+            <source srcset="/images/facility/waiting-room.webp" type="image/webp">
+            <img src="/images/facility/waiting-room.jpg" loading="lazy" alt="프리미엄 로비 - 편안한 대기 공간" width="400" height="300" decoding="async">
+          </picture>
           <div class="facility-card-info">
             <h3 data-i18n="home.facilityLobby">프리미엄 로비</h3>
             <p data-i18n="home.facilityLobbyDesc">편안한 대기 공간</p>
@@ -1299,7 +1303,10 @@
         
         <!-- 시설 2: 진료실 -->
         <div class="facility-card">
-          <img src="/images/facility/treatment-room.jpg" loading="lazy" alt="첨단 진료실 - 개별 진료 공간">
+          <picture>
+            <source srcset="/images/facility/treatment-room.webp" type="image/webp">
+            <img src="/images/facility/treatment-room.jpg" loading="lazy" alt="첨단 진료실 - 개별 진료 공간" width="400" height="300" decoding="async">
+          </picture>
           <div class="facility-card-info">
             <h3 data-i18n="home.facilityTreatment">첨단 진료실</h3>
             <p data-i18n="home.facilityTreatmentDesc">개별 진료 공간</p>
@@ -1308,7 +1315,10 @@
         
         <!-- 시설 3: 수술실 -->
         <div class="facility-card">
-          <img src="/images/facility/surgery-tools.jpg" loading="lazy" alt="무균 수술실 - 6개 임플란트 수술방">
+          <picture>
+            <source srcset="/images/facility/surgery-tools.webp" type="image/webp">
+            <img src="/images/facility/surgery-tools.jpg" loading="lazy" alt="무균 수술실 - 6개 임플란트 수술방" width="400" height="300" decoding="async">
+          </picture>
           <div class="facility-card-info">
             <h3 data-i18n="home.facilitySurgery">무균 수술실</h3>
             <p data-i18n="home.facilitySurgeryDesc">6개 임플란트 수술방</p>
@@ -1317,7 +1327,10 @@
         
         <!-- 시설 4: CT/장비 -->
         <div class="facility-card">
-          <img src="/images/facility/xray-equipment.jpg" loading="lazy" alt="3D CT 장비 - 정밀 진단 시스템">
+          <picture>
+            <source srcset="/images/facility/xray-equipment.webp" type="image/webp">
+            <img src="/images/facility/xray-equipment.jpg" loading="lazy" alt="3D CT 장비 - 정밀 진단 시스템" width="400" height="300" decoding="async">
+          </picture>
           <div class="facility-card-info">
             <h3 data-i18n="home.facilityCT">3D CT 장비</h3>
             <p data-i18n="home.facilityCTDesc">정밀 진단 시스템</p>
@@ -1326,7 +1339,10 @@
         
         <!-- 시설 5: 소아치과 -->
         <div class="facility-card">
-          <img src="/images/facility/kids-playroom.jpg" loading="lazy" alt="소아치과 전용 - 아이 친화적 환경">
+          <picture>
+            <source srcset="/images/facility/kids-playroom.webp" type="image/webp">
+            <img src="/images/facility/kids-playroom.jpg" loading="lazy" alt="소아치과 전용 - 아이 친화적 환경" width="400" height="300" decoding="async">
+          </picture>
           <div class="facility-card-info">
             <h3 data-i18n="home.facilityPediatric">소아치과 전용</h3>
             <p data-i18n="home.facilityPediatricDesc">아이 친화적 환경</p>
@@ -1335,7 +1351,10 @@
         
         <!-- 시설 6: 원내기공소 -->
         <div class="facility-card">
-          <img src="/images/facility/dental-lab.jpg" loading="lazy" alt="원내 기공소 - 5인 전문 기공사">
+          <picture>
+            <source srcset="/images/facility/dental-lab.webp" type="image/webp">
+            <img src="/images/facility/dental-lab.jpg" loading="lazy" alt="원내 기공소 - 5인 전문 기공사" width="400" height="300" decoding="async">
+          </picture>
           <div class="facility-card-info">
             <h3 data-i18n="home.facilityLab">원내 기공소</h3>
             <p data-i18n="home.facilityLabDescNew">5인 전문 기공사</p>
