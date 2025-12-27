@@ -1076,13 +1076,13 @@ window.TRANSLATIONS = {
       zh: '15位首尔大学院长'
     },
     featureScale: {
-      ko: '1~5층 대학병원급 규모',
+      ko: '1~5층 전문 의료 규모',
       en: '5-Floor University Hospital Scale',
       ja: '1～5階大学病院級規模',
       zh: '1~5层大学医院规模'
     },
     featureHygiene: {
-      ko: '최고 수준 감염관리',
+      ko: '철저한 감염관리',
       en: 'Top-level Infection Control',
       ja: '最高水準の感染管理',
       zh: '最高级别感染控制'
@@ -1176,13 +1176,13 @@ window.TRANSLATIONS = {
     
     // 대학병원급 시설
     cardFacilityTitle: {
-      ko: '대학병원급 규모',
+      ko: '전문 의료 규모',
       en: 'University Hospital Scale',
       ja: '大学病院級規模',
       zh: '大学医院级规模'
     },
     cardFacilityDesc: {
-      ko: '1~5층 전문 센터 구성\n6개 수술방, 원내 기공소, 최신 디지털 장비',
+      ko: '1~5층 전문 센터 구성\n6개 수술방, 원내 기공소, 디지털 장비',
       en: '5-floor specialty centers\n6 operating rooms, in-house lab, latest digital equipment',
       ja: '1～5階専門センター構成\n6つの手術室、院内技工所、最新デジタル機器',
       zh: '1~5层专业中心\n6间手术室、院内技工室、最新数字设备'
@@ -1222,7 +1222,7 @@ window.TRANSLATIONS = {
       zh: '严格感染控制'
     },
     cardHygieneDesc: {
-      ko: '1인 1기구 원칙, 개별 멸균 패키지\n최고 수준의 멸균 시스템을 갖추었습니다.',
+      ko: '1인 1기구 원칙, 개별 멸균 패키지\n철저한 멸균 시스템을 갖추었습니다.',
       en: 'One patient, one instrument set\nTop-level sterilization system.',
       ja: '1人1器具原則、個別滅菌パッケージ\n最高水準の滅菌システムを備えています。',
       zh: '一人一套器具原则、单独灭菌包装\n配备最高级别灭菌系统。'
@@ -1406,7 +1406,7 @@ window.TRANSLATIONS = {
     
     // 층별 안내
     floorTitle: {
-      ko: '대학병원급 층별 전문센터',
+      ko: '층별 전문센터',
       en: 'University Hospital-Level Floor Centers',
       ja: '大学病院級フロア別専門センター',
       zh: '大学医院级楼层专业中心'
@@ -1516,7 +1516,7 @@ window.TRANSLATIONS = {
       zh: '"机器无法创造的温暖是我们的标准。"'
     },
     philosophy2Sub: {
-      ko: '최신 장비보다 중요한 건 사람의 마음입니다.',
+      ko: '디지털 장비보다 중요한 건 사람의 마음입니다.',
       en: 'Human heart matters more than equipment.',
       ja: '最新機器より大切なのは人の心です。',
       zh: '人心比设备更重要。'
@@ -1614,7 +1614,7 @@ window.TRANSLATIONS = {
     
     // 시설 갤러리 섹션
     facilityTitle: {
-      ko: '<span style="background: linear-gradient(135deg, #C9A962, #8B5A2B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">대학병원급</span> 최신 시설',
+      ko: '<span style="background: linear-gradient(135deg, #C9A962, #8B5A2B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">전문</span> 의료 시설',
       en: '<span style="background: linear-gradient(135deg, #C9A962, #8B5A2B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">University Hospital</span> Facilities',
       ja: '<span style="background: linear-gradient(135deg, #C9A962, #8B5A2B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">大学病院級</span> 最新施設',
       zh: '<span style="background: linear-gradient(135deg, #C9A962, #8B5A2B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">大学医院级</span> 现代化设施'
@@ -1638,7 +1638,7 @@ window.TRANSLATIONS = {
       zh: '舒适的等候区'
     },
     facilityTreatment: {
-      ko: '최신 진료실',
+      ko: '진료실',
       en: 'Modern Treatment Room',
       ja: '最新診療室',
       zh: '现代诊疗室'
