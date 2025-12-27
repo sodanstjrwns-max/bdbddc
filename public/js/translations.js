@@ -183,7 +183,7 @@ window.TRANSLATIONS = {
       zh: '正畸中心(隐适美)'
     },
     orthodonticsDesc: {
-      ko: '국내 최대',
+      ko: '대형',
       en: 'Korea\'s Largest',
       ja: '国内最大',
       zh: '韩国最大'
@@ -333,7 +333,7 @@ window.TRANSLATIONS = {
       zh: '首尔大学15位院长协诊'
     },
     description: {
-      ko: '과잉진료 없는 양심 치과, 체계적인 협진으로 최상의 결과를 약속합니다',
+      ko: '과잉진료 없는 양심 치과, 체계적인 협진으로 좋은 결과를 위해 노력합니다',
       en: 'Ethical dentistry with systematic collaboration for the best results',
       ja: '過剰診療のない良心的な歯科、体系的な協診で最高の結果をお約束します',
       zh: '无过度治疗的良心牙科，系统化协诊确保最佳效果'
@@ -813,7 +813,7 @@ window.TRANSLATIONS = {
       zh: '隐适美矫正中心'
     },
     heroSubtitle: {
-      ko: '국내 최대 규모 인비절라인 센터',
+      ko: '대규모 인비절라인 센터',
       en: 'Korea\'s Largest Invisalign Center',
       ja: '国内最大規模のインビザラインセンター',
       zh: '韩国最大隐适美中心'
@@ -886,7 +886,7 @@ window.TRANSLATIONS = {
       zh: '为什么选择首尔BD牙科？'
     },
     whyChooseSubtitle: {
-      ko: '과잉진료 없이 양심적으로, 체계적인 협진으로 최상의 결과를 약속합니다',
+      ko: '과잉진료 없이 양심적으로, 체계적인 협진으로 좋은 결과를 위해 노력합니다',
       en: 'Ethical treatment without overcharging, systematic collaboration for the best results',
       ja: '過剰診療なしに良心的に、体系的な協診で最高の結果をお約束します',
       zh: '无过度治疗，良心诊疗，系统化协诊确保最佳效果'
@@ -1142,7 +1142,7 @@ window.TRANSLATIONS = {
       zh: '15位院长共同探讨'
     },
     card15Desc: {
-      ko: '어려운 케이스도 포기하지 않습니다.\n서울대 출신 15인 원장이 모여 최선의 치료법을 찾습니다.',
+      ko: '어려운 케이스도 포기하지 않습니다.\n서울대 출신 15인 원장이 모여 적합한 치료법을 찾습니다.',
       en: 'We never give up on difficult cases.\n15 SNU dentists work together to find the best solution.',
       ja: '難しいケースでも諦めません。\nソウル大出身15名の院長が最善の治療法を探します。',
       zh: '不放弃任何疑难病例。\n15位首尔大学院长共同寻找最佳治疗方案。'
@@ -1344,7 +1344,7 @@ window.TRANSLATIONS = {
       zh: '隐适美'
     },
     invisalignDesc: {
-      ko: '서울대 교정 전문의 2인\n국내 최대 규모 센터',
+      ko: '서울대 교정 전문의 2인\n대규모 센터',
       en: '2 SNU Orthodontists\nKorea\'s largest center',
       ja: 'ソウル大矯正専門医2名\n国内最大規模センター',
       zh: '2位首尔大学正畸专家\n韩国最大规模中心'
@@ -1472,7 +1472,7 @@ window.TRANSLATIONS = {
       zh: '隐适美正畸中心'
     },
     floor1Desc: {
-      ko: '서울대 교정 전문의 2인, 국내 최대 규모',
+      ko: '서울대 교정 전문의 2인, 대규모',
       en: '2 SNU Orthodontists, Korea\'s largest',
       ja: 'ソウル大矯正専門医2名、国内最大規模',
       zh: '2位首尔大学正畸专家，韩国最大规模'
