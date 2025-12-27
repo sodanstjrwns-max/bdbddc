@@ -128,43 +128,36 @@
   
   <!-- ■ Hero 폰트 - Pretendard 산세리프 (이미 CDN 로드됨) -->
   
-  <!-- ■ Critical CSS (인라인) - First Paint 최적화 + CLS 방지 v2.1 -->
+  <!-- ■ Critical CSS (인라인) - First Paint 최적화 -->
   <style>
-    /* Critical CSS v2.2 - 시스템 폰트 우선 (FOUT 완전 제거) */
+    /* Critical CSS - Above-the-fold 렌더링 필수 */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans KR','Malgun Gothic',sans-serif;line-height:1.5;color:#e5e5e5;background:#000;letter-spacing:0.025em;overflow-x:hidden}
-    /* Pretendard 로드 후 적용 (JS에서 클래스 추가) */
-    .fonts-loaded body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
-    :root{--brand-primary:#8B5A2B;--brand-gold:#C9A962;--brand-gradient:linear-gradient(135deg,#8B5A2B 0%,#C9A962 100%);--glass-bg:rgba(20,18,16,0.85);--glass-blur:blur(20px);--z-fixed:300;--shadow-gold:0 4px 20px rgba(201,169,98,0.3);--transition-fast:0.2s ease;--transition-normal:0.3s ease}
-    /* CLS 방지 - 고정 높이 설정 */
-    .site-header{position:fixed;top:0;left:0;right:0;z-index:var(--z-fixed);background:rgba(0,0,0,0.95);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid rgba(255,255,255,0.1);height:64px}
-    @media(min-width:768px){.site-header{height:72px}}
-    .header-spacer{height:64px}@media(min-width:768px){.header-spacer{height:72px}}
-    .header-container{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:12px 16px;height:100%}
+    body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.5;color:#e5e5e5;background:#000;letter-spacing:0.025em;overflow-x:hidden}
+    :root{--brand-primary:#8B5A2B;--brand-gold:#C9A962;--brand-gradient:linear-gradient(135deg,#8B5A2B 0%,#C9A962 100%);--glass-bg:rgba(20,18,16,0.85);--glass-blur:blur(20px);--z-fixed:300}
+    .header,.site-header{position:fixed;top:0;left:0;right:0;z-index:var(--z-fixed);background:rgba(0,0,0,0.9);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid rgba(255,255,255,0.1)}
+    .header-container{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;padding:12px 16px}
     @media(min-width:768px){.header-container{padding:16px 24px}}
     .logo,.site-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#fff}
-    .logo-icon{font-size:1.5rem;color:var(--brand-gold)}@media(min-width:768px){.logo-icon{font-size:1.75rem}}
+    .logo-icon{font-size:1.5rem}@media(min-width:768px){.logo-icon{font-size:1.75rem}}
     .logo-text{font-size:1rem;font-weight:700}@media(min-width:768px){.logo-text{font-size:1.25rem}}
-    .gnb,.header-nav,.main-nav{display:none;flex:1;justify-content:center}@media(min-width:768px){.gnb,.header-nav,.main-nav{display:flex}}
+    .gnb,.header-nav{display:none;flex:1;justify-content:center}@media(min-width:768px){.gnb,.header-nav{display:flex}}
     .mobile-menu-btn{display:flex;flex-direction:column;gap:5px;padding:8px;background:none;border:none;cursor:pointer}
-    .mobile-menu-btn span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:var(--transition-fast)}
+    .mobile-menu-btn span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
     @media(min-width:768px){.mobile-menu-btn{display:none}}
-    /* 히어로 - CLS 방지 위해 min-height 고정 */
-    .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:0;contain:layout style paint}
+    .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:80px}
     .hero-gradient{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#0a0a0a 0%,#1a1512 30%,#12100e 60%,#0a0a0a 100%);z-index:-1}
     .container{width:100%;max-width:1280px;margin:0 auto;padding:0 16px}
-    @media(min-width:768px){.container{padding:0 24px}}
-    /* 버튼 스타일 - 확장 */
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;font-family:inherit;font-size:1rem;font-weight:500;text-decoration:none;border:none;border-radius:1rem;cursor:pointer;transition:var(--transition-fast);min-height:44px}
-    .btn-primary{background:var(--brand-gradient);color:#fff;box-shadow:var(--shadow-gold);font-weight:600}
-    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(201,169,98,0.4)}
-    .btn-secondary{background:transparent;color:var(--brand-gold);border:1px solid var(--brand-gold)}
-    .btn-secondary:hover{background:rgba(201,169,98,0.1)}
-    .btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;font-family:inherit;font-size:1rem;font-weight:500;text-decoration:none;border:none;border-radius:1rem;cursor:pointer;transition:all 0.2s;min-height:44px}
+    .btn-primary{background:var(--brand-gradient);color:#fff;box-shadow:0 4px 15px rgba(139,90,43,0.4);font-weight:600}
+    .page-loading-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center}
+    .loading-spinner{display:flex;flex-direction:column;align-items:center;gap:16px}
+    .loading-spinner-ring{width:50px;height:50px;border:3px solid rgba(201,169,98,0.2);border-top-color:#C9A962;border-radius:50%;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .fonts-loading body{opacity:0}.fonts-loaded body{opacity:1;transition:opacity 0.2s}
     /* 헤더 액션 & 인증 버튼 */
     .header-actions{display:flex;align-items:center;gap:12px}
-    .header-phone{display:none;align-items:center;justify-content:center;width:40px;height:40px;color:#C9A962;text-decoration:none;font-size:1.1rem;background:rgba(201,169,98,0.1);border-radius:50%;transition:var(--transition-fast)}
+    .header-phone{display:none;align-items:center;justify-content:center;width:40px;height:40px;color:#C9A962;text-decoration:none;font-size:1.1rem;background:rgba(201,169,98,0.1);border-radius:50%;transition:all 0.2s}
     .header-phone:hover{background:rgba(201,169,98,0.2);transform:scale(1.05)}
     @media(min-width:992px){.header-phone{display:flex}}
     .auth-buttons{display:flex;align-items:center;gap:4px}
@@ -172,89 +165,31 @@
     .btn-auth i{font-size:0.8rem}
     .btn-login::after{content:'';display:inline-block;width:1px;height:12px;background:rgba(201,169,98,0.4);margin-left:8px}
     @media(max-width:991px){.auth-buttons{display:none}}
-    .btn-reserve{display:none;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(135deg,#8B5A2B,#C9A962);color:#fff;text-decoration:none;font-weight:600;font-size:0.9rem;border-radius:25px;transition:var(--transition-fast)}
-    .btn-reserve:hover{transform:translateY(-2px);box-shadow:var(--shadow-gold)}
+    .btn-reserve{display:none;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(135deg,#8B5A2B,#C9A962);color:#fff;text-decoration:none;font-weight:600;font-size:0.9rem;border-radius:25px}
     @media(min-width:992px){.btn-reserve{display:flex}}
-    /* 히어로 텍스트 크기 고정 - CLS 방지 */
-    .hero-brand{font-size:clamp(2.8rem,12vw,8rem);font-weight:900;letter-spacing:0.08em;line-height:1;background:var(--brand-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .hero-hook-main{font-size:clamp(2rem,8vw,5rem);font-weight:800;line-height:1.1}
-    .hero-hook-sub{font-size:clamp(1.2rem,2.5vw,1.7rem);font-weight:400;line-height:1.5}
-    /* 섹션 타이틀 - CLS 방지 */
-    .section{padding:60px 0;position:relative}@media(min-width:768px){.section{padding:80px 0}}
-    .section-title{font-size:clamp(1.75rem,5vw,2.5rem);font-weight:700;color:#fff;margin-bottom:16px;line-height:1.2}
-    .section-subtitle{font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,0.85);max-width:600px;line-height:1.6}
-    .section-header{text-align:center;margin-bottom:40px}@media(min-width:768px){.section-header{margin-bottom:60px}}
-    /* 그리드 레이아웃 - CLS 방지 */
-    .grid{display:grid;gap:20px}
-    .grid-2{grid-template-columns:1fr}@media(min-width:768px){.grid-2{grid-template-columns:repeat(2,1fr)}}
-    .grid-3{grid-template-columns:1fr}@media(min-width:768px){.grid-3{grid-template-columns:repeat(2,1fr)}}@media(min-width:1024px){.grid-3{grid-template-columns:repeat(3,1fr)}}
-    .grid-4{grid-template-columns:repeat(2,1fr)}@media(min-width:768px){.grid-4{grid-template-columns:repeat(3,1fr)}}@media(min-width:1024px){.grid-4{grid-template-columns:repeat(4,1fr)}}
-    /* 카드 컴포넌트 - CLS 방지 */
-    .card{background:var(--glass-bg);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;backdrop-filter:var(--glass-blur);transition:var(--transition-normal)}
-    .card:hover{border-color:rgba(201,169,98,0.3);transform:translateY(-4px)}
-    .card-title{font-size:1.25rem;font-weight:600;color:#fff;margin-bottom:8px}
-    .card-text{font-size:0.95rem;color:rgba(255,255,255,0.7);line-height:1.6}
-    /* 통계/신뢰 배지 - CLS 방지 */
-    .stat-number{font-size:clamp(2rem,6vw,3rem);font-weight:800;color:var(--brand-gold);line-height:1}
-    .stat-label{font-size:0.9rem;color:rgba(255,255,255,0.7);margin-top:4px}
-    .trust-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(201,169,98,0.1);border:1px solid rgba(201,169,98,0.3);border-radius:20px;font-size:0.85rem;color:var(--brand-gold)}
-    /* YouTube Lite - 고정 비율 */
-    .youtube-lite{aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;position:relative}
-    .youtube-lite img{width:100%;height:100%;object-fit:cover}
-    .youtube-lite::after{content:'▶';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:48px;background:rgba(201,169,98,0.9);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff;transition:var(--transition-fast)}
-    .youtube-lite:hover::after{background:var(--brand-gold);transform:translate(-50%,-50%) scale(1.1)}
-    /* 이미지 플레이스홀더 - CLS 방지 */
-    .img-placeholder{background:linear-gradient(135deg,#1a1a1a,#2a2a2a);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);border-radius:12px}
-    /* 모바일 CTA 고정 - CLS 방지 */
-    .mobile-cta-fixed{position:fixed;bottom:0;left:0;right:0;z-index:200;padding:12px 16px;background:rgba(0,0,0,0.95);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.1);display:none}
-    @media(max-width:991px){.mobile-cta-fixed{display:block}}
-    /* 스켈레톤 로딩 */
-    .skeleton{background:linear-gradient(90deg,#1a1a1a 25%,#2a2a2a 50%,#1a1a1a 75%);background-size:200% 100%;animation:skeleton-loading 1.5s infinite}
-    @keyframes skeleton-loading{0%{background-position:200% 0}100%{background-position:-200% 0}}
-    /* Accessibility 개선 - 색상 대비 + 포커스 스타일 */
-    .section-subtitle,.hero-hook-sub{color:rgba(255,255,255,0.85)}
-    :focus-visible{outline:2px solid var(--brand-gold);outline-offset:2px}
-    a:focus-visible,button:focus-visible{outline:2px solid var(--brand-gold);outline-offset:2px}
-    /* 애니메이션 감소 모드 지원 */
-    @media(prefers-reduced-motion:reduce){*{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
-    /* CLS 방지: 폰트 로딩 중 레이아웃 시프트 방지 */
-    @font-face{font-family:'Pretendard-Fallback';src:local('Apple SD Gothic Neo'),local('Malgun Gothic'),local('sans-serif');ascent-override:105%;descent-override:25%;line-gap-override:0%;size-adjust:100%}
-    body{font-family:'Pretendard','Pretendard-Fallback',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
-    /* 히어로 콘텐츠 고정 크기 - CLS 완전 방지 */
-    .hero-content{min-height:calc(100vh - 72px)}
-    .hero-text{min-height:400px}
-    /* 애니메이션 GPU 가속 (non-composited 방지) */
-    .card:hover,.btn:hover,.treatment-card:hover{will-change:transform;transform:translateZ(0)}
   </style>
   
-  <!-- ■ 완전 비동기 리소스 로딩 (Render Blocking 0) -->
-  <script>
-  (function(){
-    function loadCSS(href,media,cb){
-      var l=document.createElement('link');l.rel='stylesheet';l.href=href;
-      if(media)l.media=media;if(cb)l.onload=cb;document.head.appendChild(l);
-    }
-    // 코어 CSS - 즉시 (비동기지만 우선)
-    loadCSS('/css/core-bundle.min.css');
-    if(window.innerWidth<=991)loadCSS('/css/mobile-bundle.min.css');
-    // 폰트 - idle 시 로드 + 완료 후 클래스 추가
-    function loadFont(){
-      loadCSS('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css',null,function(){
-        document.documentElement.classList.add('fonts-loaded');
-      });
-    }
-    if('requestIdleCallback' in window){requestIdleCallback(loadFont,{timeout:2000});}
-    else{setTimeout(loadFont,100);}
-    // 아이콘 - 1.5초 후
-    setTimeout(function(){loadCSS('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css');},1500);
-  })();
-  </script>
-  <noscript>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/core-bundle.min.css">
-    <link rel="stylesheet" href="/css/mobile-bundle.min.css" media="screen and (max-width: 991px)">
-  </noscript>
+  <!-- ■ Fonts (font-display: swap 적용) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  
+  <!-- ■ Icons (지연 로딩) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  
+  <!-- ■ Core Styles v3.0 - Modern Trendy + Warm Brown Redesign -->
+  <link rel="stylesheet" href="/css/design-system-v3.css">
+  <link rel="stylesheet" href="/css/hero-v3.css">
+  <link rel="stylesheet" href="/css/sections-v3.css">
+  <link rel="stylesheet" href="/css/header-footer-v3.css">
+  <!-- Legacy CSS for compatibility -->
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/gnb.css">
+  <link rel="stylesheet" href="/css/homepage-refactored.css">
+  
+  <!-- ■ Mobile (조건부) -->
+  <link rel="stylesheet" href="/css/mobile-optimize.css" media="screen and (max-width: 991px)">
+  <link rel="stylesheet" href="/css/mobile-cta.css" media="screen and (max-width: 991px)">
   
   <!-- ■ Cinematic Intro - JS에서 스타일 주입 -->
   
@@ -367,6 +302,11 @@
       }
     }
   </style>
+  
+  <!-- ■ 비필수 CSS (지연 로드) -->
+  <link rel="preload" href="/css/liquid-metal.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/css/responsive-devices.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/css/image-placeholders.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   
   <!-- ■ Prefetch Next Pages -->
   <link rel="prefetch" href="treatments/index.html" as="document">
@@ -1241,9 +1181,9 @@
           <div class="hero-brand-glow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.25) 0%, transparent 70%); filter: blur(40px); z-index: 0; animation: brandPulse 3s ease-in-out infinite;"></div>
           
           <!-- 메인 브랜드명 -->
-          <p class="hero-brand" style="position: relative; z-index: 1; font-size: clamp(2.8rem, 12vw, 8rem); font-weight: 900; letter-spacing: 0.08em; line-height: 1; margin: 0; padding: 10px 0; color: #FFFFFF; text-shadow: 0 0 40px rgba(201, 169, 98, 0.5), 0 0 80px rgba(201, 169, 98, 0.3), 0 4px 20px rgba(0, 0, 0, 0.5);" role="heading" aria-level="2">
+          <h2 class="hero-brand" style="position: relative; z-index: 1; font-size: clamp(2.8rem, 12vw, 8rem); font-weight: 900; letter-spacing: 0.08em; line-height: 1; margin: 0; padding: 10px 0; color: #FFFFFF; text-shadow: 0 0 40px rgba(201, 169, 98, 0.5), 0 0 80px rgba(201, 169, 98, 0.3), 0 4px 20px rgba(0, 0, 0, 0.5);">
             서울비디치과
-          </p>
+          </h2>
           
           <!-- 장식 라인 -->
           <div class="hero-brand-line" style="width: 120px; height: 3px; background: linear-gradient(90deg, transparent, #FFD700, transparent); margin: 20px auto 0; border-radius: 3px; animation: lineExpand 2s ease-out forwards;"></div>
@@ -1296,41 +1236,19 @@
         <p class="section-subtitle" data-i18n="home.videoSubtitle">Best Dedication - 정성을 다하는 헌신으로 환자분을 모십니다</p>
       </div>
       
-      <!-- 📹 영상 플레이어 - YouTube Lite Embed (Performance 최적화) -->
+      <!-- 📹 영상 플레이어 - YouTube 임베드 (5층 로비 영상) -->
       <div class="video-wrapper animate-fade-in-up">
-        <div class="youtube-lite" data-video-id="vMafU02A_pI" style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); background: #000; cursor: pointer;">
-          <!-- 썸네일 이미지 (LCP 개선) -->
-          <img 
-            src="https://i.ytimg.com/vi/vMafU02A_pI/hqdefault.jpg" 
-            alt="서울비디치과 5층 로비 소개 영상 썸네일"
-            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: auto; min-height: 100%;"
+        <div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
+          <iframe 
+            src="https://www.youtube.com/embed/vMafU02A_pI?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=vMafU02A_pI" 
+            title="서울비디치과 5층 로비 소개 영상"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
             loading="lazy"
-            decoding="async"
-          >
-          <!-- 재생 버튼 오버레이 -->
-          <div class="youtube-play-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 68px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 14px; display: flex; align-items: center; justify-content: center; transition: background 0.2s;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-          </div>
+          ></iframe>
         </div>
       </div>
-      <script>
-        // YouTube Lite - 클릭 시 iframe 로드
-        document.addEventListener('DOMContentLoaded', function() {
-          document.querySelectorAll('.youtube-lite').forEach(function(el) {
-            el.addEventListener('click', function() {
-              var videoId = this.dataset.videoId;
-              var iframe = document.createElement('iframe');
-              iframe.src = 'https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1&autoplay=1&mute=0';
-              iframe.title = '서울비디치과 5층 로비 소개 영상';
-              iframe.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;';
-              iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-              iframe.allowFullscreen = true;
-              this.innerHTML = '';
-              this.appendChild(iframe);
-            });
-          });
-        });
-      </script>
       
       <!-- 영상 하단 키 메시지 -->
       <div class="video-highlights animate-fade-in-up">
@@ -1778,12 +1696,12 @@
       <div class="reviews-stats">
         <div class="reviews-stat-item">
           <span class="stat-icon naver"><i class="fas fa-star"></i></span>
-          <span class="stat-number naver">4.9</span>
+          <span class="stat-number naver">4.85</span>
           <span class="stat-label">네이버</span>
         </div>
         <div class="reviews-stat-item">
           <span class="stat-icon google"><i class="fab fa-google"></i></span>
-          <span class="stat-number google">4.8</span>
+          <span class="stat-number google">4.9</span>
           <span class="stat-label">구글</span>
         </div>
         <div class="reviews-stat-item">
@@ -1805,12 +1723,12 @@
       
       <!-- 리뷰 카드 그리드 -->
       <div class="reviews-grid">
-        <!-- 리뷰 1 -->
+        <!-- 리뷰 1 - 네이버 실제 후기 -->
         <div class="review-card">
           <div class="review-card-header">
-            <div class="review-avatar">박</div>
+            <div class="review-avatar">김</div>
             <div class="review-author-info">
-              <div class="author-name">박**님</div>
+              <div class="author-name">김**님</div>
               <span class="review-source naver"><i class="fas fa-check-circle"></i> 네이버</span>
             </div>
           </div>
@@ -1822,45 +1740,17 @@
             <i class="fas fa-star"></i>
           </div>
           <p class="review-text">
-            일요일에도 진료해주셔서 정말 감사했어요. 직장인에게 평일 치과 방문은 너무 힘든데, 
-            <span class="highlight">365일 진료가 진짜 큰 도움이 됐습니다.</span> 
-            수면 임플란트로 편하게 받았고, 회복도 빨랐어요.
+            매년 2번씩 스케일링 받으러 오는데, 
+            <span class="highlight">깨끗한 시설과 체계적인 시스템, 그리고 친절한 의료진</span> 덕분에 
+            치과 방문이 스트레스가 아닌 기분 좋은 경험이 됩니다.
           </p>
           <div class="review-tags">
-            <span class="review-tag">365일 진료</span>
-            <span class="review-tag">수면 임플란트</span>
+            <span class="review-tag">스케일링</span>
+            <span class="review-tag">친절한 의료진</span>
           </div>
         </div>
         
-        <!-- 리뷰 2 -->
-        <div class="review-card">
-          <div class="review-card-header">
-            <div class="review-avatar">김</div>
-            <div class="review-author-info">
-              <div class="author-name">김**님</div>
-              <span class="review-source kakao"><i class="fas fa-check-circle"></i> 카카오</span>
-            </div>
-          </div>
-          <div class="review-rating">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </div>
-          <p class="review-text">
-            아이가 치과를 무서워했는데, 소아치과 선생님이 너무 친절하시고 
-            <span class="highlight">웃음가스로 편하게 치료받았어요.</span> 
-            이제 아이가 오히려 치과 가자고 해요! 개인실이라 다른 아이들 소리에 불안해하지 않아서 좋았습니다.
-          </p>
-          <div class="review-tags">
-            <span class="review-tag">웃음가스</span>
-            <span class="review-tag">개인실</span>
-            <span class="review-tag">친절</span>
-          </div>
-        </div>
-        
-        <!-- 리뷰 3 -->
+        <!-- 리뷰 2 - 네이버 실제 후기 -->
         <div class="review-card">
           <div class="review-card-header">
             <div class="review-avatar">이</div>
@@ -1877,22 +1767,22 @@
             <i class="fas fa-star"></i>
           </div>
           <p class="review-text">
-            서울대 출신 선생님들이 협진해주시니까 믿음이 가요. 
-            <span class="highlight">케이스북으로 비슷한 사례 보여주시고</span> 결과 예측까지 해주셔서 
-            안심하고 치료받았습니다. 현정민 원장님 손기술 좋으심!
+            임플란트 후기 2탄! 수술시간 30분 정도로 잘 마무리되었어요. 
+            <span class="highlight">4층 전체가 임플란트센터라 전문적이고</span> 
+            수술 후 따뜻한 죽까지 주시는 세심한 배려에 감동했어요!
           </p>
           <div class="review-tags">
-            <span class="review-tag">서울대 출신</span>
-            <span class="review-tag">케이스북 상담</span>
+            <span class="review-tag">임플란트</span>
+            <span class="review-tag">전문 수술실</span>
           </div>
         </div>
         
-        <!-- 리뷰 4 -->
+        <!-- 리뷰 3 - 네이버 실제 후기 -->
         <div class="review-card">
           <div class="review-card-header">
-            <div class="review-avatar">정</div>
+            <div class="review-avatar">박</div>
             <div class="review-author-info">
-              <div class="author-name">정**님</div>
+              <div class="author-name">박**님</div>
               <span class="review-source naver"><i class="fas fa-check-circle"></i> 네이버</span>
             </div>
           </div>
@@ -1904,48 +1794,22 @@
             <i class="fas fa-star"></i>
           </div>
           <p class="review-text">
-            교정 상담 여러 군데 받아봤는데, <span class="highlight">서울비디치과가 정말 상세하게 설명해주셨어요.</span> 
-            3D 시뮬레이션으로 완성된 모습도 미리 볼 수 있어서 좋았고, 일요일에도 진료받을 수 있어서 직장인에게 딱이에요.
+            <span class="highlight">서울대 출신 14인 원장님들이 협진해주셔서</span> 
+            전문적이고 개인 맞춤형 진료가 가능해요. 
+            2~5층으로 구성된 대형 치과라 과목별 전문 치료가 가능합니다.
           </p>
           <div class="review-tags">
-            <span class="review-tag">3D 시뮬레이션</span>
-            <span class="review-tag">일요일 진료</span>
+            <span class="review-tag">서울대 출신</span>
+            <span class="review-tag">협진 시스템</span>
           </div>
         </div>
         
-        <!-- 리뷰 5 -->
+        <!-- 리뷰 4 - 네이버 실제 후기 -->
         <div class="review-card">
           <div class="review-card-header">
             <div class="review-avatar">최</div>
             <div class="review-author-info">
               <div class="author-name">최**님</div>
-              <span class="review-source kakao"><i class="fas fa-check-circle"></i> 카카오</span>
-            </div>
-          </div>
-          <div class="review-rating">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </div>
-          <p class="review-text">
-            <span class="highlight">과잉진료 없이 필요한 치료만 권해주셨어요.</span> 
-            다른 치과에서는 충치가 많다고 했는데, 여기서는 당장 치료 안 해도 되는 건 지켜보자고 하셔서 
-            오히려 더 신뢰가 갔습니다. 양심 치과!
-          </p>
-          <div class="review-tags">
-            <span class="review-tag">NO 과잉진료</span>
-            <span class="review-tag">양심 치과</span>
-          </div>
-        </div>
-        
-        <!-- 리뷰 6 -->
-        <div class="review-card">
-          <div class="review-card-header">
-            <div class="review-avatar">한</div>
-            <div class="review-author-info">
-              <div class="author-name">한**님</div>
               <span class="review-source naver"><i class="fas fa-check-circle"></i> 네이버</span>
             </div>
           </div>
@@ -1957,14 +1821,67 @@
             <i class="fas fa-star"></i>
           </div>
           <p class="review-text">
-            뼈가 부족해서 다른 데서는 임플란트가 어렵다고 했는데, 
-            <span class="highlight">여기서 뼈이식 + 네비게이션 임플란트로 성공적으로 마쳤어요.</span> 
-            6개 수술실에 회복실도 있어서 전문 시설이더라고요.
+            진짜 엄살 쪸보인 제가 발치하고 나사 박아놓은 곳 1년 방치했다가 마지막으로 연락주셔서 다녀왔어요. 
+            <span class="highlight">안아프게 잘 해준다는 후기 보고</span> 갔는데 정말이었어요!
           </p>
           <div class="review-tags">
-            <span class="review-tag">뼈이식</span>
-            <span class="review-tag">네비게이션</span>
-            <span class="review-tag">전문 시설</span>
+            <span class="review-tag">발치</span>
+            <span class="review-tag">통증 적음</span>
+          </div>
+        </div>
+        
+        <!-- 리뷰 5 - 구글 실제 후기 -->
+        <div class="review-card">
+          <div class="review-card-header">
+            <div class="review-avatar">정</div>
+            <div class="review-author-info">
+              <div class="author-name">정**님</div>
+              <span class="review-source google"><i class="fab fa-google"></i> 구글</span>
+            </div>
+          </div>
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="review-text">
+            <span class="highlight">과잉진료 없이 조금 더 지켜봐도 괜찮다 말씀해주시고</span>, 
+            원인설명도 자세하게 해주셔서 이해하기 쉬웠어요! 
+            의사샘과 치위생사님 모두 엄청 친절합니다.
+          </p>
+          <div class="review-tags">
+            <span class="review-tag">NO 과잉진료</span>
+            <span class="review-tag">친절한 설명</span>
+          </div>
+        </div>
+        
+        <!-- 리뷰 6 - 구글 실제 후기 -->
+        <div class="review-card">
+          <div class="review-card-header">
+            <div class="review-avatar">한</div>
+            <div class="review-author-info">
+              <div class="author-name">한**님</div>
+              <span class="review-source google"><i class="fab fa-google"></i> 구글</span>
+            </div>
+          </div>
+          <div class="review-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="review-text">
+            잘한다 들으면 뭐합니까 ㅎ 직접 오셔서 겪어보세요. 
+            <span class="highlight">백문이 불여일견이라는 말 있듯이</span> 
+            모든 부문이 최고 👍
+          </p>
+          <div class="review-tags">
+            <span class="review-tag">전문성</span>
+            <span class="review-tag">친절</span>
+            <span class="review-tag">시설</span>
           </div>
         </div>
       </div>
@@ -2289,94 +2206,49 @@
   <!-- ■ Cinematic Intro (오프닝 무비) -->
   <!-- 인트로 제거됨 -->
   
-  <!-- ■ Core Scripts (최적화 - defer로 비동기 로드) -->
+  <!-- ■ Core Scripts (최적화됨) -->
   <script src="/js/main.js" defer></script>
   <script src="/js/gnb.js" defer></script>
   
-  <!-- ■ 초공격적 지연 로딩 (Lighthouse 최적화) - 5초 후 또는 스크롤 시 로드 -->
+  <!-- ■ 다국어 번역 시스템 (즉시 로드) -->
+  <link rel="stylesheet" href="/css/language-switcher.css">
+  <script src="/js/translations.js?v=20241226"></script>
+  <script src="/js/language-switcher.js?v=20241226" defer></script>
+  
+  <!-- ■ 지연 로딩 스크립트 -->
   <script>
     (function(){
       var loaded=false;
-      
-      // Phase 1: 필수 기능만 (이미지 폴백)
-      function loadPhase1(){
-        var sc=document.createElement('script');
-        sc.src='/js/image-fallback.js';sc.defer=true;
-        document.body.appendChild(sc);
-      }
-      
-      // Phase 2: UI 기능 (다국어) - 스크롤 시 로드
-      function loadPhase2(){
+      function loadDeferred(){
         if(loaded)return;loaded=true;
-        
-        // 다국어 CSS
-        var langCSS=document.createElement('link');
-        langCSS.rel='stylesheet';langCSS.href='/css/language-switcher.css';
-        document.head.appendChild(langCSS);
-        
-        // 다국어 JS (121KB) - 청크 분리
-        setTimeout(function(){
-          var sc1=document.createElement('script');
-          sc1.src='/js/translations.js?v=20241226';sc1.defer=true;
-          document.body.appendChild(sc1);
-          
-          setTimeout(function(){
-            var sc2=document.createElement('script');
-            sc2.src='/js/language-switcher.js?v=20241226';sc2.defer=true;
-            document.body.appendChild(sc2);
-          },500);
-        },100);
-        
-        // 비필수 CSS
-        var liquidCSS=document.createElement('link');
-        liquidCSS.rel='stylesheet';liquidCSS.href='/css/liquid-metal.css';
-        document.head.appendChild(liquidCSS);
-      }
-      
-      // Phase 3: Analytics (7초 후) - Lighthouse 측정 완료 후
-      function loadAnalytics(){
-        ['js/amplitude-events.js','js/analytics-loader.js'].forEach(function(s){
-          var sc=document.createElement('script');sc.src='/'+s;sc.async=true;document.body.appendChild(sc);
+        // 추가 JS
+        ['js/image-fallback.js','js/hero-animations.js'].forEach(function(s){
+          var sc=document.createElement('script');sc.src=s;sc.defer=true;document.body.appendChild(sc);
         });
-      }
-      
-      // Phase 4: Firebase (10초 후) - 완전히 늦게
-      function loadFirebase(){
-        var scripts=['https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
+        // 추가 CSS
+        ['css/hero-animations.css'].forEach(function(h){
+          var lk=document.createElement('link');lk.rel='stylesheet';lk.href=h;document.head.appendChild(lk);
+        });
+        // Firebase (2초 후)
+        setTimeout(function(){
+          ['https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
            'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js',
-           '/js/firebase-auth.js'];
-        var i=0;
-        function loadNext(){
-          if(i>=scripts.length)return;
-          var sc=document.createElement('script');sc.src=scripts[i];
-          sc.onload=function(){i++;setTimeout(loadNext,200)};
-          document.body.appendChild(sc);
-        }
-        loadNext();
+           'js/firebase-auth.js'].forEach(function(s){
+            var sc=document.createElement('script');sc.src=s;document.body.appendChild(sc);
+          });
+        },2000);
       }
-      
-      // 실행 타이밍
-      // Phase 1: 즉시 (requestIdleCallback 사용)
-      if('requestIdleCallback' in window){
-        requestIdleCallback(loadPhase1,{timeout:1000});
-      }else{
-        setTimeout(loadPhase1,1000);
-      }
-      
-      // Phase 2: 스크롤 시 또는 5초 후
-      var scrollTriggered=false;
-      function onScroll(){
-        if(scrollTriggered)return;scrollTriggered=true;
-        window.removeEventListener('scroll',onScroll);
-        loadPhase2();
-      }
-      window.addEventListener('scroll',onScroll,{passive:true,once:true});
-      setTimeout(function(){if(!scrollTriggered)loadPhase2()},5000);
-      
-      // Phase 3 & 4: Lighthouse 측정 완료 후
-      setTimeout(loadAnalytics,7000);
-      setTimeout(loadFirebase,10000);
+      ['scroll','click','touchstart'].forEach(function(e){
+        window.addEventListener(e,loadDeferred,{once:true,passive:true});
+      });
+      setTimeout(loadDeferred,3000);
     })();
   </script>
+  
+  <!-- ■ Amplitude Event Tracking (주요 액션 추적) -->
+  <script defer src="/js/amplitude-events.js"></script>
+  
+  <!-- ■ Analytics Lazy Loader (First Paint 최적화) -->
+  <script defer src="/js/analytics-loader.js"></script>
 </body>
 </html>
