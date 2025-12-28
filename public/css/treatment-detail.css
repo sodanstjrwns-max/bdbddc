@@ -961,34 +961,49 @@
 }
 
 /* ================================================
-   ■ Section Image Banner
-   섹션 사이 이미지 배너
+   ■ Section Image Banner (Card Style)
+   섹션 사이 이미지 카드
    ================================================ */
 
 .section-image-banner {
-  position: relative;
-  width: 100%;
-  height: 45vh;
-  min-height: 300px;
-  max-height: 500px;
-  overflow: hidden;
+  padding: 4rem 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(20,20,20,0.8) 100%);
 }
 
 .image-banner-container {
   position: relative;
   width: 100%;
-  height: 100%;
+  max-width: 1000px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(201, 169, 98, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.image-banner-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 35px 70px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(201, 169, 98, 0.3);
 }
 
 .image-banner-container img {
   width: 100%;
-  height: 100%;
+  height: 400px;
   object-fit: cover;
-  transition: transform 8s ease-out;
+  display: block;
+  transition: transform 6s ease-out;
 }
 
-.section-image-banner:hover .image-banner-container img {
-  transform: scale(1.05);
+.image-banner-container:hover img {
+  transform: scale(1.08);
 }
 
 .image-banner-overlay {
@@ -996,8 +1011,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 3rem 2rem;
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  padding: 2.5rem 2rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -1007,27 +1022,46 @@
   color: #fff;
   font-size: 1.125rem;
   font-weight: 600;
-  padding: 0.75rem 1.5rem;
+  padding: 0.875rem 2rem;
   background: rgba(201, 169, 98, 0.15);
-  border: 1px solid rgba(201, 169, 98, 0.4);
+  border: 1px solid rgba(201, 169, 98, 0.5);
   border-radius: 50px;
   backdrop-filter: blur(10px);
   letter-spacing: 0.05em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 @media (max-width: 768px) {
   .section-image-banner {
-    height: 35vh;
-    min-height: 220px;
+    padding: 2.5rem 16px;
+  }
+  
+  .image-banner-container {
+    border-radius: 16px;
+  }
+  
+  .image-banner-container img {
+    height: 280px;
   }
   
   .image-banner-label {
     font-size: 0.9375rem;
-    padding: 0.625rem 1.25rem;
+    padding: 0.75rem 1.5rem;
   }
   
   .image-banner-overlay {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-banner-container img {
+    height: 220px;
+  }
+  
+  .image-banner-label {
+    font-size: 0.875rem;
+    padding: 0.625rem 1.25rem;
   }
 }
 
