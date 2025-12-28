@@ -961,6 +961,77 @@
 }
 
 /* ================================================
+   ■ Section Image Banner
+   섹션 사이 이미지 배너
+   ================================================ */
+
+.section-image-banner {
+  position: relative;
+  width: 100%;
+  height: 45vh;
+  min-height: 300px;
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.image-banner-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image-banner-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 8s ease-out;
+}
+
+.section-image-banner:hover .image-banner-container img {
+  transform: scale(1.05);
+}
+
+.image-banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3rem 2rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.image-banner-label {
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  background: rgba(201, 169, 98, 0.15);
+  border: 1px solid rgba(201, 169, 98, 0.4);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .section-image-banner {
+    height: 35vh;
+    min-height: 220px;
+  }
+  
+  .image-banner-label {
+    font-size: 0.9375rem;
+    padding: 0.625rem 1.25rem;
+  }
+  
+  .image-banner-overlay {
+    padding: 2rem 1rem;
+  }
+}
+
+/* ================================================
    ■ Facility Gallery Section
    시설 갤러리 (인비절라인센터 등)
    ================================================ */
