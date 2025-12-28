@@ -959,3 +959,130 @@
     gap: 0.75rem;
   }
 }
+
+/* ================================================
+   ■ Facility Gallery Section
+   시설 갤러리 (인비절라인센터 등)
+   ================================================ */
+
+.facility-gallery {
+  padding: 5rem 0;
+  background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 280px);
+  gap: 1rem;
+}
+
+.gallery-grid .gallery-main {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  display: flex;
+  align-items: flex-end;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-label {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background: rgba(201, 169, 98, 0.2);
+  border: 1px solid rgba(201, 169, 98, 0.5);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.gallery-cta {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background: rgba(201, 169, 98, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(201, 169, 98, 0.2);
+}
+
+.gallery-cta p {
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+.gallery-cta i {
+  color: #C9A962;
+  margin-right: 0.5rem;
+}
+
+/* Gallery Responsive */
+@media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 220px);
+  }
+  
+  .gallery-grid .gallery-main {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .gallery-grid .gallery-main {
+    grid-column: span 1;
+    height: 250px;
+  }
+  
+  .gallery-item {
+    height: 200px;
+  }
+  
+  .gallery-overlay {
+    opacity: 1;
+    background: linear-gradient(transparent 50%, rgba(0,0,0,0.8));
+  }
+  
+  .gallery-label {
+    font-size: 0.875rem;
+  }
+}
