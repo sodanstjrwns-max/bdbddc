@@ -103,17 +103,11 @@ function initMobileNav() {
         return;
       }
       
-      // 내부 페이지 링크: 즉시 이동
-      e.preventDefault();
-      
-      // 메뉴 즉시 숨기기 (트랜지션 없이)
-      nav.style.transition = 'none';
-      if (overlay) overlay.style.transition = 'none';
+      // 내부 페이지 링크: 메뉴 닫고 페이지 이동
       closeNav();
       
-      // 즉시 페이지 이동
-      window.location.href = href;
-    }, { passive: false });
+      // 기본 링크 동작으로 페이지 이동 (e.preventDefault 제거)
+    }, { passive: true });
   });
 
   // Close on escape key
