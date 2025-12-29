@@ -46,7 +46,7 @@ function initHeader() {
 
 /**
  * Mobile Navigation with Submenu Support
- * 최적화: 링크 클릭 시 즉시 페이지 이동 (트랜지션 대기 없음)
+ * 최적화: 링크 클릭 시 즉시 페이지 이동 + bfcache 대응
  */
 function initMobileNav() {
   const menuBtn = document.getElementById('mobileMenuBtn');
@@ -54,7 +54,45 @@ function initMobileNav() {
   const nav = document.getElementById('mobileNav');
   const overlay = document.getElementById('mobileNavOverlay');
 
-  if (!menuBtn || !nav) return;
+  if (!nav) return;
+
+  // 메뉴 강제 초기화 함수
+  function resetNav() {
+    if (nav) {
+      nav.classList.remove('active');
+      nav.style.transform = '';
+      nav.style.opacity = '';
+      nav.style.visibility = '';
+    }
+    if (overlay) {
+      overlay.classList.remove('active');
+      overlay.style.opacity = '';
+      overlay.style.visibility = '';
+    }
+    document.body.style.overflow = '';
+    document.body.classList.remove('menu-open');
+  }
+
+  // 페이지 로드 시 메뉴 상태 강제 초기화
+  resetNav();
+
+  // bfcache (뒤로가기/앞으로가기) 대응
+  window.addEventListener('pageshow', function(e) {
+    if (e.persisted) {
+      // bfcache에서 복원된 경우 메뉴 초기화
+      resetNav();
+    }
+  });
+
+  // visibilitychange 대응 (탭 전환 등)
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+      // 페이지가 다시 보일 때 메뉴가 열려있으면 닫기
+      if (nav.classList.contains('active')) {
+        resetNav();
+      }
+    }
+  });
 
   function openNav() {
     nav.classList.add('active');
@@ -68,10 +106,16 @@ function initMobileNav() {
     document.body.style.overflow = '';
   }
 
-  // 터치/클릭 최적화 - passive 이벤트 사용
-  menuBtn.addEventListener('click', openNav, { passive: true });
-  if (closeBtn) closeBtn.addEventListener('click', closeNav, { passive: true });
-  if (overlay) overlay.addEventListener('click', closeNav, { passive: true });
+  // 터치/클릭 최적화
+  if (menuBtn) {
+    menuBtn.addEventListener('click', openNav);
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeNav);
+  }
+  if (overlay) {
+    overlay.addEventListener('click', closeNav);
+  }
 
   // Handle submenu toggles
   nav.querySelectorAll('.mobile-nav-submenu-toggle').forEach(toggle => {
@@ -83,31 +127,22 @@ function initMobileNav() {
       if (parent && submenu) {
         parent.classList.toggle('expanded');
       }
-    }, { passive: false });
+    });
   });
 
-  // 링크 클릭 시 즉시 페이지 이동 (메뉴 닫힘 애니메이션 기다리지 않음)
+  // 링크 클릭 시 메뉴 닫기
   nav.querySelectorAll('a:not(.mobile-nav-submenu-toggle)').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function() {
       const href = this.getAttribute('href');
       
-      // 빈 링크, javascript:void(0), 앵커 링크는 무시
+      // 빈 링크, javascript:void(0) 무시
       if (!href || href === '#' || href.startsWith('javascript:')) {
         return;
       }
       
-      // 외부 링크 (tel:, mailto:, http로 시작하는 외부 URL)는 그대로 동작
-      if (href.startsWith('tel:') || href.startsWith('mailto:') || 
-          (href.startsWith('http') && !href.includes(window.location.hostname))) {
-        closeNav();
-        return;
-      }
-      
-      // 내부 페이지 링크: 메뉴 닫고 페이지 이동
+      // 메뉴 닫기
       closeNav();
-      
-      // 기본 링크 동작으로 페이지 이동 (e.preventDefault 제거)
-    }, { passive: true });
+    });
   });
 
   // Close on escape key
