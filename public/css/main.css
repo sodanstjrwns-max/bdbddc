@@ -2196,3 +2196,22 @@
 .bg-white {
   background: #0f0f0f;
 }
+
+/* ================================================
+   리뷰 확인 섹션 (외부 플랫폼 링크)
+   ================================================ */
+.review-links-section a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.review-links-section a:active {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .review-links-section a {
+    width: 100%;
+    justify-content: center;
+  }
+}
