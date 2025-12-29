@@ -2371,91 +2371,80 @@
     </div>
   </footer>
 
-  <!-- Mobile Navigation -->
+    <!-- Mobile Navigation (통합) -->
   <nav class="mobile-nav" id="mobileNav">
     <div class="mobile-nav-header">
-      <span class="logo-icon">🦷</span>
-      <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+      <a href="/" class="mobile-nav-logo">🦷 <span>서울비디치과</span></a>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button>
     </div>
     <ul class="mobile-nav-menu">
       <!-- 진료 안내 -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-tooth"></i> <span data-i18n="nav.treatments">진료 안내</span>
+          <i class="fas fa-tooth"></i> 진료 안내
           <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="treatments/index.html">전체 진료</a></li>
+          <li><a href="/treatments/index.html">전체 진료</a></li>
           <li class="submenu-divider">전문센터</li>
-          <li><a href="treatments/glownate.html" style="color: #C9A962; font-weight: 600; background: rgba(201, 169, 98, 0.1);">✨ 글로우네이트 <span style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; margin-left: 6px;">HOT</span></a></li>
-          <li><a href="treatments/implant.html">임플란트센터</a></li>
-          <li><a href="treatments/invisalign.html">교정센터 (인비절라인)</a></li>
-          <li><a href="treatments/pediatric.html">소아치과</a></li>
-          <li><a href="treatments/aesthetic.html">심미치료(현정민 원장)</a></li>
+          <li><a href="/treatments/glownate.html" class="highlight-item">✨ 글로우네이트 <span class="badge-hot">HOT</span></a></li>
+          <li><a href="/treatments/implant.html">임플란트센터</a></li>
+          <li><a href="/treatments/invisalign.html">교정센터 (인비절라인)</a></li>
+          <li><a href="/treatments/pediatric.html">소아치과</a></li>
+          <li><a href="/treatments/aesthetic.html">심미치료</a></li>
           <li class="submenu-divider">일반 진료</li>
-          <li><a href="treatments/cavity.html">충치치료</a></li>
-          <li><a href="treatments/resin.html">레진치료</a></li>
-          <li><a href="treatments/scaling.html">스케일링</a></li>
-          <li><a href="treatments/gum.html">잇몸치료</a></li>
+          <li><a href="/treatments/cavity.html">충치치료</a></li>
+          <li><a href="/treatments/scaling.html">스케일링</a></li>
+          <li><a href="/treatments/gum.html">잇몸치료</a></li>
         </ul>
       </li>
       <!-- 의료진 소개 -->
-      <li><a href="doctors/index.html"><i class="fas fa-user-md"></i> <span data-i18n="nav.doctors">의료진 소개</span></a></li>
+      <li><a href="/doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
       <!-- 검진센터 -->
-      <li><a href="bdx/index.html"><i class="fas fa-microscope"></i> <span data-i18n="nav.checkup">검진센터</span></a></li>
-      <!-- 콘텐츠 (3개 메뉴) -->
+      <li><a href="/bdx/index.html"><i class="fas fa-microscope"></i> 검진센터(BDX)</a></li>
+      <!-- 콘텐츠 -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
           <i class="fas fa-newspaper"></i> 콘텐츠
           <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
-          <li><a href="video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
-          <li><a href="cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+          <li><a href="/column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+          <li><a href="/video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+          <li><a href="/cases/gallery.html"><i class="fas fa-images"></i> 비포/애프터</a></li>
         </ul>
       </li>
-      <!-- 병원 안내 (공지사항 포함) -->
+      <!-- 병원 안내 -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-hospital"></i> <span data-i18n="nav.about">병원 안내</span>
+          <i class="fas fa-hospital"></i> 병원 안내
           <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="pricing.html" class="nav-highlight">💰 비용 안내</a></li>
-          <li><a href="floor-guide.html">층별 안내</a></li>
-          <li><a href="directions.html">오시는 길</a></li>
-          <li><a href="faq.html">자주 묻는 질문</a></li>
-          <li><a href="notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+          <li><a href="/pricing.html" class="highlight-item">💰 비용 안내</a></li>
+          <li><a href="/floor-guide.html">층별 안내</a></li>
+          <li><a href="/directions.html">오시는 길</a></li>
+          <li><a href="/faq.html">자주 묻는 질문</a></li>
+          <li><a href="/notice/index.html">공지사항</a></li>
         </ul>
       </li>
       <!-- 예약하기 -->
-      <li><a href="reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> <span data-i18n="common.reserve">예약하기</span></a></li>
+      <li><a href="/reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
     </ul>
-    <!-- 모바일 인증 버튼 -->
-    <div class="mobile-auth-buttons">
-      <a href="auth/login.html" class="btn-auth btn-login">
-        <i class="fas fa-sign-in-alt"></i>
-        <span data-i18n="auth.login">로그인</span>
-      </a>
-      <a href="auth/register.html" class="btn-auth btn-register">
-        <i class="fas fa-user-plus"></i>
-        <span data-i18n="auth.register">회원가입</span>
-      </a>
-    </div>
     <div class="mobile-nav-footer">
-      <p class="mobile-nav-hours"><i class="fas fa-clock"></i> <span data-i18n="hero.stats365">365일 진료</span> | <span data-i18n="hero.statsNight">평일 야간진료</span></p>
+      <p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p>
       <div class="mobile-nav-quick-btns">
-        <a href="pricing.html" class="btn btn-secondary btn-lg">
+        <a href="/pricing.html" class="btn btn-secondary">
           <i class="fas fa-won-sign"></i> 비용 안내
         </a>
-        <a href="tel:041-415-2892" class="btn btn-primary btn-lg">
+        <a href="tel:041-415-2892" class="btn btn-primary">
           <i class="fas fa-phone"></i> 전화 예약
         </a>
       </div>
     </div>
   </nav>
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
 
   <!-- ■ 플로팅 CTA 버튼 (데스크탑용) -->
   <div class="floating-cta desktop-only">

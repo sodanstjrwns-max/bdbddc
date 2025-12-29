@@ -1246,15 +1246,92 @@
 }
 
 .mobile-nav-menu a.highlight {
-  background: var(--color-white);
-  color: #000000;
+  background: linear-gradient(135deg, #8B5A2B, #C9A962);
+  color: #fff;
 }
 
-.mobile-nav-menu a.highlight-pricing {
-  background: linear-gradient(135deg, rgba(240, 147, 251, 0.2), rgba(245, 87, 108, 0.2));
-  border: 1px solid rgba(240, 147, 251, 0.3);
-  color: #D4B896;
-  border-radius: 8px;
+.mobile-nav-menu a.highlight-item {
+  color: #C9A962;
+  font-weight: 600;
+}
+
+.mobile-nav-menu .badge-hot {
+  background: linear-gradient(135deg, #C9A962, #8B5A2B);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  margin-left: 6px;
+}
+
+/* 서브메뉴 토글 */
+.mobile-nav-submenu-toggle {
+  justify-content: space-between;
+}
+
+.mobile-nav-submenu-toggle .toggle-icon {
+  transition: transform 0.2s ease;
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.mobile-nav-item.expanded .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* 서브메뉴 */
+.mobile-nav-submenu {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-lg);
+  margin-top: var(--space-2);
+  overflow: hidden;
+}
+
+.mobile-nav-item.expanded .mobile-nav-submenu {
+  display: block;
+}
+
+.mobile-nav-submenu li a {
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-8);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mobile-nav-submenu li a:hover {
+  color: #C9A962;
+}
+
+.submenu-divider {
+  padding: var(--space-2) var(--space-4);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: var(--space-2);
+}
+
+/* 모바일 네비 로고 */
+.mobile-nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.mobile-nav-logo span {
+  background: linear-gradient(135deg, #C9A962, #D4B896);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .mobile-nav-footer {

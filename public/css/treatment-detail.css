@@ -1326,7 +1326,7 @@
 
 .image-banner-container img {
   width: 100%;
-  height: 550px;
+  height: 650px; /* 550px → 650px 증가 */
   object-fit: cover;
   display: block;
   transition: transform 6s ease-out;
@@ -1371,7 +1371,7 @@
   }
   
   .image-banner-container img {
-    height: 380px;
+    height: 450px; /* 380px → 450px 증가 */
   }
   
   .image-banner-label {
@@ -1386,7 +1386,7 @@
 
 @media (max-width: 480px) {
   .image-banner-container img {
-    height: 300px;
+    height: 380px; /* 300px → 380px 증가 */
   }
   
   .image-banner-label {
@@ -1408,7 +1408,7 @@
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 280px);
+  grid-template-rows: repeat(2, 340px); /* 280px → 340px 증가 */
   gap: 1rem;
 }
 
@@ -1488,7 +1488,7 @@
 @media (max-width: 1024px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 220px);
+    grid-template-rows: repeat(3, 280px); /* 220px → 280px 증가 */
   }
   
   .gallery-grid .gallery-main {
@@ -1505,11 +1505,11 @@
   
   .gallery-grid .gallery-main {
     grid-column: span 1;
-    height: 250px;
+    height: 320px; /* 250px → 320px 증가 */
   }
   
   .gallery-item {
-    height: 200px;
+    height: 260px; /* 200px → 260px 증가 */
   }
   
   .gallery-overlay {
