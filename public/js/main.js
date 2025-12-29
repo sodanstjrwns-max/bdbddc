@@ -46,6 +46,7 @@ function initHeader() {
 
 /**
  * Mobile Navigation with Submenu Support
+ * 최적화: 링크 클릭 시 즉시 페이지 이동 (트랜지션 대기 없음)
  */
 function initMobileNav() {
   const menuBtn = document.getElementById('mobileMenuBtn');
@@ -57,19 +58,20 @@ function initMobileNav() {
 
   function openNav() {
     nav.classList.add('active');
-    overlay.classList.add('active');
+    if (overlay) overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
   function closeNav() {
     nav.classList.remove('active');
-    overlay.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
   }
 
-  menuBtn.addEventListener('click', openNav);
-  closeBtn?.addEventListener('click', closeNav);
-  overlay?.addEventListener('click', closeNav);
+  // 터치/클릭 최적화 - passive 이벤트 사용
+  menuBtn.addEventListener('click', openNav, { passive: true });
+  if (closeBtn) closeBtn.addEventListener('click', closeNav, { passive: true });
+  if (overlay) overlay.addEventListener('click', closeNav, { passive: true });
 
   // Handle submenu toggles
   nav.querySelectorAll('.mobile-nav-submenu-toggle').forEach(toggle => {
@@ -81,12 +83,37 @@ function initMobileNav() {
       if (parent && submenu) {
         parent.classList.toggle('expanded');
       }
-    });
+    }, { passive: false });
   });
 
-  // Close on direct link click (not submenu toggle)
+  // 링크 클릭 시 즉시 페이지 이동 (메뉴 닫힘 애니메이션 기다리지 않음)
   nav.querySelectorAll('a:not(.mobile-nav-submenu-toggle)').forEach(link => {
-    link.addEventListener('click', closeNav);
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      
+      // 빈 링크, javascript:void(0), 앵커 링크는 무시
+      if (!href || href === '#' || href.startsWith('javascript:')) {
+        return;
+      }
+      
+      // 외부 링크 (tel:, mailto:, http로 시작하는 외부 URL)는 그대로 동작
+      if (href.startsWith('tel:') || href.startsWith('mailto:') || 
+          (href.startsWith('http') && !href.includes(window.location.hostname))) {
+        closeNav();
+        return;
+      }
+      
+      // 내부 페이지 링크: 즉시 이동
+      e.preventDefault();
+      
+      // 메뉴 즉시 숨기기 (트랜지션 없이)
+      nav.style.transition = 'none';
+      if (overlay) overlay.style.transition = 'none';
+      closeNav();
+      
+      // 즉시 페이지 이동
+      window.location.href = href;
+    }, { passive: false });
   });
 
   // Close on escape key
