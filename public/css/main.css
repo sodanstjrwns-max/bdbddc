@@ -297,16 +297,7 @@
 }
 
 .text-gradient-animated {
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0%, 100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
+  /* shimmer 애니메이션 제거 - 성능 최적화 */
 }
 
 .hero-desc {
@@ -415,12 +406,7 @@
   height: 8px;
   background: rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-full);
-  animation: scrollBounce 1.5s ease infinite;
-}
-
-@keyframes scrollBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-  50% { transform: translateX(-50%) translateY(12px); opacity: 0.3; }
+  /* scrollBounce 애니메이션 제거 - 성능 최적화 */
 }
 
 /* ■ Treatments Section */

@@ -169,9 +169,108 @@ async function loginWithGoogle() {
   }
 }
 
+// ■ 카카오 소셜 로그인 (Custom Token 방식 - Firebase Functions 필요)
+// 카카오 SDK를 사용하여 로그인 후 Firebase Custom Token으로 인증
+async function loginWithKakao() {
+  try {
+    showLoading(true);
+    
+    // 카카오 SDK 초기화 확인
+    if (typeof Kakao === 'undefined') {
+      throw new Error('카카오 SDK가 로드되지 않았습니다.');
+    }
+    
+    // 카카오 로그인 실행
+    return new Promise((resolve, reject) => {
+      Kakao.Auth.login({
+        success: async function(authObj) {
+          try {
+            // 카카오 사용자 정보 가져오기
+            Kakao.API.request({
+              url: '/v2/user/me',
+              success: async function(kakaoUser) {
+                const kakaoId = kakaoUser.id;
+                const kakaoEmail = kakaoUser.kakao_account?.email || `kakao_${kakaoId}@seoulbd.kakao`;
+                const kakaoName = kakaoUser.kakao_account?.profile?.nickname || '카카오 회원';
+                const kakaoPhoto = kakaoUser.kakao_account?.profile?.profile_image_url || '';
+                
+                // Firebase에 카카오 사용자로 저장 (이메일/비밀번호 방식으로 대체)
+                // 실제 운영시에는 Firebase Functions로 Custom Token 발급 필요
+                const tempPassword = `kakao_${kakaoId}_${Date.now()}`;
+                
+                try {
+                  // 기존 계정 로그인 시도
+                  const loginResult = await auth.signInWithEmailAndPassword(kakaoEmail, tempPassword);
+                  await updateLastLogin(loginResult.user.uid);
+                  showLoading(false);
+                  resolve({ success: true, user: loginResult.user, isNewUser: false });
+                } catch (loginError) {
+                  if (loginError.code === 'auth/user-not-found' || loginError.code === 'auth/invalid-credential') {
+                    // 신규 회원 생성
+                    try {
+                      const createResult = await auth.createUserWithEmailAndPassword(kakaoEmail, tempPassword);
+                      const user = createResult.user;
+                      
+                      await user.updateProfile({
+                        displayName: kakaoName,
+                        photoURL: kakaoPhoto
+                      });
+                      
+                      await saveUserToFirestore(user.uid, {
+                        email: kakaoEmail,
+                        name: kakaoName,
+                        phone: '',
+                        profileImage: kakaoPhoto,
+                        kakaoId: kakaoId,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        provider: 'kakao',
+                        role: 'member'
+                      });
+                      
+                      showLoading(false);
+                      resolve({ success: true, user: user, isNewUser: true });
+                    } catch (createError) {
+                      showLoading(false);
+                      reject({ success: false, error: getErrorMessage(createError.code) });
+                    }
+                  } else {
+                    showLoading(false);
+                    reject({ success: false, error: getErrorMessage(loginError.code) });
+                  }
+                }
+              },
+              fail: function(error) {
+                showLoading(false);
+                reject({ success: false, error: '카카오 사용자 정보를 가져올 수 없습니다.' });
+              }
+            });
+          } catch (error) {
+            showLoading(false);
+            reject({ success: false, error: error.message });
+          }
+        },
+        fail: function(error) {
+          showLoading(false);
+          reject({ success: false, error: '카카오 로그인에 실패했습니다.' });
+        }
+      });
+    });
+    
+  } catch (error) {
+    showLoading(false);
+    logError('카카오 로그인 에러:', error);
+    return { success: false, error: error.message || '카카오 로그인에 실패했습니다.' };
+  }
+}
+
 // ■ 로그아웃
 async function logout() {
   try {
+    // 카카오 로그아웃도 함께 처리
+    if (typeof Kakao !== 'undefined' && Kakao.Auth.getAccessToken()) {
+      Kakao.Auth.logout();
+    }
     await auth.signOut();
     return { success: true };
   } catch (error) {
@@ -471,6 +570,7 @@ window.firebaseAuth = {
   registerWithEmail,
   loginWithEmail,
   loginWithGoogle,
+  loginWithKakao,
   logout,
   sendPasswordReset,
   getCurrentUser,

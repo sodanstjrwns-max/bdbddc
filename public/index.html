@@ -1283,11 +1283,11 @@
           <!-- 은은한 치과 실루엣 패턴 -->
           <div style="position: absolute; inset: 0; opacity: 0.03; background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><text x=\"50\" y=\"60\" font-size=\"40\" text-anchor=\"middle\" fill=\"%23C9A962\">🦷</text></svg>'); background-size: 80px 80px;"></div>
           
-          <!-- 동적 빛 라인들 -->
-          <div class="hero-light-lines" style="position: absolute; inset: 0; overflow: hidden;">
-            <div style="position: absolute; top: 20%; left: -10%; width: 120%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,98,0.3), transparent); transform: rotate(-5deg); animation: lightLine 8s ease-in-out infinite;"></div>
-            <div style="position: absolute; top: 50%; left: -10%; width: 120%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent); transform: rotate(3deg); animation: lightLine 10s ease-in-out infinite 2s;"></div>
-            <div style="position: absolute; top: 75%; left: -10%; width: 120%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,98,0.25), transparent); transform: rotate(-2deg); animation: lightLine 7s ease-in-out infinite 4s;"></div>
+          <!-- 정적 빛 라인들 (애니메이션 제거) -->
+          <div class="hero-light-lines" style="position: absolute; inset: 0; overflow: hidden; opacity: 0.5;">
+            <div style="position: absolute; top: 20%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,98,0.3), transparent); transform: rotate(-5deg);"></div>
+            <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent); transform: rotate(3deg);"></div>
+            <div style="position: absolute; top: 75%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,169,98,0.25), transparent); transform: rotate(-2deg);"></div>
           </div>
           
           <!-- 코너 장식 -->
@@ -1324,62 +1324,24 @@
       </div>
     </div>
     
-    <!-- 비주얼 효과 CSS -->
-    <style>
-      @keyframes lightLine {
-        0%, 100% { opacity: 0; transform: translateX(-100%) rotate(var(--rotate, -5deg)); }
-        50% { opacity: 1; transform: translateX(100%) rotate(var(--rotate, -5deg)); }
-      }
-    </style>
+    <!-- 비주얼 효과 CSS (간소화) -->
     <div class="container hero-content" style="display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 120px);">
       <div class="hero-text animate-fade-in-up" style="text-align: center; width: 100%;">
         
         <!-- ✨ 히어로 - 브랜드 우선! -->
         
-        <!-- 화려한 효과 CSS -->
-        <style>
-          @keyframes goldShimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-          }
-          @keyframes brandPulse {
-            0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-          }
-          @keyframes lineExpand {
-            0% { width: 0; opacity: 0; }
-            100% { width: 120px; opacity: 1; }
-          }
-          .hero-brand-container:hover .hero-brand {
-            filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.6)) drop-shadow(0 0 80px rgba(201, 169, 98, 0.4));
-          }
-          /* 반짝임 효과 */
-          .hero-brand::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shine 3s ease-in-out infinite;
-          }
-          @keyframes shine {
-            0% { left: -100%; }
-            50%, 100% { left: 100%; }
-          }
-        </style>
-        
-        <!-- 🏆 브랜드명 - 맨 위, 아주 크고 화려하게! -->
+        <!-- 🏆 브랜드명 - 깔끔하고 심플하게 -->
         <div class="hero-brand-container" style="position: relative; margin-bottom: 30px;">
-          <!-- 글로우 배경 효과 -->
-          <div class="hero-brand-glow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.25) 0%, transparent 70%); filter: blur(40px); z-index: 0; animation: brandPulse 3s ease-in-out infinite;"></div>
+          <!-- 정적 글로우 배경 -->
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.2) 0%, transparent 70%); filter: blur(40px); z-index: 0;"></div>
           
           <!-- 메인 브랜드명 -->
-          <h2 class="hero-brand" style="position: relative; z-index: 1; font-size: clamp(2.8rem, 12vw, 8rem); font-weight: 900; letter-spacing: 0.08em; line-height: 1; margin: 0; padding: 10px 0; color: #FFFFFF; text-shadow: 0 0 40px rgba(201, 169, 98, 0.5), 0 0 80px rgba(201, 169, 98, 0.3), 0 4px 20px rgba(0, 0, 0, 0.5);">
+          <h2 class="hero-brand" style="position: relative; z-index: 1; font-size: clamp(2.8rem, 12vw, 8rem); font-weight: 900; letter-spacing: 0.08em; line-height: 1; margin: 0; padding: 10px 0; color: #FFFFFF; text-shadow: 0 0 40px rgba(201, 169, 98, 0.5), 0 4px 20px rgba(0, 0, 0, 0.5);">
             서울비디치과
           </h2>
           
-          <!-- 장식 라인 -->
-          <div class="hero-brand-line" style="width: 120px; height: 3px; background: linear-gradient(90deg, transparent, #FFD700, transparent); margin: 20px auto 0; border-radius: 3px; animation: lineExpand 2s ease-out forwards;"></div>
+          <!-- 정적 장식 라인 -->
+          <div style="width: 120px; height: 3px; background: linear-gradient(90deg, transparent, #FFD700, transparent); margin: 20px auto 0; border-radius: 3px;"></div>
         </div>
         
         <!-- 🔥 메인 후킹 메시지 -->
@@ -1429,17 +1391,20 @@
         <p class="section-subtitle" data-i18n="home.videoSubtitle">Best Dedication - 정성을 다하는 헌신으로 환자분을 모십니다</p>
       </div>
       
-      <!-- 📹 영상 플레이어 - YouTube 임베드 (5층 로비 영상) -->
-      <div class="video-wrapper animate-fade-in-up">
-        <div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
-          <iframe 
-            src="https://www.youtube.com/embed/vMafU02A_pI?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=vMafU02A_pI" 
-            title="서울비디치과 5층 로비 소개 영상"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen
+      <!-- 📹 영상 플레이어 - YouTube Lazy Loading (클릭 시 로드) -->
+      <div class="video-wrapper">
+        <div class="youtube-lazy" data-video-id="vMafU02A_pI" style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); cursor: pointer; background: #000;">
+          <!-- 썸네일 이미지 -->
+          <img 
+            src="https://img.youtube.com/vi/vMafU02A_pI/maxresdefault.jpg" 
+            alt="서울비디치과 5층 로비 소개 영상"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
             loading="lazy"
-          ></iframe>
+          >
+          <!-- 재생 버튼 -->
+          <div class="youtube-play-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(201,169,98,0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.3s, background 0.3s;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+          </div>
         </div>
       </div>
       
@@ -2254,9 +2219,9 @@
   <script src="/js/main.js?v=20241229" defer></script>
   <script src="/js/gnb.js?v=20241229" defer></script>
   
-  <!-- ■ 다국어 번역 시스템 (즉시 로드) -->
-  <link rel="stylesheet" href="/css/language-switcher.css">
-  <script src="/js/translations.js?v=20241229"></script>
+  <!-- ■ 다국어 번역 시스템 (지연 로드 - 성능 최적화) -->
+  <link rel="stylesheet" href="/css/language-switcher.css" media="print" onload="this.media='all'">
+  <script src="/js/translations.js?v=20241229" defer></script>
   <script src="/js/language-switcher.js?v=20241229" defer></script>
   
   <!-- ■ 지연 로딩 스크립트 -->
@@ -2265,13 +2230,9 @@
       var loaded=false;
       function loadDeferred(){
         if(loaded)return;loaded=true;
-        // 추가 JS
-        ['js/image-fallback.js','js/hero-animations.js'].forEach(function(s){
+        // 추가 JS (hero-animations 제거 - 성능 최적화)
+        ['js/image-fallback.js'].forEach(function(s){
           var sc=document.createElement('script');sc.src=s;sc.defer=true;document.body.appendChild(sc);
-        });
-        // 추가 CSS
-        ['css/hero-animations.css'].forEach(function(h){
-          var lk=document.createElement('link');lk.rel='stylesheet';lk.href=h;document.head.appendChild(lk);
         });
         // Firebase (2초 후)
         setTimeout(function(){
@@ -2287,6 +2248,23 @@
       });
       setTimeout(loadDeferred,3000);
     })();
+  </script>
+  
+  <!-- ■ YouTube Lazy Loading -->
+  <script>
+    document.querySelectorAll('.youtube-lazy').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var videoId = this.dataset.videoId;
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/' + videoId + '?rel=0&autoplay=1&modestbranding=1';
+        iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+        iframe.allow = 'accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+        iframe.allowFullscreen = true;
+        this.innerHTML = '';
+        this.appendChild(iframe);
+        this.style.cursor = 'default';
+      });
+    });
   </script>
   
   <!-- ■ Amplitude Event Tracking (주요 액션 추적) -->
