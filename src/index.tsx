@@ -20,6 +20,29 @@ app.get('/api/health', (c) => {
   })
 })
 
+// Google Reviews API Proxy (CORS 우회)
+const GOOGLE_PLACE_ID = 'ChIJGW_8w4coezURxnwkO_3piX0'
+const GOOGLE_API_KEY = 'AIzaSyD9PuRUYq7vHfzXGlqm4v7nakzBUptk2-0'
+
+app.get('/api/google-reviews', async (c) => {
+  try {
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${GOOGLE_PLACE_ID}&fields=rating,user_ratings_total&key=${GOOGLE_API_KEY}`
+    
+    const response = await fetch(url)
+    const data = await response.json()
+    
+    // 캐시 헤더 설정 (1시간)
+    c.header('Cache-Control', 'public, max-age=3600')
+    
+    return c.json(data)
+  } catch (error) {
+    return c.json({ 
+      status: 'error',
+      result: { rating: 4.9, user_ratings_total: 228 }
+    }, 500)
+  }
+})
+
 // Serve all static files - Cloudflare Pages style
 // The serveStatic middleware will serve files from the build output directory (dist/)
 // All files in public/ are copied to dist/ during build
