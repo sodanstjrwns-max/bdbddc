@@ -43,6 +43,22 @@ app.get('/api/google-reviews', async (c) => {
   }
 })
 
+// 인블로그 RSS 프록시 API (CORS 우회)
+app.get('/api/inblog-rss', async (c) => {
+  try {
+    const response = await fetch('https://proxy.inblog.dev/bdbddc/rss')
+    const xmlText = await response.text()
+    
+    // 캐시 헤더 설정 (10분)
+    c.header('Cache-Control', 'public, max-age=600')
+    c.header('Content-Type', 'application/xml; charset=utf-8')
+    
+    return c.text(xmlText)
+  } catch (error) {
+    return c.text('<?xml version="1.0"?><rss version="2.0"><channel></channel></rss>', 500)
+  }
+})
+
 // Static assets (CSS, JS, images)
 app.use('/css/*', serveStatic())
 app.use('/js/*', serveStatic())

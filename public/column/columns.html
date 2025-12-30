@@ -454,8 +454,9 @@
      * 프록시 URL: https://proxy.inblog.dev/bdbddc
      */
     
-    const INBLOG_RSS_URL = 'https://proxy.inblog.dev/bdbddc/rss';
-    const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+    // 자체 API 프록시 사용 (CORS 문제 해결)
+    const INBLOG_RSS_URL = '/api/blog-rss';
+    const CORS_PROXY = '';
     
     const loadingState = document.getElementById('loadingState');
     const emptyState = document.getElementById('emptyState');
