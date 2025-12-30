@@ -43,11 +43,7 @@ app.get('/api/google-reviews', async (c) => {
   }
 })
 
-// Serve all static files - Cloudflare Pages style
-// The serveStatic middleware will serve files from the build output directory (dist/)
-// All files in public/ are copied to dist/ during build
-
-// Static assets
+// Static assets (CSS, JS, images)
 app.use('/css/*', serveStatic())
 app.use('/js/*', serveStatic())
 app.use('/images/*', serveStatic())
@@ -58,31 +54,84 @@ app.use('/manifest.json', serveStatic())
 app.use('/sitemap.xml', serveStatic())
 app.use('/robots.txt', serveStatic())
 
-// HTML pages - all directories
+// ============================================
+// HTML Page Routes - Directory based
+// ============================================
+
+// Treatments directory
+app.get('/treatments', serveStatic({ path: './treatments/index.html' }))
+app.get('/treatments/', serveStatic({ path: './treatments/index.html' }))
 app.use('/treatments/*', serveStatic())
+
+// Doctors directory
+app.get('/doctors', serveStatic({ path: './doctors/index.html' }))
+app.get('/doctors/', serveStatic({ path: './doctors/index.html' }))
 app.use('/doctors/*', serveStatic())
+
+// BDX directory
+app.get('/bdx', serveStatic({ path: './bdx/index.html' }))
+app.get('/bdx/', serveStatic({ path: './bdx/index.html' }))
 app.use('/bdx/*', serveStatic())
+
+// Column directory
+app.get('/column', serveStatic({ path: './column/columns.html' }))
+app.get('/column/', serveStatic({ path: './column/columns.html' }))
+app.get('/column/columns', serveStatic({ path: './column/columns.html' }))
 app.use('/column/*', serveStatic())
+
+// Video directory
+app.get('/video', serveStatic({ path: './video/index.html' }))
+app.get('/video/', serveStatic({ path: './video/index.html' }))
 app.use('/video/*', serveStatic())
+
+// Cases directory
+app.get('/cases', serveStatic({ path: './cases/gallery.html' }))
+app.get('/cases/', serveStatic({ path: './cases/gallery.html' }))
+app.get('/cases/gallery', serveStatic({ path: './cases/gallery.html' }))
 app.use('/cases/*', serveStatic())
+
+// Notice directory
+app.get('/notice', serveStatic({ path: './notice/index.html' }))
+app.get('/notice/', serveStatic({ path: './notice/index.html' }))
 app.use('/notice/*', serveStatic())
+
+// Auth directory
+app.get('/auth/login', serveStatic({ path: './auth/login.html' }))
 app.use('/auth/*', serveStatic())
+
+// Area directory (지역 페이지)
 app.use('/area/*', serveStatic())
+
+// FAQ directory
 app.use('/faq/*', serveStatic())
 
-// Root level HTML files
+// ============================================
+// Root level HTML pages (without .html extension)
+// ============================================
+app.get('/pricing', serveStatic({ path: './pricing.html' }))
+app.get('/reservation', serveStatic({ path: './reservation.html' }))
+app.get('/directions', serveStatic({ path: './directions.html' }))
+app.get('/faq', serveStatic({ path: './faq.html' }))
+app.get('/floor-guide', serveStatic({ path: './floor-guide.html' }))
+app.get('/privacy', serveStatic({ path: './privacy.html' }))
+app.get('/terms', serveStatic({ path: './terms.html' }))
+
+// Root level HTML files (with .html extension)
+app.use('/pricing.html', serveStatic())
 app.use('/reservation.html', serveStatic())
 app.use('/directions.html', serveStatic())
 app.use('/faq.html', serveStatic())
 app.use('/floor-guide.html', serveStatic())
-app.use('/pricing.html', serveStatic())
 app.use('/privacy.html', serveStatic())
 app.use('/terms.html', serveStatic())
 
 // Homepage
 app.get('/', serveStatic({ path: './index.html' }))
 
-// Fallback - serve any .html file
+// Fallback for any .html file
 app.use('/*.html', serveStatic())
+
+// Catch-all fallback to index.html (SPA style, but not needed here)
+// app.get('*', serveStatic({ path: './index.html' }))
 
 export default app
