@@ -59,6 +59,79 @@ app.get('/api/inblog-rss', async (c) => {
   }
 })
 
+// ============================================
+// 인블로그 프록시 (/blog/* → bdbddc.inblog.ai)
+// ============================================
+app.all('/blog/*', async (c) => {
+  const path = c.req.path.replace('/blog', '') || '/'
+  const inblogUrl = `https://bdbddc.inblog.ai${path}`
+  
+  try {
+    const response = await fetch(inblogUrl, {
+      method: c.req.method,
+      headers: {
+        'Host': 'bdbddc.inblog.ai',
+        'X-Forwarded-Host': 'bdbddc.com',
+        'X-Forwarded-Proto': 'https',
+      },
+    })
+    
+    // HTML 응답인 경우 내부 링크 수정
+    const contentType = response.headers.get('content-type') || ''
+    
+    if (contentType.includes('text/html')) {
+      let html = await response.text()
+      // 인블로그 내부 링크를 /blog로 변환
+      html = html.replace(/href="\/(?!blog)/g, 'href="/blog/')
+      html = html.replace(/href="https:\/\/bdbddc\.inblog\.ai\//g, 'href="/blog/')
+      
+      return new Response(html, {
+        status: response.status,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'public, max-age=300',
+        },
+      })
+    }
+    
+    // 기타 리소스는 그대로 전달
+    return new Response(response.body, {
+      status: response.status,
+      headers: response.headers,
+    })
+  } catch (error) {
+    return c.text('블로그를 불러올 수 없습니다.', 500)
+  }
+})
+
+app.get('/blog', async (c) => {
+  const inblogUrl = 'https://bdbddc.inblog.ai/'
+  
+  try {
+    const response = await fetch(inblogUrl, {
+      headers: {
+        'Host': 'bdbddc.inblog.ai',
+        'X-Forwarded-Host': 'bdbddc.com',
+        'X-Forwarded-Proto': 'https',
+      },
+    })
+    
+    let html = await response.text()
+    html = html.replace(/href="\/(?!blog)/g, 'href="/blog/')
+    html = html.replace(/href="https:\/\/bdbddc\.inblog\.ai\//g, 'href="/blog/')
+    
+    return new Response(html, {
+      status: response.status,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'public, max-age=300',
+      },
+    })
+  } catch (error) {
+    return c.text('블로그를 불러올 수 없습니다.', 500)
+  }
+})
+
 // Static assets (CSS, JS, images)
 app.use('/css/*', serveStatic())
 app.use('/js/*', serveStatic())
