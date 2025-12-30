@@ -181,6 +181,12 @@
             color: #666;
         }
         
+        .special-note {
+            font-size: 0.8rem;
+            color: #C9A962;
+            font-weight: 500;
+        }
+        
         @media (max-width: 768px) {
             .pricing-tabs {
                 gap: 0.35rem;
@@ -358,7 +364,7 @@
     <section class="pricing-section">
         <div class="section-header">
             <h2>비급여 진료비 수가표</h2>
-            <p>의료법 제45조에 의한 비급여 진료비용 공개</p>
+            <p>의료법 제45조에 의한 비급여 진료비용 공개 (단위: 만원)</p>
         </div>
         
         <div class="update-notice">
@@ -367,7 +373,7 @@
         
         <div class="pricing-tabs">
             <button class="pricing-tab active" data-tab="implant">
-                <i class="fas fa-tooth"></i> 임플란트/일반
+                <i class="fas fa-tooth"></i> 일반진료
             </button>
             <button class="pricing-tab" data-tab="prosthetic">
                 <i class="fas fa-teeth"></i> 보철치료
@@ -383,11 +389,11 @@
             </button>
         </div>
         
-        <!-- 임플란트/일반진료 -->
+        <!-- 일반진료 (임플란트/골이식/마취) -->
         <div class="pricing-content active" id="implant">
             <div class="category-header">
                 <i class="fas fa-tooth"></i>
-                <h3>임플란트 및 일반진료</h3>
+                <h3>일반진료</h3>
             </div>
             <div class="pricing-table-wrapper">
                 <table class="pricing-table">
@@ -404,14 +410,24 @@
                             <td colspan="3"><i class="fas fa-angle-right"></i> 임플란트</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">스트라우만 임플란트</td>
-                            <td><span class="price">200만원</span></td>
+                            <td class="treatment-name">스트라우만 / BLX</td>
+                            <td><span class="price">160만원</span></td>
                             <td class="note">스위스 프리미엄</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">오스템 임플란트</td>
-                            <td><span class="price">150만원</span></td>
-                            <td class="note">국산 브랜드</td>
+                            <td class="treatment-name">오스템 / SOI</td>
+                            <td><span class="price">100만원</span></td>
+                            <td class="note">국산 프리미엄</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">오스템 / CA</td>
+                            <td><span class="price">80만원</span></td>
+                            <td class="note">국산 스탠다드</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">비절개 / 네비게이션 임플란트 수술</td>
+                            <td><span class="price">10~30만원</span></td>
+                            <td class="note">추가 비용</td>
                         </tr>
                         
                         <!-- 골이식 -->
@@ -419,54 +435,34 @@
                             <td colspan="3"><i class="fas fa-angle-right"></i> 골이식</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">소량 골이식</td>
+                            <td class="treatment-name">단순 골이식</td>
                             <td><span class="price">30만원</span></td>
                             <td class="note">소범위</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">중량 골이식</td>
+                            <td class="treatment-name">복잡 골이식</td>
                             <td><span class="price">50만원</span></td>
-                            <td class="note">중범위</td>
-                        </tr>
-                        <tr>
-                            <td class="treatment-name">대량 골이식</td>
-                            <td><span class="price">80만원</span></td>
                             <td class="note">대범위</td>
                         </tr>
-                        
-                        <!-- 상악동 거상술 -->
-                        <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 상악동 거상술</td>
-                        </tr>
                         <tr>
-                            <td class="treatment-name">측방 접근법</td>
-                            <td><span class="price">100만원</span></td>
-                            <td class="note">lateral approach</td>
-                        </tr>
-                        <tr>
-                            <td class="treatment-name">치조정 접근법</td>
+                            <td class="treatment-name">단순 상악동 거상술</td>
                             <td><span class="price">50만원</span></td>
-                            <td class="note">crestal approach</td>
+                            <td class="note">치조정 접근</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">복잡 상악동 거상술</td>
+                            <td><span class="price">100만원</span></td>
+                            <td class="note">측방 접근</td>
                         </tr>
                         
-                        <!-- 수면마취 -->
+                        <!-- 마취 -->
                         <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 수면마취</td>
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 마취</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">성인 수면마취 (1시간)</td>
-                            <td><span class="price">40만원</span></td>
-                            <td class="note">1시간 기준</td>
-                        </tr>
-                        <tr>
-                            <td class="treatment-name">성인 수면마취 (2시간)</td>
-                            <td><span class="price">60만원</span></td>
-                            <td class="note">2시간 기준</td>
-                        </tr>
-                        <tr>
-                            <td class="treatment-name">성인 수면마취 (3시간)</td>
-                            <td><span class="price">80만원</span></td>
-                            <td class="note">3시간 기준</td>
+                            <td class="treatment-name">수면마취</td>
+                            <td><span class="price">20만원</span></td>
+                            <td class="note">1회 기준</td>
                         </tr>
                     </tbody>
                 </table>
@@ -489,39 +485,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- 인레이 -->
+                        <!-- 인레이/크라운 -->
                         <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 인레이</td>
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 인레이 / 크라운</td>
                         </tr>
                         <tr>
                             <td class="treatment-name">세라믹 인레이</td>
-                            <td><span class="price">30만원</span></td>
+                            <td><span class="price">35만원</span></td>
                             <td class="note">1개 기준</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">금 인레이</td>
-                            <td><span class="price">35만원</span></td>
-                            <td class="note">금 시세 변동</td>
-                        </tr>
-                        
-                        <!-- 크라운 -->
-                        <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 크라운</td>
-                        </tr>
-                        <tr>
                             <td class="treatment-name">지르코니아 크라운</td>
-                            <td><span class="price">50만원</span></td>
+                            <td><span class="price">55만원</span></td>
                             <td class="note">심미+강도</td>
-                        </tr>
-                        <tr>
-                            <td class="treatment-name">금 크라운</td>
-                            <td><span class="price">50만원</span></td>
-                            <td class="note">금 시세 변동</td>
-                        </tr>
-                        <tr>
-                            <td class="treatment-name">PFM 크라운</td>
-                            <td><span class="price">35만원</span></td>
-                            <td class="note">도재+금속</td>
                         </tr>
                         
                         <!-- 글로우네이트 -->
@@ -529,44 +505,109 @@
                             <td colspan="3"><i class="fas fa-angle-right"></i> 글로우네이트 (라미네이트)</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">글로우네이트</td>
-                            <td><span class="price">70만원</span></td>
+                            <td class="treatment-name">글로우 프리미엄</td>
+                            <td><span class="price">80만원</span></td>
+                            <td class="note">1개 기준</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">글로우 라이트</td>
+                            <td><span class="price">60만원</span></td>
                             <td class="note">1개 기준</td>
                         </tr>
                         
-                        <!-- 레진 -->
+                        <!-- 레진 (충치) -->
                         <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 레진 치료</td>
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 레진 (충치)</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">충치 레진 (소)</td>
+                            <td class="treatment-name">뺨측, 어금니 씹는면 (좁은 부위)</td>
                             <td><span class="price">10만원</span></td>
-                            <td class="note">1면</td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">충치 레진 (중)</td>
-                            <td><span class="price">15만원</span></td>
-                            <td class="note">2면</td>
+                            <td class="treatment-name">뺨측, 어금니 씹는면 (넓은 부위)</td>
+                            <td><span class="price">25만원</span></td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">충치 레진 (대)</td>
-                            <td><span class="price">20만원</span></td>
-                            <td class="note">3면 이상</td>
+                            <td class="treatment-name">치아사이 충치</td>
+                            <td><span class="price">25만원</span></td>
+                            <td class="note">면당</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">파절 레진 (1급)</td>
+                            <td class="treatment-name">앞니 뒷면 충치</td>
+                            <td><span class="price">5만원</span></td>
+                            <td class="note">치아당</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">열린 옆면 충치</td>
+                            <td><span class="price">7만원</span></td>
+                            <td class="note">치아당</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">치아 목 부위 충치</td>
                             <td><span class="price">10만원</span></td>
-                            <td class="note">1/4 이하</td>
+                            <td class="note">치아당</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">파절 레진 (2급)</td>
-                            <td><span class="price">15만원</span></td>
-                            <td class="note">1/2 이하</td>
+                            <td class="treatment-name">치아 목 부위 패임</td>
+                            <td><span class="price">7만원</span></td>
+                            <td class="note">치아당</td>
+                        </tr>
+                        
+                        <!-- 레진 (파절, 심미) -->
+                        <tr class="sub-category">
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 레진 (파절/심미)</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">파절 레진 (3급)</td>
+                            <td class="treatment-name">앞니 파절 (협소한 파절)</td>
+                            <td><span class="price">12만원</span></td>
+                            <td class="note"></td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">앞니 파절 (중간파절/중앙선 미달)</td>
+                            <td><span class="price">30만원</span></td>
+                            <td class="note"></td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">앞니 파절 (중간파절/현정민 원장)</td>
+                            <td><span class="price">45만원</span></td>
+                            <td class="note special-note">심미 전문</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">앞니 파절 (큰파절/중앙선 초과)</td>
+                            <td><span class="price">50만원</span></td>
+                            <td class="note"></td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">앞니 파절 (큰파절/현정민 원장)</td>
+                            <td><span class="price">70만원</span></td>
+                            <td class="note special-note">심미 전문</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">다이아스테마</td>
+                            <td><span class="price">30만원</span></td>
+                            <td class="note">면당</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">다이아스테마 (현정민 원장)</td>
+                            <td><span class="price">50만원</span></td>
+                            <td class="note special-note">심미 전문</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">블랙트라이앵글</td>
+                            <td><span class="price">25만원</span></td>
+                            <td class="note">면당</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">반점치 (좁은부위/점형태)</td>
                             <td><span class="price">20만원</span></td>
-                            <td class="note">1/2 이상</td>
+                            <td class="note"></td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">반점치 (넓은부위/면형태)</td>
+                            <td><span class="price">30만원</span></td>
+                            <td class="note"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -595,63 +636,63 @@
                         </tr>
                         <tr>
                             <td class="treatment-name">부분틀니</td>
-                            <td><span class="price">100만원</span></td>
-                            <td class="note">편악 기준</td>
+                            <td><span class="price">150만원</span></td>
+                            <td class="note">악당 기준</td>
                         </tr>
                         <tr>
                             <td class="treatment-name">전체틀니</td>
                             <td><span class="price">150만원</span></td>
-                            <td class="note">편악 기준</td>
+                            <td class="note">악당 기준</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">임플란트 틀니 (2개)</td>
-                            <td><span class="price">350만원</span></td>
-                            <td class="note">임플란트 2개 포함</td>
+                            <td class="treatment-name">임플란트 틀니</td>
+                            <td><span class="price">200만원</span></td>
+                            <td class="note">시술비 별도</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">임플란트 틀니 (4개)</td>
-                            <td><span class="price">700만원</span></td>
-                            <td class="note">임플란트 4개 포함</td>
+                            <td class="treatment-name">플리퍼</td>
+                            <td><span class="price">10만원</span></td>
+                            <td class="note">악당 기준</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">임시 틀니</td>
+                            <td><span class="price">30만원</span></td>
+                            <td class="note"></td>
                         </tr>
                         
-                        <!-- 기타 보존 -->
+                        <!-- 기타 일반 -->
                         <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 기타 보존치료</td>
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 기타 일반</td>
                         </tr>
                         <tr>
                             <td class="treatment-name">레진 코어</td>
                             <td><span class="price">5만원</span></td>
-                            <td class="note">1개 기준</td>
+                            <td class="note">신경치료 후</td>
                         </tr>
                         <tr>
                             <td class="treatment-name">포스트</td>
                             <td><span class="price">10만원</span></td>
-                            <td class="note">1개 기준</td>
+                            <td class="note">신경치료 후 기둥</td>
                         </tr>
                         <tr>
                             <td class="treatment-name">비보험 스켈링</td>
-                            <td><span class="price">7만원</span></td>
+                            <td><span class="price">6만원</span></td>
                             <td class="note">연 1회 초과 시</td>
                         </tr>
-                        
-                        <!-- 심미/기타 -->
-                        <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 심미 및 기타</td>
-                        </tr>
                         <tr>
-                            <td class="treatment-name">미백 (전악)</td>
-                            <td><span class="price">40만원</span></td>
-                            <td class="note">전문가 미백</td>
+                            <td class="treatment-name">미백</td>
+                            <td><span class="price">30만원</span></td>
+                            <td class="note">부가세 10% 별도</td>
                         </tr>
                         <tr>
                             <td class="treatment-name">이갈이 장치</td>
-                            <td><span class="price">20만원</span></td>
-                            <td class="note">1개 기준</td>
+                            <td><span class="price">80만원</span></td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
                             <td class="treatment-name">턱보톡스</td>
-                            <td><span class="price">20만원</span></td>
-                            <td class="note">양쪽 기준</td>
+                            <td><span class="price">7만원</span></td>
+                            <td class="note">미용목적 시 부가세 별도</td>
                         </tr>
                     </tbody>
                 </table>
@@ -679,109 +720,129 @@
                             <td colspan="3"><i class="fas fa-angle-right"></i> 인비절라인</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">인비절라인 퍼스트</td>
-                            <td><span class="price">500만원</span></td>
+                            <td class="treatment-name">퍼스트</td>
+                            <td><span class="price">400만원</span></td>
                             <td class="note">소아 전용 (혼합치열기)</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">인비절라인 익스프레스</td>
-                            <td><span class="price">250만원</span></td>
+                            <td class="treatment-name">익스프레스</td>
+                            <td><span class="price">300만원</span></td>
                             <td class="note">경미한 부정교합</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">인비절라인 라이트</td>
+                            <td class="treatment-name">라이트</td>
                             <td><span class="price">450만원</span></td>
                             <td class="note">부분 교정</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">인비절라인 모더레이트</td>
+                            <td class="treatment-name">모더레이트</td>
                             <td><span class="price">550만원</span></td>
                             <td class="note">중등도 교정</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">인비절라인 컴프리헨시브 <span class="popular-badge">풀</span></td>
+                            <td class="treatment-name">컴프리헨시브 <span class="popular-badge">풀</span></td>
                             <td><span class="price">700만원</span></td>
                             <td class="note">전체 교정</td>
                         </tr>
                         
-                        <!-- 브라켓 교정 -->
+                        <!-- 전체 장치 -->
                         <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 브라켓 교정 (전체)</td>
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 전체 장치 (브라켓)</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">Clippy C (세라믹)</td>
-                            <td><span class="price">550만원</span></td>
+                            <td class="treatment-name">클리피씨 (Clippy C)</td>
+                            <td><span class="price">500만원</span></td>
                             <td class="note">자가결찰 세라믹</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">Clarity Ultra (세라믹)</td>
-                            <td><span class="price">600만원</span></td>
+                            <td class="treatment-name">클라리티 울트라 (Clarity Ultra)</td>
+                            <td><span class="price">550만원</span></td>
                             <td class="note">프리미엄 세라믹</td>
                         </tr>
                         
-                        <!-- 교정 보조장치 -->
+                        <!-- 교정 보조 -->
                         <tr class="sub-category">
                             <td colspan="3"><i class="fas fa-angle-right"></i> 교정 보조장치</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">악궁 확장 장치</td>
+                            <td class="treatment-name">악궁 확장장치 (소아)</td>
                             <td><span class="price">50만원</span></td>
                             <td class="note">성장기 교정</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">페이스마스크</td>
-                            <td><span class="price">30만원</span></td>
+                            <td class="treatment-name">악궁 확장장치 (어른)</td>
+                            <td><span class="price">70만원</span></td>
+                            <td class="note">성인 교정</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">악정형치료 (페이스마스크/헤드기어 등)</td>
+                            <td><span class="price">200만원</span></td>
                             <td class="note">성장기 교정</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">헤드기어</td>
-                            <td><span class="price">30만원</span></td>
-                            <td class="note">성장기 교정</td>
-                        </tr>
-                        <tr>
-                            <td class="treatment-name">교정용 미니 임플란트</td>
-                            <td><span class="price">20만원</span></td>
-                            <td class="note">1개 기준</td>
+                            <td class="treatment-name">ROA, ABP</td>
+                            <td><span class="price">70만원</span></td>
+                            <td class="note">장치당</td>
                         </tr>
                         
-                        <!-- 유지장치 -->
+                        <!-- 제거/유지 -->
                         <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 유지장치</td>
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 제거 / 유지장치</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">가철식 유지장치</td>
-                            <td><span class="price">20만원</span></td>
-                            <td class="note">편악 기준</td>
+                            <td class="treatment-name">본원 제거 (양악 / 편악)</td>
+                            <td><span class="price">50 / 25만원</span></td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">고정식 유지장치</td>
-                            <td><span class="price">10만원</span></td>
-                            <td class="note">편악 기준</td>
+                            <td class="treatment-name">타원 제거 (양악 / 편악)</td>
+                            <td><span class="price">80 / 40만원</span></td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">고정식 유지장치 재부착</td>
+                            <td class="treatment-name">유지장치 (양악 / 편악)</td>
+                            <td><span class="price">50 / 25만원</span></td>
+                            <td class="note"></td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">Wrap around / 고정식(Fixed)</td>
+                            <td><span class="price">30 / 15만원</span></td>
+                            <td class="note"></td>
+                        </tr>
+                        
+                        <!-- 사후/관리 -->
+                        <tr class="sub-category">
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 사후 / 관리</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">본원 제거 후 재부착</td>
                             <td><span class="price">5만원</span></td>
-                            <td class="note">탈락 시</td>
-                        </tr>
-                        
-                        <!-- 사후관리 -->
-                        <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 사후관리</td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">가철식 유지장치 재제작</td>
-                            <td><span class="price">15만원</span></td>
-                            <td class="note">분실/파손 시</td>
+                            <td class="treatment-name">타치과 고정식 유지장치 수리</td>
+                            <td><span class="price">3만원</span></td>
+                            <td class="note">치아당</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">고정식 유지장치 재제작</td>
-                            <td><span class="price">20만원</span></td>
-                            <td class="note">분실/파손 시</td>
+                            <td class="treatment-name">타치과 와이어 찔림 처리</td>
+                            <td><span class="price">2만원</span></td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">보정 인비절라인</td>
-                            <td><span class="price">100만원</span></td>
-                            <td class="note">교정 후 재교정</td>
+                            <td class="treatment-name">타치과 브라켓 탈락 재부착</td>
+                            <td><span class="price">5만원</span></td>
+                            <td class="note"></td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">매복치 견인 수술</td>
+                            <td><span class="price">30만원</span></td>
+                            <td class="note"></td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">치료종료 1년후 검진</td>
+                            <td><span class="price">3만원</span></td>
+                            <td class="note"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -804,69 +865,54 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- 유치 레진 -->
+                        <!-- 소아 레진 -->
                         <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 유치 레진</td>
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 소아 레진</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">유치 레진 (소)</td>
+                            <td class="treatment-name">유치 레진 (1면)</td>
+                            <td><span class="price">6만원</span></td>
+                            <td class="note"></td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">유치 레진 (2면)</td>
                             <td><span class="price">8만원</span></td>
-                            <td class="note">1면</td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">유치 레진 (중)</td>
+                            <td class="treatment-name">유치 레진 (3면)</td>
                             <td><span class="price">10만원</span></td>
-                            <td class="note">2면</td>
-                        </tr>
-                        <tr>
-                            <td class="treatment-name">유치 레진 (대)</td>
-                            <td><span class="price">12만원</span></td>
-                            <td class="note">3면 이상</td>
-                        </tr>
-                        
-                        <!-- 예방치료 -->
-                        <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 예방치료</td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
                             <td class="treatment-name">불소 도포</td>
                             <td><span class="price">3만원</span></td>
                             <td class="note">1회</td>
                         </tr>
-                        
-                        <!-- 진정치료 -->
-                        <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 진정치료</td>
-                        </tr>
                         <tr>
-                            <td class="treatment-name">웃음가스 (N2O)</td>
-                            <td><span class="price">3만원</span></td>
+                            <td class="treatment-name">웃음가스 (N2O, 비보험)</td>
+                            <td><span class="price">1만원</span></td>
                             <td class="note">1회</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">소아 수면마취 (1시간)</td>
-                            <td><span class="price">50만원</span></td>
-                            <td class="note">1시간 기준</td>
+                            <td class="treatment-name">수면마취</td>
+                            <td><span class="price">10만원</span></td>
+                            <td class="note">1회</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">소아 수면마취 (2시간)</td>
-                            <td><span class="price">70만원</span></td>
-                            <td class="note">2시간 기준</td>
-                        </tr>
-                        <tr>
-                            <td class="treatment-name">소아 수면마취 (3시간)</td>
-                            <td><span class="price">90만원</span></td>
-                            <td class="note">3시간 기준</td>
+                            <td class="treatment-name">치아견인</td>
+                            <td><span class="price">30만원</span></td>
+                            <td class="note">매복치</td>
                         </tr>
                         
-                        <!-- 외과/교정 -->
+                        <!-- 소아 진료 -->
                         <tr class="sub-category">
-                            <td colspan="3"><i class="fas fa-angle-right"></i> 소아 외과/교정</td>
+                            <td colspan="3"><i class="fas fa-angle-right"></i> 소아 진료</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">치아 견인</td>
-                            <td><span class="price">30만원</span></td>
-                            <td class="note">매복치 견인</td>
+                            <td class="treatment-name">데라칼</td>
+                            <td><span class="price">10만원</span></td>
+                            <td class="note"></td>
                         </tr>
                         <tr>
                             <td class="treatment-name">Nance holding arch</td>
@@ -875,12 +921,12 @@
                         </tr>
                         <tr>
                             <td class="treatment-name">Lingual arch</td>
-                            <td><span class="price">25만원</span></td>
+                            <td><span class="price">30만원</span></td>
                             <td class="note">공간유지장치</td>
                         </tr>
                         <tr>
                             <td class="treatment-name">SS Crown</td>
-                            <td><span class="price">15만원</span></td>
+                            <td><span class="price">11만원</span></td>
                             <td class="note">유치 크라운</td>
                         </tr>
                         <tr>
@@ -889,8 +935,13 @@
                             <td class="note">공간유지장치</td>
                         </tr>
                         <tr>
-                            <td class="treatment-name">할터만 장치</td>
-                            <td><span class="price">50만원</span></td>
+                            <td class="treatment-name">할터만 장치 (편측)</td>
+                            <td><span class="price">70만원</span></td>
+                            <td class="note">습관 교정</td>
+                        </tr>
+                        <tr>
+                            <td class="treatment-name">할터만 장치 (양측)</td>
+                            <td><span class="price">100만원</span></td>
                             <td class="note">습관 교정</td>
                         </tr>
                     </tbody>
@@ -978,7 +1029,7 @@
                 <li>환자분의 구강 상태, 치료 범위, 사용 재료에 따라 비용이 달라질 수 있습니다.</li>
                 <li>모든 치료는 상담 후 환자분의 동의 하에 진행됩니다.</li>
                 <li>치과 치료비는 의료비 세액공제 대상입니다.</li>
-                <li>금 재료 사용 시 금 시세에 따라 가격이 변동될 수 있습니다.</li>
+                <li>미용 목적의 시술(미백, 턱보톡스 등)은 부가세가 별도로 부과될 수 있습니다.</li>
                 <li>본 수가표는 의료법 제45조에 의거하여 공개됩니다.</li>
             </ul>
         </div>
