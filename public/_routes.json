@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "include": ["/api/*"],
+  "include": ["/api/*", "/blog", "/blog/*"],
   "exclude": [
     "/css/*",
     "/js/*",
