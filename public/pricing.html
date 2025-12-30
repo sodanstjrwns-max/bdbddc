@@ -58,7 +58,7 @@
     <link rel="stylesheet" href="/css/pricing.css">
     
     <style>
-        /* 추가 스타일 - 더 상세한 가격표 */
+        /* 추가 스타일 - 다크 테마에 맞춘 가격표 */
         .category-header {
             background: linear-gradient(135deg, #8B5A2B 0%, #6B4423 100%);
             color: white;
@@ -84,19 +84,23 @@
         .pricing-table {
             margin-bottom: 0;
             border-radius: 0 0 12px 12px;
+            background: rgba(20, 20, 20, 0.8);
         }
         
         .sub-category {
-            background: rgba(139, 90, 43, 0.1);
+            background: rgba(139, 90, 43, 0.2) !important;
             padding: 0.5rem 1rem;
             font-weight: 600;
-            color: #8B5A2B;
+            color: #C9A962 !important;
             font-size: 0.9rem;
+        }
+        .sub-category td {
+            color: #C9A962 !important;
         }
         
         .treatment-detail {
             font-size: 0.85rem;
-            color: #666;
+            color: #aaa;
             padding-left: 1.5rem;
         }
         
@@ -111,8 +115,8 @@
         }
         
         .update-notice {
-            background: rgba(139, 90, 43, 0.1);
-            border-left: 4px solid #8B5A2B;
+            background: rgba(139, 90, 43, 0.15);
+            border-left: 4px solid #C9A962;
             padding: 1rem 1.5rem;
             margin-bottom: 2rem;
             border-radius: 0 8px 8px 0;
@@ -120,13 +124,13 @@
         .update-notice p {
             margin: 0;
             font-size: 0.9rem;
-            color: #555;
+            color: rgba(255, 255, 255, 0.8);
         }
         .update-notice strong {
-            color: #8B5A2B;
+            color: #C9A962;
         }
         
-        /* 탭 스타일 개선 */
+        /* 탭 스타일 - 다크 테마 */
         .pricing-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -136,17 +140,19 @@
         }
         .pricing-tab {
             padding: 0.75rem 1.25rem;
-            border: 2px solid #e0e0e0;
+            border: 2px solid rgba(201, 169, 98, 0.3);
             border-radius: 25px;
-            background: white;
+            background: rgba(30, 30, 30, 0.8);
+            color: rgba(255, 255, 255, 0.8);
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 0.9rem;
             font-weight: 500;
         }
         .pricing-tab:hover {
-            border-color: #8B5A2B;
-            color: #8B5A2B;
+            border-color: #C9A962;
+            color: #C9A962;
+            background: rgba(201, 169, 98, 0.1);
         }
         .pricing-tab.active {
             background: linear-gradient(135deg, #8B5A2B 0%, #6B4423 100%);
@@ -154,37 +160,51 @@
             color: white;
         }
         
-        /* 가격 테이블 개선 */
+        /* 가격 테이블 - 다크 테마 */
         .pricing-table th {
-            background: #f8f5f0;
-            color: #333;
+            background: rgba(139, 90, 43, 0.3);
+            color: #e5e5e5;
             font-weight: 600;
             padding: 1rem;
             text-align: left;
         }
         .pricing-table td {
             padding: 0.875rem 1rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e5e5e5;
         }
         .pricing-table tbody tr:hover {
-            background: #fafafa;
+            background: rgba(201, 169, 98, 0.1);
+        }
+        
+        .treatment-name {
+            color: #e5e5e5;
         }
         
         .price {
             font-weight: 700;
-            color: #8B5A2B;
+            color: #C9A962 !important;
             font-size: 1rem;
         }
         
         .note {
             font-size: 0.85rem;
-            color: #666;
+            color: rgba(255, 255, 255, 0.6);
         }
         
         .special-note {
             font-size: 0.8rem;
             color: #C9A962;
             font-weight: 500;
+        }
+        
+        .popular-badge {
+            background: linear-gradient(135deg, #C9A962 0%, #8B5A2B 100%);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 6px;
         }
         
         @media (max-width: 768px) {
