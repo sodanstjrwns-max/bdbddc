@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 페이지 | 서울비디치과</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+    
+    /* 사이드바 */
+    .admin-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    .sidebar {
+      width: 260px;
+      background: #111;
+      border-right: 1px solid rgba(201, 169, 98, 0.2);
+      padding: 24px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    
+    .sidebar-header {
+      padding: 0 24px 24px;
+      border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+      margin-bottom: 24px;
+    }
+    
+    .sidebar-header h1 {
+      font-size: 1.25rem;
+      color: #C9A962;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .sidebar-header span {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      display: block;
+      margin-top: 4px;
+    }
+    
+    .nav-menu {
+      list-style: none;
+    }
+    
+    .nav-item {
+      margin: 4px 12px;
+    }
+    
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      background: rgba(201, 169, 98, 0.15);
+      color: #C9A962;
+    }
+    
+    .nav-link i {
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* 메인 컨텐츠 */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      padding: 32px;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.05);
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+    
+    .user-info img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .user-info span {
+      color: rgba(255,255,255,0.8);
+    }
+    
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    
+    .btn-logout:hover {
+      border-color: #C9A962;
+      color: #C9A962;
+    }
+    
+    /* 통계 카드 */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    
+    .stat-card {
+      background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, rgba(139, 90, 43, 0.1) 100%);
+      border: 1px solid rgba(201, 169, 98, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    
+    .stat-card h3 {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 8px;
+    }
+    
+    .stat-card .value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #C9A962;
+    }
+    
+    .stat-card .change {
+      font-size: 0.85rem;
+      color: #4ade80;
+      margin-top: 8px;
+    }
+    
+    /* 테이블 */
+    .data-section {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(201, 169, 98, 0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+    }
+    
+    .section-header h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #C9A962 0%, #8B5A2B 100%);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(201, 169, 98, 0.3);
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .data-table th, .data-table td {
+      padding: 16px 24px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .data-table th {
+      background: rgba(0,0,0,0.3);
+      color: rgba(255,255,255,0.6);
+      font-weight: 500;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+    
+    .data-table tr:hover {
+      background: rgba(201, 169, 98, 0.05);
+    }
+    
+    .user-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .user-cell img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: rgba(201, 169, 98, 0.2);
+    }
+    
+    .user-cell .name {
+      font-weight: 500;
+    }
+    
+    .user-cell .email {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+    }
+    
+    .badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .badge-member { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+    .badge-admin { background: rgba(201, 169, 98, 0.2); color: #C9A962; }
+    .badge-google { background: rgba(234, 67, 53, 0.2); color: #ea4335; }
+    .badge-email { background: rgba(156, 163, 175, 0.2); color: #9ca3af; }
+    
+    /* 비포애프터 그리드 */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 24px;
+    }
+    
+    .case-card {
+      background: rgba(0,0,0,0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .case-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    
+    .case-images img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+    
+    .case-info {
+      padding: 16px;
+    }
+    
+    .case-info h4 {
+      margin-bottom: 8px;
+    }
+    
+    .case-info p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    .case-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    
+    .btn-sm {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .btn-edit {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+    
+    .btn-delete {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+    
+    /* 모달 */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+    }
+    
+    .modal {
+      background: #1a1a1a;
+      border: 1px solid rgba(201, 169, 98, 0.2);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .modal-header h3 {
+      font-size: 1.25rem;
+    }
+    
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .modal-body {
+      padding: 24px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+    }
+    
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+    }
+    
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #C9A962;
+    }
+    
+    .upload-area {
+      border: 2px dashed rgba(201, 169, 98, 0.3);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .upload-area:hover {
+      border-color: #C9A962;
+      background: rgba(201, 169, 98, 0.05);
+    }
+    
+    .upload-area i {
+      font-size: 2rem;
+      color: #C9A962;
+      margin-bottom: 12px;
+    }
+    
+    .upload-preview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .upload-preview img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    /* 로딩 */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(201, 169, 98, 0.2);
+      border-top-color: #C9A962;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* 접근 거부 */
+    .access-denied {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 40px;
+    }
+    
+    .access-denied i {
+      font-size: 4rem;
+      color: #ef4444;
+      margin-bottom: 24px;
+    }
+    
+    .access-denied h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    
+    .access-denied p {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 24px;
+    }
+    
+    /* 탭 */
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    /* 반응형 */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 80px;
+      }
+      
+      .sidebar-header h1 span:last-child,
+      .nav-link span {
+        display: none;
+      }
+      
+      .main-content {
+        margin-left: 80px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      
+      .main-content {
+        margin-left: 0;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 로딩 화면 -->
+  <div id="loadingScreen" class="loading" style="min-height: 100vh;">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- 접근 거부 화면 -->
+  <div id="accessDenied" class="access-denied" style="display: none;">
+    <i class="fas fa-lock"></i>
+    <h1>접근 권한이 없습니다</h1>
+    <p>관리자 계정으로 로그인해 주세요.</p>
+    <a href="/auth/login" class="btn-primary">
+      <i class="fas fa-sign-in-alt"></i>
+      로그인 페이지로
+    </a>
+  </div>
+
+  <!-- 관리자 레이아웃 -->
+  <div id="adminLayout" class="admin-layout" style="display: none;">
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>
+          <i class="fas fa-tooth"></i>
+          <span>서울비디치과</span>
+        </h1>
+        <span>관리자 페이지</span>
+      </div>
+      
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#dashboard" class="nav-link active" onclick="showTab('dashboard')">
+            <i class="fas fa-chart-line"></i>
+            <span>대시보드</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#members" class="nav-link" onclick="showTab('members')">
+            <i class="fas fa-users"></i>
+            <span>회원 관리</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#cases" class="nav-link" onclick="showTab('cases')">
+            <i class="fas fa-images"></i>
+            <span>비포애프터</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#reservations" class="nav-link" onclick="showTab('reservations')">
+            <i class="fas fa-calendar-check"></i>
+            <span>예약 관리</span>
+          </a>
+        </li>
+        <li class="nav-item" style="margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px;">
+          <a href="/" class="nav-link">
+            <i class="fas fa-home"></i>
+            <span>홈으로</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+      <div class="page-header">
+        <h1 class="page-title" id="pageTitle">대시보드</h1>
+        <div class="user-info">
+          <img id="adminPhoto" src="https://via.placeholder.com/36" alt="Admin">
+          <span id="adminName">관리자</span>
+          <button class="btn-logout" onclick="handleLogout()">
+            <i class="fas fa-sign-out-alt"></i> 로그아웃
+          </button>
+        </div>
+      </div>
+      
+      <!-- 대시보드 탭 -->
+      <div id="dashboard" class="tab-content active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3><i class="fas fa-users"></i> 총 회원 수</h3>
+            <div class="value" id="totalMembers">-</div>
+            <div class="change"><i class="fas fa-arrow-up"></i> 이번 달 신규</div>
+          </div>
+          <div class="stat-card">
+            <h3><i class="fas fa-images"></i> 비포애프터 케이스</h3>
+            <div class="value" id="totalCases">-</div>
+          </div>
+          <div class="stat-card">
+            <h3><i class="fas fa-calendar-check"></i> 예약 대기</h3>
+            <div class="value" id="pendingReservations">-</div>
+          </div>
+          <div class="stat-card">
+            <h3><i class="fas fa-eye"></i> 오늘 방문자</h3>
+            <div class="value" id="todayVisitors">-</div>
+          </div>
+        </div>
+        
+        <!-- 최근 가입 회원 -->
+        <div class="data-section">
+          <div class="section-header">
+            <h2><i class="fas fa-user-plus"></i> 최근 가입 회원</h2>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>회원 정보</th>
+                <th>가입일</th>
+                <th>로그인 방식</th>
+                <th>역할</th>
+              </tr>
+            </thead>
+            <tbody id="recentMembersTable">
+              <tr><td colspan="4" class="loading"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- 회원 관리 탭 -->
+      <div id="members" class="tab-content">
+        <div class="data-section">
+          <div class="section-header">
+            <h2><i class="fas fa-users"></i> 전체 회원 목록</h2>
+            <div style="display: flex; gap: 12px;">
+              <input type="text" id="memberSearch" placeholder="이름 또는 이메일 검색..." 
+                     style="padding: 10px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff;">
+            </div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>회원 정보</th>
+                <th>연락처</th>
+                <th>가입일</th>
+                <th>로그인 방식</th>
+                <th>역할</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="allMembersTable">
+              <tr><td colspan="6" class="loading"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- 비포애프터 탭 -->
+      <div id="cases" class="tab-content">
+        <div class="data-section">
+          <div class="section-header">
+            <h2><i class="fas fa-images"></i> 비포애프터 케이스 관리</h2>
+            <button class="btn-primary" onclick="openCaseModal()">
+              <i class="fas fa-plus"></i> 새 케이스 등록
+            </button>
+          </div>
+          <div class="cases-grid" id="casesGrid">
+            <div class="loading"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 예약 관리 탭 -->
+      <div id="reservations" class="tab-content">
+        <div class="data-section">
+          <div class="section-header">
+            <h2><i class="fas fa-calendar-check"></i> 예약 목록</h2>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>예약자</th>
+                <th>연락처</th>
+                <th>희망 진료</th>
+                <th>예약일시</th>
+                <th>상태</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="reservationsTable">
+              <tr><td colspan="6" style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
+                예약 데이터가 없습니다.
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 비포애프터 등록 모달 -->
+  <div id="caseModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fas fa-images"></i> 비포애프터 케이스 등록</h3>
+        <button class="modal-close" onclick="closeCaseModal()">&times;</button>
+      </div>
+      <form id="caseForm" onsubmit="handleCaseSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>진료 카테고리</label>
+            <select id="caseCategory" required>
+              <option value="">선택하세요</option>
+              <option value="implant">임플란트</option>
+              <option value="orthodontics">교정</option>
+              <option value="cosmetic">심미치료</option>
+              <option value="pediatric">소아치과</option>
+              <option value="general">일반치료</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>케이스 제목</label>
+            <input type="text" id="caseTitle" placeholder="예: 전악 임플란트 케이스" required>
+          </div>
+          
+          <div class="form-group">
+            <label>설명</label>
+            <textarea id="caseDescription" rows="3" placeholder="케이스에 대한 설명을 입력하세요"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>Before 이미지</label>
+            <div class="upload-area" onclick="document.getElementById('beforeImage').click()">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>클릭하여 이미지 업로드</p>
+              <input type="file" id="beforeImage" accept="image/*" style="display: none" onchange="previewImage(this, 'beforePreview')">
+            </div>
+            <div id="beforePreview" class="upload-preview"></div>
+          </div>
+          
+          <div class="form-group">
+            <label>After 이미지</label>
+            <div class="upload-area" onclick="document.getElementById('afterImage').click()">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>클릭하여 이미지 업로드</p>
+              <input type="file" id="afterImage" accept="image/*" style="display: none" onchange="previewImage(this, 'afterPreview')">
+            </div>
+            <div id="afterPreview" class="upload-preview"></div>
+          </div>
+          
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="casePublic" checked>
+              웹사이트에 공개
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeCaseModal()">취소</button>
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-save"></i> 저장
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  
+  <script>
+    // Firebase 설정
+    const firebaseConfig = {
+      apiKey: "AIzaSyAEf76WE8VmVAD5RSlC9_rUh4bGO4OTHc4",
+      authDomain: "seoulbd-2c642.firebaseapp.com",
+      projectId: "seoulbd-2c642",
+      storageBucket: "seoulbd-2c642.firebasestorage.app",
+      messagingSenderId: "477046265380",
+      appId: "1:477046265380:web:46c13a2b3010f2e271eab1"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+    
+    // 관리자 이메일 목록 (Firebase에서 role: admin으로 관리하는 게 더 좋음)
+    const ADMIN_EMAILS = [
+      'bdbddc@gmail.com',
+      'admin@seoulbd.co.kr',
+      'sodanstjrwns@gmail.com'
+    ];
+    
+    let currentUser = null;
+    
+    // 인증 상태 확인
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        // Firestore에서 사용자 역할 확인
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        const userData = userDoc.data();
+        
+        const isAdmin = ADMIN_EMAILS.includes(user.email) || userData?.role === 'admin';
+        
+        if (isAdmin) {
+          currentUser = user;
+          showAdminPanel(user);
+          loadDashboardData();
+        } else {
+          showAccessDenied();
+        }
+      } else {
+        showAccessDenied();
+      }
+    });
+    
+    function showAdminPanel(user) {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('accessDenied').style.display = 'none';
+      document.getElementById('adminLayout').style.display = 'flex';
+      
+      document.getElementById('adminName').textContent = user.displayName || user.email;
+      if (user.photoURL) {
+        document.getElementById('adminPhoto').src = user.photoURL;
+      }
+    }
+    
+    function showAccessDenied() {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('adminLayout').style.display = 'none';
+      document.getElementById('accessDenied').style.display = 'flex';
+    }
+    
+    function handleLogout() {
+      auth.signOut().then(() => {
+        window.location.href = '/';
+      });
+    }
+    
+    // 탭 전환
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      document.querySelector(`[href="#${tabId}"]`).classList.add('active');
+      
+      const titles = {
+        dashboard: '대시보드',
+        members: '회원 관리',
+        cases: '비포애프터 관리',
+        reservations: '예약 관리'
+      };
+      document.getElementById('pageTitle').textContent = titles[tabId];
+      
+      // 탭별 데이터 로드
+      if (tabId === 'members') loadAllMembers();
+      if (tabId === 'cases') loadCases();
+    }
+    
+    // 대시보드 데이터 로드
+    async function loadDashboardData() {
+      try {
+        // 회원 수
+        const membersSnapshot = await db.collection('users').get();
+        document.getElementById('totalMembers').textContent = membersSnapshot.size;
+        
+        // 최근 회원 5명
+        const recentMembers = await db.collection('users')
+          .orderBy('createdAt', 'desc')
+          .limit(5)
+          .get();
+        
+        renderRecentMembers(recentMembers);
+        
+        // 비포애프터 수
+        const casesSnapshot = await db.collection('cases').get();
+        document.getElementById('totalCases').textContent = casesSnapshot.size;
+        
+        // 예약 대기
+        document.getElementById('pendingReservations').textContent = '0';
+        document.getElementById('todayVisitors').textContent = '-';
+        
+      } catch (error) {
+        console.error('대시보드 로드 에러:', error);
+      }
+    }
+    
+    function renderRecentMembers(snapshot) {
+      const tbody = document.getElementById('recentMembersTable');
+      
+      if (snapshot.empty) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">등록된 회원이 없습니다.</td></tr>';
+        return;
+      }
+      
+      tbody.innerHTML = '';
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>
+            <div class="user-cell">
+              <img src="${data.profileImage || 'https://via.placeholder.com/40'}" alt="${data.name}">
+              <div>
+                <div class="name">${data.name || '이름 없음'}</div>
+                <div class="email">${data.email}</div>
+              </div>
+            </div>
+          </td>
+          <td>${formatDate(data.createdAt)}</td>
+          <td><span class="badge badge-${data.provider || 'email'}">${data.provider || 'email'}</span></td>
+          <td><span class="badge badge-${data.role || 'member'}">${data.role || 'member'}</span></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+    
+    // 전체 회원 로드
+    async function loadAllMembers() {
+      try {
+        const snapshot = await db.collection('users').orderBy('createdAt', 'desc').get();
+        const tbody = document.getElementById('allMembersTable');
+        
+        if (snapshot.empty) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">등록된 회원이 없습니다.</td></tr>';
+          return;
+        }
+        
+        tbody.innerHTML = '';
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>
+              <div class="user-cell">
+                <img src="${data.profileImage || 'https://via.placeholder.com/40'}" alt="${data.name}">
+                <div>
+                  <div class="name">${data.name || '이름 없음'}</div>
+                  <div class="email">${data.email}</div>
+                </div>
+              </div>
+            </td>
+            <td>${data.phone || '-'}</td>
+            <td>${formatDate(data.createdAt)}</td>
+            <td><span class="badge badge-${data.provider || 'email'}">${data.provider || 'email'}</span></td>
+            <td><span class="badge badge-${data.role || 'member'}">${data.role || 'member'}</span></td>
+            <td>
+              <button class="btn-sm btn-edit" onclick="editMember('${doc.id}')"><i class="fas fa-edit"></i></button>
+              <button class="btn-sm btn-delete" onclick="deleteMember('${doc.id}')"><i class="fas fa-trash"></i></button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('회원 로드 에러:', error);
+      }
+    }
+    
+    // 비포애프터 케이스 로드
+    async function loadCases() {
+      try {
+        const snapshot = await db.collection('cases').orderBy('createdAt', 'desc').get();
+        const grid = document.getElementById('casesGrid');
+        
+        if (snapshot.empty) {
+          grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: rgba(255,255,255,0.5);"><i class="fas fa-images" style="font-size: 3rem; margin-bottom: 16px; display: block;"></i>등록된 케이스가 없습니다.<br>새 케이스를 등록해 보세요.</div>';
+          return;
+        }
+        
+        grid.innerHTML = '';
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const card = document.createElement('div');
+          card.className = 'case-card';
+          card.innerHTML = `
+            <div class="case-images">
+              <img src="${data.beforeImage || 'https://via.placeholder.com/200?text=Before'}" alt="Before">
+              <img src="${data.afterImage || 'https://via.placeholder.com/200?text=After'}" alt="After">
+            </div>
+            <div class="case-info">
+              <h4>${data.title}</h4>
+              <p>${data.category} • ${formatDate(data.createdAt)}</p>
+              <div class="case-actions">
+                <button class="btn-sm btn-edit" onclick="editCase('${doc.id}')"><i class="fas fa-edit"></i> 수정</button>
+                <button class="btn-sm btn-delete" onclick="deleteCase('${doc.id}')"><i class="fas fa-trash"></i> 삭제</button>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (error) {
+        console.error('케이스 로드 에러:', error);
+      }
+    }
+    
+    // 모달
+    function openCaseModal() {
+      document.getElementById('caseModal').classList.add('active');
+    }
+    
+    function closeCaseModal() {
+      document.getElementById('caseModal').classList.remove('active');
+      document.getElementById('caseForm').reset();
+      document.getElementById('beforePreview').innerHTML = '';
+      document.getElementById('afterPreview').innerHTML = '';
+    }
+    
+    // 이미지 미리보기
+    function previewImage(input, previewId) {
+      const preview = document.getElementById(previewId);
+      preview.innerHTML = '';
+      
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    
+    // 케이스 저장
+    async function handleCaseSubmit(e) {
+      e.preventDefault();
+      
+      const category = document.getElementById('caseCategory').value;
+      const title = document.getElementById('caseTitle').value;
+      const description = document.getElementById('caseDescription').value;
+      const isPublic = document.getElementById('casePublic').checked;
+      const beforeFile = document.getElementById('beforeImage').files[0];
+      const afterFile = document.getElementById('afterImage').files[0];
+      
+      if (!beforeFile || !afterFile) {
+        alert('Before와 After 이미지를 모두 업로드해 주세요.');
+        return;
+      }
+      
+      try {
+        // 이미지 업로드
+        const timestamp = Date.now();
+        const beforeRef = storage.ref(`cases/${timestamp}_before_${beforeFile.name}`);
+        const afterRef = storage.ref(`cases/${timestamp}_after_${afterFile.name}`);
+        
+        const [beforeSnapshot, afterSnapshot] = await Promise.all([
+          beforeRef.put(beforeFile),
+          afterRef.put(afterFile)
+        ]);
+        
+        const [beforeUrl, afterUrl] = await Promise.all([
+          beforeSnapshot.ref.getDownloadURL(),
+          afterSnapshot.ref.getDownloadURL()
+        ]);
+        
+        // Firestore에 저장
+        await db.collection('cases').add({
+          category,
+          title,
+          description,
+          beforeImage: beforeUrl,
+          afterImage: afterUrl,
+          isPublic,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          createdBy: currentUser.uid
+        });
+        
+        alert('케이스가 등록되었습니다!');
+        closeCaseModal();
+        loadCases();
+        
+      } catch (error) {
+        console.error('케이스 저장 에러:', error);
+        alert('저장 중 오류가 발생했습니다: ' + error.message);
+      }
+    }
+    
+    // 삭제
+    async function deleteCase(id) {
+      if (!confirm('정말 삭제하시겠습니까?')) return;
+      
+      try {
+        await db.collection('cases').doc(id).delete();
+        loadCases();
+      } catch (error) {
+        alert('삭제 중 오류가 발생했습니다.');
+      }
+    }
+    
+    async function deleteMember(id) {
+      if (!confirm('정말 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) return;
+      
+      try {
+        await db.collection('users').doc(id).delete();
+        loadAllMembers();
+      } catch (error) {
+        alert('삭제 중 오류가 발생했습니다.');
+      }
+    }
+    
+    function editMember(id) {
+      alert('회원 수정 기능은 추후 업데이트 예정입니다.');
+    }
+    
+    function editCase(id) {
+      alert('케이스 수정 기능은 추후 업데이트 예정입니다.');
+    }
+    
+    // 날짜 포맷
+    function formatDate(timestamp) {
+      if (!timestamp) return '-';
+      const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+      return date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+  </script>
+</body>
+</html>

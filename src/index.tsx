@@ -188,6 +188,11 @@ app.use('/notice/*', serveStatic())
 app.get('/auth/login', serveStatic({ path: './auth/login.html' }))
 app.use('/auth/*', serveStatic())
 
+// Admin directory
+app.get('/admin', serveStatic({ path: './admin/index.html' }))
+app.get('/admin/', serveStatic({ path: './admin/index.html' }))
+app.use('/admin/*', serveStatic())
+
 // Area directory (지역 페이지)
 app.use('/area/*', serveStatic())
 
