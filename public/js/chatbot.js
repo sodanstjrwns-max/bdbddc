@@ -429,7 +429,7 @@
   // 요소 참조
   const container = document.getElementById('chatbot-container');
   const toggleBtn = document.getElementById('chatbot-toggle');
-  const window = document.getElementById('chatbot-window');
+  const chatWindow = document.getElementById('chatbot-window');
   const minimizeBtn = document.getElementById('chatbot-minimize');
   const messagesContainer = document.getElementById('chatbot-messages');
   const form = document.getElementById('chatbot-form');
@@ -446,7 +446,7 @@
   // 토글 기능
   function toggleChat() {
     isOpen = !isOpen;
-    window.classList.toggle('active', isOpen);
+    chatWindow.classList.toggle('active', isOpen);
     iconChat.style.display = isOpen ? 'none' : 'block';
     iconClose.style.display = isOpen ? 'block' : 'none';
     
@@ -548,7 +548,7 @@
   });
   
   // 전역 객체
-  window.seoulBDChatbot = {
+  globalThis.seoulBDChatbot = {
     open: () => { if (!isOpen) toggleChat(); },
     close: () => { if (isOpen) toggleChat(); },
     send: sendMessage
