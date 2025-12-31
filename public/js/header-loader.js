@@ -507,4 +507,21 @@
     }
   };
 
+  // AI 챗봇 로드
+  function loadChatbot() {
+    if (window.seoulBDChatbot) return; // 이미 로드됨
+    
+    const script = document.createElement('script');
+    script.src = '/js/chatbot.js';
+    script.defer = true;
+    document.body.appendChild(script);
+  }
+  
+  // 페이지 로드 후 챗봇 로드 (성능 최적화)
+  if (document.readyState === 'complete') {
+    setTimeout(loadChatbot, 1000);
+  } else {
+    window.addEventListener('load', () => setTimeout(loadChatbot, 1000));
+  }
+
 })();

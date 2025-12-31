@@ -4,6 +4,7 @@ import { cors } from 'hono/cors'
 
 type Bindings = {
   DB?: D1Database
+  OPENAI_API_KEY?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -56,6 +57,93 @@ app.get('/api/inblog-rss', async (c) => {
     return c.text(xmlText)
   } catch (error) {
     return c.text('<?xml version="1.0"?><rss version="2.0"><channel></channel></rss>', 500)
+  }
+})
+
+// ============================================
+// GPT 챗봇 API
+// ============================================
+
+const SYSTEM_PROMPT = `당신은 서울비디치과의 친절한 AI 상담 도우미입니다. 
+
+## 병원 정보
+- 병원명: 서울비디치과
+- 위치: 충남 천안시 서북구 불당34길 14 (불당동)
+- 전화: 041-415-2892
+- 진료시간:
+  - 평일: 09:00 ~ 20:00
+  - 토요일: 09:00 ~ 17:00
+  - 일요일: 09:00 ~ 17:00
+  - 공휴일: 09:00 ~ 13:00
+- 특징: 365일 진료, 서울대 출신 15인 원장 협진
+
+## 주요 진료 과목
+1. 임플란트 (6개 수술실 보유, 네비게이션 임플란트)
+2. 인비절라인 교정 (다이아몬드 등급)
+3. 소아치과 (전문의 3인, 웃음가스/수면치료)
+4. 심미치료 (라미네이트, 레진)
+5. 일반치료 (충치, 신경치료, 스케일링)
+
+## 비용 안내 (비급여)
+- 임플란트: 스트라우만 BLX 160만원, 오스템 SOI 100만원, 오스템 CA 80만원
+- 교정: 인비절라인 컴프리헨시브 700만원, 라이트 450만원, 클리피씨 500만원
+- 심미: 지르코니아 크라운 55만원, 글로우 프리미엄 80만원
+
+## 응답 규칙
+1. 친절하고 전문적인 톤으로 응답
+2. 구체적인 진료 상담은 내원 상담 권유
+3. 예약은 전화(041-415-2892) 또는 온라인 예약 페이지 안내
+4. 응답은 간결하게 2-3문장으로
+5. 이모지를 적절히 사용해 친근하게
+6. 정확하지 않은 정보는 "정확한 상담을 위해 내원 상담을 권해드려요"로 안내`
+
+app.post('/api/chat', async (c) => {
+  try {
+    const { message, history = [] } = await c.req.json()
+    const apiKey = c.env?.OPENAI_API_KEY || ''
+    
+    if (!message) {
+      return c.json({ error: '메시지가 필요합니다.' }, 400)
+    }
+    
+    if (!apiKey) {
+      return c.json({ error: 'API 키가 설정되지 않았습니다.' }, 500)
+    }
+    
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...history.slice(-6), // 최근 6개 대화만 유지
+      { role: 'user', content: message }
+    ]
+    
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages,
+        max_tokens: 500,
+        temperature: 0.7
+      })
+    })
+    
+    if (!response.ok) {
+      const error = await response.text()
+      console.error('OpenAI API Error:', error)
+      return c.json({ error: 'AI 응답 생성에 실패했습니다.' }, 500)
+    }
+    
+    const data = await response.json() as { choices: Array<{ message: { content: string } }> }
+    const reply = data.choices[0]?.message?.content || '죄송합니다. 응답을 생성하지 못했습니다.'
+    
+    return c.json({ reply })
+    
+  } catch (error) {
+    console.error('Chat API Error:', error)
+    return c.json({ error: '서버 오류가 발생했습니다.' }, 500)
   }
 })
 
