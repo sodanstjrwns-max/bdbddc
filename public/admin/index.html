@@ -613,6 +613,12 @@
             <span>예약 관리</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="#notices" class="nav-link" onclick="showTab('notices')">
+            <i class="fas fa-bullhorn"></i>
+            <span>공지사항</span>
+          </a>
+        </li>
         <li class="nav-item" style="margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px;">
           <a href="/" class="nav-link">
             <i class="fas fa-home"></i>
@@ -746,7 +752,88 @@
           </table>
         </div>
       </div>
+      
+      <!-- 공지사항 탭 -->
+      <div id="notices" class="tab-content">
+        <div class="data-section">
+          <div class="section-header">
+            <h2><i class="fas fa-bullhorn"></i> 공지사항 관리</h2>
+            <button class="btn-primary" onclick="openNoticeModal()">
+              <i class="fas fa-plus"></i> 새 공지 작성
+            </button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>제목</th>
+                <th>카테고리</th>
+                <th>작성일</th>
+                <th>상태</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="noticesTable">
+              <tr><td colspan="5" class="loading"><div class="spinner"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </main>
+  </div>
+
+  <!-- 공지사항 작성 모달 -->
+  <div id="noticeModal" class="modal-overlay">
+    <div class="modal" style="max-width: 700px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-bullhorn"></i> 공지사항 작성</h3>
+        <button class="modal-close" onclick="closeNoticeModal()">&times;</button>
+      </div>
+      <form id="noticeForm" onsubmit="handleNoticeSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>카테고리</label>
+            <select id="noticeCategory" required>
+              <option value="">선택하세요</option>
+              <option value="공지">공지</option>
+              <option value="이벤트">이벤트</option>
+              <option value="진료안내">진료안내</option>
+              <option value="휴무안내">휴무안내</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>제목</label>
+            <input type="text" id="noticeTitle" placeholder="공지사항 제목을 입력하세요" required>
+          </div>
+          
+          <div class="form-group">
+            <label>내용</label>
+            <textarea id="noticeContent" rows="10" placeholder="공지사항 내용을 입력하세요" required style="min-height: 200px;"></textarea>
+          </div>
+          
+          <div class="form-row" style="display: flex; gap: 16px;">
+            <div class="form-group" style="flex: 1;">
+              <label>
+                <input type="checkbox" id="noticeImportant">
+                중요 공지 (상단 고정)
+              </label>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label>
+                <input type="checkbox" id="noticePublic" checked>
+                웹사이트에 공개
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeNoticeModal()">취소</button>
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-save"></i> 저장
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- 비포애프터 등록 모달 -->
@@ -904,13 +991,27 @@
         dashboard: '대시보드',
         members: '회원 관리',
         cases: '비포애프터 관리',
-        reservations: '예약 관리'
+        reservations: '예약 관리',
+        notices: '공지사항 관리'
       };
       document.getElementById('pageTitle').textContent = titles[tabId];
       
       // 탭별 데이터 로드
       if (tabId === 'members') loadAllMembers();
       if (tabId === 'cases') loadCases();
+      if (tabId === 'notices') loadNotices();
+    }
+    
+    // 에러 메시지 표시 헬퍼
+    function showError(elementId, message) {
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: #ef4444;">
+          <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 12px; display: block;"></i>
+          ${message}<br><br>
+          <small style="color: rgba(255,255,255,0.5);">Firebase Console에서 Firestore 규칙을 확인해주세요.</small>
+        </td></tr>`;
+      }
     }
     
     // 대시보드 데이터 로드
@@ -932,12 +1033,19 @@
         const casesSnapshot = await db.collection('cases').get();
         document.getElementById('totalCases').textContent = casesSnapshot.size;
         
+        // 공지사항 수
+        const noticesSnapshot = await db.collection('notices').get();
+        document.getElementById('totalNotices')?.textContent && (document.getElementById('totalNotices').textContent = noticesSnapshot.size);
+        
         // 예약 대기
         document.getElementById('pendingReservations').textContent = '0';
         document.getElementById('todayVisitors').textContent = '-';
         
       } catch (error) {
         console.error('대시보드 로드 에러:', error);
+        document.getElementById('totalMembers').textContent = '권한 필요';
+        document.getElementById('totalCases').textContent = '권한 필요';
+        showError('recentMembersTable', '데이터를 불러올 수 없습니다. Firestore 보안 규칙을 확인해주세요.');
       }
     }
     
@@ -1009,6 +1117,7 @@
         });
       } catch (error) {
         console.error('회원 로드 에러:', error);
+        showError('allMembersTable', '회원 목록을 불러올 수 없습니다.');
       }
     }
     
@@ -1046,6 +1155,140 @@
         });
       } catch (error) {
         console.error('케이스 로드 에러:', error);
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #ef4444;"><i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 16px; display: block;"></i>케이스를 불러올 수 없습니다.<br><small style="color: rgba(255,255,255,0.5);">Firestore 규칙을 확인해주세요.</small></div>';
+      }
+    }
+    
+    // 공지사항 로드
+    async function loadNotices() {
+      try {
+        const snapshot = await db.collection('notices').orderBy('createdAt', 'desc').get();
+        const tbody = document.getElementById('noticesTable');
+        
+        if (snapshot.empty) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);"><i class="fas fa-bullhorn" style="font-size: 2rem; margin-bottom: 12px; display: block;"></i>등록된 공지사항이 없습니다.</td></tr>';
+          return;
+        }
+        
+        tbody.innerHTML = '';
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                ${data.important ? '<span class="badge" style="background: #ef4444; color: white;">중요</span>' : ''}
+                ${data.title}
+              </div>
+            </td>
+            <td><span class="badge badge-member">${data.category}</span></td>
+            <td>${formatDate(data.createdAt)}</td>
+            <td><span class="badge ${data.isPublic ? 'badge-admin' : 'badge-email'}">${data.isPublic ? '공개' : '비공개'}</span></td>
+            <td>
+              <button class="btn-sm btn-edit" onclick="editNotice('${doc.id}')"><i class="fas fa-edit"></i></button>
+              <button class="btn-sm btn-delete" onclick="deleteNotice('${doc.id}')"><i class="fas fa-trash"></i></button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('공지사항 로드 에러:', error);
+        showError('noticesTable', '공지사항을 불러올 수 없습니다.');
+      }
+    }
+    
+    // 공지사항 모달
+    function openNoticeModal() {
+      document.getElementById('noticeModal').classList.add('active');
+    }
+    
+    function closeNoticeModal() {
+      document.getElementById('noticeModal').classList.remove('active');
+      document.getElementById('noticeForm').reset();
+    }
+    
+    // 공지사항 저장
+    async function handleNoticeSubmit(e) {
+      e.preventDefault();
+      
+      const category = document.getElementById('noticeCategory').value;
+      const title = document.getElementById('noticeTitle').value;
+      const content = document.getElementById('noticeContent').value;
+      const important = document.getElementById('noticeImportant').checked;
+      const isPublic = document.getElementById('noticePublic').checked;
+      
+      try {
+        await db.collection('notices').add({
+          category,
+          title,
+          content,
+          important,
+          isPublic,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          createdBy: currentUser.email
+        });
+        
+        alert('공지사항이 등록되었습니다.');
+        closeNoticeModal();
+        loadNotices();
+      } catch (error) {
+        console.error('공지사항 저장 에러:', error);
+        alert('저장 중 오류가 발생했습니다: ' + error.message);
+      }
+    }
+    
+    // 공지사항 삭제
+    async function deleteNotice(id) {
+      if (!confirm('정말 삭제하시겠습니까?')) return;
+      
+      try {
+        await db.collection('notices').doc(id).delete();
+        alert('삭제되었습니다.');
+        loadNotices();
+      } catch (error) {
+        console.error('삭제 에러:', error);
+        alert('삭제 중 오류가 발생했습니다.');
+      }
+    }
+    
+    // 공지사항 수정 (간단 버전)
+    async function editNotice(id) {
+      try {
+        const doc = await db.collection('notices').doc(id).get();
+        const data = doc.data();
+        
+        document.getElementById('noticeCategory').value = data.category;
+        document.getElementById('noticeTitle').value = data.title;
+        document.getElementById('noticeContent').value = data.content;
+        document.getElementById('noticeImportant').checked = data.important;
+        document.getElementById('noticePublic').checked = data.isPublic;
+        
+        // 폼 제출 시 수정으로 처리
+        document.getElementById('noticeForm').onsubmit = async (e) => {
+          e.preventDefault();
+          try {
+            await db.collection('notices').doc(id).update({
+              category: document.getElementById('noticeCategory').value,
+              title: document.getElementById('noticeTitle').value,
+              content: document.getElementById('noticeContent').value,
+              important: document.getElementById('noticeImportant').checked,
+              isPublic: document.getElementById('noticePublic').checked,
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            alert('수정되었습니다.');
+            closeNoticeModal();
+            loadNotices();
+            // 원래 핸들러 복원
+            document.getElementById('noticeForm').onsubmit = handleNoticeSubmit;
+          } catch (error) {
+            alert('수정 중 오류가 발생했습니다.');
+          }
+        };
+        
+        openNoticeModal();
+      } catch (error) {
+        console.error('공지사항 로드 에러:', error);
+        alert('공지사항을 불러올 수 없습니다.');
       }
     }
     
