@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════
 # 서울비디치과 (Seoul BD Dental) - robots.txt
 # https://bdbddc.com
-# Updated: 2024-12-12
+# Updated: 2025-01-03
 # 
 # 이 파일은 검색엔진 및 AI 봇의 크롤링을 최적화합니다.
 # SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
@@ -21,10 +21,8 @@ Allow: /directions.html
 Allow: /faq.html
 Crawl-delay: 1
 
-# 사이트맵 위치 (다중)
+# 사이트맵 위치
 Sitemap: https://bdbddc.com/sitemap.xml
-Sitemap: https://bdbddc.com/sitemap-treatments.xml
-Sitemap: https://bdbddc.com/sitemap-doctors.xml
 
 # 크롤링 제외 (내부용/개발 파일)
 Disallow: /components/
