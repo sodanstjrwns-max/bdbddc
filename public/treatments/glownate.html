@@ -859,6 +859,20 @@
             <p>정기 검진과 케어 프로그램으로 장기간 유지를 위해 노력합니다.</p>
           </div>
         </div>
+        <div class="glass-card diff-item">
+          <div class="diff-icon"><i class="fas fa-comments"></i></div>
+          <div>
+            <h4>충분한 상담 시간</h4>
+            <p>덴탈커넥트와 시각 자료를 활용해 자세히 설명합니다. 모든 궁금증이 해결된 후 치료를 시작합니다.</p>
+          </div>
+        </div>
+        <div class="glass-card diff-item">
+          <div class="diff-icon"><i class="fas fa-calendar-check"></i></div>
+          <div>
+            <h4>365일 진료</h4>
+            <p>일요일에도 진료 가능합니다. 바쁜 직장인, 결혼 준비 중이신 분들도 편하게 내원하세요.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1098,6 +1112,299 @@
     </div>
   </section>
 
+  <!-- Before & After 섹션 (로그인 필수) -->
+  <section class="section before-after-section" id="beforeAfterSection">
+    <div class="container">
+      <div class="section-title">
+        <h2><span class="text-gradient">Before & After</span></h2>
+        <p>서울비디치과 실제 글로우네이트 치료 사례</p>
+      </div>
+      
+      <!-- 비로그인 상태 -->
+      <div class="ba-login-required" id="baLoginRequired">
+        <div class="ba-login-box glass-card">
+          <div class="ba-lock-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h3>로그인이 필요합니다</h3>
+          <p>Before & After 사례는 개인정보 보호를 위해<br>로그인 후 열람 가능합니다.</p>
+          <div class="ba-login-buttons">
+            <button class="btn-ba-google" onclick="baSignInWithGoogle()">
+              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+              Google 로그인
+            </button>
+            <button class="btn-ba-kakao" onclick="baSignInWithKakao()">
+              <i class="fas fa-comment"></i>
+              카카오 로그인
+            </button>
+          </div>
+          <a href="../cases/gallery.html" class="ba-more-link">전체 케이스 보러가기 →</a>
+        </div>
+      </div>
+      
+      <!-- 로그인 상태 - 케이스 표시 -->
+      <div class="ba-cases-container" id="baCasesContainer" style="display: none;">
+        <div class="ba-cases-grid" id="baCasesGrid">
+          <!-- 케이스가 동적으로 로드됩니다 -->
+        </div>
+        <div class="ba-loading" id="baLoading">
+          <div class="ba-spinner"></div>
+          <p>케이스를 불러오는 중...</p>
+        </div>
+        <div class="ba-empty" id="baEmpty" style="display: none;">
+          <i class="fas fa-images"></i>
+          <p>등록된 글로우네이트 케이스가 없습니다.</p>
+        </div>
+        <a href="../cases/gallery.html" class="btn btn-outline ba-view-all">
+          <i class="fas fa-images"></i> 전체 케이스 보기
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <style>
+    /* Before & After 섹션 스타일 */
+    .before-after-section {
+      padding: 80px 0;
+      background: linear-gradient(180deg, #0a0a0a 0%, #1a1510 100%);
+    }
+    
+    .ba-login-required {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .ba-login-box {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    
+    .ba-lock-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, rgba(201,169,98,0.2), rgba(139,90,43,0.2));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    
+    .ba-lock-icon i {
+      font-size: 2rem;
+      color: #C9A962;
+    }
+    
+    .ba-login-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: #fff;
+    }
+    
+    .ba-login-box p {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    
+    .ba-login-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .btn-ba-google, .btn-ba-kakao {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-ba-google {
+      background: #fff;
+      color: #333;
+    }
+    
+    .btn-ba-google:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255,255,255,0.2);
+    }
+    
+    .btn-ba-google img {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .btn-ba-kakao {
+      background: #FEE500;
+      color: #000;
+    }
+    
+    .btn-ba-kakao:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(254,229,0,0.3);
+    }
+    
+    .ba-more-link {
+      color: #C9A962;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    
+    .ba-more-link:hover {
+      text-decoration: underline;
+    }
+    
+    /* 케이스 그리드 */
+    .ba-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .ba-case-card {
+      background: rgba(26, 20, 16, 0.6);
+      border: 1px solid rgba(139, 90, 43, 0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .ba-case-card:hover {
+      border-color: rgba(201, 169, 98, 0.4);
+      transform: translateY(-4px);
+    }
+    
+    .ba-case-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+    
+    .ba-case-images::after {
+      content: '→';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      background: #C9A962;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #fff;
+      font-size: 0.875rem;
+    }
+    
+    .ba-case-image {
+      aspect-ratio: 4/3;
+      background: rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    
+    .ba-case-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .ba-case-image .placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+    }
+    
+    .ba-case-image .placeholder i {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .ba-case-info {
+      padding: 1rem 1.25rem;
+    }
+    
+    .ba-case-info h4 {
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    
+    .ba-case-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    .ba-case-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .ba-case-meta i {
+      color: #C9A962;
+    }
+    
+    .ba-loading, .ba-empty {
+      text-align: center;
+      padding: 3rem;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    .ba-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(201,169,98,0.2);
+      border-top-color: #C9A962;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .ba-empty i {
+      font-size: 3rem;
+      color: rgba(201,169,98,0.3);
+      margin-bottom: 1rem;
+    }
+    
+    .ba-view-all {
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
+    }
+    
+    @media (max-width: 640px) {
+      .ba-cases-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .ba-login-box {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+
   <!-- CTA Section -->
   <section class="section cta-section">
     <div class="container">
@@ -1281,10 +1588,188 @@
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  
+  <!-- Kakao SDK -->
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  
   <script src="/js/translations.js?v=20241229" defer></script>
   <script src="/js/language-switcher.js?v=20241229" defer></script>
   <script src="/js/gnb.js?v=20241229" defer></script>
-<script src="/js/main.js?v=20241229" defer></script>
+  <script src="/js/main.js?v=20241229" defer></script>
+  
+  <!-- Before & After 인증 및 데이터 로드 -->
+  <script>
+    // Firebase 설정
+    const firebaseConfig = {
+      apiKey: "AIzaSyC2JZ_NTymgqLPMIZqk6T2I7MzMk7XKqhY",
+      authDomain: "seoulbd-dental.firebaseapp.com",
+      projectId: "seoulbd-dental",
+      storageBucket: "seoulbd-dental.appspot.com",
+      messagingSenderId: "1064754920792",
+      appId: "1:1064754920792:web:c4e197a17443b1059b402e"
+    };
+    
+    // Firebase 초기화
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+    
+    // Kakao SDK 초기화
+    if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+      Kakao.init('a1b2c3d4e5f6g7h8i9j0');
+    }
+    
+    // DOM 요소
+    const baLoginRequired = document.getElementById('baLoginRequired');
+    const baCasesContainer = document.getElementById('baCasesContainer');
+    const baCasesGrid = document.getElementById('baCasesGrid');
+    const baLoading = document.getElementById('baLoading');
+    const baEmpty = document.getElementById('baEmpty');
+    
+    // Google 로그인
+    async function baSignInWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        await auth.signInWithPopup(provider);
+      } catch (error) {
+        console.error('Google 로그인 실패:', error);
+        alert('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
+    }
+    
+    // Kakao 로그인
+    async function baSignInWithKakao() {
+      if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
+        alert('카카오 SDK를 불러오는 중입니다. 잠시 후 다시 시도해주세요.');
+        return;
+      }
+      
+      try {
+        await new Promise((resolve, reject) => {
+          Kakao.Auth.login({
+            success: resolve,
+            fail: reject
+          });
+        });
+        
+        const response = await new Promise((resolve, reject) => {
+          Kakao.API.request({
+            url: '/v2/user/me',
+            success: resolve,
+            fail: reject
+          });
+        });
+        
+        const email = response.kakao_account?.email || `kakao_${response.id}@kakao.com`;
+        const password = `kakao_${response.id}_secret`;
+        
+        try {
+          await auth.signInWithEmailAndPassword(email, password);
+        } catch (signInError) {
+          if (signInError.code === 'auth/user-not-found') {
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            await userCredential.user.updateProfile({
+              displayName: response.properties?.nickname || '카카오 사용자'
+            });
+          } else {
+            throw signInError;
+          }
+        }
+      } catch (error) {
+        console.error('카카오 로그인 실패:', error);
+        alert('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
+    }
+    
+    // 케이스 로드 (글로우네이트/라미네이트 카테고리 필터)
+    async function loadBAcases() {
+      baLoading.style.display = 'block';
+      baEmpty.style.display = 'none';
+      baCasesGrid.innerHTML = '';
+      
+      // 샘플 데이터 (실제로는 Firestore에서 로드)
+      const sampleCases = [
+        {
+          id: '1',
+          title: '앞니 4본 라미네이트',
+          category: 'laminate',
+          treatment_period: '2주',
+          doctor_name: '현정민 원장'
+        },
+        {
+          id: '2',
+          title: '전치부 6본 심미 개선',
+          category: 'laminate',
+          treatment_period: '3주',
+          doctor_name: '현정민 원장'
+        },
+        {
+          id: '3',
+          title: '치아 변색 라미네이트',
+          category: 'laminate',
+          treatment_period: '2주',
+          doctor_name: '박수빈 원장'
+        }
+      ];
+      
+      setTimeout(() => {
+        baLoading.style.display = 'none';
+        
+        if (sampleCases.length === 0) {
+          baEmpty.style.display = 'block';
+          return;
+        }
+        
+        sampleCases.forEach(caseData => {
+          const card = document.createElement('div');
+          card.className = 'ba-case-card';
+          card.innerHTML = `
+            <div class="ba-case-images">
+              <div class="ba-case-image">
+                <div class="placeholder">
+                  <i class="fas fa-tooth"></i>
+                  <span>Before</span>
+                </div>
+              </div>
+              <div class="ba-case-image">
+                <div class="placeholder">
+                  <i class="fas fa-sparkles"></i>
+                  <span>After</span>
+                </div>
+              </div>
+            </div>
+            <div class="ba-case-info">
+              <h4>${caseData.title}</h4>
+              <div class="ba-case-meta">
+                <span><i class="fas fa-clock"></i> ${caseData.treatment_period}</span>
+                <span><i class="fas fa-user-md"></i> ${caseData.doctor_name}</span>
+              </div>
+            </div>
+          `;
+          baCasesGrid.appendChild(card);
+        });
+      }, 800);
+    }
+    
+    // 인증 상태 변경 감지
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        // 로그인됨
+        baLoginRequired.style.display = 'none';
+        baCasesContainer.style.display = 'block';
+        loadBAcases();
+      } else {
+        // 비로그인
+        baLoginRequired.style.display = 'block';
+        baCasesContainer.style.display = 'none';
+      }
+    });
+  </script>
+  
   <!-- AI 챗봇 -->
   <script defer src="/js/chatbot.js"></script>
 </body>
