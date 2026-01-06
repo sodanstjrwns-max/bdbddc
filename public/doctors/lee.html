@@ -255,6 +255,143 @@
         </div>
     </section>
 
+    <!-- ===== 🎬 원장 소개 영상 ===== -->
+    <section class="video-intro-section">
+        <div class="section-header">
+            <h2>원장 소개 영상</h2>
+            <p>이승엽 원장을 영상으로 만나보세요</p>
+        </div>
+        <div class="video-intro-container">
+            <div class="video-wrapper shorts">
+                <iframe 
+                    src="https://www.youtube.com/embed/KTIndFhNiBw" 
+                    title="이승엽 원장 소개 영상"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-intro-info">
+                <h3>🦷 이승엽 원장</h3>
+                <p class="video-intro-desc">
+                    서울비디치과 임플란트 전문.<br>
+                    환자 중심의 따뜻한 진료를 실천합니다.
+                </p>
+                <div class="video-intro-tags">
+                    <span class="tag">서울대 출신</span>
+                    <span class="tag">임플란트</span>
+                </div>
+                <a href="../reservation.html?doctor=lee" class="btn-video-cta">
+                    <i class="fas fa-calendar-check"></i> 이승엽 원장님 상담 예약
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+    .video-intro-section {
+        padding: 60px 24px;
+        background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+    }
+    .video-intro-section .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .video-intro-section .section-header h2 {
+        font-size: 1.75rem;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+    .video-intro-section .section-header p {
+        color: rgba(255,255,255,0.6);
+    }
+    .video-intro-container {
+        max-width: 900px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+    }
+    .video-wrapper.shorts {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        aspect-ratio: 9/16;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(201, 169, 98, 0.3);
+        border: 2px solid rgba(201, 169, 98, 0.3);
+    }
+    .video-wrapper.shorts iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .video-intro-info {
+        color: #fff;
+    }
+    .video-intro-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+        color: #C9A962;
+    }
+    .video-intro-desc {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 20px;
+    }
+    .video-intro-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+    .video-intro-tags .tag {
+        background: rgba(201, 169, 98, 0.2);
+        color: #C9A962;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        border: 1px solid rgba(201, 169, 98, 0.3);
+    }
+    .btn-video-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #C9A962, #8B5A2B);
+        color: #fff;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    .btn-video-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(201, 169, 98, 0.4);
+    }
+    @media (max-width: 768px) {
+        .video-intro-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .video-wrapper.shorts {
+            max-width: 280px;
+        }
+        .video-intro-info {
+            text-align: center;
+        }
+        .video-intro-tags {
+            justify-content: center;
+        }
+    }
+    </style>
+
     <!-- ===== 진료 모습 갤러리 ===== -->
     <section class="gallery-section">
         <div class="section-header">

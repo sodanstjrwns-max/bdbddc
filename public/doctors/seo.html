@@ -134,7 +134,144 @@
 
     <section class="profile-header"><div class="container"><div class="profile-photo-wrapper"><div class="profile-photo-frame"><img src="/images/doctors/seo-profile.jpg" alt="서희원 원장 프로필 사진" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');"><div class="profile-photo-placeholder"><i class="fas fa-user-md"></i><span>프로필 사진 촬영 예정</span></div></div><div class="profile-badges"><span class="badge badge-primary">소아치과 전문의</span><span class="badge">발달 맞춤 진료</span><span class="badge">서울대 박사 수료</span></div></div><div class="profile-info"><span class="profile-role">원장 · 소아치과 전문의 · 진정성 있는 진료</span><h1 class="profile-name">서희원 <span class="title-suffix">원장</span></h1><p class="profile-specialty">소아치과 · 행동조절 · 성장기 교정</p><div class="profile-quote">아이의 눈높이를 세심하게 이해하고, 짧고 효율적인 시간 안에 안전하고 정확한 진료를 제공합니다.<br>무서운 치과가 아니라, 믿고 맡길 수 있는 편안한 공간이 되겠습니다.</div><div class="profile-actions"><a href="../reservation.html?doctor=seo" class="btn-consult"><i class="fas fa-calendar-check"></i>서희원 원장님 상담 예약</a><a href="tel:041-415-2892" class="btn-call"><i class="fas fa-phone"></i>041-415-2892</a></div></div></div></section>
 
-    <section class="gallery-section"><div class="section-header"><h2>진료 모습</h2><p>서희원 원장의 진료 현장</p></div><div class="gallery-grid"><div class="gallery-item"><img src="/images/doctors/seo-treatment-1.jpg" alt="서희원 원장 진료 모습 1" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');"><div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 1 촬영 예정</span></div><div class="gallery-item-label">소아 치료</div></div><div class="gallery-item"><img src="/images/doctors/seo-treatment-2.jpg" alt="서희원 원장 진료 모습 2" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');"><div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 2 촬영 예정</span></div><div class="gallery-item-label">아이와 눈높이 상담</div></div></div></section>
+        <!-- ===== 🎬 원장 소개 영상 ===== -->
+    <section class="video-intro-section">
+        <div class="section-header">
+            <h2>원장 소개 영상</h2>
+            <p>서희원 원장을 영상으로 만나보세요</p>
+        </div>
+        <div class="video-intro-container">
+            <div class="video-wrapper shorts">
+                <iframe 
+                    src="https://www.youtube.com/embed/1gPf6L5vNcA" 
+                    title="서희원 원장 소개 영상"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-intro-info">
+                <h3>🦷 서희원 원장</h3>
+                <p class="video-intro-desc">
+                    서울비디치과 소아치과 전문의 전문.<br>
+                    환자 중심의 따뜻한 진료를 실천합니다.
+                </p>
+                <div class="video-intro-tags">
+                    <span class="tag">서울대 출신</span>
+                    <span class="tag">소아치과 전문의</span>
+                </div>
+                <a href="../reservation.html?doctor=seo" class="btn-video-cta">
+                    <i class="fas fa-calendar-check"></i> 서희원 원장님 상담 예약
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+    .video-intro-section {
+        padding: 60px 24px;
+        background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+    }
+    .video-intro-section .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .video-intro-section .section-header h2 {
+        font-size: 1.75rem;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+    .video-intro-section .section-header p {
+        color: rgba(255,255,255,0.6);
+    }
+    .video-intro-container {
+        max-width: 900px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+    }
+    .video-wrapper.shorts {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        aspect-ratio: 9/16;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(201, 169, 98, 0.3);
+        border: 2px solid rgba(201, 169, 98, 0.3);
+    }
+    .video-wrapper.shorts iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .video-intro-info {
+        color: #fff;
+    }
+    .video-intro-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+        color: #C9A962;
+    }
+    .video-intro-desc {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 20px;
+    }
+    .video-intro-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+    .video-intro-tags .tag {
+        background: rgba(201, 169, 98, 0.2);
+        color: #C9A962;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        border: 1px solid rgba(201, 169, 98, 0.3);
+    }
+    .btn-video-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #C9A962, #8B5A2B);
+        color: #fff;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    .btn-video-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(201, 169, 98, 0.4);
+    }
+    @media (max-width: 768px) {
+        .video-intro-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .video-wrapper.shorts {
+            max-width: 280px;
+        }
+        .video-intro-info {
+            text-align: center;
+        }
+        .video-intro-tags {
+            justify-content: center;
+        }
+    }
+    </style>
+
+<section class="gallery-section"><div class="section-header"><h2>진료 모습</h2><p>서희원 원장의 진료 현장</p></div><div class="gallery-grid"><div class="gallery-item"><img src="/images/doctors/seo-treatment-1.jpg" alt="서희원 원장 진료 모습 1" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');"><div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 1 촬영 예정</span></div><div class="gallery-item-label">소아 치료</div></div><div class="gallery-item"><img src="/images/doctors/seo-treatment-2.jpg" alt="서희원 원장 진료 모습 2" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');"><div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 2 촬영 예정</span></div><div class="gallery-item-label">아이와 눈높이 상담</div></div></div></section>
 
     <!-- ===== 원장 이야기 섹션 ===== -->
     <section class="story-section">
