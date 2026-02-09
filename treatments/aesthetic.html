@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   
@@ -186,6 +187,7 @@
         }
     }
     </script>
+
 </head>
 <body>
   <a href="#main-content" class="skip-link">본문으로 바로가기</a>
@@ -279,10 +281,11 @@
       </div>
     </div>
   </header>
-  
+
   <div class="header-spacer"></div>
 
-  <main id="main-content" role="main">
+  <main id="main-content">
+
   
   <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
@@ -294,10 +297,7 @@
     </div>
   </section>
 
-<!-- Header (통일된 GNB) -->
-    
-
-    <!-- Hero 섹션 -->
+<!-- Hero 섹션 -->
     <section class="aesthetic-hero" style="position: relative;">
         <!-- 📸 심미치료 히어로 배경 이미지 (촬영 후 교체) -->
         <div class="hero-bg-image" style="position: absolute; inset: 0; z-index: 0;">
@@ -512,93 +512,77 @@
         <h2>❓ 자주 묻는 질문</h2>
         <p class="faq-subtitle">심미치료에 대해 궁금한 모든 것</p>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">라미네이트는 얼마나 유지되나요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">라미네이트는 얼마나 유지되나요?</button>
             <div class="faq-answer">
                 <p>적절한 관리 시 <strong>10~15년 이상</strong> 사용 가능합니다. 정기 검진과 올바른 구강 관리가 중요하며, 단단한 음식을 직접 앞니로 깨무는 것은 피하는 것이 좋습니다.</p>
             </div>
         </div>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">치아를 많이 깎아야 하나요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">치아를 많이 깎아야 하나요?</button>
             <div class="faq-answer">
                 <p>서울비디치과는 <strong>최소 삭제 원칙</strong>을 철저히 지킵니다. 라미네이트의 경우 0.3~0.5mm 정도만 삭제하며, 레진 치료는 충치 부분만 제거합니다.</p>
             </div>
         </div>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">당일 치료가 정말 가능한가요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">당일 치료가 정말 가능한가요?</button>
             <div class="faq-answer">
                 <p><strong>원데이 레진과 CAD/CAM 보철</strong>은 당일 완성됩니다. 라미네이트는 보통 2~3회 내원이 필요하나, 케이스에 따라 빠른 진행도 가능합니다. 상담 시 정확한 일정을 안내드립니다.</p>
             </div>
         </div>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">치료 중 통증이 있나요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">치료 중 통증이 있나요?</button>
             <div class="faq-answer">
                 <p>대부분의 심미치료는 <strong>통증이 거의 없습니다</strong>. 필요시 국소마취를 사용하며, 치료 후에도 일상생활에 바로 복귀 가능합니다.</p>
             </div>
         </div>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">가격은 어떻게 되나요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">가격은 어떻게 되나요?</button>
             <div class="faq-answer">
                 <p>치료 범위와 재료에 따라 달라집니다. 정확한 비용은 진단 후 안내드리며, <strong>투명한 가격 정책</strong>으로 추가 비용 없이 진행됩니다. 상담을 통해 견적을 확인해보세요.</p>
             </div>
         </div>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">레진 치료와 라미네이트의 차이점은 무엇인가요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">레진 치료와 라미네이트의 차이점은 무엇인가요?</button>
             <div class="faq-answer">
                 <p><strong>레진 치료</strong>는 충치 제거 후 치아색 레진으로 충전하는 치료로, 당일 완료됩니다. <strong>라미네이트</strong>는 치아 표면에 얇은 세라믹을 부착하여 색상, 형태, 배열을 동시에 개선합니다. 레진은 부분 수복에, 라미네이트는 전체적인 심미 개선에 적합합니다.</p>
             </div>
         </div>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">라미네이트 시술 후 착색되나요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">라미네이트 시술 후 착색되나요?</button>
             <div class="faq-answer">
                 <p><strong>세라믹 라미네이트</strong>는 자연치아보다 착색에 강합니다. 표면이 매끄럽고 밀도가 높아 커피, 와인 등의 착색 물질이 쉽게 침투하지 않습니다. 다만 라미네이트와 자연치아 경계 부위의 관리가 필요합니다.</p>
             </div>
         </div>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">앞니가 깨졌는데 당일에 수복할 수 있나요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">앞니가 깨졌는데 당일에 수복할 수 있나요?</button>
             <div class="faq-answer">
                 <p><strong>네, 가능합니다.</strong> 서울비디치과의 CAD/CAM 시스템으로 파절된 치아를 당일에 수복할 수 있습니다. 3D 스캔 후 맞춤 보철물을 즉시 제작하여 급한 일정이 있어도 걱정 없습니다.</p>
             </div>
         </div>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">변색된 치아도 라미네이트로 개선할 수 있나요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">변색된 치아도 라미네이트로 개선할 수 있나요?</button>
             <div class="faq-answer">
                 <p><strong>네, 라미네이트는 변색치 개선에 효과적입니다.</strong> 테트라사이클린 변색, 불소 변색, 외상으로 인한 변색 등 미백으로 개선되지 않는 경우에도 라미네이트로 자연스러운 백색을 만들 수 있습니다.</p>
             </div>
         </div>
         
-        <div class="faq-item feature-card">
-            <button class="faq-question">치료 전 결과를 미리 볼 수 있나요?</button>
+        <div class="faq-item">
+            <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">치료 전 결과를 미리 볼 수 있나요?</button>
             <div class="faq-answer">
                 <p><strong>네, 가능합니다.</strong> 서울비디치과에서는 디지털 시뮬레이션으로 치료 전 예상 결과를 미리 확인할 수 있습니다. 3D 모델링으로 색상, 형태를 조정하여 환자분과 함께 최적의 디자인을 결정합니다.</p>
             </div>
         </div>
     </section>
-
-    <!-- CTA -->
-    <section class="cta-section">
-        <h2>아름다운 미소, 현정민 원장에게 맡기세요</h2>
-        <p>서울대 출신 심미보철 전문의의 섬세한 치료로<br>자연스럽고 오래가는 아름다움을 선사합니다</p>
-        
-        <div class="cta-buttons">
-            <a href="../reservation.html" class="cta-btn primary">상담 예약</a>
-            <a href="tel:0414152892" class="cta-btn secondary">📞 041-415-2892</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    
-
     <!-- Scripts -->
-
 
   <section class="cta-section" aria-label="상담 안내">
     <div class="container">
@@ -615,9 +599,9 @@
     </div>
   </section>
   
+  
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
@@ -686,6 +670,7 @@
     </div>
   </footer>
 
+  
   <!-- Mobile Navigation -->
   <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
     <div class="mobile-nav-header">

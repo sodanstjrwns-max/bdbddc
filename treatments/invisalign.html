@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   
@@ -224,6 +225,7 @@
     ]
   }
   </script>
+
 </head>
 <body>
   <a href="#main-content" class="skip-link">본문으로 바로가기</a>
@@ -317,10 +319,11 @@
       </div>
     </div>
   </header>
-  
+
   <div class="header-spacer"></div>
 
-  <main id="main-content" role="main">
+  <main id="main-content">
+
   
   <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
@@ -340,13 +343,7 @@
     </div>
   </section>
 
-<!-- Header (통일된 GNB) -->
-  
-
-  <!-- Hero Section -->
-  
-
-  <!-- 인비절라인 장점 -->
+<!-- 인비절라인 장점 -->
   <section class="section">
     <div class="container">
       <div class="section-title">
@@ -692,110 +689,80 @@
       
       <div class="faq-list">
         <!-- FAQ 1 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>인비절라인 교정 기간은 얼마나 되나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">인비절라인 교정 기간은 얼마나 되나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p>케이스에 따라 다르지만 일반적으로 <strong>12~24개월</strong>이 소요됩니다. 부분교정의 경우 6개월 내외로 가능한 경우도 있습니다. 정밀 검진 후 예상 기간을 안내드립니다.</p>
           </div>
         </div>
         
         <!-- FAQ 2 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>인비절라인은 아파요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">인비절라인은 아파요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p>기존 철사 교정보다 <strong>통증이 적습니다</strong>. 새 장치 착용 시 2~3일 정도 약간의 압박감을 느낄 수 있으나 금방 적응됩니다. 입 안 상처도 거의 없습니다.</p>
           </div>
         </div>
         
         <!-- FAQ 3 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>식사할 때 장치를 빼도 되나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">식사할 때 장치를 빼도 되나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>네, 인비절라인의 큰 장점입니다.</strong> 식사 시 장치를 제거하고 드실 수 있어 음식 제한이 없습니다. 하루 20~22시간 착용을 권장합니다.</p>
           </div>
         </div>
         
         <!-- FAQ 4 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>성인도 교정이 가능한가요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">성인도 교정이 가능한가요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>물론입니다.</strong> 오히려 인비절라인은 성인에게 인기가 높습니다. 투명해서 직장생활에 지장이 없고, 결혼식 등 중요한 일정에 맞춰 진행할 수도 있습니다.</p>
           </div>
         </div>
         
         <!-- FAQ 5 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>인비절라인 비용은 얼마인가요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">인비절라인 비용은 얼마인가요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p>케이스 복잡도에 따라 달라집니다. 부분교정, 전체교정, 고난도 케이스에 따라 비용이 다르며, 검진 후 정확한 견적을 안내드립니다. <strong>무이자 할부</strong>도 가능합니다. <a href="../pricing.html">비용 가이드 보기</a></p>
           </div>
         </div>
         
         <!-- FAQ 6 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>인비절라인과 기존 철사 교정의 차이점은 무엇인가요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">인비절라인과 기존 철사 교정의 차이점은 무엇인가요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>인비절라인</strong>은 투명 플라스틱 장치로 눈에 띄지 않고, 탈착이 가능하여 식사와 양치가 자유롭습니다. <strong>기존 철사 교정</strong>은 브라켓과 와이어가 고정되어 있어 복잡한 케이스에서 더 강한 힘을 가할 수 있습니다. 인비절라인은 심미성과 편의성이 뛰어나고, 철사 교정은 비용이 상대적으로 낮을 수 있습니다. 케이스에 따라 최적의 방법이 다르므로 전문의 상담이 필요합니다.</p>
           </div>
         </div>
         
         <!-- FAQ 7 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>인비절라인 장치를 분실하거나 파손하면 어떻게 하나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">인비절라인 장치를 분실하거나 파손하면 어떻게 하나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p>장치 분실이나 파손 시 <strong>즉시 병원에 연락</strong>해 주세요. 교정 진행 상황에 따라 이전 장치를 착용하거나, 다음 장치로 넘어가거나, 새 장치를 재제작할 수 있습니다. 서울비디치과에서는 긴급 상황에 빠르게 대응하며, 재제작이 필요한 경우 인비절라인 본사에 의뢰하여 <strong>2~3주 내</strong>에 새 장치를 받을 수 있습니다.</p>
           </div>
         </div>
         
         <!-- FAQ 8 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>인비절라인 착용 시 발음에 영향이 있나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">인비절라인 착용 시 발음에 영향이 있나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p>처음 착용 시 <strong>1~2주 정도</strong> 약간의 발음 불편함이 있을 수 있습니다. 특히 'ㅅ', 'ㅊ' 발음이 어눌해질 수 있으나, 대부분 빠르게 적응합니다. 중요한 발표나 면접이 있을 때는 잠시 제거할 수 있어 직장인이나 학생들에게 큰 장점입니다. 연습을 통해 발음 적응 시간을 단축할 수 있습니다.</p>
           </div>
         </div>
         
         <!-- FAQ 9 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>인비절라인으로 돌출입(입이 나온 경우)도 교정이 가능한가요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">인비절라인으로 돌출입(입이 나온 경우)도 교정이 가능한가요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>네, 가능합니다.</strong> 인비절라인 기술이 발전하면서 돌출입 케이스도 치료할 수 있게 되었습니다. 다만, 돌출 정도와 원인에 따라 발치가 필요할 수 있으며, 심한 경우 양악수술이 권장되기도 합니다. 서울비디치과의 <strong>서울대 교정과 전문의</strong>가 3D 분석을 통해 인비절라인 적합 여부를 정확히 진단해 드립니다.</p>
           </div>
         </div>
         
         <!-- FAQ 10 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>교정 후 치아가 다시 벌어지지 않나요? (재발 방지)</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">교정 후 치아가 다시 벌어지지 않나요? (재발 방지)</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p>교정 후 <strong>유지장치(리테이너)</strong>를 꾸준히 착용하면 재발을 방지할 수 있습니다. 교정 직후에는 하루 종일, 이후에는 취침 시에만 착용합니다. 유지장치 미착용 시 치아가 원래 위치로 돌아가려는 경향이 있으므로 <strong>평생 관리</strong>가 중요합니다. 서울비디치과에서는 교정 완료 후에도 정기 검진을 통해 치아 상태를 관리해 드립니다.</p>
           </div>
@@ -803,40 +770,6 @@
       </div>
     </div>
   </section>
-
-  <!-- CTA -->
-  <section class="section cta-section alt-bg">
-    <div class="container">
-      <div class="cta-wrapper feature-card">
-        <div class="cta-content">
-          <span class="cta-badge">상담 안내</span>
-          <h2>가지런한 치아, 지금 시작하세요</h2>
-          <p>
-            서울대 교정과 전문의 2인이<br>
-            3D 시뮬레이션으로 결과를 미리 보여드립니다.
-          </p>
-          <div class="cta-buttons">
-            <a href="../reservation.html" class="btn btn-primary btn-lg">
-              <i class="fas fa-calendar-check"></i> 상담 예약
-            </a>
-            <a href="tel:041-415-2892" class="btn btn-secondary btn-lg">
-              <i class="fas fa-phone"></i> 041-415-2892
-            </a>
-          </div>
-          <p class="cta-note">
-            <i class="fas fa-clock"></i> 365일 진료 | 일요일 교정 진료 가능
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  
-
-  <!-- Mobile Nav -->
-
-
   <section class="cta-section" aria-label="상담 안내">
     <div class="container">
       <div class="cta-wrapper reveal">
@@ -852,9 +785,9 @@
     </div>
   </section>
   
+  
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
@@ -923,6 +856,7 @@
     </div>
   </footer>
 
+  
   <!-- Mobile Navigation -->
   <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
     <div class="mobile-nav-header">

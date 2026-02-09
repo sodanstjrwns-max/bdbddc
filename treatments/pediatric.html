@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   
@@ -197,6 +198,7 @@
     ]
   }
   </script>
+
 </head>
 <body>
   <a href="#main-content" class="skip-link">본문으로 바로가기</a>
@@ -290,10 +292,11 @@
       </div>
     </div>
   </header>
-  
+
   <div class="header-spacer"></div>
 
-  <main id="main-content" role="main">
+  <main id="main-content">
+
   
   <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
@@ -313,13 +316,7 @@
     </div>
   </section>
 
-<!-- Header (통일된 GNB) -->
-  
-
-  <!-- Hero Section -->
-  
-
-  <!-- 부모님 안심 포인트 -->
+<!-- 부모님 안심 포인트 -->
   <section class="section">
     <div class="container">
       <div class="section-title">
@@ -553,110 +550,80 @@
       
       <div class="faq-list">
         <!-- FAQ 1 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>아이가 치과를 무서워하는데 괜찮을까요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">아이가 치과를 무서워하는데 괜찮을까요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p>서울비디치과 소아치과는 <strong>웃음가스(아산화질소)</strong>를 이용한 행동조절로 아이가 편안하게 치료받을 수 있습니다. 또한 개별 진료실에서 영상 시청이 가능해 치료 공포를 줄여줍니다. 처음에는 간단한 검진으로 치과에 적응시키는 것을 권장합니다.</p>
           </div>
         </div>
         
         <!-- FAQ 2 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>몇 살부터 치과에 가야 하나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">몇 살부터 치과에 가야 하나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p>첫 유치가 나오는 <strong>생후 6개월~1년</strong> 사이에 첫 검진을 권장합니다. 3세 이전에 방문하면 충치 예방과 올바른 구강 습관 형성에 도움이 됩니다.</p>
           </div>
         </div>
         
         <!-- FAQ 3 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>유치는 어차피 빠지는데 치료해야 하나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">유치는 어차피 빠지는데 치료해야 하나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>네, 치료가 필요합니다.</strong> 유치 충치를 방치하면 영구치에 영향을 줄 수 있습니다. 유치는 영구치가 나올 공간을 유지하는 역할을 하므로, 너무 일찍 빠지면 교합 문제가 생길 수 있습니다.</p>
           </div>
         </div>
         
         <!-- FAQ 4 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>웃음가스는 안전한가요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">웃음가스는 안전한가요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>네, 매우 안전합니다.</strong> 웃음가스(아산화질소)는 전 세계 소아치과에서 오랫동안 사용되어 온 안전한 진정법입니다. 치료 후 5분 이내에 정상으로 돌아오며, 부작용이 거의 없습니다.</p>
           </div>
         </div>
         
         <!-- FAQ 5 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>아이 교정은 몇 살에 시작하나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">아이 교정은 몇 살에 시작하나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>6~7세</strong>에 첫 교정 검진을 권장합니다. 인비절라인 퍼스트는 6~10세에 시작 가능하며, 성장기를 활용한 교정이 효과적입니다. 모든 아이가 조기 교정이 필요한 것은 아니므로, 검진 후 시기를 결정합니다.</p>
           </div>
         </div>
         
         <!-- FAQ 6 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>실란트(홍메우기)는 무엇인가요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">실란트(홍메우기)는 무엇인가요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>실란트</strong>는 치아의 씨는 홍(양치면 소와)을 특수 재료로 메워 음식물이 끼지 않도록 하는 <strong>충치 예방 치료</strong>입니다. 통증 없이 간단하게 진행되며, 충치 예방 효과가 매우 높습니다. 특히 영구치가 나온 후 바로 하면 효과적입니다.</p>
           </div>
         </div>
         
         <!-- FAQ 7 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>불소 도포는 얼마나 자주 해야 하나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">불소 도포는 얼마나 자주 해야 하나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>3~6개월 간격</strong>으로 불소 도포를 권장합니다. 불소는 치아 법랑질을 강화하고 충치를 예방하는 효과가 있습니다. 정기 검진 시 함께 진행하면 편리합니다.</p>
           </div>
         </div>
         
         <!-- FAQ 8 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>아이가 손가락을 빠는 습관이 있는데 문제가 될까요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">아이가 손가락을 빠는 습관이 있는데 문제가 될까요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>4~5세 이후</strong>까지 손가락 빠는 습관이 지속되면 교합과 악골 발달에 영향을 줄 수 있습니다. 특히 앞니가 앞으로 나오거나 벌어질 수 있습니다. 소아치과 전문의와 상담하여 악습관 개선 방법을 안내받으세요.</p>
           </div>
         </div>
         
         <!-- FAQ 9 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>아이가 충치가 생기기 쉬운데 어떻게 예방하나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">아이가 충치가 생기기 쉬운데 어떻게 예방하나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p><strong>올바른 칫솔질 습관, 식후 양치, 불소 도포, 실란트 치료</strong>가 효과적입니다. 당분이 많은 간식과 음료를 줄이고, 정기적인 검진으로 조기에 발견하는 것이 중요합니다. 아이용 칫솔로 부모님이 마무리 칫솔질을 해주세요.</p>
           </div>
         </div>
         
         <!-- FAQ 10 - 신규 -->
-        <div class="faq-item feature-card">
-          <button class="faq-question">
-            <span>아이가 넘어져서 치아가 부러졌어요. 어떻게 해야 하나요?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
+        <div class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('open')"><span class="faq-q-badge">Q</span><span class="faq-q-text">아이가 넘어져서 치아가 부러졌어요. 어떻게 해야 하나요?</span><span class="faq-icon"><i class="fas fa-chevron-down"></i></span></button>
           <div class="faq-answer">
             <p>치아 외상 시 <strong>최대한 빨리 내원</strong>해 주세요. 빠진 치아는 우유나 식염수에 담아 가져오시면 재식도 가능할 수 있습니다. 치아를 물로 잇거나 휡 부분을 만지지 마세요. 서울비디치과는 365일 진료로 응급 상황에 대응합니다.</p>
           </div>
@@ -664,40 +631,6 @@
       </div>
     </div>
   </section>
-
-  <!-- CTA -->
-  <section class="section cta-section alt-bg">
-    <div class="container">
-      <div class="cta-wrapper feature-card">
-        <div class="cta-content">
-          <span class="cta-badge">상담 안내</span>
-          <h2>아이의 건강한 치아, 지금 시작하세요</h2>
-          <p>
-            서울대 소아치과 전문의 3인이<br>
-            아이 눈높이에서 친절하게 진료합니다.
-          </p>
-          <div class="cta-buttons">
-            <a href="../reservation.html" class="btn btn-primary btn-lg">
-              <i class="fas fa-calendar-check"></i> 상담 예약
-            </a>
-            <a href="tel:041-415-2892" class="btn btn-secondary btn-lg">
-              <i class="fas fa-phone"></i> 041-415-2892
-            </a>
-          </div>
-          <p class="cta-note">
-            <i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  
-
-  <!-- Mobile Nav -->
-
-
   <section class="cta-section" aria-label="상담 안내">
     <div class="container">
       <div class="cta-wrapper reveal">
@@ -713,9 +646,9 @@
     </div>
   </section>
   
+  
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
@@ -784,6 +717,7 @@
     </div>
   </footer>
 
+  
   <!-- Mobile Navigation -->
   <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
     <div class="mobile-nav-header">
