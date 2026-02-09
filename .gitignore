@@ -32,3 +32,5 @@ Thumbs.db
 *.zip
 core
 core
+__pycache__/
+convert-*.py

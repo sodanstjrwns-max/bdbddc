@@ -1,346 +1,262 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    
-    <!-- Google Analytics (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3NQP355YQM');
-    </script>
-    
-    <!-- Amplitude Analytics -->
-    <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
-    <script>
-      window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
-      window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
-        "fetchRemoteConfig": true,
-        "autocapture": {
-          "attribution": true,
-          "fileDownloads": true,
-          "formInteractions": true,
-          "pageViews": true,
-          "sessions": true,
-          "elementInteractions": true,
-          "networkTracking": true,
-          "webVitals": true,
-          "frustrationInteractions": true
-        }
-      });
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>강민지 원장 | 인증 보존과 전문의 | 서울비디치과</title>
-    <meta name="description" content="서울비디치과 강민지 원장. 치과보존과 전문의. 신속 정확한 진료, 환자를 위하는 진심으로 자연치아 지키는 보존과 전문의.">
-    <meta name="keywords" content="강민지, 서울비디치과, 보존과, 보존치료, 신경치료, 충치치료, 천안치과, 서울대치과">
-    <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="author" content="서울비디치과">
-    <link rel="canonical" href="https://bdbddc.com/doctors/kang-mj.html">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="profile">
-    <meta property="og:title" content="강민지 원장 | 인증 보존과 전문의 | 서울비디치과">
-    <meta property="og:description" content="치과보존과 전문의. 신속 정확한 진료, 환자를 위하는 진심으로 자연치아 지키는 보존과 전문의.">
-    <meta property="og:image" content="https://bdbddc.com/images/doctors/kang-mj-profile.jpg">
-    <meta property="og:url" content="https://bdbddc.com/doctors/kang-mj.html">
-    <meta property="og:site_name" content="서울비디치과">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="강민지 원장 | 인증 보존과 전문의 | 서울비디치과">
-    <meta name="twitter:description" content="치과보존과 전문의. 신속 정확한 진료, 환자를 위하는 진심으로 자연치아를 지킵니다.">
-    <meta name="twitter:image" content="https://bdbddc.com/images/doctors/kang-mj-profile.jpg">
-    
-    <!-- E-E-A-T Enhanced Schema.org - Physician -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Physician",
-        "@id": "https://bdbddc.com/doctors/kang-mj.html#physician",
-        "name": "강민지",
-        "givenName": "민지",
-        "familyName": "강",
-        "jobTitle": "원장 / 인증 보존과 전문의",
-        "honorificPrefix": "Dr.",
-        "honorificSuffix": "DDS, PhD",
-        "image": {
-            "@type": "ImageObject",
-            "url": "https://bdbddc.com/images/doctors/kang-mj-profile.jpg",
-            "caption": "강민지 원장 - 인증 보존과 전문의"
-        },
-        "medicalSpecialty": ["Conservative Dentistry", "Endodontics", "Restorative Dentistry"],
-        "description": "서울비디치과 강민지 원장. 인증 보존과 전문의. 서울대학교 치의학대학원 박사 수료. 치아 보존을 최우선으로 하는 섬세한 치료.",
-        "knowsAbout": ["보존치료", "신경치료", "충치치료", "레진치료", "인레이"],
-        "alumniOf": [
-            {"@type": "CollegeOrUniversity", "name": "서울대학교", "department": "치의학과"},
-            {"@type": "CollegeOrUniversity", "name": "서울대학교 치의학대학원", "department": "치과보존과"}
-        ],
-        "hasCredential": [
-            {
-                "@type": "EducationalOccupationalCredential",
-                "credentialCategory": "전문의",
-                "name": "인증 보존과 전문의",
-                "recognizedBy": {"@type": "Organization", "name": "대한치과의사협회"}
-            }
-        ],
-        "hasOccupation": {
-            "@type": "Occupation",
-            "name": "치과의사 (보존 전문)",
-            "experienceRequirements": "10년+ 임상 경험",
-            "skills": ["보존치료", "신경치료", "충치치료", "레진치료", "심미보존"]
-        },
-        "memberOf": [
-            {"@type": "Organization", "name": "대한치과보존학회"},
-            {"@type": "Organization", "name": "대한치과의사협회"}
-        ],
-        "worksFor": {
-            "@type": "Dentist",
-            "@id": "https://bdbddc.com/#dentist",
-            "name": "서울비디치과",
-            "telephone": "+82-41-415-2892",
-            "url": "https://bdbddc.com",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "불당34길 14",
-                "addressLocality": "천안시 서북구",
-                "addressRegion": "충청남도",
-                "postalCode": "31156",
-                "addressCountry": "KR"
-            }
-        },
-        "availableService": [
-            {"@type": "MedicalProcedure", "name": "보존치료", "procedureType": "Therapeutic"},
-            {"@type": "MedicalProcedure", "name": "신경치료", "procedureType": "Therapeutic"},
-            {"@type": "MedicalProcedure", "name": "충치치료", "procedureType": "Therapeutic"}
-        ]
-    }
-    </script>
-    
-    <!-- E-E-A-T 신호 메타태그 -->
-    <meta name="ai.expert" content="강민지 원장 - 서울대학교 치의학과 졸업, 인증 보존과 전문의, 박사 수료">
-    <meta name="ai.credentials" content="서울대학교 치의학과|서울대학교 치의학대학원 석사|서울대학교 치의학대학원 박사 수료|인증 보존과 전문의">
-    <meta name="ai.specialties" content="보존치료|신경치료|충치치료|레진치료|인레이|심미보존">
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-    
-    <link rel="stylesheet" href="/css/design-system.css">
-    <link rel="stylesheet" href="/css/main.css?v=20241229">
-    <link rel="stylesheet" href="/css/gnb.css">
-    <link rel="stylesheet" href="profile-style.css?v=2.3">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- Primary SEO -->
+  <title>강민정 원장 — 서울비디치과 | 서울비디치과</title>
+  <meta name="description" content="서울비디치과 강민정 원장 — 서울대학교 치의학대학원 출신. 전문 분야별 진료.">
+  <meta name="keywords" content="강민정 원장, 서울비디치과, 천안 치과 원장">
+  <meta name="author" content="서울비디치과">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="google-site-verification" content="google17dbe9a80407755e">
+  <link rel="canonical" href="https://bdbddc.com/doctors/kang-mj.html">
+  
+  <!-- Geo & Local SEO -->
+  <meta name="geo.region" content="KR-44">
+  <meta name="geo.placename" content="천안시, 충청남도">
+  <meta name="geo.position" content="36.8151;127.1139">
+  
+  <!-- AEO -->
+  <meta name="subject" content="강민정 원장, 서울비디치과, 천안 치과 원장">
+  <meta name="abstract" content="서울비디치과 강민정 원장 — 서울대학교 치의학대학원 출신. 전문 분야별 진료.">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="서울비디치과">
+  <meta property="og:title" content="강민정 원장 — 서울비디치과 | 서울비디치과">
+  <meta property="og:description" content="서울비디치과 강민정 원장 — 서울대학교 치의학대학원 출신. 전문 분야별 진료.">
+  <meta property="og:url" content="https://bdbddc.com/doctors/kang-mj.html">
+  <meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ko_KR">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="강민정 원장 — 서울비디치과 | 서울비디치과">
+  <meta name="twitter:description" content="서울비디치과 강민정 원장 — 서울대학교 치의학대학원 출신. 전문 분야별 진료.">
+  <meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
+  
+  <!-- E-E-A-T -->
+  <meta name="medical-content" content="이 페이지의 의료 정보는 서울대학교 출신 치과 전문의가 검토하였습니다.">
+  
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6B4226">
+  
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  
+  <!-- Fonts & Icons (non-blocking) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  
+  <!-- Stylesheets — v4.0 -->
+  <link rel="stylesheet" href="/css/design-system-v4.css">
+  <link rel="stylesheet" href="/css/subpage-v4.css">
+  
+  <!-- Prefetch -->
+  <link rel="prefetch" href="../reservation.html" as="document">
+  
+  <!-- Schema.org — BreadcrumbList -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"의료진 소개","item":"https://bdbddc.com/doctors/index.html"},{"@type":"ListItem","position":3,"name":"강민정 원장"}]}
+  </script>
+  
 </head>
-<body class="doctor-profile-page">
-    <!-- ■ 통합 헤더 -->
-    <header class="site-header" id="siteHeader">
-        <div class="header-container">
-            <div class="header-brand">
-                <a href="../index.html" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
-                <div class="clinic-status open"><span class="status-dot"></span><span class="status-text">진료중</span><span class="status-time">20:00까지</span></div>
-            </div>
-            <nav class="main-nav" id="mainNav">
-                <ul>
-                    <li class="nav-item has-dropdown"><a href="../treatments/index.html">진료 안내</a>
-                        <div class="mega-dropdown"><div class="mega-dropdown-grid">
-                            <div class="mega-dropdown-section"><h4>전문센터</h4><ul><li><a href="../treatments/glownate.html" class="nav-highlight">✨ 글로우네이트 <span class="badge" style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff;">HOT</span></a></li><li><a href="../treatments/implant.html">임플란트센터 <span class="badge">6개 수술실</span></a></li><li><a href="../treatments/invisalign.html">교정센터(인비절라인) <span class="badge">대형</span></a></li><li><a href="../treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li><li><a href="../treatments/aesthetic.html">심미치료(현정민 원장)</a></li></ul></div>
-                            <div class="mega-dropdown-section"><h4>일반/보존 진료</h4><ul><li><a href="../treatments/cavity.html">충치치료</a></li><li><a href="../treatments/resin.html">레진치료</a></li><li><a href="../treatments/crown.html">크라운</a></li><li><a href="../treatments/inlay.html">인레이/온레이</a></li><li><a href="../treatments/root-canal.html">신경치료</a></li><li><a href="../treatments/whitening.html">미백</a></li></ul></div>
-                            <div class="mega-dropdown-section"><h4>잇몸/외과</h4><ul><li><a href="../treatments/scaling.html">스케일링</a></li><li><a href="../treatments/gum.html">잇몸치료</a></li><li><a href="../treatments/periodontitis.html">치주염</a></li><li><a href="../treatments/wisdom-tooth.html">사랑니 발치</a></li><li><a href="../treatments/tmj.html">턱관절장애</a></li><li><a href="../treatments/bruxism.html">이갈이/이악물기</a></li></ul></div>
-                        </div></div>
-                    </li>
-                    <li class="nav-item active"><a href="/">의료진 소개</a></li>
-                    <li class="nav-item"><a href="../bdx/index.html">검진센터</a></li>
-                    <li class="nav-item has-dropdown"><a href="../column/columns.html">콘텐츠</a><ul class="simple-dropdown"><li><a href="../column/columns.html">칼럼</a></li><li><a href="../video/index.html">영상</a></li><li><a href="../cases/gallery.html">치료 사례</a></li></ul></li>
-                    <li class="nav-item has-dropdown"><a href="../directions.html">병원 안내</a><ul class="simple-dropdown"><li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li><li><a href="../floor-guide.html">층별 안내</a></li><li><a href="../directions.html">오시는 길</a></li><li><a href="../faq.html">자주 묻는 질문</a></li><li><a href="../notice/index.html">공지사항</a></li></ul></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
-                <a href="../reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
-            </div>
+<body>
+  <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+  
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="../index.html" class="site-logo" aria-label="서울비디치과 홈">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text">서울비디치과</span>
+        </a>
+        <div class="clinic-status open" aria-live="polite">
+          <span class="status-dot"></span>
+          <span class="status-text">진료중</span>
+          <span class="status-time">20:00까지</span>
         </div>
-    </header>
+      </div>
+      
+      <nav class="main-nav" id="mainNav" aria-label="메인 네비게이션">
+        <ul>
+          <li class="nav-item has-dropdown">
+            <a href="../treatments/index.html">진료 안내</a>
+            <div class="mega-dropdown">
+              <div class="mega-dropdown-grid">
+                <div class="mega-dropdown-section">
+                  <h4>전문센터</h4>
+                  <ul>
+                    <li><a href="../treatments/glownate.html">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li>
+                    <li><a href="../treatments/implant.html">임플란트 <span class="badge">6개 수술실</span></a></li>
+                    <li><a href="../treatments/invisalign.html">치아교정 <span class="badge">대규모</span></a></li>
+                    <li><a href="../treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li>
+                    <li><a href="../treatments/aesthetic.html">심미치료</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4>일반/보존 진료</h4>
+                  <ul>
+                    <li><a href="../treatments/cavity.html">충치치료</a></li>
+                    <li><a href="../treatments/resin.html">레진치료</a></li>
+                    <li><a href="../treatments/crown.html">크라운</a></li>
+                    <li><a href="../treatments/inlay.html">인레이/온레이</a></li>
+                    <li><a href="../treatments/root-canal.html">신경치료</a></li>
+                    <li><a href="../treatments/whitening.html">미백</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4>잇몸/외과</h4>
+                  <ul>
+                    <li><a href="../treatments/scaling.html">스케일링</a></li>
+                    <li><a href="../treatments/gum.html">잇몸치료</a></li>
+                    <li><a href="../treatments/periodontitis.html">치주염</a></li>
+                    <li><a href="../treatments/wisdom-tooth.html">사랑니 발치</a></li>
+                    <li><a href="../treatments/tmj.html">턱관절장애</a></li>
+                    <li><a href="../treatments/bruxism.html">이갈이/이악물기</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="../doctors/index.html">의료진 소개</a></li>
+          <li class="nav-item"><a href="../bdx/index.html">검진센터</a></li>
+          <li class="nav-item has-dropdown">
+            <a href="../column/columns.html">콘텐츠</a>
+            <ul class="simple-dropdown">
+              <li><a href="../column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+              <li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+              <li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-dropdown">
+            <a href="../directions.html">병원 안내</a>
+            <ul class="simple-dropdown">
+              <li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+              <li><a href="../directions.html">오시는 길</a></li>
+              <li><a href="../faq.html">자주 묻는 질문</a></li>
+              <li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="header-actions">
+        <a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
+        <div class="auth-buttons">
+          <a href="../auth/login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+          <a href="../auth/register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 회원가입</a>
+        </div>
+        <a href="../reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="header-spacer"></div>
+
+  <main id="main-content" role="main">
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
+    <div class="container">
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <a href="../doctors/index.html">의료진 소개</a> <span class="sep">/</span> <span class="current">강민정 원장</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-user-md"></i> 의료진 소개</span>
+      <h1 class="reveal delay-1"><span class="text-gradient">강민정</span> 원장</h1>
+      <p class="hero-desc reveal delay-2">서울대학교 치의학대학원 출신 — 전문 분야별 진료</p>
+      
+    </div>
+  </section>
+
+<!-- ■ 통합 헤더 -->
+    
 
     <!-- ===== Profile Header ===== -->
     <section class="profile-header">
         <div class="container">
+            <!-- 📸 프로필 사진 -->
             <div class="profile-photo-wrapper">
                 <div class="profile-photo-frame">
-                    <img src="/images/doctors/kang-mj-profile.jpg" alt="강민지 원장 프로필 사진" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');">
-                    <div class="profile-photo-placeholder"><i class="fas fa-user-md"></i><span>프로필 사진 촬영 예정</span></div>
+                    <img 
+                        src="../images/doctors/kang-mj-profile.jpg" 
+                        alt="강민지 원장 프로필 사진"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                    <div class="profile-photo-placeholder" style="display: none;">
+                        <i class="fas fa-user-md"></i>
+                        <span>프로필 사진 촬영 예정</span>
+                    </div>
                 </div>
-                <div class="profile-badges"><span class="badge badge-primary">보존 전문</span><span class="badge">인증 보존과 전문의</span><span class="badge">서울대 출신</span></div>
+                <div class="profile-badges">
+                    <span class="badge badge-primary">치과보존과 전문의</span>
+                    <span class="badge">자연치아 보존 전문</span>
+                    <span class="badge">서울대 박사 수료</span>
+                </div>
             </div>
+            
             <div class="profile-info">
-                <span class="profile-role">원장 · 인증 보존과 전문의</span>
+                <span class="profile-role">원장 · 치과보존과 전문의</span>
                 <h1 class="profile-name">강민지 <span class="title-suffix">원장</span></h1>
-                <p class="profile-specialty">보존치료 · 신경치료 · 충치치료 · 레진치료</p>
-                <div class="profile-quote">신속하고 정확하게, 그러나 퀸리티는 결코 놓치지 않는 진료.<br>환자를 위하는 진심으로 자연치아를 지킵니다.</div>
+                <p class="profile-specialty">치과보존과 전문의 · 자연치아 보존 전문</p>
+                
+                <div class="profile-quote">
+                    신속하고 정확하게, 그러나 퀄리티는 결코 놓치지 않는 진료.<br>
+                    환자를 위하는 진심으로, 자연치아를 지키는 것이 제 사명입니다.
+                </div>
+                
                 <div class="profile-actions">
-                    <a href="../reservation.html?doctor=kang-mj" class="btn-consult"><i class="fas fa-calendar-check"></i>강민지 원장님 상담 예약</a>
-                    <a href="tel:041-415-2892" class="btn-call"><i class="fas fa-phone"></i>041-415-2892</a>
+                    <a href="../reservation.html?doctor=kang-mj" class="btn-consult">
+                        <i class="fas fa-calendar-check"></i>
+                        강민지 원장님 상담 예약
+                    </a>
+                    <a href="tel:041-415-2892" class="btn-call">
+                        <i class="fas fa-phone"></i>
+                        041-415-2892
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== 🎬 원장 소개 영상 ===== -->
-    <section class="video-intro-section">
-        <div class="section-header">
-            <h2>원장 소개 영상</h2>
-            <p>강민지 원장을 영상으로 만나보세요</p>
-        </div>
-        <div class="video-intro-container">
-            <div class="video-wrapper shorts">
-                <iframe 
-                    src="https://www.youtube.com/embed/cl7HfvwWRVQ" 
-                    title="강민지 원장 소개 영상"
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            <div class="video-intro-info">
-                <h3>🦷 강민지 원장</h3>
-                <p class="video-intro-desc">
-                    서울비디치과 보존치료·신경치료 전문.<br>
-                    환자 중심의 따뜻한 진료를 실천합니다.
-                </p>
-                <div class="video-intro-tags">
-                    <span class="tag">서울대 출신</span>
-                    <span class="tag">보존치료·신경치료</span>
-                </div>
-                <a href="../reservation.html?doctor=kang-mj" class="btn-video-cta">
-                    <i class="fas fa-calendar-check"></i> 강민지 원장님 상담 예약
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <style>
-    .video-intro-section {
-        padding: 60px 24px;
-        background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
-    }
-    .video-intro-section .section-header {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-    .video-intro-section .section-header h2 {
-        font-size: 1.75rem;
-        color: #fff;
-        margin-bottom: 8px;
-    }
-    .video-intro-section .section-header p {
-        color: rgba(255,255,255,0.6);
-    }
-    .video-intro-container {
-        max-width: 900px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        align-items: center;
-    }
-    .video-wrapper.shorts {
-        position: relative;
-        width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
-        aspect-ratio: 9/16;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(201, 169, 98, 0.3);
-        border: 2px solid rgba(201, 169, 98, 0.3);
-    }
-    .video-wrapper.shorts iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-    .video-intro-info {
-        color: #fff;
-    }
-    .video-intro-info h3 {
-        font-size: 1.5rem;
-        margin-bottom: 16px;
-        color: #C9A962;
-    }
-    .video-intro-desc {
-        font-size: 1rem;
-        line-height: 1.8;
-        color: rgba(255,255,255,0.8);
-        margin-bottom: 20px;
-    }
-    .video-intro-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 24px;
-    }
-    .video-intro-tags .tag {
-        background: rgba(201, 169, 98, 0.2);
-        color: #C9A962;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        border: 1px solid rgba(201, 169, 98, 0.3);
-    }
-    .btn-video-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: linear-gradient(135deg, #C9A962, #8B5A2B);
-        color: #fff;
-        padding: 14px 28px;
-        border-radius: 8px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-    .btn-video-cta:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(201, 169, 98, 0.4);
-    }
-    @media (max-width: 768px) {
-        .video-intro-container {
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-        .video-wrapper.shorts {
-            max-width: 280px;
-        }
-        .video-intro-info {
-            text-align: center;
-        }
-        .video-intro-tags {
-            justify-content: center;
-        }
-    }
-    </style>
-
-    <!-- ===== 진료 모습 갤러리 ===== -->
+    <!-- ===== 📷 진료 모습 갤러리 ===== -->
     <section class="gallery-section">
-        <div class="section-header"><h2>진료 모습</h2><p>강민지 원장의 진료 현장</p></div>
+        <div class="section-header">
+            <h2>진료 모습</h2>
+            <p>강민지 원장의 진료 현장</p>
+        </div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="/images/doctors/kang-mj-treatment-1.jpg" alt="강민지 원장 진료 모습 1" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');">
-                <div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 1 촬영 예정</span></div>
-                <div class="gallery-item-label">보존 치료 상담</div>
+                <img 
+                    src="../images/doctors/kang-mj-treatment-1.jpg" 
+                    alt="강민지 원장 진료 모습 1"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="gallery-item-placeholder" style="display: none;">
+                    <i class="fas fa-camera"></i>
+                    <span>진료 사진 1 촬영 예정</span>
+                </div>
+                <div class="gallery-item-label">신경치료</div>
             </div>
             <div class="gallery-item">
-                <img src="/images/doctors/kang-mj-treatment-2.jpg" alt="강민지 원장 진료 모습 2" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');">
-                <div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 2 촬영 예정</span></div>
-                <div class="gallery-item-label">신경치료</div>
+                <img 
+                    src="../images/doctors/kang-mj-treatment-2.jpg" 
+                    alt="강민지 원장 진료 모습 2"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="gallery-item-placeholder" style="display: none;">
+                    <i class="fas fa-camera"></i>
+                    <span>진료 사진 2 촬영 예정</span>
+                </div>
+                <div class="gallery-item-label">환자 상담</div>
             </div>
         </div>
     </section>
@@ -350,7 +266,7 @@
         <div class="story-container">
             <div class="story-header">
                 <h2>강민지 원장 이야기</h2>
-                <p class="subtitle">신속 정확한 진료, 환자를 위하는 진심으로 자연치아를 지키는 보존과 전문의</p>
+                <p class="subtitle">자연치아를 지키는 치과보존과 전문의</p>
             </div>
             
             <div class="story-content">
@@ -358,10 +274,10 @@
                 <div class="story-block">
                     <h3>치과의사가 된 계기</h3>
                     <p>
-                        악구강계는 인체의 일부이지만, 인간의 가장 기본적인 생존 욕구부터 상위 욕구인 심미까지 모두 아우르는 영역입니다.
+                        악구강계는 인체의 일부이지만, <strong class="highlight-text">인간의 가장 기본적인 생존 욕구부터 상위 욕구인 심미까지 모두 아우르는 영역</strong>입니다.
                     </p>
                     <p>
-                        음식을 먹을 때의 편안함, 말할 때의 자연스러움, 미소에서 드러나는 아름다움까지 모두 이 작은 공간 안에서 결정됩니다. 저는 이 점이 무척 매력적이었고, <strong class="highlight-text">악구강계를 전문적으로 진단하고 치료하는 치과의사</strong>가 되고 싶었습니다.
+                        음식을 먹을 때의 편안함, 말할 때의 자연스러움, 미소에서 드러나는 아름다움까지 모두 이 작은 공간 안에서 결정됩니다. 저는 이 점이 무척 매력적이었습니다. 눈에 보이는 부분과 보이지 않는 부분이 함께 연결된 이 영역을 전문적으로 다룰 수 있는 치과의사가 되고 싶었고, 그렇게 제 길을 선택했습니다.
                     </p>
                 </div>
 
@@ -374,9 +290,11 @@
                         보존과 전문의로서 저는 <strong class="highlight-text">자연치아를 지키는 것</strong>을 무엇보다 중요한 사명으로 생각합니다.
                     </p>
                     <div class="story-highlight">
-                        <strong>"전공의 시절부터 수많은 증례를 마주하면서 신경치료에 대한 경험과 노하우를 꾸준히 쌓아왔습니다."</strong><br>
-                        치아 하나를 살릴 수 있느냐 없느냐는 환자분의 삶의 질과도 직접 연결되기에, 치료의 매 순간이 긴장의 연속이지만 그만큼 보람도 큽니다.
+                        <strong>치아 하나를 살릴 수 있느냐 없느냐는 환자분의 삶의 질과도 직접 연결되기에, 치료의 매 순간이 긴장의 연속이지만 그만큼 보람도 큽니다.</strong>
                     </div>
+                    <p>
+                        전공의 시절부터 수많은 증례를 마주하면서 신경치료에 대한 경험과 노하우를 꾸준히 쌓아왔습니다.
+                    </p>
                 </div>
 
                 <div class="story-divider"><span>✦</span></div>
@@ -385,26 +303,26 @@
                 <div class="story-block">
                     <h3>진료 스타일</h3>
                     <p>
-                        제 진료 스타일을 한 문장으로 표현한다면,
+                        제 진료 스타일을 한 문장으로 표현한다면
                     </p>
                     <div class="story-highlight">
-                        <strong>"신속하고 정확하게, 그러나 퀄리티는 결코 놓치지 않는 진료."</strong>
+                        <strong>"신속하고 정확하게, 그러나 퀄리티는 결코 놓치지 않는 진료"</strong>
                     </div>
                     <p>
-                        치과 진료는 장시간 입을 벌리고 있어야 하는 부담이 크다는 것을 누구보다 잘 알기에, 체어타임을 최대한 줄이기 위해 늘 집중력을 유지합니다. 그러나 빠르다고 해서 섣불리 진행하지 않습니다.
+                        치과 진료는 장시간 입을 벌리고 있어야 하는 부담이 크다는 것을 누구보다 잘 알기에, 체어타임을 최대한 줄이기 위해 늘 집중력을 유지합니다. 그러나 빠르다고 해서 섣불리 진행하지 않습니다. 불필요한 통증이나 실패를 남기지 않기 위해, 필요한 모든 과정은 정확하게, 기준에 맞게 진행합니다.
                     </p>
                 </div>
 
                 <div class="story-divider"><span>✦</span></div>
 
-                <!-- 진료 원칙 -->
+                <!-- 진료 철학 -->
                 <div class="story-block">
-                    <h3>진료 원칙</h3>
+                    <h3>진료 철학</h3>
                     <p>
-                        가장 중요하게 생각하는 가치 역시 하나로 요약됩니다.
+                        가장 중요하게 생각하는 가치는 하나로 요약됩니다.
                     </p>
                     <div class="story-highlight">
-                        <strong>"환자를 위하는 진심."</strong>
+                        <strong>환자를 위하는 진심.</strong>
                     </div>
                     <p>
                         진료를 하면 할수록, 의사의 태도와 마음가짐이 치료의 절반이라는 사실을 깊게 느낍니다. 환자분이 제게 맡겨주신 시간을 헛되게 만들지 않기 위해, 항상 제가 할 수 있는 정성 치료를 선택합니다.
@@ -413,14 +331,40 @@
 
                 <div class="story-divider"><span>✦</span></div>
 
-                <!-- 기억에 남는 경험 -->
+                <!-- 환자분께 드리는 조언 -->
                 <div class="story-block">
-                    <h3>기억에 남는 경험</h3>
+                    <h3>환자분께 드리는 조언</h3>
                     <p>
-                        최근 <strong class="highlight-text">치근단 치주염으로 거의 발치 직전이었던 치아</strong>의 신경치료가 성공적으로 마무리되어, 3개월 후 사진에서 염증이 거의 완벽하게 회복된 사례가 있었습니다.
+                        환자분들께는 항상 <strong class="highlight-text">자기 전 청결한 관리와 치실 사용</strong>을 강조합니다. 칫솔만으로는 닿지 않는 치아 사이의 공간은 염증이 가장 쉽게 생기는 부위이기 때문입니다.
                     </p>
+                    <div class="story-highlight">
+                        <strong>바쁜 하루 속에서 아침과 점심에는 실천이 어렵더라도, 저녁만큼은 시간을 들여 꼭 치실과 치간칫솔을 사용해주세요.</strong>
+                    </div>
                     <p>
-                        "발치는 꼭 피하고 싶다"는 환자분의 간절한 마음을 잘 알기에, 그 회복이 제게도 오래 남는 순간이었습니다. <strong class="highlight-text">자연치아 지킴이로서의 제 역할</strong>을 다시금 확인하게 해준 경험이기도 합니다.
+                        작은 습관 하나가 치아를 오래 지키는 큰 힘이 됩니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 기억에 남는 진료 -->
+                <div class="story-block">
+                    <h3>기억에 남는 진료</h3>
+                    <p>
+                        특히 보존과에서는 작은 결정 하나도 자연치아의 운명을 바꿉니다. 최근에는 <strong class="highlight-text">치근단 치주염으로 거의 발치 직전이었던 치아</strong>의 신경치료가 성공적으로 마무리되어, 3개월 후 사진에서 염증이 거의 완벽하게 회복된 사례가 있었습니다.
+                    </p>
+                    <div class="story-highlight">
+                        <strong>"발치는 꼭 피하고 싶다"</strong>는 환자분의 간절한 마음을 잘 알기에, 그 회복이 제게도 오래 남는 순간이었습니다.
+                    </div>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 최근 관심 분야 -->
+                <div class="story-block">
+                    <h3>최근 관심 분야</h3>
+                    <p>
+                        최근에는 <strong class="highlight-text">재생 근관치료</strong>를 집중적으로 공부하고 있습니다. 미성숙 영구치의 치수가 손상되었을 때 치근단 조직의 재생을 유도하는 치료로, 기존 치료의 한계를 넘어선 접근을 가능하게 합니다. 앞으로 비디치과에서 환자분들께 더 나은 선택지를 제공할 수 있도록 꾸준히 배워가고 있습니다.
                     </p>
                 </div>
 
@@ -430,7 +374,7 @@
                 <div class="story-block">
                     <h3>개인적인 모습</h3>
                     <p>
-                        동료들은 제게 <strong class="highlight-text">"믿을 만하다", "책임감이 깊다"</strong>라는 말을 자주 건넵니다. 의사로서 받은 신뢰를 당연하게 여기지 않고, 그만큼 더 무겁게 받아들이고자 합니다.
+                        동료들은 제게 <strong class="highlight-text">"믿을 만하다", "책임감이 깊다"</strong>는 말을 자주 건넵니다. 의사로서 받은 신뢰를 당연하게 여기지 않고, 그만큼 더 무겁게 받아들이고자 합니다. 한 분 한 분의 치아는 단순한 구조물이 아니라 삶의 일부이며, 저는 그 삶을 지키는 역할을 맡고 있다는 사실을 잊지 않습니다.
                     </p>
                     <p>
                         진료실 밖에서는 <strong class="highlight-text">아이들과 함께하는 시간</strong>이 제 일상 대부분을 채웁니다. 아이를 키우면서 생명이 얼마나 귀하고 연약한지, 사람 사이의 관계가 얼마나 따뜻할 수 있는지 매일 새롭게 배웁니다. 이 경험은 제 진료 태도에도 그대로 스며 있습니다.
@@ -440,39 +384,40 @@
                 <!-- 마무리 메시지 -->
                 <div class="closing-message">
                     <p>
-                        서울비디치과를 찾으시는 환자분들께서는<br>
-                        <strong>"이곳에서는 안심할 수 있다"</strong><br>
-                        라는 깊은 신뢰를 느끼셨으면 합니다.
+                        서울비디치과를 찾으시는 환자분들께서는<br><br>
+                        <strong>"이곳에서는 안심할 수 있다"</strong><br><br>
+                        는 깊은 신뢰를 느끼셨으면 합니다.<br>
+                        실력 있는 의료진이 최선을 다해 진료하고 있다는 믿음, 그리고 편안함.<br>
+                        그 두 가지를 확실하게 남겨드리는 것이 제 목표입니다.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== 인터뷰 섹션 ===== -->
+    <!-- ===== 🎤 인터뷰 Q&A 섹션 ===== -->
     <section class="interview-section">
         <div class="interview-container">
-            <div class="section-header"><h2>원장 인터뷰</h2><p>강민지 원장이 전하는 이야기</p></div>
+            <div class="section-header">
+                <h2>원장 인터뷰 Q&A</h2>
+                <p>자주 묻는 질문에 대한 강민지 원장의 답변</p>
+            </div>
             <div class="interview-content">
                 <div class="interview-qa">
-                    <div class="interview-q">왜 치과의사가 되셨나요?</div>
-                    <p class="interview-a">악구강계는 인간의 가장 기본적인 생존 욕구를 충족시켜줌과 동시에 상위 욕구인 심미 욕구를 표현할 수 있다는 점이 매력적이었습니다. 그래서 악구강계를 전문적으로 진단하고 치료하는 치과의사가 되고 싶었습니다.</p>
+                    <div class="interview-q">신경치료는 왜 필요한가요?</div>
+                    <p class="interview-a">충치가 깊어져 치아 내부의 신경(치수)까지 감염되었을 때, 또는 외상으로 인해 치수가 손상되었을 때 필요합니다. 신경치료를 통해 감염된 조직을 제거하고 치아를 보존할 수 있습니다. 치료하지 않으면 염증이 악화되어 결국 발치가 필요할 수 있습니다.</p>
                 </div>
                 <div class="interview-qa">
-                    <div class="interview-q">진료할 때 가장 중요하게 생각하는 원칙은 무엇인가요?</div>
-                    <p class="interview-a">환자를 위하는 진심입니다. 치과의사로서 진료를 하면 할수록, 진료를 대하는 자세가 가장 중요하다는 생각을 하게 됩니다. 모든 환자분들을 대할 때, 진심을 다해 제가 할 수 있는 정성 치료를 하기 위해 노력합니다.</p>
+                    <div class="interview-q">신경치료 후 크라운은 꼭 해야 하나요?</div>
+                    <p class="interview-a">대부분의 경우 권장드립니다. 신경치료를 받은 치아는 시간이 지나면 약해지고 깨지기 쉬워지기 때문에, 크라운으로 씌워 보호하는 것이 치아 수명을 연장하는 데 매우 중요합니다. 상태에 따라 개별적으로 안내드립니다.</p>
                 </div>
                 <div class="interview-qa">
-                    <div class="interview-q">환자분들에게 자주 강조하시는 조언은 무엇인가요?</div>
-                    <p class="interview-a">자기 전에는 최대한 깨끗이 닦고, 치실을 꼭 사용해주시길 당부합니다. 치아 사이사이는 칫솔만으로 관리하기는 힘들고, 반드시 치실이나 치간칫솔을 사용해주셔야 합니다. 저녁먹고 자기 전에는 꼭 치실 및 치간칫솔을 사용해주세요.</p>
+                    <div class="interview-q">치아를 꼭 살려야 하나요? 임플란트는 안 되나요?</div>
+                    <p class="interview-a">물론 임플란트도 좋은 치료 옵션입니다. 하지만 자연치아를 살릴 수 있다면 최대한 살리는 것이 좋습니다. 자연치아는 임플란트가 대체할 수 없는 고유한 기능과 감각을 가지고 있기 때문입니다. 상태를 정확히 진단한 후 맞춤 선택지를 함께 상의드립니다.</p>
                 </div>
                 <div class="interview-qa">
-                    <div class="interview-q">가장 기억에 남는 진료 경험이 있으신가요?</div>
-                    <p class="interview-a">치과보존과 전문의로서, 자연치아를 보존하는 진료를 했을 때 가장 뿌듯하고, 기억에 남습니다. 치근단 치주염이 심해서 거의 발치 직전이었던 치아였지만, 신경치료가 성공적으로 끝나서 3개월만에 치근단 치주염이 거의 완벽하게 치유된 케이스가 가장 최근에 있었습니다.</p>
-                </div>
-                <div class="interview-qa">
-                    <div class="interview-q">최근 특별히 집중하고 계신 분야가 있으신가요?</div>
-                    <p class="interview-a">재생 근관치료입니다. 미성숙 영구치에 치근단 염증이 생긴 경우, 치수 및 치근단 조직의 재생을 유도하는 술식입니다. 앞으로 비디치과에서 환자분들께 더 나은 선택지를 제공할 수 있도록 꾸준히 배워가고 있습니다.</p>
+                    <div class="interview-q">환자분들께 하고 싶은 말씀이 있다면?</div>
+                    <p class="interview-a">자연치아는 한 번 잃으면 되돌릴 수 없습니다. 조금이라도 불편하거나 이상이 느껴지신다면 미루지 마시고 내원해 주세요. 작은 문제일 때 발견하면 치아를 살릴 확률이 훨씬 높습니다. 환자를 위하는 진심으로, 정성 치료를 약속드립니다.</p>
                 </div>
             </div>
         </div>
@@ -482,58 +427,97 @@
     <div class="profile-content">
         <div class="content-grid">
             <div class="content-main">
+                <!-- 학력 및 경력 -->
                 <div class="content-card">
                     <h3><i class="fas fa-graduation-cap"></i> 학력 및 경력</h3>
                     <ul class="career-list">
                         <li><i class="fas fa-check"></i> 서울대학교 치의학과</li>
                         <li><i class="fas fa-check"></i> 서울대학교 치의학대학원 석사</li>
                         <li><i class="fas fa-check"></i> 서울대학교 치의학대학원 박사 수료</li>
-                        <li><i class="fas fa-check"></i> 인증 보존과 전문의</li>
+                        <li><i class="fas fa-check"></i> 치과보존과 전문의</li>
+                        <li><i class="fas fa-check"></i> 대한치과보존학회 정회원</li>
+                        <li><i class="fas fa-check"></i> 자연치아 보존 전문</li>
                     </ul>
                 </div>
+                
+                <!-- 전문 진료 분야 -->
                 <div class="content-card">
                     <h3><i class="fas fa-star"></i> 전문 진료 분야</h3>
                     <div class="specialty-tags">
-                        <span class="specialty-tag">보존치료</span>
                         <span class="specialty-tag">신경치료</span>
+                        <span class="specialty-tag">자연치아 보존</span>
+                        <span class="specialty-tag">재생 근관치료</span>
                         <span class="specialty-tag">충치치료</span>
-                        <span class="specialty-tag">레진치료</span>
-                        <span class="specialty-tag">인레이/온레이</span>
+                        <span class="specialty-tag">치근단 치료</span>
+                        <span class="specialty-tag">치아살리기</span>
                     </div>
                 </div>
+                
+                <!-- 진료 철학 -->
                 <div class="philosophy-section">
                     <h3><i class="fas fa-heart highlight-text"></i> 진료 철학</h3>
-                    <p><strong class="highlight-text">"신속하고 정확하게, 그러나 퀄리티는 결코 놓치지 않는 진료. 환자를 위하는 진심으로."</strong></p>
-                    <p>보존과 전문의로서 자연치아를 지키는 것을 무엇보다 중요한 사명으로 생각합니다. 전공의 시절부터 수많은 증례를 마주하며 신경치료에 대한 경험과 노하우를 꾸준히 쌓아왔습니다.<br><br>서울비디치과 2F 일반진료실에서 보존 치료를 담당하고 있습니다.</p>
+                    <p>
+                        <strong class="highlight-text">"환자를 위하는 진심."</strong><br><br>
+                        진료를 하면 할수록, 의사의 태도와 마음가짐이 치료의 절반이라는 사실을 깊게 느낍니다. 환자분이 제게 맡겨주신 시간을 헛되게 만들지 않기 위해, 항상 제가 할 수 있는 정성 치료를 선택합니다.<br><br>
+                        자연치아를 지키는 것은 제 사명입니다. 치아 하나를 살릴 수 있느냐 없느냐는 환자분의 삶의 질과도 직접 연결되기에, 신속하고 정확하게, 그러나 퀄리티는 결코 놓치지 않는 진료를 약속드립니다.
+                    </p>
                 </div>
             </div>
+            
             <div class="content-sidebar">
+                <!-- 진료 시간 -->
                 <div class="content-card">
                     <h3><i class="fas fa-clock"></i> 진료 시간</h3>
                     <table class="schedule-table">
                         <tr><td>월</td><td class="available">09:00 - 20:00</td></tr>
                         <tr><td>화</td><td class="available">09:00 - 20:00</td></tr>
-                        <tr><td>수</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>수</td><td class="unavailable">휴진</td></tr>
                         <tr><td>목</td><td class="available">09:00 - 20:00</td></tr>
-                        <tr><td>금</td><td class="unavailable">휴진</td></tr>
+                        <tr><td>금</td><td class="available">09:00 - 20:00</td></tr>
                         <tr><td>토</td><td class="available">09:00 - 17:00</td></tr>
                         <tr><td>일</td><td class="available">09:00 - 17:00</td></tr>
                     </table>
-                    <p class="small-note">* 진료 일정은 변동될 수 있습니다.<br>* 예약 시 확인 부탁드립니다.</p>
+                    <p class="small-note">
+                        * 진료 일정은 변동될 수 있습니다.<br>
+                        * 예약 시 확인 부탁드립니다.
+                    </p>
                 </div>
+                
+                <!-- 진료실 위치 -->
                 <div class="content-card">
                     <h3><i class="fas fa-map-marker-alt"></i> 진료실 위치</h3>
-                    <p class="sidebar-text"><strong class="sidebar-highlight">2F 일반진료실</strong><br>보존 치료</p>
+                    <p class="sidebar-text">
+                        <strong class="highlight-text">2F 보존센터</strong><br>
+                        신경치료 · 자연치아보존 클리닉
+                    </p>
                 </div>
             </div>
         </div>
+        
+        <!-- 다른 의료진 보기 -->
         <div class="other-doctors">
             <h3>다른 의료진 보기</h3>
             <div class="doctors-mini-grid">
-                <a href="moon.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">문석준 원장</p><p class="mini-specialty">통합치의학과 전문의</p></a>
-                <a href="hyun.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">현정민 원장</p><p class="mini-specialty">통합치의학과 전문의</p></a>
-                <a href="kim-mg.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">김민규 원장</p><p class="mini-specialty">치과교정과 전문의</p></a>
-                <a href="kang.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">강경민 원장</p><p class="mini-specialty">임플란트·외과 전문</p></a>
+                <a href="kim.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">김OO 원장</p>
+                    <p class="mini-specialty">임플란트·구강외과</p>
+                </a>
+                <a href="lee.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">이OO 원장</p>
+                    <p class="mini-specialty">교정·인비절라인</p>
+                </a>
+                <a href="park.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">박OO 원장</p>
+                    <p class="mini-specialty">소아치과</p>
+                </a>
+                <a href="hyun.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">현정민 원장</p>
+                    <p class="mini-specialty">심미보철·원데이레진</p>
+                </a>
             </div>
         </div>
     </div>
@@ -541,90 +525,213 @@
     <!-- ===== Footer CTA ===== -->
     <section class="footer-cta">
         <h2>강민지 원장님께 상담받으세요</h2>
-        <p>인증 보존과 전문의의 섬세한 치아 보존 치료</p>
-        <a href="../reservation.html?doctor=kang-mj" class="btn-white"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
+        <p>치과보존과 전문의 · 자연치아 보존 전문 상담</p>
+        <a href="../reservation.html?doctor=kang-mj" class="btn-white">
+            <i class="fas fa-calendar-check"></i> 상담 예약하기
+        </a>
     </section>
     
-    <footer class="simple-footer">
-        <p>© 2024 서울비디치과. All rights reserved.</p>
-        <p style="margin-top: 8px;"><a href="/">← 전체 의료진 보기</a></p>
-    </footer>
-<script src="/js/gnb.js?v=20241229" defer></script>
-  <!-- Mobile Navigation (통합) -->
-  <nav class="mobile-nav" id="mobileNav">
+    <!-- Simple Footer -->
+
+
+  <section class="cta-section" aria-label="상담 안내">
+    <div class="container">
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>강민정 원장님께 진료받고 싶으시다면</h2>
+        <p>예약 시 희망 원장님을 선택하실 수 있습니다.</p>
+        <div class="cta-buttons">
+          <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
+      </div>
+    </div>
+  </section>
+  
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="../index.html" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
+          <p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>전문센터</h4>
+            <ul>
+              <li><a href="../treatments/implant.html">임플란트센터</a></li>
+              <li><a href="../treatments/invisalign.html">교정센터</a></li>
+              <li><a href="../treatments/pediatric.html">소아치과</a></li>
+              <li><a href="../treatments/glownate.html">심미치료</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>병원 안내</h4>
+            <ul>
+              <li><a href="../doctors/index.html">의료진 소개</a></li>
+              <li><a href="../bdx/index.html">BDX 검진센터</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+              <li><a href="../cases/gallery.html">Before/After</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>고객 지원</h4>
+            <ul>
+              <li><a href="../reservation.html">예약/상담</a></li>
+              <li><a href="../column/columns.html">칼럼/콘텐츠</a></li>
+              <li><a href="../faq.html">자주 묻는 질문</a></li>
+              <li><a href="../directions.html">오시는 길</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-contact">
+          <p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p>
+          <p><i class="fas fa-phone"></i> 041-415-2892</p>
+          <div class="footer-hours">
+            <p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p>
+            <p>평일 09:00-20:00 (점심 12:30-14:00)</p>
+            <p>토·일 09:00-17:00</p>
+            <p>공휴일 09:00-13:00</p>
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" aria-label="네이버 예약"><i class="fas fa-calendar-check"></i></a>
+          <a href="https://www.youtube.com/c/%EC%89%BD%EB%94%94%EC%89%AC%EC%9A%B4%EC%B9%98%EA%B3%BC%EC%9D%B4%EC%95%BC%EA%B8%B0Bdtube" target="_blank" rel="noopener" aria-label="유튜브"><i class="fab fa-youtube"></i></a>
+          <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" aria-label="카카오톡"><i class="fas fa-comment"></i></a>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <div class="legal-links">
+          <a href="../privacy.html">개인정보 처리방침</a>
+          <span>|</span>
+          <a href="../terms.html">이용약관</a>
+          <span>|</span>
+          <a href="../sitemap.xml">사이트맵</a>
+        </div>
+        <p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 특정 개인의 결과는 개인에 따라 달라질 수 있습니다.</p>
+        <p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
     <div class="mobile-nav-header">
-      <a href="/" class="mobile-nav-logo">🦷 <span>서울비디치과</span></a>
+      <span class="logo-icon">🦷</span>
       <button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button>
     </div>
     <ul class="mobile-nav-menu">
-      <!-- 진료 안내 -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-tooth"></i> 진료 안내
-          <i class="fas fa-chevron-down toggle-icon"></i>
+          <i class="fas fa-tooth"></i> 진료 안내 <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="/treatments/index.html">전체 진료</a></li>
+          <li><a href="../treatments/index.html">전체 진료</a></li>
           <li class="submenu-divider">전문센터</li>
-          <li><a href="/treatments/glownate.html" class="highlight-item">✨ 글로우네이트 <span class="badge-hot">HOT</span></a></li>
-          <li><a href="/treatments/implant.html">임플란트센터</a></li>
-          <li><a href="/treatments/invisalign.html">교정센터 (인비절라인)</a></li>
-          <li><a href="/treatments/pediatric.html">소아치과</a></li>
-          <li><a href="/treatments/aesthetic.html">심미치료</a></li>
+          <li><a href="../treatments/glownate.html" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>
+          <li><a href="../treatments/implant.html">임플란트센터</a></li>
+          <li><a href="../treatments/invisalign.html">교정센터 (인비절라인)</a></li>
+          <li><a href="../treatments/pediatric.html">소아치과</a></li>
+          <li><a href="../treatments/aesthetic.html">심미치료</a></li>
           <li class="submenu-divider">일반 진료</li>
-          <li><a href="/treatments/cavity.html">충치치료</a></li>
-          <li><a href="/treatments/scaling.html">스케일링</a></li>
-          <li><a href="/treatments/gum.html">잇몸치료</a></li>
+          <li><a href="../treatments/cavity.html">충치치료</a></li>
+          <li><a href="../treatments/resin.html">레진치료</a></li>
+          <li><a href="../treatments/scaling.html">스케일링</a></li>
+          <li><a href="../treatments/gum.html">잇몸치료</a></li>
         </ul>
       </li>
-      <!-- 의료진 소개 -->
-      <li><a href="/doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
-      <!-- 검진센터 -->
-      <li><a href="/bdx/index.html"><i class="fas fa-microscope"></i> 검진센터(BDX)</a></li>
-      <!-- 콘텐츠 -->
+      <li><a href="../doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
+      <li><a href="../bdx/index.html"><i class="fas fa-microscope"></i> 검진센터</a></li>
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-newspaper"></i> 콘텐츠
-          <i class="fas fa-chevron-down toggle-icon"></i>
+          <i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="/column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
-          <li><a href="/video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
-          <li><a href="/cases/gallery.html"><i class="fas fa-images"></i> 치료 사례</a></li>
+          <li><a href="../column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+          <li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+          <li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
         </ul>
       </li>
-      <!-- 병원 안내 -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-hospital"></i> 병원 안내
-          <i class="fas fa-chevron-down toggle-icon"></i>
+          <i class="fas fa-hospital"></i> 병원 안내 <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="/pricing.html" class="highlight-item">💰 비용 안내</a></li>
-          <li><a href="/floor-guide.html">층별 안내</a></li>
-          <li><a href="/directions.html">오시는 길</a></li>
-          <li><a href="/faq.html">자주 묻는 질문</a></li>
-          <li><a href="/notice/index.html">공지사항</a></li>
+          <li><a href="../pricing.html">💰 비용 안내</a></li>
+          <li><a href="../floor-guide.html">층별 안내</a></li>
+          <li><a href="../directions.html">오시는 길</a></li>
+          <li><a href="../faq.html">자주 묻는 질문</a></li>
+          <li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
         </ul>
       </li>
-      <!-- 예약하기 -->
-      <li><a href="/reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+      <li><a href="../reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
     </ul>
+    <div class="mobile-auth-buttons">
+      <a href="../auth/login.html" class="btn-auth"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+      <a href="../auth/register.html" class="btn-auth"><i class="fas fa-user-plus"></i> 회원가입</a>
+    </div>
     <div class="mobile-nav-footer">
       <p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p>
       <div class="mobile-nav-quick-btns">
-        <a href="/pricing.html" class="btn btn-secondary">
-          <i class="fas fa-won-sign"></i> 비용 안내
-        </a>
-        <a href="tel:041-415-2892" class="btn btn-primary">
-          <i class="fas fa-phone"></i> 전화 예약
-        </a>
+        <a href="../pricing.html" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 비용 안내</a>
+        <a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 전화 예약</a>
       </div>
     </div>
   </nav>
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
-  <!-- AI 챗봇 -->
-  <script defer src="/js/chatbot.js"></script>
+  <!-- Floating CTA -->
+  <div class="floating-cta desktop-only">
+    <a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a>
+    <a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a>
+  </div>
+
+  <!-- Mobile Bottom CTA -->
+  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
+    <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
+    <a href="../reservation.html" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
+    <a href="../directions.html" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/gnb.js" defer></script>
+  <script>
+    // Scroll Reveal
+    document.addEventListener('DOMContentLoaded',function(){
+      var els=document.querySelectorAll('.reveal');
+      if(!els.length)return;
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+        });
+      },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+      els.forEach(function(el){obs.observe(el);});
+    });
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var item=this.parentElement;
+        var isOpen=item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+        if(!isOpen) item.classList.add('open');
+      });
+    });
+    // Scroll to top
+    var topBtn=document.getElementById('scrollToTopBtn');
+    if(topBtn){
+      window.addEventListener('scroll',function(){
+        topBtn.classList.toggle('visible',window.scrollY>500);
+      });
+      topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    }
+  </script>
 </body>
 </html>

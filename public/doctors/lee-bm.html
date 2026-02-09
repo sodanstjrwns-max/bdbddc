@@ -1,346 +1,262 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    
-    <!-- Google Analytics (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3NQP355YQM');
-    </script>
-    
-    <!-- Amplitude Analytics -->
-    <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
-    <script>
-      window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
-      window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
-        "fetchRemoteConfig": true,
-        "autocapture": {
-          "attribution": true,
-          "fileDownloads": true,
-          "formInteractions": true,
-          "pageViews": true,
-          "sessions": true,
-          "elementInteractions": true,
-          "networkTracking": true,
-          "webVitals": true,
-          "frustrationInteractions": true
-        }
-      });
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>이병민 원장 | 구강내과 전문의 | 서울비디치과</title>
-    <meta name="description" content="서울비디치과 이병민 원장. 구강내과 전문의. 서울대학교 치의학대학원 석사. 만성 구강안면통증, 턱관절 질환, 코골이/이갈이 수면질환 전문. 정확한 진단과 과학적 치료를 가장 친절하게 전달합니다.">
-    <meta name="keywords" content="이병민, 서울비디치과, 구강내과, 구강내과전문의, 턱관절, 구강건조증, 만성구강안면통증, 이갈이, 코골이, 수면질환, 천안치과, 서울대치과, 3D프린팅">
-    <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="author" content="서울비디치과">
-    <link rel="canonical" href="https://bdbddc.com/doctors/lee-bm.html">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="profile">
-    <meta property="og:title" content="이병민 원장 | 구강내과 전문의 | 서울비디치과">
-    <meta property="og:description" content="구강내과 전문의. 턱관절장애, 구강건조증, 구강작열감 등 구강내과 질환 전문 진료.">
-    <meta property="og:image" content="https://bdbddc.com/images/doctors/lee-bm-profile.jpg">
-    <meta property="og:url" content="https://bdbddc.com/doctors/lee-bm.html">
-    <meta property="og:site_name" content="서울비디치과">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="이병민 원장 | 구강내과 전문의 | 서울비디치과">
-    <meta name="twitter:description" content="구강내과 전문의. 턱관절장애, 구강건조증 전문 진료.">
-    <meta name="twitter:image" content="https://bdbddc.com/images/doctors/lee-bm-profile.jpg">
-    
-    <!-- E-E-A-T Enhanced Schema.org - Physician -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Physician",
-        "@id": "https://bdbddc.com/doctors/lee-bm.html#physician",
-        "name": "이병민",
-        "givenName": "병민",
-        "familyName": "이",
-        "jobTitle": "원장 / 구강내과 전문의",
-        "honorificPrefix": "Dr.",
-        "honorificSuffix": "DDS",
-        "image": {
-            "@type": "ImageObject",
-            "url": "https://bdbddc.com/images/doctors/lee-bm-profile.jpg",
-            "caption": "이병민 원장 - 구강내과 전문의"
-        },
-        "medicalSpecialty": ["Oral Medicine", "TMJ Disorders", "Oral Health"],
-        "description": "서울비디치과 이병민 원장. 구강내과 전문의. 만성 구강안면통증, 턱관절 질환, 코골이/이갈이 수면질환 전문. 정확한 진단과 과학적 치료를 가장 친절하게 전달합니다.",
-        "knowsAbout": ["구강내과", "만성구강안면통증", "턱관절장애", "수면질환", "이갈이", "코골이", "3D프린팅 구강장치"],
-        "alumniOf": [
-            {"@type": "CollegeOrUniversity", "name": "서울대학교", "department": "치의학과"},
-            {"@type": "CollegeOrUniversity", "name": "서울대학교 치의학대학원", "department": "구강내과"}
-        ],
-        "hasCredential": [
-            {
-                "@type": "EducationalOccupationalCredential",
-                "credentialCategory": "전문의",
-                "name": "구강내과 전문의",
-                "recognizedBy": {"@type": "Organization", "name": "대한치과의사협회"}
-            }
-        ],
-        "hasOccupation": {
-            "@type": "Occupation",
-            "name": "치과의사 (구강내과 전문)",
-            "experienceRequirements": "10년+ 임상 경험",
-            "skills": ["만성구강안면통증", "턱관절장애 진료", "수면질환(코골이/이갈이)", "3D프린팅 구강장치"]
-        },
-        "memberOf": [
-            {"@type": "Organization", "name": "대한구강내과학회"},
-            {"@type": "Organization", "name": "대한치과의사협회"}
-        ],
-        "worksFor": {
-            "@type": "Dentist",
-            "@id": "https://bdbddc.com/#dentist",
-            "name": "서울비디치과",
-            "telephone": "+82-41-415-2892",
-            "url": "https://bdbddc.com",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "불당34길 14",
-                "addressLocality": "천안시 서북구",
-                "addressRegion": "충청남도",
-                "postalCode": "31156",
-                "addressCountry": "KR"
-            }
-        },
-        "availableService": [
-            {"@type": "MedicalProcedure", "name": "턱관절장애 진료", "procedureType": "Therapeutic"},
-            {"@type": "MedicalProcedure", "name": "구강건조증 치료", "procedureType": "Therapeutic"},
-            {"@type": "MedicalProcedure", "name": "이갈이 치료", "procedureType": "Therapeutic"}
-        ]
-    }
-    </script>
-    
-    <!-- E-E-A-T 신호 메타태그 -->
-    <meta name="ai.expert" content="이병민 원장 - 서울대학교 치의학과 졸업, 구강내과 전문의">
-    <meta name="ai.credentials" content="서울대학교 치의학과|서울대학교 치의학대학원 석사|구강내과 전문의">
-    <meta name="ai.specialties" content="구강내과|턱관절장애|구강건조증|구강작열감|이갈이|구강통증">
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-    
-    <link rel="stylesheet" href="/css/design-system.css">
-    <link rel="stylesheet" href="/css/main.css?v=20241229">
-    <link rel="stylesheet" href="/css/gnb.css">
-    <link rel="stylesheet" href="profile-style.css?v=2.3">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- Primary SEO -->
+  <title>이보민 원장 — 서울비디치과 | 서울비디치과</title>
+  <meta name="description" content="서울비디치과 이보민 원장 — 서울대학교 치의학대학원 출신. 전문 분야별 진료.">
+  <meta name="keywords" content="이보민 원장, 서울비디치과, 천안 치과 원장">
+  <meta name="author" content="서울비디치과">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="google-site-verification" content="google17dbe9a80407755e">
+  <link rel="canonical" href="https://bdbddc.com/doctors/lee-bm.html">
+  
+  <!-- Geo & Local SEO -->
+  <meta name="geo.region" content="KR-44">
+  <meta name="geo.placename" content="천안시, 충청남도">
+  <meta name="geo.position" content="36.8151;127.1139">
+  
+  <!-- AEO -->
+  <meta name="subject" content="이보민 원장, 서울비디치과, 천안 치과 원장">
+  <meta name="abstract" content="서울비디치과 이보민 원장 — 서울대학교 치의학대학원 출신. 전문 분야별 진료.">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="서울비디치과">
+  <meta property="og:title" content="이보민 원장 — 서울비디치과 | 서울비디치과">
+  <meta property="og:description" content="서울비디치과 이보민 원장 — 서울대학교 치의학대학원 출신. 전문 분야별 진료.">
+  <meta property="og:url" content="https://bdbddc.com/doctors/lee-bm.html">
+  <meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ko_KR">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="이보민 원장 — 서울비디치과 | 서울비디치과">
+  <meta name="twitter:description" content="서울비디치과 이보민 원장 — 서울대학교 치의학대학원 출신. 전문 분야별 진료.">
+  <meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
+  
+  <!-- E-E-A-T -->
+  <meta name="medical-content" content="이 페이지의 의료 정보는 서울대학교 출신 치과 전문의가 검토하였습니다.">
+  
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6B4226">
+  
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  
+  <!-- Fonts & Icons (non-blocking) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  
+  <!-- Stylesheets — v4.0 -->
+  <link rel="stylesheet" href="/css/design-system-v4.css">
+  <link rel="stylesheet" href="/css/subpage-v4.css">
+  
+  <!-- Prefetch -->
+  <link rel="prefetch" href="../reservation.html" as="document">
+  
+  <!-- Schema.org — BreadcrumbList -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"의료진 소개","item":"https://bdbddc.com/doctors/index.html"},{"@type":"ListItem","position":3,"name":"이보민 원장"}]}
+  </script>
+  
 </head>
-<body class="doctor-profile-page">
-    <!-- ■ 통합 헤더 -->
-    <header class="site-header" id="siteHeader">
-        <div class="header-container">
-            <div class="header-brand">
-                <a href="../index.html" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
-                <div class="clinic-status open"><span class="status-dot"></span><span class="status-text">진료중</span><span class="status-time">20:00까지</span></div>
-            </div>
-            <nav class="main-nav" id="mainNav">
-                <ul>
-                    <li class="nav-item has-dropdown"><a href="../treatments/index.html">진료 안내</a>
-                        <div class="mega-dropdown"><div class="mega-dropdown-grid">
-                            <div class="mega-dropdown-section"><h4>전문센터</h4><ul><li><a href="../treatments/glownate.html" class="nav-highlight">✨ 글로우네이트 <span class="badge" style="background: linear-gradient(135deg, #C9A962, #8B5A2B); color: #fff;">HOT</span></a></li><li><a href="../treatments/implant.html">임플란트센터 <span class="badge">6개 수술실</span></a></li><li><a href="../treatments/invisalign.html">교정센터(인비절라인) <span class="badge">대형</span></a></li><li><a href="../treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li><li><a href="../treatments/aesthetic.html">심미치료(현정민 원장)</a></li></ul></div>
-                            <div class="mega-dropdown-section"><h4>일반/보존 진료</h4><ul><li><a href="../treatments/cavity.html">충치치료</a></li><li><a href="../treatments/resin.html">레진치료</a></li><li><a href="../treatments/crown.html">크라운</a></li><li><a href="../treatments/inlay.html">인레이/온레이</a></li><li><a href="../treatments/root-canal.html">신경치료</a></li><li><a href="../treatments/whitening.html">미백</a></li></ul></div>
-                            <div class="mega-dropdown-section"><h4>잇몸/외과</h4><ul><li><a href="../treatments/scaling.html">스케일링</a></li><li><a href="../treatments/gum.html">잇몸치료</a></li><li><a href="../treatments/periodontitis.html">치주염</a></li><li><a href="../treatments/wisdom-tooth.html">사랑니 발치</a></li><li><a href="../treatments/tmj.html">턱관절장애</a></li><li><a href="../treatments/bruxism.html">이갈이/이악물기</a></li></ul></div>
-                        </div></div>
-                    </li>
-                    <li class="nav-item active"><a href="/">의료진 소개</a></li>
-                    <li class="nav-item"><a href="../bdx/index.html">검진센터</a></li>
-                    <li class="nav-item has-dropdown"><a href="../column/columns.html">콘텐츠</a><ul class="simple-dropdown"><li><a href="../column/columns.html">칼럼</a></li><li><a href="../video/index.html">영상</a></li><li><a href="../cases/gallery.html">치료 사례</a></li></ul></li>
-                    <li class="nav-item has-dropdown"><a href="../directions.html">병원 안내</a><ul class="simple-dropdown"><li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li><li><a href="../floor-guide.html">층별 안내</a></li><li><a href="../directions.html">오시는 길</a></li><li><a href="../faq.html">자주 묻는 질문</a></li><li><a href="../notice/index.html">공지사항</a></li></ul></li>
-                </ul>
-            </nav>
-            <div class="header-actions">
-                <a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
-                <a href="../reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
-            </div>
+<body>
+  <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+  
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="../index.html" class="site-logo" aria-label="서울비디치과 홈">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text">서울비디치과</span>
+        </a>
+        <div class="clinic-status open" aria-live="polite">
+          <span class="status-dot"></span>
+          <span class="status-text">진료중</span>
+          <span class="status-time">20:00까지</span>
         </div>
-    </header>
+      </div>
+      
+      <nav class="main-nav" id="mainNav" aria-label="메인 네비게이션">
+        <ul>
+          <li class="nav-item has-dropdown">
+            <a href="../treatments/index.html">진료 안내</a>
+            <div class="mega-dropdown">
+              <div class="mega-dropdown-grid">
+                <div class="mega-dropdown-section">
+                  <h4>전문센터</h4>
+                  <ul>
+                    <li><a href="../treatments/glownate.html">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li>
+                    <li><a href="../treatments/implant.html">임플란트 <span class="badge">6개 수술실</span></a></li>
+                    <li><a href="../treatments/invisalign.html">치아교정 <span class="badge">대규모</span></a></li>
+                    <li><a href="../treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li>
+                    <li><a href="../treatments/aesthetic.html">심미치료</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4>일반/보존 진료</h4>
+                  <ul>
+                    <li><a href="../treatments/cavity.html">충치치료</a></li>
+                    <li><a href="../treatments/resin.html">레진치료</a></li>
+                    <li><a href="../treatments/crown.html">크라운</a></li>
+                    <li><a href="../treatments/inlay.html">인레이/온레이</a></li>
+                    <li><a href="../treatments/root-canal.html">신경치료</a></li>
+                    <li><a href="../treatments/whitening.html">미백</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4>잇몸/외과</h4>
+                  <ul>
+                    <li><a href="../treatments/scaling.html">스케일링</a></li>
+                    <li><a href="../treatments/gum.html">잇몸치료</a></li>
+                    <li><a href="../treatments/periodontitis.html">치주염</a></li>
+                    <li><a href="../treatments/wisdom-tooth.html">사랑니 발치</a></li>
+                    <li><a href="../treatments/tmj.html">턱관절장애</a></li>
+                    <li><a href="../treatments/bruxism.html">이갈이/이악물기</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="../doctors/index.html">의료진 소개</a></li>
+          <li class="nav-item"><a href="../bdx/index.html">검진센터</a></li>
+          <li class="nav-item has-dropdown">
+            <a href="../column/columns.html">콘텐츠</a>
+            <ul class="simple-dropdown">
+              <li><a href="../column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+              <li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+              <li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-dropdown">
+            <a href="../directions.html">병원 안내</a>
+            <ul class="simple-dropdown">
+              <li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+              <li><a href="../directions.html">오시는 길</a></li>
+              <li><a href="../faq.html">자주 묻는 질문</a></li>
+              <li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="header-actions">
+        <a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
+        <div class="auth-buttons">
+          <a href="../auth/login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+          <a href="../auth/register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 회원가입</a>
+        </div>
+        <a href="../reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  
+  <div class="header-spacer"></div>
+
+  <main id="main-content" role="main">
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
+    <div class="container">
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <a href="../doctors/index.html">의료진 소개</a> <span class="sep">/</span> <span class="current">이보민 원장</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-user-md"></i> 의료진 소개</span>
+      <h1 class="reveal delay-1"><span class="text-gradient">이보민</span> 원장</h1>
+      <p class="hero-desc reveal delay-2">서울대학교 치의학대학원 출신 — 전문 분야별 진료</p>
+      
+    </div>
+  </section>
+
+<!-- ■ 통합 헤더 -->
+    
 
     <!-- ===== Profile Header ===== -->
     <section class="profile-header">
         <div class="container">
+            <!-- 📸 프로필 사진 -->
             <div class="profile-photo-wrapper">
                 <div class="profile-photo-frame">
-                    <img src="/images/doctors/lee-bm-profile.jpg" alt="이병민 원장 프로필 사진" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');">
-                    <div class="profile-photo-placeholder"><i class="fas fa-user-md"></i><span>프로필 사진 촬영 예정</span></div>
+                    <img 
+                        src="../images/doctors/lee-bm-profile.jpg" 
+                        alt="이병민 원장 프로필 사진"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                    <div class="profile-photo-placeholder" style="display: none;">
+                        <i class="fas fa-user-md"></i>
+                        <span>프로필 사진 촬영 예정</span>
+                    </div>
                 </div>
-                <div class="profile-badges"><span class="badge badge-primary">구강내과 전문</span><span class="badge">구강내과 전문의</span><span class="badge">서울대 출신</span></div>
+                <div class="profile-badges">
+                    <span class="badge badge-primary">구강내과 전문의</span>
+                    <span class="badge">턱관절·만성통증</span>
+                    <span class="badge">서울대 출신</span>
+                </div>
             </div>
+            
             <div class="profile-info">
                 <span class="profile-role">원장 · 구강내과 전문의</span>
                 <h1 class="profile-name">이병민 <span class="title-suffix">원장</span></h1>
-                <p class="profile-specialty">만성 구강안면통증 · 턱관절 질환 · 코골이/이갈이 · 수면질환</p>
-                <div class="profile-quote">정확한 진단과 과학적 치료를 가장 친절하게 전달합니다.<br><em style="font-size: 0.9em; color: #888;">(말 많음 주의 🙂)</em></div>
+                <p class="profile-specialty">구강내과 전문의 · 턱관절장애 · 만성통증 전문</p>
+                
+                <div class="profile-quote">
+                    정확한 진단과 과학적 치료를 가장 친절하게 전달하는 구강내과 전문의.<br>
+                    통증이라는 난제에 대한 호기심과 책임감으로 진료합니다.
+                </div>
+                
                 <div class="profile-actions">
-                    <a href="../reservation.html?doctor=lee-bm" class="btn-consult"><i class="fas fa-calendar-check"></i>이병민 원장님 상담 예약</a>
-                    <a href="tel:041-415-2892" class="btn-call"><i class="fas fa-phone"></i>041-415-2892</a>
+                    <a href="../reservation.html?doctor=lee-bm" class="btn-consult">
+                        <i class="fas fa-calendar-check"></i>
+                        이병민 원장님 상담 예약
+                    </a>
+                    <a href="tel:041-415-2892" class="btn-call">
+                        <i class="fas fa-phone"></i>
+                        041-415-2892
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== 🎬 원장 소개 영상 ===== -->
-    <section class="video-intro-section">
-        <div class="section-header">
-            <h2>원장 소개 영상</h2>
-            <p>이병민 원장을 영상으로 만나보세요</p>
-        </div>
-        <div class="video-intro-container">
-            <div class="video-wrapper shorts">
-                <iframe 
-                    src="https://www.youtube.com/embed/YoKw5-a4TCI" 
-                    title="이병민 원장 소개 영상"
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            <div class="video-intro-info">
-                <h3>🦷 이병민 원장</h3>
-                <p class="video-intro-desc">
-                    서울비디치과 턱관절·구강안면통증 전문.<br>
-                    환자 중심의 따뜻한 진료를 실천합니다.
-                </p>
-                <div class="video-intro-tags">
-                    <span class="tag">서울대 출신</span>
-                    <span class="tag">턱관절·구강안면통증</span>
-                </div>
-                <a href="../reservation.html?doctor=lee-bm" class="btn-video-cta">
-                    <i class="fas fa-calendar-check"></i> 이병민 원장님 상담 예약
-                </a>
-            </div>
-        </div>
-    </section>
-    
-    <style>
-    .video-intro-section {
-        padding: 60px 24px;
-        background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
-    }
-    .video-intro-section .section-header {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-    .video-intro-section .section-header h2 {
-        font-size: 1.75rem;
-        color: #fff;
-        margin-bottom: 8px;
-    }
-    .video-intro-section .section-header p {
-        color: rgba(255,255,255,0.6);
-    }
-    .video-intro-container {
-        max-width: 900px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-        align-items: center;
-    }
-    .video-wrapper.shorts {
-        position: relative;
-        width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
-        aspect-ratio: 9/16;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(201, 169, 98, 0.3);
-        border: 2px solid rgba(201, 169, 98, 0.3);
-    }
-    .video-wrapper.shorts iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-    .video-intro-info {
-        color: #fff;
-    }
-    .video-intro-info h3 {
-        font-size: 1.5rem;
-        margin-bottom: 16px;
-        color: #C9A962;
-    }
-    .video-intro-desc {
-        font-size: 1rem;
-        line-height: 1.8;
-        color: rgba(255,255,255,0.8);
-        margin-bottom: 20px;
-    }
-    .video-intro-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 24px;
-    }
-    .video-intro-tags .tag {
-        background: rgba(201, 169, 98, 0.2);
-        color: #C9A962;
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        border: 1px solid rgba(201, 169, 98, 0.3);
-    }
-    .btn-video-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: linear-gradient(135deg, #C9A962, #8B5A2B);
-        color: #fff;
-        padding: 14px 28px;
-        border-radius: 8px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-    .btn-video-cta:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(201, 169, 98, 0.4);
-    }
-    @media (max-width: 768px) {
-        .video-intro-container {
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-        .video-wrapper.shorts {
-            max-width: 280px;
-        }
-        .video-intro-info {
-            text-align: center;
-        }
-        .video-intro-tags {
-            justify-content: center;
-        }
-    }
-    </style>
-
-    <!-- ===== 진료 모습 갤러리 ===== -->
+    <!-- ===== 📷 진료 모습 갤러리 ===== -->
     <section class="gallery-section">
-        <div class="section-header"><h2>진료 모습</h2><p>이병민 원장의 진료 현장</p></div>
+        <div class="section-header">
+            <h2>진료 모습</h2>
+            <p>이병민 원장의 진료 현장</p>
+        </div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="/images/doctors/lee-bm-treatment-1.jpg" alt="이병민 원장 진료 모습 1" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');">
-                <div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 1 촬영 예정</span></div>
-                <div class="gallery-item-label">구강내과 상담</div>
+                <img 
+                    src="../images/doctors/lee-bm-treatment-1.jpg" 
+                    alt="이병민 원장 진료 모습 1"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="gallery-item-placeholder" style="display: none;">
+                    <i class="fas fa-camera"></i>
+                    <span>진료 사진 1 촬영 예정</span>
+                </div>
+                <div class="gallery-item-label">턱관절 진료</div>
             </div>
             <div class="gallery-item">
-                <img src="/images/doctors/lee-bm-treatment-2.jpg" alt="이병민 원장 진료 모습 2" onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');">
-                <div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 2 촬영 예정</span></div>
-                <div class="gallery-item-label">턱관절 진료</div>
+                <img 
+                    src="../images/doctors/lee-bm-treatment-2.jpg" 
+                    alt="이병민 원장 진료 모습 2"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="gallery-item-placeholder" style="display: none;">
+                    <i class="fas fa-camera"></i>
+                    <span>진료 사진 2 촬영 예정</span>
+                </div>
+                <div class="gallery-item-label">구강내과 상담</div>
             </div>
         </div>
     </section>
@@ -350,7 +266,7 @@
         <div class="story-container">
             <div class="story-header">
                 <h2>이병민 원장 이야기</h2>
-                <p class="subtitle">통증의 과학적 이해를 추구하는 구강내과 전문의</p>
+                <p class="subtitle">정확한 진단과 과학적 치료의 구강내과 전문의</p>
             </div>
             
             <div class="story-content">
@@ -358,10 +274,13 @@
                 <div class="story-block">
                     <h3>치과의사가 된 계기</h3>
                     <p>
-                        저는 <strong class="highlight-text">통증</strong>에 대한 깊은 관심을 가지고 있었습니다.
+                        어떤 진로를 선택할지 고민하던 시절, 제 마음을 오래 붙잡아 두었던 주제가 있습니다. 바로 <strong class="highlight-text">'통증'</strong>이었습니다.
                     </p>
+                    <div class="story-highlight">
+                        <strong>환자분들이 치과를 찾게 되는 이유의 대부분은 아프기 때문인데, 정작 통증의 근원을 밝히고 조절하는 과학은 아직 미지의 영역이 많습니다.</strong>
+                    </div>
                     <p>
-                        환자분들이 치과를 찾는 가장 큰 이유가 통증과 불편함이에요. 그 통증을 <strong class="highlight-text">과학적으로 이해</strong>하고 근본적으로 해결하고 싶었습니다.
+                        그 어려운 질문에 평생 답을 찾아가보고 싶다는 마음이 생겼고, 가장 오랜 시간 동안 통증을 정면으로 다뤄온 직업이 치과의사라는 것을 알게 되면서 이 길을 선택했습니다. 결국 저를 계속 붙들어준 건 통증이라는 난제에 대한 호기심과 책임감이었습니다.
                     </p>
                 </div>
 
@@ -371,15 +290,27 @@
                 <div class="story-block">
                     <h3>임상 전문성</h3>
                     <p>
-                        저는 <strong class="highlight-text">구강내과 전문의</strong>로서 만성 구강안면통증, 턱관절 질환, 연조직 질환을 주로 진료합니다.
-                    </p>
-                    <p>
-                        특히 <strong class="highlight-text">코골이, 이갈이</strong> 같은 수면질환 분야에서 많은 환자분들이 찾아주십니다.
+                        저는 구강내과 전문의로서 눈에 보이는 병만 다루지 않습니다. 겉으로는 멀쩡해 보이지만 삶의 질을 무너뜨리는 <strong class="highlight-text">만성 구강안면통증, 턱관절 장애, 잇몸·점막의 연조직 질환, 코골이·이갈이 같은 수면질환</strong>까지 폭넓게 진료합니다.
                     </p>
                     <div class="story-highlight">
-                        <strong>"정확한 진단과 과학적 치료를 가장 친절하게 전달합니다."</strong><br>
-                        (말 많음 주의 🙂)
+                        <strong>다른 과에서 원인을 찾지 못해 오랫동안 고통을 겪으셨던 분들이 "드디어 이유를 찾았다"고 말씀하실 때, 구강내과 전문의라는 존재의 의미를 다시 느낍니다.</strong>
                     </div>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 진료 스타일 -->
+                <div class="story-block">
+                    <h3>진료 스타일</h3>
+                    <p>
+                        제 진료 스타일을 한 문장으로 표현하면
+                    </p>
+                    <div class="story-highlight">
+                        <strong>"정확한 진단과 과학적 치료를 가장 친절하게 전달하는 구강내과 전문의(말 많음 주의)"</strong>
+                    </div>
+                    <p>
+                        정확한 진단은 지식만으로 완성되지 않습니다. 환자분의 이야기를 충분히 듣는 과정이 절반 이상입니다. 구강내과 질환은 만성적이고, 뚜렷한 원인이 없는 경우도 많아서 환자분의 삶·감정·습관의 변화가 치료의 중요한 실마리가 됩니다. 그래서 저는 어떤 치료보다 먼저, 환자분이 편안하게 마음을 열 수 있는 소통 환경을 만드는 데 많은 노력을 기울입니다.
+                    </p>
                 </div>
 
                 <div class="story-divider"><span>✦</span></div>
@@ -388,61 +319,88 @@
                 <div class="story-block">
                     <h3>기억에 남는 진료</h3>
                     <p>
-                        다른 치과에서 임플란트 시술 후 <strong class="highlight-text">삼차신경통</strong>과 유사한 심한 통증을 호소하던 환자분이 계셨습니다.
+                        가장 기억에 남는 환자분도 바로 그런 과정을 함께했던 분입니다. 타 치과에서 임플란트 후 삼차신경통 유사 증상이 시작되어 일상생활이 무너질 정도로 고통받던 분이었습니다.
                     </p>
+                    <div class="story-highlight">
+                        <strong>3년에 걸친 치료 끝에 약 없이 직장으로 복귀하고 일상을 회복</strong>하셨을 때, 의료진으로서 깊은 보람을 느꼈습니다.
+                    </div>
                     <p>
-                        <strong class="highlight-text">3년간의 꾸준한 치료</strong> 끝에 통증이 조절되고, 마침내 직장에 복귀하셨을 때 정말 큰 보람을 느꼈습니다.
+                        구강내과 진료가 가지는 의미, 그리고 한 사람의 인생을 다시 일으켜 세울 수 있다는 사실을 다시금 확인했던 순간이기도 합니다.
                     </p>
                 </div>
 
                 <div class="story-divider"><span>✦</span></div>
 
-                <!-- 최근 연구 분야 -->
+                <!-- 최근 관심 분야 -->
                 <div class="story-block">
-                    <h3>최근 연구 분야</h3>
+                    <h3>최근 관심 분야</h3>
                     <p>
-                        요즘은 <strong class="highlight-text">3D 프린팅 기반 구강내 장치</strong> 디자인 및 정밀 제작에 관심을 갖고 연구하고 있습니다.
+                        치료에서는 최신의 근거 기반 치료법을 선택하는 것을 원칙으로 합니다. 턱관절·이갈이·코골이 치료를 위해 최근에는 <strong class="highlight-text">3D 프린팅 기반 구강내 장치의 정밀 제작 기술</strong>을 집중적으로 공부하고 있습니다. 기존 수작업 제작의 한계를 넘어선 기술이라, 환자분께 보다 정확하고 빠른 치료를 제공하는 데 큰 도움이 될 것이라 기대하고 있습니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 환자분께 드리는 조언 -->
+                <div class="story-block">
+                    <h3>환자분께 드리는 조언</h3>
+                    <p>
+                        많은 구강내과 질환들은 스트레스, 감정 변화, 수면의 질과도 깊이 연결되어 있습니다. 그래서 병원에서의 치료만큼이나 환자분이 일상에서 조절할 수 있는 요소를 함께 찾아가는 과정을 중요하게 생각합니다.
+                    </p>
+                    <div class="story-highlight">
+                        <strong>입안 건조를 예방하기 위한 충분한 수분 섭취는 거의 모든 환자분께 강조하는 기본 관리법입니다.</strong>
+                    </div>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 개인적인 모습 -->
+                <div class="story-block">
+                    <h3>개인적인 모습</h3>
+                    <p>
+                        동료들은 저를 <strong class="highlight-text">"투 머치 토커지만 마음은 따뜻한 사람, 유머러스한 사람"</strong>이라고 표현합니다. 진료실에서도 편안함을 느끼실 수 있게 솔직하고 인간적인 태도를 잃지 않으려고 합니다.
                     </p>
                     <p>
-                        환자 개개인의 구강 구조에 맞춰 정밀하게 제작되는 맞춤형 장치로, 더 나은 치료 결과를 제공하고자 합니다.
+                        취미는 <strong class="highlight-text">농구와 요리</strong>인데, 치과 술식이 손에 익는 방식과 요리가 늘어가는 원리가 닮아 있어 흥미롭게 배우고 있습니다. 제 아이들이 제 요리를 유난히 잘 먹는 걸 보면, 나름 빠르게 성장하는 것 같기도 합니다.
                     </p>
                 </div>
 
                 <!-- 마무리 메시지 -->
                 <div class="closing-message">
                     <p>
-                        환자분들이 <strong>편안하고 신뢰</strong>할 수 있는<br>
-                        공간을 만들어 드리겠습니다.
+                        서울비디치과를 찾으시는 환자분들께서는<br><br>
+                        <strong>"치과는 무섭고 불편하다"는 기존 경험을 잊을 만큼 편안하고 신뢰할 수 있는 공간</strong><br><br>
+                        을 느끼셨으면 합니다.<br>
+                        제가 그 경험의 한 부분을 책임질 수 있다면, 그것만으로도 큰 영광입니다.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== 인터뷰 섹션 ===== -->
+    <!-- ===== 🎤 인터뷰 Q&A 섹션 ===== -->
     <section class="interview-section">
         <div class="interview-container">
-            <div class="section-header"><h2>원장 인터뷰</h2><p>이병민 원장이 전하는 이야기</p></div>
+            <div class="section-header">
+                <h2>원장 인터뷰 Q&A</h2>
+                <p>자주 묻는 질문에 대한 이병민 원장의 답변</p>
+            </div>
             <div class="interview-content">
                 <div class="interview-qa">
-                    <div class="interview-q">왜 치과의사가 되셨나요?</div>
-                    <p class="interview-a">처음부터 치과의사를 꿈꾼 건 아니었어요. 하지만 '통증'이라는 주제에 깊은 관심을 갖게 되면서 자연스럽게 이 길로 왔습니다. 환자들이 치과를 찾는 가장 큰 이유가 통증과 불편함이거든요. 그 통증을 과학적으로 이해하고 근본적으로 해결하고 싶었습니다.</p>
+                    <div class="interview-q">구강내과는 어떤 경우에 방문해야 하나요?</div>
+                    <p class="interview-a">턱관절에서 소리가 나거나 아프신 경우, 입을 크게 벌리기 어려운 경우, 원인 모를 구강안면 통증, 이갈이·이악물기, 코골이, 구강건조증, 입안 점막 질환 등 다양한 증상에서 구강내과 진료가 도움이 됩니다. 다른 치과에서 원인을 찾지 못했던 증상도 편하게 상담해 주세요.</p>
                 </div>
                 <div class="interview-qa">
-                    <div class="interview-q">진료할 때 가장 중요하게 생각하는 원칙은 무엇인가요?</div>
-                    <p class="interview-a">세 가지를 꼭 지키려고 합니다. 첫째, 정확한 진단 - 환자의 병력을 꼼꼼히 청취합니다. 둘째, 검증된 치료 - 최신 근거 기반 치료만 제공합니다. 셋째, 충분한 설명 - 환자가 이해할 때까지 설명합니다. 그래서 말이 좀 많습니다 😅</p>
+                    <div class="interview-q">턱관절 장애는 어떻게 치료하나요?</div>
+                    <p class="interview-a">환자분의 상태에 따라 물리치료, 약물치료, 스플린트(구강내 장치) 등 다양한 방법을 적용합니다. 최근에는 3D 프린팅 기술을 활용해 더욱 정밀한 맞춤형 장치 제작이 가능해졌습니다. 정확한 진단 후 최적의 치료 계획을 함께 상의드립니다.</p>
                 </div>
                 <div class="interview-qa">
-                    <div class="interview-q">환자분들에게 자주 강조하시는 조언은 무엇인가요?</div>
-                    <p class="interview-a">구강 증상 악화의 3대 요인을 꼭 말씀드려요. 스트레스, 수면 부족, 감정 변화입니다. 그리고 간단하지만 효과적인 팁! 충분한 수분 섭취로 입안 건조를 예방하세요. 하루 1.5~2리터의 물을 마시는 것만으로도 많은 구강 불편함을 예방할 수 있습니다.</p>
+                    <div class="interview-q">이갈이나 코골이도 치과에서 치료가 되나요?</div>
+                    <p class="interview-a">네, 구강내과에서 전문적으로 다루는 영역입니다. 이갈이는 치아 손상과 턱관절 문제를 유발할 수 있고, 코골이는 수면무호흡과 연결될 수 있습니다. 구강내 장치 등을 통해 효과적으로 관리할 수 있습니다.</p>
                 </div>
                 <div class="interview-qa">
-                    <div class="interview-q">가장 기억에 남는 진료 경험이 있으신가요?</div>
-                    <p class="interview-a">다른 치과에서 임플란트 시술 후 삼차신경통과 유사한 심한 통증이 발생해서 오신 분이 계세요. 일상생활은커녕 직장에도 못 나가시는 상황이었습니다. 3년간의 꾸준한 치료 끝에 통증이 조절되고, 마침내 직장에 복귀하셨을 때 정말 보람을 느꼈습니다.</p>
-                </div>
-                <div class="interview-qa">
-                    <div class="interview-q">최근 특별히 집중하고 계신 분야가 있으신가요?</div>
-                    <p class="interview-a">요즘은 3D 프린팅 기반 구강내 장치 디자인 및 정밀 제작을 연구하고 있습니다. 환자 개개인의 구강 구조에 맞춰 정밀하게 제작되는 맞춤형 장치로, 이갈이 방지 장치나 수면무호흡증 장치에 적용하고 있어요.</p>
+                    <div class="interview-q">환자분들께 하고 싶은 말씀이 있다면?</div>
+                    <p class="interview-a">원인 모를 통증으로 오랫동안 고생하셨다면, 포기하지 마시고 구강내과 전문의 상담을 받아보세요. 충분한 대화와 정확한 진단이 치료의 시작입니다. 편안한 마음으로 내원해 주시면, 최선을 다해 함께 해결책을 찾아드리겠습니다.</p>
                 </div>
             </div>
         </div>
@@ -452,59 +410,96 @@
     <div class="profile-content">
         <div class="content-grid">
             <div class="content-main">
+                <!-- 학력 및 경력 -->
                 <div class="content-card">
                     <h3><i class="fas fa-graduation-cap"></i> 학력 및 경력</h3>
                     <ul class="career-list">
                         <li><i class="fas fa-check"></i> 서울대학교 치의학과</li>
                         <li><i class="fas fa-check"></i> 서울대학교 치의학대학원 석사</li>
                         <li><i class="fas fa-check"></i> 구강내과 전문의</li>
+                        <li><i class="fas fa-check"></i> 대한구강내과학회 정회원</li>
+                        <li><i class="fas fa-check"></i> 턱관절장애·만성통증 전문</li>
                     </ul>
                 </div>
+                
+                <!-- 전문 진료 분야 -->
                 <div class="content-card">
                     <h3><i class="fas fa-star"></i> 전문 진료 분야</h3>
                     <div class="specialty-tags">
+                        <span class="specialty-tag">턱관절장애</span>
                         <span class="specialty-tag">만성 구강안면통증</span>
-                        <span class="specialty-tag">턱관절 질환</span>
-                        <span class="specialty-tag">연조직 질환</span>
-                        <span class="specialty-tag">코골이</span>
-                        <span class="specialty-tag">이갈이</span>
-                        <span class="specialty-tag">수면질환</span>
-                        <span class="specialty-tag">3D프린팅 장치</span>
+                        <span class="specialty-tag">이갈이·이악물기</span>
+                        <span class="specialty-tag">코골이·수면질환</span>
+                        <span class="specialty-tag">구강건조증</span>
+                        <span class="specialty-tag">구강점막질환</span>
                     </div>
                 </div>
+                
+                <!-- 진료 철학 -->
                 <div class="philosophy-section">
                     <h3><i class="fas fa-heart highlight-text"></i> 진료 철학</h3>
-                    <p><strong class="highlight-text">"정확한 진단과 과학적 치료를 가장 친절하게 전달합니다."</strong></p>
-                    <p>정확한 진단, 검증된 치료, 충분한 설명 - 이 세 가지 원칙을 지키며 진료합니다.<br><br>환자분들이 편안하고 신뢰할 수 있는 공간을 만들어 드리겠습니다.<br><br>서울비디치과 2F 일반진료실에서 구강내과 진료를 담당하고 있습니다.</p>
+                    <p>
+                        <strong class="highlight-text">"정확한 진단과 과학적 치료를 가장 친절하게 전달합니다."</strong><br><br>
+                        정확한 진단은 지식만으로 완성되지 않습니다. 환자분의 이야기를 충분히 듣는 과정이 절반 이상입니다. 구강내과 질환은 만성적이고, 뚜렷한 원인이 없는 경우도 많아서 환자분의 삶·감정·습관의 변화가 치료의 중요한 실마리가 됩니다.<br><br>
+                        그래서 저는 어떤 치료보다 먼저, 환자분이 편안하게 마음을 열 수 있는 소통 환경을 만드는 데 많은 노력을 기울입니다. 통증이라는 난제에 대한 호기심과 책임감으로, 정성 치료를 약속드립니다.
+                    </p>
                 </div>
             </div>
+            
             <div class="content-sidebar">
+                <!-- 진료 시간 -->
                 <div class="content-card">
                     <h3><i class="fas fa-clock"></i> 진료 시간</h3>
                     <table class="schedule-table">
                         <tr><td>월</td><td class="available">09:00 - 20:00</td></tr>
-                        <tr><td>화</td><td class="unavailable">휴진</td></tr>
-                        <tr><td>수</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>화</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>수</td><td class="unavailable">휴진</td></tr>
                         <tr><td>목</td><td class="available">09:00 - 20:00</td></tr>
                         <tr><td>금</td><td class="available">09:00 - 20:00</td></tr>
                         <tr><td>토</td><td class="available">09:00 - 17:00</td></tr>
                         <tr><td>일</td><td class="available">09:00 - 17:00</td></tr>
                     </table>
-                    <p class="small-note">* 진료 일정은 변동될 수 있습니다.<br>* 예약 시 확인 부탁드립니다.</p>
+                    <p class="small-note">
+                        * 진료 일정은 변동될 수 있습니다.<br>
+                        * 예약 시 확인 부탁드립니다.
+                    </p>
                 </div>
+                
+                <!-- 진료실 위치 -->
                 <div class="content-card">
                     <h3><i class="fas fa-map-marker-alt"></i> 진료실 위치</h3>
-                    <p class="sidebar-text"><strong class="sidebar-highlight">2F 일반진료실</strong><br>구강내과 진료</p>
+                    <p class="sidebar-text">
+                        <strong class="highlight-text">2F 구강내과센터</strong><br>
+                        턱관절 · 만성통증 · 수면질환 클리닉
+                    </p>
                 </div>
             </div>
         </div>
+        
+        <!-- 다른 의료진 보기 -->
         <div class="other-doctors">
             <h3>다른 의료진 보기</h3>
             <div class="doctors-mini-grid">
-                <a href="moon.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">문석준 원장</p><p class="mini-specialty">통합치의학과 전문의</p></a>
-                <a href="kim.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">김민수 원장</p><p class="mini-specialty">통합치의학과 전문의</p></a>
-                <a href="hyun.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">현정민 원장</p><p class="mini-specialty">통합치의학과 전문의</p></a>
-                <a href="kang.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">강경민 원장</p><p class="mini-specialty">임플란트·외과 전문</p></a>
+                <a href="kim.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">김OO 원장</p>
+                    <p class="mini-specialty">임플란트·구강외과</p>
+                </a>
+                <a href="lee.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">이OO 원장</p>
+                    <p class="mini-specialty">교정·인비절라인</p>
+                </a>
+                <a href="park.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">박OO 원장</p>
+                    <p class="mini-specialty">소아치과</p>
+                </a>
+                <a href="hyun.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">현정민 원장</p>
+                    <p class="mini-specialty">심미보철·원데이레진</p>
+                </a>
             </div>
         </div>
     </div>
@@ -512,90 +507,213 @@
     <!-- ===== Footer CTA ===== -->
     <section class="footer-cta">
         <h2>이병민 원장님께 상담받으세요</h2>
-        <p>만성 구강안면통증 · 턱관절 질환 · 수면질환 전문</p>
-        <a href="../reservation.html?doctor=lee-bm" class="btn-white"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
+        <p>구강내과 전문의 · 턱관절장애 · 만성통증 전문 상담</p>
+        <a href="../reservation.html?doctor=lee-bm" class="btn-white">
+            <i class="fas fa-calendar-check"></i> 상담 예약하기
+        </a>
     </section>
     
-    <footer class="simple-footer">
-        <p>© 2024 서울비디치과. All rights reserved.</p>
-        <p style="margin-top: 8px;"><a href="/">← 전체 의료진 보기</a></p>
-    </footer>
-<script src="/js/gnb.js?v=20241229" defer></script>
-  <!-- Mobile Navigation (통합) -->
-  <nav class="mobile-nav" id="mobileNav">
+    <!-- Simple Footer -->
+
+
+  <section class="cta-section" aria-label="상담 안내">
+    <div class="container">
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>이보민 원장님께 진료받고 싶으시다면</h2>
+        <p>예약 시 희망 원장님을 선택하실 수 있습니다.</p>
+        <div class="cta-buttons">
+          <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
+      </div>
+    </div>
+  </section>
+  
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="../index.html" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
+          <p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>전문센터</h4>
+            <ul>
+              <li><a href="../treatments/implant.html">임플란트센터</a></li>
+              <li><a href="../treatments/invisalign.html">교정센터</a></li>
+              <li><a href="../treatments/pediatric.html">소아치과</a></li>
+              <li><a href="../treatments/glownate.html">심미치료</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>병원 안내</h4>
+            <ul>
+              <li><a href="../doctors/index.html">의료진 소개</a></li>
+              <li><a href="../bdx/index.html">BDX 검진센터</a></li>
+              <li><a href="../floor-guide.html">층별 안내</a></li>
+              <li><a href="../cases/gallery.html">Before/After</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>고객 지원</h4>
+            <ul>
+              <li><a href="../reservation.html">예약/상담</a></li>
+              <li><a href="../column/columns.html">칼럼/콘텐츠</a></li>
+              <li><a href="../faq.html">자주 묻는 질문</a></li>
+              <li><a href="../directions.html">오시는 길</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-contact">
+          <p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p>
+          <p><i class="fas fa-phone"></i> 041-415-2892</p>
+          <div class="footer-hours">
+            <p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p>
+            <p>평일 09:00-20:00 (점심 12:30-14:00)</p>
+            <p>토·일 09:00-17:00</p>
+            <p>공휴일 09:00-13:00</p>
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" aria-label="네이버 예약"><i class="fas fa-calendar-check"></i></a>
+          <a href="https://www.youtube.com/c/%EC%89%BD%EB%94%94%EC%89%AC%EC%9A%B4%EC%B9%98%EA%B3%BC%EC%9D%B4%EC%95%BC%EA%B8%B0Bdtube" target="_blank" rel="noopener" aria-label="유튜브"><i class="fab fa-youtube"></i></a>
+          <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" aria-label="카카오톡"><i class="fas fa-comment"></i></a>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <div class="legal-links">
+          <a href="../privacy.html">개인정보 처리방침</a>
+          <span>|</span>
+          <a href="../terms.html">이용약관</a>
+          <span>|</span>
+          <a href="../sitemap.xml">사이트맵</a>
+        </div>
+        <p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 특정 개인의 결과는 개인에 따라 달라질 수 있습니다.</p>
+        <p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
     <div class="mobile-nav-header">
-      <a href="/" class="mobile-nav-logo">🦷 <span>서울비디치과</span></a>
+      <span class="logo-icon">🦷</span>
       <button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button>
     </div>
     <ul class="mobile-nav-menu">
-      <!-- 진료 안내 -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-tooth"></i> 진료 안내
-          <i class="fas fa-chevron-down toggle-icon"></i>
+          <i class="fas fa-tooth"></i> 진료 안내 <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="/treatments/index.html">전체 진료</a></li>
+          <li><a href="../treatments/index.html">전체 진료</a></li>
           <li class="submenu-divider">전문센터</li>
-          <li><a href="/treatments/glownate.html" class="highlight-item">✨ 글로우네이트 <span class="badge-hot">HOT</span></a></li>
-          <li><a href="/treatments/implant.html">임플란트센터</a></li>
-          <li><a href="/treatments/invisalign.html">교정센터 (인비절라인)</a></li>
-          <li><a href="/treatments/pediatric.html">소아치과</a></li>
-          <li><a href="/treatments/aesthetic.html">심미치료</a></li>
+          <li><a href="../treatments/glownate.html" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>
+          <li><a href="../treatments/implant.html">임플란트센터</a></li>
+          <li><a href="../treatments/invisalign.html">교정센터 (인비절라인)</a></li>
+          <li><a href="../treatments/pediatric.html">소아치과</a></li>
+          <li><a href="../treatments/aesthetic.html">심미치료</a></li>
           <li class="submenu-divider">일반 진료</li>
-          <li><a href="/treatments/cavity.html">충치치료</a></li>
-          <li><a href="/treatments/scaling.html">스케일링</a></li>
-          <li><a href="/treatments/gum.html">잇몸치료</a></li>
+          <li><a href="../treatments/cavity.html">충치치료</a></li>
+          <li><a href="../treatments/resin.html">레진치료</a></li>
+          <li><a href="../treatments/scaling.html">스케일링</a></li>
+          <li><a href="../treatments/gum.html">잇몸치료</a></li>
         </ul>
       </li>
-      <!-- 의료진 소개 -->
-      <li><a href="/doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
-      <!-- 검진센터 -->
-      <li><a href="/bdx/index.html"><i class="fas fa-microscope"></i> 검진센터(BDX)</a></li>
-      <!-- 콘텐츠 -->
+      <li><a href="../doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
+      <li><a href="../bdx/index.html"><i class="fas fa-microscope"></i> 검진센터</a></li>
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-newspaper"></i> 콘텐츠
-          <i class="fas fa-chevron-down toggle-icon"></i>
+          <i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="/column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
-          <li><a href="/video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
-          <li><a href="/cases/gallery.html"><i class="fas fa-images"></i> 치료 사례</a></li>
+          <li><a href="../column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+          <li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+          <li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
         </ul>
       </li>
-      <!-- 병원 안내 -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-hospital"></i> 병원 안내
-          <i class="fas fa-chevron-down toggle-icon"></i>
+          <i class="fas fa-hospital"></i> 병원 안내 <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="/pricing.html" class="highlight-item">💰 비용 안내</a></li>
-          <li><a href="/floor-guide.html">층별 안내</a></li>
-          <li><a href="/directions.html">오시는 길</a></li>
-          <li><a href="/faq.html">자주 묻는 질문</a></li>
-          <li><a href="/notice/index.html">공지사항</a></li>
+          <li><a href="../pricing.html">💰 비용 안내</a></li>
+          <li><a href="../floor-guide.html">층별 안내</a></li>
+          <li><a href="../directions.html">오시는 길</a></li>
+          <li><a href="../faq.html">자주 묻는 질문</a></li>
+          <li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
         </ul>
       </li>
-      <!-- 예약하기 -->
-      <li><a href="/reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+      <li><a href="../reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
     </ul>
+    <div class="mobile-auth-buttons">
+      <a href="../auth/login.html" class="btn-auth"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+      <a href="../auth/register.html" class="btn-auth"><i class="fas fa-user-plus"></i> 회원가입</a>
+    </div>
     <div class="mobile-nav-footer">
       <p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p>
       <div class="mobile-nav-quick-btns">
-        <a href="/pricing.html" class="btn btn-secondary">
-          <i class="fas fa-won-sign"></i> 비용 안내
-        </a>
-        <a href="tel:041-415-2892" class="btn btn-primary">
-          <i class="fas fa-phone"></i> 전화 예약
-        </a>
+        <a href="../pricing.html" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 비용 안내</a>
+        <a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 전화 예약</a>
       </div>
     </div>
   </nav>
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
-  <!-- AI 챗봇 -->
-  <script defer src="/js/chatbot.js"></script>
+  <!-- Floating CTA -->
+  <div class="floating-cta desktop-only">
+    <a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a>
+    <a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a>
+  </div>
+
+  <!-- Mobile Bottom CTA -->
+  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
+    <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
+    <a href="../reservation.html" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
+    <a href="../directions.html" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/gnb.js" defer></script>
+  <script>
+    // Scroll Reveal
+    document.addEventListener('DOMContentLoaded',function(){
+      var els=document.querySelectorAll('.reveal');
+      if(!els.length)return;
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+        });
+      },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+      els.forEach(function(el){obs.observe(el);});
+    });
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var item=this.parentElement;
+        var isOpen=item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+        if(!isOpen) item.classList.add('open');
+      });
+    });
+    // Scroll to top
+    var topBtn=document.getElementById('scrollToTopBtn');
+    if(topBtn){
+      window.addEventListener('scroll',function(){
+        topBtn.classList.toggle('visible',window.scrollY>500);
+      });
+      topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    }
+  </script>
 </body>
 </html>

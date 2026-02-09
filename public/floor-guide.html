@@ -2,168 +2,92 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   
-  <!-- Google Analytics (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-3NQP355YQM');
-  </script>
-  
-  <!-- Amplitude Analytics -->
-  <script src="https://cdn.amplitude.com/script/c4e197a17443b1059b402ec0d16fa88f.js"></script>
-  <script>
-    window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
-    window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
-      "fetchRemoteConfig": true,
-      "autocapture": {
-        "attribution": true,
-        "fileDownloads": true,
-        "formInteractions": true,
-        "pageViews": true,
-        "sessions": true,
-        "elementInteractions": true
-      }
-    });
-  </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="서울비디치과 층별 안내 - 5층 규모의 전문 치과 시설. 1층 BDX 검진센터, 2층 일반진료, 3층 심미센터, 4층 교정센터, 5층 수술실.">
-  <meta name="keywords" content="서울비디치과, 층별안내, 치과시설, 수술실, 검진센터, 천안치과, 아산치과">
-  
+  <!-- Primary SEO -->
   <title>층별 안내 | 서울비디치과</title>
+  <meta name="description" content="서울비디치과 층별 안내 — 1~5층 전문센터 구성. 1F 교정센터, 2F 디지털 기공소, 3F 소아치과/BDX, 4F 임플란트센터, 5F 종합센터.">
+  <meta name="keywords" content="서울비디치과 층별 안내, 시설 안내, 치과 시설">
+  <meta name="author" content="서울비디치과">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="google-site-verification" content="google17dbe9a80407755e">
+  <link rel="canonical" href="https://bdbddc.com/floor-guide.html">
   
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
-  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/css/design-system.css">
-  <link rel="stylesheet" href="/css/main.css?v=20241229">
-  <link rel="stylesheet" href="/css/gnb.css">
+  <!-- Geo & Local SEO -->
+  <meta name="geo.region" content="KR-44">
+  <meta name="geo.placename" content="천안시, 충청남도">
+  <meta name="geo.position" content="36.8151;127.1139">
   
-  <style>
-    .floor-hero {
-      padding: calc(80px + var(--space-12)) 0 var(--space-12);
-      background: linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
-    }
-    
-    .floor-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-8);
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    
-    .floor-item {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: var(--space-8);
-      padding: var(--space-8);
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-2xl);
-      transition: all var(--transition-base);
-    }
-    
-    .floor-item:hover {
-      transform: translateX(8px);
-      box-shadow: var(--shadow-lg);
-    }
-    
-    @media (max-width: 768px) {
-      .floor-item {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-    }
-    
-    .floor-number {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .floor-num-lg {
-      font-size: var(--text-5xl);
-      font-weight: var(--font-bold);
-      color: var(--color-white);
-      line-height: 1;
-    }
-    
-    .floor-label {
-      font-size: var(--text-sm);
-      color: rgba(255, 255, 255, 0.5);
-      margin-top: var(--space-1);
-    }
-    
-    .floor-details h3 {
-      font-size: var(--text-2xl);
-      font-weight: var(--font-bold);
-      margin-bottom: var(--space-2);
-      color: var(--color-white);
-    }
-    
-    .floor-details .floor-subtitle {
-      font-size: var(--text-lg);
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: var(--space-4);
-    }
-    
-    .floor-features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      margin-bottom: var(--space-4);
-    }
-    
-    .floor-features .feature {
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-2) var(--space-4);
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-full);
-      font-size: var(--text-sm);
-      color: rgba(255, 255, 255, 0.8);
-    }
-    
-    .floor-features .feature i {
-      color: var(--color-white);
-    }
-    
-    .floor-desc {
-      font-size: var(--text-sm);
-      color: rgba(255, 255, 255, 0.6);
-      line-height: var(--leading-relaxed);
-    }
-    
-    /* Floor Colors - Brand Brown/Gold Theme */
-    .floor-5 .floor-num-lg { color: #C9A962; }
-    .floor-4 .floor-num-lg { color: #D4B896; }
-    .floor-3 .floor-num-lg { color: #A67C52; }
-    .floor-2 .floor-num-lg { color: #8B5A2B; }
-    .floor-1 .floor-num-lg { color: #5D3A1A; }
-  </style>
+  <!-- AEO -->
+  <meta name="subject" content="서울비디치과 층별 안내, 시설 안내, 치과 시설">
+  <meta name="abstract" content="서울비디치과 층별 안내 — 1~5층 전문센터 구성. 1F 교정센터, 2F 디지털 기공소, 3F 소아치과/BDX, 4F 임플란트센터, 5F 종합센터.">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="서울비디치과">
+  <meta property="og:title" content="층별 안내 | 서울비디치과">
+  <meta property="og:description" content="서울비디치과 층별 안내 — 1~5층 전문센터 구성. 1F 교정센터, 2F 디지털 기공소, 3F 소아치과/BDX, 4F 임플란트센터, 5F 종합센터.">
+  <meta property="og:url" content="https://bdbddc.com/floor-guide.html">
+  <meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="ko_KR">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="층별 안내 | 서울비디치과">
+  <meta name="twitter:description" content="서울비디치과 층별 안내 — 1~5층 전문센터 구성. 1F 교정센터, 2F 디지털 기공소, 3F 소아치과/BDX, 4F 임플란트센터, 5F 종합센터.">
+  <meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
+  
+  <!-- E-E-A-T -->
+  <meta name="medical-content" content="이 페이지의 의료 정보는 서울대학교 출신 치과 전문의가 검토하였습니다.">
+  
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6B4226">
+  
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  
+  <!-- Fonts & Icons (non-blocking) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  
+  <!-- Stylesheets — v4.0 -->
+  <link rel="stylesheet" href="/css/design-system-v4.css">
+  <link rel="stylesheet" href="/css/subpage-v4.css">
+  
+  <!-- Prefetch -->
+  <link rel="prefetch" href="reservation.html" as="document">
+  
+  <!-- Schema.org — BreadcrumbList -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"층별 안내"}]}
+  </script>
+  
 </head>
 <body>
-  <!-- ■ 통합 헤더 -->
+  <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+  
   <header class="site-header" id="siteHeader">
     <div class="header-container">
       <div class="header-brand">
-        <a href="/" class="site-logo">
+        <a href="index.html" class="site-logo" aria-label="서울비디치과 홈">
           <span class="logo-icon">🦷</span>
           <span class="logo-text">서울비디치과</span>
         </a>
-        <div class="clinic-status open">
+        <div class="clinic-status open" aria-live="polite">
           <span class="status-dot"></span>
           <span class="status-text">진료중</span>
           <span class="status-time">20:00까지</span>
         </div>
       </div>
-      <nav class="main-nav" id="mainNav">
+      
+      <nav class="main-nav" id="mainNav" aria-label="메인 네비게이션">
         <ul>
           <li class="nav-item has-dropdown">
             <a href="treatments/index.html">진료 안내</a>
@@ -172,11 +96,11 @@
                 <div class="mega-dropdown-section">
                   <h4>전문센터</h4>
                   <ul>
-                    <li><a href="treatments/glownate.html" class="nav-highlight">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li>
-                    <li><a href="treatments/implant.html">임플란트센터 <span class="badge">6개 수술실</span></a></li>
-                    <li><a href="treatments/invisalign.html">교정센터(인비절라인) <span class="badge">대형</span></a></li>
+                    <li><a href="treatments/glownate.html">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li>
+                    <li><a href="treatments/implant.html">임플란트 <span class="badge">6개 수술실</span></a></li>
+                    <li><a href="treatments/invisalign.html">치아교정 <span class="badge">대규모</span></a></li>
                     <li><a href="treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li>
-                    <li><a href="treatments/aesthetic.html">심미치료(현정민 원장)</a></li>
+                    <li><a href="treatments/aesthetic.html">심미치료</a></li>
                   </ul>
                 </div>
                 <div class="mega-dropdown-section">
@@ -211,10 +135,10 @@
             <ul class="simple-dropdown">
               <li><a href="column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
               <li><a href="video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
-              <li><a href="cases/gallery.html"><i class="fas fa-lock"></i> 치료 사례</a></li>
+              <li><a href="cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
             </ul>
           </li>
-          <li class="nav-item has-dropdown active">
+          <li class="nav-item has-dropdown">
             <a href="directions.html">병원 안내</a>
             <ul class="simple-dropdown">
               <li><a href="pricing.html" class="nav-highlight">💰 비용 안내</a></li>
@@ -226,15 +150,35 @@
           </li>
         </ul>
       </nav>
+      
       <div class="header-actions">
-        <a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
+        <a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
+        <div class="auth-buttons">
+          <a href="auth/login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+          <a href="auth/register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 회원가입</a>
+        </div>
         <a href="reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
-          <span></span><span></span><span></span>
-        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
+  
+  <div class="header-spacer"></div>
+
+  <main id="main-content" role="main">
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
+    <div class="container">
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a> <span class="sep">/</span> <span class="current">층별 안내</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-building"></i> 층별 안내</span>
+      <h1 class="reveal delay-1">1~5층 <span class="text-gradient">전문센터</span> 구성</h1>
+      <p class="hero-desc reveal delay-2">환자분의 편안함과 안전을 위한 프리미엄 의료 시설</p>
+      
+    </div>
+  </section>
+
+<!-- ■ 통합 헤더 -->
+  
 
   <!-- Page Header -->
   <section class="floor-hero">
@@ -244,7 +188,7 @@
         서울비디치과의 5층 규모 전문 시설을 둘러보세요
       </p>
       <div class="breadcrumb">
-        <a href="/">홈</a>
+        <a href="index.html">홈</a>
         <span>/</span>
         <span>층별 안내</span>
       </div>
@@ -297,7 +241,7 @@
               <span class="feature"><i class="fas fa-couch"></i> 2개 회복실</span>
             </div>
             <p class="floor-desc">
-              최신 설비를 갖춘 6개 수술방과 2개 회복실에서 임플란트 수술이 진행됩니다. 
+              첨단 설비를 갖춘 6개 수술방과 2개 회복실에서 임플란트 수술이 진행됩니다. 
               네비게이션 시스템을 활용한 정밀 수술과 수면 임플란트로 편안하고 안전한 치료를 제공합니다.
             </p>
           </div>
@@ -343,7 +287,7 @@
               <span class="feature"><i class="fas fa-user-tie"></i> 기공사 5인</span>
             </div>
             <p class="floor-desc">
-              충남권 대형의 원내 디지털 기공소에서 맞춤형 보철물을 당일 제작합니다.
+              충남권 대규모의 원내 디지털 기공소에서 맞춤형 보철물을 당일 제작합니다.
               철저한 감염관리 시스템으로 안전한 진료 환경을 유지합니다.
             </p>
           </div>
@@ -363,10 +307,10 @@
               <span class="feature"><i class="fas fa-user-md"></i> 서울대 교정 전문의 2인</span>
               <span class="feature"><i class="fas fa-cube"></i> iTero 구강스캐너</span>
               <span class="feature"><i class="fas fa-laptop-medical"></i> 3D 클린체크</span>
-              <span class="feature"><i class="fas fa-award"></i> </span>
+              <span class="feature"><i class="fas fa-award"></i> 대규모 규모</span>
             </div>
             <p class="floor-desc">
-              의 인비절라인 전문 센터입니다. 서울대 교정과 전문의 2인이 
+              대규모 규모의 인비절라인 전문 센터입니다. 서울대 교정과 전문의 2인이 
               iTero 구강 스캐너와 3D 시뮬레이션(클린체크)으로 정밀한 교정 치료를 제공합니다.
               일요일 진료로 바쁜 직장인도 편하게 방문하실 수 있습니다.
             </p>
@@ -377,48 +321,47 @@
   </section>
 
   <!-- CTA Section -->
-  <section class="section cta-section">
+  
+
+  <!-- Footer -->
+  
+
+  <!-- Mobile Nav -->
+
+
+  <section class="cta-section" aria-label="상담 안내">
     <div class="container">
-      <div class="cta-wrapper glass-card">
-        <div class="cta-content">
-          <h2 class="text-h2">직접 방문하여 둘러보세요</h2>
-          <p class="text-body-lg">
-            서울비디치과의 현대식 시설을 직접 확인해보세요.<br>
-            편안한 환경에서 정밀 검진을 받으실 수 있습니다.
-          </p>
-          <div class="cta-buttons">
-            <a href="reservation.html" class="btn btn-primary btn-lg">
-              <i class="fas fa-calendar-check"></i>
-              방문 예약하기
-            </a>
-            <a href="https://map.naver.com" target="_blank" class="btn btn-secondary btn-lg">
-              <i class="fas fa-map-marker-alt"></i>
-              오시는 길
-            </a>
-          </div>
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>궁금한 점이 있으신가요?</h2>
+        <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요.</p>
+        <div class="cta-buttons">
+          <a href="reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
         </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
       </div>
     </div>
   </section>
+  
+  </main>
 
-  <!-- Footer -->
-  <footer class="footer">
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="/" class="footer-logo">
-            <span class="logo-icon">🦷</span>
-            <span class="logo-text">서울비디치과</span>
-          </a>
-          <p class="footer-slogan">더 나은 치과 경험을 위해 노력합니다</p>
+          <a href="index.html" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
+          <p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p>
         </div>
         <div class="footer-links">
           <div class="footer-col">
-            <h4>진료 안내</h4>
+            <h4>전문센터</h4>
             <ul>
-              <li><a href="treatments/glownate.html">글로우네이트</a></li>
-              <li><a href="treatments/invisalign.html">인비절라인</a></li>
-              <li><a href="treatments/implant.html">임플란트</a></li>
+              <li><a href="treatments/implant.html">임플란트센터</a></li>
+              <li><a href="treatments/invisalign.html">교정센터</a></li>
+              <li><a href="treatments/pediatric.html">소아치과</a></li>
+              <li><a href="treatments/glownate.html">심미치료</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -427,6 +370,7 @@
               <li><a href="doctors/index.html">의료진 소개</a></li>
               <li><a href="bdx/index.html">BDX 검진센터</a></li>
               <li><a href="floor-guide.html">층별 안내</a></li>
+              <li><a href="cases/gallery.html">Before/After</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -434,109 +378,155 @@
             <ul>
               <li><a href="reservation.html">예약/상담</a></li>
               <li><a href="column/columns.html">칼럼/콘텐츠</a></li>
+              <li><a href="faq.html">자주 묻는 질문</a></li>
+              <li><a href="directions.html">오시는 길</a></li>
             </ul>
           </div>
         </div>
       </div>
-      <!-- 사업자 정보 -->
-      <div class="footer-business" style="padding: 24px 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 24px;">
-        <div style="display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: center; font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.8;">
-          <span><strong>상호명:</strong> 서울비디치과의원</span>
-          <span><strong>대표자:</strong> 현정민, 문석준, 김민수</span>
-          <span><strong>사업자등록번호:</strong> 228-11-02956</span>
-          <span><strong>전화:</strong> 041-415-2892</span>
-          <span><strong>주소:</strong> 충남 천안시 서북구 불당34길 14, 1~5층</span>
+      <div class="footer-info">
+        <div class="footer-contact">
+          <p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p>
+          <p><i class="fas fa-phone"></i> 041-415-2892</p>
+          <div class="footer-hours">
+            <p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p>
+            <p>평일 09:00-20:00 (점심 12:30-14:00)</p>
+            <p>토·일 09:00-17:00</p>
+            <p>공휴일 09:00-13:00</p>
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" aria-label="네이버 예약"><i class="fas fa-calendar-check"></i></a>
+          <a href="https://www.youtube.com/c/%EC%89%BD%EB%94%94%EC%89%AC%EC%9A%B4%EC%B9%98%EA%B3%BC%EC%9D%B4%EC%95%BC%EA%B8%B0Bdtube" target="_blank" rel="noopener" aria-label="유튜브"><i class="fab fa-youtube"></i></a>
+          <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" aria-label="카카오톡"><i class="fas fa-comment"></i></a>
         </div>
       </div>
-      
       <div class="footer-legal">
-        <p class="legal-notice">
-          *본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 
-          특정 개인의 결과는 개인에 따라 달라질 수 있습니다.
-        </p>
-        <p class="copyright">© 2018 Seoul BD Dental Clinic. All rights reserved.</p>
+        <div class="legal-links">
+          <a href="privacy.html">개인정보 처리방침</a>
+          <span>|</span>
+          <a href="terms.html">이용약관</a>
+          <span>|</span>
+          <a href="sitemap.xml">사이트맵</a>
+        </div>
+        <p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 특정 개인의 결과는 개인에 따라 달라질 수 있습니다.</p>
+        <p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-    <!-- Mobile Navigation (통합) -->
-  <nav class="mobile-nav" id="mobileNav">
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
     <div class="mobile-nav-header">
-      <a href="/" class="mobile-nav-logo">🦷 <span>서울비디치과</span></a>
+      <span class="logo-icon">🦷</span>
       <button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button>
     </div>
     <ul class="mobile-nav-menu">
-      <!-- 진료 안내 -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-tooth"></i> 진료 안내
-          <i class="fas fa-chevron-down toggle-icon"></i>
+          <i class="fas fa-tooth"></i> 진료 안내 <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="/treatments/index.html">전체 진료</a></li>
+          <li><a href="treatments/index.html">전체 진료</a></li>
           <li class="submenu-divider">전문센터</li>
-          <li><a href="/treatments/glownate.html" class="highlight-item">✨ 글로우네이트 <span class="badge-hot">HOT</span></a></li>
-          <li><a href="/treatments/implant.html">임플란트센터</a></li>
-          <li><a href="/treatments/invisalign.html">교정센터 (인비절라인)</a></li>
-          <li><a href="/treatments/pediatric.html">소아치과</a></li>
-          <li><a href="/treatments/aesthetic.html">심미치료</a></li>
+          <li><a href="treatments/glownate.html" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>
+          <li><a href="treatments/implant.html">임플란트센터</a></li>
+          <li><a href="treatments/invisalign.html">교정센터 (인비절라인)</a></li>
+          <li><a href="treatments/pediatric.html">소아치과</a></li>
+          <li><a href="treatments/aesthetic.html">심미치료</a></li>
           <li class="submenu-divider">일반 진료</li>
-          <li><a href="/treatments/cavity.html">충치치료</a></li>
-          <li><a href="/treatments/scaling.html">스케일링</a></li>
-          <li><a href="/treatments/gum.html">잇몸치료</a></li>
+          <li><a href="treatments/cavity.html">충치치료</a></li>
+          <li><a href="treatments/resin.html">레진치료</a></li>
+          <li><a href="treatments/scaling.html">스케일링</a></li>
+          <li><a href="treatments/gum.html">잇몸치료</a></li>
         </ul>
       </li>
-      <!-- 의료진 소개 -->
-      <li><a href="/doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
-      <!-- 검진센터 -->
-      <li><a href="/bdx/index.html"><i class="fas fa-microscope"></i> 검진센터(BDX)</a></li>
-      <!-- 콘텐츠 -->
+      <li><a href="doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
+      <li><a href="bdx/index.html"><i class="fas fa-microscope"></i> 검진센터</a></li>
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-newspaper"></i> 콘텐츠
-          <i class="fas fa-chevron-down toggle-icon"></i>
+          <i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="/column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
-          <li><a href="/video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
-          <li><a href="/cases/gallery.html"><i class="fas fa-images"></i> 치료 사례</a></li>
+          <li><a href="column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+          <li><a href="video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+          <li><a href="cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
         </ul>
       </li>
-      <!-- 병원 안내 -->
       <li class="mobile-nav-item has-submenu">
         <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-hospital"></i> 병원 안내
-          <i class="fas fa-chevron-down toggle-icon"></i>
+          <i class="fas fa-hospital"></i> 병원 안내 <i class="fas fa-chevron-down toggle-icon"></i>
         </a>
         <ul class="mobile-nav-submenu">
-          <li><a href="/pricing.html" class="highlight-item">💰 비용 안내</a></li>
-          <li><a href="/floor-guide.html">층별 안내</a></li>
-          <li><a href="/directions.html">오시는 길</a></li>
-          <li><a href="/faq.html">자주 묻는 질문</a></li>
-          <li><a href="/notice/index.html">공지사항</a></li>
+          <li><a href="pricing.html">💰 비용 안내</a></li>
+          <li><a href="floor-guide.html">층별 안내</a></li>
+          <li><a href="directions.html">오시는 길</a></li>
+          <li><a href="faq.html">자주 묻는 질문</a></li>
+          <li><a href="notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
         </ul>
       </li>
-      <!-- 예약하기 -->
-      <li><a href="/reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+      <li><a href="reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
     </ul>
+    <div class="mobile-auth-buttons">
+      <a href="auth/login.html" class="btn-auth"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+      <a href="auth/register.html" class="btn-auth"><i class="fas fa-user-plus"></i> 회원가입</a>
+    </div>
     <div class="mobile-nav-footer">
       <p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p>
       <div class="mobile-nav-quick-btns">
-        <a href="/pricing.html" class="btn btn-secondary">
-          <i class="fas fa-won-sign"></i> 비용 안내
-        </a>
-        <a href="tel:041-415-2892" class="btn btn-primary">
-          <i class="fas fa-phone"></i> 전화 예약
-        </a>
+        <a href="pricing.html" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 비용 안내</a>
+        <a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 전화 예약</a>
       </div>
     </div>
   </nav>
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
+  <!-- Floating CTA -->
+  <div class="floating-cta desktop-only">
+    <a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a>
+    <a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a>
+  </div>
 
-  <script src="/js/gnb.js?v=20241229" defer></script>
-<script src="/js/main.js?v=20241229" defer></script>
-  <!-- AI 챗봇 -->
-  <script defer src="/js/chatbot.js"></script>
+  <!-- Mobile Bottom CTA -->
+  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
+    <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
+    <a href="reservation.html" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
+    <a href="directions.html" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/gnb.js" defer></script>
+  <script>
+    // Scroll Reveal
+    document.addEventListener('DOMContentLoaded',function(){
+      var els=document.querySelectorAll('.reveal');
+      if(!els.length)return;
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+        });
+      },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+      els.forEach(function(el){obs.observe(el);});
+    });
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var item=this.parentElement;
+        var isOpen=item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
+        if(!isOpen) item.classList.add('open');
+      });
+    });
+    // Scroll to top
+    var topBtn=document.getElementById('scrollToTopBtn');
+    if(topBtn){
+      window.addEventListener('scroll',function(){
+        topBtn.classList.toggle('visible',window.scrollY>500);
+      });
+      topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    }
+  </script>
 </body>
 </html>
