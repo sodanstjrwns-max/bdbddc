@@ -34,8 +34,7 @@
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   <link rel="stylesheet" href="../css/design-system-v4.css">
   <link rel="stylesheet" href="../css/homepage-v4.css">
-  <link rel="stylesheet" href="../css/subpage-extra.css">
-  <link rel="prefetch" href="../reservation.html" as="document">
+<link rel="prefetch" href="../reservation.html" as="document">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"치아교정 (인비절라인)","item":"https://bdbddc.com/treatments/invisalign.html"}]}
   </script>
@@ -77,21 +76,49 @@
   <main id="main-content" role="main">
 
   
-  <section class="subpage-hero" aria-label="페이지 소개">
-    <div class="container">
-      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <a href="../treatments/index.html">진료 안내</a> <span class="sep">/</span> <span class="current">치아교정</span></nav>
-      <span class="hero-badge reveal"><i class="fas fa-smile-beam"></i> 1F 교정센터</span>
-      <h1 class="reveal delay-1">대규모<br><span class="text-gradient">인비절라인 교정센터</span></h1>
-      <p class="hero-desc reveal delay-2">서울대 교정 전문의 2인 — 투명교정, 부분교정, 소아교정까지 1:1 맞춤 치료</p>
-      <div class="hero-stats reveal delay-3">
-        <div class="hero-stat-item">
-          <div class="hero-stat-number">2<span>인</span></div>
-          <div class="hero-stat-label">교정 전문의</div>
+  
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero" aria-label="서울비디치과">
+    <div class="hero-bg-pattern" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+    
+    <div class="container hero-content">
+      <div class="hero-text">
+        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
+        
+        <h1 class="hero-headline reveal delay-1">
+          대규모<br><span class="text-gradient">인비절라인 교정센터</span>
+        </h1>
+        
+        <p class="hero-sub reveal delay-2">
+          서울대 교정 전문의 2인 — 투명교정, 부분교정, 소아교정까지 1:1 맞춤 치료
+        </p>
+        
+        <div class="hero-trust-row reveal delay-3">
+          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
+          <span class="hero-trust-divider"></span>
+          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
+          <span class="hero-trust-divider"></span>
+          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
+          <span class="hero-trust-divider desktop-only"></span>
+          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
         </div>
-        <div class="hero-stat-item">
-          <div class="hero-stat-number">365<span>일</span></div>
-          <div class="hero-stat-label">진료</div>
-        </div></div>
+        
+        <div class="hero-cta-group reveal delay-4">
+          <a href="../reservation.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-calendar-check"></i> 상담 예약하기
+          </a>
+          <a href="tel:0414152892" class="btn btn-outline btn-lg">
+            <i class="fas fa-phone"></i> 041-415-2892
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
@@ -136,8 +163,8 @@
         <p>환자 상태에 맞는 최적의 교정 방법을 제안드립니다</p>
       </div>
       
-      <div class="types-grid">
-        <div class="type-card feature-card featured">
+      <div class="treatment-grid">
+        <div class="card feature-card featured">
           <div class="type-badge">BEST</div>
           <div class="type-icon"><i class="fas fa-teeth"></i></div>
           <h3>인비절라인</h3>
@@ -153,7 +180,7 @@
           </div>
         </div>
         
-        <div class="type-card feature-card">
+        <div class="card feature-card">
           <div class="type-icon"><i class="fas fa-gem"></i></div>
           <h3>심미 교정</h3>
           <p class="type-desc">눈에 덜 띄는 브라켓 교정</p>
@@ -168,7 +195,7 @@
           </div>
         </div>
         
-        <div class="type-card feature-card">
+        <div class="card feature-card">
           <div class="type-icon"><i class="fas fa-magic"></i></div>
           <h3>부분 교정</h3>
           <p class="type-desc">앞니만 빠르게 교정</p>
@@ -183,7 +210,7 @@
           </div>
         </div>
         
-        <div class="type-card feature-card">
+        <div class="card feature-card">
           <div class="type-icon"><i class="fas fa-redo"></i></div>
           <h3>재교정</h3>
           <p class="type-desc">다시 벌어진 치아 교정</p>
@@ -198,7 +225,7 @@
           </div>
         </div>
         
-        <div class="type-card feature-card">
+        <div class="card feature-card">
           <div class="type-icon"><i class="fas fa-microscope"></i></div>
           <h3>고난도 케이스</h3>
           <p class="type-desc">어려운 케이스 전문</p>
@@ -213,7 +240,7 @@
           </div>
         </div>
         
-        <div class="type-card feature-card">
+        <div class="card feature-card">
           <div class="type-icon"><i class="fas fa-child"></i></div>
           <h3>소아교정 협진</h3>
           <p class="type-desc">소아치과와 함께 성장기 교정</p>
@@ -524,7 +551,7 @@
   </section>
   <section class="cta-section" aria-label="상담 안내">
     <div class="container">
-      <div class="cta-wrapper reveal">
+      <div class="cta-box reveal">
         <span class="cta-badge">상담 안내</span>
         <h2>교정 상담, 부담 없이 시작하세요</h2>
         <p>디지털 구강스캐너로 교정 전/후 시뮬레이션을 미리 확인하실 수 있습니다.</p>
@@ -532,7 +559,7 @@
           <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
           <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
         </div>
-        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
+        <p class="cta-phone"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
       </div>
     </div>
   </section>

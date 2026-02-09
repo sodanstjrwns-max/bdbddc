@@ -938,7 +938,7 @@
   <!-- CTA Section -->
   <section class="section cta-section" style="background: linear-gradient(180deg, #0a0908 0%, #1a1512 100%); padding: 100px 0;">
     <div class="container">
-      <div class="cta-wrapper glass-card" style="background: rgba(201,169,98,0.05); border: 1px solid rgba(201,169,98,0.2); border-radius: 24px; padding: 60px 40px; text-align: center;">
+      <div class="cta-box glass-card" style="background: rgba(201,169,98,0.05); border: 1px solid rgba(201,169,98,0.2); border-radius: 24px; padding: 60px 40px; text-align: center;">
         <div class="cta-content">
           <h2 class="text-h2" style="color: #fff; margin-bottom: 16px;">두려움 없이 시작하세요</h2>
           <p class="text-body-lg" style="color: rgba(255,255,255,0.7); margin-bottom: 40px;">
@@ -1029,5 +1029,8 @@
 
   <script src="/js/gnb.js" defer></script>
   <script src="/js/main.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
+  </script>
 </body>
 </html>
