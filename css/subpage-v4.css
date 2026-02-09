@@ -1629,3 +1629,58 @@
 .sidebar-highlight{padding:var(--space-5);background:rgba(107,66,38,.04);border-radius:var(--radius-xl);border-left:3px solid var(--brand-gold)}
 .stat-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);text-align:center;box-shadow:var(--shadow-card)}
 @media(max-width:768px){.oneday-grid{grid-template-columns:1fr}}
+
+/* ═══════════════════════════════════════════
+   ■ SHARED COMPONENTS (from homepage → subpage)
+   Added for implant.html v4.5 redesign
+   ═══════════════════════════════════════════ */
+
+/* Screen Reader Only */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Hero Background Pattern */
+.hero-bg-pattern{position:absolute;inset:0;opacity:.03;background-image:radial-gradient(circle at 1px 1px,var(--brand-primary) 1px,transparent 0);background-size:40px 40px;pointer-events:none}
+.implant-hero{position:relative;overflow:hidden}
+.implant-hero .hero-bg-pattern{z-index:0}
+
+/* Why Hero Card */
+.why-hero-card{background:linear-gradient(135deg,var(--brand-primary),#8B5A2B);color:#fff;border-radius:var(--radius-3xl);padding:clamp(32px,5vw,56px);margin-bottom:32px;position:relative;overflow:hidden}
+.why-hero-card::after{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(201,169,98,.15),transparent 70%);pointer-events:none}
+.why-hero-card h3{font-size:clamp(1.5rem,3.5vw,2.5rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;position:relative;z-index:1}
+.why-hero-card p{font-size:clamp(1rem,1.5vw,1.15rem);opacity:.85;margin-top:12px;max-width:500px;position:relative;z-index:1}
+.why-hero-badge{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,.15);border-radius:var(--radius-full);font-size:.85rem;font-weight:600;margin-top:20px;position:relative;z-index:1}
+
+/* Patient Concerns */
+.patient-concerns{margin-top:48px;padding:32px;background:var(--bg-secondary);border-radius:var(--radius-2xl)}
+.patient-concerns>h3{text-align:center;font-size:1.1rem;margin-bottom:24px;color:var(--text-primary)}
+.patient-concerns .concerns-grid,.concerns-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:900px;margin:0 auto}
+.concern-item{display:flex;align-items:center;gap:10px;padding:16px 20px;background:#fff;border-radius:var(--radius-xl);border:1px solid rgba(0,0,0,.04);transition:all .2s var(--ease-out)}
+.concern-item:hover{box-shadow:var(--shadow-sm);transform:translateY(-1px)}
+.concern-item i.fa-times-circle{color:var(--color-error);font-size:.85rem;flex-shrink:0}
+.concern-item i.fa-arrow-right{color:var(--brand-gold);font-size:.75rem;flex-shrink:0}
+.concern-item .problem-text,.problem-text{font-size:.85rem;color:var(--text-muted);flex:1}
+.concern-item .solution,.solution{font-size:.85rem;color:var(--brand-primary);font-weight:600;flex:1}
+@media(max-width:640px){.concerns-grid,.patient-concerns .concerns-grid{grid-template-columns:1fr}}
+
+/* Review Cards (Shared) */
+.implant-reviews-grid,.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.review-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:24px;transition:all .3s var(--ease-out)}
+.review-card:hover{box-shadow:var(--shadow-card-hover);transform:translateY(-2px)}
+.review-card-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.review-avatar{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--bg-secondary);color:var(--text-secondary);font-size:.85rem;font-weight:700;border-radius:50%}
+.review-author-info .author-name{font-size:.88rem;font-weight:600}
+.review-source{font-size:.7rem;font-weight:600}
+.review-source.naver{color:#03C75A}
+.review-source.google{color:#4285F4}
+.review-rating{display:flex;gap:2px;margin-bottom:10px;color:#FBBF24;font-size:.8rem}
+.review-text{font-size:.9rem;color:var(--text-secondary);line-height:1.6}
+.review-text .highlight{font-weight:600;color:var(--text-primary)}
+.review-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.review-tag{padding:3px 10px;background:var(--bg-secondary);border-radius:var(--radius-full);font-size:.72rem;color:var(--text-muted);font-weight:500}
+@media(max-width:768px){.implant-reviews-grid,.reviews-grid{grid-template-columns:1fr}}
+@media(min-width:769px)and(max-width:1023px){.implant-reviews-grid,.reviews-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Compare Recommendation */
+.compare-recommendation{text-align:center;margin-top:var(--space-6);padding:var(--space-4) var(--space-6);background:var(--bg-secondary);border-radius:var(--radius-xl);font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6}
+.compare-recommendation i{color:var(--brand-primary);margin-right:var(--space-2)}
+
