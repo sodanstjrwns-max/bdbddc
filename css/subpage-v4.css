@@ -1380,7 +1380,7 @@
 .profile-quote{padding:var(--space-5) var(--space-6);background:var(--bg-warm);border-left:4px solid var(--brand-gold);border-radius:0 var(--radius-lg) var(--radius-lg) 0;font-size:var(--text-base);line-height:1.8;color:var(--text-secondary);margin-bottom:var(--space-6);font-style:italic}
 .profile-details-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-5)}
 .profile-detail-item{background:var(--bg-card);border-radius:var(--radius-lg);padding:var(--space-5);border:1px solid rgba(0,0,0,0.06)}
-.profile-detail-item h4{font-size:var(--text-sm);font-weight:700;color:var(--brand-primary);margin-bottom:var(--space-3);display:flex;align-items:center;gap:var(--space-2)}
+.profile-detail-item h3,.profile-detail-item h4{font-size:var(--text-sm);font-weight:700;color:var(--brand-primary);margin-bottom:var(--space-3);display:flex;align-items:center;gap:var(--space-2)}
 .schedule-note{font-size:var(--text-xs);color:var(--text-muted);margin-top:var(--space-2)}
 
 /* ═══════════════════════════════════════════
@@ -1412,3 +1412,220 @@
   .section{padding:20px 0}
   body{padding:0!important}
 }
+
+/* ═══════════════════════════════════════════
+   ■ ADDITIONAL TREATMENT PAGE CLASSES v4.4
+   Cover classes from non-redesigned subpages
+   ═══════════════════════════════════════════ */
+
+/* --- Empathy / CTA Sections --- */
+.empathy-section,.empathy-intro{margin-bottom:var(--space-6)}
+.empathy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-6)}
+.empathy-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card);transition:all .3s}
+.empathy-card:hover{box-shadow:var(--shadow-card-hover);transform:translateY(-2px)}
+.empathy-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(107,66,38,.06);color:var(--brand-primary);font-size:1.4rem;border-radius:var(--radius-xl);margin-bottom:var(--space-4)}
+.empathy-question{font-size:var(--text-xl);font-weight:700;color:var(--text-primary);margin-bottom:var(--space-3)}
+.empathy-subtext{font-size:var(--text-base);color:var(--text-secondary);line-height:1.7}
+.cta-box{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-8);box-shadow:var(--shadow-card);text-align:center}
+.cta-icon{font-size:2rem;color:var(--brand-primary);margin-bottom:var(--space-4)}
+.cta-title{font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-2)}
+.cta-desc{font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-4);line-height:1.7}
+.cta-info{display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;margin-top:var(--space-4)}
+.cta-info-item{font-size:var(--text-sm);color:var(--text-secondary)}
+
+/* --- Comparison / Compare Grid --- */
+.comparison-grid,.compare-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-6)}
+.comparison-card,.compare-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card);transition:all .3s}
+.comparison-card:hover,.compare-card:hover{box-shadow:var(--shadow-card-hover);transform:translateY(-2px)}
+.comparison-icon,.compare-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(107,66,38,.06);color:var(--brand-primary);font-size:1.4rem;border-radius:var(--radius-xl);margin-bottom:var(--space-4)}
+.comparison-badge,.compare-badge{display:inline-flex;padding:4px 12px;background:rgba(107,66,38,.08);color:var(--brand-primary);font-size:var(--text-xs);font-weight:700;border-radius:var(--radius-full);margin-bottom:var(--space-3)}
+.comparison-subtitle{font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--space-2)}
+.comparison-desc{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.7}
+.comparison-features,.compare-features{display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-3)}
+.comparison-features li,.compare-features li{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--text-secondary)}
+.comparison-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:var(--space-2)}
+
+/* --- Material Cards (Crown/Inlay) --- */
+.material-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card);transition:all .3s}
+.material-card:hover{box-shadow:var(--shadow-card-hover);transform:translateY(-2px)}
+.material-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(107,66,38,.06);color:var(--brand-primary);font-size:1.2rem;border-radius:var(--radius-xl);margin-bottom:var(--space-4)}
+.material-badge{display:inline-flex;padding:4px 12px;background:rgba(107,66,38,.08);color:var(--brand-primary);font-size:var(--text-xs);font-weight:700;border-radius:var(--radius-full);margin-bottom:var(--space-3)}
+.material-subtitle{font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--space-1)}
+.material-desc{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.7;margin-bottom:var(--space-3)}
+.material-features{display:flex;flex-direction:column;gap:var(--space-2)}
+.material-feature{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--text-secondary)}
+
+/* --- Difference / Diff Grid --- */
+.difference-section{margin-bottom:var(--space-8)}
+.difference-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-6)}
+.difference-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+.difference-header{margin-bottom:var(--space-3)}
+.difference-num{font-size:var(--text-sm);font-weight:800;color:var(--brand-gold);margin-bottom:var(--space-2)}
+.diff-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+.diff-content{flex:1}
+.diff-number{font-size:var(--text-sm);font-weight:800;color:var(--brand-gold);margin-bottom:var(--space-2)}
+
+/* --- Process Grid / Stepper --- */
+.process-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:var(--space-6)}
+.process-wrapper{display:flex;flex-direction:column;gap:var(--space-6)}
+.process-item{display:flex;gap:var(--space-4);align-items:flex-start}
+.process-num,.process-number{flex-shrink:0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--brand-primary);color:#fff;font-weight:800;border-radius:var(--radius-xl);font-size:var(--text-sm)}
+.process-stepper{display:flex;flex-direction:column;gap:var(--space-6)}
+
+/* --- Option Cards (Whitening) --- */
+.options-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-6)}
+.option-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card);transition:all .3s}
+.option-card:hover{box-shadow:var(--shadow-card-hover);transform:translateY(-2px)}
+.option-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(107,66,38,.06);color:var(--brand-primary);font-size:1.4rem;border-radius:var(--radius-xl);margin-bottom:var(--space-4)}
+.option-features{display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-3)}
+
+/* --- Shade Visual (Whitening) --- */
+.shade-visual{display:flex;align-items:center;gap:var(--space-4);justify-content:center;margin:var(--space-8) 0}
+.shade-box{text-align:center}
+.shade-box-label{font-size:var(--text-xs);font-weight:700;color:var(--text-muted);margin-bottom:var(--space-2)}
+.shade-color{width:60px;height:60px;border-radius:var(--radius-xl);margin:0 auto var(--space-2)}
+.shade-name{font-size:var(--text-sm);font-weight:600}
+.shade-arrow{color:var(--brand-primary);font-size:1.5rem}
+.shade-before,.shade-after{text-align:center}
+.shade-result{text-align:center;margin-top:var(--space-4)}
+
+/* --- Emergency Page --- */
+.emergency-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-6)}
+.emergency-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+.emergency-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(239,68,68,.08);color:var(--color-error);font-size:1.4rem;border-radius:var(--radius-xl);margin-bottom:var(--space-4)}
+.emergency-list{display:flex;flex-direction:column;gap:var(--space-2)}
+.hero-section{position:relative;min-height:400px;display:flex;align-items:center;background:var(--bg-warm);overflow:hidden}
+.hero-title{font-size:clamp(2rem,5vw,3.25rem);font-weight:800;line-height:1.2;color:var(--text-primary);margin-bottom:var(--space-4)}
+.hero-subtitle{font-size:clamp(1rem,1.5vw,1.2rem);color:var(--text-secondary);line-height:1.7;max-width:640px}
+.hero-info{display:flex;gap:var(--space-6);flex-wrap:wrap;margin-top:var(--space-6)}
+.hero-info-item{font-size:var(--text-sm);color:var(--text-secondary)}
+.hero-phone{font-size:var(--text-xl);font-weight:700;color:var(--brand-primary);margin-top:var(--space-4)}
+.hero-price{font-size:var(--text-2xl);font-weight:800;color:var(--brand-primary)}
+
+/* --- Denture Page --- */
+.denture-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-6)}
+.denture-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+.denture-icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(107,66,38,.06);color:var(--brand-primary);font-size:1.4rem;border-radius:var(--radius-xl);margin-bottom:var(--space-4)}
+.denture-badge{display:inline-flex;padding:4px 12px;background:rgba(107,66,38,.08);color:var(--brand-primary);font-size:var(--text-xs);font-weight:700;border-radius:var(--radius-full);margin-bottom:var(--space-3)}
+.denture-features{display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-3)}
+
+/* --- Difficulty (Wisdom Tooth) --- */
+.difficulty-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-6)}
+.difficulty-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+.difficulty-badge{display:inline-flex;padding:4px 12px;font-size:var(--text-xs);font-weight:700;border-radius:var(--radius-full);margin-bottom:var(--space-3)}
+.difficulty-features{display:flex;flex-direction:column;gap:var(--space-2)}
+.difficulty-feature{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--text-secondary)}
+.easy{color:var(--color-success)}
+.medium{color:var(--color-warning)}
+.hard{color:var(--color-error)}
+
+/* --- Prevention / Homecare --- */
+.prevention-section{margin-bottom:var(--space-8)}
+.prevention-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-6)}
+.prevention-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+.prevention-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(34,197,94,.08);color:var(--color-success);font-size:1.2rem;border-radius:var(--radius-xl);margin-bottom:var(--space-3)}
+.prevention-content{flex:1}
+.homecare-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-6)}
+.homecare-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+.homecare-number{font-size:var(--text-sm);font-weight:800;color:var(--brand-gold);margin-bottom:var(--space-2)}
+
+/* --- Cases Grid / Case Icon --- */
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-6)}
+.case-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(107,66,38,.06);color:var(--brand-primary);font-size:1.2rem;border-radius:var(--radius-xl);margin-bottom:var(--space-3)}
+
+/* --- Scaling Page --- */
+.reason-icon,.reasons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-6)}
+.reason-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+.reason-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(107,66,38,.06);color:var(--brand-primary);font-size:1.2rem;border-radius:var(--radius-xl);margin-bottom:var(--space-3)}
+.insurance-box{padding:var(--space-6);background:rgba(34,197,94,.04);border:1px solid rgba(34,197,94,.12);border-radius:var(--radius-2xl)}
+.insurance-features{display:flex;flex-direction:column;gap:var(--space-3);margin-top:var(--space-4)}
+.insurance-feature{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--text-secondary)}
+.price-label{font-size:var(--text-sm);color:var(--text-muted)}
+.price-value{font-size:var(--text-2xl);font-weight:800;color:var(--brand-primary)}
+.price-note{font-size:var(--text-xs);color:var(--text-muted)}
+
+/* --- Resin / Definition / TMJ --- */
+.resin-process,.resin-step{margin-bottom:var(--space-4)}
+.definition-box{padding:var(--space-6);background:var(--bg-secondary);border-radius:var(--radius-2xl);border-left:4px solid var(--brand-gold);margin-bottom:var(--space-8)}
+.faq-answer-content,.faq-answer-inner{max-height:0;overflow:hidden;transition:max-height .4s var(--ease-out),padding .3s}
+.faq-container{max-width:800px;margin:0 auto}
+
+/* --- Section Variants --- */
+.section-alt{background:var(--bg-secondary)}
+.section-dark{background:var(--text-primary);color:var(--text-inverse)}
+.section-dark h2,.section-dark h3{color:#fff}
+.section-dark p{color:rgba(255,255,255,.7)}
+.section-gradient{background:linear-gradient(180deg,var(--bg-secondary),var(--bg-primary))}
+
+/* --- Features Grid --- */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-6)}
+
+/* --- Misc States --- */
+.danger{color:var(--color-error);font-weight:600}
+.warning{color:var(--color-warning);font-weight:600}
+.severity{font-size:var(--text-xs);font-weight:700;padding:2px 8px;border-radius:var(--radius-full)}
+.stat-number{font-size:var(--text-3xl);font-weight:800;color:var(--brand-primary);line-height:1}
+.stages-container{margin-bottom:var(--space-8)}
+.age-guide{margin:var(--space-8) 0}
+.benefit-content,.benefit-detail{margin-bottom:var(--space-4)}
+
+/* --- Notice Banner --- */
+.notice-banner{padding:var(--space-4) var(--space-6);background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.12);border-radius:var(--radius-xl);margin-bottom:var(--space-6)}
+.notice-banner-content{display:flex;align-items:center;gap:var(--space-3);font-size:var(--text-sm);color:var(--text-primary)}
+.info-box{padding:var(--space-5) var(--space-6);background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.12);border-radius:var(--radius-xl);font-size:var(--text-sm);color:var(--text-primary)}
+
+/* --- Risk Grid (Periodontitis) --- */
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--space-4)}
+.risk-item{padding:var(--space-4);background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-xl);text-align:center}
+
+/* --- Step Time Badge --- */
+.step-time-badge{display:inline-flex;align-items:center;gap:var(--space-1);padding:2px 10px;background:var(--bg-secondary);color:var(--text-muted);font-size:var(--text-xs);font-weight:600;border-radius:var(--radius-full)}
+
+/* --- Main Treatment Grid (index) --- */
+.main-treatments-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-6)}
+.main-treatment-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card);transition:all .3s}
+.main-treatment-card:hover{box-shadow:var(--shadow-card-hover);transform:translateY(-4px)}
+.treatment-badge{display:inline-flex;padding:4px 12px;background:rgba(107,66,38,.08);color:var(--brand-primary);font-size:var(--text-xs);font-weight:700;border-radius:var(--radius-full);margin-bottom:var(--space-3)}
+
+/* --- Program Box (Prevention) --- */
+.program-box{padding:var(--space-6);background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);box-shadow:var(--shadow-card)}
+.program-features{display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-3)}
+.program-feature{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--text-secondary)}
+
+/* --- Color Tag Classes --- */
+.orange{color:#F97316;font-weight:600}
+.purple{color:#8B5CF6;font-weight:600}
+.yellow{color:#EAB308;font-weight:600}
+
+/* --- Reveal Delay Alternate (tmj/whitening) --- */
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+/* --- Responsive for new classes --- */
+@media(max-width:768px){
+  .comparison-grid,.compare-grid,.material-card,.difference-grid,.process-grid,.options-grid,.denture-grid,.difficulty-grid,.prevention-grid,.homecare-grid,.cases-grid,.reasons-grid,.emergency-grid,.features-grid,.empathy-grid,.main-treatments-grid,.risk-grid{grid-template-columns:1fr}
+  .shade-visual{flex-direction:column}
+}
+
+/* --- Final Coverage: Remaining 18 classes v4.4.1 --- */
+.desc{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.7}
+.feature-item{display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3) 0}
+.feature-list{display:flex;flex-direction:column;gap:var(--space-2)}
+.highlight-text-medium{color:var(--brand-primary);font-weight:600;font-size:var(--text-base)}
+.interview-section{margin:var(--space-8) 0}
+.interview-container{max-width:800px;margin:0 auto}
+.interview-content{display:flex;flex-direction:column;gap:var(--space-6)}
+.interview-qa{margin-bottom:var(--space-6)}
+.interview-q{font-size:var(--text-base);font-weight:700;color:var(--brand-primary);margin-bottom:var(--space-2)}
+.interview-a{font-size:var(--text-base);color:var(--text-secondary);line-height:1.8}
+.oneday-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-6)}
+.oneday-item{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);box-shadow:var(--shadow-card)}
+.oneday-highlight{background:rgba(107,66,38,.04);border-color:rgba(107,66,38,.1)}
+.philosophy-quote{padding:var(--space-6);background:var(--bg-warm);border-radius:var(--radius-2xl);border-left:4px solid var(--brand-gold);font-style:italic;line-height:1.8;color:var(--text-secondary)}
+.precaution-content{flex:1}
+.precaution-icon{flex-shrink:0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(245,158,11,.08);color:var(--color-warning);border-radius:var(--radius-lg)}
+.sidebar-highlight{padding:var(--space-5);background:rgba(107,66,38,.04);border-radius:var(--radius-xl);border-left:3px solid var(--brand-gold)}
+.stat-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-2xl);padding:var(--space-6);text-align:center;box-shadow:var(--shadow-card)}
+@media(max-width:768px){.oneday-grid{grid-template-columns:1fr}}
