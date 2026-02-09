@@ -75,109 +75,485 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="자주 묻는 질문">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="/">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">자주 묻는 질문</span></nav>
-      <span class="hero-badge"><i class="fas fa-question-circle"></i> FAQ</span>
-      <h1>자주 묻는 <span class="text-gradient">질문</span></h1>
-      <p class="hero-desc">환자분들이 가장 많이 물어보시는 질문을 모았습니다</p>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a> <span class="sep">/</span> <span class="current">자주 묻는 질문</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-question-circle"></i> 자주 묻는 질문</span>
+      <h1 class="reveal delay-1">자주 묻는 <span class="text-gradient">질문</span></h1>
+      <p class="hero-desc reveal delay-2">환자분들이 가장 궁금해하시는 질문을 모았습니다</p>
       
     </div>
   </section>
 
-  <section class="content-section" aria-label="자주 묻는 질문">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-question-circle"></i> 자주 묻는 질문</span>
-        <h2 class="section-title">궁금한 점을 <span class="text-gradient">해결해 드립니다</span></h2>
-        <p class="section-subtitle">가장 많이 물어보시는 질문들을 모았습니다</p>
-      </div>
-      <div class="faq-list reveal">
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>첫 방문 시 비용은 얼마인가요?</span>
-            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-          </button>
-          <div class="faq-answer"><p>첫 방문 시 기본 상담과 파노라마 촬영은 건강보험이 적용됩니다. BDX 종합 구강검진은 첫 방문 시 무료로 제공됩니다. 자세한 비용은 <a href='pricing.html' style='color:var(--brand-primary);font-weight:600;'>비용 안내 페이지</a>에서 확인하실 수 있습니다.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>임플란트 비용은 어느 정도인가요?</span>
-            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-          </button>
-          <div class="faq-answer"><p>임플란트 비용은 브랜드와 환자분의 상태에 따라 100만원대부터 시작합니다. 정확한 비용은 CT 촬영 후 맞춤 견적서를 제공해 드립니다. 65세 이상은 건강보험이 일부 적용됩니다.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>인비절라인 교정 기간은 얼마나 걸리나요?</span>
-            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-          </button>
-          <div class="faq-answer"><p>일반적으로 인비절라인 풀 교정은 12~24개월, 라이트는 6~12개월 정도 소요됩니다. 개인의 치아 상태에 따라 기간이 달라질 수 있으며, 초진 상담 시 예상 기간을 안내드립니다.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>365일 진료 맞나요? 일요일·공휴일에도 진료하나요?</span>
-            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-          </button>
-          <div class="faq-answer"><p>네, 서울비디치과는 365일 진료합니다. 평일 09:00-20:00, 토·일 09:00-17:00, 공휴일 09:00-13:00 운영합니다. 점심시간(12:30-14:00)에도 응급 진료가 가능합니다.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>주차가 가능한가요?</span>
-            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-          </button>
-          <div class="faq-answer"><p>네, 건물 앞 주차장과 인근 주차시설을 이용하실 수 있습니다. 3시간 이상 진료 시 주차비를 지원해 드립니다.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>소아치과 전문의가 있나요?</span>
-            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-          </button>
-          <div class="faq-answer"><p>네, 서울비디치과에는 소아치과 전문의 3인이 상주하고 있습니다. 아이 맞춤 진료 환경과 수면진정 진료도 가능합니다.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>라미네이트 비용은 얼마인가요?</span>
-            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-          </button>
-          <div class="faq-answer"><p>라미네이트는 개당 50~80만원 정도이며, 시술 범위와 재질에 따라 달라집니다. 정확한 비용은 상담 시 견적서로 안내드립니다.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>예약 없이 방문해도 되나요?</span>
-            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-          </button>
-          <div class="faq-answer"><p>예약 없이도 방문 가능하지만, 예약 환자가 우선 진료됩니다. 원활한 진료를 위해 <a href='reservation.html' style='color:var(--brand-primary);font-weight:600;'>온라인 예약</a> 또는 전화 예약(041-415-2892)을 추천드립니다.</p></div>
-        </div></div>
-    </div>
-  </section>
+<!-- Page Header -->
+  
 
-  <!-- ═══════ CTA ═══════ -->
-  <section class="cta-section" aria-label="상담 예약">
+  <!-- Quick Search -->
+  <section class="section faq-search-section">
     <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-content">
-          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 상담 예약</span>
-          <h2>더 궁금한 점이 있으신가요?</h2>
-          <p>부담 없이 전화 또는 온라인으로 문의해 주세요</p>
-          <div class="cta-buttons">
-            <a href="/reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
-            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
-          </div>
-          <div class="cta-info">
-            <span><i class="fas fa-clock"></i> 365일 진료</span>
-            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
-            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
-          </div>
-        </div>
+      <div class="faq-search-box feature-card">
+        <i class="fas fa-search"></i>
+        <input type="text" id="faqSearch" placeholder="궁금한 내용을 검색해 보세요 (예: 비용, 기간, 통증)" autocomplete="off">
       </div>
     </div>
   </section>
 
+  <!-- FAQ Categories -->
+  <section class="section">
+    <div class="container">
+      <!-- Category Tabs -->
+      <div class="faq-categories">
+        <button class="faq-category-btn active" data-category="all">
+          <i class="fas fa-list"></i>
+          전체
+        </button>
+        <button class="faq-category-btn" data-category="cost">
+          <i class="fas fa-won-sign"></i>
+          비용/결제
+        </button>
+        <button class="faq-category-btn" data-category="treatment">
+          <i class="fas fa-tooth"></i>
+          진료/치료
+        </button>
+        <button class="faq-category-btn" data-category="reservation">
+          <i class="fas fa-calendar-check"></i>
+          예약/방문
+        </button>
+        <button class="faq-category-btn" data-category="aftercare">
+          <i class="fas fa-heart"></i>
+          사후관리
+        </button>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="faq-list">
+        
+        <!-- 비용/결제 카테고리 -->
+        <div class="faq-category-group" data-category="cost">
+          <h2 class="faq-category-title"><i class="fas fa-won-sign"></i> 비용/결제</h2>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">첫 방문 시 비용이 얼마나 드나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>서울비디치과는 첫 방문 시 BDX 정밀검진을 무료로 제공합니다.</strong></p>
+                <ul>
+                  <li>파노라마 촬영 + CT + 구강스캐너 검사</li>
+                  <li>전문의 상담 및 치료 계획 안내</li>
+                  <li>통합 검진 결과지 제공</li>
+                </ul>
+                <p class="faq-note"><i class="fas fa-info-circle"></i> 검진 후 치료를 강요하지 않으며, 충분히 고민하신 후 결정하시면 됩니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">라미네이트(글로우네이트) 가격은 얼마인가요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p>라미네이트 비용은 다음 요소에 따라 달라집니다:</p>
+                <ul>
+                  <li><strong>치아 상태</strong> - 기존 치아의 색상, 형태, 배열 상태</li>
+                  <li><strong>치료 범위</strong> - 치료할 치아 개수 (보통 4~10본)</li>
+                  <li><strong>재료</strong> - 세라믹 종류와 기공 방식</li>
+                </ul>
+                <p>정확한 비용은 <strong>정밀검진 후 상담</strong>을 통해 안내드립니다.</p>
+                <p class="faq-highlight"><i class="fas fa-check-circle"></i> 숨겨진 추가 비용 없이 모든 비용을 치료 전 투명하게 안내해 드립니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">치료 비용 분할 납부가 가능한가요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>네, 무이자 할부와 분할 납부가 가능합니다.</strong></p>
+                <ul>
+                  <li><strong>신용카드 무이자 할부</strong> - 2~6개월 무이자</li>
+                  <li><strong>자체 분할 납부</strong> - 치료 단계별 분할 결제</li>
+                  <li><strong>치과 전용 할부</strong> - 덴탈론 등 장기 분할 가능</li>
+                </ul>
+                <p class="faq-note"><i class="fas fa-info-circle"></i> 비용이 부담되시는 경우 상담 시 말씀해 주시면 맞춤 결제 방안을 안내해 드립니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">건강보험이 적용되는 치료가 있나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>네, 다음 치료들은 건강보험이 적용됩니다:</strong></p>
+                <ul>
+                  <li><strong>스케일링</strong> - 만 19세 이상 연 1회 (본인부담 약 1.5만원)</li>
+                  <li><strong>충치치료 (레진)</strong> - 12세 이하 아동 영구치</li>
+                  <li><strong>치아 홈 메우기</strong> - 18세 이하 제1, 2 대구치</li>
+                  <li><strong>임플란트</strong> - 만 65세 이상 평생 2개</li>
+                  <li><strong>틀니</strong> - 만 65세 이상</li>
+                </ul>
+                <p class="faq-note"><i class="fas fa-info-circle"></i> 상담 시 보험 적용 여부를 확인해 드립니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 진료/치료 카테고리 -->
+        <div class="faq-category-group" data-category="treatment">
+          <h2 class="faq-category-title"><i class="fas fa-tooth"></i> 진료/치료</h2>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">인비절라인 교정 기간은 얼마나 걸리나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p>인비절라인 교정 기간은 개인의 치아 상태에 따라 다릅니다:</p>
+                <ul>
+                  <li><strong>부분 교정 (인비절라인 Go)</strong> - 약 3~6개월</li>
+                  <li><strong>일반 교정</strong> - 약 12~18개월</li>
+                  <li><strong>복잡한 케이스</strong> - 약 18~24개월</li>
+                </ul>
+                <p class="faq-highlight"><i class="fas fa-check-circle"></i> 3D 시뮬레이션을 통해 치료 전 예상 결과와 기간을 미리 확인하실 수 있습니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">임플란트 시술 시 많이 아픈가요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>서울비디치과는 디지털 가이드 수술로 통증을 최소화합니다.</strong></p>
+                <ul>
+                  <li><strong>시술 중</strong> - 마취로 인해 통증이 없습니다</li>
+                  <li><strong>시술 후</strong> - 일반 발치 수준의 불편감 (2~3일)</li>
+                  <li><strong>회복 기간</strong> - 진통제와 세심한 사후 관리 제공</li>
+                </ul>
+                <p class="faq-note"><i class="fas fa-info-circle"></i> 통증에 민감하신 분은 상담 시 말씀해 주시면 추가 진정 요법을 안내해 드립니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">라미네이트는 치아를 많이 깎아야 하나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>서울비디치과의 글로우네이트는 최소 삭제를 원칙으로 합니다.</strong></p>
+                <ul>
+                  <li><strong>일반 라미네이트</strong> - 치아 앞면 0.5~1mm 삭제</li>
+                  <li><strong>글로우네이트</strong> - 0.3~0.5mm 최소 삭제</li>
+                  <li><strong>노삭제 라미네이트</strong> - 케이스에 따라 삭제 없이 가능</li>
+                </ul>
+                <p>환자분의 치아 상태를 분석하여 <strong>가장 적게 삭제하면서 좋은 결과</strong>를 내는 방법을 제안드립니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">충치가 있는데 바로 치료해야 하나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>충치의 진행 정도에 따라 다릅니다.</strong></p>
+                <ul>
+                  <li><strong>초기 충치</strong> - 경과 관찰 후 필요시 치료 (불소 도포로 관리 가능)</li>
+                  <li><strong>중기 충치</strong> - 레진 또는 인레이 치료 권장</li>
+                  <li><strong>심한 충치</strong> - 신경치료 후 크라운 필요</li>
+                </ul>
+                <p class="faq-highlight"><i class="fas fa-check-circle"></i> 서울비디치과는 No 과잉진료 철학으로, <strong>꼭 필요한 치료만</strong> 권해드립니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">임플란트 수명은 얼마나 되나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>적절한 관리 시 반영구적으로 사용 가능합니다.</strong></p>
+                <ul>
+                  <li><strong>임플란트 본체</strong> - 10년 이상 성공률 95% 이상</li>
+                  <li><strong>상부 보철물</strong> - 10~15년 후 교체 필요할 수 있음</li>
+                </ul>
+                <p>수명을 늘리는 방법:</p>
+                <ul>
+                  <li>정기적인 검진 (6개월~1년)</li>
+                  <li>올바른 구강 위생 관리</li>
+                  <li>금연, 이갈이 치료</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">치아미백은 효과가 얼마나 지속되나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>일반적으로 1~3년 정도 지속됩니다.</strong></p>
+                <ul>
+                  <li><strong>전문가 미백 (오피스)</strong> - 즉각적인 효과, 1~2년 지속</li>
+                  <li><strong>자가 미백 (홈)</strong> - 점진적 효과, 정기적 유지 가능</li>
+                </ul>
+                <p>효과 지속을 위한 팁:</p>
+                <ul>
+                  <li>커피, 와인, 카레 등 착색 음식 줄이기</li>
+                  <li>금연</li>
+                  <li>6개월마다 터치업 미백</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 예약/방문 카테고리 -->
+        <div class="faq-category-group" data-category="reservation">
+          <h2 class="faq-category-title"><i class="fas fa-calendar-check"></i> 예약/방문</h2>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">예약 없이 방문해도 되나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>예약 없이 방문하셔도 진료는 가능합니다.</strong></p>
+                <p>다만, 대기 시간이 길어질 수 있어 <strong>사전 예약을 권장</strong>드립니다.</p>
+                <ul>
+                  <li><strong>온라인 예약</strong> - 홈페이지 24시간 가능</li>
+                  <li><strong>전화 예약</strong> - 041-415-2892</li>
+                  <li><strong>카카오톡 예약</strong> - @서울비디치과</li>
+                  <li><strong>네이버 예약</strong> - 네이버에서 '서울비디치과' 검색</li>
+                </ul>
+                <p class="faq-highlight"><i class="fas fa-exclamation-circle"></i> 응급 상황(심한 통증, 외상 등)은 예약 없이도 우선 진료해 드립니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">진료 시간은 어떻게 되나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>서울비디치과 진료 시간:</strong></p>
+                <table class="faq-table">
+                  <tr>
+                    <td><strong>평일</strong></td>
+                    <td>09:00 - 20:00</td>
+                  </tr>
+                  <tr>
+                    <td><strong>점심시간 (평일)</strong></td>
+                    <td>12:30 - 14:00</td>
+                  </tr>
+                  <tr>
+                    <td><strong>토·일요일</strong></td>
+                    <td>09:00 - 17:00</td>
+                  </tr>
+                  <tr>
+                    <td><strong>공휴일</strong></td>
+                    <td>09:00 - 13:00</td>
+                  </tr>
+                </table>
+                <p class="faq-note"><i class="fas fa-info-circle"></i> 365일 진료합니다. 야간 진료나 공휴일 진료 문의는 미리 연락해 주세요.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">주차는 가능한가요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>네, 무료 주차가 가능합니다.</strong></p>
+                <ul>
+                  <li><strong>건물 내 주차장</strong> - 진료 시간 동안 무료</li>
+                  <li><strong>주차 가능 대수</strong> - 약 30대</li>
+                </ul>
+                <p>방문 시 안내 데스크에서 <strong>주차 도장</strong>을 받으시면 됩니다.</p>
+                <p class="faq-note"><i class="fas fa-info-circle"></i> 만차 시 인근 공영주차장 이용 가능 (도보 2분)</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">첫 방문 시 준비물이 있나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>다음 준비물을 지참해 주시면 됩니다:</strong></p>
+                <ul>
+                  <li><strong>신분증</strong> - 본인 확인용 (건강보험 적용 시 필수)</li>
+                  <li><strong>건강보험증</strong> - 보험 진료 시</li>
+                  <li><strong>기존 진료 자료</strong> - 타 병원 X-ray, 진료 기록 (있으시면)</li>
+                  <li><strong>복용 중인 약 목록</strong> - 특히 혈액응고 관련 약물</li>
+                </ul>
+                <p class="faq-note"><i class="fas fa-info-circle"></i> 예약 시간 10분 전에 오시면 여유롭게 접수하실 수 있습니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 사후관리 카테고리 -->
+        <div class="faq-category-group" data-category="aftercare">
+          <h2 class="faq-category-title"><i class="fas fa-heart"></i> 사후관리</h2>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">치료 후 정기 검진은 어떻게 하나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>서울비디치과는 체계적인 사후 관리 프로그램을 운영합니다.</strong></p>
+                <ul>
+                  <li><strong>임플란트</strong> - 식립 후 3개월, 6개월, 1년 후 정기 검진</li>
+                  <li><strong>교정</strong> - 유지장치 착용 기간 동안 3~6개월마다 체크</li>
+                  <li><strong>라미네이트</strong> - 6개월~1년마다 상태 확인</li>
+                  <li><strong>일반 진료</strong> - 6개월마다 정기 검진 권장</li>
+                </ul>
+                <p class="faq-highlight"><i class="fas fa-check-circle"></i> 검진 시기가 되면 카카오톡 또는 문자로 알림을 보내드립니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">라미네이트가 깨지거나 빠지면 어떻게 하나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>최대한 빨리 내원해 주세요.</strong></p>
+                <ul>
+                  <li><strong>탈락한 경우</strong> - 라미네이트를 깨끗이 보관 후 내원 (재부착 가능할 수 있음)</li>
+                  <li><strong>파손된 경우</strong> - 재제작 필요 (보증 기간 내 무상/할인)</li>
+                </ul>
+                <p>서울비디치과 글로우네이트는 <strong>보증 기간 내 무상 AS</strong>를 제공합니다.</p>
+                <p class="faq-note"><i class="fas fa-info-circle"></i> 응급 상황 시 전화 주시면 빠른 예약을 도와드립니다.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">임플란트 시술 후 음식은 언제부터 먹을 수 있나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>시술 당일부터 식사 가능하나, 주의가 필요합니다.</strong></p>
+                <ul>
+                  <li><strong>당일~3일</strong> - 부드러운 음식 (죽, 스프, 두부 등)</li>
+                  <li><strong>1주일</strong> - 반대편으로 부드러운 고형식</li>
+                  <li><strong>2주~1개월</strong> - 점진적으로 일반 식사</li>
+                  <li><strong>최종 보철 후</strong> - 정상적인 식사 가능</li>
+                </ul>
+                <p class="faq-note"><i class="fas fa-info-circle"></i> 시술 부위로 씹지 않도록 주의해 주세요.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-badge">Q</span>
+              <span class="faq-q-text">교정 유지장치는 얼마나 착용해야 하나요?</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-a-content">
+                <p><strong>교정 효과 유지를 위해 장기간 착용이 권장됩니다.</strong></p>
+                <ul>
+                  <li><strong>교정 직후 6개월</strong> - 하루 22시간 이상 (식사, 양치 제외)</li>
+                  <li><strong>6개월~1년</strong> - 하루 12시간 이상 (취침 시)</li>
+                  <li><strong>1년 이후</strong> - 취침 시 착용 권장 (평생)</li>
+                </ul>
+                <p class="faq-highlight"><i class="fas fa-check-circle"></i> 유지장치 없이 방치하면 치아가 원래 위치로 돌아갈 수 있습니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 검색 결과 없음 -->
+      <div class="faq-no-results" id="faqNoResults" style="display: none;">
+        <div class="no-results-icon"><i class="fas fa-search"></i></div>
+        <h3>검색 결과가 없습니다</h3>
+        <p>다른 키워드로 검색해 보시거나, 카카오톡으로 문의해 주세요.</p>
+        <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" class="btn btn-primary">
+          <i class="fab fa-comment"></i> 카카오톡 문의하기
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Still Have Questions? CTA -->
+  <!-- Mobile Nav -->
+
+  <section class="cta-section" aria-label="상담 안내">
+    <div class="container">
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>궁금한 점이 있으신가요?</h2>
+        <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요.</p>
+        <div class="cta-buttons">
+          <a href="reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
+      </div>
+    </div>
+  </section>
+  
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">

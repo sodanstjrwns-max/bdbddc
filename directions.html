@@ -75,123 +75,295 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="오시는 길">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="/">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">오시는 길</span></nav>
-      <span class="hero-badge"><i class="fas fa-map-marker-alt"></i> 오시는 길</span>
-      <h1>서울비디치과 <span class="text-gradient">오시는 길</span></h1>
-      <p class="hero-desc">충남 천안시 서북구 불당34길 14, 1~5층</p>
-      <div class="hero-stats"><div class="hero-stat"><span class="stat-number">365일</span><span class="stat-label">연중무휴</span></div><div class="hero-stat"><span class="stat-number">20:00</span><span class="stat-label">야간진료</span></div><div class="hero-stat"><span class="stat-number">5층</span><span class="stat-label">전문센터</span></div></div>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a> <span class="sep">/</span> <span class="current">오시는 길</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-map-marker-alt"></i> 오시는 길</span>
+      <h1 class="reveal delay-1">서울비디치과 <span class="text-gradient">오시는 길</span></h1>
+      <p class="hero-desc reveal delay-2">충남 천안시 서북구 불당34길 14, 1~5층 — 무료 주차 가능</p>
+      
     </div>
   </section>
 
-  <section class="content-section" aria-label="위치">
+<!-- Header -->
+  
+  
+
+  <!-- Page Header -->
+  
+
+  <!-- Location Info -->
+  <section class="section location-section">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-map-marker-alt"></i> 위치</span>
-        <h2 class="section-title">서울비디치과 <span class="text-gradient">위치 안내</span></h2>
-        <p class="section-subtitle">충남 천안시 서북구 불당34길 14, 1~5층</p>
-      </div>
-      
-      <div class="map-wrapper reveal mb-12">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3177.1!2d127.1139!3d36.8151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z7ISc7Jq467mE65SU7LmY6rO8!5e0!3m2!1sko!2skr!4v1" width="100%" height="450" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="서울비디치과 위치"></iframe>
+      <div class="location-grid">
+        <!-- Map Area -->
+        <div class="map-container feature-card">
+          <div class="google-map-wrapper">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3180.7589788377!2d127.1051!3d36.8231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b285e48d9f1d1%3A0x7c0c3f4d5e5f6a7b!2z7LWo64Ko7LKc7JWI7Iuc7ISc67aB6rWsIOu2iOuLuTM06ri4IDE0!5e0!3m2!1sko!2skr!4v1701500000000!5m2!1sko!2skr"
+              width="100%" 
+              height="400" 
+              style="border:0; border-radius: 16px;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+          <div class="map-actions">
+            <a href="https://www.google.com/maps/search/충남+천안시+서북구+불당34길+14" target="_blank" class="btn btn-primary">
+              <i class="fab fa-google"></i> 구글 지도에서 보기
+            </a>
+            <a href="https://map.naver.com/v5/search/서울비디치과" target="_blank" class="btn btn-secondary">
+              <i class="fas fa-map"></i> 네이버 지도
+            </a>
+            <a href="https://map.kakao.com/?q=서울비디치과" target="_blank" class="btn btn-secondary">
+              <i class="fas fa-map-marker-alt"></i> 카카오맵
+            </a>
+          </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="location-info">
+          <!-- Address -->
+          <div class="info-card feature-card">
+            <div class="info-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="info-content">
+              <h3>주소</h3>
+              <p class="address-main">충남 천안시 서북구 불당34길 14</p>
+              <p class="address-detail">1~5층 (불당동 1841)</p>
+              <p class="postal-code">우편번호: 31156</p>
+              <button class="copy-btn" data-copy="충남 천안시 서북구 불당34길 14">
+                <i class="fas fa-copy"></i> 주소 복사
+              </button>
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div class="info-card feature-card">
+            <div class="info-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="info-content">
+              <h3>연락처</h3>
+              <p class="contact-tel">
+                <a href="tel:041-415-2892"><strong>041-415-2892</strong></a>
+              </p>
+              <p class="contact-sub">팩스: 041-415-2893</p>
+              <p class="contact-sub">이메일: info@bdbddc.com</p>
+            </div>
+          </div>
+
+          <!-- Hours -->
+          <div class="info-card feature-card">
+            <div class="info-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="info-content">
+              <h3>진료 시간</h3>
+              <table class="hours-table">
+                <tr>
+                  <td>평일 (월~금)</td>
+                  <td><strong>09:00 - 20:00</strong></td>
+                </tr>
+                <tr>
+                  <td>토·일요일</td>
+                  <td><strong>09:00 - 17:00</strong></td>
+                </tr>
+                <tr>
+                  <td>공휴일</td>
+                  <td><strong>09:00 - 13:00</strong></td>
+                </tr>
+                <tr>
+                  <td>점심시간 (평일)</td>
+                  <td>12:30 - 14:00</td>
+                </tr>
+              </table>
+              <p class="hours-note"><i class="fas fa-star"></i> <strong>365일 진료</strong> - 일요일, 공휴일도 진료합니다!</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="content-section bg-warm" aria-label="교통편">
+  <!-- Transportation -->
+  <section class="section transport-section alt-bg">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-directions"></i> 교통편</span>
-        <h2 class="section-title">편리한 <span class="text-gradient">교통 안내</span></h2>
-        <p class="section-subtitle">다양한 교통수단으로 방문하실 수 있습니다</p>
+      <div class="section-title">
+        <h2>교통 안내</h2>
+        <p>다양한 방법으로 방문하실 수 있습니다</p>
       </div>
-      
-      <div class="transport-grid reveal">
-        <div class="transport-card">
-          <div class="transport-icon"><i class="fas fa-car"></i></div>
+
+      <div class="transport-grid">
+        <!-- 자가용 -->
+        <div class="transport-card feature-card">
+          <div class="transport-icon">
+            <i class="fas fa-car"></i>
+          </div>
           <h3>자가용</h3>
-          <p>내비게이션에 "서울비디치과" 또는 "천안시 서북구 불당34길 14" 검색</p>
-          <p style="margin-top:8px;"><strong>건물 앞 주차 가능</strong> (3시간 이상 진료 시 주차비 지원)</p>
+          <div class="transport-content">
+            <h4>네비게이션 검색</h4>
+            <p><strong>"서울비디치과"</strong> 또는<br><strong>"천안시 불당34길 14"</strong></p>
+            
+            <h4>주요 경로</h4>
+            <ul>
+              <li><strong>천안IC</strong>에서 약 15분</li>
+              <li><strong>천안아산역</strong>에서 약 10분</li>
+              <li><strong>불당동 CGV</strong>에서 도보 3분</li>
+            </ul>
+          </div>
         </div>
-        <div class="transport-card">
-          <div class="transport-icon"><i class="fas fa-bus"></i></div>
-          <h3>대중교통 (버스)</h3>
-          <p>불당사거리 정류장 하차 후 도보 5분</p>
-          <p style="margin-top:8px;">주요 노선: 400번, 401번, 402번</p>
-        </div>
-        <div class="transport-card">
-          <div class="transport-icon"><i class="fas fa-subway"></i></div>
-          <h3>지하철 (수도권 전철)</h3>
-          <p>천안역 또는 두정역에서 택시 15분</p>
-          <p style="margin-top:8px;">KTX 천안아산역에서 택시 20분</p>
-        </div>
-        <div class="transport-card">
-          <div class="transport-icon"><i class="fas fa-parking"></i></div>
+
+        <!-- 주차 -->
+        <div class="transport-card feature-card highlight">
+          <div class="transport-badge">무료 주차</div>
+          <div class="transport-icon">
+            <i class="fas fa-parking"></i>
+          </div>
           <h3>주차 안내</h3>
-          <p>건물 앞 전용 주차공간 확보</p>
-          <p style="margin-top:8px;">인근 공영주차장 이용 가능 (도보 3분)</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="content-section" aria-label="진료시간">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-clock"></i> 진료시간</span>
-        <h2 class="section-title">365일 <span class="text-gradient">진료 안내</span></h2>
-        <p class="section-subtitle">연중무휴 — 일요일, 공휴일에도 진료합니다</p>
-      </div>
-      
-      <div class="max-w-800">
-        <div class="info-box reveal">
-          <h3><i class="fas fa-clock"></i> 진료 시간</h3>
-          <ul>
-            <li><strong>평일</strong> 09:00 - 20:00 (점심 12:30-14:00)</li>
-            <li><strong>토요일</strong> 09:00 - 17:00</li>
-            <li><strong>일요일</strong> 09:00 - 17:00</li>
-            <li><strong>공휴일</strong> 09:00 - 13:00</li>
-          </ul>
-        </div>
-        <div class="info-box reveal">
-          <h3><i class="fas fa-phone"></i> 연락처</h3>
-          <ul>
-            <li><strong>전화</strong> 041-415-2892</li>
-            <li><strong>주소</strong> 충남 천안시 서북구 불당34길 14, 1~5층</li>
-            <li><strong>카카오톡</strong> <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" style="color:var(--brand-primary);font-weight:600;">카카오톡 상담 바로가기</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ CTA ═══════ -->
-  <section class="cta-section" aria-label="상담 예약">
-    <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-content">
-          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 상담 예약</span>
-          <h2>방문 예약을 원하시나요?</h2>
-          <p>365일 진료하는 서울비디치과에서 편하게 상담받으세요</p>
-          <div class="cta-buttons">
-            <a href="/reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
-            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
+          <div class="transport-content">
+            <h4>건물 내 주차장</h4>
+            <ul>
+              <li>진료 시간 동안 <strong>무료 주차</strong></li>
+              <li>주차 가능 대수: <strong>약 30대</strong></li>
+              <li>주차 도장은 안내 데스크에서</li>
+            </ul>
+            
+            <h4>인근 주차장</h4>
+            <ul>
+              <li>불당동 공영주차장 (도보 2분)</li>
+              <li>시간당 1,000원</li>
+            </ul>
           </div>
-          <div class="cta-info">
-            <span><i class="fas fa-clock"></i> 365일 진료</span>
-            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
-            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
+        </div>
+
+        <!-- 대중교통 -->
+        <div class="transport-card feature-card">
+          <div class="transport-icon">
+            <i class="fas fa-bus"></i>
+          </div>
+          <h3>대중교통</h3>
+          <div class="transport-content">
+            <h4>버스</h4>
+            <p><strong>"불당동 XX정류장"</strong> 하차 (도보 3분)</p>
+            <div class="bus-list">
+              <span class="bus-num blue">11</span>
+              <span class="bus-num blue">12</span>
+              <span class="bus-num green">21</span>
+              <span class="bus-num green">22</span>
+              <span class="bus-num red">300</span>
+            </div>
+            
+            <h4>KTX / SRT</h4>
+            <ul>
+              <li><strong>천안아산역</strong> 하차</li>
+              <li>택시 약 10분 / 버스 약 20분</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Landmarks -->
+  <section class="section landmarks-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>주변 랜드마크</h2>
+        <p>찾아오실 때 참고하세요</p>
+      </div>
+
+      <div class="landmarks-grid">
+        <div class="landmark-item feature-card">
+          <i class="fas fa-film"></i>
+          <span>불당 CGV</span>
+          <small>도보 3분</small>
+        </div>
+        <div class="landmark-item feature-card">
+          <i class="fas fa-shopping-bag"></i>
+          <span>갤러리아 백화점</span>
+          <small>도보 5분</small>
+        </div>
+        <div class="landmark-item feature-card">
+          <i class="fas fa-coffee"></i>
+          <span>스타벅스 불당점</span>
+          <small>도보 2분</small>
+        </div>
+        <div class="landmark-item feature-card">
+          <i class="fas fa-utensils"></i>
+          <span>불당동 먹자골목</span>
+          <small>도보 5분</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <section class="section amenities-section alt-bg">
+    <div class="container">
+      <div class="section-title">
+        <h2>편의 시설</h2>
+        <p>편안한 방문을 위해 준비했습니다</p>
+      </div>
+
+      <div class="amenities-grid">
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fas fa-wheelchair"></i></div>
+          <h4>휠체어 접근</h4>
+          <p>건물 입구 및 원내 전체 휠체어 이용 가능</p>
+        </div>
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fas fa-elevator"></i></div>
+          <h4>엘리베이터</h4>
+          <p>1층~5층 엘리베이터 완비</p>
+        </div>
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fas fa-baby"></i></div>
+          <h4>유아 시설</h4>
+          <p>기저귀 교환대, 수유실 완비</p>
+        </div>
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fas fa-wifi"></i></div>
+          <h4>무료 Wi-Fi</h4>
+          <p>대기실 전체 무료 와이파이</p>
+        </div>
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fas fa-couch"></i></div>
+          <h4>편안한 대기실</h4>
+          <p>넓은 공간과 음료 서비스</p>
+        </div>
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fas fa-tv"></i></div>
+          <h4>키즈 공간</h4>
+          <p>아이들을 위한 놀이 공간</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Contact CTA -->
+  <!-- Mobile Nav -->
+
+  <section class="cta-section" aria-label="상담 안내">
+    <div class="container">
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>궁금한 점이 있으신가요?</h2>
+        <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요.</p>
+        <div class="cta-buttons">
+          <a href="reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
+      </div>
+    </div>
+  </section>
+  
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">

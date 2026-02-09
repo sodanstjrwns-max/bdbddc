@@ -75,58 +75,69 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="영상">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">영상</span></nav>
-      <span class="hero-badge"><i class="fas fa-play-circle"></i> 영상</span>
-      <h1>서울비디치과 <span class="text-gradient">영상</span></h1>
-      <p class="hero-desc">치료 과정, 시설 소개, 구강 건강 정보를 영상으로 확인하세요</p>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <span class="current">영상</span></nav>
+      <span class="hero-badge reveal"><i class="fab fa-youtube"></i> 영상</span>
+      <h1 class="reveal delay-1">서울비디치과 <span class="text-gradient">영상</span></h1>
+      <p class="hero-desc reveal delay-2">진료 과정, 환자 후기, 치과 건강 정보를 영상으로 만나보세요</p>
       
     </div>
   </section>
 
-  <section class="content-section" aria-label="영상">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-play-circle"></i> 영상</span>
-        <h2 class="section-title">최신 <span class="text-gradient">영상 콘텐츠</span></h2>
-        <p class="section-subtitle">서울비디치과의 다양한 영상을 확인하세요</p>
-      </div>
-      
-      <div class="video-grid reveal">
-        <div class="video-card"><div class="video-thumb" style="background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;"><div class="play-btn"><i class="fas fa-play"></i></div></div><div class="video-body"><h3>서울비디치과 시설 소개</h3><p>400평 5층 전문센터를 소개합니다</p></div></div>
-        <div class="video-card"><div class="video-thumb" style="background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;"><div class="play-btn"><i class="fas fa-play"></i></div></div><div class="video-body"><h3>임플란트 수술 과정</h3><p>안전한 임플란트 시술의 모든 것</p></div></div>
-        <div class="video-card"><div class="video-thumb" style="background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;"><div class="play-btn"><i class="fas fa-play"></i></div></div><div class="video-body"><h3>인비절라인 교정 후기</h3><p>실제 환자의 교정 경험담</p></div></div>
-      </div>
-    </div>
+<!-- 헤더는 js/header-loader.js로 로드 -->
+  <div id="header-placeholder"></div>
+  
+  <!-- 히어로 -->
+  <section class="page-hero">
+    <h1><i class="fab fa-youtube" style="margin-right: 12px; color: #ff0000;"></i>영상</h1>
+    <p>서울비디치과 공식 유튜브 채널의 다양한 치과 정보 영상</p>
   </section>
-
-  <!-- ═══════ CTA ═══════ -->
-  <section class="cta-section" aria-label="상담 예약">
-    <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-content">
-          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 상담 예약</span>
-          <h2>궁금한 점이 있으신가요?</h2>
-          <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요</p>
-          <div class="cta-buttons">
-            <a href="../reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
-            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
-          </div>
-          <div class="cta-info">
-            <span><i class="fas fa-clock"></i> 365일 진료</span>
-            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
-            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
-          </div>
-        </div>
-      </div>
+  
+  <!-- 탭 네비게이션 (콘텐츠 3개) -->
+  <nav class="content-tabs">
+    <a href="../column/columns.html" class="tab-btn"><i class="fas fa-pen-fancy"></i> 칼럼</a>
+    <a href="index.html" class="tab-btn active"><i class="fab fa-youtube"></i> 영상</a>
+    <a href="../cases/gallery.html" class="tab-btn"><i class="fas fa-lock"></i> 비포/애프터</a>
+  </nav>
+  
+  <!-- 콘텐츠 -->
+  <main class="content-section">
+    <!-- 유튜브 채널 링크 -->
+    <a href="https://www.youtube.com/@seoulbddental" target="_blank" class="channel-link">
+      <i class="fab fa-youtube"></i>
+      <span>서울비디치과 공식 유튜브 채널</span>
+      <span class="btn-subscribe">구독하기</span>
+    </a>
+    
+    <!-- 로딩 상태 -->
+    <div id="loadingState" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>영상을 불러오는 중...</p>
     </div>
-  </section>
-
+    
+    <!-- 에러 상태 -->
+    <div id="errorState" class="error-state" style="display: none;">
+      <i class="fas fa-exclamation-circle"></i>
+      <h3>영상을 불러올 수 없습니다</h3>
+      <p>네트워크 연결을 확인하고 다시 시도해주세요.</p>
+      <button class="retry-btn" onclick="loadVideos()">
+        <i class="fas fa-redo"></i> 다시 시도
+      </button>
+    </div>
+    
+    <!-- 빈 상태 -->
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <i class="fab fa-youtube"></i>
+      <h3>아직 등록된 영상이 없습니다</h3>
+      <p>곧 유익한 치과 정보 영상으로 찾아뵙겠습니다.</p>
+    </div>
+    
+    <!-- 영상 그리드 -->
+    <div id="videosGrid" class="videos-grid" style="display: none;"></div>
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">

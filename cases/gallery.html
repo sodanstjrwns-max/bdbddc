@@ -75,66 +75,138 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="비포/애프터">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">비포/애프터</span></nav>
-      <span class="hero-badge"><i class="fas fa-images"></i> 비포/애프터</span>
-      <h1>치료 <span class="text-gradient">비포/애프터</span></h1>
-      <p class="hero-desc">실제 환자분의 치료 전후 사례를 확인하세요</p>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <span class="current">비포/애프터</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-images"></i> 비포/애프터</span>
+      <h1 class="reveal delay-1">서울비디치과 <span class="text-gradient">치료 사례</span></h1>
+      <p class="hero-desc reveal delay-2">실제 치료 전/후 변화를 확인하세요</p>
       
     </div>
   </section>
 
-  <section class="content-section" aria-label="사례 갤러리">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-images"></i> 사례 갤러리</span>
-        <h2 class="section-title">치료 <span class="text-gradient">사례 갤러리</span></h2>
-        <p class="section-subtitle">다양한 진료 분야의 실제 치료 사례를 제공합니다</p>
+<!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <h1><i class="fas fa-images" style="margin-right: 12px;"></i>비포 / 애프터</h1>
+    <p>서울비디치과 실제 치료 전후 사례를 확인하세요</p>
+    
+    <!-- 탭 네비게이션 -->
+    <div class="page-tabs">
+      <a href="../column/columns.html" class="page-tab"><i class="fas fa-pen-fancy"></i> 칼럼</a>
+      <a href="../video/index.html" class="page-tab"><i class="fab fa-youtube"></i> 영상</a>
+      <a href="gallery.html" class="page-tab active"><i class="fas fa-images"></i> 비포/애프터</a>
+    </div>
+  </section>
+  
+  <!-- 필터 섹션 -->
+  <section class="filter-section" id="filterSection">
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">전체 <span class="count" id="countAll">0</span></button>
+      <button class="filter-btn" data-filter="implant">임플란트 <span class="count" id="countImplant">0</span></button>
+      <button class="filter-btn" data-filter="orthodontic">교정 <span class="count" id="countOrthodontic">0</span></button>
+      <button class="filter-btn" data-filter="aesthetic">심미치료 <span class="count" id="countAesthetic">0</span></button>
+      <button class="filter-btn" data-filter="whitening">미백 <span class="count" id="countWhitening">0</span></button>
+      <button class="filter-btn" data-filter="gum">잇몸치료 <span class="count" id="countGum">0</span></button>
+    </div>
+  </section>
+  
+  <!-- 갤러리 섹션 -->
+  <section class="gallery-section" id="gallerySection">
+    <div class="gallery-container">
+      <!-- 로딩 상태 -->
+      <div id="loadingState" class="loading-state">
+        <div class="loading-spinner"></div>
+        <p>케이스를 불러오는 중...</p>
       </div>
       
-      <div class="max-w-800">
-        <div class="notice-callout reveal">
-          <div class="callout-icon"><i class="fas fa-lock"></i></div>
-          <div class="callout-content">
-            <h4>비포/애프터 열람 안내</h4>
-            <p>치료 전후 사진은 의료법에 의거하여 로그인 후 열람 가능합니다. 회원가입 후 이용해 주세요.</p>
-            <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
-              <a href="../auth/login.html" class="btn btn-primary btn-sm"><i class="fas fa-sign-in-alt"></i> 로그인</a>
-              <a href="../auth/register.html" class="btn btn-outline btn-sm"><i class="fas fa-user-plus"></i> 회원가입</a>
-            </div>
-          </div>
-        </div>
+      <!-- 갤러리 그리드 -->
+      <div id="galleryGrid" class="gallery-grid" style="display: none;"></div>
+      
+      <!-- 빈 상태 -->
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <i class="fas fa-images"></i>
+        <h3>등록된 케이스가 없습니다</h3>
+        <p>곧 새로운 치료 사례가 업데이트됩니다.</p>
       </div>
     </div>
   </section>
+  
+  <!-- 통계 섹션 -->
+  <section class="stats-section" id="statsSection">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="number" id="statTotal">0</div>
+        <div class="label">총 케이스</div>
+      </div>
+      <div class="stat-item">
+        <div class="number" id="statImplant">0</div>
+        <div class="label">임플란트</div>
+      </div>
+      <div class="stat-item">
+        <div class="number" id="statOrthodontic">0</div>
+        <div class="label">교정</div>
+      </div>
+      <div class="stat-item">
+        <div class="number" id="statAesthetic">0</div>
+        <div class="label">심미치료</div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 주의사항 -->
+  <section class="notice-section" id="noticeSection">
+    <div class="notice-box">
+      <h3><i class="fas fa-info-circle"></i> 안내사항</h3>
+      <p>
+        본 갤러리의 모든 이미지는 환자분의 동의를 받아 게시되었습니다.
+        무단 복제, 배포, 상업적 사용은 엄격히 금지됩니다.
+        치료 결과는 개인에 따라 다를 수 있으며, 정확한 진단은 내원 상담을 통해 받으시기 바랍니다.
+      </p>
+    </div>
+  </section>
 
-  <!-- ═══════ CTA ═══════ -->
-  <section class="cta-section" aria-label="상담 예약">
+  <!-- 이미지 상세보기 모달 -->
+  <div class="image-modal" id="imageModal">
+    <div class="image-modal-content">
+      <button class="image-modal-close" onclick="closeImageModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="image-modal-grid" id="modalImageGrid">
+        <!-- 동적으로 채워짐 -->
+      </div>
+      <div class="image-modal-info">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+        <div class="image-modal-meta">
+          <span><i class="fas fa-clock"></i> <span id="modalPeriod"></span></span>
+          <span><i class="fas fa-user-md"></i> <span id="modalDoctor"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Header Loader -->
+
+  <section class="cta-section" aria-label="상담 안내">
     <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-content">
-          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 상담 예약</span>
-          <h2>궁금한 점이 있으신가요?</h2>
-          <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요</p>
-          <div class="cta-buttons">
-            <a href="../reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
-            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
-          </div>
-          <div class="cta-info">
-            <span><i class="fas fa-clock"></i> 365일 진료</span>
-            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
-            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
-          </div>
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>궁금한 점이 있으신가요?</h2>
+        <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요.</p>
+        <div class="cta-buttons">
+          <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
         </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
       </div>
     </div>
   </section>
-
+  
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">

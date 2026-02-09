@@ -75,116 +75,332 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="예약/상담">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="/">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">예약/상담</span></nav>
-      <span class="hero-badge"><i class="fas fa-calendar-check"></i> 예약/상담</span>
-      <h1>간편한 <span class="text-gradient">온라인 예약</span></h1>
-      <p class="hero-desc">365일 진료 — 원하시는 시간에 편하게 예약하세요</p>
-      <div class="hero-stats"><div class="hero-stat"><span class="stat-number">365일</span><span class="stat-label">진료</span></div><div class="hero-stat"><span class="stat-number">20:00</span><span class="stat-label">야간진료</span></div><div class="hero-stat"><span class="stat-number">1분</span><span class="stat-label">간편 예약</span></div></div>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a> <span class="sep">/</span> <span class="current">예약/상담</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-calendar-check"></i> 예약/상담</span>
+      <h1 class="reveal delay-1">편리한 <span class="text-gradient">예약 · 상담</span></h1>
+      <p class="hero-desc reveal delay-2">365일 진료 — 온라인, 전화, 카카오톡으로 편하게 예약하세요</p>
+      
     </div>
   </section>
 
-  <section class="content-section" aria-label="예약 신청">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-calendar-check"></i> 예약 신청</span>
-        <h2 class="section-title">온라인 <span class="text-gradient">예약 신청</span></h2>
-        <p class="section-subtitle">아래 양식을 작성해 주시면 확인 후 연락드리겠습니다</p>
-      </div>
-      
-      <div class="form-section reveal">
-        <div class="info-box mb-8">
-          <h3><i class="fas fa-info-circle"></i> 예약 안내</h3>
-          <ul>
-            <li>온라인 예약 후 확인 전화를 드립니다</li>
-            <li>급한 경우 전화 예약을 추천드립니다: <strong>041-415-2892</strong></li>
-            <li>예약 변경/취소는 전화로 가능합니다</li>
-          </ul>
-        </div>
-        
-        <form id="reservationForm" onsubmit="return false;">
-          <div class="form-group">
-            <label class="form-label">이름 <span class="required">*</span></label>
-            <input type="text" class="form-input" placeholder="이름을 입력해 주세요" required>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">연락처 <span class="required">*</span></label>
-              <input type="tel" class="form-input" placeholder="010-0000-0000" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">희망 날짜 <span class="required">*</span></label>
-              <input type="date" class="form-input" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">희망 시간</label>
-            <select class="form-select">
-              <option value="">시간을 선택해 주세요</option>
-              <option>09:00 ~ 10:00</option><option>10:00 ~ 11:00</option><option>11:00 ~ 12:00</option>
-              <option>14:00 ~ 15:00</option><option>15:00 ~ 16:00</option><option>16:00 ~ 17:00</option>
-              <option>17:00 ~ 18:00</option><option>18:00 ~ 19:00</option><option>19:00 ~ 20:00</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">진료 과목</label>
-            <select class="form-select">
-              <option value="">진료 과목을 선택해 주세요</option>
-              <option>임플란트</option><option>치아교정 (인비절라인)</option><option>소아치과</option>
-              <option>충치치료</option><option>신경치료</option><option>스케일링</option>
-              <option>잇몸치료</option><option>미백</option><option>심미치료 (라미네이트 등)</option>
-              <option>사랑니 발치</option><option>턱관절장애</option><option>기타/상담</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">증상 / 요청사항</label>
-            <textarea class="form-textarea" placeholder="증상이나 요청사항을 자유롭게 적어주세요"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-checkbox">
-              <input type="checkbox" required>
-              <span><a href="privacy.html" style="color:var(--brand-primary);text-decoration:underline;">개인정보 처리방침</a>에 동의합니다 <span class="required">*</span></span>
-            </label>
-          </div>
-          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
-            <i class="fas fa-calendar-check"></i> 예약 신청하기
-          </button>
-          <p class="form-hint mt-4 text-center">* 예약 신청 후 확인 전화를 드립니다. 전화 예약: 041-415-2892</p>
-        </form>
-      </div>
-    </div>
-  </section>
+<!-- Page Header -->
+  
 
-  <section class="content-section bg-warm" aria-label="다른 예약 방법">
+  <!-- Quick Contact -->
+  <section class="section quick-contact">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-mouse-pointer"></i> 다른 예약 방법</span>
-        <h2 class="section-title">다양한 <span class="text-gradient">예약 채널</span></h2>
-        <p class="section-subtitle">편하신 채널로 예약해 주세요</p>
-      </div>
-      
-      <div class="info-grid cols-2 reveal">
-        <div class="info-card">
-          <div class="card-icon"><i class="fab fa-naver"></i></div>
-          <h3>네이버 예약</h3>
-          <p>네이버에서 간편하게 예약하세요</p>
-          <a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" class="btn btn-outline btn-sm" style="margin-top:16px;"><i class="fas fa-external-link-alt"></i> 네이버 예약</a>
-        </div>
-        <div class="info-card">
-          <div class="card-icon"><i class="fas fa-comment"></i></div>
+      <div class="quick-contact-grid">
+        <a href="tel:041-415-2892" class="quick-card feature-card">
+          <div class="quick-icon"><i class="fas fa-phone"></i></div>
+          <h3>전화 예약</h3>
+          <p class="quick-value">041-415-2892</p>
+          <span class="quick-desc">평일 09:00-20:00</span>
+        </a>
+        <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" class="quick-card feature-card">
+          <div class="quick-icon kakao"><i class="fab fa-comment"></i></div>
           <h3>카카오톡 상담</h3>
-          <p>카카오톡으로 편하게 상담하세요</p>
-          <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="btn btn-outline btn-sm" style="margin-top:16px;"><i class="fas fa-comment"></i> 카카오톡 상담</a>
+          <p class="quick-value">@서울비디치과</p>
+          <span class="quick-desc">빠른 상담 가능</span>
+        </a>
+        <a href="https://naver.me/5yPnKmqQ" target="_blank" class="quick-card feature-card">
+          <div class="quick-icon naver"><i class="fas fa-calendar-alt"></i></div>
+          <h3>네이버 예약</h3>
+          <p class="quick-value">간편 예약</p>
+          <span class="quick-desc">24시간 가능</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Form -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="reservation-wrapper">
+        <div class="reservation-info">
+          <h2 class="text-h3">온라인 상담 예약</h2>
+          <p class="text-body-lg">
+            아래 양식을 작성해주시면<br>
+            담당자가 확인 후 연락드립니다.
+          </p>
+          
+          <div class="info-card feature-card">
+            <h3><i class="fas fa-clock"></i> 진료 시간</h3>
+            <ul>
+              <li>
+                <span>평일</span>
+                <span>09:00 - 20:00</span>
+              </li>
+              <li>
+                <span>토·일요일</span>
+                <span>09:00 - 17:00</span>
+              </li>
+              <li>
+                <span>점심시간 (평일)</span>
+                <span>12:30 - 14:00</span>
+              </li>
+              <li class="holiday">
+                <span>공휴일</span>
+                <span>09:00 - 13:00</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="info-card feature-card">
+            <h3><i class="fas fa-map-marker-alt"></i> 오시는 길</h3>
+            <p>충남 천안시 서북구 불당34길 14, 1~5층</p>
+            <div class="map-buttons">
+              <a href="https://map.naver.com" target="_blank" class="btn btn-sm btn-secondary">
+                <i class="fas fa-map"></i> 네이버 지도
+              </a>
+              <a href="https://maps.google.com" target="_blank" class="btn btn-sm btn-secondary">
+                <i class="fas fa-map"></i> 구글 지도
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="reservation-form-wrapper feature-card">
+          <form id="reservationForm" class="reservation-form">
+            <!-- Step Indicator -->
+            <div class="form-steps">
+              <div class="step active" data-step="1">
+                <span class="step-num">1</span>
+                <span class="step-label">진료 선택</span>
+              </div>
+              <div class="step" data-step="2">
+                <span class="step-num">2</span>
+                <span class="step-label">날짜/시간</span>
+              </div>
+              <div class="step" data-step="3">
+                <span class="step-num">3</span>
+                <span class="step-label">정보 입력</span>
+              </div>
+            </div>
+
+            <!-- Step 1: Treatment Selection -->
+            <div class="form-step-content active" data-step="1">
+              <h3>어떤 진료를 원하시나요?</h3>
+              
+              <div class="treatment-options">
+                <label class="treatment-option">
+                  <input type="radio" name="treatment" value="checkup" required>
+                  <span class="option-content">
+                    <i class="fas fa-microscope"></i>
+                    <span class="option-title">BDX 정밀검진</span>
+                    <span class="option-desc">초진/종합검진</span>
+                  </span>
+                </label>
+                <label class="treatment-option">
+                  <input type="radio" name="treatment" value="glownate">
+                  <span class="option-content">
+                    <i class="fas fa-gem"></i>
+                    <span class="option-title">글로우네이트</span>
+                    <span class="option-desc">라미네이트</span>
+                  </span>
+                </label>
+                <label class="treatment-option">
+                  <input type="radio" name="treatment" value="invisalign">
+                  <span class="option-content">
+                    <i class="fas fa-teeth"></i>
+                    <span class="option-title">인비절라인</span>
+                    <span class="option-desc">투명교정</span>
+                  </span>
+                </label>
+                <label class="treatment-option">
+                  <input type="radio" name="treatment" value="implant">
+                  <span class="option-content">
+                    <i class="fas fa-teeth-open"></i>
+                    <span class="option-title">임플란트</span>
+                    <span class="option-desc">치아 식립</span>
+                  </span>
+                </label>
+                <label class="treatment-option">
+                  <input type="radio" name="treatment" value="general">
+                  <span class="option-content">
+                    <i class="fas fa-tooth"></i>
+                    <span class="option-title">일반진료</span>
+                    <span class="option-desc">충치/신경/스케일링</span>
+                  </span>
+                </label>
+                <label class="treatment-option">
+                  <input type="radio" name="treatment" value="other">
+                  <span class="option-content">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="option-title">기타/상담</span>
+                    <span class="option-desc">기타 문의</span>
+                  </span>
+                </label>
+              </div>
+
+              <button type="button" class="btn btn-primary btn-lg btn-next" data-next="2">
+                다음 단계 <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+
+            <!-- Step 2: Date & Time -->
+            <div class="form-step-content" data-step="2">
+              <h3>희망 날짜와 시간을 선택해주세요</h3>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="date">희망 날짜</label>
+                  <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                  <label for="time">희망 시간</label>
+                  <select id="time" name="time" required>
+                    <option value="">시간 선택</option>
+                    <option value="09:00">09:00</option>
+                    <option value="09:30">09:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-note">
+                <i class="fas fa-info-circle"></i>
+                <span>예약 시간은 담당자 확인 후 조정될 수 있습니다.</span>
+              </div>
+
+              <div class="form-buttons">
+                <button type="button" class="btn btn-secondary btn-prev" data-prev="1">
+                  <i class="fas fa-arrow-left"></i> 이전
+                </button>
+                <button type="button" class="btn btn-primary btn-next" data-next="3">
+                  다음 단계 <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 3: Personal Info -->
+            <div class="form-step-content" data-step="3">
+              <h3>연락처 정보를 입력해주세요</h3>
+              
+              <div class="form-group">
+                <label for="name">성함 <span class="required">*</span></label>
+                <input type="text" id="name" name="name" placeholder="홍길동" required>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">연락처 <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required>
+              </div>
+
+              <div class="form-group">
+                <label for="message">증상 또는 문의사항</label>
+                <textarea id="message" name="message" rows="4" placeholder="증상이나 궁금하신 점을 입력해주세요"></textarea>
+              </div>
+
+              <div class="form-group form-checkbox">
+                <label>
+                  <input type="checkbox" name="privacy" required>
+                  <span><a href="privacy.html" target="_blank">개인정보 처리방침</a>에 동의합니다. <span class="required">*</span></span>
+                </label>
+              </div>
+
+              <div class="form-group form-checkbox">
+                <label>
+                  <input type="checkbox" name="marketing">
+                  <span>마케팅 정보 수신에 동의합니다. (선택)</span>
+                </label>
+              </div>
+
+              <div class="form-buttons">
+                <button type="button" class="btn btn-secondary btn-prev" data-prev="2">
+                  <i class="fas fa-arrow-left"></i> 이전
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <i class="fas fa-check"></i> 예약 신청
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>예약 관련 자주 묻는 질문</h2>
+      </div>
+
+      <div class="faq-list" style="max-width: 800px; margin: 0 auto;">
+        <div class="faq-item">
+          <button class="faq-question">
+            당일 예약도 가능한가요?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>네, 당일 예약도 가능합니다. 다만, 예약 상황에 따라 대기 시간이 발생할 수 있으니 가급적 전화로 확인 후 방문해주시기 바랍니다.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            예약 변경이나 취소는 어떻게 하나요?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>예약 변경 및 취소는 전화(041-415-2892) 또는 카카오톡으로 문의해주세요. 예약일 전날까지 변경/취소가 가능합니다.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            초진 시 준비물이 있나요?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>신분증(건강보험증)을 지참해주시면 됩니다. 복용 중인 약이 있다면 약 정보도 함께 알려주시면 진료에 도움이 됩니다.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            주차가 가능한가요?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>네, 건물 내 전용 주차장이 있습니다. 진료 시간에 따라 주차 요금이 지원됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Mobile Nav -->
+  <!-- Amplitude Event Tracking -->
+
+  <section class="cta-section" aria-label="상담 안내">
+    <div class="container">
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>궁금한 점이 있으신가요?</h2>
+        <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요.</p>
+        <div class="cta-buttons">
+          <a href="reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
+      </div>
+    </div>
+  </section>
+  
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">

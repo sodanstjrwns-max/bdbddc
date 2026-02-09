@@ -75,75 +75,407 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="김민규 원장">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><a href="../doctors/index.html">의료진 소개</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">김민규 원장</span></nav>
-      <span class="hero-badge"><i class="fas fa-user-md"></i> 원장</span>
-      <h1>김민규 <span class="text-gradient">원장</span></h1>
-      <p class="hero-desc">치과보철과</p>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <a href="../doctors/index.html">의료진 소개</a> <span class="sep">/</span> <span class="current">김민경 원장</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-user-md"></i> 의료진 소개</span>
+      <h1 class="reveal delay-1"><span class="text-gradient">김민경</span> 원장</h1>
+      <p class="hero-desc reveal delay-2">서울대학교 치의학대학원 출신 — 전문 분야별 진료</p>
       
     </div>
   </section>
 
-  <section class="content-section" aria-label="프로필">
+<!-- ■ 통합 헤더 -->
+    
+
+    <!-- ===== Profile Header ===== -->
+    <section class="profile-header">
+        <div class="container">
+            <!-- 📸 프로필 사진 -->
+            <div class="profile-photo-wrapper">
+                <div class="profile-photo-frame">
+                    <img 
+                        src="../images/doctors/kim-mg-profile.jpg" 
+                        alt="김민규 원장 프로필 사진"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    >
+                    <div class="profile-photo-placeholder" style="display: none;">
+                        <i class="fas fa-user-md"></i>
+                        <span>프로필 사진 촬영 예정</span>
+                    </div>
+                </div>
+                <div class="profile-badges">
+                    <span class="badge badge-primary">교정과 전문의</span>
+                    <span class="badge">인비절라인 전문</span>
+                    <span class="badge">서울대 박사 수료</span>
+                </div>
+            </div>
+            
+            <div class="profile-info">
+                <span class="profile-role">원장 · 교정과 전문의 · 인비절라인 전문</span>
+                <h1 class="profile-name">김민규 <span class="title-suffix">원장</span></h1>
+                <p class="profile-specialty">교정과 · 인비절라인 · 디지털교정</p>
+                
+                <div class="profile-quote">
+                    과학적 근거 위에서 환자에게 가장 적합한 편안한 해결책을 찾는 진료.<br>
+                    정확한 진단, 예측 가능한 계획, 그리고 환자분이 이해하는 치료.
+                </div>
+                
+                <div class="profile-actions">
+                    <a href="../reservation.html?doctor=kim-mg" class="btn-consult">
+                        <i class="fas fa-calendar-check"></i>
+                        김민규 원장님 상담 예약
+                    </a>
+                    <a href="tel:041-415-2892" class="btn-call">
+                        <i class="fas fa-phone"></i>
+                        041-415-2892
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 📷 진료 모습 갤러리 ===== -->
+    <section class="gallery-section">
+        <div class="section-header">
+            <h2>진료 모습</h2>
+            <p>김민규 원장의 진료 현장</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img 
+                    src="../images/doctors/kim-mg-treatment-1.jpg" 
+                    alt="김민규 원장 진료 모습 1"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="gallery-item-placeholder" style="display: none;">
+                    <i class="fas fa-camera"></i>
+                    <span>진료 사진 1 촬영 예정</span>
+                </div>
+                <div class="gallery-item-label">인비절라인 교정</div>
+            </div>
+            <div class="gallery-item">
+                <img 
+                    src="../images/doctors/kim-mg-treatment-2.jpg" 
+                    alt="김민규 원장 진료 모습 2"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="gallery-item-placeholder" style="display: none;">
+                    <i class="fas fa-camera"></i>
+                    <span>진료 사진 2 촬영 예정</span>
+                </div>
+                <div class="gallery-item-label">디지털 교정 상담</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 원장 이야기 섹션 ===== -->
+    <section class="story-section">
+        <div class="story-container">
+            <div class="story-header">
+                <h2>김민규 원장 이야기</h2>
+                <p class="subtitle">차분하고 꼼꼼한 교정과 전문의</p>
+            </div>
+            
+            <div class="story-content">
+                <!-- 치과의사가 된 계기 -->
+                <div class="story-block">
+                    <h3>치과의사가 된 계기</h3>
+                    <p>
+                        어릴 때 치과에서 치료를 받으며 한 가지를 느꼈습니다.
+                    </p>
+                    <div class="story-highlight">
+                        <strong>"좋은 치료 하나가 일상의 편안함을 크게 바꿀 수 있구나."</strong>
+                    </div>
+                    <p>
+                        한 번의 치료가 고통을 줄여줄 뿐 아니라, 표정과 하루의 분위기까지 바꿀 수 있다는 사실이 인상 깊었습니다. 시간이 지나면서 그 감정은 한 가지 바람으로 자리 잡았습니다.
+                    </p>
+                    <p>
+                        <strong class="highlight-text">"나도 누군가의 일상을 조금 더 편안하게 만들어주는 사람이 되고 싶다."</strong><br>
+                        그 마음이 자연스럽게 치과의사의 길로 이어졌고, 지금도 그때 느꼈던 다짐이 제 진료의 중심을 잡아줍니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 임상 전문성 -->
+                <div class="story-block">
+                    <h3>임상 전문성</h3>
+                    <p>
+                        지금 저는 교정과 전문의로서 다양한 교정 증례를 진료하고 있으며, 그중에서도 최근에는 <strong class="highlight-text">인비절라인을 중심으로 한 디지털 교정치료</strong>에 집중하고 있습니다.
+                    </p>
+                    <p>
+                        보이지 않는 장치로 편안한 치료를 선호하시는 분들이 많아지고 있고, 기술의 발전으로 적용 가능한 케이스도 점점 넓어지고 있습니다. 장치가 눈에 띄지 않아 심리적 부담이 적고, 통증도 줄어들어 많은 환자분들이 만족하고 계십니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 진료 스타일 -->
+                <div class="story-block">
+                    <h3>진료 스타일</h3>
+                    <p>
+                        제 진료 스타일을 한 문장으로 설명하자면,
+                    </p>
+                    <div class="story-highlight">
+                        <strong>"과학적 근거 위에서 환자에게 가장 적합한 편안한 해결책을 찾는 진료."</strong>
+                    </div>
+                    <p>
+                        교정은 단순히 치열을 예쁘게 만드는 과정이 아니라, 치아·뼈·근육이 균형을 이루는 복합적인 치료입니다. 그래서 저는 항상 <strong class="highlight-text">데이터를 기반으로 정확하게 분석</strong>하고, 그 분석을 토대로 가장 현실적인 치료 계획을 세웁니다. 동시에 환자분이 충분히 이해하고 동의하셔야만 치료가 의미가 있다고 생각합니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 진료 철학 -->
+                <div class="story-block">
+                    <h3>진료 철학</h3>
+                    <p>
+                        제가 가장 중요하게 생각하는 원칙은
+                    </p>
+                    <div class="story-highlight">
+                        <strong>정확한 진단, 예측 가능한 계획, 그리고 환자분이 이해하는 치료.</strong>
+                    </div>
+                    <p>
+                        교정은 길게는 수년간 이어지는 여정이기 때문에, 시작 단계의 계획이 치료 결과를 크게 좌우합니다. 계획이 명확하면 과정이 흔들리지 않고, 환자분께서도 변화의 흐름을 자연스럽게 이해하실 수 있습니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 환자분께 드리는 조언 -->
+                <div class="story-block">
+                    <h3>환자분께 드리는 조언</h3>
+                    <p>
+                        관리법을 설명할 때 저는 늘 이렇게 말씀드립니다.
+                    </p>
+                    <div class="story-highlight">
+                        <strong>"교정은 의사 혼자 만들어내는 결과가 아닙니다."</strong>
+                    </div>
+                    <p>
+                        특히 인비절라인은 장치를 얼마나 성실하게 착용하느냐가 치료 속도와 완성도를 결정합니다. 장치가 편안해서 오히려 깜빡하기 쉬운데, 하루 몇 시간 차이가 몇 달의 차이를 만들기도 합니다. 그래서 저는 진료 때마다 <strong class="highlight-text">"우리가 함께 만들어가는 치료"</strong>라는 점을 강조합니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 기억에 남는 경험 -->
+                <div class="story-block">
+                    <h3>기억에 남는 경험</h3>
+                    <p>
+                        기억에 남는 경험은 교정치료 후 한 환자분이 보내준 메시지입니다.
+                    </p>
+                    <p>
+                        치열이 가지런해지면서 외모가 달라졌을 뿐 아니라, <strong class="highlight-text">표정이 밝아지고 말투도 자신감 있게 변했다</strong>고 하셨습니다.
+                    </p>
+                    <div class="story-highlight">
+                        저는 치아만 바꿨다고 생각했는데, <strong>그분의 하루·관계·삶의 분위기까지 바뀌었다</strong>는 이야기를 들으니, 제가 하는 일이 얼마나 의미 있는지 다시 한번 느끼게 되었습니다.
+                    </div>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 최근 관심 분야 -->
+                <div class="story-block">
+                    <h3>최근 관심 분야</h3>
+                    <p>
+                        최근에는 <strong class="highlight-text">인비절라인의 성장기 교정(First·MA)과 악정형 치료</strong>, 그리고 정밀한 디지털 진단 시스템을 집중적으로 공부하고 있습니다. 교정의 패러다임이 계속 발전하고 있기 때문에, 환자분께 더 빠르고 편안한 치료를 제공하기 위해 배움을 놓지 않고 있습니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 개인적인 모습 -->
+                <div class="story-block">
+                    <h3>개인적인 모습</h3>
+                    <p>
+                        동료들은 저를 <strong class="highlight-text">"차분하고 꼼꼼한 사람"</strong>이라고 표현합니다. 작은 변화도 놓치지 않고 보는 성향 덕분에 진단과 계획 수립에서 강점을 발휘하는 편입니다. 어떤 치료든 첫 단추를 정확하게 끼우는 것이 가장 중요하다고 믿습니다.
+                    </p>
+                    <p>
+                        진료실 밖에서는 <strong class="highlight-text">운동과 독서</strong>를 즐기며, 새로운 진료지식을 공부하는 시간을 꾸준히 마련합니다. 또 아이들과 함께 보내는 일상은 제게 가장 큰 휴식이자 원동력입니다. 환자분을 대하는 태도에도 자연스럽게 따뜻함을 더해주는 시간입니다.
+                    </p>
+                </div>
+
+                <!-- 마무리 메시지 -->
+                <div class="closing-message">
+                    <p>
+                        환자분들이 서울비디치과를 떠올릴 때<br><br>
+                        <strong>"생각보다 치과가 편안하네."</strong><br><br>
+                        라는 느낌이 자연스럽게 스며들었으면 합니다.<br>
+                        정확한 치료, 충분한 설명, 그리고 편안한 분위기.<br>
+                        이 세 가지를 지키며, 환자분의 교정 여정을 안정적으로 함께하고 싶습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 🎤 인터뷰 섹션 ===== -->
+    <section class="interview-section">
+        <div class="interview-container">
+            <div class="section-header">
+                <h2>원장 인터뷰</h2>
+                <p>김민규 원장이 전하는 이야기</p>
+            </div>
+            
+            <div class="interview-content">
+                <div class="interview-qa">
+                    <div class="interview-q">치과의사가 된 계기가 있다면?</div>
+                    <p class="interview-a">
+                        어릴 때 치과에서 치료를 받으며 "좋은 치료 하나가 일상의 편안함을 크게 바꿀 수 있구나"라는 것을 느꼈습니다. 한 번의 치료가 고통을 줄여줄 뿐 아니라, 표정과 하루의 분위기까지 바꿀 수 있다는 사실이 인상 깊었습니다. 그 경험이 저를 치과의사의 길로 이끌었습니다.
+                    </p>
+                </div>
+                <div class="interview-qa">
+                    <div class="interview-q">교정 치료에서 가장 중요하게 생각하시는 것은?</div>
+                    <p class="interview-a">
+                        정확한 진단, 예측 가능한 계획, 그리고 환자분이 이해하는 치료입니다. 교정은 길게는 수년간 이어지는 여정이기 때문에, 시작 단계의 계획이 치료 결과를 크게 좌우합니다. 계획이 명확하면 과정이 흔들리지 않고, 환자분께서도 변화의 흐름을 자연스럽게 이해하실 수 있습니다.
+                    </p>
+                </div>
+                <div class="interview-qa">
+                    <div class="interview-q">인비절라인 환자분들께 드리는 조언이 있다면?</div>
+                    <p class="interview-a">
+                        "교정은 의사 혼자 만들어내는 결과가 아닙니다."라고 말씀드립니다. 특히 인비절라인은 장치를 얼마나 성실하게 착용하느냐가 치료 속도와 완성도를 결정합니다. 하루 몇 시간 차이가 몇 달의 차이를 만들기도 합니다. "우리가 함께 만들어가는 치료"라는 점을 꼭 기억해주세요.
+                    </p>
+                </div>
+                <div class="interview-qa">
+                    <div class="interview-q">가장 기억에 남는 진료 경험이 있다면?</div>
+                    <p class="interview-a">
+                        교정치료 후 한 환자분이 보내주신 메시지입니다. 치열이 가지런해지면서 외모가 달라졌을 뿐 아니라, 표정이 밝아지고 말투도 자신감 있게 변했다고 하셨습니다. 저는 치아만 바꿨다고 생각했는데, 그분의 하루·관계·삶의 분위기까지 바뀌었다는 이야기를 들으니, 제가 하는 일이 얼마나 의미 있는지 다시 한번 느꼈습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Profile Content ===== -->
+    <div class="profile-content">
+        <div class="content-grid">
+            <div class="content-main">
+                <!-- 학력 및 경력 -->
+                <div class="content-card">
+                    <h3><i class="fas fa-graduation-cap"></i> 학력 및 경력</h3>
+                    <ul class="career-list">
+                        <li><i class="fas fa-check"></i> 서울대학교 치의학과</li>
+                        <li><i class="fas fa-check"></i> 서울대학교 치의학대학원 석사</li>
+                        <li><i class="fas fa-check"></i> 서울대학교 치의학대학원 박사 수료</li>
+                        <li><i class="fas fa-check"></i> 치과교정과 전문의</li>
+                    </ul>
+                </div>
+                
+                <!-- 전문 진료 분야 -->
+                <div class="content-card">
+                    <h3><i class="fas fa-star"></i> 전문 진료 분야</h3>
+                    <div class="specialty-tags">
+                        <span class="specialty-tag">치과교정</span>
+                        <span class="specialty-tag">인비절라인</span>
+                        <span class="specialty-tag">디지털 교정</span>
+                        <span class="specialty-tag">성장기 교정 (First·MA)</span>
+                        <span class="specialty-tag">악정형 치료</span>
+                        <span class="specialty-tag">정밀 진단</span>
+                    </div>
+                </div>
+                
+                <!-- 진료 철학 -->
+                <div class="philosophy-section">
+                    <h3><i class="fas fa-heart highlight-text"></i> 진료 철학</h3>
+                    <p>
+                        <strong class="highlight-text">"과학적 근거 위에서 환자에게 가장 적합한 편안한 해결책을 찾는 진료."</strong>
+                        <br><br>
+                        교정은 단순히 치열을 예쁘게 만드는 과정이 아니라, 치아·뼈·근육이 균형을 이루는 복합적인 치료입니다.
+                        그래서 저는 항상 데이터를 기반으로 정확하게 분석하고, 그 분석을 토대로 가장 현실적인 치료 계획을 세웁니다.
+                        <br><br>
+                        동시에 환자분이 충분히 이해하고 동의하셔야만 치료가 의미가 있다고 생각합니다.
+                        정확한 치료, 충분한 설명, 그리고 편안한 분위기로 환자분의 교정 여정을 함께하겠습니다.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="content-sidebar">
+                <!-- 진료 시간 -->
+                <div class="content-card">
+                    <h3><i class="fas fa-clock"></i> 진료 시간</h3>
+                    <table class="schedule-table">
+                        <tr><td>월</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>화</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>수</td><td class="unavailable">휴진</td></tr>
+                        <tr><td>목</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>금</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>토</td><td class="available">09:00 - 17:00</td></tr>
+                        <tr><td>일</td><td class="available">09:00 - 17:00</td></tr>
+                    </table>
+                    <p class="small-note">
+                        * 진료 일정은 변동될 수 있습니다.<br>
+                        * 예약 시 확인 부탁드립니다.
+                    </p>
+                </div>
+                
+                <!-- 진료실 위치 -->
+                <div class="content-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> 진료실 위치</h3>
+                    <p class="sidebar-text">
+                        <strong class="highlight-text">1F 교정센터</strong><br>
+                        인비절라인 · 디지털교정 클리닉
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 다른 의료진 보기 -->
+        <div class="other-doctors">
+            <h3>다른 의료진 보기</h3>
+            <div class="doctors-mini-grid">
+                <a href="kim.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">김OO 원장</p>
+                    <p class="mini-specialty">임플란트·구강외과</p>
+                </a>
+                <a href="lee.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">이OO 원장</p>
+                    <p class="mini-specialty">교정·인비절라인</p>
+                </a>
+                <a href="park.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">박OO 원장</p>
+                    <p class="mini-specialty">소아치과</p>
+                </a>
+                <a href="hyun.html" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">현정민 원장</p>
+                    <p class="mini-specialty">심미보철·원데이레진</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Footer CTA ===== -->
+    <section class="footer-cta">
+        <h2>김민규 원장님께 상담받으세요</h2>
+        <p>교정과 전문의 · 인비절라인 디지털 교정 전문</p>
+        <a href="../reservation.html?doctor=kim-mg" class="btn-white">
+            <i class="fas fa-calendar-check"></i> 상담 예약하기
+        </a>
+    </section>
+    
+    <!-- Simple Footer -->
+
+
+  <section class="cta-section" aria-label="상담 안내">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-user-md"></i> 프로필</span>
-        <h2 class="section-title">김민규 <span class="text-gradient">원장 프로필</span></h2>
-        <p class="section-subtitle"></p>
-      </div>
-      
-      <div class="profile-hero reveal">
-        <div class="profile-photo-area">
-          <div style="width:240px;height:300px;border-radius:var(--radius-2xl);background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;font-size:4rem;color:var(--brand-primary);margin:0 auto;box-shadow:var(--shadow-lg);">
-            <i class="fas fa-user-md"></i>
-          </div>
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>김민경 원장님께 진료받고 싶으시다면</h2>
+        <p>예약 시 희망 원장님을 선택하실 수 있습니다.</p>
+        <div class="cta-buttons">
+          <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
         </div>
-        <div class="profile-info">
-          <div class="profile-name">김민규 원장</div>
-          <div class="profile-role">원장 · 치과보철과</div>
-          <div class="profile-details">
-            <div class="profile-detail-item">
-              <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
-              <div class="detail-content"><h4>학력</h4><p>서울대학교 치의학과 졸업. 보철 전문 원장.</p></div>
-            </div>
-            <div class="profile-detail-item">
-              <div class="detail-icon"><i class="fas fa-star"></i></div>
-              <div class="detail-content"><h4>전문 분야</h4><p>보철, 임플란트, 크라운</p></div>
-            </div>
-          </div>
-          <div class="doctor-tags" style="margin-top:var(--space-6);"><span class="doctor-tag">보철</span><span class="doctor-tag">임플란트</span><span class="doctor-tag">크라운</span></div>
-        </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
       </div>
     </div>
   </section>
-
-  <!-- ═══════ CTA ═══════ -->
-  <section class="cta-section" aria-label="상담 예약">
-    <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-content">
-          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 상담 예약</span>
-          <h2>김민규 원장에게 상담받으세요</h2>
-          <p>전문 분야에 대한 맞춤 상담을 제공합니다</p>
-          <div class="cta-buttons">
-            <a href="../reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
-            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
-          </div>
-          <div class="cta-info">
-            <span><i class="fas fa-clock"></i> 365일 진료</span>
-            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
-            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">

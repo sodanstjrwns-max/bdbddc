@@ -75,81 +75,356 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="치주염">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><a href="../treatments/index.html">진료 안내</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">치주염</span></nav>
-      <span class="hero-badge"><i class="fas fa-disease"></i> 치주염</span>
-      <h1>서울비디치과 <span class="text-gradient">치주염</span></h1>
-      <p class="hero-desc">치주염의 진행을 막고 치아와 잇몸을 보존합니다</p>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <a href="../treatments/index.html">진료 안내</a> <span class="sep">/</span> <span class="current">치주염 치료</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-tooth"></i> 치주염 치료</span>
+      <h1 class="reveal delay-1"><span class="text-gradient">치주염 치료</span></h1>
+      <p class="hero-desc reveal delay-2">치주염은 치아 상실의 주요 원인입니다. 단계별 체계적인 치주 치료를 제공합니다.</p>
       
     </div>
   </section>
 
-  <section class="content-section" aria-label="개요">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-info-circle"></i> 개요</span>
-        <h2 class="section-title">치주염 <span class="text-gradient">안내</span></h2>
-        <p class="section-subtitle">서울비디치과의 치주염를 안내합니다</p>
-      </div>
-      
-      <div class="treatment-detail">
-        <div class="treatment-overview reveal">
-          <h2>치주염란?</h2>
-          <p>치주염은 잇몸과 치조골까지 감염이 진행된 상태입니다. 방치하면 치아 상실로 이어질 수 있어 조기 치료가 매우 중요합니다.</p>
+<!-- Header (통일된 GNB) -->
+  
+
+  <main>
+    <!-- 히어로 섹션 -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="fas fa-disease"></i>
+            <span>잇몸/치주 치료</span>
+          </div>
+          <h1 class="hero-title">치아를 잃게 만드는<br><span>치주염(풍치)</span></h1>
+          <p class="hero-subtitle">잇몸뼈가 녹아 치아가 흔들리는 심각한 질환</p>
+          <p class="hero-desc">
+            <strong>치주염</strong>은 잇몸에만 염증이 있는 치은염에서 진행되어<br>
+            잇몸뼈(치조골)까지 파괴되는 질환입니다.<br>
+            <strong>조기에 발견하고 체계적으로 관리</strong>해야 치아를 지킬 수 있습니다.
+          </p>
+          <div class="hero-cta">
+            <a href="../reservation.html" class="btn btn-primary">
+              <i class="fas fa-calendar-check"></i> 치주 검진 예약
+            </a>
+          </div>
+          
+          <div class="warning-banner">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>성인 치아 상실 원인 대표 = 치주염</p>
+            <span>충치보다 치주염으로 치아를 잃는 경우가 더 많습니다</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="content-section bg-warm" aria-label="치료 과정">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-list-ol"></i> 치료 과정</span>
-        <h2 class="section-title">치주염 <span class="text-gradient">치료 과정</span></h2>
-        <p class="section-subtitle">체계적인 과정으로 안전하게 치료합니다</p>
+    <!-- 증상 섹션 -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">
+            <i class="fas fa-stethoscope"></i>
+            <span>자가진단</span>
+          </div>
+          <h2 class="section-title">치주염의 증상</h2>
+          <p class="section-desc">아래 증상이 2개 이상이면 치주 검진을 받아보세요</p>
+        </div>
+        
+        <div class="symptom-grid">
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-tint"></i></div>
+            <h3>잇몸 출혈</h3>
+            <p>양치질이나 음식 섭취 시 잇몸에서 피가 나고, 잇몸이 붓거나 붉어집니다</p>
+          </div>
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-level-down-alt"></i></div>
+            <h3>잇몸 퇴축</h3>
+            <p>잇몸이 내려가 치아 뿌리가 노출되고, 이가 길어 보입니다</p>
+          </div>
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-arrows-alt-h"></i></div>
+            <h3>치아 흔들림</h3>
+            <p>잇몸뼈가 녹으면서 치아가 흔들리기 시작하고, 벌어집니다</p>
+          </div>
+          <div class="symptom-card">
+            <div class="symptom-icon"><i class="fas fa-wind"></i></div>
+            <h3>심한 구취</h3>
+            <p>치주낭 속 세균과 염증으로 입에서 심한 냄새가 납니다</p>
+          </div>
+        </div>
       </div>
-      <div class="treatment-detail"><div class="process-timeline reveal"><div class="process-step"><div class="step-dot"></div><h3>정밀 진단</h3><p>치주낭 검사, X-ray로 골손실 정도를 확인합니다</p></div><div class="process-step"><div class="step-dot"></div><h3>비수술적 치료</h3><p>스케일링, 치근활택술로 감염을 제거합니다</p></div><div class="process-step"><div class="step-dot"></div><h3>수술적 치료</h3><p>심한 경우 잇몸 수술, 골이식을 시행합니다</p></div><div class="process-step"><div class="step-dot"></div><h3>유지 관리</h3><p>정기적 관리로 재발을 예방합니다</p></div></div></div>
-    </div>
-  </section>
+    </section>
 
-  <section class="content-section" aria-label="강점">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-star"></i> 강점</span>
-        <h2 class="section-title">서울비디치과의 <span class="text-gradient">강점</span></h2>
-        <p class="section-subtitle">왜 서울비디치과에서 치주염를 받아야 할까요?</p>
+    <!-- 진행 단계 -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">
+            <i class="fas fa-chart-line"></i>
+            <span>진행 단계</span>
+          </div>
+          <h2 class="section-title">치주 질환의 진행</h2>
+          <p class="section-desc">조기에 발견할수록 치료가 쉽고 치아를 지킬 수 있습니다</p>
+        </div>
+        
+        <div class="stage-grid">
+          <div class="stage-card stage-1">
+            <div class="stage-number">1</div>
+            <h3>치은염 (초기)</h3>
+            <p>잇몸에만 염증이 있는 상태. 잇몸 출혈, 붓기. <strong>스케일링으로 완치 가능</strong></p>
+          </div>
+          <div class="stage-card stage-2">
+            <div class="stage-number">2</div>
+            <h3>초기 치주염</h3>
+            <p>잇몸뼈까지 염증 진행 시작. 잇몸이 내려가기 시작. <strong>딥스케일링 필요</strong></p>
+          </div>
+          <div class="stage-card stage-3">
+            <div class="stage-number">3</div>
+            <h3>중등도 치주염</h3>
+            <p>잇몸뼈 파괴 진행. 치아 흔들림 시작. <strong>잇몸수술 고려</strong></p>
+          </div>
+          <div class="stage-card stage-4">
+            <div class="stage-number">4</div>
+            <h3>중증 치주염</h3>
+            <p>심한 뼈 손실. 치아 심하게 흔들림. <strong>발치가 필요할 수 있음</strong></p>
+          </div>
+        </div>
       </div>
-      <div class="info-grid reveal"><div class="info-card"><div class="card-icon"><i class="fas fa-search-plus"></i></div><h3>정밀 진단</h3><p>치주낭 검사로 정확한 진단</p></div><div class="info-card"><div class="card-icon"><i class="fas fa-user-md"></i></div><h3>전문의 치료</h3><p>치주과 전문의가 직접 치료</p></div><div class="info-card"><div class="card-icon"><i class="fas fa-sync-alt"></i></div><h3>체계적 관리</h3><p>재발 방지를 위한 유지 관리 프로그램</p></div></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ═══════ CTA ═══════ -->
-  <section class="cta-section" aria-label="상담 예약">
-    <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-content">
-          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 상담 예약</span>
-          <h2>치주염, 궁금한 점이 있으신가요?</h2>
-          <p>전문의 상담으로 최적의 치료 계획을 세워드립니다</p>
+    <!-- 치료 과정 -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">
+            <i class="fas fa-procedures"></i>
+            <span>치료 프로세스</span>
+          </div>
+          <h2 class="section-title">치주염 치료 과정</h2>
+          <p class="section-desc">단계별 체계적인 치주 치료를 제공합니다</p>
+        </div>
+        
+        <div class="process-timeline">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>정밀 검사</h3>
+              <p>치주낭 깊이 측정, 파노라마 X-ray로 뼈 흡수 정도를 정확히 파악합니다. 필요시 CT 촬영을 진행합니다.</p>
+              <span class="step-duration"><i class="fas fa-clock"></i> 약 30분</span>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>비수술 치료 (1차)</h3>
+              <p>스케일링과 딥스케일링으로 잇몸 위·아래의 치석을 제거합니다. 마취 후 치근활택술(SRP)로 뿌리면을 매끄럽게 다듬습니다.</p>
+              <span class="step-duration"><i class="fas fa-clock"></i> 2~4회 방문 (구역별)</span>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>재평가</h3>
+              <p>4-6주 후 치주낭 깊이와 잇몸 상태를 재평가합니다. 호전 정도에 따라 추가 치료 계획을 수립합니다.</p>
+              <span class="step-duration"><i class="fas fa-clock"></i> 4~6주 후</span>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>수술적 치료 (필요시)</h3>
+              <p>비수술 치료로 호전되지 않으면 치주판막술, 뼈이식술 등 잇몸수술을 진행합니다.</p>
+              <span class="step-duration"><i class="fas fa-clock"></i> 상태에 따라</span>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+              <h3>유지 관리</h3>
+              <p>치료 후 3~4개월마다 정기 스케일링과 검진으로 재발을 방지하고 건강한 잇몸을 유지합니다.</p>
+              <span class="step-duration"><i class="fas fa-clock"></i> 평생 관리</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 위험 요인 -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">
+            <i class="fas fa-exclamation-circle"></i>
+            <span>위험 요인</span>
+          </div>
+          <h2 class="section-title">치주염 위험을 높이는 요인</h2>
+        </div>
+        
+        <div class="info-box">
+          <h3>💡 치주염과 전신 건강</h3>
+          <p>치주염 세균은 혈관을 타고 전신으로 퍼질 수 있습니다. 심장질환, 당뇨, 뇌졸중, 조산 등과 관련이 있다고 알려져 있어, 치주 건강 관리는 전신 건강 관리의 일부입니다.</p>
+        </div>
+        
+        <div class="risk-grid">
+          <div class="risk-item">
+            <i class="fas fa-smoking"></i>
+            <h4>흡연</h4>
+            <p>치주염 위험 2~7배 증가</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-tint"></i>
+            <h4>당뇨</h4>
+            <p>혈당 조절 불량 시 악화</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-brain"></i>
+            <h4>스트레스</h4>
+            <p>면역력 저하, 이악물기</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-dna"></i>
+            <h4>유전적 요인</h4>
+            <p>가족력이 있는 경우</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-pills"></i>
+            <h4>일부 약물</h4>
+            <p>구강건조 유발 약물</p>
+          </div>
+          <div class="risk-item">
+            <i class="fas fa-venus"></i>
+            <h4>호르몬 변화</h4>
+            <p>임신, 폐경기</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-badge">
+            <i class="fas fa-question-circle"></i>
+            <span>FAQ</span>
+          </div>
+          <h2 class="section-title">자주 묻는 질문</h2>
+        </div>
+        
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>치주염은 완치되나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>한번 녹은 잇몸뼈는 자연 회복되지 않습니다. 치료 목표는 더 이상의 진행을 막고 현재 상태를 유지하는 것입니다. 조기 발견과 꾸준한 관리가 중요합니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>치주염 예방법은?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>올바른 양치질, 치실/치간칫솔 사용, 정기적인 스케일링이 가장 중요합니다. 금연도 치주 건강에 큰 도움이 됩니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>치주염과 치은염의 차이는?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>치은염은 잇몸에만 염증이 있는 초기 단계로 완치 가능합니다. 치주염은 잇몸뼈까지 파괴된 상태로, 진행 억제가 목표입니다. 치은염 단계에서 치료하는 것이 중요합니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>치아가 흔들리면 뽑아야 하나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>흔들리는 정도에 따라 다릅니다. 경미한 경우 치주치료와 고정으로 유지 가능합니다. 심하게 흔들리면 발치 후 임플란트를 고려합니다. 정확한 진단이 필요합니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>치주염 치료 기간은 얼마나 걸리나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>비수술 치료(딥스케일링, SRP) 후 4~6주 후 재평가합니다. 호전되지 않으면 잇몸수술을 고려합니다. 이후에도 3~4개월마다 정기 관리가 필요합니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>치주염 치료 비용은 얼마인가요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>스케일링, 딥스케일링, 치근활택술은 건강보험이 적용됩니다. 잇몸수술도 일부 보험 적용됩니다. 뼈이식 등은 비급여입니다. 정확한 비용은 검진 후 안내드립니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>당뇨가 있으면 치주염이 더 심해지나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>네, 당뇨와 치주염은 서로 영향을 줍니다. 당뇨 환자는 치주염이 진행되기 쉽고, 치주염은 혈당 조절을 어렵게 합니다. 양쪽 모두 적극 관리가 필요합니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>흡연과 치주염의 관계는?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>흡연은 치주염의 주요 위험 요인입니다. 흡연자는 비흡연자보다 치주염 위험이 2~7배 높고, 치료 효과도 떨어집니다. 금연이 치주 건강에 매우 중요합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box">
+          <h2>치아가 흔들리시거나 잇몸에서 피가 나시나요?</h2>
+          <p>늦기 전에 치주 전문 검진을 받아보세요.</p>
           <div class="cta-buttons">
-            <a href="../reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
-            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
-          </div>
-          <div class="cta-info">
-            <span><i class="fas fa-clock"></i> 365일 진료</span>
-            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
-            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
+            <a href="../reservation.html" class="btn btn-primary">
+              <i class="fas fa-calendar-check"></i> 검진 예약하기
+            </a>
+            <a href="tel:0414152892" class="btn btn-secondary">
+              <i class="fas fa-phone"></i> 041-415-2892
+            </a>
           </div>
         </div>
       </div>
+    </section>
+  </main>
+
+
+  <section class="cta-section" aria-label="상담 안내">
+    <div class="container">
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>치주염 치료, 궁금한 점이 있으신가요?</h2>
+        <p>정확한 진단 후 최적의 치료 방법을 안내드립니다. 부담 없이 상담하세요.</p>
+        <div class="cta-buttons">
+          <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
+      </div>
     </div>
   </section>
-
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">

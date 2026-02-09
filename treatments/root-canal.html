@@ -75,81 +75,479 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="신경치료">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><a href="../treatments/index.html">진료 안내</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">신경치료</span></nav>
-      <span class="hero-badge"><i class="fas fa-syringe"></i> 신경치료</span>
-      <h1>서울비디치과 <span class="text-gradient">신경치료</span></h1>
-      <p class="hero-desc">정밀 근관치료로 자연치아를 최대한 보존합니다</p>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <a href="../treatments/index.html">진료 안내</a> <span class="sep">/</span> <span class="current">신경치료</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-tooth"></i> 신경치료</span>
+      <h1 class="reveal delay-1"><span class="text-gradient">신경치료</span></h1>
+      <p class="hero-desc reveal delay-2">충치가 신경까지 진행된 경우 시행하는 신경치료. 현미경 신경치료로 정밀하게.</p>
       
     </div>
   </section>
 
-  <section class="content-section" aria-label="개요">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-info-circle"></i> 개요</span>
-        <h2 class="section-title">신경치료 <span class="text-gradient">안내</span></h2>
-        <p class="section-subtitle">서울비디치과의 신경치료를 안내합니다</p>
-      </div>
-      
-      <div class="treatment-detail">
-        <div class="treatment-overview reveal">
-          <h2>신경치료란?</h2>
-          <p>신경치료(근관치료)는 충치가 치수(신경)까지 진행되었을 때 감염된 신경을 제거하고 소독하여 치아를 보존하는 치료입니다.</p>
+<!-- Header (통일된 GNB) -->
+  
+
+  <main>
+    <!-- Hero Section -->
+    
+
+    <!-- Empathy Section -->
+    <section class="empathy-section">
+      <div class="container">
+        <div class="section-header" data-animate="fadeInUp">
+          <div class="section-badge"><i class="fas fa-heart"></i> 공감</div>
+          <h2 class="section-title">이런 <span class="text-shimmer">통증</span>, 겪고 계신가요?</h2>
+          <p class="section-desc">신경까지 염증이 진행되면 일상이 힘들어집니다</p>
+        </div>
+        
+        <div class="empathy-grid" data-stagger>
+          <div class="empathy-card">
+            <div class="empathy-icon"><i class="fas fa-bolt"></i></div>
+            <h3>밤에 더 심해지는 통증</h3>
+            <p>가만히 있어도 욱신거리고, 특히 밤에 누우면 통증이 심해져 잠을 이루기 힘드셨나요?</p>
+          </div>
+          <div class="empathy-card">
+            <div class="empathy-icon"><i class="fas fa-mug-hot"></i></div>
+            <h3>뜨거운 음식을 피하게 됨</h3>
+            <p>뜨거운 음료나 음식이 닿으면 통증이 심해져서, 항상 미지근하거나 차가운 것만 드시나요?</p>
+          </div>
+          <div class="empathy-card">
+            <div class="empathy-icon"><i class="fas fa-tooth"></i></div>
+            <h3>씹을 때마다 아픔</h3>
+            <p>음식을 씹을 때마다 찌릿한 통증이 느껴져, 한쪽으로만 씹게 되시나요?</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="content-section bg-warm" aria-label="치료 과정">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-list-ol"></i> 치료 과정</span>
-        <h2 class="section-title">신경치료 <span class="text-gradient">치료 과정</span></h2>
-        <p class="section-subtitle">체계적인 과정으로 안전하게 치료합니다</p>
+    <!-- When Needed Section -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header" data-animate="fadeInUp">
+          <div class="section-badge"><i class="fas fa-stethoscope"></i> Symptoms</div>
+          <h2 class="section-title"><span class="text-shimmer">신경치료</span>가 필요한 경우</h2>
+          <p class="section-desc">다음 증상이 있다면 빠른 진료가 필요합니다</p>
+        </div>
+        
+        <div class="features-grid" data-stagger>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+            <h3>자발통 (가만히 있어도 아픔)</h3>
+            <p>아무것도 하지 않아도 치아가 욱신거리고 쿵쿵거리는 통증. 신경이 심하게 염증을 일으킨 신호입니다.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-fire-alt"></i></div>
+            <h3>온열 자극에 예민</h3>
+            <p>뜨거운 것에 통증이 오래 지속되거나, 차가운 것에 시린 느낌이 10초 이상 계속됩니다.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-tooth"></i></div>
+            <h3>깊은 충치</h3>
+            <p>충치가 법랑질과 상아질을 지나 치수(신경)까지 도달한 경우. X-ray로 확인됩니다.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-car-crash"></i></div>
+            <h3>치아 외상/파절</h3>
+            <p>사고나 충격으로 치아가 깨지거나 금이 가서 신경이 노출된 경우입니다.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-virus"></i></div>
+            <h3>치근단 농양</h3>
+            <p>치아 뿌리 끝에 고름이 차서 잇몸이 붓거나, 얼굴까지 부어오르는 증상입니다.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-palette"></i></div>
+            <h3>치아 변색</h3>
+            <p>외상 후 치아가 점점 어두워지는 경우, 신경이 죽어가는 신호일 수 있습니다.</p>
+          </div>
+        </div>
       </div>
-      <div class="treatment-detail"><div class="process-timeline reveal"><div class="process-step"><div class="step-dot"></div><h3>진단</h3><p>X-ray로 감염 범위를 정확히 확인합니다</p></div><div class="process-step"><div class="step-dot"></div><h3>마취 및 접근</h3><p>통증 없이 치아 내부에 접근합니다</p></div><div class="process-step"><div class="step-dot"></div><h3>감염 제거</h3><p>감염된 신경 조직을 완전히 제거합니다</p></div><div class="process-step"><div class="step-dot"></div><h3>근관 세척 및 성형</h3><p>근관 내부를 철저히 세척하고 성형합니다</p></div><div class="process-step"><div class="step-dot"></div><h3>충전 및 보철</h3><p>근관을 밀봉하고 크라운으로 보호합니다</p></div></div></div>
-    </div>
-  </section>
+    </section>
 
-  <section class="content-section" aria-label="강점">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-star"></i> 강점</span>
-        <h2 class="section-title">서울비디치과의 <span class="text-gradient">강점</span></h2>
-        <p class="section-subtitle">왜 서울비디치과에서 신경치료를 받아야 할까요?</p>
+    <!-- Process Section -->
+    <section class="process-section">
+      <div class="container">
+        <div class="section-header" data-animate="fadeInUp">
+          <div class="section-badge"><i class="fas fa-list-ol"></i> Process</div>
+          <h2 class="section-title">신경치료 <span class="text-shimmer">과정</span></h2>
+          <p class="section-desc">보통 2-3회 내원이 필요하며, 치아 상태에 따라 달라집니다</p>
+        </div>
+        
+        <div class="process-wrapper">
+        <div class="process-stepper" data-stagger>
+          <div class="process-step">
+            <div class="step-indicator">
+              <div class="step-num">1</div>
+              <span class="step-time-badge">약 10분</span>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-syringe"></i> 마취 & 러버댐 장착</h3>
+              <p>통증 없는 치료를 위해 국소 마취를 진행합니다. 이후 치료할 치아만 노출시키는 러버댐을 장착하여 타액 오염을 방지하고 무균 환경을 만듭니다.</p>
+              <div class="step-details">
+                <span class="step-detail-tag">무통 마취</span>
+                <span class="step-detail-tag">러버댐 100%</span>
+                <span class="step-detail-tag">감염 차단</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-indicator">
+              <div class="step-num">2</div>
+              <span class="step-time-badge">약 20분</span>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-tooth"></i> 치수(신경) 제거</h3>
+              <p>충치를 제거하고 치아 내부에 접근합니다. 감염되거나 괴사된 치수 조직을 특수 기구로 완전히 제거하고, 근관의 길이를 측정합니다.</p>
+              <div class="step-details">
+                <span class="step-detail-tag">감염 조직 제거</span>
+                <span class="step-detail-tag">근관 길이 측정</span>
+                <span class="step-detail-tag">현미경 확인</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-indicator">
+              <div class="step-num">3</div>
+              <span class="step-time-badge">1-2회 방문</span>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-pump-soap"></i> 근관 세척 & 확대</h3>
+              <p>니켈-티타늄(NiTi) 파일로 근관을 확대하고, 소독액으로 철저히 세척합니다. 급성 염증이 있는 경우 약제를 넣고 임시 충전 후 다음 내원을 기다립니다.</p>
+              <div class="step-details">
+                <span class="step-detail-tag">NiTi 파일</span>
+                <span class="step-detail-tag">초음파 세척</span>
+                <span class="step-detail-tag">약제 충전</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-indicator">
+              <div class="step-num">4</div>
+              <span class="step-time-badge">약 20분</span>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-fill-drip"></i> 근관 충전</h3>
+              <p>깨끗해진 근관을 거타퍼차(Gutta-percha)와 실러로 3차원적으로 밀봉합니다. X-ray로 충전 상태를 확인하여 빈 공간 없이 채워졌는지 검증합니다.</p>
+              <div class="step-details">
+                <span class="step-detail-tag">거타퍼차 충전</span>
+                <span class="step-detail-tag">3D 밀봉</span>
+                <span class="step-detail-tag">X-ray 확인</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-indicator">
+              <div class="step-num">5</div>
+              <span class="step-time-badge">별도 일정</span>
+            </div>
+            <div class="step-content">
+              <h3><i class="fas fa-crown"></i> 크라운 제작 & 장착</h3>
+              <p>신경치료 후 약해진 치아를 보호하기 위해 크라운을 제작합니다. 치아 삭제 → 인상 채득 → 기공 제작 → 최종 장착의 과정을 거칩니다.</p>
+              <div class="step-details">
+                <span class="step-detail-tag">지르코니아/PFM</span>
+                <span class="step-detail-tag">맞춤 제작</span>
+                <span class="step-detail-tag">자연스러운 색상</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
       </div>
-      <div class="info-grid reveal"><div class="info-card"><div class="card-icon"><i class="fas fa-crosshairs"></i></div><h3>정밀 치료</h3><p>미세현미경 활용 정밀 근관치료</p></div><div class="info-card"><div class="card-icon"><i class="fas fa-tooth"></i></div><h3>치아 보존</h3><p>자연치아를 살리는 것이 최우선</p></div><div class="info-card"><div class="card-icon"><i class="fas fa-user-md"></i></div><h3>전문의 진료</h3><p>보존과 전문의가 직접 치료</p></div></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ═══════ CTA ═══════ -->
-  <section class="cta-section" aria-label="상담 예약">
-    <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-content">
-          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 상담 예약</span>
-          <h2>신경치료, 궁금한 점이 있으신가요?</h2>
-          <p>전문의 상담으로 최적의 치료 계획을 세워드립니다</p>
+    <!-- Difference Section - Seoul BD Special -->
+    <section class="difference-section">
+      <div class="container">
+        <div class="section-header" data-animate="fadeInUp">
+          <div class="section-badge"><i class="fas fa-star"></i> Why Seoul BD</div>
+          <h2 class="section-title">서울비디 신경치료 <span class="text-shimmer">차별점</span></h2>
+          <p class="section-desc">15년 이상의 경험과 정밀 장비로 차별화된 치료를 제공합니다</p>
+        </div>
+        
+        <div class="difference-grid" data-stagger>
+          <div class="difference-card">
+            <div class="difference-header">
+              <div class="difference-num">01</div>
+              <h3>러버댐 100% 사용</h3>
+            </div>
+            <p>모든 신경치료에 러버댐을 필수 적용합니다. 타액 오염을 차단하여 치료 성공률을 10-20% 향상시키고, 소독액이나 기구가 입안으로 들어가는 것을 방지합니다.</p>
+          </div>
+          
+          <div class="difference-card">
+            <div class="difference-header">
+              <div class="difference-num">02</div>
+              <h3>현미경 정밀 치료</h3>
+            </div>
+            <p>육안으로 보이지 않는 미세 근관, 파절선, 천공 등을 현미경으로 확인하며 치료합니다. 특히 재신경치료나 고난도 케이스에서 성공률을 크게 높입니다.</p>
+          </div>
+          
+          <div class="difference-card">
+            <div class="difference-header">
+              <div class="difference-num">03</div>
+              <h3>NiTi Rotary File 시스템</h3>
+            </div>
+            <p>형상기억합금인 니켈-티타늄 파일로 휘어진 근관도 안전하게 확대합니다. 기존 스테인리스 파일 대비 근관 파절 위험이 현저히 낮습니다.</p>
+          </div>
+          
+          <div class="difference-card">
+            <div class="difference-header">
+              <div class="difference-num">04</div>
+              <h3>전자 근관 장측정기</h3>
+            </div>
+            <p>근관의 정확한 길이를 전자적으로 측정하여 충전 시 과충전이나 부족 충전을 방지합니다. X-ray와 함께 이중으로 확인하여 정밀도를 높입니다.</p>
+          </div>
+          
+          <div class="difference-card">
+            <div class="difference-header">
+              <div class="difference-num">05</div>
+              <h3>초음파 근관 세척</h3>
+            </div>
+            <p>초음파 진동을 이용하여 소독액의 침투력을 높이고, 기구가 닿지 않는 미세 부위까지 깨끗이 세척합니다. 잔존 세균을 최소화합니다.</p>
+          </div>
+          
+          <div class="difference-card">
+            <div class="difference-header">
+              <div class="difference-num">06</div>
+              <h3>체계적인 사후 관리</h3>
+            </div>
+            <p>치료 후 정기적인 X-ray 검사로 치유 경과를 확인합니다. 크라운 장착까지 책임지고 안내하며, 문제 발생 시 신속하게 대응합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Precautions Section -->
+    <section class="section section-gradient">
+      <div class="container">
+        <div class="section-header" data-animate="fadeInUp">
+          <div class="section-badge"><i class="fas fa-exclamation-circle"></i> 주의사항</div>
+          <h2 class="section-title">치료 후 <span class="text-shimmer">주의사항</span></h2>
+          <p class="section-desc">빠른 회복과 좋은 예후를 위해 지켜주세요</p>
+        </div>
+        
+        <div class="precautions-grid" data-stagger>
+          <div class="precaution-card">
+            <div class="precaution-icon"><i class="fas fa-utensils"></i></div>
+            <div class="precaution-content">
+              <h4>식사 주의</h4>
+              <p>마취가 풀릴 때까지(약 2-3시간) 음식 섭취를 피하고, 치료 치아로 딱딱한 음식을 씹지 마세요.</p>
+            </div>
+          </div>
+          <div class="precaution-card">
+            <div class="precaution-icon"><i class="fas fa-cube"></i></div>
+            <div class="precaution-content">
+              <h4>임시 충전물 관리</h4>
+              <p>임시 충전물이 빠지면 세균이 다시 들어갈 수 있습니다. 빠지면 즉시 내원해 주세요.</p>
+            </div>
+          </div>
+          <div class="precaution-card">
+            <div class="precaution-icon"><i class="fas fa-pills"></i></div>
+            <div class="precaution-content">
+              <h4>처방약 복용</h4>
+              <p>항생제는 증상이 좋아져도 처방된 기간 끝까지 복용하세요. 내성균 발생을 방지합니다.</p>
+            </div>
+          </div>
+          <div class="precaution-card">
+            <div class="precaution-icon"><i class="fas fa-calendar-check"></i></div>
+            <div class="precaution-content">
+              <h4>예약 준수</h4>
+              <p>다음 치료 예약을 꼭 지켜주세요. 간격이 길어지면 감염이 재발할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="precaution-card">
+            <div class="precaution-icon"><i class="fas fa-crown"></i></div>
+            <div class="precaution-content">
+              <h4>크라운 필수</h4>
+              <p>신경치료 후 반드시 크라운을 해주세요. 안 하면 치아 파절 위험이 6배 이상 높아집니다.</p>
+            </div>
+          </div>
+          <div class="precaution-card">
+            <div class="precaution-icon"><i class="fas fa-phone-alt"></i></div>
+            <div class="precaution-content">
+              <h4>이상 증상 시 연락</h4>
+              <p>심한 통증, 붓기, 발열이 있으면 바로 연락주세요. 신속히 대응해 드립니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="section-header" data-animate="fadeInUp">
+          <div class="section-badge"><i class="fas fa-question-circle"></i> FAQ</div>
+          <h2 class="section-title">자주 묻는 <span class="text-shimmer">질문</span></h2>
+          <p class="section-desc">신경치료에 대해 궁금한 점을 확인하세요</p>
+        </div>
+        
+        <div class="faq-list" data-animate="fadeInUp">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>신경치료는 아픈가요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                국소 마취 후 진행되므로 <strong>치료 중 통증은 거의 없습니다</strong>. 마취가 풀린 후 2-3일간 약간의 불편감이 있을 수 있으나, 진통제로 충분히 조절됩니다. 급성 염증이 심한 경우 마취가 잘 안 될 수 있어, 먼저 염증을 가라앉힌 후 치료합니다.
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>신경치료 후 치아가 약해지나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                신경치료 후 치아는 <strong>혈액 공급이 차단되어 수분이 줄고 약해집니다</strong>. 특히 어금니는 씹는 힘이 크기 때문에 반드시 크라운으로 보호해야 합니다. 크라운을 하지 않으면 치아 파절 위험이 6배 이상 증가합니다.
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>신경치료는 몇 번 방문해야 하나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                일반적으로 <strong>2-3회 방문</strong>이 필요합니다. 첫 방문에 감염 조직 제거, 두 번째에 근관 소독 및 확대, 세 번째에 충전을 합니다. 급성 염증이나 재신경치료의 경우 더 많은 방문이 필요할 수 있습니다.
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>러버댐(Rubber Dam)은 왜 사용하나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                러버댐은 치료하는 치아만 노출시키는 고무 시트입니다. <strong>타액에 의한 세균 오염을 방지</strong>하고, 소독액이나 작은 기구가 입안으로 들어가는 것을 막습니다. 러버댐 사용 시 신경치료 성공률이 10-20% 향상됩니다.
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>신경치료 비용은 얼마인가요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                앞니는 8-10만원, 작은 어금니는 10-12만원, 큰 어금니는 12-15만원 정도입니다. <strong>재신경치료는 추가 비용</strong>이 발생하며, 크라운 비용은 별도입니다. 정확한 비용은 치아 상태에 따라 상담 후 안내해 드립니다.
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>신경치료 후 크라운은 꼭 해야 하나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                <strong>어금니는 거의 필수</strong>입니다. 신경치료 후 치아는 수분과 영양 공급이 끊겨 매우 약해지고, 씹는 힘을 받다 보면 파절될 위험이 높습니다. 앞니는 치아 상태에 따라 레진으로 마무리할 수도 있지만, 장기적 보호를 위해 크라운을 권장합니다.
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>신경치료를 안 하면 어떻게 되나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                감염이 치아 뿌리 끝으로 진행되어 <strong>치근단 농양(고름주머니)</strong>이 생깁니다. 이는 극심한 통증, 얼굴 부종, 전신 발열을 유발할 수 있으며, 최악의 경우 발치가 필요합니다. 또한 주변 치아와 뼈로 감염이 퍼질 수 있습니다.
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>신경치료 후 치아가 검게 변하나요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                신경치료 후 일부 치아에서 변색이 나타날 수 있습니다. 이는 치아 내부의 혈색소나 치료 재료 때문입니다. 앞니의 경우 <strong>내부 미백(인터널 블리칭)</strong>으로 개선할 수 있으며, 심한 경우 라미네이트나 크라운으로 심미성을 회복합니다.
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>재신경치료는 언제 필요한가요?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                기존 신경치료가 실패하여 <strong>통증이 재발하거나 X-ray에서 치근단 병소</strong>가 보이는 경우 필요합니다. 원인으로는 복잡한 근관 구조, 불완전한 소독, 크라운 누수 등이 있습니다. 재신경치료 성공률은 약 70-85%입니다.
+              </div>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>신경치료 기간 중 주의할 점은?</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                치료 중인 치아로 딱딱한 음식을 씹지 마세요. <strong>임시 충전재가 빠지면 바로 내원</strong>하세요. 통증이 심해지거나 붓기가 생기면 연락주세요. 처방된 항생제는 끝까지 복용하고, 다음 예약을 꼭 지켜주세요.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box" data-animate="scaleIn">
+          <div class="cta-icon"><i class="fas fa-tooth"></i></div>
+          <h2>치아가 아프신가요?</h2>
+          <p>신경치료로 자연치아를 살릴 수 있습니다.<br>러버댐과 현미경으로 정밀하게 치료해 드립니다.</p>
           <div class="cta-buttons">
-            <a href="../reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
-            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
+            <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 진료 예약하기</a>
+            <a href="tel:0414152892" class="btn btn-secondary btn-lg"><i class="fas fa-phone"></i> 전화 상담</a>
           </div>
           <div class="cta-info">
-            <span><i class="fas fa-clock"></i> 365일 진료</span>
-            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
-            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
+            <div class="cta-info-item"><i class="fas fa-clock"></i> 평일 10:00 - 20:00</div>
+            <div class="cta-info-item"><i class="fas fa-map-marker-alt"></i> 천안시 서북구</div>
+            <div class="cta-info-item"><i class="fas fa-parking"></i> 주차 가능</div>
           </div>
         </div>
       </div>
+    </section>
+  </main>
+
+
+  <section class="cta-section" aria-label="상담 안내">
+    <div class="container">
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>신경치료, 궁금한 점이 있으신가요?</h2>
+        <p>정확한 진단 후 최적의 치료 방법을 안내드립니다. 부담 없이 상담하세요.</p>
+        <div class="cta-buttons">
+          <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
+      </div>
     </div>
   </section>
-
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">

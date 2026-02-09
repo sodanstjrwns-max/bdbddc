@@ -75,59 +75,53 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="공지사항">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">공지사항</span></nav>
-      <span class="hero-badge"><i class="fas fa-bullhorn"></i> 공지사항</span>
-      <h1>서울비디치과 <span class="text-gradient">공지사항</span></h1>
-      <p class="hero-desc">진료시간 변경, 이벤트 등 중요한 안내사항을 확인하세요</p>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <span class="current">공지사항</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-bullhorn"></i> 공지사항</span>
+      <h1 class="reveal delay-1"><span class="text-gradient">공지사항</span></h1>
+      <p class="hero-desc reveal delay-2">서울비디치과의 최신 소식을 확인하세요</p>
       
     </div>
   </section>
 
-  <section class="content-section" aria-label="공지사항">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-bullhorn"></i> 공지사항</span>
-        <h2 class="section-title">최신 <span class="text-gradient">공지사항</span></h2>
-        <p class="section-subtitle">중요한 소식과 안내사항을 확인하세요</p>
-      </div>
-      
-      <div class="post-list reveal">
-        <a href="#" class="post-item"><span class="post-badge">중요</span><span class="post-title">2026년 설 연휴 진료 안내</span><span class="post-date">2026.02.05</span></a>
-        <a href="#" class="post-item"><span class="post-title">BDX 구강검진 첫 방문 무료 이벤트 연장</span><span class="post-date">2026.01.28</span></a>
-        <a href="#" class="post-item"><span class="post-title">5층 검진센터 리뉴얼 오픈 안내</span><span class="post-date">2026.01.15</span></a>
-        <a href="#" class="post-item"><span class="post-title">2026년 인비절라인 프로모션 안내</span><span class="post-date">2026.01.02</span></a>
-      </div>
+<div id="header-placeholder"></div>
+  
+  <section class="page-hero">
+    <div class="breadcrumb">
+      <a href="../index.html">홈</a>
+      <span>/</span>
+      <span>공지사항</span>
     </div>
+    <h1><i class="fas fa-bullhorn" style="margin-right: 12px;"></i>공지사항</h1>
+    <p>서울비디치과의 중요한 공지사항과 새소식을 확인하세요</p>
   </section>
-
-  <!-- ═══════ CTA ═══════ -->
-  <section class="cta-section" aria-label="상담 예약">
-    <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-content">
-          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 상담 예약</span>
-          <h2>궁금한 점이 있으신가요?</h2>
-          <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요</p>
-          <div class="cta-buttons">
-            <a href="../reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
-            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
-          </div>
-          <div class="cta-info">
-            <span><i class="fas fa-clock"></i> 365일 진료</span>
-            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
-            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
-          </div>
-        </div>
-      </div>
+  
+  <!-- 병원 안내 하위 메뉴 (공지사항은 병원 안내 섹션) -->
+  <nav class="content-tabs">
+    <a href="../pricing.html" class="tab-btn"><i class="fas fa-won-sign"></i> 비용 안내</a>
+    <a href="../floor-guide.html" class="tab-btn"><i class="fas fa-building"></i> 층별 안내</a>
+    <a href="../directions.html" class="tab-btn"><i class="fas fa-map-marker-alt"></i> 오시는 길</a>
+    <a href="../faq.html" class="tab-btn"><i class="fas fa-question-circle"></i> FAQ</a>
+    <a href="index.html" class="tab-btn active"><i class="fas fa-bullhorn"></i> 공지사항</a>
+  </nav>
+  
+  <main class="content-section">
+    <div id="loadingState" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>공지사항을 불러오는 중...</p>
     </div>
-  </section>
-
+    
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <i class="fas fa-bell-slash"></i>
+      <h3>아직 등록된 공지사항이 없습니다</h3>
+      <p>새로운 공지사항이 등록되면 알려드리겠습니다.</p>
+    </div>
+    
+    <div id="noticeList" class="notice-list" style="display: none;"></div>
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">

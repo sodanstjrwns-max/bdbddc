@@ -75,75 +75,300 @@
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  <!-- ═══════ HERO ═══════ -->
-  <section class="subpage-hero" aria-label="강민재 원장">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+  
+  <section class="subpage-hero" aria-label="페이지 소개">
     <div class="container">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span class="separator"><i class="fas fa-chevron-right"></i></span><a href="../doctors/index.html">의료진 소개</a><span class="separator"><i class="fas fa-chevron-right"></i></span><span class="current">강민재 원장</span></nav>
-      <span class="hero-badge"><i class="fas fa-user-md"></i> 원장</span>
-      <h1>강민재 <span class="text-gradient">원장</span></h1>
-      <p class="hero-desc">치과보철과</p>
+      <nav class="hero-breadcrumb" aria-label="현재 위치"><a href="../index.html">홈</a> <span class="sep">/</span> <a href="../doctors/index.html">의료진 소개</a> <span class="sep">/</span> <span class="current">강경호 원장</span></nav>
+      <span class="hero-badge reveal"><i class="fas fa-user-md"></i> 의료진 소개</span>
+      <h1 class="reveal delay-1"><span class="text-gradient">강경호</span> 원장</h1>
+      <p class="hero-desc reveal delay-2">서울대학교 치의학대학원 출신 — 전문 분야별 진료</p>
       
     </div>
   </section>
 
-  <section class="content-section" aria-label="프로필">
+<!-- ■ 통합 헤더 -->
+    
+
+    <!-- ===== Profile Header ===== -->
+    <section class="profile-header">
+        <div class="container">
+            <div class="profile-photo-wrapper">
+                <div class="profile-photo-frame">
+                    <img src="../images/doctors/kang-profile.jpg" alt="강OO 원장 프로필 사진" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="profile-photo-placeholder" style="display: none;"><i class="fas fa-user-md"></i><span>프로필 사진 촬영 예정</span></div>
+                </div>
+                <div class="profile-badges"><span class="badge badge-primary">임플란트 전문</span><span class="badge">외과진료</span><span class="badge">서울대 출신</span></div>
+            </div>
+            <div class="profile-info">
+                <span class="profile-role">원장 · 임플란트 및 외과 진료 전문</span>
+                <h1 class="profile-name">강경민 <span class="title-suffix">원장</span></h1>
+                <p class="profile-specialty">임플란트 · 외과진료 · 구강소수술</p>
+                <div class="profile-quote">신속하고 정확하며, 과정 전체에서 충분한 소통을 놓치지 않는 진료를 추구합니다.<br>삶의 질을 회복시키는 섬세하고 전문적인 치료를 하고 있습니다.</div>
+                <div class="profile-actions">
+                    <a href="../reservation.html?doctor=kang" class="btn-consult"><i class="fas fa-calendar-check"></i>강경민 원장님 상담 예약</a>
+                    <a href="tel:041-415-2892" class="btn-call"><i class="fas fa-phone"></i>041-415-2892</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 진료 모습 갤러리 ===== -->
+    <section class="gallery-section">
+        <div class="section-header"><h2>진료 모습</h2><p>강경민 원장의 진료 현장</p></div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="../images/doctors/kang-treatment-1.jpg" alt="강경민 원장 진료 모습 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 1 촬영 예정</span></div>
+                <div class="gallery-item-label">임플란트 수술</div>
+            </div>
+            <div class="gallery-item">
+                <img src="../images/doctors/kang-treatment-2.jpg" alt="강경민 원장 진료 모습 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="gallery-item-placeholder" style="display: none;"><i class="fas fa-camera"></i><span>진료 사진 2 촬영 예정</span></div>
+                <div class="gallery-item-label">외과 진료 상담</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 원장 이야기 섹션 ===== -->
+    <section class="story-section">
+        <div class="story-container">
+            <div class="story-header">
+                <h2>강경민 원장 이야기</h2>
+                <p class="subtitle">삶의 질을 회복시키는 섬세하고 전문적인 치료</p>
+            </div>
+            
+            <div class="story-content">
+                <!-- 치과의사가 된 계기 -->
+                <div class="story-block">
+                    <h3>치과의사가 된 계기</h3>
+                    <p>
+                        저는 치과 진료가 단순한 의료 행위가 아니라 <strong class="highlight-text">삶의 질을 회복시키는 섬세하고 전문적인 일</strong>이라고 생각합니다.
+                    </p>
+                    <p>
+                        기능과 편안함을 되찾아드리는 것에 집중하다 보니, 자연스럽게 <strong class="highlight-text">구조를 다시 세우고 일상을 바꾸는 힘</strong>이 있는 외과와 임플란트 진료에 매력을 느끼게 되었습니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 임상 전문성 -->
+                <div class="story-block">
+                    <h3>임상 전문성</h3>
+                    <p>
+                        저는 <strong class="highlight-text">임플란트와 외과 진료</strong>를 주로 담당합니다. 
+                        구조적, 기능적 관점에서 정밀하게 계획을 세우고, 정확한 판단과 흔들림 없는 실행으로 치료를 진행합니다.
+                    </p>
+                    <div class="story-highlight">
+                        <strong>"정확한 판단, 흔들림 없는 실행, 꼼꼼한 계획."</strong><br>
+                        이 세 가지가 제가 환자분들께 약속드리는 것입니다.
+                    </div>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 진료 스타일 -->
+                <div class="story-block">
+                    <h3>진료 스타일</h3>
+                    <p>
+                        <strong class="highlight-text">신속하고 정확하며, 과정 전체에서 충분한 소통을 놓치지 않는 진료</strong>를 추구합니다.
+                    </p>
+                    <p>
+                        환자분의 불편함과 상황을 충분히 경청한 후에 치료 전략을 수립합니다. 
+                        빠른 것도 중요하지만, 환자분이 이해하고 안심하실 수 있도록 설명하는 것이 더 중요합니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 진료 철학 -->
+                <div class="story-block">
+                    <h3>진료 철학</h3>
+                    <p>
+                        제가 가장 중요하게 생각하는 가치는 <strong class="highlight-text">책임감</strong>입니다. 
+                        그리고 맡은 일을 제대로 해내는 것입니다.
+                    </p>
+                    <div class="story-highlight">
+                        <strong>"책임. 그리고 맡은 바를 제대로 하는 것."</strong><br>
+                        이것이 제 진료의 핵심입니다.
+                    </div>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 환자 관리 강조 -->
+                <div class="story-block">
+                    <h3>환자분들께 드리는 조언</h3>
+                    <p>
+                        환자분들께 항상 강조드리는 것이 있습니다. 
+                        <strong class="highlight-text">치실·치간칫솔 사용과 정기적인 내원</strong>입니다.
+                    </p>
+                    <p>
+                        일상적인 관리가 장기적인 예후에 가장 큰 영향을 미칩니다. 
+                        아무리 좋은 치료를 받아도 관리가 되지 않으면 오래 유지하기 어렵습니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 기억에 남는 순간 -->
+                <div class="story-block">
+                    <h3>가장 기억에 남는 순간</h3>
+                    <p>
+                        환자분들께서 <strong class="highlight-text">신뢰와 감사의 표현</strong>을 해주실 때 가장 큰 보람을 느낍니다.
+                    </p>
+                    <p>
+                        "원장님 덕분에 편해졌어요", "다음에도 원장님께 받고 싶어요"라는 말씀을 들을 때마다 
+                        제가 선택한 길이 맞다는 확신을 갖게 됩니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 최근 연구 분야 -->
+                <div class="story-block">
+                    <h3>최근 관심 분야</h3>
+                    <p>
+                        요즘은 <strong class="highlight-text">구강 내 소수술과 심미치료</strong>에 관심을 갖고 공부하고 있습니다.
+                    </p>
+                    <p>
+                        라미네이트와 레진 치료 등 심미적인 부분도 환자분들의 삶의 질에 큰 영향을 미치기 때문에, 
+                        더 정교하고 자연스러운 결과를 만들기 위해 노력하고 있습니다.
+                    </p>
+                </div>
+
+                <div class="story-divider"><span>✦</span></div>
+
+                <!-- 개인적인 모습 -->
+                <div class="story-block">
+                    <h3>개인적인 모습</h3>
+                    <p>
+                        동료들은 저를 <strong class="highlight-text">'로봇 같다'</strong>고 표현합니다. 
+                        성실하고 꾸준하며 집중력이 뛰어나다는 의미입니다. 흔들림 없는 책임감으로 일합니다.
+                    </p>
+                    <p>
+                        진료 외 시간에는 <strong class="highlight-text">헬스와 자전거</strong>로 체력과 집중력을 관리합니다. 
+                        체력이 곧 진료의 질이라고 생각합니다.
+                    </p>
+                </div>
+
+                <!-- 마무리 메시지 -->
+                <div class="closing-message">
+                    <p>
+                        환자분들께서 서울비디치과에서<br>
+                        <strong>편안함을 느끼고, 치료 과정이 명확하게 이해되는 공간</strong>으로<br>
+                        기억해주셨으면 합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 인터뷰 섹션 ===== -->
+    <section class="interview-section">
+        <div class="interview-container">
+            <div class="section-header"><h2>원장 인터뷰</h2><p>강경민 원장이 전하는 이야기</p></div>
+            <div class="interview-content">
+                <div class="interview-qa">
+                    <div class="interview-q">임플란트와 외과 진료를 전문으로 하시게 된 계기가 있으신가요?</div>
+                    <p class="interview-a">치과 진료는 삶의 질을 회복시키는 일이라고 생각합니다. 특히 외과와 임플란트는 구조를 다시 세우고 일상을 바꾸는 힘이 있습니다. 환자분들이 "이제 잘 씹을 수 있어요"라고 말씀하실 때 가장 보람을 느낍니다.</p>
+                </div>
+                <div class="interview-qa">
+                    <div class="interview-q">진료하실 때 가장 중요하게 생각하시는 것은 무엇인가요?</div>
+                    <p class="interview-a">책임감입니다. 그리고 맡은 바를 제대로 하는 것입니다. 신속하고 정확하면서도 과정 전체에서 충분한 소통을 놓치지 않으려고 합니다. 환자분의 불편함과 상황을 충분히 경청한 후에 치료 전략을 수립합니다.</p>
+                </div>
+                <div class="interview-qa">
+                    <div class="interview-q">환자분들께 꼭 당부하고 싶으신 말씀이 있다면요?</div>
+                    <p class="interview-a">치실과 치간칫솔 사용, 그리고 정기적인 내원입니다. 일상적인 관리가 장기적인 예후에 가장 큰 영향을 미칩니다. 아무리 좋은 치료를 받아도 관리가 되지 않으면 오래 유지하기 어렵습니다.</p>
+                </div>
+                <div class="interview-qa">
+                    <div class="interview-q">요즘 관심 갖고 공부하시는 분야가 있으신가요?</div>
+                    <p class="interview-a">구강 내 소수술과 심미치료(라미네이트, 레진)에 관심을 갖고 있습니다. 심미적인 부분도 환자분들의 삶의 질에 큰 영향을 미치기 때문에, 더 정교하고 자연스러운 결과를 만들기 위해 노력하고 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Profile Content ===== -->
+    <div class="profile-content">
+        <div class="content-grid">
+            <div class="content-main">
+                <div class="content-card">
+                    <h3><i class="fas fa-graduation-cap"></i> 학력 및 경력</h3>
+                    <ul class="career-list">
+                        <li><i class="fas fa-check"></i> 서울대학교 치의학과</li>
+                        <li><i class="fas fa-check"></i> 서울대학교 치의학대학원 석사</li>
+                        <li><i class="fas fa-check"></i> 서울대학교 치과병원 종합진료실</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3><i class="fas fa-star"></i> 전문 진료 분야</h3>
+                    <div class="specialty-tags">
+                        <span class="specialty-tag">임플란트</span>
+                        <span class="specialty-tag">외과진료</span>
+                        <span class="specialty-tag">구강소수술</span>
+                        <span class="specialty-tag">심미치료(라미네이트·레진)</span>
+                    </div>
+                </div>
+                <div class="philosophy-section">
+                    <h3><i class="fas fa-heart highlight-text"></i> 진료 철학</h3>
+                    <p><strong class="highlight-text">"책임. 그리고 맡은 바를 제대로 하는 것."</strong></p>
+                    <p>신속하고 정확하며, 과정 전체에서 충분한 소통을 놓치지 않는 진료를 추구합니다.<br><br>환자분의 불편함과 상황을 충분히 경청한 후에 치료 전략을 수립합니다. 정확한 판단, 흔들림 없는 실행, 꼼꼼한 계획으로 환자분들의 삶의 질을 회복시키는 것이 제 목표입니다.<br><br>서울비디치과 4F 임플란트센터에서 임플란트, 외과진료, 구강소수술을 담당하고 있습니다.</p>
+                </div>
+            </div>
+            <div class="content-sidebar">
+                <div class="content-card">
+                    <h3><i class="fas fa-clock"></i> 진료 시간</h3>
+                    <table class="schedule-table">
+                        <tr><td>월</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>화</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>수</td><td class="unavailable">휴진</td></tr>
+                        <tr><td>목</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>금</td><td class="available">09:00 - 20:00</td></tr>
+                        <tr><td>토</td><td class="available">09:00 - 17:00</td></tr>
+                        <tr><td>일</td><td class="available">09:00 - 17:00</td></tr>
+                    </table>
+                    <p class="small-note">* 진료 일정은 변동될 수 있습니다.<br>* 예약 시 확인 부탁드립니다.</p>
+                </div>
+                <div class="content-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> 진료실 위치</h3>
+                    <p class="sidebar-text"><strong class="sidebar-highlight">4F 임플란트센터</strong><br>임플란트 및 외과 진료</p>
+                </div>
+            </div>
+        </div>
+        <div class="other-doctors">
+            <h3>다른 의료진 보기</h3>
+            <div class="doctors-mini-grid">
+                <a href="lee.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">이승엽 원장</p><p class="mini-specialty">통합치의학과 전문의</p></a>
+                <a href="moon.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">문석준 원장</p><p class="mini-specialty">통합치의학과 전문의</p></a>
+                <a href="kim.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">김민수 원장</p><p class="mini-specialty">통합치의학과 전문의</p></a>
+                <a href="hyun.html" class="doctor-mini-card"><div class="mini-photo"><i class="fas fa-user-md"></i></div><p class="mini-name">현정민 원장</p><p class="mini-specialty">통합치의학과 전문의</p></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Footer CTA ===== -->
+    <section class="footer-cta">
+        <h2>강경민 원장님께 상담받으세요</h2>
+        <p>신속하고 정확한 임플란트·외과 진료 전문</p>
+        <a href="../reservation.html?doctor=kang" class="btn-white"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
+    </section>
+
+
+  <section class="cta-section" aria-label="상담 안내">
     <div class="container">
-      <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-user-md"></i> 프로필</span>
-        <h2 class="section-title">강민재 <span class="text-gradient">원장 프로필</span></h2>
-        <p class="section-subtitle"></p>
-      </div>
-      
-      <div class="profile-hero reveal">
-        <div class="profile-photo-area">
-          <div style="width:240px;height:300px;border-radius:var(--radius-2xl);background:var(--bg-tertiary);display:flex;align-items:center;justify-content:center;font-size:4rem;color:var(--brand-primary);margin:0 auto;box-shadow:var(--shadow-lg);">
-            <i class="fas fa-user-md"></i>
-          </div>
+      <div class="cta-wrapper reveal">
+        <span class="cta-badge">상담 안내</span>
+        <h2>강경호 원장님께 진료받고 싶으시다면</h2>
+        <p>예약 시 희망 원장님을 선택하실 수 있습니다.</p>
+        <div class="cta-buttons">
+          <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
         </div>
-        <div class="profile-info">
-          <div class="profile-name">강민재 원장</div>
-          <div class="profile-role">원장 · 치과보철과</div>
-          <div class="profile-details">
-            <div class="profile-detail-item">
-              <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
-              <div class="detail-content"><h4>학력</h4><p>보철과 전문.</p></div>
-            </div>
-            <div class="profile-detail-item">
-              <div class="detail-icon"><i class="fas fa-star"></i></div>
-              <div class="detail-content"><h4>전문 분야</h4><p>보철, 크라운</p></div>
-            </div>
-          </div>
-          <div class="doctor-tags" style="margin-top:var(--space-6);"><span class="doctor-tag">보철</span><span class="doctor-tag">크라운</span></div>
-        </div>
+        <p class="cta-note"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
       </div>
     </div>
   </section>
-
-  <!-- ═══════ CTA ═══════ -->
-  <section class="cta-section" aria-label="상담 예약">
-    <div class="container">
-      <div class="cta-box reveal">
-        <div class="cta-content">
-          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 상담 예약</span>
-          <h2>강민재 원장에게 상담받으세요</h2>
-          <p>전문 분야에 대한 맞춤 상담을 제공합니다</p>
-          <div class="cta-buttons">
-            <a href="../reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
-            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
-          </div>
-          <div class="cta-info">
-            <span><i class="fas fa-clock"></i> 365일 진료</span>
-            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
-            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">
