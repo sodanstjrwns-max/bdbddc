@@ -1644,3 +1644,189 @@
   flex-wrap: wrap;
   margin-bottom: 40px;
 }
+
+/* ============================================
+   DOCTOR CARD v2 — Treatment-card pattern
+   ============================================ */
+.doctor-card-v2 {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: var(--radius-2xl);
+  padding: 24px;
+  transition: all 0.3s var(--ease-out);
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+.doctor-card-v2:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+  border-color: rgba(201,169,98,0.2);
+}
+.doctor-card-v2 .treatment-card-arrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  transition: all 0.2s;
+  z-index: 2;
+}
+.doctor-card-v2:hover .treatment-card-arrow {
+  background: var(--brand-primary);
+  color: #fff;
+  transform: translateX(4px);
+}
+.doctor-card-photo {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-secondary);
+  margin-bottom: 16px;
+  position: relative;
+}
+.doctor-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-out);
+}
+.doctor-card-v2:hover .doctor-card-photo img {
+  transform: scale(1.05);
+}
+.doctor-card-photo-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+}
+.doctor-card-body {
+  flex: 1;
+}
+.doctor-card-body h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 6px 0 4px;
+  color: var(--text-primary);
+}
+.doctor-card-body > p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.doctor-card-creds {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding-top: 10px;
+}
+.doctor-card-creds li {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding-left: 12px;
+  position: relative;
+}
+.doctor-card-creds li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--brand-gold);
+}
+
+/* Doctors grid responsive */
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .doctors-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .doctors-grid { grid-template-columns: 1fr; }
+}
+
+/* Doctor filter tabs */
+.doctor-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover {
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+}
+.filter-btn.active {
+  background: var(--brand-primary);
+  color: #fff;
+  border-color: var(--brand-primary);
+}
+
+/* Doctor card hidden state for filter */
+.doctor-card-v2.hidden {
+  display: none;
+}
+
+/* Section header & badge (shared pattern) */
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(107,66,38,0.06);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.section-subtitle {
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
