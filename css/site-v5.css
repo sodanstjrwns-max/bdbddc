@@ -93,6 +93,29 @@
   --container-max: 1240px;
   --container-narrow: 800px;
   --header-height: 72px;
+
+  /* ── Aliases for Treatment Subpage Components ── */
+  /* Color aliases (map to base gray-* variables) */
+  --color-primary: var(--brand);
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+
+  /* Glass-morphism card styles */
+  --glass-bg: #FFFFFF;
+  --glass-border: rgba(107, 66, 38, 0.15);
+
+  /* Typography size aliases */
+  --text-xs: 0.8rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
 }
 
 /* ═══════════════════════════════════════
@@ -2620,10 +2643,11 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl); padding: var(--space-xl);
   text-align: center; transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
 }
 .concern-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-card-hover);
   border-color: rgba(107,66,38,0.3);
 }
 .concern-card .concern-icon {
@@ -2647,6 +2671,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg); margin-bottom: 10px;
   transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
 }
 .concern-item-row:hover {
   border-color: rgba(107,66,38,0.3);
@@ -2695,6 +2720,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl); padding: var(--space-xl);
   transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
 }
 .stage-card-v2:hover {
   border-color: rgba(107,66,38,0.3);
@@ -2746,6 +2772,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   border-radius: var(--radius-xl); padding: var(--space-xl);
   transition: all 0.3s;
   display: flex; flex-direction: column;
+  box-shadow: var(--shadow-sm);
 }
 .treatment-option-card:hover {
   transform: translateY(-4px);
@@ -2791,6 +2818,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl); padding: var(--space-xl);
   transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
 }
 .diff-card:hover {
   border-color: rgba(107,66,38,0.3);
@@ -2819,6 +2847,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl); padding: var(--space-lg);
   transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
 }
 .prevention-card-v2:hover {
   border-color: rgba(107,66,38,0.3);
@@ -2877,6 +2906,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl); padding: var(--space-lg);
   text-align: center;
+  box-shadow: var(--shadow-sm);
 }
 .info-quick-card .info-icon {
   font-size: 1.5rem; color: var(--color-primary); margin-bottom: 8px;
@@ -2893,6 +2923,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   overflow-x: auto; border-radius: var(--radius-xl);
   border: 1px solid var(--glass-border);
   background: var(--glass-bg);
+  box-shadow: var(--shadow-sm);
 }
 .compare-table {
   width: 100%; border-collapse: collapse;
@@ -2925,6 +2956,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .review-card-v2 {
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl); padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
 }
 .review-card-v2 .review-header {
   display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-md);
@@ -2991,6 +3023,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .precaution-card-v2 {
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl); padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
 }
 .precaution-card-v2 h3 {
   font-size: var(--text-base); font-weight: 700; color: var(--color-gray-800);
@@ -3054,10 +3087,11 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl); padding: var(--space-xl);
   transition: all 0.3s; position: relative;
+  box-shadow: var(--shadow-sm);
 }
 .type-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-card-hover);
   border-color: rgba(107,66,38,0.3);
 }
 .type-card.featured {
@@ -3119,6 +3153,78 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 
   .type-grid { grid-template-columns: 1fr; }
 }
+
+/* ═══════════════════════════════════════
+   § 27b. TREATMENT SUBPAGE — Missing Component Styles
+   ═══════════════════════════════════════ */
+
+/* --- FAQ v2 (Treatment Subpages) --- */
+.faq-list {
+  max-width: 800px; margin: 0 auto;
+}
+.faq-item .faq-question {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; padding: 20px 0;
+  cursor: pointer; border: none; background: none;
+  font-weight: 700; font-size: 1rem;
+  color: var(--text-primary); text-align: left;
+  transition: color var(--transition-fast);
+}
+.faq-q-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; min-width: 28px;
+  background: linear-gradient(135deg, var(--brand), #8B5A2B);
+  color: white; font-weight: 800; font-size: 0.75rem;
+  border-radius: 8px; flex-shrink: 0;
+}
+.faq-q-text {
+  flex: 1; font-weight: 700; font-size: 1rem;
+  color: var(--text-primary); line-height: 1.5;
+}
+.faq-item.active .faq-q-text { color: var(--brand); }
+.faq-icon {
+  color: var(--text-tertiary); font-size: 0.8rem;
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+.faq-item.active .faq-icon { transform: rotate(180deg); color: var(--brand); }
+/* Hide the ::after chevron when using explicit .faq-icon */
+.faq-question:has(.faq-icon)::after { display: none; }
+
+.faq-answer p {
+  font-size: 0.92rem; color: var(--text-secondary);
+  line-height: 1.8; padding: 0 0 0 40px;
+}
+
+/* --- Section-sm (smaller padding) --- */
+.section-sm {
+  padding: var(--space-xl) 0;
+}
+
+/* --- Button auth styles --- */
+.btn-login, .btn-register {
+  font-size: var(--fs-small); font-weight: 600;
+  padding: 6px 12px; border-radius: var(--radius-sm);
+  text-decoration: none; transition: all var(--transition-fast);
+}
+
+/* --- Footer brand --- */
+.footer-brand {
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+/* --- Page nav prev/next --- */
+.page-nav-v2 a.prev { text-align: left; }
+
+/* --- Mobile nav has-submenu --- */
+.mobile-nav-item.has-submenu > a { display: flex; justify-content: space-between; align-items: center; }
+
+/* --- Clinic status open --- */
+.clinic-status.open .status-dot { background: #10B981; }
+
+/* --- Mobile CTA button types --- */
+.mobile-cta-btn.location { background: var(--gray-100); color: var(--gray-700); }
+.mobile-cta-btn.reserve.primary { background: var(--brand); color: white; }
 
 /* ═══════════════════════════════════════
    § 28. PRINT
