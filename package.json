@@ -12,7 +12,8 @@
     "clean-port": "fuser -k 3000/tcp 2>/dev/null || true"
   },
   "dependencies": {
-    "hono": "^4.11.1"
+    "hono": "^4.11.1",
+    "playwright": "^1.58.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241205.0",
