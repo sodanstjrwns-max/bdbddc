@@ -3227,7 +3227,451 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .mobile-cta-btn.reserve.primary { background: var(--brand); color: white; }
 
 /* ═══════════════════════════════════════
-   § 28. PRINT
+   § 28. DOCTOR PROFILE PAGES
+   ═══════════════════════════════════════ */
+
+/* --- Profile Header (14-page pattern) --- */
+.profile-header {
+  padding: 60px 0;
+  background: linear-gradient(135deg, rgba(107,66,38,0.04), rgba(200,169,126,0.06));
+}
+.profile-header .container {
+  display: grid; grid-template-columns: 300px 1fr;
+  gap: 48px; align-items: start;
+  max-width: var(--container-max); margin: 0 auto; padding: 0 20px;
+}
+.profile-photo-wrapper {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.profile-photo-frame {
+  width: 280px; height: 320px; border-radius: var(--radius-xl);
+  overflow: hidden; background: var(--gray-100);
+  border: 3px solid rgba(107,66,38,0.15);
+  box-shadow: var(--shadow-lg);
+}
+.profile-photo-frame img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.profile-photo-placeholder,
+.doctor-photo-placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; height: 100%; gap: 12px;
+  color: var(--gray-400); font-size: 3rem;
+  background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+}
+.profile-photo-placeholder span { font-size: 0.85rem; color: var(--gray-400); }
+.profile-badges {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+}
+.badge.badge-primary {
+  background: linear-gradient(135deg, var(--brand), #8B5A2B);
+  color: white;
+}
+.profile-info { display: flex; flex-direction: column; gap: 16px; }
+.profile-role,
+.doctor-role {
+  font-size: var(--fs-small); font-weight: 600;
+  color: var(--brand); letter-spacing: 0.03em;
+}
+.doctor-role.representative { color: var(--brand); font-weight: 700; }
+.profile-name {
+  font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800;
+  color: var(--gray-900); line-height: 1.2;
+}
+.profile-name .title-suffix,
+.profile-name .profile-suffix {
+  font-weight: 600; font-size: 0.7em; color: var(--gray-500);
+}
+.profile-specialty {
+  font-size: var(--fs-body); color: var(--gray-600);
+}
+.profile-quote {
+  font-size: 1.05rem; line-height: 1.8; color: var(--gray-600);
+  padding: 20px 24px; border-left: 3px solid var(--brand);
+  background: rgba(107,66,38,0.03); border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+}
+.profile-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.btn-consult {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--brand), #8B5A2B);
+  color: white; font-weight: 700; font-size: 0.95rem;
+  text-decoration: none; transition: all var(--transition-base);
+  box-shadow: 0 4px 16px rgba(107,66,38,0.3);
+}
+.btn-consult:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,66,38,0.4); }
+.btn-call {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: var(--radius-full);
+  border: 2px solid var(--brand); color: var(--brand);
+  font-weight: 700; font-size: 0.95rem;
+  text-decoration: none; transition: all var(--transition-base);
+}
+.btn-call:hover { background: var(--brand); color: white; }
+
+/* --- Profile Info Area (moon.html pattern) --- */
+.doctor-profile-card {
+  display: grid; grid-template-columns: 300px 1fr;
+  gap: 48px; align-items: start;
+}
+.profile-photo-area {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.profile-info-area { display: flex; flex-direction: column; gap: 20px; }
+.profile-meta { display: flex; flex-direction: column; gap: 8px; }
+.profile-details-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.profile-detail-item h3 {
+  font-size: 1rem; font-weight: 700; color: var(--gray-800);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.profile-detail-item h3 i { color: var(--brand); }
+
+/* --- Career List --- */
+.career-list {
+  list-style: none; padding: 0; margin: 0;
+}
+.career-list li {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; font-size: var(--fs-small); color: var(--gray-600);
+  border-bottom: 1px solid var(--gray-100);
+}
+.career-list li:last-child { border-bottom: none; }
+.career-list li i { color: var(--brand); font-size: 0.75rem; flex-shrink: 0; }
+
+/* --- Specialty Tags --- */
+.specialty-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.specialty-tag {
+  display: inline-block; padding: 6px 16px;
+  background: rgba(107,66,38,0.08); color: var(--brand);
+  border-radius: var(--radius-full); font-size: var(--fs-small);
+  font-weight: 600; border: 1px solid rgba(107,66,38,0.12);
+  transition: all var(--transition-fast);
+}
+.specialty-tag:hover { background: rgba(107,66,38,0.15); }
+
+/* --- Schedule Table --- */
+.schedule-table {
+  width: 100%; border-collapse: collapse;
+  font-size: var(--fs-small);
+}
+.schedule-table td {
+  padding: 10px 12px; border-bottom: 1px solid var(--gray-100);
+}
+.schedule-table td:first-child {
+  font-weight: 600; color: var(--gray-700); width: 100px;
+}
+.schedule-table .available { color: var(--green); font-weight: 600; }
+.schedule-table .unavailable { color: var(--gray-400); }
+.schedule-note, .small-note {
+  font-size: var(--fs-xs); color: var(--gray-400); margin-top: 8px; line-height: 1.6;
+}
+
+/* --- Gallery Section --- */
+.gallery-section {
+  padding: var(--space-3xl) 0;
+  max-width: var(--container-max); margin: 0 auto; padding-left: 20px; padding-right: 20px;
+}
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+.gallery-item {
+  position: relative; border-radius: var(--radius-xl); overflow: hidden;
+  aspect-ratio: 4/3; background: var(--gray-100);
+  box-shadow: var(--shadow-sm); transition: all 0.3s;
+}
+.gallery-item:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-item-placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; height: 100%; gap: 8px; color: var(--gray-400); font-size: 2rem;
+  background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+}
+.gallery-item-placeholder span { font-size: 0.8rem; }
+.gallery-item-label {
+  position: absolute; bottom: 12px; left: 12px;
+  background: rgba(0,0,0,0.6); color: white;
+  padding: 6px 14px; border-radius: var(--radius-full);
+  font-size: var(--fs-xs); font-weight: 600;
+  backdrop-filter: blur(8px);
+}
+
+/* --- Story Section (14-page pattern) --- */
+.story-section {
+  padding: var(--space-3xl) 0;
+  background: var(--gray-50);
+}
+.story-container {
+  max-width: 800px; margin: 0 auto; padding: 0 20px;
+}
+.story-header {
+  text-align: center; margin-bottom: var(--space-2xl);
+}
+.story-header h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem); color: var(--gray-900); margin-bottom: 8px;
+}
+.story-header .subtitle {
+  font-size: var(--fs-body); color: var(--gray-500);
+}
+.story-content { display: flex; flex-direction: column; gap: 0; }
+.story-block {
+  padding: var(--space-lg) 0;
+}
+.story-block h3 {
+  font-size: 1.15rem; font-weight: 700; color: var(--gray-800);
+  margin-bottom: 16px;
+}
+.story-block p {
+  font-size: var(--fs-body); color: var(--gray-600);
+  line-height: 1.9; margin-bottom: 12px;
+}
+.story-divider {
+  text-align: center; padding: 12px 0;
+  color: var(--brand-gold); font-size: 1.2rem;
+}
+.story-highlight {
+  background: rgba(107,66,38,0.04); border-left: 3px solid var(--brand);
+  padding: 16px 24px; border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 16px 0; font-size: var(--fs-body); line-height: 1.8;
+  color: var(--gray-700);
+}
+.highlight-text { color: var(--brand); }
+.highlight-text-medium { color: var(--brand); font-weight: 600; font-size: 1.05rem; }
+.closing-message {
+  margin-top: var(--space-xl);
+  padding: var(--space-xl); text-align: center;
+  background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.08));
+  border-radius: var(--radius-xl); border: 1px solid rgba(107,66,38,0.1);
+}
+.closing-message p {
+  font-size: 1.05rem; line-height: 1.9; color: var(--gray-700);
+}
+.closing-quote {
+  text-align: center; padding: var(--space-xl);
+  font-size: 1.1rem; font-style: italic; color: var(--gray-600);
+  line-height: 1.8;
+}
+
+/* --- Story Flow (moon.html pattern) --- */
+.story-flow {
+  display: flex; flex-direction: column; gap: var(--space-lg);
+  max-width: 800px; margin: 0 auto;
+}
+.story-card {
+  background: var(--white); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl); padding: var(--space-xl);
+  box-shadow: var(--shadow-sm); transition: all 0.3s;
+}
+.story-card:hover { box-shadow: var(--shadow-md); }
+.story-card h3 {
+  font-size: 1.1rem; font-weight: 700; color: var(--gray-800);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+}
+.story-card h3 i { color: var(--brand); }
+.story-card p {
+  font-size: var(--fs-body); color: var(--gray-600); line-height: 1.9; margin-bottom: 12px;
+}
+.story-card blockquote {
+  border-left: 3px solid var(--brand); padding: 12px 20px;
+  background: rgba(107,66,38,0.03); border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic; color: var(--gray-700); margin: 16px 0;
+  line-height: 1.8;
+}
+
+/* --- Interview Section --- */
+.interview-section {
+  padding: var(--space-3xl) 0;
+}
+.interview-container {
+  max-width: 800px; margin: 0 auto; padding: 0 20px;
+}
+.interview-content {
+  display: flex; flex-direction: column; gap: var(--space-lg);
+}
+.interview-qa {
+  background: var(--white); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl); padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+.interview-q {
+  font-size: 1.05rem; font-weight: 700; color: var(--brand);
+  margin-bottom: 12px; padding-left: 20px; position: relative;
+}
+.interview-q::before {
+  content: 'Q'; position: absolute; left: 0; top: 0;
+  font-weight: 800; color: var(--brand);
+}
+.interview-a {
+  font-size: var(--fs-body); color: var(--gray-600);
+  line-height: 1.9;
+}
+
+/* --- Profile Content Grid --- */
+.profile-content {
+  max-width: var(--container-max); margin: 0 auto;
+  padding: var(--space-3xl) 20px;
+}
+.content-grid {
+  display: grid; grid-template-columns: 1fr 340px; gap: 40px;
+}
+.content-main { display: flex; flex-direction: column; gap: var(--space-lg); }
+.content-sidebar { display: flex; flex-direction: column; gap: var(--space-lg); }
+.content-card {
+  background: var(--white); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl); padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+.content-card h3 {
+  font-size: 1.05rem; font-weight: 700; color: var(--gray-800);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+.content-card h3 i { color: var(--brand); }
+.sidebar-text {
+  font-size: var(--fs-small); color: var(--gray-600); line-height: 1.8;
+}
+.sidebar-highlight {
+  background: rgba(107,66,38,0.04); padding: 16px;
+  border-radius: var(--radius-lg); border: 1px solid rgba(107,66,38,0.08);
+  margin-top: 12px;
+}
+
+/* --- Philosophy Section --- */
+.philosophy-section {
+  background: linear-gradient(135deg, rgba(107,66,38,0.04), rgba(200,169,126,0.06));
+  border: 1px solid rgba(107,66,38,0.1);
+  border-radius: var(--radius-xl); padding: var(--space-xl);
+}
+.philosophy-section h3 {
+  font-size: 1.1rem; font-weight: 700; color: var(--gray-800);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+.philosophy-section p {
+  font-size: var(--fs-body); color: var(--gray-600); line-height: 1.9;
+}
+
+/* --- Other Doctors Mini Grid --- */
+.other-doctors {
+  margin-top: var(--space-3xl); padding-top: var(--space-2xl);
+  border-top: 1px solid var(--gray-200);
+}
+.other-doctors h3 {
+  font-size: 1.1rem; font-weight: 700; color: var(--gray-800);
+  margin-bottom: var(--space-lg); text-align: center;
+}
+.doctors-mini-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-md); max-width: 700px; margin: 0 auto;
+}
+.doctor-mini-card {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: var(--space-lg); border-radius: var(--radius-xl);
+  background: var(--white); border: 1px solid var(--glass-border);
+  text-decoration: none; transition: all 0.3s;
+  box-shadow: var(--shadow-sm); text-align: center;
+}
+.doctor-mini-card:hover {
+  transform: translateY(-4px); box-shadow: var(--shadow-card-hover);
+  border-color: rgba(107,66,38,0.3);
+}
+.mini-photo {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(107,66,38,0.08); color: var(--brand);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+}
+.mini-name { font-size: var(--fs-small); font-weight: 700; color: var(--gray-800); }
+.mini-specialty { font-size: var(--fs-xs); color: var(--gray-500); }
+
+/* --- Footer CTA (doctor pages) --- */
+.footer-cta {
+  padding: var(--space-3xl) 20px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--gray-900), #1a0f05);
+  color: white;
+}
+.footer-cta h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 8px;
+}
+.footer-cta p { color: rgba(255,255,255,0.7); margin-bottom: var(--space-lg); }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 36px; border-radius: var(--radius-full);
+  background: white; color: var(--gray-900);
+  font-weight: 700; font-size: 1rem; text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+
+/* --- Stat Cards (doctor pages) --- */
+.stat-card {
+  background: var(--white); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl); padding: var(--space-xl);
+  text-align: center; box-shadow: var(--shadow-sm);
+}
+
+/* --- One Day Grid (hyun.html etc.) --- */
+.oneday-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+.oneday-item {
+  background: var(--white); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl); padding: var(--space-lg);
+  box-shadow: var(--shadow-sm); text-align: center;
+}
+.oneday-highlight {
+  background: rgba(107,66,38,0.04); border-left: 3px solid var(--brand);
+  padding: 12px 16px; border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-weight: 600; color: var(--brand);
+}
+
+/* --- Doctor Card (for linking) --- */
+.doctor-card { text-decoration: none; display: block; }
+.doctor-card-info { padding: 16px; }
+.doctor-card-name { font-weight: 700; color: var(--gray-800); }
+.doctor-card-specialty { font-size: var(--fs-small); color: var(--gray-500); }
+.doctor-photo { overflow: hidden; border-radius: var(--radius-lg); }
+.doctor-photo-img { width: 100%; height: auto; }
+
+/* --- Feature Card (misc) --- */
+.feature-card {
+  background: var(--white); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl); padding: var(--space-xl);
+  box-shadow: var(--shadow-sm); text-align: center;
+}
+.feature-card .icon { font-size: 2rem; color: var(--brand); margin-bottom: 12px; }
+.feature-card .desc { font-size: var(--fs-small); color: var(--gray-600); line-height: 1.7; }
+.feature-card .title { font-size: 1rem; font-weight: 700; color: var(--gray-800); margin-bottom: 8px; }
+
+/* --- Specialty color badges --- */
+.specialty-tag.pediatric { background: rgba(99,102,241,0.1); color: var(--indigo); border-color: rgba(99,102,241,0.15); }
+.specialty-tag.orthodontics { background: rgba(236,72,153,0.1); color: var(--pink); border-color: rgba(236,72,153,0.15); }
+
+/* --- Doctor Profile Responsive --- */
+@media (max-width: 768px) {
+  .profile-header .container,
+  .doctor-profile-card {
+    grid-template-columns: 1fr; gap: 24px;
+  }
+  .profile-photo-wrapper,
+  .profile-photo-area { order: -1; }
+  .profile-photo-frame { width: 200px; height: 230px; margin: 0 auto; }
+  .content-grid { grid-template-columns: 1fr; }
+  .profile-details-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .doctors-mini-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══════════════════════════════════════
+   § 29. PRINT
    ═══════════════════════════════════════ */
 @media print {
   .site-header, .footer, .floating-cta, .mobile-bottom-cta, .mobile-nav,
