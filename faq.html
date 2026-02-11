@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- Primary SEO -->
   <title>자주 묻는 질문 | 서울비디치과</title>
   <meta name="description" content="서울비디치과 자주 묻는 질문 — 임플란트, 교정, 비용, 예약 관련 궁금한 점을 안내합니다.">
   <meta name="keywords" content="천안치과 FAQ, 임플란트 질문, 교정 비용, 서울비디치과 자주 묻는 질문">
   <meta name="author" content="서울비디치과">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  
+  <!-- Canonical & Geo -->
   <link rel="canonical" href="https://bdbddc.com/faq.html">
   <meta name="geo.region" content="KR-44">
   <meta name="geo.placename" content="천안시, 충청남도">
   <meta name="geo.position" content="36.8151;127.1139">
+  
+  <!-- Open Graph -->
   <meta property="og:title" content="자주 묻는 질문 | 서울비디치과">
   <meta property="og:description" content="서울비디치과 자주 묻는 질문 — 임플란트, 교정, 비용, 예약 관련 궁금한 점을 안내합니다.">
   <meta property="og:type" content="website">
@@ -19,64 +25,163 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="서울비디치과">
   <meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
+  
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="자주 묻는 질문 | 서울비디치과">
   <meta name="twitter:description" content="서울비디치과 자주 묻는 질문 — 임플란트, 교정, 비용, 예약 관련 궁금한 점을 안내합니다.">
   <meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
-  <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
-  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Favicon & PWA -->
+  <link rel="icon" type="image/svg+xml" href="images/icons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.svg">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#6B4226">
+  
+  <!-- Preconnect -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  
+  <!-- Fonts & Icons -->
   <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=46dcb305">
-<link rel="prefetch" href="/reservation.html" as="document">
+  <link rel="stylesheet" href="css/site-v5.css?v=174f802e">
+  
+  <!-- Prefetch -->
+  <link rel="prefetch" href="reservation.html" as="document">
+  
+  <!-- Schema.org BreadcrumbList -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"자주 묻는 질문","item":"https://bdbddc.com/faq.html"}]}
   </script>
+
+  <style>
+    .faq-search-section { padding: 40px 0 0; }
+    .faq-search-box { display: flex; align-items: center; gap: 16px; padding: 16px 24px; background: var(--white); border: 2px solid var(--border-color); border-radius: 100px; max-width: 600px; margin: 0 auto; transition: all 0.3s; }
+    .faq-search-box:focus-within { border-color: var(--brand); box-shadow: 0 0 0 4px rgba(107,66,38,0.1); }
+    .faq-search-box i { color: var(--text-tertiary); font-size: 1.1rem; }
+    .faq-search-box input { border: none; outline: none; width: 100%; font-size: 1rem; font-family: var(--font-family); background: transparent; }
+    .faq-search-box input::placeholder { color: var(--text-tertiary); }
+    .faq-q-badge { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--brand); color: white; font-size: 0.75rem; font-weight: 800; border-radius: 6px; flex-shrink: 0; }
+    .faq-q-text { flex: 1; }
+    .faq-icon { display: none; }
+    .faq-a-content { padding: 20px 0 8px; }
+    .faq-a-content ul { padding-left: 20px; margin: 8px 0; }
+    .faq-a-content li { padding: 4px 0; color: var(--text-secondary); font-size: 0.92rem; }
+    .faq-note, .faq-highlight { margin-top: 12px; padding: 10px 14px; border-radius: var(--radius-md); font-size: 0.88rem; }
+    .faq-note { background: var(--gray-50); color: var(--gray-600); }
+    .faq-highlight { background: #ECFDF5; color: #065F46; }
+    .faq-note i, .faq-highlight i { margin-right: 6px; }
+    .faq-table { width: 100%; margin: 8px 0; }
+    .faq-table td { padding: 8px 12px; font-size: 0.92rem; border-bottom: 1px solid var(--border-color); }
+    .no-results-icon { font-size: 3rem; color: var(--text-tertiary); margin-bottom: 16px; }
+    .faq-no-results { text-align: center; padding: 60px 20px; }
+    .faq-no-results h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .faq-no-results p { color: var(--text-secondary); margin-bottom: 20px; }
+  </style>
 </head>
 <body>
+  <!-- Skip Navigation -->
   <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+  
+  <!-- HEADER -->
   <header class="site-header" id="siteHeader">
     <div class="header-container">
       <div class="header-brand">
-        <a href="/" class="site-logo" aria-label="서울비디치과 홈"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
-        <div class="clinic-status open" aria-live="polite"><span class="status-dot"></span><span class="status-text">진료중</span><span class="status-time">20:00까지</span></div>
+        <a href="/" class="site-logo" aria-label="서울비디치과 홈">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text">서울비디치과</span>
+        </a>
+        <div class="clinic-status open" aria-live="polite">
+          <span class="status-dot"></span>
+          <span class="status-text">진료중</span>
+          <span class="status-time">20:00까지</span>
+        </div>
       </div>
+      
       <nav class="main-nav" id="mainNav" aria-label="메인 네비게이션">
         <ul>
+          <li class="nav-item"><a href="mission.html">Our Mission</a></li>
           <li class="nav-item has-dropdown">
-            <a href="/treatments/index.html">진료 안내</a>
-            <div class="mega-dropdown"><div class="mega-dropdown-grid">
-              <div class="mega-dropdown-section"><h4>전문센터</h4><ul><li><a href="/treatments/glownate.html">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li><li><a href="/treatments/implant.html">임플란트 <span class="badge">6개 수술실</span></a></li><li><a href="/treatments/invisalign.html">치아교정 <span class="badge">대규모</span></a></li><li><a href="/treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li><li><a href="/treatments/aesthetic.html">심미치료</a></li></ul></div>
-              <div class="mega-dropdown-section"><h4>일반/보존 진료</h4><ul><li><a href="/treatments/cavity.html">충치치료</a></li><li><a href="/treatments/resin.html">레진치료</a></li><li><a href="/treatments/crown.html">크라운</a></li><li><a href="/treatments/inlay.html">인레이/온레이</a></li><li><a href="/treatments/root-canal.html">신경치료</a></li><li><a href="/treatments/whitening.html">미백</a></li></ul></div>
-              <div class="mega-dropdown-section"><h4>잇몸/외과</h4><ul><li><a href="/treatments/scaling.html">스케일링</a></li><li><a href="/treatments/gum.html">잇몸치료</a></li><li><a href="/treatments/periodontitis.html">치주염</a></li><li><a href="/treatments/wisdom-tooth.html">사랑니 발치</a></li><li><a href="/treatments/tmj.html">턱관절장애</a></li><li><a href="/treatments/bruxism.html">이갈이/이악물기</a></li></ul></div>
-            </div></div>
+            <a href="treatments/index.html">진료 안내</a>
+            <div class="mega-dropdown">
+              <div class="mega-dropdown-grid">
+                <div class="mega-dropdown-section">
+                  <h4>전문센터</h4>
+                  <ul>
+                    <li><a href="treatments/glownate.html">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li>
+                    <li><a href="treatments/implant.html">임플란트 <span class="badge">6개 수술실</span></a></li>
+                    <li><a href="treatments/invisalign.html">치아교정 <span class="badge">대규모</span></a></li>
+                    <li><a href="treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li>
+                    <li><a href="treatments/aesthetic.html">심미치료</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4>일반/보존 진료</h4>
+                  <ul>
+                    <li><a href="treatments/cavity.html">충치치료</a></li>
+                    <li><a href="treatments/resin.html">레진치료</a></li>
+                    <li><a href="treatments/crown.html">크라운</a></li>
+                    <li><a href="treatments/inlay.html">인레이/온레이</a></li>
+                    <li><a href="treatments/root-canal.html">신경치료</a></li>
+                    <li><a href="treatments/whitening.html">미백</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <h4>잇몸/외과</h4>
+                  <ul>
+                    <li><a href="treatments/scaling.html">스케일링</a></li>
+                    <li><a href="treatments/gum.html">잇몸치료</a></li>
+                    <li><a href="treatments/periodontitis.html">치주염</a></li>
+                    <li><a href="treatments/wisdom-tooth.html">사랑니 발치</a></li>
+                    <li><a href="treatments/tmj.html">턱관절장애</a></li>
+                    <li><a href="treatments/bruxism.html">이갈이/이악물기</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </li>
-          <li class="nav-item"><a href="/doctors/index.html">의료진 소개</a></li>
-          <li class="nav-item"><a href="/mission.html">비디미션</a></li>
-          <li class="nav-item has-dropdown"><a href="/column/columns.html">콘텐츠</a><ul class="simple-dropdown"><li><a href="/column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li><li><a href="/video/index.html"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="/cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li></ul></li>
-          <li class="nav-item has-dropdown"><a href="/directions.html">병원 안내</a><ul class="simple-dropdown"><li><a href="/pricing.html" class="nav-highlight">💰 비용 안내</a></li><li><a href="/floor-guide.html">층별 안내</a></li><li><a href="/directions.html">오시는 길</a></li><li><a href="/faq.html">자주 묻는 질문</a></li><li><a href="/notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li></ul></li>
+          <li class="nav-item"><a href="doctors/index.html">의료진 소개</a></li>
+          <li class="nav-item has-dropdown">
+            <a href="column/columns.html">콘텐츠</a>
+            <ul class="simple-dropdown">
+              <li><a href="column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+              <li><a href="video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+              <li><a href="cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-dropdown">
+            <a href="directions.html">병원 안내</a>
+            <ul class="simple-dropdown">
+              <li><a href="pricing.html" class="nav-highlight">💰 비용 안내</a></li>
+              <li><a href="floor-guide.html">층별 안내</a></li>
+              <li><a href="directions.html">오시는 길</a></li>
+              <li><a href="faq.html">자주 묻는 질문</a></li>
+              <li><a href="notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+            </ul>
+          </li>
         </ul>
       </nav>
+      
       <div class="header-actions">
         <a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
-        <div class="auth-buttons"><a href="/auth/login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> 로그인</a><a href="/auth/register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 회원가입</a></div>
-        <a href="/reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+        <div class="auth-buttons">
+          <a href="auth/login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+          <a href="auth/register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 회원가입</a>
+        </div>
+        <a href="reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
+  
   <div class="header-spacer"></div>
 
+  <!-- MAIN -->
   <main id="main-content" role="main">
 
-  
-  
-  <!-- ═══════ HERO ═══════ -->
+  <!-- HERO -->
   <section class="hero" aria-label="서울비디치과">
     <div class="hero-bg-pattern" aria-hidden="true"></div>
     <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
@@ -572,74 +677,242 @@
   <!-- Still Have Questions? CTA -->
   <!-- Mobile Nav -->
 
-  <section class="cta-section" aria-label="상담 안내">
+  <!-- CTA -->
+  <section class="cta-section" aria-label="상담 예약">
     <div class="container">
       <div class="cta-box reveal">
-        <span class="cta-badge">상담 안내</span>
-        <h2>궁금한 점이 있으신가요?</h2>
-        <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요.</p>
-        <div class="cta-buttons">
-          <a href="reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
-          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        <div class="cta-content">
+          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 무료 상담</span>
+          <h2>궁금한 점이 있으신가요?</h2>
+          <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요.</p>
+          <div class="cta-buttons">
+            <a href="reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 무료 상담 예약</a>
+            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
+          </div>
+          <div class="cta-info">
+            <span><i class="fas fa-clock"></i> 365일 진료</span>
+            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
+            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
+          </div>
         </div>
-        <p class="cta-phone"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
       </div>
     </div>
   </section>
-  
-  
   </main>
+
+  <!-- FOOTER -->
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand">
+          <a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
+          <p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p>
+        </div>
         <div class="footer-links">
-          <div class="footer-col"><h4>전문센터</h4><ul><li><a href="/treatments/implant.html">임플란트센터</a></li><li><a href="/treatments/invisalign.html">교정센터</a></li><li><a href="/treatments/pediatric.html">소아치과</a></li><li><a href="/treatments/glownate.html">심미치료</a></li></ul></div>
-          <div class="footer-col"><h4>병원 안내</h4><ul><li><a href="/doctors/index.html">의료진 소개</a></li><li><a href="/bdx/index.html">BDX 검진센터</a></li><li><a href="/floor-guide.html">층별 안내</a></li><li><a href="/cases/gallery.html">Before/After</a></li></ul></div>
-          <div class="footer-col"><h4>고객 지원</h4><ul><li><a href="/reservation.html">예약/상담</a></li><li><a href="/column/columns.html">칼럼/콘텐츠</a></li><li><a href="/faq.html">자주 묻는 질문</a></li><li><a href="/directions.html">오시는 길</a></li></ul></div>
+          <div class="footer-col">
+            <h4>전문센터</h4>
+            <ul>
+              <li><a href="treatments/implant.html">임플란트센터</a></li>
+              <li><a href="treatments/invisalign.html">교정센터</a></li>
+              <li><a href="treatments/pediatric.html">소아치과</a></li>
+              <li><a href="treatments/glownate.html">심미치료</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>병원 안내</h4>
+            <ul>
+              <li><a href="doctors/index.html">의료진 소개</a></li>
+              <li><a href="mission.html">미션 · 비전</a></li>
+              <li><a href="floor-guide.html">층별 안내</a></li>
+              <li><a href="cases/gallery.html">Before/After</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>고객 지원</h4>
+            <ul>
+              <li><a href="reservation.html">예약/상담</a></li>
+              <li><a href="column/columns.html">칼럼/콘텐츠</a></li>
+              <li><a href="faq.html">자주 묻는 질문</a></li>
+              <li><a href="directions.html">오시는 길</a></li>
+            </ul>
+          </div>
         </div>
       </div>
+      
       <div class="footer-info">
-        <div class="footer-contact"><p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p><p><i class="fas fa-phone"></i> 041-415-2892</p><div class="footer-hours"><p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p><p>평일 09:00-20:00 (점심 12:30-14:00)</p><p>토·일 09:00-17:00</p><p>공휴일 09:00-13:00</p></div></div>
-        <div class="footer-social"><a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" aria-label="네이버 예약"><i class="fas fa-calendar-check"></i></a><a href="https://www.youtube.com/c/%EC%89%BD%EB%94%94%EC%89%AC%EC%9A%B4%EC%B9%98%EA%B3%BC%EC%9D%B4%EC%95%BC%EA%B8%B0Bdtube" target="_blank" rel="noopener" aria-label="유튜브"><i class="fab fa-youtube"></i></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" aria-label="카카오톡"><i class="fas fa-comment"></i></a></div>
+        <div class="footer-contact">
+          <p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p>
+          <p><i class="fas fa-phone"></i> 041-415-2892</p>
+          <div class="footer-hours">
+            <p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p>
+            <p>평일 09:00-20:00 (점심 12:30-14:00)</p>
+            <p>토·일 09:00-17:00</p>
+            <p>공휴일 09:00-13:00</p>
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" aria-label="네이버 예약"><i class="fas fa-calendar-check"></i></a>
+          <a href="https://www.youtube.com/c/%EC%89%BD%EB%94%94%EC%89%AC%EC%9A%B4%EC%B9%98%EA%B3%BC%EC%9D%B4%EC%95%BC%EA%B8%B0Bdtube" target="_blank" rel="noopener" aria-label="유튜브"><i class="fab fa-youtube"></i></a>
+          <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" aria-label="카카오톡"><i class="fas fa-comment"></i></a>
+        </div>
       </div>
+      
       <div class="footer-legal">
-        <div class="legal-links"><a href="/privacy.html">개인정보 처리방침</a><span>|</span><a href="/terms.html">이용약관</a><span>|</span><a href="/sitemap.xml">사이트맵</a></div>
+        <div class="legal-links">
+          <a href="privacy.html">개인정보 처리방침</a>
+          <span>|</span>
+          <a href="terms.html">이용약관</a>
+          <span>|</span>
+          <a href="sitemap.xml">사이트맵</a>
+        </div>
         <p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 특정 개인의 결과는 개인에 따라 달라질 수 있습니다.</p>
         <p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
       </div>
     </div>
   </footer>
+
+  <!-- Mobile Navigation -->
   <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
-    <div class="mobile-nav-header"><span class="logo-icon">🦷</span><button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button></div>
+    <div class="mobile-nav-header">
+      <span class="logo-icon">🦷</span>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button>
+    </div>
     <ul class="mobile-nav-menu">
-      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-tooth"></i> 진료 안내 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="/treatments/index.html">전체 진료</a></li><li class="submenu-divider">전문센터</li><li><a href="/treatments/glownate.html" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li><li><a href="/treatments/implant.html">임플란트센터</a></li><li><a href="/treatments/invisalign.html">교정센터</a></li><li><a href="/treatments/pediatric.html">소아치과</a></li><li><a href="/treatments/aesthetic.html">심미치료</a></li><li class="submenu-divider">일반 진료</li><li><a href="/treatments/cavity.html">충치치료</a></li><li><a href="/treatments/resin.html">레진치료</a></li><li><a href="/treatments/scaling.html">스케일링</a></li><li><a href="/treatments/gum.html">잇몸치료</a></li></ul></li>
-      <li><a href="/doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
-      <li><a href="/mission.html"><i class="fas fa-heart"></i> 비디미션</a></li>
-      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="/column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li><li><a href="/video/index.html"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="/cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li></ul></li>
-      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-hospital"></i> 병원 안내 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="/pricing.html">💰 비용 안내</a></li><li><a href="/floor-guide.html">층별 안내</a></li><li><a href="/directions.html">오시는 길</a></li><li><a href="/faq.html">자주 묻는 질문</a></li><li><a href="/notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li></ul></li>
-      <li><a href="/reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+      <li class="mobile-nav-item has-submenu">
+        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+          <i class="fas fa-tooth"></i> 진료 안내 <i class="fas fa-chevron-down toggle-icon"></i>
+        </a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="treatments/index.html">전체 진료</a></li>
+          <li class="submenu-divider">전문센터</li>
+          <li><a href="treatments/glownate.html" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>
+          <li><a href="treatments/implant.html">임플란트센터</a></li>
+          <li><a href="treatments/invisalign.html">교정센터 (인비절라인)</a></li>
+          <li><a href="treatments/pediatric.html">소아치과</a></li>
+          <li><a href="treatments/aesthetic.html">심미치료</a></li>
+          <li class="submenu-divider">일반 진료</li>
+          <li><a href="treatments/cavity.html">충치치료</a></li>
+          <li><a href="treatments/resin.html">레진치료</a></li>
+          <li><a href="treatments/scaling.html">스케일링</a></li>
+          <li><a href="treatments/gum.html">잇몸치료</a></li>
+        </ul>
+      </li>
+      <li><a href="doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
+      <li><a href="mission.html"><i class="fas fa-star"></i> Our Mission</a></li>
+      <li class="mobile-nav-item has-submenu">
+        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+          <i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i>
+        </a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li>
+          <li><a href="video/index.html"><i class="fab fa-youtube"></i> 영상</a></li>
+          <li><a href="cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li>
+        </ul>
+      </li>
+      <li class="mobile-nav-item has-submenu">
+        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+          <i class="fas fa-hospital"></i> 병원 안내 <i class="fas fa-chevron-down toggle-icon"></i>
+        </a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="pricing.html">💰 비용 안내</a></li>
+          <li><a href="floor-guide.html">층별 안내</a></li>
+          <li><a href="directions.html">오시는 길</a></li>
+          <li><a href="faq.html">자주 묻는 질문</a></li>
+          <li><a href="notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+        </ul>
+      </li>
+      <li><a href="reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
     </ul>
-    <div class="mobile-auth-buttons"><a href="/auth/login.html" class="btn-auth"><i class="fas fa-sign-in-alt"></i> 로그인</a><a href="/auth/register.html" class="btn-auth"><i class="fas fa-user-plus"></i> 회원가입</a></div>
-    <div class="mobile-nav-footer"><p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p><div class="mobile-nav-quick-btns"><a href="/pricing.html" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 비용 안내</a><a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 전화 예약</a></div></div>
+    <div class="mobile-auth-buttons">
+      <a href="auth/login.html" class="btn-auth"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+      <a href="auth/register.html" class="btn-auth"><i class="fas fa-user-plus"></i> 회원가입</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p>
+      <div class="mobile-nav-quick-btns">
+        <a href="pricing.html" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 비용 안내</a>
+        <a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 전화 예약</a>
+      </div>
+    </div>
   </nav>
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-  <div class="floating-cta desktop-only"><a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a><a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a></div>
-  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락"><a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a><a href="/reservation.html" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a><a href="/directions.html" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a></div>
-  <script src="/js/main.js" defer></script>
-  <script src="/js/gnb.js" defer></script>
+
+  <!-- Floating CTA -->
+  <div class="floating-cta desktop-only">
+    <a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a>
+    <a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a>
+  </div>
+  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
+    <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
+    <a href="reservation.html" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
+    <a href="directions.html" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
+  </div>
+
+
+  <!-- Scripts -->
+  <script src="js/main.js" defer></script>
+  <script src="js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
   <script>
-    document.querySelectorAll('.faq-question').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        var item=this.parentElement;
-        var isActive=item.classList.contains('active');
-        document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('active');});
-        if(!isActive)item.classList.add('active');
+    document.addEventListener('DOMContentLoaded', function() {
+      // FAQ Accordion
+      document.querySelectorAll('.faq-question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var item = this.parentElement;
+          var isActive = item.classList.contains('active');
+          var group = item.closest('.faq-category-group');
+          if (group) {
+            group.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('active'); });
+          }
+          if (!isActive) item.classList.add('active');
+          this.setAttribute('aria-expanded', !isActive);
+        });
       });
+
+      // Category Tabs
+      var catBtns = document.querySelectorAll('.faq-category-btn');
+      var catGroups = document.querySelectorAll('.faq-category-group');
+      
+      catBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var cat = this.dataset.category;
+          catBtns.forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          catGroups.forEach(function(g) {
+            g.style.display = (cat === 'all' || g.dataset.category === cat) ? '' : 'none';
+          });
+          document.getElementById('faqNoResults').style.display = 'none';
+        });
+      });
+
+      // Search
+      var searchInput = document.getElementById('faqSearch');
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          var query = this.value.toLowerCase().trim();
+          var items = document.querySelectorAll('.faq-item');
+          var hasResults = false;
+          catBtns.forEach(function(b) { b.classList.remove('active'); });
+          document.querySelector('.faq-category-btn[data-category="all"]').classList.add('active');
+          catGroups.forEach(function(g) { g.style.display = ''; });
+          if (!query) {
+            items.forEach(function(item) { item.style.display = ''; });
+            document.getElementById('faqNoResults').style.display = 'none';
+            return;
+          }
+          items.forEach(function(item) {
+            var text = item.textContent.toLowerCase();
+            if (text.indexOf(query) > -1) { item.style.display = ''; hasResults = true; }
+            else { item.style.display = 'none'; }
+          });
+          document.getElementById('faqNoResults').style.display = hasResults ? 'none' : 'block';
+        });
+      }
     });
   </script>
 </body>
