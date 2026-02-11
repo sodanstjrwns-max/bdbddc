@@ -3835,6 +3835,213 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   .reviews-stats { gap: 16px; }
 }
 
+/* ═══════════════════════════════════════════════════════
+   § TREATMENT PAGES — Full Reconstruction CSS
+   All treatment-specific component styles
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Treatment Section / Options / List ── */
+.treatment-section { position: relative; }
+.treatment-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.treatment-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.treatment-types { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.treatment-summary { font-size: 1rem; line-height: 1.8; color: var(--text-secondary); }
+.treatment-note { font-size: 0.88rem; color: var(--text-tertiary); padding: 16px 20px; background: var(--gray-50); border-radius: var(--radius-lg); border-left: 3px solid var(--brand-gold); margin-top: 16px; }
+.treatment-badge { display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 700; }
+.treatment-link { display: inline-flex; align-items: center; gap: 6px; color: var(--brand); font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: all var(--transition-base); }
+.treatment-link:hover { color: var(--brand-dark); gap: 10px; }
+.treatment-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 24px; }
+.treatment-features { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.treatment-features span { padding: 4px 12px; background: var(--gray-100); color: var(--text-secondary); border-radius: var(--radius-full); font-size: 0.82rem; }
+
+/* Treatment option cards */
+.treatment-option { padding: 24px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); }
+.treatment-option:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
+.treatment-option-icon { width: 48px; height: 48px; border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1.2rem; margin-bottom: 16px; }
+
+/* Treatment card enhanced */
+.treatment-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.treatment-icon { width: 44px; height: 44px; border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1.1rem; flex-shrink: 0; }
+.treatment-body { flex: 1; }
+.treatment-desc { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); margin-top: 8px; }
+
+/* ── Process / Steps ── */
+.process-section { position: relative; }
+.process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.process-timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+.process-timeline::before { content: ''; position: absolute; left: 24px; top: 24px; bottom: 24px; width: 2px; background: linear-gradient(to bottom, var(--brand-gold-light), var(--brand-gold), var(--brand-gold-light)); z-index: 0; }
+.process-stepper { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; counter-reset: step; }
+.process-wrapper { display: flex; flex-direction: column; gap: 24px; }
+.process-bento { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+/* Process step */
+.process-step { position: relative; padding: 24px 24px 24px 64px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); z-index: 1; }
+.process-step:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
+.process-step h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.process-step p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
+
+/* Process card (grid layout) */
+.process-card { padding: 28px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); position: relative; }
+.process-card:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.process-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.process-card p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
+
+/* Process item */
+.process-item { padding: 24px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); }
+.process-item:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
+.process-item h3 { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.process-item p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
+
+/* Process/Step Numbers */
+.process-number, .process-num { position: absolute; top: 24px; left: 16px; width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; z-index: 2; box-shadow: 0 4px 12px rgba(107,66,38,0.2); }
+.process-card .process-number, .process-card .process-num { position: relative; top: auto; left: auto; margin-bottom: 16px; }
+.step-number { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; box-shadow: 0 4px 12px rgba(107,66,38,0.2); }
+.step-num { font-size: 0.8rem; font-weight: 800; color: var(--brand); background: rgba(107,66,38,0.08); width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 8px; }
+.step-circle { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+
+/* Step content/details */
+.step-content { flex: 1; }
+.step-content h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.step-content p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
+.step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.step-desc { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
+.step-details { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.step-detail-tag { padding: 4px 12px; background: var(--gray-100); color: var(--text-secondary); border-radius: var(--radius-full); font-size: 0.8rem; }
+.step-highlight { padding: 12px 16px; background: linear-gradient(135deg, rgba(107,66,38,0.04), rgba(200,169,126,0.08)); border-left: 3px solid var(--brand-gold); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-top: 12px; font-size: 0.88rem; color: var(--brand-dark); }
+.step-icon { width: 40px; height: 40px; border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1rem; flex-shrink: 0; }
+.step-indicator { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.step-label { font-size: 0.78rem; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.5px; }
+.step-time, .step-time-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; background: rgba(16,185,129,0.08); color: var(--green); border-radius: var(--radius-full); font-size: 0.78rem; font-weight: 600; }
+.step-duration { font-size: 0.82rem; color: var(--text-tertiary); margin-top: 4px; }
+
+/* Step panel (tab-like) */
+.step-panel { display: none; padding: 24px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); }
+.step-panel.active { display: block; }
+.step-panel-inner { display: flex; flex-direction: column; gap: 16px; }
+.step-nav-item { padding: 12px 16px; cursor: pointer; border-radius: var(--radius-lg); transition: all var(--transition-base); font-size: 0.9rem; color: var(--text-secondary); }
+.step-nav-item:hover, .step-nav-item.active { background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); color: var(--brand); font-weight: 600; }
+
+/* ── Benefit Cards ── */
+.benefit-card { padding: 28px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); text-align: center; transition: all var(--transition-base); }
+.benefit-card:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.benefit-icon { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1.3rem; margin: 0 auto 16px; }
+.benefit-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.benefit-card p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
+.benefit-content { flex: 1; }
+.benefit-detail { font-size: 0.88rem; color: var(--text-tertiary); margin-top: 8px; }
+.benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+
+/* ── Comparison Grid ── */
+.comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.comparison-card { padding: 28px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); }
+.comparison-card:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
+.comparison-icon { width: 52px; height: 52px; border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1.2rem; margin-bottom: 16px; }
+.comparison-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.comparison-subtitle { font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 12px; }
+.comparison-desc { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 12px; }
+.comparison-list { list-style: none; padding: 0; margin: 0; }
+.comparison-list li { padding: 8px 0; border-bottom: 1px solid var(--border-color); font-size: 0.88rem; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 8px; }
+.comparison-list li:last-child { border-bottom: none; }
+.comparison-list li i { color: var(--green); margin-top: 3px; flex-shrink: 0; font-size: 0.8rem; }
+.comparison-features { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.comparison-features span { padding: 4px 10px; background: var(--gray-100); border-radius: var(--radius-full); font-size: 0.78rem; color: var(--text-secondary); }
+.comparison-badge { display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; margin-bottom: 12px; }
+
+/* ── Stage Cards (cavity stages etc.) ── */
+.stages-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.stage-card { padding: 28px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); position: relative; overflow: hidden; }
+.stage-card:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
+.stage-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--brand), var(--brand-gold)); }
+.stage-1::before { background: linear-gradient(90deg, var(--green), #34d399); }
+.stage-2::before { background: linear-gradient(90deg, var(--yellow), #fbbf24); }
+.stage-3::before { background: linear-gradient(90deg, #f97316, #fb923c); }
+.stage-4::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+.stage-visual { margin-bottom: 16px; }
+.stage-icon { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; }
+.stage-number { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; margin-bottom: 12px; }
+.stage-label { font-size: 0.78rem; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.stage-level { font-size: 0.82rem; font-weight: 600; color: var(--text-tertiary); margin-bottom: 8px; }
+.stage-content { flex: 1; }
+.stage-card h3, .stage-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.stage-card p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
+.stage-symptoms { margin-top: 12px; }
+.stage-symptoms li { padding: 4px 0; font-size: 0.88rem; color: var(--text-secondary); }
+.stage-treatment { margin-top: 12px; padding: 12px 16px; background: var(--gray-50); border-radius: var(--radius-md); font-size: 0.88rem; color: var(--brand-dark); }
+.stage-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+.stage-features { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.stage-features span { padding: 3px 10px; background: var(--gray-100); border-radius: var(--radius-full); font-size: 0.78rem; color: var(--text-secondary); }
+
+/* ── Warning / Danger Cards ── */
+.warning-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.warning-card { padding: 24px; background: var(--white); border: 1px solid rgba(239,68,68,0.15); border-radius: var(--radius-xl); transition: all var(--transition-base); text-align: center; }
+.warning-card:hover { border-color: rgba(239,68,68,0.3); box-shadow: 0 4px 16px rgba(239,68,68,0.06); }
+.warning-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(239,68,68,0.06); display: flex; align-items: center; justify-content: center; color: #ef4444; font-size: 1.2rem; margin: 0 auto 12px; }
+.warning-card h4 { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.warning-card p { font-size: 0.88rem; line-height: 1.6; color: var(--text-secondary); }
+.warning-banner { padding: 16px 20px; background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.12); border-radius: var(--radius-lg); display: flex; align-items: flex-start; gap: 12px; color: #ef4444; }
+.warning-banner p { color: var(--text-secondary); font-size: 0.9rem; }
+
+/* ── Tip Cards ── */
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.tip-card { padding: 24px; text-align: center; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); }
+.tip-card:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
+.tip-card i { font-size: 1.5rem; color: var(--brand); margin-bottom: 12px; display: block; }
+.tip-icon { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1.1rem; margin: 0 auto 12px; }
+.tip-card h4 { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.tip-card p { font-size: 0.88rem; line-height: 1.6; color: var(--text-secondary); }
+
+/* ── Info Cards / Box ── */
+.info-card { padding: 24px; text-align: center; }
+.info-icon { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1.1rem; margin: 0 auto 12px; }
+.info-label { font-size: 0.82rem; font-weight: 600; color: var(--text-tertiary); margin-bottom: 4px; }
+.info-value { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
+.info-box { padding: 24px; background: linear-gradient(135deg, rgba(107,66,38,0.03), rgba(200,169,126,0.06)); border: 1px solid rgba(200,169,126,0.15); border-radius: var(--radius-xl); margin-top: 20px; }
+.info-box h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.info-box p { font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary); }
+
+/* ── Notice Banner ── */
+.notice-banner { padding: 16px 20px; background: linear-gradient(135deg, rgba(16,185,129,0.04), rgba(16,185,129,0.08)); border: 1px solid rgba(16,185,129,0.15); border-radius: var(--radius-lg); display: flex; align-items: flex-start; gap: 12px; }
+.notice-banner > i { color: var(--green); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+.notice-banner-content { flex: 1; }
+.notice-banner-content h4, .notice-banner-content strong { color: var(--text-primary); font-weight: 700; }
+.notice-banner-content p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); margin-top: 4px; }
+
+/* ── FAQ Section (Treatment pages) ── */
+.faq-section { padding: var(--space-3xl) 0; }
+.faq-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: var(--text-primary); text-align: center; margin-bottom: 8px; }
+.faq-subtitle { font-size: 1rem; color: var(--text-tertiary); text-align: center; margin-bottom: 40px; }
+.faq-container, .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-icon { color: var(--brand); font-size: 0.9rem; flex-shrink: 0; }
+.faq-q-badge { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); font-size: 0.72rem; font-weight: 800; flex-shrink: 0; }
+.faq-q-text { flex: 1; }
+.faq-answer-content, .faq-answer-inner { padding: 0 16px 16px 16px; font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary); }
+
+/* CTA extras */
+.cta-info-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: rgba(255,255,255,0.85); }
+.cta-info-item i { color: var(--brand-gold); }
+
+/* Hero extras */
+.hero-info-item { display: inline-flex; align-items: center; gap: 6px; font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+.hero-info-item i { color: var(--brand-gold); }
+
+/* Feature extras */
+.feature-icon { width: 48px; height: 48px; border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1.1rem; margin-bottom: 16px; }
+.feature-tag { display: inline-block; padding: 3px 10px; background: var(--gray-100); color: var(--text-secondary); border-radius: var(--radius-full); font-size: 0.78rem; margin-top: 8px; }
+
+/* ── Treatment page responsive ── */
+@media (max-width: 768px) {
+  .process-grid, .comparison-grid, .stage-grid, .warning-grid, .tips-grid,
+  .benefits-grid, .treatment-options, .treatment-list, .treatment-types,
+  .stages-container, .treatment-info-grid, .process-bento, .process-stepper { grid-template-columns: 1fr; }
+  .process-timeline::before { left: 18px; }
+  .process-step { padding-left: 52px; }
+  .process-number, .process-num { left: 10px; width: 30px; height: 30px; font-size: 0.78rem; }
+  .step-number, .step-circle { width: 30px; height: 30px; font-size: 0.78rem; }
+  .stage-comparison { grid-template-columns: 1fr; }
+  .faq-section { padding: var(--space-2xl) 0; }
+}
+
 /* ═══════════════════════════════════════
    § 27. PRINT
    ═══════════════════════════════════════ */
