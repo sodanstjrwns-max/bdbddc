@@ -32,11 +32,67 @@
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=46dcb305">
+  <link rel="stylesheet" href="/css/site-v5.css?v=46dcb305">
 <link rel="prefetch" href="/reservation.html" as="document">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"오시는 길","item":"https://bdbddc.com/directions.html"}]}
   </script>
+
+  <style>
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .map-container { border-radius: var(--radius-xl); overflow: hidden; }
+    .google-map-wrapper { border-radius: var(--radius-lg); overflow: hidden; }
+    .map-actions { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+    .location-info { display: flex; flex-direction: column; gap: 20px; }
+    .info-card { padding: 24px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); }
+    .info-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--brand-gold-light), var(--brand-gold)); border-radius: 50%; color: var(--brand-dark); font-size: 1rem; margin-bottom: 12px; }
+    .info-content h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .address-main { font-size: 1.05rem; font-weight: 600; }
+    .address-detail, .postal-code { font-size: 0.88rem; color: var(--text-secondary); }
+    .copy-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--gray-50); border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.85rem; cursor: pointer; transition: all 0.3s; margin-top: 12px; }
+    .copy-btn:hover { background: var(--brand); color: var(--white); border-color: var(--brand); }
+    .hours-table { width: 100%; }
+    .hours-table td { padding: 8px 4px; font-size: 0.92rem; }
+    .hours-note { margin-top: 12px; padding: 8px 12px; background: #FFF7ED; border-radius: var(--radius-md); font-size: 0.88rem; }
+    .transport-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .transport-card { padding: 32px 24px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); position: relative; }
+    .transport-card.highlight { border-color: var(--brand-gold); }
+    .transport-badge { position: absolute; top: -12px; right: 16px; background: var(--brand); color: var(--white); padding: 4px 16px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; }
+    .transport-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: var(--gray-50); border-radius: 50%; font-size: 1.3rem; color: var(--brand); margin-bottom: 16px; }
+    .transport-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 16px; }
+    .transport-content h4 { font-size: 0.92rem; font-weight: 700; margin: 16px 0 8px; color: var(--brand); }
+    .transport-content ul { list-style: none; padding: 0; }
+    .transport-content li { padding: 4px 0; font-size: 0.9rem; color: var(--text-secondary); }
+    .bus-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .bus-num { padding: 4px 12px; border-radius: 4px; font-size: 0.82rem; font-weight: 700; color: white; }
+    .bus-num.blue { background: #3B82F6; }
+    .bus-num.green { background: #10B981; }
+    .bus-num.red { background: #EF4444; }
+    .landmarks-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .landmark-item { text-align: center; padding: 24px 16px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); transition: all 0.3s; }
+    .landmark-item:hover { border-color: var(--brand-gold-light); transform: translateY(-2px); }
+    .landmark-item i { font-size: 1.5rem; color: var(--brand); margin-bottom: 8px; display: block; }
+    .landmark-item span { display: block; font-weight: 600; font-size: 0.92rem; }
+    .landmark-item small { display: block; font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+    .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .amenity-item { text-align: center; padding: 28px 16px; }
+    .amenity-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--brand-gold-light), var(--brand-gold)); border-radius: 50%; color: var(--brand-dark); font-size: 1.2rem; margin: 0 auto 16px; }
+    .amenity-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .amenity-item p { font-size: 0.85rem; color: var(--text-secondary); }
+    .section { padding: 60px 0; }
+    .section .section-title { text-align: center; margin-bottom: 40px; }
+    .section .section-title h2 { font-size: 1.8rem; font-weight: 800; }
+    .section .section-title p { color: var(--text-secondary); margin-top: 8px; }
+    .alt-bg { background: var(--gray-50); }
+    .location-section { padding: 60px 0; }
+    .contact-tel a { color: var(--brand); font-size: 1.2rem; text-decoration: none; }
+    .contact-sub { font-size: 0.88rem; color: var(--text-secondary); }
+    @media (max-width: 768px) {
+      .location-grid { grid-template-columns: 1fr; }
+      .transport-grid { grid-template-columns: 1fr; }
+      .landmarks-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">본문으로 바로가기</a>
@@ -442,5 +498,25 @@
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
+
+  <script>
+    // Address Copy Button
+    document.querySelectorAll('.copy-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var text=this.dataset.copy;
+        if(navigator.clipboard){
+          navigator.clipboard.writeText(text).then(function(){
+            btn.innerHTML='<i class="fas fa-check"></i> 복사 완료!';
+            btn.style.color='var(--green)';
+            setTimeout(function(){btn.innerHTML='<i class="fas fa-copy"></i> 주소 복사';btn.style.color='';},2000);
+          });
+        }else{
+          var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+          btn.innerHTML='<i class="fas fa-check"></i> 복사 완료!';
+          setTimeout(function(){btn.innerHTML='<i class="fas fa-copy"></i> 주소 복사';},2000);
+        }
+      });
+    });
+  </script>
 </body>
 </html>

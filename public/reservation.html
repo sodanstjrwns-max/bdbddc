@@ -32,11 +32,85 @@
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=46dcb305">
+  <link rel="stylesheet" href="/css/site-v5.css?v=46dcb305">
 <link rel="prefetch" href="/reservation.html" as="document">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"예약/상담","item":"https://bdbddc.com/reservation.html"}]}
   </script>
+
+  <style>
+    .quick-contact { padding: 40px 0; }
+    .quick-contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .quick-card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 32px 20px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); text-decoration: none; color: inherit; transition: all 0.3s; }
+    .quick-card:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-card); transform: translateY(-4px); }
+    .quick-icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--brand-gold-light), var(--brand-gold)); border-radius: 50%; color: var(--brand-dark); font-size: 1.3rem; }
+    .quick-icon.kakao { background: linear-gradient(135deg, #FEE500, #E6CB00); color: #3C1E1E; }
+    .quick-icon.naver { background: linear-gradient(135deg, #03C75A, #02A94D); color: white; }
+    .quick-card h3 { font-size: 1rem; font-weight: 700; }
+    .quick-value { font-size: 1.1rem; font-weight: 800; color: var(--brand); }
+    .quick-desc { font-size: 0.82rem; color: var(--text-secondary); }
+    .reservation-wrapper { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: start; }
+    .reservation-info h2 { margin-bottom: 8px; }
+    .reservation-info .text-body-lg { color: var(--text-secondary); margin-bottom: 24px; }
+    .reservation-info .info-card { padding: 24px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); margin-bottom: 16px; }
+    .reservation-info .info-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .reservation-info .info-card ul { list-style: none; padding: 0; }
+    .reservation-info .info-card li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border-color); font-size: 0.92rem; }
+    .reservation-info .info-card li:last-child { border-bottom: none; }
+    .reservation-info .info-card li.holiday span:last-child { color: var(--red); }
+    .map-buttons { display: flex; gap: 8px; margin-top: 12px; }
+    .reservation-form-wrapper { padding: 32px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); }
+    .form-steps { display: flex; gap: 8px; margin-bottom: 32px; }
+    .step { display: flex; align-items: center; gap: 8px; flex: 1; padding: 12px; border-radius: var(--radius-md); background: var(--gray-50); transition: all 0.3s; }
+    .step.active { background: var(--brand); color: white; }
+    .step.completed { background: #ECFDF5; color: #065F46; }
+    .step-num { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,0.2); font-size: 0.85rem; font-weight: 700; }
+    .step.active .step-num { background: rgba(255,255,255,0.3); }
+    .step.completed .step-num { background: #10B981; color: white; }
+    .step-label { font-size: 0.85rem; font-weight: 600; }
+    .form-step-content { display: none; }
+    .form-step-content.active { display: block; animation: fadeInUp 0.4s ease; }
+    .form-step-content h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+    .treatment-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+    .treatment-option { cursor: pointer; }
+    .treatment-option input { display: none; }
+    .option-content { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 12px; background: var(--gray-50); border: 2px solid var(--border-color); border-radius: var(--radius-lg); transition: all 0.3s; text-align: center; }
+    .treatment-option input:checked + .option-content { border-color: var(--brand); background: #FFF7ED; }
+    .option-content:hover { border-color: var(--brand-gold-light); }
+    .option-content i { font-size: 1.5rem; color: var(--brand); }
+    .option-title { font-weight: 700; font-size: 0.95rem; }
+    .option-desc { font-size: 0.78rem; color: var(--text-secondary); }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.95rem; font-family: var(--font-family); transition: all 0.3s; box-sizing: border-box; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--brand); outline: none; box-shadow: 0 0 0 3px rgba(107,66,38,0.1); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-note { display: flex; align-items: center; gap: 8px; padding: 12px; background: var(--gray-50); border-radius: var(--radius-md); margin-bottom: 24px; font-size: 0.85rem; color: var(--text-secondary); }
+    .form-buttons { display: flex; gap: 12px; justify-content: space-between; }
+    .form-checkbox label { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; cursor: pointer; }
+    .form-checkbox input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--brand); }
+    .required { color: var(--red); }
+    .btn-next, .btn-prev { min-width: 120px; }
+    .bg-white { background: var(--white); }
+    .text-h3 { font-size: 1.5rem; font-weight: 800; }
+    .btn-sm { padding: 8px 14px; font-size: 0.82rem; }
+    .btn-secondary { background: var(--gray-100); color: var(--text-primary); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: var(--radius-md); text-decoration: none; font-weight: 600; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-secondary:hover { background: var(--gray-200); }
+    .form-success { text-align: center; padding: 40px 20px; display: none; }
+    .form-success i { font-size: 3rem; color: var(--green); margin-bottom: 16px; }
+    .form-success h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+    .form-success p { color: var(--text-secondary); line-height: 1.7; }
+    .section { padding: 60px 0; }
+    .section .section-title { text-align: center; margin-bottom: 32px; }
+    .section .section-title h2 { font-size: 1.5rem; font-weight: 800; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 768px) {
+      .quick-contact-grid { grid-template-columns: 1fr; }
+      .reservation-wrapper { grid-template-columns: 1fr; }
+      .treatment-options { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">본문으로 바로가기</a>
@@ -479,5 +553,98 @@
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var currentStep = 1;
+      var steps = document.querySelectorAll('.step');
+      var stepContents = document.querySelectorAll('.form-step-content');
+
+      function goToStep(n) {
+        // Validate current step before advancing
+        if (n > currentStep) {
+          var currentContent = document.querySelector('.form-step-content[data-step="' + currentStep + '"]');
+          if (currentStep === 1) {
+            var selected = currentContent.querySelector('input[name="treatment"]:checked');
+            if (!selected) { alert('진료 종류를 선택해 주세요.'); return; }
+          }
+          if (currentStep === 2) {
+            var date = document.getElementById('date').value;
+            var time = document.getElementById('time').value;
+            if (!date || !time) { alert('날짜와 시간을 선택해 주세요.'); return; }
+          }
+        }
+        
+        currentStep = n;
+        steps.forEach(function(s, i) {
+          s.classList.remove('active', 'completed');
+          if (i + 1 < n) s.classList.add('completed');
+          if (i + 1 === n) s.classList.add('active');
+        });
+        stepContents.forEach(function(sc) {
+          sc.classList.remove('active');
+          if (parseInt(sc.dataset.step) === n) sc.classList.add('active');
+        });
+      }
+
+      // Next buttons
+      document.querySelectorAll('.btn-next').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          goToStep(parseInt(this.dataset.next));
+        });
+      });
+
+      // Prev buttons
+      document.querySelectorAll('.btn-prev').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          goToStep(parseInt(this.dataset.prev));
+        });
+      });
+
+      // Form submit
+      var form = document.getElementById('reservationForm');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          var name = document.getElementById('name').value;
+          var phone = document.getElementById('phone').value;
+          var privacy = form.querySelector('input[name="privacy"]').checked;
+          
+          if (!name || !phone) { alert('성함과 연락처를 입력해 주세요.'); return; }
+          if (!privacy) { alert('개인정보 처리방침에 동의해 주세요.'); return; }
+          
+          // Show success message
+          form.style.display = 'none';
+          var success = document.createElement('div');
+          success.className = 'form-success';
+          success.style.display = 'block';
+          success.innerHTML = '<i class="fas fa-check-circle"></i>' +
+            '<h3>예약 신청이 완료되었습니다!</h3>' +
+            '<p>' + name + '님, 감사합니다.<br>담당자가 확인 후 <strong>' + phone + '</strong>으로 연락드리겠습니다.</p>' +
+            '<p style="margin-top: 16px; font-size: 0.85rem; color: var(--text-tertiary);">영업일 기준 24시간 이내 연락드립니다.</p>' +
+            '<a href="/" class="btn btn-primary" style="margin-top: 24px;"><i class="fas fa-home"></i> 홈으로 돌아가기</a>';
+          form.parentNode.appendChild(success);
+        });
+      }
+
+      // Set min date to today
+      var dateInput = document.getElementById('date');
+      if (dateInput) {
+        var today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+      }
+
+      // Reservation FAQ Accordion
+      document.querySelectorAll('.faq-question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var item = this.parentElement;
+          var isActive = item.classList.contains('active');
+          document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('active'); });
+          if (!isActive) item.classList.add('active');
+        });
+      });
+    });
+  </script>
 </body>
 </html>

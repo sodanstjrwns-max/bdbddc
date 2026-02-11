@@ -46,7 +46,7 @@
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=46dcb305">
+  <link rel="stylesheet" href="/css/site-v5.css?v=46dcb305">
   
   <!-- ■ Stylesheets -->
 <!-- ■ Prefetch -->
@@ -56,6 +56,40 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"비용 안내","item":"https://bdbddc.com/pricing.html"}]}
   </script>
+
+  <style>
+    .pricing-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; justify-content: center; }
+    .pricing-tab { padding: 12px 24px; border: 2px solid var(--border-color); border-radius: 100px; background: var(--white); font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; color: var(--text-secondary); }
+    .pricing-tab:hover { border-color: var(--brand); color: var(--brand); }
+    .pricing-tab.active { background: var(--brand); color: var(--white); border-color: var(--brand); }
+    .pricing-tab i { margin-right: 6px; }
+    .pricing-content { display: none; }
+    .pricing-content.active { display: block; animation: fadeInUp 0.4s ease; }
+    .pricing-table-wrapper { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border-color); }
+    .treatment-name i { color: var(--green); margin-right: 8px; }
+    .price { font-weight: 700; color: var(--brand); font-size: 1.05rem; }
+    .note { font-size: 0.85rem; color: var(--text-secondary); }
+    .popular-badge { display: inline-block; background: linear-gradient(135deg, var(--brand-gold), var(--brand)); color: white; font-size: 0.7rem; padding: 2px 8px; border-radius: 100px; font-weight: 600; margin-left: 8px; vertical-align: middle; }
+    .payment-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
+    .payment-method { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 24px 16px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); transition: all 0.3s; }
+    .payment-method:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-card); transform: translateY(-2px); }
+    .payment-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--brand-gold-light), var(--brand-gold)); border-radius: 50%; color: var(--brand-dark); font-size: 1.2rem; }
+    .payment-method span { font-weight: 600; font-size: 0.9rem; }
+    .max-w-800 { max-width: 800px; margin: 0 auto; }
+    .mt-8 { margin-top: 32px; }
+    .info-box { background: var(--gray-50); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; margin-bottom: 24px; }
+    .info-box h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .info-box h3 i { color: var(--green); }
+    .info-box ul { list-style: none; padding: 0; }
+    .info-box li { padding: 8px 0; padding-left: 24px; position: relative; color: var(--text-secondary); }
+    .info-box li::before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; color: var(--brand-gold); font-size: 0.85rem; }
+    .notice-callout { display: flex; gap: 16px; padding: 20px 24px; background: #FFF7ED; border: 1px solid #FED7AA; border-radius: var(--radius-lg); }
+    .callout-icon { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--brand); color: var(--white); border-radius: 50%; font-size: 0.9rem; }
+    .callout-content h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .callout-content p { font-size: 0.88rem; color: var(--gray-600); line-height: 1.6; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 768px) { .pricing-tab { padding: 10px 16px; font-size: 0.85rem; } }
+  </style>
 </head>
 
 <body>
