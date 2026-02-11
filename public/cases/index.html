@@ -1,80 +1,73 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  
-  <!-- Primary SEO -->
   <title>치료 사례 | 서울비디치과</title>
-  <meta name="description" content="서울비디치과 치료 사례 갤러리.">
-  <meta name="keywords" content="치료사례, 서울비디치과">
+  <meta name="description" content="서울비디치과 치료 사례 갤러리 — 실제 환자의 치료 전후 사진을 확인하세요.">
+  <meta name="keywords" content="치료사례, 서울비디치과, Before After, 임플란트 사례, 교정 사례">
   <meta name="author" content="서울비디치과">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="google-site-verification" content="google17dbe9a80407755e">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="canonical" href="https://bdbddc.com/cases/index.html">
-  
-  <!-- Geo & Local SEO -->
   <meta name="geo.region" content="KR-44">
   <meta name="geo.placename" content="천안시, 충청남도">
   <meta name="geo.position" content="36.8151;127.1139">
-  
-  <!-- AEO -->
-  <meta name="subject" content="치료사례, 서울비디치과">
-  <meta name="abstract" content="서울비디치과 치료 사례 갤러리.">
-  
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="서울비디치과">
   <meta property="og:title" content="치료 사례 | 서울비디치과">
-  <meta property="og:description" content="서울비디치과 치료 사례 갤러리.">
+  <meta property="og:description" content="서울비디치과 치료 사례 갤러리 — 실제 환자의 치료 전후 사진을 확인하세요.">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://bdbddc.com/cases/index.html">
-  <meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <meta property="og:locale" content="ko_KR">
-  
-  <!-- Twitter Card -->
+  <meta property="og:site_name" content="서울비디치과">
+  <meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="치료 사례 | 서울비디치과">
-  <meta name="twitter:description" content="서울비디치과 치료 사례 갤러리.">
+  <meta name="twitter:description" content="서울비디치과 치료 사례 갤러리 — 실제 환자의 치료 전후 사진을 확인하세요.">
   <meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
-  
-  <!-- E-E-A-T -->
-  <meta name="medical-content" content="이 페이지의 의료 정보는 서울대학교 출신 치과 전문의가 검토하였습니다.">
-  
-  <!-- Favicon & PWA -->
-  <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="../images/icons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/icons/apple-touch-icon.svg">
+  <link rel="manifest" href="../manifest.json">
   <meta name="theme-color" content="#6B4226">
-  
-  <!-- Preconnect -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  
-  <!-- Fonts & Icons (non-blocking) -->
   <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   <link rel="stylesheet" href="../css/site-v5.css?v=174f802e">
-  
-  <!-- Stylesheets — v4.0 -->
-<!-- Prefetch -->
   <link rel="prefetch" href="../reservation.html" as="document">
-  
-  <!-- Schema.org — BreadcrumbList -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"치료 사례"}]}
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"치료 사례","item":"https://bdbddc.com/cases/index.html"}]}
   </script>
-  
+  <style>
+    .case-filter { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
+    .legal-banner { background: var(--gray-50); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 16px 24px; margin-bottom: 32px; text-align: center; }
+    .legal-banner p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+    .legal-banner i { color: var(--brand-gold); margin-right: 6px; }
+    .case-images { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden; }
+    .case-image { aspect-ratio: 4/3; background: var(--gray-100); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+    .case-image.before { background: linear-gradient(135deg, #f5f5f5, #e8e8e8); }
+    .case-image.after { background: linear-gradient(135deg, #f0fdf4, #dcfce7); }
+    .case-image i { font-size: 2rem; color: var(--gray-400); }
+    .case-image.after i { color: var(--green); }
+    .case-image-label { position: absolute; top: 8px; left: 8px; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
+    .case-image.before .case-image-label { background: var(--gray-200); color: var(--gray-600); }
+    .case-image.after .case-image-label { background: #dcfce7; color: #166534; }
+    .case-content { padding: 20px; }
+    .case-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .case-category { font-size: 0.8rem; font-weight: 600; color: var(--brand); background: var(--brand-gold-light); padding: 2px 10px; border-radius: 100px; }
+    .case-doctor { font-size: 0.8rem; color: var(--text-secondary); }
+    .case-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .case-info { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; }
+    .case-legal { font-size: 0.75rem; color: var(--gray-400); }
+  </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">본문으로 바로가기</a>
   
+  <!-- HEADER -->
   <header class="site-header" id="siteHeader">
     <div class="header-container">
       <div class="header-brand">
-        <a href="../index.html" class="site-logo" aria-label="서울비디치과 홈">
+        <a href="../" class="site-logo" aria-label="서울비디치과 홈">
           <span class="logo-icon">🦷</span>
           <span class="logo-text">서울비디치과</span>
         </a>
@@ -163,10 +156,10 @@
   
   <div class="header-spacer"></div>
 
+  <!-- MAIN -->
   <main id="main-content" role="main">
-  
-  
-  <!-- ═══════ HERO ═══════ -->
+
+  <!-- HERO -->
   <section class="hero" aria-label="서울비디치과">
     <div class="hero-bg-pattern" aria-hidden="true"></div>
     <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
@@ -211,27 +204,18 @@
     </div>
   </section>
 
-<!-- ■ 통합 헤더 -->
-  
+  <!-- 콘텐츠 탭 네비게이션 -->
+  <nav class="content-tabs">
+    <a href="../column/columns.html" class="tab-btn"><i class="fas fa-pen-fancy"></i> 칼럼</a>
+    <a href="../video/index.html" class="tab-btn"><i class="fab fa-youtube"></i> 영상</a>
+    <a href="../cases/gallery.html" class="tab-btn active"><i class="fas fa-images"></i> 비포/애프터</a>
+  </nav>
 
-  <!-- Page Header -->
-  <section class="page-header">
+  <!-- 케이스 섹션 -->
+  <section class="content-section" aria-label="치료 사례">
     <div class="container">
-      <h1 class="text-h1">Before/After</h1>
-      <p>서울비디치과의 실제 치료 사례를 확인하세요</p>
-      <div class="breadcrumb">
-        <a href="../index.html">홈</a>
-        <span>/</span>
-        <span>Before/After</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Cases Section -->
-  <section class="section">
-    <div class="container">
-      <!-- Legal Banner -->
-      <div class="legal-banner">
+      <!-- 법적 안내 배너 -->
+      <div class="legal-banner reveal">
         <p>
           <i class="fas fa-info-circle"></i>
           본 페이지의 모든 치료 사례는 의료법 및 의료광고 심의 기준을 준수하여 제공됩니다.<br>
@@ -239,8 +223,8 @@
         </p>
       </div>
 
-      <!-- Filter -->
-      <div class="case-filter">
+      <!-- 필터 -->
+      <div class="case-filter reveal">
         <button class="filter-btn active" data-filter="all">전체</button>
         <button class="filter-btn" data-filter="laminate">글로우네이트</button>
         <button class="filter-btn" data-filter="invisalign">인비절라인</button>
@@ -250,7 +234,7 @@
       </div>
 
       <!-- Cases Grid -->
-      <div class="cases-grid">
+      <div class="cases-grid reveal">
         <!-- Case 1 -->
         <div class="case-card" data-category="laminate">
           <div class="case-images">
@@ -392,30 +376,27 @@
     </div>
   </section>
 
-  <!-- CTA Section -->
-  
-
-  <!-- Footer -->
-  
-
-  <!-- Mobile Nav -->
-
-
-  <section class="cta-section" aria-label="상담 안내">
+  <!-- CTA -->
+  <section class="cta-section" aria-label="상담 예약">
     <div class="container">
       <div class="cta-box reveal">
-        <span class="cta-badge">상담 안내</span>
-        <h2>궁금한 점이 있으신가요?</h2>
-        <p>365일 진료하는 서울비디치과에 부담 없이 문의하세요.</p>
-        <div class="cta-buttons">
-          <a href="../reservation.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
-          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+        <div class="cta-content">
+          <span class="cta-badge"><i class="fas fa-calendar-check"></i> 무료 상담</span>
+          <h2>나도 변할 수 있을까?</h2>
+          <p>무료 상담으로 개인 맞춤 치료 계획을 확인해 보세요.</p>
+          <div class="cta-buttons">
+            <a href="../reservation.html" class="btn-cta-primary"><i class="fas fa-calendar-check"></i> 무료 상담 예약</a>
+            <a href="tel:041-415-2892" class="btn-cta-outline"><i class="fas fa-phone"></i> 041-415-2892</a>
+          </div>
+          <div class="cta-info">
+            <span><i class="fas fa-clock"></i> 365일 진료</span>
+            <span><i class="fas fa-sun"></i> 평일 09:00-20:00</span>
+            <span><i class="fas fa-calendar-day"></i> 토·일 09:00-17:00</span>
+          </div>
         </div>
-        <p class="cta-phone"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
       </div>
     </div>
   </section>
-  
   </main>
 
   <!-- FOOTER -->
@@ -423,7 +404,7 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="../index.html" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
+          <a href="../" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
           <p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p>
         </div>
         <div class="footer-links">
@@ -456,6 +437,7 @@
           </div>
         </div>
       </div>
+      
       <div class="footer-info">
         <div class="footer-contact">
           <p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p>
@@ -473,6 +455,7 @@
           <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" aria-label="카카오톡"><i class="fas fa-comment"></i></a>
         </div>
       </div>
+      
       <div class="footer-legal">
         <div class="legal-links">
           <a href="../privacy.html">개인정보 처리방침</a>
@@ -559,8 +542,6 @@
     <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a>
     <a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a>
   </div>
-
-  <!-- Mobile Bottom CTA -->
   <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
     <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
     <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
@@ -568,37 +549,29 @@
     <a href="../directions.html" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
   </div>
 
-  <!-- Scripts -->
-  <script src="/js/gnb.js" defer></script>
+
+  <script src="../js/main.js" defer></script>
+  <script src="../js/gnb.js" defer></script>
   <script>
-    // Scroll Reveal
-    document.addEventListener('DOMContentLoaded',function(){
-      var els=document.querySelectorAll('.reveal');
-      if(!els.length)return;
-      var obs=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+    document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
+  </script>
+
+  <script>
+    // 케이스 필터링
+    document.querySelectorAll('.case-filter .filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.case-filter .filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        var filter = this.dataset.filter;
+        document.querySelectorAll('.case-card').forEach(function(card) {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
         });
-      },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
-      els.forEach(function(el){obs.observe(el);});
-    });
-    // FAQ Accordion
-    document.querySelectorAll('.faq-question').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        var item=this.parentElement;
-        var isOpen=item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
-        if(!isOpen) item.classList.add('open');
       });
     });
-    // Scroll to top
-    var topBtn=document.getElementById('scrollToTopBtn');
-    if(topBtn){
-      window.addEventListener('scroll',function(){
-        topBtn.classList.toggle('visible',window.scrollY>500);
-      });
-      topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
-    }
   </script>
 </body>
 </html>
