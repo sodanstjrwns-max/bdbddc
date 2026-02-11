@@ -37,7 +37,23 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"영상","item":"https://bdbddc.com/video/index.html"}]}
   </script>
-
+  <style>
+    .videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+    .video-card { display: block; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; color: inherit; transition: all 0.3s; }
+    .video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); border-color: var(--brand-gold-light); }
+    .video-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #000; }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .video-card:hover .video-thumb img { transform: scale(1.05); }
+    .video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 56px; height: 56px; background: rgba(255,0,0,0.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; opacity: 0.9; transition: all 0.3s; }
+    .video-card:hover .video-play { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    .video-badge-shorts { position: absolute; top: 8px; right: 8px; background: #ff0000; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+    .video-body { padding: 16px 20px; }
+    .video-title { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .video-meta { display: flex; gap: 12px; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; }
+    .video-meta i { margin-right: 4px; color: var(--brand-gold); }
+    .video-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    @media (max-width: 768px) { .videos-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">본문으로 바로가기</a>
@@ -408,5 +424,6 @@
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
+  <script src="../js/video.js" defer></script>
 </body>
 </html>

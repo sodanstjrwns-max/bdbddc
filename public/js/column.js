@@ -1,284 +1,158 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>페이지를 찾을 수 없습니다 | 서울비디치과</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
-  
-  <!-- Preconnect -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  
-  <!-- Fonts -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
-  
-  <!-- Icons -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    :root {
-      --brand-primary: #8B5A2B;
-      --brand-gold: #C9A962;
-      --brand-gradient: linear-gradient(135deg, #8B5A2B 0%, #C9A962 100%);
-      --glass-bg: rgba(20, 20, 20, 0.85);
-      --glass-border: rgba(255, 255, 255, 0.1);
-    }
-    
-    html, body {
-      height: 100%;
-      overflow-x: hidden;
-    }
-    
-    body {
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1512 30%, #12100e 60%, #0a0a0a 100%);
-      color: #e5e5e5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-      text-align: center;
-    }
-    
-    .error-container {
-      max-width: 600px;
-      width: 100%;
-    }
-    
-    .error-icon {
-      font-size: 120px;
-      margin-bottom: 24px;
-      animation: float 3s ease-in-out infinite;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    
-    .error-code {
-      font-size: clamp(80px, 20vw, 150px);
-      font-weight: 900;
-      background: var(--brand-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-    
-    .error-title {
-      font-size: clamp(24px, 5vw, 36px);
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 16px;
-    }
-    
-    .error-message {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 40px;
-      line-height: 1.6;
-    }
-    
-    .error-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-      margin-bottom: 48px;
-    }
-    
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 28px;
-      font-family: inherit;
-      font-size: 16px;
-      font-weight: 600;
-      text-decoration: none;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-primary {
-      background: var(--brand-gradient);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(139, 90, 43, 0.4);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(139, 90, 43, 0.5);
-    }
-    
-    .btn-secondary {
-      background: var(--glass-bg);
-      color: #fff;
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(10px);
-    }
-    
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .quick-links {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 24px;
-    }
-    
-    .quick-links-title {
-      font-size: 14px;
-      color: var(--brand-gold);
-      font-weight: 600;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    
-    .quick-links-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
-    }
-    
-    .quick-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      padding: 16px 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      text-decoration: none;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 13px;
-      transition: all 0.3s ease;
-    }
-    
-    .quick-link:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--brand-gold);
-      color: #fff;
-      transform: translateY(-2px);
-    }
-    
-    .quick-link i {
-      font-size: 20px;
-      color: var(--brand-gold);
-    }
-    
-    .footer-info {
-      margin-top: 48px;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-    
-    .footer-info a {
-      color: var(--brand-gold);
-      text-decoration: none;
-    }
-    
-    .footer-info a:hover {
-      text-decoration: underline;
-    }
-    
-    @media (max-width: 480px) {
-      .error-icon {
-        font-size: 80px;
-      }
-      
-      .error-actions {
-        flex-direction: column;
-      }
-      
-      .btn {
-        width: 100%;
-      }
-      
-      .quick-links-grid {
-        grid-template-columns: repeat(2, 1fr);
+/**
+ * 서울비디치과 칼럼 페이지 — 인블로그 RSS 자동 연동
+ * 소스: /api/inblog-rss (서버 프록시 → https://inblog.ai/bdbddc/rss)
+ */
+(function () {
+  'use strict';
+
+  const loadingEl = document.getElementById('loadingState');
+  const emptyEl = document.getElementById('emptyState');
+  const gridEl = document.getElementById('columnsGrid');
+  if (!gridEl) return;
+
+  // 카테고리 매핑
+  const CATEGORY_KEYWORDS = {
+    laminate: ['라미네이트', '글로우네이트', '비니어', 'laminate', 'veneer'],
+    invisalign: ['인비절라인', '교정', '치아교정', 'invisalign', '투명교정'],
+    implant: ['임플란트', 'implant', '뼈이식', '상악동'],
+    general: ['충치', '신경치료', '크라운', '레진', '발치', '사랑니', '스케일링', '잇몸'],
+    tips: ['관리', '양치', '치실', '칫솔', '구강', '예방', '치아관리']
+  };
+
+  function detectCategory(title, desc) {
+    const text = (title + ' ' + desc).toLowerCase();
+    for (const [cat, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
+      for (const kw of keywords) {
+        if (text.includes(kw.toLowerCase())) return cat;
       }
     }
-  </style>
-</head>
-<body>
-  <div class="error-container">
-    <div class="error-icon">🦷</div>
-    <div class="error-code">404</div>
-    <h1 class="error-title">페이지를 찾을 수 없습니다</h1>
-    <p class="error-message">
-      요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.<br>
-      아래 버튼을 통해 원하시는 페이지로 이동해 주세요.
-    </p>
-    
-    <div class="error-actions">
-      <a href="/" class="btn btn-primary">
-        <i class="fas fa-home"></i>
-        홈으로 가기
-      </a>
-      <a href="reservation.html" class="btn btn-secondary">
-        <i class="fas fa-calendar-check"></i>
-        예약하기
-      </a>
-    </div>
-    
-    <div class="quick-links">
-      <div class="quick-links-title">인기 페이지</div>
-      <div class="quick-links-grid">
-        <a href="treatments/implant.html" class="quick-link">
-          <i class="fas fa-tooth"></i>
-          임플란트
-        </a>
-        <a href="treatments/invisalign.html" class="quick-link">
-          <i class="fas fa-teeth"></i>
-          교정
-        </a>
-        <a href="doctors/index.html" class="quick-link">
-          <i class="fas fa-user-md"></i>
-          의료진
-        </a>
-        <a href="pricing.html" class="quick-link">
-          <i class="fas fa-won-sign"></i>
-          비용안내
-        </a>
-        <a href="directions.html" class="quick-link">
-          <i class="fas fa-map-marker-alt"></i>
-          오시는 길
-        </a>
-        <a href="faq.html" class="quick-link">
-          <i class="fas fa-question-circle"></i>
-          FAQ
-        </a>
-      </div>
-    </div>
-    
-    <div class="footer-info">
-      <p>도움이 필요하시면 <a href="tel:041-415-2892">041-415-2892</a>로 연락해 주세요.</p>
-    </div>
-  </div>
-</body>
-</html>
+    return 'general';
+  }
+
+  function formatDate(dateStr) {
+    try {
+      const d = new Date(dateStr);
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return y + '.' + m + '.' + day;
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function stripHtml(html) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+  }
+
+  function truncate(text, max) {
+    if (text.length <= max) return text;
+    return text.substring(0, max) + '...';
+  }
+
+  function renderColumns(items) {
+    if (!items.length) {
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (emptyEl) emptyEl.style.display = '';
+      return;
+    }
+
+    var html = '';
+    items.forEach(function (item) {
+      var category = detectCategory(item.title, item.desc);
+      var dateStr = formatDate(item.pubDate);
+      var desc = truncate(stripHtml(item.desc), 120);
+      var thumb = item.image || '';
+      var thumbHtml = thumb
+        ? '<div class="column-thumb"><img src="' + thumb + '" alt="' + item.title + '" loading="lazy" onerror="this.parentElement.style.display=\'none\'"></div>'
+        : '';
+
+      html += '<a href="' + item.link + '" target="_blank" rel="noopener" class="column-card" data-category="' + category + '">'
+        + thumbHtml
+        + '<div class="column-body">'
+        + '<span class="column-date"><i class="fas fa-calendar-alt"></i> ' + dateStr + '</span>'
+        + '<h3 class="column-title">' + item.title + '</h3>'
+        + '<p class="column-desc">' + desc + '</p>'
+        + (item.author ? '<span class="column-author"><i class="fas fa-user-md"></i> ' + item.author + '</span>' : '')
+        + '</div>'
+        + '</a>';
+    });
+
+    gridEl.innerHTML = html;
+    gridEl.style.display = '';
+    if (loadingEl) loadingEl.style.display = 'none';
+
+    // 카테고리 필터 연결
+    setupCategoryFilter(items);
+  }
+
+  function setupCategoryFilter() {
+    var btns = document.querySelectorAll('.category-btn');
+    if (!btns.length) return;
+
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btns.forEach(function (b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        var filter = this.getAttribute('data-category');
+        var cards = gridEl.querySelectorAll('.column-card');
+        cards.forEach(function (card) {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  function parseRSS(xmlText) {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(xmlText, 'text/xml');
+    var items = doc.querySelectorAll('item');
+    var result = [];
+
+    items.forEach(function (item) {
+      var title = (item.querySelector('title') || {}).textContent || '';
+      var link = (item.querySelector('link') || {}).textContent || '';
+      var desc = (item.querySelector('description') || {}).textContent || '';
+      var pubDate = (item.querySelector('pubDate') || {}).textContent || '';
+      var author = (item.querySelector('author') || {}).textContent || '';
+      var enclosure = item.querySelector('enclosure');
+      var image = enclosure ? enclosure.getAttribute('url') : '';
+
+      if (title) {
+        result.push({ title: title, link: link, desc: desc, pubDate: pubDate, author: author, image: image });
+      }
+    });
+
+    return result;
+  }
+
+  function loadColumns() {
+    fetch('/api/inblog-rss')
+      .then(function (res) {
+        if (!res.ok) throw new Error('RSS fetch failed');
+        return res.text();
+      })
+      .then(function (xmlText) {
+        var items = parseRSS(xmlText);
+        renderColumns(items);
+      })
+      .catch(function (err) {
+        console.warn('칼럼 로드 실패:', err);
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (emptyEl) emptyEl.style.display = '';
+      });
+  }
+
+  // 페이지 로드 시 실행
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadColumns);
+  } else {
+    loadColumns();
+  }
+})();

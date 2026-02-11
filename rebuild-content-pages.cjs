@@ -321,7 +321,21 @@ const columnData = {
   heroSub: '알기 쉬운 치과 건강 정보를 전달합니다',
   ctaTitle: '구강 건강이 궁금하신가요?',
   ctaSub: '서울비디치과 전문의에게 직접 상담받으세요.',
-  inlineStyle: '',
+  inlineStyle: `    .columns-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+    .column-card { display: block; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; color: inherit; transition: all 0.3s; }
+    .column-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); border-color: var(--brand-gold-light); }
+    .column-thumb { aspect-ratio: 16/9; overflow: hidden; background: var(--gray-100); }
+    .column-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .column-card:hover .column-thumb img { transform: scale(1.05); }
+    .column-body { padding: 20px; }
+    .column-date { font-size: 0.8rem; color: var(--text-secondary); }
+    .column-date i { margin-right: 4px; color: var(--brand-gold); }
+    .column-title { font-size: 1.05rem; font-weight: 700; margin: 8px 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .column-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .column-author { display: inline-block; margin-top: 12px; font-size: 0.8rem; color: var(--brand); font-weight: 600; }
+    .column-author i { margin-right: 4px; }
+    @media (max-width: 768px) { .columns-grid { grid-template-columns: 1fr; } }`,
+
   bodyContent: `
   <!-- 카테고리 필터 -->
   <div class="category-filter">
@@ -359,7 +373,7 @@ const columnData = {
       <div id="columnsGrid" class="columns-grid" style="display: none;"></div>
     </div>
   </section>`,
-  pageScript: ''
+  pageScript: '\n  <script src="../js/column.js" defer></script>'
 };
 
 
@@ -378,7 +392,22 @@ const videoData = {
   heroSub: '진료 과정, 환자 후기, 치과 건강 정보를 영상으로 만나보세요',
   ctaTitle: '영상으로 보는 치과 정보',
   ctaSub: '궁금한 점이 있으시면 직접 상담받으세요.',
-  inlineStyle: '',
+  inlineStyle: `    .videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+    .video-card { display: block; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; text-decoration: none; color: inherit; transition: all 0.3s; }
+    .video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); border-color: var(--brand-gold-light); }
+    .video-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #000; }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .video-card:hover .video-thumb img { transform: scale(1.05); }
+    .video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 56px; height: 56px; background: rgba(255,0,0,0.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; opacity: 0.9; transition: all 0.3s; }
+    .video-card:hover .video-play { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    .video-badge-shorts { position: absolute; top: 8px; right: 8px; background: #ff0000; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+    .video-body { padding: 16px 20px; }
+    .video-title { font-size: 1rem; font-weight: 700; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .video-meta { display: flex; gap: 12px; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; }
+    .video-meta i { margin-right: 4px; color: var(--brand-gold); }
+    .video-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    @media (max-width: 768px) { .videos-grid { grid-template-columns: 1fr; } }`,
+
   bodyContent: `
   <!-- 콘텐츠 영역 -->
   <section class="content-section" aria-label="영상 목록">
@@ -417,7 +446,7 @@ const videoData = {
       <div id="videosGrid" class="videos-grid" style="display: none;"></div>
     </div>
   </section>`,
-  pageScript: ''
+  pageScript: '\n  <script src="../js/video.js" defer></script>'
 };
 
 
