@@ -1,58 +1,51 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Meta Tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>우리가 존재하는 이유 | 서울비디치과 - Best Dedication</title>
   <meta name="description" content="서울비디치과의 미션과 비전. BD = Best Dedication, 최고의 헌신. 치과 경험의 혁신을 위한 헌신으로 전국에서 가장 기분 좋게 갈 수 있는 의료 기관을 만들어갑니다.">
   <meta name="keywords" content="서울비디치과 미션, 비디치과 비전, Best Dedication, 치과 철학, 환자 중심 치과">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Our Mission | 서울비디치과 - Best Dedication">
+  <meta name="author" content="서울비디치과">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://bdbddc.com/mission.html">
+  <meta name="geo.region" content="KR-44">
+  <meta name="geo.placename" content="천안시, 충청남도">
+  <meta name="geo.position" content="36.8151;127.1139">
+  <meta property="og:title" content="우리가 존재하는 이유 | 서울비디치과 - Best Dedication">
   <meta property="og:description" content="치과 경험의 혁신을 위한 헌신. 전국에서 가장 기분 좋게 갈 수 있는 의료 기관이 됩니다.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bdbddc.com/mission.html">
-  <meta property="og:image" content="https://bdbddc.com/images/og/mission-og.jpg">
-  
-  <title>Our Mission | 서울비디치과 - Best Dedication</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
-  
-  <!-- Core Styles -->
-  <link rel="stylesheet" href="/css/design-system-v3.css">
-  <link rel="stylesheet" href="/css/header-footer-v3.css">
-  <link rel="stylesheet" href="/css/gnb.css">
-  
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="서울비디치과">
+  <meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="우리가 존재하는 이유 | 서울비디치과">
+  <meta name="twitter:description" content="치과 경험의 혁신을 위한 헌신. 전국에서 가장 기분 좋게 갈 수 있는 의료 기관이 됩니다.">
+  <meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
+  <link rel="icon" type="image/svg+xml" href="images/icons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.svg">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6B4226">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  <link rel="stylesheet" href="css/site-v5.css?v=46dcb305">
+  <link rel="prefetch" href="reservation.html" as="document">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"미션 · 비전","item":"https://bdbddc.com/mission.html"}]}
+  </script>
   <style>
     /* ============================================
-       Mission Page - Cinematic & Premium Design
-       볼륨 확대 버전
+       Mission Page - Immersive Storytelling Design
        ============================================ */
     
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    .mission-page { background: #0a0908; color: #fff; }
+    .mission-page .site-header { position: fixed; width: 100%; z-index: 1000; }
     
-    body {
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #0a0908;
-      color: #fff;
-      overflow-x: hidden;
-    }
-    
-    /* ============================================
-       Hero Section - Full Screen Cinematic
-       ============================================ */
+    /* --- Hero Section --- */
     .mission-hero {
       position: relative;
       min-height: 100vh;
@@ -62,1046 +55,463 @@
       text-align: center;
       padding: 120px 24px 80px;
       overflow: hidden;
+      background: linear-gradient(180deg, #0a0908 0%, #12100e 50%, #0a0908 100%);
     }
-    
     .mission-hero::before {
       content: '';
       position: absolute;
       inset: 0;
       background: 
-        radial-gradient(ellipse at 30% 20%, rgba(139, 90, 43, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 80%, rgba(201, 169, 98, 0.1) 0%, transparent 50%),
-        linear-gradient(180deg, #0a0908 0%, #12100e 50%, #0a0908 100%);
+        radial-gradient(ellipse at 30% 20%, rgba(139,90,43,.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(201,169,98,.1) 0%, transparent 50%);
       z-index: 0;
     }
-    
-    /* Animated Background Particles */
     .hero-particles {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      z-index: 0;
+      position: absolute; inset: 0; overflow: hidden; z-index: 0;
     }
-    
     .particle {
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(201, 169, 98, 0.3);
+      width: 4px; height: 4px;
+      background: rgba(201,169,98,.3);
       border-radius: 50%;
       animation: float 15s infinite ease-in-out;
     }
-    
-    .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-    .particle:nth-child(2) { left: 20%; top: 60%; animation-delay: 2s; }
-    .particle:nth-child(3) { left: 40%; top: 30%; animation-delay: 4s; }
-    .particle:nth-child(4) { left: 60%; top: 70%; animation-delay: 1s; }
-    .particle:nth-child(5) { left: 80%; top: 40%; animation-delay: 3s; }
-    .particle:nth-child(6) { left: 90%; top: 80%; animation-delay: 5s; }
-    
+    .particle:nth-child(1) { left:10%; top:20%; animation-delay:0s; }
+    .particle:nth-child(2) { left:20%; top:60%; animation-delay:2s; }
+    .particle:nth-child(3) { left:40%; top:30%; animation-delay:4s; }
+    .particle:nth-child(4) { left:60%; top:70%; animation-delay:1s; }
+    .particle:nth-child(5) { left:80%; top:40%; animation-delay:3s; }
+    .particle:nth-child(6) { left:90%; top:80%; animation-delay:5s; }
     @keyframes float {
-      0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
-      50% { transform: translateY(-30px) scale(1.5); opacity: 0.8; }
+      0%,100% { transform: translateY(0) scale(1); opacity:.3; }
+      50% { transform: translateY(-30px) scale(1.5); opacity:.8; }
     }
-    
     .mission-hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
+      position: relative; z-index: 1; max-width: 900px;
     }
-    
-    /* BD Logo Mark */
     .bd-mark {
       display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 140px;
-      height: 140px;
+      align-items: center; justify-content: center;
+      width: 140px; height: 140px;
       margin-bottom: 48px;
-      background: linear-gradient(135deg, rgba(139, 90, 43, 0.2), rgba(201, 169, 98, 0.1));
-      border: 2px solid rgba(201, 169, 98, 0.3);
+      background: linear-gradient(135deg, rgba(139,90,43,.2), rgba(201,169,98,.1));
+      border: 2px solid rgba(201,169,98,.3);
       border-radius: 50%;
       animation: pulse-glow 3s ease-in-out infinite;
     }
-    
     @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 40px rgba(201, 169, 98, 0.2); }
-      50% { box-shadow: 0 0 80px rgba(201, 169, 98, 0.5); }
+      0%,100% { box-shadow: 0 0 40px rgba(201,169,98,.2); }
+      50% { box-shadow: 0 0 80px rgba(201,169,98,.5); }
     }
-    
     .bd-mark span {
-      font-size: 3rem;
-      font-weight: 800;
+      font-size: 3rem; font-weight: 800;
       background: linear-gradient(135deg, #C9A962, #E8D5A3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 0.05em;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; letter-spacing: .05em;
     }
-    
-    /* BD Meaning */
-    .bd-meaning {
-      margin-bottom: 40px;
-    }
-    
-    .bd-meaning h1 {
-      font-size: clamp(3rem, 8vw, 5rem);
+    .hero-question {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
       font-weight: 300;
-      letter-spacing: 0.2em;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 20px;
-      line-height: 1.2;
+      color: rgba(255,255,255,.92);
+      margin-bottom: 24px;
+      line-height: 1.35;
+      letter-spacing: -.02em;
     }
-    
-    .bd-meaning h1 strong {
-      font-weight: 700;
+    .hero-question em {
+      font-style: normal; font-weight: 700;
       background: linear-gradient(135deg, #C9A962, #E8D5A3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    
-    .bd-tagline {
-      font-size: 1.3rem;
-      color: #C9A962;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-bottom: 40px;
+    .hero-answer {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,.55);
+      line-height: 1.9;
+      max-width: 640px;
+      margin: 0 auto 48px;
     }
-    
-    .hero-description {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.8;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    /* Scroll Indicator */
     .scroll-indicator {
       position: absolute;
-      bottom: 40px;
-      left: 50%;
+      bottom: 40px; left: 50%;
       transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 12px;
+      color: rgba(255,255,255,.5);
+      font-size: .75rem; letter-spacing: .1em;
       animation: bounce 2s ease-in-out infinite;
     }
-    
     @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
+      0%,100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(10px); }
     }
-    
-    .scroll-indicator i {
-      font-size: 1.5rem;
+
+    /* --- Common Section --- */
+    .ms { padding: 120px 24px; position: relative; }
+    .ms-dark { background: linear-gradient(180deg, #0a0908, #12100e, #0a0908); }
+    .ms-accent { background: linear-gradient(180deg, transparent, rgba(139,90,43,.07) 30%, rgba(139,90,43,.07) 70%, transparent); }
+    .ms-container { max-width: 1100px; margin: 0 auto; }
+    .ms-narrow { max-width: 800px; margin: 0 auto; }
+    .ms-header { text-align: center; margin-bottom: 72px; }
+    .ms-label {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: .78rem; font-weight: 600;
+      color: #C9A962; letter-spacing: .2em;
+      text-transform: uppercase; margin-bottom: 20px;
     }
-    
-    /* ============================================
-       Common Section Styles
-       ============================================ */
-    .section {
-      padding: 140px 24px;
-      position: relative;
-    }
-    
-    .section-dark {
-      background: linear-gradient(180deg, #0a0908, #12100e, #0a0908);
-    }
-    
-    .section-accent {
-      background: linear-gradient(180deg, 
-        transparent, 
-        rgba(139, 90, 43, 0.08) 30%, 
-        rgba(139, 90, 43, 0.08) 70%, 
-        transparent
-      );
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .container-narrow {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    /* Section Header */
-    .section-header {
-      text-align: center;
-      margin-bottom: 80px;
-    }
-    
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #C9A962;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-    
-    .section-label::before,
-    .section-label::after {
-      content: '';
-      width: 40px;
-      height: 1px;
+    .ms-label::before, .ms-label::after {
+      content: ''; width: 40px; height: 1px;
       background: linear-gradient(90deg, transparent, #C9A962);
     }
-    
-    .section-label::after {
-      background: linear-gradient(90deg, #C9A962, transparent);
+    .ms-label::after { background: linear-gradient(90deg, #C9A962, transparent); }
+    .ms-title {
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      font-weight: 600; color: #fff;
+      line-height: 1.35; margin-bottom: 20px;
     }
-    
-    .section-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 600;
-      color: #fff;
-      line-height: 1.3;
-      margin-bottom: 24px;
-    }
-    
-    .section-title em {
+    .ms-title em {
       font-style: normal;
       background: linear-gradient(135deg, #C9A962, #E8D5A3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    
-    .section-desc {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.8;
-      max-width: 600px;
-      margin: 0 auto;
+    .ms-desc {
+      font-size: 1.05rem; color: rgba(255,255,255,.55);
+      line-height: 1.85; max-width: 580px; margin: 0 auto;
     }
-    
-    /* ============================================
-       Story Section - BD 탄생 스토리
-       ============================================ */
-    .story-content {
+
+    /* --- Why Section --- */
+    .why-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 60px;
-      align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: center;
     }
-    
-    @media (min-width: 992px) {
-      .story-content {
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
-      }
+    .why-text h3 {
+      font-size: 1.6rem; font-weight: 600;
+      color: #fff; margin-bottom: 20px; line-height: 1.4;
     }
-    
-    .story-text h3 {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 24px;
-      line-height: 1.4;
+    .why-text h3 em { font-style: normal; color: #C9A962; }
+    .why-text p {
+      font-size: 1.02rem; color: rgba(255,255,255,.65);
+      line-height: 1.9; margin-bottom: 16px;
     }
-    
-    .story-text h3 em {
-      font-style: normal;
-      color: #C9A962;
-    }
-    
-    .story-text p {
-      font-size: 1.05rem;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.9;
-      margin-bottom: 20px;
-    }
-    
-    .story-quote {
-      position: relative;
-      padding: 32px 40px;
-      background: linear-gradient(135deg, rgba(139, 90, 43, 0.15), rgba(201, 169, 98, 0.05));
+    .why-quote {
+      position: relative; padding: 28px 36px;
+      background: linear-gradient(135deg, rgba(139,90,43,.15), rgba(201,169,98,.05));
       border-left: 3px solid #C9A962;
       border-radius: 0 16px 16px 0;
-      margin-top: 32px;
+      margin-top: 28px;
     }
-    
-    .story-quote p {
-      font-size: 1.2rem;
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 16px;
+    .why-quote p { font-size: 1.15rem; font-style: italic; color: rgba(255,255,255,.88); margin-bottom: 12px; }
+    .why-quote cite { font-size: .85rem; color: #C9A962; font-style: normal; }
+    .bd-visual {
+      position: relative; padding: 48px;
+      background: linear-gradient(135deg, rgba(26,21,18,.9), rgba(18,16,14,.95));
+      border: 1px solid rgba(201,169,98,.2);
+      border-radius: 24px; text-align: center;
     }
-    
-    .story-quote cite {
-      font-size: 0.9rem;
-      color: #C9A962;
-      font-style: normal;
+    .bd-visual::before {
+      content: ''; position: absolute;
+      top: -2px; left: 20%; right: 20%;
+      height: 2px; background: linear-gradient(90deg, transparent, #C9A962, transparent);
     }
-    
-    .story-visual {
-      position: relative;
-    }
-    
-    .story-card {
-      position: relative;
-      padding: 48px;
-      background: linear-gradient(135deg, rgba(26, 21, 18, 0.9), rgba(18, 16, 14, 0.95));
-      border: 1px solid rgba(201, 169, 98, 0.2);
-      border-radius: 24px;
-      text-align: center;
-    }
-    
-    .story-card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: 20%;
-      right: 20%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #C9A962, transparent);
-    }
-    
     .bd-large {
-      font-size: 6rem;
-      font-weight: 800;
+      font-size: 5.5rem; font-weight: 800;
       background: linear-gradient(135deg, #C9A962 0%, #E8D5A3 50%, #C9A962 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 24px;
-      letter-spacing: 0.1em;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 20px; letter-spacing: .1em;
     }
-    
-    .bd-expand {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    
-    .bd-expand span {
-      font-size: 1.5rem;
-      font-weight: 300;
-      color: rgba(255, 255, 255, 0.8);
-      letter-spacing: 0.1em;
-    }
-    
-    .bd-expand strong {
-      font-weight: 700;
-      color: #C9A962;
-    }
-    
-    /* ============================================
-       Mission & Vision Section
-       ============================================ */
-    .mv-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-    
-    @media (min-width: 768px) {
-      .mv-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
-      }
-    }
-    
+    .bd-expand { display: flex; flex-direction: column; gap: 10px; }
+    .bd-expand span { font-size: 1.4rem; font-weight: 300; color: rgba(255,255,255,.8); letter-spacing: .1em; }
+    .bd-expand strong { font-weight: 700; color: #C9A962; }
+
+    /* --- Mission & Vision Cards --- */
+    .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
     .mv-card {
-      position: relative;
-      padding: 60px 48px;
-      background: linear-gradient(135deg, rgba(26, 21, 18, 0.8), rgba(18, 16, 14, 0.9));
-      border: 1px solid rgba(201, 169, 98, 0.15);
-      border-radius: 24px;
-      overflow: hidden;
-      transition: all 0.4s ease;
+      position: relative; padding: 52px 44px;
+      background: linear-gradient(135deg, rgba(26,21,18,.8), rgba(18,16,14,.9));
+      border: 1px solid rgba(201,169,98,.15);
+      border-radius: 24px; overflow: hidden;
+      transition: all .4s ease;
     }
-    
     .mv-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #8B5A2B, #C9A962, #8B5A2B);
-      opacity: 0;
-      transition: opacity 0.4s ease;
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, #8B5A2B, #C9A962, #8B5A2B);
+      opacity: 0; transition: opacity .4s ease;
     }
-    
-    .mv-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(201, 169, 98, 0.3);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-    }
-    
-    .mv-card:hover::before {
-      opacity: 1;
-    }
-    
+    .mv-card:hover { transform: translateY(-8px); border-color: rgba(201,169,98,.3); box-shadow: 0 30px 80px rgba(0,0,0,.4); }
+    .mv-card:hover::before { opacity: 1; }
     .mv-icon {
-      width: 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(201, 169, 98, 0.1);
-      border: 1px solid rgba(201, 169, 98, 0.2);
-      border-radius: 16px;
-      margin-bottom: 24px;
-      font-size: 1.5rem;
-      color: #C9A962;
+      width: 60px; height: 60px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(201,169,98,.1); border: 1px solid rgba(201,169,98,.2);
+      border-radius: 16px; margin-bottom: 22px;
+      font-size: 1.4rem; color: #C9A962;
     }
-    
     .mv-card h2 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #C9A962;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
+      font-size: .82rem; font-weight: 600;
+      color: #C9A962; letter-spacing: .15em;
+      text-transform: uppercase; margin-bottom: 18px;
     }
-    
     .mv-card h3 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 600;
-      color: #fff;
-      line-height: 1.4;
-      margin-bottom: 20px;
+      font-size: clamp(1.4rem, 2.8vw, 1.8rem);
+      font-weight: 600; color: #fff;
+      line-height: 1.45; margin-bottom: 18px;
     }
-    
-    .mv-card p {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.8;
-    }
-    
-    /* ============================================
-       Stats Section - 숫자로 보는 서울비디치과
-       ============================================ */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-    
-    @media (min-width: 768px) {
-      .stats-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 32px;
-      }
-    }
-    
+    .mv-card p { font-size: .98rem; color: rgba(255,255,255,.58); line-height: 1.85; }
+
+    /* --- Stats --- */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
     .stat-card {
-      position: relative;
-      padding: 40px 24px;
-      background: linear-gradient(135deg, rgba(26, 21, 18, 0.6), rgba(18, 16, 14, 0.8));
-      border: 1px solid rgba(201, 169, 98, 0.1);
-      border-radius: 20px;
-      text-align: center;
-      transition: all 0.3s ease;
+      position: relative; padding: 36px 20px;
+      background: linear-gradient(135deg, rgba(26,21,18,.6), rgba(18,16,14,.8));
+      border: 1px solid rgba(201,169,98,.1);
+      border-radius: 20px; text-align: center;
+      transition: all .3s ease;
     }
-    
-    .stat-card:hover {
-      border-color: rgba(201, 169, 98, 0.3);
-      transform: translateY(-4px);
-    }
-    
+    .stat-card:hover { border-color: rgba(201,169,98,.3); transform: translateY(-4px); }
     .stat-number {
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-size: clamp(2.2rem, 4.5vw, 3rem);
       font-weight: 700;
       background: linear-gradient(135deg, #C9A962, #E8D5A3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-      margin-bottom: 8px;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1; margin-bottom: 6px;
     }
-    
-    .stat-unit {
-      font-size: 1rem;
-      color: #C9A962;
-      margin-bottom: 12px;
-    }
-    
-    .stat-label {
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.4;
-    }
-    
-    /* ============================================
-       Core Values Section - 핵심가치
-       ============================================ */
-    .values-intro {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 80px;
-    }
-    
-    .values-intro p {
-      font-size: 1.15rem;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.9;
-    }
-    
-    /* Values Flow */
+    .stat-unit { font-size: .9rem; color: #C9A962; margin-bottom: 10px; }
+    .stat-label { font-size: .85rem; color: rgba(255,255,255,.55); line-height: 1.4; }
+
+    /* --- Core Values --- */
     .values-flow {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
-      margin-bottom: 80px;
+      display: flex; align-items: center;
+      justify-content: center; gap: 0;
+      margin-bottom: 64px;
     }
-    
-    @media (min-width: 992px) {
-      .values-flow {
-        flex-direction: row;
-        justify-content: center;
-        gap: 0;
-      }
-    }
-    
-    /* Foundation Value (실력) */
     .value-foundation {
-      position: relative;
-      width: 100%;
-      max-width: 340px;
-      padding: 56px 40px;
-      background: linear-gradient(135deg, rgba(139, 90, 43, 0.2), rgba(201, 169, 98, 0.1));
-      border: 2px solid rgba(201, 169, 98, 0.4);
-      border-radius: 24px;
-      text-align: center;
+      position: relative; width: 100%; max-width: 300px;
+      padding: 48px 36px;
+      background: linear-gradient(135deg, rgba(139,90,43,.2), rgba(201,169,98,.1));
+      border: 2px solid rgba(201,169,98,.4);
+      border-radius: 24px; text-align: center;
     }
-    
     .value-icon {
-      width: 72px;
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px;
-      background: rgba(201, 169, 98, 0.15);
-      border: 1px solid rgba(201, 169, 98, 0.3);
-      border-radius: 50%;
-      font-size: 1.75rem;
-      color: #C9A962;
+      width: 64px; height: 64px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      background: rgba(201,169,98,.15); border: 1px solid rgba(201,169,98,.3);
+      border-radius: 50%; font-size: 1.5rem; color: #C9A962;
     }
-    
-    .value-foundation h3 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #C9A962;
-      margin-bottom: 16px;
-    }
-    
-    .value-foundation p {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.7;
-    }
-    
+    .value-foundation h3 { font-size: 1.6rem; font-weight: 700; color: #C9A962; margin-bottom: 12px; }
+    .value-foundation p { font-size: .95rem; color: rgba(255,255,255,.65); line-height: 1.7; }
     .value-label {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 8px 20px;
-      background: rgba(201, 169, 98, 0.2);
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #C9A962;
-      letter-spacing: 0.1em;
+      display: inline-block; margin-top: 16px;
+      padding: 7px 18px; background: rgba(201,169,98,.2);
+      border-radius: 20px; font-size: .72rem;
+      font-weight: 600; color: #C9A962; letter-spacing: .1em;
     }
-    
-    /* Arrow Connector */
     .arrow-connector {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      color: rgba(201, 169, 98, 0.5);
-      font-size: 2rem;
-      transform: rotate(90deg);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 28px; color: rgba(201,169,98,.5); font-size: 1.8rem;
     }
-    
-    @media (min-width: 992px) {
-      .arrow-connector {
-        transform: rotate(0deg);
-        padding: 0 32px;
-      }
-    }
-    
-    /* Experience Values (존중, 공감, 배려) */
-    .values-experience {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      width: 100%;
-      max-width: 420px;
-    }
-    
-    @media (min-width: 992px) {
-      .values-experience {
-        flex-direction: row;
-        max-width: none;
-        gap: 24px;
-      }
-    }
-    
+    .values-experience { display: flex; gap: 20px; }
     .value-item {
-      flex: 1;
-      padding: 40px 28px;
-      background: rgba(26, 21, 18, 0.6);
-      border: 1px solid rgba(201, 169, 98, 0.15);
-      border-radius: 20px;
-      text-align: center;
-      transition: all 0.3s ease;
+      flex: 1; padding: 36px 24px;
+      background: rgba(26,21,18,.6);
+      border: 1px solid rgba(201,169,98,.15);
+      border-radius: 20px; text-align: center;
+      transition: all .3s ease;
     }
-    
-    .value-item:hover {
-      background: rgba(26, 21, 18, 0.8);
-      border-color: rgba(201, 169, 98, 0.3);
-      transform: translateY(-6px);
-    }
-    
-    .value-item .value-icon {
-      width: 60px;
-      height: 60px;
-      font-size: 1.4rem;
-    }
-    
-    .value-item h3 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-    
-    .value-item p {
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.6;
-    }
-    
-    /* Values Summary */
+    .value-item:hover { background: rgba(26,21,18,.8); border-color: rgba(201,169,98,.3); transform: translateY(-6px); }
+    .value-item .value-icon { width: 56px; height: 56px; font-size: 1.3rem; }
+    .value-item h3 { font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 10px; }
+    .value-item p { font-size: .85rem; color: rgba(255,255,255,.55); line-height: 1.6; }
     .values-summary {
-      text-align: center;
-      padding: 56px 48px;
-      background: linear-gradient(135deg, rgba(139, 90, 43, 0.12), rgba(201, 169, 98, 0.06));
-      border: 1px solid rgba(201, 169, 98, 0.2);
-      border-radius: 24px;
-      max-width: 900px;
-      margin: 0 auto;
+      text-align: center; padding: 48px 44px;
+      background: linear-gradient(135deg, rgba(139,90,43,.12), rgba(201,169,98,.06));
+      border: 1px solid rgba(201,169,98,.2);
+      border-radius: 24px; max-width: 880px; margin: 0 auto;
     }
-    
-    .values-summary p {
-      font-size: 1.3rem;
-      color: rgba(255, 255, 255, 0.85);
-      line-height: 2;
-    }
-    
-    .values-summary strong {
-      color: #C9A962;
-      font-weight: 600;
-    }
-    
-    /* ============================================
-       Promise Section - 우리의 약속
-       ============================================ */
-    .promise-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-    
-    @media (min-width: 768px) {
-      .promise-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 32px;
-      }
-    }
-    
-    @media (min-width: 1024px) {
-      .promise-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    
+    .values-summary p { font-size: 1.2rem; color: rgba(255,255,255,.82); line-height: 2; }
+    .values-summary strong { color: #C9A962; font-weight: 600; }
+
+    /* --- Promise --- */
+    .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .promise-card {
-      position: relative;
-      padding: 40px 32px;
-      background: linear-gradient(135deg, rgba(26, 21, 18, 0.7), rgba(18, 16, 14, 0.85));
-      border: 1px solid rgba(201, 169, 98, 0.1);
-      border-radius: 20px;
-      transition: all 0.3s ease;
+      position: relative; padding: 36px 28px;
+      background: linear-gradient(135deg, rgba(26,21,18,.7), rgba(18,16,14,.85));
+      border: 1px solid rgba(201,169,98,.1);
+      border-radius: 20px; transition: all .3s ease;
     }
-    
-    .promise-card:hover {
-      border-color: rgba(201, 169, 98, 0.25);
-      transform: translateY(-4px);
-    }
-    
+    .promise-card:hover { border-color: rgba(201,169,98,.25); transform: translateY(-4px); }
     .promise-number {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-      font-size: 3rem;
-      font-weight: 800;
-      color: rgba(201, 169, 98, 0.1);
-      line-height: 1;
+      position: absolute; top: 20px; right: 20px;
+      font-size: 2.5rem; font-weight: 800;
+      color: rgba(201,169,98,.1); line-height: 1;
     }
-    
     .promise-icon {
-      width: 52px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(201, 169, 98, 0.1);
-      border-radius: 14px;
-      margin-bottom: 20px;
-      font-size: 1.25rem;
-      color: #C9A962;
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(201,169,98,.1); border-radius: 14px;
+      margin-bottom: 16px; font-size: 1.15rem; color: #C9A962;
     }
-    
-    .promise-card h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-    
-    .promise-card p {
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1.7;
-    }
-    
-    /* ============================================
-       Philosophy Section - 철학 명언
-       ============================================ */
+    .promise-card h3 { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 10px; }
+    .promise-card p { font-size: .9rem; color: rgba(255,255,255,.55); line-height: 1.7; }
+
+    /* --- Philosophy Quote --- */
     .philosophy-card {
-      position: relative;
-      padding: 80px 60px;
-      background: linear-gradient(135deg, rgba(139, 90, 43, 0.1), rgba(201, 169, 98, 0.05));
-      border: 1px solid rgba(201, 169, 98, 0.2);
-      border-radius: 32px;
-      text-align: center;
-      overflow: hidden;
+      position: relative; padding: 72px 56px;
+      background: linear-gradient(135deg, rgba(139,90,43,.1), rgba(201,169,98,.05));
+      border: 1px solid rgba(201,169,98,.2);
+      border-radius: 32px; text-align: center; overflow: hidden;
     }
-    
     .philosophy-card::before {
-      content: '"';
-      position: absolute;
-      top: 20px;
-      left: 40px;
-      font-size: 10rem;
-      font-family: Georgia, serif;
-      color: rgba(201, 169, 98, 0.1);
-      line-height: 1;
+      content: '\201C'; position: absolute;
+      top: 16px; left: 36px;
+      font-size: 9rem; font-family: Georgia, serif;
+      color: rgba(201,169,98,.1); line-height: 1;
     }
-    
     .philosophy-quote {
-      position: relative;
-      z-index: 1;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.9);
-      line-height: 1.6;
-      margin-bottom: 32px;
+      position: relative; z-index: 1;
+      font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+      font-weight: 400; color: rgba(255,255,255,.9);
+      line-height: 1.65; margin-bottom: 28px;
     }
-    
-    .philosophy-quote em {
-      font-style: normal;
-      color: #C9A962;
-      font-weight: 600;
-    }
-    
-    .philosophy-author {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.5);
-    }
-    
-    .philosophy-author strong {
-      color: #C9A962;
-    }
-    
-    /* ============================================
-       CTA Section
-       ============================================ */
+    .philosophy-quote em { font-style: normal; color: #C9A962; font-weight: 600; }
+    .philosophy-author { font-size: .95rem; color: rgba(255,255,255,.45); }
+    .philosophy-author strong { color: #C9A962; }
+
+    /* --- CTA --- */
     .mission-cta {
-      padding: 140px 24px;
-      text-align: center;
-      background: linear-gradient(180deg, transparent, rgba(139, 90, 43, 0.12));
+      padding: 120px 24px; text-align: center;
+      background: linear-gradient(180deg, transparent, rgba(139,90,43,.12));
     }
-    
-    .cta-content {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    
     .mission-cta h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 24px;
-      line-height: 1.4;
+      font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+      font-weight: 400; color: rgba(255,255,255,.9);
+      margin-bottom: 20px; line-height: 1.45;
     }
-    
-    .mission-cta h2 strong {
-      font-weight: 700;
-      color: #C9A962;
-    }
-    
-    .mission-cta p {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 48px;
-    }
-    
+    .mission-cta h2 strong { font-weight: 700; color: #C9A962; }
+    .mission-cta p { font-size: 1.05rem; color: rgba(255,255,255,.55); margin-bottom: 40px; }
     .cta-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      justify-content: center;
-      align-items: center;
+      display: flex; flex-direction: row;
+      gap: 16px; justify-content: center; align-items: center;
     }
-    
-    @media (min-width: 480px) {
-      .cta-buttons {
-        flex-direction: row;
-        gap: 20px;
-      }
-    }
-    
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 20px 44px;
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 18px 40px;
       background: linear-gradient(135deg, #8B5A2B, #C9A962);
-      color: #fff;
-      text-decoration: none;
-      font-size: 1.05rem;
-      font-weight: 600;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 30px rgba(139, 90, 43, 0.3);
+      color: #fff; text-decoration: none;
+      font-size: 1rem; font-weight: 600;
+      border-radius: 50px; transition: all .3s ease;
+      box-shadow: 0 8px 30px rgba(139,90,43,.3);
     }
-    
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(139, 90, 43, 0.4);
+    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(139,90,43,.4); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 18px 40px;
+      background: transparent; color: #C9A962;
+      text-decoration: none; font-size: 1rem; font-weight: 600;
+      border: 1px solid rgba(201,169,98,.4);
+      border-radius: 50px; transition: all .3s ease;
     }
-    
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 20px 44px;
-      background: transparent;
-      color: #C9A962;
-      text-decoration: none;
-      font-size: 1.05rem;
-      font-weight: 600;
-      border: 1px solid rgba(201, 169, 98, 0.4);
-      border-radius: 50px;
-      transition: all 0.3s ease;
+    .btn-ghost:hover { background: rgba(201,169,98,.1); border-color: rgba(201,169,98,.6); }
+
+    /* --- Mission Footer (dark override) --- */
+    .mission-page .footer {
+      background: #0a0908;
+      border-top: 1px solid rgba(201,169,98,.1);
     }
-    
-    .btn-secondary:hover {
-      background: rgba(201, 169, 98, 0.1);
-      border-color: rgba(201, 169, 98, 0.6);
+
+    /* --- Responsive --- */
+    @media (max-width: 991px) {
+      .why-grid { grid-template-columns: 1fr; gap: 36px; }
+      .values-flow { flex-direction: column; gap: 24px; }
+      .arrow-connector { transform: rotate(90deg); padding: 16px 0; }
+      .values-experience { flex-direction: column; width: 100%; max-width: 360px; }
     }
-    
-    /* ============================================
-       Footer
-       ============================================ */
-    .mission-footer {
-      padding: 60px 24px;
-      border-top: 1px solid rgba(201, 169, 98, 0.1);
-      text-align: center;
-    }
-    
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 24px;
-      text-decoration: none;
-      color: #fff;
-    }
-    
-    .footer-logo span:first-child {
-      font-size: 2rem;
-    }
-    
-    .footer-logo span:last-child {
-      font-size: 1.25rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #C9A962, #E8D5A3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .footer-info {
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.5);
-      line-height: 1.8;
-    }
-    
-    .footer-info a {
-      color: #C9A962;
-      text-decoration: none;
-    }
-    
-    /* ============================================
-       Responsive
-       ============================================ */
     @media (max-width: 767px) {
-      .section {
-        padding: 100px 20px;
-      }
-      
-      .mission-hero {
-        padding: 100px 20px 60px;
-      }
-      
-      .bd-mark {
-        width: 110px;
-        height: 110px;
-        margin-bottom: 36px;
-      }
-      
-      .bd-mark span {
-        font-size: 2.5rem;
-      }
-      
-      .section-header {
-        margin-bottom: 60px;
-      }
-      
-      .mv-card {
-        padding: 40px 28px;
-      }
-      
-      .stat-card {
-        padding: 32px 20px;
-      }
-      
-      .value-foundation {
-        padding: 40px 28px;
-      }
-      
-      .values-summary {
-        padding: 40px 28px;
-      }
-      
-      .values-summary p {
-        font-size: 1.1rem;
-      }
-      
-      .promise-card {
-        padding: 32px 24px;
-      }
-      
-      .philosophy-card {
-        padding: 60px 32px;
-      }
-      
-      .philosophy-card::before {
-        font-size: 6rem;
-        top: 10px;
-        left: 20px;
-      }
-      
-      .story-card {
-        padding: 36px 28px;
-      }
-      
-      .bd-large {
-        font-size: 4rem;
-      }
+      .ms { padding: 80px 20px; }
+      .mission-hero { padding: 100px 20px 60px; min-height: 90vh; }
+      .bd-mark { width: 100px; height: 100px; margin-bottom: 32px; }
+      .bd-mark span { font-size: 2.2rem; }
+      .mv-grid { grid-template-columns: 1fr; gap: 24px; }
+      .mv-card { padding: 36px 28px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-card { padding: 28px 16px; }
+      .value-foundation { padding: 36px 24px; max-width: 100%; }
+      .values-summary { padding: 36px 24px; }
+      .values-summary p { font-size: 1.05rem; }
+      .promise-grid { grid-template-columns: 1fr; }
+      .promise-card { padding: 28px 22px; }
+      .philosophy-card { padding: 52px 28px; }
+      .philosophy-card::before { font-size: 6rem; top: 8px; left: 16px; }
+      .bd-visual { padding: 36px 24px; }
+      .bd-large { font-size: 3.8rem; }
+      .cta-buttons { flex-direction: column; }
+      .ms-header { margin-bottom: 52px; }
     }
+
+    /* --- Scroll Reveal --- */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
-<body>
-  <!-- Header -->
-  <header class="site-header">
+<body class="mission-page">
+  <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+
+  <!-- Header (root-level paths) -->
+  <header class="site-header" id="siteHeader">
     <div class="header-container">
       <div class="header-brand">
-        <a href="/" class="site-logo">
-          <span class="logo-icon">🦷</span>
-          <span class="logo-text">서울비디치과</span>
-        </a>
+        <a href="/" class="site-logo" aria-label="서울비디치과 홈"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
+        <div class="clinic-status open" aria-live="polite"><span class="status-dot"></span><span class="status-text">진료중</span><span class="status-time">20:00까지</span></div>
       </div>
-      
-      <nav class="main-nav" id="mainNav">
+      <nav class="main-nav" id="mainNav" aria-label="메인 네비게이션">
         <ul>
-          <li class="nav-item"><a href="/">홈</a></li>
-          <li class="nav-item"><a href="/treatments/index.html">진료 안내</a></li>
-          <li class="nav-item"><a href="/doctors/index.html">의료진 소개</a></li>
-          <li class="nav-item active"><a href="/mission.html" class="nav-highlight">✨ 미션</a></li>
-          <li class="nav-item"><a href="/directions.html">오시는 길</a></li>
+          <li class="nav-item active"><a href="mission.html" class="nav-highlight">Our Mission</a></li>
+          <li class="nav-item has-dropdown">
+            <a href="treatments/index.html">진료 안내</a>
+            <div class="mega-dropdown"><div class="mega-dropdown-grid">
+              <div class="mega-dropdown-section"><h4>전문센터</h4><ul><li><a href="treatments/glownate.html">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li><li><a href="treatments/implant.html">임플란트 <span class="badge">6개 수술실</span></a></li><li><a href="treatments/invisalign.html">치아교정 <span class="badge">대규모</span></a></li><li><a href="treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li><li><a href="treatments/aesthetic.html">심미치료</a></li></ul></div>
+              <div class="mega-dropdown-section"><h4>일반/보존 진료</h4><ul><li><a href="treatments/cavity.html">충치치료</a></li><li><a href="treatments/resin.html">레진치료</a></li><li><a href="treatments/crown.html">크라운</a></li><li><a href="treatments/inlay.html">인레이/온레이</a></li><li><a href="treatments/root-canal.html">신경치료</a></li><li><a href="treatments/whitening.html">미백</a></li></ul></div>
+              <div class="mega-dropdown-section"><h4>잇몸/외과</h4><ul><li><a href="treatments/scaling.html">스케일링</a></li><li><a href="treatments/gum.html">잇몸치료</a></li><li><a href="treatments/periodontitis.html">치주염</a></li><li><a href="treatments/wisdom-tooth.html">사랑니 발치</a></li><li><a href="treatments/tmj.html">턱관절장애</a></li><li><a href="treatments/bruxism.html">이갈이/이악물기</a></li></ul></div>
+            </div></div>
+          </li>
+          <li class="nav-item"><a href="doctors/index.html">의료진 소개</a></li>
+          <li class="nav-item has-dropdown"><a href="column/columns.html">콘텐츠</a><ul class="simple-dropdown"><li><a href="column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li><li><a href="video/index.html"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li></ul></li>
+          <li class="nav-item has-dropdown"><a href="directions.html">병원 안내</a><ul class="simple-dropdown"><li><a href="pricing.html" class="nav-highlight">💰 비용 안내</a></li><li><a href="floor-guide.html">층별 안내</a></li><li><a href="directions.html">오시는 길</a></li><li><a href="faq.html">자주 묻는 질문</a></li><li><a href="notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li></ul></li>
         </ul>
       </nav>
-      
       <div class="header-actions">
-        <a href="tel:041-415-2892" class="header-phone" title="전화 상담">
-          <i class="fas fa-phone-alt"></i>
-        </a>
-        <a href="https://naver.me/5yPnKmqQ" class="btn-reserve" target="_blank">
-          <i class="fas fa-calendar-check"></i>
-          <span>예약하기</span>
-        </a>
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
+        <div class="auth-buttons"><a href="auth/login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> 로그인</a><a href="auth/register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 회원가입</a></div>
+        <a href="reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
 
   <!-- ============================================
-       Hero Section
+       HERO — 비디치과가 존재하는 이유
        ============================================ -->
+  <main id="main-content">
   <section class="mission-hero">
     <div class="hero-particles">
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
     </div>
-    
     <div class="mission-hero-content">
-      <div class="bd-mark">
-        <span>BD</span>
-      </div>
-      
-      <div class="bd-meaning">
-        <h1><strong>Best</strong> <strong>Dedication</strong></h1>
-        <p class="bd-tagline">최고의 헌신</p>
-      </div>
-      
-      <p class="hero-description">
-        서울비디치과는 단순히 치료하는 곳이 아닙니다.<br>
-        환자의 치과 경험 전체를 혁신하기 위해 헌신하는 곳입니다.
+      <div class="bd-mark"><span>BD</span></div>
+      <h1 class="hero-question">
+        <em>비디치과</em>가<br>존재하는 이유
+      </h1>
+      <p class="hero-answer">
+        우리는 단순히 이를 치료하는 곳이 아닙니다.<br>
+        치과에 대한 두려움을 편안함으로 바꾸고,<br>
+        <strong style="color:#C9A962;">모든 환자의 치과 경험 그 자체를 혁신</strong>하기 위해 존재합니다.
       </p>
     </div>
-    
     <div class="scroll-indicator">
       <span>SCROLL</span>
       <i class="fas fa-chevron-down"></i>
@@ -1109,44 +519,30 @@
   </section>
 
   <!-- ============================================
-       Story Section - BD 탄생 스토리
+       WHY BD? — 왜 BD인가
        ============================================ -->
-  <section class="section section-dark">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">Our Story</div>
-        <h2 class="section-title">왜 <em>BD</em>인가요?</h2>
+  <section class="ms ms-dark">
+    <div class="ms-container">
+      <div class="ms-header">
+        <div class="ms-label">Our Story</div>
+        <h2 class="ms-title">왜 <em>BD</em>인가요?</h2>
       </div>
-      
-      <div class="story-content">
-        <div class="story-text">
+      <div class="why-grid">
+        <div class="why-text reveal">
           <h3><em>Best Dedication</em>,<br>최고의 헌신을 담은 이름</h3>
-          <p>
-            BD는 단순한 약자가 아닙니다. 우리가 매일 아침 진료실 문을 열 때 
-            가슴에 새기는 약속입니다.
-          </p>
-          <p>
-            "오늘도 최선을 다해 헌신하자." 이 마음으로 15명의 원장이 
-            모여 서울비디치과를 만들었습니다.
-          </p>
-          <p>
-            치과에 대한 두려움을 편안함으로, 불안을 신뢰로 바꾸는 것.
-            그것이 우리가 생각하는 '최고의 헌신'입니다.
-          </p>
-          
-          <div class="story-quote">
+          <p>BD는 단순한 약자가 아닙니다. 우리가 매일 아침 진료실 문을 열 때 가슴에 새기는 약속입니다.</p>
+          <p>"오늘도 최선을 다해 헌신하자." 이 마음으로 15명의 원장이 모여 서울비디치과를 만들었습니다.</p>
+          <p>치과에 대한 두려움을 편안함으로, 불안을 신뢰로 바꾸는 것. 그것이 우리가 생각하는 '최고의 헌신'입니다.</p>
+          <div class="why-quote">
             <p>"이건 치료 안 하셔도 됩니다."</p>
             <cite>— 과잉진료 없는 양심치과를 향한 우리의 철학</cite>
           </div>
         </div>
-        
-        <div class="story-visual">
-          <div class="story-card">
-            <div class="bd-large">BD</div>
-            <div class="bd-expand">
-              <span><strong>B</strong>est</span>
-              <span><strong>D</strong>edication</span>
-            </div>
+        <div class="bd-visual reveal">
+          <div class="bd-large">BD</div>
+          <div class="bd-expand">
+            <span><strong>B</strong>est</span>
+            <span><strong>D</strong>edication</span>
           </div>
         </div>
       </div>
@@ -1154,83 +550,59 @@
   </section>
 
   <!-- ============================================
-       Mission & Vision Section
+       MISSION & VISION
        ============================================ -->
-  <section class="section section-accent">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">Our Purpose</div>
-        <h2 class="section-title">미션 & 비전</h2>
-        <p class="section-desc">
-          우리가 존재하는 이유와 나아가는 방향
-        </p>
+  <section class="ms ms-accent">
+    <div class="ms-container">
+      <div class="ms-header">
+        <div class="ms-label">Our Purpose</div>
+        <h2 class="ms-title">비디치과가 <em>하고 싶은 일</em></h2>
+        <p class="ms-desc">우리가 존재하는 이유와, 우리가 나아가는 방향</p>
       </div>
-      
       <div class="mv-grid">
-        <!-- Mission Card -->
-        <div class="mv-card">
-          <div class="mv-icon">
-            <i class="fas fa-bullseye"></i>
-          </div>
+        <div class="mv-card reveal">
+          <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
           <h2>Mission</h2>
-          <h3>치과 경험의 혁신을 위한 헌신</h3>
-          <p>
-            우리는 단순히 치료하는 것을 넘어, 환자가 치과에서 경험하는 모든 순간을 
-            혁신합니다. 두려움 대신 편안함을, 불안 대신 신뢰를 드리기 위해 
-            모든 과정에 최선을 다합니다.
-          </p>
+          <h3>필요한 진료를 받지 못하는<br>사람이 없도록 하자</h3>
+          <p>두려움 때문에, 비용 때문에, 정보가 없어서 치료를 포기하는 분이 없도록. 모든 환자에게 진심 어린 설명과 최선의 치료를 제공합니다. 우리의 헌신은 여기서 시작됩니다.</p>
         </div>
-        
-        <!-- Vision Card -->
-        <div class="mv-card">
-          <div class="mv-icon">
-            <i class="fas fa-eye"></i>
-          </div>
+        <div class="mv-card reveal">
+          <div class="mv-icon"><i class="fas fa-eye"></i></div>
           <h2>Vision</h2>
           <h3>전국에서 가장 기분 좋게<br>갈 수 있는 의료 기관</h3>
-          <p>
-            치과 방문이 더 이상 부담이 아닌, 기분 좋은 경험이 되는 그날까지.
-            서울비디치과는 대한민국에서 가장 기분 좋게 방문할 수 있는 
-            의료 기관이 되겠습니다.
-          </p>
+          <p>치과 방문이 더 이상 부담이 아닌, 기분 좋은 경험이 되는 그날까지. 서울비디치과는 대한민국에서 가장 기분 좋게 방문할 수 있는 의료 기관이 되겠습니다.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================
-       Stats Section - 숫자로 보는 서울비디치과
+       BY THE NUMBERS
        ============================================ -->
-  <section class="section section-dark">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">By The Numbers</div>
-        <h2 class="section-title">숫자로 보는 <em>서울비디치과</em></h2>
-        <p class="section-desc">
-          헌신의 결과는 숫자로도 증명됩니다
-        </p>
+  <section class="ms ms-dark">
+    <div class="ms-container">
+      <div class="ms-header">
+        <div class="ms-label">By The Numbers</div>
+        <h2 class="ms-title">숫자로 보는 <em>서울비디치과</em></h2>
+        <p class="ms-desc">헌신의 결과는 숫자로도 증명됩니다</p>
       </div>
-      
       <div class="stats-grid">
-        <div class="stat-card">
+        <div class="stat-card reveal">
           <div class="stat-number">15</div>
           <div class="stat-unit">명</div>
           <div class="stat-label">서울대 출신 원장</div>
         </div>
-        
-        <div class="stat-card">
+        <div class="stat-card reveal">
           <div class="stat-number">365</div>
           <div class="stat-unit">일</div>
           <div class="stat-label">연중무휴 진료</div>
         </div>
-        
-        <div class="stat-card">
+        <div class="stat-card reveal">
           <div class="stat-number">6</div>
           <div class="stat-unit">개</div>
           <div class="stat-label">전용 수술실</div>
         </div>
-        
-        <div class="stat-card">
+        <div class="stat-card reveal">
           <div class="stat-number">4.9</div>
           <div class="stat-unit">점</div>
           <div class="stat-label">구글 평점</div>
@@ -1240,68 +612,50 @@
   </section>
 
   <!-- ============================================
-       Core Values Section
+       CORE VALUES
        ============================================ -->
-  <section class="section section-accent">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">Core Values</div>
-        <h2 class="section-title"><em>가장 기분 좋은 진료 경험</em>을<br>만들기 위한 우리의 가치</h2>
+  <section class="ms ms-accent">
+    <div class="ms-container">
+      <div class="ms-header">
+        <div class="ms-label">Core Values</div>
+        <h2 class="ms-title"><em>가장 기분 좋은 진료 경험</em>을<br>만들기 위한 우리의 가치</h2>
       </div>
-      
-      <div class="values-intro">
-        <p>
-          기분 좋은 경험의 기본은 <strong>탄탄한 실력</strong>입니다.<br>
-          그리고 환자의 기분을 알기 위해서는 <strong>존중, 공감, 배려</strong>가 필요합니다.
+
+      <div style="text-align:center; max-width:680px; margin:0 auto 64px;">
+        <p style="font-size:1.1rem; color:rgba(255,255,255,.68); line-height:1.9;">
+          기분 좋은 경험의 기본은 <strong style="color:#C9A962;">탄탄한 실력</strong>입니다.<br>
+          그리고 환자의 기분을 알기 위해서는 <strong style="color:#C9A962;">존중, 공감, 배려</strong>가 필요합니다.
         </p>
       </div>
-      
-      <!-- Values Flow Diagram -->
+
       <div class="values-flow">
-        <!-- Foundation: 실력 -->
-        <div class="value-foundation">
-          <div class="value-icon">
-            <i class="fas fa-award"></i>
-          </div>
+        <div class="value-foundation reveal">
+          <div class="value-icon"><i class="fas fa-award"></i></div>
           <h3>실력</h3>
           <p>기분 좋은 경험의 기본.<br>서울대 출신 15인 원장의 전문성.</p>
           <span class="value-label">FOUNDATION</span>
         </div>
-        
-        <div class="arrow-connector">
-          <i class="fas fa-plus"></i>
-        </div>
-        
-        <!-- Experience Values -->
+        <div class="arrow-connector"><i class="fas fa-plus"></i></div>
         <div class="values-experience">
-          <div class="value-item">
-            <div class="value-icon">
-              <i class="fas fa-handshake"></i>
-            </div>
+          <div class="value-item reveal">
+            <div class="value-icon"><i class="fas fa-handshake"></i></div>
             <h3>존중</h3>
             <p>환자의 선택과<br>의견을 존중합니다</p>
           </div>
-          
-          <div class="value-item">
-            <div class="value-icon">
-              <i class="fas fa-heart"></i>
-            </div>
+          <div class="value-item reveal">
+            <div class="value-icon"><i class="fas fa-heart"></i></div>
             <h3>공감</h3>
             <p>환자의 불안과<br>걱정에 공감합니다</p>
           </div>
-          
-          <div class="value-item">
-            <div class="value-icon">
-              <i class="fas fa-hand-holding-heart"></i>
-            </div>
+          <div class="value-item reveal">
+            <div class="value-icon"><i class="fas fa-hand-holding-heart"></i></div>
             <h3>배려</h3>
             <p>작은 불편함까지<br>세심하게 배려합니다</p>
           </div>
         </div>
       </div>
-      
-      <!-- Summary -->
-      <div class="values-summary">
+
+      <div class="values-summary reveal">
         <p>
           <strong>실력</strong>이 기본이 되고,<br>
           <strong>존중, 공감, 배려</strong>로 환자의 마음을 이해할 때<br>
@@ -1312,69 +666,49 @@
   </section>
 
   <!-- ============================================
-       Promise Section - 우리의 약속
+       OUR PROMISE
        ============================================ -->
-  <section class="section section-dark">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">Our Promise</div>
-        <h2 class="section-title">환자분께 드리는 <em>6가지 약속</em></h2>
-        <p class="section-desc">
-          말뿐이 아닌 실천으로 보여드립니다
-        </p>
+  <section class="ms ms-dark">
+    <div class="ms-container">
+      <div class="ms-header">
+        <div class="ms-label">Our Promise</div>
+        <h2 class="ms-title">환자분께 드리는 <em>6가지 약속</em></h2>
+        <p class="ms-desc">말뿐이 아닌 실천으로 보여드립니다</p>
       </div>
-      
       <div class="promise-grid">
-        <div class="promise-card">
+        <div class="promise-card reveal">
           <span class="promise-number">01</span>
-          <div class="promise-icon">
-            <i class="fas fa-user-shield"></i>
-          </div>
+          <div class="promise-icon"><i class="fas fa-user-shield"></i></div>
           <h3>과잉진료 ZERO</h3>
           <p>필요하지 않은 치료는 권하지 않습니다. "이건 치료 안 하셔도 됩니다"라고 솔직하게 말씀드립니다.</p>
         </div>
-        
-        <div class="promise-card">
+        <div class="promise-card reveal">
           <span class="promise-number">02</span>
-          <div class="promise-icon">
-            <i class="fas fa-comments"></i>
-          </div>
+          <div class="promise-icon"><i class="fas fa-comments"></i></div>
           <h3>충분한 상담</h3>
-          <p>치료 전 충분한 설명으로 환자분이 이해하고 선택할 수 있도록 합니다. 궁금한 점은 언제든 물어보세요.</p>
+          <p>치료 전 충분한 설명으로 환자분이 이해하고 선택할 수 있도록 합니다.</p>
         </div>
-        
-        <div class="promise-card">
+        <div class="promise-card reveal">
           <span class="promise-number">03</span>
-          <div class="promise-icon">
-            <i class="fas fa-hand-holding-medical"></i>
-          </div>
+          <div class="promise-icon"><i class="fas fa-hand-holding-medical"></i></div>
           <h3>통증 최소화</h3>
           <p>최신 마취 기법과 수면 진정으로 치료 과정의 통증과 불안을 최소화합니다.</p>
         </div>
-        
-        <div class="promise-card">
+        <div class="promise-card reveal">
           <span class="promise-number">04</span>
-          <div class="promise-icon">
-            <i class="fas fa-clock"></i>
-          </div>
+          <div class="promise-icon"><i class="fas fa-clock"></i></div>
           <h3>대기시간 최소화</h3>
           <p>예약 시스템을 철저히 운영하여 환자분의 소중한 시간을 존중합니다.</p>
         </div>
-        
-        <div class="promise-card">
+        <div class="promise-card reveal">
           <span class="promise-number">05</span>
-          <div class="promise-icon">
-            <i class="fas fa-shield-virus"></i>
-          </div>
+          <div class="promise-icon"><i class="fas fa-shield-virus"></i></div>
           <h3>철저한 감염관리</h3>
           <p>에어샤워 시스템, 개별 멸균 키트 등 서울대학교병원 수준의 감염 관리를 실천합니다.</p>
         </div>
-        
-        <div class="promise-card">
+        <div class="promise-card reveal">
           <span class="promise-number">06</span>
-          <div class="promise-icon">
-            <i class="fas fa-heart"></i>
-          </div>
+          <div class="promise-icon"><i class="fas fa-heart"></i></div>
           <h3>끝까지 책임</h3>
           <p>치료 후에도 정기 검진과 관리로 끝까지 책임집니다. 평생 주치의가 되겠습니다.</p>
         </div>
@@ -1383,11 +717,11 @@
   </section>
 
   <!-- ============================================
-       Philosophy Section
+       PHILOSOPHY QUOTE
        ============================================ -->
-  <section class="section section-accent">
-    <div class="container container-narrow">
-      <div class="philosophy-card">
+  <section class="ms ms-accent">
+    <div class="ms-narrow">
+      <div class="philosophy-card reveal">
         <p class="philosophy-quote">
           "환자가 <em>기분 좋게</em> 다녀가실 때,<br>
           우리의 <em>헌신</em>이 빛을 발합니다."
@@ -1398,93 +732,82 @@
   </section>
 
   <!-- ============================================
-       CTA Section
+       CTA
        ============================================ -->
   <section class="mission-cta">
-    <div class="cta-content">
+    <div style="max-width:700px; margin:0 auto;">
       <h2>서울비디치과의 <strong>헌신</strong>을<br>직접 경험해 보세요</h2>
-      <p>
-        기분 좋은 치과 경험, 저희가 만들어 드리겠습니다.
-      </p>
+      <p>기분 좋은 치과 경험, 저희가 만들어 드리겠습니다.</p>
       <div class="cta-buttons">
-        <a href="https://naver.me/5yPnKmqQ" class="btn-primary" target="_blank">
-          <i class="fas fa-calendar-check"></i>
-          진료 예약하기
+        <a href="reservation.html" class="btn-gold">
+          <i class="fas fa-calendar-check"></i> 진료 예약하기
         </a>
-        <a href="/doctors/index.html" class="btn-secondary">
-          <i class="fas fa-user-md"></i>
-          의료진 소개
+        <a href="doctors/index.html" class="btn-ghost">
+          <i class="fas fa-user-md"></i> 의료진 소개
         </a>
       </div>
     </div>
   </section>
+  </main>
 
-  <!-- ============================================
-       Footer
-       ============================================ -->
-  <footer class="mission-footer">
-    <a href="/" class="footer-logo">
-      <span>🦷</span>
-      <span>서울비디치과</span>
-    </a>
-    <div class="footer-info">
-      <p>충남 천안시 서북구 불당34길 14, 1~5층</p>
-      <p><a href="tel:041-415-2892">041-415-2892</a> · 365일 진료</p>
-    </div>
-    <!-- 사업자 정보 -->
-    <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
-      <div style="display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: center; font-size: 0.75rem; color: rgba(255,255,255,0.4); line-height: 1.6;">
-        <span>상호명: 서울비디치과의원</span>
-        <span>대표자: 현정민, 문석준, 김민수</span>
-        <span>사업자등록번호: 228-11-02956</span>
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>전문센터</h4><ul><li><a href="treatments/implant.html">임플란트센터</a></li><li><a href="treatments/invisalign.html">교정센터</a></li><li><a href="treatments/pediatric.html">소아치과</a></li><li><a href="treatments/glownate.html">심미치료</a></li></ul></div>
+          <div class="footer-col"><h4>병원 안내</h4><ul><li><a href="doctors/index.html">의료진 소개</a></li><li><a href="mission.html">미션 · 비전</a></li><li><a href="floor-guide.html">층별 안내</a></li><li><a href="cases/gallery.html">Before/After</a></li></ul></div>
+          <div class="footer-col"><h4>고객 지원</h4><ul><li><a href="reservation.html">예약/상담</a></li><li><a href="column/columns.html">칼럼/콘텐츠</a></li><li><a href="faq.html">자주 묻는 질문</a></li><li><a href="directions.html">오시는 길</a></li></ul></div>
+        </div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-contact"><p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p><p><i class="fas fa-phone"></i> 041-415-2892</p><div class="footer-hours"><p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p><p>평일 09:00-20:00 (점심 12:30-14:00)</p><p>토·일 09:00-17:00</p><p>공휴일 09:00-13:00</p></div></div>
+        <div class="footer-social"><a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" aria-label="네이버 예약"><i class="fas fa-calendar-check"></i></a><a href="https://www.youtube.com/c/%EC%89%BD%EB%94%94%EC%89%AC%EC%9A%B4%EC%B9%98%EA%B3%BC%EC%9D%B4%EC%95%BC%EA%B8%B0Bdtube" target="_blank" rel="noopener" aria-label="유튜브"><i class="fab fa-youtube"></i></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" aria-label="카카오톡"><i class="fas fa-comment"></i></a></div>
+      </div>
+      <div class="footer-legal">
+        <div class="legal-links"><a href="privacy.html">개인정보 처리방침</a><span>|</span><a href="terms.html">이용약관</a><span>|</span><a href="sitemap.xml">사이트맵</a></div>
+        <p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 특정 개인의 결과는 개인에 따라 달라질 수 있습니다.</p>
+        <p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
+    <div class="mobile-nav-header"><span class="logo-icon">🦷</span><button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button></div>
+    <ul class="mobile-nav-menu">
+      <li><a href="mission.html" class="highlight"><i class="fas fa-star"></i> Our Mission</a></li>
+      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-tooth"></i> 진료 안내 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="treatments/index.html">전체 진료</a></li><li class="submenu-divider">전문센터</li><li><a href="treatments/glownate.html" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li><li><a href="treatments/implant.html">임플란트센터</a></li><li><a href="treatments/invisalign.html">교정센터</a></li><li><a href="treatments/pediatric.html">소아치과</a></li><li><a href="treatments/aesthetic.html">심미치료</a></li><li class="submenu-divider">일반 진료</li><li><a href="treatments/cavity.html">충치치료</a></li><li><a href="treatments/resin.html">레진치료</a></li><li><a href="treatments/scaling.html">스케일링</a></li><li><a href="treatments/gum.html">잇몸치료</a></li></ul></li>
+      <li><a href="doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
+      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="column/columns.html"><i class="fas fa-pen-fancy"></i> 칼럼</a></li><li><a href="video/index.html"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li></ul></li>
+      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-hospital"></i> 병원 안내 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="pricing.html">💰 비용 안내</a></li><li><a href="floor-guide.html">층별 안내</a></li><li><a href="directions.html">오시는 길</a></li><li><a href="faq.html">자주 묻는 질문</a></li><li><a href="notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li></ul></li>
+      <li><a href="reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+    </ul>
+    <div class="mobile-auth-buttons"><a href="auth/login.html" class="btn-auth"><i class="fas fa-sign-in-alt"></i> 로그인</a><a href="auth/register.html" class="btn-auth"><i class="fas fa-user-plus"></i> 회원가입</a></div>
+    <div class="mobile-nav-footer"><p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p><div class="mobile-nav-quick-btns"><a href="pricing.html" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 비용 안내</a><a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 전화 예약</a></div></div>
+  </nav>
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+  <!-- Floating CTA -->
+  <div class="floating-cta desktop-only"><a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a><a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a></div>
+  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락"><a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a><a href="reservation.html" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a><a href="directions.html" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a></div>
+
   <!-- Scripts -->
+  <script src="js/main.js" defer></script>
   <script>
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mainNav = document.getElementById('mainNav');
-    
-    if (mobileMenuBtn && mainNav) {
-      mobileMenuBtn.addEventListener('click', () => {
-        mobileMenuBtn.classList.toggle('active');
-        mainNav.classList.toggle('active');
-      });
-    }
-    
-    // Header scroll effect
-    const header = document.querySelector('.site-header');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-    
-    // Animate on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-    
+    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }, observerOptions);
-    
-    // Observe elements
-    document.querySelectorAll('.mv-card, .stat-card, .value-foundation, .value-item, .promise-card').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'all 0.6s ease';
-      observer.observe(el);
+    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Header scroll effect
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
     });
   </script>
 </body>
