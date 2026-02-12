@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/css/site-v5.css?v=1cbc00d3">
+<style>
+  /* Force show dropdown for debugging */
+  .simple-dropdown {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+    position: relative !important;
+    left: auto !important;
+  }
+  body { padding: 40px; background: #f0f0f0; }
+  .debug-box { background: white; padding: 20px; margin: 20px; border: 2px solid red; }
+</style>
+</head>
+<body>
+<h2>Dropdown Debug</h2>
+<div class="debug-box">
+  <h3>Simple Dropdown (as rendered)</h3>
+  <ul class="simple-dropdown">
+    <li><a href="#">칼럼</a></li>
+    <li><a href="#">영상</a></li>
+    <li><a href="#">비포/애프터</a></li>
+  </ul>
+</div>
+<div class="debug-box">
+  <h3>Inside .main-nav context</h3>
+  <nav class="main-nav" style="display:block !important;">
+    <ul>
+      <li class="nav-item has-dropdown">
+        <a href="#">콘텐츠</a>
+        <ul class="simple-dropdown">
+          <li><a href="#">칼럼</a></li>
+          <li><a href="#">영상</a></li>
+          <li><a href="#">비포/애프터</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const dropdowns = document.querySelectorAll('.simple-dropdown');
+  dropdowns.forEach((dd, i) => {
+    const cs = window.getComputedStyle(dd);
+    const info = document.createElement('pre');
+    info.style.background = '#ffe0e0';
+    info.style.padding = '10px';
+    info.textContent = `Dropdown ${i} computed:\n  display: ${cs.display}\n  flex-direction: ${cs.flexDirection}\n  flex-wrap: ${cs.flexWrap}\n  width: ${cs.width}\n  position: ${cs.position}`;
+    
+    dd.querySelectorAll('li').forEach((li, j) => {
+      const liCs = window.getComputedStyle(li);
+      info.textContent += `\n  li[${j}] display: ${liCs.display}, width: ${liCs.width}, float: ${liCs.float}`;
+    });
+    
+    dd.parentElement.appendChild(info);
+  });
+});
+</script>
+</body>
+</html>
