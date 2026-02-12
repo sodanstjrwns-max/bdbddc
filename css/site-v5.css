@@ -367,7 +367,8 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   gap: 24px;
 }
 
-.mega-dropdown-section h4 {
+.mega-dropdown-section h4,
+.mega-dropdown-section .section-heading {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1612,7 +1613,8 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 
 .footer-links { display: flex; gap: 48px; }
 
-.footer-col h4 {
+.footer-col h4,
+.footer-col .section-heading {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -3810,3 +3812,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   body { padding: 0; }
   .hero { min-height: auto; padding: 20px 0; }
 }
+
+/* SEO: h4 → strong 변경에 따른 display 보정 */
+.section-heading { display: block; }
