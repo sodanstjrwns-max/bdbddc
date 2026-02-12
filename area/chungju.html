@@ -32,13 +32,12 @@
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=67afda43">
+  <link rel="stylesheet" href="../css/site-v5.css?v=82f53021">
   <link rel="prefetch" href="../reservation.html" as="document">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"충주 치과","item":"https://bdbddc.com/area/chungju.html"}]}
   </script>
-<script type="application/ld+json">
-{
+<script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
@@ -82,9 +81,17 @@
         "text": "서울비디치과 3층 소아치과센터에 소아치과 전문의 3인이 상주합니다. 충주에서 차량 약 1시간으로 방문 가능하며, 아이가 편안한 환경에서 치료받을 수 있습니다."
       }
     }
-  ]
-}
-</script>
+  ],
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [
+      "h1",
+      ".treatment-intro",
+      ".faq-answer",
+      "meta[name='description']"
+    ]
+  }
+}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
