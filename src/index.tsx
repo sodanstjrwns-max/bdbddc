@@ -314,6 +314,7 @@ app.get('/faq', serveStatic({ path: './faq.html' }))
 app.get('/floor-guide', serveStatic({ path: './floor-guide.html' }))
 app.get('/privacy', serveStatic({ path: './privacy.html' }))
 app.get('/terms', serveStatic({ path: './terms.html' }))
+app.get('/mission', serveStatic({ path: './mission.html' }))
 
 // Root level HTML files (with .html extension)
 app.use('/pricing.html', serveStatic())
@@ -323,6 +324,7 @@ app.use('/faq.html', serveStatic())
 app.use('/floor-guide.html', serveStatic())
 app.use('/privacy.html', serveStatic())
 app.use('/terms.html', serveStatic())
+app.use('/mission.html', serveStatic())
 
 // Homepage
 app.get('/', serveStatic({ path: './index.html' }))
