@@ -1,9 +1,3 @@
-/* ╔══════════════════════════════════════════════════╗
-   ║  서울비디치과 — Site CSS v5.0                     ║
-   ║  Complete Redesign from Scratch                   ║
-   ║  Modern Premium Dental Clinic                     ║
-   ╚══════════════════════════════════════════════════╝ */
-
 /* ═══════════════════════════════════════
    § 1. CSS VARIABLES
    ═══════════════════════════════════════ */
@@ -1974,11 +1968,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 
 .breadcrumb a { color: var(--text-secondary); }
 .breadcrumb a:hover { color: var(--brand); }
-.breadcrumb .separator { color: var(--gray-300); }
-
-/* ═══════════════════════════════════════
-   § 23. SUBPAGE CONTENT STYLES
-   ═══════════════════════════════════════ */
 
 /* FAQ */
 .faq-categories {
@@ -2158,12 +2147,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 }
 
 .case-images { display: grid; grid-template-columns: 1fr 1fr; }
-.case-after { aspect-ratio: 4/3; overflow: hidden; position: relative; }
-.case-after img { width: 100%; height: 100%; object-fit: cover; }
-
-/* Area Pages */
-
-/* Auth Pages */
 
 /* Error Page */
 .error-page {
@@ -2212,10 +2195,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .pricing-table tr:last-child td { border-bottom: none; }
 
 /* Doctor Detail */
-/* ═══════════════════════════════════════
-   § DOCTOR PROFILE PAGE — Individual
-   ═══════════════════════════════════════ */
-
 /* ── Photo Area ── */
 
 .profile-photo-frame {
@@ -2278,8 +2257,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   font-style: italic;
 }
-
-/* ── Details Grid ── */
 
 /* Career list */
 .career-list {
@@ -2356,12 +2333,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 }
 
 /* ═══════════════════════════════════════
-   § DOCTOR STORY SECTION
-   ═══════════════════════════════════════ */
-
-/* Closing quote */
-
-/* ═══════════════════════════════════════
    § OTHER DOCTORS MINI GRID (Individual Pages)
    ═══════════════════════════════════════ */
 .doctor-card.feature-card {
@@ -2394,11 +2365,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   }
 
 }
-
-/* ═══════════════════════════════════════
-   § DOCTOR PROFILE — Legacy Layout (kim.html etc.)
-   Light-theme conversion from profile-style.css
-   ═══════════════════════════════════════ */
 
 /* ── Profile Header Section ── */
 .profile-header {
@@ -3469,10 +3435,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   flex-shrink: 0;
 }
 
-/* Compare Grid */
-
-/* Video Grid */
-
 /* Detail Content */
 
 .card-icon {
@@ -3636,11 +3598,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   .reviews-stats { gap: 16px; }
 }
 
-/* ═══════════════════════════════════════════════════════
-   § TREATMENT PAGES — Full Reconstruction CSS
-   All treatment-specific component styles
-   ═══════════════════════════════════════════════════════ */
-
 /* ── Treatment Section / Options / List ── */
 .treatment-section { position: relative; }
 .treatment-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
@@ -3648,8 +3605,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 /* Treatment option cards */
 .treatment-option { padding: 24px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); }
 .treatment-option:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
-
-/* Treatment card enhanced */
 
 /* ── Process / Steps ── */
 
@@ -3662,12 +3617,7 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .process-step h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
 .process-step p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
 
-/* Process card (grid layout) */
-
-/* Process item */
-
 /* Process/Step Numbers */
-.process-num { position: absolute; top: 24px; left: 16px; width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; z-index: 2; box-shadow: 0 4px 12px rgba(107,66,38,0.2); }
 
 .step-num { font-size: 0.8rem; font-weight: 800; color: var(--brand); background: rgba(107,66,38,0.08); width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 8px; }
 
@@ -3677,12 +3627,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .step-content p { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); }
 
 .step-label { font-size: 0.78rem; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.5px; }
-
-/* Step panel (tab-like) */
-
-/* ── Benefit Cards ── */
-
-/* ── Comparison Grid ── */
 
 /* ── Stage Cards (cavity stages etc.) ── */
 
@@ -3699,10 +3643,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .stage-symptoms li { padding: 4px 0; font-size: 0.88rem; color: var(--text-secondary); }
 .stage-treatment { margin-top: 12px; padding: 12px 16px; background: var(--gray-50); border-radius: var(--radius-md); font-size: 0.88rem; color: var(--brand-dark); }
 
-/* ── Warning / Danger Cards ── */
-
-/* ── Tip Cards ── */
-
 /* ── Info Cards / Box ── */
 .info-card { padding: 24px; text-align: center; }
 .info-icon { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1.1rem; margin: 0 auto 12px; }
@@ -3712,8 +3652,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .info-box h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
 .info-box p { font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary); }
 
-/* ── Notice Banner ── */
-
 /* ── FAQ Section (Treatment pages) ── */
 .faq-section { padding: var(--space-3xl) 0; }
 .faq-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: var(--text-primary); text-align: center; margin-bottom: 8px; }
@@ -3722,13 +3660,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .faq-icon { color: var(--brand); font-size: 0.9rem; flex-shrink: 0; }
 .faq-q-badge { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); font-size: 0.72rem; font-weight: 800; flex-shrink: 0; }
 .faq-q-text { flex: 1; }
-.faq-answer-inner { padding: 0 16px 16px 16px; font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary); }
-
-/* CTA extras */
-
-/* Hero extras */
-
-/* Feature extras */
 
 /* ── Treatment page responsive ── */
 @media (max-width: 768px) {
@@ -3736,15 +3667,9 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   .treatment-options
   .process-timeline::before { left: 18px; }
   .process-step { padding-left: 52px; }
-  .process-num { left: 10px; width: 30px; height: 30px; font-size: 0.78rem; }
 
   .faq-section { padding: var(--space-2xl) 0; }
 }
-
-/* ═══════════════════════════════════════════════════════
-   § TREATMENT PAGES — Extended Component Library
-   Full coverage for all 24 treatment sub-pages
-   ═══════════════════════════════════════════════════════ */
 
 /* ── Type Cards (treatment type cards) ── */
 .type-icon { width: 56px; height: 56px; border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(107,66,38,0.06), rgba(200,169,126,0.12)); display: flex; align-items: center; justify-content: center; color: var(--brand); font-size: 1.4rem; margin-bottom: 16px; }
@@ -3757,10 +3682,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .type-badge { position: absolute; top: 16px; right: 16px; padding: 4px 14px; background: linear-gradient(135deg, var(--brand), var(--brand-gold)); color: var(--white); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.5px; }
 .card.featured { border: 2px solid var(--brand-gold); position: relative; }
 
-/* ── Why Cards ── */
-
-/* ── Empathy Section (cavity etc.) ── */
-
 /* ── Difference Section ── */
 
 .diff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
@@ -3772,14 +3693,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .prevention-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .prevention-card { display: flex; gap: 16px; padding: 20px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); }
 .prevention-card:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
-
-/* ── Treatments Grid (cavity options) ── */
-
-/* ── Stages Section (cavity) ── */
-
-/* ── Interactive Stepper (invisalign) ── */
-
-/* ── Implant Compare Table ── */
 
 /* ── Concern Items (implant) ── */
 .patient-concerns { margin-top: var(--space-xl); }
@@ -3805,32 +3718,12 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .review-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .review-tag { padding: 3px 10px; background: var(--gray-100); border-radius: var(--radius-full); font-size: 0.78rem; color: var(--text-tertiary); }
 
-/* ── Doctor Intro Cards ── */
-
 /* ── Age Guide (prevention) ── */
 
 .age-card { padding: 24px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); }
 .age-card:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
 
 .age-badge { display: inline-block; padding: 3px 10px; background: var(--brand-gold-light); color: var(--brand-dark); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; margin-bottom: 8px; }
-
-/* ── Homecare (prevention) ── */
-
-/* ── Material Cards (crown, inlay) ── */
-
-/* ── Insurance Box (scaling) ── */
-
-/* ── Cause Cards (bruxism, TMJ) ── */
-.causes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-
-/* ── Symptom Grid (bruxism, TMJ) ── */
-.symptoms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-
-/* ── Emergency Cards ── */
-
-/* ── Denture Cards ── */
-
-/* ── Difficulty Cards (wisdom-tooth) ── */
 
 /* ── Precaution/Care Cards ── */
 
@@ -3844,34 +3737,12 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 
 .case-legal { font-size: 0.75rem; color: var(--text-tertiary); margin-top: 8px; }
 
-/* ── Shade Visual (whitening) ── */
-
-.shade-after { display: inline-block; }
-
 /* ── Options Grid ── */
 
 .option-card { padding: 28px; background: var(--white); border: 1px solid var(--border-color); border-radius: var(--radius-xl); transition: all var(--transition-base); }
 .option-card:hover { border-color: var(--brand-gold-light); box-shadow: var(--shadow-md); }
 
 .option-desc { font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); margin-top: 8px; }
-
-/* ── Reason Cards (various) ── */
-
-/* ── Risk Grid (periodontitis) ── */
-
-/* ── Timeline (emergency, wisdom-tooth) ── */
-
-/* ── Checklist ── */
-
-/* ── Use Cases (resin) ── */
-
-/* ── Resin Process ── */
-
-/* ── Bento Grid ── */
-
-/* ── Features Grid ── */
-
-/* ── Program Box (prevention) ── */
 
 /* ── Miscellaneous ── */
 
@@ -3900,10 +3771,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
 .hero-desc { font-size: 1rem; color: rgba(255,255,255,0.7); line-height: 1.7; margin-top: 12px; }
 .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-top: 24px; }
 
-/* ── Price Box ── */
-
-/* ── Reveal/Animation helpers ── */
-
 /* ── Auth Buttons (header) ── */
 .btn-login, .btn-register { font-size: 0.85rem; }
 .has-submenu { position: relative; }
@@ -3920,14 +3787,8 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
    § TREATMENT PAGES — Responsive Overrides
    ═══════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .prevention-grid
-  .causes-grid,
-  .symptoms-grid
-  .concerns-grid
-
   .page-nav { flex-direction: column; }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
-
 }
 
 /* ═══════════════════════════════════════
