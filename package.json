@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "dev:sandbox": "wrangler pages dev dist --ip 0.0.0.0 --port 3000",
-    "build": "vite build && node -e \"const fs=require('fs');const cp=require('child_process');['index.html','pricing.html','reservation.html','directions.html','faq.html','floor-guide.html','privacy.html','terms.html','404.html','mission.html','manifest.json','sitemap.xml','robots.txt'].forEach(f=>{try{fs.copyFileSync(f,'dist/'+f)}catch(e){}});['css','js','images','treatments','doctors','bdx','column','video','cases','notice','auth','admin','area','faq'].forEach(d=>{try{cp.execSync('mkdir -p dist/'+d+' && cp -rT '+d+' dist/'+d)}catch(e){}});console.log('Static files synced to dist')\"",
+    "build": "vite build && node -e \"const fs=require('fs');const cp=require('child_process');['index.html','pricing.html','reservation.html','directions.html','faq.html','floor-guide.html','privacy.html','terms.html','404.html','mission.html','manifest.json','sitemap.xml','robots.txt'].forEach(f=>{try{fs.copyFileSync(f,'dist/'+f)}catch(e){}});['css','js','images','treatments','doctors','column','video','cases','notice','auth','admin','area','faq'].forEach(d=>{try{cp.execSync('mkdir -p dist/'+d+' && cp -rT '+d+' dist/'+d)}catch(e){}});console.log('Static files synced to dist')\"",
     "preview": "wrangler pages dev dist",
     "deploy": "npm run build && wrangler pages deploy dist",
     "deploy:prod": "npm run build && wrangler pages deploy dist --project-name seoul-bd-dental",

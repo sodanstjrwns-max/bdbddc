@@ -3827,21 +3827,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   margin-bottom: var(--space-md);
 }
 
-/* Step Cards (BDX) */
-.bdx-step-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.bdx-step-card {
-  padding: 28px;
-  background: var(--white);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  text-align: center;
-}
-
 .card-number {
   width: 40px; height: 40px;
   display: flex;
@@ -3946,7 +3931,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   .video-stats { grid-template-columns: repeat(2, 1fr); }
   .facility-grid { grid-template-columns: repeat(2, 1fr); }
   .columns-grid { grid-template-columns: repeat(2, 1fr); }
-  .bdx-step-grid { grid-template-columns: repeat(2, 1fr); }
   .video-grid { grid-template-columns: 1fr; }
   .area-hero-stats { grid-template-columns: repeat(2, 1fr); }
 }
@@ -4002,7 +3986,6 @@ h1, h2, h3, h4, h5, h6 { line-height: 1.2; font-weight: 800; }
   .video-stats { grid-template-columns: repeat(2, 1fr); }
   .facility-grid { grid-template-columns: 1fr; }
   .columns-grid { grid-template-columns: 1fr; }
-  .bdx-step-grid { grid-template-columns: 1fr; }
   .cases-grid { grid-template-columns: 1fr; }
   .area-hero-stats { grid-template-columns: repeat(2, 1fr); }
 

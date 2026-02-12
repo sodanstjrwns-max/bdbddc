@@ -262,11 +262,6 @@ app.get('/doctors', serveStatic({ path: './doctors/index.html' }))
 app.get('/doctors/', serveStatic({ path: './doctors/index.html' }))
 app.use('/doctors/*', serveStatic())
 
-// BDX directory
-app.get('/bdx', serveStatic({ path: './bdx/index.html' }))
-app.get('/bdx/', serveStatic({ path: './bdx/index.html' }))
-app.use('/bdx/*', serveStatic())
-
 // Column directory
 app.get('/column', serveStatic({ path: './column/columns.html' }))
 app.get('/column/', serveStatic({ path: './column/columns.html' }))
