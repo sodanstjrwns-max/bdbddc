@@ -50,8 +50,6 @@
   <!-- ■ E-E-A-T -->
   <meta name="medical-content" content="이 페이지의 의료 정보는 서울대학교 출신 치과 전문의가 검토하였습니다.">
   
-  <!-- ■ LLMs.txt -->
-  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt">
   
   <!-- ■ Favicon & PWA -->
   <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
@@ -1030,31 +1028,6 @@
   <script src="/js/main.js" defer></script>
   <script src="/js/gnb.js" defer></script>
   
-  <!-- ■ Deferred Scripts -->
-  <script>
-    (function(){
-      var loaded=false;
-      function loadDeferred(){
-        if(loaded)return;loaded=true;
-        ['js/image-fallback.js'].forEach(function(s){
-          var sc=document.createElement('script');sc.src=s;sc.defer=true;document.body.appendChild(sc);
-        });
-        // Firebase (2초 후)
-        setTimeout(function(){
-          ['https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
-           'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js',
-           'js/firebase-auth.js'].forEach(function(s){
-            var sc=document.createElement('script');sc.src=s;document.body.appendChild(sc);
-          });
-        },2000);
-      }
-      ['scroll','click','touchstart'].forEach(function(e){
-        window.addEventListener(e,loadDeferred,{once:true,passive:true});
-      });
-      setTimeout(loadDeferred,3000);
-    })();
-  </script>
-  
   <!-- ■ Scroll Reveal -->
   <script>
     document.addEventListener('DOMContentLoaded',function(){
@@ -1071,8 +1044,6 @@
       els.forEach(function(el){obs.observe(el);});
     });
   </script>
-  
-  <!-- ■ Analytics (Deferred) -->
-  <script defer src="/js/analytics-loader.js"></script>
+
 </body>
 </html>
