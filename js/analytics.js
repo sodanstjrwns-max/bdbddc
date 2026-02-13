@@ -1,7 +1,7 @@
 /**
  * 서울비디치과 통합 Analytics
- * GA4 (G-3NQP355YQM) + Amplitude (87529341cb075dcdbefabce3994958aa)
- * 핵심 이벤트 자동 트래킹
+ * GTM (GTM-KKVMVZHK) → GA4 (G-3NQP355YQM) + Amplitude (87529341cb075dcdbefabce3994958aa)
+ * 핵심 이벤트 자동 트래킹 — GA4는 GTM에서 관리, Amplitude는 직접 SDK
  */
 (function() {
   'use strict';
