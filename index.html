@@ -808,6 +808,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       
+      <!-- ■ 실시간 구글 리뷰 (Google Places API) -->
+      <div class="google-live-reviews reveal" id="google-live-reviews">
+        <h3 style="text-align:center;margin-bottom:8px;font-size:1.1rem;color:var(--text-primary,#1a1a2e)">
+          <i class="fab fa-google" style="color:#4285F4"></i> 구글 실시간 리뷰
+        </h3>
+        <p style="text-align:center;font-size:0.85rem;color:#888;margin-bottom:20px">Google Maps에서 자동으로 가져온 최신 리뷰입니다</p>
+        <div id="google-reviews-container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+          <div style="text-align:center;padding:40px;color:#999"><i class="fas fa-spinner fa-spin"></i> 구글 리뷰 로딩 중...</div>
+        </div>
+        <div style="text-align:center;margin-top:16px">
+          <a id="google-reviews-link" href="https://www.google.com/maps/place/서울비디치과의원+불당본점/reviews" target="_blank" rel="noopener" 
+             style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#4285F4;color:white;border-radius:8px;text-decoration:none;font-size:0.9rem;font-weight:600;transition:opacity 0.2s"
+             onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+            <i class="fab fa-google"></i> 구글에서 모든 리뷰 보기 <span id="google-total-reviews"></span>
+          </a>
+        </div>
+      </div>
+
       <div class="reviews-more-cta reveal">
         <a href="https://m.place.naver.com/서울비디치과" target="_blank" rel="noopener">
           <i class="fas fa-external-link-alt"></i> 네이버에서 더 많은 후기 보기
@@ -1058,6 +1076,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
       els.forEach(function(el){obs.observe(el);});
     });
+  </script>
+
+  <!-- ■ 실시간 구글 리뷰 로딩 -->
+  <script>
+  (function(){
+    fetch('/api/google-reviews')
+      .then(function(r){return r.json()})
+      .then(function(data){
+        var result = data.result || {};
+        var reviews = result.reviews || [];
+        var container = document.getElementById('google-reviews-container');
+        var totalEl = document.getElementById('google-total-reviews');
+        var linkEl = document.getElementById('google-reviews-link');
+        
+        if(totalEl && result.user_ratings_total){
+          totalEl.textContent = '(' + result.user_ratings_total.toLocaleString() + '개)';
+        }
+        if(linkEl && result.url){
+          linkEl.href = result.url;
+        }
+        
+        if(!container) return;
+        if(reviews.length === 0){
+          container.innerHTML = '<p style="text-align:center;color:#999;padding:20px">리뷰를 불러올 수 없습니다</p>';
+          return;
+        }
+        
+        var html = '';
+        reviews.forEach(function(rev){
+          var stars = '';
+          for(var i=0;i<5;i++) stars += '<i class="fas fa-star" style="color:'+(i<rev.rating?'#fbbf24':'#ddd')+'"></i>';
+          var initial = (rev.author_name||'?').charAt(0);
+          var text = rev.text || '';
+          if(text.length > 150) text = text.substring(0,150) + '...';
+          
+          html += '<div style="background:white;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border:1px solid #f0f0f0">';
+          html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">';
+          html += '<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4285F4,#34a853);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem">'+initial+'</div>';
+          html += '<div><div style="font-weight:600;font-size:0.9rem">'+rev.author_name+'</div>';
+          html += '<div style="font-size:0.75rem;color:#999">'+rev.relative_time_description+'</div></div>';
+          html += '<i class="fab fa-google" style="margin-left:auto;color:#4285F4;font-size:1.1rem"></i>';
+          html += '</div>';
+          html += '<div style="margin-bottom:8px">'+stars+'</div>';
+          html += '<p style="font-size:0.85rem;color:#555;line-height:1.5;margin:0">'+text+'</p>';
+          html += '</div>';
+        });
+        container.innerHTML = html;
+      })
+      .catch(function(){
+        var c = document.getElementById('google-reviews-container');
+        if(c) c.innerHTML = '<p style="text-align:center;color:#999;padding:20px">리뷰를 불러올 수 없습니다</p>';
+      });
+  })();
   </script>
 
 </body>
