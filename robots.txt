@@ -24,7 +24,7 @@ Allow: /directions
 Allow: /faq
 Allow: /floor-guide
 Allow: /mission
-Crawl-delay: 1
+
 
 # 사이트맵 위치
 Sitemap: https://bdbddc.com/sitemap.xml
@@ -44,7 +44,7 @@ Disallow: /_worker.js
 # ===== Google 봇 최적화 =====
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+
 
 User-agent: Googlebot-Image
 Allow: /images/
@@ -55,12 +55,12 @@ Allow: /
 # ===== Naver 봇 최적화 =====
 User-agent: Yeti
 Allow: /
-Crawl-delay: 1
+
 
 # ===== Bing 봇 =====
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
+
 
 User-agent: msnbot
 Allow: /
@@ -68,7 +68,7 @@ Allow: /
 # ===== Daum 봇 =====
 User-agent: Daumoa
 Allow: /
-Crawl-delay: 1
+
 
 # ===== AI 검색엔진 봇 (GEO 최적화) =====
 # OpenAI GPT
