@@ -249,6 +249,116 @@ app.use('/sitemap.xml', serveStatic())
 app.use('/robots.txt', serveStatic())
 
 // ============================================
+// IndexNow API Key Verification File
+// ============================================
+const INDEXNOW_KEY = '6f74445f7ec14eccb522a4d3f253128c'
+
+// Serve key file directly (fallback if static file not found)
+app.get(`/${INDEXNOW_KEY}.txt`, (c) => {
+  c.header('Content-Type', 'text/plain; charset=utf-8')
+  c.header('Cache-Control', 'public, max-age=86400')
+  return c.text(INDEXNOW_KEY)
+})
+
+// IndexNow Submit API (서버사이드에서 Bing/Yandex/Naver에 즉시 색인 요청)
+app.post('/api/indexnow', async (c) => {
+  const SITE_HOST = 'bdbddc.com'
+  const KEY_LOCATION = `https://${SITE_HOST}/${INDEXNOW_KEY}.txt`
+  
+  // 색인할 전체 URL 목록
+  const urlList: string[] = [
+    '/',
+    '/reservation', '/pricing', '/directions',
+    '/treatments/', '/treatments/implant', '/treatments/invisalign',
+    '/treatments/pediatric', '/treatments/aesthetic', '/treatments/glownate',
+    '/treatments/cavity', '/treatments/resin', '/treatments/crown',
+    '/treatments/inlay', '/treatments/root-canal', '/treatments/re-root-canal',
+    '/treatments/whitening', '/treatments/bridge', '/treatments/denture',
+    '/treatments/scaling', '/treatments/gum', '/treatments/periodontitis',
+    '/treatments/gum-surgery', '/treatments/wisdom-tooth', '/treatments/apicoectomy',
+    '/treatments/prevention', '/treatments/tmj', '/treatments/bruxism',
+    '/treatments/emergency',
+    '/doctors/', '/doctors/moon', '/doctors/kim', '/doctors/hyun',
+    '/doctors/choi', '/doctors/lee', '/doctors/park', '/doctors/kang',
+    '/doctors/jo', '/doctors/seo', '/doctors/lim',
+    '/doctors/kim-mg', '/doctors/kim-mj', '/doctors/kang-mj',
+    '/doctors/park-sb', '/doctors/lee-bm',
+    '/column/columns', '/video/', '/cases/', '/cases/gallery',
+    '/mission', '/floor-guide', '/faq', '/notice/',
+    '/faq/implant', '/faq/orthodontics',
+    '/area/cheonan', '/area/asan', '/area/buldang',
+    '/area/daejeon', '/area/sejong',
+    '/area/pyeongtaek', '/area/anseong',
+    '/area/cheongju', '/area/chungju', '/area/jincheon',
+    '/area/yesan', '/area/hongseong', '/area/dangjin',
+    '/area/seosan', '/area/nonsan', '/area/gongju',
+    '/privacy', '/terms',
+  ].map(p => `https://${SITE_HOST}${p}`)
+
+  // IndexNow 엔드포인트 (Bing, Yandex, Naver 동시 제출)
+  const engines = [
+    { name: 'Bing/IndexNow', url: 'https://api.indexnow.org/indexnow' },
+    { name: 'Bing Direct', url: 'https://www.bing.com/indexnow' },
+    { name: 'Yandex', url: 'https://yandex.com/indexnow' },
+    { name: 'Naver', url: 'https://searchadvisor.naver.com/indexnow' },
+  ]
+
+  const payload = {
+    host: SITE_HOST,
+    key: INDEXNOW_KEY,
+    keyLocation: KEY_LOCATION,
+    urlList: urlList,
+  }
+
+  const results: Array<{ engine: string; status: number | string; ok: boolean }> = []
+
+  for (const engine of engines) {
+    try {
+      const resp = await fetch(engine.url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify(payload),
+      })
+      results.push({ engine: engine.name, status: resp.status, ok: resp.ok || resp.status === 200 || resp.status === 202 })
+    } catch (err) {
+      results.push({ engine: engine.name, status: `error: ${(err as Error).message}`, ok: false })
+    }
+  }
+
+  return c.json({
+    submitted: urlList.length,
+    key: INDEXNOW_KEY,
+    results,
+    timestamp: new Date().toISOString(),
+  })
+})
+
+// Google Ping API (sitemap 변경 알림)
+app.post('/api/google-ping', async (c) => {
+  const sitemapUrl = 'https://bdbddc.com/sitemap.xml'
+  const pingUrls = [
+    `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`,
+  ]
+
+  const results: Array<{ engine: string; status: number | string; ok: boolean }> = []
+
+  for (const pingUrl of pingUrls) {
+    try {
+      const resp = await fetch(pingUrl)
+      results.push({ engine: 'Google', status: resp.status, ok: resp.ok })
+    } catch (err) {
+      results.push({ engine: 'Google', status: `error: ${(err as Error).message}`, ok: false })
+    }
+  }
+
+  return c.json({
+    sitemap: sitemapUrl,
+    results,
+    timestamp: new Date().toISOString(),
+  })
+})
+
+// ============================================
 // HTML Page Routes - Directory based
 // ============================================
 

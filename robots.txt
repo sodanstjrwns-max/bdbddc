@@ -1,10 +1,10 @@
 # ═══════════════════════════════════════════════════════════════
 # 서울비디치과 (Seoul BD Dental) - robots.txt
 # https://bdbddc.com
-# Updated: 2025-01-03
+# Updated: 2026-02-13
 # 
-# 이 파일은 검색엔진 및 AI 봇의 크롤링을 최적화합니다.
 # SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
+# IndexNow 프로토콜 지원
 # ═══════════════════════════════════════════════════════════════
 
 # ===== 모든 검색엔진 허용 =====
@@ -14,11 +14,16 @@ Allow: /treatments/
 Allow: /doctors/
 Allow: /column/
 Allow: /video/
+Allow: /cases/
+Allow: /area/
+Allow: /faq/
 Allow: /notice/
-Allow: /pricing.html
-Allow: /reservation.html
-Allow: /directions.html
-Allow: /faq.html
+Allow: /pricing
+Allow: /reservation
+Allow: /directions
+Allow: /faq
+Allow: /floor-guide
+Allow: /mission
 Crawl-delay: 1
 
 # 사이트맵 위치
@@ -28,10 +33,13 @@ Sitemap: https://bdbddc.com/sitemap.xml
 Disallow: /components/
 Disallow: /offline.html
 Disallow: /admin/
+Disallow: /auth/
 Disallow: /css/_deprecated/
 Disallow: /docs/
 Disallow: /*.json$
 Disallow: /sw.js
+Disallow: /api/
+Disallow: /_worker.js
 
 # ===== Google 봇 최적화 =====
 User-agent: Googlebot
@@ -75,6 +83,9 @@ User-agent: anthropic-ai
 Allow: /
 
 User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
 Allow: /
 
 # Perplexity
@@ -127,4 +138,12 @@ User-agent: Bytespider
 Allow: /
 
 User-agent: CCBot
+Allow: /
+
+# Grok (xAI)
+User-agent: Grok
+Allow: /
+
+# SearchGPT
+User-agent: OAI-SearchBot
 Allow: /
