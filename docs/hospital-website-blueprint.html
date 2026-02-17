@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>병원 홈페이지 제작 기획서 — Patient Funnel</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+/* === PRINT STYLES === */
+@media print {
+  @page {
+    size: A4;
+    margin: 20mm 18mm 20mm 18mm;
+  }
+  
+  body { font-size: 9.5pt !important; }
+  .cover-page { page-break-after: always; min-height: 90vh; }
+  .no-print { display: none !important; }
+  h1 { page-break-before: always; }
+  h1:first-of-type { page-break-before: avoid; }
+  h2, h3 { page-break-after: avoid; }
+  table, pre, blockquote { page-break-inside: avoid; }
+  tr { page-break-inside: avoid; }
+}
+
+/* === BASE === */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.75;
+  color: #1a1a2e;
+  background: #f5f5f5;
+}
+
+.container {
+  max-width: 210mm;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 0 30px rgba(0,0,0,0.1);
+  padding: 50px 60px;
+}
+
+@media print { 
+  .container { 
+    max-width: none; 
+    box-shadow: none; 
+    padding: 0; 
+    margin: 0;
+  }
+  body { background: #fff; }
+}
+
+/* === COVER PAGE === */
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  text-align: center;
+  padding: 60px 20px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.cover-logo {
+  font-size: 13pt;
+  font-weight: 800;
+  color: #C9A962;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.cover-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #C9A962, #0369a1);
+  margin: 20px auto;
+  border-radius: 2px;
+}
+
+.cover-title {
+  font-size: 32pt;
+  font-weight: 900;
+  color: #1a1a2e;
+  margin: 16px 0 8px;
+  line-height: 1.3;
+  border: none !important;
+  padding: 0 !important;
+  page-break-before: avoid !important;
+}
+
+.cover-subtitle {
+  font-size: 13pt;
+  color: #888;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+.cover-meta {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 24px 40px;
+  text-align: left;
+  display: inline-block;
+}
+
+.cover-meta p {
+  margin: 5px 0;
+  font-size: 9.5pt;
+  color: #555;
+}
+
+.cover-meta strong {
+  display: inline-block;
+  width: 85px;
+  color: #1a1a2e;
+}
+
+.cover-confidential {
+  margin-top: 50px;
+  font-size: 8pt;
+  color: #C9A962;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+/* === DOWNLOAD BUTTON === */
+.download-bar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: linear-gradient(135deg, #1a1a2e, #0369a1);
+  padding: 12px 30px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.download-bar button {
+  background: #C9A962;
+  color: #1a1a2e;
+  border: none;
+  padding: 10px 30px;
+  font-size: 11pt;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.download-bar button:hover {
+  background: #b8943e;
+  transform: scale(1.02);
+}
+
+.download-bar span {
+  color: #fff;
+  font-size: 9pt;
+  margin-left: 15px;
+  opacity: 0.8;
+}
+
+/* === HEADINGS === */
+h1 {
+  font-size: 20pt;
+  font-weight: 900;
+  color: #1a1a2e;
+  margin: 45px 0 15px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #C9A962;
+}
+
+h2 {
+  font-size: 13.5pt;
+  font-weight: 800;
+  color: #0369a1;
+  margin: 30px 0 12px;
+  padding-left: 14px;
+  border-left: 4px solid #C9A962;
+}
+
+h3 {
+  font-size: 11.5pt;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 22px 0 8px;
+}
+
+h4 {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #555;
+  margin: 16px 0 6px;
+}
+
+/* === TABLE === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0 22px;
+  font-size: 9pt;
+}
+
+thead {
+  background: #1a1a2e;
+  color: #fff;
+}
+
+th {
+  padding: 9px 12px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 8.5pt;
+  letter-spacing: 0.3px;
+}
+
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: top;
+}
+
+tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+/* === BLOCKQUOTE === */
+blockquote {
+  border-left: 4px solid #C9A962;
+  background: #fffbf0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  border-radius: 0 6px 6px 0;
+  color: #555;
+}
+
+blockquote strong { color: #1a1a2e; }
+
+/* === CODE === */
+code {
+  background: #f1f3f5;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 8.5pt;
+  font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+  color: #d63384;
+}
+
+pre {
+  background: #1a1a2e;
+  color: #e9ecef;
+  padding: 16px 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 8pt;
+  line-height: 1.6;
+  margin: 14px 0;
+}
+
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: 8pt;
+}
+
+/* === LISTS === */
+ul, ol {
+  margin: 8px 0;
+  padding-left: 26px;
+}
+
+li { margin: 4px 0; }
+
+/* === MISC === */
+a { color: #0369a1; text-decoration: none; }
+hr { border: none; border-top: 2px solid #e9ecef; margin: 35px 0; }
+p { margin: 8px 0; }
+strong { color: #1a1a2e; }
+
+/* === FOOTER === */
+.doc-footer {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 2px solid #C9A962;
+  text-align: center;
+  font-size: 8.5pt;
+  color: #999;
+}
+</style>
+</head>
+<body>
+
+<!-- DOWNLOAD BAR -->
+<div class="download-bar no-print">
+  <button onclick="window.print()">📄 PDF 다운로드 (Ctrl+P)</button>
+  <span>인쇄 대화상자에서 "PDF로 저장" 선택</span>
+</div>
+
+<div class="container">
+
+<!-- COVER PAGE -->
+<div class="cover-page">
+  <div class="cover-logo">Patient Funnel</div>
+  <div class="cover-divider"></div>
+  <div class="cover-title">병원 홈페이지<br>제작 기획서</div>
+  <p class="cover-subtitle">Seoul BD Dental Standard v1.0</p>
+  
+  <div class="cover-meta">
+    <p><strong>기준 사이트</strong> https://bdbddc.com (서울비디치과)</p>
+    <p><strong>작성일</strong> 2026년 2월 17일</p>
+    <p><strong>작성자</strong> Patient Funnel (페이션트 퍼널)</p>
+    <p><strong>버전</strong> v1.0</p>
+    <p><strong>분량</strong> 15개 챕터 · 1,329줄 · 50,073자</p>
+  </div>
+  
+  <p class="cover-confidential">CONFIDENTIAL — PATIENT FUNNEL PROPRIETARY</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<h1>병원 홈페이지 제작 기획서 (완전판)</h1>
+
+<h2>Patient Funnel x Seoul BD Dental Standard</h2>
+
+<blockquote><p><strong>기준 사이트</strong>: https://bdbddc.com (서울비디치과)
+<strong>작성일</strong>: 2026-02-17
+<strong>작성자</strong>: Patient Funnel (페이션트 퍼널)
+<strong>버전</strong>: v1.0</p></blockquote>
+
+<hr>
+
+<h1>목차</h1>
+
+<ol>
+<li><a href="#1-프로젝트-개요">프로젝트 개요</a></li>
+<li><a href="#2-사이트-구조-설계">사이트 구조 설계</a></li>
+<li><a href="#3-페이지별-상세-기획">페이지별 상세 기획</a></li>
+<li><a href="#4-uiux-설계-기준">UI/UX 설계 기준</a></li>
+<li><a href="#5-seo-인프라-체크리스트">SEO 인프라 체크리스트</a></li>
+<li><a href="#6-구조화-데이터-schemaorg">구조화 데이터 (Schema.org)</a></li>
+<li><a href="#7-마케팅--전환-인프라">마케팅 & 전환 인프라</a></li>
+<li><a href="#8-다국어-지원">다국어 지원</a></li>
+<li><a href="#9-기술-스택--아키텍처">기술 스택 & 아키텍처</a></li>
+<li><a href="#10-검색엔진-등록--색인">검색엔진 등록 & 색인</a></li>
+<li><a href="#11-법적-필수-요소">법적 필수 요소</a></li>
+<li><a href="#12-성능--보안">성능 & 보안</a></li>
+<li><a href="#13-납품-체크리스트">납품 체크리스트</a></li>
+<li><a href="#14-운영-가이드">운영 가이드</a></li>
+<li><a href="#15-부록-커스터마이징-옵션">부록: 커스터마이징 옵션</a></li>
+</ol>
+
+<hr>
+
+<h1>1. 프로젝트 개요</h1>
+
+<h2>1.1 이 기획서의 목적</h2>
+
+<p>이 문서는 <strong>병원(치과/의원/한의원) 홈페이지 제작</strong>을 위한 완전한 기획서입니다.</p>
+<p>서울비디치과(bdbddc.com) 실제 운영 사이트를 기준으로, 검증된 모든 기능과 구조를 정리합니다.</p>
+
+<h2>1.2 적용 대상</h2>
+
+<table>
+<thead><tr><th>대상</th><th>적합도</th></tr></thead>
+<tbody>
+<tr><td>치과</td><td>★★★★★ (최적화됨)</td></tr>
+<tr><td>피부과/성형외과</td><td>★★★★☆ (비포/애프터 강화)</td></tr>
+<tr><td>내과/일반의원</td><td>★★★★☆ (치료 → 진료과목으로 변경)</td></tr>
+<tr><td>한의원</td><td>★★★★☆ (한방 진료 특화)</td></tr>
+<tr><td>안과/이비인후과</td><td>★★★☆☆ (구조 간소화 가능)</td></tr>
+<tr><td>종합병원</td><td>★★☆☆☆ (별도 설계 필요)</td></tr>
+</tbody>
+</table>
+<h2>1.3 핵심 철학</h2>
+
+<blockquote><p><strong>"환자가 병원을 인지하는 순간부터 지인에게 소개하기까지의 전체 여정을 설계한다"</strong>
+<p>— Patient Funnel (페이션트 퍼널)</p></blockquote></p>
+
+<h3>환자 퍼널 10단계와 홈페이지 대응</h3>
+
+<table>
+<thead><tr><th>단계</th><th>환자 행동</th><th>홈페이지 대응</th></tr></thead>
+<tbody>
+<tr><td>1. 인지</td><td>검색/광고로 병원 발견</td><td>SEO, 지역 페이지, 구조화 데이터</td></tr>
+<tr><td>2. 관심</td><td>홈페이지 방문</td><td>히어로 섹션, 첫인상 디자인</td></tr>
+<tr><td>3. 탐색</td><td>치료 정보 확인</td><td>치료 상세 페이지 24개+</td></tr>
+<tr><td>4. 비교</td><td>타 병원과 비교</td><td>차별점, 의사 프로필, 시설</td></tr>
+<tr><td>5. 신뢰</td><td>리뷰/실력 확인</td><td>구글 리뷰 위젯, 비포/애프터</td></tr>
+<tr><td>6. 결심</td><td>예약 결정</td><td>CTA 버튼 (전화/카카오/온라인)</td></tr>
+<tr><td>7. 방문</td><td>병원 찾아옴</td><td>오시는 길, 층별 안내</td></tr>
+<tr><td>8. 경험</td><td>진료 받음</td><td>(오프라인 영역)</td></tr>
+<tr><td>9. 만족</td><td>후기 작성</td><td>리뷰 작성 유도 링크</td></tr>
+<tr><td>10. 소개</td><td>지인에게 추천</td><td>공유 기능, 바이럴 콘텐츠</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>2. 사이트 구조 설계</h1>
+
+<h2>2.1 필수 페이지 구성 (80페이지 기준)</h2>
+
+<h3>레벨 1: 핵심 페이지 (반드시 필요)</h3>
+
+<table>
+<thead><tr><th>#</th><th>페이지</th><th>URL</th><th>설명</th><th>우선순위</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>메인 (홈)</strong></td><td><code>/</code></td><td>병원 첫인상, 핵심 정보 집약</td><td>★★★★★</td></tr>
+<tr><td>2</td><td><strong>예약/상담</strong></td><td><code>/reservation</code></td><td>온라인 예약 폼 + 연락처</td><td>★★★★★</td></tr>
+<tr><td>3</td><td><strong>오시는 길</strong></td><td><code>/directions</code></td><td>지도 + 교통편 + 주차</td><td>★★★★★</td></tr>
+<tr><td>4</td><td><strong>비용 안내</strong></td><td><code>/pricing</code></td><td>투명한 진료비 공개</td><td>★★★★★</td></tr>
+<tr><td>5</td><td><strong>의료진 목록</strong></td><td><code>/doctors</code></td><td>전체 의사 소개</td><td>★★★★★</td></tr>
+</tbody>
+</table>
+<h3>레벨 2: 치료/진료 페이지 (수익 직결)</h3>
+
+<table>
+<thead><tr><th>#</th><th>페이지</th><th>URL 패턴</th><th>기준 수량</th></tr></thead>
+<tbody>
+<tr><td>6-30</td><td><strong>치료 상세</strong></td><td><code>/treatments/{치료명}</code></td><td>24개</td></tr>
+<tr><td>31</td><td><strong>치료 전체 목록</strong></td><td><code>/treatments</code></td><td>1개</td></tr>
+</tbody>
+</table>
+<strong>서울비디치과 기준 24개 치료 페이지:</strong>
+
+<table>
+<thead><tr><th>카테고리</th><th>치료 항목</th><th>메모</th></tr></thead>
+<tbody>
+<tr><td><strong>전문센터 (고수익)</strong></td><td>임플란트, 치아교정(인비절라인), 소아치과, 심미치료, 글로우네이트(자체 브랜드)</td><td>가장 중요</td></tr>
+<tr><td><strong>일반/보존 진료</strong></td><td>충치치료, 레진치료, 크라운, 인레이/온레이, 신경치료, 미백</td><td>기본</td></tr>
+<tr><td><strong>잇몸/외과</strong></td><td>스케일링, 잇몸치료, 치주염, 사랑니발치, 턱관절장애, 이갈이</td><td>기본</td></tr>
+<tr><td><strong>특수</strong></td><td>재신경치료, 치근단절제술, 보철(브릿지), 틀니, 응급치료, 예방치료</td><td>확장</td></tr>
+</tbody>
+</table>
+<h3>레벨 3: 의사 개별 페이지 (신뢰 구축)</h3>
+
+<table>
+<thead><tr><th>#</th><th>페이지</th><th>URL 패턴</th><th>기준 수량</th></tr></thead>
+<tbody>
+<tr><td>32-46</td><td><strong>의사 프로필</strong></td><td><code>/doctors/{이름}</code></td><td>15개</td></tr>
+</tbody>
+</table>
+<h3>레벨 4: 지역 SEO 페이지 (검색 유입)</h3>
+
+<table>
+<thead><tr><th>#</th><th>페이지</th><th>URL 패턴</th><th>기준 수량</th></tr></thead>
+<tbody>
+<tr><td>47-62</td><td><strong>지역 랜딩</strong></td><td><code>/area/{지역명}</code></td><td>16개</td></tr>
+</tbody>
+</table>
+<strong>서울비디치과 기준 16개 지역:</strong>
+<p>천안, 아산, 불당, 세종, 대전, 청주, 평택, 공주, 당진, 서산, 논산, 예산, 홍성, 충주, 진천, 안성</p>
+
+<h3>레벨 5: 콘텐츠 & 신뢰 페이지</h3>
+
+<table>
+<thead><tr><th>#</th><th>페이지</th><th>URL</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>63</td><td><strong>비포/애프터 갤러리</strong></td><td><code>/cases/gallery</code></td><td>치료 사례 사진</td></tr>
+<tr><td>64</td><td><strong>칼럼/블로그</strong></td><td><code>/column/columns</code></td><td>전문 콘텐츠</td></tr>
+<tr><td>65</td><td><strong>영상 콘텐츠</strong></td><td><code>/video</code></td><td>유튜브 연동</td></tr>
+<tr><td>66</td><td><strong>FAQ</strong></td><td><code>/faq</code></td><td>자주 묻는 질문</td></tr>
+<tr><td>67</td><td><strong>임플란트 FAQ</strong></td><td><code>/faq/implant</code></td><td>치료별 전문 FAQ</td></tr>
+<tr><td>68</td><td><strong>교정 FAQ</strong></td><td><code>/faq/orthodontics</code></td><td>치료별 전문 FAQ</td></tr>
+</tbody>
+</table>
+<h3>레벨 6: 병원 정보 & 법적 페이지</h3>
+
+<table>
+<thead><tr><th>#</th><th>페이지</th><th>URL</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>69</td><td><strong>미션/비전</strong></td><td><code>/mission</code></td><td>병원 철학</td></tr>
+<tr><td>70</td><td><strong>층별 안내</strong></td><td><code>/floor-guide</code></td><td>시설 안내</td></tr>
+<tr><td>71</td><td><strong>공지사항</strong></td><td><code>/notice</code></td><td>병원 소식</td></tr>
+<tr><td>72</td><td><strong>개인정보처리방침</strong></td><td><code>/privacy</code></td><td>법적 필수</td></tr>
+<tr><td>73</td><td><strong>이용약관</strong></td><td><code>/terms</code></td><td>법적 필수</td></tr>
+<tr><td>74</td><td><strong>404 에러</strong></td><td><code>/404</code></td><td>이탈 방지</td></tr>
+</tbody>
+</table>
+<h3>레벨 7: 회원/관리 시스템</h3>
+
+<table>
+<thead><tr><th>#</th><th>페이지</th><th>URL</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>75</td><td><strong>로그인</strong></td><td><code>/auth/login</code></td><td>회원 로그인</td></tr>
+<tr><td>76</td><td><strong>회원가입</strong></td><td><code>/auth/register</code></td><td>신규 가입</td></tr>
+<tr><td>77</td><td><strong>마이페이지</strong></td><td><code>/auth/mypage</code></td><td>회원 정보</td></tr>
+<tr><td>78-80</td><td><strong>관리자</strong></td><td><code>/admin/*</code></td><td>CMS (공지, 케이스 관리)</td></tr>
+</tbody>
+</table>
+<h2>2.2 네비게이션 구조</h2>
+
+<h3>메인 GNB (Global Navigation Bar)</h3>
+
+<pre><code class="language-">[로고] ─── [진료안내 ▼] [의료진] [미션·비전] [층별안내] [오시는 길] [FAQ] [공지] ─── [전화] [로그인/가입] [예약하기]
+<p>              │</p>
+<p>              ├── 전문센터: 글로우네이트(HOT), 임플란트, 교정, 소아치과, 심미치료</p>
+<p>              ├── 일반/보존: 충치, 레진, 크라운, 인레이, 신경치료, 미백</p>
+<p>              └── 잇몸/외과: 스케일링, 잇몸, 치주염, 사랑니, 턱관절, 이갈이</p>
+</code></pre>
+
+<h3>모바일 하단 고정 CTA Bar</h3>
+
+<pre><code class="language-">[전화] [카카오톡] [예약하기(강조)] [오시는 길]
+</code></pre>
+
+<h3>데스크톱 플로팅 CTA</h3>
+
+<pre><code class="language-">(우측 하단)
+<p>[↑ 맨 위로]</p>
+<p>[카카오톡 상담]</p>
+<p>[전화 상담]</p>
+</code></pre>
+
+<h3>페이지별 CTA 배치 기준</h3>
+
+<table>
+<thead><tr><th>위치</th><th>CTA 유형</th><th>필수 여부</th></tr></thead>
+<tbody>
+<tr><td>헤더</td><td>전화 + 예약 버튼</td><td>★★★★★ 필수</td></tr>
+<tr><td>히어로 섹션</td><td>상담 예약 + 전화</td><td>★★★★★ 필수</td></tr>
+<tr><td>본문 중간</td><td>네이버 예약 + 카카오</td><td>★★★★☆ 권장</td></tr>
+<tr><td>하단 CTA 섹션</td><td>네이버 예약 + 카카오 + 전화</td><td>★★★★★ 필수</td></tr>
+<tr><td>모바일 하단 고정</td><td>전화 + 카카오 + 예약 + 길찾기</td><td>★★★★★ 필수</td></tr>
+<tr><td>데스크톱 플로팅</td><td>카카오 + 전화 + 맨위로</td><td>★★★★☆ 권장</td></tr>
+<tr><td>푸터</td><td>전화 + 주소 + 소셜</td><td>★★★★★ 필수</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>3. 페이지별 상세 기획</h1>
+
+<h2>3.1 메인 페이지 (<code>/</code>)</h2>
+
+<h3>필수 섹션 (순서대로)</h3>
+
+<table>
+<thead><tr><th>순서</th><th>섹션</th><th>내용</th><th>목적</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>히어로</strong></td><td>핵심 메시지 + 대표 이미지 + CTA</td><td>첫인상 (3초 승부)</td></tr>
+<tr><td>2</td><td><strong>운영 상태 배지</strong></td><td>"오늘 20시까지 진료" (실시간)</td><td>즉시 행동 유도</td></tr>
+<tr><td>3</td><td><strong>핵심 차별점 카드</strong></td><td>3~6개 키워드 (예: 서울대 15인, 365일, 6개 수술실)</td><td>비교 우위</td></tr>
+<tr><td>4</td><td><strong>주력 치료 소개</strong></td><td>상위 4~6개 치료 카드</td><td>탐색 유도</td></tr>
+<tr><td>5</td><td><strong>의료진 소개</strong></td><td>대표원장 + 주요 의사 3~5명</td><td>신뢰 구축</td></tr>
+<tr><td>6</td><td><strong>Before/After</strong></td><td>치료 사례 슬라이더</td><td>실력 증명</td></tr>
+<tr><td>7</td><td><strong>리뷰 & 평점</strong></td><td>구글/네이버 실시간 리뷰 + 통계</td><td>사회적 증거</td></tr>
+<tr><td>8</td><td><strong>실시간 구글 리뷰</strong></td><td>API 연동 실제 리뷰 로딩</td><td>신뢰 극대화</td></tr>
+<tr><td>9</td><td><strong>비용 미리보기</strong></td><td>주요 치료 가격대</td><td>가격 투명성</td></tr>
+<tr><td>10</td><td><strong>FAQ 미리보기</strong></td><td>상위 3~5개 질문</td><td>의문 해소</td></tr>
+<tr><td>11</td><td><strong>콘텐츠 (칼럼/영상)</strong></td><td>최신 글/영상 3개</td><td>전문성</td></tr>
+<tr><td>12</td><td><strong>최종 CTA</strong></td><td>"지금 바로 상담 받아보세요"</td><td>전환</td></tr>
+<tr><td>13</td><td><strong>푸터</strong></td><td>병원 정보 + 진료시간 + 법적 고지</td><td>정보</td></tr>
+</tbody>
+</table>
+<h3>히어로 섹션 설계 기준</h3>
+
+<pre><code class="language-">┌─────────────────────────────────────────────────────────┐
+<p>│  [운영 배지: "오늘 20시까지 진료중"]                        │</p>
+<p>│                                                          │</p>
+<p>│  [서브타이틀: 천안 불당동]                                  │</p>
+<p>│  [메인 카피: "과잉진료 없는 양심치과"]                       │</p>
+<p>│  [서브 카피: 서울대 15인 원장 협진 · 365일 진료]             │</p>
+<p>│                                                          │</p>
+<p>│  [통계 뱃지: 서울대 15인 | 365일 | 야간 20시 | 6개 수술실]  │</p>
+<p>│                                                          │</p>
+<p>│  [ 상담 예약하기 (주CTA) ]  [ 비용 안내 (보조CTA) ]         │</p>
+<p>│                                                          │</p>
+<p>│  🏆 네이버 4.85  ⭐ 구글 4.9  ❤️ 만족도 98%               │</p>
+<p>└─────────────────────────────────────────────────────────┘</p>
+</code></pre>
+
+<h2>3.2 치료 상세 페이지 (<code>/treatments/{치료명}</code>)</h2>
+
+<h3>필수 섹션 (24개 모든 치료페이지 동일 구조)</h3>
+
+<table>
+<thead><tr><th>순서</th><th>섹션</th><th>내용</th><th>목적</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>히어로</strong></td><td>감성 카피 + 치료 정의 설명박스</td><td>공감 + 교육</td></tr>
+<tr><td>2</td><td><strong>고민 공감</strong></td><td>"혹시 이런 고민?" 3~4개</td><td>환자 감정 연결</td></tr>
+<tr><td>3</td><td><strong>치료 종류</strong></td><td>세부 옵션 카드 (예: 수면/비절개/네비게이션)</td><td>전문성</td></tr>
+<tr><td>4</td><td><strong>우리 병원 차별점</strong></td><td>왜 여기서? 4~6개 포인트</td><td>비교 우위</td></tr>
+<tr><td>5</td><td><strong>치료 과정</strong></td><td>단계별 설명 (HowTo)</td><td>불안 해소</td></tr>
+<tr><td>6</td><td><strong>담당 의료진</strong></td><td>해당 치료 전문 의사</td><td>신뢰</td></tr>
+<tr><td>7</td><td><strong>FAQ</strong></td><td>치료별 자주 묻는 질문 5~8개</td><td>의문 해소</td></tr>
+<tr><td>8</td><td><strong>최종 CTA</strong></td><td>상담 예약 + 비용 안내 링크</td><td>전환</td></tr>
+</tbody>
+</table>
+<h3>치료 페이지 카피라이팅 공식</h3>
+
+<pre><code class="language-">히어로 헤드라인 = [환자의 두려움/고민을 대변하는 문장]
+<p>                 + [우리가 해결하겠다는 약속]</p>
+
+<p>예시:</p>
+<p>- 임플란트: "다른 곳에서 안 된다고요?" → "저희가 해드리겠습니다"</p>
+<p>- 교정: "교정은 아프고 티나잖아요" → "투명하게, 편안하게"</p>
+<p>- 소아: "우리 아이가 치과를 무서워해요" → "놀이처럼 즐거운 진료"</p>
+</code></pre>
+
+<h2>3.3 의사 프로필 페이지 (<code>/doctors/{이름}</code>)</h2>
+
+<h3>필수 구성요소</h3>
+
+<table>
+<thead><tr><th>요소</th><th>내용</th><th>중요도</th></tr></thead>
+<tbody>
+<tr><td><strong>프로필 사진</strong></td><td>고화질 전문 촬영 사진</td><td>★★★★★</td></tr>
+<tr><td><strong>이름 + 직함</strong></td><td>"문석준 대표원장"</td><td>★★★★★</td></tr>
+<tr><td><strong>학력</strong></td><td>서울대 치의학과, 석사 등</td><td>★★★★★</td></tr>
+<tr><td><strong>자격/전문의</strong></td><td>통합치의학과 전문의 등</td><td>★★★★★</td></tr>
+<tr><td><strong>경력</strong></td><td>주요 이력 연도순</td><td>★★★★☆</td></tr>
+<tr><td><strong>전문 분야</strong></td><td>임플란트, 심미보철 등</td><td>★★★★★</td></tr>
+<tr><td><strong>학회/논문</strong></td><td>소속 학회, 발표 이력</td><td>★★★☆☆</td></tr>
+<tr><td><strong>소개 영상</strong></td><td>유튜브 임베드</td><td>★★★★☆</td></tr>
+<tr><td><strong>진료 사진</strong></td><td>실제 진료 모습</td><td>★★★★☆</td></tr>
+<tr><td><strong>담당 치료 링크</strong></td><td>관련 치료페이지 연결</td><td>★★★★★</td></tr>
+<tr><td><strong>인간적 스토리</strong></td><td>철학, 환자에 대한 생각</td><td>★★★★☆</td></tr>
+</tbody>
+</table>
+<h2>3.4 지역 SEO 페이지 (<code>/area/{지역명}</code>)</h2>
+
+<h3>목적</h3>
+
+<p>병원에서 <strong>차로 30분 이내</strong> 도달 가능한 모든 지역에 대해 개별 랜딩 페이지를 제작.</p>
+<p>"{지역} 치과" 검색 시 노출을 노림.</p>
+
+<h3>필수 섹션</h3>
+
+<table>
+<thead><tr><th>순서</th><th>섹션</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>히어로</td><td>"{지역}에서 서울비디치과까지 차로 {N}분"</td></tr>
+<tr><td>2</td><td>왜 이 병원인가</td><td>차별점 6~8개</td></tr>
+<tr><td>3</td><td>대표 치료 소개</td><td>4~6개 치료 카드</td></tr>
+<tr><td>4</td><td>교통 안내</td><td>해당 지역에서 오는 방법 (자가용/대중교통)</td></tr>
+<tr><td>5</td><td>실제 환자 리뷰</td><td>"{지역}에서 오셨습니다" 리뷰</td></tr>
+<tr><td>6</td><td>지도</td><td>구글맵/네이버맵 임베드</td></tr>
+<tr><td>7</td><td>CTA</td><td>예약 + 전화 + 카카오</td></tr>
+</tbody>
+</table>
+<h3>지역 선정 기준</h3>
+
+<pre><code class="language-">1순위: 병원 소재 도시 내 주요 동/구 (예: 불당동, 성정동)
+<p>2순위: 인접 도시 (예: 아산, 세종)</p>
+<p>3순위: 차로 30분 거리 (예: 대전, 청주, 평택)</p>
+<p>4순위: 차로 1시간 거리 (예: 충주, 안성) — 전문 치료(임플란트/교정) 한정</p>
+</code></pre>
+
+<h2>3.5 예약/상담 페이지 (<code>/reservation</code>)</h2>
+
+<h3>필수 구성</h3>
+
+<table>
+<thead><tr><th>요소</th><th>내용</th><th>중요도</th></tr></thead>
+<tbody>
+<tr><td><strong>빠른 연락</strong></td><td>전화/카카오/네이버 예약 3종</td><td>★★★★★</td></tr>
+<tr><td><strong>온라인 폼</strong></td><td>단계별 예약 폼</td><td>★★★★★</td></tr>
+<tr><td><strong>진료시간</strong></td><td>요일별 시간 + 공휴일</td><td>★★★★★</td></tr>
+<tr><td><strong>지도</strong></td><td>네이버/구글/카카오 맵 링크</td><td>★★★★☆</td></tr>
+</tbody>
+</table>
+<h3>예약 폼 필드</h3>
+
+<pre><code class="language-">Step 1: 진료 선택
+<p>  - 치료 종류 (임플란트/교정/일반진료/검진/기타)</p>
+
+<p>Step 2: 정보 입력</p>
+<p>  - 이름 (필수)</p>
+<p>  - 연락처 (필수)</p>
+<p>  - 희망 날짜 (필수)</p>
+<p>  - 희망 시간대 (필수)</p>
+<p>  - 특이사항 (선택)</p>
+
+<p>Step 3: 확인 및 제출</p>
+</code></pre>
+
+<h2>3.6 비용 안내 페이지 (<code>/pricing</code>)</h2>
+
+<h3>필수 요소</h3>
+
+<table>
+<thead><tr><th>요소</th><th>내용</th><th>중요도</th></tr></thead>
+<tbody>
+<tr><td><strong>치료별 가격대</strong></td><td>범위로 표시 (예: 80~150만원)</td><td>★★★★★</td></tr>
+<tr><td><strong>보험 적용 여부</strong></td><td>건강보험/비급여 구분</td><td>★★★★★</td></tr>
+<tr><td><strong>법적 고지</strong></td><td>"정확한 비용은 진단 후 안내"</td><td>★★★★★</td></tr>
+<tr><td><strong>카드 결제/분할</strong></td><td>할부 옵션 안내</td><td>★★★★☆</td></tr>
+<tr><td><strong>비용 비교표</strong></td><td>치료 옵션 간 비교</td><td>★★★☆☆</td></tr>
+</tbody>
+</table>
+<h3>의료법 주의사항</h3>
+
+<blockquote><p><strong>의료법 시행규칙 제42조의2</strong>: 비급여 진료비용을 홈페이지에 공개해야 함.
+<p>단, 할인/이벤트 가격 표시 시 의료광고 심의 기준 준수 필수.</p></blockquote></p>
+
+<h2>3.7 비포/애프터 갤러리 (<code>/cases/gallery</code>)</h2>
+
+<h3>필수 기능</h3>
+
+<table>
+<thead><tr><th>기능</th><th>설명</th><th>중요도</th></tr></thead>
+<tbody>
+<tr><td><strong>카테고리 필터</strong></td><td>임플란트/교정/심미/미백/잇몸</td><td>★★★★★</td></tr>
+<tr><td><strong>Before/After 슬라이더</strong></td><td>좌우 드래그 비교</td><td>★★★★★</td></tr>
+<tr><td><strong>케이스 상세</strong></td><td>치료 기간, 담당 의사, 설명</td><td>★★★★☆</td></tr>
+<tr><td><strong>담당의 링크</strong></td><td>해당 의사 프로필로 이동</td><td>★★★★☆</td></tr>
+<tr><td><strong>동의 안내</strong></td><td>환자 동의 하에 게시</td><td>★★★★★ (법적 필수)</td></tr>
+<tr><td><strong>갤러리 통계</strong></td><td>"총 N건의 치료 사례"</td><td>★★★☆☆</td></tr>
+</tbody>
+</table>
+<h3>의료법 주의사항</h3>
+
+<blockquote><p>- 환자 서면 동의 필수 (개인정보보호법)
+<ul>
+<li>치료 전후 사진은 <strong>동일 조건</strong>(조명, 각도)에서 촬영</li>
+<li>"개인에 따라 결과가 다를 수 있습니다" 고지 필수</li>
+<li>과장/허위 사례 금지</p></blockquote></li>
+</ul>
+
+<hr>
+
+<h1>4. UI/UX 설계 기준</h1>
+
+<h2>4.1 디자인 시스템</h2>
+
+<h3>컬러 팔레트</h3>
+
+<table>
+<thead><tr><th>용도</th><th>색상</th><th>역할</th></tr></thead>
+<tbody>
+<tr><td><strong>프라이머리</strong></td><td>병원 대표색 (예: #C9A962 골드)</td><td>브랜드 아이덴티티</td></tr>
+<tr><td><strong>세컨더리</strong></td><td>보조색 (예: #0369a1 블루)</td><td>액센트, 링크</td></tr>
+<tr><td><strong>배경</strong></td><td>다크/라이트 (예: #0a0908 / #FFFFFF)</td><td>기본 배경</td></tr>
+<tr><td><strong>텍스트</strong></td><td>메인/서브 (예: #1a1a1a / #666666)</td><td>가독성</td></tr>
+<tr><td><strong>CTA</strong></td><td>강조색 (예: #C9A962 골드)</td><td>버튼, 전환 유도</td></tr>
+<tr><td><strong>성공/경고/에러</strong></td><td>녹/노/적</td><td>상태 표시</td></tr>
+</tbody>
+</table>
+<h3>타이포그래피</h3>
+
+<table>
+<thead><tr><th>용도</th><th>폰트</th><th>사이즈</th></tr></thead>
+<tbody>
+<tr><td><strong>한글</strong></td><td>Pretendard (CDN)</td><td>14-48px</td></tr>
+<tr><td><strong>영문</strong></td><td>Pretendard / 시스템 폰트</td><td>14-48px</td></tr>
+<tr><td><strong>h1</strong></td><td>Bold 36-48px</td><td>페이지 타이틀</td></tr>
+<tr><td><strong>h2</strong></td><td>Bold 28-36px</td><td>섹션 타이틀</td></tr>
+<tr><td><strong>h3</strong></td><td>Semi-Bold 20-24px</td><td>서브 타이틀</td></tr>
+<tr><td><strong>본문</strong></td><td>Regular 15-16px, line-height 1.7</td><td>기본 텍스트</td></tr>
+</tbody>
+</table>
+<h3>아이콘</h3>
+
+<table>
+<thead><tr><th>라이브러리</th><th>용도</th></tr></thead>
+<tbody>
+<tr><td><strong>Font Awesome 6.4</strong> (CDN)</td><td>UI 아이콘 전체</td></tr>
+<tr><td><strong>커스텀 SVG</strong></td><td>로고, 특수 아이콘</td></tr>
+</tbody>
+</table>
+<h2>4.2 반응형 브레이크포인트</h2>
+
+<table>
+<thead><tr><th>디바이스</th><th>너비</th><th>레이아웃</th></tr></thead>
+<tbody>
+<tr><td>모바일</td><td>~767px</td><td>1열, 하단 고정 CTA</td></tr>
+<tr><td>태블릿</td><td>768~1023px</td><td>2열</td></tr>
+<tr><td>데스크톱</td><td>1024px~</td><td>3~4열, 플로팅 CTA</td></tr>
+</tbody>
+</table>
+<h3>모바일 퍼스트 필수 요소</h3>
+
+<table>
+<thead><tr><th>요소</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>하단 고정 CTA</strong></td><td>전화/카카오/예약/길찾기 4버튼</td></tr>
+<tr><td><strong>터치 타겟</strong></td><td>최소 44x44px</td></tr>
+<tr><td><strong>전화번호 터치</strong></td><td><code>tel:</code> 링크 필수</td></tr>
+<tr><td><strong>폰트 크기</strong></td><td>최소 14px (읽기 편한 16px 권장)</td></tr>
+<tr><td><strong>이미지 최적화</strong></td><td>WebP, lazy loading</td></tr>
+<tr><td><strong>스크롤 애니메이션</strong></td><td>과도하지 않게 (성능)</td></tr>
+</tbody>
+</table>
+<h2>4.3 접근성 (A11y)</h2>
+
+<table>
+<thead><tr><th>항목</th><th>기준</th><th>구현 방법</th></tr></thead>
+<tbody>
+<tr><td><strong>ARIA 라벨</strong></td><td>모든 인터랙티브 요소</td><td><code>aria-label</code> 속성</td></tr>
+<tr><td><strong>키보드 네비게이션</strong></td><td>Tab 순서 보장</td><td>시맨틱 HTML</td></tr>
+<tr><td><strong>색상 대비</strong></td><td>4.5:1 이상</td><td>WCAG 2.1 AA</td></tr>
+<tr><td><strong>이미지 alt</strong></td><td>모든 이미지에 설명</td><td><code>alt</code> 속성</td></tr>
+<tr><td><strong>포커스 표시</strong></td><td>키보드 포커스 시각적 표시</td><td><code>:focus-visible</code></td></tr>
+<tr><td><strong>건너뛰기 링크</strong></td><td>"본문 바로가기"</td><td>skip-link</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>5. SEO 인프라 체크리스트</h1>
+
+<h2>5.1 온페이지 SEO (모든 페이지 공통)</h2>
+
+<h3>HTML Head 필수 태그</h3>
+
+<pre><code class="language-html">&lt;!-- 1. 기본 메타 --&gt;
+<p>&lt;title&gt;{페이지 제목} | {병원명}&lt;/title&gt;</p>
+<p>&lt;meta name="description" content="{150자 이내 설명}"&gt;</p>
+<p>&lt;meta name="keywords" content="{핵심 키워드 5-10개}"&gt;</p>
+<p>&lt;meta name="author" content="{병원명}"&gt;</p>
+<p>&lt;meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"&gt;</p>
+
+<p>&lt;!-- 2. 정규화 --&gt;</p>
+<p>&lt;link rel="canonical" href="https://{도메인}/{경로}"&gt;</p>
+
+<p>&lt;!-- 3. 지역 SEO (Geo 태그) --&gt;</p>
+<p>&lt;meta name="geo.region" content="KR-{지역코드}"&gt;</p>
+<p>&lt;meta name="geo.placename" content="{도시명}, {도명}"&gt;</p>
+<p>&lt;meta name="geo.position" content="{위도};{경도}"&gt;</p>
+
+<p>&lt;!-- 4. AI 검색 최적화 (AEO/GEO) --&gt;</p>
+<p>&lt;meta name="subject" content="{주제}"&gt;</p>
+<p>&lt;meta name="abstract" content="{50자 요약}"&gt;</p>
+<p>&lt;meta name="ai.summary" content="{AI용 200자 요약}"&gt;</p>
+
+<p>&lt;!-- 5. Open Graph (소셜 공유) --&gt;</p>
+<p>&lt;meta property="og:type" content="website"&gt;</p>
+<p>&lt;meta property="og:site_name" content="{병원명}"&gt;</p>
+<p>&lt;meta property="og:title" content="{제목}"&gt;</p>
+<p>&lt;meta property="og:description" content="{설명}"&gt;</p>
+<p>&lt;meta property="og:url" content="{URL}"&gt;</p>
+<p>&lt;meta property="og:image" content="{1200x630 이미지}"&gt;</p>
+<p>&lt;meta property="og:locale" content="ko_KR"&gt;</p>
+
+<p>&lt;!-- 6. Twitter Card --&gt;</p>
+<p>&lt;meta name="twitter:card" content="summary_large_image"&gt;</p>
+<p>&lt;meta name="twitter:title" content="{제목}"&gt;</p>
+<p>&lt;meta name="twitter:description" content="{설명}"&gt;</p>
+<p>&lt;meta name="twitter:image" content="{이미지}"&gt;</p>
+
+<p>&lt;!-- 7. 검색엔진 인증 --&gt;</p>
+<p>&lt;meta name="google-site-verification" content="{코드}"&gt;</p>
+<p>&lt;meta name="naver-site-verification" content="{코드}"&gt;</p>
+</code></pre>
+
+<h3>체크리스트 요약</h3>
+
+<table>
+<thead><tr><th>#</th><th>항목</th><th>필수</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>고유한 <code><title></code> 태그 (60자 이내)</td><td>★★★★★</td><td>☐</td></tr>
+<tr><td>2</td><td>고유한 <code><meta description></code> (150자 이내)</td><td>★★★★★</td><td>☐</td></tr>
+<tr><td>3</td><td><code><link rel="canonical"></code></td><td>★★★★★</td><td>☐</td></tr>
+<tr><td>4</td><td><code><meta name="robots"></code></td><td>★★★★★</td><td>☐</td></tr>
+<tr><td>5</td><td>Open Graph 태그 6종</td><td>★★★★☆</td><td>☐</td></tr>
+<tr><td>6</td><td>Twitter Card 태그 3종</td><td>★★★☆☆</td><td>☐</td></tr>
+<tr><td>7</td><td>Geo 태그 3종</td><td>★★★★☆</td><td>☐</td></tr>
+<tr><td>8</td><td>AI Summary 태그</td><td>★★★★☆</td><td>☐</td></tr>
+<tr><td>9</td><td>Google/Naver 인증 코드</td><td>★★★★★</td><td>☐</td></tr>
+<tr><td>10</td><td>H1 태그 (페이지당 1개)</td><td>★★★★★</td><td>☐</td></tr>
+<tr><td>11</td><td>H2-H3 계층 구조</td><td>★★★★☆</td><td>☐</td></tr>
+<tr><td>12</td><td>이미지 alt 태그</td><td>★★★★☆</td><td>☐</td></tr>
+<tr><td>13</td><td>내부 링크</td><td>★★★★☆</td><td>☐</td></tr>
+<tr><td>14</td><td><code>lang="ko"</code> 속성</td><td>★★★★★</td><td>☐</td></tr>
+</tbody>
+</table>
+<h2>5.2 기술적 SEO</h2>
+
+<h3>필수 파일</h3>
+
+<table>
+<thead><tr><th>파일</th><th>경로</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td><strong>sitemap.xml</strong></td><td><code>/sitemap.xml</code></td><td>모든 URL + lastmod + priority</td></tr>
+<tr><td><strong>robots.txt</strong></td><td><code>/robots.txt</code></td><td>허용/차단 규칙 + 사이트맵 경로</td></tr>
+<tr><td><strong>IndexNow 키</strong></td><td><code>/{key}.txt</code></td><td>Bing/Naver 즉시 색인</td></tr>
+<tr><td><strong>manifest.json</strong></td><td><code>/manifest.json</code></td><td>PWA 설정</td></tr>
+<tr><td><strong>favicon</strong></td><td><code>/images/icons/</code></td><td>다양한 크기 아이콘</td></tr>
+</tbody>
+</table>
+<h3>sitemap.xml 기준</h3>
+
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+<p>&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;</p>
+<p>  &lt;url&gt;</p>
+<p>    &lt;loc&gt;https://{도메인}/&lt;/loc&gt;</p>
+<p>    &lt;lastmod&gt;2026-02-17&lt;/lastmod&gt;</p>
+<p>    &lt;changefreq&gt;weekly&lt;/changefreq&gt;</p>
+<p>    &lt;priority&gt;1.0&lt;/priority&gt;</p>
+<p>  &lt;/url&gt;</p>
+<p>  &lt;!-- 치료 페이지: priority 0.9 --&gt;</p>
+<p>  &lt;!-- 의사 페이지: priority 0.8 --&gt;</p>
+<p>  &lt;!-- 지역 페이지: priority 0.7 --&gt;</p>
+<p>  &lt;!-- 콘텐츠 페이지: priority 0.6 --&gt;</p>
+<p>  &lt;!-- 법적/기타: priority 0.3 --&gt;</p>
+<p>&lt;/urlset&gt;</p>
+</code></pre>
+
+<h3>robots.txt 기준</h3>
+
+<pre><code class="language-">User-agent: *
+<p>Allow: /</p>
+<p>Disallow: /admin/</p>
+<p>Disallow: /auth/</p>
+<p>Disallow: /api/</p>
+<p>Disallow: /_worker.js</p>
+
+<p>Sitemap: https://{도메인}/sitemap.xml</p>
+</code></pre>
+
+<h2>5.3 URL 설계 원칙</h2>
+
+<table>
+<thead><tr><th>규칙</th><th>좋은 예</th><th>나쁜 예</th></tr></thead>
+<tbody>
+<tr><td><strong>영문 소문자</strong></td><td><code>/treatments/implant</code></td><td><code>/Treatments/Implant</code></td></tr>
+<tr><td><strong>하이픈 구분</strong></td><td><code>/root-canal</code></td><td><code>/root_canal</code></td></tr>
+<tr><td><strong>.html 제거</strong></td><td><code>/treatments/implant</code></td><td><code>/treatments/implant.html</code></td></tr>
+<tr><td><strong>짧고 명확</strong></td><td><code>/pricing</code></td><td><code>/price-information-page</code></td></tr>
+<tr><td><strong>계층적</strong></td><td><code>/area/cheonan</code></td><td><code>/cheonan-dental</code></td></tr>
+<tr><td><strong>한글 금지</strong></td><td><code>/doctors/moon</code></td><td><code>/doctors/문석준</code></td></tr>
+</tbody>
+</table>
+<h3>Clean URL 리다이렉트</h3>
+
+<table>
+<thead><tr><th>실제 파일</th><th>Clean URL</th><th>방법</th></tr></thead>
+<tbody>
+<tr><td><code>treatments/implant.html</code></td><td><code>/treatments/implant</code></td><td>서버 라우팅</td></tr>
+<tr><td><code>doctors/moon.html</code></td><td><code>/doctors/moon</code></td><td>서버 라우팅</td></tr>
+<tr><td><code>reservation.html</code></td><td><code>/reservation</code></td><td>서버 라우팅</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>6. 구조화 데이터 (Schema.org)</h1>
+
+<h2>6.1 필수 스키마 목록</h2>
+
+<h3>모든 페이지 공통</h3>
+
+<table>
+<thead><tr><th>스키마</th><th>용도</th><th>검색 결과 효과</th></tr></thead>
+<tbody>
+<tr><td><strong>Dentist</strong> (또는 MedicalBusiness)</td><td>병원 기본 정보</td><td>지식패널, 지도</td></tr>
+<tr><td><strong>BreadcrumbList</strong></td><td>경로 표시</td><td>사이트 계층 표시</td></tr>
+<tr><td><strong>WebSite + SearchAction</strong></td><td>사이트 검색</td><td>검색창 표시</td></tr>
+<tr><td><strong>SpeakableSpecification</strong></td><td>음성 검색 대응</td><td>AI 스피커 대응</td></tr>
+</tbody>
+</table>
+<h3>치료 페이지 전용</h3>
+
+<table>
+<thead><tr><th>스키마</th><th>용도</th><th>검색 결과 효과</th></tr></thead>
+<tbody>
+<tr><td><strong>MedicalWebPage</strong></td><td>의료 페이지 표시</td><td>의료 정보 배지</td></tr>
+<tr><td><strong>MedicalProcedure</strong></td><td>시술 정보</td><td>치료 리치스니펫</td></tr>
+<tr><td><strong>MedicalTherapy</strong></td><td>치료법 상세</td><td>적응증/금기</td></tr>
+<tr><td><strong>HowTo + HowToStep</strong></td><td>치료 과정</td><td>단계별 리치스니펫</td></tr>
+<tr><td><strong>FAQPage + Q&A</strong></td><td>FAQ</td><td>FAQ 리치스니펫</td></tr>
+<tr><td><strong>AggregateOffer</strong></td><td>가격 범위</td><td>가격 리치스니펫</td></tr>
+<tr><td><strong>AggregateRating</strong></td><td>평점</td><td>별점 표시</td></tr>
+<tr><td><strong>Product</strong> (치료 서비스)</td><td>서비스 정보</td><td>제품 패널</td></tr>
+</tbody>
+</table>
+<h3>의사 페이지 전용</h3>
+
+<table>
+<thead><tr><th>스키마</th><th>용도</th></tr></thead>
+<tbody>
+<tr><td><strong>Person</strong></td><td>의사 기본 정보</td></tr>
+<tr><td><strong>EducationalOccupationalCredential</strong></td><td>학력/자격</td></tr>
+<tr><td><strong>CollegeOrUniversity</strong></td><td>출신 대학</td></tr>
+<tr><td><strong>Organization</strong></td><td>소속 학회</td></tr>
+</tbody>
+</table>
+<h3>지역 페이지 전용</h3>
+
+<table>
+<thead><tr><th>스키마</th><th>용도</th></tr></thead>
+<tbody>
+<tr><td><strong>Dentist + areaServed</strong></td><td>진료 권역</td></tr>
+<tr><td><strong>City</strong></td><td>서비스 대상 도시</td></tr>
+<tr><td><strong>OpeningHoursSpecification</strong></td><td>영업시간</td></tr>
+</tbody>
+</table>
+<h2>6.2 Dentist 스키마 템플릿</h2>
+
+<pre><code class="language-json">{
+<p>  "@context": "https://schema.org",</p>
+<p>  "@type": "Dentist",</p>
+<p>  "name": "{병원명}",</p>
+<p>  "alternateName": "{영문명}",</p>
+<p>  "url": "https://{도메인}/",</p>
+<p>  "telephone": "{전화번호}",</p>
+<p>  "image": "https://{도메인}/images/og-image.jpg",</p>
+<p>  "logo": "https://{도메인}/images/icons/icon-512x512.svg",</p>
+<p>  "address": {</p>
+<p>    "@type": "PostalAddress",</p>
+<p>    "streetAddress": "{상세주소}",</p>
+<p>    "addressLocality": "{시/군}",</p>
+<p>    "addressRegion": "{도}",</p>
+<p>    "postalCode": "{우편번호}",</p>
+<p>    "addressCountry": "KR"</p>
+<p>  },</p>
+<p>  "geo": {</p>
+<p>    "@type": "GeoCoordinates",</p>
+<p>    "latitude": "{위도}",</p>
+<p>    "longitude": "{경도}"</p>
+<p>  },</p>
+<p>  "openingHoursSpecification": [</p>
+<p>    {</p>
+<p>      "@type": "OpeningHoursSpecification",</p>
+<p>      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],</p>
+<p>      "opens": "09:00",</p>
+<p>      "closes": "20:00"</p>
+<p>    }</p>
+<p>  ],</p>
+<p>  "aggregateRating": {</p>
+<p>    "@type": "AggregateRating",</p>
+<p>    "ratingValue": "{평점}",</p>
+<p>    "reviewCount": "{리뷰수}",</p>
+<p>    "bestRating": "5"</p>
+<p>  },</p>
+<p>  "sameAs": [</p>
+<p>    "{네이버 플레이스 URL}",</p>
+<p>    "{유튜브 URL}",</p>
+<p>    "{카카오톡 URL}"</p>
+<p>  ],</p>
+<p>  "areaServed": [</p>
+<p>    {"@type": "City", "name": "{서비스 지역1}"},</p>
+<p>    {"@type": "City", "name": "{서비스 지역2}"}</p>
+<p>  ],</p>
+<p>  "hasMap": "{지도 URL}",</p>
+<p>  "priceRange": "₩₩-₩₩₩₩"</p>
+<p>}</p>
+</code></pre>
+
+<h2>6.3 JSON-LD 항목 수 기준</h2>
+
+<table>
+<thead><tr><th>사이트 규모</th><th>JSON-LD 항목 수</th><th>참고</th></tr></thead>
+<tbody>
+<tr><td>소규모 (20페이지)</td><td>40-60개</td><td>기본</td></tr>
+<tr><td><strong>중규모 (80페이지)</strong></td><td><strong>130-150개</strong></td><td><strong>bdbddc.com 기준: 134개</strong></td></tr>
+<tr><td>대규모 (200페이지+)</td><td>300개+</td><td>대형 병원</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>7. 마케팅 & 전환 인프라</h1>
+
+<h2>7.1 필수 마케팅 도구</h2>
+
+<table>
+<thead><tr><th>도구</th><th>용도</th><th>구현 방법</th><th>우선순위</th></tr></thead>
+<tbody>
+<tr><td><strong>Google Tag Manager</strong></td><td>태그 통합 관리</td><td><code><head></code> + <code><body></code> 스니펫</td><td>★★★★★</td></tr>
+<tr><td><strong>Google Analytics 4</strong></td><td>트래픽 분석</td><td>GTM으로 관리</td><td>★★★★★</td></tr>
+<tr><td><strong>Amplitude</strong></td><td>사용자 행동 분석</td><td>JS SDK</td><td>★★★★☆</td></tr>
+<tr><td><strong>Google Search Console</strong></td><td>검색 성능</td><td>인증 메타태그</td><td>★★★★★</td></tr>
+<tr><td><strong>Naver Search Advisor</strong></td><td>네이버 검색</td><td>인증 메타태그</td><td>★★★★★</td></tr>
+<tr><td><strong>Bing Webmaster</strong></td><td>Bing 검색</td><td>IndexNow 연동</td><td>★★★★☆</td></tr>
+</tbody>
+</table>
+<h2>7.2 이벤트 트래킹 (9대 핵심 이벤트)</h2>
+
+<table>
+<thead><tr><th>#</th><th>이벤트</th><th>트리거</th><th>수집 데이터</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>reservation_click</strong></td><td>예약 버튼 클릭</td><td>페이지, 소스(네이버/카카오/온라인)</td></tr>
+<tr><td>2</td><td><strong>phone_click</strong></td><td>전화번호 클릭</td><td>페이지, 디바이스</td></tr>
+<tr><td>3</td><td><strong>kakao_click</strong></td><td>카카오톡 버튼 클릭</td><td>페이지</td></tr>
+<tr><td>4</td><td><strong>map_click</strong></td><td>지도/길찾기 클릭</td><td>페이지, 맵 종류</td></tr>
+<tr><td>5</td><td><strong>treatment_view</strong></td><td>치료 페이지 조회</td><td>치료명, 체류시간</td></tr>
+<tr><td>6</td><td><strong>doctor_view</strong></td><td>의사 페이지 조회</td><td>의사명</td></tr>
+<tr><td>7</td><td><strong>pricing_view</strong></td><td>비용 페이지 조회</td><td>체류시간</td></tr>
+<tr><td>8</td><td><strong>scroll_depth</strong></td><td>스크롤 25/50/75/100%</td><td>페이지, 깊이</td></tr>
+<tr><td>9</td><td><strong>cta_click</strong></td><td>CTA 버튼 클릭</td><td>CTA 유형, 위치</td></tr>
+</tbody>
+</table>
+<h2>7.3 전환 최적화 요소</h2>
+
+<h3>CTA 버튼 우선순위</h3>
+
+<table>
+<thead><tr><th>순위</th><th>CTA</th><th>이유</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>전화</strong></td><td>가장 높은 전환율, 긴급 환자</td></tr>
+<tr><td>2</td><td><strong>카카오톡</strong></td><td>한국 사용자 선호, 부담 적음</td></tr>
+<tr><td>3</td><td><strong>네이버 예약</strong></td><td>네이버 리뷰와 연동</td></tr>
+<tr><td>4</td><td><strong>온라인 폼</strong></td><td>야간/주말 비대면 예약</td></tr>
+<tr><td>5</td><td><strong>길찾기</strong></td><td>방문 의사 확인된 환자</td></tr>
+</tbody>
+</table>
+<h3>구글 비즈니스 프로필 연동</h3>
+
+<table>
+<thead><tr><th>항목</th><th>내용</th><th>구현</th></tr></thead>
+<tbody>
+<tr><td><strong>실시간 리뷰</strong></td><td>Google Places API</td><td><code>/api/google-reviews</code></td></tr>
+<tr><td><strong>평점 표시</strong></td><td>별점 + 리뷰 수</td><td>메인 페이지</td></tr>
+<tr><td><strong>리뷰 작성 유도</strong></td><td>"구글 리뷰 남기기" 버튼</td><td>하단 CTA</td></tr>
+<tr><td><strong>예약 버튼</strong></td><td>GBP → reservation 연결</td><td>GBP 설정</td></tr>
+</tbody>
+</table>
+<h2>7.4 콘텐츠 시스템</h2>
+
+<h3>InBlog/블로그 RSS 연동</h3>
+
+<table>
+<thead><tr><th>항목</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>RSS 프록시</strong></td><td><code>/api/inblog-rss</code> → 칼럼 페이지에 표시</td></tr>
+<tr><td><strong>YouTube RSS</strong></td><td><code>/api/youtube-rss</code> → 영상 페이지에 표시</td></tr>
+<tr><td><strong>자동 업데이트</strong></td><td>블로그/유튜브 새 글 → 사이트 자동 반영</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>8. 다국어 지원</h1>
+
+<h2>8.1 Weglot 자동 번역</h2>
+
+<table>
+<thead><tr><th>항목</th><th>설정</th></tr></thead>
+<tbody>
+<tr><td><strong>서비스</strong></td><td>Weglot (weglot.com)</td></tr>
+<tr><td><strong>구현</strong></td><td>JS 1줄 (<code><head></code> 내 삽입)</td></tr>
+<tr><td><strong>URL 구조</strong></td><td>서브디렉토리 (예: <code>/en/</code>, <code>/vi/</code>, <code>/zh/</code>)</td></tr>
+<tr><td><strong>언어 선택기</strong></td><td>자동 생성 (우측 하단)</td></tr>
+<tr><td><strong>번역 편집</strong></td><td>Weglot Visual Editor</td></tr>
+<tr><td><strong>용어집</strong></td><td>병원명, 브랜드명 등 원어 유지</td></tr>
+</tbody>
+</table>
+<h3>추천 언어 (5개 기준)</h3>
+
+<table>
+<thead><tr><th>순서</th><th>언어</th><th>대상</th><th>Pro 플랜</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>영어</strong></td><td>미군, 국제</td><td>✅</td></tr>
+<tr><td>2</td><td><strong>베트남어</strong></td><td>외국인 근로자 1위</td><td>✅</td></tr>
+<tr><td>3</td><td><strong>중국어(간체)</strong></td><td>근로자, 유학생</td><td>✅</td></tr>
+<tr><td>4</td><td><strong>러시아어</strong></td><td>CIS 전체 커버</td><td>✅</td></tr>
+<tr><td>5</td><td><strong>일본어</strong></td><td>의료관광, 고객단가</td><td>✅</td></tr>
+</tbody>
+</table>
+<h3>용어집 필수 등록 항목</h3>
+
+<table>
+<thead><tr><th>원어 (한국어)</th><th>번역 유지/지정</th></tr></thead>
+<tbody>
+<tr><td>{병원명}</td><td>{영문 병원명}</td></tr>
+<tr><td>{자체 브랜드 치료}</td><td>{영문 브랜드명}</td></tr>
+<tr><td>인비절라인</td><td>Invisalign</td></tr>
+<tr><td>전화번호</td><td>그대로 유지</td></tr>
+<tr><td>주소</td><td>로마자 + 한국 지명</td></tr>
+</tbody>
+</table>
+<h2>8.2 구현 코드</h2>
+
+<pre><code class="language-html">&lt;!-- Weglot 스크립트 (모든 HTML 파일의 &lt;/head&gt; 직전) --&gt;
+<p>&lt;script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"&gt;&lt;/script&gt;</p>
+<p>&lt;script&gt;Weglot.initialize({api_key: 'wg_{API_KEY}'});&lt;/script&gt;</p>
+</code></pre>
+
+<h2>8.3 비용</h2>
+
+<table>
+<thead><tr><th>플랜</th><th>언어 수</th><th>단어 수</th><th>월 비용</th></tr></thead>
+<tbody>
+<tr><td>Starter</td><td>1</td><td>10,000</td><td>EUR 15</td></tr>
+<tr><td>Business</td><td>3</td><td>50,000</td><td>EUR 29</td></tr>
+<tr><td><strong>Pro</strong></td><td><strong>5</strong></td><td><strong>200,000</strong></td><td><strong>EUR 79</strong></td></tr>
+<tr><td>Advanced</td><td>10</td><td>1,000,000</td><td>EUR 299</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>9. 기술 스택 & 아키텍처</h1>
+
+<h2>9.1 기술 스택</h2>
+
+<table>
+<thead><tr><th>구분</th><th>기술</th><th>역할</th></tr></thead>
+<tbody>
+<tr><td><strong>프레임워크</strong></td><td>Hono</td><td>경량 웹 프레임워크</td></tr>
+<tr><td><strong>런타임</strong></td><td>Cloudflare Workers</td><td>Edge 서버리스</td></tr>
+<tr><td><strong>호스팅</strong></td><td>Cloudflare Pages</td><td>글로벌 CDN</td></tr>
+<tr><td><strong>빌드</strong></td><td>Vite</td><td>번들링</td></tr>
+<tr><td><strong>언어</strong></td><td>TypeScript + HTML/CSS/JS</td><td>풀스택</td></tr>
+<tr><td><strong>CSS</strong></td><td>커스텀 CSS (site-v5.css)</td><td>스타일링</td></tr>
+<tr><td><strong>아이콘</strong></td><td>Font Awesome 6.4 (CDN)</td><td>UI 아이콘</td></tr>
+<tr><td><strong>폰트</strong></td><td>Pretendard (CDN)</td><td>한글 폰트</td></tr>
+</tbody>
+</table>
+<h2>9.2 프로젝트 구조</h2>
+
+<pre><code class="language-">{프로젝트명}/
+<p>├── src/</p>
+<p>│   └── index.tsx          # Hono 백엔드 (API + 라우팅)</p>
+<p>├── public/                # 정적 파일</p>
+<p>│   ├── index.html         # 메인 페이지</p>
+<p>│   ├── reservation.html   # 예약</p>
+<p>│   ├── pricing.html       # 비용</p>
+<p>│   ├── directions.html    # 오시는 길</p>
+<p>│   ├── mission.html       # 미션</p>
+<p>│   ├── floor-guide.html   # 층별 안내</p>
+<p>│   ├── faq.html           # FAQ</p>
+<p>│   ├── privacy.html       # 개인정보처리방침</p>
+<p>│   ├── terms.html         # 이용약관</p>
+<p>│   ├── 404.html           # 에러 페이지</p>
+<p>│   ├── treatments/        # 치료 페이지 (24개)</p>
+<p>│   │   ├── index.html</p>
+<p>│   │   ├── implant.html</p>
+<p>│   │   ├── invisalign.html</p>
+<p>│   │   └── ...</p>
+<p>│   ├── doctors/           # 의사 페이지 (15개)</p>
+<p>│   │   ├── index.html</p>
+<p>│   │   └── moon.html</p>
+<p>│   ├── area/              # 지역 SEO 페이지 (16개)</p>
+<p>│   │   ├── cheonan.html</p>
+<p>│   │   └── asan.html</p>
+<p>│   ├── cases/             # 비포/애프터</p>
+<p>│   │   └── gallery.html</p>
+<p>│   ├── column/            # 칼럼</p>
+<p>│   ├── video/             # 영상</p>
+<p>│   ├── notice/            # 공지</p>
+<p>│   ├── auth/              # 회원</p>
+<p>│   │   ├── login.html</p>
+<p>│   │   ├── register.html</p>
+<p>│   │   └── mypage.html</p>
+<p>│   ├── admin/             # 관리자</p>
+<p>│   │   ├── index.html</p>
+<p>│   │   ├── cases.html</p>
+<p>│   │   └── notices.html</p>
+<p>│   ├── css/</p>
+<p>│   │   └── site-v5.css    # 메인 스타일시트</p>
+<p>│   ├── js/</p>
+<p>│   │   ├── main.js        # 공통 JS</p>
+<p>│   │   ├── gnb.js         # 네비게이션</p>
+<p>│   │   ├── analytics.js   # GA4 + Amplitude</p>
+<p>│   │   ├── gallery.js     # 갤러리 기능</p>
+<p>│   │   ├── column.js      # 칼럼 기능</p>
+<p>│   │   └── video.js       # 영상 기능</p>
+<p>│   ├── images/</p>
+<p>│   │   ├── doctors/       # 의사 사진</p>
+<p>│   │   ├── facility/      # 시설 사진</p>
+<p>│   │   ├── icons/         # 아이콘/파비콘</p>
+<p>│   │   └── og-image.jpg   # 소셜 공유 이미지</p>
+<p>│   ├── sitemap.xml        # 사이트맵</p>
+<p>│   ├── robots.txt         # 크롤링 규칙</p>
+<p>│   ├── manifest.json      # PWA</p>
+<p>│   └── {indexnow-key}.txt # IndexNow</p>
+<p>├── dist/                  # 빌드 출력</p>
+<p>├── package.json           # 의존성</p>
+<p>├── vite.config.ts         # Vite 설정</p>
+<p>├── wrangler.jsonc         # Cloudflare 설정</p>
+<p>├── tsconfig.json          # TypeScript 설정</p>
+<p>├── ecosystem.config.cjs   # PM2 설정</p>
+<p>└── .gitignore</p>
+</code></pre>
+
+<h2>9.3 백엔드 API 라우트</h2>
+
+<table>
+<thead><tr><th>라우트</th><th>메서드</th><th>기능</th></tr></thead>
+<tbody>
+<tr><td><code>/api/health</code></td><td>GET</td><td>헬스체크</td></tr>
+<tr><td><code>/api/google-reviews</code></td><td>GET</td><td>구글 리뷰 실시간 로딩</td></tr>
+<tr><td><code>/api/inblog-rss</code></td><td>GET</td><td>블로그 RSS 프록시</td></tr>
+<tr><td><code>/api/youtube-rss</code></td><td>GET</td><td>유튜브 RSS 프록시</td></tr>
+<tr><td><code>/api/chat</code></td><td>POST</td><td>AI 챗봇 (선택)</td></tr>
+<tr><td><code>/api/indexnow</code></td><td>POST</td><td>검색엔진 즉시 색인</td></tr>
+<tr><td><code>/api/google-ping</code></td><td>POST</td><td>구글 사이트맵 푸시</td></tr>
+<tr><td><code>/{key}.txt</code></td><td>GET</td><td>IndexNow 키 파일</td></tr>
+</tbody>
+</table>
+<h2>9.4 호스팅 비용</h2>
+
+<table>
+<thead><tr><th>항목</th><th>Cloudflare Pages 무료</th><th>Cloudflare Pro</th></tr></thead>
+<tbody>
+<tr><td>요청 수</td><td>무제한</td><td>무제한</td></tr>
+<tr><td>대역폭</td><td>무제한</td><td>무제한</td></tr>
+<tr><td>빌드</td><td>500회/월</td><td>5,000회/월</td></tr>
+<tr><td>Workers</td><td>100,000 요청/일</td><td>10M 요청/월</td></tr>
+<tr><td><strong>월 비용</strong></td><td><strong>$0</strong></td><td><strong>$20</strong></td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>10. 검색엔진 등록 & 색인</h1>
+
+<h2>10.1 검색엔진별 등록 체크리스트</h2>
+
+<h3>Google</h3>
+
+<table>
+<thead><tr><th>#</th><th>작업</th><th>방법</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Google Search Console 인증</td><td>HTML 메타태그</td><td>☐</td></tr>
+<tr><td>2</td><td>사이트맵 제출</td><td>GSC → 사이트맵 메뉴</td><td>☐</td></tr>
+<tr><td>3</td><td>URL 검사 (메인)</td><td>GSC → URL 검사</td><td>☐</td></tr>
+<tr><td>4</td><td>색인 생성 요청</td><td>GSC → 색인 생성 요청</td><td>☐</td></tr>
+<tr><td>5</td><td>구조화 데이터 검증</td><td>GSC → 향상 메뉴</td><td>☐</td></tr>
+</tbody>
+</table>
+<h3>Naver</h3>
+
+<table>
+<thead><tr><th>#</th><th>작업</th><th>방법</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Naver Search Advisor 인증</td><td>HTML 메타태그</td><td>☐</td></tr>
+<tr><td>2</td><td>사이트맵 제출</td><td>Search Advisor → 요청 → 사이트맵</td><td>☐</td></tr>
+<tr><td>3</td><td>RSS 제출</td><td>Search Advisor → 요청 → RSS</td><td>☐</td></tr>
+<tr><td>4</td><td>핵심 URL 수집 요청</td><td>Search Advisor → 요청 → 웹 페이지 수집</td><td>☐</td></tr>
+<tr><td>5</td><td>robots.txt 검증</td><td>Search Advisor → 검증 → robots.txt</td><td>☐</td></tr>
+</tbody>
+</table>
+<h3>Bing</h3>
+
+<table>
+<thead><tr><th>#</th><th>작업</th><th>방법</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Bing Webmaster 등록</td><td>GSC 연동 또는 직접</td><td>☐</td></tr>
+<tr><td>2</td><td>IndexNow 키 파일 배포</td><td><code>/{key}.txt</code></td><td>☐</td></tr>
+<tr><td>3</td><td>IndexNow API 전송</td><td>POST 모든 URL</td><td>☐</td></tr>
+<tr><td>4</td><td>URL 검사 확인</td><td>Bing Webmaster → URL 검사</td><td>☐</td></tr>
+</tbody>
+</table>
+<h2>10.2 IndexNow 구현</h2>
+
+<pre><code class="language-">지원 검색엔진: Bing, Naver, Yandex (자동)
+<p>API 엔드포인트: /api/indexnow</p>
+<p>전송 URL 수: 사이트맵 전체 (73개 URL 기준)</p>
+</code></pre>
+
+<h2>10.3 검색엔진 등록 후 확인 사항</h2>
+
+<table>
+<thead><tr><th>항목</th><th>확인 시기</th><th>기준</th></tr></thead>
+<tbody>
+<tr><td>메인 페이지 색인</td><td>1-3일</td><td>URL 검사 → "색인됨"</td></tr>
+<tr><td>치료 페이지 색인</td><td>3-7일</td><td>사이트맵 커버리지</td></tr>
+<tr><td>구조화 데이터 오류</td><td>7일</td><td>GSC 향상 → 0 에러</td></tr>
+<tr><td>네이버 수집</td><td>3-14일</td><td>Search Advisor → 현황</td></tr>
+<tr><td>Bing 색인</td><td>1-3일</td><td>IndexNow 덕분에 빠름</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>11. 법적 필수 요소</h1>
+
+<h2>11.1 의료광고 규정 준수</h2>
+
+<table>
+<thead><tr><th>항목</th><th>법률</th><th>필수 조치</th></tr></thead>
+<tbody>
+<tr><td><strong>의료광고 심의</strong></td><td>의료법 56조</td><td>광고 내용 사전 심의 또는 면제 확인</td></tr>
+<tr><td><strong>치료 전후 사진</strong></td><td>의료법 시행규칙</td><td>동일 조건 촬영, 환자 동의</td></tr>
+<tr><td><strong>비급여 가격 공개</strong></td><td>의료법 시행규칙 42조의2</td><td>홈페이지 비용 안내 필수</td></tr>
+<tr><td><strong>과장 광고 금지</strong></td><td>의료법 56조</td><td>"최고", "100%" 등 금지</td></tr>
+<tr><td><strong>전후 비교 주의</strong></td><td>의료법 56조</td><td>"개인에 따라 다를 수 있음" 고지</td></tr>
+<tr><td><strong>의사 경력 정확성</strong></td><td>의료법 56조</td><td>허위 경력 금지</td></tr>
+</tbody>
+</table>
+<h3>필수 고지 문구</h3>
+
+<pre><code class="language-">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을
+<p>준수하여 제공하고 있으며, 특정 개인의 결과는 개인에 따라 달라질 수 있습니다.</p>
+</code></pre>
+
+<h2>11.2 개인정보 관련</h2>
+
+<table>
+<thead><tr><th>항목</th><th>법률</th><th>필수 조치</th></tr></thead>
+<tbody>
+<tr><td><strong>개인정보처리방침</strong></td><td>개인정보보호법 30조</td><td>홈페이지 게시 필수</td></tr>
+<tr><td><strong>개인정보 수집 동의</strong></td><td>개인정보보호법 15조</td><td>예약 폼, 회원가입 시 동의</td></tr>
+<tr><td><strong>마케팅 수신 동의</strong></td><td>정보통신망법 50조</td><td>선택 동의</td></tr>
+<tr><td><strong>쿠키 고지</strong></td><td>GDPR (해외 접속 시)</td><td>쿠키 배너 (다국어 사이트)</td></tr>
+</tbody>
+</table>
+<h3>개인정보처리방침 필수 포함 항목</h3>
+
+<ol>
+<li>수집하는 개인정보 항목</li>
+<li>개인정보 수집·이용 목적</li>
+<li>개인정보 보유·이용 기간</li>
+<li>개인정보 제3자 제공 여부</li>
+<li>개인정보 처리 위탁</li>
+<li>정보주체의 권리·의무</li>
+<li>개인정보 파기 절차</li>
+<li>개인정보 보호책임자</li>
+<li>개인정보 자동 수집 장치 (쿠키)</li>
+<li>권익침해 구제방법</li>
+</ol>
+
+<h2>11.3 기타 법적 요소</h2>
+
+<table>
+<thead><tr><th>항목</th><th>위치</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td><strong>사업자 정보</strong></td><td>푸터</td><td>상호, 대표자, 사업자등록번호, 주소</td></tr>
+<tr><td><strong>의료기관 정보</strong></td><td>푸터</td><td>의료기관명, 대표원장명</td></tr>
+<tr><td><strong>저작권 고지</strong></td><td>푸터</td><td>"© {연도} {병원명}"</td></tr>
+<tr><td><strong>면책 고지</strong></td><td>치료 페이지</td><td>"개인에 따라 다를 수 있음"</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>12. 성능 & 보안</h1>
+
+<h2>12.1 성능 기준 (Core Web Vitals)</h2>
+
+<table>
+<thead><tr><th>지표</th><th>목표</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>LCP</strong></td><td>< 2.5초</td><td>가장 큰 콘텐츠 로딩</td></tr>
+<tr><td><strong>FID</strong></td><td>< 100ms</td><td>첫 입력 지연</td></tr>
+<tr><td><strong>CLS</strong></td><td>< 0.1</td><td>레이아웃 안정성</td></tr>
+<tr><td><strong>TTFB</strong></td><td>< 800ms</td><td>서버 응답 시간</td></tr>
+</tbody>
+</table>
+<h3>성능 최적화 체크리스트</h3>
+
+<table>
+<thead><tr><th>#</th><th>항목</th><th>방법</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>이미지 최적화</td><td>WebP, 적절한 크기, lazy loading</td><td>☐</td></tr>
+<tr><td>2</td><td>CSS/JS 최소화</td><td>Vite 빌드</td><td>☐</td></tr>
+<tr><td>3</td><td>폰트 최적화</td><td>preconnect, preload</td><td>☐</td></tr>
+<tr><td>4</td><td>CDN 활용</td><td>Cloudflare CDN (자동)</td><td>☐</td></tr>
+<tr><td>5</td><td>캐싱</td><td>Cache-Control 헤더</td><td>☐</td></tr>
+<tr><td>6</td><td>크리티컬 CSS</td><td>인라인</td><td>☐</td></tr>
+<tr><td>7</td><td>JS 비동기 로딩</td><td>async/defer</td><td>☐</td></tr>
+<tr><td>8</td><td>prefetch</td><td>주요 페이지 미리 로딩</td><td>☐</td></tr>
+</tbody>
+</table>
+<h2>12.2 보안</h2>
+
+<table>
+<thead><tr><th>항목</th><th>방법</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td><strong>HTTPS</strong></td><td>Cloudflare 자동</td><td>☐</td></tr>
+<tr><td><strong>보안 헤더</strong></td><td>CSP, X-Frame-Options</td><td>☐</td></tr>
+<tr><td><strong>API 키 보호</strong></td><td>서버사이드 프록시</td><td>☐</td></tr>
+<tr><td><strong>입력 검증</strong></td><td>폼 데이터 서버측 검증</td><td>☐</td></tr>
+<tr><td><strong>DDoS 방어</strong></td><td>Cloudflare 자동</td><td>☐</td></tr>
+<tr><td><strong>SSL 인증서</strong></td><td>Cloudflare 자동</td><td>☐</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>13. 납품 체크리스트</h1>
+
+<h2>13.1 Phase 1: 기본 구축 (2-3주)</h2>
+
+<table>
+<thead><tr><th>#</th><th>항목</th><th>상세</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>도메인 연결</td><td>Cloudflare DNS</td><td>☐</td></tr>
+<tr><td>2</td><td>메인 페이지</td><td>히어로 ~ 푸터 전체</td><td>☐</td></tr>
+<tr><td>3</td><td>예약 페이지</td><td>예약 폼 + 연락처</td><td>☐</td></tr>
+<tr><td>4</td><td>비용 안내</td><td>치료별 가격대</td><td>☐</td></tr>
+<tr><td>5</td><td>오시는 길</td><td>지도 + 교통편</td><td>☐</td></tr>
+<tr><td>6</td><td>의료진 목록</td><td>전체 목록 페이지</td><td>☐</td></tr>
+<tr><td>7</td><td>대표원장 프로필</td><td>개별 상세 페이지</td><td>☐</td></tr>
+<tr><td>8</td><td>핵심 치료 5종</td><td>임플란트/교정/소아/심미/스케일링</td><td>☐</td></tr>
+<tr><td>9</td><td>개인정보처리방침</td><td>법적 필수</td><td>☐</td></tr>
+<tr><td>10</td><td>이용약관</td><td>법적 필수</td><td>☐</td></tr>
+<tr><td>11</td><td>404 페이지</td><td>이탈 방지</td><td>☐</td></tr>
+<tr><td>12</td><td>모바일 반응형</td><td>전 페이지</td><td>☐</td></tr>
+<tr><td>13</td><td>기본 SEO</td><td>title, meta, canonical</td><td>☐</td></tr>
+<tr><td>14</td><td>robots.txt</td><td>크롤링 규칙</td><td>☐</td></tr>
+<tr><td>15</td><td>sitemap.xml</td><td>기본 URL</td><td>☐</td></tr>
+<tr><td>16</td><td>파비콘/아이콘</td><td>다양한 크기</td><td>☐</td></tr>
+<tr><td>17</td><td>SSL/HTTPS</td><td>Cloudflare</td><td>☐</td></tr>
+<tr><td>18</td><td>Git 초기화</td><td>버전관리 시작</td><td>☐</td></tr>
+</tbody>
+</table>
+<h2>13.2 Phase 2: 확장 구축 (2-3주)</h2>
+
+<table>
+<thead><tr><th>#</th><th>항목</th><th>상세</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>19</td><td>나머지 치료 페이지</td><td>전체 24개 완성</td><td>☐</td></tr>
+<tr><td>20</td><td>나머지 의사 프로필</td><td>전체 완성</td><td>☐</td></tr>
+<tr><td>21</td><td>지역 SEO 페이지</td><td>10-16개</td><td>☐</td></tr>
+<tr><td>22</td><td>FAQ 페이지</td><td>메인 + 치료별</td><td>☐</td></tr>
+<tr><td>23</td><td>층별 안내</td><td>시설 소개</td><td>☐</td></tr>
+<tr><td>24</td><td>미션/비전</td><td>병원 철학</td><td>☐</td></tr>
+<tr><td>25</td><td>칼럼 페이지</td><td>RSS 연동</td><td>☐</td></tr>
+<tr><td>26</td><td>영상 페이지</td><td>유튜브 연동</td><td>☐</td></tr>
+<tr><td>27</td><td>공지사항</td><td>관리 기능</td><td>☐</td></tr>
+<tr><td>28</td><td>구조화 데이터</td><td>전체 JSON-LD</td><td>☐</td></tr>
+<tr><td>29</td><td>비포/애프터</td><td>갤러리 시스템</td><td>☐</td></tr>
+<tr><td>30</td><td>회원 시스템</td><td>가입/로그인/마이페이지</td><td>☐</td></tr>
+<tr><td>31</td><td>manifest.json</td><td>PWA 설정</td><td>☐</td></tr>
+</tbody>
+</table>
+<h2>13.3 Phase 3: SEO & 마케팅 (1-2주)</h2>
+
+<table>
+<thead><tr><th>#</th><th>항목</th><th>상세</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>32</td><td>GTM 설치</td><td>전 페이지</td><td>☐</td></tr>
+<tr><td>33</td><td>GA4 연동</td><td>GTM 경유</td><td>☐</td></tr>
+<tr><td>34</td><td>Amplitude 연동</td><td>이벤트 트래킹</td><td>☐</td></tr>
+<tr><td>35</td><td>Google Search Console</td><td>인증 + 사이트맵</td><td>☐</td></tr>
+<tr><td>36</td><td>Naver Search Advisor</td><td>인증 + 사이트맵 + RSS</td><td>☐</td></tr>
+<tr><td>37</td><td>Bing Webmaster</td><td>IndexNow 연동</td><td>☐</td></tr>
+<tr><td>38</td><td>IndexNow 전송</td><td>전체 URL</td><td>☐</td></tr>
+<tr><td>39</td><td>구글 리뷰 위젯</td><td>API 연동</td><td>☐</td></tr>
+<tr><td>40</td><td>Open Graph 이미지</td><td>1200x630 제작</td><td>☐</td></tr>
+</tbody>
+</table>
+<h2>13.4 Phase 4: 다국어 & 고급 (1주)</h2>
+
+<table>
+<thead><tr><th>#</th><th>항목</th><th>상세</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>41</td><td>Weglot 설치</td><td>전 페이지</td><td>☐</td></tr>
+<tr><td>42</td><td>언어 설정</td><td>5개 언어 추가</td><td>☐</td></tr>
+<tr><td>43</td><td>용어집 설정</td><td>브랜드명 등</td><td>☐</td></tr>
+<tr><td>44</td><td>번역 검수</td><td>주요 페이지</td><td>☐</td></tr>
+<tr><td>45</td><td>관리자 CMS</td><td>공지/케이스 관리</td><td>☐</td></tr>
+</tbody>
+</table>
+<h2>13.5 최종 검수 체크리스트</h2>
+
+<table>
+<thead><tr><th>#</th><th>카테고리</th><th>항목</th><th>확인</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>기능</strong></td><td>모든 링크 정상 작동</td><td>☐</td></tr>
+<tr><td>2</td><td><strong>기능</strong></td><td>예약 폼 전송 테스트</td><td>☐</td></tr>
+<tr><td>3</td><td><strong>기능</strong></td><td>전화번호 클릭 테스트 (모바일)</td><td>☐</td></tr>
+<tr><td>4</td><td><strong>기능</strong></td><td>카카오톡 링크 정상</td><td>☐</td></tr>
+<tr><td>5</td><td><strong>기능</strong></td><td>네이버 예약 링크 정상</td><td>☐</td></tr>
+<tr><td>6</td><td><strong>기능</strong></td><td>지도 링크/임베드 정상</td><td>☐</td></tr>
+<tr><td>7</td><td><strong>반응형</strong></td><td>모바일 (375px) 레이아웃</td><td>☐</td></tr>
+<tr><td>8</td><td><strong>반응형</strong></td><td>태블릿 (768px) 레이아웃</td><td>☐</td></tr>
+<tr><td>9</td><td><strong>반응형</strong></td><td>데스크톱 (1440px) 레이아웃</td><td>☐</td></tr>
+<tr><td>10</td><td><strong>SEO</strong></td><td>전 페이지 title 고유</td><td>☐</td></tr>
+<tr><td>11</td><td><strong>SEO</strong></td><td>전 페이지 meta description 고유</td><td>☐</td></tr>
+<tr><td>12</td><td><strong>SEO</strong></td><td>전 페이지 canonical 정확</td><td>☐</td></tr>
+<tr><td>13</td><td><strong>SEO</strong></td><td>sitemap.xml URL 수 일치</td><td>☐</td></tr>
+<tr><td>14</td><td><strong>SEO</strong></td><td>robots.txt 경고 0</td><td>☐</td></tr>
+<tr><td>15</td><td><strong>SEO</strong></td><td>JSON-LD 유효성 검사</td><td>☐</td></tr>
+<tr><td>16</td><td><strong>SEO</strong></td><td>Google Search Console 오류 0</td><td>☐</td></tr>
+<tr><td>17</td><td><strong>성능</strong></td><td>Lighthouse 점수 90+</td><td>☐</td></tr>
+<tr><td>18</td><td><strong>성능</strong></td><td>이미지 최적화 (WebP)</td><td>☐</td></tr>
+<tr><td>19</td><td><strong>보안</strong></td><td>HTTPS 정상</td><td>☐</td></tr>
+<tr><td>20</td><td><strong>보안</strong></td><td>API 키 노출 없음 (프론트)</td><td>☐</td></tr>
+<tr><td>21</td><td><strong>법적</strong></td><td>개인정보처리방침 게시</td><td>☐</td></tr>
+<tr><td>22</td><td><strong>법적</strong></td><td>이용약관 게시</td><td>☐</td></tr>
+<tr><td>23</td><td><strong>법적</strong></td><td>의료광고 고지문</td><td>☐</td></tr>
+<tr><td>24</td><td><strong>법적</strong></td><td>사업자 정보 푸터</td><td>☐</td></tr>
+<tr><td>25</td><td><strong>분석</strong></td><td>GA4 데이터 수집 확인</td><td>☐</td></tr>
+<tr><td>26</td><td><strong>분석</strong></td><td>GTM 태그 발화 확인</td><td>☐</td></tr>
+<tr><td>27</td><td><strong>다국어</strong></td><td>Weglot 번역 로딩 확인</td><td>☐</td></tr>
+<tr><td>28</td><td><strong>다국어</strong></td><td>언어 전환 정상</td><td>☐</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>14. 운영 가이드</h1>
+
+<h2>14.1 정기 업데이트 항목</h2>
+
+<table>
+<thead><tr><th>주기</th><th>항목</th><th>담당</th></tr></thead>
+<tbody>
+<tr><td><strong>매일</strong></td><td>예약 확인</td><td>병원</td></tr>
+<tr><td><strong>매주</strong></td><td>블로그/칼럼 1개+</td><td>병원 (InBlog)</td></tr>
+<tr><td><strong>매주</strong></td><td>GBP 게시물 1개</td><td>병원</td></tr>
+<tr><td><strong>매월</strong></td><td>비포/애프터 2-3건 추가</td><td>병원 + 개발</td></tr>
+<tr><td><strong>매월</strong></td><td>가격표 업데이트 확인</td><td>병원</td></tr>
+<tr><td><strong>분기</strong></td><td>SEO 성과 리포트</td><td>개발/마케팅</td></tr>
+<tr><td><strong>분기</strong></td><td>Core Web Vitals 점검</td><td>개발</td></tr>
+<tr><td><strong>반기</strong></td><td>개인정보처리방침 갱신</td><td>병원 + 법무</td></tr>
+<tr><td><strong>연 1회</strong></td><td>저작권 연도 업데이트</td><td>개발</td></tr>
+</tbody>
+</table>
+<h2>14.2 병원에서 직접 관리 가능한 것</h2>
+
+<table>
+<thead><tr><th>항목</th><th>도구</th><th>난이도</th></tr></thead>
+<tbody>
+<tr><td>블로그 작성</td><td>InBlog / 네이버 블로그</td><td>★☆☆ (쉬움)</td></tr>
+<tr><td>유튜브 영상 업로드</td><td>YouTube Studio</td><td>★☆☆</td></tr>
+<tr><td>공지사항 작성</td><td>관리자 CMS</td><td>★☆☆</td></tr>
+<tr><td>리뷰 응답</td><td>Google/Naver</td><td>★☆☆</td></tr>
+<tr><td>GBP 게시물</td><td>Google Business Profile</td><td>★★☆</td></tr>
+<tr><td>Weglot 번역 수정</td><td>Weglot Dashboard</td><td>★★☆</td></tr>
+<tr><td>예약 확인</td><td>이메일/카카오 알림</td><td>★☆☆</td></tr>
+</tbody>
+</table>
+<h2>14.3 개발사에 요청해야 하는 것</h2>
+
+<table>
+<thead><tr><th>항목</th><th>빈도</th><th>난이도</th></tr></thead>
+<tbody>
+<tr><td>신규 의사 프로필 추가</td><td>비정기</td><td>★★☆</td></tr>
+<tr><td>신규 치료 페이지 추가</td><td>비정기</td><td>★★★</td></tr>
+<tr><td>가격표 수정</td><td>분기</td><td>★☆☆</td></tr>
+<tr><td>비포/애프터 사례 추가</td><td>월</td><td>★★☆</td></tr>
+<tr><td>지역 페이지 추가</td><td>비정기</td><td>★★☆</td></tr>
+<tr><td>SEO 최적화/스키마 수정</td><td>분기</td><td>★★★</td></tr>
+<tr><td>디자인 수정</td><td>비정기</td><td>★★★</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>15. 부록: 커스터마이징 옵션</h1>
+
+<h2>15.1 추가 기능 (선택사항)</h2>
+
+<table>
+<thead><tr><th>기능</th><th>설명</th><th>예상 비용</th><th>효과</th></tr></thead>
+<tbody>
+<tr><td><strong>바이럴 퀴즈</strong></td><td>"나의 치아 유형 테스트"</td><td>개발 포함</td><td>바이럴 마케팅</td></tr>
+<tr><td><strong>비용 계산기</strong></td><td>"내 임플란트 비용 알아보기"</td><td>개발 포함</td><td>리드 확보</td></tr>
+<tr><td><strong>진단 퀴즈</strong></td><td>"나에게 맞는 치료법은?"</td><td>개발 포함</td><td>리드 확보</td></tr>
+<tr><td><strong>AI 챗봇</strong></td><td>24시간 자동 상담</td><td>API 비용</td><td>야간 상담</td></tr>
+<tr><td><strong>리드마그넷 PDF</strong></td><td>무료 가이드 다운로드</td><td>디자인 비용</td><td>이메일 수집</td></tr>
+<tr><td><strong>카카오 알림톡</strong></td><td>예약 확인/리마인더</td><td>API 비용</td><td>노쇼 방지</td></tr>
+<tr><td><strong>실시간 채팅</strong></td><td>상담원 1:1 채팅</td><td>월 구독</td><td>전환율</td></tr>
+<tr><td><strong>포인트/적립</strong></td><td>회원 포인트 시스템</td><td>개발 포함</td><td>재방문</td></tr>
+</tbody>
+</table>
+<h2>15.2 과별 특화 요소</h2>
+
+<h3>치과</h3>
+
+<table>
+<thead><tr><th>요소</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>6개 수술실 같은 규모 강조</td><td>시설 차별점</td></tr>
+<tr><td>디지털 장비 (CT, 네비게이션)</td><td>기술력 강조</td></tr>
+<tr><td>수면치료/무통 시스템</td><td>공포 해소</td></tr>
+<tr><td>소아치과 분리</td><td>전문성</td></tr>
+</tbody>
+</table>
+<h3>피부과/성형외과</h3>
+
+<table>
+<thead><tr><th>요소</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>비포/애프터 중심</td><td>결과 증명</td></tr>
+<tr><td>시술 가격 비교표</td><td>가격 투명성</td></tr>
+<tr><td>1:1 상담 예약 강조</td><td>프라이버시</td></tr>
+<tr><td>SNS 연동 (인스타그램)</td><td>비주얼 마케팅</td></tr>
+</tbody>
+</table>
+<h3>한의원</h3>
+
+<table>
+<thead><tr><th>요소</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>한방 치료 원리 설명</td><td>교육 콘텐츠</td></tr>
+<tr><td>증상별 페이지</td><td>검색 유입</td></tr>
+<tr><td>체질 진단 퀴즈</td><td>리드 마그넷</td></tr>
+<tr><td>건강보험 한방 진료</td><td>가격 장벽 해소</td></tr>
+</tbody>
+</table>
+<h2>15.3 가격 패키지 (참고)</h2>
+
+<table>
+<thead><tr><th>패키지</th><th>포함 내용</th><th>페이지 수</th><th>참고 가격</th></tr></thead>
+<tbody>
+<tr><td><strong>Basic</strong></td><td>메인+예약+비용+오시는길+치료5개+의사3명</td><td>~15페이지</td><td>기본</td></tr>
+<tr><td><strong>Standard</strong></td><td>Basic + 치료15개 + 의사전체 + 지역5개 + FAQ + 갤러리</td><td>~40페이지</td><td>중간</td></tr>
+<tr><td><strong>Premium</strong></td><td>전체 80페이지 + SEO + GTM + 다국어 + 리뷰위젯</td><td>~80페이지</td><td>프리미엄</td></tr>
+<tr><td><strong>Enterprise</strong></td><td>Premium + AI챗봇 + CMS + 바이럴퀴즈 + 월 유지보수</td><td>~100페이지+</td><td>엔터프라이즈</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h1>부록 A: 클라이언트 정보 수집 양식</h1>
+
+<h2>A.1 기본 정보</h2>
+
+<pre><code class="language-">병원명 (한글): _______________
+<p>병원명 (영문): _______________</p>
+<p>대표원장: _______________</p>
+<p>전화번호: _______________</p>
+<p>주소: _______________</p>
+<p>우편번호: _______________</p>
+<p>위도/경도: _______________</p>
+
+<p>도메인: _______________</p>
+<p>기존 홈페이지 URL: _______________</p>
+</code></pre>
+
+<h2>A.2 진료 정보</h2>
+
+<pre><code class="language-">진료 과목 (전체): _______________
+<p>주력 치료 (상위 5개): _______________</p>
+<p>진료 시간:</p>
+<p>  - 평일: _______________</p>
+<p>  - 토요일: _______________</p>
+<p>  - 일요일: _______________</p>
+<p>  - 공휴일: _______________</p>
+<p>  - 야간진료: _______________</p>
+</code></pre>
+
+<h2>A.3 의료진 정보</h2>
+
+<pre><code class="language-">의사 수: _______________
+<p>각 의사별:</p>
+<p>  - 이름: _______________</p>
+<p>  - 직함: _______________</p>
+<p>  - 전문분야: _______________</p>
+<p>  - 학력: _______________</p>
+<p>  - 경력: _______________</p>
+<p>  - 사진: (제공 필요)</p>
+</code></pre>
+
+<h2>A.4 마케팅/소셜</h2>
+
+<pre><code class="language-">네이버 플레이스: _______________
+<p>카카오톡 채널: _______________</p>
+<p>유튜브 채널: _______________</p>
+<p>인스타그램: _______________</p>
+<p>블로그: _______________</p>
+<p>Google Place ID: _______________</p>
+<p>Google API Key: _______________</p>
+</code></pre>
+
+<h2>A.5 디자인</h2>
+
+<pre><code class="language-">브랜드 컬러 (메인): _______________
+<p>브랜드 컬러 (보조): _______________</p>
+<p>로고 파일: (제공 필요)</p>
+<p>참고 사이트: _______________</p>
+<p>디자인 톤: □ 프리미엄 □ 모던 □ 따뜻한 □ 전문적 □ 기타</p>
+</code></pre>
+
+<hr>
+
+<h1>부록 B: 수치로 보는 bdbddc.com</h1>
+
+<table>
+<thead><tr><th>항목</th><th>수치</th></tr></thead>
+<tbody>
+<tr><td>총 HTML 페이지</td><td>80개</td></tr>
+<tr><td>치료 페이지</td><td>24개 (+ 목록 1개)</td></tr>
+<tr><td>의사 프로필</td><td>15개 (+ 목록 1개)</td></tr>
+<tr><td>지역 SEO 페이지</td><td>16개</td></tr>
+<tr><td>JSON-LD 스키마 항목</td><td>134개</td></tr>
+<tr><td>JSON-LD 스키마 유형</td><td>30종+</td></tr>
+<tr><td>sitemap URL</td><td>73개</td></tr>
+<tr><td>API 라우트</td><td>8개</td></tr>
+<tr><td>JavaScript 파일</td><td>6개</td></tr>
+<tr><td>CSS 파일</td><td>1개 (통합)</td></tr>
+<tr><td>외부 서비스 연동</td><td>GTM, GA4, Amplitude, Weglot, Google API</td></tr>
+<tr><td>검색엔진 등록</td><td>Google, Naver, Bing (3종 완료)</td></tr>
+<tr><td>다국어</td><td>6개 (한/영/중/러/베/일)</td></tr>
+<tr><td>월 호스팅 비용</td><td>$0 (Cloudflare Pages Free)</td></tr>
+<tr><td>배포 방식</td><td>Cloudflare Pages (Edge CDN)</td></tr>
+</tbody>
+</table>
+<hr>
+
+<blockquote><p><strong>이 기획서는 서울비디치과(bdbddc.com) 실제 운영 데이터 기반으로 작성되었습니다.</strong>
+<strong>Patient Funnel (페이션트 퍼널) 독점 자료입니다.</strong>
+<p>> 문의: Patient Funnel</p>
+<p>기준 사이트: https://bdbddc.com</p></blockquote></p>
+
+<hr>
+
+<em>v1.0 | 2026-02-17 | Patient Funnel</em>
+
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <p><strong>Patient Funnel</strong> — 병원 홈페이지 제작 기획서 v1.0</p>
+  <p>기준 사이트: https://bdbddc.com | 작성일: 2026-02-17</p>
+  <p>© 2026 Patient Funnel. All rights reserved.</p>
+</div>
+
+</div><!-- /.container -->
+
+</body>
+</html>

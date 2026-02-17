@@ -438,6 +438,7 @@ app.get('/floor-guide', serveStatic({ path: './floor-guide.html' }))
 app.get('/privacy', serveStatic({ path: './privacy.html' }))
 app.get('/terms', serveStatic({ path: './terms.html' }))
 app.get('/mission', serveStatic({ path: './mission.html' }))
+app.get('/blueprint', serveStatic({ path: './blueprint.html' }))
 
 // Root level HTML files (with .html extension)
 app.use('/pricing.html', serveStatic())
