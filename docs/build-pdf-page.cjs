@@ -407,14 +407,14 @@ strong { color: #1a1a2e; }
   <div class="cover-logo">Patient Funnel</div>
   <div class="cover-divider"></div>
   <div class="cover-title">병원 홈페이지<br>제작 기획서</div>
-  <p class="cover-subtitle">Seoul BD Dental Standard v2.0</p>
+  <p class="cover-subtitle">Patient Funnel Standard Template v3.0</p>
   
   <div class="cover-meta">
-    <p><strong>기준 사이트</strong> https://bdbddc.com (서울비디치과)</p>
-    <p><strong>작성일</strong> 2026년 2월 17일</p>
     <p><strong>작성자</strong> Patient Funnel (페이션트 퍼널)</p>
-    <p><strong>버전</strong> v2.0</p>
-    <p><strong>분량</strong> 15개 챕터 · 줄글 중심 완전판</p>
+    <p><strong>버전</strong> v3.0 — 범용 템플릿</p>
+    <p><strong>최종 수정</strong> 2026년 2월 19일</p>
+    <p><strong>레퍼런스</strong> https://bdbddc.com (서울비디치과)</p>
+    <p><strong>분량</strong> 15개 챕터 · 변수 정의표 포함</p>
   </div>
   
   <p class="cover-confidential">CONFIDENTIAL — PATIENT FUNNEL PROPRIETARY</p>
@@ -425,8 +425,8 @@ ${htmlBody}
 
 <!-- FOOTER -->
 <div class="doc-footer">
-  <p><strong>Patient Funnel</strong> — 병원 홈페이지 제작 기획서 v2.0</p>
-  <p>기준 사이트: https://bdbddc.com | 작성일: 2026-02-17</p>
+  <p><strong>Patient Funnel</strong> — 병원 홈페이지 제작 기획서 v3.0 Template</p>
+  <p>레퍼런스: https://bdbddc.com | 최종 수정: 2026-02-19</p>
   <p>© 2026 Patient Funnel. All rights reserved.</p>
 </div>
 
