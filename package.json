@@ -12,6 +12,7 @@
     "clean-port": "fuser -k 3000/tcp 2>/dev/null || true"
   },
   "dependencies": {
+    "docx": "^9.5.3",
     "hono": "^4.11.1"
   },
   "devDependencies": {
