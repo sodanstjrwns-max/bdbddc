@@ -12,6 +12,12 @@ const app = new Hono<{ Bindings: Bindings }>()
 // CORS for API
 app.use('/api/*', cors())
 
+// 301 Redirect: /column/columns.html → /blog/ (SEO)
+app.get('/column/columns.html', (c) => c.redirect('/blog/', 301))
+app.get('/column/columns', (c) => c.redirect('/blog/', 301))
+app.get('/column/', (c) => c.redirect('/blog/', 301))
+app.get('/column', (c) => c.redirect('/blog/', 301))
+
 // API health check
 app.get('/api/health', (c) => {
   return c.json({ 
