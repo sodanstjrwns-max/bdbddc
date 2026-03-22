@@ -282,6 +282,7 @@ app.use('/static/*', serveStatic())
 app.use('/manifest.json', serveStatic())
 app.use('/sitemap.xml', serveStatic())
 app.use('/robots.txt', serveStatic())
+app.use('/llms.txt', serveStatic())
 
 // ============================================
 // IndexNow API Key Verification File

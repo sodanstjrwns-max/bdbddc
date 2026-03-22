@@ -23,3 +23,7 @@ Disallow: /column/
 
 # 사이트맵
 Sitemap: https://bdbddc.com/sitemap.xml
+
+# AI/LLM 크롤러용 사이트 정보 (AEO 최적화)
+# https://llmstxt.org/ 표준
+# LLMs.txt: https://bdbddc.com/llms.txt
