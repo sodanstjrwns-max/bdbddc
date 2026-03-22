@@ -12,11 +12,22 @@ const app = new Hono<{ Bindings: Bindings }>()
 // CORS for API
 app.use('/api/*', cors())
 
-// 301 Redirect: /column/columns.html → /blog/ (SEO)
+// 301 Redirect: /column/* → /blog/ (SEO migration)
 app.get('/column/columns.html', (c) => c.redirect('/blog/', 301))
 app.get('/column/columns', (c) => c.redirect('/blog/', 301))
 app.get('/column/', (c) => c.redirect('/blog/', 301))
 app.get('/column', (c) => c.redirect('/blog/', 301))
+
+// 301 Redirect: old .html URLs → clean URLs (prevent 308 chain)
+app.get('/directions.html', (c) => c.redirect('/directions', 301))
+app.get('/pricing.html', (c) => c.redirect('/pricing', 301))
+app.get('/reservation.html', (c) => c.redirect('/reservation', 301))
+app.get('/faq.html', (c) => c.redirect('/faq', 301))
+app.get('/floor-guide.html', (c) => c.redirect('/floor-guide', 301))
+app.get('/privacy.html', (c) => c.redirect('/privacy', 301))
+app.get('/terms.html', (c) => c.redirect('/terms', 301))
+app.get('/mission.html', (c) => c.redirect('/mission', 301))
+app.get('/index.html', (c) => c.redirect('/', 301))
 
 // API health check
 app.get('/api/health', (c) => {
@@ -307,15 +318,20 @@ app.post('/api/indexnow', async (c) => {
     '/doctors/jo', '/doctors/seo', '/doctors/lim',
     '/doctors/kim-mg', '/doctors/kim-mj', '/doctors/kang-mj',
     '/doctors/park-sb', '/doctors/lee-bm',
-    '/column/columns', '/video/', '/cases/', '/cases/gallery',
+    '/blog/', '/video/', '/cases/', '/cases/gallery',
     '/mission', '/floor-guide', '/faq', '/notice/',
     '/faq/implant', '/faq/orthodontics',
+    // 28개 지역 페이지 (area) - clean URLs
     '/area/cheonan', '/area/asan', '/area/buldang',
     '/area/daejeon', '/area/sejong',
     '/area/pyeongtaek', '/area/anseong',
     '/area/cheongju', '/area/chungju', '/area/jincheon',
     '/area/yesan', '/area/hongseong', '/area/dangjin',
     '/area/seosan', '/area/nonsan', '/area/gongju',
+    '/area/cheongyang', '/area/osan', '/area/gyeryong',
+    '/area/buyeo', '/area/seocheon', '/area/boryeong',
+    '/area/taean', '/area/geumsan', '/area/okcheon',
+    '/area/yeongdong', '/area/eumseong', '/area/yeongi',
     '/privacy', '/terms',
   ].map(p => `https://${SITE_HOST}${p}`)
 
@@ -396,11 +412,7 @@ app.get('/doctors', serveStatic({ path: './doctors/index.html' }))
 app.get('/doctors/', serveStatic({ path: './doctors/index.html' }))
 app.use('/doctors/*', serveStatic())
 
-// Column directory
-app.get('/column', serveStatic({ path: './column/columns.html' }))
-app.get('/column/', serveStatic({ path: './column/columns.html' }))
-app.get('/column/columns', serveStatic({ path: './column/columns.html' }))
-app.use('/column/*', serveStatic())
+// Column directory - handled by 301 redirects above, no static serving needed
 
 // Video directory
 app.get('/video', serveStatic({ path: './video/index.html' }))
@@ -446,15 +458,7 @@ app.get('/terms', serveStatic({ path: './terms.html' }))
 app.get('/mission', serveStatic({ path: './mission.html' }))
 app.get('/blueprint', serveStatic({ path: './blueprint.html' }))
 
-// Root level HTML files (with .html extension)
-app.use('/pricing.html', serveStatic())
-app.use('/reservation.html', serveStatic())
-app.use('/directions.html', serveStatic())
-app.use('/faq.html', serveStatic())
-app.use('/floor-guide.html', serveStatic())
-app.use('/privacy.html', serveStatic())
-app.use('/terms.html', serveStatic())
-app.use('/mission.html', serveStatic())
+// Root level HTML files with .html extension → handled by 301 redirects above
 
 // Homepage
 app.get('/', serveStatic({ path: './index.html' }))

@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════
 # 서울비디치과 (Seoul BD Dental) - robots.txt
 # https://bdbddc.com
-# Updated: 2026-02-13
+# Updated: 2026-03-22
 #
 # SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
 # IndexNow 프로토콜 지원
@@ -19,6 +19,7 @@ Disallow: /docs/
 Disallow: /sw.js
 Disallow: /api/
 Disallow: /_worker.js
+Disallow: /column/
 
 # 사이트맵
 Sitemap: https://bdbddc.com/sitemap.xml
