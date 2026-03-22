@@ -1,0 +1,568 @@
+/**
+ * 지역별 오시는 길 페이지 일괄 생성기
+ * 28개 지역 (기존 16개 업그레이드 + 신규 12개)
+ */
+const fs = require('fs');
+
+// ═══ 지역 데이터 ═══
+const areas = [
+  // 기존 16개 (업그레이드)
+  { slug:'cheonan',   name:'천안',   full:'천안시',     car:'10분', bus:'시내버스 15분', train:null, route:'불당동 소재로 시내 이동', navi:'천안스퀘어 또는 서울비디치과', landmark:'불당 CGV, 갤러리아 백화점', mainTx:'임플란트·인비절라인·라미네이트', whyFar:'천안 최대 규모 치과로, 서울대 출신 15인 원장 협진과 6개 임플란트 수술실, 1층 전용 교정센터를 갖추고 있어 동네 치과에서 어려운 고난도 케이스까지 한 곳에서 해결 가능합니다' },
+  { slug:'buldang',   name:'불당동', full:'불당동',     car:'5분',  bus:'도보 5~10분',  train:null, route:'불당동 내 위치로 도보 가능', navi:'천안스퀘어 또는 서울비디치과', landmark:'불당 CGV, 천안스퀘어', mainTx:'임플란트·인비절라인·라미네이트', whyFar:'바로 동네에 위치한 서울대 출신 15인 원장 협진 대규모 치과입니다. 임플란트 6개 수술실, 인비절라인 전용 교정센터, 소아치과 전문의 3인까지 한 곳에서 해결됩니다' },
+  { slug:'asan',      name:'아산',   full:'아산시',     car:'20분', bus:'시외버스 30분', train:'KTX 천안아산역 → 택시 10분', route:'아산 → 천안IC방면 → 불당로', navi:'천안스퀘어 또는 서울비디치과', landmark:'아산 온양온천, 현충사', mainTx:'임플란트·인비절라인', whyFar:'아산에서 20분이면 도착하는 서울대급 의료 시스템을 경험할 수 있습니다. 15인 원장 협진, 6개 수술실, 네비게이션 임플란트 등 동네 치과와 차원이 다른 진료 환경입니다' },
+  { slug:'sejong',    name:'세종',   full:'세종시',     car:'35분', bus:'시외버스 40분', train:null, route:'세종 → 천안·논산고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'세종 정부청사, 세종호수공원', mainTx:'임플란트·인비절라인', whyFar:'세종에서 35분이면 서울대 출신 15인 원장 협진 시스템을 경험할 수 있습니다. 365일 진료로 공무원분들도 주말에 편하게 방문 가능합니다' },
+  { slug:'daejeon',   name:'대전',   full:'대전광역시', car:'40분', bus:'시외버스 50분', train:'KTX 천안아산역 15분 → 택시 10분', route:'대전 → 경부고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'대전역, 유성온천', mainTx:'임플란트·교정', whyFar:'대전에서 40분 거리지만, 서울대 출신 15인 원장 협진과 365일 진료(야간·주말 포함)로 직장인분들도 퇴근 후 방문 가능합니다. 한 번 오시면 계속 오시는 이유가 있습니다' },
+  { slug:'cheongju',  name:'청주',   full:'청주시',     car:'50분', bus:'시외버스 60분', train:null, route:'청주 → 경부고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'청주 성안길, 청주국제공항', mainTx:'임플란트·교정', whyFar:'청주에서 50분 걸리지만 서울비디치과를 찾으시는 이유는 서울대 출신 15인 원장 협진, 6개 임플란트 수술실, 365일 진료 시스템 때문입니다. 고난도 케이스 전문입니다' },
+  { slug:'pyeongtaek',name:'평택',   full:'평택시',     car:'45분', bus:'시외버스 50분', train:'SRT 천안아산역 20분 → 택시 10분', route:'평택 → 경부고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'평택역, 평택항', mainTx:'임플란트·교정', whyFar:'평택에서 45분이면 서울대급 진료를 받을 수 있습니다. 미군기지 주변 외국인 환자분들도 다국어 지원(Weglot 5개 언어)으로 편하게 진료 가능합니다' },
+  { slug:'anseong',   name:'안성',   full:'안성시',     car:'40분', bus:'시외버스 50분', train:null, route:'안성 → 평택제천고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'안성맞춤랜드, 안성시청', mainTx:'임플란트', whyFar:'안성에서 40분이면 서울대 출신 15인 원장이 함께 진료하는 대규모 치과를 경험하실 수 있습니다. 임플란트 6개 수술실과 네비게이션 시스템으로 정확한 수술이 가능합니다' },
+  { slug:'chungju',   name:'충주',   full:'충주시',     car:'60분', bus:'시외버스 70분', train:null, route:'충주 → 중부내륙고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'충주 탄금대, 충주댐', mainTx:'임플란트', whyFar:'충주에서 1시간 거리지만 서울대 출신 15인 원장 협진과 6개 독립 수술실을 갖춘 전문 임플란트 센터를 이용하실 수 있습니다. 당일 수술+임시치아도 가능합니다' },
+  { slug:'dangjin',   name:'당진',   full:'당진시',     car:'50분', bus:'시외버스 60분', train:null, route:'당진 → 서해안고속도로 → 천안JC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'당진 삽교호, 왜목마을', mainTx:'임플란트', whyFar:'당진에서 50분이면 도착합니다. 서울대 출신 전문의 15인이 협진하며, 임플란트 6개 수술실과 원내 기공소를 갖춰 빠르고 정확한 보철 제작이 가능합니다' },
+  { slug:'gongju',    name:'공주',   full:'공주시',     car:'40분', bus:'시외버스 50분', train:null, route:'공주 → 천안·논산고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'공주 공산성, 무령왕릉', mainTx:'임플란트', whyFar:'공주에서 40분이면 서울대 출신 15인 원장 협진 시스템과 365일 진료를 경험하실 수 있습니다. 주말·공휴일에도 진료하니 편하실 때 방문하세요' },
+  { slug:'hongseong', name:'홍성',   full:'홍성군',     car:'50분', bus:'시외버스 60분', train:'장항선 홍성역 → 천안역 50분 → 택시 10분', route:'홍성 → 서해안고속도로 → 천안JC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'홍성 홍주성, 내포신도시', mainTx:'임플란트', whyFar:'홍성에서 50분이면 서울대급 치과 진료를 받을 수 있습니다. 15인 원장 협진으로 어려운 케이스도 안심하고 맡기실 수 있습니다' },
+  { slug:'jincheon',  name:'진천',   full:'진천군',     car:'40분', bus:'시외버스 50분', train:null, route:'진천 → 중부고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'진천 농다리, 진천종박물관', mainTx:'임플란트', whyFar:'진천에서 40분이면 6개 독립 수술실을 갖춘 임플란트 전문 센터에서 서울대 출신 원장에게 진료받을 수 있습니다' },
+  { slug:'nonsan',    name:'논산',   full:'논산시',     car:'45분', bus:'시외버스 50분', train:'호남선 논산역 → 천안역 40분 → 택시 10분', route:'논산 → 천안·논산고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'논산 관촉사, 딸기축제', mainTx:'임플란트', whyFar:'논산에서 45분이면 서울비디치과에 도착합니다. 고속도로로 편하게 오실 수 있고, 365일 진료로 언제든 방문 가능합니다' },
+  { slug:'seosan',    name:'서산',   full:'서산시',     car:'60분', bus:'시외버스 70분', train:null, route:'서산 → 서해안고속도로 → 천안JC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'서산 해미읍성, 간월암', mainTx:'임플란트', whyFar:'서산에서 1시간 거리지만 서울대 출신 15인 원장 협진과 365일 진료 시스템이 있어 먼 거리를 감수하고 오시는 분들이 많습니다. 한 번에 끝내는 당일 진료도 가능합니다' },
+  { slug:'yesan',     name:'예산',   full:'예산군',     car:'40분', bus:'시외버스 50분', train:'장항선 예산역 → 천안역 40분 → 택시 10분', route:'예산 → 천안·논산고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'예산 덕산온천, 수덕사', mainTx:'임플란트', whyFar:'예산에서 40분이면 충남 최대 규모 치과에서 서울대 출신 전문의에게 진료받을 수 있습니다. 원내 기공소가 있어 보철 제작도 빠릅니다' },
+  
+  // 신규 12개
+  { slug:'cheongyang',name:'청양',   full:'청양군',     car:'50분', bus:'시외버스 60분', train:null, route:'청양 → 천안·논산고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'청양 칠갑산, 장곡사', mainTx:'임플란트', whyFar:'청양에서 50분이면 서울대 출신 15인 원장이 협진하는 대규모 치과를 경험하실 수 있습니다. 6개 수술실과 네비게이션 임플란트로 정확한 수술이 가능합니다' },
+  { slug:'osan',      name:'오산',   full:'오산시',     car:'60분', bus:'시외버스 70분', train:'SRT 천안아산역 25분 → 택시 10분', route:'오산 → 경부고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'오산 독산성, 오산시청', mainTx:'임플란트·교정', whyFar:'오산에서 1시간 거리이지만 SRT를 이용하면 35분이면 도착합니다. 서울대 출신 15인 원장 협진과 365일 진료로 주말에도 편하게 방문 가능합니다' },
+  { slug:'gyeryong',  name:'계룡',   full:'계룡시',     car:'35분', bus:'시외버스 45분', train:null, route:'계룡 → 천안·논산고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'계룡대, 계룡산국립공원', mainTx:'임플란트', whyFar:'계룡에서 35분이면 서울대 출신 15인 원장 협진 치과에 도착합니다. 군인 가족분들도 365일 진료와 야간진료로 편하게 방문하실 수 있습니다' },
+  { slug:'buyeo',     name:'부여',   full:'부여군',     car:'55분', bus:'시외버스 65분', train:null, route:'부여 → 천안·논산고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'부여 부소산성, 궁남지', mainTx:'임플란트', whyFar:'부여에서 55분이면 충남 최대 규모 치과에서 서울대 출신 전문의에게 진료받을 수 있습니다. 당일 수술과 임시치아 장착까지 한 번에 가능합니다' },
+  { slug:'seocheon',  name:'서천',   full:'서천군',     car:'60분', bus:'시외버스 70분', train:'장항선 서천역 → 천안역 60분 → 택시 10분', route:'서천 → 서해안고속도로 → 천안JC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'서천 국립생태원, 춘장대해수욕장', mainTx:'임플란트', whyFar:'서천에서 1시간이면 서울대급 진료를 경험할 수 있습니다. 먼 거리를 감수하고 오시는 분들을 위해 당일 집중 진료로 내원 횟수를 최소화합니다' },
+  { slug:'boryeong',  name:'보령',   full:'보령시',     car:'60분', bus:'시외버스 70분', train:'장항선 보령역 → 천안역 55분 → 택시 10분', route:'보령 → 서해안고속도로 → 천안JC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'보령 대천해수욕장, 머드축제', mainTx:'임플란트', whyFar:'보령에서 1시간 거리지만 서울대 출신 15인 원장 협진과 6개 수술실을 갖춘 전문 센터입니다. 먼 거리 환자분들은 당일 집중 진료로 내원 횟수를 줄여드립니다' },
+  { slug:'taean',     name:'태안',   full:'태안군',     car:'70분', bus:'시외버스 80분', train:null, route:'태안 → 서해안고속도로 → 천안JC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'태안 안면도, 꽃지해수욕장', mainTx:'임플란트', whyFar:'태안에서 약 70분 걸리지만 서울대 출신 전문의 15인이 협진하는 대규모 치과입니다. 원거리 환자분께는 당일 집중 진료로 내원 횟수를 최소화하고 있습니다' },
+  { slug:'yeongi',    name:'연기',   full:'연기면(세종)', car:'30분', bus:'시외버스 40분', train:null, route:'연기 → 천안·논산고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'세종시 연기면, 조치원', mainTx:'임플란트·교정', whyFar:'연기에서 30분이면 서울대 출신 15인 원장 협진 치과에 도착합니다. 세종시 연기 지역에서 가장 가까운 대규모 전문 치과입니다' },
+  { slug:'geumsan',   name:'금산',   full:'금산군',     car:'50분', bus:'시외버스 60분', train:null, route:'금산 → 천안·논산고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'금산 인삼시장, 보석사', mainTx:'임플란트', whyFar:'금산에서 50분이면 충남 최대 규모 치과에서 진료받을 수 있습니다. 서울대 출신 15인 원장 협진과 365일 진료로 언제든 방문 가능합니다' },
+  { slug:'okcheon',   name:'옥천',   full:'옥천군',     car:'55분', bus:'시외버스 65분', train:'경부선 옥천역 → 천안역 40분 → 택시 10분', route:'옥천 → 경부고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'옥천 정지용 생가, 장계관광지', mainTx:'임플란트', whyFar:'옥천에서 55분이면 서울대 출신 15인 원장이 협진하는 전문 치과를 이용하실 수 있습니다. 기차로도 편하게 오실 수 있습니다' },
+  { slug:'yeongdong', name:'영동',   full:'영동군',     car:'60분', bus:'시외버스 70분', train:'경부선 영동역 → 천안역 50분 → 택시 10분', route:'영동 → 경부고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'영동 난계국악축제, 포도축제', mainTx:'임플란트', whyFar:'영동에서 1시간이면 서울대급 치과 진료를 받을 수 있습니다. 기차로도 편하게 오실 수 있고, 당일 집중 진료로 내원 횟수를 최소화합니다' },
+  { slug:'eumseong',  name:'음성',   full:'음성군',     car:'50분', bus:'시외버스 60분', train:null, route:'음성 → 중부고속도로 → 천안IC → 불당동', navi:'천안스퀘어 또는 서울비디치과', landmark:'음성 무극온천, 반기문평화기념관', mainTx:'임플란트', whyFar:'음성에서 50분이면 서울대 출신 15인 원장 협진 치과에 도착합니다. 6개 독립 수술실과 네비게이션 임플란트로 정확하고 안전한 수술이 가능합니다' },
+];
+
+// ═══ HTML 템플릿 함수 ═══
+function generateHTML(a) {
+  const trainSection = a.train ? `
+        <div class="promise-card reveal delay-2">
+          <div class="icon-wrap"><i class="fas fa-train"></i></div>
+          <h3>기차</h3>
+          <p>${a.train}</p>
+        </div>` : `
+        <div class="promise-card reveal delay-2">
+          <div class="icon-wrap"><i class="fas fa-bus"></i></div>
+          <h3>대중교통</h3>
+          <p>${a.full}에서 시외버스로 ${a.bus} 소요</p>
+        </div>`;
+
+  return `<!DOCTYPE html>
+<html lang="ko" prefix="og: https://ogp.me/ns#">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>${a.name} 임플란트 | ${a.name}에서 천안 서울비디치과 오시는 길</title>
+  <meta name="description" content="${a.name}에서 차로 ${a.car}, 서울비디치과 임플란트·인비절라인·라미네이트. 365일 진료, 서울대 15인 원장 협진. ${a.name} 환자분들 오시는 길 안내. ☎041-415-2892">
+  <meta name="keywords" content="${a.name} 임플란트, ${a.name} 치과, ${a.name} 인비절라인, ${a.name} 라미네이트, ${a.name}에서 천안 치과, ${a.name} 치과 추천, 서울비디치과">
+  <meta name="author" content="서울비디치과">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://bdbddc.com/area/${a.slug}.html">
+  <meta name="geo.region" content="KR-44">
+  <meta name="geo.placename" content="천안시, 충청남도">
+  <meta name="geo.position" content="36.8151;127.1139">
+  <meta property="og:title" content="${a.name} 임플란트 | ${a.name}에서 천안 서울비디치과 오시는 길">
+  <meta property="og:description" content="${a.name}에서 차로 ${a.car}! 서울대 15인 원장 365일 진료. ${a.name} 임플란트·인비절라인·라미네이트 추천.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bdbddc.com/area/${a.slug}.html">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="서울비디치과">
+  <meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${a.name} 임플란트 | ${a.name}에서 천안 서울비디치과 오시는 길">
+  <meta name="twitter:description" content="${a.name}에서 차로 ${a.car}! 서울대 15인 원장 365일 진료. ${a.name} 임플란트·인비절라인·라미네이트.">
+  <meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
+  <link rel="icon" type="image/svg+xml" href="../images/icons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/icons/apple-touch-icon.svg">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#6B4226">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  <link rel="stylesheet" href="../css/site-v5.css?v=4a7fbcd0">
+  <link rel="prefetch" href="../reservation.html" as="document">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"오시는 길","item":"https://bdbddc.com/directions.html"},{"@type":"ListItem","position":3,"name":"${a.name}에서 오시는 길","item":"https://bdbddc.com/area/${a.slug}.html"}]}
+  </script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "${a.name}에서 천안 서울비디치과까지 얼마나 걸리나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "${a.full}에서 서울비디치과(천안시 서북구 불당동)까지 자가용으로 약 ${a.car} 소요됩니다. 네비게이션에 '천안스퀘어' 또는 '서울비디치과'를 검색하시면 됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "주차는 가능한가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 건물(천안스퀘어) 지하 1층에 4시간 무료 주차가 가능합니다. ${a.name}에서 자가용으로 오시는 분들도 편하게 주차하실 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "${a.name}에서 당일 임플란트 수술도 가능한가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 상태에 따라 당일 상담 후 당일 수술이 가능합니다. ${a.name}에서 멀리 오시는 분들을 위해 내원 횟수를 최소화하는 집중 진료를 제공합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "야간이나 주말 진료도 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 365일 진료합니다. 평일 09:00~20:00(야간진료), 토·일요일 09:00~17:00, 공휴일 09:00~13:00 운영합니다. ${a.name}에서 주말에 오셔도 됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "${a.name} 근처에도 치과가 있는데 왜 천안까지 오나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "${a.whyFar}"
+      }
+    }
+  ]
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  "@id": "https://bdbddc.com/#dentist",
+  "name": "서울비디치과",
+  "description": "${a.name} 인근 서울대 출신 15인 원장 협진 치과. 365일 진료, 임플란트 6개 수술방, 인비절라인 교정센터, 글로우네이트(라미네이트), 소아치과 전문의 3인.",
+  "url": "https://bdbddc.com",
+  "telephone": "+82-41-415-2892",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "불당34길 14, 천안스퀘어 2~5층",
+    "addressLocality": "천안시 서북구 불당동",
+    "addressRegion": "충청남도",
+    "postalCode": "31156",
+    "addressCountry": "KR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 36.8151,
+    "longitude": 127.1139
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "${a.full}"
+  },
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens": "09:00","closes": "20:00"},
+    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Saturday","Sunday"],"opens": "09:00","closes": "17:00"},
+    {"@type": "OpeningHoursSpecification","dayOfWeek": "PublicHolidays","opens": "09:00","closes": "13:00"}
+  ],
+  "aggregateRating": {"@type": "AggregateRating","ratingValue": "4.9","reviewCount": "2847","bestRating": "5"},
+  "priceRange": "₩₩",
+  "parkingFacility": "건물 지하 1층 4시간 무료 주차"
+}</script>
+<meta name="ai-summary" content="${a.name}에서 서울비디치과까지 차로 ${a.car}. 서울대 출신 15인 원장 협진, 365일 진료, 임플란트·인비절라인·라미네이트(글로우네이트) 전문.">
+<script src="/js/analytics.js" defer></script>
+<!-- Weglot Multilingual -->
+<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<script>
+    Weglot.initialize({
+        api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
+    });
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <a href="#main-content" class="skip-link">본문으로 바로가기</a>
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="../" class="site-logo" aria-label="서울비디치과 홈"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
+        <div class="clinic-status open" aria-live="polite"><span class="status-dot"></span><span class="status-text">진료중</span><span class="status-time">20:00까지</span></div>
+      </div>
+      <nav class="main-nav" id="mainNav" aria-label="메인 네비게이션">
+        <ul>
+          <li class="nav-item has-dropdown">
+            <a href="../treatments/index.html">진료 안내</a>
+            <div class="mega-dropdown"><div class="mega-dropdown-grid">
+              <div class="mega-dropdown-section"><strong class="section-heading">전문센터</strong><ul><li><a href="../treatments/glownate.html">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li><li><a href="../treatments/implant.html">임플란트 <span class="badge">6개 수술실</span></a></li><li><a href="../treatments/invisalign.html">치아교정 <span class="badge">대규모</span></a></li><li><a href="../treatments/pediatric.html">소아치과 <span class="badge">전문의 3인</span></a></li><li><a href="../treatments/aesthetic.html">심미치료</a></li></ul></div>
+              <div class="mega-dropdown-section"><strong class="section-heading">일반/보존 진료</strong><ul><li><a href="../treatments/cavity.html">충치치료</a></li><li><a href="../treatments/resin.html">레진치료</a></li><li><a href="../treatments/crown.html">크라운</a></li><li><a href="../treatments/inlay.html">인레이/온레이</a></li><li><a href="../treatments/root-canal.html">신경치료</a></li><li><a href="../treatments/whitening.html">미백</a></li></ul></div>
+              <div class="mega-dropdown-section"><strong class="section-heading">잇몸/외과</strong><ul><li><a href="../treatments/scaling.html">스케일링</a></li><li><a href="../treatments/gum.html">잇몸치료</a></li><li><a href="../treatments/periodontitis.html">치주염</a></li><li><a href="../treatments/wisdom-tooth.html">사랑니 발치</a></li><li><a href="../treatments/tmj.html">턱관절장애</a></li><li><a href="../treatments/bruxism.html">이갈이/이악물기</a></li></ul></div>
+            </div></div>
+          </li>
+          <li class="nav-item"><a href="../doctors/index.html">의료진 소개</a></li>
+          <li class="nav-item"><a href="../mission.html">비디미션</a></li>
+          <li class="nav-item has-dropdown"><a href="../blog/">콘텐츠</a><ul class="simple-dropdown"><li><a href="../blog/"><i class="fas fa-blog"></i> 블로그</a></li><li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li></ul></li>
+          <li class="nav-item has-dropdown"><a href="../directions.html">병원 안내</a><ul class="simple-dropdown"><li><a href="../pricing.html" class="nav-highlight">💰 비용 안내</a></li><li><a href="../floor-guide.html">층별 안내</a></li><li><a href="../directions.html">오시는 길</a></li><li><a href="../faq.html">자주 묻는 질문</a></li><li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li></ul></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
+        <div class="auth-buttons"><a href="../auth/login.html" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> 로그인</a><a href="../auth/register.html" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 회원가입</a></div>
+        <a href="../reservation.html" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="header-spacer"></div>
+
+  <main id="main-content" role="main">
+
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero" aria-label="${a.name}에서 오시는 길">
+    <div class="hero-bg-pattern" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+    
+    <div class="container hero-content">
+      <div class="hero-text">
+        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
+        
+        <h1 class="hero-headline reveal delay-1">
+          ${a.name}에서 찾는 임플란트<br><em>천안 서울비디치과</em>
+        </h1>
+        
+        <p class="hero-sub reveal delay-2">
+          ${a.full}에서 차로 ${a.car} — 서울대 출신 15인 원장이<br>
+          365일 정성을 다해 진료합니다.
+        </p>
+        
+        <div class="hero-trust-row reveal delay-3">
+          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
+          <span class="hero-trust-divider"></span>
+          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
+          <span class="hero-trust-divider"></span>
+          <span class="hero-trust-item"><i class="fas fa-car"></i> ${a.name}에서 차로 ${a.car}</span>
+          <span class="hero-trust-divider desktop-only"></span>
+          <span class="hero-trust-item desktop-only"><i class="fas fa-parking"></i> 4시간 무료주차</span>
+        </div>
+        
+        <div class="hero-cta-group reveal delay-4">
+          <a href="../reservation.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-calendar-check"></i> 상담 예약하기
+          </a>
+          <a href="tel:0414152892" class="btn btn-outline btn-lg">
+            <i class="fas fa-phone"></i> 041-415-2892
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════ 오시는 길 상세 ═══════ -->
+  <section class="promise-section section" aria-label="${a.name}에서 오시는 길">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-map-marker-alt"></i> 오시는 길</span>
+        <h2 class="section-title">${a.name}에서 <span class="text-gradient">서울비디치과까지</span></h2>
+        <p class="section-subtitle">충남 천안시 서북구 불당34길 14, 천안스퀘어 2~5층</p>
+      </div>
+      
+      <div class="promise-grid">
+        <div class="promise-card reveal delay-1">
+          <div class="icon-wrap"><i class="fas fa-car"></i></div>
+          <h3>자가용 (${a.car})</h3>
+          <p>${a.route}. 네비게이션에 <strong>'${a.navi}'</strong> 검색.</p>
+        </div>${trainSection}
+        <div class="promise-card reveal delay-3">
+          <div class="icon-wrap"><i class="fas fa-parking"></i></div>
+          <h3>주차 안내</h3>
+          <p>건물(천안스퀘어) 지하 1층 <strong>4시간 무료 주차</strong>. ${a.name}에서 자가용으로 오셔도 편합니다.</p>
+        </div>
+        <div class="promise-card reveal delay-1">
+          <div class="icon-wrap"><i class="fas fa-clock"></i></div>
+          <h3>진료시간</h3>
+          <p>평일 09:00-20:00 · 토·일 09:00-17:00 · 공휴일 09:00-13:00. <strong>365일 진료.</strong></p>
+        </div>
+        <div class="promise-card reveal delay-2">
+          <div class="icon-wrap"><i class="fas fa-map-signs"></i></div>
+          <h3>인근 랜드마크</h3>
+          <p>${a.landmark} 인근. 불당 CGV 옆 건물입니다.</p>
+        </div>
+        <div class="promise-card reveal delay-3">
+          <div class="icon-wrap"><i class="fas fa-directions"></i></div>
+          <h3>길찾기</h3>
+          <p><a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" style="color:var(--brand-primary);font-weight:600;">네이버 지도에서 경로 확인 →</a></p>
+        </div>
+      </div>
+
+      <div class="google-map-embed" style="margin-top:24px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3180.7589788377!2d127.1051!3d36.8231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b285e48d9f1d1%3A0x7c0c3f4d5e5f6a7b!2z7LWo64Ko7LKc7JWI7Iuc7ISc67aP6rWsIOu2iOuLuTM06ri4IDE0!5e0!3m2!1sko!2skr!4v1701500000000!5m2!1sko!2skr" width="100%" height="300" style="border:0;border-radius:16px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="서울비디치과 위치"></iframe>
+        <div style="display:flex;gap:8px;padding:12px;flex-wrap:wrap;">
+          <a href="https://www.google.com/maps/search/충남+천안시+서북구+불당34길+14" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#4285F4;color:white;border-radius:8px;text-decoration:none;font-size:0.85rem;"><i class="fab fa-google"></i> 구글 지도</a>
+          <a href="https://map.naver.com/v5/search/서울비디치과" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#03C75A;color:white;border-radius:8px;text-decoration:none;font-size:0.85rem;"><i class="fas fa-map"></i> 네이버 지도</a>
+          <a href="https://map.kakao.com/?q=서울비디치과" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#FEE500;color:#000;border-radius:8px;text-decoration:none;font-size:0.85rem;"><i class="fas fa-map-marker-alt"></i> 카카오맵</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ WHY CHOOSE US ═══════ -->
+  <section class="why-section section" aria-label="왜 서울비디치과인가">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-heart"></i> 왜 서울비디치과일까요?</span>
+        <h2 class="section-title">${a.name}에서 <span class="text-gradient">서울비디치과를 선택하는 이유</span></h2>
+        <p class="section-subtitle">${a.full}에서 차로 ${a.car}, 서울대병원급 진료를 받으실 수 있습니다</p>
+      </div>
+      
+      <div class="why-hero-card reveal">
+        <h3>"이건 안 해도 돼요"<br>라고 솔직히 말하는 치과</h3>
+        <p>필요 없는 치료는 권하지 않습니다. ${a.name}에서 오신 환자분께도 정말 필요한 치료만 추천드립니다.</p>
+        <span class="why-hero-badge"><i class="fas fa-shield-alt"></i> No 과잉진료</span>
+      </div>
+      
+      <div class="why-grid">
+        <div class="why-card reveal delay-1">
+          <div class="why-card-icon"><i class="fas fa-users-cog"></i></div>
+          <h3>15인 원장이 함께 고민</h3>
+          <p>어려운 케이스도 포기하지 않습니다. 서울대 출신 15인 원장이 모여 최적의 치료법을 찾습니다.</p>
+          <div class="why-card-stat"><span class="num">15</span><span class="unit">명의 전문의 협진</span></div>
+        </div>
+        <div class="why-card reveal delay-2">
+          <div class="why-card-icon"><i class="fas fa-calendar-check"></i></div>
+          <h3>일요일에도 진료합니다</h3>
+          <p>${a.name}에서 오시기 어려우셨나요? 365일, 평일 야간까지 진료합니다.</p>
+          <div class="why-card-stat"><span class="num">365</span><span class="unit">일 연중무휴</span></div>
+        </div>
+        <div class="why-card reveal delay-3">
+          <div class="why-card-icon"><i class="fas fa-hospital-alt"></i></div>
+          <h3>전문 의료 규모</h3>
+          <p>1~5층 전문 센터 구성, 임플란트 6개 수술방, 원내 기공소, 첨단 디지털 장비 보유.</p>
+          <div class="why-card-stat"><span class="num">5</span><span class="unit">층 전문센터</span></div>
+        </div>
+        <div class="why-card reveal delay-1">
+          <div class="why-card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+          <h3>눈으로 보며 설명드려요</h3>
+          <p>덴탈커넥트와 시각 자료로 이해하실 때까지 충분히 설명드립니다.</p>
+          <div class="why-card-stat"><span class="num">100</span><span class="unit">% 이해될 때까지</span></div>
+        </div>
+        <div class="why-card reveal delay-2">
+          <div class="why-card-icon"><i class="fas fa-shield-virus"></i></div>
+          <h3>철저한 감염관리</h3>
+          <p>1인 1기구 원칙, 개별 멸균 패키지, 에어샤워 시스템으로 철저한 위생 관리.</p>
+          <div class="why-card-stat"><span class="num">1:1</span><span class="unit">기구 멸균 원칙</span></div>
+        </div>
+        <div class="why-card reveal delay-3">
+          <div class="why-card-icon"><i class="fas fa-tools"></i></div>
+          <h3>원내 기공소 운영</h3>
+          <p>충남권 대규모 원내 기공소, 5인 전문 기공사가 정밀한 보철물을 빠르게 제작합니다.</p>
+          <div class="why-card-stat"><span class="num">5</span><span class="unit">인 전문 기공사</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TREATMENTS ═══════ -->
+  <section class="treatment-section section" aria-label="${a.name} 환자 주요 진료">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-tooth"></i> 주요 진료</span>
+        <h2 class="section-title">${a.name} 환자분들이 주로 받는 <span class="text-gradient">진료</span></h2>
+        <p class="section-subtitle">${a.name}에서 오시는 분들이 가장 많이 찾는 ${a.mainTx} 전문 진료</p>
+      </div>
+      
+      <div class="treatment-grid">
+        <a href="../treatments/implant.html" class="treatment-card featured reveal delay-1">
+          <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
+          <div class="treatment-card-icon"><i class="fas fa-tooth"></i></div>
+          <h3>임플란트</h3>
+          <p>6개 수술방 · 네비게이션 · 수면임플란트<br>고난도 케이스 전문 · 4F</p>
+          <span class="treatment-tag hot">BEST</span>
+        </a>
+        <a href="../treatments/invisalign.html" class="treatment-card reveal delay-2">
+          <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
+          <div class="treatment-card-icon"><i class="fas fa-teeth"></i></div>
+          <h3>인비절라인</h3>
+          <p>다이아몬드 프로바이더<br>서울대 교정 전문의 2인 · 1F</p>
+        </a>
+        <a href="../treatments/glownate.html" class="treatment-card reveal delay-1">
+          <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
+          <div class="treatment-card-icon"><i class="fas fa-sparkles"></i></div>
+          <h3>글로우네이트(라미네이트)</h3>
+          <p>최소삭제 포세린 라미네이트<br>DSD 스마일 디자인 · 5F</p>
+          <span class="treatment-tag hot">HOT</span>
+        </a>
+        <a href="../treatments/pediatric.html" class="treatment-card reveal delay-2">
+          <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
+          <div class="treatment-card-icon"><i class="fas fa-child"></i></div>
+          <h3>소아치과</h3>
+          <p>소아전문의 3인 진료<br>웃음가스 · 수면치료 · 3F</p>
+        </a>
+      </div>
+      
+      <div class="text-center mt-8 reveal">
+        <a href="../treatments/index.html" class="btn btn-outline btn-lg">
+          전체 진료 안내 보기 <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FAQ ═══════ -->
+  <section class="section" aria-label="${a.name} FAQ">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-badge"><i class="fas fa-question-circle"></i> 자주 묻는 질문</span>
+        <h2 class="section-title">${a.name}에서 오시는 분들이 <span class="text-gradient">자주 묻는 질문</span></h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-1">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">${a.name}에서 천안까지 얼마나 걸려요?</span>
+            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+          </button>
+          <div class="faq-answer" id="faq-1" role="region"><p>${a.full}에서 서울비디치과까지 자가용으로 약 <strong>${a.car}</strong> 소요됩니다. 네비게이션에 '${a.navi}'를 검색하시면 됩니다.${a.train ? ' 기차로는 ' + a.train + '으로 오실 수 있습니다.' : ''}</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-2">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">주차는 가능한가요?</span>
+            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+          </button>
+          <div class="faq-answer" id="faq-2" role="region"><p>네, 건물(천안스퀘어) <strong>지하 1층에 4시간 무료 주차</strong>가 가능합니다. ${a.name}에서 자가용으로 오시는 분들도 편하게 주차하실 수 있습니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-3">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">${a.name}에서 가는데 당일 수술도 가능한가요?</span>
+            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+          </button>
+          <div class="faq-answer" id="faq-3" role="region"><p>네, 상태에 따라 <strong>당일 상담 후 당일 임플란트 수술</strong>이 가능합니다. ${a.name}에서 멀리 오시는 분들을 위해 내원 횟수를 최소화하는 집중 진료를 제공합니다. 사전 전화 상담(041-415-2892)으로 일정을 조율하시면 더 효율적입니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-4">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">야간이나 주말 진료도 하나요?</span>
+            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+          </button>
+          <div class="faq-answer" id="faq-4" role="region"><p><strong>365일 진료</strong>합니다. 평일 09:00~20:00(야간진료), 토·일요일 09:00~17:00, 공휴일 09:00~13:00 운영합니다. ${a.name}에서 주말이나 야간에 오셔도 진료 가능합니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-5">
+            <span class="faq-q-badge">Q</span>
+            <span class="faq-q-text">${a.name} 근처에도 치과가 있는데 왜 천안까지 오나요?</span>
+            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+          </button>
+          <div class="faq-answer" id="faq-5" role="region"><p>${a.whyFar}</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CTA ═══════ -->
+  <section class="cta-section section" aria-label="상담 예약">
+    <div class="container">
+      <div class="cta-box reveal">
+        <p class="cta-badge">365일 진료 · 평일 야간진료</p>
+        <h2>${a.name}에서 서울비디치과까지<br>지금 바로 상담 받아보세요</h2>
+        <p class="cta-desc">서울대 출신 15인 원장이<br>정확한 진단과 맞춤 치료 계획을 제안드립니다.</p>
+        <div class="cta-buttons">
+          <a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" class="btn-naver"><i class="fas fa-calendar-check"></i> 네이버 예약하기</a>
+          <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="btn-kakao"><i class="fas fa-comment"></i> 카카오톡 상담</a>
+        </div>
+        <p class="cta-phone"><i class="fas fa-phone"></i> 전화 예약: <a href="tel:041-415-2892">041-415-2892</a></p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand"><a href="../" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-links">
+          <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="../treatments/implant.html">임플란트센터</a></li><li><a href="../treatments/invisalign.html">교정센터</a></li><li><a href="../treatments/pediatric.html">소아치과</a></li><li><a href="../treatments/glownate.html">심미치료</a></li></ul></div>
+          <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="../doctors/index.html">의료진 소개</a></li><li><a href="../mission.html">비디미션</a></li><li><a href="../floor-guide.html">층별 안내</a></li><li><a href="../cases/gallery.html">Before/After</a></li></ul></div>
+          <div class="footer-col"><strong class="section-heading">고객 지원</strong><ul><li><a href="../reservation.html">예약/상담</a></li><li><a href="../blog/">블로그/콘텐츠</a></li><li><a href="../faq.html">자주 묻는 질문</a></li><li><a href="../directions.html">오시는 길</a></li></ul></div>
+        </div>
+      </div>
+      <div class="footer-info">
+        <div class="footer-contact"><p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 천안스퀘어 2~5층</p><p><i class="fas fa-phone"></i> 041-415-2892</p><div class="footer-hours"><p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p><p>평일 09:00-20:00 (점심 12:30-14:00)</p><p>토·일 09:00-17:00</p><p>공휴일 09:00-13:00</p></div></div>
+        <div class="footer-social"><a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" aria-label="네이버 예약"><i class="fas fa-calendar-check"></i></a><a href="https://www.youtube.com/c/%EC%89%BD%EB%94%94%EC%89%AC%EC%9A%B4%EC%B9%98%EA%B3%BC%EC%9D%B4%EC%95%BC%EA%B8%B0Bdtube" target="_blank" rel="noopener" aria-label="유튜브"><i class="fab fa-youtube"></i></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" aria-label="카카오톡"><i class="fas fa-comment"></i></a></div>
+      </div>
+      <div class="footer-legal">
+        <div class="legal-links"><a href="../privacy.html">개인정보 처리방침</a><span>|</span><a href="../terms.html">이용약관</a><span>|</span><a href="../sitemap.xml">사이트맵</a></div>
+        <p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 특정 개인의 결과는 개인에 따라 달라질 수 있습니다.</p>
+        <p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
+    <div class="mobile-nav-header"><span class="logo-icon">🦷</span><button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button></div>
+    <ul class="mobile-nav-menu">
+      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-tooth"></i> 진료 안내 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="../treatments/index.html">전체 진료</a></li><li class="submenu-divider">전문센터</li><li><a href="../treatments/glownate.html" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li><li><a href="../treatments/implant.html">임플란트센터</a></li><li><a href="../treatments/invisalign.html">교정센터</a></li><li><a href="../treatments/pediatric.html">소아치과</a></li><li><a href="../treatments/aesthetic.html">심미치료</a></li><li class="submenu-divider">일반 진료</li><li><a href="../treatments/cavity.html">충치치료</a></li><li><a href="../treatments/resin.html">레진치료</a></li><li><a href="../treatments/scaling.html">스케일링</a></li><li><a href="../treatments/gum.html">잇몸치료</a></li></ul></li>
+      <li><a href="../doctors/index.html"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
+      <li><a href="../mission.html"><i class="fas fa-heart"></i> 비디미션</a></li>
+      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="../blog/"><i class="fas fa-blog"></i> 블로그</a></li><li><a href="../video/index.html"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="../cases/gallery.html"><i class="fas fa-lock"></i> 비포/애프터</a></li></ul></li>
+      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-hospital"></i> 병원 안내 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="../pricing.html">💰 비용 안내</a></li><li><a href="../floor-guide.html">층별 안내</a></li><li><a href="../directions.html">오시는 길</a></li><li><a href="../faq.html">자주 묻는 질문</a></li><li><a href="../notice/index.html"><i class="fas fa-bullhorn"></i> 공지사항</a></li></ul></li>
+      <li><a href="../reservation.html" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+    </ul>
+    <div class="mobile-auth-buttons"><a href="../auth/login.html" class="btn-auth"><i class="fas fa-sign-in-alt"></i> 로그인</a><a href="../auth/register.html" class="btn-auth"><i class="fas fa-user-plus"></i> 회원가입</a></div>
+    <div class="mobile-nav-footer"><p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p><div class="mobile-nav-quick-btns"><a href="../pricing.html" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 비용 안내</a><a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 전화 예약</a></div></div>
+  </nav>
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="floating-cta desktop-only"><a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a><a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a></div>
+  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락"><a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a><a href="../reservation.html" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a><a href="../directions.html" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a></div>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/gnb.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      // FAQ toggle
+      document.querySelectorAll('.faq-question').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          var item=this.parentElement;
+          var expanded=this.getAttribute('aria-expanded')==='true';
+          document.querySelectorAll('.faq-item.active').forEach(function(i){i.classList.remove('active');i.querySelector('.faq-question').setAttribute('aria-expanded','false');});
+          if(!expanded){item.classList.add('active');this.setAttribute('aria-expanded','true');}
+        });
+      });
+      // Reveal animation
+      var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});
+    });
+  </script>
+</body>
+</html>`;
+}
+
+// ═══ 실행 ═══
+console.log('🚀 28개 지역 페이지 생성 시작...\n');
+areas.forEach(a => {
+  const filePath = `area/${a.slug}.html`;
+  fs.writeFileSync(filePath, generateHTML(a), 'utf-8');
+  console.log(`✅ ${filePath} (${a.name})`);
+});
+console.log(`\n✨ 총 ${areas.length}개 지역 페이지 생성 완료!`);
+
+// 슬러그 목록 출력 (빌드 스크립트 업데이트용)
+console.log('\n📋 신규 슬러그: ' + areas.filter(a => !['cheonan','buldang','asan','sejong','daejeon','cheongju','pyeongtaek','anseong','chungju','dangjin','gongju','hongseong','jincheon','nonsan','seosan','yesan'].includes(a.slug)).map(a => a.slug).join(', '));
