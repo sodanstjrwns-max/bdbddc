@@ -95,24 +95,34 @@ app.get('/api/inblog-rss', async (c) => {
   }
 })
 
-// 유튜브 RSS 프록시 — 공통 핸들러
+// 유튜브 RSS 프록시 — 공통 핸들러 (재시도 포함)
 async function fetchYoutubeRss(channelId: string): Promise<{ ok: boolean; xml: string; status: number }> {
-  try {
-    const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
-    const response = await fetch(feedUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; bdbddc.com RSS reader)',
-        'Accept': 'application/xml, text/xml, */*',
-      },
-    })
-    const xmlText = await response.text()
-    if (!xmlText.includes('<feed') && !xmlText.includes('<rss')) {
-      return { ok: false, xml: '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"></feed>', status: 502 }
+  const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
+  const emptyFeed = '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"></feed>'
+  const userAgents = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (compatible; bdbddc.com RSS reader)',
+  ]
+
+  for (let i = 0; i < userAgents.length; i++) {
+    try {
+      const response = await fetch(feedUrl, {
+        headers: {
+          'User-Agent': userAgents[i],
+          'Accept': 'application/xml, text/xml, application/atom+xml, */*',
+          'Accept-Language': 'ko-KR,ko;q=0.9,en;q=0.8',
+        },
+      })
+      const xmlText = await response.text()
+      if (xmlText.includes('<feed') || xmlText.includes('<rss')) {
+        return { ok: true, xml: xmlText, status: 200 }
+      }
+    } catch (error) {
+      // 다음 User-Agent로 재시도
     }
-    return { ok: true, xml: xmlText, status: 200 }
-  } catch (error) {
-    return { ok: false, xml: '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"></feed>', status: 500 }
   }
+  return { ok: false, xml: emptyFeed, status: 502 }
 }
 
 // 채널 1: @BDtube (쉽디 쉬운 치과이야기)
