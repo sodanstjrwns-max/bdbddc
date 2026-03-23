@@ -1,0 +1,49 @@
+# ═══════════════════════════════════════════════════════════════
+# 서울비디치과 (Seoul BD Dental) - Custom Headers
+# Cloudflare Pages _headers file
+# Security + Performance + Cache optimization
+# ═══════════════════════════════════════════════════════════════
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self), interest-cohort=()
+  Content-Security-Policy: frame-ancestors 'self'
+
+# Static assets - aggressive caching (1 year)
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+  
+/manifest.json
+  Cache-Control: public, max-age=86400
+
+# HTML pages - short cache for fresh content
+/*.html
+  Cache-Control: public, max-age=300, s-maxage=3600
+
+# SEO files
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=utf-8
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+
+/llms.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+  X-Robots-Tag: noindex
+
+# IndexNow key
+/6f74445f7ec14eccb522a4d3f253128c.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
