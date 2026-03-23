@@ -95,57 +95,9 @@ app.get('/api/inblog-rss', async (c) => {
   }
 })
 
-// 유튜브 RSS 프록시 — 공통 핸들러 (재시도 포함)
-async function fetchYoutubeRss(channelId: string): Promise<{ ok: boolean; xml: string; status: number }> {
-  const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
-  const emptyFeed = '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"></feed>'
-
-  // 최대 3회 재시도 (딜레이 포함)
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
-      if (attempt > 0) {
-        await new Promise(r => setTimeout(r, 300 * attempt))
-      }
-      const response = await fetch(feedUrl, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          'Accept': 'application/xml, text/xml, application/atom+xml, */*',
-          'Accept-Language': 'ko-KR,ko;q=0.9,en;q=0.8',
-        },
-        cf: { cacheTtl: 0 } as any, // Cloudflare 캐시 비활성화
-      })
-      const xmlText = await response.text()
-      if (xmlText.includes('<entry>') || xmlText.includes('<entry ')) {
-        return { ok: true, xml: xmlText, status: 200 }
-      }
-      // 유효한 피드지만 영상이 없는 경우 (빈 채널)
-      if (xmlText.includes('<feed') && xmlText.includes('</feed>')) {
-        return { ok: true, xml: xmlText, status: 200 }
-      }
-    } catch (error) {
-      // 재시도
-    }
-  }
-  return { ok: false, xml: emptyFeed, status: 502 }
-}
-
-// 채널 1: @BDtube (쉽디 쉬운 치과이야기)
-app.get('/api/youtube-rss', async (c) => {
-  const result = await fetchYoutubeRss('UCakJiVviUa_FJvFWgW_FDBw')
-  c.header('Cache-Control', 'public, max-age=600')
-  c.header('Content-Type', 'application/xml; charset=utf-8')
-  c.header('Access-Control-Allow-Origin', '*')
-  return c.text(result.xml, result.status as any)
-})
-
-// 채널 2: @geoptongryung (치과겁통령)
-app.get('/api/youtube-rss-2', async (c) => {
-  const result = await fetchYoutubeRss('UCKdzv9JtxhLJ-7EOcoIVQZQ')
-  c.header('Cache-Control', 'public, max-age=600')
-  c.header('Content-Type', 'application/xml; charset=utf-8')
-  c.header('Access-Control-Allow-Origin', '*')
-  return c.text(result.xml, result.status as any)
-})
+// 유튜브 영상 캐시 JSON 제공 (빌드 시 생성됨)
+// 정적 파일: /data/youtube-cache.json (public/data/youtube-cache.json)
+app.use('/data/*', serveStatic())
 
 // ============================================
 // GPT 챗봇 API

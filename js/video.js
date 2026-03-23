@@ -1,7 +1,8 @@
 /**
- * 서울비디치과 영상 페이지 — 유튜브 RSS 자동 연동 (멀티 채널 탭)
- * 채널 1: @BDtube / 쉽디 쉬운 치과이야기 (UCakJiVviUa_FJvFWgW_FDBw)
- * 채널 2: @geoptongryung / 치과겁통령 (UCKdzv9JtxhLJ-7EOcoIVQZQ)
+ * 서울비디치과 영상 페이지 — 유튜브 멀티 채널 탭
+ * 데이터: /data/youtube-cache.json (빌드 시 생성)
+ * 채널 1: @BDtube / 쉽디 쉬운 치과이야기
+ * 채널 2: @geoptongryung / 치과겁통령
  */
 (function () {
   'use strict';
@@ -14,11 +15,9 @@
   var channelNameEl = document.getElementById('channelName');
   if (!gridEl) return;
 
-  // 현재 활성 API URL
-  var currentApi = '/api/youtube-rss';
-
-  // 캐시: API URL → 영상 배열
-  var cache = {};
+  // 캐시 데이터 (전체 JSON)
+  var youtubeData = null;
+  var currentChannel = 'bdtube';
 
   function formatDate(dateStr) {
     try {
@@ -35,6 +34,7 @@
   function formatViews(count) {
     if (!count) return '';
     var n = parseInt(count, 10);
+    if (isNaN(n)) return '';
     if (n >= 10000) return (n / 10000).toFixed(1) + '만회';
     if (n >= 1000) return (n / 1000).toFixed(1) + '천회';
     return n + '회';
@@ -46,56 +46,16 @@
     return text.substring(0, max) + '...';
   }
 
-  function parseAtomFeed(xmlText) {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(xmlText, 'text/xml');
-    var entries = doc.querySelectorAll('entry');
-    var result = [];
-
-    entries.forEach(function (entry) {
-      var title = '';
-      var titleEl = entry.querySelector('title');
-      if (titleEl) title = titleEl.textContent || '';
-
-      var videoId = '';
-      var videoIdEl = entry.getElementsByTagNameNS('http://www.youtube.com/xml/schemas/2015', 'videoId')[0];
-      if (videoIdEl) videoId = videoIdEl.textContent || '';
-
-      var published = '';
-      var pubEl = entry.querySelector('published');
-      if (pubEl) published = pubEl.textContent || '';
-
-      var description = '';
-      var descEl = entry.getElementsByTagNameNS('http://search.yahoo.com/mrss/', 'description')[0];
-      if (descEl) description = descEl.textContent || '';
-
-      var thumbnail = '';
-      var thumbEl = entry.getElementsByTagNameNS('http://search.yahoo.com/mrss/', 'thumbnail')[0];
-      if (thumbEl) thumbnail = thumbEl.getAttribute('url') || '';
-
-      var views = '';
-      var statsEl = entry.getElementsByTagNameNS('http://search.yahoo.com/mrss/', 'statistics')[0];
-      if (statsEl) views = statsEl.getAttribute('views') || '';
-
-      if (videoId && title) {
-        result.push({
-          videoId: videoId,
-          title: title,
-          published: published,
-          description: description,
-          thumbnail: thumbnail || 'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg',
-          views: views
-        });
-      }
-    });
-
-    return result;
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
   function renderVideos(items) {
-    if (!items.length) {
+    if (!items || !items.length) {
       if (loadingEl) loadingEl.style.display = 'none';
       if (emptyEl) emptyEl.style.display = '';
+      gridEl.style.display = 'none';
       return;
     }
 
@@ -104,24 +64,27 @@
       var dateStr = formatDate(item.published);
       var viewStr = formatViews(item.views);
       var desc = truncate(item.description, 100);
-      var isShorts = item.title.includes('#shorts') || item.description.includes('#shorts');
+      var title = item.title || '';
+      // Shorts 감지: 제목이나 설명에 #shorts 있거나, 세로 썸네일
+      var isShorts = title.toLowerCase().includes('#shorts') || 
+                     (item.description || '').toLowerCase().includes('#shorts');
       var watchUrl = isShorts
         ? 'https://www.youtube.com/shorts/' + item.videoId
         : 'https://www.youtube.com/watch?v=' + item.videoId;
 
       html += '<a href="' + watchUrl + '" target="_blank" rel="noopener" class="video-card">'
         + '<div class="video-thumb">'
-        + '<img src="' + item.thumbnail + '" alt="' + item.title + '" loading="lazy" onerror="this.src=\'https://i.ytimg.com/vi/' + item.videoId + '/mqdefault.jpg\'">'
+        + '<img src="' + escapeHtml(item.thumbnail) + '" alt="' + escapeHtml(title) + '" loading="lazy" onerror="this.src=\'https://i.ytimg.com/vi/' + item.videoId + '/mqdefault.jpg\'">'
         + '<div class="video-play"><i class="fas fa-play"></i></div>'
         + (isShorts ? '<span class="video-badge-shorts">Shorts</span>' : '')
         + '</div>'
         + '<div class="video-body">'
-        + '<h3 class="video-title">' + item.title + '</h3>'
+        + '<h3 class="video-title">' + escapeHtml(title) + '</h3>'
         + '<div class="video-meta">'
         + '<span><i class="fas fa-calendar-alt"></i> ' + dateStr + '</span>'
         + (viewStr ? '<span><i class="fas fa-eye"></i> ' + viewStr + '</span>' : '')
         + '</div>'
-        + (desc ? '<p class="video-desc">' + desc + '</p>' : '')
+        + (desc ? '<p class="video-desc">' + escapeHtml(desc) + '</p>' : '')
         + '</div>'
         + '</a>';
     });
@@ -129,54 +92,44 @@
     gridEl.innerHTML = html;
     gridEl.style.display = '';
     if (loadingEl) loadingEl.style.display = 'none';
+    if (emptyEl) emptyEl.style.display = 'none';
+    if (errorEl) errorEl.style.display = 'none';
   }
 
-  function loadVideos(apiUrl, retryCount) {
-    if (!apiUrl) apiUrl = currentApi;
-    currentApi = apiUrl;
-    if (typeof retryCount === 'undefined') retryCount = 0;
-
-    // 캐시 히트 — 즉시 렌더링
-    if (cache[apiUrl]) {
-      if (loadingEl) loadingEl.style.display = 'none';
-      if (errorEl) errorEl.style.display = 'none';
-      if (emptyEl) emptyEl.style.display = 'none';
-      renderVideos(cache[apiUrl]);
-      return;
+  function showChannel(channelKey) {
+    currentChannel = channelKey;
+    if (youtubeData && youtubeData[channelKey]) {
+      renderVideos(youtubeData[channelKey].videos);
+    } else {
+      if (emptyEl) emptyEl.style.display = '';
+      gridEl.style.display = 'none';
     }
+  }
 
+  function loadData() {
     if (loadingEl) loadingEl.style.display = '';
     if (errorEl) errorEl.style.display = 'none';
     if (emptyEl) emptyEl.style.display = 'none';
     gridEl.style.display = 'none';
 
-    fetch(apiUrl)
+    fetch('/data/youtube-cache.json?v=' + Date.now())
       .then(function (res) {
-        if (!res.ok) throw new Error('YouTube RSS fetch failed');
-        return res.text();
+        if (!res.ok) throw new Error('Cache fetch failed: ' + res.status);
+        return res.json();
       })
-      .then(function (xmlText) {
-        var items = parseAtomFeed(xmlText);
-        // 빈 결과이고 재시도 가능하면 1.5초 후 재시도
-        if (items.length === 0 && retryCount < 2) {
-          setTimeout(function () { loadVideos(apiUrl, retryCount + 1); }, 1500);
-          return;
-        }
-        cache[apiUrl] = items; // 캐시 저장
-        renderVideos(items);
+      .then(function (data) {
+        youtubeData = data;
+        showChannel(currentChannel);
       })
       .catch(function (err) {
-        console.warn('영상 로드 실패:', err);
+        console.warn('영상 캐시 로드 실패:', err);
         if (loadingEl) loadingEl.style.display = 'none';
         if (errorEl) errorEl.style.display = '';
       });
   }
 
   // 전역으로 loadVideos 노출 (retry 버튼용)
-  window.loadVideos = function () {
-    cache = {}; // 리트라이 시 캐시 클리어
-    loadVideos(currentApi);
-  };
+  window.loadVideos = loadData;
 
   // === 탭 전환 로직 ===
   var tabsContainer = document.getElementById('channelTabs');
@@ -198,17 +151,24 @@
           channelNameEl.textContent = label.textContent;
         }
 
-        // 영상 로드
-        var api = tab.getAttribute('data-api');
-        if (api) loadVideos(api);
+        // 영상 전환
+        var channel = tab.getAttribute('data-channel');
+        if (channel) {
+          if (youtubeData) {
+            showChannel(channel);
+          } else {
+            currentChannel = channel;
+            loadData();
+          }
+        }
       });
     });
   }
 
-  // 페이지 로드 시 첫 번째 채널 로드
+  // 페이지 로드 시 데이터 로드
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { loadVideos('/api/youtube-rss'); });
+    document.addEventListener('DOMContentLoaded', loadData);
   } else {
-    loadVideos('/api/youtube-rss');
+    loadData();
   }
 })();
