@@ -33,16 +33,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="twitter:title" content="치과 백과사전 | 서울비디치과">
   <meta name="twitter:description" content="187개 치과 용어를 쉽게 알아보세요. 서울대 전문의가 감수한 정확한 치과 정보.">
   <meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
-  <link rel="icon" type="image/svg+xml" href="../images/icons/favicon.svg">
-  <link rel="apple-touch-icon" sizes="180x180" href="../images/icons/apple-touch-icon.svg">
-  <link rel="manifest" href="../manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
+  <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#6B4226">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=4a7fbcd0">
+  <link rel="stylesheet" href="/css/site-v5.css?v=4a7fbcd0">
   <link rel="prefetch" href="/reservation" as="document">
 
   <!-- BreadcrumbList -->
@@ -304,24 +304,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <!-- ■ HEADER -->
-  <header class="site-header" role="banner">
-    <div class="container header-inner">
-      <a href="/" class="site-logo" aria-label="서울비디치과 홈">
-        <span class="logo-icon">🦷</span>
-        <div class="logo-text-wrap">
-          <span class="logo-main">서울비디치과</span>
-          <span class="clinic-status open">
-            <span class="status-dot"></span>
-            <span class="status-text">진료중</span>
-            <span class="status-time">20:00까지</span>
-          </span>
+  <!-- ■ HEADER (홈페이지와 동일) -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="/" class="site-logo" aria-label="서울비디치과 홈">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text">서울비디치과</span>
+        </a>
+        <div class="clinic-status open" aria-live="polite">
+          <span class="status-dot"></span>
+          <span class="status-text">진료중</span>
+          <span class="status-time">20:00까지</span>
         </div>
-      </a>
+      </div>
       
-      <nav class="main-nav" id="mainNav" role="navigation" aria-label="메인 메뉴">
-        <ul class="nav-menu">
-          <li class="nav-item"><a href="/mission">Our Mission</a></li>
+      <nav class="main-nav" id="mainNav" aria-label="메인 네비게이션">
+        <ul>
           <li class="nav-item has-dropdown">
             <a href="/treatments/">진료 안내</a>
             <div class="mega-dropdown">
@@ -329,16 +328,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div class="mega-dropdown-section">
                   <strong class="section-heading">전문센터</strong>
                   <ul>
-                    <li><a href="/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>
-                    <li><a href="/treatments/implant">임플란트센터</a></li>
-                    <li><a href="/treatments/invisalign">교정센터 (인비절라인)</a></li>
-                    <li><a href="/treatments/pediatric">소아치과</a></li>
+                    <li><a href="/treatments/glownate">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li>
+                    <li><a href="/treatments/implant">임플란트 <span class="badge">6개 수술실</span></a></li>
+                    <li><a href="/treatments/invisalign">치아교정 <span class="badge">대규모</span></a></li>
+                    <li><a href="/treatments/pediatric">소아치과 <span class="badge">전문의 3인</span></a></li>
                     <li><a href="/treatments/aesthetic">심미치료</a></li>
-                    <li><a href="/treatments/denture">틀니</a></li>
                   </ul>
                 </div>
                 <div class="mega-dropdown-section">
-                  <strong class="section-heading">일반진료</strong>
+                  <strong class="section-heading">일반/보존 진료</strong>
                   <ul>
                     <li><a href="/treatments/cavity">충치치료</a></li>
                     <li><a href="/treatments/resin">레진치료</a></li>
@@ -363,6 +361,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
           </li>
           <li class="nav-item"><a href="/doctors/">의료진 소개</a></li>
+          <li class="nav-item"><a href="/mission">비디미션</a></li>
           <li class="nav-item has-dropdown">
             <a href="/blog/">콘텐츠</a>
             <ul class="simple-dropdown">
@@ -547,7 +546,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <ul>
               <li><a href="/reservation">예약/상담</a></li>
               <li><a href="/blog/">블로그/콘텐츠</a></li>
-              <li><a href="/encyclopedia/">치과 백과사전</a></li>
               <li><a href="/faq">자주 묻는 질문</a></li>
               <li><a href="/directions">오시는 길</a></li>
             </ul>
@@ -652,15 +650,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </div>
   </nav>
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
-  <!-- Floating CTA -->
-  <div class="floating-cta">
-    <a href="https://pf.kakao.com/_Cxivlxb" class="floating-btn kakao" target="_blank" rel="noopener" aria-label="카카오톡 상담">
-      <i class="fas fa-comment"></i>
-    </a>
-    <a href="#" class="floating-btn top" aria-label="맨 위로">
-      <i class="fas fa-chevron-up"></i>
-    </a>
+  <!-- Floating CTA (Desktop) -->
+  <div class="floating-cta desktop-only">
+    <a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a>
+    <a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a>
+  </div>
+
+  <!-- Mobile Bottom CTA -->
+  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
+    <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
+    <a href="/reservation" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
+    <a href="/directions" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
   </div>
 
   <!-- Modal -->
@@ -704,9 +708,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </script>
 
   <!-- Scripts -->
-  <script src="/js/analytics.js" defer></script>
-  <script src="../js/main.js" defer></script>
-  <script src="../js/gnb.js" defer></script>
-  <script src="../js/encyclopedia.js?v=20260323b" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/gnb.js" defer></script>
+  <script src="/js/encyclopedia.js?v=20260323c" defer></script>
 </body>
 </html>
