@@ -99,27 +99,31 @@ app.get('/api/inblog-rss', async (c) => {
 async function fetchYoutubeRss(channelId: string): Promise<{ ok: boolean; xml: string; status: number }> {
   const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
   const emptyFeed = '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"></feed>'
-  const userAgents = [
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Mozilla/5.0 (compatible; bdbddc.com RSS reader)',
-  ]
 
-  for (let i = 0; i < userAgents.length; i++) {
+  // 최대 3회 재시도 (딜레이 포함)
+  for (let attempt = 0; attempt < 3; attempt++) {
     try {
+      if (attempt > 0) {
+        await new Promise(r => setTimeout(r, 300 * attempt))
+      }
       const response = await fetch(feedUrl, {
         headers: {
-          'User-Agent': userAgents[i],
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
           'Accept': 'application/xml, text/xml, application/atom+xml, */*',
           'Accept-Language': 'ko-KR,ko;q=0.9,en;q=0.8',
         },
+        cf: { cacheTtl: 0 } as any, // Cloudflare 캐시 비활성화
       })
       const xmlText = await response.text()
-      if (xmlText.includes('<feed') || xmlText.includes('<rss')) {
+      if (xmlText.includes('<entry>') || xmlText.includes('<entry ')) {
+        return { ok: true, xml: xmlText, status: 200 }
+      }
+      // 유효한 피드지만 영상이 없는 경우 (빈 채널)
+      if (xmlText.includes('<feed') && xmlText.includes('</feed>')) {
         return { ok: true, xml: xmlText, status: 200 }
       }
     } catch (error) {
-      // 다음 User-Agent로 재시도
+      // 재시도
     }
   }
   return { ok: false, xml: emptyFeed, status: 502 }

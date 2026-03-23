@@ -131,9 +131,10 @@
     if (loadingEl) loadingEl.style.display = 'none';
   }
 
-  function loadVideos(apiUrl) {
+  function loadVideos(apiUrl, retryCount) {
     if (!apiUrl) apiUrl = currentApi;
     currentApi = apiUrl;
+    if (typeof retryCount === 'undefined') retryCount = 0;
 
     // 캐시 히트 — 즉시 렌더링
     if (cache[apiUrl]) {
@@ -156,6 +157,11 @@
       })
       .then(function (xmlText) {
         var items = parseAtomFeed(xmlText);
+        // 빈 결과이고 재시도 가능하면 1.5초 후 재시도
+        if (items.length === 0 && retryCount < 2) {
+          setTimeout(function () { loadVideos(apiUrl, retryCount + 1); }, 1500);
+          return;
+        }
         cache[apiUrl] = items; // 캐시 저장
         renderVideos(items);
       })
