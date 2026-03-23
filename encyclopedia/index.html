@@ -686,10 +686,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </div>
 
+  <!-- Reveal Animation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      var els=document.querySelectorAll('.reveal');
+      if(!els.length)return;
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+          }
+        });
+      },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+      els.forEach(function(el){obs.observe(el);});
+    });
+  </script>
+
   <!-- Scripts -->
   <script src="/js/analytics.js" defer></script>
   <script src="../js/main.js" defer></script>
   <script src="../js/gnb.js" defer></script>
-  <script src="../js/encyclopedia.js?v=20260323" defer></script>
+  <script src="../js/encyclopedia.js?v=20260323b" defer></script>
 </body>
 </html>
