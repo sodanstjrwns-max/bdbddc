@@ -1,7 +1,7 @@
 /**
  * 서울비디치과 영상 페이지 — 유튜브 RSS 자동 연동
  * 소스: /api/youtube-rss (서버 프록시 → YouTube Atom Feed)
- * 채널: 쉽디 쉬운 치과이야기 (UCakJiVviUa_FJvFWgW_FDBw)
+ * 채널: @BDtube / 쉽디 쉬운 치과이야기 (UCakJiVviUa_FJvFWgW_FDBw)
  */
 (function () {
   'use strict';
