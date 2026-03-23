@@ -95,36 +95,42 @@ app.get('/api/inblog-rss', async (c) => {
   }
 })
 
-// 유튜브 RSS 프록시 API (CORS 우회)
-app.get('/api/youtube-rss', async (c) => {
+// 유튜브 RSS 프록시 — 공통 핸들러
+async function fetchYoutubeRss(channelId: string): Promise<{ ok: boolean; xml: string; status: number }> {
   try {
-    const channelId = 'UCakJiVviUa_FJvFWgW_FDBw' // @BDtube / 쉽디 쉬운 치과이야기
     const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
-    
     const response = await fetch(feedUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; bdbddc.com RSS reader)',
         'Accept': 'application/xml, text/xml, */*',
       },
     })
-    
     const xmlText = await response.text()
-    
-    // YouTube가 HTML 에러 페이지를 반환한 경우 감지
     if (!xmlText.includes('<feed') && !xmlText.includes('<rss')) {
-      console.error('YouTube RSS returned non-XML response:', xmlText.substring(0, 200))
-      return c.text('<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"></feed>', 502)
+      return { ok: false, xml: '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"></feed>', status: 502 }
     }
-    
-    c.header('Cache-Control', 'public, max-age=600')
-    c.header('Content-Type', 'application/xml; charset=utf-8')
-    c.header('Access-Control-Allow-Origin', '*')
-    
-    return c.text(xmlText)
+    return { ok: true, xml: xmlText, status: 200 }
   } catch (error) {
-    console.error('YouTube RSS Error:', error)
-    return c.text('<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"></feed>', 500)
+    return { ok: false, xml: '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"></feed>', status: 500 }
   }
+}
+
+// 채널 1: @BDtube (쉽디 쉬운 치과이야기)
+app.get('/api/youtube-rss', async (c) => {
+  const result = await fetchYoutubeRss('UCakJiVviUa_FJvFWgW_FDBw')
+  c.header('Cache-Control', 'public, max-age=600')
+  c.header('Content-Type', 'application/xml; charset=utf-8')
+  c.header('Access-Control-Allow-Origin', '*')
+  return c.text(result.xml, result.status as any)
+})
+
+// 채널 2: @geoptongryung (치과겁통령)
+app.get('/api/youtube-rss-2', async (c) => {
+  const result = await fetchYoutubeRss('UCKdzv9JtxhLJ-7EOcoIVQZQ')
+  c.header('Cache-Control', 'public, max-age=600')
+  c.header('Content-Type', 'application/xml; charset=utf-8')
+  c.header('Access-Control-Allow-Origin', '*')
+  return c.text(result.xml, result.status as any)
 })
 
 // ============================================

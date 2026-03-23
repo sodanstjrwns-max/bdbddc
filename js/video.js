@@ -1,7 +1,7 @@
 /**
- * 서울비디치과 영상 페이지 — 유튜브 RSS 자동 연동
- * 소스: /api/youtube-rss (서버 프록시 → YouTube Atom Feed)
- * 채널: @BDtube / 쉽디 쉬운 치과이야기 (UCakJiVviUa_FJvFWgW_FDBw)
+ * 서울비디치과 영상 페이지 — 유튜브 RSS 자동 연동 (멀티 채널 탭)
+ * 채널 1: @BDtube / 쉽디 쉬운 치과이야기 (UCakJiVviUa_FJvFWgW_FDBw)
+ * 채널 2: @geoptongryung / 치과겁통령 (UCKdzv9JtxhLJ-7EOcoIVQZQ)
  */
 (function () {
   'use strict';
@@ -10,7 +10,15 @@
   var errorEl = document.getElementById('errorState');
   var emptyEl = document.getElementById('emptyState');
   var gridEl = document.getElementById('videosGrid');
+  var channelSubscribe = document.getElementById('channelSubscribe');
+  var channelNameEl = document.getElementById('channelName');
   if (!gridEl) return;
+
+  // 현재 활성 API URL
+  var currentApi = '/api/youtube-rss';
+
+  // 캐시: API URL → 영상 배열
+  var cache = {};
 
   function formatDate(dateStr) {
     try {
@@ -123,20 +131,32 @@
     if (loadingEl) loadingEl.style.display = 'none';
   }
 
-  // 전역으로 loadVideos 노출 (retry 버튼용)
-  window.loadVideos = function () {
+  function loadVideos(apiUrl) {
+    if (!apiUrl) apiUrl = currentApi;
+    currentApi = apiUrl;
+
+    // 캐시 히트 — 즉시 렌더링
+    if (cache[apiUrl]) {
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (errorEl) errorEl.style.display = 'none';
+      if (emptyEl) emptyEl.style.display = 'none';
+      renderVideos(cache[apiUrl]);
+      return;
+    }
+
     if (loadingEl) loadingEl.style.display = '';
     if (errorEl) errorEl.style.display = 'none';
     if (emptyEl) emptyEl.style.display = 'none';
     gridEl.style.display = 'none';
 
-    fetch('/api/youtube-rss')
+    fetch(apiUrl)
       .then(function (res) {
         if (!res.ok) throw new Error('YouTube RSS fetch failed');
         return res.text();
       })
       .then(function (xmlText) {
         var items = parseAtomFeed(xmlText);
+        cache[apiUrl] = items; // 캐시 저장
         renderVideos(items);
       })
       .catch(function (err) {
@@ -144,12 +164,45 @@
         if (loadingEl) loadingEl.style.display = 'none';
         if (errorEl) errorEl.style.display = '';
       });
+  }
+
+  // 전역으로 loadVideos 노출 (retry 버튼용)
+  window.loadVideos = function () {
+    cache = {}; // 리트라이 시 캐시 클리어
+    loadVideos(currentApi);
   };
 
-  // 페이지 로드 시 실행
+  // === 탭 전환 로직 ===
+  var tabsContainer = document.getElementById('channelTabs');
+  if (tabsContainer) {
+    var tabs = tabsContainer.querySelectorAll('.channel-tab');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        // 활성 탭 전환
+        tabs.forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+
+        // 채널 구독 링크 업데이트
+        var url = tab.getAttribute('data-url');
+        var label = tab.querySelector('.tab-label');
+        if (channelSubscribe && url) {
+          channelSubscribe.href = url;
+        }
+        if (channelNameEl && label) {
+          channelNameEl.textContent = label.textContent;
+        }
+
+        // 영상 로드
+        var api = tab.getAttribute('data-api');
+        if (api) loadVideos(api);
+      });
+    });
+  }
+
+  // 페이지 로드 시 첫 번째 채널 로드
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', window.loadVideos);
+    document.addEventListener('DOMContentLoaded', function () { loadVideos('/api/youtube-rss'); });
   } else {
-    window.loadVideos();
+    loadVideos('/api/youtube-rss');
   }
 })();

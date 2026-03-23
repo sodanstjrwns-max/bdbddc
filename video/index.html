@@ -63,6 +63,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .video-meta i { margin-right: 4px; color: var(--brand-gold); }
     .video-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     @media (max-width: 768px) { .videos-grid { grid-template-columns: 1fr; } }
+
+    /* 채널 탭 스타일 */
+    .channel-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .channel-tab {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg); background: var(--white);
+      cursor: pointer; transition: all 0.3s; font-size: 0.95rem;
+      font-weight: 600; color: var(--text-secondary); font-family: inherit;
+    }
+    .channel-tab:hover { border-color: var(--brand-gold-light); color: var(--text-primary); }
+    .channel-tab.active {
+      border-color: #ff0000; background: #fff5f5; color: #cc0000;
+    }
+    .channel-tab .fab { font-size: 1.1rem; }
+    .channel-tab.active .fab { color: #ff0000; }
+    @media (max-width: 768px) {
+      .channel-tabs { flex-direction: row; overflow-x: auto; }
+      .channel-tab { padding: 10px 16px; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0; }
+    }
   </style>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -348,10 +368,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- 콘텐츠 영역 -->
   <section class="content-section" aria-label="영상 목록">
     <div class="container">
-      <!-- 유튜브 채널 링크 -->
-      <a href="https://www.youtube.com/@BDtube" target="_blank" class="channel-link reveal" rel="noopener noreferrer">
+      <!-- 유튜브 채널 탭 -->
+      <div class="channel-tabs reveal" id="channelTabs">
+        <button class="channel-tab active" data-channel="bdtube" data-api="/api/youtube-rss" data-url="https://www.youtube.com/@BDtube">
+          <i class="fab fa-youtube"></i>
+          <span class="tab-label">쉽디 쉬운 치과이야기</span>
+        </button>
+        <button class="channel-tab" data-channel="geoptongryung" data-api="/api/youtube-rss-2" data-url="https://www.youtube.com/@geoptongryung">
+          <i class="fab fa-youtube"></i>
+          <span class="tab-label">치과겁통령</span>
+        </button>
+      </div>
+
+      <!-- 채널 구독 링크 -->
+      <a href="https://www.youtube.com/@BDtube" target="_blank" class="channel-link reveal" rel="noopener noreferrer" id="channelSubscribe">
         <i class="fab fa-youtube"></i>
-        <span>서울비디치과 공식 유튜브 채널</span>
+        <span id="channelName">쉽디 쉬운 치과이야기</span>
         <span class="btn-subscribe">구독하기</span>
       </a>
       
