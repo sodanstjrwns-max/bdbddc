@@ -307,6 +307,7 @@ app.post('/api/indexnow', async (c) => {
     '/doctors/kim-mg', '/doctors/kim-mj', '/doctors/kang-mj',
     '/doctors/park-sb', '/doctors/lee-bm',
     '/blog/', '/video/', '/cases/', '/cases/gallery',
+    '/encyclopedia/',
     '/mission', '/floor-guide', '/faq', '/notice/',
     '/faq/implant', '/faq/orthodontics',
     // 28개 지역 페이지 (area) - clean URLs
@@ -426,6 +427,11 @@ app.use('/auth/*', serveStatic())
 app.get('/admin', serveStatic({ path: './admin/index.html' }))
 app.get('/admin/', serveStatic({ path: './admin/index.html' }))
 app.use('/admin/*', serveStatic())
+
+// Encyclopedia directory (치과 백과사전)
+app.get('/encyclopedia', serveStatic({ path: './encyclopedia/index.html' }))
+app.get('/encyclopedia/', serveStatic({ path: './encyclopedia/index.html' }))
+app.use('/encyclopedia/*', serveStatic())
 
 // Area directory (지역 페이지)
 app.use('/area/*', serveStatic())
