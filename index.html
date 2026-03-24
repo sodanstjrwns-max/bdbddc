@@ -80,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <!-- ■ Icons -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=0b6913b4">
+  <link rel="stylesheet" href="../css/site-v5.css?v=0bc368ac">
   
   <!-- ■ Stylesheets — v4.0 (2 files only!) -->
   
@@ -367,7 +367,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
     <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
     
-    <div class="container hero-content">
+    <div class="container hero-content hero-split">
       <div class="hero-text">
         <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
         
@@ -397,6 +397,216 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="tel:0414152892" class="btn btn-outline btn-lg">
             <i class="fas fa-phone"></i> 041-415-2892
           </a>
+        </div>
+      </div>
+
+      <!-- Hero Visual Object -->
+      <div class="hero-visual reveal delay-2" aria-hidden="true">
+        <div class="hero-tooth-scene">
+          <!-- Premium Ultra-Realistic Molar Tooth SVG -->
+          <div class="hero-tooth-float">
+            <svg viewBox="0 0 360 500" class="hero-tooth-svg" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- Primary enamel: pearlescent white-to-ivory with warm undertone -->
+                <linearGradient id="enamelMain" x1="0.15" y1="0" x2="0.9" y2="1">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="12%" stop-color="#FEFDFB"/>
+                  <stop offset="30%" stop-color="#FAF7F2"/>
+                  <stop offset="50%" stop-color="#F4EEE4"/>
+                  <stop offset="70%" stop-color="#EDE4D4"/>
+                  <stop offset="85%" stop-color="#E5D9C6"/>
+                  <stop offset="100%" stop-color="#DDD0B8"/>
+                </linearGradient>
+                <!-- Dentin for roots: warm ivory -->
+                <linearGradient id="dentinGrad" x1="0.3" y1="0" x2="0.7" y2="1">
+                  <stop offset="0%" stop-color="#E8DCC8"/>
+                  <stop offset="35%" stop-color="#DDD0B8"/>
+                  <stop offset="70%" stop-color="#D2C3A8"/>
+                  <stop offset="100%" stop-color="#C8B898"/>
+                </linearGradient>
+                <!-- Root tip (cementum) — slightly darker -->
+                <linearGradient id="rootTip" x1="0.5" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%" stop-color="#D2C3A8"/>
+                  <stop offset="100%" stop-color="#BFB08E"/>
+                </linearGradient>
+                <!-- Specular highlight: top-left broad gloss -->
+                <radialGradient id="specHighlight" cx="0.32" cy="0.18" r="0.50" fx="0.28" fy="0.12">
+                  <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.97"/>
+                  <stop offset="25%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+                  <stop offset="55%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Secondary specular: small sharp highlight (cusp tip) -->
+                <radialGradient id="cuspGlint" cx="0.4" cy="0.06" r="0.18" fx="0.38" fy="0.04">
+                  <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+                  <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.2"/>
+                  <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Rim light: right edge glow -->
+                <linearGradient id="rimRight" x1="1" y1="0.15" x2="0" y2="0.85">
+                  <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.70"/>
+                  <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+                </linearGradient>
+                <!-- Subsurface scattering: warm glow through enamel -->
+                <radialGradient id="sssGlow" cx="0.5" cy="0.45" r="0.55">
+                  <stop offset="0%" stop-color="#F5E6D0" stop-opacity="0.18"/>
+                  <stop offset="60%" stop-color="#EDD8BD" stop-opacity="0.06"/>
+                  <stop offset="100%" stop-color="#E0CBA8" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Brand gold ambient glow behind the tooth -->
+                <radialGradient id="goldAura" cx="0.5" cy="0.4" r="0.6">
+                  <stop offset="0%" stop-color="#C8A97E" stop-opacity="0.10"/>
+                  <stop offset="50%" stop-color="#C8A97E" stop-opacity="0.04"/>
+                  <stop offset="100%" stop-color="#C8A97E" stop-opacity="0"/>
+                </radialGradient>
+                <!-- Drop shadow -->
+                <filter id="toothDrop" x="-30%" y="-15%" width="160%" height="150%">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="18" result="blur"/>
+                  <feOffset dy="12" result="offset"/>
+                  <feFlood flood-color="#5A3820" flood-opacity="0.16" result="color"/>
+                  <feComposite in="color" in2="offset" operator="in" result="shadow"/>
+                  <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <!-- Soft inner glow for 3D depth -->
+                <filter id="innerDepth" x="-5%" y="-5%" width="110%" height="110%">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="innerBlur"/>
+                  <feOffset dx="2" dy="3"/>
+                  <feComposite operator="out" in="SourceGraphic"/>
+                  <feFlood flood-color="#B8A080" flood-opacity="0.08"/>
+                  <feComposite operator="in" in2="innerBlur"/>
+                  <feComposite operator="over" in2="SourceGraphic"/>
+                </filter>
+              </defs>
+
+              <!-- Background gold aura -->
+              <ellipse cx="180" cy="200" rx="170" ry="200" fill="url(#goldAura)"/>
+
+              <g filter="url(#toothDrop)">
+                <!-- ════ LEFT ROOT ════ -->
+                <path d="M128 228 C126 234 122 250 118 272 C114 296 110 322 108 348 C106 370 104 392 106 410 C108 424 112 434 118 438 C124 442 130 434 134 420 C138 404 140 384 140 366 C140 342 136 312 132 282 C130 260 128 240 128 228 Z"
+                      fill="url(#dentinGrad)" stroke="#D5C8B2" stroke-width="0.5" opacity="0.95"/>
+                <!-- Left root tip -->
+                <ellipse cx="112" cy="430" rx="8" ry="12" fill="url(#rootTip)" opacity="0.7"/>
+                <!-- Left root highlight -->
+                <path d="M122 250 C120 268 118 290 116 310" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.12" stroke-linecap="round"/>
+
+                <!-- ════ RIGHT ROOT ════ -->
+                <path d="M232 228 C234 234 238 250 242 272 C246 296 250 322 252 348 C254 370 256 392 254 410 C252 424 248 434 242 438 C236 442 230 434 226 420 C222 404 220 384 220 366 C220 342 224 312 228 282 C230 260 232 240 232 228 Z"
+                      fill="url(#dentinGrad)" stroke="#D5C8B2" stroke-width="0.5" opacity="0.95"/>
+                <!-- Right root tip -->
+                <ellipse cx="248" cy="430" rx="8" ry="12" fill="url(#rootTip)" opacity="0.7"/>
+                <!-- Right root highlight -->
+                <path d="M240 250 C242 268 244 290 246 310" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.12" stroke-linecap="round"/>
+
+                <!-- ════ CROWN BODY ════ -->
+                <path d="M68 128 C62 96 74 60 98 40 C116 24 148 14 180 14 C212 14 244 24 262 40 C286 60 298 96 292 128 C290 148 282 168 272 186 C260 206 246 220 234 228 C220 236 200 242 180 242 C160 242 140 236 126 228 C114 220 100 206 88 186 C78 168 70 148 68 128 Z"
+                      fill="url(#enamelMain)" stroke="#DDD0B8" stroke-width="0.8"/>
+
+                <!-- ════ ANATOMICAL DETAILS ════ -->
+
+                <!-- 4 Cusps — mesio-buccal, disto-buccal, mesio-lingual, disto-lingual -->
+                <!-- Cusp ridges (occlusal surface anatomy) -->
+                <path d="M110 72 C124 56 148 44 180 44 C212 44 236 56 250 72"
+                      fill="none" stroke="#D4C6B0" stroke-width="1.0" opacity="0.30"/>
+                <!-- Central fissure (main groove) -->
+                <path d="M180 42 C178 52 176 66 178 82 C180 92 182 100 180 108"
+                      fill="none" stroke="#CFC0A8" stroke-width="0.9" opacity="0.25"/>
+                <!-- Mesial marginal ridge -->
+                <path d="M116 60 C122 68 130 80 138 86"
+                      fill="none" stroke="#CFC0A8" stroke-width="0.7" opacity="0.18"/>
+                <!-- Distal marginal ridge -->
+                <path d="M244 60 C238 68 230 80 222 86"
+                      fill="none" stroke="#CFC0A8" stroke-width="0.7" opacity="0.18"/>
+                <!-- Triangular ridges from cusp tips -->
+                <path d="M140 52 C148 62 156 74 164 82"
+                      fill="none" stroke="#D8CBB6" stroke-width="0.5" opacity="0.14"/>
+                <path d="M220 52 C212 62 204 74 196 82"
+                      fill="none" stroke="#D8CBB6" stroke-width="0.5" opacity="0.14"/>
+                <!-- Supplemental groove (buccal) -->
+                <path d="M150 90 C156 100 162 108 168 114"
+                      fill="none" stroke="#CFC0A8" stroke-width="0.4" opacity="0.12"/>
+                <!-- Buccal developmental groove -->
+                <path d="M180 108 C180 122 180 138 180 150"
+                      fill="none" stroke="#D0C2AC" stroke-width="0.6" opacity="0.10"/>
+
+                <!-- CEJ (cemento-enamel junction) — anatomically curved -->
+                <path d="M88 196 C106 218 140 232 180 232 C220 232 254 218 272 196"
+                      fill="none" stroke="#D0C2AA" stroke-width="1.2" opacity="0.25" stroke-dasharray="3,2"/>
+
+                <!-- Root furcation area -->
+                <path d="M158 232 C164 248 170 258 180 262 C190 258 196 248 202 232"
+                      fill="none" stroke="#D5C8B2" stroke-width="0.8" opacity="0.15"/>
+
+                <!-- ════ LIGHTING LAYERS ════ -->
+
+                <!-- Specular highlight (main gloss) -->
+                <path d="M68 128 C62 96 74 60 98 40 C116 24 148 14 180 14 C212 14 244 24 262 40 C286 60 298 96 292 128 C290 148 282 168 272 186 C260 206 246 220 234 228 C220 236 200 242 180 242 C160 242 140 236 126 228 C114 220 100 206 88 186 C78 168 70 148 68 128 Z"
+                      fill="url(#specHighlight)"/>
+
+                <!-- Cusp tip glint (top-center bright spot) -->
+                <path d="M68 128 C62 96 74 60 98 40 C116 24 148 14 180 14 C212 14 244 24 262 40 C286 60 298 96 292 128 C290 148 282 168 272 186 C260 206 246 220 234 228 C220 236 200 242 180 242 C160 242 140 236 126 228 C114 220 100 206 88 186 C78 168 70 148 68 128 Z"
+                      fill="url(#cuspGlint)"/>
+
+                <!-- Subsurface scattering layer (warm translucency) -->
+                <path d="M68 128 C62 96 74 60 98 40 C116 24 148 14 180 14 C212 14 244 24 262 40 C286 60 298 96 292 128 C290 148 282 168 272 186 C260 206 246 220 234 228 C220 236 200 242 180 242 C160 242 140 236 126 228 C114 220 100 206 88 186 C78 168 70 148 68 128 Z"
+                      fill="url(#sssGlow)"/>
+
+                <!-- Right rim light -->
+                <path d="M262 40 C286 60 298 96 292 128 C290 148 282 168 272 186 C260 206 246 220 234 228"
+                      fill="none" stroke="url(#rimRight)" stroke-width="4" stroke-linecap="round"/>
+
+                <!-- Left contour shadow for 3D depth -->
+                <path d="M98 40 C74 60 62 96 68 128 C70 148 78 168 88 186 C100 206 114 220 126 228"
+                      fill="none" stroke="#BFB09A" stroke-width="2" stroke-linecap="round" opacity="0.10"/>
+
+                <!-- Enamel prismatic micro-texture (very subtle) -->
+                <g opacity="0.035" stroke="#A89880" stroke-width="0.4" fill="none">
+                  <path d="M84 90 C120 82 230 82 276 90"/>
+                  <path d="M78 108 C120 98 230 98 282 108"/>
+                  <path d="M76 126 C120 116 230 116 284 126"/>
+                  <path d="M78 144 C120 134 230 134 282 144"/>
+                  <path d="M84 162 C120 152 230 152 276 162"/>
+                  <path d="M92 178 C124 170 226 170 268 178"/>
+                </g>
+
+                <!-- Perikymata lines (growth rings on enamel surface) -->
+                <g opacity="0.025" stroke="#B0A090" stroke-width="0.3" fill="none">
+                  <path d="M100 70 C130 64 220 64 260 70"/>
+                  <path d="M96 82 C130 76 220 76 264 82"/>
+                  <path d="M92 94 C130 88 220 88 268 94"/>
+                </g>
+
+                <!-- Contact point highlights (mesial & distal) -->
+                <ellipse cx="82" cy="120" rx="4" ry="14" fill="#FFFFFF" opacity="0.08" transform="rotate(-12 82 120)"/>
+                <ellipse cx="278" cy="120" rx="4" ry="14" fill="#FFFFFF" opacity="0.06" transform="rotate(12 278 120)"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Orbiting icons (premium style) -->
+          <div class="hero-orbit">
+            <div class="hero-orbit-item hero-orbit-1">
+              <div class="orbit-icon"><i class="fas fa-shield-alt"></i></div>
+            </div>
+            <div class="hero-orbit-item hero-orbit-2">
+              <div class="orbit-icon"><i class="fas fa-star"></i></div>
+            </div>
+            <div class="hero-orbit-item hero-orbit-3">
+              <div class="orbit-icon"><i class="fas fa-gem"></i></div>
+            </div>
+          </div>
+
+          <!-- Sparkle effects -->
+          <div class="hero-sparkle hero-sparkle-1"></div>
+          <div class="hero-sparkle hero-sparkle-2"></div>
+          <div class="hero-sparkle hero-sparkle-3"></div>
+          <div class="hero-sparkle hero-sparkle-4"></div>
+          <div class="hero-sparkle hero-sparkle-5"></div>
+          <div class="hero-sparkle hero-sparkle-6"></div>
+
+          <!-- Soft ring -->
+          <div class="hero-ring"></div>
         </div>
       </div>
     </div>
