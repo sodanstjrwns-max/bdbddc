@@ -29,6 +29,11 @@
 /*.html
   Cache-Control: public, max-age=300, s-maxage=3600
 
+# Encyclopedia SSR pages - CDN aggressive caching (24h edge, 1h browser)
+/encyclopedia/*
+  Cache-Control: public, max-age=3600, s-maxage=86400
+  X-Robots-Tag: index, follow
+
 # SEO files
 /sitemap.xml
   Cache-Control: public, max-age=3600
