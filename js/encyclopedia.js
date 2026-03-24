@@ -308,7 +308,7 @@
       if (grid) grid.style.display = 'none';
       if (empty) {
         empty.style.display = 'block';
-        empty.querySelector('h3').textContent = '데이터를 불러올 수 없습니다';
+        empty.querySelector('h2').textContent = '데이터를 불러올 수 없습니다';
         empty.querySelector('p').textContent = '잠시 후 다시 시도해주세요.';
       }
     }

@@ -101,10 +101,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   </script>
 
-  <!-- FAQPage Schema (동적 생성됨) -->
-  <script type="application/ld+json" id="faqSchema">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[]}
-  </script>
+  <!-- FAQPage Schema (JS에서 동적 생성됨) -->
+  <script type="application/ld+json" id="faqSchema">{}</script>
 
   <style>
     /* ===== 검색 + 필터 바 ===== */
@@ -216,7 +214,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       text-align: center; padding: 60px 20px; color: var(--text-secondary);
     }
     .enc-empty i { font-size: 3rem; margin-bottom: 16px; color: var(--gray-300); }
-    .enc-empty h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text-primary); }
+    .enc-empty h2 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text-primary); font-weight: 600; }
     .enc-empty p { font-size: 0.9rem; }
 
     /* ===== 모달 ===== */
@@ -484,7 +482,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <!-- 빈 상태 -->
       <div class="enc-empty" id="encEmpty" style="display:none;">
         <i class="fas fa-search"></i>
-        <h3>검색 결과가 없습니다</h3>
+        <h2>검색 결과가 없습니다</h2>
         <p>다른 검색어나 카테고리를 선택해보세요.</p>
       </div>
 
