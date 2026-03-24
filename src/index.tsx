@@ -322,6 +322,7 @@ app.post('/api/indexnow', async (c) => {
     '/area/taean', '/area/geumsan', '/area/okcheon',
     '/area/yeongdong', '/area/eumseong', '/area/yeongi',
     '/privacy', '/terms',
+    // 500개 백과사전 개별 URL은 sitemap.xml에서 자동 인덱싱되므로 여기서는 주요 URL만 제출
   ].map(p => `https://${SITE_HOST}${p}`)
 
   // IndexNow 엔드포인트 (Bing, Yandex, Naver 동시 제출)
@@ -431,7 +432,185 @@ app.use('/admin/*', serveStatic())
 // Encyclopedia directory (치과 백과사전)
 app.get('/encyclopedia', serveStatic({ path: './encyclopedia/index.html' }))
 app.get('/encyclopedia/', serveStatic({ path: './encyclopedia/index.html' }))
-app.use('/encyclopedia/*', serveStatic())
+
+// ============================================
+// 백과사전 개별 용어 페이지 (SSR - SEO 500개 URL)
+// /encyclopedia/:term → 각 용어별 전용 페이지
+// ============================================
+import encyclopediaData from '../public/data/encyclopedia.json'
+
+const encItems: Array<{id:number; term:string; chosung?:string; category:string; short:string; detail:string; tags?:string[]; synonyms?:string[]; link?:string}> = (encyclopediaData as any).items || []
+
+app.get('/encyclopedia/:term', (c) => {
+  const termParam = decodeURIComponent(c.req.param('term'))
+  
+  // 용어 찾기 (정확 매치 → 동의어 매치)
+  let item = encItems.find(i => i.term === termParam)
+  if (!item) {
+    item = encItems.find(i => (i.synonyms || []).includes(termParam))
+  }
+  
+  if (!item) {
+    // 404 - 백과사전 목록으로 리다이렉트
+    return c.redirect('/encyclopedia/', 302)
+  }
+
+  const term = item.term
+  const encodedTerm = encodeURIComponent(term)
+  const canonicalUrl = `https://bdbddc.com/encyclopedia/${encodedTerm}`
+  const synonymsText = item.synonyms && item.synonyms.length ? item.synonyms.join(', ') : ''
+  const tagsHtml = (item.tags || []).map(t => `<span style="display:inline-block;font-size:0.8rem;padding:4px 12px;border-radius:50px;background:#f5f0eb;color:#6B4226;margin:0 4px 4px 0;">#${t}</span>`).join('')
+  
+  // 같은 카테고리 관련 용어 (최대 8개)
+  const relatedItems = encItems.filter(i => i.category === item!.category && i.id !== item!.id).slice(0, 8)
+  const relatedHtml = relatedItems.map(r => 
+    `<a href="/encyclopedia/${encodeURIComponent(r.term)}" style="display:block;padding:12px 16px;background:#fff;border:1px solid #e8e0d8;border-radius:12px;text-decoration:none;color:#333;transition:all 0.2s;"><strong style="color:#6B4226;">${r.term}</strong><br><span style="font-size:0.85rem;color:#888;">${r.short.slice(0, 40)}...</span></a>`
+  ).join('')
+
+  const html = `<!DOCTYPE html>
+<html lang="ko" prefix="og: https://ogp.me/ns#">
+<head>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>${term} | 치과 백과사전 — 서울비디치과</title>
+<meta name="description" content="${term}이란? ${item.short} — 서울비디치과 치과 백과사전. 서울대 출신 전문의가 감수한 정확한 치과 정보.">
+<meta name="keywords" content="${term}, ${item.category}, 치과 용어, 서울비디치과, ${(item.synonyms || []).join(', ')}">
+<meta name="author" content="서울비디치과">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="${canonicalUrl}">
+<meta property="og:title" content="${term} | 치과 백과사전 — 서울비디치과">
+<meta property="og:description" content="${term}이란? ${item.short}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="${canonicalUrl}">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="서울비디치과">
+<meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${term} | 치과 백과사전 — 서울비디치과">
+<meta name="twitter:description" content="${term}이란? ${item.short}">
+<meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6B4226">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+<link rel="stylesheet" href="/css/site-v5.css?v=4a7fbcd0">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"치과 백과사전","item":"https://bdbddc.com/encyclopedia/"},{"@type":"ListItem","position":3,"name":"${term}","item":"${canonicalUrl}"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"DefinedTerm","name":"${term}","description":"${item.short} ${item.detail}","inDefinedTermSet":{"@type":"DefinedTermSet","name":"서울비디치과 치과 백과사전","url":"https://bdbddc.com/encyclopedia/"},"url":"${canonicalUrl}"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"${term}이란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"${item.short} ${item.detail}"}},{"@type":"Question","name":"${term} 치료는 서울비디치과에서 가능한가요?","acceptedAnswer":{"@type":"Answer","text":"네, 서울비디치과는 서울대 출신 15인 전문의 협진 시스템으로 ${item.category} 분야를 포함한 종합 치과 진료를 제공합니다. 365일 진료, 전화 041-415-2892로 상담 예약하세요."}}]}
+</script>
+<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<script>Weglot.initialize({ api_key: 'wg_60caborb1mso4g2k2c8qe1' });</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="site-header" id="siteHeader">
+<div class="header-container">
+<div class="header-brand">
+<a href="/" class="site-logo" aria-label="서울비디치과 홈"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
+</div>
+<div class="header-actions">
+<a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
+<a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+</div>
+</div>
+</header>
+<div class="header-spacer"></div>
+
+<main id="main-content" role="main">
+<nav class="content-tabs">
+<a href="/blog/" class="tab-btn"><i class="fas fa-blog"></i> 블로그</a>
+<a href="/video/" class="tab-btn"><i class="fab fa-youtube"></i> 영상</a>
+<a href="/cases/gallery" class="tab-btn"><i class="fas fa-images"></i> 비포/애프터</a>
+<a href="/encyclopedia/" class="tab-btn active"><i class="fas fa-book-medical"></i> 백과사전</a>
+</nav>
+
+<section class="content-section" style="padding: 40px 0 60px;">
+<div class="container" style="max-width: 800px;">
+
+<nav style="font-size:0.85rem;color:#888;margin-bottom:24px;">
+<a href="/" style="color:#6B4226;text-decoration:none;">홈</a> &gt;
+<a href="/encyclopedia/" style="color:#6B4226;text-decoration:none;">치과 백과사전</a> &gt;
+<span>${term}</span>
+</nav>
+
+<article itemscope itemtype="https://schema.org/DefinedTerm">
+<header style="margin-bottom:32px;">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+<span style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:#f5f0eb;color:#6B4226;font-weight:800;font-size:1.3rem;border-radius:12px;">${item.chosung || ''}</span>
+<h1 itemprop="name" style="font-size:2rem;font-weight:800;color:#333;margin:0;">${term}</h1>
+</div>
+${synonymsText ? `<p style="font-size:0.9rem;color:#888;margin-bottom:8px;">동의어: ${synonymsText}</p>` : ''}
+<span style="display:inline-block;font-size:0.8rem;font-weight:600;padding:4px 14px;border-radius:50px;background:#f5f0eb;color:#6B4226;">${item.category}</span>
+</header>
+
+<div style="background:#faf7f3;border-left:4px solid #c9a96e;padding:16px 20px;border-radius:0 12px 12px 0;margin-bottom:24px;">
+<p itemprop="description" style="font-size:1.1rem;font-weight:600;color:#333;line-height:1.7;margin:0;">${item.short}</p>
+</div>
+
+<div style="font-size:1rem;color:#555;line-height:1.9;margin-bottom:24px;">
+<h2 style="font-size:1.2rem;font-weight:700;color:#333;margin-bottom:12px;"><i class="fas fa-info-circle" style="color:#c9a96e;margin-right:6px;"></i> 상세 설명</h2>
+<p>${item.detail}</p>
+</div>
+
+${tagsHtml ? `<div style="margin-bottom:32px;">${tagsHtml}</div>` : ''}
+
+<div style="background:linear-gradient(135deg, #6B4226, #8B5E3C);border-radius:16px;padding:28px 24px;text-align:center;color:#fff;margin-bottom:40px;">
+<p style="font-size:1.1rem;font-weight:600;margin-bottom:16px;">${term}에 대해 더 궁금하신가요?</p>
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+<a href="/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem;"><i class="fas fa-calendar-check"></i> 무료 상담 예약</a>
+<a href="tel:041-415-2892" style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:rgba(255,255,255,0.15);color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;border:1px solid rgba(255,255,255,0.3);"><i class="fas fa-phone"></i> 041-415-2892</a>
+</div>
+</div>
+
+${relatedHtml ? `
+<div style="margin-bottom:40px;">
+<h2 style="font-size:1.2rem;font-weight:700;color:#333;margin-bottom:16px;"><i class="fas fa-book-medical" style="color:#c9a96e;margin-right:6px;"></i> 같은 카테고리: ${item.category}</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;">
+${relatedHtml}
+</div>
+</div>
+` : ''}
+
+<div style="text-align:center;padding-top:20px;border-top:1px solid #e8e0d8;">
+<a href="/encyclopedia/" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;"><i class="fas fa-arrow-left"></i> 전체 백과사전 보기 (500개 용어)</a>
+</div>
+</article>
+
+</div>
+</section>
+</main>
+
+<footer class="footer" role="contentinfo">
+<div class="container">
+<div class="footer-legal">
+<p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수합니다.</p>
+<p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
+</div>
+</div>
+</footer>
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gnb.js" defer></script>
+</body>
+</html>`
+
+  c.header('Cache-Control', 'public, max-age=3600, s-maxage=86400')
+  return c.html(html)
+})
+
+// encyclopedia 정적 파일 (CSS/JS 등은 /encyclopedia/index.html에서 루트 경로로 참조)
+// 개별 용어 페이지는 위의 SSR 라우트에서 처리됨
 
 // Area directory (지역 페이지)
 app.use('/area/*', serveStatic())
