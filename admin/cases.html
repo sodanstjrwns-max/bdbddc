@@ -223,6 +223,7 @@ tbody tr:last-child td{border-bottom:none}
           <option value="implant">임플란트</option>
           <option value="orthodontic">교정</option>
           <option value="aesthetic">심미치료</option>
+          <option value="glownate">글로우네이트</option>
           <option value="whitening">미백</option>
           <option value="gum">잇몸치료</option>
           <option value="general">일반진료</option>
@@ -267,7 +268,7 @@ tbody tr:last-child td{border-bottom:none}
         <div class="form-group"><label>제목 <span class="req">*</span></label><input type="text" id="caseTitle" required placeholder="예: 전악 임플란트 수복"></div>
         <div class="form-row">
           <div class="form-group"><label>카테고리 <span class="req">*</span></label>
-            <select id="caseCategory" required><option value="">선택</option><option value="implant">임플란트</option><option value="orthodontic">교정</option><option value="aesthetic">심미치료</option><option value="whitening">미백</option><option value="gum">잇몸치료</option><option value="general">일반진료</option></select>
+            <select id="caseCategory" required><option value="">선택</option><option value="implant">임플란트</option><option value="orthodontic">교정</option><option value="aesthetic">심미치료</option><option value="glownate">글로우네이트</option><option value="whitening">미백</option><option value="gum">잇몸치료</option><option value="general">일반진료</option></select>
           </div>
           <div class="form-group"><label>담당 원장 <span class="req">*</span></label>
             <select id="doctorName" required>
@@ -333,7 +334,7 @@ const STORAGE_KEY = 'bd_cases';
 let cases = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 let editingId = null;
 
-const CATS = {implant:'임플란트',orthodontic:'교정',aesthetic:'심미치료',whitening:'미백',gum:'잇몸치료',general:'일반진료'};
+const CATS = {implant:'임플란트',orthodontic:'교정',aesthetic:'심미치료',glownate:'글로우네이트',whitening:'미백',gum:'잇몸치료',general:'일반진료'};
 
 function renderCases() {
   const q = document.getElementById('searchInput').value.toLowerCase();
