@@ -1,541 +1,337 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
-<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공지사항 관리 | 서울비디치과 관리자</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg: #0f1117; --bg-card: #1a1d27; --bg-sidebar: #141620; --bg-hover: #222538;
+  --border: #2a2d3e; --text: #e4e6ef; --text-dim: #8b8fa3; --text-muted: #5d6178;
+  --accent: #6B4226; --accent-light: #8B5E3C; --accent-glow: rgba(107,66,38,0.15);
+  --green: #22c55e; --green-bg: rgba(34,197,94,0.1);
+  --blue: #3b82f6; --blue-bg: rgba(59,130,246,0.1);
+  --purple: #a855f7; --purple-bg: rgba(168,85,247,0.1);
+  --orange: #f59e0b; --orange-bg: rgba(245,158,11,0.1);
+  --red: #ef4444; --red-bg: rgba(239,68,68,0.1);
+  --radius: 12px; --radius-sm: 8px;
+  --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
+a{color:inherit;text-decoration:none}
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  
-  <!-- Primary SEO -->
-  <title>관리자 — 공지 관리 | 서울비디치과</title>
-  <meta name="description" content="서울비디치과 관리자 전용 — 공지사항 관리 페이지. 병원 공지사항 등록, 수정, 삭제를 관리합니다.">
-  <meta name="keywords" content="관리자,서울비디치과">
-  <meta name="author" content="서울비디치과">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="google-site-verification" content="vTQdyiFJBIlYhAgXmWvevyqeQDwJfqbIvK3bHGK5seY">
-  <link rel="canonical" href="https://bdbddc.com/admin/notices">
-  
-  <!-- Geo & Local SEO -->
-  <meta name="geo.region" content="KR-44">
-  <meta name="geo.placename" content="천안시, 충청남도">
-  <meta name="geo.position" content="36.8151;127.1139">
-  
-  <!-- AEO -->
-  <meta name="subject" content="관리자,서울비디치과">
-  <meta name="abstract" content="서울비디치과 관리자 페이지">
-  
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="서울비디치과">
-  <meta property="og:title" content="관리자 — 공지 관리 | 서울비디치과">
-  <meta property="og:description" content="서울비디치과 관리자 전용 — 공지사항 관리 페이지. 병원 공지사항 등록, 수정, 삭제를 관리합니다.">
-  <meta property="og:url" content="https://bdbddc.com/admin/notices">
-  <meta property="og:image" content="https://bdbddc.com/images/og-image.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:locale" content="ko_KR">
-  
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="관리자 — 공지 관리 | 서울비디치과">
-  <meta name="twitter:description" content="서울비디치과 관리자 페이지">
-  <meta name="twitter:image" content="https://bdbddc.com/images/og-image.jpg">
-  
-  <!-- E-E-A-T -->
-  <meta name="medical-content" content="이 페이지의 의료 정보는 서울대학교 출신 치과 전문의가 검토하였습니다.">
-  
-  <!-- Favicon & PWA -->
-  <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#6B4226">
-  
-  <!-- Preconnect -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  
-  <!-- Fonts & Icons (non-blocking) -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=0dd897fd">
-  
-  <!-- Stylesheets — v4.0 -->
-<!-- Prefetch -->
-  <link rel="prefetch" href="/reservation" as="document">
-  
-  <!-- Schema.org — BreadcrumbList -->
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"공지 관리"}]}
-  </script>
-  
-<script src="/js/analytics.js" defer></script>
-<!-- Weglot Multilingual -->
-<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>
-    Weglot.initialize({
-        api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
-    });
-</script>
+.sidebar{width:260px;min-height:100vh;background:var(--bg-sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;transition:transform var(--transition)}
+.sidebar-header{padding:24px 20px;border-bottom:1px solid var(--border)}
+.sidebar-brand{display:flex;align-items:center;gap:12px}
+.sidebar-brand-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--accent-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;color:#fff}
+.sidebar-brand-text h2{font-size:.95rem;font-weight:700;color:var(--text);line-height:1.2}
+.sidebar-brand-text span{font-size:.72rem;color:var(--text-muted);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto}
+.nav-section{margin-bottom:24px}
+.nav-section-label{font-size:.68rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;padding:0 8px;margin-bottom:8px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-sm);color:var(--text-dim);font-size:.88rem;font-weight:500;transition:all var(--transition);cursor:pointer;margin-bottom:2px}
+.nav-item:hover{background:var(--bg-hover);color:var(--text)}
+.nav-item.active{background:var(--accent-glow);color:#d4956a;font-weight:600}
+.nav-item.active i{color:#d4956a}
+.nav-item i{width:18px;text-align:center;font-size:.85rem}
+.sidebar-footer{padding:16px 12px;border-top:1px solid var(--border)}
+.nav-item.logout{color:var(--red)}
+.nav-item.logout:hover{background:var(--red-bg)}
+
+.main{margin-left:260px;flex:1;min-height:100vh}
+.topbar{height:64px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:var(--bg-sidebar);position:sticky;top:0;z-index:50}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.topbar-left h1{font-size:1.1rem;font-weight:700}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.mobile-menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:8px}
+.content{padding:28px 32px;max-width:1200px}
+
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.mini-stat{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:center;gap:14px}
+.mini-stat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.mini-stat-value{font-size:1.4rem;font-weight:800}
+.mini-stat-label{font-size:.72rem;color:var(--text-muted)}
+
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.search-box{position:relative}
+.search-box input{background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:9px 14px 9px 36px;border-radius:var(--radius-sm);font-size:.85rem;font-family:inherit;outline:none;width:260px;transition:border-color var(--transition)}
+.search-box input:focus{border-color:var(--accent)}
+.search-box i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.8rem}
+.btn-primary{background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:inherit;transition:background var(--transition)}
+.btn-primary:hover{background:var(--accent-light)}
+.btn-secondary{background:var(--bg-hover);color:var(--text);border:1px solid var(--border);padding:10px 18px;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all var(--transition)}
+.btn-secondary:hover{border-color:var(--accent)}
+
+/* Notice cards */
+.notice-grid{display:grid;gap:12px}
+.notice-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;display:flex;align-items:flex-start;gap:16px;transition:all var(--transition)}
+.notice-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.notice-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.notice-icon.important{background:var(--red-bg);color:var(--red)}
+.notice-icon.normal{background:var(--blue-bg);color:var(--blue)}
+.notice-icon.event{background:var(--purple-bg);color:var(--purple)}
+.notice-content{flex:1;min-width:0}
+.notice-title{font-size:.95rem;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.notice-title .pin{color:var(--orange);font-size:.75rem}
+.notice-excerpt{font-size:.82rem;color:var(--text-dim);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.notice-meta{font-size:.72rem;color:var(--text-muted);margin-top:8px;display:flex;gap:16px}
+.notice-actions{display:flex;gap:6px;flex-shrink:0;align-self:center}
+.action-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-dim);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.8rem;transition:all var(--transition)}
+.action-btn:hover{background:var(--bg-hover);color:var(--text);border-color:var(--accent)}
+.action-btn.delete:hover{background:var(--red-bg);color:var(--red);border-color:var(--red)}
+.status-badge{font-size:.68rem;padding:2px 8px;border-radius:20px;font-weight:600}
+.status-badge.published{background:var(--green-bg);color:var(--green)}
+.status-badge.draft{background:var(--orange-bg);color:var(--orange)}
+
+.empty-state{padding:60px 20px;text-align:center;color:var(--text-muted)}
+.empty-state i{font-size:2.5rem;margin-bottom:12px;opacity:.4}
+.empty-state h3{font-size:1rem;font-weight:600;margin-bottom:6px;color:var(--text-dim)}
+.empty-state p{font-size:.82rem}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:640px;max-height:90vh;display:flex;flex-direction:column}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-header h2{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.modal-close{background:none;border:none;color:var(--text-dim);font-size:1.3rem;cursor:pointer;padding:4px 8px;border-radius:6px}
+.modal-close:hover{background:var(--bg-hover);color:var(--text)}
+.modal-body{padding:24px;overflow-y:auto;flex:1}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:.8rem;font-weight:600;color:var(--text-dim);margin-bottom:6px}
+.form-group label .req{color:var(--red)}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius-sm);font-size:.88rem;font-family:inherit;outline:none;transition:border-color var(--transition)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:140px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-check{display:flex;align-items:center;gap:8px;font-size:.85rem;cursor:pointer}
+.form-check input[type="checkbox"]{accent-color:var(--accent);width:16px;height:16px}
+
+.toast{position:fixed;bottom:32px;right:32px;background:var(--green);color:#fff;padding:14px 24px;border-radius:var(--radius);font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:10px;transform:translateY(100px);opacity:0;transition:all .3s;z-index:300;box-shadow:0 4px 24px rgba(0,0,0,.3)}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.error{background:var(--red)}
+
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0);box-shadow:0 0 40px rgba(0,0,0,.5)}
+  .main{margin-left:0}.topbar{padding:0 16px}.content{padding:20px 16px}
+  .mobile-menu-btn{display:block}.stats-row{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .toolbar{flex-direction:column;align-items:stretch}
+  .search-box input{width:100%}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+  .sidebar-overlay.open{display:block}
+}
+</style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  <a href="#main-content" class="skip-link">본문으로 바로가기</a>
-  
-  <header class="site-header" id="siteHeader">
-    <div class="header-container">
-      <div class="header-brand">
-        <a href="/" class="site-logo" aria-label="서울비디치과 홈">
-          <span class="logo-icon">🦷</span>
-          <span class="logo-text">서울비디치과</span>
-        </a>
-        <div class="clinic-status open" aria-live="polite">
-          <span class="status-dot"></span>
-          <span class="status-text">진료중</span>
-          <span class="status-time">20:00까지</span>
-        </div>
-      </div>
-      
-      <nav class="main-nav" id="mainNav" aria-label="메인 네비게이션">
-        <ul>
-          <li class="nav-item has-dropdown">
-            <a href="/treatments/">진료 안내</a>
-            <div class="mega-dropdown">
-              <div class="mega-dropdown-grid">
-                <div class="mega-dropdown-section">
-                  <strong class="section-heading">전문센터</strong>
-                  <ul>
-                    <li><a href="/treatments/glownate">✨ 글로우네이트 <span class="badge badge-hot">HOT</span></a></li>
-                    <li><a href="/treatments/implant">임플란트 <span class="badge">6개 수술실</span></a></li>
-                    <li><a href="/treatments/invisalign">치아교정 <span class="badge">대규모</span></a></li>
-                    <li><a href="/treatments/pediatric">소아치과 <span class="badge">전문의 3인</span></a></li>
-                    <li><a href="/treatments/aesthetic">심미치료</a></li>
-                  </ul>
-                </div>
-                <div class="mega-dropdown-section">
-                  <strong class="section-heading">일반/보존 진료</strong>
-                  <ul>
-                    <li><a href="/treatments/cavity">충치치료</a></li>
-                    <li><a href="/treatments/resin">레진치료</a></li>
-                    <li><a href="/treatments/crown">크라운</a></li>
-                    <li><a href="/treatments/inlay">인레이/온레이</a></li>
-                    <li><a href="/treatments/root-canal">신경치료</a></li>
-                    <li><a href="/treatments/whitening">미백</a></li>
-                  </ul>
-                </div>
-                <div class="mega-dropdown-section">
-                  <strong class="section-heading">잇몸/외과</strong>
-                  <ul>
-                    <li><a href="/treatments/scaling">스케일링</a></li>
-                    <li><a href="/treatments/gum">잇몸치료</a></li>
-                    <li><a href="/treatments/periodontitis">치주염</a></li>
-                    <li><a href="/treatments/wisdom-tooth">사랑니 발치</a></li>
-                    <li><a href="/treatments/tmj">턱관절장애</a></li>
-                    <li><a href="/treatments/bruxism">이갈이/이악물기</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item"><a href="/doctors/">의료진 소개</a></li>
-          <li class="nav-item"><a href="/mission">비디미션</a></li>
-          <li class="nav-item has-dropdown">
-            <a href="../blog/">콘텐츠</a>
-            <ul class="simple-dropdown">
-              <li><a href="../blog/"><i class="fas fa-blog"></i> 블로그</a></li>
-              <li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>
-              <li><a href="/cases/gallery"><i class="fas fa-lock"></i> 비포/애프터</a></li>
-                          <li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>
-            </ul>
-          </li>
-          <li class="nav-item has-dropdown">
-            <a href="/directions">병원 안내</a>
-            <ul class="simple-dropdown">
-              <li><a href="/pricing" class="nav-highlight">💰 비용 안내</a></li>
-              <li><a href="/floor-guide">층별 안내</a></li>
-              <li><a href="/directions">오시는 길</a></li>
-              <li><a href="/faq">자주 묻는 질문</a></li>
-              <li><a href="/notice/"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      
-      <div class="header-actions">
-        <a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
-        <div class="auth-buttons">
-          <a href="/auth/login" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> 로그인</a>
-          <a href="/auth/register" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 회원가입</a>
-        </div>
-        <a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
-        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
-      </div>
-    </div>
-  </header>
-  
-  <div class="header-spacer"></div>
 
-  <main id="main-content" role="main">
-  
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">공지 관리</span>
-        </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          서울비디치과 관리자 페이지
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-<div class="login-screen" id="loginScreen">
-    <div class="login-box">
-      <h2>🦷 서울비디치과</h2>
-      <p>관리자 페이지에 접근하려면 로그인하세요</p>
-      <button class="btn-google" onclick="signInWithGoogle()">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" loading="lazy" alt="Google" width="400" height="300">
-        Google 계정으로 로그인
-      </button>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">BD</div>
+      <div class="sidebar-brand-text"><h2>서울비디치과</h2><span>Admin Console</span></div>
     </div>
   </div>
-
-  <div class="admin-layout" id="adminLayout" style="display: none;">
-    <aside class="admin-sidebar">
-      <div class="admin-logo">
-        <h2>🦷 서울비디치과</h2>
-        <span>관리자 패널</span>
-      </div>
-      <nav>
-        <ul class="admin-nav">
-          <li><a href="/admin/"><i class="fas fa-home"></i> 대시보드</a></li>
-          <li><a href="/admin/cases"><i class="fas fa-images"></i> Before/After</a></li>
-          <li><a href="/admin/notices" class="active"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
-          <li><a href="/" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> 사이트 보기</a></li>
-          <li style="margin-top:auto;border-top:1px solid rgba(255,255,255,0.1);padding-top:12px;"><a href="/admin/logout" style="color:#ff9b9b;"><i class="fas fa-sign-out-alt"></i> 로그아웃</a></li>
-        </ul>
-      </nav>
-    </aside>
-    
-    <main class="admin-main">
-      
-      
-      <div class="toolbar">
-        <div class="search-box">
-          <i class="fas fa-search"></i>
-          <input type="text" placeholder="제목으로 검색..." id="searchInput" oninput="filterNotices()">
-        </div>
-        <button class="btn-primary" onclick="openModal()">
-          <i class="fas fa-plus"></i> 새 공지 추가
-        </button>
-      </div>
-      
-      <div class="data-table">
-        <table>
-          <thead>
-            <tr>
-              <th width="40">고정</th>
-              <th>제목</th>
-              <th width="100">카테고리</th>
-              <th width="120">등록일</th>
-              <th width="100">관리</th>
-            </tr>
-          </thead>
-          <tbody id="noticesTableBody"></tbody>
-        </table>
-        <div id="loadingState" class="loading-state"><div class="loading-spinner"></div><p>불러오는 중...</p></div>
-        <div id="emptyState" class="empty-state" style="display: none;"><i class="fas fa-folder-open"></i><p>등록된 공지사항이 없습니다.</p></div>
-      </div>
-    </main>
-  </div>
-  
-  <div class="modal-overlay" id="noticeModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2><i class="fas fa-plus-circle"></i> <span id="modalTitle">새 공지 추가</span></h2>
-        <button class="modal-close" onclick="closeModal()">×</button>
-      </div>
-      <div class="modal-body">
-        <form id="noticeForm">
-          <input type="hidden" id="noticeId">
-          <div class="form-group">
-            <label>제목 *</label>
-            <input type="text" id="noticeTitle" required placeholder="공지사항 제목">
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>카테고리 *</label>
-              <select id="noticeCategory" required>
-                <option value="info">안내</option>
-                <option value="important">중요</option>
-                <option value="event">이벤트</option>
-                <option value="holiday">휴진</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>상단 고정</label>
-              <div class="checkbox-group" style="padding-top: 8px;">
-                <input type="checkbox" id="noticePinned">
-                <label for="noticePinned">상단에 고정</label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>내용 *</label>
-            <textarea id="noticeContent" required placeholder="공지사항 내용을 입력하세요"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-secondary" onclick="closeModal()">취소</button>
-        <button class="btn-primary" onclick="saveNotice()"><i class="fas fa-save"></i> 저장</button>
-      </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section"><div class="nav-section-label">Overview</div><a href="/admin/" class="nav-item"><i class="fas fa-th-large"></i> 대시보드</a></div>
+    <div class="nav-section"><div class="nav-section-label">Content</div>
+      <a href="/admin/cases" class="nav-item"><i class="fas fa-images"></i> Before/After</a>
+      <a href="/admin/notices" class="nav-item active"><i class="fas fa-megaphone"></i> 공지사항</a>
     </div>
-  </div>
-
-
-  <section class="cta-section" aria-label="상담 안내">
-    <div class="container">
-      <div class="cta-box reveal">
-        <span class="cta-badge">상담 안내</span>
-        <h2>궁금한 점이 있으신가요?</h2>
-        <p>15인 원장 협진 시스템으로 정확한 진단과 맞춤 치료를 제안드립니다.</p>
-        <div class="cta-buttons">
-          <a href="/reservation" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
-          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
-        </div>
-        <p class="cta-phone"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
-      </div>
-    </div>
-  </section>
-  
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
-          <p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <strong class="section-heading">전문센터</strong>
-            <ul>
-              <li><a href="/treatments/implant">임플란트센터</a></li>
-              <li><a href="/treatments/invisalign">교정센터</a></li>
-              <li><a href="/treatments/pediatric">소아치과</a></li>
-              <li><a href="/treatments/glownate">심미치료</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <strong class="section-heading">병원 안내</strong>
-            <ul>
-              <li><a href="/doctors/">의료진 소개</a></li>
-              <li><a href="/mission">비디미션</a></li>
-              <li><a href="/floor-guide">층별 안내</a></li>
-              <li><a href="/cases/gallery">Before/After</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <strong class="section-heading">고객 지원</strong>
-            <ul>
-              <li><a href="/reservation">예약/상담</a></li>
-              <li><a href="../blog/">블로그/콘텐츠</a></li>
-              <li><a href="/faq">자주 묻는 질문</a></li>
-              <li><a href="/directions">오시는 길</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-info">
-        <div class="footer-contact">
-          <p><i class="fas fa-map-marker-alt"></i> 충남 천안시 서북구 불당34길 14, 1~5층</p>
-          <p><i class="fas fa-phone"></i> 041-415-2892</p>
-          <div class="footer-hours">
-            <p><i class="fas fa-clock"></i> <strong>365일 진료</strong></p>
-            <p>평일 09:00-20:00 (점심 12:30-14:00)</p>
-            <p>토·일 09:00-17:00</p>
-            <p>공휴일 09:00-13:00</p>
-          </div>
-        </div>
-        <div class="footer-social">
-          <a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" aria-label="네이버 예약"><i class="fas fa-calendar-check"></i></a>
-          <a href="https://www.youtube.com/@BDtube" target="_blank" rel="noopener" aria-label="유튜브"><i class="fab fa-youtube"></i></a>
-          <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" aria-label="카카오톡"><i class="fas fa-comment"></i></a>
-        </div>
-      </div>
-      <div class="footer-legal">
-        <div class="legal-links">
-          <a href="/privacy">개인정보 처리방침</a>
-          <span>|</span>
-          <a href="/terms">이용약관</a>
-          <span>|</span>
-          <a href="../sitemap.xml">사이트맵</a>
-        </div>
-        <p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수하여 제공하고 있으며, 특정 개인의 결과는 개인에 따라 달라질 수 있습니다.</p>
-        <p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Mobile Navigation -->
-  <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
-    <div class="mobile-nav-header">
-      <span class="logo-icon">🦷</span>
-      <button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button>
-    </div>
-    <ul class="mobile-nav-menu">
-      <li class="mobile-nav-item has-submenu">
-        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-tooth"></i> 진료 안내 <i class="fas fa-chevron-down toggle-icon"></i>
-        </a>
-        <ul class="mobile-nav-submenu">
-          <li><a href="/treatments/">전체 진료</a></li>
-          <li class="submenu-divider">전문센터</li>
-          <li><a href="/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>
-          <li><a href="/treatments/implant">임플란트센터</a></li>
-          <li><a href="/treatments/invisalign">교정센터 (인비절라인)</a></li>
-          <li><a href="/treatments/pediatric">소아치과</a></li>
-          <li><a href="/treatments/aesthetic">심미치료</a></li>
-          <li class="submenu-divider">일반 진료</li>
-          <li><a href="/treatments/cavity">충치치료</a></li>
-          <li><a href="/treatments/resin">레진치료</a></li>
-          <li><a href="/treatments/scaling">스케일링</a></li>
-          <li><a href="/treatments/gum">잇몸치료</a></li>
-        </ul>
-      </li>
-      <li><a href="/doctors/"><i class="fas fa-user-md"></i> 의료진 소개</a></li>
-      <li><a href="/mission"><i class="fas fa-heart"></i> 비디미션</a></li>
-      <li class="mobile-nav-item has-submenu">
-        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i>
-        </a>
-        <ul class="mobile-nav-submenu">
-          <li><a href="../blog/"><i class="fas fa-blog"></i> 블로그</a></li>
-          <li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>
-          <li><a href="/cases/gallery"><i class="fas fa-lock"></i> 비포/애프터</a></li>
-                  <li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>
-        </ul>
-      </li>
-      <li class="mobile-nav-item has-submenu">
-        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
-          <i class="fas fa-hospital"></i> 병원 안내 <i class="fas fa-chevron-down toggle-icon"></i>
-        </a>
-        <ul class="mobile-nav-submenu">
-          <li><a href="/pricing">💰 비용 안내</a></li>
-          <li><a href="/floor-guide">층별 안내</a></li>
-          <li><a href="/directions">오시는 길</a></li>
-          <li><a href="/faq">자주 묻는 질문</a></li>
-          <li><a href="/notice/"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
-        </ul>
-      </li>
-      <li><a href="/reservation" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
-    </ul>
-    <div class="mobile-auth-buttons">
-      <a href="/auth/login" class="btn-auth"><i class="fas fa-sign-in-alt"></i> 로그인</a>
-      <a href="/auth/register" class="btn-auth"><i class="fas fa-user-plus"></i> 회원가입</a>
-    </div>
-    <div class="mobile-nav-footer">
-      <p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p>
-      <div class="mobile-nav-quick-btns">
-        <a href="/pricing" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 비용 안내</a>
-        <a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 전화 예약</a>
-      </div>
+    <div class="nav-section"><div class="nav-section-label">Links</div>
+      <a href="/" target="_blank" rel="noopener" class="nav-item"><i class="fas fa-external-link-alt"></i> 사이트 보기</a>
+      <a href="/notice/" target="_blank" rel="noopener" class="nav-item"><i class="fas fa-bullhorn"></i> 공지 페이지</a>
     </div>
   </nav>
-  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="sidebar-footer"><a href="/admin/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a></div>
+</aside>
 
-  <!-- Floating CTA -->
-  <div class="floating-cta desktop-only">
-    <a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a>
-    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a>
-    <a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a>
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <h1><i class="fas fa-bullhorn" style="color:var(--green);margin-right:8px;"></i> 공지사항 관리</h1>
+    </div>
+    <div class="topbar-right">
+      <button class="btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> 새 공지</button>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="stats-row">
+      <div class="mini-stat">
+        <div class="mini-stat-icon" style="background:var(--blue-bg);color:var(--blue)"><i class="fas fa-file-alt"></i></div>
+        <div><div class="mini-stat-value" id="statTotal">0</div><div class="mini-stat-label">전체 공지</div></div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-icon" style="background:var(--green-bg);color:var(--green)"><i class="fas fa-check-circle"></i></div>
+        <div><div class="mini-stat-value" id="statPublished">0</div><div class="mini-stat-label">공개 중</div></div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-stat-icon" style="background:var(--orange-bg);color:var(--orange)"><i class="fas fa-thumbtack"></i></div>
+        <div><div class="mini-stat-value" id="statPinned">0</div><div class="mini-stat-label">고정 공지</div></div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="공지사항 검색..." id="searchInput" oninput="renderNotices()"></div>
+    </div>
+
+    <div class="notice-grid" id="noticeGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <i class="fas fa-bell-slash"></i>
+      <h3>등록된 공지사항이 없습니다</h3>
+      <p>상단의 "새 공지" 버튼으로 공지사항을 작성해보세요</p>
+    </div>
   </div>
+</div>
 
-  <!-- Mobile Bottom CTA -->
-  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
-    <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
-    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
-    <a href="/reservation" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
-    <a href="/directions" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
+<!-- Modal -->
+<div class="modal-overlay" id="noticeModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2><i class="fas fa-bullhorn" style="color:var(--green)"></i> <span id="modalTitle">새 공지사항</span></h2>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="noticeForm" onsubmit="return false">
+        <input type="hidden" id="noticeId">
+        <div class="form-group"><label>제목 <span class="req">*</span></label><input type="text" id="noticeTitle" required placeholder="공지사항 제목"></div>
+        <div class="form-row">
+          <div class="form-group"><label>유형</label>
+            <select id="noticeType">
+              <option value="normal">일반</option>
+              <option value="important">중요</option>
+              <option value="event">이벤트</option>
+            </select>
+          </div>
+          <div class="form-group"><label>상태</label>
+            <select id="noticeStatus">
+              <option value="published">공개</option>
+              <option value="draft">비공개</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>내용 <span class="req">*</span></label><textarea id="noticeContent" required placeholder="공지사항 내용을 입력하세요..."></textarea></div>
+        <label class="form-check"><input type="checkbox" id="noticePinned"> 상단에 고정</label>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal()">취소</button>
+      <button class="btn-primary" onclick="saveNotice()"><i class="fas fa-save"></i> 저장하기</button>
+    </div>
   </div>
+</div>
 
-  <!-- Scripts -->
-  <script src="/js/gnb.js" defer></script>
-  <script>
-    // Scroll Reveal
-    document.addEventListener('DOMContentLoaded',function(){
-      var els=document.querySelectorAll('.reveal');
-      if(!els.length)return;
-      var obs=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
-        });
-      },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
-      els.forEach(function(el){obs.observe(el);});
-    });
-    // FAQ Accordion
-    document.querySelectorAll('.faq-question').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        var item=this.parentElement;
-        var isOpen=item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});
-        if(!isOpen) item.classList.add('open');
-      });
-    });
-    // Scroll to top
-    var topBtn=document.getElementById('scrollToTopBtn');
-    if(topBtn){
-      window.addEventListener('scroll',function(){
-        topBtn.classList.toggle('visible',window.scrollY>500);
-      });
-      topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">저장되었습니다</span></div>
+
+<script>
+const STORAGE_KEY = 'bd_notices';
+let notices = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+let editingId = null;
+const TYPES = {normal:'일반',important:'중요',event:'이벤트'};
+
+function renderNotices() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let filtered = notices.filter(n => !q || (n.title||'').toLowerCase().includes(q) || (n.content||'').toLowerCase().includes(q));
+  // Sort: pinned first, then by date
+  filtered.sort((a,b) => (b.pinned?1:0) - (a.pinned?1:0) || new Date(b.updatedAt||b.createdAt||0) - new Date(a.updatedAt||a.createdAt||0));
+
+  document.getElementById('statTotal').textContent = notices.length;
+  document.getElementById('statPublished').textContent = notices.filter(n=>n.status==='published').length;
+  document.getElementById('statPinned').textContent = notices.filter(n=>n.pinned).length;
+
+  const grid = document.getElementById('noticeGrid');
+  const empty = document.getElementById('emptyState');
+  if (filtered.length === 0) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = filtered.map(n => {
+    const d = new Date(n.updatedAt||n.createdAt||Date.now()).toLocaleDateString('ko-KR');
+    const iconClass = n.type === 'important' ? 'important' : n.type === 'event' ? 'event' : 'normal';
+    const iconName = n.type === 'important' ? 'fa-exclamation-triangle' : n.type === 'event' ? 'fa-gift' : 'fa-bell';
+    return `<div class="notice-card">
+      <div class="notice-icon ${iconClass}"><i class="fas ${iconName}"></i></div>
+      <div class="notice-content">
+        <div class="notice-title">${n.pinned ? '<i class="fas fa-thumbtack pin"></i>' : ''}${n.title||'제목 없음'} <span class="status-badge ${n.status||'published'}">${n.status==='draft'?'비공개':'공개'}</span></div>
+        <div class="notice-excerpt">${(n.content||'').replace(/\n/g,' ')}</div>
+        <div class="notice-meta"><span><i class="far fa-calendar"></i> ${d}</span><span><i class="fas fa-tag"></i> ${TYPES[n.type]||'일반'}</span></div>
+      </div>
+      <div class="notice-actions">
+        <button class="action-btn" onclick="editNotice('${n.id}')" title="수정"><i class="fas fa-pen"></i></button>
+        <button class="action-btn delete" onclick="deleteNotice('${n.id}')" title="삭제"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openModal(id) {
+  editingId = id || null;
+  document.getElementById('modalTitle').textContent = id ? '공지사항 수정' : '새 공지사항';
+  if (id) {
+    const n = notices.find(x => x.id === id);
+    if (n) {
+      document.getElementById('noticeTitle').value = n.title||'';
+      document.getElementById('noticeType').value = n.type||'normal';
+      document.getElementById('noticeStatus').value = n.status||'published';
+      document.getElementById('noticeContent').value = n.content||'';
+      document.getElementById('noticePinned').checked = !!n.pinned;
     }
-  </script>
+  } else {
+    document.getElementById('noticeForm').reset();
+  }
+  document.getElementById('noticeModal').classList.add('open');
+}
+function closeModal() { document.getElementById('noticeModal').classList.remove('open'); editingId = null; }
+function editNotice(id) { openModal(id); }
+function deleteNotice(id) {
+  if (!confirm('정말 삭제하시겠습니까?')) return;
+  notices = notices.filter(n => n.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(notices));
+  renderNotices(); showToast('삭제되었습니다', true);
+}
+function saveNotice() {
+  const title = document.getElementById('noticeTitle').value.trim();
+  const content = document.getElementById('noticeContent').value.trim();
+  if (!title || !content) { showToast('제목과 내용을 입력하세요', true); return; }
+  const data = {
+    title, content,
+    type: document.getElementById('noticeType').value,
+    status: document.getElementById('noticeStatus').value,
+    pinned: document.getElementById('noticePinned').checked,
+    updatedAt: new Date().toISOString()
+  };
+  if (editingId) {
+    const idx = notices.findIndex(n => n.id === editingId);
+    if (idx >= 0) notices[idx] = { ...notices[idx], ...data };
+  } else {
+    data.id = Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+    data.createdAt = new Date().toISOString();
+    notices.unshift(data);
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(notices));
+  closeModal(); renderNotices(); showToast('저장되었습니다');
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => t.className = 'toast', 2500);
+}
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+renderNotices();
+</script>
 </body>
 </html>
