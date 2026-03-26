@@ -114,6 +114,27 @@ a{color:inherit;text-decoration:none}
 .form-check{display:flex;align-items:center;gap:8px;font-size:.85rem;cursor:pointer}
 .form-check input[type="checkbox"]{accent-color:var(--accent);width:16px;height:16px}
 
+/* Image upload for notices */
+.img-upload-area{border:2px dashed var(--border);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:all var(--transition);position:relative;margin-bottom:14px}
+.img-upload-area:hover{border-color:var(--accent);background:var(--accent-glow)}
+.img-upload-area.has-images{border-style:solid;border-color:var(--green);padding:12px}
+.img-upload-area .upload-icon{font-size:1.3rem;color:var(--text-muted);margin-bottom:6px}
+.img-upload-area .upload-text{font-size:.8rem;color:var(--text-dim)}
+.img-upload-area .upload-hint{font-size:.7rem;color:var(--text-muted);margin-top:4px}
+.img-upload-area input[type="file"]{display:none}
+.img-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+.img-preview-item{position:relative;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1;background:var(--bg-hover)}
+.img-preview-item img{width:100%;height:100%;object-fit:cover}
+.img-preview-item .remove-btn{position:absolute;top:4px;right:4px;width:22px;height:22px;background:var(--red);color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:.65rem;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity var(--transition)}
+.img-preview-item:hover .remove-btn{opacity:1}
+.notice-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;flex-shrink:0;border:1px solid var(--border)}
+.notice-images-row{display:flex;gap:4px;margin-top:6px}
+.notice-images-row img{width:36px;height:36px;border-radius:4px;object-fit:cover;border:1px solid var(--border)}
+.notice-img-count{font-size:.68rem;color:var(--text-muted);background:var(--bg-hover);border-radius:4px;padding:0 6px;display:flex;align-items:center}
+.img-url-input{margin-top:10px}
+.img-url-input input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--radius-sm);font-size:.8rem;font-family:inherit;outline:none}
+.img-url-input input:focus{border-color:var(--accent)}
+
 .toast{position:fixed;bottom:32px;right:32px;background:var(--green);color:#fff;padding:14px 24px;border-radius:var(--radius);font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:10px;transform:translateY(100px);opacity:0;transition:all .3s;z-index:300;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.error{background:var(--red)}
@@ -222,6 +243,24 @@ a{color:inherit;text-decoration:none}
           </div>
         </div>
         <div class="form-group"><label>내용 <span class="req">*</span></label><textarea id="noticeContent" required placeholder="공지사항 내용을 입력하세요..."></textarea></div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+          <label><i class="fas fa-image" style="margin-right:4px"></i> 첨부 이미지 (최대 5장)</label>
+          <div class="img-upload-area" id="imgUploadArea" onclick="document.getElementById('noticeImages').click()">
+            <div id="imgPlaceholder">
+              <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+              <div class="upload-text">클릭 또는 드래그하여 이미지 업로드</div>
+              <div class="upload-hint">JPG, PNG, WebP (각 5MB 이하, 최대 5장)</div>
+            </div>
+            <div class="img-preview-grid" id="imgPreviewGrid"></div>
+            <input type="file" id="noticeImages" accept="image/*" multiple onchange="handleImages(this)">
+          </div>
+          <div class="img-url-input">
+            <input type="url" id="imgUrlInput" placeholder="또는 이미지 URL을 입력하고 Enter" onkeydown="if(event.key==='Enter'){event.preventDefault();addImageUrl(this.value);this.value=''}">
+          </div>
+        </div>
+
         <label class="form-check"><input type="checkbox" id="noticePinned"> 상단에 고정</label>
       </form>
     </div>
@@ -238,7 +277,45 @@ a{color:inherit;text-decoration:none}
 const STORAGE_KEY = 'bd_notices';
 let notices = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 let editingId = null;
+let currentImages = [];
 const TYPES = {normal:'일반',important:'중요',event:'이벤트'};
+
+// Image handling
+function handleImages(input) {
+  const files = Array.from(input.files);
+  if (currentImages.length + files.length > 5) { showToast('최대 5장까지 업로드 가능합니다', true); return; }
+  files.forEach(file => {
+    if (file.size > 5*1024*1024) { showToast(file.name + ': 5MB 초과', true); return; }
+    const reader = new FileReader();
+    reader.onload = e => { currentImages.push(e.target.result); renderImagePreviews(); };
+    reader.readAsDataURL(file);
+  });
+  input.value = '';
+}
+function addImageUrl(url) {
+  if (!url || !url.startsWith('http')) return;
+  if (currentImages.length >= 5) { showToast('최대 5장까지 가능합니다', true); return; }
+  currentImages.push(url);
+  renderImagePreviews();
+}
+function removeNoticeImage(idx) {
+  currentImages.splice(idx, 1);
+  renderImagePreviews();
+}
+function renderImagePreviews() {
+  const grid = document.getElementById('imgPreviewGrid');
+  const placeholder = document.getElementById('imgPlaceholder');
+  const area = document.getElementById('imgUploadArea');
+  if (currentImages.length === 0) {
+    grid.innerHTML = ''; placeholder.style.display = 'block'; area.classList.remove('has-images');
+    return;
+  }
+  placeholder.style.display = 'none'; area.classList.add('has-images');
+  grid.innerHTML = currentImages.map((src, i) => `<div class="img-preview-item">
+    <img src="${src}" alt="첨부 ${i+1}">
+    <button type="button" class="remove-btn" onclick="event.stopPropagation();removeNoticeImage(${i})"><i class="fas fa-times"></i></button>
+  </div>`).join('') + (currentImages.length < 5 ? `<div class="img-preview-item" style="display:flex;align-items:center;justify-content:center;border:1px dashed var(--border);cursor:pointer" onclick="event.stopPropagation();document.getElementById('noticeImages').click()"><i class="fas fa-plus" style="color:var(--text-muted)"></i></div>` : '');
+}
 
 function renderNotices() {
   const q = document.getElementById('searchInput').value.toLowerCase();
@@ -263,7 +340,8 @@ function renderNotices() {
       <div class="notice-content">
         <div class="notice-title">${n.pinned ? '<i class="fas fa-thumbtack pin"></i>' : ''}${n.title||'제목 없음'} <span class="status-badge ${n.status||'published'}">${n.status==='draft'?'비공개':'공개'}</span></div>
         <div class="notice-excerpt">${(n.content||'').replace(/\n/g,' ')}</div>
-        <div class="notice-meta"><span><i class="far fa-calendar"></i> ${d}</span><span><i class="fas fa-tag"></i> ${TYPES[n.type]||'일반'}</span></div>
+        ${(n.images && n.images.length) ? `<div class="notice-images-row">${n.images.slice(0,4).map(src=>`<img src="${src}" alt="" loading="lazy">`).join('')}${n.images.length>4?`<span class="notice-img-count">+${n.images.length-4}</span>`:''}</div>` : ''}
+        <div class="notice-meta"><span><i class="far fa-calendar"></i> ${d}</span><span><i class="fas fa-tag"></i> ${TYPES[n.type]||'일반'}</span>${(n.images&&n.images.length)?`<span><i class="fas fa-image"></i> ${n.images.length}장</span>`:''}</div>
       </div>
       <div class="notice-actions">
         <button class="action-btn" onclick="editNotice('${n.id}')" title="수정"><i class="fas fa-pen"></i></button>
@@ -284,9 +362,13 @@ function openModal(id) {
       document.getElementById('noticeStatus').value = n.status||'published';
       document.getElementById('noticeContent').value = n.content||'';
       document.getElementById('noticePinned').checked = !!n.pinned;
+      currentImages = n.images ? [...n.images] : [];
+      renderImagePreviews();
     }
   } else {
     document.getElementById('noticeForm').reset();
+    currentImages = [];
+    renderImagePreviews();
   }
   document.getElementById('noticeModal').classList.add('open');
 }
@@ -307,6 +389,7 @@ function saveNotice() {
     type: document.getElementById('noticeType').value,
     status: document.getElementById('noticeStatus').value,
     pinned: document.getElementById('noticePinned').checked,
+    images: currentImages.slice(0, 5),
     updatedAt: new Date().toISOString()
   };
   if (editingId) {
