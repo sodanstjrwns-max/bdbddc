@@ -65,6 +65,7 @@ a{color:inherit;text-decoration:none}
 .search-box i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.8rem}
 .btn-primary{background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:inherit;transition:background var(--transition)}
 .btn-primary:hover{background:var(--accent-light)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
 .btn-secondary{background:var(--bg-hover);color:var(--text);border:1px solid var(--border);padding:10px 18px;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all var(--transition)}
 .btn-secondary:hover{border-color:var(--accent)}
 
@@ -118,6 +119,7 @@ a{color:inherit;text-decoration:none}
 .img-upload-area{border:2px dashed var(--border);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:all var(--transition);position:relative;margin-bottom:14px}
 .img-upload-area:hover{border-color:var(--accent);background:var(--accent-glow)}
 .img-upload-area.has-images{border-style:solid;border-color:var(--green);padding:12px}
+.img-upload-area.uploading{border-color:var(--blue);background:var(--blue-bg);pointer-events:none}
 .img-upload-area .upload-icon{font-size:1.3rem;color:var(--text-muted);margin-bottom:6px}
 .img-upload-area .upload-text{font-size:.8rem;color:var(--text-dim)}
 .img-upload-area .upload-hint{font-size:.7rem;color:var(--text-muted);margin-top:4px}
@@ -127,13 +129,23 @@ a{color:inherit;text-decoration:none}
 .img-preview-item img{width:100%;height:100%;object-fit:cover}
 .img-preview-item .remove-btn{position:absolute;top:4px;right:4px;width:22px;height:22px;background:var(--red);color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:.65rem;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity var(--transition)}
 .img-preview-item:hover .remove-btn{opacity:1}
-.notice-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;flex-shrink:0;border:1px solid var(--border)}
+.img-preview-item.uploading-item{display:flex;align-items:center;justify-content:center}
+.img-preview-item.uploading-item i{color:var(--blue);font-size:1.2rem}
 .notice-images-row{display:flex;gap:4px;margin-top:6px}
 .notice-images-row img{width:36px;height:36px;border-radius:4px;object-fit:cover;border:1px solid var(--border)}
 .notice-img-count{font-size:.68rem;color:var(--text-muted);background:var(--bg-hover);border-radius:4px;padding:0 6px;display:flex;align-items:center}
-.img-url-input{margin-top:10px}
-.img-url-input input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--radius-sm);font-size:.8rem;font-family:inherit;outline:none}
-.img-url-input input:focus{border-color:var(--accent)}
+
+/* Spinner */
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* Upload progress */
+.upload-progress{font-size:.72rem;color:var(--blue);margin-top:8px;display:none}
+.upload-progress.show{display:flex;align-items:center;gap:6px}
+
+/* Storage info */
+.storage-info{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:.8rem;color:var(--text-dim)}
+.storage-info i{color:var(--blue)}
 
 .toast{position:fixed;bottom:32px;right:32px;background:var(--green);color:#fff;padding:14px 24px;border-radius:var(--radius);font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:10px;transform:translateY(100px);opacity:0;transition:all .3s;z-index:300;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .toast.show{transform:translateY(0);opacity:1}
@@ -188,6 +200,12 @@ a{color:inherit;text-decoration:none}
   </header>
 
   <div class="content">
+    <!-- Storage Info -->
+    <div class="storage-info">
+      <i class="fas fa-cloud"></i>
+      <span>이미지는 <strong>Cloudflare R2</strong> 클라우드 스토리지에 저장됩니다 · 최대 10MB/장 · 최대 5장 첨부</span>
+    </div>
+
     <div class="stats-row">
       <div class="mini-stat">
         <div class="mini-stat-icon" style="background:var(--blue-bg);color:var(--blue)"><i class="fas fa-file-alt"></i></div>
@@ -244,20 +262,21 @@ a{color:inherit;text-decoration:none}
         </div>
         <div class="form-group"><label>내용 <span class="req">*</span></label><textarea id="noticeContent" required placeholder="공지사항 내용을 입력하세요..."></textarea></div>
 
-        <!-- Image Upload -->
+        <!-- Image Upload via R2 -->
         <div class="form-group">
-          <label><i class="fas fa-image" style="margin-right:4px"></i> 첨부 이미지 (최대 5장)</label>
-          <div class="img-upload-area" id="imgUploadArea" onclick="document.getElementById('noticeImages').click()">
+          <label><i class="fas fa-cloud-upload-alt" style="margin-right:4px"></i> 첨부 이미지 <span style="font-weight:400;color:var(--text-muted);font-size:.72rem">(최대 5장, 각 10MB, JPG/PNG/WebP)</span></label>
+          <div class="img-upload-area" id="imgUploadArea" onclick="if(!this.classList.contains('uploading'))document.getElementById('noticeImages').click()">
             <div id="imgPlaceholder">
               <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-              <div class="upload-text">클릭 또는 드래그하여 이미지 업로드</div>
-              <div class="upload-hint">JPG, PNG, WebP (각 5MB 이하, 최대 5장)</div>
+              <div class="upload-text">클릭하여 이미지 업로드</div>
+              <div class="upload-hint">고화질 원본 지원 (각 10MB, 최대 5장)</div>
             </div>
             <div class="img-preview-grid" id="imgPreviewGrid"></div>
-            <input type="file" id="noticeImages" accept="image/*" multiple onchange="handleImages(this)">
+            <input type="file" id="noticeImages" accept="image/jpeg,image/png,image/webp,image/gif" multiple onchange="handleImageUpload(this)">
           </div>
-          <div class="img-url-input">
-            <input type="url" id="imgUrlInput" placeholder="또는 이미지 URL을 입력하고 Enter" onkeydown="if(event.key==='Enter'){event.preventDefault();addImageUrl(this.value);this.value=''}">
+          <div class="upload-progress" id="uploadProgress">
+            <i class="fas fa-circle-notch spin"></i>
+            <span id="uploadProgressText">업로드 중...</span>
           </div>
         </div>
 
@@ -266,7 +285,7 @@ a{color:inherit;text-decoration:none}
     </div>
     <div class="modal-footer">
       <button class="btn-secondary" onclick="closeModal()">취소</button>
-      <button class="btn-primary" onclick="saveNotice()"><i class="fas fa-save"></i> 저장하기</button>
+      <button class="btn-primary" id="saveBtn" onclick="saveNotice()"><i class="fas fa-save"></i> 저장하기</button>
     </div>
   </div>
 </div>
@@ -277,31 +296,109 @@ a{color:inherit;text-decoration:none}
 const STORAGE_KEY = 'bd_notices';
 let notices = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 let editingId = null;
-let currentImages = [];
+let currentImages = []; // R2 URLs
+let uploadingCount = 0;
 const TYPES = {normal:'일반',important:'중요',event:'이벤트'};
 
-// Image handling
-function handleImages(input) {
-  const files = Array.from(input.files);
-  if (currentImages.length + files.length > 5) { showToast('최대 5장까지 업로드 가능합니다', true); return; }
-  files.forEach(file => {
-    if (file.size > 5*1024*1024) { showToast(file.name + ': 5MB 초과', true); return; }
-    const reader = new FileReader();
-    reader.onload = e => { currentImages.push(e.target.result); renderImagePreviews(); };
-    reader.readAsDataURL(file);
+// === R2 Upload Function ===
+async function uploadToR2(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('folder', 'notices');
+  
+  const res = await fetch('/api/admin/upload', {
+    method: 'POST',
+    body: formData
   });
+  
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || `업로드 실패 (${res.status})`);
+  }
+  
+  return await res.json();
+}
+
+// === Image Upload Handler (R2) ===
+async function handleImageUpload(input) {
+  const files = Array.from(input.files);
   input.value = '';
+  
+  const remaining = 5 - currentImages.length;
+  if (remaining <= 0) {
+    showToast('최대 5장까지 업로드 가능합니다', true);
+    return;
+  }
+  
+  const toUpload = files.slice(0, remaining);
+  if (files.length > remaining) {
+    showToast(`${remaining}장만 업로드됩니다 (최대 5장)`, true);
+  }
+  
+  // Validate all files first
+  const validFiles = toUpload.filter(file => {
+    if (file.size > 10 * 1024 * 1024) {
+      showToast(`${file.name}: 10MB 초과`, true);
+      return false;
+    }
+    const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (!allowed.includes(file.type)) {
+      showToast(`${file.name}: 지원하지 않는 형식`, true);
+      return false;
+    }
+    return true;
+  });
+  
+  if (validFiles.length === 0) return;
+  
+  // Show upload progress
+  uploadingCount = validFiles.length;
+  updateUploadUI();
+  
+  let successCount = 0;
+  
+  for (const file of validFiles) {
+    try {
+      const result = await uploadToR2(file);
+      currentImages.push(result.url);
+      successCount++;
+    } catch (err) {
+      showToast(`${file.name}: ${err.message}`, true);
+    }
+    uploadingCount--;
+    updateUploadUI();
+    renderImagePreviews();
+  }
+  
+  if (successCount > 0) {
+    showToast(`${successCount}장 업로드 완료`);
+  }
 }
-function addImageUrl(url) {
-  if (!url || !url.startsWith('http')) return;
-  if (currentImages.length >= 5) { showToast('최대 5장까지 가능합니다', true); return; }
-  currentImages.push(url);
-  renderImagePreviews();
+
+function updateUploadUI() {
+  const progress = document.getElementById('uploadProgress');
+  const btn = document.getElementById('saveBtn');
+  const area = document.getElementById('imgUploadArea');
+  
+  if (uploadingCount > 0) {
+    progress.classList.add('show');
+    document.getElementById('uploadProgressText').textContent = `${uploadingCount}장 업로드 중...`;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-circle-notch spin"></i> 업로드 중...';
+    area.classList.add('uploading');
+  } else {
+    progress.classList.remove('show');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-save"></i> 저장하기';
+    area.classList.remove('uploading');
+  }
 }
+
 function removeNoticeImage(idx) {
   currentImages.splice(idx, 1);
   renderImagePreviews();
 }
+
 function renderImagePreviews() {
   const grid = document.getElementById('imgPreviewGrid');
   const placeholder = document.getElementById('imgPlaceholder');
@@ -312,7 +409,7 @@ function renderImagePreviews() {
   }
   placeholder.style.display = 'none'; area.classList.add('has-images');
   grid.innerHTML = currentImages.map((src, i) => `<div class="img-preview-item">
-    <img src="${src}" alt="첨부 ${i+1}">
+    <img src="${src}" alt="첨부 ${i+1}" onerror="this.style.display='none'">
     <button type="button" class="remove-btn" onclick="event.stopPropagation();removeNoticeImage(${i})"><i class="fas fa-times"></i></button>
   </div>`).join('') + (currentImages.length < 5 ? `<div class="img-preview-item" style="display:flex;align-items:center;justify-content:center;border:1px dashed var(--border);cursor:pointer" onclick="event.stopPropagation();document.getElementById('noticeImages').click()"><i class="fas fa-plus" style="color:var(--text-muted)"></i></div>` : '');
 }
@@ -340,7 +437,7 @@ function renderNotices() {
       <div class="notice-content">
         <div class="notice-title">${n.pinned ? '<i class="fas fa-thumbtack pin"></i>' : ''}${n.title||'제목 없음'} <span class="status-badge ${n.status||'published'}">${n.status==='draft'?'비공개':'공개'}</span></div>
         <div class="notice-excerpt">${(n.content||'').replace(/\n/g,' ')}</div>
-        ${(n.images && n.images.length) ? `<div class="notice-images-row">${n.images.slice(0,4).map(src=>`<img src="${src}" alt="" loading="lazy">`).join('')}${n.images.length>4?`<span class="notice-img-count">+${n.images.length-4}</span>`:''}</div>` : ''}
+        ${(n.images && n.images.length) ? `<div class="notice-images-row">${n.images.slice(0,4).map(src=>`<img src="${src}" alt="" loading="lazy" onerror="this.style.display='none'">`).join('')}${n.images.length>4?`<span class="notice-img-count">+${n.images.length-4}</span>`:''}</div>` : ''}
         <div class="notice-meta"><span><i class="far fa-calendar"></i> ${d}</span><span><i class="fas fa-tag"></i> ${TYPES[n.type]||'일반'}</span>${(n.images&&n.images.length)?`<span><i class="fas fa-image"></i> ${n.images.length}장</span>`:''}</div>
       </div>
       <div class="notice-actions">
@@ -381,6 +478,7 @@ function deleteNotice(id) {
   renderNotices(); showToast('삭제되었습니다', true);
 }
 function saveNotice() {
+  if (uploadingCount > 0) { showToast('이미지 업로드 완료 후 저장하세요', true); return; }
   const title = document.getElementById('noticeTitle').value.trim();
   const content = document.getElementById('noticeContent').value.trim();
   if (!title || !content) { showToast('제목과 내용을 입력하세요', true); return; }

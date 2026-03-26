@@ -53,7 +53,6 @@ a{color:inherit;text-decoration:none}
 .topbar-left h1{font-size:1.1rem;font-weight:700}
 .topbar-right{display:flex;align-items:center;gap:12px}
 .mobile-menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:8px}
-
 .content{padding:28px 32px;max-width:1400px}
 
 /* Stats Row */
@@ -73,10 +72,9 @@ a{color:inherit;text-decoration:none}
 .filter-select{background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:var(--radius-sm);font-size:.82rem;font-family:inherit;outline:none;cursor:pointer}
 .btn-primary{background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:inherit;transition:background var(--transition)}
 .btn-primary:hover{background:var(--accent-light)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed}
 .btn-secondary{background:var(--bg-hover);color:var(--text);border:1px solid var(--border);padding:10px 18px;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all var(--transition)}
 .btn-secondary:hover{border-color:var(--accent)}
-.btn-danger{background:var(--red-bg);color:var(--red);border:1px solid transparent;padding:8px 14px;border-radius:var(--radius-sm);font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all var(--transition)}
-.btn-danger:hover{background:var(--red);color:#fff}
 
 /* Data Table */
 .table-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
@@ -121,6 +119,7 @@ tbody tr:last-child td{border-bottom:none}
 .img-upload-box{border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:all var(--transition);position:relative;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .img-upload-box:hover{border-color:var(--accent);background:var(--accent-glow)}
 .img-upload-box.has-image{border-style:solid;border-color:var(--green);padding:8px}
+.img-upload-box.uploading{border-color:var(--blue);background:var(--blue-bg);pointer-events:none}
 .img-upload-box .upload-label{position:absolute;top:8px;left:12px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:4px;z-index:2}
 .img-upload-box.before .upload-label{background:var(--orange-bg);color:var(--orange)}
 .img-upload-box.after .upload-label{background:var(--green-bg);color:var(--green)}
@@ -131,14 +130,20 @@ tbody tr:last-child td{border-bottom:none}
 .img-upload-box .remove-btn{position:absolute;top:8px;right:8px;width:24px;height:24px;background:var(--red);color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;z-index:2;opacity:0;transition:opacity var(--transition)}
 .img-upload-box:hover .remove-btn{opacity:1}
 .img-upload-box input[type="file"]{display:none}
-.url-inputs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.url-inputs input{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:var(--radius-sm);font-size:.8rem;font-family:inherit;outline:none;width:100%}
-.url-inputs input:focus{border-color:var(--accent)}
+.upload-spinner{display:none;font-size:.85rem;color:var(--blue)}
+.uploading .upload-placeholder{display:none}
+.uploading .upload-spinner{display:flex;flex-direction:column;align-items:center;gap:8px}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
 /* Toast */
 .toast{position:fixed;bottom:32px;right:32px;background:var(--green);color:#fff;padding:14px 24px;border-radius:var(--radius);font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:10px;transform:translateY(100px);opacity:0;transition:all .3s;z-index:300;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.error{background:var(--red)}
+
+/* Storage info */
+.storage-info{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:.8rem;color:var(--text-dim)}
+.storage-info i{color:var(--blue)}
 
 /* Responsive */
 @media(max-width:1024px){.stats-row{grid-template-columns:repeat(2,1fr)}}
@@ -146,7 +151,7 @@ tbody tr:last-child td{border-bottom:none}
   .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0);box-shadow:0 0 40px rgba(0,0,0,.5)}
   .main{margin-left:0}.topbar{padding:0 16px}.content{padding:20px 16px}
   .mobile-menu-btn{display:block}.stats-row{grid-template-columns:1fr 1fr}
-  .form-row,.img-upload-row,.url-inputs{grid-template-columns:1fr}
+  .form-row,.img-upload-row{grid-template-columns:1fr}
   .toolbar{flex-direction:column;align-items:stretch}
   .toolbar-left{flex-direction:column}
   .search-box input{width:100%}
@@ -194,6 +199,12 @@ tbody tr:last-child td{border-bottom:none}
   </header>
 
   <div class="content">
+    <!-- Storage Info -->
+    <div class="storage-info">
+      <i class="fas fa-cloud"></i>
+      <span>이미지는 <strong>Cloudflare R2</strong> 클라우드 스토리지에 저장됩니다 · 최대 10MB/장 · 고화질 원본 지원</span>
+    </div>
+
     <!-- Mini Stats -->
     <div class="stats-row">
       <div class="mini-stat">
@@ -288,41 +299,48 @@ tbody tr:last-child td{border-bottom:none}
         </div>
         <div class="form-group"><label>설명</label><textarea id="caseDescription" placeholder="케이스 상세 설명..."></textarea></div>
 
-        <!-- Image Upload -->
-        <div class="form-group"><label><i class="fas fa-camera" style="margin-right:4px"></i> Before / After 이미지</label></div>
+        <!-- Image Upload via R2 -->
+        <div class="form-group"><label><i class="fas fa-cloud-upload-alt" style="margin-right:4px"></i> Before / After 이미지 <span style="font-weight:400;color:var(--text-muted);font-size:.72rem">(최대 10MB, JPG/PNG/WebP)</span></label></div>
         <div class="img-upload-row">
-          <div class="img-upload-box before" id="beforeBox" onclick="document.getElementById('beforeFile').click()">
+          <div class="img-upload-box before" id="beforeBox" onclick="triggerFileUpload('before')">
             <span class="upload-label">Before</span>
             <div class="upload-placeholder" id="beforePlaceholder">
               <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
               <div class="upload-text">클릭하여 업로드</div>
-              <div class="upload-hint">JPG, PNG, WebP (5MB)</div>
+              <div class="upload-hint">고화질 원본 지원 (10MB)</div>
+            </div>
+            <div class="upload-spinner" id="beforeSpinner">
+              <i class="fas fa-circle-notch spin" style="font-size:1.5rem"></i>
+              <span>업로드 중...</span>
             </div>
             <img id="beforePreview" src="" alt="" style="display:none">
             <button type="button" class="remove-btn" onclick="removeImage(event,'before')" style="display:none" id="beforeRemove"><i class="fas fa-times"></i></button>
-            <input type="file" id="beforeFile" accept="image/*" onchange="handleFile(this,'before')">
+            <input type="file" id="beforeFile" accept="image/jpeg,image/png,image/webp,image/gif" onchange="handleFileUpload(this,'before')">
           </div>
-          <div class="img-upload-box after" id="afterBox" onclick="document.getElementById('afterFile').click()">
+          <div class="img-upload-box after" id="afterBox" onclick="triggerFileUpload('after')">
             <span class="upload-label">After</span>
             <div class="upload-placeholder" id="afterPlaceholder">
               <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
               <div class="upload-text">클릭하여 업로드</div>
-              <div class="upload-hint">JPG, PNG, WebP (5MB)</div>
+              <div class="upload-hint">고화질 원본 지원 (10MB)</div>
+            </div>
+            <div class="upload-spinner" id="afterSpinner">
+              <i class="fas fa-circle-notch spin" style="font-size:1.5rem"></i>
+              <span>업로드 중...</span>
             </div>
             <img id="afterPreview" src="" alt="" style="display:none">
             <button type="button" class="remove-btn" onclick="removeImage(event,'after')" style="display:none" id="afterRemove"><i class="fas fa-times"></i></button>
-            <input type="file" id="afterFile" accept="image/*" onchange="handleFile(this,'after')">
+            <input type="file" id="afterFile" accept="image/jpeg,image/png,image/webp,image/gif" onchange="handleFileUpload(this,'after')">
           </div>
         </div>
-        <div class="url-inputs">
-          <input type="url" id="beforeUrl" placeholder="또는 Before URL 입력" oninput="loadUrl(this.value,'before')">
-          <input type="url" id="afterUrl" placeholder="또는 After URL 입력" oninput="loadUrl(this.value,'after')">
-        </div>
+        <!-- Hidden R2 URL storage -->
+        <input type="hidden" id="beforeR2Url" value="">
+        <input type="hidden" id="afterR2Url" value="">
       </form>
     </div>
     <div class="modal-footer">
       <button class="btn-secondary" onclick="closeModal()">취소</button>
-      <button class="btn-primary" onclick="saveCase()"><i class="fas fa-save"></i> 저장하기</button>
+      <button class="btn-primary" id="saveBtn" onclick="saveCase()"><i class="fas fa-save"></i> 저장하기</button>
     </div>
   </div>
 </div>
@@ -333,8 +351,81 @@ tbody tr:last-child td{border-bottom:none}
 const STORAGE_KEY = 'bd_cases';
 let cases = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 let editingId = null;
+let isUploading = false;
 
 const CATS = {implant:'임플란트',orthodontic:'교정',aesthetic:'심미치료',glownate:'글로우네이트',whitening:'미백',gum:'잇몸치료',general:'일반진료'};
+
+// === R2 Upload Function ===
+async function uploadToR2(file, folder) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('folder', folder);
+  
+  const res = await fetch('/api/admin/upload', {
+    method: 'POST',
+    body: formData
+  });
+  
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || `업로드 실패 (${res.status})`);
+  }
+  
+  return await res.json();
+}
+
+// === File Upload Handler (R2) ===
+async function handleFileUpload(input, type) {
+  const file = input.files[0];
+  if (!file) return;
+  
+  if (file.size > 10 * 1024 * 1024) {
+    showToast('10MB 이하 이미지만 가능합니다', true);
+    input.value = '';
+    return;
+  }
+  
+  const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  if (!allowed.includes(file.type)) {
+    showToast('JPG, PNG, WebP, GIF만 업로드 가능합니다', true);
+    input.value = '';
+    return;
+  }
+  
+  // Show uploading state
+  const box = document.getElementById(type + 'Box');
+  box.classList.add('uploading');
+  isUploading = true;
+  updateSaveBtn();
+  
+  try {
+    const result = await uploadToR2(file, 'cases');
+    // Set preview with R2 URL
+    setPreview(type, result.url);
+    document.getElementById(type + 'R2Url').value = result.url;
+    showToast(`${type === 'before' ? 'Before' : 'After'} 이미지 업로드 완료 (${(file.size/1024/1024).toFixed(1)}MB)`);
+  } catch (err) {
+    showToast(err.message || '이미지 업로드에 실패했습니다', true);
+    console.error('Upload error:', err);
+  } finally {
+    box.classList.remove('uploading');
+    isUploading = false;
+    updateSaveBtn();
+    input.value = '';
+  }
+}
+
+function triggerFileUpload(type) {
+  const box = document.getElementById(type + 'Box');
+  if (box.classList.contains('has-image') || box.classList.contains('uploading')) return;
+  document.getElementById(type + 'File').click();
+}
+
+function updateSaveBtn() {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = isUploading;
+  btn.innerHTML = isUploading ? '<i class="fas fa-circle-notch spin"></i> 업로드 중...' : '<i class="fas fa-save"></i> 저장하기';
+}
 
 function renderCases() {
   const q = document.getElementById('searchInput').value.toLowerCase();
@@ -359,8 +450,9 @@ function renderCases() {
   empty.style.display = 'none';
   tbody.innerHTML = filtered.map(c => {
     const d = new Date(c.createdAt).toLocaleDateString('ko-KR');
+    const imgSrc = c.beforeImage || '/images/icons/favicon.svg';
     return `<tr>
-      <td><img class="cell-img" src="${c.beforeImage||'/images/icons/favicon.svg'}" alt="Before" width="60" height="40" loading="lazy"></td>
+      <td><img class="cell-img" src="${imgSrc}" alt="Before" width="60" height="40" loading="lazy" onerror="this.src='/images/icons/favicon.svg'"></td>
       <td style="font-weight:600">${c.title||''}</td>
       <td>${CATS[c.category]||c.category||''}</td>
       <td>${c.doctorName||''}</td>
@@ -387,11 +479,19 @@ function openModal(id) {
       document.getElementById('treatmentPeriod').value = c.treatmentPeriod||'';
       document.getElementById('caseStatus').value = c.status||'published';
       document.getElementById('caseDescription').value = c.description||'';
-      if (c.beforeImage) setPreview('before', c.beforeImage);
-      if (c.afterImage) setPreview('after', c.afterImage);
+      if (c.beforeImage) {
+        setPreview('before', c.beforeImage);
+        document.getElementById('beforeR2Url').value = c.beforeImage;
+      }
+      if (c.afterImage) {
+        setPreview('after', c.afterImage);
+        document.getElementById('afterR2Url').value = c.afterImage;
+      }
     }
   } else {
     document.getElementById('caseForm').reset();
+    document.getElementById('beforeR2Url').value = '';
+    document.getElementById('afterR2Url').value = '';
     clearPreview('before'); clearPreview('after');
   }
   document.getElementById('caseModal').classList.add('open');
@@ -405,6 +505,7 @@ function deleteCase(id) {
   renderCases(); showToast('삭제되었습니다', true);
 }
 function saveCase() {
+  if (isUploading) { showToast('이미지 업로드 완료 후 저장하세요', true); return; }
   const title = document.getElementById('caseTitle').value.trim();
   const category = document.getElementById('caseCategory').value;
   const doctor = document.getElementById('doctorName').value;
@@ -414,8 +515,8 @@ function saveCase() {
     treatmentPeriod: document.getElementById('treatmentPeriod').value.trim(),
     status: document.getElementById('caseStatus').value,
     description: document.getElementById('caseDescription').value.trim(),
-    beforeImage: document.getElementById('beforePreview').src || '',
-    afterImage: document.getElementById('afterPreview').src || '',
+    beforeImage: document.getElementById('beforeR2Url').value || '',
+    afterImage: document.getElementById('afterR2Url').value || '',
     updatedAt: new Date().toISOString()
   };
   if (editingId) {
@@ -430,18 +531,7 @@ function saveCase() {
   closeModal(); renderCases(); showToast('저장되었습니다');
 }
 
-// Image handling
-function handleFile(input, type) {
-  const file = input.files[0]; if (!file) return;
-  if (file.size > 5*1024*1024) { showToast('5MB 이하 이미지만 가능합니다', true); return; }
-  const reader = new FileReader();
-  reader.onload = e => setPreview(type, e.target.result);
-  reader.readAsDataURL(file);
-}
-function loadUrl(url, type) {
-  if (!url || !url.startsWith('http')) return;
-  setPreview(type, url);
-}
+// Image preview helpers
 function setPreview(type, src) {
   const img = document.getElementById(type+'Preview');
   const placeholder = document.getElementById(type+'Placeholder');
@@ -461,6 +551,7 @@ function clearPreview(type) {
   placeholder.style.display = 'flex';
   removeBtn.style.display = 'none';
   box.classList.remove('has-image');
+  document.getElementById(type+'R2Url').value = '';
 }
 function removeImage(e, type) { e.stopPropagation(); clearPreview(type); }
 

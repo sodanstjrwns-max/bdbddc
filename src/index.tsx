@@ -5,6 +5,7 @@ import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 
 type Bindings = {
   DB?: D1Database
+  R2?: R2Bucket
   OPENAI_API_KEY?: string
   ADMIN_PASSWORD?: string
   ADMIN_SESSION_SECRET?: string
@@ -166,8 +167,87 @@ app.get('/admin', serveStatic({ path: './admin/index.html' }))
 app.get('/admin/', serveStatic({ path: './admin/index.html' }))
 app.use('/admin/*', serveStatic())
 
-// CORS for API
+// CORS for API (must be before API routes)
 app.use('/api/*', cors())
+
+// ============================================
+// R2 이미지 업로드/조회 API (관리자 전용)
+// ============================================
+
+// 이미지 업로드 (POST /api/admin/upload)
+app.post('/api/admin/upload', async (c) => {
+  // 관리자 인증 확인
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: 'R2 스토리지가 설정되지 않았습니다' }, 500)
+
+  try {
+    const formData = await c.req.formData()
+    const file = formData.get('file') as File | null
+    if (!file) return c.json({ error: '파일이 없습니다' }, 400)
+
+    // 파일 유효성 검사
+    const maxSize = 10 * 1024 * 1024 // 10MB
+    if (file.size > maxSize) return c.json({ error: '10MB 이하 파일만 업로드 가능합니다' }, 400)
+    
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+    if (!allowedTypes.includes(file.type)) return c.json({ error: '허용되지 않는 파일 형식입니다 (JPG, PNG, WebP, GIF만 가능)' }, 400)
+
+    // 고유 파일명 생성
+    const ext = file.name.split('.').pop() || 'jpg'
+    const folder = formData.get('folder') || 'general'
+    const key = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`
+
+    // R2에 업로드
+    await r2.put(key, file.stream(), {
+      httpMetadata: { contentType: file.type },
+      customMetadata: { originalName: file.name, uploadedAt: new Date().toISOString() }
+    })
+
+    const url = `/api/images/${key}`
+    return c.json({ success: true, key, url, size: file.size, type: file.type })
+  } catch (err: any) {
+    return c.json({ error: '업로드 실패: ' + (err.message || '') }, 500)
+  }
+})
+
+// 이미지 조회 (GET /api/images/*)
+app.get('/api/images/*', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.text('R2 not configured', 500)
+
+  const key = c.req.path.replace('/api/images/', '')
+  const object = await r2.get(key)
+  if (!object) return c.notFound()
+
+  const headers = new Headers()
+  headers.set('Content-Type', object.httpMetadata?.contentType || 'image/jpeg')
+  headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+  headers.set('ETag', object.etag)
+
+  return new Response(object.body, { headers })
+})
+
+// 이미지 삭제 (DELETE /api/admin/images/:key)
+app.delete('/api/admin/images/*', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: 'R2 not configured' }, 500)
+
+  const key = c.req.path.replace('/api/admin/images/', '')
+  await r2.delete(key)
+  return c.json({ success: true, deleted: key })
+})
 
 // 301 Redirect: /column/* → /blog/ (SEO migration)
 app.get('/column/columns.html', (c) => c.redirect('/blog/', 301))
