@@ -1,13 +1,170 @@
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-pages'
 import { cors } from 'hono/cors'
+import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 
 type Bindings = {
   DB?: D1Database
   OPENAI_API_KEY?: string
+  ADMIN_PASSWORD?: string
+  ADMIN_SESSION_SECRET?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
+
+// ============================================
+// 관리자 인증 시스템 (비밀번호 + 쿠키 세션)
+// ============================================
+const ADMIN_SESSION_COOKIE = 'bd_admin_session'
+const SESSION_MAX_AGE = 60 * 60 * 24 // 24시간
+
+// HMAC 기반 세션 토큰 생성
+async function createSessionToken(secret: string): Promise<string> {
+  const timestamp = Date.now().toString()
+  const encoder = new TextEncoder()
+  const key = await crypto.subtle.importKey(
+    'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  )
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(timestamp))
+  const sigHex = Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, '0')).join('')
+  return `${timestamp}.${sigHex}`
+}
+
+// 세션 토큰 검증
+async function verifySessionToken(token: string, secret: string): Promise<boolean> {
+  try {
+    const [timestamp, sigHex] = token.split('.')
+    if (!timestamp || !sigHex) return false
+    
+    // 만료 확인 (24시간)
+    const age = Date.now() - parseInt(timestamp)
+    if (age > SESSION_MAX_AGE * 1000) return false
+    
+    // 서명 검증
+    const encoder = new TextEncoder()
+    const key = await crypto.subtle.importKey(
+      'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+    )
+    const expectedSig = await crypto.subtle.sign('HMAC', key, encoder.encode(timestamp))
+    const expectedHex = Array.from(new Uint8Array(expectedSig)).map(b => b.toString(16).padStart(2, '0')).join('')
+    return sigHex === expectedHex
+  } catch {
+    return false
+  }
+}
+
+// 관리자 로그인 페이지 HTML
+function adminLoginPage(error?: string): string {
+  return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관리자 로그인 | 서울비디치과</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard',-apple-system,sans-serif;background:#f5f0eb;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-card{background:#fff;border-radius:20px;padding:48px 40px;width:100%;max-width:420px;box-shadow:0 4px 24px rgba(107,66,38,0.08)}
+.logo{text-align:center;margin-bottom:32px}
+.logo-icon{font-size:2.5rem;display:block;margin-bottom:8px}
+.logo-text{font-size:1.3rem;font-weight:800;color:#6B4226}
+.logo-sub{font-size:0.85rem;color:#999;margin-top:4px}
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:0.85rem;font-weight:600;color:#555;margin-bottom:8px}
+.form-input{width:100%;padding:14px 16px;border:2px solid #e8e0d8;border-radius:12px;font-size:1rem;outline:none;transition:border-color 0.2s;font-family:inherit}
+.form-input:focus{border-color:#6B4226}
+.btn-login{width:100%;padding:14px;background:#6B4226;color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;transition:background 0.2s;font-family:inherit}
+.btn-login:hover{background:#8B5E3C}
+.error-msg{background:#fef2f2;color:#dc2626;padding:12px 16px;border-radius:10px;font-size:0.9rem;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.back-link{text-align:center;margin-top:20px}
+.back-link a{color:#999;text-decoration:none;font-size:0.85rem}
+.back-link a:hover{color:#6B4226}
+@media(max-width:480px){.login-card{padding:36px 24px}}
+</style>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="login-card">
+<div class="logo">
+<span class="logo-icon">🦷</span>
+<div class="logo-text">서울비디치과</div>
+<div class="logo-sub">관리자 전용</div>
+</div>
+${error ? `<div class="error-msg"><i class="fas fa-exclamation-circle"></i> ${error}</div>` : ''}
+<form method="POST" action="/admin/login">
+<div class="form-group">
+<label class="form-label" for="password"><i class="fas fa-lock" style="margin-right:4px;"></i> 관리자 비밀번호</label>
+<input class="form-input" type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required autofocus autocomplete="current-password">
+</div>
+<button type="submit" class="btn-login"><i class="fas fa-sign-in-alt" style="margin-right:6px;"></i> 로그인</button>
+</form>
+<div class="back-link"><a href="/"><i class="fas fa-arrow-left" style="margin-right:4px;"></i> 홈으로 돌아가기</a></div>
+</div>
+</body>
+</html>`
+}
+
+// === 관리자 로그인 라우트 ===
+app.get('/admin/login', (c) => {
+  return c.html(adminLoginPage())
+})
+
+app.post('/admin/login', async (c) => {
+  const body = await c.req.parseBody()
+  const password = body['password'] as string
+  const adminPw = c.env.ADMIN_PASSWORD || 'bdbddc2892!'
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+
+  if (!password || password !== adminPw) {
+    return c.html(adminLoginPage('비밀번호가 올바르지 않습니다.'), 401)
+  }
+
+  // 세션 토큰 생성 + 쿠키 설정
+  const token = await createSessionToken(secret)
+  const isSecure = c.req.url.startsWith('https')
+  setCookie(c, ADMIN_SESSION_COOKIE, token, {
+    path: '/admin',
+    httpOnly: true,
+    secure: isSecure,
+    sameSite: 'Lax',
+    maxAge: SESSION_MAX_AGE,
+  })
+
+  return c.redirect('/admin/', 302)
+})
+
+// === 관리자 로그아웃 ===
+app.get('/admin/logout', (c) => {
+  deleteCookie(c, ADMIN_SESSION_COOKIE, { path: '/admin' })
+  return c.redirect('/admin/login', 302)
+})
+
+// === /admin/* 인증 미들웨어 (로그인/로그아웃 제외) ===
+app.use('/admin/*', async (c, next) => {
+  const path = new URL(c.req.url).pathname
+  // 로그인/로그아웃 페이지는 통과
+  if (path === '/admin/login' || path === '/admin/logout') {
+    return next()
+  }
+
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.redirect('/admin/login', 302)
+  }
+
+  return next()
+})
+
+// === 인증 통과 후 admin 정적 파일 서빙 ===
+app.get('/admin', serveStatic({ path: './admin/index.html' }))
+app.get('/admin/', serveStatic({ path: './admin/index.html' }))
+app.use('/admin/*', serveStatic())
 
 // CORS for API
 app.use('/api/*', cors())
@@ -424,10 +581,8 @@ app.use('/notice/*', serveStatic())
 app.get('/auth/login', serveStatic({ path: './auth/login.html' }))
 app.use('/auth/*', serveStatic())
 
-// Admin directory
-app.get('/admin', serveStatic({ path: './admin/index.html' }))
-app.get('/admin/', serveStatic({ path: './admin/index.html' }))
-app.use('/admin/*', serveStatic())
+// Admin directory — 인증은 상단 미들웨어에서 처리, 여기는 정적 파일만
+// (미들웨어가 이미 /admin/* 보호하므로, 인증 통과 후에만 서빙됨)
 
 // Encyclopedia directory (치과 백과사전)
 app.get('/encyclopedia', serveStatic({ path: './encyclopedia/index.html' }))
