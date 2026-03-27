@@ -152,6 +152,27 @@ a { color:inherit; text-decoration:none; }
 /* Full-width card */
 .grid-full { margin-bottom:28px; }
 
+/* SEO Tools */
+.seo-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:28px}
+.seo-title{font-size:.95rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.seo-title i{color:var(--green)}
+.seo-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seo-btn{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;transition:all var(--transition);font-family:inherit;text-align:left}
+.seo-btn:hover{border-color:var(--accent);background:var(--bg-hover);transform:translateY(-1px)}
+.seo-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.seo-btn-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.seo-btn-title{font-size:.85rem;font-weight:700}
+.seo-btn-desc{font-size:.7rem;color:var(--text-muted);margin-top:2px}
+.seo-result{margin-top:16px;padding:14px 16px;border-radius:var(--radius-sm);border:1px solid var(--border);display:none;font-size:.8rem;line-height:1.6;max-height:200px;overflow-y:auto}
+.seo-result.show{display:block}
+.seo-result.success{border-color:var(--green);background:var(--green-bg)}
+.seo-result.error{border-color:var(--red);background:var(--red-bg)}
+.seo-result .engine{display:flex;align-items:center;gap:8px;padding:4px 0}
+.seo-result .engine i.ok{color:var(--green)}
+.seo-result .engine i.fail{color:var(--red)}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px) {
   .stats-grid { grid-template-columns:repeat(2,1fr); }
@@ -331,6 +352,29 @@ a { color:inherit; text-decoration:none; }
       </div>
     </div>
 
+    <!-- SEO Tools: IndexNow & Google Ping -->
+    <div class="seo-card">
+      <div class="seo-title"><i class="fas fa-search"></i> 검색엔진 색인 요청 (SEO)</div>
+      <div class="seo-btns">
+        <button class="seo-btn" id="btnIndexNow" onclick="runIndexNow()">
+          <div class="seo-btn-icon" style="background:var(--blue-bg);color:var(--blue)"><i class="fas fa-bolt"></i></div>
+          <div>
+            <div class="seo-btn-title">IndexNow 전체 제출</div>
+            <div class="seo-btn-desc">Bing · Yandex · Naver에 80+개 URL 즉시 알림</div>
+          </div>
+        </button>
+        <button class="seo-btn" id="btnGooglePing" onclick="runGooglePing()">
+          <div class="seo-btn-icon" style="background:var(--green-bg);color:var(--green)"><i class="fab fa-google"></i></div>
+          <div>
+            <div class="seo-btn-title">Google Sitemap Ping</div>
+            <div class="seo-btn-desc">sitemap.xml 변경을 Google에 알림</div>
+          </div>
+        </button>
+      </div>
+      <div class="seo-result" id="seoResult"></div>
+      <div style="margin-top:12px;font-size:.72rem;color:var(--text-muted)"><i class="fas fa-info-circle" style="margin-right:4px"></i> 케이스/공지 저장 시 자동으로 IndexNow가 실행됩니다. 사이트 대규모 수정 시 수동 버튼을 사용하세요.</div>
+    </div>
+
     <!-- Recent Activity -->
     <div class="grid-full">
       <div class="card">
@@ -408,6 +452,68 @@ loadDashboard();
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+
+// === SEO: IndexNow ===
+async function runIndexNow() {
+  const btn = document.getElementById('btnIndexNow');
+  const resultEl = document.getElementById('seoResult');
+  btn.disabled = true;
+  btn.querySelector('.seo-btn-title').textContent = '제출 중...';
+  btn.querySelector('.seo-btn-icon').innerHTML = '<i class="fas fa-circle-notch spin"></i>';
+  resultEl.className = 'seo-result';
+  resultEl.style.display = 'none';
+  
+  try {
+    const res = await fetch('/api/indexnow', { method: 'POST' });
+    const data = await res.json();
+    
+    let html = `<strong>${data.submitted}개 URL 제출 완료</strong> (${new Date(data.timestamp).toLocaleTimeString('ko-KR')})<br>`;
+    data.results.forEach(r => {
+      const icon = r.ok ? '<i class="fas fa-check-circle ok"></i>' : '<i class="fas fa-times-circle fail"></i>';
+      html += `<div class="engine">${icon} <strong>${r.engine}</strong> — HTTP ${r.status}</div>`;
+    });
+    
+    resultEl.innerHTML = html;
+    resultEl.className = 'seo-result show success';
+  } catch(e) {
+    resultEl.innerHTML = `<strong>오류:</strong> ${e.message}`;
+    resultEl.className = 'seo-result show error';
+  } finally {
+    btn.disabled = false;
+    btn.querySelector('.seo-btn-title').textContent = 'IndexNow 전체 제출';
+    btn.querySelector('.seo-btn-icon').innerHTML = '<i class="fas fa-bolt"></i>';
+  }
+}
+
+// === SEO: Google Ping ===
+async function runGooglePing() {
+  const btn = document.getElementById('btnGooglePing');
+  const resultEl = document.getElementById('seoResult');
+  btn.disabled = true;
+  btn.querySelector('.seo-btn-title').textContent = '전송 중...';
+  btn.querySelector('.seo-btn-icon').innerHTML = '<i class="fas fa-circle-notch spin"></i>';
+  
+  try {
+    const res = await fetch('/api/google-ping', { method: 'POST' });
+    const data = await res.json();
+    
+    let html = `<strong>Sitemap Ping 완료</strong> (${data.sitemap})<br>`;
+    data.results.forEach(r => {
+      const icon = r.ok ? '<i class="fas fa-check-circle ok"></i>' : '<i class="fas fa-times-circle fail"></i>';
+      html += `<div class="engine">${icon} <strong>${r.engine}</strong> — HTTP ${r.status}</div>`;
+    });
+    
+    resultEl.innerHTML = html;
+    resultEl.className = 'seo-result show success';
+  } catch(e) {
+    resultEl.innerHTML = `<strong>오류:</strong> ${e.message}`;
+    resultEl.className = 'seo-result show error';
+  } finally {
+    btn.disabled = false;
+    btn.querySelector('.seo-btn-title').textContent = 'Google Sitemap Ping';
+    btn.querySelector('.seo-btn-icon').innerHTML = '<i class="fab fa-google"></i>';
+  }
 }
 </script>
 </body>

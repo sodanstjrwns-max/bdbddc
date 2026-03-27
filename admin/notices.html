@@ -500,6 +500,19 @@ function saveNotice() {
   }
   localStorage.setItem(STORAGE_KEY, JSON.stringify(notices));
   closeModal(); renderNotices(); showToast('저장되었습니다');
+  // 자동 IndexNow: 공지 저장 시 검색엔진에 알림
+  submitIndexNow(['/notice/']);
+}
+
+// === 자동 IndexNow 제출 ===
+async function submitIndexNow(paths) {
+  try {
+    const res = await fetch('/api/indexnow', { method: 'POST' });
+    if (res.ok) {
+      const data = await res.json();
+      console.log(`IndexNow: ${data.submitted}개 URL 제출 완료`, data.results);
+    }
+  } catch(e) { console.warn('IndexNow 제출 실패:', e); }
 }
 
 function showToast(msg, isError) {
