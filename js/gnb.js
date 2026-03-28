@@ -269,6 +269,40 @@
     }
 
     // ========================================
+    // 전역 로그인 상태 동기화 (헤더 + 모바일 메뉴)
+    // ========================================
+    function initAuthSync() {
+        fetch('/api/auth/me')
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
+                if (!data.loggedIn || !data.user) return;
+
+                var name = data.user.name || '';
+                var logoutFn = "(async function(){await fetch('/api/auth/logout',{method:'POST'});location.reload()})()";
+
+                // 데스크톱 헤더 .auth-buttons
+                document.querySelectorAll('.auth-buttons').forEach(function(el) {
+                    el.innerHTML =
+                        '<a href="/auth/mypage" class="btn-auth btn-login"><i class="fas fa-user"></i> ' + name + '님</a>' +
+                        '<a href="javascript:void(0)" class="btn-auth btn-register" onclick="' + logoutFn + '"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>';
+                });
+
+                // 모바일 메뉴 .mobile-auth-buttons
+                document.querySelectorAll('.mobile-auth-buttons').forEach(function(el) {
+                    el.innerHTML =
+                        '<a href="/auth/mypage" class="btn-auth"><i class="fas fa-user"></i> ' + name + '님</a>' +
+                        '<a href="javascript:void(0)" class="btn-auth" onclick="' + logoutFn + '"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>';
+                });
+
+                // window 전역에 로그인 상태 공유 (gallery.js 등에서 사용)
+                window.__bdAuth = { loggedIn: true, user: data.user };
+            })
+            .catch(function() {
+                window.__bdAuth = { loggedIn: false };
+            });
+    }
+
+    // ========================================
     // 초기화
     // ========================================
     function init() {
@@ -281,6 +315,7 @@
         initExitIntent();
         initScrollAnimations();
         initCountUp();
+        initAuthSync();
     }
 
     // DOM 로드 후 실행

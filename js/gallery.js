@@ -145,9 +145,14 @@
     }
   }
 
-  // 로그인 상태 확인
+  // 로그인 상태 확인 (gnb.js의 전역 상태도 활용)
   async function checkAuth() {
     try {
+      // gnb.js가 이미 /api/auth/me를 호출했으면 그 결과를 쓴다
+      if (window.__bdAuth && window.__bdAuth.loggedIn) {
+        isLoggedIn = true;
+        return;
+      }
       var res = await fetch('/api/auth/me');
       var data = await res.json();
       isLoggedIn = data.loggedIn || false;
@@ -174,22 +179,6 @@
       });
     });
 
-    // 로그인 상태에 따라 헤더 업데이트
-    if (isLoggedIn) {
-      try {
-        var res = await fetch('/api/auth/me');
-        var data = await res.json();
-        if (data.loggedIn && data.user) {
-          document.querySelectorAll('.auth-buttons').forEach(function(el) {
-            el.innerHTML = '<a href="/auth/mypage" class="btn-auth btn-login"><i class="fas fa-user"></i> ' + data.user.name + '님</a>' +
-              '<a href="javascript:void(0)" class="btn-auth btn-register" onclick="(async function(){await fetch(\'/api/auth/logout\',{method:\'POST\'});location.reload()})()"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>';
-          });
-          document.querySelectorAll('.mobile-auth-buttons').forEach(function(el) {
-            el.innerHTML = '<a href="/auth/mypage" class="btn-auth"><i class="fas fa-user"></i> ' + data.user.name + '님</a>' +
-              '<a href="javascript:void(0)" class="btn-auth" onclick="(async function(){await fetch(\'/api/auth/logout\',{method:\'POST\'});location.reload()})()"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>';
-          });
-        }
-      } catch(e) {}
-    }
+    // 헤더 로그인 상태 업데이트는 gnb.js의 initAuthSync()가 담당
   });
 })();
