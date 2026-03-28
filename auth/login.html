@@ -313,8 +313,85 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="loading-spinner"></div>
   </div>
 
-  <!-- Firebase SDK -->
+  <!-- Login Logic -->
+  <script>
+  // 비밀번호 보기/숨기기
+  function togglePassword() {
+    const input = document.getElementById('password');
+    const icon = input.parentElement.querySelector('.input-icon');
+    if (input.type === 'password') { input.type = 'text'; icon.classList.replace('fa-eye', 'fa-eye-slash'); }
+    else { input.type = 'password'; icon.classList.replace('fa-eye-slash', 'fa-eye'); }
+  }
 
+  // 이미 로그인 상태면 리다이렉트
+  (async function checkAuth() {
+    try {
+      const res = await fetch('/api/auth/me');
+      const data = await res.json();
+      if (data.loggedIn) {
+        const params = new URLSearchParams(window.location.search);
+        window.location.href = params.get('redirect') || '/auth/mypage';
+      }
+    } catch(e) {}
+  })();
+
+  // 로그인 처리
+  async function handleLogin(e) {
+    e.preventDefault();
+    const errorMsg = document.getElementById('errorMessage');
+    const successMsg = document.getElementById('successMessage');
+    const loader = document.getElementById('authLoader');
+    const btn = document.getElementById('loginBtn');
+
+    errorMsg.style.display = 'none';
+    successMsg.style.display = 'none';
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!email || !password) {
+      errorMsg.textContent = '이메일과 비밀번호를 입력해주세요.';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    loader.style.display = 'flex';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const result = await res.json();
+      if (!res.ok || result.error) {
+        errorMsg.textContent = result.error || '로그인에 실패했습니다.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+      successMsg.textContent = '로그인 성공! ' + result.user.name + '님 환영합니다.';
+      successMsg.style.display = 'block';
+      
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get('redirect') || '/auth/mypage';
+      setTimeout(function() { window.location.href = redirect; }, 800);
+    } catch(err) {
+      errorMsg.textContent = '서버 연결에 실패했습니다. 다시 시도해주세요.';
+      errorMsg.style.display = 'block';
+    } finally {
+      loader.style.display = 'none';
+      btn.disabled = false;
+    }
+  }
+
+  function showForgotPassword(e) {
+    e.preventDefault();
+    alert('비밀번호 찾기 기능은 준비 중입니다. 병원으로 문의해주세요.\n전화: 041-415-2892');
+  }
+
+  function handleGoogleLogin() { alert('소셜 로그인은 추후 지원 예정입니다. 이메일로 로그인해주세요.'); }
+  </script>
 
   <section class="cta-section" aria-label="상담 안내">
     <div class="container">

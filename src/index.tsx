@@ -171,6 +171,143 @@ app.use('/admin/*', serveStatic())
 app.use('/api/*', cors())
 
 // ============================================
+// 회원 인증 시스템 (이메일 + 비밀번호, R2 저장)
+// ============================================
+const MEMBERS_JSON_KEY = 'data/members.json'
+const SITE_SESSION_COOKIE = 'bd_session'
+const SITE_SESSION_MAX_AGE = 60 * 60 * 24 * 30 // 30일
+
+// 비밀번호 해싱 (PBKDF2)
+async function hashPassword(password: string, salt?: string): Promise<{hash: string; salt: string}> {
+  const encoder = new TextEncoder()
+  const s = salt || Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b => b.toString(16).padStart(2,'0')).join('')
+  const key = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits'])
+  const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt: encoder.encode(s), iterations: 100000, hash:'SHA-256'}, key, 256)
+  const hash = Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2,'0')).join('')
+  return { hash, salt: s }
+}
+
+// 사이트 세션 토큰 생성
+async function createSiteSession(userId: string, secret: string): Promise<string> {
+  const payload = `${userId}:${Date.now()}`
+  const encoder = new TextEncoder()
+  const key = await crypto.subtle.importKey('raw', encoder.encode(secret), {name:'HMAC',hash:'SHA-256'}, false, ['sign'])
+  const sig = await crypto.subtle.sign('HMAC', key, encoder.encode(payload))
+  const sigHex = Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2,'0')).join('')
+  return `${btoa(payload)}.${sigHex}`
+}
+
+// 사이트 세션 검증 → userId 반환
+async function verifySiteSession(token: string, secret: string): Promise<string|null> {
+  try {
+    const [payloadB64, sigHex] = token.split('.')
+    if (!payloadB64 || !sigHex) return null
+    const payload = atob(payloadB64)
+    const [userId, ts] = payload.split(':')
+    if (!userId || !ts) return null
+    if (Date.now() - parseInt(ts) > SITE_SESSION_MAX_AGE * 1000) return null
+    const encoder = new TextEncoder()
+    const key = await crypto.subtle.importKey('raw', encoder.encode(secret), {name:'HMAC',hash:'SHA-256'}, false, ['sign'])
+    const expected = await crypto.subtle.sign('HMAC', key, encoder.encode(payload))
+    const expectedHex = Array.from(new Uint8Array(expected)).map(b => b.toString(16).padStart(2,'0')).join('')
+    return sigHex === expectedHex ? userId : null
+  } catch { return null }
+}
+
+// 회원 데이터 읽기/쓰기
+async function getMembers(r2: R2Bucket): Promise<any[]> {
+  try { const obj = await r2.get(MEMBERS_JSON_KEY); if (!obj) return []; const d = await obj.json() as any; return Array.isArray(d) ? d : [] } catch { return [] }
+}
+async function saveMembers(r2: R2Bucket, members: any[]) {
+  await r2.put(MEMBERS_JSON_KEY, JSON.stringify(members), { httpMetadata: { contentType: 'application/json' } })
+}
+
+// [공개] 회원가입
+app.post('/api/auth/register', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: '서버 오류' }, 500)
+
+  const { email, password, name, phone, privacyConsent, marketingConsent } = await c.req.json()
+
+  // 유효성 검사
+  if (!email || !password || !name || !phone) return c.json({ error: '모든 필수 항목을 입력해주세요.' }, 400)
+  if (!privacyConsent) return c.json({ error: '개인정보 수집·이용에 동의해주세요.' }, 400)
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return c.json({ error: '올바른 이메일 형식이 아닙니다.' }, 400)
+  if (password.length < 6) return c.json({ error: '비밀번호는 6자 이상이어야 합니다.' }, 400)
+  if (!/^01[0-9]-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g,''))) return c.json({ error: '올바른 휴대폰 번호를 입력해주세요.' }, 400)
+
+  const members = await getMembers(r2)
+  if (members.find((m: any) => m.email === email)) return c.json({ error: '이미 가입된 이메일입니다.' }, 409)
+
+  const { hash, salt } = await hashPassword(password)
+  const member = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+    email: email.toLowerCase().trim(),
+    name: name.trim(),
+    phone: phone.replace(/\s/g,'').trim(),
+    passwordHash: hash,
+    passwordSalt: salt,
+    privacyConsent: true,
+    marketingConsent: !!marketingConsent,
+    createdAt: new Date().toISOString(),
+  }
+  members.push(member)
+  await saveMembers(r2, members)
+
+  // 자동 로그인 (세션 발급)
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = await createSiteSession(member.id, secret)
+  const isSecure = c.req.url.startsWith('https')
+  setCookie(c, SITE_SESSION_COOKIE, token, { path: '/', httpOnly: true, secure: isSecure, sameSite: 'Lax', maxAge: SITE_SESSION_MAX_AGE })
+
+  return c.json({ success: true, user: { id: member.id, email: member.email, name: member.name } })
+})
+
+// [공개] 로그인
+app.post('/api/auth/login', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: '서버 오류' }, 500)
+
+  const { email, password } = await c.req.json()
+  if (!email || !password) return c.json({ error: '이메일과 비밀번호를 입력해주세요.' }, 400)
+
+  const members = await getMembers(r2)
+  const member = members.find((m: any) => m.email === email.toLowerCase().trim())
+  if (!member) return c.json({ error: '이메일 또는 비밀번호가 올바르지 않습니다.' }, 401)
+
+  const { hash } = await hashPassword(password, member.passwordSalt)
+  if (hash !== member.passwordHash) return c.json({ error: '이메일 또는 비밀번호가 올바르지 않습니다.' }, 401)
+
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = await createSiteSession(member.id, secret)
+  const isSecure = c.req.url.startsWith('https')
+  setCookie(c, SITE_SESSION_COOKIE, token, { path: '/', httpOnly: true, secure: isSecure, sameSite: 'Lax', maxAge: SITE_SESSION_MAX_AGE })
+
+  return c.json({ success: true, user: { id: member.id, email: member.email, name: member.name } })
+})
+
+// [공개] 로그아웃
+app.post('/api/auth/logout', (c) => {
+  deleteCookie(c, SITE_SESSION_COOKIE, { path: '/' })
+  return c.json({ success: true })
+})
+
+// [공개] 현재 로그인 상태 확인
+app.get('/api/auth/me', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.json({ loggedIn: false })
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, SITE_SESSION_COOKIE)
+  if (!token) return c.json({ loggedIn: false })
+  const userId = await verifySiteSession(token, secret)
+  if (!userId) return c.json({ loggedIn: false })
+  const members = await getMembers(r2)
+  const m = members.find((x: any) => x.id === userId)
+  if (!m) return c.json({ loggedIn: false })
+  return c.json({ loggedIn: true, user: { id: m.id, email: m.email, name: m.name, phone: m.phone } })
+})
+
+// ============================================
 // R2 이미지 업로드/조회 API (관리자 전용)
 // ============================================
 
@@ -319,7 +456,7 @@ app.get('/api/cases/:id', async (c) => {
   
   let authed = false
   if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
-  if (siteToken) authed = true // 사이트 로그인 쿠키가 있으면 통과
+  if (siteToken && await verifySiteSession(siteToken, secret)) authed = true
   
   if (!authed) {
     return c.json({ error: '로그인이 필요합니다', loginUrl: '/auth/login' }, 401)
@@ -828,7 +965,7 @@ app.get('/cases/:id', async (c) => {
   
   let authed = false
   if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
-  if (siteToken) authed = true
+  if (siteToken && await verifySiteSession(siteToken, secret)) authed = true
   
   const CATS: Record<string,string> = {
     implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
@@ -995,6 +1132,8 @@ app.use('/notice/*', serveStatic())
 
 // Auth directory
 app.get('/auth/login', serveStatic({ path: './auth/login.html' }))
+app.get('/auth/register', serveStatic({ path: './auth/register.html' }))
+app.get('/auth/mypage', serveStatic({ path: './auth/mypage.html' }))
 app.use('/auth/*', serveStatic())
 
 // Admin directory — 인증은 상단 미들웨어에서 처리, 여기는 정적 파일만

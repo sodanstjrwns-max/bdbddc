@@ -411,39 +411,36 @@ tbody tr:last-child td{border-bottom:none}
 <div class="toast" id="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">저장되었습니다</span></div>
 
 <script>
-const STORAGE_KEY = 'bd_cases';
+// R2 전용 — localStorage 제거됨
 let cases = [];
 let editingId = null;
 let isUploading = false;
 
-// R2 서버에서 케이스 로드
+// R2 서버에서 케이스 로드 (R2 전용, localStorage 폴백 제거)
 async function loadCases() {
   try {
     const res = await fetch('/api/admin/cases');
     if (res.ok) {
       cases = await res.json();
     } else {
-      // 폴백: localStorage
-      cases = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      cases = [];
     }
   } catch {
-    cases = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    cases = [];
   }
   renderCases();
 }
 
-// R2 서버에 케이스 저장
+// R2 서버에 케이스 저장 (R2 전용)
 async function syncCases() {
-  // localStorage 백업 유지
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(cases));
-  // 서버 동기화
   try {
-    await fetch('/api/admin/cases', {
+    const res = await fetch('/api/admin/cases', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(cases)
     });
-  } catch(e) { console.warn('서버 동기화 실패:', e); }
+    if (!res.ok) { showToast('서버 저장 실패', true); }
+  } catch(e) { console.warn('서버 동기화 실패:', e); showToast('서버 연결 실패', true); }
 }
 
 const CATS = {

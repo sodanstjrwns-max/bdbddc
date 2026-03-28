@@ -455,8 +455,81 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="loading-spinner"></div>
   </div>
 
-  <!-- Firebase SDK -->
-
+  <!-- Mypage Logic -->
+  <script>
+  (async function() {
+    const loader = document.getElementById('authLoader');
+    const notLoggedIn = document.getElementById('notLoggedIn');
+    const loggedInContent = document.getElementById('loggedInContent');
+    
+    loader.style.display = 'flex';
+    
+    try {
+      const res = await fetch('/api/auth/me');
+      const data = await res.json();
+      
+      if (!data.loggedIn) {
+        notLoggedIn.style.display = 'block';
+        loggedInContent.style.display = 'none';
+        loader.style.display = 'none';
+        return;
+      }
+      
+      // 로그인 됨 → UI 업데이트
+      notLoggedIn.style.display = 'none';
+      loggedInContent.style.display = 'block';
+      
+      const user = data.user;
+      document.getElementById('profileName').textContent = user.name || '회원';
+      document.getElementById('profileEmail').textContent = user.email || '-';
+      document.getElementById('profileAvatar').innerHTML = '<span style="font-size:1.5rem;font-weight:700;color:#fff;">' + (user.name || '?').charAt(0) + '</span>';
+      
+      document.getElementById('infoName').textContent = user.name || '-';
+      document.getElementById('infoEmail').textContent = user.email || '-';
+      document.getElementById('infoPhone').textContent = user.phone || '-';
+      document.getElementById('infoBirthdate').textContent = '-';
+      document.getElementById('infoGender').textContent = '-';
+      document.getElementById('infoCreatedAt').textContent = '-';
+      
+      document.getElementById('editName').value = user.name || '';
+      document.getElementById('editEmail').value = user.email || '';
+      document.getElementById('editPhone').value = user.phone || '';
+      
+      // 헤더 로그인/회원가입 버튼 → 마이페이지/로그아웃
+      document.querySelectorAll('.auth-buttons').forEach(function(el) {
+        el.innerHTML = '<a href="/auth/mypage" class="btn-auth btn-login"><i class="fas fa-user"></i> ' + user.name + '님</a>' +
+          '<a href="javascript:void(0)" class="btn-auth btn-register" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>';
+      });
+      document.querySelectorAll('.mobile-auth-buttons').forEach(function(el) {
+        el.innerHTML = '<a href="/auth/mypage" class="btn-auth"><i class="fas fa-user"></i> ' + user.name + '님</a>' +
+          '<a href="javascript:void(0)" class="btn-auth" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>';
+      });
+      
+    } catch(e) {
+      notLoggedIn.style.display = 'block';
+      loggedInContent.style.display = 'none';
+    } finally {
+      loader.style.display = 'none';
+    }
+  })();
+  
+  async function handleLogout() {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    window.location.href = '/';
+  }
+  
+  function toggleEditMode(section) {
+    const view = document.getElementById(section + 'View');
+    const edit = document.getElementById(section + 'Edit');
+    if (edit.style.display === 'block') { edit.style.display = 'none'; view.style.display = 'block'; }
+    else { edit.style.display = 'block'; view.style.display = 'none'; }
+  }
+  
+  function handleProfileUpdate(e) { e.preventDefault(); alert('프로필 수정 기능은 준비 중입니다.'); }
+  function handlePasswordReset() { alert('비밀번호 재설정 기능은 준비 중입니다.\n병원으로 문의해주세요: 041-415-2892'); }
+  function handleDeleteAccount() { alert('회원 탈퇴 기능은 준비 중입니다.\n병원으로 문의해주세요: 041-415-2892'); }
+  function updateMarketing() { alert('마케팅 수신 동의 변경은 준비 중입니다.'); }
+  </script>
 
   <section class="cta-section" aria-label="상담 안내">
     <div class="container">

@@ -461,8 +461,168 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="loading-spinner"></div>
   </div>
 
-  <!-- Firebase SDK -->
+  <script>
+  // ===== 회원가입 JS =====
+  const form = document.getElementById('registerForm');
+  const loader = document.getElementById('authLoader');
+  const errorMsg = document.getElementById('errorMessage');
+  const successMsg = document.getElementById('successMessage');
 
+  function showError(msg) { errorMsg.textContent = msg; errorMsg.style.display = 'block'; successMsg.style.display = 'none'; }
+  function hideMessages() { errorMsg.style.display = 'none'; successMsg.style.display = 'none'; }
+
+  // 비밀번호 보기/숨기기
+  function togglePassword(id) {
+    const input = document.getElementById(id);
+    const icon = input.parentElement.querySelector('.input-icon');
+    if (input.type === 'password') { input.type = 'text'; icon.classList.replace('fa-eye', 'fa-eye-slash'); }
+    else { input.type = 'password'; icon.classList.replace('fa-eye-slash', 'fa-eye'); }
+  }
+
+  // 비밀번호 강도
+  document.getElementById('password').addEventListener('input', function() {
+    const val = this.value;
+    const bars = document.querySelectorAll('.strength-bar');
+    let strength = 0;
+    if (val.length >= 6) strength++;
+    if (val.length >= 8) strength++;
+    if (/[A-Za-z]/.test(val) && /\d/.test(val)) strength++;
+    if (/[^A-Za-z0-9]/.test(val)) strength++;
+    const colors = ['#ef4444', '#f59e0b', '#22c55e', '#22c55e'];
+    bars.forEach(function(b, i) {
+      b.style.background = i < strength ? colors[Math.min(strength-1, 3)] : '#e5e7eb';
+    });
+  });
+
+  // 비밀번호 확인
+  document.getElementById('passwordConfirm').addEventListener('input', function() {
+    const hint = document.getElementById('passwordConfirmHint');
+    const pw = document.getElementById('password').value;
+    if (this.value && this.value !== pw) {
+      hint.textContent = '비밀번호가 일치하지 않습니다';
+      hint.style.color = '#ef4444';
+    } else if (this.value && this.value === pw) {
+      hint.textContent = '비밀번호가 일치합니다';
+      hint.style.color = '#22c55e';
+    } else {
+      hint.textContent = '';
+    }
+  });
+
+  // 전화번호 자동 포맷
+  document.getElementById('phone').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 11) v = v.slice(0, 11);
+    if (v.length > 7) this.value = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7);
+    else if (v.length > 3) this.value = v.slice(0,3) + '-' + v.slice(3);
+    else this.value = v;
+  });
+
+  // 전체 동의
+  function toggleAllAgree() {
+    const all = document.getElementById('agreeAll').checked;
+    document.getElementById('agreedTerms').checked = all;
+    document.getElementById('agreedPrivacy').checked = all;
+    document.getElementById('agreedMarketing').checked = all;
+  }
+  // 개별 체크 시 전체동의 동기화
+  ['agreedTerms','agreedPrivacy','agreedMarketing'].forEach(function(id) {
+    document.getElementById(id).addEventListener('change', function() {
+      document.getElementById('agreeAll').checked =
+        document.getElementById('agreedTerms').checked &&
+        document.getElementById('agreedPrivacy').checked &&
+        document.getElementById('agreedMarketing').checked;
+    });
+  });
+
+  // 스텝 이동
+  function nextStep(current) {
+    hideMessages();
+    if (current === 1) {
+      const email = document.getElementById('email').value.trim();
+      const pw = document.getElementById('password').value;
+      const pwConfirm = document.getElementById('passwordConfirm').value;
+      if (!email) { showError('이메일을 입력해주세요.'); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('올바른 이메일 형식이 아닙니다.'); return; }
+      if (!pw || pw.length < 8) { showError('비밀번호는 8자 이상이어야 합니다.'); return; }
+      if (!/[A-Za-z]/.test(pw) || !/\d/.test(pw)) { showError('비밀번호는 영문+숫자 조합이어야 합니다.'); return; }
+      if (pw !== pwConfirm) { showError('비밀번호가 일치하지 않습니다.'); return; }
+    }
+    if (current === 2) {
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      if (!name) { showError('이름을 입력해주세요.'); return; }
+      if (!phone || !/^01[0-9]-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g,''))) { showError('올바른 휴대폰 번호를 입력해주세요.'); return; }
+    }
+    document.querySelector('.form-step[data-step="'+current+'"]').classList.remove('active');
+    document.querySelector('.form-step[data-step="'+(current+1)+'"]').classList.add('active');
+    document.querySelector('.step[data-step="'+(current+1)+'"]').classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+  function prevStep(current) {
+    hideMessages();
+    document.querySelector('.form-step[data-step="'+current+'"]').classList.remove('active');
+    document.querySelector('.form-step[data-step="'+(current-1)+'"]').classList.add('active');
+    document.querySelector('.step[data-step="'+current+'"]').classList.remove('active');
+  }
+
+  // 약관 보기
+  function showTerms(type) {
+    if (type === 'terms') window.open('/terms', '_blank');
+    else if (type === 'privacy') window.open('/privacy', '_blank');
+  }
+
+  // Google 회원가입 (미구현)
+  function handleGoogleRegister() { alert('소셜 로그인은 추후 지원 예정입니다. 이메일로 가입해주세요.'); }
+
+  // 가입 제출
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    hideMessages();
+
+    if (!document.getElementById('agreedTerms').checked || !document.getElementById('agreedPrivacy').checked) {
+      showError('필수 약관에 동의해주세요.');
+      return;
+    }
+
+    const data = {
+      email: document.getElementById('email').value.trim(),
+      password: document.getElementById('password').value,
+      name: document.getElementById('name').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      privacyConsent: true,
+      marketingConsent: document.getElementById('agreedMarketing').checked,
+    };
+
+    loader.style.display = 'flex';
+    document.getElementById('submitBtn').disabled = true;
+
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      if (!res.ok || result.error) {
+        showError(result.error || '회원가입에 실패했습니다.');
+        return;
+      }
+      // 성공 → 리다이렉트
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get('redirect') || '/auth/mypage';
+      successMsg.textContent = '회원가입이 완료되었습니다! 환영합니다, ' + result.user.name + '님';
+      successMsg.style.display = 'block';
+      errorMsg.style.display = 'none';
+      setTimeout(function() { window.location.href = redirect; }, 1200);
+    } catch (err) {
+      showError('서버 연결에 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      loader.style.display = 'none';
+      document.getElementById('submitBtn').disabled = false;
+    }
+  });
+  </script>
 
   <section class="cta-section" aria-label="상담 안내">
     <div class="container">
