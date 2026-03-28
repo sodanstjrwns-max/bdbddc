@@ -249,6 +249,162 @@ app.delete('/api/admin/images/*', async (c) => {
   return c.json({ success: true, deleted: key })
 })
 
+// ============================================
+// 케이스(Before/After) CRUD API — R2 JSON 저장
+// ============================================
+const CASES_JSON_KEY = 'data/cases.json'
+
+// 케이스 목록 읽기 (R2에서)
+async function getCases(r2: R2Bucket): Promise<any[]> {
+  try {
+    const obj = await r2.get(CASES_JSON_KEY)
+    if (!obj) return []
+    const data = await obj.json() as any
+    return Array.isArray(data) ? data : []
+  } catch { return [] }
+}
+
+// 케이스 저장 (R2에)
+async function saveCases(r2: R2Bucket, cases: any[]) {
+  await r2.put(CASES_JSON_KEY, JSON.stringify(cases), {
+    httpMetadata: { contentType: 'application/json' }
+  })
+}
+
+// [공개] 카테고리별 케이스 조회 — 진료 페이지에서 호출
+app.get('/api/cases', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.json([])
+  
+  const category = c.req.query('category') || ''
+  const allCases = await getCases(r2)
+  
+  // 공개된 케이스만 필터
+  let published = allCases.filter((cs: any) => cs.status === 'published')
+  if (category) {
+    published = published.filter((cs: any) => cs.category === category)
+  }
+  
+  // 민감정보 제외 (beforeImage, afterImage 제외 → 썸네일만 제공)
+  const safe = published.map((cs: any) => ({
+    id: cs.id,
+    title: cs.title,
+    category: cs.category,
+    doctorName: cs.doctorName,
+    treatmentPeriod: cs.treatmentPeriod,
+    description: cs.description,
+    beforeImage: cs.beforeImage, // 썸네일용
+    createdAt: cs.createdAt,
+  }))
+  
+  c.header('Cache-Control', 'public, max-age=60')
+  return c.json(safe)
+})
+
+// [인증] 케이스 상세 (before + after 이미지 포함) — 로그인 사용자만
+app.get('/api/cases/:id', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: '스토리지 없음' }, 500)
+  
+  const id = c.req.param('id')
+  const allCases = await getCases(r2)
+  const cs = allCases.find((x: any) => x.id === id && x.status === 'published')
+  
+  if (!cs) return c.json({ error: '케이스를 찾을 수 없습니다' }, 404)
+  
+  // 로그인 체크 (사이트 회원 또는 관리자)
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const adminToken = getCookie(c, ADMIN_SESSION_COOKIE)
+  const siteToken = getCookie(c, 'bd_session')
+  
+  let authed = false
+  if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
+  if (siteToken) authed = true // 사이트 로그인 쿠키가 있으면 통과
+  
+  if (!authed) {
+    return c.json({ error: '로그인이 필요합니다', loginUrl: '/auth/login' }, 401)
+  }
+  
+  return c.json(cs)
+})
+
+// [관리자] 케이스 전체 목록 (관리 화면용)
+app.get('/api/admin/cases', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+  
+  const r2 = c.env.R2
+  if (!r2) return c.json([])
+  
+  return c.json(await getCases(r2))
+})
+
+// [관리자] 케이스 저장 (전체 덮어쓰기 — localStorage 동기화)
+app.post('/api/admin/cases', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+  
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: 'R2 없음' }, 500)
+  
+  const body = await c.req.json()
+  const cases = Array.isArray(body) ? body : (body.cases || [])
+  
+  await saveCases(r2, cases)
+  return c.json({ success: true, count: cases.length })
+})
+
+// [관리자] 개별 케이스 저장/수정
+app.put('/api/admin/cases/:id', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+  
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: 'R2 없음' }, 500)
+  
+  const id = c.req.param('id')
+  const data = await c.req.json()
+  const allCases = await getCases(r2)
+  
+  const idx = allCases.findIndex((x: any) => x.id === id)
+  if (idx >= 0) {
+    allCases[idx] = { ...allCases[idx], ...data, updatedAt: new Date().toISOString() }
+  } else {
+    allCases.unshift({ ...data, id, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() })
+  }
+  
+  await saveCases(r2, allCases)
+  return c.json({ success: true, id })
+})
+
+// [관리자] 케이스 삭제
+app.delete('/api/admin/cases/:id', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+  
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: 'R2 없음' }, 500)
+  
+  const id = c.req.param('id')
+  const allCases = await getCases(r2)
+  const filtered = allCases.filter((x: any) => x.id !== id)
+  
+  await saveCases(r2, filtered)
+  return c.json({ success: true, deleted: id })
+})
+
 // 301 Redirect: /column/* → /blog/ (SEO migration)
 app.get('/column/columns.html', (c) => c.redirect('/blog/', 301))
 app.get('/column/columns', (c) => c.redirect('/blog/', 301))
@@ -650,6 +806,186 @@ app.use('/video/*', serveStatic())
 app.get('/cases', serveStatic({ path: './cases/gallery.html' }))
 app.get('/cases/', serveStatic({ path: './cases/gallery.html' }))
 app.get('/cases/gallery', serveStatic({ path: './cases/gallery.html' }))
+
+// 케이스 상세 페이지 (SSR, 로그인 필요)
+app.get('/cases/:id', async (c) => {
+  const id = c.req.param('id')
+  // gallery.html 같은 정적 파일은 통과
+  if (id.includes('.')) return c.notFound()
+  
+  const r2 = c.env.R2
+  if (!r2) return c.redirect('/cases/gallery', 302)
+  
+  const allCases = await getCases(r2)
+  const cs = allCases.find((x: any) => x.id === id && x.status === 'published')
+  
+  if (!cs) return c.redirect('/cases/gallery', 302)
+  
+  // 로그인 체크
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const adminToken = getCookie(c, ADMIN_SESSION_COOKIE)
+  const siteToken = getCookie(c, 'bd_session')
+  
+  let authed = false
+  if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
+  if (siteToken) authed = true
+  
+  const CATS: Record<string,string> = {
+    implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
+    aesthetic:'심미치료', glownate:'글로우네이트', cavity:'충치치료',
+    resin:'레진치료', crown:'크라운', inlay:'인레이/온레이',
+    'root-canal':'신경치료', 're-root-canal':'재신경치료',
+    whitening:'미백', bridge:'브릿지', denture:'틀니',
+    scaling:'스케일링', gum:'잇몸치료', periodontitis:'치주염',
+    'gum-surgery':'잇몸수술', 'wisdom-tooth':'사랑니발치',
+    apicoectomy:'치근단절제술', prevention:'예방치료',
+    tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
+  }
+  
+  const catLabel = CATS[cs.category] || cs.category || ''
+  const dateStr = new Date(cs.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
+  
+  // 로그인 안 된 경우 → 로그인 유도 페이지
+  if (!authed) {
+    return c.html(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${cs.title} | Before/After — 서울비디치과</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/site-v5.css?v=0b6913b4">
+<style>
+.lock-page{min-height:60vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.lock-card{max-width:480px;width:100%;text-align:center;background:#fff;border-radius:20px;padding:48px 36px;box-shadow:0 4px 24px rgba(107,66,38,.08)}
+.lock-icon{font-size:3rem;color:#c9a96e;margin-bottom:16px}
+.lock-title{font-size:1.3rem;font-weight:800;color:#333;margin-bottom:8px}
+.lock-desc{font-size:.9rem;color:#888;line-height:1.6;margin-bottom:24px}
+.lock-preview{display:flex;gap:12px;justify-content:center;margin-bottom:24px}
+.lock-thumb{width:140px;height:100px;border-radius:12px;overflow:hidden;position:relative;background:#f0ebe4}
+.lock-thumb img{width:100%;height:100%;object-fit:cover;filter:blur(12px) brightness(.9)}
+.lock-thumb::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center}
+.lock-label{position:absolute;bottom:6px;left:6px;font-size:.65rem;font-weight:700;color:#fff;background:rgba(0,0,0,.5);padding:2px 8px;border-radius:4px}
+.lock-meta{display:flex;gap:16px;justify-content:center;font-size:.8rem;color:#999;margin-bottom:20px}
+.btn-login-lg{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;transition:background .2s}
+.btn-login-lg:hover{background:#8B5E3C}
+</style>
+</head>
+<body>
+<header class="site-header" id="siteHeader">
+<div class="header-container">
+<div class="header-brand"><a href="/" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a></div>
+<div class="header-actions"><a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i></a><a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a></div>
+</div>
+</header>
+<div class="header-spacer"></div>
+<main>
+<div class="lock-page">
+<div class="lock-card">
+<div class="lock-icon"><i class="fas fa-lock"></i></div>
+<div class="lock-title">${cs.title}</div>
+<div style="margin-bottom:8px;"><span style="font-size:.78rem;padding:3px 12px;background:#f5f0eb;color:#6B4226;border-radius:50px;font-weight:600;">${catLabel}</span></div>
+<div class="lock-preview">
+${cs.beforeImage ? `<div class="lock-thumb"><img src="${cs.beforeImage}" alt="Before"><span class="lock-label">Before</span></div>` : ''}
+${cs.afterImage ? `<div class="lock-thumb"><img src="${cs.afterImage}" alt="After"><span class="lock-label">After</span></div>` : ''}
+</div>
+<div class="lock-meta">
+<span><i class="fas fa-user-md" style="color:#c9a96e;margin-right:3px;"></i> ${cs.doctorName || ''}</span>
+${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="margin-right:3px;"></i> ${cs.treatmentPeriod}</span>` : ''}
+<span><i class="far fa-calendar" style="margin-right:3px;"></i> ${dateStr}</span>
+</div>
+<div class="lock-desc">Before/After 상세 사진은<br><strong>로그인 후 확인</strong>하실 수 있습니다.</div>
+<a href="/auth/login?redirect=/cases/${id}" class="btn-login-lg"><i class="fas fa-sign-in-alt"></i> 로그인하고 보기</a>
+<div style="margin-top:16px;font-size:.8rem;"><a href="/cases/gallery" style="color:#888;text-decoration:none;"><i class="fas fa-arrow-left" style="margin-right:4px;"></i> 전체 갤러리로 돌아가기</a></div>
+</div>
+</div>
+</main>
+<script src="/js/main.js" defer></script>
+<script src="/js/gnb.js" defer></script>
+</body>
+</html>`)
+  }
+  
+  // 로그인 됨 → 상세 페이지
+  return c.html(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${cs.title} | Before/After — 서울비디치과</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/site-v5.css?v=0b6913b4">
+<style>
+.case-detail{max-width:800px;margin:0 auto;padding:40px 20px}
+.case-header{margin-bottom:32px}
+.case-title{font-size:1.6rem;font-weight:800;color:#333;margin-bottom:8px}
+.case-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:#888}
+.case-meta span{display:flex;align-items:center;gap:4px}
+.case-images{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.case-img-box{position:relative;border-radius:16px;overflow:hidden;background:#f0ebe4;aspect-ratio:4/3}
+.case-img-box img{width:100%;height:100%;object-fit:cover}
+.case-img-label{position:absolute;top:12px;left:12px;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:50px;color:#fff}
+.case-img-label.before{background:#f59e0b}
+.case-img-label.after{background:#22c55e}
+.case-desc{font-size:1rem;color:#555;line-height:1.8;margin-bottom:32px;padding:20px 24px;background:#faf7f3;border-radius:16px}
+.case-cta{text-align:center;padding:32px;background:linear-gradient(135deg,#6B4226,#8B5E3C);border-radius:16px;color:#fff}
+@media(max-width:600px){.case-images{grid-template-columns:1fr}.case-title{font-size:1.3rem}}
+</style>
+</head>
+<body>
+<header class="site-header" id="siteHeader">
+<div class="header-container">
+<div class="header-brand"><a href="/" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a></div>
+<div class="header-actions"><a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i></a><a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a></div>
+</div>
+</header>
+<div class="header-spacer"></div>
+<main>
+<div class="case-detail">
+<nav style="font-size:.85rem;color:#888;margin-bottom:20px;">
+<a href="/" style="color:#6B4226;text-decoration:none;">홈</a> &gt;
+<a href="/cases/gallery" style="color:#6B4226;text-decoration:none;">Before/After</a> &gt;
+<span>${cs.title}</span>
+</nav>
+<div class="case-header">
+<div class="case-title">${cs.title}</div>
+<div style="margin-bottom:10px;"><span style="font-size:.8rem;padding:4px 14px;background:#f5f0eb;color:#6B4226;border-radius:50px;font-weight:600;">${catLabel}</span></div>
+<div class="case-meta">
+<span><i class="fas fa-user-md" style="color:#c9a96e;"></i> ${cs.doctorName || ''}</span>
+${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="color:#c9a96e;"></i> ${cs.treatmentPeriod}</span>` : ''}
+<span><i class="far fa-calendar" style="color:#c9a96e;"></i> ${dateStr}</span>
+</div>
+</div>
+<div class="case-images">
+${cs.beforeImage ? `<div class="case-img-box"><img src="${cs.beforeImage}" alt="Before"><span class="case-img-label before">Before</span></div>` : ''}
+${cs.afterImage ? `<div class="case-img-box"><img src="${cs.afterImage}" alt="After"><span class="case-img-label after">After</span></div>` : ''}
+</div>
+${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight:700;color:#333;margin-bottom:8px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:6px;"></i> 치료 설명</h3>${cs.description}</div>` : ''}
+<div class="case-cta">
+<p style="font-size:1.05rem;font-weight:600;margin-bottom:14px;">나도 이런 결과를 원한다면?</p>
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+<a href="/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;"><i class="fas fa-calendar-check"></i> 무료 상담 예약</a>
+<a href="tel:041-415-2892" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:rgba(255,255,255,.15);color:#fff;border-radius:50px;text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,.3);"><i class="fas fa-phone"></i> 041-415-2892</a>
+</div>
+</div>
+<div style="text-align:center;margin-top:24px;">
+<a href="/cases/gallery" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 갤러리 보기</a>
+${cs.category ? `<a href="/treatments/${cs.category}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;margin-left:8px;"><i class="fas fa-tooth"></i> ${catLabel} 진료 안내</a>` : ''}
+</div>
+</div>
+</main>
+<script src="/js/main.js" defer></script>
+<script src="/js/gnb.js" defer></script>
+</body>
+</html>`)
+})
+
 app.use('/cases/*', serveStatic())
 
 // Notice directory

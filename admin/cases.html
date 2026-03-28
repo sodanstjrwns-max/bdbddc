@@ -231,13 +231,40 @@ tbody tr:last-child td{border-bottom:none}
         <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="제목, 담당의로 검색..." id="searchInput" oninput="renderCases()"></div>
         <select class="filter-select" id="categoryFilter" onchange="renderCases()">
           <option value="all">전체 카테고리</option>
+          <optgroup label="전문센터">
           <option value="implant">임플란트</option>
-          <option value="orthodontic">교정</option>
+          <option value="invisalign">교정(인비절라인)</option>
+          <option value="pediatric">소아치과</option>
           <option value="aesthetic">심미치료</option>
           <option value="glownate">글로우네이트</option>
+          </optgroup>
+          <optgroup label="보존·보철">
+          <option value="cavity">충치치료</option>
+          <option value="resin">레진치료</option>
+          <option value="crown">크라운</option>
+          <option value="inlay">인레이/온레이</option>
+          <option value="root-canal">신경치료</option>
+          <option value="re-root-canal">재신경치료</option>
+          </optgroup>
+          <optgroup label="심미·보철">
           <option value="whitening">미백</option>
+          <option value="bridge">브릿지</option>
+          <option value="denture">틀니</option>
+          </optgroup>
+          <optgroup label="잇몸·구강외과">
+          <option value="scaling">스케일링</option>
           <option value="gum">잇몸치료</option>
-          <option value="general">일반진료</option>
+          <option value="periodontitis">치주염</option>
+          <option value="gum-surgery">잇몸수술</option>
+          <option value="wisdom-tooth">사랑니발치</option>
+          <option value="apicoectomy">치근단절제술</option>
+          </optgroup>
+          <optgroup label="기타">
+          <option value="prevention">예방치료</option>
+          <option value="tmj">턱관절(TMJ)</option>
+          <option value="bruxism">이갈이/브럭시즘</option>
+          <option value="emergency">응급치료</option>
+          </optgroup>
         </select>
         <select class="filter-select" id="statusFilter" onchange="renderCases()">
           <option value="all">전체 상태</option>
@@ -279,7 +306,43 @@ tbody tr:last-child td{border-bottom:none}
         <div class="form-group"><label>제목 <span class="req">*</span></label><input type="text" id="caseTitle" required placeholder="예: 전악 임플란트 수복"></div>
         <div class="form-row">
           <div class="form-group"><label>카테고리 <span class="req">*</span></label>
-            <select id="caseCategory" required><option value="">선택</option><option value="implant">임플란트</option><option value="orthodontic">교정</option><option value="aesthetic">심미치료</option><option value="glownate">글로우네이트</option><option value="whitening">미백</option><option value="gum">잇몸치료</option><option value="general">일반진료</option></select>
+            <select id="caseCategory" required>
+              <option value="">선택</option>
+              <optgroup label="전문센터">
+              <option value="implant">임플란트</option>
+              <option value="invisalign">교정(인비절라인)</option>
+              <option value="pediatric">소아치과</option>
+              <option value="aesthetic">심미치료</option>
+              <option value="glownate">글로우네이트</option>
+              </optgroup>
+              <optgroup label="보존·보철">
+              <option value="cavity">충치치료</option>
+              <option value="resin">레진치료</option>
+              <option value="crown">크라운</option>
+              <option value="inlay">인레이/온레이</option>
+              <option value="root-canal">신경치료</option>
+              <option value="re-root-canal">재신경치료</option>
+              </optgroup>
+              <optgroup label="심미·보철">
+              <option value="whitening">미백</option>
+              <option value="bridge">브릿지</option>
+              <option value="denture">틀니</option>
+              </optgroup>
+              <optgroup label="잇몸·구강외과">
+              <option value="scaling">스케일링</option>
+              <option value="gum">잇몸치료</option>
+              <option value="periodontitis">치주염</option>
+              <option value="gum-surgery">잇몸수술</option>
+              <option value="wisdom-tooth">사랑니발치</option>
+              <option value="apicoectomy">치근단절제술</option>
+              </optgroup>
+              <optgroup label="기타">
+              <option value="prevention">예방치료</option>
+              <option value="tmj">턱관절(TMJ)</option>
+              <option value="bruxism">이갈이/브럭시즘</option>
+              <option value="emergency">응급치료</option>
+              </optgroup>
+            </select>
           </div>
           <div class="form-group"><label>담당 원장 <span class="req">*</span></label>
             <select id="doctorName" required>
@@ -349,11 +412,51 @@ tbody tr:last-child td{border-bottom:none}
 
 <script>
 const STORAGE_KEY = 'bd_cases';
-let cases = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+let cases = [];
 let editingId = null;
 let isUploading = false;
 
-const CATS = {implant:'임플란트',orthodontic:'교정',aesthetic:'심미치료',glownate:'글로우네이트',whitening:'미백',gum:'잇몸치료',general:'일반진료'};
+// R2 서버에서 케이스 로드
+async function loadCases() {
+  try {
+    const res = await fetch('/api/admin/cases');
+    if (res.ok) {
+      cases = await res.json();
+    } else {
+      // 폴백: localStorage
+      cases = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    }
+  } catch {
+    cases = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  }
+  renderCases();
+}
+
+// R2 서버에 케이스 저장
+async function syncCases() {
+  // localStorage 백업 유지
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cases));
+  // 서버 동기화
+  try {
+    await fetch('/api/admin/cases', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cases)
+    });
+  } catch(e) { console.warn('서버 동기화 실패:', e); }
+}
+
+const CATS = {
+  implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
+  aesthetic:'심미치료', glownate:'글로우네이트', cavity:'충치치료',
+  resin:'레진치료', crown:'크라운', inlay:'인레이/온레이',
+  'root-canal':'신경치료', 're-root-canal':'재신경치료',
+  whitening:'미백', bridge:'브릿지', denture:'틀니',
+  scaling:'스케일링', gum:'잇몸치료', periodontitis:'치주염',
+  'gum-surgery':'잇몸수술', 'wisdom-tooth':'사랑니발치',
+  apicoectomy:'치근단절제술', prevention:'예방치료',
+  tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
+};
 
 // === R2 Upload Function ===
 async function uploadToR2(file, folder) {
@@ -501,10 +604,10 @@ function editCase(id) { openModal(id); }
 function deleteCase(id) {
   if (!confirm('정말 삭제하시겠습니까?')) return;
   cases = cases.filter(c => c.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(cases));
+  syncCases();
   renderCases(); showToast('삭제되었습니다', true);
 }
-function saveCase() {
+async function saveCase() {
   if (isUploading) { showToast('이미지 업로드 완료 후 저장하세요', true); return; }
   const title = document.getElementById('caseTitle').value.trim();
   const category = document.getElementById('caseCategory').value;
@@ -527,10 +630,12 @@ function saveCase() {
     data.createdAt = new Date().toISOString();
     cases.unshift(data);
   }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(cases));
+  await syncCases();
   closeModal(); renderCases(); showToast('저장되었습니다');
-  // 자동 IndexNow: 케이스 저장 시 검색엔진에 알림
-  submitIndexNow(['/cases/', '/cases/gallery']);
+  // 자동 IndexNow: 케이스 저장 시 검색엔진에 알림 (해당 진료 페이지 포함)
+  const catSlug = data.category;
+  const extraPaths = catSlug ? ['/treatments/' + catSlug] : [];
+  submitIndexNow(['/cases/', '/cases/gallery', ...extraPaths]);
 }
 
 // === 자동 IndexNow 제출 ===
@@ -579,6 +684,8 @@ function toggleSidebar() {
   document.getElementById('sidebarOverlay').classList.toggle('open');
 }
 renderCases();
+// 서버에서 케이스 로드 (R2 동기화)
+loadCases();
 </script>
 </body>
 </html>
