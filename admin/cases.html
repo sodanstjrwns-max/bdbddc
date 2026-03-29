@@ -279,7 +279,7 @@ tbody tr:last-child td{border-bottom:none}
       <table>
         <thead>
           <tr>
-            <th>이미지</th><th>제목</th><th>카테고리</th><th>담당의</th><th>치료기간</th><th>상태</th><th>등록일</th><th>관리</th>
+            <th>이미지</th><th>제목</th><th>카테고리</th><th>담당의</th><th>환자</th><th>치료기간</th><th>상태</th><th>등록일</th><th>관리</th>
           </tr>
         </thead>
         <tbody id="casesTableBody"></tbody>
@@ -353,6 +353,27 @@ tbody tr:last-child td{border-bottom:none}
               <optgroup label="보존"><option value="조설아 원장">조설아 원장</option><option value="강민지 원장">강민지 원장</option></optgroup>
               <optgroup label="소아"><option value="김민진 원장">김민진 원장</option><option value="박상현 원장">박상현 원장</option><option value="서희원 원장">서희원 원장</option></optgroup>
               <optgroup label="기타"><option value="이병민 원장">이병민 원장</option><option value="현정민 원장">현정민 원장</option><option value="최종훈 원장">최종훈 원장</option><option value="김민수 원장">김민수 원장</option><option value="박수빈 원장">박수빈 원장</option></optgroup>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>환자 성별 <span class="req">*</span></label>
+            <select id="patientGender" required>
+              <option value="">선택</option>
+              <option value="male">남성</option>
+              <option value="female">여성</option>
+            </select>
+          </div>
+          <div class="form-group"><label>환자 나이 <span class="req">*</span></label>
+            <select id="patientAge" required>
+              <option value="">선택</option>
+              <option value="10대">10대</option>
+              <option value="20대">20대</option>
+              <option value="30대">30대</option>
+              <option value="40대">40대</option>
+              <option value="50대">50대</option>
+              <option value="60대">60대</option>
+              <option value="70대 이상">70대 이상</option>
             </select>
           </div>
         </div>
@@ -556,6 +577,7 @@ function renderCases() {
       <td style="font-weight:600">${c.title||''}</td>
       <td>${CATS[c.category]||c.category||''}</td>
       <td>${c.doctorName||''}</td>
+      <td>${c.patientAge||'-'} ${c.patientGender==='male'?'남':c.patientGender==='female'?'여':''}</td>
       <td>${c.treatmentPeriod||'-'}</td>
       <td><span class="status-badge ${c.status}">${c.status==='published'?'공개':'비공개'}</span></td>
       <td style="color:var(--text-muted);font-size:.8rem">${d}</td>
@@ -579,6 +601,8 @@ function openModal(id) {
       document.getElementById('treatmentPeriod').value = c.treatmentPeriod||'';
       document.getElementById('caseStatus').value = c.status||'published';
       document.getElementById('caseDescription').value = c.description||'';
+      document.getElementById('patientGender').value = c.patientGender||'';
+      document.getElementById('patientAge').value = c.patientAge||'';
       if (c.beforeImage) {
         setPreview('before', c.beforeImage);
         document.getElementById('beforeR2Url').value = c.beforeImage;
@@ -609,9 +633,14 @@ async function saveCase() {
   const title = document.getElementById('caseTitle').value.trim();
   const category = document.getElementById('caseCategory').value;
   const doctor = document.getElementById('doctorName').value;
-  if (!title || !category || !doctor) { showToast('필수 항목을 입력하세요', true); return; }
+  const gender = document.getElementById('patientGender').value;
+  const age = document.getElementById('patientAge').value;
+  if (!title || !category || !doctor || !gender || !age) { showToast('필수 항목을 입력하세요', true); return; }
   const data = {
     title, category, doctorName: doctor,
+    patientGender: gender,
+    patientAge: age,
+    patientInfo: age + ' ' + (gender === 'male' ? '남성' : '여성'),
     treatmentPeriod: document.getElementById('treatmentPeriod').value.trim(),
     status: document.getElementById('caseStatus').value,
     description: document.getElementById('caseDescription').value.trim(),
