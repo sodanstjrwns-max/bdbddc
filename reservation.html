@@ -164,6 +164,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .rsv-msg.error{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;display:block}
 .rsv-msg.success{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;display:block}
 
+/* Reservation Complete Screen */
+.rsv-complete{display:none;text-align:center;padding:48px 24px;animation:rsvFadeIn .6s ease}
+.rsv-complete.show{display:block}
+@keyframes rsvFadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.rsv-complete-icon{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);display:inline-flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 8px 32px rgba(16,185,129,.3);animation:rsvPulse 2s ease infinite}
+@keyframes rsvPulse{0%,100%{box-shadow:0 8px 32px rgba(16,185,129,.3)}50%{box-shadow:0 8px 48px rgba(16,185,129,.5)}}
+.rsv-complete-icon i{font-size:40px;color:#fff}
+.rsv-complete h3{font-size:1.5rem;font-weight:700;color:#111827;margin:0 0 8px}
+.rsv-complete .rsv-complete-sub{color:#6b7280;font-size:.95rem;margin-bottom:32px}
+.rsv-complete-info{background:#f9fafb;border:1px solid #e5e7eb;border-radius:16px;padding:24px;margin-bottom:32px;text-align:left;max-width:400px;display:inline-block;width:100%}
+.rsv-complete-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:.9rem}
+.rsv-complete-row:last-child{border-bottom:none}
+.rsv-complete-row .label{color:#6b7280;font-weight:500}
+.rsv-complete-row .value{color:#111827;font-weight:600}
+.rsv-complete-notice{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:16px;margin-bottom:28px;font-size:.85rem;color:#1e40af;text-align:left;max-width:400px;display:inline-block;width:100%}
+.rsv-complete-notice i{margin-right:6px}
+.rsv-complete-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.rsv-complete-actions a,.rsv-complete-actions button{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:10px;font-size:.9rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:all .2s}
+.rsv-btn-home{background:#f3f4f6;color:#374151}
+.rsv-btn-home:hover{background:#e5e7eb}
+.rsv-btn-call{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff}
+.rsv-btn-call:hover{opacity:.9}
+
 /* Loading */
 .rsv-loader{display:none;position:fixed;inset:0;background:rgba(255,255,255,.8);z-index:9999;align-items:center;justify-content:center}
 .rsv-loader.show{display:flex}
@@ -434,6 +457,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
           </form>
         </div>
+
+        <!-- Reservation Complete Screen -->
+        <div id="rsvComplete" class="rsv-complete">
+          <div class="rsv-complete-icon"><i class="fas fa-check"></i></div>
+          <h3>예약 신청이 완료되었습니다!</h3>
+          <p class="rsv-complete-sub">담당자가 확인 후 <strong>빠른 시간 내에 연락</strong>드리겠습니다.</p>
+          <div class="rsv-complete-info">
+            <div class="rsv-complete-row"><span class="label">예약번호</span><span class="value" id="rcId">—</span></div>
+            <div class="rsv-complete-row"><span class="label">진료항목</span><span class="value" id="rcTx">—</span></div>
+            <div class="rsv-complete-row"><span class="label">희망일시</span><span class="value" id="rcDate">—</span></div>
+            <div class="rsv-complete-row"><span class="label">예약자</span><span class="value" id="rcName">—</span></div>
+          </div>
+          <div class="rsv-complete-notice">
+            <i class="fas fa-info-circle"></i>
+            예약 확정 전 변경이 필요하시면 <strong>041-415-2892</strong>로 연락주세요.<br>
+            영업시간: 평일 09:00~19:00 / 토 09:00~15:00
+          </div>
+          <div class="rsv-complete-actions">
+            <a href="/" class="rsv-btn-home"><i class="fas fa-home"></i> 홈으로</a>
+            <a href="tel:041-415-2892" class="rsv-btn-call"><i class="fas fa-phone"></i> 전화 문의</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -613,13 +658,20 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
     });
     var result=await res.json();
     if(!res.ok||result.error){showErr(result.error||'예약 신청에 실패했습니다.');return;}
-    sucEl.textContent='예약 신청이 완료되었습니다! 담당자가 곧 연락드리겠습니다.';
-    sucEl.className='rsv-msg success';errEl.className='rsv-msg';
-    document.getElementById('rsvForm').reset();
-    // Reset to step 1
-    document.querySelectorAll('.rsv-step').forEach(function(s){s.classList.remove('active');});
-    document.querySelector('.rsv-step[data-step="1"]').classList.add('active');
-    document.querySelectorAll('.step-dot').forEach(function(d){d.classList.toggle('active',d.dataset.s==='1');});
+    // Show completion screen
+    var txLabels={'checkup':'BDX 정밀검진','implant':'임플란트','orthodontics':'교정','whitening':'미백/심미','pediatric':'소아치과','gum':'잇몸치료','cavity':'충치치료','wisdom':'사랑니발치','other':'기타 상담'};
+    document.getElementById('rcId').textContent=result.reservation.id||'—';
+    document.getElementById('rcTx').textContent=txLabels[data.treatment]||data.treatment;
+    document.getElementById('rcDate').textContent=data.date+' '+data.time;
+    document.getElementById('rcName').textContent=data.name;
+    // Hide form area, show complete screen
+    document.getElementById('rsvForm').style.display='none';
+    document.querySelector('.step-indicator').style.display='none';
+    document.getElementById('rsvErr').style.display='none';
+    document.getElementById('rsvSuc').style.display='none';
+    document.getElementById('rsvComplete').classList.add('show');
+    // Scroll to complete screen
+    document.getElementById('rsvComplete').scrollIntoView({behavior:'smooth',block:'center'});
   }catch(err){
     showErr('서버 연결에 실패했습니다. 전화(041-415-2892)로 예약해주세요.');
   }finally{
