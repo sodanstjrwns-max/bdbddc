@@ -124,6 +124,10 @@ app.post('/admin/login', async (c) => {
     return c.html(adminLoginPage('비밀번호가 올바르지 않습니다.'), 401)
   }
 
+  // 구 쿠키 삭제 (path: /admin → / 마이그레이션)
+  deleteCookie(c, ADMIN_SESSION_COOKIE, { path: '/admin' })
+  deleteCookie(c, ADMIN_SESSION_COOKIE, { path: '/admin/' })
+
   // 세션 토큰 생성 + 쿠키 설정
   const token = await createSessionToken(secret)
   const isSecure = c.req.url.startsWith('https')
