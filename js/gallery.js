@@ -46,14 +46,14 @@
 
     var imageHtml;
     if (hasImage) {
-      imageHtml = '<div style="position:relative;height:220px;overflow:hidden;background:#f0ebe4">' +
+      imageHtml = '<div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#f0ebe4">' +
         '<img src="' + imgSrc + '" alt="Before" style="width:100%;height:100%;object-fit:cover;' + (isLoggedIn ? '' : 'filter:blur(10px) brightness(0.8);') + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=\\\'display:flex;height:100%;align-items:center;justify-content:center;color:#ccc;font-size:3rem\\\"><i class=\\\'fas fa-teeth\\\'></i></div>\'">' +
         '<div style="position:absolute;top:12px;left:12px;padding:4px 12px;background:rgba(0,0,0,0.6);color:white;border-radius:20px;font-size:0.7rem;font-weight:600;z-index:2">BEFORE</div>' +
         '<div style="position:absolute;top:12px;right:12px;padding:4px 12px;background:rgba(107,66,38,0.85);color:white;border-radius:20px;font-size:0.7rem;font-weight:600;z-index:2">AFTER</div>' +
         (isLoggedIn ? '' : '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;"><i class="fas fa-lock" style="font-size:2rem;color:rgba(255,255,255,0.9);margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,0.3)"></i><span style="color:#fff;font-size:0.8rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5)">로그인 후 확인</span></div>') +
         '</div>';
     } else {
-      imageHtml = '<div style="height:180px;background:linear-gradient(135deg,#f5f0eb,#e8dfd6);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#c9a96e">' +
+      imageHtml = '<div style="aspect-ratio:16/9;background:linear-gradient(135deg,#f5f0eb,#e8dfd6);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#c9a96e">' +
         '<i class="fas fa-teeth" style="font-size:3rem;margin-bottom:8px;opacity:0.5"></i>' +
         '<span style="font-size:0.8rem;color:#999">사진 준비 중</span>' +
         '</div>';

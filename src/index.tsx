@@ -128,7 +128,7 @@ app.post('/admin/login', async (c) => {
   const token = await createSessionToken(secret)
   const isSecure = c.req.url.startsWith('https')
   setCookie(c, ADMIN_SESSION_COOKIE, token, {
-    path: '/admin',
+    path: '/',
     httpOnly: true,
     secure: isSecure,
     sameSite: 'Lax',
@@ -140,7 +140,7 @@ app.post('/admin/login', async (c) => {
 
 // === 관리자 로그아웃 ===
 app.get('/admin/logout', (c) => {
-  deleteCookie(c, ADMIN_SESSION_COOKIE, { path: '/admin' })
+  deleteCookie(c, ADMIN_SESSION_COOKIE, { path: '/' })
   return c.redirect('/admin/login', 302)
 })
 
@@ -1065,7 +1065,7 @@ ${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="margin-right:3px;">
 .case-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:#888}
 .case-meta span{display:flex;align-items:center;gap:4px}
 .case-images{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
-.case-img-box{position:relative;border-radius:16px;overflow:hidden;background:#f0ebe4;aspect-ratio:4/3}
+.case-img-box{position:relative;border-radius:16px;overflow:hidden;background:#f0ebe4;aspect-ratio:16/9}
 .case-img-box img{width:100%;height:100%;object-fit:cover}
 .case-img-label{position:absolute;top:12px;left:12px;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:50px;color:#fff}
 .case-img-label.before{background:#f59e0b}
