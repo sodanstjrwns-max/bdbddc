@@ -549,53 +549,65 @@ app.delete('/api/admin/cases/:id', async (c) => {
 // ===== 예약 API =====
 app.post('/api/reservation', async (c) => {
   try {
-    const body = await c.req.json()
+    let body: any
+    try {
+      body = await c.req.json()
+    } catch (parseErr) {
+      return c.json({ error: '잘못된 요청 형식입니다.' }, 400)
+    }
     const { treatment, date, time, name, phone, message, marketing } = body
 
     // Validation
     if (!treatment || !date || !time || !name || !phone) {
       return c.json({ error: '필수 항목을 모두 입력해주세요.' }, 400)
     }
-    if (!/^01[0-9]-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g, ''))) {
+    const cleanPhone = String(phone).replace(/[\s-]/g, '')
+    if (!/^01[0-9]\d{7,8}$/.test(cleanPhone)) {
       return c.json({ error: '올바른 연락처를 입력해주세요.' }, 400)
     }
 
     const treatmentMap: Record<string, string> = {
       checkup: 'BDX 정밀검진', glownate: '글로우네이트', invisalign: '인비절라인',
-      implant: '임플란트', pediatric: '소아치과', general: '일반/기타'
+      implant: '임플란트', pediatric: '소아치과', general: '일반/기타', other: '기타/상담'
     }
 
     const reservation = {
       id: `rsv-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       treatment: treatmentMap[treatment] || treatment,
-      date, time, name, phone,
-      message: message || '',
+      date: String(date),
+      time: String(time),
+      name: String(name).trim(),
+      phone: String(phone).trim(),
+      message: message ? String(message).trim() : '',
       marketing: !!marketing,
       createdAt: new Date().toISOString(),
       status: 'pending'
     }
 
-    // R2에 예약 데이터 저장
-    const r2 = (c.env as any).R2
-    if (r2) {
-      try {
-        // 기존 예약 목록 로드
+    // R2에 예약 데이터 저장 (실패해도 예약 성공 처리)
+    try {
+      const r2 = (c.env as any).R2
+      if (r2) {
         let reservations: any[] = []
-        const existing = await r2.get('data/reservations.json')
-        if (existing) {
-          reservations = JSON.parse(await existing.text())
-        }
+        try {
+          const existing = await r2.get('data/reservations.json')
+          if (existing) {
+            const text = await existing.text()
+            if (text) reservations = JSON.parse(text)
+          }
+        } catch (_) { /* 기존 데이터 없음 - 무시 */ }
         reservations.push(reservation)
         await r2.put('data/reservations.json', JSON.stringify(reservations, null, 2), {
           httpMetadata: { contentType: 'application/json' }
         })
-      } catch (e) {
-        console.error('R2 save error:', e)
       }
+    } catch (r2Err) {
+      console.error('R2 save error (reservation still accepted):', r2Err)
     }
 
-    return c.json({ success: true, reservation: { id: reservation.id, name, date, time, treatment: reservation.treatment } })
-  } catch (e) {
+    return c.json({ success: true, reservation: { id: reservation.id, name: reservation.name, date: reservation.date, time: reservation.time, treatment: reservation.treatment } })
+  } catch (e: any) {
+    console.error('Reservation error:', e?.message || e)
     return c.json({ error: '예약 처리 중 오류가 발생했습니다. 전화(041-415-2892)로 예약해주세요.' }, 500)
   }
 })
