@@ -84,9 +84,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <style>
     /* Hero 3D responsive */
     .hero-3d{display:block}
+    .hero-3d iframe{touch-action:pan-y;}
     @media(max-width:768px){
       .hero-content[style*="grid-template-columns"]{grid-template-columns:1fr !important;gap:24px !important;}
       .hero-3d{height:350px !important;margin-top:8px;}
+      .hero-3d iframe{pointer-events:none;}
     }
     @media(max-width:480px){
       .hero-3d{height:280px !important;}
