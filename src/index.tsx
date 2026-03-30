@@ -9,6 +9,8 @@ type Bindings = {
   OPENAI_API_KEY?: string
   ADMIN_PASSWORD?: string
   ADMIN_SESSION_SECRET?: string
+  GOOGLE_CLIENT_ID?: string
+  GOOGLE_CLIENT_SECRET?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -309,6 +311,135 @@ app.get('/api/auth/me', async (c) => {
   const m = members.find((x: any) => x.id === userId)
   if (!m) return c.json({ loggedIn: false })
   return c.json({ loggedIn: true, user: { id: m.id, email: m.email, name: m.name, phone: m.phone } })
+})
+
+// ============================================
+// Google OAuth 2.0 로그인
+// ============================================
+const GOOGLE_OAUTH_SCOPES = 'openid email profile'
+
+function getGoogleRedirectUri(c: any) {
+  const url = new URL(c.req.url)
+  return `${url.origin}/api/auth/google/callback`
+}
+
+// [공개] Google 로그인 시작 → Google 인증 페이지로 리다이렉트
+app.get('/api/auth/google', (c) => {
+  const clientId = c.env.GOOGLE_CLIENT_ID
+  if (!clientId) return c.json({ error: 'Google OAuth가 설정되지 않았습니다.' }, 500)
+
+  const redirectUri = getGoogleRedirectUri(c)
+  const state = crypto.randomUUID()
+
+  // state를 쿠키에 저장 (CSRF 방지)
+  const isSecure = c.req.url.startsWith('https')
+  setCookie(c, 'google_oauth_state', state, { path: '/', httpOnly: true, secure: isSecure, sameSite: 'Lax', maxAge: 600 })
+
+  const params = new URLSearchParams({
+    client_id: clientId,
+    redirect_uri: redirectUri,
+    response_type: 'code',
+    scope: GOOGLE_OAUTH_SCOPES,
+    state,
+    access_type: 'offline',
+    prompt: 'select_account',
+  })
+
+  return c.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`)
+})
+
+// [공개] Google OAuth 콜백 → 토큰 교환 → 회원 자동가입/로그인
+app.get('/api/auth/google/callback', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.text('서버 오류', 500)
+
+  const clientId = c.env.GOOGLE_CLIENT_ID
+  const clientSecret = c.env.GOOGLE_CLIENT_SECRET
+  if (!clientId || !clientSecret) return c.text('Google OAuth가 설정되지 않았습니다.', 500)
+
+  const code = c.req.query('code')
+  const state = c.req.query('state')
+  const error = c.req.query('error')
+
+  if (error) return c.redirect('/auth/login?error=google_denied')
+
+  // CSRF 검증
+  const savedState = getCookie(c, 'google_oauth_state')
+  deleteCookie(c, 'google_oauth_state', { path: '/' })
+  if (!code || !state || state !== savedState) return c.redirect('/auth/login?error=google_invalid')
+
+  try {
+    // 1. Authorization code → Access token 교환
+    const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        code,
+        client_id: clientId,
+        client_secret: clientSecret,
+        redirect_uri: getGoogleRedirectUri(c),
+        grant_type: 'authorization_code',
+      }),
+    })
+
+    if (!tokenRes.ok) return c.redirect('/auth/login?error=google_token_fail')
+    const tokenData = await tokenRes.json() as any
+
+    // 2. Access token으로 사용자 정보 가져오기
+    const userRes = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+      headers: { Authorization: `Bearer ${tokenData.access_token}` },
+    })
+
+    if (!userRes.ok) return c.redirect('/auth/login?error=google_userinfo_fail')
+    const googleUser = await userRes.json() as any
+
+    const email = googleUser.email?.toLowerCase().trim()
+    const name = googleUser.name || email?.split('@')[0] || '사용자'
+
+    if (!email) return c.redirect('/auth/login?error=google_no_email')
+
+    // 3. 기존 회원 확인 또는 자동 가입
+    const members = await getMembers(r2)
+    let member = members.find((m: any) => m.email === email)
+
+    if (!member) {
+      // 신규 회원 자동 가입 (Google 계정)
+      member = {
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        email,
+        name,
+        phone: '',
+        passwordHash: '',
+        passwordSalt: '',
+        googleId: googleUser.id,
+        profileImage: googleUser.picture || '',
+        provider: 'google',
+        privacyConsent: true,
+        marketingConsent: false,
+        createdAt: new Date().toISOString(),
+      }
+      members.push(member)
+      await saveMembers(r2, members)
+    } else if (!member.googleId) {
+      // 기존 이메일 회원 → Google 연동
+      member.googleId = googleUser.id
+      member.profileImage = member.profileImage || googleUser.picture || ''
+      member.provider = member.provider ? `${member.provider},google` : 'google'
+      await saveMembers(r2, members)
+    }
+
+    // 4. 세션 발급
+    const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+    const token = await createSiteSession(member.id, secret)
+    const isSecure = c.req.url.startsWith('https')
+    setCookie(c, SITE_SESSION_COOKIE, token, { path: '/', httpOnly: true, secure: isSecure, sameSite: 'Lax', maxAge: SITE_SESSION_MAX_AGE })
+
+    // 5. 메인 페이지로 리다이렉트
+    return c.redirect('/?login=success')
+  } catch (err) {
+    console.error('Google OAuth error:', err)
+    return c.redirect('/auth/login?error=google_server_error')
+  }
 })
 
 // ============================================

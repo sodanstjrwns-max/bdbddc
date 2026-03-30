@@ -183,7 +183,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
 
       <div class="divider"><span>또는</span></div>
 
-      <button type="button" class="btn-social" onclick="alert('소셜 로그인은 추후 지원 예정입니다.')">
+      <button type="button" class="btn-social" onclick="window.location.href='/api/auth/google'">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20" height="20">
         <span>Google로 로그인</span>
       </button>
@@ -205,6 +205,16 @@ var sucEl = document.getElementById('successMsg');
 function showErr(m){errEl.textContent=m;errEl.className='msg error';sucEl.className='msg';}
 function hideMsg(){errEl.className='msg';sucEl.className='msg';}
 
+// Google OAuth 에러 처리
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var ge=params.get('error');
+  if(ge){
+    var msgs={'google_denied':'Google 로그인이 취소되었습니다.','google_invalid':'인증 정보가 올바르지 않습니다. 다시 시도해주세요.','google_token_fail':'Google 인증에 실패했습니다. 다시 시도해주세요.','google_userinfo_fail':'Google 계정 정보를 가져올 수 없습니다.','google_no_email':'Google 계정에 이메일이 없습니다.','google_server_error':'서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'};
+    showErr(msgs[ge]||'Google 로그인에 실패했습니다.');
+    history.replaceState(null,'','/auth/login');
+  }
+})();
 // Toggle password
 function togglePw(){
   var inp=document.getElementById('password');
