@@ -715,22 +715,28 @@ app.post('/api/reservation', async (c) => {
       status: 'pending'
     }
 
-    // R2에 예약 데이터 저장 (실패해도 예약 성공 처리)
+    // R2에 예약 데이터 저장 (개별 오브젝트 + 목록 업데이트)
     try {
       const r2 = (c.env as any).R2
       if (r2) {
-        let reservations: any[] = []
+        // 1. 개별 예약을 독립 오브젝트로 저장 (race condition 방지)
+        await r2.put(`data/reservations/${reservation.id}.json`, JSON.stringify(reservation, null, 2), {
+          httpMetadata: { contentType: 'application/json' }
+        })
+
+        // 2. 예약 목록도 업데이트 (관리자 조회용, best-effort)
         try {
+          let reservations: any[] = []
           const existing = await r2.get('data/reservations.json')
           if (existing) {
             const text = await existing.text()
             if (text) reservations = JSON.parse(text)
           }
-        } catch (_) { /* 기존 데이터 없음 - 무시 */ }
-        reservations.push(reservation)
-        await r2.put('data/reservations.json', JSON.stringify(reservations, null, 2), {
-          httpMetadata: { contentType: 'application/json' }
-        })
+          reservations.push(reservation)
+          await r2.put('data/reservations.json', JSON.stringify(reservations, null, 2), {
+            httpMetadata: { contentType: 'application/json' }
+          })
+        } catch (_) { /* 목록 업데이트 실패는 무시 - 개별 파일은 이미 저장됨 */ }
       }
     } catch (r2Err) {
       console.error('R2 save error (reservation still accepted):', r2Err)
