@@ -456,11 +456,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .ms-header { margin-bottom: 52px; }
     }
 
-    /* --- Scroll Reveal (handled by GSAP) --- */
-    .motion-hidden {
+    /* --- Scroll Reveal (CSS-first, IntersectionObserver) --- */
+    .will-animate {
       opacity: 0;
       transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
+    .will-animate.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Stagger delays for grid children */
+    .will-animate.delay-1 { transition-delay: 0.08s; }
+    .will-animate.delay-2 { transition-delay: 0.16s; }
+    .will-animate.delay-3 { transition-delay: 0.24s; }
+    .will-animate.delay-4 { transition-delay: 0.32s; }
+    .will-animate.delay-5 { transition-delay: 0.40s; }
+    @media (prefers-reduced-motion: reduce) {
+      .will-animate { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+    /* noscript safety */
+    noscript + .ms .will-animate,
+    .no-js .will-animate { opacity: 1 !important; transform: none !important; }
   </style>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -679,12 +696,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        ============================================ -->
   <section class="ms ms-dark" data-motion-section="brand-promise">
     <div class="ms-container">
-      <div class="ms-header">
+      <div class="ms-header will-animate">
         <div class="ms-label">Our Story</div>
         <h2 class="ms-title">왜 <em>BD</em>인가요?</h2>
       </div>
       <div class="why-grid">
-        <div class="why-text">
+        <div class="why-text will-animate">
           <h3><em>Best Dedication</em>,<br>최고의 헌신을 담은 이름</h3>
           <p>BD는 단순한 약자가 아닙니다. 우리가 매일 아침 진료실 문을 열 때 가슴에 새기는 약속입니다.</p>
           <p>"오늘도 최선을 다해 헌신하자." 이 마음으로 15명의 원장이 모여 서울비디치과를 만들었습니다.</p>
@@ -694,7 +711,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <cite>— 과잉진료 없는 양심치과를 향한 우리의 철학</cite>
           </div>
         </div>
-        <div class="bd-visual">
+        <div class="bd-visual will-animate delay-2">
           <div class="bd-large">BD</div>
           <div class="bd-expand">
             <span><strong>B</strong>est</span>
@@ -710,19 +727,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        ============================================ -->
   <section class="ms ms-accent" data-motion-section="mission-vision">
     <div class="ms-container">
-      <div class="ms-header">
+      <div class="ms-header will-animate">
         <div class="ms-label">Our Purpose</div>
         <h2 class="ms-title">비디치과가 <em>하고 싶은 일</em></h2>
         <p class="ms-desc">우리가 존재하는 이유와, 우리가 나아가는 방향</p>
       </div>
       <div class="mv-grid">
-        <div class="mv-card">
+        <div class="mv-card will-animate">
           <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
           <h2>Mission</h2>
           <h3>필요한 진료를 받지 못하는<br>사람이 없도록 하자</h3>
           <p>두려움 때문에, 비용 때문에, 정보가 없어서 치료를 포기하는 분이 없도록. 모든 환자에게 진심 어린 설명과 최선의 치료를 제공합니다. 우리의 헌신은 여기서 시작됩니다.</p>
         </div>
-        <div class="mv-card">
+        <div class="mv-card will-animate delay-2">
           <div class="mv-icon"><i class="fas fa-eye"></i></div>
           <h2>Vision</h2>
           <h3>전국에서 가장 기분 좋게<br>갈 수 있는 의료 기관</h3>
@@ -737,28 +754,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        ============================================ -->
   <section class="ms ms-dark" data-motion-section="metrics">
     <div class="ms-container">
-      <div class="ms-header">
+      <div class="ms-header will-animate">
         <div class="ms-label">By The Numbers</div>
         <h2 class="ms-title">숫자로 보는 <em>서울비디치과</em></h2>
         <p class="ms-desc">헌신의 결과는 숫자로도 증명됩니다</p>
       </div>
       <div class="stats-grid">
-        <div class="stat-card">
+        <div class="stat-card will-animate delay-1">
           <div class="stat-number">15</div>
           <div class="stat-unit">명</div>
           <div class="stat-label">서울대 출신 원장</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card will-animate delay-2">
           <div class="stat-number">365</div>
           <div class="stat-unit">일</div>
           <div class="stat-label">연중무휴 진료</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card will-animate delay-3">
           <div class="stat-number">6</div>
           <div class="stat-unit">개</div>
           <div class="stat-label">전용 수술실</div>
         </div>
-        <div class="stat-card">
+        <div class="stat-card will-animate delay-4">
           <div class="stat-number">4.9</div>
           <div class="stat-unit">점</div>
           <div class="stat-label">구글 평점</div>
@@ -772,7 +789,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        ============================================ -->
   <section class="ms ms-accent" data-motion-section="values">
     <div class="ms-container">
-      <div class="ms-header">
+      <div class="ms-header will-animate">
         <div class="ms-label">Core Values</div>
         <h2 class="ms-title"><em>가장 기분 좋은 진료 경험</em>을<br>만들기 위한 우리의 가치</h2>
       </div>
@@ -785,7 +802,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="values-flow">
-        <div class="value-foundation">
+        <div class="value-foundation will-animate">
           <div class="value-icon"><i class="fas fa-award"></i></div>
           <h3>실력</h3>
           <p>기분 좋은 경험의 기본.<br>서울대 출신 15인 원장의 전문성.</p>
@@ -793,17 +810,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="arrow-connector"><i class="fas fa-plus"></i></div>
         <div class="values-experience">
-          <div class="value-item">
+          <div class="value-item will-animate delay-1">
             <div class="value-icon"><i class="fas fa-handshake"></i></div>
             <h3>존중</h3>
             <p>환자의 선택과<br>의견을 존중합니다</p>
           </div>
-          <div class="value-item">
+          <div class="value-item will-animate delay-2">
             <div class="value-icon"><i class="fas fa-heart"></i></div>
             <h3>공감</h3>
             <p>환자의 불안과<br>걱정에 공감합니다</p>
           </div>
-          <div class="value-item">
+          <div class="value-item will-animate delay-3">
             <div class="value-icon"><i class="fas fa-hand-holding-heart"></i></div>
             <h3>배려</h3>
             <p>작은 불편함까지<br>세심하게 배려합니다</p>
@@ -811,7 +828,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="values-summary">
+      <div class="values-summary will-animate">
         <p>
           <strong>실력</strong>이 기본이 되고,<br>
           <strong>존중, 공감, 배려</strong>로 환자의 마음을 이해할 때<br>
@@ -826,43 +843,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        ============================================ -->
   <section class="ms ms-dark" data-motion-section="principles">
     <div class="ms-container">
-      <div class="ms-header">
+      <div class="ms-header will-animate">
         <div class="ms-label">Our Promise</div>
         <h2 class="ms-title">환자분께 드리는 <em>6가지 약속</em></h2>
         <p class="ms-desc">말뿐이 아닌 실천으로 보여드립니다</p>
       </div>
       <div class="promise-grid">
-        <div class="promise-card">
+        <div class="promise-card will-animate delay-1">
           <span class="promise-number">01</span>
           <div class="promise-icon"><i class="fas fa-user-shield"></i></div>
           <h3>과잉진료 ZERO</h3>
           <p>필요하지 않은 치료는 권하지 않습니다. "이건 치료 안 하셔도 됩니다"라고 솔직하게 말씀드립니다.</p>
         </div>
-        <div class="promise-card">
+        <div class="promise-card will-animate delay-2">
           <span class="promise-number">02</span>
           <div class="promise-icon"><i class="fas fa-comments"></i></div>
           <h3>충분한 상담</h3>
           <p>치료 전 충분한 설명으로 환자분이 이해하고 선택할 수 있도록 합니다.</p>
         </div>
-        <div class="promise-card">
+        <div class="promise-card will-animate delay-3">
           <span class="promise-number">03</span>
           <div class="promise-icon"><i class="fas fa-hand-holding-medical"></i></div>
           <h3>통증 최소화</h3>
           <p>최신 마취 기법과 수면 진정으로 치료 과정의 통증과 불안을 최소화합니다.</p>
         </div>
-        <div class="promise-card">
+        <div class="promise-card will-animate delay-4">
           <span class="promise-number">04</span>
           <div class="promise-icon"><i class="fas fa-clock"></i></div>
           <h3>대기시간 최소화</h3>
           <p>예약 시스템을 철저히 운영하여 환자분의 소중한 시간을 존중합니다.</p>
         </div>
-        <div class="promise-card">
+        <div class="promise-card will-animate delay-5">
           <span class="promise-number">05</span>
           <div class="promise-icon"><i class="fas fa-shield-virus"></i></div>
           <h3>철저한 감염관리</h3>
           <p>에어샤워 시스템, 개별 멸균 키트 등 서울대학교병원 수준의 감염 관리를 실천합니다.</p>
         </div>
-        <div class="promise-card">
+        <div class="promise-card will-animate" style="transition-delay:.48s">
           <span class="promise-number">06</span>
           <div class="promise-icon"><i class="fas fa-heart"></i></div>
           <h3>끝까지 책임</h3>
@@ -877,7 +894,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        ============================================ -->
   <section class="ms ms-accent" data-motion-section="closing">
     <div class="ms-narrow">
-      <div class="philosophy-card">
+      <div class="philosophy-card will-animate">
         <p class="philosophy-quote">
           "환자가 <em>기분 좋게</em> 다녀가실 때,<br>
           우리의 <em>헌신</em>이 빛을 발합니다."
@@ -892,9 +909,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        ============================================ -->
   <section class="mission-cta" data-motion-section="cta">
     <div style="max-width:700px; margin:0 auto;">
-      <h2>서울비디치과의 <strong>헌신</strong>을<br>직접 경험해 보세요</h2>
-      <p>기분 좋은 치과 경험, 저희가 만들어 드리겠습니다.</p>
-      <div class="cta-buttons">
+      <h2 class="will-animate">서울비디치과의 <strong>헌신</strong>을<br>직접 경험해 보세요</h2>
+      <p class="will-animate delay-1">기분 좋은 치과 경험, 저희가 만들어 드리겠습니다.</p>
+      <div class="cta-buttons will-animate delay-2">
         <a href="/reservation" class="btn-gold">
           <i class="fas fa-calendar-check"></i> 진료 예약하기
         </a>
