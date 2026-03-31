@@ -653,7 +653,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        HERO — 비디치과가 존재하는 이유
        ============================================ -->
   <main id="main-content">
-  <section class="mission-hero">
+  <section class="mission-hero" data-motion-section="hero">
     <div class="hero-particles">
       <div class="particle"></div><div class="particle"></div><div class="particle"></div>
       <div class="particle"></div><div class="particle"></div><div class="particle"></div>
@@ -678,7 +678,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ============================================
        WHY BD? — 왜 BD인가
        ============================================ -->
-  <section class="ms ms-dark">
+  <section class="ms ms-dark" data-motion-section="brand-promise">
     <div class="ms-container">
       <div class="ms-header">
         <div class="ms-label">Our Story</div>
@@ -709,7 +709,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ============================================
        MISSION & VISION
        ============================================ -->
-  <section class="ms ms-accent">
+  <section class="ms ms-accent" data-motion-section="mission-vision">
     <div class="ms-container">
       <div class="ms-header">
         <div class="ms-label">Our Purpose</div>
@@ -736,7 +736,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ============================================
        BY THE NUMBERS
        ============================================ -->
-  <section class="ms ms-dark">
+  <section class="ms ms-dark" data-motion-section="metrics">
     <div class="ms-container">
       <div class="ms-header">
         <div class="ms-label">By The Numbers</div>
@@ -771,7 +771,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ============================================
        CORE VALUES
        ============================================ -->
-  <section class="ms ms-accent">
+  <section class="ms ms-accent" data-motion-section="values">
     <div class="ms-container">
       <div class="ms-header">
         <div class="ms-label">Core Values</div>
@@ -825,7 +825,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ============================================
        OUR PROMISE
        ============================================ -->
-  <section class="ms ms-dark">
+  <section class="ms ms-dark" data-motion-section="principles">
     <div class="ms-container">
       <div class="ms-header">
         <div class="ms-label">Our Promise</div>
@@ -876,7 +876,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ============================================
        PHILOSOPHY QUOTE
        ============================================ -->
-  <section class="ms ms-accent">
+  <section class="ms ms-accent" data-motion-section="closing">
     <div class="ms-narrow">
       <div class="philosophy-card reveal">
         <p class="philosophy-quote">
@@ -891,7 +891,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ============================================
        CTA
        ============================================ -->
-  <section class="mission-cta">
+  <section class="mission-cta" data-motion-section="cta">
     <div style="max-width:700px; margin:0 auto;">
       <h2>서울비디치과의 <strong>헌신</strong>을<br>직접 경험해 보세요</h2>
       <p>기분 좋은 치과 경험, 저희가 만들어 드리겠습니다.</p>
@@ -951,17 +951,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="floating-cta desktop-only"><a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" id="scrollToTopBtn"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a><a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a></div>
   <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락"><a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a><a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a><a href="/reservation" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a><a href="/directions" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a></div>
 
+  <!-- GSAP + ScrollTrigger CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+
   <!-- Scripts -->
   <script src="js/main.js" defer></script>
+  <script src="js/mission-motion.js" defer></script>
   <script>
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
     // Header scroll effect
     const header = document.getElementById('siteHeader');
     window.addEventListener('scroll', () => {
