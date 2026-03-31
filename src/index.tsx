@@ -1037,7 +1037,7 @@ app.post('/api/indexnow', async (c) => {
     '/treatments/scaling', '/treatments/gum', '/treatments/periodontitis',
     '/treatments/gum-surgery', '/treatments/wisdom-tooth', '/treatments/apicoectomy',
     '/treatments/prevention', '/treatments/tmj', '/treatments/bruxism',
-    '/treatments/emergency', '/treatments/sedation',
+    '/treatments/emergency', '/treatments/sedation', '/treatments/orthodontics',
     '/doctors/', '/doctors/moon', '/doctors/kim', '/doctors/hyun',
     '/doctors/choi', '/doctors/lee', '/doctors/park', '/doctors/kang',
     '/doctors/jo', '/doctors/seo', '/doctors/lim',
