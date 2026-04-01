@@ -12,15 +12,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   
-  <title>내 구강건강 점수는? | 서울비디치과 무료 자가진단</title>
-  <meta name="description" content="30초만에 확인하는 내 구강건강 점수! 증상을 체크하고 치아·잇몸 건강 상태를 무료로 알아보세요. 서울비디치과 무료 구강건강 테스트.">
+  <title>내 구강건강 점수는? | 서울비디치과 재미로 보는 구강 테스트</title>
+  <meta name="description" content="30초만에 확인하는 내 구강건강 점수! 재미로 보는 간단한 체크리스트입니다. 의료 진단이 아닌 흥미 콘텐츠로, 정확한 진단은 치과 전문의와 상담하세요.">
   <meta name="robots" content="index, follow">
   
   <link rel="canonical" href="https://bdbddc.com/checkup">
   
   <!-- OG Tags for sharing -->
   <meta property="og:title" content="🦷 내 구강건강 점수는 몇 점일까?">
-  <meta property="og:description" content="30초 자가진단으로 내 치아·잇몸 건강을 확인해보세요!">
+  <meta property="og:description" content="재미로 보는 30초 구강건강 테스트! 의료 진단이 아닌 흥미 콘텐츠입니다.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bdbddc.com/checkup">
   <meta property="og:locale" content="ko_KR">
@@ -106,6 +106,61 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-size: 0.78rem;
       color: #A8A29E;
       margin-top: 8px;
+    }
+
+    /* ===== NOTICE BANNER (의료 면책) ===== */
+    .notice-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 20px;
+      background: #FEF3C7;
+      border: 1px solid #FDE68A;
+      border-radius: 14px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .notice-banner-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      line-height: 1.4;
+    }
+    .notice-banner-text {
+      font-size: 0.82rem;
+      color: #78350F;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .notice-banner-text strong {
+      font-weight: 800;
+      color: #92400E;
+    }
+
+    /* Result notice (bigger) */
+    .result-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, #FEF3C7, #FFFBEB);
+      border: 1.5px solid #FDE68A;
+      border-radius: 16px;
+      margin-top: 28px;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+    .result-notice-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .result-notice-text {
+      font-size: 0.85rem;
+      color: #78350F;
+      line-height: 1.7;
+    }
+    .result-notice-text strong {
+      font-weight: 800;
+      color: #92400E;
     }
 
     /* ===== HERO TOOTH ANIMATION ===== */
@@ -1134,7 +1189,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <span><span class="count" id="participantCount">3,847</span>명이 테스트 완료!</span>
         </div>
         
-        <p class="disclaimer">* 순전히 재미로 보는 테스트! 의료 진단이 아닙니다 😎</p>
+        <div class="notice-banner">
+          <span class="notice-banner-icon">🎮</span>
+          <div class="notice-banner-text">
+            <strong>이 테스트는 의료 진단이 아닙니다.</strong><br>
+            순전히 재미와 흥미를 위한 콘텐츠이며, 의학적 근거에 기반한 진단 도구가 아닙니다.
+            정확한 구강 상태 확인은 반드시 <strong>치과 전문의의 직접 진료</strong>를 통해 받으시기 바랍니다.
+          </div>
+        </div>
         
         <div style="margin-top:28px;">
           <button class="btn-next btn-start-pulse" onclick="startGame()" style="max-width:320px; margin:0 auto; font-size:1.1rem; padding:18px 36px;">
@@ -1544,9 +1606,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </button>
           </div>
 
+          <div class="result-notice">
+            <span class="result-notice-icon">⚠️</span>
+            <div class="result-notice-text">
+              <strong>이 결과는 의료 진단이 아닙니다.</strong><br>
+              본 테스트는 재미와 흥미를 위한 콘텐츠로, 의학적 근거에 기반한 진단 도구가 아닙니다.
+              위 점수와 분석은 참고용이며, 실제 구강 상태는 개인마다 다릅니다.
+              정확한 진단과 치료 계획은 <strong>치과 전문의의 직접 진료</strong>를 통해서만 가능합니다.
+            </div>
+          </div>
           <p class="result-disclaimer">
-            * 이 테스트는 재미를 위한 자가 체크이며, 의학적 진단을 대체하지 않습니다.<br>
-            정확한 구강 상태는 치과 전문의의 진료를 통해 확인하세요.
+            본 콘텐츠는 서울비디치과에서 제공하는 흥미·교육 목적의 자료이며, 의료법상 진단 행위에 해당하지 않습니다.
           </p>
         </div>
       </div>
