@@ -766,6 +766,72 @@ app.get('/terms.html', (c) => c.redirect('/terms', 301))
 app.get('/mission.html', (c) => c.redirect('/mission', 301))
 app.get('/index.html', (c) => c.redirect('/', 301))
 
+// ============================================
+// 치BTI 참여 통계 API
+// ============================================
+
+// POST /api/chbti/result - 결과 저장
+app.post('/api/chbti/result', async (c) => {
+  try {
+    const { type_code } = await c.req.json<{ type_code: string }>()
+    
+    if (!type_code || !/^[PECNSHAF]{4}$/.test(type_code)) {
+      return c.json({ error: 'Invalid type_code' }, 400)
+    }
+    
+    const db = c.env.DB
+    if (!db) {
+      return c.json({ error: 'DB not available' }, 500)
+    }
+    
+    await db.prepare('INSERT INTO chbti_results (type_code) VALUES (?)').bind(type_code).run()
+    
+    // 바로 통계 반환
+    const totalResult = await db.prepare('SELECT COUNT(*) as total FROM chbti_results').first<{ total: number }>()
+    const typeResult = await db.prepare('SELECT COUNT(*) as cnt FROM chbti_results WHERE type_code = ?').bind(type_code).first<{ cnt: number }>()
+    
+    const total = totalResult?.total || 0
+    const typeCount = typeResult?.cnt || 0
+    const percentage = total > 0 ? Math.round((typeCount / total) * 1000) / 10 : 0
+    
+    return c.json({ 
+      success: true, 
+      total_participants: total,
+      type_code,
+      type_count: typeCount,
+      type_percentage: percentage
+    })
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+// GET /api/chbti/stats - 전체 통계 조회
+app.get('/api/chbti/stats', async (c) => {
+  try {
+    const db = c.env.DB
+    if (!db) {
+      return c.json({ error: 'DB not available' }, 500)
+    }
+    
+    const totalResult = await db.prepare('SELECT COUNT(*) as total FROM chbti_results').first<{ total: number }>()
+    const typeStats = await db.prepare(
+      'SELECT type_code, COUNT(*) as cnt FROM chbti_results GROUP BY type_code ORDER BY cnt DESC'
+    ).all<{ type_code: string; cnt: number }>()
+    
+    const total = totalResult?.total || 0
+    const types = (typeStats?.results || []).map(r => ({
+      type_code: r.type_code,
+      count: r.cnt,
+      percentage: total > 0 ? Math.round((r.cnt / total) * 1000) / 10 : 0
+    }))
+    
+    return c.json({ total_participants: total, types })
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
 // API health check
 app.get('/api/health', (c) => {
   return c.json({ 

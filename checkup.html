@@ -246,6 +246,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .btn-retry-chbti { width: 100%; padding: 14px; background: transparent; color: rgba(255,255,255,0.4); font-size: 0.9rem; font-weight: 600; border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer; transition: all 0.2s; margin-bottom: 20px; }
     .btn-retry-chbti:hover { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.6); }
     .result-final-disclaimer { text-align: center; font-size: 0.68rem; color: rgba(255,255,255,0.2); line-height: 1.5; padding-bottom: 20px; }
+    
+    /* Stats badge */
+    .result-stats-badge { margin-bottom: 20px; }
+    .stats-badge-inner { background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.2); border-radius: 16px; padding: 16px 20px; }
+    .stats-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+    .stats-row.highlight { color: #FEE500; font-size: 0.95rem; }
+    .stats-row strong { color: #fff; font-weight: 700; }
+    .stats-row.highlight strong { color: #FEE500; }
+    .stats-icon { font-size: 1.1rem; }
 
     /* Confetti */
     #confettiCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
@@ -656,13 +665,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     renderQuestion();
     // Vibrate
     if (navigator.vibrate) navigator.vibrate(30);
-    // Update participant count
-    try {
-      var c = parseInt((localStorage.getItem('chbti_count') || '5124').replace(/,/g, ''));
-      c++;
-      localStorage.setItem('chbti_count', c.toString());
-      document.getElementById('participantCount').textContent = c.toLocaleString();
-    } catch(e){}
+    // Participant count is updated from real DB after result is shown
   }
 
   // --- Render Question ---
@@ -908,6 +911,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     // Store result
     window._chbtiResult = { code: code, name: typeData.name, emoji: typeData.emoji };
+    
+    // Save to DB and show real stats
+    saveResultToDB(code);
+  }
+
+  // --- Save result to DB & show stats ---
+  function saveResultToDB(code) {
+    fetch('/api/chbti/result', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type_code: code })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success) {
+        // Update intro participant count with real number
+        var countEl = document.getElementById('participantCount');
+        if (countEl) countEl.textContent = data.total_participants.toLocaleString();
+        
+        // Show stats badge on result screen
+        var typeCard = document.querySelector('.result-type-card');
+        if (typeCard) {
+          var statsEl = document.createElement('div');
+          statsEl.className = 'result-stats-badge';
+          statsEl.innerHTML = '<div class="stats-badge-inner">' +
+            '<div class="stats-row">' +
+            '<span class="stats-icon">👥</span>' +
+            '<span class="stats-text">총 <strong>' + data.total_participants.toLocaleString() + '</strong>명 참여</span>' +
+            '</div>' +
+            '<div class="stats-row highlight">' +
+            '<span class="stats-icon">📊</span>' +
+            '<span class="stats-text">전체 참여자 중 <strong>' + data.type_percentage + '%</strong>가 같은 유형!</span>' +
+            '</div>' +
+            '</div>';
+          typeCard.parentNode.insertBefore(statsEl, typeCard.nextSibling);
+        }
+      }
+    })
+    .catch(function(e) {
+      console.log('Stats save failed:', e);
+    });
   }
 
   // --- Share ---
@@ -1041,14 +1085,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     requestAnimationFrame(draw);
   }
 
-  // --- Load participant count ---
+  // --- Load real participant count from DB ---
   (function() {
-    try {
-      var stored = localStorage.getItem('chbti_count');
-      if (stored) {
-        document.getElementById('participantCount').textContent = parseInt(stored).toLocaleString();
+    fetch('/api/chbti/stats')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.total_participants > 0) {
+        document.getElementById('participantCount').textContent = data.total_participants.toLocaleString();
       }
-    } catch(e) {}
+    })
+    .catch(function(e) {
+      console.log('Stats load failed:', e);
+    });
   })();
   </script>
 

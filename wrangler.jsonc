@@ -11,5 +11,12 @@
       "binding": "R2",
       "bucket_name": "bdbddc-images"
     }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bdbddc-production",
+      "database_id": "13d5cd27-6644-473e-8822-7b400c45b044"
+    }
   ]
 }
