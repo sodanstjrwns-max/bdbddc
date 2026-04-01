@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>치석 플라이트 🦷✈️ | 서울비디치과</title>
+  <meta name="description" content="치석을 피하고 치아를 지켜라! 드래곤 플라이트 치과 버전. 내 치아 등급은?">
+  <meta property="og:title" content="치석 플라이트 🦷✈️ — 내 치아 등급은?">
+  <meta property="og:description" content="치석을 피하고 치아를 지켜라! 너는 몇 점?">
+  <meta property="og:url" content="https://bdbddc.com/flight">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="서울비디치과">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a1a;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow: hidden;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      height: 100vh;
+      height: 100dvh;
+    }
+
+    /* --- INTRO SCREEN --- */
+    .screen { display: none; position: fixed; inset: 0; z-index: 10; }
+    .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+    #introScreen {
+      background: linear-gradient(180deg, #0a0a2e 0%, #1a0a3e 50%, #0a0a1a 100%);
+      text-align: center;
+      padding: 20px;
+    }
+    .intro-tooth {
+      font-size: 80px;
+      animation: floatTooth 3s ease-in-out infinite;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 30px rgba(124,58,237,0.5));
+    }
+    @keyframes floatTooth {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .intro-title {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #7C3AED, #EC4899, #F59E0B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .intro-subtitle {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 32px;
+    }
+    .intro-enemies {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .intro-enemy {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 12px 16px;
+      text-align: center;
+      min-width: 80px;
+    }
+    .intro-enemy-emoji { font-size: 1.8rem; margin-bottom: 4px; }
+    .intro-enemy-name { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+
+    .btn-start-game {
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      color: #fff;
+      border: none;
+      padding: 18px 48px;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      cursor: pointer;
+      animation: pulseBtn 2s ease-in-out infinite;
+      margin-bottom: 12px;
+    }
+    @keyframes pulseBtn {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(124,58,237,0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px 10px rgba(124,58,237,0.2); }
+    }
+    .intro-controls {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 24px;
+    }
+    .intro-how {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 16px 20px;
+      max-width: 340px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .intro-how-title { font-size: 0.8rem; font-weight: 700; color: #7C3AED; margin-bottom: 8px; }
+    .intro-how-row { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px; display: flex; gap: 8px; }
+    .intro-how-row span { color: #F59E0B; min-width: 20px; }
+
+    .intro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(254,229,0,0.1);
+      border: 1px solid rgba(254,229,0,0.2);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      color: #FEE500;
+    }
+
+    /* --- GAME CANVAS --- */
+    #gameCanvas {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+    }
+
+    /* --- HUD --- */
+    .hud {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      display: none;
+      padding: 12px 16px;
+      background: linear-gradient(180deg, rgba(10,10,26,0.9) 0%, transparent 100%);
+    }
+    .hud.active { display: flex; justify-content: space-between; align-items: center; }
+    .hud-score { font-size: 1.4rem; font-weight: 900; color: #FEE500; }
+    .hud-score small { font-size: 0.65rem; color: rgba(255,255,255,0.4); font-weight: 400; }
+    .hud-combo {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #EC4899;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .hud-combo.active { opacity: 1; }
+    .hud-hp { display: flex; gap: 4px; }
+    .hud-hp-heart { font-size: 1.2rem; transition: all 0.3s; }
+    .hud-hp-heart.lost { opacity: 0.2; transform: scale(0.7); }
+    .hud-multiplier {
+      position: fixed;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 6;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #F59E0B;
+      opacity: 0;
+      transition: opacity 0.5s;
+      display: none;
+      text-shadow: 0 0 20px rgba(245,158,11,0.5);
+    }
+    .hud-multiplier.active { opacity: 1; display: block; }
+
+    /* --- POWERUP INDICATOR --- */
+    .powerup-indicator {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 7;
+      font-size: 2rem;
+      font-weight: 900;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .powerup-indicator.active { opacity: 1; animation: powerupFlash 1.5s ease-out; }
+    @keyframes powerupFlash {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      20% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+
+    /* --- DAMAGE FLASH --- */
+    .damage-flash {
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      background: rgba(239, 68, 68, 0.3);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+    .damage-flash.active { opacity: 1; }
+
+    /* --- RESULT SCREEN --- */
+    #resultScreen {
+      background: linear-gradient(180deg, #0a0a2e 0%, #1a0a3e 50%, #0a0a1a 100%);
+      text-align: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .result-tooth-emoji { font-size: 72px; margin-bottom: 12px; }
+    .result-grade {
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 6px 20px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .grade-skull { background: rgba(239,68,68,0.2); color: #EF4444; }
+    .grade-normal { background: rgba(59,130,246,0.2); color: #3B82F6; }
+    .grade-healthy { background: rgba(16,185,129,0.2); color: #10B981; }
+    .grade-diamond { background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(236,72,153,0.3)); color: #FEE500; }
+
+    .result-score {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+    .result-score-label { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+
+    .result-stats {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .result-stat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px 16px;
+      min-width: 90px;
+    }
+    .result-stat-val { font-size: 1.3rem; font-weight: 800; color: #FEE500; }
+    .result-stat-label { font-size: 0.65rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+    .result-doctor {
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .result-doctor-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .result-doctor-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .result-doctor-info { text-align: left; }
+    .result-doctor-name { font-size: 0.85rem; font-weight: 700; }
+    .result-doctor-title { font-size: 0.65rem; color: rgba(255,255,255,0.4); }
+    .result-doctor-text {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .result-ranking {
+      background: rgba(254,229,0,0.05);
+      border: 1px solid rgba(254,229,0,0.15);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .result-ranking-title { font-size: 0.8rem; font-weight: 700; color: #FEE500; margin-bottom: 8px; }
+    .result-ranking-row { display: flex; justify-content: space-between; font-size: 0.8rem; color: rgba(255,255,255,0.5); padding: 4px 0; }
+    .result-ranking-row strong { color: #fff; }
+
+    .result-share {
+      margin-bottom: 16px;
+    }
+    .result-share-title { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .result-share-sub { font-size: 1.2rem; font-weight: 800; color: #FEE500; margin-bottom: 16px; }
+    .result-share-btns { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; }
+    .btn-share {
+      flex: 1;
+      max-width: 180px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-share:active { transform: scale(0.95); }
+    .btn-share.kakao { background: rgba(254,229,0,0.15); border-color: rgba(254,229,0,0.25); color: #FEE500; }
+
+    .btn-cta-result {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 60px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 12px;
+      text-decoration: none;
+    }
+    .btn-cta-primary {
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      color: #fff;
+    }
+    .btn-retry {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      padding: 14px 28px;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .result-disclaimer {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.2);
+      padding-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    /* --- PARTICLES --- */
+    .star-field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* --- PAUSE OVERLAY --- */
+    .pause-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 8;
+      background: rgba(10,10,26,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .pause-overlay.active { display: flex; }
+    .pause-text { font-size: 2rem; font-weight: 900; color: #7C3AED; }
+    .btn-resume {
+      padding: 14px 40px;
+      border-radius: 60px;
+      border: none;
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(124,58,237,0.9);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- INTRO SCREEN -->
+  <div class="screen active" id="introScreen">
+    <div class="intro-tooth">🦷</div>
+    <div class="intro-title">치석 플라이트</div>
+    <div class="intro-subtitle">치석을 피하고 치아를 지켜라!</div>
+
+    <div class="intro-enemies">
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🪨</div>
+        <div class="intro-enemy-name">치석</div>
+      </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🦠</div>
+        <div class="intro-enemy-name">충치균</div>
+      </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🍬</div>
+        <div class="intro-enemy-name">당분</div>
+      </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🥤</div>
+        <div class="intro-enemy-name">산성음료</div>
+      </div>
+    </div>
+
+    <div class="intro-how">
+      <div class="intro-how-title">🎮 조작법</div>
+      <div class="intro-how-row"><span>📱</span> 화면 터치로 치아 이동</div>
+      <div class="intro-how-row"><span>⌨️</span> 방향키 또는 마우스 클릭</div>
+      <div class="intro-how-row"><span>❤️</span> HP 3개, 0이 되면 게임 오버</div>
+      <div class="intro-how-row"><span>⚡</span> 아이템 먹으면 파워업!</div>
+    </div>
+
+    <button class="btn-start-game" onclick="startGame()">
+      <i class="fas fa-play"></i> &nbsp;게임 시작!
+    </button>
+    <div class="intro-controls">터치 또는 방향키로 조작</div>
+
+    <div class="intro-badge">
+      <span>🎮</span>
+      <span>서울비디치과 × 치석 플라이트</span>
+    </div>
+  </div>
+
+  <!-- GAME CANVAS -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- HUD -->
+  <div class="hud" id="hud">
+    <div>
+      <div class="hud-score" id="hudScore">0<small> 점</small></div>
+      <div class="hud-combo" id="hudCombo">🔥 5 COMBO!</div>
+    </div>
+    <div class="hud-hp" id="hudHp">
+      <span class="hud-hp-heart">❤️</span>
+      <span class="hud-hp-heart">❤️</span>
+      <span class="hud-hp-heart">❤️</span>
+    </div>
+  </div>
+  <div class="hud-multiplier" id="hudMultiplier">×1.5 배율!</div>
+
+  <!-- POWERUP INDICATOR -->
+  <div class="powerup-indicator" id="powerupIndicator"></div>
+
+  <!-- DAMAGE FLASH -->
+  <div class="damage-flash" id="damageFlash"></div>
+
+  <!-- PAUSE -->
+  <div class="pause-overlay" id="pauseOverlay">
+    <div class="pause-text">⏸️ 일시정지</div>
+    <button class="btn-resume" onclick="resumeGame()">계속하기</button>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="screen" id="resultScreen"></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+  // ============================================
+  // 치석 플라이트 (Chistone Flight) v1.0
+  // by 서울비디치과
+  // ============================================
+
+  var canvas, ctx, W, H;
+  var gameRunning = false;
+  var gamePaused = false;
+  var animFrameId = null;
+
+  // Player
+  var player = {
+    x: 0, y: 0,
+    w: 40, h: 40,
+    targetX: 0,
+    hp: 3,
+    maxHp: 3,
+    invincible: false,
+    invincibleTimer: 0,
+    shieldActive: false,
+    shieldTimer: 0
+  };
+
+  // Game state
+  var score = 0;
+  var elapsed = 0; // ms
+  var combo = 0;
+  var maxCombo = 0;
+  var dodgeCount = 0;
+  var itemCount = 0;
+  var multiplier = 1;
+  var lastTime = 0;
+  var spawnTimer = 0;
+  var difficultyLevel = 0;
+
+  // Entities
+  var enemies = [];
+  var items = [];
+  var particles = [];
+  var bgStars = [];
+  var floatingTexts = [];
+
+  // Input
+  var inputX = null;
+  var keys = {};
+
+  // Enemy types
+  var ENEMY_TYPES = {
+    tartar: { emoji: '🪨', name: '치석', w: 36, h: 36, speed: 1.5, hp: 1, score: 0, zigzag: false },
+    cavity: { emoji: '🦠', name: '충치균', w: 32, h: 32, speed: 2.2, hp: 1, score: 0, zigzag: true },
+    sugar:  { emoji: '🍬', name: '당분', w: 26, h: 26, speed: 3.0, hp: 1, score: 0, zigzag: false },
+    soda:   { emoji: '🥤', name: '산성음료', w: 44, h: 50, speed: 1.2, hp: 1, score: 0, damage: 2, zigzag: false }
+  };
+
+  // Item types
+  var ITEM_TYPES = {
+    toothbrush: { emoji: '🪥', name: '칫솔', w: 30, h: 30, effect: 'shield', duration: 5000, desc: '🛡️ 5초 무적!' },
+    floss:      { emoji: '🧵', name: '치실', w: 28, h: 28, effect: 'clearAll', duration: 0, desc: '💥 전체 클리어!' },
+    fluoride:   { emoji: '💊', name: '불소', w: 28, h: 28, effect: 'heal', duration: 0, desc: '💚 HP 회복!' }
+  };
+
+  // Grades
+  var GRADES = [
+    { min: 5000, emoji: '💎', name: '다이아몬드 치아', cls: 'grade-diamond',
+      comment: '치아 관리 완벽해요. 이 정도면 저도 배워야겠는데요 ㅋㅋ',
+      cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 3000, emoji: '🦷', name: '건강한 치아', cls: 'grade-healthy',
+      comment: '관리 잘 하고 계시네요! 정기검진만 꾸준히 받으시면 돼요 👍',
+      cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 1000, emoji: '😬', name: '보통 치아', cls: 'grade-normal',
+      comment: '나쁘지 않아요. 근데 조금만 더 관리하면 완벽할 것 같아요!',
+      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 0, emoji: '💀', name: '충치 치아', cls: 'grade-skull',
+      comment: '걱정이 좀 되네요. 지금이라도 한번 오시면 저희가 잘 도와드릴게요!',
+      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' }
+  ];
+
+  // ---- INIT ----
+  function init() {
+    canvas = document.getElementById('gameCanvas');
+    ctx = canvas.getContext('2d');
+    resize();
+    window.addEventListener('resize', resize);
+    initBgStars();
+    drawBgStars();
+  }
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+  }
+
+  function initBgStars() {
+    bgStars = [];
+    for (var i = 0; i < 80; i++) {
+      bgStars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        size: Math.random() * 2 + 0.5,
+        speed: Math.random() * 0.5 + 0.2,
+        alpha: Math.random() * 0.5 + 0.1
+      });
+    }
+  }
+
+  function drawBgStars() {
+    ctx.fillStyle = '#0a0a1a';
+    ctx.fillRect(0, 0, W, H);
+    bgStars.forEach(function(s) {
+      ctx.globalAlpha = s.alpha;
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  // ---- START GAME ----
+  function startGame() {
+    document.getElementById('introScreen').classList.remove('active');
+    document.getElementById('resultScreen').classList.remove('active');
+    document.getElementById('hud').classList.add('active');
+
+    // Reset
+    player.x = W / 2;
+    player.y = H - 100;
+    player.targetX = W / 2;
+    player.hp = 3;
+    player.invincible = false;
+    player.invincibleTimer = 0;
+    player.shieldActive = false;
+    player.shieldTimer = 0;
+
+    score = 0;
+    elapsed = 0;
+    combo = 0;
+    maxCombo = 0;
+    dodgeCount = 0;
+    itemCount = 0;
+    multiplier = 1;
+    spawnTimer = 0;
+    difficultyLevel = 0;
+    enemies = [];
+    items = [];
+    particles = [];
+    floatingTexts = [];
+
+    updateHud();
+    gameRunning = true;
+    gamePaused = false;
+    lastTime = performance.now();
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    gameLoop(lastTime);
+
+    // Vibrate
+    if (navigator.vibrate) navigator.vibrate(50);
+  }
+
+  // ---- GAME LOOP ----
+  function gameLoop(now) {
+    if (!gameRunning) return;
+    if (gamePaused) { animFrameId = requestAnimationFrame(gameLoop); return; }
+
+    var dt = Math.min(now - lastTime, 50); // cap delta
+    lastTime = now;
+    elapsed += dt;
+
+    update(dt);
+    render();
+
+    animFrameId = requestAnimationFrame(gameLoop);
+  }
+
+  // ---- UPDATE ----
+  function update(dt) {
+    var dtSec = dt / 1000;
+    var speedMult = getSpeedMultiplier();
+
+    // Score: 10 per second
+    score += Math.round(10 * dtSec * multiplier);
+
+    // Player movement
+    updatePlayer(dt);
+
+    // Spawn enemies
+    spawnTimer += dt;
+    var spawnInterval = getSpawnInterval();
+    while (spawnTimer >= spawnInterval) {
+      spawnTimer -= spawnInterval;
+      spawnEnemy(speedMult);
+    }
+
+    // Spawn items (every 8-12 seconds)
+    if (Math.random() < dtSec * 0.1) {
+      spawnItem();
+    }
+
+    // Update enemies
+    updateEnemies(dt, speedMult);
+
+    // Update items
+    updateItems(dt);
+
+    // Update particles
+    updateParticles(dt);
+
+    // Update floating texts
+    updateFloatingTexts(dt);
+
+    // Shield timer
+    if (player.shieldActive) {
+      player.shieldTimer -= dt;
+      if (player.shieldTimer <= 0) {
+        player.shieldActive = false;
+      }
+    }
+
+    // Invincibility timer (after hit)
+    if (player.invincible && !player.shieldActive) {
+      player.invincibleTimer -= dt;
+      if (player.invincibleTimer <= 0) {
+        player.invincible = false;
+      }
+    }
+
+    // Combo decay: reset if no dodge in 3 seconds
+    // (combo resets naturally when hit)
+
+    updateHud();
+  }
+
+  function getSpeedMultiplier() {
+    var sec = elapsed / 1000;
+    if (sec < 60) return 1.0;
+    if (sec < 120) return 1.3;
+    if (sec < 180) return 1.6;
+    return 1.9;
+  }
+
+  function getSpawnInterval() {
+    var sec = elapsed / 1000;
+    var base = 800;
+    if (sec > 180) return Math.max(250, base - 450);
+    if (sec > 120) return Math.max(300, base - 350);
+    if (sec > 60) return Math.max(400, base - 250);
+    return base;
+  }
+
+  function updatePlayer(dt) {
+    // Keyboard
+    var moveSpeed = 350 * (dt / 1000);
+    if (keys['ArrowLeft'] || keys['a']) player.targetX -= moveSpeed;
+    if (keys['ArrowRight'] || keys['d']) player.targetX += moveSpeed;
+
+    // Touch/mouse input
+    if (inputX !== null) {
+      player.targetX = inputX;
+    }
+
+    // Clamp
+    player.targetX = Math.max(player.w / 2, Math.min(W - player.w / 2, player.targetX));
+
+    // Smooth movement
+    var dx = player.targetX - player.x;
+    player.x += dx * 0.15;
+
+    // Keep player at bottom area
+    player.y = H - 100;
+  }
+
+  // ---- SPAWN ----
+  function spawnEnemy(speedMult) {
+    var types = ['tartar', 'tartar', 'tartar', 'cavity', 'cavity', 'sugar'];
+    var sec = elapsed / 1000;
+
+    // Boss (soda) spawns after 30 seconds, more frequent over time
+    if (sec > 30 && Math.random() < 0.12) {
+      types.push('soda');
+    }
+    if (sec > 120) {
+      types.push('sugar', 'sugar', 'cavity');
+    }
+
+    var typeKey = types[Math.floor(Math.random() * types.length)];
+    var type = ENEMY_TYPES[typeKey];
+
+    var enemy = {
+      type: typeKey,
+      emoji: type.emoji,
+      x: Math.random() * (W - type.w * 2) + type.w,
+      y: -type.h,
+      w: type.w,
+      h: type.h,
+      speed: type.speed * speedMult,
+      damage: type.damage || 1,
+      zigzag: type.zigzag,
+      zigzagPhase: Math.random() * Math.PI * 2,
+      zigzagSpeed: 2 + Math.random() * 2,
+      zigzagAmp: 30 + Math.random() * 40,
+      passed: false,
+      rotation: 0,
+      rotSpeed: (Math.random() - 0.5) * 2
+    };
+    enemies.push(enemy);
+  }
+
+  function spawnItem() {
+    var types = ['toothbrush', 'floss', 'fluoride'];
+    var typeKey = types[Math.floor(Math.random() * types.length)];
+    var type = ITEM_TYPES[typeKey];
+
+    items.push({
+      type: typeKey,
+      emoji: type.emoji,
+      x: Math.random() * (W - 60) + 30,
+      y: -type.h,
+      w: type.w,
+      h: type.h,
+      speed: 1.5,
+      glow: 0,
+      glowDir: 1
+    });
+  }
+
+  // ---- UPDATE ENTITIES ----
+  function updateEnemies(dt, speedMult) {
+    var dtSec = dt / 1000;
+    for (var i = enemies.length - 1; i >= 0; i--) {
+      var e = enemies[i];
+      e.y += e.speed * 200 * dtSec;
+      e.rotation += e.rotSpeed * dtSec;
+
+      // Zigzag
+      if (e.zigzag) {
+        e.zigzagPhase += e.zigzagSpeed * dtSec;
+        e.x += Math.sin(e.zigzagPhase) * e.zigzagAmp * dtSec;
+        e.x = Math.max(e.w / 2, Math.min(W - e.w / 2, e.x));
+      }
+
+      // Check collision with player
+      if (!player.invincible && !player.shieldActive) {
+        if (checkCollision(player, e)) {
+          hitPlayer(e.damage);
+          spawnHitParticles(e.x, e.y, '#EF4444');
+          enemies.splice(i, 1);
+          continue;
+        }
+      } else if (player.shieldActive && checkCollision(player, e)) {
+        // Shield destroys enemies
+        score += Math.round(50 * multiplier);
+        spawnHitParticles(e.x, e.y, '#7C3AED');
+        addFloatingText(e.x, e.y, '+50', '#7C3AED');
+        enemies.splice(i, 1);
+        continue;
+      }
+
+      // Near miss detection (dodge bonus)
+      if (!e.passed && e.y > player.y + 20) {
+        e.passed = true;
+        var dist = Math.abs(e.x - player.x);
+        if (dist < 80) { // Close call
+          combo++;
+          dodgeCount++;
+          if (combo > maxCombo) maxCombo = combo;
+          var dodgeScore = Math.round(50 * multiplier);
+          score += dodgeScore;
+          addFloatingText(player.x, player.y - 30, '+' + dodgeScore + ' 아슬아슬!', '#F59E0B');
+
+          // Multiplier at 5+ combo
+          if (combo >= 5 && combo % 5 === 0) {
+            multiplier = 1.5;
+            showMultiplier();
+          }
+        }
+      }
+
+      // Remove offscreen
+      if (e.y > H + 60) {
+        enemies.splice(i, 1);
+      }
+    }
+  }
+
+  function updateItems(dt) {
+    var dtSec = dt / 1000;
+    for (var i = items.length - 1; i >= 0; i--) {
+      var item = items[i];
+      item.y += item.speed * 150 * dtSec;
+      item.glow += item.glowDir * dtSec * 3;
+      if (item.glow > 1) item.glowDir = -1;
+      if (item.glow < 0) item.glowDir = 1;
+
+      // Collision with player
+      if (checkCollision(player, item)) {
+        collectItem(item);
+        items.splice(i, 1);
+        continue;
+      }
+
+      // Offscreen
+      if (item.y > H + 40) {
+        items.splice(i, 1);
+      }
+    }
+  }
+
+  function updateParticles(dt) {
+    var dtSec = dt / 1000;
+    for (var i = particles.length - 1; i >= 0; i--) {
+      var p = particles[i];
+      p.x += p.vx * dtSec;
+      p.y += p.vy * dtSec;
+      p.life -= dtSec;
+      p.alpha = Math.max(0, p.life / p.maxLife);
+      p.size *= 0.98;
+      if (p.life <= 0) particles.splice(i, 1);
+    }
+  }
+
+  function updateFloatingTexts(dt) {
+    var dtSec = dt / 1000;
+    for (var i = floatingTexts.length - 1; i >= 0; i--) {
+      var ft = floatingTexts[i];
+      ft.y -= 60 * dtSec;
+      ft.life -= dtSec;
+      ft.alpha = Math.max(0, ft.life / ft.maxLife);
+      if (ft.life <= 0) floatingTexts.splice(i, 1);
+    }
+  }
+
+  // ---- COLLISION ----
+  function checkCollision(a, b) {
+    var pad = 6; // Smaller hitbox for fairness
+    return a.x - a.w/2 + pad < b.x + b.w/2 - pad &&
+           a.x + a.w/2 - pad > b.x - b.w/2 + pad &&
+           a.y - a.h/2 + pad < b.y + b.h/2 - pad &&
+           a.y + a.h/2 - pad > b.y - b.h/2 + pad;
+  }
+
+  // ---- PLAYER HIT ----
+  function hitPlayer(damage) {
+    player.hp -= damage;
+    combo = 0;
+    multiplier = 1;
+
+    // Flash
+    var flash = document.getElementById('damageFlash');
+    flash.classList.add('active');
+    setTimeout(function() { flash.classList.remove('active'); }, 200);
+
+    // Vibrate
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+
+    // Invincibility frames
+    player.invincible = true;
+    player.invincibleTimer = 1500;
+
+    if (player.hp <= 0) {
+      player.hp = 0;
+      gameOver();
+    }
+  }
+
+  // ---- COLLECT ITEM ----
+  function collectItem(item) {
+    var type = ITEM_TYPES[item.type];
+    itemCount++;
+    score += Math.round(100 * multiplier);
+
+    // Effect
+    if (type.effect === 'shield') {
+      player.shieldActive = true;
+      player.shieldTimer = type.duration;
+      player.invincible = true;
+    } else if (type.effect === 'clearAll') {
+      // Kill all enemies
+      enemies.forEach(function(e) {
+        spawnHitParticles(e.x, e.y, '#3B82F6');
+        score += Math.round(30 * multiplier);
+      });
+      enemies = [];
+    } else if (type.effect === 'heal') {
+      player.hp = Math.min(player.maxHp, player.hp + 1);
+    }
+
+    // Show powerup text
+    showPowerup(type.desc);
+    spawnHitParticles(item.x, item.y, '#10B981');
+    addFloatingText(item.x, item.y, '+100', '#10B981');
+
+    if (navigator.vibrate) navigator.vibrate(30);
+  }
+
+  // ---- PARTICLES ----
+  function spawnHitParticles(x, y, color) {
+    for (var i = 0; i < 12; i++) {
+      var angle = (Math.PI * 2 / 12) * i + Math.random() * 0.5;
+      var speed = 100 + Math.random() * 200;
+      particles.push({
+        x: x, y: y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size: 3 + Math.random() * 4,
+        color: color,
+        life: 0.6 + Math.random() * 0.4,
+        maxLife: 1,
+        alpha: 1
+      });
+    }
+  }
+
+  function addFloatingText(x, y, text, color) {
+    floatingTexts.push({ x: x, y: y, text: text, color: color, life: 1.2, maxLife: 1.2, alpha: 1 });
+  }
+
+  // ---- RENDER ----
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Background gradient
+    var grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#0a0a2e');
+    grad.addColorStop(0.5, '#150a2e');
+    grad.addColorStop(1, '#0a0a1a');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Stars
+    bgStars.forEach(function(s) {
+      s.y += s.speed * 2;
+      if (s.y > H) { s.y = 0; s.x = Math.random() * W; }
+      ctx.globalAlpha = s.alpha;
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    // Enemies
+    enemies.forEach(function(e) {
+      ctx.save();
+      ctx.translate(e.x, e.y);
+      ctx.rotate(e.rotation);
+      ctx.font = e.w + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(e.emoji, 0, 0);
+      ctx.restore();
+    });
+
+    // Items (with glow)
+    items.forEach(function(item) {
+      ctx.save();
+      ctx.translate(item.x, item.y);
+      // Glow
+      ctx.shadowColor = '#10B981';
+      ctx.shadowBlur = 10 + item.glow * 15;
+      ctx.font = item.w + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(item.emoji, 0, 0);
+      ctx.shadowBlur = 0;
+      ctx.restore();
+    });
+
+    // Particles
+    particles.forEach(function(p) {
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    // Floating texts
+    floatingTexts.forEach(function(ft) {
+      ctx.globalAlpha = ft.alpha;
+      ctx.fillStyle = ft.color;
+      ctx.font = 'bold 16px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(ft.text, ft.x, ft.y);
+    });
+    ctx.globalAlpha = 1;
+
+    // Player
+    renderPlayer();
+  }
+
+  function renderPlayer() {
+    ctx.save();
+    ctx.translate(player.x, player.y);
+
+    // Shield effect
+    if (player.shieldActive) {
+      ctx.beginPath();
+      ctx.arc(0, 0, 35, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(124,58,237,0.6)';
+      ctx.lineWidth = 3;
+      ctx.shadowColor = '#7C3AED';
+      ctx.shadowBlur = 20;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    }
+
+    // Blink when invincible (hit)
+    if (player.invincible && !player.shieldActive) {
+      ctx.globalAlpha = Math.sin(performance.now() * 0.01) > 0 ? 1 : 0.3;
+    }
+
+    // Tooth emoji
+    ctx.font = '40px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🦷', 0, 0);
+
+    // Thruster effect
+    ctx.globalAlpha = 0.5 + Math.random() * 0.3;
+    var thrusterSize = 8 + Math.random() * 6;
+    ctx.fillStyle = '#7C3AED';
+    ctx.beginPath();
+    ctx.arc(-8, 24, thrusterSize, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#EC4899';
+    ctx.beginPath();
+    ctx.arc(8, 24, thrusterSize * 0.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  // ---- HUD ----
+  function updateHud() {
+    document.getElementById('hudScore').innerHTML = Math.floor(score).toLocaleString() + '<small> 점</small>';
+
+    var comboEl = document.getElementById('hudCombo');
+    if (combo >= 3) {
+      comboEl.textContent = '🔥 ' + combo + ' COMBO!';
+      comboEl.classList.add('active');
+    } else {
+      comboEl.classList.remove('active');
+    }
+
+    var hpEl = document.getElementById('hudHp');
+    var hearts = hpEl.querySelectorAll('.hud-hp-heart');
+    for (var i = 0; i < hearts.length; i++) {
+      if (i < player.hp) {
+        hearts[i].classList.remove('lost');
+      } else {
+        hearts[i].classList.add('lost');
+      }
+    }
+  }
+
+  function showMultiplier() {
+    var el = document.getElementById('hudMultiplier');
+    el.textContent = '×' + multiplier + ' 배율!';
+    el.classList.add('active');
+    setTimeout(function() { el.classList.remove('active'); }, 2000);
+  }
+
+  function showPowerup(text) {
+    var el = document.getElementById('powerupIndicator');
+    el.textContent = text;
+    el.classList.remove('active');
+    void el.offsetWidth; // reflow
+    el.classList.add('active');
+    setTimeout(function() { el.classList.remove('active'); }, 1500);
+  }
+
+  // ---- GAME OVER ----
+  function gameOver() {
+    gameRunning = false;
+    document.getElementById('hud').classList.remove('active');
+    document.getElementById('hudMultiplier').classList.remove('active');
+
+    if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
+
+    // Determine grade
+    var grade = GRADES[GRADES.length - 1];
+    for (var i = 0; i < GRADES.length; i++) {
+      if (score >= GRADES[i].min) {
+        grade = GRADES[i];
+        break;
+      }
+    }
+
+    var survivalSec = Math.floor(elapsed / 1000);
+    var survivalMin = Math.floor(survivalSec / 60);
+    var survivalRemSec = survivalSec % 60;
+    var survivalText = survivalMin > 0 ? survivalMin + '분 ' + survivalRemSec + '초' : survivalSec + '초';
+
+    // Save to DB
+    saveScoreToDB(Math.floor(score), grade.name);
+
+    // Build result screen
+    var html = '';
+    html += '<div class="result-tooth-emoji">' + grade.emoji + '</div>';
+    html += '<div class="result-grade ' + grade.cls + '">' + grade.name + '</div>';
+    html += '<div class="result-score">' + Math.floor(score).toLocaleString() + '</div>';
+    html += '<div class="result-score-label">점</div>';
+
+    // Stats
+    html += '<div class="result-stats">';
+    html += '<div class="result-stat"><div class="result-stat-val">' + survivalText + '</div><div class="result-stat-label">생존시간</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + maxCombo + '</div><div class="result-stat-label">최대콤보</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + dodgeCount + '</div><div class="result-stat-label">아슬아슬</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + itemCount + '</div><div class="result-stat-label">아이템</div></div>';
+    html += '</div>';
+
+    // Ranking placeholder
+    html += '<div class="result-ranking" id="resultRanking" style="display:none;"></div>';
+
+    // Doctor
+    html += '<div class="result-doctor">';
+    html += '<div class="result-doctor-header">';
+    html += '<div class="result-doctor-avatar">🦷</div>';
+    html += '<div class="result-doctor-info"><div class="result-doctor-name">비디치과 원장</div><div class="result-doctor-title">서울대 치의학과 · 통합치의학 전문의</div></div>';
+    html += '</div>';
+    html += '<div class="result-doctor-text">"' + grade.comment + '"</div>';
+    html += '</div>';
+
+    // Share
+    html += '<div class="result-share">';
+    html += '<div class="result-share-title">' + grade.emoji + ' 나는 ' + Math.floor(score).toLocaleString() + '점 ' + grade.name + '!</div>';
+    html += '<div class="result-share-sub">너는 몇 점이야? 👀</div>';
+    html += '<div class="result-share-btns">';
+    html += '<button class="btn-share kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카톡 자랑</button>';
+    html += '<button class="btn-share" onclick="shareLink()"><i class="fas fa-link"></i> 링크 복사</button>';
+    html += '</div>';
+    html += '</div>';
+
+    // CTA
+    html += '<a href="/reservation" class="btn-cta-result btn-cta-primary"><i class="fas ' + grade.ctaIcon + '"></i> ' + grade.cta + '</a><br>';
+    html += '<div style="height:8px"></div>';
+    html += '<button class="btn-retry" onclick="startGame()"><i class="fas fa-redo"></i> 다시 도전하기</button>';
+
+    html += '<div class="result-disclaimer">본 게임은 서울비디치과에서 제공하는 흥미·교육 목적의 콘텐츠입니다.</div>';
+
+    document.getElementById('resultScreen').innerHTML = html;
+    document.getElementById('resultScreen').classList.add('active');
+
+    // Store for sharing
+    window._flightResult = { score: Math.floor(score), grade: grade.name, emoji: grade.emoji };
+  }
+
+  // ---- SAVE SCORE ----
+  function saveScoreToDB(finalScore, gradeName) {
+    fetch('/api/flight/result', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ score: finalScore, grade: gradeName })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success) {
+        var rankEl = document.getElementById('resultRanking');
+        if (rankEl) {
+          rankEl.style.display = 'block';
+          var rhtml = '<div class="result-ranking-title">🏆 실시간 랭킹</div>';
+          rhtml += '<div class="result-ranking-row"><span>총 참여자</span><strong>' + data.total_players.toLocaleString() + '명</strong></div>';
+          if (data.rank) {
+            rhtml += '<div class="result-ranking-row"><span>내 순위</span><strong>상위 ' + data.top_percent + '%</strong></div>';
+          }
+          rhtml += '<div class="result-ranking-row"><span>평균 점수</span><strong>' + Math.floor(data.avg_score).toLocaleString() + '점</strong></div>';
+          rankEl.innerHTML = rhtml;
+        }
+      }
+    })
+    .catch(function(e) { console.log('Score save failed:', e); });
+  }
+
+  // ---- SHARING ----
+  function shareKakao() {
+    var result = window._flightResult || {};
+    var shareText = result.emoji + ' 나는 ' + (result.score || 0).toLocaleString() + '점 ' + result.grade + '!\n너는 몇 점이야? 👀\n#치석플라이트 #서울비디치과';
+
+    try {
+      if (window.Kakao) {
+        if (!Kakao.isInitialized()) {
+          Kakao.init('c5e7b6f82aaa722b63b2fb6e42cec872');
+        }
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: result.emoji + ' ' + (result.score || 0).toLocaleString() + '점 — ' + result.grade,
+            description: '치석 플라이트에서 내 치아 등급은? 너는 몇 점? 👀',
+            imageUrl: 'https://bdbddc.com/images/og-checkup.jpg',
+            link: { mobileWebUrl: 'https://bdbddc.com/flight', webUrl: 'https://bdbddc.com/flight' }
+          },
+          buttons: [{ title: '나도 도전하기 🎮', link: { mobileWebUrl: 'https://bdbddc.com/flight', webUrl: 'https://bdbddc.com/flight' } }]
+        });
+        return;
+      }
+    } catch(e) {
+      console.log('Kakao share failed:', e);
+    }
+
+    if (navigator.share) {
+      navigator.share({ title: '치석 플라이트 ' + result.score + '점!', text: shareText, url: 'https://bdbddc.com/flight' }).catch(function(){});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText + '\nhttps://bdbddc.com/flight').then(function() {
+        showToast('공유 텍스트가 복사되었어요! 📋');
+      });
+    }
+  }
+
+  function shareLink() {
+    var result = window._flightResult || {};
+    var text = result.emoji + ' 치석 플라이트 ' + (result.score || 0).toLocaleString() + '점! ' + result.grade + '\n너는 몇 점? 👀\nhttps://bdbddc.com/flight';
+
+    if (navigator.share) {
+      navigator.share({ title: '치석 플라이트!', text: text, url: 'https://bdbddc.com/flight' }).catch(function(){});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function() {
+        showToast('링크가 복사되었어요! 📋');
+      });
+    } else {
+      prompt('복사해서 공유하세요:', text);
+    }
+  }
+
+  function showToast(msg) {
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 2500);
+  }
+
+  // ---- INPUT ----
+  // Touch
+  document.addEventListener('touchstart', function(e) {
+    if (!gameRunning) return;
+    e.preventDefault();
+    inputX = e.touches[0].clientX;
+  }, { passive: false });
+
+  document.addEventListener('touchmove', function(e) {
+    if (!gameRunning) return;
+    e.preventDefault();
+    inputX = e.touches[0].clientX;
+  }, { passive: false });
+
+  document.addEventListener('touchend', function(e) {
+    inputX = null;
+  });
+
+  // Mouse
+  document.addEventListener('mousedown', function(e) {
+    if (!gameRunning || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+    inputX = e.clientX;
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!gameRunning || inputX === null) return;
+    inputX = e.clientX;
+  });
+  document.addEventListener('mouseup', function() { inputX = null; });
+
+  // Keyboard
+  document.addEventListener('keydown', function(e) {
+    keys[e.key] = true;
+    if (e.key === 'Escape' && gameRunning) {
+      togglePause();
+    }
+  });
+  document.addEventListener('keyup', function(e) {
+    keys[e.key] = false;
+  });
+
+  // Pause
+  function togglePause() {
+    gamePaused = !gamePaused;
+    document.getElementById('pauseOverlay').classList.toggle('active', gamePaused);
+  }
+  function resumeGame() {
+    gamePaused = false;
+    lastTime = performance.now();
+    document.getElementById('pauseOverlay').classList.remove('active');
+  }
+
+  // Visibility
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && gameRunning && !gamePaused) {
+      togglePause();
+    }
+  });
+
+  // Init on load
+  init();
+  </script>
+</body>
+</html>

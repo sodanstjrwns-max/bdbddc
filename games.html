@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>플레이 🎮 | 서울비디치과</title>
+  <meta name="description" content="서울비디치과의 재미있는 치과 게임들! 치석 플라이트, 치BTI 등 다양한 게임을 즐겨보세요.">
+  <link rel="stylesheet" href="/css/site-v5.css?v=games01">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --brand: #6B4226;
+      --brand-gold: #C9A962;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a1a;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .games-header {
+      background: linear-gradient(180deg, #0a0a2e 0%, #1a0a3e 100%);
+      padding: 100px 20px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .games-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(124,58,237,0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(236,72,153,0.1) 0%, transparent 50%);
+    }
+    .games-header-content { position: relative; z-index: 1; }
+    .games-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(254,229,0,0.1);
+      border: 1px solid rgba(254,229,0,0.2);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      color: #FEE500;
+      margin-bottom: 16px;
+    }
+    .games-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #7C3AED, #EC4899, #F59E0B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .games-subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Game Grid */
+    .games-grid {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .game-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .game-card:hover {
+      border-color: rgba(124,58,237,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(124,58,237,0.15);
+    }
+    .game-card-banner {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .game-card-banner.flight {
+      background: linear-gradient(135deg, #1a0a3e, #2d1b69);
+    }
+    .game-card-banner.chbti {
+      background: linear-gradient(135deg, #1a0a2e, #2a1050);
+    }
+    .game-card-banner.coming {
+      background: linear-gradient(135deg, #1a1a2e, #222);
+    }
+    .game-card-body { padding: 20px; }
+    .game-card-tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .game-tag {
+      font-size: 0.65rem;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    .tag-new { background: rgba(239,68,68,0.2); color: #EF4444; }
+    .tag-arcade { background: rgba(124,58,237,0.2); color: #7C3AED; }
+    .tag-quiz { background: rgba(59,130,246,0.2); color: #3B82F6; }
+    .tag-coming { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); }
+    .game-card-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .game-card-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .game-card-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .game-card-meta i { margin-right: 4px; }
+
+    .game-card.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Footer */
+    .games-footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .games-footer-text {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 12px;
+    }
+    .games-footer-link {
+      color: #7C3AED;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Back button */
+    .back-btn {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 100;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(255,255,255,0.2); }
+
+    @media (max-width: 640px) {
+      .games-grid { grid-template-columns: 1fr; }
+      .games-title { font-size: 1.8rem; }
+      .games-header { padding: 80px 20px 40px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+
+  <div class="games-header">
+    <div class="games-header-content">
+      <div class="games-badge"><span>🎮</span> 서울비디치과 × 게임존</div>
+      <h1 class="games-title">플레이</h1>
+      <p class="games-subtitle">치과가 이렇게 재밌을 수 있다고?<br>게임하고 점수 자랑하고 예약까지! 🦷</p>
+    </div>
+  </div>
+
+  <div class="games-grid">
+
+    <!-- 치석 플라이트 -->
+    <a href="/flight" class="game-card">
+      <div class="game-card-banner flight">🦷✈️</div>
+      <div class="game-card-body">
+        <div class="game-card-tags">
+          <span class="game-tag tag-new">NEW</span>
+          <span class="game-tag tag-arcade">아케이드</span>
+        </div>
+        <div class="game-card-title">치석 플라이트</div>
+        <div class="game-card-desc">치석을 피하고 치아를 지켜라! 드래곤 플라이트 치과 버전. 내 치아 등급은?</div>
+        <div class="game-card-meta">
+          <span><i class="fas fa-clock"></i> 3~5분</span>
+          <span><i class="fas fa-gamepad"></i> 터치 / 방향키</span>
+          <span><i class="fas fa-trophy"></i> 랭킹</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- 치BTI -->
+    <a href="/checkup" class="game-card">
+      <div class="game-card-banner chbti">🧬🦷</div>
+      <div class="game-card-body">
+        <div class="game-card-tags">
+          <span class="game-tag tag-quiz">심리테스트</span>
+        </div>
+        <div class="game-card-title">치BTI</div>
+        <div class="game-card-desc">MBTI 말고 치BTI! 16가지 구강 유형 중 나는? 16문항으로 알아보는 내 구강 습관.</div>
+        <div class="game-card-meta">
+          <span><i class="fas fa-clock"></i> ~2분</span>
+          <span><i class="fas fa-dna"></i> 16가지 유형</span>
+          <span><i class="fas fa-share-alt"></i> 공유</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Coming Soon: 치아블로 -->
+    <div class="game-card disabled">
+      <div class="game-card-banner coming">⚔️🦷</div>
+      <div class="game-card-body">
+        <div class="game-card-tags">
+          <span class="game-tag tag-coming">COMING SOON</span>
+        </div>
+        <div class="game-card-title">치아블로</div>
+        <div class="game-card-desc">충치 몬스터를 물리쳐라! 디아블로 치과 버전. 보스 레이드에 도전하세요.</div>
+        <div class="game-card-meta">
+          <span><i class="fas fa-clock"></i> 5~10분</span>
+          <span><i class="fas fa-dragon"></i> RPG</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coming Soon: 치트리스 -->
+    <div class="game-card disabled">
+      <div class="game-card-banner coming">🧱🦷</div>
+      <div class="game-card-body">
+        <div class="game-card-tags">
+          <span class="game-tag tag-coming">COMING SOON</span>
+        </div>
+        <div class="game-card-title">치트리스</div>
+        <div class="game-card-desc">치아 블록을 맞춰라! 테트리스 치과 버전. 줄을 맞추면 치석이 사라진다!</div>
+        <div class="game-card-meta">
+          <span><i class="fas fa-clock"></i> 3~5분</span>
+          <span><i class="fas fa-puzzle-piece"></i> 퍼즐</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="games-footer">
+    <div class="games-footer-text">매달 새로운 게임이 추가됩니다! 🎉</div>
+    <a href="/" class="games-footer-link"><i class="fas fa-arrow-left"></i> 서울비디치과 홈으로</a>
+  </div>
+
+</body>
+</html>

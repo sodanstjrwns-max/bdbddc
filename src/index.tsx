@@ -832,6 +832,67 @@ app.get('/api/chbti/stats', async (c) => {
   }
 })
 
+// ============================================
+// 치석 플라이트 API
+// ============================================
+
+// POST /api/flight/result - 점수 저장
+app.post('/api/flight/result', async (c) => {
+  try {
+    const { score, grade } = await c.req.json<{ score: number; grade: string }>()
+    
+    if (typeof score !== 'number' || !grade) {
+      return c.json({ error: 'Invalid data' }, 400)
+    }
+    
+    const db = c.env.DB
+    if (!db) return c.json({ error: 'DB not available' }, 500)
+    
+    await db.prepare('INSERT INTO flight_scores (score, grade) VALUES (?, ?)').bind(score, grade).run()
+    
+    const totalResult = await db.prepare('SELECT COUNT(*) as total FROM flight_scores').first<{ total: number }>()
+    const avgResult = await db.prepare('SELECT AVG(score) as avg FROM flight_scores').first<{ avg: number }>()
+    const rankResult = await db.prepare('SELECT COUNT(*) as better FROM flight_scores WHERE score > ?').bind(score).first<{ better: number }>()
+    
+    const total = totalResult?.total || 0
+    const avg = avgResult?.avg || 0
+    const rank = (rankResult?.better || 0) + 1
+    const topPercent = total > 0 ? Math.round((rank / total) * 100) : 100
+    
+    return c.json({
+      success: true,
+      total_players: total,
+      avg_score: Math.round(avg),
+      rank,
+      top_percent: topPercent
+    })
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+// GET /api/flight/stats - 통계 조회
+app.get('/api/flight/stats', async (c) => {
+  try {
+    const db = c.env.DB
+    if (!db) return c.json({ error: 'DB not available' }, 500)
+    
+    const totalResult = await db.prepare('SELECT COUNT(*) as total FROM flight_scores').first<{ total: number }>()
+    const avgResult = await db.prepare('SELECT AVG(score) as avg FROM flight_scores').first<{ avg: number }>()
+    const topScores = await db.prepare(
+      'SELECT score, grade, created_at FROM flight_scores ORDER BY score DESC LIMIT 10'
+    ).all<{ score: number; grade: string; created_at: string }>()
+    
+    return c.json({
+      total_players: totalResult?.total || 0,
+      avg_score: Math.round(avgResult?.avg || 0),
+      top_scores: topScores?.results || []
+    })
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
 // API health check
 app.get('/api/health', (c) => {
   return c.json({ 
@@ -2020,6 +2081,11 @@ app.get('/privacy', serveStatic({ path: './privacy.html' }))
 app.get('/terms', serveStatic({ path: './terms.html' }))
 app.get('/mission', serveStatic({ path: './mission.html' }))
 app.get('/blueprint', serveStatic({ path: './blueprint.html' }))
+
+// 게임 (플레이)
+app.get('/flight', serveStatic({ path: './flight.html' }))
+app.get('/checkup', serveStatic({ path: './checkup.html' }))
+app.get('/games', serveStatic({ path: './games.html' }))
 
 // Root level HTML files with .html extension → handled by 301 redirects above
 
