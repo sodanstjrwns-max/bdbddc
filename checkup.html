@@ -236,7 +236,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     /* Share */
     .result-share { margin-bottom: 20px; }
-    .result-share-title { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 12px; }
+    .result-share-title { font-size: 1.2rem; font-weight: 800; color: #fff; text-align: center; margin-bottom: 4px; }
+    .result-share-subtitle { font-size: 1.4rem; font-weight: 800; color: #FEE500; text-align: center; margin-bottom: 16px; }
+    .result-share-emoji { font-size: 2.5rem; text-align: center; margin-bottom: 8px; }
     .result-share-btns { display: flex; gap: 10px; }
     .btn-share { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
     .btn-share:hover { background: rgba(255,255,255,0.1); }
@@ -882,11 +884,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     html += '<div class="result-cta-action">* 365일 진료 · 평일 야간 20시까지</div>';
     html += '</div>';
     
-    // Share
+    // Share - 바이럴 트리거
     html += '<div class="result-share">';
-    html += '<div class="result-share-title">친구에게 치BTI 공유하기</div>';
+    html += '<div class="result-share-emoji">' + typeData.emoji + '</div>';
+    html += '<div class="result-share-title">나는 ' + code + ' ' + typeData.name + '!</div>';
+    html += '<div class="result-share-subtitle">넌 뭔데? 👀</div>';
     html += '<div class="result-share-btns">';
-    html += '<button class="btn-share kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카카오</button>';
+    html += '<button class="btn-share kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카톡으로 자랑하기</button>';
     html += '<button class="btn-share" onclick="shareLink()"><i class="fas fa-link"></i> 링크 복사</button>';
     html += '</div>';
     html += '</div>';
@@ -957,7 +961,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   // --- Share ---
   function shareKakao() {
     var result = window._chbtiResult || {};
-    var shareText = '🦷 나의 치BTI: ' + (result.code || '????') + ' ' + (result.emoji || '') + ' ' + (result.name || '') + '\nMBTI 말고 치BTI! 16가지 구강 유형 중 나는?\n#치BTI #서울비디치과';
+    var shareText = (result.emoji || '🦷') + ' 나는 ' + (result.code || '????') + ' ' + (result.name || '') + '!\n너는 뭔데? 👀 치BTI 해봐!\n#치BTI #서울비디치과';
     
     try {
       if (window.Kakao) {
@@ -967,12 +971,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
-            title: '🦷 나의 치BTI: ' + (result.code || '????') + ' ' + (result.emoji || '') + ' ' + (result.name || ''),
-            description: 'MBTI 말고 치BTI! 16가지 구강 유형 중 나는? #치BTI #서울비디치과',
+            title: (result.emoji || '🦷') + ' 나는 ' + (result.code || '????') + ' ' + (result.name || '') + '!',
+            description: '너는 뭔데? 👀 16가지 구강 유형 중 너는 뭘까?',
             imageUrl: 'https://bdbddc.com/images/og-checkup.jpg',
             link: { mobileWebUrl: 'https://bdbddc.com/checkup', webUrl: 'https://bdbddc.com/checkup' }
           },
-          buttons: [{ title: '나도 치BTI 해보기', link: { mobileWebUrl: 'https://bdbddc.com/checkup', webUrl: 'https://bdbddc.com/checkup' } }]
+          buttons: [{ title: '나도 해보기 👀', link: { mobileWebUrl: 'https://bdbddc.com/checkup', webUrl: 'https://bdbddc.com/checkup' } }]
         });
         return;
       }
@@ -981,7 +985,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
     // Fallback: Web Share API or clipboard
     if (navigator.share) {
-      navigator.share({ title: '치BTI 결과', text: shareText, url: 'https://bdbddc.com/checkup' }).catch(function(){});
+      navigator.share({ title: '나는 ' + (result.code || '') + '! 넌 뭔데?', text: shareText, url: 'https://bdbddc.com/checkup' }).catch(function(){});
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(shareText + '\nhttps://bdbddc.com/checkup').then(function() {
         showToast('공유 텍스트가 복사되었어요! 📋');
@@ -993,10 +997,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   function shareLink() {
     var result = window._chbtiResult || {};
-    var text = '🦷 나의 치BTI: ' + (result.code || '') + ' ' + (result.emoji || '') + ' ' + (result.name || '') + '\nhttps://bdbddc.com/checkup';
+    var text = (result.emoji || '🦷') + ' 나는 ' + (result.code || '') + ' ' + (result.name || '') + '!\n너는 뭔데? 👀 치BTI 해봐!\nhttps://bdbddc.com/checkup';
     
     if (navigator.share) {
-      navigator.share({ title: '치BTI 결과', text: text, url: 'https://bdbddc.com/checkup' }).catch(function(){});
+      navigator.share({ title: '나는 ' + (result.code || '') + '! 넌 뭔데?', text: text, url: 'https://bdbddc.com/checkup' }).catch(function(){});
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(text).then(function() {
         showToast('링크가 복사되었어요! 📋');
