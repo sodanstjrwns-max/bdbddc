@@ -1,6 +1,12 @@
 /**
- * 서울비디치과 통합 Analytics v2
+ * 서울비디치과 통합 Analytics v3
  * GTM (GTM-KKVMVZHK) → GA4 (G-3NQP355YQM) + Amplitude (87529341cb075dcdbefabce3994958aa)
+ * 
+ * v3 변경사항 (2026-04-02):
+ * - Amplitude SDK를 Script Loader 방식으로 전환 (구 인라인 스니펫 제거)
+ * - SDK 중복 init 방지 (window._bdAmplitudeInitialized 플래그)
+ * - autocapture 활성화 (attribution, pageViews, sessions, forms, fileDownloads)
+ * - safeIdentify 래퍼 간소화 (Script Loader 자동 큐잉 활용)
  * 
  * v2 변경사항:
  * - 유저 프로퍼티 세팅 (device, UTM, referrer 분류, 첫방문 소스 등)
@@ -12,19 +18,28 @@
 (function() {
   'use strict';
 
-  // ─── Amplitude SDK 초기화 ───
-  !function(){"use strict";!function(e,t){var r=e.amplitude||{_q:[],_iq:{}};if(r.invoked)e.console&&console.error&&console.error("Amplitude snippet has been loaded.");else{var n=function(e,t){e.prototype[t]=function(){return this._q.push({name:t,args:Array.prototype.slice.call(arguments,0)}),this}},s=function(e,t,r){return function(n){e._q.push({name:t,args:Array.prototype.slice.call(arguments,0),resolve:n})}},o=function(e,t,r){e._q.push({name:t,args:Array.prototype.slice.call(arguments,0)})},i=function(e,t,r){e[t]=function(){if(r)return{promise:new Promise(s(e,t,r))};o(e,t,r)}},a=function(e){for(var t=0;t<m.length;t++)i(e,m[t],!1);for(var r=0;r<g.length;r++)i(e,g[r],!0)};r.invoked=!0;var u=t.createElement("script");u.type="text/javascript",u.crossOrigin="anonymous",u.async=!0,u.src="https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz",u.onload=function(){e.amplitude.runQueuedFunctions||console.log("[Amplitude] Error: could not load SDK")};var c=t.getElementsByTagName("script")[0];c.parentNode.insertBefore(u,c);var l=function(){return this._q=[],this},p=["add","append","clearAll","prepend","set","setOnce","unset","preInsert","postInsert","remove","getUserProperties"];for(var d=0;d<p.length;d++)n(l,p[d]);r.Identify=l;var f=function(){return this._q=[],this},v=["getEventProperties","setProductId","setQuantity","setPrice","setRevenue","setRevenueType","setEventProperties"];for(var h=0;h<v.length;h++)n(f,v[h]);r.Revenue=f;var m=["getDeviceId","setDeviceId","getSessionId","setSessionId","getUserId","setUserId","setOptOut","setTransport","reset","setLibrary"],g=["init","add","remove","track","logEvent","identify","groupIdentify","setGroup","revenue","flush"];a(r),r.createInstance=function(e){return r._iq[e]={_q:[]},a(r._iq[e]),r._iq[e]},e.amplitude=r}}(window,document)}();
-
-  amplitude.init('87529341cb075dcdbefabce3994958aa', {
-    defaultTracking: {
-      pageViews: true,
-      sessions: true,
-      formInteractions: true,
-      fileDownloads: true
-    },
-    serverZone: 'US',
-    minIdLength: 1
-  });
+  // ─── Amplitude 초기화 (Script Loader 방식) ───
+  // SDK는 HTML <head>에서 cdn.amplitude.com/script/API_KEY.js 로 로드됨
+  // Script Loader는 amplitude 전역 객체를 자동 생성하고 큐잉을 지원함
+  // 중복 init 방지
+  if (!window._bdAmplitudeInitialized && typeof window.amplitude !== 'undefined') {
+    window._bdAmplitudeInitialized = true;
+    amplitude.init('87529341cb075dcdbefabce3994958aa', {
+      autocapture: {
+        attribution: true,
+        pageViews: true,
+        sessions: true,
+        formInteractions: true,
+        fileDownloads: true,
+        elementInteractions: false
+      },
+      serverZone: 'US',
+      minIdLength: 1,
+      flushIntervalMillis: 1000,
+      flushQueueSize: 30,
+      logLevel: 0 // None in production
+    });
+  }
 
   // ═══════════════════════════════════════════════════════
   // 1. 유틸리티 함수들
@@ -137,38 +152,20 @@
   var deviceType = getDeviceType();
   var browser = getBrowser();
 
-  // Identify를 안전하게 실행하는 래퍼 — SDK 완전 로드 후 실행
-  var _identifyQueue = [];
-  var _sdkReady = false;
-
-  // SDK 로드 완료 감지
-  function checkSDKReady() {
-    if (window.amplitude && amplitude.runQueuedFunctions) {
-      _sdkReady = true;
-      // 큐에 쌓인 Identify 일괄 실행
-      _identifyQueue.forEach(function(fn) {
-        try {
-          var id = new amplitude.Identify();
-          fn(id);
-          amplitude.identify(id);
-        } catch(e) { /* silent */ }
-      });
-      _identifyQueue = [];
-    } else {
-      setTimeout(checkSDKReady, 300);
-    }
-  }
-  setTimeout(checkSDKReady, 500); // 첫 체크는 500ms 후
-
+  // Identify 안전 실행 래퍼 — Script Loader가 자동 큐잉 지원
   function safeIdentify(fn) {
-    if (_sdkReady) {
-      try {
+    try {
+      if (typeof amplitude !== 'undefined' && amplitude.Identify) {
         var id = new amplitude.Identify();
         fn(id);
         amplitude.identify(id);
-      } catch(e) { /* silent */ }
-    } else {
-      _identifyQueue.push(fn);
+      }
+    } catch(e) {
+      // Amplitude SDK 아직 로드 중 — 200ms 후 재시도 (최대 1회)
+      if (!safeIdentify._retried) {
+        safeIdentify._retried = true;
+        setTimeout(function() { safeIdentify(fn); }, 200);
+      }
     }
   }
 
@@ -718,7 +715,7 @@
       });
     });
 
-    console.log('[BD Analytics v2] GA4 + Amplitude 초기화 완료 | page_type=' + pageType + ' | channel=' + refInfo.channel + '/' + refInfo.source);
+    console.log('[BD Analytics v3] GA4 + Amplitude(Script Loader) 초기화 완료 | page_type=' + pageType + ' | channel=' + refInfo.channel + '/' + refInfo.source);
   });
 
 })();
