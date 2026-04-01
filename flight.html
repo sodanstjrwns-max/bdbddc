@@ -431,7 +431,7 @@
   <div class="screen active" id="introScreen">
     <div class="intro-tooth">🦷</div>
     <div class="intro-title">치석 플라이트</div>
-    <div class="intro-subtitle">치석을 피하고 치아를 지켜라!</div>
+    <div class="intro-subtitle">치석을 쏘고! 피하고! 치아를 지켜라!</div>
 
     <div class="intro-enemies">
       <div class="intro-enemy">
@@ -454,8 +454,9 @@
 
     <div class="intro-how">
       <div class="intro-how-title">🎮 조작법</div>
-      <div class="intro-how-row"><span>📱</span> 화면 터치로 치아 이동</div>
-      <div class="intro-how-row"><span>⌨️</span> 방향키 또는 마우스 클릭</div>
+      <div class="intro-how-row"><span>📱</span> 화면 터치로 치아 이동 + 미사일 발사</div>
+      <div class="intro-how-row"><span>⌨️</span> 방향키 이동 / 스페이스바 발사</div>
+      <div class="intro-how-row"><span>🔫</span> 치약 미사일로 적을 파괴하세요!</div>
       <div class="intro-how-row"><span>❤️</span> HP 3개, 0이 되면 게임 오버</div>
       <div class="intro-how-row"><span>⚡</span> 아이템 먹으면 파워업!</div>
     </div>
@@ -545,9 +546,18 @@
   // Entities
   var enemies = [];
   var items = [];
+  var missiles = [];
   var particles = [];
   var bgStars = [];
   var floatingTexts = [];
+
+  // Missile system
+  var missileTimer = 0;
+  var missileInterval = 300; // ms between auto shots
+  var missileSpeed = 600; // px/sec
+  var missileLevel = 1; // 1=single, 2=double, 3=triple
+  var missileLevelTimer = 0;
+  var killCount = 0;
 
   // Input
   var inputX = null;
@@ -555,15 +565,15 @@
 
   // Enemy types
   var ENEMY_TYPES = {
-    tartar: { emoji: '🪨', name: '치석', w: 36, h: 36, speed: 1.5, hp: 1, score: 0, zigzag: false },
-    cavity: { emoji: '🦠', name: '충치균', w: 32, h: 32, speed: 2.2, hp: 1, score: 0, zigzag: true },
-    sugar:  { emoji: '🍬', name: '당분', w: 26, h: 26, speed: 3.0, hp: 1, score: 0, zigzag: false },
-    soda:   { emoji: '🥤', name: '산성음료', w: 44, h: 50, speed: 1.2, hp: 1, score: 0, damage: 2, zigzag: false }
+    tartar: { emoji: '🪨', name: '치석', w: 36, h: 36, speed: 1.5, hp: 2, killScore: 80, zigzag: false },
+    cavity: { emoji: '🦠', name: '충치균', w: 32, h: 32, speed: 2.2, hp: 1, killScore: 60, zigzag: true },
+    sugar:  { emoji: '🍬', name: '당분', w: 26, h: 26, speed: 3.0, hp: 1, killScore: 100, zigzag: false },
+    soda:   { emoji: '🥤', name: '산성음료', w: 44, h: 50, speed: 1.2, hp: 4, killScore: 200, damage: 2, zigzag: false }
   };
 
   // Item types
   var ITEM_TYPES = {
-    toothbrush: { emoji: '🪥', name: '칫솔', w: 30, h: 30, effect: 'shield', duration: 5000, desc: '🛡️ 5초 무적!' },
+    toothbrush: { emoji: '🪥', name: '칫솔', w: 30, h: 30, effect: 'powershot', duration: 8000, desc: '🔥 3연발 파워샷!' },
     floss:      { emoji: '🧵', name: '치실', w: 28, h: 28, effect: 'clearAll', duration: 0, desc: '💥 전체 클리어!' },
     fluoride:   { emoji: '💊', name: '불소', w: 28, h: 28, effect: 'heal', duration: 0, desc: '💚 HP 회복!' }
   };
@@ -654,8 +664,13 @@
     difficultyLevel = 0;
     enemies = [];
     items = [];
+    missiles = [];
     particles = [];
     floatingTexts = [];
+    missileTimer = 0;
+    missileLevel = 1;
+    missileLevelTimer = 0;
+    killCount = 0;
 
     updateHud();
     gameRunning = true;
@@ -710,6 +725,16 @@
     // Update enemies
     updateEnemies(dt, speedMult);
 
+    // Auto-fire missiles
+    missileTimer += dt;
+    if (missileTimer >= missileInterval) {
+      missileTimer -= missileInterval;
+      fireMissile();
+    }
+
+    // Update missiles
+    updateMissiles(dt);
+
     // Update items
     updateItems(dt);
 
@@ -718,6 +743,15 @@
 
     // Update floating texts
     updateFloatingTexts(dt);
+
+    // Powershot timer
+    if (missileLevel > 1) {
+      missileLevelTimer -= dt;
+      if (missileLevelTimer <= 0) {
+        missileLevel = 1;
+        missileInterval = 300; // Reset fire rate
+      }
+    }
 
     // Shield timer
     if (player.shieldActive) {
@@ -803,6 +837,7 @@
       y: -type.h,
       w: type.w,
       h: type.h,
+      hp: type.hp || 1,
       speed: type.speed * speedMult,
       damage: type.damage || 1,
       zigzag: type.zigzag,
@@ -811,7 +846,8 @@
       zigzagAmp: 30 + Math.random() * 40,
       passed: false,
       rotation: 0,
-      rotSpeed: (Math.random() - 0.5) * 2
+      rotSpeed: (Math.random() - 0.5) * 2,
+      hitFlash: 0
     };
     enemies.push(enemy);
   }
@@ -834,6 +870,95 @@
     });
   }
 
+  // ---- MISSILE SYSTEM ----
+  function fireMissile() {
+    if (!gameRunning || gamePaused) return;
+    
+    var baseX = player.x;
+    var baseY = player.y - 25;
+    
+    if (missileLevel >= 3) {
+      // Triple shot
+      missiles.push({ x: baseX, y: baseY, w: 6, h: 14, speed: missileSpeed });
+      missiles.push({ x: baseX - 16, y: baseY + 8, w: 5, h: 12, speed: missileSpeed * 0.95, angle: -0.15 });
+      missiles.push({ x: baseX + 16, y: baseY + 8, w: 5, h: 12, speed: missileSpeed * 0.95, angle: 0.15 });
+    } else if (missileLevel >= 2) {
+      // Double shot
+      missiles.push({ x: baseX - 10, y: baseY, w: 6, h: 14, speed: missileSpeed });
+      missiles.push({ x: baseX + 10, y: baseY, w: 6, h: 14, speed: missileSpeed });
+    } else {
+      // Single shot
+      missiles.push({ x: baseX, y: baseY, w: 5, h: 12, speed: missileSpeed });
+    }
+  }
+
+  function updateMissiles(dt) {
+    var dtSec = dt / 1000;
+    for (var m = missiles.length - 1; m >= 0; m--) {
+      var ms = missiles[m];
+      var angle = ms.angle || 0;
+      ms.y -= ms.speed * dtSec;
+      ms.x += Math.sin(angle) * ms.speed * dtSec;
+      
+      // Check collision with enemies
+      var hit = false;
+      for (var e = enemies.length - 1; e >= 0; e--) {
+        var en = enemies[e];
+        if (missileHitsEnemy(ms, en)) {
+          en.hp = (en.hp || 1) - 1;
+          hit = true;
+          
+          // Spawn small hit particles
+          for (var p = 0; p < 4; p++) {
+            var a = Math.random() * Math.PI * 2;
+            particles.push({
+              x: ms.x, y: ms.y,
+              vx: Math.cos(a) * 80, vy: Math.sin(a) * 80,
+              size: 2 + Math.random() * 2, color: '#7C3AED',
+              life: 0.3, maxLife: 0.3, alpha: 1
+            });
+          }
+          
+          if (en.hp <= 0) {
+            // Enemy destroyed!
+            var killScore = Math.round((ENEMY_TYPES[en.type].killScore || 50) * multiplier);
+            score += killScore;
+            killCount++;
+            combo++;
+            if (combo > maxCombo) maxCombo = combo;
+            
+            addFloatingText(en.x, en.y, '+' + killScore + ' 💥', '#F59E0B');
+            spawnHitParticles(en.x, en.y, '#EF4444');
+            
+            // Combo multiplier at 5+ kills
+            if (combo >= 5 && combo % 5 === 0) {
+              multiplier = 1.5;
+              showMultiplier();
+            }
+            
+            enemies.splice(e, 1);
+          } else {
+            // Enemy hit but not dead — flash effect
+            en.hitFlash = 150; // ms
+          }
+          break;
+        }
+      }
+      
+      // Remove if hit or offscreen
+      if (hit || ms.y < -20) {
+        missiles.splice(m, 1);
+      }
+    }
+  }
+
+  function missileHitsEnemy(m, e) {
+    return m.x - m.w/2 < e.x + e.w/2 &&
+           m.x + m.w/2 > e.x - e.w/2 &&
+           m.y - m.h/2 < e.y + e.h/2 &&
+           m.y + m.h/2 > e.y - e.h/2;
+  }
+
   // ---- UPDATE ENTITIES ----
   function updateEnemies(dt, speedMult) {
     var dtSec = dt / 1000;
@@ -841,6 +966,12 @@
       var e = enemies[i];
       e.y += e.speed * 200 * dtSec;
       e.rotation += e.rotSpeed * dtSec;
+      
+      // Hit flash decay
+      if (e.hitFlash) {
+        e.hitFlash -= dt;
+        if (e.hitFlash <= 0) e.hitFlash = 0;
+      }
 
       // Zigzag
       if (e.zigzag) {
@@ -980,15 +1111,20 @@
     score += Math.round(100 * multiplier);
 
     // Effect
-    if (type.effect === 'shield') {
+    if (type.effect === 'powershot') {
+      missileLevel = 3;
+      missileLevelTimer = type.duration;
+      missileInterval = 200; // Faster fire rate
+      // Also brief invincibility
       player.shieldActive = true;
-      player.shieldTimer = type.duration;
+      player.shieldTimer = 2000;
       player.invincible = true;
     } else if (type.effect === 'clearAll') {
       // Kill all enemies
       enemies.forEach(function(e) {
         spawnHitParticles(e.x, e.y, '#3B82F6');
         score += Math.round(30 * multiplier);
+        killCount++;
       });
       enemies = [];
     } else if (type.effect === 'heal') {
@@ -1054,10 +1190,58 @@
       ctx.save();
       ctx.translate(e.x, e.y);
       ctx.rotate(e.rotation);
+      
+      // Hit flash effect (white overlay when damaged)
+      if (e.hitFlash && e.hitFlash > 0) {
+        ctx.globalAlpha = 0.5 + Math.sin(performance.now() * 0.03) * 0.5;
+      }
+      
       ctx.font = e.w + 'px serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(e.emoji, 0, 0);
+      
+      // HP bar for enemies with hp > 1
+      var maxHp = ENEMY_TYPES[e.type] ? ENEMY_TYPES[e.type].hp : 1;
+      if (maxHp > 1) {
+        var barW = e.w * 0.9;
+        var barH = 4;
+        var barX = -barW / 2;
+        var barY = -e.h / 2 - 8;
+        ctx.globalAlpha = 0.7;
+        ctx.fillStyle = '#333';
+        ctx.fillRect(barX, barY, barW, barH);
+        var hpRatio = Math.max(0, e.hp / maxHp);
+        ctx.fillStyle = hpRatio > 0.5 ? '#10B981' : hpRatio > 0.25 ? '#F59E0B' : '#EF4444';
+        ctx.fillRect(barX, barY, barW * hpRatio, barH);
+        ctx.globalAlpha = 1;
+      }
+      
+      ctx.restore();
+    });
+
+    // Missiles
+    missiles.forEach(function(m) {
+      ctx.save();
+      ctx.translate(m.x, m.y);
+      // Glow
+      ctx.shadowColor = missileLevel >= 3 ? '#EC4899' : '#7C3AED';
+      ctx.shadowBlur = missileLevel >= 3 ? 12 : 8;
+      // Missile body (elongated glow)
+      var grad = ctx.createLinearGradient(0, -m.h/2, 0, m.h/2);
+      grad.addColorStop(0, missileLevel >= 3 ? '#EC4899' : '#A78BFA');
+      grad.addColorStop(0.5, missileLevel >= 3 ? '#F472B6' : '#7C3AED');
+      grad.addColorStop(1, 'rgba(124,58,237,0.2)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, m.w / 2, m.h / 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Bright tip
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(0, -m.h/2 + 2, 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
       ctx.restore();
     });
 
@@ -1375,6 +1559,10 @@
     keys[e.key] = true;
     if (e.key === 'Escape' && gameRunning) {
       togglePause();
+    }
+    if ((e.key === ' ' || e.key === 'ArrowUp') && gameRunning && !gamePaused) {
+      e.preventDefault();
+      fireMissile(); // Manual extra shot
     }
   });
   document.addEventListener('keyup', function(e) {
