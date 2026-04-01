@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="ko" prefix="og: https://ogp.me/ns#">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <title>내 구강건강 점수는? | 서울비디치과 무료 자가진단</title>
+  <meta name="description" content="30초만에 확인하는 내 구강건강 점수! 증상을 체크하고 치아·잇몸 건강 상태를 무료로 알아보세요. 서울비디치과 무료 구강건강 테스트.">
+  <meta name="robots" content="index, follow">
+  
+  <link rel="canonical" href="https://bdbddc.com/checkup">
+  
+  <!-- OG Tags for 카카오톡 공유 -->
+  <meta property="og:title" content="🦷 내 구강건강 점수는 몇 점일까?">
+  <meta property="og:description" content="30초 자가진단으로 내 치아·잇몸 건강을 확인해보세요!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bdbddc.com/checkup">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="서울비디치과">
+  <meta property="og:image" content="https://bdbddc.com/images/og-checkup.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  
+  <!-- Preloads -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
+  <link rel="stylesheet" href="/css/site-v5.css?v=a774fa33">
+
+  <!-- Kakao SDK -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" integrity="sha384-DKYJZ8NLiK8MN4/C5P2vDfNBEf9rvMYjBhSQy5Y1svhPGelOFhRbVMxKDdkSWQz" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --brand: #6B4226;
+      --brand-gold: #C9A962;
+      --brand-gold-light: #E8D5B7;
+    }
+
+    /* ===== GAME CONTAINER ===== */
+    .checkup-page {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #FAFAF9 0%, #FFFFFF 100%);
+      padding-top: var(--header-height, 72px);
+    }
+
+    .checkup-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 24px 120px;
+    }
+
+    /* ===== HERO ===== */
+    .checkup-hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .checkup-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(107,66,38,.06);
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--brand);
+      margin-bottom: 20px;
+    }
+
+    .checkup-hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: #1C1917;
+      margin-bottom: 12px;
+    }
+
+    .checkup-hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--brand), var(--brand-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .checkup-hero p {
+      font-size: 1.05rem;
+      color: #78716C;
+      line-height: 1.7;
+    }
+
+    .checkup-hero .disclaimer {
+      font-size: 0.78rem;
+      color: #A8A29E;
+      margin-top: 8px;
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-bar {
+      position: sticky;
+      top: var(--header-height, 72px);
+      z-index: 50;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      padding: 16px 0;
+      margin-bottom: 32px;
+    }
+
+    .progress-track {
+      height: 6px;
+      background: #F5F4F2;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand), var(--brand-gold));
+      border-radius: 3px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #A8A29E;
+    }
+
+    .progress-text .current { color: var(--brand); }
+
+    /* ===== STEP SCREENS ===== */
+    .step-screen {
+      display: none;
+      animation: fadeUp 0.4s ease;
+    }
+
+    .step-screen.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-question {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #1C1917;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .step-sub {
+      font-size: 0.9rem;
+      color: #78716C;
+      margin-bottom: 28px;
+    }
+
+    /* ===== OPTION CARDS ===== */
+    .option-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      background: #FFFFFF;
+      border: 2px solid #E8E6E3;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+
+    .option-card:hover {
+      border-color: var(--brand-gold-light);
+      background: #FAFAF9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .option-card.selected {
+      border-color: var(--brand);
+      background: rgba(107,66,38,0.03);
+      box-shadow: 0 0 0 3px rgba(107,66,38,0.08);
+    }
+
+    .option-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(107,66,38,0.06);
+      border-radius: 12px;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .option-card.selected .option-icon {
+      background: var(--brand);
+      color: white;
+    }
+
+    .option-text {
+      flex: 1;
+    }
+
+    .option-text h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1C1917;
+      margin-bottom: 2px;
+    }
+
+    .option-text p {
+      font-size: 0.82rem;
+      color: #A8A29E;
+      line-height: 1.4;
+    }
+
+    .option-check {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #D6D3CE;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+      font-size: 0.7rem;
+      color: transparent;
+    }
+
+    .option-card.selected .option-check {
+      border-color: var(--brand);
+      background: var(--brand);
+      color: white;
+    }
+
+    /* ===== MULTI SELECT HINT ===== */
+    .multi-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(201,169,98,0.1);
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--brand-gold);
+      margin-bottom: 20px;
+    }
+
+    /* ===== NAV BUTTONS ===== */
+    .step-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .btn-prev {
+      padding: 14px 28px;
+      background: #F5F4F2;
+      color: #57534E;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-prev:hover { background: #E8E6E3; }
+
+    .btn-next {
+      flex: 1;
+      padding: 14px 28px;
+      background: var(--brand);
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-next:hover { background: #4A2E1A; transform: translateY(-1px); }
+    .btn-next:disabled { background: #D6D3CE; cursor: not-allowed; transform: none; }
+
+    /* ===== ANALYZING SCREEN ===== */
+    .analyzing {
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .analyzing-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 32px;
+      position: relative;
+    }
+
+    .tooth-spin {
+      font-size: 3rem;
+      animation: toothPulse 1.5s ease infinite;
+      display: block;
+      line-height: 100px;
+    }
+
+    @keyframes toothPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .analyzing-ring {
+      position: absolute;
+      inset: 0;
+      border: 3px solid #F5F4F2;
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .analyzing h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .analyzing p { color: #78716C; }
+
+    .analyzing-steps {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .analyzing-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #A8A29E;
+      transition: color 0.3s;
+    }
+
+    .analyzing-step.done { color: var(--brand); }
+    .analyzing-step i { width: 20px; text-align: center; }
+
+    /* ===== RESULT SCREEN ===== */
+    .result-screen { display: none; }
+    .result-screen.active { display: block; animation: fadeUp 0.5s ease; }
+
+    .result-card {
+      background: white;
+      border: 1px solid #E8E6E3;
+      border-radius: 24px;
+      padding: 48px 36px;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--brand), var(--brand-gold));
+    }
+
+    .result-grade {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .grade-good { background: rgba(16,185,129,0.1); color: #10B981; }
+    .grade-caution { background: rgba(245,158,11,0.1); color: #F59E0B; }
+    .grade-warning { background: rgba(239,68,68,0.1); color: #EF4444; }
+    .grade-danger { background: rgba(239,68,68,0.15); color: #DC2626; }
+
+    .score-circle {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+
+    .score-circle svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .score-bg {
+      fill: none;
+      stroke: #F5F4F2;
+      stroke-width: 10;
+    }
+
+    .score-ring {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 502;
+      stroke-dashoffset: 502;
+      transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .score-value {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-number {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--brand), var(--brand-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .score-label {
+      font-size: 0.85rem;
+      color: #A8A29E;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .result-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1C1917;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .result-desc {
+      font-size: 0.95rem;
+      color: #78716C;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* Detail Bars */
+    .detail-section {
+      margin-top: 32px;
+      text-align: left;
+    }
+
+    .detail-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #A8A29E;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .detail-bar {
+      margin-bottom: 16px;
+    }
+
+    .detail-bar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .detail-bar-header span:first-child {
+      font-weight: 700;
+      color: #1C1917;
+    }
+
+    .detail-bar-header span:last-child {
+      font-weight: 800;
+      color: var(--brand);
+    }
+
+    .detail-track {
+      height: 8px;
+      background: #F5F4F2;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .detail-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s ease 0.5s;
+      width: 0%;
+    }
+
+    .fill-good { background: linear-gradient(90deg, #10B981, #34D399); }
+    .fill-caution { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+    .fill-warning { background: linear-gradient(90deg, #F97316, #FB923C); }
+    .fill-danger { background: linear-gradient(90deg, #EF4444, #F87171); }
+
+    /* Recommendations */
+    .recommend-section {
+      margin-top: 36px;
+      text-align: left;
+    }
+
+    .recommend-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      background: rgba(107,66,38,0.03);
+      border: 1px solid rgba(107,66,38,0.1);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .recommend-card:hover {
+      border-color: var(--brand);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .recommend-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--brand);
+      color: white;
+      border-radius: 10px;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .recommend-text {
+      flex: 1;
+    }
+
+    .recommend-text h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1C1917;
+    }
+
+    .recommend-text p {
+      font-size: 0.78rem;
+      color: #78716C;
+    }
+
+    .recommend-arrow {
+      color: #A8A29E;
+      font-size: 0.85rem;
+    }
+
+    /* Share / CTA Buttons */
+    .result-actions {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-share-kakao {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
+      background: #FEE500;
+      color: #191919;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-share-kakao:hover { filter: brightness(0.95); transform: translateY(-1px); }
+
+    .btn-reserve-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
+      background: var(--brand);
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-reserve-cta:hover { background: #4A2E1A; transform: translateY(-1px); }
+
+    .btn-retry {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px;
+      background: transparent;
+      color: #78716C;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 2px solid #E8E6E3;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-retry:hover { border-color: var(--brand); color: var(--brand); }
+
+    .result-disclaimer {
+      margin-top: 24px;
+      font-size: 0.72rem;
+      color: #A8A29E;
+      line-height: 1.5;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .checkup-container { padding: 32px 16px 140px; }
+      .result-card { padding: 36px 20px; }
+      .score-circle { width: 150px; height: 150px; }
+      .score-number { font-size: 2.8rem; }
+      .step-question { font-size: 1.15rem; }
+      .option-card { padding: 14px 16px; gap: 12px; }
+      .option-icon { width: 38px; height: 38px; font-size: 1rem; }
+    }
+  </style>
+
+<script src="/js/analytics.js?v=20260330" defer></script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <!-- ■ Header (shared) -->
+  <div id="gnb-root"></div>
+  <div class="header-spacer"></div>
+
+  <main class="checkup-page">
+    <div class="checkup-container">
+      
+      <!-- ===== HERO ===== -->
+      <div class="checkup-hero" id="checkupHero">
+        <div class="checkup-badge"><i class="fas fa-tooth"></i> 무료 구강건강 테스트</div>
+        <h1>내 <em>구강건강</em> 점수는<br>몇 점일까?</h1>
+        <p>간단한 질문에 답하고 내 치아·잇몸 건강 상태를 확인하세요!</p>
+        <p class="disclaimer">* 재미로 보는 테스트이며 의료 진단이 아닙니다</p>
+        <div style="margin-top:28px;">
+          <button class="btn-next" onclick="startGame()" style="max-width:300px; margin:0 auto;">
+            <i class="fas fa-play"></i>&nbsp; 테스트 시작하기
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== PROGRESS BAR ===== -->
+      <div class="progress-bar" id="progressBar" style="display:none;">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text">
+          <span class="current" id="progressLabel">1 / 7</span>
+          <span id="progressPercent">0%</span>
+        </div>
+      </div>
+
+      <!-- ===== STEP 1: 증상 ===== -->
+      <div class="step-screen" id="step1">
+        <h2 class="step-question">현재 느끼는 증상이 있나요?</h2>
+        <div class="multi-hint"><i class="fas fa-hand-pointer"></i> 해당되는 것 모두 선택</div>
+        <div class="option-grid" data-step="1" data-multi="true">
+          <div class="option-card" data-value="bleeding" data-score="15">
+            <div class="option-icon"><i class="fas fa-tint"></i></div>
+            <div class="option-text">
+              <h4>잇몸 출혈</h4>
+              <p>양치할 때 피가 나요</p>
+            </div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="sensitivity" data-score="12">
+            <div class="option-icon"><i class="fas fa-bolt"></i></div>
+            <div class="option-text">
+              <h4>시린 이</h4>
+              <p>차갑거나 뜨거운 것에 시려요</p>
+            </div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="pain" data-score="18">
+            <div class="option-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="option-text">
+              <h4>치통</h4>
+              <p>특정 치아가 아파요</p>
+            </div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="breath" data-score="8">
+            <div class="option-icon"><i class="fas fa-wind"></i></div>
+            <div class="option-text">
+              <h4>입냄새</h4>
+              <p>입냄새가 신경 쓰여요</p>
+            </div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="swelling" data-score="14">
+            <div class="option-icon"><i class="fas fa-circle"></i></div>
+            <div class="option-text">
+              <h4>잇몸 부음</h4>
+              <p>잇몸이 붓거나 빨개요</p>
+            </div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="none" data-score="0">
+            <div class="option-icon"><i class="fas fa-smile"></i></div>
+            <div class="option-text">
+              <h4>없음</h4>
+              <p>특별한 증상 없어요</p>
+            </div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-next" onclick="nextStep(2)">다음 <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 2: 스케일링 ===== -->
+      <div class="step-screen" id="step2">
+        <h2 class="step-question">마지막 스케일링은 언제였나요?</h2>
+        <p class="step-sub">정기적인 스케일링은 구강건강의 기본이에요</p>
+        <div class="option-grid" data-step="2">
+          <div class="option-card" data-value="6m" data-score="0">
+            <div class="option-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="option-text"><h4>6개월 이내</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="1y" data-score="8">
+            <div class="option-icon"><i class="fas fa-calendar"></i></div>
+            <div class="option-text"><h4>6개월 ~ 1년</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="2y" data-score="15">
+            <div class="option-icon"><i class="fas fa-calendar-times"></i></div>
+            <div class="option-text"><h4>1년 ~ 2년</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="never" data-score="20">
+            <div class="option-icon"><i class="fas fa-question-circle"></i></div>
+            <div class="option-text"><h4>2년 이상 or 기억 안 남</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="prevStep(1)"><i class="fas fa-arrow-left"></i> 이전</button>
+          <button class="btn-next" onclick="nextStep(3)" disabled>다음 <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 3: 양치 습관 ===== -->
+      <div class="step-screen" id="step3">
+        <h2 class="step-question">하루에 양치를 몇 번 하나요?</h2>
+        <p class="step-sub">올바른 양치 습관이 충치 예방의 첫걸음!</p>
+        <div class="option-grid" data-step="3">
+          <div class="option-card" data-value="3+" data-score="0">
+            <div class="option-icon"><i class="fas fa-star"></i></div>
+            <div class="option-text"><h4>3번 이상</h4><p>식후마다 꼼꼼히!</p></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="2" data-score="5">
+            <div class="option-icon"><i class="fas fa-thumbs-up"></i></div>
+            <div class="option-text"><h4>2번</h4><p>아침저녁으로</p></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="1" data-score="12">
+            <div class="option-icon"><i class="fas fa-meh"></i></div>
+            <div class="option-text"><h4>1번</h4><p>귀찮아서...</p></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="0" data-score="18">
+            <div class="option-icon"><i class="fas fa-tired"></i></div>
+            <div class="option-text"><h4>가끔 안 해요</h4><p>솔직히 빠뜨릴 때가...</p></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> 이전</button>
+          <button class="btn-next" onclick="nextStep(4)" disabled>다음 <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 4: 치실/치간칫솔 ===== -->
+      <div class="step-screen" id="step4">
+        <h2 class="step-question">치실이나 치간칫솔을 사용하나요?</h2>
+        <p class="step-sub">양치만으로는 치아 사이 세균을 제거할 수 없어요</p>
+        <div class="option-grid" data-step="4">
+          <div class="option-card" data-value="daily" data-score="0">
+            <div class="option-icon"><i class="fas fa-medal"></i></div>
+            <div class="option-text"><h4>매일 사용</h4><p>칫솔질 + 치실은 기본!</p></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="sometimes" data-score="6">
+            <div class="option-icon"><i class="fas fa-random"></i></div>
+            <div class="option-text"><h4>가끔 사용</h4><p>생각날 때만...</p></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="never" data-score="12">
+            <div class="option-icon"><i class="fas fa-times"></i></div>
+            <div class="option-text"><h4>사용 안 함</h4><p>써본 적 없어요</p></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> 이전</button>
+          <button class="btn-next" onclick="nextStep(5)" disabled>다음 <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 5: 흡연/음주 ===== -->
+      <div class="step-screen" id="step5">
+        <h2 class="step-question">흡연 또는 음주를 하나요?</h2>
+        <p class="step-sub">흡연과 음주는 잇몸 질환 위험을 높여요</p>
+        <div class="option-grid" data-step="5">
+          <div class="option-card" data-value="neither" data-score="0">
+            <div class="option-icon"><i class="fas fa-ban"></i></div>
+            <div class="option-text"><h4>둘 다 안 해요</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="drink" data-score="5">
+            <div class="option-icon"><i class="fas fa-wine-glass-alt"></i></div>
+            <div class="option-text"><h4>음주만 가끔</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="smoke" data-score="12">
+            <div class="option-icon"><i class="fas fa-smoking"></i></div>
+            <div class="option-text"><h4>흡연을 해요</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="both" data-score="15">
+            <div class="option-icon"><i class="fas fa-smoking"></i></div>
+            <div class="option-text"><h4>둘 다 해요</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="prevStep(4)"><i class="fas fa-arrow-left"></i> 이전</button>
+          <button class="btn-next" onclick="nextStep(6)" disabled>다음 <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 6: 치과 공포 ===== -->
+      <div class="step-screen" id="step6">
+        <h2 class="step-question">치과가 무섭거나 꺼려지나요?</h2>
+        <p class="step-sub">괜찮아요, 솔직하게 답해주세요 😊</p>
+        <div class="option-grid" data-step="6">
+          <div class="option-card" data-value="no" data-score="0">
+            <div class="option-icon"><i class="fas fa-grin-beam"></i></div>
+            <div class="option-text"><h4>아니요, 괜찮아요</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="little" data-score="3">
+            <div class="option-icon"><i class="fas fa-meh"></i></div>
+            <div class="option-text"><h4>약간 긴장돼요</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="scared" data-score="5">
+            <div class="option-icon"><i class="fas fa-frown"></i></div>
+            <div class="option-text"><h4>무서워서 미루게 돼요</h4><p>치과 예약이 어려워요</p></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="phobia" data-score="8">
+            <div class="option-icon"><i class="fas fa-dizzy"></i></div>
+            <div class="option-text"><h4>치과 공포증이에요</h4><p>생각만 해도 떨려요</p></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="prevStep(5)"><i class="fas fa-arrow-left"></i> 이전</button>
+          <button class="btn-next" onclick="nextStep(7)" disabled>다음 <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 7: 연령대 ===== -->
+      <div class="step-screen" id="step7">
+        <h2 class="step-question">연령대를 알려주세요</h2>
+        <p class="step-sub">연령에 따라 구강 관리 포인트가 달라요</p>
+        <div class="option-grid" data-step="7">
+          <div class="option-card" data-value="10s" data-score="0">
+            <div class="option-icon">🧒</div>
+            <div class="option-text"><h4>10대</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="20s" data-score="0">
+            <div class="option-icon">👩</div>
+            <div class="option-text"><h4>20~30대</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="40s" data-score="5">
+            <div class="option-icon">👨‍💼</div>
+            <div class="option-text"><h4>40~50대</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+          <div class="option-card" data-value="60s" data-score="8">
+            <div class="option-icon">👴</div>
+            <div class="option-text"><h4>60대 이상</h4></div>
+            <div class="option-check"><i class="fas fa-check"></i></div>
+          </div>
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="prevStep(6)"><i class="fas fa-arrow-left"></i> 이전</button>
+          <button class="btn-next" onclick="showAnalyzing()">결과 보기 <i class="fas fa-chart-bar"></i></button>
+        </div>
+      </div>
+
+      <!-- ===== ANALYZING ===== -->
+      <div class="step-screen" id="analyzingScreen">
+        <div class="analyzing">
+          <div class="analyzing-icon">
+            <span class="tooth-spin">🦷</span>
+            <div class="analyzing-ring"></div>
+          </div>
+          <h2>분석 중...</h2>
+          <p>입력하신 정보를 바탕으로 구강건강 점수를 계산하고 있어요</p>
+          <div class="analyzing-steps">
+            <div class="analyzing-step" id="aStep1"><i class="fas fa-circle-notch fa-spin"></i> 증상 분석 중...</div>
+            <div class="analyzing-step" id="aStep2"><i class="fas fa-circle-notch fa-spin"></i> 생활습관 평가 중...</div>
+            <div class="analyzing-step" id="aStep3"><i class="fas fa-circle-notch fa-spin"></i> 종합 점수 계산 중...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== RESULT ===== -->
+      <div class="result-screen" id="resultScreen">
+        <div class="result-card">
+          <div class="result-grade" id="resultGrade"></div>
+
+          <div class="score-circle">
+            <svg viewBox="0 0 180 180">
+              <circle class="score-bg" cx="90" cy="90" r="80"/>
+              <circle class="score-ring" id="scoreRing" cx="90" cy="90" r="80"/>
+            </svg>
+            <div class="score-value">
+              <div class="score-number" id="scoreNumber">0</div>
+              <div class="score-label">/ 100점</div>
+            </div>
+          </div>
+
+          <h2 class="result-title" id="resultTitle"></h2>
+          <p class="result-desc" id="resultDesc"></p>
+
+          <div class="detail-section">
+            <div class="detail-title">상세 분석</div>
+            <div class="detail-bar">
+              <div class="detail-bar-header">
+                <span>🦷 치아 건강</span>
+                <span id="toothScore">-</span>
+              </div>
+              <div class="detail-track"><div class="detail-fill" id="toothFill"></div></div>
+            </div>
+            <div class="detail-bar">
+              <div class="detail-bar-header">
+                <span>🩸 잇몸 건강</span>
+                <span id="gumScore">-</span>
+              </div>
+              <div class="detail-track"><div class="detail-fill" id="gumFill"></div></div>
+            </div>
+            <div class="detail-bar">
+              <div class="detail-bar-header">
+                <span>🪥 관리 습관</span>
+                <span id="habitScore">-</span>
+              </div>
+              <div class="detail-track"><div class="detail-fill" id="habitFill"></div></div>
+            </div>
+          </div>
+
+          <div class="recommend-section" id="recommendSection">
+            <div class="detail-title">맞춤 추천 진료</div>
+          </div>
+
+          <div class="result-actions">
+            <button class="btn-share-kakao" onclick="shareKakao()">
+              <i class="fas fa-comment"></i> 카카오톡으로 공유하기
+            </button>
+            <a href="/reservation" class="btn-reserve-cta">
+              <i class="fas fa-calendar-check"></i> 비디치과에서 정확한 진단 받기
+            </a>
+            <button class="btn-retry" onclick="retry()">
+              <i class="fas fa-redo"></i> 다시 테스트하기
+            </button>
+          </div>
+
+          <p class="result-disclaimer">
+            * 이 테스트는 재미를 위한 자가 체크이며, 의학적 진단을 대체하지 않습니다.<br>
+            정확한 구강 상태는 치과 전문의의 진료를 통해 확인하세요.
+          </p>
+        </div>
+      </div>
+
+    </div><!-- /checkup-container -->
+  </main>
+
+  <!-- ■ Floating CTA (desktop) -->
+  <div class="floating-cta desktop-only">
+    <a href="javascript:void(0)" class="floating-btn top" aria-label="맨 위로" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i><span class="tooltip">맨 위로</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="floating-btn kakao" aria-label="카카오톡 상담"><i class="fas fa-comment-dots"></i><span class="tooltip">카카오톡 상담</span></a>
+    <a href="tel:0414152892" class="floating-btn phone" aria-label="전화 상담"><i class="fas fa-phone"></i><span class="tooltip">전화 상담</span></a>
+  </div>
+
+  <!-- ■ Mobile bottom CTA -->
+  <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
+    <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
+    <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
+    <a href="/reservation" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
+    <a href="/directions" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
+  </div>
+
+  <script src="/js/gnb.js" defer></script>
+
+  <script>
+  // ============================================
+  // ORAL HEALTH CHECKUP GAME ENGINE
+  // ============================================
+
+  var TOTAL_STEPS = 7;
+  var answers = {};
+  var currentStep = 0;
+
+  // --- Option Card Click Handlers ---
+  document.querySelectorAll('.option-grid').forEach(function(grid) {
+    var isMulti = grid.dataset.multi === 'true';
+    var step = grid.dataset.step;
+
+    grid.querySelectorAll('.option-card').forEach(function(card) {
+      card.addEventListener('click', function() {
+        if (isMulti) {
+          // "없음" 선택 시 나머지 해제
+          if (card.dataset.value === 'none') {
+            grid.querySelectorAll('.option-card').forEach(function(c) { c.classList.remove('selected'); });
+            card.classList.add('selected');
+          } else {
+            // "없음" 해제
+            grid.querySelector('[data-value="none"]')?.classList.remove('selected');
+            card.classList.toggle('selected');
+          }
+        } else {
+          grid.querySelectorAll('.option-card').forEach(function(c) { c.classList.remove('selected'); });
+          card.classList.add('selected');
+        }
+
+        // Save answers
+        var selected = grid.querySelectorAll('.option-card.selected');
+        answers[step] = [];
+        selected.forEach(function(s) {
+          answers[step].push({ value: s.dataset.value, score: parseInt(s.dataset.score) || 0 });
+        });
+
+        // Enable next button
+        var nav = document.querySelector('#step' + step + ' .btn-next');
+        if (nav) nav.disabled = selected.length === 0;
+      });
+    });
+  });
+
+  function startGame() {
+    document.getElementById('checkupHero').style.display = 'none';
+    document.getElementById('progressBar').style.display = 'block';
+    currentStep = 1;
+    showStep(1);
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.step-screen').forEach(function(s) { s.classList.remove('active'); });
+    var el = document.getElementById('step' + n);
+    if (el) {
+      el.classList.add('active');
+      currentStep = n;
+      updateProgress(n);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function nextStep(n) { showStep(n); }
+  function prevStep(n) { showStep(n); }
+
+  function updateProgress(step) {
+    var pct = Math.round((step / TOTAL_STEPS) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = step + ' / ' + TOTAL_STEPS;
+    document.getElementById('progressPercent').textContent = pct + '%';
+  }
+
+  // --- Analyzing Animation ---
+  function showAnalyzing() {
+    document.querySelectorAll('.step-screen').forEach(function(s) { s.classList.remove('active'); });
+    document.getElementById('progressBar').style.display = 'none';
+    var screen = document.getElementById('analyzingScreen');
+    screen.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    var steps = ['aStep1', 'aStep2', 'aStep3'];
+    var delay = 800;
+
+    steps.forEach(function(id, i) {
+      setTimeout(function() {
+        var el = document.getElementById(id);
+        el.classList.add('done');
+        el.innerHTML = '<i class="fas fa-check-circle"></i> ' + el.textContent.replace('...', ' 완료!');
+      }, delay * (i + 1));
+    });
+
+    setTimeout(function() {
+      screen.classList.remove('active');
+      showResult();
+    }, delay * (steps.length + 1) + 300);
+  }
+
+  // --- Calculate & Show Result ---
+  function showResult() {
+    var totalPenalty = 0;
+    var symptomScore = 0;
+    var habitScore = 0;
+    var gumPenalty = 0;
+    var toothPenalty = 0;
+
+    // Step 1: Symptoms (multi)
+    if (answers['1']) {
+      answers['1'].forEach(function(a) {
+        totalPenalty += a.score;
+        if (a.value === 'bleeding' || a.value === 'swelling') gumPenalty += a.score;
+        if (a.value === 'pain' || a.value === 'sensitivity') toothPenalty += a.score;
+        if (a.value === 'breath') gumPenalty += a.score * 0.5;
+      });
+    }
+
+    // Steps 2-7: Single select
+    for (var i = 2; i <= 7; i++) {
+      if (answers[String(i)] && answers[String(i)].length > 0) {
+        var s = answers[String(i)][0].score;
+        totalPenalty += s;
+        if (i <= 4) habitScore += s;
+      }
+    }
+
+    // Final score (100 - penalties, clamped 5-100)
+    var finalScore = Math.max(5, Math.min(100, 100 - totalPenalty));
+
+    // Sub-scores
+    var toothFinal = Math.max(10, 100 - toothPenalty * 2.5 - (totalPenalty * 0.3));
+    var gumFinal = Math.max(10, 100 - gumPenalty * 2.5 - (totalPenalty * 0.3));
+    var habitFinal = Math.max(10, 100 - habitScore * 2);
+
+    // Determine grade
+    var grade, gradeClass, title, desc, ringColor;
+    if (finalScore >= 85) {
+      grade = '😁 우수'; gradeClass = 'grade-good'; ringColor = '#10B981';
+      title = '훌륭해요! 구강건강 관리를 잘 하고 계시네요';
+      desc = '현재 좋은 구강 상태를 유지하고 계십니다. 정기 검진으로 꾸준히 관리하시면 완벽해요!';
+    } else if (finalScore >= 65) {
+      grade = '😊 양호'; gradeClass = 'grade-caution'; ringColor = '#F59E0B';
+      title = '나쁘지 않아요! 조금만 더 신경 쓰면 좋겠어요';
+      desc = '전반적으로 괜찮지만, 몇 가지 개선할 점이 있어요. 정기 검진으로 미리 관리하는 것을 추천드려요.';
+    } else if (finalScore >= 40) {
+      grade = '😟 주의'; gradeClass = 'grade-warning'; ringColor = '#F97316';
+      title = '구강건강에 주의가 필요해요!';
+      desc = '현재 상태로 방치하면 악화될 수 있어요. 가까운 시일 내에 치과 방문을 권장합니다.';
+    } else {
+      grade = '🚨 위험'; gradeClass = 'grade-danger'; ringColor = '#EF4444';
+      title = '지금 바로 치과에 가보세요!';
+      desc = '여러 증상이 복합적으로 나타나고 있어요. 빠른 시일 내에 전문가 진단을 받으시길 강력히 권합니다.';
+    }
+
+    // Render result
+    document.getElementById('resultGrade').className = 'result-grade ' + gradeClass;
+    document.getElementById('resultGrade').innerHTML = grade;
+    document.getElementById('resultTitle').textContent = title;
+    document.getElementById('resultDesc').textContent = desc;
+
+    // Score ring animation
+    var ring = document.getElementById('scoreRing');
+    ring.style.stroke = ringColor;
+    var circumference = 2 * Math.PI * 80; // 502.65
+    var offset = circumference - (finalScore / 100) * circumference;
+    setTimeout(function() { ring.style.strokeDashoffset = offset; }, 100);
+
+    // Count-up score
+    var scoreEl = document.getElementById('scoreNumber');
+    var countObj = { v: 0 };
+    var countInterval = setInterval(function() {
+      countObj.v += Math.ceil(finalScore / 40);
+      if (countObj.v >= finalScore) { countObj.v = finalScore; clearInterval(countInterval); }
+      scoreEl.textContent = countObj.v;
+    }, 30);
+
+    // Detail bars
+    setDetailBar('tooth', toothFinal);
+    setDetailBar('gum', gumFinal);
+    setDetailBar('habit', habitFinal);
+
+    // Recommendations
+    buildRecommendations(finalScore, answers);
+
+    // Save for sharing
+    window._checkupResult = { score: finalScore, grade: grade, title: title };
+
+    // Show
+    var resultScreen = document.getElementById('resultScreen');
+    resultScreen.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function setDetailBar(id, score) {
+    score = Math.round(score);
+    document.getElementById(id + 'Score').textContent = score + '점';
+    var fill = document.getElementById(id + 'Fill');
+    var cls = score >= 80 ? 'fill-good' : score >= 60 ? 'fill-caution' : score >= 40 ? 'fill-warning' : 'fill-danger';
+    fill.className = 'detail-fill ' + cls;
+    setTimeout(function() { fill.style.width = score + '%'; }, 200);
+  }
+
+  function buildRecommendations(score, ans) {
+    var section = document.getElementById('recommendSection');
+    var html = '<div class="detail-title">맞춤 추천 진료</div>';
+    var recs = [];
+
+    // Based on symptoms
+    var symptoms = (ans['1'] || []).map(function(a) { return a.value; });
+    if (symptoms.includes('bleeding') || symptoms.includes('swelling')) {
+      recs.push({ icon: 'fa-teeth', title: '잇몸 치료', desc: '잇몸 출혈·부종 개선', url: '/treatments/gum' });
+    }
+    if (symptoms.includes('pain')) {
+      recs.push({ icon: 'fa-tooth', title: '충치 치료', desc: '통증 원인 정밀 진단', url: '/treatments/cavity' });
+    }
+    if (symptoms.includes('sensitivity')) {
+      recs.push({ icon: 'fa-snowflake', title: '시린이 치료', desc: '민감도 개선 치료', url: '/treatments/gum' });
+    }
+
+    // Scaling
+    var scaling = ans['2'] ? ans['2'][0]?.value : '';
+    if (scaling === '2y' || scaling === 'never') {
+      recs.push({ icon: 'fa-broom', title: '스케일링', desc: '치석 제거 + 잇몸 관리', url: '/treatments/scaling' });
+    }
+
+    // Dental phobia
+    var fear = ans['6'] ? ans['6'][0]?.value : '';
+    if (fear === 'scared' || fear === 'phobia') {
+      recs.push({ icon: 'fa-moon', title: '수면 진정 진료', desc: '무서움 없이 편안하게', url: '/treatments/sleep-sedation' });
+    }
+
+    // Default recommendation
+    if (recs.length === 0) {
+      recs.push({ icon: 'fa-search', title: '정기 검진', desc: '6개월마다 체크업 추천', url: '/reservation' });
+    }
+
+    recs.forEach(function(r) {
+      html += '<a href="' + r.url + '" class="recommend-card">' +
+        '<div class="recommend-icon"><i class="fas ' + r.icon + '"></i></div>' +
+        '<div class="recommend-text"><h4>' + r.title + '</h4><p>' + r.desc + '</p></div>' +
+        '<div class="recommend-arrow"><i class="fas fa-chevron-right"></i></div>' +
+        '</a>';
+    });
+
+    section.innerHTML = html;
+  }
+
+  // --- Kakao Share ---
+  function shareKakao() {
+    var r = window._checkupResult || { score: 0, grade: '', title: '' };
+    
+    if (window.Kakao && !Kakao.isInitialized()) {
+      // 실제 카카오 앱 키 필요 — 없으면 URL 복사 fallback
+      try {
+        Kakao.init('YOUR_KAKAO_APP_KEY');
+      } catch(e) {}
+    }
+
+    if (window.Kakao && Kakao.isInitialized()) {
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '🦷 내 구강건강 점수: ' + r.score + '점!',
+          description: r.title,
+          imageUrl: 'https://bdbddc.com/images/og-checkup.jpg',
+          link: {
+            mobileWebUrl: 'https://bdbddc.com/checkup',
+            webUrl: 'https://bdbddc.com/checkup'
+          }
+        },
+        buttons: [{
+          title: '나도 테스트하기',
+          link: {
+            mobileWebUrl: 'https://bdbddc.com/checkup',
+            webUrl: 'https://bdbddc.com/checkup'
+          }
+        }]
+      });
+    } else {
+      // Fallback: copy URL
+      var text = '🦷 내 구강건강 점수: ' + r.score + '점! ' + r.title + '\n👉 https://bdbddc.com/checkup';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function() {
+          alert('공유 링크가 복사되었습니다!\n카카오톡에 붙여넣기 해주세요 📋');
+        });
+      } else {
+        prompt('아래 텍스트를 복사해서 카카오톡에 공유하세요:', text);
+      }
+    }
+  }
+
+  // --- Retry ---
+  function retry() {
+    answers = {};
+    currentStep = 0;
+    document.querySelectorAll('.option-card').forEach(function(c) { c.classList.remove('selected'); });
+    document.querySelectorAll('.step-screen .btn-next').forEach(function(b) { b.disabled = true; });
+    document.getElementById('resultScreen').classList.remove('active');
+    document.getElementById('analyzingScreen').classList.remove('active');
+    document.getElementById('checkupHero').style.display = 'block';
+    document.getElementById('progressBar').style.display = 'none';
+    // Reset ring
+    document.getElementById('scoreRing').style.strokeDashoffset = 502;
+    document.getElementById('scoreNumber').textContent = '0';
+    // Reset detail bars
+    ['toothFill','gumFill','habitFill'].forEach(function(id) {
+      document.getElementById(id).style.width = '0%';
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  </script>
+
+</body>
+</html>
