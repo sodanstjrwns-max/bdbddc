@@ -668,6 +668,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     // Vibrate
     if (navigator.vibrate) navigator.vibrate(30);
     // Participant count is updated from real DB after result is shown
+
+    // Analytics: 테스트 시작
+    if (window.bdAnalytics && bdAnalytics.trackGameStart) {
+      bdAnalytics.trackGameStart('chbti');
+    }
   }
 
   // --- Render Question ---
@@ -915,6 +920,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     // Store result
     window._chbtiResult = { code: code, name: typeData.name, emoji: typeData.emoji };
+
+    // Analytics: 결과 조회
+    if (window.bdAnalytics && bdAnalytics.trackGameResult) {
+      bdAnalytics.trackGameResult('chbti', code, {
+        type_name: typeData.name,
+        type_emoji: typeData.emoji
+      });
+    }
+    if (window.bdAnalytics && bdAnalytics.trackGameOver) {
+      bdAnalytics.trackGameOver('chbti', 0, code, 0, { type_name: typeData.name });
+    }
     
     // Save to DB and show real stats
     saveResultToDB(code);
@@ -968,6 +984,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         if (!Kakao.isInitialized()) {
           Kakao.init('c5e7b6f82aaa722b63b2fb6e42cec872');
         }
+        // Analytics: 카카오 공유
+        if (window.bdAnalytics && bdAnalytics.trackGameShare) {
+          bdAnalytics.trackGameShare('chbti', 'kakao', { result_type: result.code, type_name: result.name });
+        }
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
@@ -997,6 +1017,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   function shareLink() {
     var result = window._chbtiResult || {};
+    // Analytics: 링크 공유
+    if (window.bdAnalytics && bdAnalytics.trackGameShare) {
+      bdAnalytics.trackGameShare('chbti', 'link_copy', { result_type: result.code, type_name: result.name });
+    }
     var text = (result.emoji || '🦷') + ' 나는 ' + (result.code || '') + ' ' + (result.name || '') + '!\n너는 뭔데? 👀 치BTI 해봐!\nhttps://bdbddc.com/checkup';
     
     if (navigator.share) {

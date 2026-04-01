@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
   <title>치석 플라이트 🦷✈️ | 서울비디치과</title>
@@ -678,6 +685,17 @@
     lastTime = performance.now();
     if (animFrameId) cancelAnimationFrame(animFrameId);
     gameLoop(lastTime);
+
+    // Analytics: 게임 시작
+    if (window.bdAnalytics && bdAnalytics.trackGameStart) {
+      bdAnalytics.trackGameStart('chistone_flight');
+    }
+    // 재시작 여부 체크
+    if (window._flightResult) {
+      if (window.bdAnalytics && bdAnalytics.trackGameRestart) {
+        bdAnalytics.trackGameRestart('chistone_flight', window._flightResult.score);
+      }
+    }
 
     // Vibrate
     if (navigator.vibrate) navigator.vibrate(50);
@@ -1465,6 +1483,17 @@
 
     // Store for sharing
     window._flightResult = { score: Math.floor(score), grade: grade.name, emoji: grade.emoji };
+
+    // Analytics: 게임 종료
+    if (window.bdAnalytics && bdAnalytics.trackGameOver) {
+      bdAnalytics.trackGameOver('chistone_flight', Math.floor(score), grade.name, survivalSec, {
+        max_combo: maxCombo,
+        dodge_count: dodgeCount,
+        item_count: itemCount,
+        kill_count: killCount,
+        missile_level: missileLevel
+      });
+    }
   }
 
   // ---- SAVE SCORE ----
@@ -1503,6 +1532,10 @@
         if (!Kakao.isInitialized()) {
           Kakao.init('c5e7b6f82aaa722b63b2fb6e42cec872');
         }
+        // Analytics: 카카오 공유
+        if (window.bdAnalytics && bdAnalytics.trackGameShare) {
+          bdAnalytics.trackGameShare('chistone_flight', 'kakao', { score: result.score, grade: result.grade });
+        }
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
@@ -1530,6 +1563,10 @@
 
   function shareLink() {
     var result = window._flightResult || {};
+    // Analytics: 링크 공유
+    if (window.bdAnalytics && bdAnalytics.trackGameShare) {
+      bdAnalytics.trackGameShare('chistone_flight', 'link_copy', { score: result.score, grade: result.grade });
+    }
     var text = result.emoji + ' 치석 플라이트 ' + (result.score || 0).toLocaleString() + '점! ' + result.grade + '\n너는 몇 점? 👀\nhttps://bdbddc.com/flight';
 
     if (navigator.share) {
@@ -1615,5 +1652,10 @@
   // Init on load
   init();
   </script>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script src="/js/analytics.js?v=20260401" defer></script>
 </body>
 </html>

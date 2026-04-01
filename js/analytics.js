@@ -38,6 +38,14 @@
   else if (path.includes('mission')) pageType = 'about';
   else if (path.includes('floor-guide')) pageType = 'about';
   else if (path.includes('notice')) pageType = 'notice';
+  else if (path.includes('flight')) pageType = 'game';
+  else if (path.includes('checkup')) pageType = 'game';
+  else if (path.includes('games')) pageType = 'game_hub';
+
+  // 게임 이름 추출
+  var gameName = '';
+  if (path.includes('flight')) gameName = 'chistone_flight';
+  else if (path.includes('checkup')) gameName = 'chbti';
 
   // 치료 이름 추출
   var treatmentName = '';
@@ -199,6 +207,113 @@
         gtag('event', 'cta_click', { event_category: 'conversion', event_label: ctaName, cta_location: ctaLocation });
       }
       amplitude.track('CTA Click', { cta_name: ctaName, cta_location: ctaLocation, page_type: pageType, page_path: path });
+    },
+
+    // ─── 게임 전용 이벤트 ───
+
+    // 게임 시작
+    trackGameStart: function(game, extra) {
+      var g = game || gameName;
+      var data = Object.assign({ game_name: g, page_path: path }, extra || {});
+      if (typeof gtag === 'function') {
+        gtag('event', 'game_start', { event_category: 'game', event_label: g, game_name: g });
+      }
+      amplitude.track('Game Start', data);
+    },
+
+    // 게임 종료 (점수, 등급, 플레이시간 등)
+    trackGameOver: function(game, score, grade, playtimeSeconds, extra) {
+      var g = game || gameName;
+      var data = Object.assign({
+        game_name: g,
+        score: score || 0,
+        grade: grade || '',
+        playtime_seconds: playtimeSeconds || 0,
+        page_path: path
+      }, extra || {});
+      if (typeof gtag === 'function') {
+        gtag('event', 'game_over', {
+          event_category: 'game',
+          event_label: g,
+          game_name: g,
+          value: score || 0,
+          grade: grade || '',
+          playtime_seconds: playtimeSeconds || 0
+        });
+      }
+      amplitude.track('Game Over', data);
+    },
+
+    // 게임 결과 공유
+    trackGameShare: function(game, method, extra) {
+      var g = game || gameName;
+      var data = Object.assign({
+        game_name: g,
+        share_method: method || 'unknown',
+        page_path: path
+      }, extra || {});
+      if (typeof gtag === 'function') {
+        gtag('event', 'game_share', {
+          event_category: 'game',
+          event_label: g,
+          share_method: method || 'unknown'
+        });
+      }
+      amplitude.track('Game Share', data);
+    },
+
+    // 게임 결과 조회 (치BTI 등)
+    trackGameResult: function(game, resultType, extra) {
+      var g = game || gameName;
+      var data = Object.assign({
+        game_name: g,
+        result_type: resultType || '',
+        page_path: path
+      }, extra || {});
+      if (typeof gtag === 'function') {
+        gtag('event', 'game_result', {
+          event_category: 'game',
+          event_label: g,
+          result_type: resultType || ''
+        });
+      }
+      amplitude.track('Game Result', data);
+    },
+
+    // 게임 허브에서 게임 선택 클릭
+    trackGameSelect: function(game, source) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'game_select', {
+          event_category: 'game',
+          event_label: game,
+          source: source || 'game_hub'
+        });
+      }
+      amplitude.track('Game Select', {
+        game_name: game,
+        source: source || 'game_hub',
+        page_path: path
+      });
+    },
+
+    // 게임 내 아이템 획득
+    trackGameItem: function(game, itemName, extra) {
+      var g = game || gameName;
+      var data = Object.assign({
+        game_name: g,
+        item_name: itemName || '',
+        page_path: path
+      }, extra || {});
+      amplitude.track('Game Item', data);
+    },
+
+    // 게임 재시작
+    trackGameRestart: function(game, lastScore) {
+      var g = game || gameName;
+      if (typeof gtag === 'function') {
+        gtag('event', 'game_restart', { event_category: 'game', event_label: g, last_score: lastScore || 0 });
+      }
+      amplitude.track('Game Restart', { game_name: g, last_score: lastScore || 0, page_path: path });
     }
   };
 
