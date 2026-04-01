@@ -258,7 +258,12 @@
             const eased = 1 - Math.pow(1 - progress, 4);
             const current = Math.floor(start + (end - start) * eased);
             
-            el.textContent = current.toLocaleString() + suffix;
+            // Preserve <span> tag for suffix styling
+            if (suffix) {
+                el.innerHTML = current.toLocaleString() + '<span>' + suffix + '</span>';
+            } else {
+                el.textContent = current.toLocaleString();
+            }
             
             if (progress < 1) {
                 requestAnimationFrame(update);
