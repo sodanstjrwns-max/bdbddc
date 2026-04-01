@@ -137,25 +137,39 @@
   var deviceType = getDeviceType();
   var browser = getBrowser();
 
-  // Identify를 안전하게 실행하는 래퍼 — SDK 로드 완료 대기
+  // Identify를 안전하게 실행하는 래퍼 — SDK 완전 로드 후 실행
+  var _identifyQueue = [];
+  var _sdkReady = false;
+
+  // SDK 로드 완료 감지
+  function checkSDKReady() {
+    if (window.amplitude && amplitude.runQueuedFunctions) {
+      _sdkReady = true;
+      // 큐에 쌓인 Identify 일괄 실행
+      _identifyQueue.forEach(function(fn) {
+        try {
+          var id = new amplitude.Identify();
+          fn(id);
+          amplitude.identify(id);
+        } catch(e) { /* silent */ }
+      });
+      _identifyQueue = [];
+    } else {
+      setTimeout(checkSDKReady, 300);
+    }
+  }
+  setTimeout(checkSDKReady, 500); // 첫 체크는 500ms 후
+
   function safeIdentify(fn) {
-    function tryRun() {
+    if (_sdkReady) {
       try {
         var id = new amplitude.Identify();
-        // Identify 클래스가 정상 로드됐는지 체크
-        if (typeof id.set !== 'function') throw new Error('not ready');
         fn(id);
         amplitude.identify(id);
-      } catch(e) {
-        // SDK 아직 미로드 — 200ms 후 재시도 (최대 5회)
-        if (!tryRun._retry) tryRun._retry = 0;
-        tryRun._retry++;
-        if (tryRun._retry < 5) {
-          setTimeout(tryRun, 200);
-        }
-      }
+      } catch(e) { /* silent */ }
+    } else {
+      _identifyQueue.push(fn);
     }
-    tryRun();
   }
 
   // 기본 유저 프로퍼티 세팅
