@@ -1,29 +1,125 @@
 # ═══════════════════════════════════════════════════════════════
 # 서울비디치과 (Seoul BD Dental) - robots.txt
 # https://bdbddc.com
-# Updated: 2026-03-22
+# Updated: 2026-04-01
 #
 # SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
-# IndexNow 프로토콜 지원
 # ═══════════════════════════════════════════════════════════════
 
-# ===== 모든 검색엔진 및 AI 봇 허용 =====
+# ===== 모든 검색엔진 허용 =====
 User-agent: *
 Allow: /
-Disallow: /components/
-Disallow: /offline.html
 Disallow: /admin/
 Disallow: /auth/
-Disallow: /css/_deprecated/
-Disallow: /docs/
-Disallow: /sw.js
 Disallow: /api/
-Disallow: /_worker.js
+Disallow: /components/
 Disallow: /column/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
 
-# 사이트맵
+# ===== Google 봇 (메인 + 이미지 + 비디오) =====
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /treatments/
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Googlebot-Video
+Allow: /video/
+Disallow: /admin/
+Disallow: /api/
+
+# ===== 네이버 봇 =====
+User-agent: Yeti
+Allow: /
+Crawl-delay: 2
+
+# ===== 빙 봇 =====
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# ===== AI/LLM 크롤러 허용 (GEO 최적화) =====
+# OpenAI
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Google AI
+User-agent: Google-Extended
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Apple
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# Common Crawl (AI 학습 데이터 소스)
+User-agent: CCBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# ===== 차단할 봇 (스팸/악성) =====
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# ===== 사이트맵 =====
 Sitemap: https://bdbddc.com/sitemap.xml
+Sitemap: https://bdbddc.com/sitemap-main.xml
+Sitemap: https://bdbddc.com/sitemap-area.xml
+Sitemap: https://bdbddc.com/sitemap-encyclopedia.xml
 
-# AI/LLM 크롤러용 사이트 정보 (AEO 최적화)
+# ===== AI/LLM 학습용 사이트 정보 =====
 # https://llmstxt.org/ 표준
 # LLMs.txt: https://bdbddc.com/llms.txt
