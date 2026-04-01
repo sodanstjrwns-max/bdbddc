@@ -129,7 +129,7 @@
   }
 
   // ═══════════════════════════════════════════════════════
-  // 2. 유저 프로퍼티 세팅
+  // 2. 유저 프로퍼티 세팅 (안전한 지연 실행)
   // ═══════════════════════════════════════════════════════
 
   var utm = getUTM();
@@ -137,45 +137,63 @@
   var deviceType = getDeviceType();
   var browser = getBrowser();
 
-  // Amplitude Identify — 유저 프로퍼티 설정
-  var identify = new amplitude.Identify();
-
-  // 디바이스/브라우저 (매번 갱신)
-  identify.set('device_type', deviceType);
-  identify.set('browser', browser);
-  identify.set('screen_width', window.screen.width);
-  identify.set('screen_height', window.screen.height);
-  identify.set('language', navigator.language || 'ko');
-  identify.set('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Seoul');
-
-  // 마지막 방문 채널 (매번 갱신)
-  identify.set('last_channel', refInfo.channel);
-  identify.set('last_source', refInfo.source);
-
-  // UTM이 있으면 갱신
-  if (utm.utm_source) {
-    identify.set('last_utm_source', utm.utm_source);
-    identify.set('last_utm_medium', utm.utm_medium);
-    identify.set('last_utm_campaign', utm.utm_campaign);
+  // Identify를 안전하게 실행하는 래퍼 — SDK 로드 완료 대기
+  function safeIdentify(fn) {
+    function tryRun() {
+      try {
+        var id = new amplitude.Identify();
+        // Identify 클래스가 정상 로드됐는지 체크
+        if (typeof id.set !== 'function') throw new Error('not ready');
+        fn(id);
+        amplitude.identify(id);
+      } catch(e) {
+        // SDK 아직 미로드 — 200ms 후 재시도 (최대 5회)
+        if (!tryRun._retry) tryRun._retry = 0;
+        tryRun._retry++;
+        if (tryRun._retry < 5) {
+          setTimeout(tryRun, 200);
+        }
+      }
+    }
+    tryRun();
   }
 
-  // 첫 방문 소스 (최초 한 번만 — setOnce)
-  identify.setOnce('first_channel', refInfo.channel);
-  identify.setOnce('first_source', refInfo.source);
-  identify.setOnce('first_referrer', document.referrer || 'direct');
-  identify.setOnce('first_landing_page', window.location.pathname);
-  identify.setOnce('first_visit_date', new Date().toISOString().split('T')[0]);
-  if (utm.utm_source) {
-    identify.setOnce('first_utm_source', utm.utm_source);
-    identify.setOnce('first_utm_medium', utm.utm_medium);
-    identify.setOnce('first_utm_campaign', utm.utm_campaign);
-  }
+  // 기본 유저 프로퍼티 세팅
+  safeIdentify(function(identify) {
+    // 디바이스/브라우저 (매번 갱신)
+    identify.set('device_type', deviceType);
+    identify.set('browser', browser);
+    identify.set('screen_width', window.screen.width);
+    identify.set('screen_height', window.screen.height);
+    identify.set('language', navigator.language || 'ko');
+    identify.set('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Seoul');
 
-  // 누적 카운터
-  identify.add('total_visits', 1);
+    // 마지막 방문 채널 (매번 갱신)
+    identify.set('last_channel', refInfo.channel);
+    identify.set('last_source', refInfo.source);
 
-  // Identify 전송
-  amplitude.identify(identify);
+    // UTM이 있으면 갱신
+    if (utm.utm_source) {
+      identify.set('last_utm_source', utm.utm_source);
+      identify.set('last_utm_medium', utm.utm_medium);
+      identify.set('last_utm_campaign', utm.utm_campaign);
+    }
+
+    // 첫 방문 소스 (최초 한 번만 — setOnce)
+    identify.setOnce('first_channel', refInfo.channel);
+    identify.setOnce('first_source', refInfo.source);
+    identify.setOnce('first_referrer', document.referrer || 'direct');
+    identify.setOnce('first_landing_page', window.location.pathname);
+    identify.setOnce('first_visit_date', new Date().toISOString().split('T')[0]);
+    if (utm.utm_source) {
+      identify.setOnce('first_utm_source', utm.utm_source);
+      identify.setOnce('first_utm_medium', utm.utm_medium);
+      identify.setOnce('first_utm_campaign', utm.utm_campaign);
+    }
+
+    // 누적 카운터
+    identify.add('total_visits', 1);
+  });
 
   // ═══════════════════════════════════════════════════════
   // 3. 페이지 정보 추출 + 페이지뷰
@@ -269,24 +287,24 @@
   });
 
   // 페이지 타입별 유저 프로퍼티 누적
-  var pageIdentify = new amplitude.Identify();
-  if (pageType === 'treatment') {
-    pageIdentify.add('treatments_viewed', 1);
-    pageIdentify.append('viewed_treatments', treatmentName);
-  } else if (pageType === 'doctor') {
-    pageIdentify.add('doctors_viewed', 1);
-  } else if (pageType === 'pricing') {
-    pageIdentify.set('viewed_pricing', true);
-  } else if (pageType === 'reservation') {
-    pageIdentify.set('visited_reservation', true);
-  } else if (pageType === 'game' || pageType === 'game_hub') {
-    pageIdentify.add('game_pages_viewed', 1);
-  } else if (pageType === 'encyclopedia') {
-    pageIdentify.add('encyclopedia_viewed', 1);
-  } else if (pageType === 'content') {
-    pageIdentify.add('content_viewed', 1);
-  }
-  amplitude.identify(pageIdentify);
+  safeIdentify(function(pid) {
+    if (pageType === 'treatment') {
+      pid.add('treatments_viewed', 1);
+      pid.append('viewed_treatments', treatmentName);
+    } else if (pageType === 'doctor') {
+      pid.add('doctors_viewed', 1);
+    } else if (pageType === 'pricing') {
+      pid.set('viewed_pricing', true);
+    } else if (pageType === 'reservation') {
+      pid.set('visited_reservation', true);
+    } else if (pageType === 'game' || pageType === 'game_hub') {
+      pid.add('game_pages_viewed', 1);
+    } else if (pageType === 'encyclopedia') {
+      pid.add('encyclopedia_viewed', 1);
+    } else if (pageType === 'content') {
+      pid.add('content_viewed', 1);
+    }
+  });
 
   // ═══════════════════════════════════════════════════════
   // 4. 세션 트래킹 (체류 시간 + 페이지 수)
@@ -345,11 +363,11 @@
       }
       amplitude.track('Reservation Click', data);
       // 유저 프로퍼티: 예약 시도 카운트
-      var rid = new amplitude.Identify();
-      rid.add('reservation_clicks', 1);
-      rid.set('last_reservation_source', pageType);
-      if (treatmentName) rid.set('last_reservation_treatment', treatmentName);
-      amplitude.identify(rid);
+      safeIdentify(function(rid) {
+        rid.add('reservation_clicks', 1);
+        rid.set('last_reservation_source', pageType);
+        if (treatmentName) rid.set('last_reservation_treatment', treatmentName);
+      });
     },
 
     // 전화 클릭
@@ -368,9 +386,7 @@
         treatment_name: treatmentName,
         device_type: deviceType
       });
-      var pid = new amplitude.Identify();
-      pid.add('phone_clicks', 1);
-      amplitude.identify(pid);
+      safeIdentify(function(pid) { pid.add('phone_clicks', 1); });
     },
 
     // 카카오 상담 클릭
@@ -387,9 +403,7 @@
         page_path: path,
         device_type: deviceType
       });
-      var kid = new amplitude.Identify();
-      kid.add('kakao_clicks', 1);
-      amplitude.identify(kid);
+      safeIdentify(function(kid) { kid.add('kakao_clicks', 1); });
     },
 
     // ── 참여 이벤트 (Engagement) ──
@@ -497,10 +511,10 @@
         gtag('event', 'game_start', { event_category: 'game', event_label: g, game_name: g });
       }
       amplitude.track('Game Start', data);
-      var gid = new amplitude.Identify();
-      gid.add('games_played', 1);
-      gid.append('played_games', g);
-      amplitude.identify(gid);
+      safeIdentify(function(gid) {
+        gid.add('games_played', 1);
+        gid.append('played_games', g);
+      });
     },
 
     trackGameOver: function(game, score, grade, playtimeSeconds, extra) {
@@ -542,9 +556,7 @@
         });
       }
       amplitude.track('Game Share', data);
-      var sid = new amplitude.Identify();
-      sid.add('game_shares', 1);
-      amplitude.identify(sid);
+      safeIdentify(function(sid) { sid.add('game_shares', 1); });
     },
 
     trackGameResult: function(game, resultType, extra) {
