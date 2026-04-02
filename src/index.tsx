@@ -893,10 +893,67 @@ app.get('/api/flight/stats', async (c) => {
   }
 })
 
+// ===== TOOTH RUN API =====
+
+// POST /api/run/result - 생존시간 저장
+app.post('/api/run/result', async (c) => {
+  try {
+    const db = c.env.DB
+    if (!db) return c.json({ error: 'DB not available' }, 500)
+    
+    const { time, grade } = await c.req.json<{ time: number; grade: string }>()
+    if (typeof time !== 'number' || !grade) {
+      return c.json({ error: 'time and grade required' }, 400)
+    }
+    
+    await db.prepare('INSERT INTO run_scores (survival_time, grade) VALUES (?, ?)').bind(time, grade).run()
+    
+    const totalResult = await db.prepare('SELECT COUNT(*) as total FROM run_scores').first<{ total: number }>()
+    const avgResult = await db.prepare('SELECT AVG(survival_time) as avg FROM run_scores').first<{ avg: number }>()
+    const rankResult = await db.prepare('SELECT COUNT(*) as better FROM run_scores WHERE survival_time > ?').bind(time).first<{ better: number }>()
+    
+    const total = totalResult?.total || 1
+    const rank = (rankResult?.better || 0) + 1
+    const topPercent = Math.max(1, Math.round((rank / total) * 100))
+    
+    return c.json({
+      success: true,
+      rank: rank,
+      total_players: total,
+      top_percent: topPercent,
+      avg_time: avgResult?.avg || 0
+    })
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+// GET /api/run/stats - 통계 조회
+app.get('/api/run/stats', async (c) => {
+  try {
+    const db = c.env.DB
+    if (!db) return c.json({ error: 'DB not available' }, 500)
+    
+    const totalResult = await db.prepare('SELECT COUNT(*) as total FROM run_scores').first<{ total: number }>()
+    const avgResult = await db.prepare('SELECT AVG(survival_time) as avg FROM run_scores').first<{ avg: number }>()
+    const topScores = await db.prepare(
+      'SELECT survival_time, grade, created_at FROM run_scores ORDER BY survival_time DESC LIMIT 10'
+    ).all<{ survival_time: number; grade: string; created_at: string }>()
+    
+    return c.json({
+      total_players: totalResult?.total || 0,
+      avg_time: avgResult?.avg || 0,
+      top_scores: topScores?.results || []
+    })
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
 // API health check
 app.get('/api/health', (c) => {
   return c.json({ 
-    status: 'ok', 
+    status: 'ok',
     message: '서울비디치과 API 서버 정상 작동 중',
     timestamp: new Date().toISOString()
   })
@@ -2085,6 +2142,7 @@ app.get('/blueprint', serveStatic({ path: './blueprint.html' }))
 // 게임 (플레이)
 app.get('/flight', serveStatic({ path: './flight.html' }))
 app.get('/checkup', serveStatic({ path: './checkup.html' }))
+app.get('/run', serveStatic({ path: './run.html' }))
 app.get('/games', serveStatic({ path: './games.html' }))
 
 // Root level HTML files with .html extension → handled by 301 redirects above

@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<!-- End Google Tag Manager -->
+<!-- Amplitude Script Loader -->
+<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>TOOTH RUN 🦷🏃 | 서울비디치과</title>
+  <meta name="description" content="30초 버틸 수 있어? 치아가 달린다! 쿠키런 스타일 치과 무한 러너 게임">
+  <meta property="og:title" content="TOOTH RUN 🦷🏃 — 30초 버틸 수 있어?">
+  <meta property="og:description" content="치석을 피해 달려라! 30초 생존율 1%. 너는 몇 초?">
+  <meta property="og:url" content="https://bdbddc.com/run">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="서울비디치과">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a1a;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow: hidden;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      height: 100vh;
+      height: 100dvh;
+    }
+
+    /* --- SCREENS --- */
+    .screen { display: none; position: fixed; inset: 0; z-index: 10; }
+    .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+    /* --- INTRO --- */
+    #introScreen {
+      background: linear-gradient(180deg, #87CEEB 0%, #98FB98 40%, #8FBC8F 100%);
+      text-align: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .intro-char { font-size: 80px; animation: bounceChar 1s ease-in-out infinite; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.2)); }
+    @keyframes bounceChar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .intro-title {
+      font-size: 2.4rem; font-weight: 900;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53, #FFA07A);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 4px;
+      text-shadow: none;
+    }
+    .intro-subtitle { font-size: 0.9rem; color: rgba(0,0,0,0.5); margin-bottom: 20px; font-weight: 600; }
+    .intro-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,107,107,0.15); border: 1px solid rgba(255,107,107,0.3);
+      border-radius: 20px; padding: 5px 14px; font-size: 0.72rem; color: #FF6B6B; font-weight: 700; margin-bottom: 16px;
+    }
+
+    /* Character Select */
+    .char-select { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+    .char-option {
+      width: 70px; height: 90px; border-radius: 16px; border: 3px solid rgba(0,0,0,0.1);
+      background: rgba(255,255,255,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; position: relative;
+    }
+    .char-option.selected { border-color: #FF6B6B; background: rgba(255,107,107,0.15); transform: scale(1.1); }
+    .char-option.locked { opacity: 0.4; cursor: not-allowed; }
+    .char-option.locked::after {
+      content: '🔒'; position: absolute; top: 4px; right: 4px; font-size: 0.7rem;
+    }
+    .char-option-emoji { font-size: 1.8rem; margin-bottom: 2px; }
+    .char-option-name { font-size: 0.55rem; color: rgba(0,0,0,0.6); font-weight: 600; }
+    .char-option-req { font-size: 0.5rem; color: #FF6B6B; font-weight: 700; }
+
+    .intro-enemies { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+    .intro-enemy {
+      background: rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 14px; padding: 10px 14px; text-align: center; min-width: 70px;
+    }
+    .intro-enemy-emoji { font-size: 1.5rem; margin-bottom: 2px; }
+    .intro-enemy-name { font-size: 0.65rem; color: rgba(0,0,0,0.5); font-weight: 600; }
+
+    .intro-how {
+      background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px; padding: 14px 18px; max-width: 320px; text-align: left; margin-bottom: 16px;
+    }
+    .intro-how-title { font-size: 0.8rem; font-weight: 700; color: #FF6B6B; margin-bottom: 6px; }
+    .intro-how-row { font-size: 0.72rem; color: rgba(0,0,0,0.5); margin-bottom: 3px; display: flex; gap: 8px; font-weight: 500; }
+    .intro-how-row span { min-width: 20px; }
+
+    .btn-start {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: #fff; border: none; padding: 18px 48px; border-radius: 60px;
+      font-size: 1.2rem; font-weight: 800; cursor: pointer;
+      animation: pulseBtn 2s ease-in-out infinite; margin-bottom: 8px;
+      box-shadow: 0 4px 20px rgba(255,107,107,0.4);
+    }
+    @keyframes pulseBtn {
+      0%, 100% { transform: scale(1); box-shadow: 0 4px 20px rgba(255,107,107,0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 8px 30px rgba(255,107,107,0.6); }
+    }
+    .intro-controls { font-size: 0.72rem; color: rgba(0,0,0,0.3); margin-bottom: 16px; }
+    .intro-footer-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 20px; padding: 6px 14px; font-size: 0.7rem; color: rgba(0,0,0,0.4);
+    }
+
+    /* --- GAME CANVAS --- */
+    #gameCanvas { display: block; position: fixed; inset: 0; z-index: 1; }
+
+    /* --- HUD --- */
+    .hud {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 5; display: none;
+      padding: 12px 16px; background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+    }
+    .hud.active { display: flex; justify-content: space-between; align-items: center; }
+    .hud-time { font-size: 1.6rem; font-weight: 900; color: #FEE500; }
+    .hud-time small { font-size: 0.6rem; color: rgba(255,255,255,0.5); font-weight: 400; }
+    .hud-hp { display: flex; gap: 4px; }
+    .hud-hp-heart { font-size: 1.2rem; transition: all 0.3s; }
+    .hud-hp-heart.lost { opacity: 0.2; transform: scale(0.7); }
+    .hud-warn {
+      position: fixed; top: 50px; left: 50%; transform: translateX(-50%);
+      z-index: 6; font-size: 1rem; font-weight: 800; color: #FF6B6B;
+      opacity: 0; transition: opacity 0.5s; display: none;
+      text-shadow: 0 0 20px rgba(255,107,107,0.5);
+    }
+    .hud-warn.active { opacity: 1; display: block; }
+
+    /* --- POWERUP --- */
+    .powerup-indicator {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      z-index: 7; font-size: 1.8rem; font-weight: 900; text-align: center;
+      pointer-events: none; opacity: 0; transition: opacity 0.5s;
+    }
+    .powerup-indicator.active { opacity: 1; animation: powerupFlash 1.5s ease-out; }
+    @keyframes powerupFlash {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      20% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+
+    /* --- DAMAGE FLASH --- */
+    .damage-flash {
+      position: fixed; inset: 0; z-index: 4;
+      background: rgba(239, 68, 68, 0.3); pointer-events: none; opacity: 0; transition: opacity 0.1s;
+    }
+    .damage-flash.active { opacity: 1; }
+
+    /* --- RESULT --- */
+    #resultScreen {
+      background: linear-gradient(180deg, #87CEEB 0%, #98FB98 40%, #8FBC8F 100%);
+      text-align: center; padding: 20px; overflow-y: auto;
+    }
+    .result-char { font-size: 72px; margin-bottom: 8px; }
+    .result-grade {
+      font-size: 1.1rem; font-weight: 700; padding: 6px 20px; border-radius: 20px;
+      display: inline-block; margin-bottom: 10px;
+    }
+    .grade-skull { background: rgba(239,68,68,0.2); color: #EF4444; }
+    .grade-tartar { background: rgba(245,158,11,0.2); color: #F59E0B; }
+    .grade-decent { background: rgba(59,130,246,0.2); color: #3B82F6; }
+    .grade-almost { background: rgba(168,85,247,0.2); color: #A855F7; }
+    .grade-legend { background: linear-gradient(135deg, rgba(255,107,107,0.2), rgba(255,142,83,0.2)); color: #FF6B6B; }
+
+    .result-time {
+      font-size: 3.5rem; font-weight: 900;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 2px;
+    }
+    .result-time-label { font-size: 0.8rem; color: rgba(0,0,0,0.4); margin-bottom: 16px; }
+
+    .result-stats { display: flex; gap: 10px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
+    .result-stat {
+      background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px; padding: 10px 14px; min-width: 85px;
+    }
+    .result-stat-val { font-size: 1.2rem; font-weight: 800; color: #FF6B6B; }
+    .result-stat-label { font-size: 0.6rem; color: rgba(0,0,0,0.4); margin-top: 2px; }
+
+    /* Unlock notification */
+    .result-unlock {
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,107,107,0.15));
+      border: 2px solid rgba(255,215,0,0.4); border-radius: 16px;
+      padding: 14px 20px; margin-bottom: 14px; max-width: 380px; margin-left: auto; margin-right: auto;
+      animation: unlockGlow 1.5s ease-in-out infinite;
+    }
+    @keyframes unlockGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(255,215,0,0.2); }
+      50% { box-shadow: 0 0 25px rgba(255,215,0,0.4); }
+    }
+    .result-unlock-title { font-size: 0.9rem; font-weight: 800; color: #B8860B; margin-bottom: 4px; }
+    .result-unlock-char { font-size: 2rem; }
+    .result-unlock-name { font-size: 0.8rem; font-weight: 700; color: rgba(0,0,0,0.6); }
+
+    .result-doctor {
+      background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px; padding: 16px; margin-bottom: 16px; max-width: 380px; margin-left: auto; margin-right: auto;
+    }
+    .result-doctor-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .result-doctor-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .result-doctor-info { text-align: left; }
+    .result-doctor-name { font-size: 0.8rem; font-weight: 700; color: rgba(0,0,0,0.8); }
+    .result-doctor-title { font-size: 0.6rem; color: rgba(0,0,0,0.4); }
+    .result-doctor-text { font-size: 0.85rem; color: rgba(0,0,0,0.7); line-height: 1.5; text-align: left; }
+
+    .result-ranking {
+      background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 16px; padding: 14px 18px; margin-bottom: 16px; max-width: 380px; margin-left: auto; margin-right: auto;
+      display: none;
+    }
+    .result-ranking-title { font-size: 0.8rem; font-weight: 700; color: #B8860B; margin-bottom: 6px; }
+    .result-ranking-row { display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(0,0,0,0.5); padding: 3px 0; }
+    .result-ranking-row strong { color: rgba(0,0,0,0.8); }
+
+    .result-share { margin-bottom: 14px; }
+    .result-share-title { font-size: 1rem; font-weight: 800; color: rgba(0,0,0,0.8); margin-bottom: 2px; }
+    .result-share-sub { font-size: 1.1rem; font-weight: 800; color: #FF6B6B; margin-bottom: 14px; }
+    .result-share-btns { display: flex; gap: 10px; justify-content: center; margin-bottom: 10px; }
+    .btn-share {
+      flex: 1; max-width: 170px; padding: 12px 18px; border-radius: 14px;
+      border: 2px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5);
+      color: rgba(0,0,0,0.7); font-size: 0.82rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;
+    }
+    .btn-share:active { transform: scale(0.95); }
+    .btn-share.kakao { background: rgba(254,229,0,0.3); border-color: rgba(254,229,0,0.4); color: #8B7500; }
+
+    .btn-cta-result {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+      border-radius: 60px; border: none; font-size: 0.95rem; font-weight: 800;
+      cursor: pointer; margin-bottom: 10px; text-decoration: none;
+    }
+    .btn-cta-primary { background: linear-gradient(135deg, #FF6B6B, #FF8E53); color: #fff; box-shadow: 0 4px 15px rgba(255,107,107,0.3); }
+    .btn-retry {
+      background: transparent; border: 2px solid rgba(0,0,0,0.15); color: rgba(0,0,0,0.5);
+      padding: 12px 24px; border-radius: 60px; font-size: 0.85rem; font-weight: 700;
+      cursor: pointer; margin-bottom: 14px; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .result-disclaimer { font-size: 0.6rem; color: rgba(0,0,0,0.2); padding-bottom: env(safe-area-inset-bottom, 20px); }
+
+    /* --- TOAST --- */
+    .toast {
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+      background: rgba(255,107,107,0.9); color: #fff; padding: 12px 24px;
+      border-radius: 30px; font-size: 0.85rem; font-weight: 600; z-index: 100;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- INTRO SCREEN -->
+  <div class="screen active" id="introScreen">
+    <div class="intro-char" id="introCharPreview">🦷</div>
+    <div class="intro-title">TOOTH RUN</div>
+    <div class="intro-subtitle">치석을 피해 달려라! 30초 버틸 수 있어?</div>
+    <div class="intro-badge">💀 서울비디치과 바이럴 게임 3탄</div>
+
+    <!-- Character Select -->
+    <div class="char-select" id="charSelect"></div>
+
+    <div class="intro-enemies">
+      <div class="intro-enemy"><div class="intro-enemy-emoji">🪨</div><div class="intro-enemy-name">치석</div></div>
+      <div class="intro-enemy"><div class="intro-enemy-emoji">🦠</div><div class="intro-enemy-name">충치균</div></div>
+      <div class="intro-enemy"><div class="intro-enemy-emoji">🍬</div><div class="intro-enemy-name">당분</div></div>
+      <div class="intro-enemy"><div class="intro-enemy-emoji">🥤</div><div class="intro-enemy-name">산성음료</div></div>
+    </div>
+
+    <div class="intro-how">
+      <div class="intro-how-title">🎮 조작법</div>
+      <div class="intro-how-row"><span>📱</span> 화면 터치 / 탭 = 점프</div>
+      <div class="intro-how-row"><span>⌨️</span> 스페이스바 / ↑ = 점프</div>
+      <div class="intro-how-row"><span>❤️</span> HP 3개, 0이 되면 게임오버</div>
+      <div class="intro-how-row"><span>⚡</span> 아이템 먹으면 파워업!</div>
+      <div class="intro-how-row"><span>💀</span> 30초 생존율 1%... 가능?</div>
+    </div>
+
+    <button class="btn-start" onclick="startGame()"><i class="fas fa-play"></i> &nbsp;달려!!!</button>
+    <div class="intro-controls">터치 또는 스페이스바로 점프</div>
+    <div class="intro-footer-badge"><span>🦷</span><span>서울비디치과 × TOOTH RUN</span></div>
+  </div>
+
+  <!-- GAME CANVAS -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- HUD -->
+  <div class="hud" id="hud">
+    <div>
+      <div class="hud-time" id="hudTime">0.0<small> 초</small></div>
+    </div>
+    <div class="hud-hp" id="hudHp">
+      <span class="hud-hp-heart">❤️</span>
+      <span class="hud-hp-heart">❤️</span>
+      <span class="hud-hp-heart">❤️</span>
+    </div>
+  </div>
+  <div class="hud-warn" id="hudWarn"></div>
+
+  <!-- POWERUP INDICATOR -->
+  <div class="powerup-indicator" id="powerupIndicator"></div>
+
+  <!-- DAMAGE FLASH -->
+  <div class="damage-flash" id="damageFlash"></div>
+
+  <!-- RESULT SCREEN -->
+  <div class="screen" id="resultScreen"></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+  // ============================================
+  // TOOTH RUN v1.0 — 무한 러너
+  // by 서울비디치과
+  // ============================================
+
+  var canvas, ctx, W, H;
+  var gameRunning = false;
+  var animFrameId = null;
+  var GROUND_Y; // calculated on resize
+  var GRAVITY = 2800; // px/s²
+  var JUMP_FORCE = -820; // px/s
+
+  // Characters
+  var CHARACTERS = [
+    { id: 'basic', emoji: '🦷', name: '기본 치아', desc: '귀여운 기본 캐릭터', req: 0, unlocked: true },
+    { id: 'glownate', emoji: '💎', name: '글로우네이트', desc: '반짝반짝 라미네이트', req: 15, unlocked: false },
+    { id: 'ortho', emoji: '🦷', name: '교정 치아', desc: '브라켓 달린 진지한 치아', req: 20, unlocked: false, bracket: true },
+    { id: 'sleep', emoji: '😴', name: '수면 치아', desc: '전설 캐릭터', req: 30, unlocked: false }
+  ];
+  var selectedChar = 0;
+
+  // Player
+  var player = {
+    x: 0, y: 0, w: 44, h: 44,
+    vy: 0, onGround: true,
+    hp: 3, maxHp: 3,
+    invincible: false, invincibleTimer: 0,
+    shieldActive: false, shieldTimer: 0,
+    runFrame: 0, runTimer: 0
+  };
+
+  // Game state
+  var elapsed = 0;
+  var lastTime = 0;
+  var spawnTimer = 0;
+  var itemSpawnTimer = 0;
+  var obstacles = [];
+  var items = [];
+  var particles = [];
+  var floatingTexts = [];
+  var bgElements = [];
+  var groundOffset = 0;
+  var bestTime = 0;
+  var gameSpeed = 1;
+  var dodgeCount = 0;
+  var itemCount = 0;
+  var warningShown = {};
+
+  // Enemy types
+  var ENEMY_TYPES = {
+    tartar: { emoji: '🪨', name: '치석', w: 40, h: 40, speed: 1.0, damage: 1, ground: true },
+    cavity: { emoji: '🦠', name: '충치균', w: 32, h: 32, speed: 1.4, damage: 1, ground: false, zigzag: true },
+    sugar:  { emoji: '🍬', name: '당분', w: 26, h: 26, speed: 1.8, damage: 1, ground: true },
+    soda:   { emoji: '🥤', name: '산성음료', w: 50, h: 58, speed: 0.8, damage: 2, ground: true }
+  };
+
+  // Item types
+  var ITEM_TYPES = {
+    toothbrush: { emoji: '🪥', name: '칫솔 무적', w: 32, h: 32, effect: 'shield', duration: 3000 },
+    floss:      { emoji: '🧵', name: '치실 폭탄', w: 30, h: 30, effect: 'clearAll', duration: 0 },
+    fluoride:   { emoji: '💊', name: '불소 회복', w: 28, h: 28, effect: 'heal', duration: 0 }
+  };
+
+  // Grades
+  var GRADES = [
+    { min: 30, emoji: '👑', name: '치아 전설', cls: 'grade-legend',
+      comment: '이 정도면 치아도 완벽할 듯. 원장도 인정합니다 👏',
+      cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 25, emoji: '🔥', name: '거의 전설', cls: 'grade-almost',
+      comment: '30초까지 0.1초 남았는데 진짜 아깝다...',
+      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 15, emoji: '😏', name: '제법인데요', cls: 'grade-decent',
+      comment: '0.1초 차이였는데 아쉽다... 한 번만 더?',
+      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 5, emoji: '😬', name: '치석 보유자', cls: 'grade-tartar',
+      comment: '조금 더 하면 될 것 같죠? 그게 함정입니다 ㅋㅋ',
+      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 0, emoji: '💀', name: '충치 직전', cls: 'grade-skull',
+      comment: '이게 치과 공포보다 더 무섭죠?',
+      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' }
+  ];
+
+  // ---- LOAD UNLOCKS ----
+  function loadUnlocks() {
+    try {
+      var saved = JSON.parse(localStorage.getItem('toothrun_unlocks') || '{}');
+      bestTime = saved.bestTime || 0;
+      CHARACTERS.forEach(function(ch) {
+        if (ch.req === 0) { ch.unlocked = true; return; }
+        ch.unlocked = bestTime >= ch.req;
+      });
+      if (saved.selectedChar !== undefined) selectedChar = saved.selectedChar;
+      if (!CHARACTERS[selectedChar].unlocked) selectedChar = 0;
+    } catch(e) {}
+  }
+
+  function saveUnlocks(survivalSec) {
+    var newUnlocks = [];
+    if (survivalSec > bestTime) bestTime = survivalSec;
+    CHARACTERS.forEach(function(ch) {
+      if (!ch.unlocked && bestTime >= ch.req) {
+        ch.unlocked = true;
+        newUnlocks.push(ch);
+      }
+    });
+    try {
+      localStorage.setItem('toothrun_unlocks', JSON.stringify({
+        bestTime: bestTime, selectedChar: selectedChar
+      }));
+    } catch(e) {}
+    return newUnlocks;
+  }
+
+  // ---- CHAR SELECT UI ----
+  function renderCharSelect() {
+    var container = document.getElementById('charSelect');
+    container.innerHTML = '';
+    CHARACTERS.forEach(function(ch, i) {
+      var div = document.createElement('div');
+      div.className = 'char-option' + (i === selectedChar ? ' selected' : '') + (!ch.unlocked ? ' locked' : '');
+      var emoji = ch.emoji;
+      if (ch.id === 'ortho') emoji = '🦷';
+      div.innerHTML = '<div class="char-option-emoji">' + emoji + '</div>'
+        + '<div class="char-option-name">' + ch.name + '</div>'
+        + (ch.req > 0 && !ch.unlocked ? '<div class="char-option-req">' + ch.req + '초</div>' : '');
+      div.onclick = function() {
+        if (!ch.unlocked) {
+          showToast('🔒 ' + ch.req + '초 달성 시 해제!');
+          return;
+        }
+        selectedChar = i;
+        renderCharSelect();
+        document.getElementById('introCharPreview').textContent = getCharEmoji(i);
+      };
+      container.appendChild(div);
+    });
+  }
+
+  function getCharEmoji(idx) {
+    var ch = CHARACTERS[idx || selectedChar];
+    if (!ch) return '🦷';
+    if (ch.id === 'sleep') return '😴';
+    if (ch.id === 'glownate') return '💎';
+    return '🦷';
+  }
+
+  // ---- INIT ----
+  function init() {
+    canvas = document.getElementById('gameCanvas');
+    ctx = canvas.getContext('2d');
+    resize();
+    window.addEventListener('resize', resize);
+    loadUnlocks();
+    renderCharSelect();
+    document.getElementById('introCharPreview').textContent = getCharEmoji(selectedChar);
+    drawIntroBackground();
+  }
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+    GROUND_Y = H - 80;
+  }
+
+  function drawIntroBackground() {
+    ctx.fillStyle = '#87CEEB';
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  // ---- BG ELEMENTS ----
+  function initBg() {
+    bgElements = [];
+    // Clouds
+    for (var i = 0; i < 6; i++) {
+      bgElements.push({
+        type: 'cloud', x: Math.random() * W * 1.5, y: 40 + Math.random() * (H * 0.3),
+        w: 60 + Math.random() * 80, speed: 0.2 + Math.random() * 0.3, alpha: 0.3 + Math.random() * 0.3
+      });
+    }
+    // Bushes
+    for (var j = 0; j < 4; j++) {
+      bgElements.push({
+        type: 'bush', x: Math.random() * W * 1.5, y: GROUND_Y - 10 - Math.random() * 20,
+        size: 20 + Math.random() * 30, speed: 0.5 + Math.random() * 0.3
+      });
+    }
+  }
+
+  // ---- START GAME ----
+  function startGame() {
+    document.getElementById('introScreen').classList.remove('active');
+    document.getElementById('resultScreen').classList.remove('active');
+    document.getElementById('hud').classList.add('active');
+
+    player.x = W * 0.2;
+    player.y = GROUND_Y - player.h;
+    player.vy = 0;
+    player.onGround = true;
+    player.hp = 3;
+    player.invincible = false;
+    player.invincibleTimer = 0;
+    player.shieldActive = false;
+    player.shieldTimer = 0;
+    player.runFrame = 0;
+    player.runTimer = 0;
+
+    elapsed = 0;
+    spawnTimer = 0;
+    itemSpawnTimer = 0;
+    obstacles = [];
+    items = [];
+    particles = [];
+    floatingTexts = [];
+    gameSpeed = 1;
+    dodgeCount = 0;
+    itemCount = 0;
+    warningShown = {};
+    groundOffset = 0;
+
+    initBg();
+    updateHud();
+    gameRunning = true;
+    lastTime = performance.now();
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    gameLoop(lastTime);
+
+    if (window.bdAnalytics && bdAnalytics.trackGameStart) {
+      bdAnalytics.trackGameStart('tooth_run');
+    }
+    if (navigator.vibrate) navigator.vibrate(50);
+  }
+
+  // ---- GAME LOOP ----
+  function gameLoop(now) {
+    if (!gameRunning) return;
+    var dt = Math.min(now - lastTime, 50);
+    lastTime = now;
+    elapsed += dt;
+    update(dt);
+    render();
+    animFrameId = requestAnimationFrame(gameLoop);
+  }
+
+  // ---- UPDATE ----
+  function update(dt) {
+    var dtSec = dt / 1000;
+    var sec = elapsed / 1000;
+
+    // Game speed increases over time
+    gameSpeed = getGameSpeed(sec);
+
+    // Player physics
+    updatePlayer(dt);
+
+    // Spawn obstacles
+    spawnTimer += dt;
+    var spawnInterval = getSpawnInterval(sec);
+    while (spawnTimer >= spawnInterval) {
+      spawnTimer -= spawnInterval;
+      spawnObstacle(sec);
+    }
+
+    // Spawn items
+    itemSpawnTimer += dt;
+    var itemInterval = getItemInterval(sec);
+    if (itemSpawnTimer >= itemInterval) {
+      itemSpawnTimer = 0;
+      if (Math.random() < 0.4) spawnItem();
+    }
+
+    // Update obstacles
+    updateObstacles(dt, sec);
+
+    // Update items
+    updateItems(dt);
+
+    // Update particles
+    updateParticles(dt);
+
+    // Update floating texts
+    updateFloatingTexts(dt);
+
+    // Update BG
+    updateBg(dt);
+
+    // Shield timer
+    if (player.shieldActive) {
+      player.shieldTimer -= dt;
+      if (player.shieldTimer <= 0) {
+        player.shieldActive = false;
+        player.invincible = false;
+      }
+    }
+
+    // Invincibility timer (after hit)
+    if (player.invincible && !player.shieldActive) {
+      player.invincibleTimer -= dt;
+      if (player.invincibleTimer <= 0) player.invincible = false;
+    }
+
+    // Warning messages
+    if (sec >= 5 && !warningShown[5]) { warningShown[5] = true; showWarn('⚡ 속도 UP!'); }
+    if (sec >= 15 && !warningShown[15]) { warningShown[15] = true; showWarn('💀 충치균 폭주!'); }
+    if (sec >= 25 && !warningShown[25]) { warningShown[25] = true; showWarn('🔥 카오스 돌입!'); }
+
+    // Ground scroll
+    groundOffset = (groundOffset + gameSpeed * 400 * dtSec) % 40;
+
+    // Player run animation
+    player.runTimer += dt;
+    if (player.runTimer > 120) { player.runTimer = 0; player.runFrame = (player.runFrame + 1) % 4; }
+
+    updateHud();
+  }
+
+  function getGameSpeed(sec) {
+    if (sec < 5) return 1.0;
+    if (sec < 10) return 1.5;
+    if (sec < 15) return 2.0;
+    if (sec < 20) return 2.6;
+    if (sec < 25) return 3.2;
+    if (sec < 30) return 4.0;
+    return 4.5 + (sec - 30) * 0.08;
+  }
+
+  function getSpawnInterval(sec) {
+    if (sec < 5) return 1200;
+    if (sec < 10) return 800;
+    if (sec < 15) return 550;
+    if (sec < 20) return 400;
+    if (sec < 25) return 300;
+    if (sec < 30) return 220;
+    return Math.max(120, 200 - (sec - 30) * 3);
+  }
+
+  function getItemInterval(sec) {
+    if (sec < 10) return 6000;
+    if (sec < 20) return 8000;
+    return 10000;
+  }
+
+  // ---- PLAYER ----
+  function updatePlayer(dt) {
+    var dtSec = dt / 1000;
+    // Gravity
+    player.vy += GRAVITY * dtSec;
+    player.y += player.vy * dtSec;
+
+    // Ground collision
+    if (player.y >= GROUND_Y - player.h) {
+      player.y = GROUND_Y - player.h;
+      player.vy = 0;
+      player.onGround = true;
+    } else {
+      player.onGround = false;
+    }
+  }
+
+  function jump() {
+    if (!gameRunning) return;
+    if (player.onGround) {
+      player.vy = JUMP_FORCE;
+      player.onGround = false;
+      if (navigator.vibrate) navigator.vibrate(20);
+    }
+  }
+
+  // ---- SPAWN ----
+  function spawnObstacle(sec) {
+    var types = ['tartar'];
+    if (sec >= 5) types.push('cavity', 'sugar');
+    if (sec >= 10) types.push('cavity', 'cavity', 'sugar');
+    if (sec >= 15) types.push('cavity', 'cavity', 'sugar', 'sugar');
+    if (sec >= 20) types.push('soda');
+    if (sec >= 25) types.push('soda', 'cavity', 'sugar', 'sugar');
+
+    var typeKey = types[Math.floor(Math.random() * types.length)];
+    var type = ENEMY_TYPES[typeKey];
+
+    var yPos;
+    if (type.ground) {
+      yPos = GROUND_Y - type.h;
+    } else {
+      // Flying enemy — random height
+      yPos = GROUND_Y - type.h - 40 - Math.random() * 120;
+    }
+
+    var ob = {
+      type: typeKey, emoji: type.emoji,
+      x: W + 20 + Math.random() * 100,
+      y: yPos, w: type.w, h: type.h,
+      speed: type.speed, damage: type.damage,
+      zigzag: type.zigzag || false,
+      zigzagPhase: Math.random() * Math.PI * 2,
+      zigzagAmp: 30 + Math.random() * 40,
+      zigzagSpeed: 3 + Math.random() * 3,
+      rotation: 0, rotSpeed: (Math.random() - 0.5) * 4,
+      passed: false
+    };
+
+    obstacles.push(ob);
+
+    // Multi-spawn for harder sections
+    if (sec >= 15 && Math.random() < 0.5) {
+      var typeKey2 = types[Math.floor(Math.random() * types.length)];
+      var type2 = ENEMY_TYPES[typeKey2];
+      var ob2 = Object.assign({}, ob);
+      ob2.type = typeKey2; ob2.emoji = type2.emoji;
+      ob2.w = type2.w; ob2.h = type2.h;
+      ob2.speed = type2.speed; ob2.damage = type2.damage;
+      ob2.x += 60 + Math.random() * 80;
+      ob2.y = type2.ground ? GROUND_Y - type2.h : GROUND_Y - type2.h - 40 - Math.random() * 100;
+      ob2.zigzag = type2.zigzag || false;
+      obstacles.push(ob2);
+    }
+    if (sec >= 25 && Math.random() < 0.4) {
+      // Triple threat!
+      var typeKey3 = types[Math.floor(Math.random() * types.length)];
+      var type3 = ENEMY_TYPES[typeKey3];
+      obstacles.push({
+        type: typeKey3, emoji: type3.emoji,
+        x: W + 180 + Math.random() * 60,
+        y: type3.ground ? GROUND_Y - type3.h : GROUND_Y - type3.h - 60 - Math.random() * 80,
+        w: type3.w, h: type3.h, speed: type3.speed, damage: type3.damage,
+        zigzag: type3.zigzag || false, zigzagPhase: Math.random() * Math.PI * 2,
+        zigzagAmp: 30, zigzagSpeed: 4, rotation: 0, rotSpeed: (Math.random()-0.5)*4, passed: false
+      });
+    }
+  }
+
+  function spawnItem() {
+    var types = ['toothbrush', 'fluoride'];
+    if (Math.random() < 0.2) types.push('floss');
+    var typeKey = types[Math.floor(Math.random() * types.length)];
+    var type = ITEM_TYPES[typeKey];
+
+    items.push({
+      type: typeKey, emoji: type.emoji,
+      x: W + 20,
+      y: GROUND_Y - type.h - 60 - Math.random() * 80,
+      w: type.w, h: type.h,
+      glow: 0, glowDir: 1
+    });
+  }
+
+  // ---- UPDATE ENTITIES ----
+  function updateObstacles(dt, sec) {
+    var dtSec = dt / 1000;
+    var baseSpeed = 350 * gameSpeed;
+
+    for (var i = obstacles.length - 1; i >= 0; i--) {
+      var ob = obstacles[i];
+      ob.x -= baseSpeed * ob.speed * dtSec;
+      ob.rotation += ob.rotSpeed * dtSec;
+
+      // Zigzag (flying enemies)
+      if (ob.zigzag) {
+        ob.zigzagPhase += ob.zigzagSpeed * dtSec;
+        ob.y += Math.sin(ob.zigzagPhase) * ob.zigzagAmp * dtSec;
+        ob.y = Math.max(50, Math.min(GROUND_Y - ob.h, ob.y));
+      }
+
+      // Collision with player
+      if (!player.invincible) {
+        if (checkCollision(player, ob)) {
+          hitPlayer(ob.damage);
+          spawnHitParticles(ob.x, ob.y, '#EF4444');
+          obstacles.splice(i, 1);
+          continue;
+        }
+      } else if (player.shieldActive && checkCollision(player, ob)) {
+        spawnHitParticles(ob.x, ob.y, '#10B981');
+        addFloatingText(ob.x, ob.y, '💥', '#10B981');
+        obstacles.splice(i, 1);
+        continue;
+      }
+
+      // Dodge bonus
+      if (!ob.passed && ob.x + ob.w < player.x) {
+        ob.passed = true;
+        dodgeCount++;
+      }
+
+      // Remove offscreen
+      if (ob.x < -100) obstacles.splice(i, 1);
+    }
+  }
+
+  function updateItems(dt) {
+    var dtSec = dt / 1000;
+    var baseSpeed = 350 * gameSpeed;
+
+    for (var i = items.length - 1; i >= 0; i--) {
+      var item = items[i];
+      item.x -= baseSpeed * 0.8 * dtSec;
+      item.glow += item.glowDir * dtSec * 3;
+      if (item.glow > 1) item.glowDir = -1;
+      if (item.glow < 0) item.glowDir = 1;
+
+      if (checkCollision(player, item)) {
+        collectItem(item);
+        items.splice(i, 1);
+        continue;
+      }
+
+      if (item.x < -60) items.splice(i, 1);
+    }
+  }
+
+  function updateBg(dt) {
+    var dtSec = dt / 1000;
+    bgElements.forEach(function(bg) {
+      bg.x -= bg.speed * gameSpeed * 200 * dtSec;
+      if (bg.type === 'cloud' && bg.x < -bg.w) { bg.x = W + Math.random() * 200; bg.y = 40 + Math.random() * (H * 0.3); }
+      if (bg.type === 'bush' && bg.x < -bg.size * 2) { bg.x = W + Math.random() * 200; }
+    });
+  }
+
+  function updateParticles(dt) {
+    var dtSec = dt / 1000;
+    for (var i = particles.length - 1; i >= 0; i--) {
+      var p = particles[i];
+      p.x += p.vx * dtSec; p.y += p.vy * dtSec;
+      p.vy += 400 * dtSec; // gravity on particles
+      p.life -= dtSec; p.alpha = Math.max(0, p.life / p.maxLife); p.size *= 0.98;
+      if (p.life <= 0) particles.splice(i, 1);
+    }
+  }
+
+  function updateFloatingTexts(dt) {
+    var dtSec = dt / 1000;
+    for (var i = floatingTexts.length - 1; i >= 0; i--) {
+      var ft = floatingTexts[i];
+      ft.y -= 50 * dtSec; ft.life -= dtSec;
+      ft.alpha = Math.max(0, ft.life / ft.maxLife);
+      if (ft.life <= 0) floatingTexts.splice(i, 1);
+    }
+  }
+
+  // ---- COLLISION ----
+  function checkCollision(a, b) {
+    var pad = 6;
+    return a.x + pad < b.x + b.w - pad &&
+           a.x + a.w - pad > b.x + pad &&
+           a.y + pad < b.y + b.h - pad &&
+           a.y + a.h - pad > b.y + pad;
+  }
+
+  // ---- PLAYER HIT ----
+  function hitPlayer(damage) {
+    player.hp -= damage;
+    if (player.hp < 0) player.hp = 0;
+
+    var flash = document.getElementById('damageFlash');
+    flash.classList.add('active');
+    setTimeout(function() { flash.classList.remove('active'); }, 200);
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+
+    player.invincible = true;
+    player.invincibleTimer = 1500;
+
+    if (player.hp <= 0) gameOver();
+  }
+
+  // ---- COLLECT ITEM ----
+  function collectItem(item) {
+    var type = ITEM_TYPES[item.type];
+    itemCount++;
+
+    if (type.effect === 'shield') {
+      player.shieldActive = true;
+      player.shieldTimer = type.duration;
+      player.invincible = true;
+      showPowerup('🪥 3초 무적!');
+    } else if (type.effect === 'clearAll') {
+      obstacles.forEach(function(ob) { spawnHitParticles(ob.x, ob.y, '#3B82F6'); });
+      obstacles = [];
+      showPowerup('🧵 전체 클리어!');
+    } else if (type.effect === 'heal') {
+      player.hp = Math.min(player.maxHp, player.hp + 1);
+      showPowerup('💊 HP 회복!');
+    }
+
+    spawnHitParticles(item.x, item.y, '#10B981');
+    if (navigator.vibrate) navigator.vibrate(30);
+  }
+
+  // ---- PARTICLES ----
+  function spawnHitParticles(x, y, color) {
+    for (var i = 0; i < 10; i++) {
+      var angle = (Math.PI * 2 / 10) * i + Math.random() * 0.5;
+      var speed = 80 + Math.random() * 180;
+      particles.push({
+        x: x, y: y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 100,
+        size: 3 + Math.random() * 4, color: color,
+        life: 0.5 + Math.random() * 0.4, maxLife: 0.9, alpha: 1
+      });
+    }
+  }
+
+  function addFloatingText(x, y, text, color) {
+    floatingTexts.push({ x: x, y: y, text: text, color: color, life: 1, maxLife: 1, alpha: 1 });
+  }
+
+  // ---- RENDER ----
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Sky gradient
+    var skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+    var sec = elapsed / 1000;
+    if (sec < 15) {
+      skyGrad.addColorStop(0, '#87CEEB');
+      skyGrad.addColorStop(1, '#E0F7FA');
+    } else if (sec < 25) {
+      skyGrad.addColorStop(0, '#FFA07A');
+      skyGrad.addColorStop(1, '#FFE4B5');
+    } else {
+      skyGrad.addColorStop(0, '#4A0E0E');
+      skyGrad.addColorStop(1, '#8B0000');
+    }
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, W, GROUND_Y);
+
+    // BG elements
+    renderBg();
+
+    // Ground
+    renderGround();
+
+    // Obstacles
+    obstacles.forEach(function(ob) {
+      ctx.save();
+      ctx.translate(ob.x + ob.w / 2, ob.y + ob.h / 2);
+      ctx.rotate(ob.rotation);
+      ctx.font = ob.w + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(ob.emoji, 0, 0);
+      ctx.restore();
+    });
+
+    // Items
+    items.forEach(function(item) {
+      ctx.save();
+      ctx.translate(item.x + item.w / 2, item.y + item.h / 2);
+      ctx.shadowColor = '#10B981';
+      ctx.shadowBlur = 8 + item.glow * 12;
+      ctx.font = item.w + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(item.emoji, 0, 0);
+      ctx.shadowBlur = 0;
+      ctx.restore();
+    });
+
+    // Particles
+    particles.forEach(function(p) {
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    // Floating texts
+    floatingTexts.forEach(function(ft) {
+      ctx.globalAlpha = ft.alpha;
+      ctx.fillStyle = ft.color;
+      ctx.font = 'bold 18px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(ft.text, ft.x, ft.y);
+    });
+    ctx.globalAlpha = 1;
+
+    // Player
+    renderPlayer();
+  }
+
+  function renderBg() {
+    bgElements.forEach(function(bg) {
+      if (bg.type === 'cloud') {
+        ctx.globalAlpha = bg.alpha;
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.ellipse(bg.x, bg.y, bg.w / 2, bg.w / 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(bg.x - bg.w * 0.25, bg.y + 5, bg.w / 3, bg.w / 5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(bg.x + bg.w * 0.25, bg.y + 3, bg.w / 3, bg.w / 5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      if (bg.type === 'bush') {
+        ctx.fillStyle = '#6B8E23';
+        ctx.globalAlpha = 0.4;
+        ctx.beginPath();
+        ctx.ellipse(bg.x, bg.y, bg.size, bg.size * 0.6, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    });
+  }
+
+  function renderGround() {
+    // Green grass
+    ctx.fillStyle = '#4CAF50';
+    ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
+
+    // Darker bottom
+    ctx.fillStyle = '#388E3C';
+    ctx.fillRect(0, GROUND_Y + 15, W, H - GROUND_Y - 15);
+
+    // Scrolling ground pattern
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    ctx.lineWidth = 1;
+    for (var gx = -groundOffset; gx < W + 40; gx += 40) {
+      ctx.beginPath();
+      ctx.moveTo(gx, GROUND_Y);
+      ctx.lineTo(gx, H);
+      ctx.stroke();
+    }
+  }
+
+  function renderPlayer() {
+    ctx.save();
+    ctx.translate(player.x + player.w / 2, player.y + player.h / 2);
+
+    // Shield glow
+    if (player.shieldActive) {
+      ctx.beginPath();
+      ctx.arc(0, 0, 32, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(16,185,129,0.6)';
+      ctx.lineWidth = 3;
+      ctx.shadowColor = '#10B981';
+      ctx.shadowBlur = 20;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    }
+
+    // Blink when invincible
+    if (player.invincible && !player.shieldActive) {
+      ctx.globalAlpha = Math.sin(performance.now() * 0.015) > 0 ? 1 : 0.3;
+    }
+
+    // Running bounce
+    var bounceY = player.onGround ? Math.abs(Math.sin(player.runFrame * Math.PI / 2)) * 4 : 0;
+
+    // Character emoji
+    var ch = CHARACTERS[selectedChar];
+    ctx.font = '40px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    if (ch.id === 'glownate') {
+      // Sparkle effect
+      ctx.shadowColor = '#FFD700';
+      ctx.shadowBlur = 15 + Math.sin(performance.now() * 0.005) * 8;
+      ctx.fillText('💎', 0, -bounceY);
+      ctx.shadowBlur = 0;
+    } else if (ch.id === 'ortho') {
+      ctx.fillText('🦷', 0, -bounceY);
+      // Draw brackets
+      ctx.font = 'bold 10px sans-serif';
+      ctx.fillStyle = '#9CA3AF';
+      ctx.fillText('[ ]', 0, -bounceY + 2);
+    } else if (ch.id === 'sleep') {
+      ctx.fillText('😴', 0, -bounceY);
+      // Zzz particles
+      if (Math.random() < 0.1) {
+        particles.push({
+          x: player.x + player.w / 2 + 15, y: player.y - 5,
+          vx: 20 + Math.random() * 30, vy: -40 - Math.random() * 30,
+          size: 2, color: '#A78BFA', life: 0.8, maxLife: 0.8, alpha: 1
+        });
+      }
+    } else {
+      // Basic tooth with eyes
+      ctx.fillText('🦷', 0, -bounceY);
+    }
+
+    // Running dust
+    if (player.onGround && player.runFrame % 2 === 0) {
+      ctx.globalAlpha = 0.3;
+      ctx.fillStyle = '#8FBC8F';
+      ctx.beginPath();
+      ctx.arc(-20 - Math.random() * 10, player.h / 2, 3 + Math.random() * 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  // ---- HUD ----
+  function updateHud() {
+    var sec = elapsed / 1000;
+    document.getElementById('hudTime').innerHTML = sec.toFixed(1) + '<small> 초</small>';
+
+    var hpEl = document.getElementById('hudHp');
+    var hearts = hpEl.querySelectorAll('.hud-hp-heart');
+    for (var i = 0; i < hearts.length; i++) {
+      hearts[i].classList.toggle('lost', i >= player.hp);
+    }
+  }
+
+  function showWarn(text) {
+    var el = document.getElementById('hudWarn');
+    el.textContent = text;
+    el.classList.add('active');
+    setTimeout(function() { el.classList.remove('active'); }, 2000);
+  }
+
+  function showPowerup(text) {
+    var el = document.getElementById('powerupIndicator');
+    el.textContent = text;
+    el.classList.remove('active');
+    void el.offsetWidth;
+    el.classList.add('active');
+    setTimeout(function() { el.classList.remove('active'); }, 1500);
+  }
+
+  // ---- GAME OVER ----
+  function gameOver() {
+    gameRunning = false;
+    document.getElementById('hud').classList.remove('active');
+
+    if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
+
+    var survivalSec = elapsed / 1000;
+    var survivalFixed = survivalSec.toFixed(1);
+
+    // Check unlocks
+    var newUnlocks = saveUnlocks(survivalSec);
+
+    // Determine grade
+    var grade = GRADES[GRADES.length - 1];
+    for (var i = 0; i < GRADES.length; i++) {
+      if (survivalSec >= GRADES[i].min) { grade = GRADES[i]; break; }
+    }
+
+    // Save to DB
+    saveScoreToDB(survivalFixed, grade.name);
+
+    // Build result screen
+    var html = '';
+    html += '<div class="result-char">' + grade.emoji + '</div>';
+    html += '<div class="result-grade ' + grade.cls + '">' + grade.name + '</div>';
+    html += '<div class="result-time">' + survivalFixed + '</div>';
+    html += '<div class="result-time-label">초 생존</div>';
+
+    // Stats
+    html += '<div class="result-stats">';
+    html += '<div class="result-stat"><div class="result-stat-val">' + dodgeCount + '</div><div class="result-stat-label">장애물 회피</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + itemCount + '</div><div class="result-stat-label">아이템</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + bestTime.toFixed(1) + '</div><div class="result-stat-label">최고 기록</div></div>';
+    html += '</div>';
+
+    // New unlocks!
+    newUnlocks.forEach(function(ch) {
+      html += '<div class="result-unlock">';
+      html += '<div class="result-unlock-title">🎉 새 캐릭터 해제!</div>';
+      html += '<div class="result-unlock-char">' + (ch.id === 'ortho' ? '🦷' : ch.emoji) + '</div>';
+      html += '<div class="result-unlock-name">' + ch.name + '</div>';
+      html += '</div>';
+    });
+
+    // Ranking
+    html += '<div class="result-ranking" id="resultRanking"></div>';
+
+    // Doctor
+    html += '<div class="result-doctor">';
+    html += '<div class="result-doctor-header">';
+    html += '<div class="result-doctor-avatar">🦷</div>';
+    html += '<div class="result-doctor-info"><div class="result-doctor-name">비디치과 원장</div><div class="result-doctor-title">서울대 치의학과 · 통합치의학 전문의</div></div>';
+    html += '</div>';
+    html += '<div class="result-doctor-text">"' + grade.comment + '"</div>';
+    html += '</div>';
+
+    // Share
+    html += '<div class="result-share">';
+    html += '<div class="result-share-title">' + grade.emoji + ' TOOTH RUN ' + survivalFixed + '초!</div>';
+    html += '<div class="result-share-sub">너는 30초 버틸 수 있어? 👀</div>';
+    html += '<div class="result-share-btns">';
+    html += '<button class="btn-share kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카톡 자랑</button>';
+    html += '<button class="btn-share" onclick="shareLink()"><i class="fas fa-link"></i> 링크 복사</button>';
+    html += '</div></div>';
+
+    // CTA
+    html += '<a href="/reservation" class="btn-cta-result btn-cta-primary"><i class="fas ' + grade.ctaIcon + '"></i> ' + grade.cta + '</a><br>';
+    html += '<div style="height:6px"></div>';
+    html += '<button class="btn-retry" onclick="startGame()"><i class="fas fa-redo"></i> 다시 도전하기</button>';
+    html += '<div class="result-disclaimer">본 게임은 서울비디치과에서 제공하는 흥미·교육 목적의 콘텐츠입니다.</div>';
+
+    document.getElementById('resultScreen').innerHTML = html;
+    document.getElementById('resultScreen').classList.add('active');
+
+    window._runResult = { time: survivalFixed, grade: grade.name, emoji: grade.emoji };
+
+    if (window.bdAnalytics && bdAnalytics.trackGameOver) {
+      bdAnalytics.trackGameOver('tooth_run', parseFloat(survivalFixed), grade.name, parseFloat(survivalFixed), {
+        dodge_count: dodgeCount, item_count: itemCount, best_time: bestTime
+      });
+    }
+  }
+
+  // ---- SAVE SCORE ----
+  function saveScoreToDB(time, gradeName) {
+    fetch('/api/run/result', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ time: parseFloat(time), grade: gradeName })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success) {
+        var rankEl = document.getElementById('resultRanking');
+        if (rankEl) {
+          rankEl.style.display = 'block';
+          var rhtml = '<div class="result-ranking-title">🏆 실시간 랭킹</div>';
+          rhtml += '<div class="result-ranking-row"><span>총 참여자</span><strong>' + data.total_players.toLocaleString() + '명</strong></div>';
+          if (data.rank) rhtml += '<div class="result-ranking-row"><span>내 순위</span><strong>상위 ' + data.top_percent + '%</strong></div>';
+          rhtml += '<div class="result-ranking-row"><span>평균 생존</span><strong>' + data.avg_time.toFixed(1) + '초</strong></div>';
+          rankEl.innerHTML = rhtml;
+        }
+      }
+    })
+    .catch(function(e) { console.log('Score save failed:', e); });
+  }
+
+  // ---- SHARING ----
+  function shareKakao() {
+    var result = window._runResult || {};
+    try {
+      if (window.Kakao) {
+        if (!Kakao.isInitialized()) Kakao.init('c5e7b6f82aaa722b63b2fb6e42cec872');
+        if (window.bdAnalytics && bdAnalytics.trackGameShare) {
+          bdAnalytics.trackGameShare('tooth_run', 'kakao', { time: result.time, grade: result.grade });
+        }
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: result.emoji + ' TOOTH RUN ' + result.time + '초 생존!',
+            description: '나 ' + result.time + '초 생존했어! 너는 30초 버틸 수 있어? 👀',
+            imageUrl: 'https://bdbddc.com/images/og-checkup.jpg',
+            link: { mobileWebUrl: 'https://bdbddc.com/run', webUrl: 'https://bdbddc.com/run' }
+          },
+          buttons: [{ title: '나도 도전하기 🏃', link: { mobileWebUrl: 'https://bdbddc.com/run', webUrl: 'https://bdbddc.com/run' } }]
+        });
+        return;
+      }
+    } catch(e) { console.log('Kakao share failed:', e); }
+
+    var shareText = result.emoji + ' TOOTH RUN ' + (result.time || 0) + '초 생존!\n너는 30초 버틸 수 있어? 👀\n#투쓰런 #서울비디치과';
+    if (navigator.share) {
+      navigator.share({ title: 'TOOTH RUN', text: shareText, url: 'https://bdbddc.com/run' }).catch(function(){});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText + '\nhttps://bdbddc.com/run').then(function() { showToast('복사 완료! 📋'); });
+    }
+  }
+
+  function shareLink() {
+    var result = window._runResult || {};
+    if (window.bdAnalytics && bdAnalytics.trackGameShare) {
+      bdAnalytics.trackGameShare('tooth_run', 'link_copy', { time: result.time, grade: result.grade });
+    }
+    var text = result.emoji + ' TOOTH RUN ' + (result.time || 0) + '초 생존!\n너는 30초 버틸 수 있어? 👀\nhttps://bdbddc.com/run';
+    if (navigator.share) {
+      navigator.share({ title: 'TOOTH RUN!', text: text, url: 'https://bdbddc.com/run' }).catch(function(){});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function() { showToast('링크 복사 완료! 📋'); });
+    } else {
+      prompt('복사해서 공유하세요:', text);
+    }
+  }
+
+  function showToast(msg) {
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 2500);
+  }
+
+  // ---- INPUT ----
+  document.addEventListener('touchstart', function(e) {
+    if (!gameRunning) return;
+    e.preventDefault();
+    jump();
+  }, { passive: false });
+
+  document.addEventListener('mousedown', function(e) {
+    if (!gameRunning || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+    jump();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if ((e.key === ' ' || e.key === 'ArrowUp') && gameRunning) {
+      e.preventDefault();
+      jump();
+    }
+  });
+
+  // Init on load
+  init();
+  </script>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script src="/js/analytics.js?v=20260402v3" defer></script>
+</body>
+</html>
