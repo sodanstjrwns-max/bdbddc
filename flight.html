@@ -441,6 +441,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="intro-tooth">🦷</div>
     <div class="intro-title">치석 플라이트</div>
     <div class="intro-subtitle">치석을 쏘고! 피하고! 치아를 지켜라!</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:20px;padding:5px 14px;font-size:0.75rem;color:#EF4444;font-weight:700;margin-bottom:12px;">💀 HELL MODE — v3.0</div>
 
     <div class="intro-enemies">
       <div class="intro-enemy">
@@ -459,6 +460,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="intro-enemy-emoji">🥤</div>
         <div class="intro-enemy-name">산성음료</div>
       </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🫧</div>
+        <div class="intro-enemy-name">치태</div>
+      </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">☕</div>
+        <div class="intro-enemy-name">커피</div>
+      </div>
     </div>
 
     <div class="intro-how">
@@ -468,6 +477,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="intro-how-row"><span>🔫</span> 치약 미사일로 적을 파괴하세요!</div>
       <div class="intro-how-row"><span>❤️</span> HP 3개, 0이 되면 게임 오버</div>
       <div class="intro-how-row"><span>⚡</span> 아이템 먹으면 파워업!</div>
+      <div class="intro-how-row"><span>⚠️</span> 25초마다 웨이브 — 살아남아라!</div>
+      <div class="intro-how-row"><span>☕</span> 커피는 파괴 시 2개로 분열!</div>
     </div>
 
     <button class="btn-start-game" onclick="startGame()">
@@ -518,7 +529,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <script>
   // ============================================
-  // 치석 플라이트 (Chistone Flight) v1.0
+  // 치석 플라이트 (Chistone Flight) v3.0 — HELL MODE
   // by 서울비디치과
   // ============================================
 
@@ -562,11 +573,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   // Missile system
   var missileTimer = 0;
-  var missileInterval = 300; // ms between auto shots
-  var missileSpeed = 600; // px/sec
+  var missileInterval = 420; // ms between auto shots (HARDER)
+  var missileSpeed = 500; // px/sec (HARDER)
   var missileLevel = 1; // 1=single, 2=double, 3=triple
   var missileLevelTimer = 0;
   var killCount = 0;
+
+  // Wave system
+  var waveTimer = 0;
+  var waveNumber = 0;
+  var waveActive = false;
+  var waveEnemiesLeft = 0;
+  var warningTimer = 0;
+  var warningText = '';
 
   // Input
   var inputX = null;
@@ -574,28 +593,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   // Enemy types
   var ENEMY_TYPES = {
-    tartar: { emoji: '🪨', name: '치석', w: 36, h: 36, speed: 2.0, hp: 3, killScore: 80, zigzag: false },
-    cavity: { emoji: '🦠', name: '충치균', w: 32, h: 32, speed: 2.8, hp: 2, killScore: 60, zigzag: true },
-    sugar:  { emoji: '🍬', name: '당분', w: 26, h: 26, speed: 3.8, hp: 1, killScore: 100, zigzag: false },
-    soda:   { emoji: '🥤', name: '산성음료', w: 44, h: 50, speed: 1.6, hp: 6, killScore: 200, damage: 2, zigzag: false }
+    tartar: { emoji: '🪨', name: '치석', w: 38, h: 38, speed: 2.8, hp: 4, killScore: 80, zigzag: false },
+    cavity: { emoji: '🦠', name: '충치균', w: 34, h: 34, speed: 3.6, hp: 3, killScore: 60, zigzag: true },
+    sugar:  { emoji: '🍬', name: '당분', w: 28, h: 28, speed: 5.0, hp: 1, killScore: 100, zigzag: false },
+    soda:   { emoji: '🥤', name: '산성음료', w: 48, h: 54, speed: 2.2, hp: 10, killScore: 250, damage: 2, zigzag: false },
+    plaque: { emoji: '🫧', name: '치태', w: 30, h: 30, speed: 4.2, hp: 2, killScore: 70, zigzag: true, homing: true },
+    coffee: { emoji: '☕', name: '커피', w: 34, h: 34, speed: 3.0, hp: 3, killScore: 90, zigzag: false, splitting: true }
   };
 
   // Item types
   var ITEM_TYPES = {
-    toothbrush: { emoji: '🪥', name: '칫솔', w: 30, h: 30, effect: 'powershot', duration: 8000, desc: '🔥 3연발 파워샷!' },
+    toothbrush: { emoji: '🪥', name: '칫솔', w: 30, h: 30, effect: 'powershot', duration: 5000, desc: '🔥 3연발 파워샷!' },
     floss:      { emoji: '🧵', name: '치실', w: 28, h: 28, effect: 'clearAll', duration: 0, desc: '💥 전체 클리어!' },
     fluoride:   { emoji: '💊', name: '불소', w: 28, h: 28, effect: 'heal', duration: 0, desc: '💚 HP 회복!' }
   };
 
   // Grades
   var GRADES = [
-    { min: 5000, emoji: '💎', name: '다이아몬드 치아', cls: 'grade-diamond',
-      comment: '치아 관리 완벽해요. 이 정도면 저도 배워야겠는데요 ㅋㅋ',
+    { min: 8000, emoji: '💎', name: '다이아몬드 치아', cls: 'grade-diamond',
+      comment: '진짜요?! 이 정도면 치과 그만 오셔도... 아니 그래도 오세요 ㅋㅋ',
       cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 3000, emoji: '🦷', name: '건강한 치아', cls: 'grade-healthy',
+    { min: 4000, emoji: '🦷', name: '건강한 치아', cls: 'grade-healthy',
       comment: '관리 잘 하고 계시네요! 정기검진만 꾸준히 받으시면 돼요 👍',
       cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 1000, emoji: '😬', name: '보통 치아', cls: 'grade-normal',
+    { min: 1500, emoji: '😬', name: '보통 치아', cls: 'grade-normal',
       comment: '나쁘지 않아요. 근데 조금만 더 관리하면 완벽할 것 같아요!',
       cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
     { min: 0, emoji: '💀', name: '충치 치아', cls: 'grade-skull',
@@ -680,6 +701,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     missileLevel = 1;
     missileLevelTimer = 0;
     killCount = 0;
+    waveTimer = 0;
+    waveNumber = 0;
+    waveActive = false;
+    waveEnemiesLeft = 0;
+    warningTimer = 0;
+    warningText = '';
 
     updateHud();
     gameRunning = true;
@@ -737,9 +764,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       spawnEnemy(speedMult);
     }
 
-    // Spawn items (every 8-12 seconds)
-    if (Math.random() < dtSec * 0.1) {
+    // Spawn items — less frequent (HARDER)
+    if (Math.random() < dtSec * 0.06) {
       spawnItem();
+    }
+
+    // Wave system — every 25s
+    waveTimer += dt;
+    if (!waveActive && waveTimer > 25000) {
+      waveTimer = 0;
+      waveNumber++;
+      waveActive = true;
+      waveEnemiesLeft = Math.min(24, 8 + waveNumber * 4); // HELL: 웨이브 적 2배!
+      showPowerup('⚠️ WAVE ' + waveNumber + ' !');
+      if (navigator.vibrate) navigator.vibrate([50,30,50,30,50]);
+    }
+    if (waveActive && waveEnemiesLeft > 0) {
+      if (Math.random() < dtSec * 14) { // HELL: 웨이브 스폰 속도 증가
+        var wTypes = ['tartar','cavity','sugar','plaque','coffee'];
+        if (waveNumber >= 3) wTypes.push('soda');
+        var wk = wTypes[Math.floor(Math.random()*wTypes.length)];
+        enemies.push(createEnemy(wk, speedMult * 1.2));
+        waveEnemiesLeft--;
+      }
+      if (waveEnemiesLeft <= 0) waveActive = false;
     }
 
     // Update enemies
@@ -769,7 +817,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       missileLevelTimer -= dt;
       if (missileLevelTimer <= 0) {
         missileLevel = 1;
-        missileInterval = 300; // Reset fire rate
+        missileInterval = 420; // Reset fire rate (HARDER)
       }
     }
 
@@ -797,22 +845,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   function getSpeedMultiplier() {
     var sec = elapsed / 1000;
-    if (sec < 30) return 1.0;
-    if (sec < 60) return 1.3;
-    if (sec < 90) return 1.6;
-    if (sec < 120) return 2.0;
-    if (sec < 150) return 2.4;
-    return 2.8;
+    if (sec < 10) return 1.0;
+    if (sec < 20) return 1.3;
+    if (sec < 35) return 1.7;
+    if (sec < 50) return 2.1;
+    if (sec < 70) return 2.6;
+    if (sec < 90) return 3.2;
+    if (sec < 120) return 3.8;
+    return 4.2 + (sec - 120) * 0.015;
   }
 
   function getSpawnInterval() {
     var sec = elapsed / 1000;
-    var base = 700;
-    if (sec > 150) return Math.max(150, base - 500);
-    if (sec > 120) return Math.max(180, base - 450);
-    if (sec > 90) return Math.max(220, base - 380);
-    if (sec > 60) return Math.max(280, base - 300);
-    if (sec > 30) return Math.max(350, base - 200);
+    // v3.0 HELL MODE: 스폰 간격 절반! 적 2배!
+    var base = 260;
+    if (sec > 120) return Math.max(45, base - 200);
+    if (sec > 90) return Math.max(55, base - 175);
+    if (sec > 70) return Math.max(70, base - 150);
+    if (sec > 50) return Math.max(90, base - 125);
+    if (sec > 35) return Math.max(110, base - 100);
+    if (sec > 20) return Math.max(140, base - 75);
+    if (sec > 10) return Math.max(175, base - 50);
     return base;
   }
 
@@ -839,62 +892,63 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   // ---- SPAWN ----
+  function createEnemy(typeKey, speedMult, overrideX) {
+    var type = ENEMY_TYPES[typeKey];
+    return {
+      type: typeKey, emoji: type.emoji,
+      x: overrideX || (Math.random() * (W - type.w * 2) + type.w),
+      y: -type.h, w: type.w, h: type.h, hp: type.hp || 1,
+      speed: type.speed * speedMult, damage: type.damage || 1,
+      zigzag: type.zigzag || false, homing: type.homing || false, splitting: type.splitting || false,
+      zigzagPhase: Math.random() * Math.PI * 2,
+      zigzagSpeed: 2 + Math.random() * 3, zigzagAmp: 30 + Math.random() * 50,
+      passed: false, rotation: 0, rotSpeed: (Math.random() - 0.5) * 3, hitFlash: 0
+    };
+  }
+
   function spawnEnemy(speedMult) {
-    var types = ['tartar', 'tartar', 'tartar', 'cavity', 'cavity', 'sugar'];
+    var types = ['tartar', 'tartar', 'cavity', 'cavity', 'sugar'];
     var sec = elapsed / 1000;
 
-    // Boss (soda) spawns after 20 seconds, more frequent over time
-    if (sec > 20 && Math.random() < 0.15) {
-      types.push('soda');
+    if (sec > 10) types.push('plaque', 'plaque');
+    if (sec > 15 && Math.random() < 0.2) types.push('soda');
+    if (sec > 25) types.push('coffee', 'plaque', 'sugar');
+    if (sec > 40) types.push('sugar', 'sugar', 'coffee', 'cavity', 'soda');
+    if (sec > 60) types.push('sugar', 'sugar', 'plaque', 'plaque', 'coffee', 'soda');
+    if (sec > 90) types.push('soda', 'soda', 'coffee', 'coffee');
+
+    // v3.0 HELL MODE: 멀티 스폰 확률 및 수량 대폭 증가
+    var spawnCount = 2; // 기본 2마리!
+    if (sec > 15 && Math.random() < 0.4) spawnCount = 3;
+    if (sec > 30 && Math.random() < 0.35) spawnCount = 4;
+    if (sec > 50 && Math.random() < 0.3) spawnCount = 5;
+    if (sec > 70 && Math.random() < 0.25) spawnCount = 6;
+    if (sec > 100 && Math.random() < 0.2) spawnCount = 7;
+
+    // Formation: V-shape
+    var pattern = Math.random();
+    if (sec > 20 && pattern < 0.12) {
+      var cx = W/2 + (Math.random()-0.5)*W*0.5;
+      for (var v=0; v<3; v++) {
+        var e = createEnemy('tartar', speedMult, cx + (v-1)*60);
+        e.y = -e.h - v*40;
+        enemies.push(e);
+      }
+      return;
     }
-    if (sec > 60) {
-      types.push('sugar', 'sugar', 'cavity');
-    }
-    if (sec > 90) {
-      types.push('sugar', 'cavity', 'cavity', 'soda');
-    }
-    if (sec > 120) {
-      types.push('sugar', 'sugar', 'sugar', 'cavity', 'cavity', 'soda');
-    }
-    
-    // Spawn 2 enemies at once after 90 seconds occasionally
-    if (sec > 90 && Math.random() < 0.3) {
-      var extraTypeKey = types[Math.floor(Math.random() * types.length)];
-      var extraType = ENEMY_TYPES[extraTypeKey];
-      enemies.push({
-        type: extraTypeKey, emoji: extraType.emoji,
-        x: Math.random() * (W - extraType.w * 2) + extraType.w, y: -extraType.h,
-        w: extraType.w, h: extraType.h, hp: extraType.hp || 1,
-        speed: extraType.speed * speedMult, damage: extraType.damage || 1,
-        zigzag: extraType.zigzag, zigzagPhase: Math.random() * Math.PI * 2,
-        zigzagSpeed: 2 + Math.random() * 2, zigzagAmp: 30 + Math.random() * 40,
-        passed: false, rotation: 0, rotSpeed: (Math.random() - 0.5) * 2, hitFlash: 0
-      });
+    // Formation: Wall
+    if (sec > 35 && pattern < 0.22) {
+      var wc = Math.min(5, 3 + Math.floor(sec/40));
+      var gap = W / (wc+1);
+      var wt = sec > 60 ? 'cavity' : 'tartar';
+      for (var ww=0; ww<wc; ww++) enemies.push(createEnemy(wt, speedMult*0.8, gap*(ww+1)));
+      return;
     }
 
-    var typeKey = types[Math.floor(Math.random() * types.length)];
-    var type = ENEMY_TYPES[typeKey];
-
-    var enemy = {
-      type: typeKey,
-      emoji: type.emoji,
-      x: Math.random() * (W - type.w * 2) + type.w,
-      y: -type.h,
-      w: type.w,
-      h: type.h,
-      hp: type.hp || 1,
-      speed: type.speed * speedMult,
-      damage: type.damage || 1,
-      zigzag: type.zigzag,
-      zigzagPhase: Math.random() * Math.PI * 2,
-      zigzagSpeed: 2 + Math.random() * 2,
-      zigzagAmp: 30 + Math.random() * 40,
-      passed: false,
-      rotation: 0,
-      rotSpeed: (Math.random() - 0.5) * 2,
-      hitFlash: 0
-    };
-    enemies.push(enemy);
+    for (var s=0; s<spawnCount; s++) {
+      var typeKey = types[Math.floor(Math.random()*types.length)];
+      enemies.push(createEnemy(typeKey, speedMult));
+    }
   }
 
   function spawnItem() {
@@ -975,6 +1029,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             addFloatingText(en.x, en.y, '+' + killScore + ' 💥', '#F59E0B');
             spawnHitParticles(en.x, en.y, '#EF4444');
             
+            // Splitting: coffee splits into 2 sugars!
+            if (en.splitting) {
+              var s1 = createEnemy('sugar', getSpeedMultiplier(), en.x - 25);
+              var s2 = createEnemy('sugar', getSpeedMultiplier(), en.x + 25);
+              s1.y = en.y; s2.y = en.y; s1.speed *= 1.3; s2.speed *= 1.3;
+              enemies.push(s1); enemies.push(s2);
+            }
+            
             // Combo multiplier at 5+ kills
             if (combo >= 5 && combo % 5 === 0) {
               multiplier = 1.5;
@@ -1023,6 +1085,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         e.zigzagPhase += e.zigzagSpeed * dtSec;
         e.x += Math.sin(e.zigzagPhase) * e.zigzagAmp * dtSec;
         e.x = Math.max(e.w / 2, Math.min(W - e.w / 2, e.x));
+      }
+
+      // Homing: gently track player X
+      if (e.homing && e.y < H * 0.6) {
+        var homeDx = player.x - e.x;
+        e.x += homeDx * 0.8 * dtSec;
       }
 
       // Check collision with player
@@ -1118,7 +1186,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   // ---- COLLISION ----
   function checkCollision(a, b) {
-    var pad = 6; // Smaller hitbox for fairness
+    var pad = 4; // Tighter hitbox (HARDER)
     return a.x - a.w/2 + pad < b.x + b.w/2 - pad &&
            a.x + a.w/2 - pad > b.x - b.w/2 + pad &&
            a.y - a.h/2 + pad < b.y + b.h/2 - pad &&
@@ -1159,7 +1227,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     if (type.effect === 'powershot') {
       missileLevel = 3;
       missileLevelTimer = type.duration;
-      missileInterval = 200; // Faster fire rate
+      missileInterval = 250; // Faster fire rate (powerup)
       // Also brief invincibility
       player.shieldActive = true;
       player.shieldTimer = 2000;
