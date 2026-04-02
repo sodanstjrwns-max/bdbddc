@@ -316,6 +316,294 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
+    <!-- ═══════ 요일별 진료 스케줄 ═══════ -->
+    <section class="section" aria-label="요일별 진료 스케줄" id="weekly-schedule">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-badge"><i class="fas fa-calendar-alt"></i> Weekly Schedule</span>
+          <h2 class="section-title">요일별 <span class="text-gradient">진료 스케줄</span></h2>
+          <p class="section-subtitle">원하시는 요일을 선택하면 진료 가능한 원장님을 확인하실 수 있습니다</p>
+        </div>
+
+        <!-- Day Tabs -->
+        <div class="schedule-day-tabs reveal">
+          <button class="schedule-day-btn" data-day="일">일</button>
+          <button class="schedule-day-btn" data-day="월">월</button>
+          <button class="schedule-day-btn" data-day="화">화</button>
+          <button class="schedule-day-btn" data-day="수">수</button>
+          <button class="schedule-day-btn" data-day="목">목</button>
+          <button class="schedule-day-btn" data-day="금">금</button>
+          <button class="schedule-day-btn" data-day="토">토</button>
+        </div>
+
+        <!-- Schedule Result -->
+        <div class="schedule-result reveal" id="scheduleResult">
+          <div class="schedule-day-title" id="scheduleDayTitle"></div>
+          <div class="schedule-doctor-list" id="scheduleDoctorList"></div>
+          <p class="schedule-note"><i class="fas fa-info-circle"></i> 진료 일정은 변동될 수 있습니다. 예약 시 확인 부탁드립니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      /* ── Schedule Day Tabs ── */
+      .schedule-day-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+      }
+      .schedule-day-btn {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 2px solid rgba(0,0,0,0.1);
+        background: var(--bg-primary, #fff);
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-secondary, #666);
+        cursor: pointer;
+        transition: all 0.25s ease;
+        position: relative;
+      }
+      .schedule-day-btn:hover {
+        border-color: var(--brand-primary, #6B4226);
+        color: var(--brand-primary, #6B4226);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(107,66,38,0.15);
+      }
+      .schedule-day-btn.active {
+        background: var(--brand-primary, #6B4226);
+        color: #fff;
+        border-color: var(--brand-primary, #6B4226);
+        box-shadow: 0 4px 16px rgba(107,66,38,0.3);
+        transform: translateY(-2px);
+      }
+      .schedule-day-btn.today::after {
+        content: '오늘';
+        position: absolute;
+        bottom: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.65rem;
+        color: var(--brand-primary, #6B4226);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .schedule-day-btn[data-day="일"],
+      .schedule-day-btn[data-day="토"] {
+        color: var(--text-secondary, #666);
+      }
+      .schedule-day-btn[data-day="일"].active,
+      .schedule-day-btn[data-day="토"].active {
+        color: #fff;
+      }
+
+      /* ── Schedule Result ── */
+      .schedule-result {
+        background: var(--bg-secondary, #f8f9fa);
+        border-radius: var(--radius-xl, 16px);
+        padding: 32px;
+        border: 1px solid rgba(0,0,0,0.06);
+      }
+      .schedule-day-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary, #1a1a1a);
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .schedule-day-title .day-count {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--brand-primary, #6B4226);
+        background: rgba(107,66,38,0.08);
+        padding: 4px 12px;
+        border-radius: 20px;
+      }
+      .schedule-doctor-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 12px;
+      }
+      .schedule-doctor-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        background: var(--bg-primary, #fff);
+        border-radius: var(--radius-lg, 12px);
+        border: 1px solid rgba(0,0,0,0.06);
+        transition: all 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+      }
+      .schedule-doctor-item:hover {
+        border-color: var(--brand-primary, #6B4226);
+        box-shadow: 0 4px 12px rgba(107,66,38,0.1);
+        transform: translateY(-1px);
+      }
+      .schedule-doctor-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+        background: #f0f0f0;
+      }
+      .schedule-doctor-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .schedule-doctor-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--text-primary, #1a1a1a);
+      }
+      .schedule-doctor-name .doc-role {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--brand-primary, #6B4226);
+        margin-left: 6px;
+      }
+      .schedule-doctor-time {
+        font-size: 0.82rem;
+        color: var(--text-secondary, #666);
+        margin-top: 2px;
+      }
+      .schedule-doctor-time i {
+        color: var(--brand-primary, #6B4226);
+        margin-right: 4px;
+        font-size: 0.75rem;
+      }
+      .schedule-no-doctor {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-secondary, #666);
+        grid-column: 1 / -1;
+      }
+      .schedule-no-doctor i {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 12px;
+        opacity: 0.3;
+      }
+      .schedule-note {
+        font-size: 0.78rem;
+        color: var(--text-tertiary, #999);
+        margin-top: 20px;
+        text-align: center;
+      }
+      .schedule-note i {
+        margin-right: 4px;
+      }
+
+      @media (max-width: 640px) {
+        .schedule-day-tabs { gap: 6px; }
+        .schedule-day-btn { width: 44px; height: 44px; font-size: 0.9rem; }
+        .schedule-result { padding: 20px 16px; }
+        .schedule-doctor-list { grid-template-columns: 1fr; }
+        .schedule-day-btn.today::after { font-size: 0.6rem; bottom: -16px; }
+      }
+    </style>
+
+    <script>
+    (function(){
+      // ── Doctor schedule data ──
+      var doctors = [
+        { id:'moon', name:'문석준', role:'대표원장', specialty:'통합치의학과 전문의',
+          schedule:{ '일':'09:00-20:00','월':'09:00-20:00','화':'09:00-20:00','수':'09:00-20:00','목':'09:00-20:00' }},
+        { id:'kim', name:'김민수', role:'대표원장', specialty:'통합치의학과 전문의',
+          schedule:{ '월':'14:00-20:00','화':'09:00-20:00','수':'09:00-20:00','목':'14:00-20:00','금':'09:00-20:00','토':'09:00-17:00' }},
+        { id:'hyun', name:'현정민', role:'대표원장', specialty:'통합치의학과 전문의',
+          schedule:{ '월':'09:00-20:00','목':'09:00-20:00','금':'09:00-20:00','토':'09:00-17:00','일':'09:00-17:00' }},
+        { id:'lee', name:'이승엽', role:'', specialty:'임플란트센터장',
+          schedule:{ '월':'09:00-20:00','화':'09:00-18:00','수':'09:00-18:00','목':'15:30-20:00','금':'10:00-17:00','토':'09:00-13:00 (2,4,5주)' }},
+        { id:'choi', name:'최종훈', role:'', specialty:'통합진료센터장',
+          schedule:{ '월':'09:00-20:00','화':'09:00-20:00','수':'09:00-20:00','목':'09:00-13:00','금':'09:00-20:00','토':'09:00-17:00' }},
+        { id:'kang', name:'강경민', role:'', specialty:'통합진료',
+          schedule:{ '목':'09:00-20:00','금':'09:00-20:00','토':'09:00-17:00','일':'09:00-17:00' }},
+        { id:'park-sb', name:'박수빈', role:'', specialty:'통합진료',
+          schedule:{ '일':'09:00-17:00','월':'09:00-20:00','화':'09:00-20:00','수':'09:00-20:00' }},
+        { id:'lim', name:'임지원', role:'', specialty:'교정과',
+          schedule:{ '화':'14:00-20:00','목':'14:00-20:00','금':'11:30-19:30','토':'10:00-14:00' }},
+        { id:'kim-mg', name:'김민규', role:'', specialty:'치과교정과 전문의',
+          schedule:{ '월':'09:00-18:00','수':'14:00-20:00','목':'09:00-18:00','토':'09:00-13:00','일':'09:00-13:00' }},
+        { id:'kang-mj', name:'강민지', role:'', specialty:'보존과 전문의',
+          schedule:{ '화':'10:00-15:30','금':'11:30-17:00' }},
+        { id:'jo', name:'조설아', role:'', specialty:'보존과·통합치의학과 전문의',
+          schedule:{ '월':'10:00-15:30','화':'10:00-15:30','목':'10:00-15:30','일':'10:00-14:00 (2,4주)' }},
+        { id:'kim-mj', name:'김민진', role:'', specialty:'소아치과 전문의',
+          schedule:{ '월':'10:30-18:00','수':'10:30-18:00','목':'10:30-16:00' }},
+        { id:'seo', name:'서희원', role:'', specialty:'소아치과 전문의',
+          schedule:{ '화':'11:30-17:00','금':'11:30-17:00' }},
+        { id:'park', name:'박상현', role:'', specialty:'소아치과 전문의',
+          schedule:{ '월':'10:30-15:30','수':'14:30-19:30','목':'10:00-18:00' }},
+        { id:'lee-bm', name:'이병민', role:'', specialty:'구강내과 전문의',
+          schedule:{ '수':'09:00-17:00','목':'09:00-17:00' }}
+      ];
+
+      var imgBase = 'https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/';
+      var days = ['일','월','화','수','목','금','토'];
+      var today = days[new Date().getDay()];
+
+      function renderDay(day) {
+        var title = document.getElementById('scheduleDayTitle');
+        var list = document.getElementById('scheduleDoctorList');
+        var available = doctors.filter(function(d){ return d.schedule[day]; });
+        
+        var dayLabel = day + '요일';
+        if (day === today) dayLabel += ' (오늘)';
+        title.innerHTML = '<i class="fas fa-calendar-day" style="color:var(--brand-primary)"></i> ' + dayLabel + ' <span class="day-count">' + available.length + '명 진료</span>';
+
+        if (available.length === 0) {
+          list.innerHTML = '<div class="schedule-no-doctor"><i class="fas fa-moon"></i><p>해당 요일은 진료 원장이 없습니다.</p></div>';
+          return;
+        }
+
+        list.innerHTML = available.map(function(d){
+          var roleTag = d.role ? '<span class="doc-role">' + d.role + '</span>' : '';
+          return '<a href="/doctors/' + d.id + '" class="schedule-doctor-item">' +
+            '<img class="schedule-doctor-avatar" src="' + imgBase + d.id + '-profile.jpg" alt="' + d.name + '" loading="lazy" onerror="this.style.opacity=\'0.3\'">' +
+            '<div class="schedule-doctor-info">' +
+              '<div class="schedule-doctor-name">' + d.name + ' 원장' + roleTag + '</div>' +
+              '<div class="schedule-doctor-time"><i class="fas fa-clock"></i> ' + d.schedule[day] + '</div>' +
+            '</div>' +
+          '</a>';
+        }).join('');
+      }
+
+      document.addEventListener('DOMContentLoaded', function(){
+        var btns = document.querySelectorAll('.schedule-day-btn');
+        
+        // Mark today
+        btns.forEach(function(btn){
+          if(btn.dataset.day === today) btn.classList.add('today');
+        });
+
+        // Click handler
+        btns.forEach(function(btn){
+          btn.addEventListener('click', function(){
+            btns.forEach(function(b){ b.classList.remove('active'); });
+            this.classList.add('active');
+            renderDay(this.dataset.day);
+          });
+        });
+
+        // Auto-select today
+        btns.forEach(function(btn){
+          if(btn.dataset.day === today) {
+            btn.classList.add('active');
+            renderDay(today);
+          }
+        });
+      });
+    })();
+    </script>
+
     <!-- ═══════ 전체 의료진 ═══════ -->
     <section class="section" aria-label="전체 의료진">
       <div class="container">
