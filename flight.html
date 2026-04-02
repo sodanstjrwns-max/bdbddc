@@ -441,7 +441,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="intro-tooth">🦷</div>
     <div class="intro-title">치석 플라이트</div>
     <div class="intro-subtitle">치석을 쏘고! 피하고! 치아를 지켜라!</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:20px;padding:5px 14px;font-size:0.75rem;color:#EF4444;font-weight:700;margin-bottom:12px;">💀 HELL MODE — v3.0</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:20px;padding:5px 14px;font-size:0.75rem;color:#EF4444;font-weight:700;margin-bottom:12px;">💀 HELL MODE+ — v3.5</div>
 
     <div class="intro-enemies">
       <div class="intro-enemy">
@@ -477,7 +477,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="intro-how-row"><span>🔫</span> 치약 미사일로 적을 파괴하세요!</div>
       <div class="intro-how-row"><span>❤️</span> HP 3개, 0이 되면 게임 오버</div>
       <div class="intro-how-row"><span>⚡</span> 아이템 먹으면 파워업!</div>
-      <div class="intro-how-row"><span>⚠️</span> 25초마다 웨이브 — 살아남아라!</div>
+      <div class="intro-how-row"><span>⚠️</span> 18초마다 웨이브 — 살아남아라!</div>
       <div class="intro-how-row"><span>☕</span> 커피는 파괴 시 2개로 분열!</div>
     </div>
 
@@ -529,7 +529,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <script>
   // ============================================
-  // 치석 플라이트 (Chistone Flight) v3.0 — HELL MODE
+  // 치석 플라이트 (Chistone Flight) v3.5 — HELL MODE+
   // by 서울비디치과
   // ============================================
 
@@ -593,12 +593,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   // Enemy types
   var ENEMY_TYPES = {
-    tartar: { emoji: '🪨', name: '치석', w: 38, h: 38, speed: 2.8, hp: 4, killScore: 80, zigzag: false },
-    cavity: { emoji: '🦠', name: '충치균', w: 34, h: 34, speed: 3.6, hp: 3, killScore: 60, zigzag: true },
-    sugar:  { emoji: '🍬', name: '당분', w: 28, h: 28, speed: 5.0, hp: 1, killScore: 100, zigzag: false },
-    soda:   { emoji: '🥤', name: '산성음료', w: 48, h: 54, speed: 2.2, hp: 10, killScore: 250, damage: 2, zigzag: false },
-    plaque: { emoji: '🫧', name: '치태', w: 30, h: 30, speed: 4.2, hp: 2, killScore: 70, zigzag: true, homing: true },
-    coffee: { emoji: '☕', name: '커피', w: 34, h: 34, speed: 3.0, hp: 3, killScore: 90, zigzag: false, splitting: true }
+    tartar: { emoji: '🪨', name: '치석', w: 38, h: 38, speed: 3.5, hp: 4, killScore: 80, zigzag: false },
+    cavity: { emoji: '🦠', name: '충치균', w: 34, h: 34, speed: 4.5, hp: 3, killScore: 60, zigzag: true },
+    sugar:  { emoji: '🍬', name: '당분', w: 28, h: 28, speed: 6.5, hp: 1, killScore: 100, zigzag: false },
+    soda:   { emoji: '🥤', name: '산성음료', w: 48, h: 54, speed: 3.0, hp: 12, killScore: 250, damage: 2, zigzag: false },
+    plaque: { emoji: '🫧', name: '치태', w: 30, h: 30, speed: 5.5, hp: 2, killScore: 70, zigzag: true, homing: true },
+    coffee: { emoji: '☕', name: '커피', w: 34, h: 34, speed: 4.0, hp: 3, killScore: 90, zigzag: false, splitting: true }
   };
 
   // Item types
@@ -764,27 +764,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       spawnEnemy(speedMult);
     }
 
-    // Spawn items — less frequent (HARDER)
-    if (Math.random() < dtSec * 0.06) {
+    // Spawn items — 아이템 더 안 나옴 (HELL+)
+    if (Math.random() < dtSec * 0.04) {
       spawnItem();
     }
 
-    // Wave system — every 25s
+    // Wave system — every 18s (더 자주! 킹받게!)
     waveTimer += dt;
-    if (!waveActive && waveTimer > 25000) {
+    if (!waveActive && waveTimer > 18000) {
       waveTimer = 0;
       waveNumber++;
       waveActive = true;
-      waveEnemiesLeft = Math.min(24, 8 + waveNumber * 4); // HELL: 웨이브 적 2배!
-      showPowerup('⚠️ WAVE ' + waveNumber + ' !');
-      if (navigator.vibrate) navigator.vibrate([50,30,50,30,50]);
+      waveEnemiesLeft = Math.min(30, 10 + waveNumber * 5);
+      var tauntMsgs = [
+        '⚠️ WAVE ' + waveNumber + ' — 각오해라!',
+        '💀 WAVE ' + waveNumber + ' — 아직도 살아있네?',
+        '🔥 WAVE ' + waveNumber + ' — 이건 좀 어려울걸?',
+        '😈 WAVE ' + waveNumber + ' — 포기는 없다!',
+        '👹 WAVE ' + waveNumber + ' — 치석이 분노했다!',
+        '💢 WAVE ' + waveNumber + ' — 킹받지? ㅋㅋ',
+        '🫠 WAVE ' + waveNumber + ' — 다시하기 누를 준비됐지?'
+      ];
+      showPowerup(tauntMsgs[Math.floor(Math.random()*tauntMsgs.length)]);
+      if (navigator.vibrate) navigator.vibrate([50,30,50,30,50,30,80]);
     }
     if (waveActive && waveEnemiesLeft > 0) {
-      if (Math.random() < dtSec * 14) { // HELL: 웨이브 스폰 속도 증가
+      if (Math.random() < dtSec * 18) { // HELL+: 웨이브 폭풍 스폰
         var wTypes = ['tartar','cavity','sugar','plaque','coffee'];
         if (waveNumber >= 3) wTypes.push('soda');
         var wk = wTypes[Math.floor(Math.random()*wTypes.length)];
-        enemies.push(createEnemy(wk, speedMult * 1.2));
+        enemies.push(createEnemy(wk, speedMult * 1.4));
         waveEnemiesLeft--;
       }
       if (waveEnemiesLeft <= 0) waveActive = false;
@@ -845,27 +854,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   function getSpeedMultiplier() {
     var sec = elapsed / 1000;
-    if (sec < 10) return 1.0;
-    if (sec < 20) return 1.3;
-    if (sec < 35) return 1.7;
-    if (sec < 50) return 2.1;
-    if (sec < 70) return 2.6;
-    if (sec < 90) return 3.2;
-    if (sec < 120) return 3.8;
-    return 4.2 + (sec - 120) * 0.015;
+    // v3.5 HELL+: 초반부터 빡세고 후반엔 미침
+    if (sec < 5) return 1.0;
+    if (sec < 12) return 1.4;
+    if (sec < 20) return 1.9;
+    if (sec < 30) return 2.4;
+    if (sec < 45) return 3.0;
+    if (sec < 60) return 3.6;
+    if (sec < 80) return 4.2;
+    if (sec < 100) return 4.8;
+    return 5.2 + (sec - 100) * 0.025;
   }
 
   function getSpawnInterval() {
     var sec = elapsed / 1000;
-    // v3.0 HELL MODE: 스폰 간격 절반! 적 2배!
-    var base = 260;
-    if (sec > 120) return Math.max(45, base - 200);
-    if (sec > 90) return Math.max(55, base - 175);
-    if (sec > 70) return Math.max(70, base - 150);
-    if (sec > 50) return Math.max(90, base - 125);
-    if (sec > 35) return Math.max(110, base - 100);
-    if (sec > 20) return Math.max(140, base - 75);
-    if (sec > 10) return Math.max(175, base - 50);
+    // v3.5 HELL+: 스폰 간격 더 극악
+    var base = 220;
+    if (sec > 100) return Math.max(35, base - 180);
+    if (sec > 80) return Math.max(40, base - 160);
+    if (sec > 60) return Math.max(50, base - 140);
+    if (sec > 45) return Math.max(65, base - 120);
+    if (sec > 30) return Math.max(85, base - 100);
+    if (sec > 20) return Math.max(110, base - 70);
+    if (sec > 10) return Math.max(145, base - 40);
     return base;
   }
 
@@ -917,13 +928,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     if (sec > 60) types.push('sugar', 'sugar', 'plaque', 'plaque', 'coffee', 'soda');
     if (sec > 90) types.push('soda', 'soda', 'coffee', 'coffee');
 
-    // v3.0 HELL MODE: 멀티 스폰 확률 및 수량 대폭 증가
-    var spawnCount = 2; // 기본 2마리!
-    if (sec > 15 && Math.random() < 0.4) spawnCount = 3;
-    if (sec > 30 && Math.random() < 0.35) spawnCount = 4;
-    if (sec > 50 && Math.random() < 0.3) spawnCount = 5;
-    if (sec > 70 && Math.random() < 0.25) spawnCount = 6;
-    if (sec > 100 && Math.random() < 0.2) spawnCount = 7;
+    // v3.5 HELL+: 더 극악한 스폰
+    var spawnCount = 2;
+    if (sec > 10 && Math.random() < 0.45) spawnCount = 3;
+    if (sec > 20 && Math.random() < 0.4) spawnCount = 4;
+    if (sec > 35 && Math.random() < 0.35) spawnCount = 5;
+    if (sec > 50 && Math.random() < 0.3) spawnCount = 6;
+    if (sec > 70 && Math.random() < 0.25) spawnCount = 7;
+    if (sec > 90 && Math.random() < 0.2) spawnCount = 8;
+
+    // 킹받는 포인트: 플레이어 근처에 적 스폰!
+    if (sec > 8 && Math.random() < 0.35) {
+      var sniperType = types[Math.floor(Math.random()*types.length)];
+      var sniperE = createEnemy(sniperType, speedMult, player.x + (Math.random()-0.5)*80);
+      enemies.push(sniperE);
+    }
 
     // Formation: V-shape
     var pattern = Math.random();
@@ -1087,10 +1106,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         e.x = Math.max(e.w / 2, Math.min(W - e.w / 2, e.x));
       }
 
-      // Homing: gently track player X
-      if (e.homing && e.y < H * 0.6) {
+      // Homing: AGGRESSIVELY track player X — 킹받게!
+      if (e.homing && e.y < H * 0.7) {
         var homeDx = player.x - e.x;
-        e.x += homeDx * 0.8 * dtSec;
+        e.x += homeDx * 1.8 * dtSec;
       }
 
       // Check collision with player
