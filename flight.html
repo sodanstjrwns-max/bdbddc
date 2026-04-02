@@ -1106,10 +1106,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         e.x = Math.max(e.w / 2, Math.min(W - e.w / 2, e.x));
       }
 
-      // Homing: MISSILE-LIKE tracking — 유도 미사일급!
+      // Homing: 적당히 쫓아오는 치태
       if (e.homing && e.y < H * 0.75) {
         var homeDx = player.x - e.x;
-        e.x += homeDx * 3.6 * dtSec;
+        e.x += homeDx * 2.5 * dtSec;
       }
 
       // Check collision with player
