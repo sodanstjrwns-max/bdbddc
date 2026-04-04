@@ -441,7 +441,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="intro-tooth">🦷</div>
     <div class="intro-title">치석 플라이트</div>
     <div class="intro-subtitle">치석을 쏘고! 피하고! 치아를 지켜라!</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:20px;padding:5px 14px;font-size:0.75rem;color:#EF4444;font-weight:700;margin-bottom:12px;">💀 HELL MODE+ — v3.5</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:20px;padding:5px 14px;font-size:0.75rem;color:#EF4444;font-weight:700;margin-bottom:6px;">💀 HELL MODE+ — v4.0</div>
+    <div id="deviceModeBadge" style="display:inline-flex;align-items:center;gap:5px;border-radius:16px;padding:4px 12px;font-size:0.7rem;font-weight:600;margin-bottom:12px;"></div>
 
     <div class="intro-enemies">
       <div class="intro-enemy">
@@ -477,7 +478,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="intro-how-row"><span>🔫</span> 치약 미사일로 적을 파괴하세요!</div>
       <div class="intro-how-row"><span>❤️</span> HP 3개, 0이 되면 게임 오버</div>
       <div class="intro-how-row"><span>⚡</span> 아이템 먹으면 파워업!</div>
-      <div class="intro-how-row"><span>⚠️</span> 18초마다 웨이브 — 살아남아라!</div>
+      <div class="intro-how-row"><span>⚠️</span> <span id="waveInfoText">18초마다 웨이브 — 살아남아라!</span></div>
       <div class="intro-how-row"><span>☕</span> 커피는 파괴 시 2개로 분열!</div>
     </div>
 
@@ -529,7 +530,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <script>
   // ============================================
-  // 치석 플라이트 (Chistone Flight) v3.5 — HELL MODE+
+  // 치석 플라이트 (Chistone Flight) v4.0 — HELL MODE+ (모바일/PC 분리)
   // by 서울비디치과
   // ============================================
 
@@ -591,6 +592,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   var inputX = null;
   var keys = {};
 
+  // Device detection: mobile vs PC
+  var isMobile = (W < 768);
+  function updateDeviceType() { isMobile = (W < 768); }
+
   // Enemy types
   var ENEMY_TYPES = {
     tartar: { emoji: '🪨', name: '치석', w: 38, h: 38, speed: 3.5, hp: 4, killScore: 80, zigzag: false },
@@ -632,6 +637,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     window.addEventListener('resize', resize);
     initBgStars();
     drawBgStars();
+    updateDeviceBadge();
+  }
+
+  function updateDeviceBadge() {
+    var badge = document.getElementById('deviceModeBadge');
+    var waveInfo = document.getElementById('waveInfoText');
+    if (isMobile) {
+      badge.innerHTML = '📱 모바일 모드 (난이도 조정)';
+      badge.style.background = 'rgba(59,130,246,0.15)';
+      badge.style.border = '1px solid rgba(59,130,246,0.3)';
+      badge.style.color = '#60A5FA';
+      if (waveInfo) waveInfo.textContent = '30초마다 웨이브 — 살아남아라!';
+    } else {
+      badge.innerHTML = '🖥️ PC 모드 (EXTREME)';
+      badge.style.background = 'rgba(239,68,68,0.15)';
+      badge.style.border = '1px solid rgba(239,68,68,0.3)';
+      badge.style.color = '#EF4444';
+      if (waveInfo) waveInfo.textContent = '18초마다 웨이브 — 살아남아라!';
+    }
   }
 
   function resize() {
@@ -639,6 +663,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
+    updateDeviceType();
+    if (document.getElementById('deviceModeBadge')) updateDeviceBadge();
   }
 
   function initBgStars() {
@@ -764,18 +790,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       spawnEnemy(speedMult);
     }
 
-    // Spawn items — 아이템 더 안 나옴 (HELL+)
-    if (Math.random() < dtSec * 0.04) {
+    // Spawn items — 모바일은 아이템 2배 자주! (v4.0)
+    var itemRate = isMobile ? 0.10 : 0.04;
+    if (Math.random() < dtSec * itemRate) {
       spawnItem();
     }
 
-    // Wave system — every 18s (더 자주! 킹받게!)
+    // Wave system — 모바일은 느리게 & 적게, PC는 빡세게 (v4.0)
     waveTimer += dt;
-    if (!waveActive && waveTimer > 18000) {
+    var waveInterval = isMobile ? 30000 : 18000; // 모바일 30초, PC 18초
+    if (!waveActive && waveTimer > waveInterval) {
       waveTimer = 0;
       waveNumber++;
       waveActive = true;
-      waveEnemiesLeft = Math.min(30, 10 + waveNumber * 5);
+      waveEnemiesLeft = isMobile
+        ? Math.min(12, 4 + waveNumber * 2)   // 모바일: 최대 12마리
+        : Math.min(30, 10 + waveNumber * 5);  // PC: 최대 30마리
       var tauntMsgs = [
         '⚠️ WAVE ' + waveNumber + ' — 각오해라!',
         '💀 WAVE ' + waveNumber + ' — 아직도 살아있네?',
@@ -789,7 +819,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       if (navigator.vibrate) navigator.vibrate([50,30,50,30,50,30,80]);
     }
     if (waveActive && waveEnemiesLeft > 0) {
-      if (Math.random() < dtSec * 18) { // HELL+: 웨이브 폭풍 스폰
+      var waveSpawnRate = isMobile ? 6 : 18; // 모바일: 느린 웨이브 스폰
+      if (Math.random() < dtSec * waveSpawnRate) { // v4.0: 모바일/PC 웨이브 스폰 분리
         var wTypes = ['tartar','cavity','sugar','plaque','coffee'];
         if (waveNumber >= 3) wTypes.push('soda');
         var wk = wTypes[Math.floor(Math.random()*wTypes.length)];
@@ -854,30 +885,56 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   function getSpeedMultiplier() {
     var sec = elapsed / 1000;
-    // v3.5 HELL+: 초반부터 빡세고 후반엔 미침
-    if (sec < 5) return 1.0;
-    if (sec < 12) return 1.4;
-    if (sec < 20) return 1.9;
-    if (sec < 30) return 2.4;
-    if (sec < 45) return 3.0;
-    if (sec < 60) return 3.6;
-    if (sec < 80) return 4.2;
-    if (sec < 100) return 4.8;
-    return 5.2 + (sec - 100) * 0.025;
+    if (isMobile) {
+      // 모바일 v4.0: 화면 좁으니 속도 대폭 낮춤 (PC 대비 ~60%)
+      if (sec < 8) return 0.8;
+      if (sec < 15) return 1.0;
+      if (sec < 25) return 1.2;
+      if (sec < 35) return 1.4;
+      if (sec < 50) return 1.7;
+      if (sec < 70) return 2.0;
+      if (sec < 90) return 2.3;
+      if (sec < 120) return 2.6;
+      return 2.8 + (sec - 120) * 0.008;
+    } else {
+      // PC: 화면 넓으니 빡세게 (기존 유지)
+      if (sec < 5) return 1.0;
+      if (sec < 12) return 1.4;
+      if (sec < 20) return 1.9;
+      if (sec < 30) return 2.4;
+      if (sec < 45) return 3.0;
+      if (sec < 60) return 3.6;
+      if (sec < 80) return 4.2;
+      if (sec < 100) return 4.8;
+      return 5.2 + (sec - 100) * 0.025;
+    }
   }
 
   function getSpawnInterval() {
     var sec = elapsed / 1000;
-    // v3.5 HELL+: 적 1.3배 — 스폰 간격 더 줄임
-    var base = 170;
-    if (sec > 100) return Math.max(27, base - 140);
-    if (sec > 80) return Math.max(32, base - 125);
-    if (sec > 60) return Math.max(40, base - 108);
-    if (sec > 45) return Math.max(50, base - 92);
-    if (sec > 30) return Math.max(65, base - 77);
-    if (sec > 20) return Math.max(85, base - 54);
-    if (sec > 10) return Math.max(112, base - 31);
-    return base;
+    if (isMobile) {
+      // 모바일 v4.0: 스폰 간격 훨씬 넉넉하게 (PC 대비 ~2배)
+      var base = 500;
+      if (sec > 120) return Math.max(150, base - 320);
+      if (sec > 90) return Math.max(180, base - 270);
+      if (sec > 70) return Math.max(200, base - 230);
+      if (sec > 50) return Math.max(230, base - 190);
+      if (sec > 35) return Math.max(270, base - 150);
+      if (sec > 20) return Math.max(320, base - 100);
+      if (sec > 10) return Math.max(380, base - 50);
+      return base;
+    } else {
+      // PC: 빡빡하게 (기존 유지)
+      var base = 170;
+      if (sec > 100) return Math.max(27, base - 140);
+      if (sec > 80) return Math.max(32, base - 125);
+      if (sec > 60) return Math.max(40, base - 108);
+      if (sec > 45) return Math.max(50, base - 92);
+      if (sec > 30) return Math.max(65, base - 77);
+      if (sec > 20) return Math.max(85, base - 54);
+      if (sec > 10) return Math.max(112, base - 31);
+      return base;
+    }
   }
 
   function updatePlayer(dt) {
@@ -928,25 +985,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     if (sec > 60) types.push('sugar', 'sugar', 'plaque', 'plaque', 'coffee', 'soda');
     if (sec > 90) types.push('soda', 'soda', 'coffee', 'coffee');
 
-    // v3.5 HELL+: 적 1.3배 — 스폰 카운트 증가
-    var spawnCount = 3;
-    if (sec > 10 && Math.random() < 0.5) spawnCount = 4;
-    if (sec > 20 && Math.random() < 0.45) spawnCount = 5;
-    if (sec > 35 && Math.random() < 0.4) spawnCount = 6;
-    if (sec > 50 && Math.random() < 0.35) spawnCount = 7;
-    if (sec > 70 && Math.random() < 0.3) spawnCount = 8;
-    if (sec > 90 && Math.random() < 0.25) spawnCount = 10;
+    // 스폰 카운트: 모바일 vs PC 완전 분리 (v4.0)
+    var spawnCount;
+    if (isMobile) {
+      // 모바일 v4.0: 적 수 대폭 감소 (화면 좁음 고려)
+      spawnCount = 1;
+      if (sec > 15 && Math.random() < 0.3) spawnCount = 2;
+      if (sec > 35 && Math.random() < 0.25) spawnCount = 2;
+      if (sec > 60 && Math.random() < 0.2) spawnCount = 3;
+      if (sec > 90 && Math.random() < 0.15) spawnCount = 3;
+    } else {
+      // PC: 빡세게 (기존 유지)
+      spawnCount = 3;
+      if (sec > 10 && Math.random() < 0.5) spawnCount = 4;
+      if (sec > 20 && Math.random() < 0.45) spawnCount = 5;
+      if (sec > 35 && Math.random() < 0.4) spawnCount = 6;
+      if (sec > 50 && Math.random() < 0.35) spawnCount = 7;
+      if (sec > 70 && Math.random() < 0.3) spawnCount = 8;
+      if (sec > 90 && Math.random() < 0.25) spawnCount = 10;
+    }
 
-    // 킹받는 포인트: 플레이어 근처에 적 스폰!
-    if (sec > 8 && Math.random() < 0.4) {
+    // 킹받는 포인트: 플레이어 근처에 적 스폰 (모바일은 거의 없앰)
+    if (sec > (isMobile ? 20 : 8) && Math.random() < (isMobile ? 0.08 : 0.4)) {
       var sniperType = types[Math.floor(Math.random()*types.length)];
       var sniperE = createEnemy(sniperType, speedMult, player.x + (Math.random()-0.5)*80);
       enemies.push(sniperE);
     }
 
-    // Formation: V-shape
+    // Formation: V-shape (모바일은 확률 낮춤)
     var pattern = Math.random();
-    if (sec > 20 && pattern < 0.12) {
+    var vChance = isMobile ? 0.04 : 0.12;
+    if (sec > (isMobile ? 40 : 20) && pattern < vChance) {
       var cx = W/2 + (Math.random()-0.5)*W*0.5;
       for (var v=0; v<3; v++) {
         var e = createEnemy('tartar', speedMult, cx + (v-1)*60);
@@ -955,9 +1024,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
       return;
     }
-    // Formation: Wall
-    if (sec > 35 && pattern < 0.22) {
-      var wc = Math.min(5, 3 + Math.floor(sec/40));
+    // Formation: Wall (모바일은 벽 적 수 줄이고, 출현 늦춤)
+    var wallChance = isMobile ? 0.10 : 0.22;
+    if (sec > (isMobile ? 60 : 35) && pattern < wallChance) {
+      var wc = isMobile ? Math.min(3, 2 + Math.floor(sec/80)) : Math.min(5, 3 + Math.floor(sec/40));
       var gap = W / (wc+1);
       var wt = sec > 60 ? 'cavity' : 'tartar';
       for (var ww=0; ww<wc; ww++) enemies.push(createEnemy(wt, speedMult*0.8, gap*(ww+1)));
@@ -1106,10 +1176,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         e.x = Math.max(e.w / 2, Math.min(W - e.w / 2, e.x));
       }
 
-      // Homing: 적당히 쫓아오는 치태
+      // Homing: 모바일은 거의 안 쫓아옴, PC는 빡세게 (v4.0)
       if (e.homing && e.y < H * 0.75) {
         var homeDx = player.x - e.x;
-        e.x += homeDx * 2.5 * dtSec;
+        e.x += homeDx * (isMobile ? 0.8 : 2.5) * dtSec;
       }
 
       // Check collision with player
