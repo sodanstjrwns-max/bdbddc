@@ -82,7 +82,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <!-- ■ Icons -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=a774fa33">
+  <link rel="stylesheet" href="../css/site-v5.css?v=b470f500">
   <style>
     /* Hero 3D responsive + floating animation */
     .hero-3d{
@@ -793,58 +793,119 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <!-- ═══════ FACILITY GALLERY ═══════ -->
-  <section class="facility-section section" aria-label="시설 안내">
+  <!-- ═══════ FACILITY GALLERY — Magazine Layout ═══════ -->
+  <section class="fac-mag section" aria-label="치과 공간 둘러보기">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-badge"><i class="fas fa-hospital"></i> 시설 안내</span>
-        <h2 class="section-title"><span class="text-gradient">전문</span> 의료 시설</h2>
-        <p class="section-subtitle">환자분의 편안함과 안전을 위한 프리미엄 환경</p>
+        <span class="section-badge"><i class="fas fa-door-open"></i> 공간 둘러보기</span>
+        <h2 class="section-title">오시기 전에,<br><span class="text-gradient">미리 만나보세요</span></h2>
+        <p class="section-subtitle">환자분이 머무는 모든 순간을 설계했습니다</p>
       </div>
-      
-      <div class="facility-grid reveal">
-        <div class="facility-card">
+
+      <!-- 매거진 그리드: 비대칭 잡지 레이아웃 -->
+      <div class="fac-mag-grid reveal">
+
+        <!-- 히어로 카드: 로비 (2열 넓은 배치) -->
+        <div class="fac-mag-card fac-hero">
           <picture>
             <source srcset="/images/facility/waiting-room.webp" type="image/webp">
-            <img src="/images/facility/waiting-room.jpg" loading="lazy" alt="프리미엄 로비 — 편안한 대기 공간" width="400" height="300" decoding="async">
+            <img src="/images/facility/waiting-room.jpg" loading="lazy" alt="서울비디치과 카페 같은 대기 공간" width="800" height="500" decoding="async">
           </picture>
-          <div class="facility-card-info"><h3>프리미엄 로비</h3><p>편안한 대기 공간</p></div>
+          <div class="fac-mag-overlay">
+            <span class="fac-mag-num">01</span>
+            <div class="fac-mag-text">
+              <h3>카페 같은 대기 공간</h3>
+              <p>치과가 아닌 것처럼 — 넓은 로비, 대형 스크린, 편안한 소파에서 여유롭게 기다리세요.</p>
+            </div>
+          </div>
         </div>
-        <div class="facility-card">
+
+        <!-- 1/3 카드: 진료실 -->
+        <div class="fac-mag-card">
           <picture>
             <source srcset="/images/facility/treatment-room.webp" type="image/webp">
-            <img src="/images/facility/treatment-room.jpg" loading="lazy" alt="첨단 진료실 — 개별 진료 공간" width="400" height="300" decoding="async">
+            <img src="/images/facility/treatment-room.jpg" loading="lazy" alt="서울비디치과 개별 진료 공간" width="400" height="500" decoding="async">
           </picture>
-          <div class="facility-card-info"><h3>첨단 진료실</h3><p>개별 진료 공간</p></div>
+          <div class="fac-mag-overlay">
+            <span class="fac-mag-num">02</span>
+            <div class="fac-mag-text">
+              <h3>나만의 진료 공간</h3>
+              <p>독립된 파티션으로 프라이버시를 지키며, 모니터로 실시간 진료 과정을 확인할 수 있어요.</p>
+            </div>
+          </div>
         </div>
-        <div class="facility-card">
+
+        <!-- 1/3 카드: 수술실 -->
+        <div class="fac-mag-card">
           <picture>
             <source srcset="/images/facility/surgery-tools.webp" type="image/webp">
-            <img src="/images/facility/surgery-tools.jpg" loading="lazy" alt="무균 수술실 — 6개 임플란트 수술방" width="400" height="300" decoding="async">
+            <img src="/images/facility/surgery-tools.jpg" loading="lazy" alt="서울비디치과 무균 수술실 장비" width="400" height="500" decoding="async">
           </picture>
-          <div class="facility-card-info"><h3>무균 수술실</h3><p>6개 임플란트 수술방</p></div>
+          <div class="fac-mag-overlay">
+            <span class="fac-mag-num">03</span>
+            <div class="fac-mag-text">
+              <h3>6개 독립 수술실</h3>
+              <p>대학병원급 무균 환경. 에어샤워 시스템으로 수술 시작 전부터 감염을 차단합니다.</p>
+            </div>
+          </div>
         </div>
-        <div class="facility-card">
+
+        <!-- 1/3 카드: CT -->
+        <div class="fac-mag-card">
           <picture>
             <source srcset="/images/facility/xray-equipment.webp" type="image/webp">
-            <img src="/images/facility/xray-equipment.jpg" loading="lazy" alt="3D CT 장비 — 정밀 진단" width="400" height="300" decoding="async">
+            <img src="/images/facility/xray-equipment.jpg" loading="lazy" alt="서울비디치과 3D CT 진단 장비" width="400" height="500" decoding="async">
           </picture>
-          <div class="facility-card-info"><h3>3D CT 장비</h3><p>정밀 진단 시스템</p></div>
+          <div class="fac-mag-overlay">
+            <span class="fac-mag-num">04</span>
+            <div class="fac-mag-text">
+              <h3>3D 정밀 진단</h3>
+              <p>CT·파노라마·구강카메라 — 눈으로 직접 보면서 이해할 수 있도록 설명해 드립니다.</p>
+            </div>
+          </div>
         </div>
-        <div class="facility-card">
+
+        <!-- 1/3 카드: 소아 -->
+        <div class="fac-mag-card">
           <picture>
             <source srcset="/images/facility/kids-playroom.webp" type="image/webp">
-            <img src="/images/facility/kids-playroom.jpg" loading="lazy" alt="소아치과 전용 — 아이 친화적 환경" width="400" height="300" decoding="async">
+            <img src="/images/facility/kids-playroom.jpg" loading="lazy" alt="서울비디치과 소아치과 키즈 놀이공간" width="400" height="500" decoding="async">
           </picture>
-          <div class="facility-card-info"><h3>소아치과 전용</h3><p>아이 친화적 환경</p></div>
+          <div class="fac-mag-overlay">
+            <span class="fac-mag-num">05</span>
+            <div class="fac-mag-text">
+              <h3>아이가 좋아하는 치과</h3>
+              <p>쿠션 놀이방과 귀여운 인형 친구들 — 무서운 치과가 아닌, 다시 오고 싶은 곳.</p>
+            </div>
+          </div>
         </div>
-        <div class="facility-card">
+
+        <!-- 히어로 카드: 기공소 (2열 넓은 배치) -->
+        <div class="fac-mag-card fac-hero">
           <picture>
             <source srcset="/images/facility/dental-lab.webp" type="image/webp">
-            <img src="/images/facility/dental-lab.jpg" loading="lazy" alt="원내 기공소 — 5인 전문 기공사" width="400" height="300" decoding="async">
+            <img src="/images/facility/dental-lab.jpg" loading="lazy" alt="서울비디치과 원내 디지털 기공소" width="800" height="500" decoding="async">
           </picture>
-          <div class="facility-card-info"><h3>원내 기공소</h3><p>5인 전문 기공사</p></div>
+          <div class="fac-mag-overlay">
+            <span class="fac-mag-num">06</span>
+            <div class="fac-mag-text">
+              <h3>원내 디지털 기공소</h3>
+              <p>5인의 전문 기공사가 원내에 상주 — 보철물 제작부터 수정까지 빠르고 정밀하게.</p>
+            </div>
+          </div>
         </div>
+
+      </div>
+
+      <!-- 하단 한 줄 요약 -->
+      <div class="fac-mag-footer reveal">
+        <div class="fac-mag-stat"><span class="fac-mag-stat-num">400</span><span class="fac-mag-stat-unit">평</span><span class="fac-mag-stat-label">진료 면적</span></div>
+        <div class="fac-mag-stat-divider"></div>
+        <div class="fac-mag-stat"><span class="fac-mag-stat-num">1~5</span><span class="fac-mag-stat-unit">층</span><span class="fac-mag-stat-label">전문 센터</span></div>
+        <div class="fac-mag-stat-divider"></div>
+        <div class="fac-mag-stat"><span class="fac-mag-stat-num">6</span><span class="fac-mag-stat-unit">개</span><span class="fac-mag-stat-label">독립 수술실</span></div>
+        <div class="fac-mag-stat-divider"></div>
+        <div class="fac-mag-stat"><span class="fac-mag-stat-num">5</span><span class="fac-mag-stat-unit">인</span><span class="fac-mag-stat-label">원내 기공사</span></div>
       </div>
     </div>
   </section>
