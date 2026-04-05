@@ -288,7 +288,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h2 class="section-title">15인 <span class="text-gradient">체계적 협진</span></h2>
           <p class="section-subtitle">서울비디치과는 각 분야 전문 원장들이 함께 모여<br>환자 한 분 한 분을 위한 최적의 치료 계획을 수립합니다</p>
         </div>
-        <div class="treatment-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;">
+        <div class="treatment-grid collab-grid">
           <a href="#doctors-section" class="treatment-card reveal delay-1 collab-card" data-dept="representative" style="cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
             <div class="treatment-card-icon"><i class="fas fa-user-md"></i></div>
             <h3>대표원장</h3>
@@ -518,6 +518,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
       .schedule-note i {
         margin-right: 4px;
+      }
+
+      /* 협진 시스템 4열 2행 그리드 */
+      .collab-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 16px !important;
+      }
+      @media (max-width: 900px) {
+        .collab-grid { grid-template-columns: repeat(3, 1fr) !important; }
+      }
+      @media (max-width: 640px) {
+        .collab-grid { grid-template-columns: repeat(2, 1fr) !important; }
       }
 
       @media (max-width: 640px) {
