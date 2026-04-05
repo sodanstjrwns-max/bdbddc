@@ -38,18 +38,36 @@
     tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
   };
 
+  // 이미지 카운트 계산
+  function getImgCount(c) {
+    var cnt = 0;
+    if (c.beforeImage && !c.beforeImage.includes('favicon')) cnt++;
+    if (c.afterImage) cnt++;
+    if (c.panBeforeImage) cnt++;
+    if (c.panAfterImage) cnt++;
+    return cnt;
+  }
+
   // 카드 렌더링
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
     var hasImage = c.beforeImage && !c.beforeImage.includes('favicon');
     var imgSrc = hasImage ? c.beforeImage : '';
+    var imgCount = getImgCount(c);
+    var hasPano = c.panBeforeImage || c.panAfterImage;
 
     var imageHtml;
     if (hasImage) {
       imageHtml = '<div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#f0ebe4">' +
         '<img src="' + imgSrc + '" alt="Before" style="width:100%;height:100%;object-fit:cover;' + (isLoggedIn ? '' : 'filter:blur(10px) brightness(0.8);') + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=\\\'display:flex;height:100%;align-items:center;justify-content:center;color:#ccc;font-size:3rem\\\"><i class=\\\'fas fa-teeth\\\'></i></div>\'">' +
-        '<div style="position:absolute;top:12px;left:12px;padding:4px 12px;background:rgba(0,0,0,0.6);color:white;border-radius:20px;font-size:0.7rem;font-weight:600;z-index:2">BEFORE</div>' +
-        '<div style="position:absolute;top:12px;right:12px;padding:4px 12px;background:rgba(107,66,38,0.85);color:white;border-radius:20px;font-size:0.7rem;font-weight:600;z-index:2">AFTER</div>' +
+        '<div style="position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:2">' +
+          '<span style="padding:4px 10px;background:rgba(0,0,0,0.6);color:white;border-radius:20px;font-size:0.65rem;font-weight:600">BEFORE</span>' +
+          '<span style="padding:4px 10px;background:rgba(107,66,38,0.85);color:white;border-radius:20px;font-size:0.65rem;font-weight:600">AFTER</span>' +
+        '</div>' +
+        '<div style="position:absolute;top:12px;right:12px;display:flex;gap:4px;z-index:2">' +
+          '<span style="padding:3px 8px;background:rgba(168,85,247,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-camera" style="margin-right:2px"></i>구내</span>' +
+          (hasPano ? '<span style="padding:3px 8px;background:rgba(59,130,246,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-x-ray" style="margin-right:2px"></i>파노</span>' : '') +
+        '</div>' +
         (isLoggedIn ? '' : '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;"><i class="fas fa-lock" style="font-size:2rem;color:rgba(255,255,255,0.9);margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,0.3)"></i><span style="color:#fff;font-size:0.8rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5)">로그인 후 확인</span></div>') +
         '</div>';
     } else {

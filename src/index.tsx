@@ -557,7 +557,7 @@ app.get('/api/cases', async (c) => {
     published = published.filter((cs: any) => cs.category === category)
   }
   
-  // 민감정보 제외 (beforeImage, afterImage 제외 → 썸네일만 제공)
+  // 민감정보 제외 (썸네일용 이미지만 제공)
   const safe = published.map((cs: any) => ({
     id: cs.id,
     title: cs.title,
@@ -565,7 +565,8 @@ app.get('/api/cases', async (c) => {
     doctorName: cs.doctorName,
     treatmentPeriod: cs.treatmentPeriod,
     description: cs.description,
-    beforeImage: cs.beforeImage, // 썸네일용
+    beforeImage: cs.beforeImage, // 구내포토 Before (썸네일용)
+    panBeforeImage: cs.panBeforeImage || '', // 파노라마 Before
     createdAt: cs.createdAt,
   }))
   
@@ -1417,8 +1418,10 @@ app.get('/cases/:id', async (c) => {
 <div class="lock-title">${cs.title}</div>
 <div style="margin-bottom:8px;"><span style="font-size:.78rem;padding:3px 12px;background:#f5f0eb;color:#6B4226;border-radius:50px;font-weight:600;">${catLabel}</span></div>
 <div class="lock-preview">
-${cs.beforeImage ? `<div class="lock-thumb"><img src="${cs.beforeImage}" alt="Before"><span class="lock-label">Before</span></div>` : ''}
-${cs.afterImage ? `<div class="lock-thumb"><img src="${cs.afterImage}" alt="After"><span class="lock-label">After</span></div>` : ''}
+${cs.beforeImage ? `<div class="lock-thumb"><img src="${cs.beforeImage}" alt="구내포토 Before"><span class="lock-label">구내 Before</span></div>` : ''}
+${cs.afterImage ? `<div class="lock-thumb"><img src="${cs.afterImage}" alt="구내포토 After"><span class="lock-label">구내 After</span></div>` : ''}
+${cs.panBeforeImage ? `<div class="lock-thumb"><img src="${cs.panBeforeImage}" alt="파노라마 Before"><span class="lock-label">파노 Before</span></div>` : ''}
+${cs.panAfterImage ? `<div class="lock-thumb"><img src="${cs.panAfterImage}" alt="파노라마 After"><span class="lock-label">파노 After</span></div>` : ''}
 </div>
 <div class="lock-meta">
 <span><i class="fas fa-user-md" style="color:#c9a96e;margin-right:3px;"></i> ${cs.doctorName || ''}</span>
@@ -1455,7 +1458,12 @@ ${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="margin-right:3px;">
 .case-title{font-size:1.6rem;font-weight:800;color:#333;margin-bottom:8px}
 .case-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:#888}
 .case-meta span{display:flex;align-items:center;gap:4px}
-.case-images{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.case-img-section{margin-bottom:24px}
+.case-img-section-title{font-size:.88rem;font-weight:700;color:#333;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.case-img-section-title .badge{font-size:.68rem;padding:2px 10px;border-radius:12px;font-weight:600}
+.case-img-section-title .badge.intraoral{background:#f3e8ff;color:#a855f7}
+.case-img-section-title .badge.panorama{background:#dbeafe;color:#3b82f6}
+.case-images{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
 .case-img-box{position:relative;border-radius:16px;overflow:hidden;background:#f0ebe4;aspect-ratio:16/9}
 .case-img-box img{width:100%;height:100%;object-fit:cover}
 .case-img-label{position:absolute;top:12px;left:12px;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:50px;color:#fff}
@@ -1490,10 +1498,22 @@ ${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="color:#c9a96e;"></i
 <span><i class="far fa-calendar" style="color:#c9a96e;"></i> ${dateStr}</span>
 </div>
 </div>
+${(cs.beforeImage || cs.afterImage) ? `
+<div class="case-img-section">
+<div class="case-img-section-title"><i class="fas fa-camera" style="color:#a855f7"></i> 구내포토 <span class="badge intraoral">Intraoral</span></div>
 <div class="case-images">
-${cs.beforeImage ? `<div class="case-img-box"><img src="${cs.beforeImage}" alt="Before"><span class="case-img-label before">Before</span></div>` : ''}
-${cs.afterImage ? `<div class="case-img-box"><img src="${cs.afterImage}" alt="After"><span class="case-img-label after">After</span></div>` : ''}
+${cs.beforeImage ? `<div class="case-img-box"><img src="${cs.beforeImage}" alt="구내포토 Before"><span class="case-img-label before">Before</span></div>` : ''}
+${cs.afterImage ? `<div class="case-img-box"><img src="${cs.afterImage}" alt="구내포토 After"><span class="case-img-label after">After</span></div>` : ''}
 </div>
+</div>` : ''}
+${(cs.panBeforeImage || cs.panAfterImage) ? `
+<div class="case-img-section">
+<div class="case-img-section-title"><i class="fas fa-x-ray" style="color:#3b82f6"></i> 파노라마 <span class="badge panorama">Panorama</span></div>
+<div class="case-images">
+${cs.panBeforeImage ? `<div class="case-img-box"><img src="${cs.panBeforeImage}" alt="파노라마 Before"><span class="case-img-label before">Before</span></div>` : ''}
+${cs.panAfterImage ? `<div class="case-img-box"><img src="${cs.panAfterImage}" alt="파노라마 After"><span class="case-img-label after">After</span></div>` : ''}
+</div>
+</div>` : ''}
 ${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight:700;color:#333;margin-bottom:8px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:6px;"></i> 치료 설명</h3>${cs.description}</div>` : ''}
 <div class="case-cta">
 <p style="font-size:1.05rem;font-weight:600;margin-bottom:14px;">나도 이런 결과를 원한다면?</p>
