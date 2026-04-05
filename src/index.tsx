@@ -2269,7 +2269,7 @@ app.get('/cases/:id', async (c) => {
     if (descText.includes(item.term) && !linkedTerms.has(item.term)) {
       // 이미 링크된 부분 안에 있지 않은지 확인
       const termSlug = encodeURIComponent(item.term)
-      descText = descText.replace(item.term, `<a href="/encyclopedia/${termSlug}" style="color:#6B4226;text-decoration:none;border-bottom:1px dotted #c9a96e;font-weight:600;" title="${item.short || item.term}">${item.term}</a>`)
+      descText = descText.replace(item.term, `<a href="/encyclopedia/${termSlug}" style="color:#6B4226;text-decoration:none;border-bottom:1px dotted #c9a96e;font-weight:600;">${item.term}</a>`)
       linkedTerms.add(item.term)
     }
   }
@@ -2524,7 +2524,7 @@ function interlinkText(text: string, currentTerm: string, allItems: typeof encIt
     if (lastOpenA > lastCloseA) continue  // <a> 태그 내부이므로 스킵
     
     // 첫 번째 매칭만 링크로 변환
-    const linkHtml = `<a href="/encyclopedia/${encodeURIComponent(item.term)}" style="color:#6B4226;text-decoration:underline;text-decoration-style:dotted;font-weight:600;" title="${item.short}">${item.term}</a>`
+    const linkHtml = `<a href="/encyclopedia/${encodeURIComponent(item.term)}" style="color:#6B4226;text-decoration:underline;text-decoration-style:dotted;font-weight:600;">${item.term}</a>`
     result = result.slice(0, idx) + linkHtml + result.slice(idx + item.term.length)
     linkCount++
     linked.add(item.term)
