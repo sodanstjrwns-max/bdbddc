@@ -1244,6 +1244,29 @@ app.all('/blog/*', async (c) => {
       html = html.replace(/href="\/(?!blog)/g, 'href="/blog/')
       html = html.replace(/href="https:\/\/bdbddc\.inblog\.ai\//g, 'href="/blog/')
       
+      // 인블로그 카테고리 태그 바(See All + 키워드 줄줄이) 숨기기 + UI 개선
+      const inblogCustomCSS = `<style data-bd-custom>
+/* 카테고리 키워드 태그 바 숨기기 (See All + 수백개 키워드) */
+.flex-row.justify-start.flex-wrap.items-baseline.tracking-tight.cursor-pointer {
+  display: none !important;
+}
+/* 인블로그 Subscribe 버튼/폼 숨기기 — 서울비디치과 자체 예약 사용 */
+form:has(input[placeholder="Email"]) { display: none !important; }
+button:has(span:only-child) span:only-child { visibility: visible; }
+/* Subscribe 버튼 in 상단 nav */
+nav .flex.items-center.gap-1 button[style*="background-color:#000000"] span:only-child {
+  font-size: 0;
+}
+nav .flex.items-center.gap-1 button[style*="background-color:#000000"] span:only-child::after {
+  content: "구독";
+  font-size: 14px;
+}
+/* 배너 영역 높이 조절 */
+.BANNER { min-height: 300px !important; }
+.BANNER .w-full.max-w-6xl { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+</style>`
+      html = html.replace('</head>', inblogCustomCSS + '</head>')
+      
       return new Response(html, {
         status: response.status,
         headers: {
@@ -1278,6 +1301,29 @@ app.get('/blog', async (c) => {
     let html = await response.text()
     html = html.replace(/href="\/(?!blog)/g, 'href="/blog/')
     html = html.replace(/href="https:\/\/bdbddc\.inblog\.ai\//g, 'href="/blog/')
+    
+    // 인블로그 카테고리 태그 바(See All + 키워드 줄줄이) 숨기기 + UI 개선
+    const inblogCustomCSS = `<style data-bd-custom>
+/* 카테고리 키워드 태그 바 숨기기 (See All + 수백개 키워드) */
+.flex-row.justify-start.flex-wrap.items-baseline.tracking-tight.cursor-pointer {
+  display: none !important;
+}
+/* 인블로그 Subscribe 버튼/폼 숨기기 — 서울비디치과 자체 예약 사용 */
+form:has(input[placeholder="Email"]) { display: none !important; }
+button:has(span:only-child) span:only-child { visibility: visible; }
+/* Subscribe 버튼 in 상단 nav */
+nav .flex.items-center.gap-1 button[style*="background-color:#000000"] span:only-child {
+  font-size: 0;
+}
+nav .flex.items-center.gap-1 button[style*="background-color:#000000"] span:only-child::after {
+  content: "구독";
+  font-size: 14px;
+}
+/* 배너 영역 높이 조절 */
+.BANNER { min-height: 300px !important; }
+.BANNER .w-full.max-w-6xl { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+</style>`
+    html = html.replace('</head>', inblogCustomCSS + '</head>')
     
     return new Response(html, {
       status: response.status,
