@@ -415,54 +415,61 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="overview-stat"><div class="stat-icon"><i class="fas fa-user-md"></i></div><div class="stat-value">15명</div><div class="stat-label">서울대 전문의</div></div>
       </div>
 
-      <!-- 층별 일러스트 → 상세 카드 겹침 레이아웃 -->
+      <!-- 좌우 배치: 왼쪽 일러스트 + 오른쪽 상세 카드 -->
       <style>
-        .fg-illust-wrap {
-          position: relative;
+        .fg-side-layout {
+          display: grid;
+          grid-template-columns: 1fr 1.3fr;
+          gap: 40px;
+          align-items: start;
+          margin-top: 48px;
+        }
+        .fg-side-illust {
+          position: sticky;
+          top: 100px;
           text-align: center;
-          margin: 48px 0 0;
-          z-index: 1;
         }
-        .fg-illust-wrap picture img {
-          max-width: 560px;
+        .fg-side-illust picture img {
           width: 100%;
+          max-width: 420px;
           height: auto;
-          border-radius: 24px;
-          box-shadow: 0 12px 40px rgba(107,66,38,0.14);
-          border: 3px solid rgba(200,169,126,0.25);
+          border-radius: 20px;
+          box-shadow: 0 12px 40px rgba(107,66,38,0.12);
+          border: 3px solid rgba(200,169,126,0.2);
+          transition: transform 0.3s ease;
         }
-        .fg-illust-wrap::after {
-          content: '';
-          position: absolute;
-          bottom: 0; left: 50%;
-          transform: translateX(-50%);
-          width: 560px; max-width: 100%;
-          height: 200px;
-          background: linear-gradient(to bottom, transparent 0%, var(--bg-primary, #fff) 100%);
-          border-radius: 0 0 24px 24px;
-          pointer-events: none;
-          z-index: 2;
+        .fg-side-illust picture img:hover { transform: scale(1.02); }
+        .fg-side-illust .fg-caption {
+          margin-top: 12px;
+          font-size: 0.85rem;
+          color: var(--text-tertiary);
+          font-weight: 600;
         }
-        .fg-cards-overlap {
-          position: relative;
-          z-index: 3;
-          margin-top: -120px;
-        }
-        @media (max-width: 640px) {
-          .fg-illust-wrap picture img { max-width: 340px; border-radius: 16px; }
-          .fg-illust-wrap::after { width: 340px; height: 120px; border-radius: 0 0 16px 16px; }
-          .fg-cards-overlap { margin-top: -70px; }
+        @media (max-width: 900px) {
+          .fg-side-layout {
+            grid-template-columns: 1fr;
+            gap: 28px;
+          }
+          .fg-side-illust {
+            position: static;
+          }
+          .fg-side-illust picture img { max-width: 320px; }
         }
       </style>
 
-      <div class="fg-illust-wrap reveal">
-        <picture>
-          <source srcset="/images/floor-illustration.webp" type="image/webp">
-          <img src="/images/floor-illustration.png" alt="서울비디치과 층별 안내 일러스트 — 1F 교정센터, 2F 기공·위생센터, 3F 검진·소아치과, 4F 임플란트센터, 5F 종합진료센터" loading="lazy" width="686" height="1024">
-        </picture>
-      </div>
+      <div class="fg-side-layout">
+        <div class="fg-side-illust reveal">
+          <picture>
+            <source srcset="/images/floor-illustration.webp" type="image/webp">
+            <img src="/images/floor-illustration.png" alt="서울비디치과 층별 안내 일러스트 — 1F 교정센터, 2F 기공·위생센터, 3F 검진·소아치과, 4F 임플란트센터, 5F 종합진료센터" loading="lazy" width="686" height="1024">
+          </picture>
+          <p class="fg-caption">
+            <i class="fas fa-palette" style="color:var(--brand-gold);margin-right:4px;"></i>
+            한눈에 보는 5층 전문센터
+          </p>
+        </div>
 
-      <div class="fg-cards-overlap">
+        <div class="fg-side-cards">
       <div class="floor-card f5 reveal">
         <div class="floor-badge"><span class="floor-badge-num">5F</span><span class="floor-badge-label">Floor</span></div>
         <div class="floor-body">
@@ -539,7 +546,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p class="floor-desc-text">대규모 인비절라인 전문 센터입니다. 서울대 교정과 전문의 2인이 iTero 구강 스캐너와 3D 시뮬레이션(클린체크)으로 정밀한 교정 치료를 제공합니다. 일요일 진료로 바쁜 직장인도 편하게 방문하실 수 있습니다.</p>
         </div>
       </div>
-      </div><!-- /.fg-cards-overlap -->
+      </div><!-- /.fg-side-cards -->
+      </div><!-- /.fg-side-layout -->
     </div>
   </section>
 
