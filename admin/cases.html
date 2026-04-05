@@ -659,8 +659,9 @@ function openModal(id) {
       document.getElementById('caseDescription').value = c.description||'';
       document.getElementById('patientGender').value = c.patientGender||'';
       document.getElementById('patientAge').value = c.patientAge||'';
-      // 4장 이미지 복원
+      // 4장 이미지 복원 — 반드시 전체 초기화 후 설정 (이전 케이스 이미지 잔류 방지)
       IMG_KEYS.forEach(k => {
+        clearPreview(k); // ★ 먼저 전부 초기화
         const field = IMG_FIELD_MAP[k];
         if (c[field]) {
           setPreview(k, c[field]);
@@ -677,7 +678,13 @@ function openModal(id) {
   }
   document.getElementById('caseModal').classList.add('open');
 }
-function closeModal() { document.getElementById('caseModal').classList.remove('open'); editingId = null; }
+function closeModal() {
+  document.getElementById('caseModal').classList.remove('open');
+  editingId = null;
+  // ★ 모달 닫을 때 이미지 슬롯 전부 초기화 (잔류 방지)
+  document.getElementById('caseForm').reset();
+  IMG_KEYS.forEach(k => clearPreview(k));
+}
 function editCase(id) { openModal(id); }
 function deleteCase(id) {
   if (!confirm('정말 삭제하시겠습니까?')) return;
