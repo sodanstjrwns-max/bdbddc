@@ -293,7 +293,7 @@ tbody tr:last-child td{border-bottom:none}
       <table>
         <thead>
           <tr>
-            <th>이미지</th><th>제목</th><th>카테고리</th><th>담당의</th><th>환자</th><th>치료기간</th><th>상태</th><th>등록일</th><th>관리</th>
+            <th>이미지</th><th>제목</th><th>카테고리</th><th>담당의</th><th>환자</th><th>치료기간</th><th><i class="fas fa-eye" style="margin-right:4px"></i>조회</th><th>상태</th><th>등록일</th><th>관리</th>
           </tr>
         </thead>
         <tbody id="casesTableBody"></tbody>
@@ -485,6 +485,7 @@ tbody tr:last-child td{border-bottom:none}
 let cases = [];
 let editingId = null;
 let isUploading = false;
+let viewsMap = {}; // { caseId: viewCount }
 
 // R2 서버에서 케이스 로드 (R2 전용, localStorage 폴백 제거)
 async function loadCases() {
@@ -498,7 +499,21 @@ async function loadCases() {
   } catch {
     cases = [];
   }
+  // 조회수 데이터 로드
+  await loadViews('case');
   renderCases();
+}
+
+// 조회수 데이터 로드
+async function loadViews(type) {
+  try {
+    const res = await fetch('/api/views?type=' + type);
+    if (res.ok) {
+      const data = await res.json();
+      viewsMap = {};
+      data.forEach(function(v) { viewsMap[v.page_id] = v.view_count; });
+    }
+  } catch(e) { console.warn('Views load error:', e); }
 }
 
 // R2 서버에 케이스 저장 (R2 전용)
@@ -640,6 +655,7 @@ function renderCases() {
       <td>${c.doctorName||''}</td>
       <td>${c.patientAge||'-'} ${c.patientGender==='male'?'남':c.patientGender==='female'?'여':''}</td>
       <td>${c.treatmentPeriod||'-'}</td>
+      <td style="font-weight:600;color:${(viewsMap[c.id]||0)>0?'var(--blue)':'var(--text-muted)'}"><i class="fas fa-eye" style="margin-right:3px;font-size:.7rem"></i>${(viewsMap[c.id]||0).toLocaleString()}</td>
       <td><span class="status-badge ${c.status}">${c.status==='published'?'공개':'비공개'}</span></td>
       <td style="color:var(--text-muted);font-size:.8rem">${d}</td>
       <td><div class="action-btns">

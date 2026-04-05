@@ -296,10 +296,11 @@ a { color:inherit; text-decoration:none; }
       </div>
       <div class="stat-card">
         <div class="stat-header">
-          <div class="stat-icon purple"><i class="fas fa-user-md"></i></div>
+          <div class="stat-icon purple"><i class="fas fa-eye"></i></div>
+          <div class="stat-trend" id="viewsTrend"></div>
         </div>
-        <div class="stat-value">15</div>
-        <div class="stat-label">등록 의료진</div>
+        <div class="stat-value" id="statViews">0</div>
+        <div class="stat-label">총 콘텐츠 조회수</div>
       </div>
     </div>
 
@@ -517,6 +518,30 @@ async function loadReservationStats() {
   } catch(e) { console.error('Reservation stats error:', e); }
 }
 loadReservationStats();
+
+// Load total page views
+async function loadViewStats() {
+  try {
+    const res = await fetch('/api/views');
+    if (!res.ok) return;
+    const data = await res.json();
+    let totalViews = 0;
+    let breakdown = [];
+    data.forEach(function(d) {
+      totalViews += (d.total_views || 0);
+      breakdown.push(d.page_type + ': ' + (d.total_views||0).toLocaleString());
+    });
+    document.getElementById('statViews').textContent = totalViews.toLocaleString();
+    const trendEl = document.getElementById('viewsTrend');
+    if (trendEl && breakdown.length > 0) {
+      trendEl.className = 'stat-trend';
+      trendEl.style.color = 'var(--purple)';
+      trendEl.style.background = 'var(--purple-bg)';
+      trendEl.innerHTML = '<i class="fas fa-chart-line"></i> ' + breakdown.join(' · ');
+    }
+  } catch(e) { console.warn('Views stats error:', e); }
+}
+loadViewStats();
 
 // Mobile sidebar toggle
 function toggleSidebar() {

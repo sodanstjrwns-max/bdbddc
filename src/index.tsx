@@ -2200,6 +2200,9 @@ ${doctorSlug ? `<a href="/doctors/${doctorSlug}" style="display:inline-flex;alig
 </main>
 <script src="/js/main.js" defer></script>
 <script src="/js/gnb.js" defer></script>
+<script>
+fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'column',page_id:'${id}'})}).catch(function(){});
+</script>
 </body>
 </html>`)
 })
@@ -2392,6 +2395,10 @@ ${cs.category ? `<a href="/treatments/${cs.category}" style="display:inline-flex
 </main>
 <script src="/js/main.js" defer></script>
 <script src="/js/gnb.js" defer></script>
+<script>
+// 조회수 기록
+fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'case',page_id:'${id}'})}).catch(function(){});
+</script>
 </body>
 </html>`)
 })
@@ -3061,6 +3068,83 @@ app.get('/run', serveStatic({ path: './run.html' }))
 app.get('/games', serveStatic({ path: './games.html' }))
 
 // Root level HTML files with .html extension → handled by 301 redirects above
+
+// ============================================
+// 페이지 조회수 추적 API
+// ============================================
+
+// POST /api/views — 조회수 증가 (콘텐츠 페이지에서 호출)
+app.post('/api/views', async (c) => {
+  try {
+    const { page_type, page_id } = await c.req.json<{ page_type: string; page_id: string }>()
+    if (!page_type || !page_id) return c.json({ error: 'Missing page_type or page_id' }, 400)
+    
+    const validTypes = ['case', 'column', 'notice']
+    if (!validTypes.includes(page_type)) return c.json({ error: 'Invalid page_type' }, 400)
+
+    const db = c.env.DB
+    if (!db) return c.json({ error: 'DB not available' }, 500)
+
+    // UPSERT: 존재하면 view_count +1, 없으면 생성
+    await db.prepare(`
+      INSERT INTO page_views (page_type, page_id, view_count, last_viewed_at)
+      VALUES (?, ?, 1, datetime('now'))
+      ON CONFLICT(page_type, page_id)
+      DO UPDATE SET view_count = view_count + 1, last_viewed_at = datetime('now')
+    `).bind(page_type, page_id).run()
+
+    const result = await db.prepare(
+      'SELECT view_count FROM page_views WHERE page_type = ? AND page_id = ?'
+    ).bind(page_type, page_id).first<{ view_count: number }>()
+
+    return c.json({ success: true, views: result?.view_count || 1 })
+  } catch (e: any) {
+    return c.json({ error: e.message || 'Server error' }, 500)
+  }
+})
+
+// GET /api/views?type=case — 특정 타입의 모든 조회수 조회 (관리자용)
+app.get('/api/views', async (c) => {
+  try {
+    const page_type = c.req.query('type')
+    const db = c.env.DB
+    if (!db) return c.json({ error: 'DB not available' }, 500)
+
+    if (page_type) {
+      const { results } = await db.prepare(
+        'SELECT page_id, view_count, last_viewed_at FROM page_views WHERE page_type = ? ORDER BY view_count DESC'
+      ).bind(page_type).all()
+      return c.json(results || [])
+    }
+
+    // 전체 타입별 통계
+    const { results } = await db.prepare(`
+      SELECT page_type, SUM(view_count) as total_views, COUNT(*) as page_count
+      FROM page_views GROUP BY page_type
+    `).all()
+    return c.json(results || [])
+  } catch (e: any) {
+    return c.json({ error: e.message || 'Server error' }, 500)
+  }
+})
+
+// GET /api/views/:type/:id — 특정 콘텐츠 조회수
+app.get('/api/views/:type/:id', async (c) => {
+  try {
+    const page_type = c.req.param('type')
+    const page_id = c.req.param('id')
+    const db = c.env.DB
+    if (!db) return c.json({ views: 0 })
+
+    const result = await db.prepare(
+      'SELECT view_count FROM page_views WHERE page_type = ? AND page_id = ?'
+    ).bind(page_type, page_id).first<{ view_count: number }>()
+
+    return c.json({ views: result?.view_count || 0 })
+  } catch {
+    return c.json({ views: 0 })
+  }
+})
 
 // Homepage
 app.get('/', serveStatic({ path: './index.html' }))

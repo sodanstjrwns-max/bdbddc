@@ -305,7 +305,17 @@ let notices = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 let editingId = null;
 let currentImages = []; // R2 URLs
 let uploadingCount = 0;
+let noticeViewsMap = {};
 const TYPES = {normal:'일반',important:'중요',event:'이벤트'};
+
+// 조회수 로드
+async function loadNoticeViews() {
+  try {
+    const res = await fetch('/api/views?type=notice');
+    if (res.ok) { const vd = await res.json(); noticeViewsMap = {}; vd.forEach(function(v){ noticeViewsMap[v.page_id] = v.view_count; }); }
+  } catch(e) {}
+}
+loadNoticeViews();
 
 // === R2 Upload Function ===
 async function uploadToR2(file) {
@@ -445,7 +455,7 @@ function renderNotices() {
         <div class="notice-title">${n.pinned ? '<i class="fas fa-thumbtack pin"></i>' : ''}${n.title||'제목 없음'} <span class="status-badge ${n.status||'published'}">${n.status==='draft'?'비공개':'공개'}</span></div>
         <div class="notice-excerpt">${(n.content||'').replace(/\n/g,' ')}</div>
         ${(n.images && n.images.length) ? `<div class="notice-images-row">${n.images.slice(0,4).map(src=>`<img src="${src}" alt="" loading="lazy" onerror="this.style.display='none'">`).join('')}${n.images.length>4?`<span class="notice-img-count">+${n.images.length-4}</span>`:''}</div>` : ''}
-        <div class="notice-meta"><span><i class="far fa-calendar"></i> ${d}</span><span><i class="fas fa-tag"></i> ${TYPES[n.type]||'일반'}</span>${(n.images&&n.images.length)?`<span><i class="fas fa-image"></i> ${n.images.length}장</span>`:''}</div>
+        <div class="notice-meta"><span><i class="far fa-calendar"></i> ${d}</span><span><i class="fas fa-tag"></i> ${TYPES[n.type]||'일반'}</span><span style="color:${(noticeViewsMap[n.id]||0)>0?'var(--blue)':'var(--text-muted)'}"><i class="fas fa-eye"></i> ${(noticeViewsMap[n.id]||0).toLocaleString()}회</span>${(n.images&&n.images.length)?`<span><i class="fas fa-image"></i> ${n.images.length}장</span>`:''}</div>
       </div>
       <div class="notice-actions">
         <button class="action-btn" onclick="editNotice('${n.id}')" title="수정"><i class="fas fa-pen"></i></button>

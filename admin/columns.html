@@ -200,7 +200,7 @@ tbody tr:hover{background:var(--bg-hover)}
 
     <div class="table-card">
       <table>
-        <thead><tr><th>썸네일</th><th>제목</th><th>원장</th><th>카테고리</th><th>상태</th><th>작성일</th><th>관리</th></tr></thead>
+        <thead><tr><th>썸네일</th><th>제목</th><th>원장</th><th>카테고리</th><th><i class="fas fa-eye" style="margin-right:4px"></i>조회</th><th>상태</th><th>작성일</th><th>관리</th></tr></thead>
         <tbody id="columnsTable"></tbody>
       </table>
       <div class="empty-state" id="emptyState" style="display:none">
@@ -293,6 +293,7 @@ tbody tr:hover{background:var(--bg-hover)}
 
 <script>
 let columns = [];
+let colViewsMap = {};
 
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
@@ -304,6 +305,11 @@ async function loadColumns() {
     const res = await fetch('/api/admin/columns');
     if (!res.ok) { window.location.href = '/admin/login'; return; }
     columns = await res.json();
+    // 조회수 로드
+    try {
+      const vRes = await fetch('/api/views?type=column');
+      if (vRes.ok) { const vd = await vRes.json(); colViewsMap = {}; vd.forEach(function(v){ colViewsMap[v.page_id] = v.view_count; }); }
+    } catch(e) {}
     renderTable();
     updateStats();
   } catch(e) { showToast('로드 실패', true); }
@@ -345,6 +351,7 @@ function renderTable() {
       <td><strong>${c.title || ''}</strong><br><span style="font-size:.75rem;color:var(--text-muted)">${excerpt}</span></td>
       <td>${c.doctorName || ''}</td>
       <td>${c.category || '—'}</td>
+      <td style="font-weight:600;color:${(colViewsMap[c.id]||0)>0?'var(--blue)':'var(--text-muted)'}"><i class="fas fa-eye" style="margin-right:3px;font-size:.7rem"></i>${(colViewsMap[c.id]||0).toLocaleString()}</td>
       <td><span class="status-badge ${c.status}">${c.status === 'published' ? '게시중' : '임시'}</span></td>
       <td style="font-size:.8rem;color:var(--text-dim)">${date}</td>
       <td><div class="action-btns">
