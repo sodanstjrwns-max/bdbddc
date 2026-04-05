@@ -575,6 +575,9 @@ app.get('/api/cases', async (c) => {
     }
   })
   
+  // 최신순 정렬 (서버에서 보장)
+  safe.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+  
   c.header('Cache-Control', 'public, max-age=60')
   return c.json(safe)
 })
