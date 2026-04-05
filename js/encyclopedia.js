@@ -114,6 +114,7 @@
     const categoryIcons = {
       '교정': 'fas fa-teeth',
       '구강 관리': 'fas fa-shield-alt',
+      '구강내과 질환': 'fas fa-notes-medical',
       '보험·비용': 'fas fa-won-sign',
       '소아 치과': 'fas fa-baby',
       '임플란트': 'fas fa-screwdriver',
@@ -122,7 +123,10 @@
       '치과 재료': 'fas fa-cubes',
       '치과 질환': 'fas fa-virus',
       '치료·시술': 'fas fa-syringe',
-      '치아 구조': 'fas fa-tooth'
+      '치수·치아 질환': 'fas fa-bolt',
+      '치아 구조': 'fas fa-tooth',
+      '치주 질환': 'fas fa-teeth-open',
+      '턱관절·구강외과': 'fas fa-head-side-medical'
     };
 
     container.innerHTML = `<button class="enc-cat-btn active" data-cat="all">전체</button>` +
