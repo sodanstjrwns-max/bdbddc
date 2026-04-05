@@ -288,31 +288,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h2 class="section-title">15인 <span class="text-gradient">체계적 협진</span></h2>
           <p class="section-subtitle">서울비디치과는 각 분야 전문 원장들이 함께 모여<br>환자 한 분 한 분을 위한 최적의 치료 계획을 수립합니다</p>
         </div>
-        <div class="treatment-grid">
-          <div class="treatment-card reveal delay-1">
+        <div class="treatment-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;">
+          <a href="#doctors-section" class="treatment-card reveal delay-1 collab-card" data-dept="representative" style="cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
             <div class="treatment-card-icon"><i class="fas fa-user-md"></i></div>
             <h3>대표원장</h3>
             <p>서울대 통합치의학과 전문의 3인이 병원을 대표합니다</p>
+            <span class="treatment-tag hot">3인</span>
+          </a>
+          <a href="#doctors-section" class="treatment-card reveal delay-1 collab-card" data-dept="implant" style="cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+            <div class="treatment-card-icon"><i class="fas fa-teeth-open"></i></div>
+            <h3>임플란트센터</h3>
+            <p>임플란트 전문 센터장이 고난도 수술까지 책임집니다</p>
+            <span class="treatment-tag">1인</span>
+          </a>
+          <a href="#doctors-section" class="treatment-card reveal delay-2 collab-card" data-dept="general" style="cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+            <div class="treatment-card-icon"><i class="fas fa-hospital"></i></div>
+            <h3>종합진료센터</h3>
+            <p>서울대 치과병원 수련의 출신이 종합진료를 담당합니다</p>
             <span class="treatment-tag">3인</span>
-          </div>
-          <div class="treatment-card reveal delay-2">
+          </a>
+          <a href="#doctors-section" class="treatment-card reveal delay-2 collab-card" data-dept="orthodontics" style="cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+            <div class="treatment-card-icon"><i class="fas fa-teeth"></i></div>
+            <h3>교정과</h3>
+            <p>서울대 치과교정과 전문의가 교정치료를 담당합니다</p>
+            <span class="treatment-tag">2인</span>
+          </a>
+          <a href="#doctors-section" class="treatment-card reveal delay-3 collab-card" data-dept="pediatric" style="cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
             <div class="treatment-card-icon"><i class="fas fa-baby"></i></div>
             <h3>소아치과</h3>
             <p>서울대 소아치과 전문의 3인이 아이들을 위한 진료를 합니다</p>
             <span class="treatment-tag">3인</span>
-          </div>
-          <div class="treatment-card reveal delay-3">
-            <div class="treatment-card-icon"><i class="fas fa-teeth"></i></div>
-            <h3>교정과</h3>
-            <p>서울대 치과교정과 전문의가 교정치료를 담당합니다</p>
-            <span class="treatment-tag">1인</span>
-          </div>
-          <div class="treatment-card reveal delay-1">
+          </a>
+          <a href="#doctors-section" class="treatment-card reveal delay-3 collab-card" data-dept="conservative" style="cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
             <div class="treatment-card-icon"><i class="fas fa-tooth"></i></div>
-            <h3>보존과·구강내과</h3>
-            <p>보존과, 구강내과 전문의들이 종합진료를 담당합니다</p>
-            <span class="treatment-tag">3인</span>
-          </div>
+            <h3>보존과</h3>
+            <p>보존과 전문의가 자연 치아 보존 치료를 담당합니다</p>
+            <span class="treatment-tag">2인</span>
+          </a>
+          <a href="#doctors-section" class="treatment-card reveal delay-3 collab-card" data-dept="oral-medicine" style="cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;" onmouseenter="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.1)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
+            <div class="treatment-card-icon"><i class="fas fa-stethoscope"></i></div>
+            <h3>구강내과</h3>
+            <p>구강내과 전문의가 구강 질환 진단·치료를 담당합니다</p>
+            <span class="treatment-tag">1인</span>
+          </a>
         </div>
       </div>
     </section>
@@ -606,7 +624,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </script>
 
     <!-- ═══════ 전체 의료진 ═══════ -->
-    <section class="section" aria-label="전체 의료진">
+    <section class="section" aria-label="전체 의료진" id="doctors-section">
       <div class="container">
         <div class="section-header reveal">
           <span class="section-badge"><i class="fas fa-id-card"></i> Our Doctors</span>
@@ -618,9 +636,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="doctor-filter">
           <button class="filter-btn active" data-filter="all">전체 <span style="opacity:0.8;font-size:0.75rem;">15</span></button>
           <button class="filter-btn" data-filter="representative">대표원장 <span style="opacity:0.6;font-size:0.75rem;">3</span></button>
+          <button class="filter-btn" data-filter="implant">임플란트센터 <span style="opacity:0.6;font-size:0.75rem;">1</span></button>
+          <button class="filter-btn" data-filter="general">종합진료센터 <span style="opacity:0.6;font-size:0.75rem;">3</span></button>
+          <button class="filter-btn" data-filter="orthodontics">교정과 <span style="opacity:0.6;font-size:0.75rem;">2</span></button>
           <button class="filter-btn" data-filter="pediatric">소아치과 <span style="opacity:0.6;font-size:0.75rem;">3</span></button>
-          <button class="filter-btn" data-filter="orthodontics">교정과 <span style="opacity:0.6;font-size:0.75rem;">1</span></button>
-          <button class="filter-btn" data-filter="general">일반진료 <span style="opacity:0.6;font-size:0.75rem;">8</span></button>
+          <button class="filter-btn" data-filter="conservative">보존과 <span style="opacity:0.6;font-size:0.75rem;">2</span></button>
+          <button class="filter-btn" data-filter="oral-medicine">구강내과 <span style="opacity:0.6;font-size:0.75rem;">1</span></button>
         </div>
 
         <!-- Doctors Grid -->
@@ -681,7 +702,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </a>
 
           <!-- 4. 이승엽 원장 -->
-          <a href="/doctors/lee" class="doctor-card-v2" data-specialty="general">
+          <a href="/doctors/lee" class="doctor-card-v2" data-specialty="implant">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
               <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/lee-profile.jpg" alt="이승엽 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
@@ -789,7 +810,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </a>
 
           <!-- 9. 강민지 원장 -->
-          <a href="/doctors/kang-mj" class="doctor-card-v2" data-specialty="general">
+          <a href="/doctors/kang-mj" class="doctor-card-v2" data-specialty="conservative">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
               <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kang-mj-profile.jpg" alt="강민지 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
@@ -807,7 +828,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </a>
 
           <!-- 10. 조설아 원장 -->
-          <a href="/doctors/jo" class="doctor-card-v2" data-specialty="general">
+          <a href="/doctors/jo" class="doctor-card-v2" data-specialty="conservative">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
               <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/jo-profile.jpg" alt="조설아 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
@@ -879,7 +900,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </a>
 
           <!-- 15. 이병민 원장 -->
-          <a href="/doctors/lee-bm" class="doctor-card-v2" data-specialty="general">
+          <a href="/doctors/lee-bm" class="doctor-card-v2" data-specialty="oral-medicine">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
               <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/lee-bm-profile.jpg" alt="이병민 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
@@ -972,16 +993,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       // Doctor filter
       var filterBtns=document.querySelectorAll('.filter-btn');
       var cards=document.querySelectorAll('.doctor-card-v2');
+      
+      function activateFilter(filterValue) {
+        filterBtns.forEach(function(b){b.classList.remove('active');b.style.background='';b.style.color='';b.style.borderColor='';});
+        var targetBtn = document.querySelector('.filter-btn[data-filter="'+filterValue+'"]');
+        if(targetBtn){
+          targetBtn.classList.add('active');
+          targetBtn.style.background='var(--brand-primary)';targetBtn.style.color='#fff';targetBtn.style.borderColor='var(--brand-primary)';
+        }
+        cards.forEach(function(card){
+          if(filterValue==='all'||card.dataset.specialty===filterValue){card.style.display='';} 
+          else{card.style.display='none';}
+        });
+      }
+      
       filterBtns.forEach(function(btn){
         btn.addEventListener('click',function(){
-          filterBtns.forEach(function(b){b.classList.remove('active');b.style.background='';b.style.color='';b.style.borderColor='';});
-          this.classList.add('active');
-          this.style.background='var(--brand-primary)';this.style.color='#fff';this.style.borderColor='var(--brand-primary)';
-          var f=this.dataset.filter;
-          cards.forEach(function(card){
-            if(f==='all'||card.dataset.specialty===f){card.style.display='';} 
-            else{card.style.display='none';}
-          });
+          activateFilter(this.dataset.filter);
+        });
+      });
+      
+      // 협진 시스템 카드 클릭 → 해당 필터 활성화 + 스크롤
+      var collabCards=document.querySelectorAll('.collab-card');
+      collabCards.forEach(function(card){
+        card.addEventListener('click',function(e){
+          e.preventDefault();
+          var dept=this.dataset.dept;
+          activateFilter(dept);
+          var section=document.getElementById('doctors-section');
+          if(section){
+            var offset=section.getBoundingClientRect().top+window.pageYOffset-80;
+            window.scrollTo({top:offset,behavior:'smooth'});
+          }
         });
       });
     });
