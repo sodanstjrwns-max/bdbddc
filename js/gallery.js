@@ -15,7 +15,9 @@
   // 카테고리 → 필터 그룹 매핑 (admin 업로드 카테고리와 일치)
   var filterGroupMap = {
     'implant': 'implant',
-    'invisalign': 'invisalign', 'pediatric': 'invisalign',
+    'invisalign': 'invisalign',
+    'orthodontics': 'orthodontics', 'pediatric': 'orthodontics',
+    'front-crown': 'front-crown',
     'aesthetic': 'aesthetic',
     'glownate': 'glownate',
     'resin': 'resin',
@@ -29,7 +31,8 @@
 
   // 카테고리 한글 라벨
   var CATS = {
-    implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
+    implant:'임플란트', invisalign:'인비절라인', orthodontics:'치아교정', pediatric:'소아치과',
+    'front-crown':'앞니크라운',
     aesthetic:'심미레진', glownate:'글로우네이트', cavity:'충치치료',
     resin:'레진치료', crown:'크라운', inlay:'인레이/온레이',
     'root-canal':'신경치료', 're-root-canal':'재신경치료',
@@ -53,6 +56,8 @@
   // 카드 렌더링
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
+    var catSlugMap = { 'front-crown': 'crown' };
+    var treatmentSlug = catSlugMap[c.category] || c.category;
     var hasIntraoral = c.beforeImage && !c.beforeImage.includes('favicon');
     var hasPano = c.panBeforeImage || c.panAfterImage;
     // 썸네일: API에서 내려온 thumbnailImage 우선, 없으면 fallback
@@ -89,7 +94,7 @@
       imageHtml +
       '<div style="padding:16px">' +
         '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
-          (c.category ? '<a href="/treatments/' + c.category + '" onclick="event.stopPropagation()" style="display:inline-block;padding:3px 10px;background:#6B4226;color:white;border-radius:20px;font-size:0.7rem;font-weight:600;text-decoration:none;transition:background 0.2s" onmouseover="this.style.background=\'#8B5A3E\'" onmouseout="this.style.background=\'#6B4226\'">' + catLabel + '</a>' : '<span style="display:inline-block;padding:3px 10px;background:#6B4226;color:white;border-radius:20px;font-size:0.7rem;font-weight:600">' + catLabel + '</span>') +
+          (c.category ? '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" style="display:inline-block;padding:3px 10px;background:#6B4226;color:white;border-radius:20px;font-size:0.7rem;font-weight:600;text-decoration:none;transition:background 0.2s" onmouseover="this.style.background=\'#8B5A3E\'" onmouseout="this.style.background=\'#6B4226\'">' + catLabel + '</a>' : '<span style="display:inline-block;padding:3px 10px;background:#6B4226;color:white;border-radius:20px;font-size:0.7rem;font-weight:600">' + catLabel + '</span>') +
           (c.treatmentPeriod ? '<span style="font-size:0.72rem;color:#999"><i class="fas fa-clock" style="margin-right:3px"></i>' + c.treatmentPeriod + '</span>' : '') +
         '</div>' +
         '<h3 style="font-size:1rem;font-weight:700;margin-bottom:6px;color:#1a1a2e">' + (c.title || '') + '</h3>' +
@@ -138,7 +143,7 @@
 
   // 통계 업데이트
   function updateStats() {
-    var counts = { all: cases.length, implant: 0, invisalign: 0, aesthetic: 0, glownate: 0, resin: 0, whitening: 0, general: 0, gum: 0 };
+    var counts = { all: cases.length, implant: 0, invisalign: 0, orthodontics: 0, 'front-crown': 0, aesthetic: 0, glownate: 0, resin: 0, whitening: 0, general: 0, gum: 0 };
     cases.forEach(function(c) {
       var group = filterGroupMap[c.category] || 'general';
       counts[group] = (counts[group] || 0) + 1;
@@ -146,6 +151,7 @@
 
     var ids = {
       all: 'countAll', implant: 'countImplant', invisalign: 'countInvisalign',
+      orthodontics: 'countOrthodontics', 'front-crown': 'countFrontCrown',
       aesthetic: 'countAesthetic', glownate: 'countGlownate', resin: 'countResin',
       whitening: 'countWhitening', general: 'countGeneral', gum: 'countGum'
     };
@@ -155,10 +161,12 @@
     });
 
     if (document.getElementById('statTotal')) document.getElementById('statTotal').textContent = cases.length;
-    if (document.getElementById('statImplant')) document.getElementById('statImplant').textContent = counts.implant;
-    if (document.getElementById('statOrthodontic')) document.getElementById('statOrthodontic').textContent = counts.invisalign;
-    if (document.getElementById('statAesthetic')) document.getElementById('statAesthetic').textContent = (counts.aesthetic || 0);
     if (document.getElementById('statGlownate')) document.getElementById('statGlownate').textContent = (counts.glownate || 0);
+    if (document.getElementById('statImplant')) document.getElementById('statImplant').textContent = counts.implant;
+    if (document.getElementById('statInvisalign')) document.getElementById('statInvisalign').textContent = (counts.invisalign || 0);
+    if (document.getElementById('statOrthodontics')) document.getElementById('statOrthodontics').textContent = (counts.orthodontics || 0);
+    if (document.getElementById('statFrontCrown')) document.getElementById('statFrontCrown').textContent = (counts['front-crown'] || 0);
+    if (document.getElementById('statAesthetic')) document.getElementById('statAesthetic').textContent = (counts.aesthetic || 0);
   }
 
   // R2에서 케이스 로드

@@ -710,6 +710,7 @@ app.post('/api/reservation', async (c) => {
 
     const treatmentMap: Record<string, string> = {
       checkup: 'BDX 정밀검진', glownate: '글로우네이트', invisalign: '인비절라인',
+      orthodontics: '치아교정', 'front-crown': '앞니크라운',
       implant: '임플란트', pediatric: '소아치과', general: '일반/기타', other: '기타/상담'
     }
 
@@ -1705,7 +1706,8 @@ app.get('/doctors/:slug', async (c) => {
   
   // 케이스 카드 HTML 생성
   const CATS: Record<string,string> = {
-    implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
+    implant:'임플란트', invisalign:'인비절라인', orthodontics:'치아교정', pediatric:'소아치과',
+    'front-crown':'앞니크라운',
     aesthetic:'심미레진', glownate:'글로우네이트', cavity:'충치치료',
     resin:'레진치료', crown:'크라운', inlay:'인레이/온레이',
     'root-canal':'신경치료', 're-root-canal':'재신경치료',
@@ -1914,6 +1916,9 @@ app.get('/doctors/:slug', async (c) => {
       '구강점막질환': '/treatments/gum',
       // 미백
       '미백': '/treatments/whitening',
+      // 앞니 크라운
+      '앞니크라운': '/treatments/crown',
+      '앞니 크라운': '/treatments/crown',
       // 기타
       '종합진료': '/treatments/',
       '통합치의학': '/treatments/',
@@ -2233,7 +2238,8 @@ app.get('/cases/:id', async (c) => {
   if (siteToken && await verifySiteSession(siteToken, secret)) authed = true
   
   const CATS: Record<string,string> = {
-    implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
+    implant:'임플란트', invisalign:'인비절라인', orthodontics:'치아교정', pediatric:'소아치과',
+    'front-crown':'앞니크라운',
     aesthetic:'심미레진', glownate:'글로우네이트', cavity:'충치치료',
     resin:'레진치료', crown:'크라운', inlay:'인레이/온레이',
     'root-canal':'신경치료', 're-root-canal':'재신경치료',
@@ -2245,7 +2251,8 @@ app.get('/cases/:id', async (c) => {
   }
   
   const catLabel = CATS[cs.category] || cs.category || ''
-  const catLink = cs.category ? `/treatments/${cs.category}` : ''
+  const catSlugMap: Record<string,string> = { 'front-crown': 'crown' }
+  const catLink = cs.category ? `/treatments/${catSlugMap[cs.category] || cs.category}` : ''
   const dateStr = new Date(cs.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
   
   // 통합 상세 페이지: 텍스트는 항상 노출(SEO), 이미지만 로그인 여부로 blur/원본
