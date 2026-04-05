@@ -567,6 +567,7 @@ app.get('/api/cases', async (c) => {
       title: cs.title,
       category: cs.category,
       doctorName: cs.doctorName,
+      doctorSlug: DOCTOR_SLUG_MAP[cs.doctorName] || '',
       treatmentPeriod: cs.treatmentPeriod,
       description: cs.description,
       beforeImage: cs.beforeImage, // 구내포토 Before
@@ -755,47 +756,63 @@ app.post('/api/reservation', async (c) => {
     // === 이메일 알림 (Resend) - 비동기, 실패해도 예약은 정상 처리 ===
     try {
       const resendKey = (c.env as any).RESEND_API_KEY
-      const notifyEmail = (c.env as any).NOTIFICATION_EMAIL || 'sjmoon0928@gmail.com'
+      const notifyEmail = (c.env as any).NOTIFICATION_EMAIL || 'sodanstjrwns@gmail.com'
       if (resendKey) {
+        // 날짜/시간 포맷
+        const now = new Date()
+        const kstTime = now.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' })
+        // 전화번호 포맷
+        const fmtPhone = reservation.phone.replace(/[\s-]/g, '').replace(/^(\d{3})(\d{3,4})(\d{4})$/, '$1-$2-$3')
+        
         const emailHtml = `
-<div style="font-family:'Apple SD Gothic Neo',Pretendard,-apple-system,sans-serif;max-width:520px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;">
-  <div style="background:linear-gradient(135deg,#6B4226,#8B5E3C);padding:24px 28px;color:#fff;">
-    <h2 style="margin:0;font-size:18px;font-weight:700;">🦷 새 예약/문의 접수</h2>
-    <p style="margin:6px 0 0;font-size:13px;opacity:0.85;">서울비디치과 온라인 예약</p>
+<div style="font-family:'Apple SD Gothic Neo',Pretendard,-apple-system,sans-serif;max-width:440px;margin:0 auto;background:#ffffff;">
+  <div style="background:#6B4226;padding:20px 24px;text-align:center;">
+    <div style="font-size:24px;margin-bottom:6px;">🦷</div>
+    <div style="color:#fff;font-size:16px;font-weight:700;letter-spacing:1px;">서울비디치과</div>
+    <div style="color:rgba(255,255,255,0.7);font-size:11px;margin-top:2px;">새 예약/문의 알림</div>
   </div>
-  <div style="padding:24px 28px;">
-    <table style="width:100%;border-collapse:collapse;font-size:14px;">
-      <tr style="border-bottom:1px solid #f3f4f6;">
-        <td style="padding:12px 0;color:#6b7280;font-weight:600;width:90px;">이름</td>
-        <td style="padding:12px 0;font-weight:700;color:#111827;">${reservation.name}</td>
-      </tr>
-      <tr style="border-bottom:1px solid #f3f4f6;">
-        <td style="padding:12px 0;color:#6b7280;font-weight:600;">연락처</td>
-        <td style="padding:12px 0;"><a href="tel:${reservation.phone}" style="color:#2563eb;text-decoration:none;font-weight:600;">${reservation.phone}</a></td>
-      </tr>
-      <tr style="border-bottom:1px solid #f3f4f6;">
-        <td style="padding:12px 0;color:#6b7280;font-weight:600;">진료과목</td>
-        <td style="padding:12px 0;"><span style="background:#FEF3C7;color:#92400E;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:600;">${reservation.treatment}</span></td>
-      </tr>
-      <tr style="border-bottom:1px solid #f3f4f6;">
-        <td style="padding:12px 0;color:#6b7280;font-weight:600;">희망일시</td>
-        <td style="padding:12px 0;font-weight:600;">${reservation.date} ${reservation.time}</td>
-      </tr>
-      ${reservation.message ? `<tr style="border-bottom:1px solid #f3f4f6;">
-        <td style="padding:12px 0;color:#6b7280;font-weight:600;vertical-align:top;">메시지</td>
-        <td style="padding:12px 0;line-height:1.6;color:#374151;">${reservation.message}</td>
-      </tr>` : ''}
-      <tr>
-        <td style="padding:12px 0;color:#6b7280;font-weight:600;">마케팅</td>
-        <td style="padding:12px 0;">${reservation.marketing ? '✅ 동의' : '미동의'}</td>
-      </tr>
-    </table>
-    <div style="margin-top:20px;text-align:center;">
-      <a href="https://bdbddc.com/admin/reservations" style="display:inline-block;background:#6B4226;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;">관리자 페이지에서 확인</a>
+  <div style="padding:24px;background:#fff;">
+    <div style="background:#FFF8F0;border:2px solid #F5E6D3;border-radius:16px;padding:20px;margin-bottom:16px;">
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="display:inline-block;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#a0714f);line-height:56px;text-align:center;color:#fff;font-size:22px;font-weight:800;">${reservation.name.charAt(0)}</div>
+        <div style="font-size:20px;font-weight:800;color:#1a1a2e;margin-top:8px;">${reservation.name}</div>
+        <div style="font-size:14px;color:#6B4226;font-weight:600;margin-top:2px;">${reservation.treatment}</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;">
+        <tr>
+          <td style="padding:10px 12px;background:#fff;border-radius:8px 8px 0 0;border-bottom:1px solid #f0ebe4;">
+            <div style="font-size:11px;color:#999;font-weight:600;margin-bottom:2px;">📱 연락처</div>
+            <div style="font-size:16px;font-weight:700;color:#1a1a2e;"><a href="tel:${reservation.phone}" style="color:#1a1a2e;text-decoration:none;">${fmtPhone}</a></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;background:#fff;border-bottom:1px solid #f0ebe4;">
+            <div style="font-size:11px;color:#999;font-weight:600;margin-bottom:2px;">📅 희망 일시</div>
+            <div style="font-size:16px;font-weight:700;color:#1a1a2e;">${reservation.date} &nbsp; ${reservation.time}</div>
+          </td>
+        </tr>
+        ${reservation.message ? `<tr>
+          <td style="padding:10px 12px;background:#fff;border-bottom:1px solid #f0ebe4;">
+            <div style="font-size:11px;color:#999;font-weight:600;margin-bottom:2px;">💬 문의 내용</div>
+            <div style="font-size:14px;color:#333;line-height:1.6;">${reservation.message}</div>
+          </td>
+        </tr>` : ''}
+        <tr>
+          <td style="padding:10px 12px;background:#fff;border-radius:0 0 8px 8px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:#999;">
+              <span>마케팅: ${reservation.marketing ? '✅ 동의' : '미동의'}</span>
+              <span>접수: ${kstTime}</span>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div style="text-align:center;">
+      <a href="https://bdbddc.com/admin/reservations" style="display:inline-block;background:#6B4226;color:#fff;padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:0.5px;">관리자에서 확인하기 →</a>
     </div>
   </div>
-  <div style="background:#f9fafb;padding:14px 28px;text-align:center;font-size:11px;color:#9ca3af;">
-    서울비디치과 | 충남 천안시 서북구 불당26로 62 7층 | 041-415-2892
+  <div style="padding:12px;text-align:center;font-size:10px;color:#ccc;">
+    서울비디치과 | 천안시 서북구 불당34길 14 | 041-415-2892
   </div>
 </div>`
 
@@ -1865,7 +1882,7 @@ app.get('/column/', async (c) => {
         </div>
         <h3>${col.title}</h3>
         <p>${excerpt}</p>
-        <div class="col-list-author"><i class="fas fa-user-md"></i> ${col.doctorName || ''}</div>
+        <div class="col-list-author"><i class="fas fa-user-md"></i> ${slug ? `<a href="/doctors/${slug}" onclick="event.stopPropagation();event.preventDefault();location.href='/doctors/${slug}'" style="color:#6B4226;text-decoration:none;border-bottom:1px dashed #c9a96e;font-weight:600;transition:color 0.2s">${col.doctorName || ''}</a>` : (col.doctorName || '')}</div>
       </div>
     </a>`
   }).join('')

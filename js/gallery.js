@@ -95,7 +95,7 @@
         '<h3 style="font-size:1rem;font-weight:700;margin-bottom:6px;color:#1a1a2e">' + (c.title || '') + '</h3>' +
         '<div style="display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid #f0f0f0">' +
           '<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#a0714f);display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:700">' + ((c.doctorName || '?').charAt(0)) + '</div>' +
-          '<span style="font-size:0.82rem;font-weight:600;color:#333">' + (c.doctorName || '') + '</span>' +
+          (c.doctorSlug ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" style="font-size:0.82rem;font-weight:600;color:#6B4226;text-decoration:none;border-bottom:1px dashed #c9a96e;transition:color 0.2s" onmouseover="this.style.color=\'#a0714f\'" onmouseout="this.style.color=\'#6B4226\'">' + (c.doctorName || '') + '</a>' : '<span style="font-size:0.82rem;font-weight:600;color:#333">' + (c.doctorName || '') + '</span>') +
         '</div>' +
       '</div>' +
     '</a>';
