@@ -752,6 +752,80 @@ app.post('/api/reservation', async (c) => {
       console.error('R2 save error (reservation still accepted):', r2Err)
     }
 
+    // === 이메일 알림 (Resend) - 비동기, 실패해도 예약은 정상 처리 ===
+    try {
+      const resendKey = (c.env as any).RESEND_API_KEY
+      const notifyEmail = (c.env as any).NOTIFICATION_EMAIL || 'sjmoon0928@gmail.com'
+      if (resendKey) {
+        const emailHtml = `
+<div style="font-family:'Apple SD Gothic Neo',Pretendard,-apple-system,sans-serif;max-width:520px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;">
+  <div style="background:linear-gradient(135deg,#6B4226,#8B5E3C);padding:24px 28px;color:#fff;">
+    <h2 style="margin:0;font-size:18px;font-weight:700;">🦷 새 예약/문의 접수</h2>
+    <p style="margin:6px 0 0;font-size:13px;opacity:0.85;">서울비디치과 온라인 예약</p>
+  </div>
+  <div style="padding:24px 28px;">
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">
+      <tr style="border-bottom:1px solid #f3f4f6;">
+        <td style="padding:12px 0;color:#6b7280;font-weight:600;width:90px;">이름</td>
+        <td style="padding:12px 0;font-weight:700;color:#111827;">${reservation.name}</td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6;">
+        <td style="padding:12px 0;color:#6b7280;font-weight:600;">연락처</td>
+        <td style="padding:12px 0;"><a href="tel:${reservation.phone}" style="color:#2563eb;text-decoration:none;font-weight:600;">${reservation.phone}</a></td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6;">
+        <td style="padding:12px 0;color:#6b7280;font-weight:600;">진료과목</td>
+        <td style="padding:12px 0;"><span style="background:#FEF3C7;color:#92400E;padding:3px 10px;border-radius:12px;font-size:13px;font-weight:600;">${reservation.treatment}</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6;">
+        <td style="padding:12px 0;color:#6b7280;font-weight:600;">희망일시</td>
+        <td style="padding:12px 0;font-weight:600;">${reservation.date} ${reservation.time}</td>
+      </tr>
+      ${reservation.message ? `<tr style="border-bottom:1px solid #f3f4f6;">
+        <td style="padding:12px 0;color:#6b7280;font-weight:600;vertical-align:top;">메시지</td>
+        <td style="padding:12px 0;line-height:1.6;color:#374151;">${reservation.message}</td>
+      </tr>` : ''}
+      <tr>
+        <td style="padding:12px 0;color:#6b7280;font-weight:600;">마케팅</td>
+        <td style="padding:12px 0;">${reservation.marketing ? '✅ 동의' : '미동의'}</td>
+      </tr>
+    </table>
+    <div style="margin-top:20px;text-align:center;">
+      <a href="https://bdbddc.com/admin/reservations" style="display:inline-block;background:#6B4226;color:#fff;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;">관리자 페이지에서 확인</a>
+    </div>
+  </div>
+  <div style="background:#f9fafb;padding:14px 28px;text-align:center;font-size:11px;color:#9ca3af;">
+    서울비디치과 | 충남 천안시 서북구 불당26로 62 7층 | 041-415-2892
+  </div>
+</div>`
+
+        // c.executionCtx.waitUntil로 비동기 전송 (응답 지연 방지)
+        const sendEmail = fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${resendKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            from: '서울비디치과 알림 <noreply@patientview.kr>',
+            to: [notifyEmail],
+            subject: `[새 예약] ${reservation.name} · ${reservation.treatment} · ${reservation.date}`,
+            html: emailHtml
+          })
+        }).then(res => {
+          if (!res.ok) res.text().then(t => console.error('Resend error:', t))
+          else console.log('📧 Reservation notification sent to', notifyEmail)
+        }).catch(err => console.error('Resend fetch error:', err))
+
+        // waitUntil이 있으면 사용 (Workers 환경), 없으면 fire-and-forget
+        if (c.executionCtx?.waitUntil) {
+          c.executionCtx.waitUntil(sendEmail)
+        }
+      }
+    } catch (emailErr) {
+      console.error('Email notification error (reservation saved):', emailErr)
+    }
+
     return c.json({ success: true, reservation: { id: reservation.id, name: reservation.name, date: reservation.date, time: reservation.time, treatment: reservation.treatment } })
   } catch (e: any) {
     console.error('Reservation error:', e?.message || e)
