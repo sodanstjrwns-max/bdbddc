@@ -6,6 +6,7 @@ import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 type Bindings = {
   DB?: D1Database
   R2?: R2Bucket
+  ASSETS?: { fetch: (req: Request) => Promise<Response> }
   OPENAI_API_KEY?: string
   ADMIN_PASSWORD?: string
   ADMIN_SESSION_SECRET?: string
@@ -758,11 +759,112 @@ app.post('/api/reservation', async (c) => {
   }
 })
 
-// 301 Redirect: /column/* → /blog/ (SEO migration)
-app.get('/column/columns.html', (c) => c.redirect('/blog/', 301))
-app.get('/column/columns', (c) => c.redirect('/blog/', 301))
-app.get('/column/', (c) => c.redirect('/blog/', 301))
-app.get('/column', (c) => c.redirect('/blog/', 301))
+// 301 Redirect: 기존 /column/columns.html 만 리다이렉트 (SEO migration)
+app.get('/column/columns.html', (c) => c.redirect('/column/', 301))
+app.get('/column/columns', (c) => c.redirect('/column/', 301))
+
+// ============================================
+// 컬럼(Column) 게시판 시스템 — R2 JSON 저장
+// ============================================
+const COLUMNS_JSON_KEY = 'data/columns.json'
+
+async function getColumns(r2: R2Bucket): Promise<any[]> {
+  try {
+    const obj = await r2.get(COLUMNS_JSON_KEY)
+    if (!obj) return []
+    const data = await obj.json() as any
+    return Array.isArray(data) ? data : []
+  } catch { return [] }
+}
+async function saveColumns(r2: R2Bucket, cols: any[]) {
+  await r2.put(COLUMNS_JSON_KEY, JSON.stringify(cols), { httpMetadata: { contentType: 'application/json' } })
+}
+
+// doctorName → slug 매핑
+const DOCTOR_SLUG_MAP: Record<string,string> = {
+  '문석준 원장':'moon','김민수 원장':'kim','현정민 원장':'hyun',
+  '이승엽 원장':'lee','김민규 원장':'kim-mg','임지원 원장':'lim',
+  '조설아 원장':'jo','강민지 원장':'kang-mj','김민진 원장':'kim-mj',
+  '박상현 원장':'park','서희원 원장':'seo','이병민 원장':'lee-bm',
+  '강경민 원장':'kang','최종훈 원장':'choi','박수빈 원장':'park-sb',
+}
+const SLUG_TO_DOCTOR: Record<string,string> = Object.fromEntries(Object.entries(DOCTOR_SLUG_MAP).map(([k,v]) => [v,k]))
+
+// [공개] 컬럼 목록 API
+app.get('/api/columns', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.json([])
+  const all = await getColumns(r2)
+  let published = all.filter((col: any) => col.status === 'published')
+  const doctor = c.req.query('doctor') || ''
+  if (doctor) published = published.filter((col: any) => col.doctorName === doctor || DOCTOR_SLUG_MAP[col.doctorName] === doctor)
+  published.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+  c.header('Cache-Control', 'public, max-age=60')
+  return c.json(published.map((col: any) => ({
+    id: col.id, title: col.title, excerpt: (col.content || '').replace(/<[^>]*>/g, '').slice(0, 120),
+    doctorName: col.doctorName, category: col.category || '',
+    thumbnailImage: col.thumbnailImage || '', createdAt: col.createdAt,
+  })))
+})
+
+// [공개] 컬럼 상세 API
+app.get('/api/columns/:id', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: '스토리지 없음' }, 500)
+  const all = await getColumns(r2)
+  const col = all.find((x: any) => x.id === c.req.param('id') && x.status === 'published')
+  if (!col) return c.json({ error: '컬럼을 찾을 수 없습니다' }, 404)
+  return c.json(col)
+})
+
+// [관리자] 컬럼 전체 목록
+app.get('/api/admin/columns', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) return c.json({ error: '인증이 필요합니다' }, 401)
+  const r2 = c.env.R2
+  if (!r2) return c.json([])
+  return c.json(await getColumns(r2))
+})
+
+// [관리자] 컬럼 생성/수정
+app.post('/api/admin/columns', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) return c.json({ error: '인증이 필요합니다' }, 401)
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: 'R2 없음' }, 500)
+  const body = await c.req.json()
+  const all = await getColumns(r2)
+  
+  if (body.id) {
+    // 수정
+    const idx = all.findIndex((x: any) => x.id === body.id)
+    if (idx >= 0) { all[idx] = { ...all[idx], ...body, updatedAt: new Date().toISOString() }; }
+    else { all.push({ ...body, createdAt: new Date().toISOString() }) }
+  } else {
+    // 생성
+    body.id = `col-${Date.now()}-${Math.random().toString(36).slice(2,6)}`
+    body.createdAt = new Date().toISOString()
+    body.status = body.status || 'published'
+    all.push(body)
+  }
+  await saveColumns(r2, all)
+  return c.json({ success: true, id: body.id })
+})
+
+// [관리자] 컬럼 삭제
+app.delete('/api/admin/columns/:id', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) return c.json({ error: '인증이 필요합니다' }, 401)
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: 'R2 없음' }, 500)
+  const all = await getColumns(r2)
+  const filtered = all.filter((x: any) => x.id !== c.req.param('id'))
+  await saveColumns(r2, filtered)
+  return c.json({ success: true })
+})
 
 // 301 Redirect: old .html URLs → clean URLs (prevent 308 chain)
 app.get('/directions.html', (c) => c.redirect('/directions', 301))
@@ -1327,12 +1429,399 @@ app.get('/treatments', serveStatic({ path: './treatments/index.html' }))
 app.get('/treatments/', serveStatic({ path: './treatments/index.html' }))
 app.use('/treatments/*', serveStatic())
 
-// Doctors directory
+// Doctors directory — index는 정적, 개별 페이지는 SSR
 app.get('/doctors', serveStatic({ path: './doctors/index.html' }))
 app.get('/doctors/', serveStatic({ path: './doctors/index.html' }))
-app.use('/doctors/*', serveStatic())
+// 정적 자산 (CSS/JS/이미지 등 . 포함 경로)
+app.use('/doctors/*', async (c, next) => {
+  const path = c.req.path
+  // .html/.css/.js/.jpg 등 확장자가 있는 건 정적 서빙
+  if (/\.\w+$/.test(path)) return serveStatic()(c, next)
+  // 확장자 없으면 SSR 라우트로 넘김
+  return next()
+})
 
-// Column directory - handled by 301 redirects above, no static serving needed
+// ============================================
+// 원장별 SSR 페이지 — 케이스 카드 + 컬럼 카드 주입
+// ============================================
+app.get('/doctors/:slug', async (c) => {
+  const slug = c.req.param('slug')
+  // index 등 정적 경로는 무시
+  if (slug === 'index' || slug.includes('.')) return c.notFound()
+  
+  const r2 = c.env.R2
+  
+  // doctorName 가져오기
+  const doctorName = SLUG_TO_DOCTOR[slug]
+  
+  // 케이스와 컬럼 로드 (R2 있으면)
+  let doctorCases: any[] = []
+  let doctorColumns: any[] = []
+  if (r2) {
+    const [allCases, allColumns] = await Promise.all([getCases(r2), getColumns(r2)])
+    doctorCases = allCases.filter((cs: any) => cs.status === 'published' && cs.doctorName === doctorName).sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 6)
+    doctorColumns = allColumns.filter((col: any) => col.status === 'published' && col.doctorName === doctorName).sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 4)
+  }
+  
+  // 케이스 카드 HTML 생성
+  const CATS: Record<string,string> = {
+    implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
+    aesthetic:'심미레진', glownate:'글로우네이트', cavity:'충치치료',
+    resin:'레진치료', crown:'크라운', inlay:'인레이/온레이',
+    'root-canal':'신경치료', 're-root-canal':'재신경치료',
+    whitening:'미백', bridge:'브릿지', denture:'틀니',
+    scaling:'스케일링', gum:'잇몸치료', periodontitis:'치주염',
+    'gum-surgery':'잇몸수술', 'wisdom-tooth':'사랑니발치',
+    apicoectomy:'치근단절제술', prevention:'예방치료',
+    tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
+  }
+  
+  let casesSection = ''
+  if (doctorCases.length > 0) {
+    const caseCards = doctorCases.map((cs: any) => {
+      const thumb = cs.beforeImage || cs.afterImage || cs.panBeforeImage || cs.panAfterImage || ''
+      const cat = CATS[cs.category] || cs.category || ''
+      return `<a href="/cases/${cs.id}" class="dr-case-card" style="text-decoration:none;color:inherit;">
+        <div class="dr-case-thumb">${thumb ? `<img src="${thumb}" alt="${cs.title}" style="width:100%;height:100%;object-fit:cover;filter:blur(8px) brightness(.85);">` : '<div style="width:100%;height:100%;background:#f0ebe4;display:flex;align-items:center;justify-content:center;"><i class="fas fa-tooth" style="font-size:2rem;color:#d4c5b3;"></i></div>'}<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2);"><i class="fas fa-lock" style="color:#fff;font-size:1.2rem;text-shadow:0 2px 8px rgba(0,0,0,.4);"></i></div></div>
+        <div class="dr-case-info"><span class="dr-case-cat">${cat}</span><h4>${cs.title}</h4>${cs.treatmentPeriod ? `<span class="dr-case-period"><i class="fas fa-clock"></i> ${cs.treatmentPeriod}</span>` : ''}</div>
+      </a>`
+    }).join('')
+
+    casesSection = `
+    <section class="dr-section dr-cases-section" id="doctorCases">
+      <div class="dr-section-header">
+        <span class="dr-section-badge"><i class="fas fa-images"></i> Before / After</span>
+        <h3 class="dr-section-title">${doctorName ? doctorName.replace(' 원장','') : ''} 원장님의 치료 사례</h3>
+        <p class="dr-section-sub">실제 환자분의 치료 전후를 확인해보세요 (로그인 후 원본 사진 열람)</p>
+      </div>
+      <div class="dr-cases-grid">${caseCards}</div>
+      <div style="text-align:center;margin-top:20px;"><a href="/cases/gallery" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-th"></i> 전체 갤러리 보기</a></div>
+    </section>`
+  }
+  
+  // 컬럼 카드 HTML 생성
+  let columnsSection = ''
+  if (doctorColumns.length > 0) {
+    const colCards = doctorColumns.map((col: any) => {
+      const excerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 80) + '...'
+      const date = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'short', day:'numeric' })
+      return `<a href="/column/${col.id}" class="dr-col-card" style="text-decoration:none;color:inherit;">
+        ${col.thumbnailImage ? `<div class="dr-col-thumb"><img src="${col.thumbnailImage}" alt="${col.title}"></div>` : ''}
+        <div class="dr-col-info">
+          ${col.category ? `<span class="dr-col-cat">${col.category}</span>` : ''}
+          <h4>${col.title}</h4>
+          <p>${excerpt}</p>
+          <span class="dr-col-date"><i class="far fa-calendar"></i> ${date}</span>
+        </div>
+      </a>`
+    }).join('')
+
+    columnsSection = `
+    <section class="dr-section dr-columns-section" id="doctorColumns">
+      <div class="dr-section-header">
+        <span class="dr-section-badge"><i class="fas fa-pen-nib"></i> 원장 컬럼</span>
+        <h3 class="dr-section-title">${doctorName ? doctorName.replace(' 원장','') : ''} 원장님의 이야기</h3>
+        <p class="dr-section-sub">진료 철학과 치과 이야기를 전합니다</p>
+      </div>
+      <div class="dr-columns-grid">${colCards}</div>
+      <div style="text-align:center;margin-top:20px;"><a href="/column/?doctor=${slug}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-pen-nib"></i> 컬럼 전체 보기</a></div>
+    </section>`
+  }
+  
+  // CSS for injected sections
+  const injectedCSS = `<style>
+.dr-section{max-width:900px;margin:40px auto;padding:0 20px}
+.dr-section-header{text-align:center;margin-bottom:28px}
+.dr-section-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#6B4226;background:#f5f0eb;padding:5px 14px;border-radius:50px;margin-bottom:10px}
+.dr-section-title{font-size:1.4rem;font-weight:800;color:#333;margin-bottom:6px}
+.dr-section-sub{font-size:.88rem;color:#888}
+.dr-cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dr-case-card{border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(107,66,38,.06);transition:transform .2s,box-shadow .2s}
+.dr-case-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(107,66,38,.12)}
+.dr-case-thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:#f0ebe4}
+.dr-case-info{padding:14px 16px}
+.dr-case-cat{font-size:.72rem;font-weight:600;color:#a855f7;background:#f3e8ff;padding:2px 10px;border-radius:50px;display:inline-block;margin-bottom:6px}
+.dr-case-info h4{font-size:.92rem;font-weight:700;color:#333;margin:0 0 4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dr-case-period{font-size:.75rem;color:#999;display:flex;align-items:center;gap:4px}
+.dr-columns-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.dr-col-card{border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(107,66,38,.06);transition:transform .2s,box-shadow .2s}
+.dr-col-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(107,66,38,.12)}
+.dr-col-thumb{aspect-ratio:16/9;overflow:hidden;background:#f0ebe4}
+.dr-col-thumb img{width:100%;height:100%;object-fit:cover}
+.dr-col-info{padding:16px 18px}
+.dr-col-cat{font-size:.72rem;font-weight:600;color:#3b82f6;background:#dbeafe;padding:2px 10px;border-radius:50px;display:inline-block;margin-bottom:6px}
+.dr-col-info h4{font-size:1rem;font-weight:700;color:#333;margin:0 0 6px;line-height:1.4}
+.dr-col-info p{font-size:.85rem;color:#777;line-height:1.5;margin:0 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dr-col-date{font-size:.75rem;color:#aaa;display:flex;align-items:center;gap:4px}
+@media(max-width:768px){.dr-cases-grid{grid-template-columns:repeat(2,1fr)}.dr-columns-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.dr-cases-grid{grid-template-columns:1fr}.dr-section-title{font-size:1.2rem}}
+</style>`
+
+  // 삽입 지점: </main> 바로 앞 또는 .footer-cta 앞
+  // 원본 HTML을 수정: philosophy-section 다음, other-doctors 앞에 삽입
+  
+  // 원본 HTML 반환 (정적 파일 읽기 — __STATIC_CONTENT 사용)
+  // Cloudflare Pages에서는 __STATIC_CONTENT를 직접 접근 불가하므로, 
+  // 클라이언트 사이드 fetch로 대체
+  // 대신, 의사 페이지 HTML을 <head> 끝에 CSS 주입 + </main> 앞에 섹션 주입하는 JS를 추가
+  
+  // ASSETS binding으로 정적 HTML 가져오기 (Cloudflare Pages)
+  try {
+    const env = c.env as any
+    let html = ''
+    // Cloudflare Pages ASSETS binding 사용
+    if (env.ASSETS) {
+      const assetReq = new Request(new URL(`/doctors/${slug}.html`, c.req.url).toString())
+      const resp = await env.ASSETS.fetch(assetReq)
+      if (!resp.ok) return c.notFound()
+      html = await resp.text()
+    } else {
+      // 로컬 개발용 self-fetch (wrangler pages dev)
+      const staticUrl = new URL(`/doctors/${slug}.html`, c.req.url)
+      const resp = await fetch(staticUrl.toString())
+      if (!resp.ok) return c.notFound()
+      html = await resp.text()
+    }
+    
+    // CSS 주입 (</head> 앞에)
+    if (casesSection || columnsSection) {
+      html = html.replace('</head>', `${injectedCSS}\n</head>`)
+    }
+    
+    // 케이스+컬럼 섹션 주입 (다른 의료진 보기 섹션 앞에)
+    const insertContent = casesSection + columnsSection
+    if (insertContent) {
+      // .other-doctors 앞에 삽입
+      if (html.includes('class="other-doctors"')) {
+        html = html.replace('<div class="other-doctors">', `${insertContent}\n    <div class="other-doctors">`)
+      }
+      // 대안: footer-cta 앞에
+      else if (html.includes('class="footer-cta"')) {
+        html = html.replace('<section class="footer-cta">', `${insertContent}\n    <section class="footer-cta">`)
+      }
+      // 최후 수단: </main> 앞에
+      else if (html.includes('</main>')) {
+        html = html.replace('</main>', `${insertContent}\n</main>`)
+      }
+    }
+    
+    return c.html(html)
+  } catch (e) {
+    // fetch 실패 시 정적 서빙으로 폴백
+    return c.notFound()
+  }
+})
+
+// Column directory — 컬럼 목록 + 상세 SSR
+app.get('/column', async (c) => c.redirect('/column/', 301))
+app.get('/column/', async (c) => {
+  const r2 = c.env.R2
+  let columns: any[] = []
+  if (r2) {
+    const all = await getColumns(r2)
+    columns = all.filter((col: any) => col.status === 'published')
+      .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+  }
+  const doctorFilter = c.req.query('doctor') || ''
+  if (doctorFilter) {
+    const filterName = SLUG_TO_DOCTOR[doctorFilter] || doctorFilter
+    columns = columns.filter((col: any) => col.doctorName === filterName || DOCTOR_SLUG_MAP[col.doctorName] === doctorFilter)
+  }
+  const filterTitle = doctorFilter && SLUG_TO_DOCTOR[doctorFilter] ? `${SLUG_TO_DOCTOR[doctorFilter]}의 ` : ''
+  
+  const colCards = columns.map((col: any) => {
+    const excerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 100) + '...'
+    const date = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'short', day:'numeric' })
+    const slug = DOCTOR_SLUG_MAP[col.doctorName] || ''
+    return `<a href="/column/${col.id}" class="col-list-card">
+      ${col.thumbnailImage ? `<div class="col-list-thumb"><img src="${col.thumbnailImage}" alt="${col.title}" loading="lazy"></div>` : ''}
+      <div class="col-list-body">
+        <div class="col-list-meta">
+          ${col.category ? `<span class="col-list-cat">${col.category}</span>` : ''}
+          <span class="col-list-date"><i class="far fa-calendar"></i> ${date}</span>
+        </div>
+        <h3>${col.title}</h3>
+        <p>${excerpt}</p>
+        <div class="col-list-author"><i class="fas fa-user-md"></i> ${col.doctorName || ''}</div>
+      </div>
+    </a>`
+  }).join('')
+
+  // 원장 필터 버튼
+  const doctors = [...new Set(columns.map((c: any) => c.doctorName).filter(Boolean))]
+  const filterBtns = doctors.length > 1 ? `<div class="col-filter-row">
+    <a href="/column/" class="col-filter-btn ${!doctorFilter ? 'active' : ''}">전체</a>
+    ${doctors.map(d => { const s = DOCTOR_SLUG_MAP[d] || ''; return `<a href="/column/?doctor=${s}" class="col-filter-btn ${doctorFilter === s ? 'active' : ''}">${d}</a>` }).join('')}
+  </div>` : ''
+
+  return c.html(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${filterTitle}원장 컬럼 | 서울비디치과</title>
+<meta name="description" content="서울비디치과 원장님들의 진료 철학과 치과 이야기. ${filterTitle}컬럼을 읽어보세요.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://bdbddc.com/column/${doctorFilter ? '?doctor=' + doctorFilter : ''}">
+<meta property="og:title" content="${filterTitle}원장 컬럼 | 서울비디치과">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/site-v5.css?v=0b6913b4">
+<style>
+.col-page{max-width:860px;margin:0 auto;padding:40px 20px}
+.col-hero{text-align:center;margin-bottom:36px}
+.col-hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#6B4226;background:#f5f0eb;padding:5px 14px;border-radius:50px;margin-bottom:12px}
+.col-hero h1{font-size:1.8rem;font-weight:800;color:#333;margin-bottom:8px}
+.col-hero p{font-size:.95rem;color:#888}
+.col-filter-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
+.col-filter-btn{padding:6px 18px;border-radius:50px;font-size:.82rem;font-weight:600;color:#888;background:#f5f0eb;text-decoration:none;transition:all .2s}
+.col-filter-btn.active,.col-filter-btn:hover{background:#6B4226;color:#fff}
+.col-list-grid{display:grid;grid-template-columns:1fr;gap:20px}
+.col-list-card{display:grid;grid-template-columns:200px 1fr;background:#fff;border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 12px rgba(107,66,38,.06);transition:transform .2s,box-shadow .2s}
+.col-list-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(107,66,38,.12)}
+.col-list-thumb{aspect-ratio:4/3;overflow:hidden;background:#f0ebe4}
+.col-list-thumb img{width:100%;height:100%;object-fit:cover}
+.col-list-body{padding:20px 24px;display:flex;flex-direction:column;justify-content:center}
+.col-list-meta{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.col-list-cat{font-size:.72rem;font-weight:600;color:#3b82f6;background:#dbeafe;padding:2px 10px;border-radius:50px}
+.col-list-date{font-size:.75rem;color:#aaa;display:flex;align-items:center;gap:4px}
+.col-list-body h3{font-size:1.08rem;font-weight:700;color:#333;margin:0 0 6px;line-height:1.4}
+.col-list-body p{font-size:.85rem;color:#777;line-height:1.5;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.col-list-author{font-size:.78rem;color:#999;display:flex;align-items:center;gap:6px}
+.col-empty{text-align:center;padding:60px 20px;color:#999}
+.col-empty i{font-size:3rem;color:#d4c5b3;margin-bottom:16px;display:block}
+@media(max-width:600px){.col-list-card{grid-template-columns:1fr}.col-hero h1{font-size:1.4rem}}
+</style>
+</head>
+<body>
+<header class="site-header" id="siteHeader">
+<div class="header-container">
+<div class="header-brand"><a href="/" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a></div>
+<div class="header-actions"><a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i></a><a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a></div>
+</div>
+</header>
+<div class="header-spacer"></div>
+<main>
+<div class="col-page">
+<div class="col-hero">
+<span class="col-hero-badge"><i class="fas fa-pen-nib"></i> 원장 컬럼</span>
+<h1>${filterTitle}이야기</h1>
+<p>서울비디치과 원장님들이 전하는 진료 철학과 치과 이야기</p>
+</div>
+${filterBtns}
+<div class="col-list-grid">
+${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 작성된 컬럼이 없습니다</h3><p>곧 원장님들의 이야기가 게재됩니다</p></div>'}
+</div>
+</div>
+</main>
+<script src="/js/main.js" defer></script>
+<script src="/js/gnb.js" defer></script>
+</body>
+</html>`)
+})
+
+// 컬럼 상세 페이지 SSR
+app.get('/column/:id', async (c) => {
+  const id = c.req.param('id')
+  if (id.includes('.')) return c.notFound()
+  
+  const r2 = c.env.R2
+  if (!r2) return c.redirect('/column/', 302)
+  
+  const all = await getColumns(r2)
+  const col = all.find((x: any) => x.id === id && x.status === 'published')
+  if (!col) return c.redirect('/column/', 302)
+  
+  const doctorSlug = DOCTOR_SLUG_MAP[col.doctorName] || ''
+  const dateStr = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
+  const plainExcerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 160)
+
+  return c.html(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${col.title} | 원장 컬럼 — 서울비디치과</title>
+<meta name="description" content="${plainExcerpt}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://bdbddc.com/column/${id}">
+<meta property="og:title" content="${col.title} | 원장 컬럼 — 서울비디치과">
+<meta property="og:description" content="${plainExcerpt}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bdbddc.com/column/${id}">
+${col.thumbnailImage ? `<meta property="og:image" content="${col.thumbnailImage}">` : ''}
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/site-v5.css?v=0b6913b4">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"${col.title}",
+  "author":{"@type":"Person","name":"${col.doctorName || '서울비디치과'}","worksFor":{"@type":"Dentist","name":"서울비디치과"}},
+  "datePublished":"${col.createdAt || ''}",
+  "url":"https://bdbddc.com/column/${id}",
+  "publisher":{"@type":"Organization","name":"서울비디치과","url":"https://bdbddc.com"}
+}
+</script>
+<style>
+.col-detail{max-width:760px;margin:0 auto;padding:40px 20px}
+.col-detail-header{margin-bottom:32px}
+.col-detail-header h1{font-size:1.6rem;font-weight:800;color:#333;margin-bottom:12px;line-height:1.4}
+.col-detail-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:#888;align-items:center}
+.col-detail-meta a{color:#6B4226;text-decoration:none;font-weight:600}
+.col-detail-meta a:hover{text-decoration:underline}
+.col-detail-hero-img{width:100%;border-radius:16px;overflow:hidden;margin-bottom:28px}
+.col-detail-hero-img img{width:100%;height:auto;display:block}
+.col-detail-body{font-size:1.05rem;color:#444;line-height:1.9;word-break:keep-all}
+.col-detail-body h2{font-size:1.3rem;font-weight:700;color:#333;margin:32px 0 12px}
+.col-detail-body h3{font-size:1.1rem;font-weight:700;color:#333;margin:24px 0 10px}
+.col-detail-body p{margin-bottom:16px}
+.col-detail-body img{max-width:100%;border-radius:12px;margin:16px 0}
+.col-detail-body blockquote{border-left:4px solid #c9a96e;padding:12px 20px;background:#faf7f3;border-radius:0 12px 12px 0;margin:20px 0;color:#555;font-style:italic}
+.col-detail-footer{margin-top:40px;padding-top:24px;border-top:1px solid #eee;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+@media(max-width:600px){.col-detail-header h1{font-size:1.3rem}}
+</style>
+</head>
+<body>
+<header class="site-header" id="siteHeader">
+<div class="header-container">
+<div class="header-brand"><a href="/" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a></div>
+<div class="header-actions"><a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i></a><a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a></div>
+</div>
+</header>
+<div class="header-spacer"></div>
+<main>
+<div class="col-detail">
+<nav style="font-size:.85rem;color:#888;margin-bottom:20px;">
+<a href="/" style="color:#6B4226;text-decoration:none;">홈</a> &gt;
+<a href="/column/" style="color:#6B4226;text-decoration:none;">원장 컬럼</a> &gt;
+<span>${col.title}</span>
+</nav>
+<div class="col-detail-header">
+<h1>${col.title}</h1>
+<div class="col-detail-meta">
+<span><i class="fas fa-user-md" style="color:#c9a96e;"></i> <a href="/doctors/${doctorSlug}">${col.doctorName || ''}</a></span>
+${col.category ? `<span><i class="fas fa-tag" style="color:#c9a96e;"></i> ${col.category}</span>` : ''}
+<span><i class="far fa-calendar" style="color:#c9a96e;"></i> ${dateStr}</span>
+</div>
+</div>
+${col.thumbnailImage ? `<div class="col-detail-hero-img"><img src="${col.thumbnailImage}" alt="${col.title}"></div>` : ''}
+<div class="col-detail-body">${col.content || ''}</div>
+<div class="col-detail-footer">
+<a href="/column/" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-arrow-left"></i> 컬럼 목록</a>
+${doctorSlug ? `<a href="/doctors/${doctorSlug}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-user-md"></i> ${col.doctorName} 페이지</a>` : ''}
+</div>
+</div>
+</main>
+<script src="/js/main.js" defer></script>
+<script src="/js/gnb.js" defer></script>
+</body>
+</html>`)
+})
 
 // Video directory
 app.get('/video', serveStatic({ path: './video/index.html' }))
