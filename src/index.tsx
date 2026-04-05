@@ -1382,84 +1382,46 @@ app.get('/cases/:id', async (c) => {
   const catLabel = CATS[cs.category] || cs.category || ''
   const dateStr = new Date(cs.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
   
-  // 로그인 안 된 경우 → 로그인 유도 페이지
-  if (!authed) {
-    return c.html(`<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${cs.title} | Before/After — 서울비디치과</title>
-<meta name="robots" content="noindex, nofollow">
-<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-<link rel="stylesheet" href="/css/site-v5.css?v=0b6913b4">
-<style>
-.lock-page{min-height:60vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
-.lock-card{max-width:480px;width:100%;text-align:center;background:#fff;border-radius:20px;padding:48px 36px;box-shadow:0 4px 24px rgba(107,66,38,.08)}
-.lock-icon{font-size:3rem;color:#c9a96e;margin-bottom:16px}
-.lock-title{font-size:1.3rem;font-weight:800;color:#333;margin-bottom:8px}
-.lock-desc{font-size:.9rem;color:#888;line-height:1.6;margin-bottom:24px}
-.lock-preview{display:flex;gap:12px;justify-content:center;margin-bottom:24px}
-.lock-thumb{width:140px;height:100px;border-radius:12px;overflow:hidden;position:relative;background:#f0ebe4}
-.lock-thumb img{width:100%;height:100%;object-fit:cover;filter:blur(12px) brightness(.9)}
-.lock-thumb::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center}
-.lock-label{position:absolute;bottom:6px;left:6px;font-size:.65rem;font-weight:700;color:#fff;background:rgba(0,0,0,.5);padding:2px 8px;border-radius:4px}
-.lock-meta{display:flex;gap:16px;justify-content:center;font-size:.8rem;color:#999;margin-bottom:20px}
-.btn-login-lg{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;transition:background .2s}
-.btn-login-lg:hover{background:#8B5E3C}
-</style>
-</head>
-<body>
-<header class="site-header" id="siteHeader">
-<div class="header-container">
-<div class="header-brand"><a href="/" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a></div>
-<div class="header-actions"><a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i></a><a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a></div>
-</div>
-</header>
-<div class="header-spacer"></div>
-<main>
-<div class="lock-page">
-<div class="lock-card">
-<div class="lock-icon"><i class="fas fa-lock"></i></div>
-<div class="lock-title">${cs.title}</div>
-<div style="margin-bottom:8px;"><span style="font-size:.78rem;padding:3px 12px;background:#f5f0eb;color:#6B4226;border-radius:50px;font-weight:600;">${catLabel}</span></div>
-<div class="lock-preview">
-${cs.beforeImage ? `<div class="lock-thumb"><img src="${cs.beforeImage}" alt="구내포토 Before"><span class="lock-label">구내 Before</span></div>` : ''}
-${cs.afterImage ? `<div class="lock-thumb"><img src="${cs.afterImage}" alt="구내포토 After"><span class="lock-label">구내 After</span></div>` : ''}
-${cs.panBeforeImage ? `<div class="lock-thumb"><img src="${cs.panBeforeImage}" alt="파노라마 Before"><span class="lock-label">파노 Before</span></div>` : ''}
-${cs.panAfterImage ? `<div class="lock-thumb"><img src="${cs.panAfterImage}" alt="파노라마 After"><span class="lock-label">파노 After</span></div>` : ''}
-</div>
-<div class="lock-meta">
-<span><i class="fas fa-user-md" style="color:#c9a96e;margin-right:3px;"></i> ${cs.doctorName || ''}</span>
-${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="margin-right:3px;"></i> ${cs.treatmentPeriod}</span>` : ''}
-<span><i class="far fa-calendar" style="margin-right:3px;"></i> ${dateStr}</span>
-</div>
-<div class="lock-desc">Before/After 상세 사진은<br><strong>로그인 후 확인</strong>하실 수 있습니다.</div>
-<a href="/auth/login?redirect=/cases/${id}" class="btn-login-lg"><i class="fas fa-sign-in-alt"></i> 로그인하고 보기</a>
-<div style="margin-top:16px;font-size:.8rem;"><a href="/cases/gallery" style="color:#888;text-decoration:none;"><i class="fas fa-arrow-left" style="margin-right:4px;"></i> 전체 갤러리로 돌아가기</a></div>
-</div>
-</div>
-</main>
-<script src="/js/main.js" defer></script>
-<script src="/js/gnb.js" defer></script>
-</body>
-</html>`)
-  }
+  // 통합 상세 페이지: 텍스트는 항상 노출(SEO), 이미지만 로그인 여부로 blur/원본
+  const imgStyle = authed ? '' : 'filter:blur(14px) brightness(.85);pointer-events:none;'
+  const descText = (cs.description || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   
-  // 로그인 됨 → 상세 페이지
+  // 이미지 잠금 오버레이 (비로그인)
+  const lockOverlay = authed ? '' : `<div style="position:absolute;inset:0;background:rgba(0,0,0,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;cursor:pointer;" onclick="location.href='/auth/login?redirect=/cases/${id}'"><i class="fas fa-lock" style="font-size:1.5rem;color:#fff;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,.4)"></i><span style="color:#fff;font-size:.75rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.5)">로그인 후 원본 보기</span></div>`
+
   return c.html(`<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${cs.title} | Before/After — 서울비디치과</title>
-<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="${cs.title} — ${cs.doctorName || '서울비디치과'} ${catLabel} 치료 전후 사진. ${cs.treatmentPeriod ? '치료기간 ' + cs.treatmentPeriod + '.' : ''} 서울비디치과 비포/애프터.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://bdbddc.com/cases/${id}">
+<meta property="og:title" content="${cs.title} | Before/After — 서울비디치과">
+<meta property="og:description" content="${catLabel} 치료 전후 사진 — ${cs.doctorName || '서울비디치과'}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bdbddc.com/cases/${id}">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 <link rel="stylesheet" href="/css/site-v5.css?v=0b6913b4">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"MedicalWebPage",
+  "name":"${cs.title}",
+  "description":"${catLabel} 치료 전후 — ${cs.doctorName || '서울비디치과'}",
+  "url":"https://bdbddc.com/cases/${id}",
+  "datePublished":"${cs.createdAt || ''}",
+  "author":{"@type":"Dentist","name":"서울비디치과","telephone":"+82-41-415-2892"},
+  "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},
+    {"@type":"ListItem","position":2,"name":"Before/After","item":"https://bdbddc.com/cases/gallery"},
+    {"@type":"ListItem","position":3,"name":"${cs.title}","item":"https://bdbddc.com/cases/${id}"}
+  ]}
+}
+</script>
 <style>
 .case-detail{max-width:800px;margin:0 auto;padding:40px 20px}
 .case-header{margin-bottom:32px}
@@ -1474,11 +1436,14 @@ ${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="margin-right:3px;">
 .case-images{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
 .case-img-box{position:relative;border-radius:16px;overflow:hidden;background:#f0ebe4;aspect-ratio:16/9}
 .case-img-box img{width:100%;height:100%;object-fit:cover}
-.case-img-label{position:absolute;top:12px;left:12px;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:50px;color:#fff}
+.case-img-label{position:absolute;top:12px;left:12px;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:50px;color:#fff;z-index:3}
 .case-img-label.before{background:#f59e0b}
 .case-img-label.after{background:#22c55e}
 .case-desc{font-size:1rem;color:#555;line-height:1.8;margin-bottom:32px;padding:20px 24px;background:#faf7f3;border-radius:16px}
 .case-cta{text-align:center;padding:32px;background:linear-gradient(135deg,#6B4226,#8B5E3C);border-radius:16px;color:#fff}
+.login-banner{text-align:center;padding:20px;background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:16px;margin-bottom:24px;border:1px solid #f59e0b33}
+.login-banner a{color:#6B4226;font-weight:700;text-decoration:none}
+.login-banner a:hover{text-decoration:underline}
 @media(max-width:600px){.case-images{grid-template-columns:1fr}.case-title{font-size:1.3rem}}
 </style>
 </head>
@@ -1498,31 +1463,32 @@ ${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="margin-right:3px;">
 <span>${cs.title}</span>
 </nav>
 <div class="case-header">
-<div class="case-title">${cs.title}</div>
+<h1 class="case-title">${cs.title}</h1>
 <div style="margin-bottom:10px;"><span style="font-size:.8rem;padding:4px 14px;background:#f5f0eb;color:#6B4226;border-radius:50px;font-weight:600;">${catLabel}</span></div>
 <div class="case-meta">
 <span><i class="fas fa-user-md" style="color:#c9a96e;"></i> ${cs.doctorName || ''}</span>
-${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="color:#c9a96e;"></i> ${cs.treatmentPeriod}</span>` : ''}
+${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="color:#c9a96e;"></i> 치료기간: ${cs.treatmentPeriod}</span>` : ''}
 <span><i class="far fa-calendar" style="color:#c9a96e;"></i> ${dateStr}</span>
 </div>
 </div>
+${!authed ? `<div class="login-banner"><i class="fas fa-lock" style="color:#f59e0b;margin-right:6px;"></i> 원본 사진은 <a href="/auth/login?redirect=/cases/${id}">로그인</a> 후 선명하게 확인할 수 있습니다. <a href="/auth/register" style="margin-left:8px;font-size:.85rem;">회원가입 →</a></div>` : ''}
 ${(cs.beforeImage || cs.afterImage) ? `
 <div class="case-img-section">
 <div class="case-img-section-title"><i class="fas fa-camera" style="color:#a855f7"></i> 구내포토 <span class="badge intraoral">Intraoral</span></div>
 <div class="case-images">
-${cs.beforeImage ? `<div class="case-img-box"><img src="${cs.beforeImage}" alt="구내포토 Before"><span class="case-img-label before">Before</span></div>` : ''}
-${cs.afterImage ? `<div class="case-img-box"><img src="${cs.afterImage}" alt="구내포토 After"><span class="case-img-label after">After</span></div>` : ''}
+${cs.beforeImage ? `<div class="case-img-box"><img src="${cs.beforeImage}" alt="${cs.title} 구내포토 Before — ${cs.doctorName}" style="${imgStyle}"><span class="case-img-label before">Before</span>${lockOverlay}</div>` : ''}
+${cs.afterImage ? `<div class="case-img-box"><img src="${cs.afterImage}" alt="${cs.title} 구내포토 After — ${cs.doctorName}" style="${imgStyle}"><span class="case-img-label after">After</span>${lockOverlay}</div>` : ''}
 </div>
 </div>` : ''}
 ${(cs.panBeforeImage || cs.panAfterImage) ? `
 <div class="case-img-section">
 <div class="case-img-section-title"><i class="fas fa-x-ray" style="color:#3b82f6"></i> 파노라마 <span class="badge panorama">Panorama</span></div>
 <div class="case-images">
-${cs.panBeforeImage ? `<div class="case-img-box"><img src="${cs.panBeforeImage}" alt="파노라마 Before"><span class="case-img-label before">Before</span></div>` : ''}
-${cs.panAfterImage ? `<div class="case-img-box"><img src="${cs.panAfterImage}" alt="파노라마 After"><span class="case-img-label after">After</span></div>` : ''}
+${cs.panBeforeImage ? `<div class="case-img-box"><img src="${cs.panBeforeImage}" alt="${cs.title} 파노라마 Before — ${cs.doctorName}" style="${imgStyle}"><span class="case-img-label before">Before</span>${lockOverlay}</div>` : ''}
+${cs.panAfterImage ? `<div class="case-img-box"><img src="${cs.panAfterImage}" alt="${cs.title} 파노라마 After — ${cs.doctorName}" style="${imgStyle}"><span class="case-img-label after">After</span>${lockOverlay}</div>` : ''}
 </div>
 </div>` : ''}
-${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight:700;color:#333;margin-bottom:8px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:6px;"></i> 치료 설명</h3>${cs.description}</div>` : ''}
+${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight:700;color:#333;margin-bottom:8px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:6px;"></i> 치료 설명</h3><p>${cs.description}</p></div>` : ''}
 <div class="case-cta">
 <p style="font-size:1.05rem;font-weight:600;margin-bottom:14px;">나도 이런 결과를 원한다면?</p>
 <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
