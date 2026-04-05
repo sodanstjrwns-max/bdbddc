@@ -1949,22 +1949,25 @@ app.get('/doctors/:slug', async (c) => {
       'park-sb': { name: '박수빈 원장', specialty: '통합치의학과 전문의' },
     }
     
-    // 자기 자신 제외 4명 선택 (고정 순서: 대표원장 우선 + 나머지)
+    // 자기 자신 제외 전체 의료진 (대표원장 우선)
     const otherSlugs = Object.keys(DOCTOR_INFO).filter(s => s !== slug)
-    // 대표원장(moon)을 우선 배치, 나머지는 원래 순서
     const prioritized = slug !== 'moon' 
       ? ['moon', ...otherSlugs.filter(s => s !== 'moon')]
       : otherSlugs
-    const selected = prioritized.slice(0, 4)
     
     const otherDoctorsHtml = `<div class="other-doctors">
             <h3>다른 의료진 보기</h3>
             <div class="doctors-mini-grid">
-${selected.map(s => {
+${prioritized.map(s => {
   const d = DOCTOR_INFO[s]
   if (!d) return ''
   return `                <a href="/doctors/${s}" class="doctor-mini-card">
-                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <div class="mini-photo">
+                      <picture>
+                        <source srcset="/images/doctors/${s}-profile.webp" type="image/webp">
+                        <img src="/images/doctors/${s}-profile.jpg" alt="${d.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.parentElement.innerHTML='<div style=\\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--brand),var(--brand-gold));border-radius:50%;color:#fff;font-size:1.5rem;font-weight:700\\'>${d.name.charAt(0)}</div>'">
+                      </picture>
+                    </div>
                     <p class="mini-name">${d.name}</p>
                     <p class="mini-specialty">${d.specialty}</p>
                 </a>`
