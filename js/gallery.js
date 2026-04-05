@@ -53,13 +53,20 @@
   // 카드 렌더링
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
-    var hasImage = c.beforeImage && !c.beforeImage.includes('favicon');
-    var imgSrc = hasImage ? c.beforeImage : '';
-    var imgCount = getImgCount(c);
+    var hasIntraoral = c.beforeImage && !c.beforeImage.includes('favicon');
     var hasPano = c.panBeforeImage || c.panAfterImage;
+    var hasAnyImage = hasIntraoral || hasPano;
+    // 썸네일: 구내포토 우선, 없으면 파노라마 사용
+    var imgSrc = hasIntraoral ? c.beforeImage : (c.panBeforeImage || '');
+    var imgCount = getImgCount(c);
 
     var imageHtml;
-    if (hasImage) {
+    if (hasAnyImage) {
+      // 뱃지: 실제 있는 이미지 종류만 표시
+      var typeBadges = '';
+      if (hasIntraoral) typeBadges += '<span style="padding:3px 8px;background:rgba(168,85,247,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-camera" style="margin-right:2px"></i>구내</span>';
+      if (hasPano) typeBadges += '<span style="padding:3px 8px;background:rgba(59,130,246,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-x-ray" style="margin-right:2px"></i>파노</span>';
+
       imageHtml = '<div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#f0ebe4">' +
         '<img src="' + imgSrc + '" alt="Before" style="width:100%;height:100%;object-fit:cover;' + (isLoggedIn ? '' : 'filter:blur(10px) brightness(0.8);') + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=\\\'display:flex;height:100%;align-items:center;justify-content:center;color:#ccc;font-size:3rem\\\"><i class=\\\'fas fa-teeth\\\'></i></div>\'">' +
         '<div style="position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:2">' +
@@ -67,8 +74,7 @@
           '<span style="padding:4px 10px;background:rgba(107,66,38,0.85);color:white;border-radius:20px;font-size:0.65rem;font-weight:600">AFTER</span>' +
         '</div>' +
         '<div style="position:absolute;top:12px;right:12px;display:flex;gap:4px;z-index:2">' +
-          '<span style="padding:3px 8px;background:rgba(168,85,247,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-camera" style="margin-right:2px"></i>구내</span>' +
-          (hasPano ? '<span style="padding:3px 8px;background:rgba(59,130,246,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-x-ray" style="margin-right:2px"></i>파노</span>' : '') +
+          typeBadges +
         '</div>' +
         (isLoggedIn ? '' : '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;"><i class="fas fa-lock" style="font-size:2rem;color:rgba(255,255,255,0.9);margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,0.3)"></i><span style="color:#fff;font-size:0.8rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5)">로그인 후 확인</span></div>') +
         '</div>';

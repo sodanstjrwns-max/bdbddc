@@ -622,7 +622,7 @@ function renderCases() {
   empty.style.display = 'none';
   tbody.innerHTML = filtered.map(c => {
     const d = new Date(c.createdAt).toLocaleDateString('ko-KR');
-    const imgSrc = c.beforeImage || '/images/icons/favicon.svg';
+    const imgSrc = c.beforeImage || c.panBeforeImage || '/images/icons/favicon.svg';
     const imgCnt = getImageCount(c);
     return `<tr>
       <td><div style="position:relative;display:inline-block"><img class="cell-img" src="${imgSrc}" alt="Before" width="60" height="40" loading="lazy" onerror="this.src='/images/icons/favicon.svg'"><span style="position:absolute;bottom:-2px;right:-4px;background:var(--blue);color:#fff;font-size:.58rem;padding:1px 5px;border-radius:8px;font-weight:700">${imgCnt}</span></div></td>
