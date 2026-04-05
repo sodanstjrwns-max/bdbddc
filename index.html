@@ -748,58 +748,136 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <!-- ═══════ FLOOR GUIDE ═══════ -->
-  <section class="floor-section section" aria-label="층별 안내">
+  <!-- ═══════ FLOOR GUIDE — Illustration Split ═══════ -->
+  <section class="floor-section section" aria-label="층별 안내" style="padding-bottom:0;">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-badge"><i class="fas fa-building"></i> 층별 안내</span>
         <h2 class="section-title">층별 <span class="text-gradient">전문센터</span></h2>
         <p class="section-subtitle">1~5층 전문 센터 구성으로 원스톱 진료</p>
       </div>
+    </div>
 
-      <!-- 층별 일러스트 -->
-      <div class="floor-illust-wrap reveal" style="text-align:center;margin-bottom:40px;">
+    <!-- 일러스트 → 층별 카드가 겹쳐 올라오는 레이아웃 -->
+    <style>
+      .floor-split {
+        position: relative;
+        max-width: var(--container-max);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .floor-split-illust {
+        position: relative;
+        text-align: center;
+        z-index: 1;
+      }
+      .floor-split-illust picture img {
+        max-width: 520px;
+        width: 100%;
+        height: auto;
+        border-radius: 24px;
+        box-shadow: 0 12px 40px rgba(107,66,38,0.14);
+        border: 3px solid rgba(200,169,126,0.25);
+      }
+      /* 일러스트 하단 페이드아웃 그래디언트 */
+      .floor-split-illust::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 520px;
+        max-width: 100%;
+        height: 180px;
+        background: linear-gradient(to bottom, transparent 0%, var(--bg-primary, #fff) 100%);
+        border-radius: 0 0 24px 24px;
+        pointer-events: none;
+        z-index: 2;
+      }
+      /* 층별 카드 영역: 일러스트 위로 겹침 */
+      .floor-split-cards {
+        position: relative;
+        z-index: 3;
+        margin-top: -100px;
+        padding: 0 24px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .floor-split-cards .floor-stack {
+        background: rgba(255,255,255,0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        border: 1px solid rgba(200,169,126,0.2);
+      }
+      @media (max-width: 640px) {
+        .floor-split-illust picture img {
+          max-width: 340px;
+          border-radius: 16px;
+        }
+        .floor-split-illust::after {
+          width: 340px;
+          height: 120px;
+          border-radius: 0 0 16px 16px;
+        }
+        .floor-split-cards {
+          margin-top: -60px;
+          padding: 0 16px;
+        }
+        .floor-split-cards .floor-stack {
+          padding: 16px;
+          border-radius: 16px;
+        }
+      }
+    </style>
+
+    <div class="floor-split">
+      <!-- 일러스트 (위) -->
+      <div class="floor-split-illust reveal">
         <picture>
           <source srcset="/images/floor-illustration.webp" type="image/webp">
-          <img src="/images/floor-illustration.png" alt="서울비디치과 층별 안내 일러스트 — 1F 교정센터, 2F 기공·위생센터, 3F 검진·소아치과, 4F 임플란트센터, 5F 종합진료센터" loading="lazy" width="686" height="1024" style="max-width:480px;width:100%;height:auto;border-radius:20px;box-shadow:0 8px 32px rgba(107,66,38,0.12);border:3px solid rgba(200,169,126,0.25);transition:transform 0.3s ease,box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 12px 40px rgba(107,66,38,0.18)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 32px rgba(107,66,38,0.12)'">
+          <img src="/images/floor-illustration.png" alt="서울비디치과 층별 안내 일러스트 — 1F 교정센터, 2F 기공·위생센터, 3F 검진·소아치과, 4F 임플란트센터, 5F 종합진료센터" loading="lazy" width="686" height="1024">
         </picture>
-        <p style="margin-top:12px;font-size:0.85rem;color:var(--text-tertiary);font-weight:600;">
-          <i class="fas fa-palette" style="color:var(--brand-gold);margin-right:4px;"></i> 400평 규모 · 5층 전문센터
-        </p>
       </div>
-      
-      <div class="floor-stack">
-        <div class="floor-item reveal delay-1">
-          <div class="floor-number">5F</div>
-          <div class="floor-info"><h3>종합진료센터</h3><p>일반진료, 사랑니, 잇몸, 신경, 미백</p></div>
-          <div class="floor-icon"><i class="fas fa-stethoscope"></i></div>
+
+      <!-- 층별 카드 (일러스트 위로 겹쳐 올라옴) -->
+      <div class="floor-split-cards">
+        <div class="floor-stack">
+          <div class="floor-item reveal delay-1">
+            <div class="floor-number">5F</div>
+            <div class="floor-info"><h3>종합진료센터</h3><p>일반진료, 사랑니, 잇몸, 신경, 미백</p></div>
+            <div class="floor-icon"><i class="fas fa-stethoscope"></i></div>
+          </div>
+          <div class="floor-item reveal delay-2">
+            <div class="floor-number">4F</div>
+            <div class="floor-info"><h3>임플란트센터</h3><p>6개 수술방, 2개 회복실, 네비게이션</p></div>
+            <div class="floor-icon"><i class="fas fa-tooth"></i></div>
+          </div>
+          <div class="floor-item reveal delay-3">
+            <div class="floor-number">3F</div>
+            <div class="floor-info"><h3>BDX검진센터 · 소아치과센터</h3><p>정밀검진, 소아전문의 3인</p></div>
+            <div class="floor-icon"><i class="fas fa-child"></i></div>
+          </div>
+          <div class="floor-item reveal delay-4">
+            <div class="floor-number">2F</div>
+            <div class="floor-info"><h3>디지털기공센터 · 위생관리센터</h3><p>원내 기공소, 위생관리, 전략기획실</p></div>
+            <div class="floor-icon"><i class="fas fa-cogs"></i></div>
+          </div>
+          <div class="floor-item reveal delay-1">
+            <div class="floor-number">1F</div>
+            <div class="floor-info"><h3>인비절라인 치아교정센터</h3><p>서울대 교정 전문의 2인, 대규모</p></div>
+            <div class="floor-icon"><i class="fas fa-teeth"></i></div>
+          </div>
         </div>
-        <div class="floor-item reveal delay-2">
-          <div class="floor-number">4F</div>
-          <div class="floor-info"><h3>임플란트센터</h3><p>6개 수술방, 2개 회복실, 네비게이션</p></div>
-          <div class="floor-icon"><i class="fas fa-tooth"></i></div>
+        
+        <div class="text-center" style="margin-top:24px;">
+          <a href="/floor-guide" class="btn btn-outline">
+            층별 안내 자세히 보기 <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
-        <div class="floor-item reveal delay-3">
-          <div class="floor-number">3F</div>
-          <div class="floor-info"><h3>BDX검진센터 · 소아치과센터</h3><p>정밀검진, 소아전문의 3인</p></div>
-          <div class="floor-icon"><i class="fas fa-child"></i></div>
-        </div>
-        <div class="floor-item reveal delay-4">
-          <div class="floor-number">2F</div>
-          <div class="floor-info"><h3>디지털기공센터 · 위생관리센터</h3><p>원내 기공소, 위생관리, 전략기획실</p></div>
-          <div class="floor-icon"><i class="fas fa-cogs"></i></div>
-        </div>
-        <div class="floor-item reveal delay-1">
-          <div class="floor-number">1F</div>
-          <div class="floor-info"><h3>인비절라인 치아교정센터</h3><p>서울대 교정 전문의 2인, 대규모</p></div>
-          <div class="floor-icon"><i class="fas fa-teeth"></i></div>
-        </div>
-      </div>
-      
-      <div class="text-center mt-8 reveal">
-        <a href="/floor-guide" class="btn btn-outline">
-          층별 안내 자세히 보기 <i class="fas fa-arrow-right"></i>
-        </a>
       </div>
     </div>
   </section>
