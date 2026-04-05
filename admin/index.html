@@ -229,6 +229,10 @@ a { color:inherit; text-decoration:none; }
       <a href="/admin/notices" class="nav-item"><i class="fas fa-megaphone"></i> 공지사항 <span class="badge-count" id="noticeCount">–</span></a>
     </div>
     <div class="nav-section">
+      <div class="nav-section-label">CRM</div>
+      <a href="/admin/reservations" class="nav-item"><i class="fas fa-calendar-check"></i> 예약/문의 <span class="badge-count" id="rsvCount">–</span></a>
+    </div>
+    <div class="nav-section">
       <div class="nav-section-label">Links</div>
       <a href="/" target="_blank" rel="noopener" class="nav-item"><i class="fas fa-external-link-alt"></i> 사이트 보기</a>
       <a href="/cases/gallery" target="_blank" rel="noopener" class="nav-item"><i class="fas fa-eye"></i> 갤러리 보기</a>
@@ -282,19 +286,20 @@ a { color:inherit; text-decoration:none; }
         <div class="stat-value" id="statNotices">0</div>
         <div class="stat-label">공지사항</div>
       </div>
+      <div class="stat-card" style="cursor:pointer" onclick="location.href='/admin/reservations'">
+        <div class="stat-header">
+          <div class="stat-icon" style="background:var(--orange-bg);color:var(--orange)"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-trend" id="rsvTrend"></div>
+        </div>
+        <div class="stat-value" id="statReservations">0</div>
+        <div class="stat-label">예약/문의 (대기중)</div>
+      </div>
       <div class="stat-card">
         <div class="stat-header">
           <div class="stat-icon purple"><i class="fas fa-user-md"></i></div>
         </div>
         <div class="stat-value">15</div>
         <div class="stat-label">등록 의료진</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon orange"><i class="fas fa-book-medical"></i></div>
-        </div>
-        <div class="stat-value">500</div>
-        <div class="stat-label">백과사전 용어</div>
       </div>
     </div>
 
@@ -319,8 +324,12 @@ a { color:inherit; text-decoration:none; }
               <div class="quick-btn-icon" style="background:var(--purple-bg);color:var(--purple);"><i class="fas fa-eye"></i></div>
               <div><div class="quick-btn-text">갤러리 확인</div><div class="quick-btn-sub">공개 페이지 확인</div></div>
             </a>
+            <a href="/admin/reservations" class="quick-btn">
+              <div class="quick-btn-icon" style="background:var(--orange-bg);color:var(--orange);"><i class="fas fa-calendar-check"></i></div>
+              <div><div class="quick-btn-text">예약/문의 확인</div><div class="quick-btn-sub">신규 예약 확인</div></div>
+            </a>
             <a href="/" target="_blank" rel="noopener" class="quick-btn">
-              <div class="quick-btn-icon" style="background:var(--orange-bg);color:var(--orange);"><i class="fas fa-globe"></i></div>
+              <div class="quick-btn-icon" style="background:rgba(100,100,100,0.1);color:#888;"><i class="fas fa-globe"></i></div>
               <div><div class="quick-btn-text">사이트 보기</div><div class="quick-btn-sub">bdbddc.com</div></div>
             </a>
           </div>
@@ -413,7 +422,7 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 30000);
 
-// Load stats from localStorage
+// Load stats from localStorage + API
 function loadDashboard() {
   try {
     const cases = JSON.parse(localStorage.getItem('bd_cases') || '[]');
@@ -450,6 +459,64 @@ function loadDashboard() {
   } catch(e) { console.error(e); }
 }
 loadDashboard();
+
+// Load reservation stats from API
+async function loadReservationStats() {
+  try {
+    const res = await fetch('/api/admin/reservations');
+    if (res.status === 401) return; // not logged in
+    if (!res.ok) return;
+    const reservations = await res.json();
+    if (!Array.isArray(reservations)) return;
+
+    const pending = reservations.filter(r => r.status === 'pending' || !r.status).length;
+    const total = reservations.length;
+
+    // Update dashboard stat card
+    document.getElementById('statReservations').textContent = pending;
+
+    // Update sidebar badge
+    const rsvBadge = document.getElementById('rsvCount');
+    if (rsvBadge) rsvBadge.textContent = pending > 0 ? pending : '–';
+
+    // Update trend badge
+    const trendEl = document.getElementById('rsvTrend');
+    if (trendEl) {
+      if (pending > 0) {
+        trendEl.className = 'stat-trend up';
+        trendEl.innerHTML = '<i class="fas fa-arrow-up"></i> ' + pending + '건 대기';
+      } else {
+        trendEl.className = 'stat-trend';
+        trendEl.innerHTML = '<i class="fas fa-check"></i> 처리완료';
+        trendEl.style.color = 'var(--green)';
+        trendEl.style.background = 'var(--green-bg)';
+      }
+    }
+
+    // Add recent reservations to recent list
+    if (reservations.length > 0) {
+      const recentRsvs = reservations.slice(0, 3);
+      const listEl = document.getElementById('recentList');
+      if (listEl) {
+        const existingItems = listEl.innerHTML;
+        const rsvHtml = recentRsvs.map(r => {
+          const dateStr = new Date(r.createdAt || Date.now()).toLocaleDateString('ko-KR');
+          const statusDot = r.status === 'completed' ? 'published' : 'draft';
+          return `<li class="recent-item">
+            <div class="recent-dot ${statusDot}"></div>
+            <div class="recent-info">
+              <div class="recent-title">${r.name || '이름없음'} · ${r.treatment || '미지정'}</div>
+              <div class="recent-meta">${dateStr} · ${r.phone || ''}</div>
+            </div>
+            <span class="recent-badge" style="background:var(--orange-bg);color:var(--orange);">예약</span>
+          </li>`;
+        }).join('');
+        listEl.innerHTML = rsvHtml + existingItems;
+      }
+    }
+  } catch(e) { console.error('Reservation stats error:', e); }
+}
+loadReservationStats();
 
 // Mobile sidebar toggle
 function toggleSidebar() {

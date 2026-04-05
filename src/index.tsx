@@ -759,6 +759,121 @@ app.post('/api/reservation', async (c) => {
   }
 })
 
+// ===== 예약/문의 관리자 API =====
+
+// 전체 예약 목록 조회 (관리자)
+app.get('/api/admin/reservations', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+
+  try {
+    const r2 = (c.env as any).R2
+    if (!r2) return c.json({ error: 'R2 스토리지가 설정되지 않았습니다' }, 500)
+
+    // 개별 예약 파일들을 리스트하여 조합 (reservations.json보다 안정적)
+    const listed = await r2.list({ prefix: 'data/reservations/' })
+    const reservations: any[] = []
+
+    for (const obj of listed.objects) {
+      if (obj.key.endsWith('.json')) {
+        try {
+          const item = await r2.get(obj.key)
+          if (item) {
+            const data = JSON.parse(await item.text())
+            reservations.push(data)
+          }
+        } catch (_) { /* skip corrupt entries */ }
+      }
+    }
+
+    // 최신순 정렬
+    reservations.sort((a: any, b: any) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+
+    return c.json(reservations, 200, {
+      'Cache-Control': 'no-cache'
+    })
+  } catch (e: any) {
+    console.error('Admin reservations error:', e?.message || e)
+    return c.json({ error: '예약 목록을 불러올 수 없습니다' }, 500)
+  }
+})
+
+// 예약 상태 업데이트 (관리자)
+app.put('/api/admin/reservations/:id', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+
+  try {
+    const r2 = (c.env as any).R2
+    if (!r2) return c.json({ error: 'R2 스토리지가 설정되지 않았습니다' }, 500)
+
+    const id = c.req.param('id')
+    const body = await c.req.json()
+    const key = `data/reservations/${id}.json`
+
+    const existing = await r2.get(key)
+    if (!existing) return c.json({ error: '예약을 찾을 수 없습니다' }, 404)
+
+    const reservation = JSON.parse(await existing.text())
+
+    // 업데이트 가능 필드: status, adminMemo
+    if (body.status) reservation.status = body.status
+    if (body.adminMemo !== undefined) reservation.adminMemo = body.adminMemo
+    reservation.updatedAt = new Date().toISOString()
+
+    await r2.put(key, JSON.stringify(reservation, null, 2), {
+      httpMetadata: { contentType: 'application/json' }
+    })
+
+    return c.json({ success: true, reservation })
+  } catch (e: any) {
+    console.error('Admin reservation update error:', e?.message || e)
+    return c.json({ error: '예약 상태 업데이트 실패' }, 500)
+  }
+})
+
+// 예약 삭제 (관리자)
+app.delete('/api/admin/reservations/:id', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+
+  try {
+    const r2 = (c.env as any).R2
+    if (!r2) return c.json({ error: 'R2 스토리지가 설정되지 않았습니다' }, 500)
+
+    const id = c.req.param('id')
+    await r2.delete(`data/reservations/${id}.json`)
+
+    // reservations.json 목록에서도 제거 (best-effort)
+    try {
+      const listObj = await r2.get('data/reservations.json')
+      if (listObj) {
+        let list = JSON.parse(await listObj.text())
+        list = list.filter((r: any) => r.id !== id)
+        await r2.put('data/reservations.json', JSON.stringify(list, null, 2), {
+          httpMetadata: { contentType: 'application/json' }
+        })
+      }
+    } catch (_) { /* ignore */ }
+
+    return c.json({ success: true })
+  } catch (e: any) {
+    console.error('Admin reservation delete error:', e?.message || e)
+    return c.json({ error: '예약 삭제 실패' }, 500)
+  }
+})
+
 // 301 Redirect: 기존 /column/columns.html 만 리다이렉트 (SEO migration)
 app.get('/column/columns.html', (c) => c.redirect('/column/', 301))
 app.get('/column/columns', (c) => c.redirect('/column/', 301))
