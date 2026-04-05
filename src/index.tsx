@@ -1845,6 +1845,139 @@ app.get('/doctors/:slug', async (c) => {
       }
     }
     
+    // ===== 전문 진료 분야 태그 → 진료 페이지 링크 변환 =====
+    const SPECIALTY_LINK_MAP: Record<string, string> = {
+      // 임플란트
+      '임플란트': '/treatments/implant',
+      '임플란트 수술': '/treatments/implant',
+      '뼈이식': '/treatments/implant',
+      '전악 임플란트': '/treatments/implant',
+      // 교정
+      '인비절라인': '/treatments/invisalign',
+      '치아교정': '/treatments/orthodontics',
+      '치과교정': '/treatments/orthodontics',
+      '디지털 교정': '/treatments/orthodontics',
+      '성장기 교정 (First·MA)': '/treatments/orthodontics',
+      '3급 부정교합': '/treatments/orthodontics',
+      '비수술 절충치료': '/treatments/orthodontics',
+      '개방교합 교정': '/treatments/orthodontics',
+      '청소년 교정': '/treatments/orthodontics',
+      '성장기 교정': '/treatments/orthodontics',
+      '투명교정(인비절라인)': '/treatments/invisalign',
+      '인비절라인 퍼스트': '/treatments/invisalign',
+      '소아 교정': '/treatments/orthodontics',
+      '악정형 치료': '/treatments/orthodontics',
+      // 글로우네이트 / 심미
+      '✨ 글로우네이트(라미네이트)': '/treatments/glownate',
+      '글로우네이트': '/treatments/glownate',
+      '심미레진': '/treatments/aesthetic',
+      '심미 레진 치료': '/treatments/aesthetic',
+      '심미레진(라미네이트·레진)': '/treatments/aesthetic',
+      '앞니 파절/틈새 복원': '/treatments/aesthetic',
+      'DSD 디지털 스마일 디자인': '/treatments/aesthetic',
+      '무삭제 보존적 심미레진': '/treatments/aesthetic',
+      // 충치 / 보존
+      '충치치료': '/treatments/cavity',
+      '소아 충치치료': '/treatments/cavity',
+      // 신경치료
+      '신경치료': '/treatments/root-canal',
+      '근관치료': '/treatments/root-canal',
+      '재신경치료': '/treatments/re-root-canal',
+      '재생근관술식': '/treatments/re-root-canal',
+      '재생 근관치료': '/treatments/re-root-canal',
+      '치아보존': '/treatments/root-canal',
+      '자연치아 보존': '/treatments/root-canal',
+      '치근단 치료': '/treatments/apicoectomy',
+      '치아살리기': '/treatments/root-canal',
+      // 소아치과
+      '소아치과': '/treatments/pediatric',
+      '영유아검진': '/treatments/pediatric',
+      '영유아 검진': '/treatments/pediatric',
+      '어린이·청소년 충치치료': '/treatments/pediatric',
+      '구강관리 지도': '/treatments/prevention',
+      '성장기 교정 상담': '/treatments/orthodontics',
+      '소아 예방치료': '/treatments/pediatric',
+      '웃음가스 진정': '/treatments/sedation',
+      '행동조절': '/treatments/pediatric',
+      '예방치료': '/treatments/prevention',
+      '불소도포': '/treatments/prevention',
+      // 잇몸
+      '사랑니 발치': '/treatments/wisdom-tooth',
+      '외과진료': '/treatments/gum-surgery',
+      '구강소수술': '/treatments/gum-surgery',
+      // 턱관절 / 특수
+      '턱관절장애': '/treatments/tmj',
+      '만성 구강안면통증': '/treatments/tmj',
+      '이갈이·이악물기': '/treatments/bruxism',
+      '코골이·수면질환': '/treatments/tmj',
+      '구강건조증': '/treatments/gum',
+      '구강점막질환': '/treatments/gum',
+      // 미백
+      '미백': '/treatments/whitening',
+      // 기타
+      '종합진료': '/treatments/',
+      '통합치의학': '/treatments/',
+      '정밀 진단': '/treatments/',
+      '디지털 수술': '/treatments/implant',
+    }
+
+    // specialty-tag span → a 태그로 변환
+    html = html.replace(/<span class="specialty-tag">([^<]+)<\/span>/g, (match, tagText) => {
+      const link = SPECIALTY_LINK_MAP[tagText.trim()]
+      if (link) {
+        return `<a href="${link}" class="specialty-tag" style="text-decoration:none;cursor:pointer;transition:all 0.2s;">${tagText}</a>`
+      }
+      return match // 매핑 없으면 원래 span 유지
+    })
+
+    // ===== 다른 의료진 보기 섹션 동적 교체 (가짜 카드 제거) =====
+    const DOCTOR_INFO: Record<string, { name: string; specialty: string }> = {
+      moon: { name: '문석준 원장', specialty: '대표원장 · 통합치의학과 전문의' },
+      kim: { name: '김민수 원장', specialty: '통합치의학과 전문의' },
+      hyun: { name: '현정민 원장', specialty: '통합치의학과 전문의' },
+      lee: { name: '이승엽 원장', specialty: '임플란트센터장' },
+      'kim-mg': { name: '김민규 원장', specialty: '통합치의학과 전문의' },
+      lim: { name: '임지원 원장', specialty: '교정과' },
+      jo: { name: '조설아 원장', specialty: '소아치과 전문의' },
+      'kang-mj': { name: '강민지 원장', specialty: '통합치의학과 전문의' },
+      'kim-mj': { name: '김민진 원장', specialty: '통합치의학과 전문의' },
+      park: { name: '박상현 원장', specialty: '구강외과' },
+      seo: { name: '서희원 원장', specialty: '통합치의학과 전문의' },
+      'lee-bm': { name: '이병민 원장', specialty: '통합치의학과 전문의' },
+      kang: { name: '강경민 원장', specialty: '통합치의학과 전문의' },
+      choi: { name: '최종훈 원장', specialty: '통합치의학과 전문의' },
+      'park-sb': { name: '박수빈 원장', specialty: '통합치의학과 전문의' },
+    }
+    
+    // 자기 자신 제외 4명 선택 (고정 순서: 대표원장 우선 + 나머지)
+    const otherSlugs = Object.keys(DOCTOR_INFO).filter(s => s !== slug)
+    // 대표원장(moon)을 우선 배치, 나머지는 원래 순서
+    const prioritized = slug !== 'moon' 
+      ? ['moon', ...otherSlugs.filter(s => s !== 'moon')]
+      : otherSlugs
+    const selected = prioritized.slice(0, 4)
+    
+    const otherDoctorsHtml = `<div class="other-doctors">
+            <h3>다른 의료진 보기</h3>
+            <div class="doctors-mini-grid">
+${selected.map(s => {
+  const d = DOCTOR_INFO[s]
+  if (!d) return ''
+  return `                <a href="/doctors/${s}" class="doctor-mini-card">
+                    <div class="mini-photo"><i class="fas fa-user-md"></i></div>
+                    <p class="mini-name">${d.name}</p>
+                    <p class="mini-specialty">${d.specialty}</p>
+                </a>`
+}).join('\n')}
+            </div>
+        </div>`
+    
+    // 기존 other-doctors 섹션 전체를 교체 (정규식으로 시작~끝 매칭)
+    html = html.replace(
+      /<div class="other-doctors">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/,
+      otherDoctorsHtml
+    )
+    
     return c.html(html)
   } catch (e) {
     // fetch 실패 시 정적 서빙으로 폴백
@@ -2109,11 +2242,27 @@ app.get('/cases/:id', async (c) => {
   }
   
   const catLabel = CATS[cs.category] || cs.category || ''
+  const catLink = cs.category ? `/treatments/${cs.category}` : ''
   const dateStr = new Date(cs.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
   
   // 통합 상세 페이지: 텍스트는 항상 노출(SEO), 이미지만 로그인 여부로 blur/원본
   const imgStyle = authed ? '' : 'filter:blur(14px) brightness(.85);pointer-events:none;'
-  const descText = (cs.description || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  
+  // 백과사전 자동 링크: 설명 텍스트에서 백과사전 용어를 찾아 링크로 변환
+  let descText = (cs.description || '').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>')
+  const encTermsForLink = encItems
+    .filter(item => item.term.length >= 2) // 2글자 이상
+    .sort((a, b) => b.term.length - a.term.length) // 긴 용어 우선 매칭
+  const linkedTerms = new Set<string>()
+  for (const item of encTermsForLink) {
+    if (linkedTerms.size >= 8) break // 최대 8개까지만
+    if (descText.includes(item.term) && !linkedTerms.has(item.term)) {
+      // 이미 링크된 부분 안에 있지 않은지 확인
+      const termSlug = encodeURIComponent(item.term)
+      descText = descText.replace(item.term, `<a href="/encyclopedia/${termSlug}" style="color:#6B4226;text-decoration:none;border-bottom:1px dotted #c9a96e;font-weight:600;" title="${item.short || item.term}">${item.term}</a>`)
+      linkedTerms.add(item.term)
+    }
+  }
   
   // 이미지 잠금 오버레이 (비로그인)
   const lockOverlay = authed ? '' : `<div style="position:absolute;inset:0;background:rgba(0,0,0,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;cursor:pointer;" onclick="location.href='/auth/login?redirect=/cases/${id}'"><i class="fas fa-lock" style="font-size:1.5rem;color:#fff;margin-bottom:6px;text-shadow:0 2px 8px rgba(0,0,0,.4)"></i><span style="color:#fff;font-size:.75rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.5)">로그인 후 원본 보기</span></div>`
@@ -2193,9 +2342,9 @@ app.get('/cases/:id', async (c) => {
 </nav>
 <div class="case-header">
 <h1 class="case-title">${cs.title}</h1>
-<div style="margin-bottom:10px;"><span style="font-size:.8rem;padding:4px 14px;background:#f5f0eb;color:#6B4226;border-radius:50px;font-weight:600;">${catLabel}</span></div>
+<div style="margin-bottom:10px;">${catLink ? `<a href="${catLink}" style="font-size:.8rem;padding:4px 14px;background:#f5f0eb;color:#6B4226;border-radius:50px;font-weight:600;text-decoration:none;display:inline-block;transition:background 0.2s;" onmouseover="this.style.background='#6B4226';this.style.color='#fff'" onmouseout="this.style.background='#f5f0eb';this.style.color='#6B4226'">${catLabel}</a>` : `<span style="font-size:.8rem;padding:4px 14px;background:#f5f0eb;color:#6B4226;border-radius:50px;font-weight:600;">${catLabel}</span>`}</div>
 <div class="case-meta">
-<span><i class="fas fa-user-md" style="color:#c9a96e;"></i> ${cs.doctorName || ''}</span>
+<span><i class="fas fa-user-md" style="color:#c9a96e;"></i> ${DOCTOR_SLUG_MAP[cs.doctorName] ? `<a href="/doctors/${DOCTOR_SLUG_MAP[cs.doctorName]}" style="color:#6B4226;text-decoration:none;border-bottom:1px dashed #c9a96e;font-weight:600;transition:color 0.2s;">${cs.doctorName}</a>` : (cs.doctorName || '')}</span>
 ${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="color:#c9a96e;"></i> 치료기간: ${cs.treatmentPeriod}</span>` : ''}
 <span><i class="far fa-calendar" style="color:#c9a96e;"></i> ${dateStr}</span>
 </div>
@@ -2217,7 +2366,7 @@ ${cs.panBeforeImage ? `<div class="case-img-box"><img src="${cs.panBeforeImage}"
 ${cs.panAfterImage ? `<div class="case-img-box"><img src="${cs.panAfterImage}" alt="${cs.title} 파노라마 After — ${cs.doctorName}" style="${imgStyle}"><span class="case-img-label after">After</span>${lockOverlay}</div>` : ''}
 </div>
 </div>` : ''}
-${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight:700;color:#333;margin-bottom:8px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:6px;"></i> 치료 설명</h3><p>${cs.description}</p></div>` : ''}
+${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight:700;color:#333;margin-bottom:8px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:6px;"></i> 치료 설명</h3><p>${descText}</p></div>` : ''}
 <div class="case-cta">
 <p style="font-size:1.05rem;font-weight:600;margin-bottom:14px;">나도 이런 결과를 원한다면?</p>
 <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">

@@ -89,7 +89,7 @@
       imageHtml +
       '<div style="padding:16px">' +
         '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
-          '<span style="display:inline-block;padding:3px 10px;background:#6B4226;color:white;border-radius:20px;font-size:0.7rem;font-weight:600">' + catLabel + '</span>' +
+          (c.category ? '<a href="/treatments/' + c.category + '" onclick="event.stopPropagation()" style="display:inline-block;padding:3px 10px;background:#6B4226;color:white;border-radius:20px;font-size:0.7rem;font-weight:600;text-decoration:none;transition:background 0.2s" onmouseover="this.style.background=\'#8B5A3E\'" onmouseout="this.style.background=\'#6B4226\'">' + catLabel + '</a>' : '<span style="display:inline-block;padding:3px 10px;background:#6B4226;color:white;border-radius:20px;font-size:0.7rem;font-weight:600">' + catLabel + '</span>') +
           (c.treatmentPeriod ? '<span style="font-size:0.72rem;color:#999"><i class="fas fa-clock" style="margin-right:3px"></i>' + c.treatmentPeriod + '</span>' : '') +
         '</div>' +
         '<h3 style="font-size:1rem;font-weight:700;margin-bottom:6px;color:#1a1a2e">' + (c.title || '') + '</h3>' +
