@@ -536,7 +536,7 @@ async function uploadToR2(file, folder) {
 }
 
 // === File Upload Handler (R2) ===
-async const IMG_LABELS = { before:'구내포토 Before', after:'구내포토 After', panBefore:'파노라마 Before', panAfter:'파노라마 After' };
+const IMG_LABELS = { before:'구내포토 Before', after:'구내포토 After', panBefore:'파노라마 Before', panAfter:'파노라마 After' };
 
 async function handleFileUpload(input, type) {
   const file = input.files[0];
