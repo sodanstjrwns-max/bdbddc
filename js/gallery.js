@@ -55,9 +55,9 @@
     var catLabel = CATS[c.category] || c.category || '';
     var hasIntraoral = c.beforeImage && !c.beforeImage.includes('favicon');
     var hasPano = c.panBeforeImage || c.panAfterImage;
-    var hasAnyImage = hasIntraoral || hasPano;
-    // 썸네일: 구내포토 우선, 없으면 파노라마 사용
-    var imgSrc = hasIntraoral ? c.beforeImage : (c.panBeforeImage || '');
+    // 썸네일: API에서 내려온 thumbnailImage 우선, 없으면 fallback
+    var imgSrc = c.thumbnailImage || c.beforeImage || c.panBeforeImage || '';
+    var hasAnyImage = !!imgSrc;
     var imgCount = getImgCount(c);
 
     var imageHtml;
@@ -108,11 +108,9 @@
     var empty = document.getElementById('emptyState');
     if (!grid) return;
 
-    // 이미지 없는 케이스 필터링 (beforeImage가 없거나 favicon인 경우 맨 뒤로)
+    // 최신 케이스가 위로 (createdAt 내림차순)
     var sorted = cases.slice().sort(function(a, b) {
-      var aHas = a.beforeImage && !a.beforeImage.includes('favicon') ? 1 : 0;
-      var bHas = b.beforeImage && !b.beforeImage.includes('favicon') ? 1 : 0;
-      return bHas - aHas;
+      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
     });
 
     var filtered;

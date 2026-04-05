@@ -558,17 +558,22 @@ app.get('/api/cases', async (c) => {
   }
   
   // 민감정보 제외 (썸네일용 이미지만 제공)
-  const safe = published.map((cs: any) => ({
-    id: cs.id,
-    title: cs.title,
-    category: cs.category,
-    doctorName: cs.doctorName,
-    treatmentPeriod: cs.treatmentPeriod,
-    description: cs.description,
-    beforeImage: cs.beforeImage, // 구내포토 Before (썸네일용)
-    panBeforeImage: cs.panBeforeImage || '', // 파노라마 Before
-    createdAt: cs.createdAt,
-  }))
+  const safe = published.map((cs: any) => {
+    // 썸네일: 아무 이미지든 첫 번째로 있는 것 사용
+    const thumb = cs.beforeImage || cs.afterImage || cs.panBeforeImage || cs.panAfterImage || ''
+    return {
+      id: cs.id,
+      title: cs.title,
+      category: cs.category,
+      doctorName: cs.doctorName,
+      treatmentPeriod: cs.treatmentPeriod,
+      description: cs.description,
+      beforeImage: cs.beforeImage, // 구내포토 Before
+      panBeforeImage: cs.panBeforeImage || '', // 파노라마 Before
+      thumbnailImage: thumb, // ★ 확실한 썸네일 (뭘 올리든 첫 번째 이미지)
+      createdAt: cs.createdAt,
+    }
+  })
   
   c.header('Cache-Control', 'public, max-age=60')
   return c.json(safe)
