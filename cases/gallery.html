@@ -14,8 +14,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>비포/애프터 | 서울비디치과</title>
-  <meta name="description" content="서울비디치과 비포/애프터 갤러리 — 천안임플란트, 교정, 심미치료 등 실제 환자의 치료 전후 사진을 확인하세요. 천안 불당동 서울대 출신 전문의 협진.">
-  <meta name="abstract" content="서울비디치과 비포/애프터 갤러리 — 천안임플란트, 교정, 심미치료 등 실제 환자의 치료 전후 사진을 확인하세요. 천안 불당동 서울대 출신 전문의 협진.">
+  <meta name="description" content="서울비디치과 비포/애프터 갤러리 — 천안임플란트, 교정, 심미레진 등 실제 환자의 치료 전후 사진을 확인하세요. 천안 불당동 서울대 출신 전문의 협진.">
+  <meta name="abstract" content="서울비디치과 비포/애프터 갤러리 — 천안임플란트, 교정, 심미레진 등 실제 환자의 치료 전후 사진을 확인하세요. 천안 불당동 서울대 출신 전문의 협진.">
     <meta name="ai-summary" content="서울비디치과 치료 전후 사진 갤러리 — 실제 환자 케이스, 전문의 시술 결과">
   <meta name="keywords" content="치과 비포애프터, 서울비디치과 사례, 임플란트 사례, 교정 사례">
   <meta name="author" content="서울비디치과">
@@ -25,7 +25,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta name="geo.placename" content="천안시, 충청남도">
   <meta name="geo.position" content="36.8151;127.1139">
   <meta property="og:title" content="비포/애프터 | 서울비디치과">
-  <meta property="og:description" content="서울비디치과 비포/애프터 갤러리 — 임플란트, 교정, 심미치료 등 실제 환자의 치료 전후 사진을 확인하세요. 천안 불당동 서울대 출신 전문의 협진.">
+  <meta property="og:description" content="서울비디치과 비포/애프터 갤러리 — 임플란트, 교정, 심미레진 등 실제 환자의 치료 전후 사진을 확인하세요. 천안 불당동 서울대 출신 전문의 협진.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bdbddc.com/cases/gallery">
   <meta property="og:locale" content="ko_KR">
@@ -52,7 +52,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <style>
     .filter-container { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; padding: 0 20px; margin-bottom: 32px; }
     .gallery-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 800px; margin: 0 auto; text-align: center; padding: 40px 20px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; text-align: center; padding: 40px 20px; }
     .stat-item .number { font-size: 2rem; font-weight: 800; color: var(--brand); }
     .stat-item .label { font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px; }
     .notice-box { max-width: 800px; margin: 0 auto; background: var(--gray-50); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px 32px; }
@@ -229,7 +229,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <li><a href="/treatments/implant">임플란트 <span class="badge">6개 수술실</span></a></li>
                     <li><a href="/treatments/invisalign">치아교정 <span class="badge">대규모</span></a></li>
                     <li><a href="/treatments/pediatric">소아치과 <span class="badge">전문의 3인</span></a></li>
-                    <li><a href="/treatments/aesthetic">심미치료</a></li>
+                    <li><a href="/treatments/aesthetic">심미레진</a></li>
                   </ul>
                 </div>
                 <div class="mega-dropdown-section">
@@ -356,10 +356,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="filter-container">
       <button class="filter-btn active" data-filter="all">전체 <span class="count" id="countAll">0</span></button>
       <button class="filter-btn" data-filter="implant">임플란트 <span class="count" id="countImplant">0</span></button>
-      <button class="filter-btn" data-filter="orthodontic">교정 <span class="count" id="countOrthodontic">0</span></button>
-      <button class="filter-btn" data-filter="aesthetic">심미치료 <span class="count" id="countAesthetic">0</span></button>
+      <button class="filter-btn" data-filter="invisalign">교정 <span class="count" id="countInvisalign">0</span></button>
+      <button class="filter-btn" data-filter="aesthetic">심미레진 <span class="count" id="countAesthetic">0</span></button>
+      <button class="filter-btn" data-filter="glownate">글로우네이트 <span class="count" id="countGlownate">0</span></button>
+      <button class="filter-btn" data-filter="resin">레진치료 <span class="count" id="countResin">0</span></button>
       <button class="filter-btn" data-filter="whitening">미백 <span class="count" id="countWhitening">0</span></button>
-      <button class="filter-btn" data-filter="gum">잇몸치료 <span class="count" id="countGum">0</span></button>
+      <button class="filter-btn" data-filter="general">일반치료 <span class="count" id="countGeneral">0</span></button>
+      <button class="filter-btn" data-filter="gum">잇몸/외과 <span class="count" id="countGum">0</span></button>
     </div>
   </section>
   
@@ -397,7 +400,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="stat-item">
           <div class="number" id="statAesthetic">0</div>
-          <div class="label">심미치료</div>
+          <div class="label">심미레진</div>
+        </div>
+        <div class="stat-item">
+          <div class="number" id="statGlownate">0</div>
+          <div class="label">글로우네이트</div>
         </div>
       </div>
     </div>
@@ -474,7 +481,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li><a href="/treatments/invisalign">인비절라인</a></li>
               <li><a href="/treatments/orthodontics">치아교정</a></li>
               <li><a href="/treatments/pediatric">소아치과</a></li>
-              <li><a href="/treatments/glownate">심미치료</a></li>
+              <li><a href="/treatments/glownate">심미레진</a></li>
             </ul>
           </div>
           <div class="footer-col">
@@ -549,7 +556,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li><a href="/treatments/invisalign">인비절라인</a></li>
           <li><a href="/treatments/orthodontics">치아교정</a></li>
           <li><a href="/treatments/pediatric">소아치과</a></li>
-          <li><a href="/treatments/aesthetic">심미치료</a></li>
+          <li><a href="/treatments/aesthetic">심미레진</a></li>
           <li class="submenu-divider">일반 진료</li>
           <li><a href="/treatments/cavity">충치치료</a></li>
           <li><a href="/treatments/resin">레진치료</a></li>

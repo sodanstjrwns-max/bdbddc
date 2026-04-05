@@ -12,23 +12,25 @@
   var currentFilter = 'all';
   var isLoggedIn = false;
 
-  // 카테고리 → 필터 그룹 매핑 (24개 → 6개 그룹)
+  // 카테고리 → 필터 그룹 매핑 (admin 업로드 카테고리와 일치)
   var filterGroupMap = {
     'implant': 'implant',
-    'invisalign': 'orthodontic', 'pediatric': 'orthodontic',
-    'aesthetic': 'aesthetic', 'glownate': 'aesthetic',
-    'cavity': 'general', 'resin': 'general', 'crown': 'general', 'inlay': 'general',
-    'root-canal': 'general', 're-root-canal': 'general', 'bridge': 'general', 'denture': 'general',
+    'invisalign': 'invisalign', 'pediatric': 'invisalign',
+    'aesthetic': 'aesthetic',
+    'glownate': 'glownate',
+    'resin': 'resin',
     'whitening': 'whitening',
+    'cavity': 'general', 'crown': 'general', 'inlay': 'general',
+    'root-canal': 'general', 're-root-canal': 'general', 'bridge': 'general', 'denture': 'general',
+    'sedation': 'general', 'prevention': 'general', 'tmj': 'general', 'bruxism': 'general', 'emergency': 'general',
     'scaling': 'gum', 'gum': 'gum', 'periodontitis': 'gum', 'gum-surgery': 'gum',
-    'wisdom-tooth': 'gum', 'apicoectomy': 'gum',
-    'prevention': 'general', 'tmj': 'general', 'bruxism': 'general', 'emergency': 'general'
+    'wisdom-tooth': 'gum', 'apicoectomy': 'gum'
   };
 
   // 카테고리 한글 라벨
   var CATS = {
     implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
-    aesthetic:'심미치료', glownate:'글로우네이트', cavity:'충치치료',
+    aesthetic:'심미레진', glownate:'글로우네이트', cavity:'충치치료',
     resin:'레진치료', crown:'크라운', inlay:'인레이/온레이',
     'root-canal':'신경치료', 're-root-canal':'재신경치료',
     whitening:'미백', bridge:'브릿지', denture:'틀니',
@@ -132,13 +134,17 @@
 
   // 통계 업데이트
   function updateStats() {
-    var counts = { all: cases.length, implant: 0, orthodontic: 0, aesthetic: 0, whitening: 0, gum: 0, general: 0 };
+    var counts = { all: cases.length, implant: 0, invisalign: 0, aesthetic: 0, glownate: 0, resin: 0, whitening: 0, general: 0, gum: 0 };
     cases.forEach(function(c) {
       var group = filterGroupMap[c.category] || 'general';
       counts[group] = (counts[group] || 0) + 1;
     });
 
-    var ids = { all: 'countAll', implant: 'countImplant', orthodontic: 'countOrthodontic', aesthetic: 'countAesthetic', whitening: 'countWhitening', gum: 'countGum' };
+    var ids = {
+      all: 'countAll', implant: 'countImplant', invisalign: 'countInvisalign',
+      aesthetic: 'countAesthetic', glownate: 'countGlownate', resin: 'countResin',
+      whitening: 'countWhitening', general: 'countGeneral', gum: 'countGum'
+    };
     Object.keys(ids).forEach(function(k) {
       var el = document.getElementById(ids[k]);
       if (el) el.textContent = counts[k] || 0;
@@ -146,8 +152,9 @@
 
     if (document.getElementById('statTotal')) document.getElementById('statTotal').textContent = cases.length;
     if (document.getElementById('statImplant')) document.getElementById('statImplant').textContent = counts.implant;
-    if (document.getElementById('statOrthodontic')) document.getElementById('statOrthodontic').textContent = counts.orthodontic;
+    if (document.getElementById('statOrthodontic')) document.getElementById('statOrthodontic').textContent = counts.invisalign;
     if (document.getElementById('statAesthetic')) document.getElementById('statAesthetic').textContent = (counts.aesthetic || 0);
+    if (document.getElementById('statGlownate')) document.getElementById('statGlownate').textContent = (counts.glownate || 0);
   }
 
   // R2에서 케이스 로드

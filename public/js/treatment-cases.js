@@ -14,7 +14,7 @@
   // 카테고리 한글 매핑
   const CATS = {
     implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
-    aesthetic:'심미치료', glownate:'글로우네이트', cavity:'충치치료',
+    aesthetic:'심미레진', glownate:'글로우네이트', cavity:'충치치료',
     resin:'레진치료', crown:'크라운', inlay:'인레이/온레이',
     'root-canal':'신경치료', 're-root-canal':'재신경치료',
     whitening:'미백', bridge:'브릿지', denture:'틀니',
