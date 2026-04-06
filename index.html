@@ -1215,12 +1215,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       
       <!-- ■ 실시간 구글 리뷰 (Google Places API) -->
+      <style>#google-reviews-container{display:grid;grid-template-columns:repeat(4,1fr)!important;gap:16px}@media(max-width:900px){#google-reviews-container{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:500px){#google-reviews-container{grid-template-columns:1fr!important}}</style>
       <div class="google-live-reviews reveal" id="google-live-reviews">
         <h3 style="text-align:center;margin-bottom:8px;font-size:1.1rem;color:var(--text-primary,#1a1a2e)">
           <i class="fab fa-google" style="color:#4285F4"></i> 구글 실시간 리뷰
         </h3>
         <p style="text-align:center;font-size:0.85rem;color:#888;margin-bottom:20px">Google Maps에서 자동으로 가져온 최신 리뷰입니다</p>
-        <div id="google-reviews-container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+        <div id="google-reviews-container" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
           <div style="text-align:center;padding:40px;color:#999"><i class="fas fa-spinner fa-spin"></i> 구글 리뷰 로딩 중...</div>
         </div>
         <div style="text-align:center;margin-top:16px">
@@ -1527,6 +1528,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           return;
         }
         
+        reviews = reviews.slice(0, 4);
         var html = '';
         reviews.forEach(function(rev){
           var stars = '';
