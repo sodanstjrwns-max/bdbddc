@@ -17,6 +17,36 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>()
 
 // ============================================
+// Meta Pixel + GTM + Amplitude 공통 트래킹 코드
+// ============================================
+const TRACKING_HEAD = `<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<!-- End Google Tag Manager -->
+<!-- Amplitude Script Loader -->
+<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '971255062435276');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->`
+
+const TRACKING_BODY = `<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->`
+
+// ============================================
 // 관리자 인증 시스템 (비밀번호 + 쿠키 세션)
 // ============================================
 const ADMIN_SESSION_COOKIE = 'bd_admin_session'
@@ -62,6 +92,7 @@ function adminLoginPage(error?: string): string {
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
+${TRACKING_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자 로그인 | 서울비디치과</title>
@@ -2038,6 +2069,7 @@ app.get('/column/', async (c) => {
   return c.html(`<!DOCTYPE html>
 <html lang="ko">
 <head>
+${TRACKING_HEAD}
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${filterTitle}원장 컬럼 | 서울비디치과</title>
 <meta name="description" content="서울비디치과 원장님들의 진료 철학과 치과 이야기. ${filterTitle}컬럼을 읽어보세요.">
@@ -2122,6 +2154,7 @@ app.get('/column/:id', async (c) => {
   return c.html(`<!DOCTYPE html>
 <html lang="ko">
 <head>
+${TRACKING_HEAD}
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${col.title} | 원장 컬럼 — 서울비디치과</title>
 <meta name="description" content="${plainExcerpt}">
@@ -2283,6 +2316,7 @@ app.get('/cases/:id', async (c) => {
   return c.html(`<!DOCTYPE html>
 <html lang="ko">
 <head>
+${TRACKING_HEAD}
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${cs.title} | Before/After — 서울비디치과</title>
 <meta name="description" content="${cs.title} — ${cs.doctorName || '서울비디치과'} ${catLabel} 치료 전후 사진. ${cs.treatmentPeriod ? '치료기간 ' + cs.treatmentPeriod + '.' : ''} 서울비디치과 비포/애프터.">
@@ -2658,7 +2692,7 @@ app.get('/encyclopedia/:term', (c) => {
   const html = `<!DOCTYPE html>
 <html lang="ko" prefix="og: https://ogp.me/ns#">
 <head>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+${TRACKING_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>${term} | 치과 백과사전 — 서울비디치과</title>
@@ -2890,7 +2924,7 @@ app.get('/encyclopedia/category/:name', (c) => {
   const catHtml = `<!DOCTYPE html>
 <html lang="ko" prefix="og: https://ogp.me/ns#">
 <head>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+${TRACKING_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>${catName} 치과 용어 ${catItems.length}개 | 치과 백과사전 — 서울비디치과</title>
