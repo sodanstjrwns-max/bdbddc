@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════
 # 서울비디치과 (Seoul BD Dental) - robots.txt
 # https://bdbddc.com
-# Updated: 2026-04-01
+# Updated: 2026-04-06
 #
 # SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
 # ═══════════════════════════════════════════════════════════════
@@ -9,20 +9,25 @@
 # ===== 모든 검색엔진 허용 =====
 User-agent: *
 Allow: /
+Allow: /column/
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
 Disallow: /components/
-Disallow: /column/
 Disallow: /docs/
 Disallow: /css/_deprecated/
 Disallow: /_worker.js
 Disallow: /sw.js
 Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
 
 # ===== Google 봇 (메인 + 이미지 + 비디오) =====
 User-agent: Googlebot
 Allow: /
+Allow: /column/
+Allow: /cases/
+Allow: /encyclopedia/
 Crawl-delay: 1
 
 User-agent: Googlebot-Image
@@ -36,18 +41,35 @@ Allow: /video/
 Disallow: /admin/
 Disallow: /api/
 
+# ===== Google News 봇 =====
+User-agent: Googlebot-News
+Allow: /column/
+Allow: /notice/
+Disallow: /admin/
+
 # ===== 네이버 봇 =====
 User-agent: Yeti
 Allow: /
+Allow: /column/
 Crawl-delay: 2
+
+# ===== 다음 봇 =====
+User-agent: Daum
+Allow: /
+Allow: /column/
 
 # ===== 빙 봇 =====
 User-agent: Bingbot
 Allow: /
+Allow: /column/
 Crawl-delay: 2
 
-# ===== AI/LLM 크롤러 허용 (GEO 최적화) =====
-# OpenAI
+# ═══════════════════════════════════════════════════════════════
+# AI/LLM 크롤러 허용 (AEO/GEO 최적화)
+# 2026-04-06 업데이트 — 모든 주요 AI 크롤러 포함
+# ═══════════════════════════════════════════════════════════════
+
+# --- OpenAI ---
 User-agent: GPTBot
 Allow: /
 Disallow: /admin/
@@ -57,11 +79,17 @@ Disallow: /api/
 User-agent: ChatGPT-User
 Allow: /
 
-# Google AI
+User-agent: OAI-SearchBot
+Allow: /
+
+# --- Google AI ---
 User-agent: Google-Extended
 Allow: /
 
-# Anthropic
+User-agent: GoogleOther
+Allow: /
+
+# --- Anthropic ---
 User-agent: ClaudeBot
 Allow: /
 Disallow: /admin/
@@ -71,37 +99,75 @@ Disallow: /api/
 User-agent: anthropic-ai
 Allow: /
 
-# Perplexity
+# --- Perplexity ---
 User-agent: PerplexityBot
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-# Meta AI
+# --- Meta AI ---
 User-agent: FacebookBot
 Allow: /
 
 User-agent: Meta-ExternalAgent
 Allow: /
 
-# Apple
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# --- Apple ---
 User-agent: Applebot
 Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
 
-# Cohere
+# --- Cohere ---
 User-agent: cohere-ai
 Allow: /
 
-# Common Crawl (AI 학습 데이터 소스)
+# --- Common Crawl (AI 학습 데이터 소스) ---
 User-agent: CCBot
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-# ===== 차단할 봇 (스팸/악성) =====
+# --- DeepSeek ---
+User-agent: Deepseek
+Allow: /
+
+# --- Mistral ---
+User-agent: MistralBot
+Allow: /
+
+# --- ByteDance (Doubao/TikTok) ---
+User-agent: Bytespider
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 5
+
+# --- Amazon Alexa ---
+User-agent: Amazonbot
+Allow: /
+
+# --- Microsoft Copilot ---
+User-agent: CopilotBot
+Allow: /
+
+# --- You.com ---
+User-agent: YouBot
+Allow: /
+
+# --- Brave Search ---
+User-agent: BraveBot
+Allow: /
+
+# --- SearchGPT / OpenAI Search ---
+User-agent: SearchGPT
+Allow: /
+
+# ===== 차단할 봇 (스팸/악성/과도한 크롤링) =====
 User-agent: AhrefsBot
 Crawl-delay: 10
 
@@ -114,12 +180,24 @@ Disallow: /
 User-agent: MJ12bot
 Disallow: /
 
-# ===== 사이트맵 =====
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: PetalBot
+Crawl-delay: 10
+
+# ═══════════════════════════════════════════════════════════════
+# 사이트맵 & AI 학습 리소스
+# ═══════════════════════════════════════════════════════════════
+
 Sitemap: https://bdbddc.com/sitemap.xml
 Sitemap: https://bdbddc.com/sitemap-main.xml
 Sitemap: https://bdbddc.com/sitemap-area.xml
 Sitemap: https://bdbddc.com/sitemap-encyclopedia.xml
 
-# ===== AI/LLM 학습용 사이트 정보 =====
-# https://llmstxt.org/ 표준
+# AI/LLM 학습용 사이트 정보 (https://llmstxt.org/ 표준)
 # LLMs.txt: https://bdbddc.com/llms.txt
+# LLMs-full.txt: https://bdbddc.com/llms-full.txt

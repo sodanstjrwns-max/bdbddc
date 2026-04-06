@@ -1,39 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- ===== 메인 페이지 ===== -->
+  <!-- ═══════════════════════════════════════ -->
+  <!-- 서울비디치과 메인 사이트맵               -->
+  <!-- 최종 업데이트: 2026-04-06               -->
+  <!-- 총 URL: 72개                            -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <!-- ===== 1. 메인 페이지 ===== -->
   <url>
     <loc>https://bdbddc.com/</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.00</priority>
+    <image:image>
+      <image:loc>https://bdbddc.com/images/og-image.jpg</image:loc>
+      <image:title>서울비디치과 — 천안 365일 치과</image:title>
+    </image:image>
   </url>
 
-  <!-- ===== 전환 핵심 페이지 (CTA) ===== -->
+  <!-- ===== 2. 전환 핵심 페이지 (CTA) ===== -->
   <url>
     <loc>https://bdbddc.com/reservation</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/pricing</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/directions</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- ===== 진료 안내 ===== -->
+  <!-- ===== 3. 진료 안내 ===== -->
   <url>
     <loc>https://bdbddc.com/treatments/</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
@@ -41,43 +53,43 @@
   <!-- 전문센터 (매출 핵심) -->
   <url>
     <loc>https://bdbddc.com/treatments/implant</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.92</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/invisalign</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.92</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/glownate</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.88</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/pediatric</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.88</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/aesthetic</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/orthodontics</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.88</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/sedation</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -85,55 +97,55 @@
   <!-- 일반/보존 진료 -->
   <url>
     <loc>https://bdbddc.com/treatments/cavity</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/resin</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/crown</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/inlay</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/root-canal</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/re-root-canal</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/whitening</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/bridge</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/denture</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -141,43 +153,43 @@
   <!-- 잇몸/외과 -->
   <url>
     <loc>https://bdbddc.com/treatments/scaling</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/gum</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/periodontitis</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/gum-surgery</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/wisdom-tooth</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/apicoectomy</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/prevention</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -185,215 +197,227 @@
   <!-- 기타 진료 -->
   <url>
     <loc>https://bdbddc.com/treatments/tmj</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/bruxism</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/emergency</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
-  <!-- ===== 의료진 ===== -->
+  <!-- ===== 4. 의료진 ===== -->
   <url>
     <loc>https://bdbddc.com/doctors/</loc>
-    <lastmod>2026-03-24</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-04-06</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/moon</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.88</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/kim</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.82</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/hyun</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.82</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/choi</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/lee</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/park</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/kang</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/jo</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/seo</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/lim</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/kim-mg</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/kim-mj</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/kang-mj</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/park-sb</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/doctors/lee-bm</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
 
-  <!-- ===== 콘텐츠 ===== -->
+  <!-- ===== 5. 콘텐츠 허브 ===== -->
+  <url>
+    <loc>https://bdbddc.com/column/</loc>
+    <lastmod>2026-04-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
   <url>
     <loc>https://bdbddc.com/blog/</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/video/</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/cases/gallery</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/encyclopedia/</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- ===== 게임/바이럴 콘텐츠 (NEW) ===== -->
+  <!-- ===== 6. 게임/바이럴 콘텐츠 ===== -->
   <url>
     <loc>https://bdbddc.com/games</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/checkup</loc>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/flight</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://bdbddc.com/checkup</loc>
-    <lastmod>2026-04-01</lastmod>
+    <loc>https://bdbddc.com/run</loc>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.75</priority>
   </url>
 
-  <!-- ===== 병원 안내 ===== -->
+  <!-- ===== 7. 병원 안내 ===== -->
   <url>
     <loc>https://bdbddc.com/mission</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/floor-guide</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/faq</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/faq/implant</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.65</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/faq/orthodontics</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.65</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/notice/</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.65</priority>
   </url>
 
-  <!-- ===== 법적 페이지 ===== -->
+  <!-- ===== 8. 법적 페이지 ===== -->
   <url>
     <loc>https://bdbddc.com/privacy</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>
   </url>
   <url>
     <loc>https://bdbddc.com/terms</loc>
-    <lastmod>2026-03-24</lastmod>
+    <lastmod>2026-04-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>
   </url>
