@@ -2055,7 +2055,7 @@ app.get('/column/', async (c) => {
         </div>
         <h3>${col.title}</h3>
         <p>${excerpt}</p>
-        <div class="col-list-author"><i class="fas fa-user-md"></i> ${slug ? `<a href="/doctors/${slug}" onclick="event.stopPropagation();event.preventDefault();location.href='/doctors/${slug}'" style="color:#6B4226;text-decoration:none;border-bottom:1px dashed #c9a96e;font-weight:600;transition:color 0.2s">${col.doctorName || ''}</a>` : (col.doctorName || '')}</div>
+        <div class="col-list-author">${slug ? `<img src="/images/doctors/${slug}-profile.webp" alt="${col.doctorName}" class="col-list-author-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="col-list-author-fallback" style="display:none">${(col.doctorName || '').charAt(0)}</span>` : `<i class="fas fa-user-md"></i>`} ${slug ? `<a href="/doctors/${slug}" onclick="event.stopPropagation();event.preventDefault();location.href='/doctors/${slug}'" style="color:#6B4226;text-decoration:none;border-bottom:1px dashed #c9a96e;font-weight:600;transition:color 0.2s">${col.doctorName || ''}</a>` : (col.doctorName || '')}</div>
       </div>
     </a>`
   }).join('')
@@ -2103,7 +2103,9 @@ ${TRACKING_HEAD}
 .col-list-date{font-size:.75rem;color:#aaa;display:flex;align-items:center;gap:4px}
 .col-list-body h3{font-size:1.08rem;font-weight:700;color:#333;margin:0 0 6px;line-height:1.4}
 .col-list-body p{font-size:.85rem;color:#777;line-height:1.5;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.col-list-author{font-size:.78rem;color:#999;display:flex;align-items:center;gap:6px}
+.col-list-author{font-size:.78rem;color:#999;display:flex;align-items:center;gap:8px}
+.col-list-author-img{width:22px;height:22px;border-radius:50%;object-fit:cover;border:1.5px solid #ede6dd;flex-shrink:0}
+.col-list-author-fallback{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:.55rem;font-weight:700;align-items:center;justify-content:center;flex-shrink:0}
 .col-empty{text-align:center;padding:60px 20px;color:#999}
 .col-empty i{font-size:3rem;color:#d4c5b3;margin-bottom:16px;display:block}
 @media(max-width:600px){.col-list-card{grid-template-columns:1fr}.col-hero h1{font-size:1.4rem}}
@@ -2162,6 +2164,26 @@ app.get('/column/:id', async (c) => {
   const focusKw = col.focusKeyword || ''
   // ai-summary: 포커스 키워드 포함 요약
   const aiSummary = `${seoTitle} — 서울비디치과 ${col.doctorName || ''} ${focusKw ? '| ' + focusKw : ''}`
+
+  // 의사 상세 정보
+  const COL_DOCTOR_INFO: Record<string, { specialty: string }> = {
+    moon: { specialty: '대표원장 · 통합치의학과 전문의' },
+    kim: { specialty: '통합치의학과 전문의' },
+    hyun: { specialty: '통합치의학과 전문의' },
+    lee: { specialty: '임플란트센터장' },
+    'kim-mg': { specialty: '통합치의학과 전문의' },
+    lim: { specialty: '교정과' },
+    jo: { specialty: '소아치과 전문의' },
+    'kang-mj': { specialty: '통합치의학과 전문의' },
+    'kim-mj': { specialty: '통합치의학과 전문의' },
+    park: { specialty: '구강외과' },
+    seo: { specialty: '통합치의학과 전문의' },
+    'lee-bm': { specialty: '통합치의학과 전문의' },
+    kang: { specialty: '통합치의학과 전문의' },
+    choi: { specialty: '통합치의학과 전문의' },
+    'park-sb': { specialty: '통합치의학과 전문의' },
+  }
+  const drInfo = COL_DOCTOR_INFO[doctorSlug] || { specialty: '치과의사' }
 
   return c.html(`<!DOCTYPE html>
 <html lang="ko">
@@ -2245,10 +2267,27 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 <style>
 .col-detail{max-width:760px;margin:0 auto;padding:40px 20px}
 .col-detail-header{margin-bottom:32px}
-.col-detail-header h1{font-size:1.6rem;font-weight:800;color:#333;margin-bottom:12px;line-height:1.4}
-.col-detail-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:#888;align-items:center}
+.col-detail-header h1{font-size:1.6rem;font-weight:800;color:#333;margin-bottom:16px;line-height:1.4}
+.col-detail-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:#888;align-items:center;margin-bottom:20px}
 .col-detail-meta a{color:#6B4226;text-decoration:none;font-weight:600}
 .col-detail-meta a:hover{text-decoration:underline}
+
+/* ===== AUTHOR CARD ===== */
+.col-author-card{display:flex;align-items:center;gap:16px;padding:16px 20px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:16px;border:1px solid #ede6dd;margin-bottom:28px;text-decoration:none;color:inherit;transition:all .25s ease}
+.col-author-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,66,38,.1);border-color:#d4c5b3}
+.col-author-avatar{width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2.5px solid #fff;box-shadow:0 2px 12px rgba(107,66,38,.12)}
+.col-author-avatar img{width:100%;height:100%;object-fit:cover}
+.col-author-avatar .avatar-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:1.2rem;font-weight:700}
+.col-author-info{flex:1;min-width:0}
+.col-author-name{font-size:.95rem;font-weight:700;color:#333;display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.col-author-name .verified{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;background:#6B4226;border-radius:50%;font-size:.55rem;color:#fff}
+.col-author-specialty{font-size:.78rem;color:#8B5E3C;font-weight:500;margin-bottom:2px}
+.col-author-org{font-size:.72rem;color:#aaa}
+.col-meta-badges{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.col-meta-badge{display:inline-flex;align-items:center;gap:5px;font-size:.76rem;padding:4px 12px;border-radius:50px;font-weight:500}
+.col-meta-badge.cat{background:#dbeafe;color:#3b82f6}
+.col-meta-badge.date{background:#f3f4f6;color:#6b7280}
+
 .col-detail-hero-img{width:100%;border-radius:16px;overflow:hidden;margin-bottom:28px}
 .col-detail-hero-img img{width:100%;height:auto;display:block}
 .col-detail-body{font-size:1.05rem;color:#444;line-height:1.9;word-break:keep-all}
@@ -2257,8 +2296,29 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 .col-detail-body p{margin-bottom:16px}
 .col-detail-body img{max-width:100%;border-radius:12px;margin:16px 0}
 .col-detail-body blockquote{border-left:4px solid #c9a96e;padding:12px 20px;background:#faf7f3;border-radius:0 12px 12px 0;margin:20px 0;color:#555;font-style:italic}
-.col-detail-footer{margin-top:40px;padding-top:24px;border-top:1px solid #eee;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
-@media(max-width:600px){.col-detail-header h1{font-size:1.3rem}}
+
+/* ===== BOTTOM AUTHOR BOX ===== */
+.col-author-box{margin-top:40px;padding:28px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:20px;border:1px solid #ede6dd;display:flex;align-items:center;gap:20px}
+.col-author-box-avatar{width:72px;height:72px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #fff;box-shadow:0 4px 16px rgba(107,66,38,.12)}
+.col-author-box-avatar img{width:100%;height:100%;object-fit:cover}
+.col-author-box-avatar .avatar-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:1.5rem;font-weight:700}
+.col-author-box-info{flex:1}
+.col-author-box-info .author-label{font-size:.7rem;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.col-author-box-info .author-name-line{font-size:1.05rem;font-weight:700;color:#333;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.col-author-box-info .author-name-line .verified{width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;background:#6B4226;border-radius:50%;font-size:.6rem;color:#fff}
+.col-author-box-info .author-spec{font-size:.82rem;color:#8B5E3C;font-weight:500;margin-bottom:2px}
+.col-author-box-info .author-org{font-size:.78rem;color:#999}
+.col-author-box-link{flex-shrink:0}
+.col-author-box-link a{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#6B4226;color:#fff;border-radius:50px;font-size:.8rem;font-weight:600;text-decoration:none;transition:all .2s}
+.col-author-box-link a:hover{background:#8B5E3C;transform:translateY(-1px)}
+
+.col-detail-footer{margin-top:24px;padding-top:24px;border-top:1px solid #eee;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+@media(max-width:600px){
+  .col-detail-header h1{font-size:1.3rem}
+  .col-author-box{flex-direction:column;text-align:center;gap:14px}
+  .col-author-box-link{width:100%}
+  .col-author-box-link a{width:100%;justify-content:center}
+}
 </style>
 </head>
 <body>
@@ -2278,17 +2338,59 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 </nav>
 <div class="col-detail-header">
 <h1>${col.title}</h1>
-<div class="col-detail-meta">
-<span><i class="fas fa-user-md" style="color:#c9a96e;"></i> <a href="/doctors/${doctorSlug}">${col.doctorName || ''}</a></span>
-${col.category ? `<span><i class="fas fa-tag" style="color:#c9a96e;"></i> ${col.category}</span>` : ''}
-<span><i class="far fa-calendar" style="color:#c9a96e;"></i> ${dateStr}</span>
+<div class="col-meta-badges">
+${col.category ? `<span class="col-meta-badge cat"><i class="fas fa-tag"></i> ${col.category}</span>` : ''}
+<span class="col-meta-badge date"><i class="far fa-calendar"></i> ${dateStr}</span>
 </div>
 </div>
+
+<!-- Author Card (Top) -->
+${doctorSlug ? `<a href="/doctors/${doctorSlug}" class="col-author-card">
+<div class="col-author-avatar">
+<picture>
+<source srcset="/images/doctors/${doctorSlug}-profile.webp" type="image/webp">
+<img src="/images/doctors/${doctorSlug}-profile.jpg" alt="${col.doctorName}" onerror="this.parentElement.parentElement.innerHTML='<div class=\\'avatar-fallback\\'>${(col.doctorName || '').charAt(0)}</div>'">
+</picture>
+</div>
+<div class="col-author-info">
+<div class="col-author-name">${col.doctorName || ''} <span class="verified"><i class="fas fa-check"></i></span></div>
+<div class="col-author-specialty">${drInfo.specialty}</div>
+<div class="col-author-org">서울비디치과</div>
+</div>
+</a>` : `<div class="col-author-card" style="cursor:default;">
+<div class="col-author-avatar"><div class="avatar-fallback">${(col.doctorName || '서').charAt(0)}</div></div>
+<div class="col-author-info">
+<div class="col-author-name">${col.doctorName || '서울비디치과'}</div>
+<div class="col-author-specialty">치과의사</div>
+<div class="col-author-org">서울비디치과</div>
+</div>
+</div>`}
+
 ${col.thumbnailImage ? `<div class="col-detail-hero-img"><img src="${col.thumbnailImage}" alt="${col.title}"></div>` : ''}
 <div class="col-detail-body">${col.content || ''}</div>
+
+<!-- Author Box (Bottom) -->
+${doctorSlug ? `<div class="col-author-box">
+<div class="col-author-box-avatar">
+<picture>
+<source srcset="/images/doctors/${doctorSlug}-profile.webp" type="image/webp">
+<img src="/images/doctors/${doctorSlug}-profile.jpg" alt="${col.doctorName}" onerror="this.parentElement.parentElement.innerHTML='<div class=\\'avatar-fallback\\'>${(col.doctorName || '').charAt(0)}</div>'">
+</picture>
+</div>
+<div class="col-author-box-info">
+<div class="author-label">Written by</div>
+<div class="author-name-line">${col.doctorName || ''} <span class="verified"><i class="fas fa-check"></i></span></div>
+<div class="author-spec">${drInfo.specialty}</div>
+<div class="author-org">서울비디치과 · 충남 천안시 서북구 불당34길 14</div>
+</div>
+<div class="col-author-box-link">
+<a href="/doctors/${doctorSlug}"><i class="fas fa-user-md"></i> 프로필 보기</a>
+</div>
+</div>` : ''}
+
 <div class="col-detail-footer">
 <a href="/column/" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-arrow-left"></i> 컬럼 목록</a>
-${doctorSlug ? `<a href="/doctors/${doctorSlug}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-user-md"></i> ${col.doctorName} 페이지</a>` : ''}
+<a href="/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-calendar-check"></i> 진료 예약</a>
 </div>
 </div>
 </main>
