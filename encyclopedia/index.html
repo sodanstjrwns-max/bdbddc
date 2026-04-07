@@ -123,8 +123,29 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   }
   </script>
 
-  <!-- FAQPage Schema (JS에서 동적 생성됨) -->
-  <script type="application/ld+json" id="faqSchema">{}</script>
+  <!-- FAQPage Schema (JS에서 동적 업데이트됨, 초기값은 SSR용) -->
+  <script type="application/ld+json" id="faqSchema">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "치과 백과사전에서 어떤 용어를 찾을 수 있나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "서울비디치과 치과 백과사전에서는 임플란트, 충치, 교정, 잇몸치료, 스케일링 등 699개 치과 용어를 카테고리별·초성별로 검색하실 수 있습니다. 서울대 전문의가 감수한 정확한 정보를 제공합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "서울비디치과에서 상담을 받으려면 어떻게 하나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "서울비디치과는 365일 진료하며, 온라인 예약(bdbddc.com/reservation) 또는 전화(041-415-2892)로 상담 예약이 가능합니다. 평일 09:00-20:00, 토·일 09:00-17:00에 운영합니다."
+        }
+      }
+    ]
+  }</script>
 
   <style>
     /* ===== 검색 + 필터 바 ===== */
