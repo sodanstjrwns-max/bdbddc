@@ -7,3 +7,19 @@
 /column/columns/   /blog    301
 /column/index      /blog    301
 /column/index.html /blog    301
+
+# GSC 404 에러 해결 — 이전 사이트 잔재 301 리다이렉트
+/tables/treatments/treatments/gum.html    /pricing    301
+/tables/treatments/treatments/index.html  /pricing    301
+/tables/treatments/implant.html           /pricing    301
+/tables/treatments/auth/register.html     /auth/register    301
+/tables/treatments/auth/*                 /auth/register    301
+/tables/treatments/treatments/*           /pricing    301
+/tables/treatments/*                      /pricing    301
+/tables/notices                           /notice/    301
+/tables/*                                 /pricing    301
+
+# 삭제된 페이지 → 메인으로 리다이렉트
+/bdx/       /    301
+/bdx        /    301
+/local-seo  /    301

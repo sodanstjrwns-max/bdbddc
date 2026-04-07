@@ -1140,6 +1140,26 @@ app.get('/mission.html', (c) => c.redirect('/mission', 301))
 app.get('/index.html', (c) => c.redirect('/', 301))
 
 // ============================================
+// GSC 404 에러 11건 해결 (2026-04-07)
+// ============================================
+// 1) 이전 사이트 잔재 → 301 리다이렉트
+app.get('/tables/treatments/treatments/gum.html', (c) => c.redirect('/pricing', 301))
+app.get('/tables/treatments/auth/register.html', (c) => c.redirect('/auth/register', 301))
+app.get('/tables/treatments/treatments/index.html', (c) => c.redirect('/pricing', 301))
+app.get('/tables/treatments/implant.html', (c) => c.redirect('/pricing', 301))
+app.get('/tables/notices', (c) => c.redirect('/notice/', 301))
+app.get('/tables/*', (c) => c.redirect('/pricing', 301))
+
+// 2) 삭제된 페이지 → 410 Gone (Google 색인 영구 제거)
+const gone410 = (c: any) => new Response(
+  '<!DOCTYPE html><html><head><meta name="robots" content="noindex"><title>Gone</title></head><body><h1>410 Gone</h1><p>This page has been permanently removed.</p></body></html>',
+  { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex' } }
+)
+app.get('/bdx/', gone410)
+app.get('/bdx', gone410)
+app.get('/local-seo', gone410)
+
+// ============================================
 // 치BTI 참여 통계 API
 // ============================================
 
@@ -1545,6 +1565,14 @@ app.all('/blog/*', async (c) => {
       },
     })
     
+    // 인블로그 404 → 410 Gone 변환 (삭제된 글은 Google 색인에서 제거)
+    if (response.status === 404) {
+      return new Response(
+        '<!DOCTYPE html><html><head><meta name="robots" content="noindex"><title>Gone</title></head><body><h1>410 Gone</h1><p>This blog post has been permanently removed.</p></body></html>',
+        { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex' } }
+      )
+    }
+
     // HTML 응답인 경우 내부 링크 수정
     const contentType = response.headers.get('content-type') || ''
     
