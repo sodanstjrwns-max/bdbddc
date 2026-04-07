@@ -2150,38 +2150,98 @@ app.get('/column/:id', async (c) => {
   
   const doctorSlug = DOCTOR_SLUG_MAP[col.doctorName] || ''
   const dateStr = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
+  const isoDate = col.createdAt ? new Date(col.createdAt).toISOString() : ''
+  const isoUpdated = col.updatedAt ? new Date(col.updatedAt).toISOString() : isoDate
   const plainExcerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 160)
+  
+  // SEO 메타필드 활용 (에디터에서 입력한 값 우선, 없으면 자동 생성)
+  const seoTitle = col.metaTitle || col.title
+  const seoDesc = col.metaDescription || plainExcerpt
+  const ogImage = col.thumbnailImage || 'https://bdbddc.com/images/og-image.jpg'
+  const doctorNameClean = (col.doctorName || '').replace(' 원장', '')
+  const focusKw = col.focusKeyword || ''
+  // ai-summary: 포커스 키워드 포함 요약
+  const aiSummary = `${seoTitle} — 서울비디치과 ${col.doctorName || ''} ${focusKw ? '| ' + focusKw : ''}`
 
   return c.html(`<!DOCTYPE html>
 <html lang="ko">
 <head>
 ${TRACKING_HEAD}
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${col.title} | 원장 컬럼 — 서울비디치과</title>
-<meta name="description" content="${plainExcerpt}">
-<meta name="robots" content="index, follow">
+<title>${seoTitle} | 원장 컬럼 — 서울비디치과</title>
+<meta name="description" content="${seoDesc}">
+<meta name="ai-summary" content="${aiSummary}">
+${focusKw ? `<meta name="keywords" content="${focusKw},서울비디치과,원장컬럼,천안치과">` : ''}
+<meta name="author" content="${col.doctorName || '서울비디치과'}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://bdbddc.com/column/${id}">
-<meta property="og:title" content="${col.title} | 원장 컬럼 — 서울비디치과">
-<meta property="og:description" content="${plainExcerpt}">
+<meta property="og:title" content="${seoTitle} | 서울비디치과">
+<meta property="og:description" content="${seoDesc}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://bdbddc.com/column/${id}">
-${col.thumbnailImage ? `<meta property="og:image" content="${col.thumbnailImage}">` : ''}
+<meta property="og:image" content="${ogImage}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="서울비디치과">
+<meta property="article:author" content="https://bdbddc.com/doctors/${doctorSlug}">
+<meta property="article:published_time" content="${isoDate}">
+${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${isoUpdated}">` : ''}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${seoTitle} | 서울비디치과">
+<meta name="twitter:description" content="${seoDesc}">
+<meta name="twitter:image" content="${ogImage}">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 <link rel="stylesheet" href="/css/site-v5.css?v=0b6913b4">
+<!-- BreadcrumbList -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"원장 컬럼","item":"https://bdbddc.com/column/"},{"@type":"ListItem","position":3,"name":"${col.title}","item":"https://bdbddc.com/column/${id}"}]}
+</script>
+<!-- Article Schema -->
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
   "@type":"Article",
-  "headline":"${col.title}",
-  "author":{"@type":"Person","name":"${col.doctorName || '서울비디치과'}","worksFor":{"@type":"Dentist","name":"서울비디치과"}},
-  "datePublished":"${col.createdAt || ''}",
+  "headline":"${seoTitle}",
+  "description":"${seoDesc}",
+  "author":{
+    "@type":"Person",
+    "@id":"https://bdbddc.com/#${doctorNameClean}",
+    "name":"${col.doctorName || '서울비디치과'}",
+    "jobTitle":"치과의사",
+    "worksFor":{"@type":"Dentist","@id":"https://bdbddc.com/#dentist","name":"서울비디치과"}
+  },
+  "datePublished":"${isoDate}",
+  ${isoUpdated !== isoDate ? `"dateModified":"${isoUpdated}",` : ''}
   "url":"https://bdbddc.com/column/${id}",
-  "publisher":{"@type":"Organization","name":"서울비디치과","url":"https://bdbddc.com"}
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://bdbddc.com/column/${id}"},
+  "image":"${ogImage}",
+  "publisher":{
+    "@type":"Organization",
+    "@id":"https://bdbddc.com/#org",
+    "name":"서울비디치과",
+    "url":"https://bdbddc.com",
+    "logo":{"@type":"ImageObject","url":"https://bdbddc.com/images/og-image.jpg"}
+  },
+  "inLanguage":"ko",
+  ${focusKw ? `"keywords":"${focusKw}",` : ''}
+  "isPartOf":{"@type":"Blog","name":"서울비디치과 원장 컬럼","url":"https://bdbddc.com/column/"}
 }
 </script>
+<!-- Dentist Schema -->
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"Dentist",
+  "@id":"https://bdbddc.com/#dentist",
+  "name":"서울비디치과",
+  "telephone":"+82-41-415-2892",
+  "address":{"@type":"PostalAddress","streetAddress":"불당34길 14, 1~5층","addressLocality":"천안시 서북구 불당동","addressRegion":"충청남도","addressCountry":"KR"},
+  "sameAs":["https://pf.kakao.com/_Cxivlxb","https://www.youtube.com/@BDtube","https://www.youtube.com/@geoptongryung","https://naver.me/5yPnKmqQ"],
+  "speakableSpecification":{"@type":"SpeakableSpecification","cssSelector":[".col-detail-header h1",".col-detail-body h2",".col-detail-body h3"]}
+}</script>
 <style>
 .col-detail{max-width:760px;margin:0 auto;padding:40px 20px}
 .col-detail-header{margin-bottom:32px}

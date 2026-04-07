@@ -21,12 +21,15 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>컬럼 관리 | 서울비디치과 관리자</title>
+<title>SEO 컬럼 에디터 | 서울비디치과 관리자</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<!-- Quill v2 -->
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 <style>
 :root {
   --bg: #0f1117; --bg-card: #1a1d27; --bg-sidebar: #141620; --bg-hover: #222538;
@@ -44,6 +47,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 body{font-family:'Pretendard',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
 a{color:inherit;text-decoration:none}
 
+/* ===== SIDEBAR ===== */
 .sidebar{width:260px;min-height:100vh;background:var(--bg-sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;transition:transform var(--transition)}
 .sidebar-header{padding:24px 20px;border-bottom:1px solid var(--border)}
 .sidebar-brand{display:flex;align-items:center;gap:12px}
@@ -70,12 +74,14 @@ a{color:inherit;text-decoration:none}
 .mobile-menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:8px}
 .content{padding:28px 32px;max-width:1400px}
 
+/* ===== STATS ROW ===== */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
 .mini-stat{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:center;gap:14px}
 .mini-stat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .mini-stat-value{font-size:1.4rem;font-weight:800}
 .mini-stat-label{font-size:.72rem;color:var(--text-muted)}
 
+/* ===== TOOLBAR ===== */
 .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
 .search-box{position:relative}
 .search-box input{background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:9px 14px 9px 36px;border-radius:var(--radius-sm);font-size:.85rem;font-family:inherit;outline:none;width:240px}
@@ -85,6 +91,7 @@ a{color:inherit;text-decoration:none}
 .btn-primary:hover{background:var(--accent-light)}
 .btn-secondary{background:var(--bg-hover);color:var(--text);border:1px solid var(--border);padding:10px 18px;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit}
 
+/* ===== TABLE ===== */
 .table-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 table{width:100%;border-collapse:collapse}
 thead th{padding:12px 16px;text-align:left;font-size:.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-sidebar)}
@@ -93,6 +100,10 @@ tbody tr:hover{background:var(--bg-hover)}
 .status-badge{font-size:.7rem;padding:3px 10px;border-radius:20px;font-weight:600}
 .status-badge.published{background:var(--green-bg);color:var(--green)}
 .status-badge.draft{background:var(--orange-bg);color:var(--orange)}
+.seo-score{font-size:.7rem;padding:3px 10px;border-radius:20px;font-weight:700}
+.seo-score.good{background:var(--green-bg);color:var(--green)}
+.seo-score.ok{background:var(--orange-bg);color:var(--orange)}
+.seo-score.bad{background:var(--red-bg);color:var(--red)}
 .action-btns{display:flex;gap:6px}
 .action-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text-dim);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.75rem;transition:all var(--transition)}
 .action-btn:hover{background:var(--bg-hover);color:var(--text);border-color:var(--accent)}
@@ -101,38 +112,105 @@ tbody tr:hover{background:var(--bg-hover)}
 .empty-state i{font-size:2.5rem;margin-bottom:12px;opacity:.4}
 .empty-state h3{font-size:1rem;font-weight:600;margin-bottom:6px;color:var(--text-dim)}
 
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
-.modal-overlay.open{display:flex}
-.modal{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:760px;max-height:90vh;display:flex;flex-direction:column}
+/* ===== MODAL (EDITOR) ===== */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;overflow-y:auto;padding:20px}
+.modal-overlay.open{display:block}
+.modal{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:1200px;margin:0 auto;display:flex;flex-direction:column}
 .modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .modal-header h2{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px}
 .modal-close{background:none;border:none;color:var(--text-dim);font-size:1.3rem;cursor:pointer;padding:4px 8px;border-radius:6px}
-.modal-body{padding:24px;overflow-y:auto;flex:1}
+.modal-content{display:grid;grid-template-columns:1fr 340px;min-height:70vh}
+.modal-editor{padding:24px;overflow-y:auto;border-right:1px solid var(--border)}
+.modal-sidebar{padding:24px;overflow-y:auto;max-height:80vh}
 .modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;gap:10px}
+
+/* Form Fields */
 .form-group{margin-bottom:18px}
 .form-group label{display:block;font-size:.8rem;font-weight:600;color:var(--text-dim);margin-bottom:6px}
 .form-group label .req{color:var(--red)}
-.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius-sm);font-size:.88rem;font-family:inherit;outline:none}
-.form-group textarea{resize:vertical;min-height:200px}
+.form-group label .char-count{float:right;font-weight:400;font-size:.72rem}
+.form-group label .char-count.over{color:var(--red)}
+.form-group label .char-count.good{color:var(--green)}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius-sm);font-size:.88rem;font-family:inherit;outline:none;transition:border-color var(--transition)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-hint{font-size:.72rem;color:var(--text-muted);margin-top:4px}
 
-.img-upload-box{border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:all var(--transition);position:relative;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+/* Thumbnail Upload */
+.img-upload-box{border:2px dashed var(--border);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;transition:all var(--transition);position:relative;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .img-upload-box:hover{border-color:var(--accent);background:var(--accent-glow)}
 .img-upload-box.has-image{border-style:solid;border-color:var(--green);padding:8px}
-.img-upload-box img{width:100%;max-height:200px;object-fit:cover;border-radius:var(--radius-sm)}
+.img-upload-box img{width:100%;max-height:160px;object-fit:cover;border-radius:var(--radius-sm)}
 .img-upload-box input[type="file"]{display:none}
 .img-upload-box .remove-btn{position:absolute;top:8px;right:8px;width:24px;height:24px;background:var(--red);color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;z-index:2;opacity:0;transition:opacity var(--transition)}
 .img-upload-box:hover .remove-btn{opacity:1}
 
+/* ===== QUILL EDITOR (Dark Theme Override) ===== */
+.ql-toolbar.ql-snow{background:var(--bg)!important;border:1px solid var(--border)!important;border-radius:var(--radius-sm) var(--radius-sm) 0 0!important}
+.ql-container.ql-snow{border:1px solid var(--border)!important;border-top:none!important;border-radius:0 0 var(--radius-sm) var(--radius-sm)!important;font-family:'Pretendard',sans-serif!important;font-size:.95rem!important}
+.ql-editor{background:var(--bg)!important;color:var(--text)!important;min-height:350px;line-height:1.8!important;padding:20px!important}
+.ql-editor.ql-blank::before{color:var(--text-muted)!important;font-style:normal!important}
+.ql-snow .ql-stroke{stroke:var(--text-dim)!important}
+.ql-snow .ql-fill{fill:var(--text-dim)!important}
+.ql-snow .ql-picker-label{color:var(--text-dim)!important}
+.ql-snow .ql-picker-options{background:var(--bg-card)!important;border:1px solid var(--border)!important}
+.ql-snow .ql-picker-item{color:var(--text)!important}
+.ql-snow .ql-picker-item:hover{color:var(--accent-light)!important}
+.ql-snow button:hover,.ql-snow button.ql-active{color:var(--accent-light)!important}
+.ql-snow button:hover .ql-stroke,.ql-snow button.ql-active .ql-stroke{stroke:var(--accent-light)!important}
+.ql-snow button:hover .ql-fill,.ql-snow button.ql-active .ql-fill{fill:var(--accent-light)!important}
+.ql-editor h1{font-size:1.8rem!important;font-weight:800!important;margin:24px 0 12px!important;color:var(--text)!important}
+.ql-editor h2{font-size:1.4rem!important;font-weight:700!important;margin:20px 0 10px!important;color:var(--text)!important}
+.ql-editor h3{font-size:1.15rem!important;font-weight:600!important;margin:16px 0 8px!important;color:var(--text)!important}
+.ql-editor h4{font-size:1rem!important;font-weight:600!important;margin:14px 0 6px!important;color:var(--text-dim)!important}
+.ql-editor blockquote{border-left:4px solid var(--accent)!important;padding:12px 16px!important;background:var(--accent-glow)!important;color:var(--text-dim)!important;margin:16px 0!important;border-radius:0 var(--radius-sm) var(--radius-sm) 0!important}
+.ql-editor img{max-width:100%;border-radius:var(--radius-sm);margin:16px 0}
+.ql-editor ul,.ql-editor ol{margin:12px 0!important;padding-left:24px!important}
+.ql-snow .ql-tooltip{background:var(--bg-card)!important;border:1px solid var(--border)!important;color:var(--text)!important;box-shadow:0 4px 24px rgba(0,0,0,.3)!important;border-radius:var(--radius-sm)!important}
+.ql-snow .ql-tooltip input[type=text]{background:var(--bg)!important;border:1px solid var(--border)!important;color:var(--text)!important;border-radius:4px!important}
+.ql-snow .ql-tooltip a{color:var(--blue)!important}
+
+/* ===== SEO SCORE PANEL ===== */
+.seo-panel{margin-bottom:20px}
+.seo-panel-title{font-size:.85rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.seo-overall{display:flex;align-items:center;gap:12px;padding:16px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:16px}
+.seo-ring{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;border:4px solid var(--border);flex-shrink:0}
+.seo-ring.good{border-color:var(--green);color:var(--green)}
+.seo-ring.ok{border-color:var(--orange);color:var(--orange)}
+.seo-ring.bad{border-color:var(--red);color:var(--red)}
+.seo-overall-text{font-size:.8rem;color:var(--text-dim);line-height:1.5}
+.seo-overall-text strong{color:var(--text);display:block;font-size:.88rem;margin-bottom:2px}
+
+.seo-checks{list-style:none}
+.seo-check{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.8rem;color:var(--text-dim);line-height:1.5}
+.seo-check:last-child{border-bottom:none}
+.seo-check-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;flex-shrink:0;margin-top:2px}
+.seo-check-icon.pass{background:var(--green-bg);color:var(--green)}
+.seo-check-icon.warn{background:var(--orange-bg);color:var(--orange)}
+.seo-check-icon.fail{background:var(--red-bg);color:var(--red)}
+
+/* ===== SERP PREVIEW ===== */
+.serp-preview{background:var(--bg);border-radius:var(--radius-sm);padding:16px;margin-bottom:20px}
+.serp-preview-title{font-size:.75rem;font-weight:600;color:var(--text-muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.serp-url{font-size:.78rem;color:#70757a;margin-bottom:4px;font-family:Arial,sans-serif}
+.serp-title{font-size:1.1rem;color:#1a0dab;font-family:Arial,sans-serif;line-height:1.3;margin-bottom:4px;cursor:pointer}
+.serp-title:hover{text-decoration:underline}
+.serp-desc{font-size:.82rem;color:#4d5156;font-family:Arial,sans-serif;line-height:1.5}
+
+/* ===== TOAST ===== */
 .toast{position:fixed;bottom:32px;right:32px;background:var(--green);color:#fff;padding:14px 24px;border-radius:var(--radius);font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:10px;transform:translateY(100px);opacity:0;transition:all .3s;z-index:300;box-shadow:0 4px 24px rgba(0,0,0,.3)}
 .toast.show{transform:translateY(0);opacity:1}
 .toast.error{background:var(--red)}
 
-.content-editor{font-family:'Pretendard',monospace;line-height:1.7}
-.editor-toolbar{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;padding:8px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm) var(--radius-sm) 0 0}
-.editor-btn{width:32px;height:32px;border:1px solid var(--border);background:transparent;color:var(--text-dim);border-radius:4px;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center}
-.editor-btn:hover{background:var(--bg-hover);color:var(--text)}
+/* Section Divider */
+.section-divider{border:none;border-top:1px solid var(--border);margin:20px 0}
+.section-label{font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
 
+@media(max-width:1024px){
+  .modal-content{grid-template-columns:1fr}
+  .modal-sidebar{max-height:none;border-right:none;border-top:1px solid var(--border)}
+}
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
   .main{margin-left:0}.mobile-menu-btn{display:block}
@@ -177,7 +255,7 @@ tbody tr:hover{background:var(--bg-hover)}
   <header class="topbar">
     <div class="topbar-left">
       <button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-      <h1><i class="fas fa-pen-nib" style="color:var(--blue);margin-right:8px;"></i> 원장 컬럼 관리</h1>
+      <h1><i class="fas fa-pen-nib" style="color:var(--blue);margin-right:8px;"></i> SEO 컬럼 에디터</h1>
     </div>
     <div class="topbar-right">
       <button class="btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> 새 컬럼</button>
@@ -217,91 +295,168 @@ tbody tr:hover{background:var(--bg-hover)}
 
     <div class="table-card">
       <table>
-        <thead><tr><th>썸네일</th><th>제목</th><th>원장</th><th>카테고리</th><th><i class="fas fa-eye" style="margin-right:4px"></i>조회</th><th>상태</th><th>작성일</th><th>관리</th></tr></thead>
+        <thead><tr><th>썸네일</th><th>제목</th><th>원장</th><th>SEO</th><th>상태</th><th>작성일</th><th>관리</th></tr></thead>
         <tbody id="columnsTable"></tbody>
       </table>
       <div class="empty-state" id="emptyState" style="display:none">
         <i class="fas fa-pen-nib"></i>
         <h3>등록된 컬럼이 없습니다</h3>
-        <p>"새 컬럼" 버튼으로 원장 컬럼을 작성해보세요</p>
+        <p>"새 컬럼" 버튼으로 SEO 최적화된 원장 컬럼을 작성해보세요</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
+<!-- ===== EDITOR MODAL ===== -->
 <div class="modal-overlay" id="colModal">
   <div class="modal">
     <div class="modal-header">
       <h2><i class="fas fa-pen-nib" style="color:var(--blue)"></i> <span id="modalTitle">새 컬럼 작성</span></h2>
       <button class="modal-close" onclick="closeModal()">&times;</button>
     </div>
-    <div class="modal-body">
-      <form id="colForm" onsubmit="return false">
-        <input type="hidden" id="colId">
-        <div class="form-group"><label>제목 <span class="req">*</span></label><input type="text" id="colTitle" required placeholder="예: 치과 공포증, 이렇게 극복합니다"></div>
-        <div class="form-row">
-          <div class="form-group"><label>작성 원장 <span class="req">*</span></label>
-            <select id="colDoctor" required>
-              <option value="">선택</option>
-              <optgroup label="대표원장"><option value="문석준 원장">문석준 원장</option><option value="김민수 원장">김민수 원장</option><option value="현정민 원장">현정민 원장</option></optgroup>
-              <optgroup label="임플란트"><option value="이승엽 원장">이승엽 원장</option></optgroup>
-              <optgroup label="교정"><option value="김민규 원장">김민규 원장</option><option value="임지원 원장">임지원 원장</option></optgroup>
-              <optgroup label="보존"><option value="조설아 원장">조설아 원장</option><option value="강민지 원장">강민지 원장</option></optgroup>
-              <optgroup label="소아"><option value="김민진 원장">김민진 원장</option><option value="박상현 원장">박상현 원장</option><option value="서희원 원장">서희원 원장</option></optgroup>
-              <optgroup label="내과"><option value="이병민 원장">이병민 원장</option></optgroup>
-              <optgroup label="종합진료"><option value="강경민 원장">강경민 원장</option><option value="최종훈 원장">최종훈 원장</option><option value="박수빈 원장">박수빈 원장</option></optgroup>
-            </select>
+    <div class="modal-content">
+      <!-- LEFT: EDITOR -->
+      <div class="modal-editor">
+        <form id="colForm" onsubmit="return false">
+          <input type="hidden" id="colId">
+
+          <!-- BASIC INFO -->
+          <div class="form-group">
+            <label>글 제목 <span class="req">*</span></label>
+            <input type="text" id="colTitle" required placeholder="예: 치과 공포증, 이렇게 극복합니다" oninput="updateSEO()">
           </div>
-          <div class="form-group"><label>카테고리</label>
-            <select id="colCategory">
-              <option value="">선택 (선택사항)</option>
-              <option value="진료 이야기">진료 이야기</option>
-              <option value="치과 상식">치과 상식</option>
-              <option value="환자 소통">환자 소통</option>
-              <option value="치료 후기">치료 후기</option>
-              <option value="의료 칼럼">의료 칼럼</option>
-              <option value="Q&A">Q&A</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>썸네일 이미지</label>
-          <div class="img-upload-box" id="thumbBox" onclick="document.getElementById('thumbFile').click()">
-            <input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)">
-            <div class="upload-placeholder">
-              <i class="fas fa-image" style="font-size:1.3rem;color:var(--text-muted);margin-bottom:6px;"></i>
-              <div style="font-size:.78rem;color:var(--text-dim)">클릭하여 이미지 업로드</div>
+          <div class="form-row">
+            <div class="form-group"><label>작성 원장 <span class="req">*</span></label>
+              <select id="colDoctor" required>
+                <option value="">선택</option>
+                <optgroup label="대표원장"><option value="문석준 원장">문석준 원장</option><option value="김민수 원장">김민수 원장</option><option value="현정민 원장">현정민 원장</option></optgroup>
+                <optgroup label="임플란트"><option value="이승엽 원장">이승엽 원장</option></optgroup>
+                <optgroup label="교정"><option value="김민규 원장">김민규 원장</option><option value="임지원 원장">임지원 원장</option></optgroup>
+                <optgroup label="보존"><option value="조설아 원장">조설아 원장</option><option value="강민지 원장">강민지 원장</option></optgroup>
+                <optgroup label="소아"><option value="김민진 원장">김민진 원장</option><option value="박상현 원장">박상현 원장</option><option value="서희원 원장">서희원 원장</option></optgroup>
+                <optgroup label="내과"><option value="이병민 원장">이병민 원장</option></optgroup>
+                <optgroup label="종합진료"><option value="강경민 원장">강경민 원장</option><option value="최종훈 원장">최종훈 원장</option><option value="박수빈 원장">박수빈 원장</option></optgroup>
+              </select>
+            </div>
+            <div class="form-group"><label>카테고리</label>
+              <select id="colCategory">
+                <option value="">선택 (선택사항)</option>
+                <option value="진료 이야기">진료 이야기</option>
+                <option value="치과 상식">치과 상식</option>
+                <option value="환자 소통">환자 소통</option>
+                <option value="치료 후기">치료 후기</option>
+                <option value="의료 칼럼">의료 칼럼</option>
+                <option value="Q&A">Q&A</option>
+              </select>
             </div>
           </div>
-          <input type="hidden" id="colThumb">
-        </div>
-        <div class="form-group">
-          <label>본문 <span class="req">*</span></label>
-          <div class="editor-toolbar">
-            <button type="button" class="editor-btn" onclick="insertTag('h2')" title="제목"><b>H2</b></button>
-            <button type="button" class="editor-btn" onclick="insertTag('h3')" title="소제목"><b>H3</b></button>
-            <button type="button" class="editor-btn" onclick="insertTag('strong')" title="굵게"><i class="fas fa-bold"></i></button>
-            <button type="button" class="editor-btn" onclick="insertTag('em')" title="기울임"><i class="fas fa-italic"></i></button>
-            <button type="button" class="editor-btn" onclick="insertTag('blockquote')" title="인용"><i class="fas fa-quote-left"></i></button>
-            <button type="button" class="editor-btn" onclick="insertParagraph()" title="문단"><i class="fas fa-paragraph"></i></button>
-            <button type="button" class="editor-btn" onclick="insertBr()" title="줄바꿈"><i class="fas fa-level-down-alt"></i></button>
+
+          <hr class="section-divider">
+          <div class="section-label"><i class="fas fa-edit"></i> 본문 에디터</div>
+
+          <!-- QUILL EDITOR -->
+          <div class="form-group">
+            <div id="quillEditor"></div>
           </div>
-          <textarea id="colContent" required placeholder="HTML 형식으로 본문을 작성하세요.&#10;&#10;<p>첫 번째 문단</p>&#10;<h2>소제목</h2>&#10;<p>두 번째 문단</p>" class="content-editor" rows="12"></textarea>
+
+          <hr class="section-divider">
+          <div class="section-label"><i class="fas fa-search"></i> SEO 메타 설정</div>
+
+          <!-- SEO META FIELDS -->
+          <div class="form-group">
+            <label>메타 제목 <span class="char-count" id="metaTitleCount">0/60</span></label>
+            <input type="text" id="metaTitle" placeholder="Google 검색 결과에 표시될 제목 (비워두면 글 제목 사용)" oninput="updateSEO()" maxlength="80">
+            <div class="form-hint">60자 이내 권장. 핵심 키워드를 앞쪽에 배치하세요.</div>
+          </div>
+          <div class="form-group">
+            <label>메타 디스크립션 <span class="char-count" id="metaDescCount">0/160</span></label>
+            <textarea id="metaDesc" rows="3" placeholder="Google 검색 결과에 표시될 설명문 (비워두면 본문 첫 부분 사용)" oninput="updateSEO()" maxlength="200"></textarea>
+            <div class="form-hint">120~160자 권장. CTA(행동 유도) 문구 포함 권장.</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>포커스 키워드</label>
+              <input type="text" id="focusKeyword" placeholder="예: 천안 임플란트" oninput="updateSEO()">
+              <div class="form-hint">이 글의 주요 검색 키워드 1개</div>
+            </div>
+            <div class="form-group"><label>상태</label>
+              <select id="colStatus">
+                <option value="published">게시</option>
+                <option value="draft">임시저장</option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="section-divider">
+          <div class="section-label"><i class="fas fa-image"></i> 대표 이미지 (OG 이미지)</div>
+
+          <div class="form-group">
+            <div class="img-upload-box" id="thumbBox" onclick="document.getElementById('thumbFile').click()">
+              <input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)">
+              <div class="upload-placeholder">
+                <i class="fas fa-image" style="font-size:1.3rem;color:var(--text-muted);margin-bottom:6px;"></i>
+                <div style="font-size:.78rem;color:var(--text-dim)">클릭하여 대표 이미지 업로드</div>
+                <div style="font-size:.68rem;color:var(--text-muted);margin-top:4px">SNS 공유 시 표시됩니다 (1200x630 권장)</div>
+              </div>
+            </div>
+            <input type="hidden" id="colThumb">
+          </div>
+
+        </form>
+      </div>
+
+      <!-- RIGHT: SEO SIDEBAR -->
+      <div class="modal-sidebar">
+
+        <!-- SEO SCORE -->
+        <div class="seo-panel">
+          <div class="seo-panel-title"><i class="fas fa-chart-line" style="color:var(--green)"></i> SEO 점수</div>
+          <div class="seo-overall" id="seoOverall">
+            <div class="seo-ring bad" id="seoRing">0</div>
+            <div class="seo-overall-text">
+              <strong id="seoGrade">분석 대기중</strong>
+              <span id="seoSummary">글을 작성하면 실시간으로 SEO 점수가 표시됩니다.</span>
+            </div>
+          </div>
+          <ul class="seo-checks" id="seoChecks"></ul>
         </div>
-        <div class="form-row">
-          <div class="form-group"><label>상태</label>
-            <select id="colStatus">
-              <option value="published">게시</option>
-              <option value="draft">임시저장</option>
-            </select>
+
+        <hr class="section-divider">
+
+        <!-- SERP PREVIEW -->
+        <div class="serp-preview">
+          <div class="serp-preview-title"><i class="fab fa-google" style="margin-right:4px"></i> Google 검색 미리보기</div>
+          <div class="serp-url" id="serpUrl">bdbddc.com › column</div>
+          <div class="serp-title" id="serpTitle">글 제목이 여기에 표시됩니다</div>
+          <div class="serp-desc" id="serpDesc">메타 디스크립션이 여기에 표시됩니다. 120~160자를 권장합니다.</div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- H-TAG STRUCTURE -->
+        <div class="seo-panel">
+          <div class="seo-panel-title"><i class="fas fa-heading" style="color:var(--purple)"></i> H태그 구조</div>
+          <div id="htagTree" style="font-size:.78rem;color:var(--text-dim);line-height:2;font-family:monospace;">
+            <div style="color:var(--text-muted)">본문을 작성하면 H태그 구조가 표시됩니다.</div>
           </div>
         </div>
-      </form>
+
+        <hr class="section-divider">
+
+        <!-- IMAGE ALT CHECK -->
+        <div class="seo-panel">
+          <div class="seo-panel-title"><i class="fas fa-images" style="color:var(--blue)"></i> 이미지 ALT 체크</div>
+          <div id="imageAltList" style="font-size:.78rem;color:var(--text-dim);line-height:1.8;">
+            <div style="color:var(--text-muted)">본문에 이미지가 없습니다.</div>
+          </div>
+        </div>
+
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn-secondary" onclick="closeModal()">취소</button>
-      <button class="btn-primary" onclick="saveColumn()" id="saveBtn"><i class="fas fa-save"></i> 저장</button>
+      <button class="btn-secondary" onclick="saveColumn('draft')" id="draftBtn"><i class="fas fa-file-alt"></i> 임시저장</button>
+      <button class="btn-primary" onclick="saveColumn('published')" id="saveBtn"><i class="fas fa-paper-plane"></i> 게시하기</button>
     </div>
   </div>
 </div>
@@ -309,20 +464,311 @@ tbody tr:hover{background:var(--bg-hover)}
 <div class="toast" id="toast"></div>
 
 <script>
+// ===== GLOBALS =====
 let columns = [];
 let colViewsMap = {};
+let quill = null;
 
+// ===== SIDEBAR TOGGLE =====
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('sidebarOverlay').classList.toggle('open');
 }
 
+// ===== INIT QUILL EDITOR =====
+function initQuill() {
+  if (quill) return;
+
+  // Custom image handler
+  const toolbarOptions = [
+    [{ 'header': [1, 2, 3, 4, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'indent': '-1'}, { 'indent': '+1' }],
+    ['link', 'image'],
+    [{ 'color': [] }, { 'background': [] }],
+    [{ 'align': [] }],
+    ['clean']
+  ];
+
+  quill = new Quill('#quillEditor', {
+    theme: 'snow',
+    placeholder: '본문을 작성하세요...\n\nH2, H3 태그로 구조를 잡고, 이미지를 사이사이에 넣어주세요.\nSEO에 최적화된 글이 됩니다!',
+    modules: {
+      toolbar: {
+        container: toolbarOptions,
+        handlers: {
+          image: imageHandler
+        }
+      }
+    }
+  });
+
+  // Listen for text changes to update SEO
+  quill.on('text-change', function() {
+    updateSEO();
+  });
+}
+
+// ===== IMAGE UPLOAD HANDLER (R2) =====
+function imageHandler() {
+  const input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.click();
+
+  input.onchange = async function() {
+    const file = input.files[0];
+    if (!file) return;
+
+    // Show uploading state
+    const range = quill.getSelection(true);
+    quill.insertText(range.index, '  이미지 업로드 중...', { 'color': '#888' });
+
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      const res = await fetch('/api/images/upload', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('Upload failed');
+      const data = await res.json();
+      const url = data.url || data.imageUrl;
+
+      // Remove loading text and insert image
+      quill.deleteText(range.index, 12);
+      quill.insertEmbed(range.index, 'image', url, 'user');
+      quill.setSelection(range.index + 1, 0);
+
+      // Prompt for alt text
+      setTimeout(() => {
+        const alt = prompt('이미지 ALT 텍스트를 입력하세요 (SEO 필수!):', file.name.replace(/\.[^.]+$/, ''));
+        if (alt) {
+          const imgs = quill.root.querySelectorAll('img');
+          const lastImg = Array.from(imgs).find(img => img.src === url);
+          if (lastImg) lastImg.setAttribute('alt', alt);
+        }
+        updateSEO();
+      }, 300);
+
+    } catch(e) {
+      quill.deleteText(range.index, 12);
+      showToast('이미지 업로드 실패', true);
+    }
+  };
+}
+
+// ===== SEO ANALYSIS ENGINE =====
+function updateSEO() {
+  if (!quill) return;
+
+  const title = document.getElementById('colTitle').value.trim();
+  const metaTitle = document.getElementById('metaTitle').value.trim() || title;
+  const metaDesc = document.getElementById('metaDesc').value.trim();
+  const focusKw = document.getElementById('focusKeyword').value.trim();
+  const html = quill.root.innerHTML;
+  const text = quill.getText().trim();
+
+  // Update char counts
+  updateCharCount('metaTitleCount', document.getElementById('metaTitle').value.length, 60);
+  updateCharCount('metaDescCount', document.getElementById('metaDesc').value.length, 160);
+
+  // Update SERP preview
+  document.getElementById('serpTitle').textContent = metaTitle ? (metaTitle + ' | 서울비디치과') : '글 제목이 여기에 표시됩니다';
+  document.getElementById('serpDesc').textContent = metaDesc || text.slice(0, 160) || '메타 디스크립션이 여기에 표시됩니다.';
+
+  // SEO Checks
+  const checks = [];
+  let score = 0;
+  const maxScore = 10;
+
+  // 1. Title length
+  if (title.length >= 10 && title.length <= 60) {
+    checks.push({ pass: 'pass', text: '글 제목 길이가 적절합니다 (' + title.length + '자)' });
+    score++;
+  } else if (title.length > 0) {
+    checks.push({ pass: title.length < 10 ? 'warn' : 'warn', text: '글 제목: ' + title.length + '자 — ' + (title.length < 10 ? '10자 이상 권장' : '60자 이내 권장') });
+    if (title.length >= 5) score += 0.5;
+  } else {
+    checks.push({ pass: 'fail', text: '글 제목을 입력해주세요' });
+  }
+
+  // 2. Meta title
+  if (metaTitle.length >= 20 && metaTitle.length <= 60) {
+    checks.push({ pass: 'pass', text: '메타 제목 길이 최적 (' + metaTitle.length + '/60자)' });
+    score++;
+  } else if (metaTitle.length > 0) {
+    checks.push({ pass: 'warn', text: '메타 제목: ' + metaTitle.length + '자 — 20~60자 권장' });
+    score += 0.5;
+  } else {
+    checks.push({ pass: 'fail', text: '메타 제목을 입력해주세요' });
+  }
+
+  // 3. Meta description
+  if (metaDesc.length >= 80 && metaDesc.length <= 160) {
+    checks.push({ pass: 'pass', text: '메타 디스크립션 최적 (' + metaDesc.length + '/160자)' });
+    score++;
+  } else if (metaDesc.length > 0) {
+    checks.push({ pass: 'warn', text: '디스크립션: ' + metaDesc.length + '자 — 80~160자 권장' });
+    score += 0.5;
+  } else {
+    checks.push({ pass: 'fail', text: '메타 디스크립션을 입력해주세요' });
+  }
+
+  // 4. Focus keyword
+  if (focusKw) {
+    checks.push({ pass: 'pass', text: '포커스 키워드 설정됨: "' + focusKw + '"' });
+    score++;
+
+    // 4a. Keyword in title
+    if (title.includes(focusKw) || metaTitle.includes(focusKw)) {
+      checks.push({ pass: 'pass', text: '키워드가 제목에 포함됨' });
+      score++;
+    } else {
+      checks.push({ pass: 'warn', text: '키워드 "' + focusKw + '"이 제목에 없습니다' });
+    }
+
+    // 4b. Keyword in content
+    const kwCount = (text.match(new RegExp(focusKw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi')) || []).length;
+    if (kwCount >= 2) {
+      checks.push({ pass: 'pass', text: '키워드가 본문에 ' + kwCount + '회 등장' });
+      score++;
+    } else if (kwCount === 1) {
+      checks.push({ pass: 'warn', text: '키워드가 본문에 1회만 등장 — 2회 이상 권장' });
+      score += 0.5;
+    } else {
+      checks.push({ pass: 'fail', text: '키워드가 본문에 없습니다' });
+    }
+  } else {
+    checks.push({ pass: 'warn', text: '포커스 키워드를 설정해주세요' });
+  }
+
+  // 5. H tags
+  const h2s = (html.match(/<h2/gi) || []).length;
+  const h3s = (html.match(/<h3/gi) || []).length;
+  if (h2s >= 1) {
+    checks.push({ pass: 'pass', text: 'H2 태그 ' + h2s + '개 사용 — 좋은 구조!' });
+    score++;
+  } else {
+    checks.push({ pass: 'fail', text: 'H2 태그가 없습니다 — 소제목을 추가하세요' });
+  }
+
+  // 6. Content length
+  const wordCount = text.length;
+  if (wordCount >= 500) {
+    checks.push({ pass: 'pass', text: '본문 ' + wordCount + '자 — 충분한 콘텐츠' });
+    score++;
+  } else if (wordCount >= 200) {
+    checks.push({ pass: 'warn', text: '본문 ' + wordCount + '자 — 500자 이상 권장' });
+    score += 0.5;
+  } else {
+    checks.push({ pass: 'fail', text: '본문 ' + wordCount + '자 — 너무 짧습니다' });
+  }
+
+  // 7. Images
+  const imgs = quill.root.querySelectorAll('img');
+  if (imgs.length >= 1) {
+    const withAlt = Array.from(imgs).filter(img => img.alt && img.alt.trim()).length;
+    if (withAlt === imgs.length) {
+      checks.push({ pass: 'pass', text: '이미지 ' + imgs.length + '개, ALT 태그 100% 완료' });
+      score++;
+    } else {
+      checks.push({ pass: 'warn', text: '이미지 ' + imgs.length + '개 중 ' + (imgs.length - withAlt) + '개 ALT 누락' });
+      score += 0.5;
+    }
+  } else {
+    checks.push({ pass: 'warn', text: '본문에 이미지가 없습니다 — 1개 이상 권장' });
+  }
+
+  // Calculate percentage
+  const pct = Math.round((score / maxScore) * 100);
+
+  // Update ring
+  const ring = document.getElementById('seoRing');
+  ring.textContent = pct;
+  ring.className = 'seo-ring ' + (pct >= 70 ? 'good' : pct >= 40 ? 'ok' : 'bad');
+
+  // Update grade
+  const grade = document.getElementById('seoGrade');
+  const summary = document.getElementById('seoSummary');
+  if (pct >= 80) { grade.textContent = 'SEO 우수!'; summary.textContent = '검색엔진에 최적화된 글입니다.'; }
+  else if (pct >= 60) { grade.textContent = 'SEO 양호'; summary.textContent = '몇 가지 개선하면 더 좋아집니다.'; }
+  else if (pct >= 40) { grade.textContent = 'SEO 보통'; summary.textContent = '개선이 필요한 항목이 있습니다.'; }
+  else { grade.textContent = 'SEO 미흡'; summary.textContent = '글을 더 작성하고 설정을 채워주세요.'; }
+
+  // Render checks
+  const checksEl = document.getElementById('seoChecks');
+  checksEl.innerHTML = checks.map(c => 
+    '<li class="seo-check"><div class="seo-check-icon ' + c.pass + '"><i class="fas fa-' + (c.pass === 'pass' ? 'check' : c.pass === 'warn' ? 'exclamation' : 'times') + '"></i></div><span>' + c.text + '</span></li>'
+  ).join('');
+
+  // H-tag tree
+  updateHtagTree(html);
+
+  // Image alt list
+  updateImageAltList(imgs);
+}
+
+function updateCharCount(elId, current, max) {
+  const el = document.getElementById(elId);
+  el.textContent = current + '/' + max;
+  el.className = 'char-count ' + (current > max ? 'over' : current >= max * 0.5 ? 'good' : '');
+}
+
+function updateHtagTree(html) {
+  const tree = document.getElementById('htagTree');
+  const hTags = [];
+  const regex = /<(h[1-4])[^>]*>(.*?)<\/\1>/gi;
+  let match;
+  while ((match = regex.exec(html)) !== null) {
+    const level = parseInt(match[1][1]);
+    const text = match[2].replace(/<[^>]*>/g, '').trim();
+    if (text) hTags.push({ level, text });
+  }
+
+  if (hTags.length === 0) {
+    tree.innerHTML = '<div style="color:var(--text-muted)">H태그가 아직 없습니다. 소제목(H2, H3)을 추가하세요.</div>';
+    return;
+  }
+
+  tree.innerHTML = hTags.map(h => {
+    const indent = (h.level - 1) * 16;
+    const colors = { 1: 'var(--green)', 2: 'var(--blue)', 3: 'var(--purple)', 4: 'var(--text-dim)' };
+    return '<div style="padding-left:' + indent + 'px;color:' + (colors[h.level] || 'var(--text-dim)') + '"><span style="opacity:.5">H' + h.level + '</span> ' + h.text.slice(0, 40) + (h.text.length > 40 ? '...' : '') + '</div>';
+  }).join('');
+}
+
+function updateImageAltList(imgs) {
+  const el = document.getElementById('imageAltList');
+  if (imgs.length === 0) {
+    el.innerHTML = '<div style="color:var(--text-muted)">본문에 이미지가 없습니다.</div>';
+    return;
+  }
+  el.innerHTML = Array.from(imgs).map((img, i) => {
+    const alt = img.alt ? img.alt.trim() : '';
+    const icon = alt ? '<i class="fas fa-check-circle" style="color:var(--green)"></i>' : '<i class="fas fa-exclamation-triangle" style="color:var(--orange)"></i>';
+    const altText = alt || '<span style="color:var(--orange);cursor:pointer" onclick="promptImageAlt(' + i + ')">ALT 없음 — 클릭해서 추가</span>';
+    return '<div>' + icon + ' 이미지 ' + (i + 1) + ': ' + altText + '</div>';
+  }).join('');
+}
+
+function promptImageAlt(index) {
+  const imgs = quill.root.querySelectorAll('img');
+  if (imgs[index]) {
+    const alt = prompt('이미지 ALT 텍스트를 입력하세요:', '');
+    if (alt !== null) {
+      imgs[index].setAttribute('alt', alt);
+      updateSEO();
+      showToast('ALT 태그 추가 완료');
+    }
+  }
+}
+
+// ===== COLUMN CRUD =====
 async function loadColumns() {
   try {
     const res = await fetch('/api/admin/columns');
     if (!res.ok) { window.location.href = '/admin/login'; return; }
     columns = await res.json();
-    // 조회수 로드
     try {
       const vRes = await fetch('/api/views?type=column');
       if (vRes.ok) { const vd = await vRes.json(); colViewsMap = {}; vd.forEach(function(v){ colViewsMap[v.page_id] = v.view_count; }); }
@@ -338,8 +784,17 @@ function updateStats() {
   document.getElementById('statDraft').textContent = columns.filter(c => c.status === 'draft').length;
 }
 
-function filterColumns() {
-  renderTable();
+function filterColumns() { renderTable(); }
+
+function calcSEOScore(col) {
+  let score = 0, max = 5;
+  if (col.metaTitle && col.metaTitle.length >= 10) score++;
+  if (col.metaDescription && col.metaDescription.length >= 50) score++;
+  if (col.focusKeyword) score++;
+  const content = (col.content || '');
+  if (content.includes('<h2') || content.includes('<h3')) score++;
+  if (content.includes('<img')) score++;
+  return Math.round((score / max) * 100);
 }
 
 function renderTable() {
@@ -354,53 +809,63 @@ function renderTable() {
 
   const tbody = document.getElementById('columnsTable');
   const empty = document.getElementById('emptyState');
-  if (filtered.length === 0) {
-    tbody.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
+  if (filtered.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
   empty.style.display = 'none';
+
   tbody.innerHTML = filtered.map(c => {
     const date = new Date(c.createdAt || Date.now()).toLocaleDateString('ko-KR');
-    const excerpt = (c.content || '').replace(/<[^>]*>/g, '').slice(0, 40);
-    return `<tr>
-      <td>${c.thumbnailImage ? `<img src="${c.thumbnailImage}" style="width:60px;height:40px;border-radius:6px;object-fit:cover;">` : '<span style="color:var(--text-muted)">—</span>'}</td>
-      <td><strong>${c.title || ''}</strong><br><span style="font-size:.75rem;color:var(--text-muted)">${excerpt}</span></td>
-      <td>${c.doctorName || ''}</td>
-      <td>${c.category || '—'}</td>
-      <td style="font-weight:600;color:${(colViewsMap[c.id]||0)>0?'var(--blue)':'var(--text-muted)'}"><i class="fas fa-eye" style="margin-right:3px;font-size:.7rem"></i>${(colViewsMap[c.id]||0).toLocaleString()}</td>
-      <td><span class="status-badge ${c.status}">${c.status === 'published' ? '게시중' : '임시'}</span></td>
-      <td style="font-size:.8rem;color:var(--text-dim)">${date}</td>
-      <td><div class="action-btns">
-        <button class="action-btn" onclick="editColumn('${c.id}')" title="수정"><i class="fas fa-edit"></i></button>
-        <a class="action-btn" href="/column/${c.id}" target="_blank" title="보기"><i class="fas fa-eye"></i></a>
-        <button class="action-btn delete" onclick="deleteColumn('${c.id}')" title="삭제"><i class="fas fa-trash-alt"></i></button>
-      </div></td>
-    </tr>`;
+    const seoScore = calcSEOScore(c);
+    const seoClass = seoScore >= 70 ? 'good' : seoScore >= 40 ? 'ok' : 'bad';
+    return '<tr>'
+      + '<td>' + (c.thumbnailImage ? '<img src="' + c.thumbnailImage + '" style="width:60px;height:40px;border-radius:6px;object-fit:cover;">' : '<span style="color:var(--text-muted)">—</span>') + '</td>'
+      + '<td><strong>' + (c.title || '') + '</strong></td>'
+      + '<td>' + (c.doctorName || '') + '</td>'
+      + '<td><span class="seo-score ' + seoClass + '">' + seoScore + '</span></td>'
+      + '<td><span class="status-badge ' + c.status + '">' + (c.status === 'published' ? '게시중' : '임시') + '</span></td>'
+      + '<td style="font-size:.8rem;color:var(--text-dim)">' + date + '</td>'
+      + '<td><div class="action-btns">'
+      + '<button class="action-btn" onclick="editColumn(\'' + c.id + '\')" title="수정"><i class="fas fa-edit"></i></button>'
+      + '<a class="action-btn" href="/column/' + c.id + '" target="_blank" title="보기"><i class="fas fa-eye"></i></a>'
+      + '<button class="action-btn delete" onclick="deleteColumn(\'' + c.id + '\')" title="삭제"><i class="fas fa-trash-alt"></i></button>'
+      + '</div></td></tr>';
   }).join('');
 }
 
 function openModal(col) {
+  initQuill();
+
   document.getElementById('colId').value = col?.id || '';
   document.getElementById('colTitle').value = col?.title || '';
   document.getElementById('colDoctor').value = col?.doctorName || '';
   document.getElementById('colCategory').value = col?.category || '';
-  document.getElementById('colContent').value = col?.content || '';
   document.getElementById('colStatus').value = col?.status || 'published';
   document.getElementById('colThumb').value = col?.thumbnailImage || '';
+  document.getElementById('metaTitle').value = col?.metaTitle || '';
+  document.getElementById('metaDesc').value = col?.metaDescription || '';
+  document.getElementById('focusKeyword').value = col?.focusKeyword || '';
   document.getElementById('modalTitle').textContent = col ? '컬럼 수정' : '새 컬럼 작성';
 
-  // 썸네일 미리보기
+  // Set Quill content
+  if (col?.content) {
+    quill.root.innerHTML = col.content;
+  } else {
+    quill.setContents([]);
+  }
+
+  // Thumbnail preview
   const thumbBox = document.getElementById('thumbBox');
   if (col?.thumbnailImage) {
     thumbBox.classList.add('has-image');
-    thumbBox.innerHTML = `<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="${col.thumbnailImage}"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>`;
+    thumbBox.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="' + col.thumbnailImage + '"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>';
   } else {
     thumbBox.classList.remove('has-image');
-    thumbBox.innerHTML = `<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><div class="upload-placeholder"><i class="fas fa-image" style="font-size:1.3rem;color:var(--text-muted);margin-bottom:6px;"></i><div style="font-size:.78rem;color:var(--text-dim)">클릭하여 이미지 업로드</div></div>`;
+    thumbBox.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><div class="upload-placeholder"><i class="fas fa-image" style="font-size:1.3rem;color:var(--text-muted);margin-bottom:6px;"></i><div style="font-size:.78rem;color:var(--text-dim)">클릭하여 대표 이미지 업로드</div><div style="font-size:.68rem;color:var(--text-muted);margin-top:4px">SNS 공유 시 표시됩니다 (1200x630 권장)</div></div>';
   }
 
   document.getElementById('colModal').classList.add('open');
+
+  // Trigger initial SEO analysis
+  setTimeout(updateSEO, 200);
 }
 
 function closeModal() {
@@ -412,24 +877,31 @@ function editColumn(id) {
   if (col) openModal(col);
 }
 
-async function saveColumn() {
+async function saveColumn(statusOverride) {
   const id = document.getElementById('colId').value;
   const title = document.getElementById('colTitle').value.trim();
   const doctorName = document.getElementById('colDoctor').value;
   const category = document.getElementById('colCategory').value;
-  const content = document.getElementById('colContent').value;
-  const status = document.getElementById('colStatus').value;
+  const content = quill ? quill.root.innerHTML : '';
+  const status = statusOverride || document.getElementById('colStatus').value;
   const thumbnailImage = document.getElementById('colThumb').value;
+  const metaTitle = document.getElementById('metaTitle').value.trim();
+  const metaDescription = document.getElementById('metaDesc').value.trim();
+  const focusKeyword = document.getElementById('focusKeyword').value.trim();
 
-  if (!title || !doctorName || !content) { showToast('필수 항목을 입력해주세요', true); return; }
+  if (!title || !doctorName) { showToast('제목과 작성 원장을 입력해주세요', true); return; }
+  if (!content || content === '<p><br></p>') { showToast('본문을 작성해주세요', true); return; }
 
-  const body = { title, doctorName, category, content, status, thumbnailImage };
+  const body = {
+    title, doctorName, category, content, status, thumbnailImage,
+    metaTitle, metaDescription, focusKeyword
+  };
   if (id) body.id = id;
 
   try {
     const res = await fetch('/api/admin/columns', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
     if (!res.ok) throw new Error('저장 실패');
-    showToast(id ? '컬럼이 수정되었습니다' : '새 컬럼이 등록되었습니다');
+    showToast(status === 'draft' ? '임시저장 완료' : (id ? '컬럼이 수정되었습니다' : '새 컬럼이 게시되었습니다'));
     closeModal();
     await loadColumns();
   } catch(e) { showToast('저장 중 오류가 발생했습니다', true); }
@@ -438,7 +910,7 @@ async function saveColumn() {
 async function deleteColumn(id) {
   if (!confirm('이 컬럼을 삭제하시겠습니까?')) return;
   try {
-    const res = await fetch(`/api/admin/columns/${id}`, { method: 'DELETE' });
+    const res = await fetch('/api/admin/columns/' + id, { method: 'DELETE' });
     if (!res.ok) throw new Error();
     showToast('컬럼이 삭제되었습니다');
     await loadColumns();
@@ -458,8 +930,9 @@ async function uploadThumb(input) {
     document.getElementById('colThumb').value = url;
     const box = document.getElementById('thumbBox');
     box.classList.add('has-image');
-    box.innerHTML = `<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="${url}"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>`;
+    box.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="' + url + '"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>';
     showToast('이미지 업로드 완료');
+    updateSEO();
   } catch(e) { showToast('이미지 업로드 실패', true); }
 }
 
@@ -467,37 +940,16 @@ function removeThumb() {
   document.getElementById('colThumb').value = '';
   const box = document.getElementById('thumbBox');
   box.classList.remove('has-image');
-  box.innerHTML = `<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><div class="upload-placeholder"><i class="fas fa-image" style="font-size:1.3rem;color:var(--text-muted);margin-bottom:6px;"></i><div style="font-size:.78rem;color:var(--text-dim)">클릭하여 이미지 업로드</div></div>`;
-}
-
-// Simple HTML editor helpers
-function insertTag(tag) {
-  const ta = document.getElementById('colContent');
-  const start = ta.selectionStart, end = ta.selectionEnd;
-  const sel = ta.value.substring(start, end);
-  const replacement = `<${tag}>${sel || '텍스트'}</${tag}>`;
-  ta.value = ta.value.substring(0, start) + replacement + ta.value.substring(end);
-  ta.focus();
-}
-function insertParagraph() {
-  const ta = document.getElementById('colContent');
-  const pos = ta.selectionStart;
-  ta.value = ta.value.substring(0, pos) + '\n<p></p>\n' + ta.value.substring(pos);
-  ta.focus();
-}
-function insertBr() {
-  const ta = document.getElementById('colContent');
-  const pos = ta.selectionStart;
-  ta.value = ta.value.substring(0, pos) + '<br>' + ta.value.substring(pos);
-  ta.focus();
+  box.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><div class="upload-placeholder"><i class="fas fa-image" style="font-size:1.3rem;color:var(--text-muted);margin-bottom:6px;"></i><div style="font-size:.78rem;color:var(--text-dim)">클릭하여 대표 이미지 업로드</div><div style="font-size:.68rem;color:var(--text-muted);margin-top:4px">SNS 공유 시 표시됩니다 (1200x630 권장)</div></div>';
+  updateSEO();
 }
 
 function showToast(msg, isError) {
   const t = document.getElementById('toast');
   t.className = 'toast' + (isError ? ' error' : '');
-  t.innerHTML = `<i class="fas fa-${isError ? 'exclamation-circle' : 'check-circle'}"></i> ${msg}`;
+  t.innerHTML = '<i class="fas fa-' + (isError ? 'exclamation-circle' : 'check-circle') + '"></i> ' + msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+  setTimeout(function() { t.classList.remove('show'); }, 3000);
 }
 
 // Init
