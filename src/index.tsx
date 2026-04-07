@@ -1518,6 +1518,17 @@ form:has(input[placeholder="Email"]) { display: none !important; }
 }
 
 // ============================================
+// /blog/category/* → 410 Gone (인블로그 카테고리 깨진 URL 제거)
+// Google Search Console에서 52개 4xx 에러 해결용
+// ============================================
+app.all('/blog/category/*', (c) => {
+  return new Response(
+    '<!DOCTYPE html><html><head><meta name="robots" content="noindex"><title>Gone</title></head><body><h1>410 Gone</h1><p>This page has been permanently removed.</p></body></html>',
+    { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex' } }
+  )
+})
+
+// ============================================
 // 인블로그 프록시 (/blog/* → bdbddc.inblog.ai)
 // ============================================
 app.all('/blog/*', async (c) => {

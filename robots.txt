@@ -13,6 +13,7 @@ Allow: /column/
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Disallow: /blog/category/
 Disallow: /components/
 Disallow: /docs/
 Disallow: /css/_deprecated/
