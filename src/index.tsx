@@ -1920,9 +1920,55 @@ app.get('/doctors/:slug', async (c) => {
       html = await resp.text()
     }
     
-    // CSS 주입 (</head> 앞에)
-    if (casesSection || columnsSection) {
-      html = html.replace('</head>', `${injectedCSS}\n</head>`)
+    // ===== VideoObject 스키마 주입 (Google 동영상 색인) =====
+    const DOCTOR_VIDEO_MAP: Record<string, { videoId: string, name: string, description: string }> = {
+      'lee-bm': { videoId: 'YoKw5-a4TCI', name: '서울비디치과 이병민 원장', description: '서울비디치과 이병민 원장 소개 영상. 턱관절·구강안면통증 전문, 서울대 출신, 환자 중심의 따뜻한 진료.' },
+      'kang-mj': { videoId: 'cl7HfvwWRVQ', name: '서울비디치과 강민지 원장', description: '서울비디치과 강민지 원장 소개 영상. 서울대 출신, 교정·인비절라인 전문 진료.' },
+      'park': { videoId: '2u5bRNOzdM0', name: '서울비디치과 박상현 원장', description: '서울비디치과 박상현 원장 소개 영상. 서울대 출신, 구강악안면외과·임플란트 전문.' },
+      'seo': { videoId: '1gPf6L5vNcA', name: '서울비디치과 서희원 원장', description: '서울비디치과 서희원 원장 소개 영상. 서울대 출신, 보존과·신경치료·심미치료 전문.' },
+      'choi': { videoId: 'p8TSrC5emyw', name: '서울비디치과 최종훈 원장', description: '서울비디치과 최종훈 원장 소개 영상. 서울대 출신, 보철과·임플란트·크라운 전문.' },
+      'kim': { videoId: 'ER7Q9T24Z3w', name: '서울비디치과 김민수 원장', description: '서울비디치과 김민수 대표원장 소개 영상. 서울대 출신, 통합치의학과 전문의.' },
+      'kim-mj': { videoId: 'YAsUupKO-6M', name: '서울비디치과 김민진 원장', description: '서울비디치과 김민진 원장 소개 영상. 서울대 출신, 소아치과 전문의.' },
+      'moon': { videoId: 'JV7JDndC3ug', name: '서울비디치과 문석준 원장', description: '서울비디치과 문석준 대표원장 소개 영상. 서울대 출신 통합치의학과 전문의, 페이션트 퍼널 창립자.' },
+      'hyun': { videoId: '_4oIPlOMTEU', name: '서울비디치과 현정민 원장', description: '서울비디치과 현정민 원장 소개 영상. 서울대 출신, 보존과·근관치료 전문.' },
+      'jo': { videoId: '4IZ4vAcE0QM', name: '서울비디치과 조설아 원장', description: '서울비디치과 조설아 원장 소개 영상. 서울대 출신, 교정과 전문의.' },
+      'kang': { videoId: 'Ce-40X4uxjc', name: '서울비디치과 강경민 원장', description: '서울비디치과 강경민 원장 소개 영상. 서울대 출신, 보철과 전문.' },
+      'kim-mg': { videoId: 'b4SXrX18ZrQ', name: '서울비디치과 김민규 원장', description: '서울비디치과 김민규 원장 소개 영상. 서울대 출신, 구강외과·임플란트 전문.' },
+      'lee': { videoId: 'KTIndFhNiBw', name: '서울비디치과 이승엽 원장', description: '서울비디치과 이승엽 원장 소개 영상. 서울대 출신, 소아치과 전문의.' },
+      'lim': { videoId: 'P8e_uouF4p8', name: '서울비디치과 임지원 원장', description: '서울비디치과 임지원 원장 소개 영상. 서울대 출신, 소아치과 전문의.' },
+      'park-sb': { videoId: 'qH92vphwt8c', name: '서울비디치과 박수빈 원장', description: '서울비디치과 박수빈 원장 소개 영상. 서울대 출신, 교정과 전문.' },
+    }
+    
+    const videoInfo = DOCTOR_VIDEO_MAP[slug]
+    let videoObjectSchema = ''
+    if (videoInfo) {
+      videoObjectSchema = `
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "${videoInfo.name}",
+  "description": "${videoInfo.description}",
+  "thumbnailUrl": "https://i.ytimg.com/vi/${videoInfo.videoId}/hqdefault.jpg",
+  "uploadDate": "2025-01-01T00:00:00+09:00",
+  "contentUrl": "https://www.youtube.com/watch?v=${videoInfo.videoId}",
+  "embedUrl": "https://www.youtube.com/embed/${videoInfo.videoId}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "쉽디 쉬운 치과이야기",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://bdbddc.com/images/logo.png"
+    }
+  }
+}
+</script>`
+    }
+
+    // CSS + VideoObject 스키마 주입 (</head> 앞에)
+    if (casesSection || columnsSection || videoObjectSchema) {
+      const headInjection = (casesSection || columnsSection ? injectedCSS : '') + videoObjectSchema
+      html = html.replace('</head>', `${headInjection}\n</head>`)
     }
     
     // 케이스+컬럼 섹션 주입 (다른 의료진 보기 섹션 앞에)
