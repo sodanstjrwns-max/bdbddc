@@ -248,6 +248,7 @@ a { color:inherit; text-decoration:none; }
     <div class="nav-section">
       <div class="nav-section-label">CRM</div>
       <a href="/admin/reservations" class="nav-item"><i class="fas fa-calendar-check"></i> 예약/문의 <span class="badge-count" id="rsvCount">–</span></a>
+      <a href="#members" class="nav-item" onclick="scrollToMembers()"><i class="fas fa-users"></i> 회원관리 <span class="badge-count" id="memberCount">–</span></a>
     </div>
     <div class="nav-section">
       <div class="nav-section-label">Links</div>
@@ -311,13 +312,13 @@ a { color:inherit; text-decoration:none; }
         <div class="stat-value" id="statReservations">0</div>
         <div class="stat-label">예약/문의 (대기중)</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card" style="cursor:pointer" onclick="scrollToMembers()">
         <div class="stat-header">
-          <div class="stat-icon purple"><i class="fas fa-eye"></i></div>
-          <div class="stat-trend" id="viewsTrend"></div>
+          <div class="stat-icon" style="background:rgba(168,85,247,0.1);color:#a855f7"><i class="fas fa-users"></i></div>
+          <div class="stat-trend" id="memberTrend"></div>
         </div>
-        <div class="stat-value" id="statViews">0</div>
-        <div class="stat-label">총 콘텐츠 조회수</div>
+        <div class="stat-value" id="statMembers">0</div>
+        <div class="stat-label">회원가입자</div>
       </div>
     </div>
 
@@ -403,6 +404,35 @@ a { color:inherit; text-decoration:none; }
       </div>
       <div class="seo-result" id="seoResult"></div>
       <div style="margin-top:12px;font-size:.72rem;color:var(--text-muted)"><i class="fas fa-info-circle" style="margin-right:4px"></i> 케이스/공지 저장 시 자동으로 IndexNow가 실행됩니다. 사이트 대규모 수정 시 수동 버튼을 사용하세요.</div>
+    </div>
+
+    <!-- 회원 관리 섹션 -->
+    <div class="card" id="members" style="margin-bottom:28px">
+      <div class="card-header">
+        <div class="card-title"><i class="fas fa-users" style="color:var(--purple)"></i> 회원가입자 목록</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:.78rem;color:var(--text-muted)" id="memberSummary"></div>
+          <button onclick="exportMembersCSV()" style="background:var(--bg-hover);color:var(--text);border:1px solid var(--border);padding:6px 14px;border-radius:var(--radius-sm);font-size:.78rem;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px"><i class="fas fa-download"></i> CSV 다운로드</button>
+        </div>
+      </div>
+      <div class="card-body" style="padding:0">
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr>
+              <th style="padding:12px 16px;text-align:left;font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-sidebar)">#</th>
+              <th style="padding:12px 16px;text-align:left;font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-sidebar)">이름</th>
+              <th style="padding:12px 16px;text-align:left;font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-sidebar)">이메일</th>
+              <th style="padding:12px 16px;text-align:left;font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-sidebar)">전화번호</th>
+              <th style="padding:12px 16px;text-align:left;font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-sidebar)">가입방식</th>
+              <th style="padding:12px 16px;text-align:left;font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-sidebar)">마케팅</th>
+              <th style="padding:12px 16px;text-align:left;font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-sidebar)">가입일</th>
+            </tr></thead>
+            <tbody id="membersTable">
+              <tr><td colspan="7" style="padding:40px;text-align:center;color:var(--text-muted)">데이터 로딩중...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <!-- Recent Activity -->
@@ -559,6 +589,83 @@ async function loadViewStats() {
   } catch(e) { console.warn('Views stats error:', e); }
 }
 loadViewStats();
+
+// === 회원 목록 로드 ===
+let allMembers = [];
+async function loadMembers() {
+  try {
+    const res = await fetch('/api/admin/members');
+    if (res.status === 401) return;
+    if (!res.ok) return;
+    allMembers = await res.json();
+    if (!Array.isArray(allMembers)) { allMembers = []; }
+
+    // 대시보드 수치 업데이트
+    document.getElementById('statMembers').textContent = allMembers.length;
+    const memberBadge = document.getElementById('memberCount');
+    if (memberBadge) memberBadge.textContent = allMembers.length || '\u2013';
+
+    // 트렌드 (최근 7일 가입자)
+    const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+    const recentCount = allMembers.filter(m => new Date(m.createdAt) > weekAgo).length;
+    const trendEl = document.getElementById('memberTrend');
+    if (trendEl && recentCount > 0) {
+      trendEl.className = 'stat-trend up';
+      trendEl.innerHTML = '<i class="fas fa-arrow-up"></i> 이번주 +' + recentCount;
+    }
+
+    // 요약
+    const emailCount = allMembers.filter(m => m.provider === 'email').length;
+    const googleCount = allMembers.filter(m => m.provider === 'google').length;
+    const mktCount = allMembers.filter(m => m.marketingConsent).length;
+    document.getElementById('memberSummary').textContent = '이메일 ' + emailCount + '명 · Google ' + googleCount + '명 · 마케팅동의 ' + mktCount + '명';
+
+    // 테이블 렌더링
+    const tbody = document.getElementById('membersTable');
+    if (allMembers.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="padding:40px;text-align:center;color:var(--text-muted)"><i class="fas fa-users" style="font-size:1.5rem;opacity:.4;display:block;margin-bottom:8px"></i>아직 회원가입자가 없습니다</td></tr>';
+      return;
+    }
+    tbody.innerHTML = allMembers.map(function(m, i) {
+      var dateStr = new Date(m.createdAt || Date.now()).toLocaleDateString('ko-KR');
+      var providerBadge = m.provider === 'google'
+        ? '<span style="font-size:.7rem;padding:2px 8px;border-radius:10px;background:var(--blue-bg);color:var(--blue);font-weight:600"><i class="fab fa-google" style="margin-right:3px"></i>Google</span>'
+        : '<span style="font-size:.7rem;padding:2px 8px;border-radius:10px;background:var(--green-bg);color:var(--green);font-weight:600"><i class="fas fa-envelope" style="margin-right:3px"></i>이메일</span>';
+      var mktBadge = m.marketingConsent
+        ? '<span style="color:var(--green);font-size:.75rem"><i class="fas fa-check-circle"></i> 동의</span>'
+        : '<span style="color:var(--text-muted);font-size:.75rem">–</span>';
+      return '<tr style="border-bottom:1px solid var(--border)">'
+        + '<td style="padding:12px 16px;font-size:.82rem;color:var(--text-muted)">' + (i + 1) + '</td>'
+        + '<td style="padding:12px 16px;font-size:.85rem;font-weight:600">' + (m.name || '\u2013') + '</td>'
+        + '<td style="padding:12px 16px;font-size:.82rem;color:var(--text-dim)">' + (m.email || '') + '</td>'
+        + '<td style="padding:12px 16px;font-size:.82rem;color:var(--text-dim)">' + (m.phone || '\u2013') + '</td>'
+        + '<td style="padding:12px 16px">' + providerBadge + '</td>'
+        + '<td style="padding:12px 16px">' + mktBadge + '</td>'
+        + '<td style="padding:12px 16px;font-size:.8rem;color:var(--text-muted)">' + dateStr + '</td>'
+        + '</tr>';
+    }).join('');
+  } catch(e) { console.error('Members load error:', e); }
+}
+loadMembers();
+
+function scrollToMembers() {
+  var el = document.getElementById('members');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function exportMembersCSV() {
+  if (!allMembers || allMembers.length === 0) { alert('내보낼 데이터가 없습니다.'); return; }
+  var header = '\ubc88\ud638,\uc774\ub984,\uc774\uba54\uc77c,\uc804\ud654\ubc88\ud638,\uac00\uc785\ubc29\uc2dd,\ub9c8\ucf00\ud305\ub3d9\uc758,\uac00\uc785\uc77c\n';
+  var rows = allMembers.map(function(m, i) {
+    return (i+1) + ',' + (m.name||'') + ',' + (m.email||'') + ',' + (m.phone||'') + ',' + (m.provider||'email') + ',' + (m.marketingConsent ? 'Y' : 'N') + ',' + (m.createdAt ? new Date(m.createdAt).toLocaleDateString('ko-KR') : '');
+  }).join('\n');
+  var bom = '\uFEFF';
+  var blob = new Blob([bom + header + rows], { type: 'text/csv;charset=utf-8;' });
+  var link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = '\uc11c\uc6b8\ube44\ub514\uce58\uacfc_\ud68c\uc6d0\ubaa9\ub85d_' + new Date().toISOString().slice(0,10) + '.csv';
+  link.click();
+}
 
 // Mobile sidebar toggle
 function toggleSidebar() {

@@ -75,7 +75,7 @@ a{color:inherit;text-decoration:none}
 .content{padding:28px 32px;max-width:1400px}
 
 /* ===== STATS ROW ===== */
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
 .mini-stat{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:center;gap:14px}
 .mini-stat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .mini-stat-value{font-size:1.4rem;font-weight:800}
@@ -244,6 +244,7 @@ tbody tr:hover{background:var(--bg-hover)}
     <div class="nav-section">
       <div class="nav-section-label">CRM</div>
       <a href="/admin/reservations" class="nav-item"><i class="fas fa-calendar-check"></i> 예약/문의</a>
+      <a href="/admin/#members" class="nav-item"><i class="fas fa-users"></i> 회원관리</a>
     </div>
     <div class="nav-section"><div class="nav-section-label">Links</div>
       <a href="/" target="_blank" class="nav-item"><i class="fas fa-external-link-alt"></i> 사이트 보기</a>
@@ -269,6 +270,7 @@ tbody tr:hover{background:var(--bg-hover)}
       <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--blue-bg);color:var(--blue)"><i class="fas fa-pen-nib"></i></div><div><div class="mini-stat-value" id="statTotal">0</div><div class="mini-stat-label">전체 컬럼</div></div></div>
       <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--green-bg);color:var(--green)"><i class="fas fa-check-circle"></i></div><div><div class="mini-stat-value" id="statPublished">0</div><div class="mini-stat-label">게시중</div></div></div>
       <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--orange-bg);color:var(--orange)"><i class="fas fa-pencil-alt"></i></div><div><div class="mini-stat-value" id="statDraft">0</div><div class="mini-stat-label">임시저장</div></div></div>
+      <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--purple-bg);color:var(--purple)"><i class="fas fa-eye"></i></div><div><div class="mini-stat-value" id="statTotalViews">0</div><div class="mini-stat-label">총 조회수</div></div></div>
     </div>
 
     <div class="toolbar">
@@ -297,7 +299,7 @@ tbody tr:hover{background:var(--bg-hover)}
 
     <div class="table-card">
       <table>
-        <thead><tr><th>썸네일</th><th>제목</th><th>원장</th><th>SEO</th><th>상태</th><th>작성일</th><th>관리</th></tr></thead>
+        <thead><tr><th>썸네일</th><th>제목</th><th>원장</th><th>SEO</th><th style="text-align:center"><i class="fas fa-eye" style="margin-right:4px"></i>조회수</th><th>상태</th><th>작성일</th><th>관리</th></tr></thead>
         <tbody id="columnsTable"></tbody>
       </table>
       <div class="empty-state" id="emptyState" style="display:none">
@@ -791,6 +793,10 @@ function updateStats() {
   document.getElementById('statTotal').textContent = columns.length;
   document.getElementById('statPublished').textContent = columns.filter(c => c.status === 'published').length;
   document.getElementById('statDraft').textContent = columns.filter(c => c.status === 'draft').length;
+  // 총 조회수 계산
+  let totalViews = 0;
+  columns.forEach(function(c) { totalViews += (colViewsMap[c.id] || 0); });
+  document.getElementById('statTotalViews').textContent = totalViews.toLocaleString();
 }
 
 function filterColumns() { renderTable(); }
@@ -830,6 +836,7 @@ function renderTable() {
       + '<td><strong>' + (c.title || '') + '</strong></td>'
       + '<td>' + (c.doctorName || '') + '</td>'
       + '<td><span class="seo-score ' + seoClass + '">' + seoScore + '</span></td>'
+      + '<td style="text-align:center;font-weight:700;color:var(--blue)">' + ((colViewsMap[c.id] || 0).toLocaleString()) + '</td>'
       + '<td><span class="status-badge ' + c.status + '">' + (c.status === 'published' ? '게시중' : '임시') + '</span></td>'
       + '<td style="font-size:.8rem;color:var(--text-dim)">' + date + '</td>'
       + '<td><div class="action-btns">'

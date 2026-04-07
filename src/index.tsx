@@ -1104,6 +1104,30 @@ app.delete('/api/admin/columns/:id', async (c) => {
   return c.json({ success: true })
 })
 
+// ===== 관리자 회원 목록 API =====
+app.get('/api/admin/members', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) return c.json({ error: '인증이 필요합니다' }, 401)
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: 'R2 없음' }, 500)
+  const members = await getMembers(r2)
+  // 비밀번호 해시 제거 후 반환
+  const safe = members.map((m: any) => ({
+    id: m.id,
+    email: m.email,
+    name: m.name,
+    phone: m.phone || '',
+    provider: m.provider || 'email',
+    privacyConsent: m.privacyConsent,
+    marketingConsent: m.marketingConsent,
+    createdAt: m.createdAt,
+  }))
+  // 최신순 정렬
+  safe.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+  return c.json(safe)
+})
+
 // 301 Redirect: old .html URLs → clean URLs (prevent 308 chain)
 app.get('/directions.html', (c) => c.redirect('/directions', 301))
 app.get('/pricing.html', (c) => c.redirect('/pricing', 301))
