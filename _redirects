@@ -1,0 +1,9 @@
+# 서울비디치과 — Cloudflare Pages Redirects
+# column/ → /blog/ 301 서버사이드 리디렉트 (SEO 크레딧 100% 전달)
+
+/column     /blog    301
+/column/    /blog    301
+/column/columns    /blog    301
+/column/columns/   /blog    301
+/column/index      /blog    301
+/column/index.html /blog    301
