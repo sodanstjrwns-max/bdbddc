@@ -8,8 +8,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- Amplitude Script Loader -->
-<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
+<!-- Amplitude Script Loader (deferred) -->
+<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js" defer></script>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -376,12 +376,9 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <meta name="ai-summary" content="서울비디치과는 충남 천안시 불당동에 위치한 365일 진료 치과로, 서울대 출신 15인 원장이 협진하며 임플란트·교정·소아치과를 전문 진료합니다.">
 <meta name="abstract" content="서울비디치과는 충남 천안시 불당동에 위치한 365일 진료 치과로, 서울대 출신 15인 원장이 협진하며 임플란트·교정·소아치과를 전문 진료합니다.">
 <script src="/js/analytics.js?v=20260402v3" defer></script>
-<!-- Weglot Multilingual -->
-<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<!-- Weglot Multilingual (deferred to reduce TBT) -->
 <script>
-    Weglot.initialize({
-        api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
-    });
+if(typeof requestIdleCallback!=='undefined'){requestIdleCallback(function(){var s=document.createElement('script');s.src='https://cdn.weglot.com/weglot.min.js';s.onload=function(){Weglot.initialize({api_key:'wg_cd7087d43782c81ecb41e27570c3bfcd2'})};document.head.appendChild(s)})}else{setTimeout(function(){var s=document.createElement('script');s.src='https://cdn.weglot.com/weglot.min.js';s.onload=function(){Weglot.initialize({api_key:'wg_cd7087d43782c81ecb41e27570c3bfcd2'})};document.head.appendChild(s)},3000)}
 </script>
 </head>
 
@@ -536,9 +533,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </a>
         </div>
       </div>
-      <!-- 3D Tooth Model (Spline) -->
-      <div class="hero-3d" aria-hidden="true" style="position:relative;width:100%;height:500px;overflow:hidden;">
-        <iframe src="https://my.spline.design/untitled-wg7tJaxcc1L5wKeEL0PIwOQ2/" frameborder="0" width="100%" height="100%" style="border:none;background:transparent;" loading="lazy" allowtransparency="true" title="3D 치아 모델"></iframe>
+      <!-- 3D Tooth Model (Spline) — lazy loaded on interaction to save ~5s TBT -->
+      <div class="hero-3d" aria-hidden="true" id="spline3d" style="position:relative;width:100%;height:500px;overflow:hidden;background:linear-gradient(135deg,#f5f0eb 0%,#ede6dd 100%);border-radius:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="this.innerHTML='<iframe src=\'https://my.spline.design/untitled-wg7tJaxcc1L5wKeEL0PIwOQ2/\' frameborder=\'0\' width=\'100%\' height=\'100%\' style=\'border:none;background:transparent;\' allowtransparency=\'true\' title=\'3D 치아 모델\'></iframe>';this.style.cursor='default';">
+        <div style="text-align:center;color:#8B5E3C;">
+          <i class="fas fa-cube" style="font-size:3rem;margin-bottom:12px;opacity:.5;"></i>
+          <div style="font-size:.85rem;font-weight:600;">3D 모델 보기</div>
+          <div style="font-size:.72rem;color:#aaa;margin-top:4px;">클릭하여 로드</div>
+        </div>
       </div>
     </div>
     
@@ -561,14 +562,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- 전체 화면 영상 -->
     <div class="video-wrapper video-fullwidth reveal" style="border-radius:0;box-shadow:none;width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;">
       <div style="position:relative;width:100%;padding-bottom:56.25%;background:#000;">
-        <iframe 
-          src="https://www.youtube.com/embed/vMafU02A_pI?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=vMafU02A_pI" 
-          title="서울비디치과 5층 로비 소개 영상"
-          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
+        <!-- YouTube facade: loads iframe only when visible -->
+        <div id="ytFacade" style="position:absolute;top:0;left:0;width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;" aria-label="서울비디치과 소개 영상 재생">
+          <div style="width:68px;height:48px;background:rgba(255,0,0,.85);border-radius:12px;display:flex;align-items:center;justify-content:center;transition:background .2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <script>
+        (function(){
+          var f=document.getElementById('ytFacade');
+          if(!f)return;
+          var obs=new IntersectionObserver(function(e){
+            if(e[0].isIntersecting){
+              f.onclick=function(){
+                var p=f.parentElement;
+                p.innerHTML='<iframe src="https://www.youtube.com/embed/vMafU02A_pI?rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=vMafU02A_pI" title="서울비디치과 5층 로비 소개 영상" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>';
+              };
+              obs.disconnect();
+            }
+          },{threshold:0.1});
+          obs.observe(f.parentElement);
+        })();
+        </script>
       </div>
     </div>
     
