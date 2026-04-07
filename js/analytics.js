@@ -1,19 +1,21 @@
 /**
- * 서울비디치과 통합 Analytics v3
+ * 서울비디치과 통합 Analytics v4
  * GTM (GTM-KKVMVZHK) → GA4 (G-3NQP355YQM) + Amplitude (87529341cb075dcdbefabce3994958aa)
+ * 
+ * v4 변경사항 (2026-04-07):
+ * - GA4 표준 전환 이벤트 추가 (generate_lead, contact → 자동 주요 이벤트 인식)
+ * - 예약 폼 제출 성공 추적 (trackReservationComplete)
+ * - 전화 클릭: GA4 표준 contact + 커스텀 phone_call_click 이중 전송
+ * - 카카오 상담: GA4 표준 contact 이벤트 추가
+ * - 길찾기/네이버지도 전환 이벤트 강화
+ * - 회원가입 완료 추적 (trackSignup)
+ * - 로그인 추적 (trackLogin)
  * 
  * v3 변경사항 (2026-04-02):
  * - Amplitude SDK를 Script Loader 방식으로 전환 (구 인라인 스니펫 제거)
  * - SDK 중복 init 방지 (window._bdAmplitudeInitialized 플래그)
  * - autocapture 활성화 (attribution, pageViews, sessions, forms, fileDownloads)
  * - safeIdentify 래퍼 간소화 (Script Loader 자동 큐잉 활용)
- * 
- * v2 변경사항:
- * - 유저 프로퍼티 세팅 (device, UTM, referrer 분류, 첫방문 소스 등)
- * - 세션 프로퍼티 (engagement_time, session_page_count)
- * - 환자 전환 퍼널 최적화 이벤트
- * - 컨텐츠 참여도 트래킹 강화
- * - 이벤트 택소노미 표준화
  */
 (function() {
   'use strict';
@@ -365,6 +367,7 @@
         device_type: deviceType
       };
       if (typeof gtag === 'function') {
+        // GA4 커스텀 이벤트 (기존 호환)
         gtag('event', 'reservation_click', {
           event_category: 'conversion',
           event_label: source || pageType,
@@ -373,7 +376,6 @@
         });
       }
       amplitude.track('Reservation Click', data);
-      // 유저 프로퍼티: 예약 시도 카운트
       safeIdentify(function(rid) {
         rid.add('reservation_clicks', 1);
         rid.set('last_reservation_source', pageType);
@@ -381,9 +383,56 @@
       });
     },
 
+    // 예약 폼 제출 성공 (★ 핵심 전환 이벤트)
+    trackReservationComplete: function(reservationData) {
+      var data = {
+        source: pageType,
+        page_path: path,
+        treatment: reservationData.treatment || '',
+        has_message: !!(reservationData.message),
+        marketing_agreed: !!(reservationData.marketing),
+        channel: refInfo.channel,
+        device_type: deviceType
+      };
+      if (typeof gtag === 'function') {
+        // ★ GA4 표준 이벤트: generate_lead (자동 주요 이벤트 인식)
+        gtag('event', 'generate_lead', {
+          currency: 'KRW',
+          value: 100000,
+          event_category: 'conversion',
+          method: 'reservation_form',
+          treatment: reservationData.treatment || ''
+        });
+        // 커스텀 이벤트 (상세 분석용)
+        gtag('event', 'reservation_complete', {
+          event_category: 'conversion',
+          treatment: reservationData.treatment || '',
+          marketing_agreed: !!(reservationData.marketing)
+        });
+      }
+      amplitude.track('Reservation Complete', data);
+      // Meta Pixel: Lead 이벤트
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', { content_name: reservationData.treatment || 'general' });
+      }
+      safeIdentify(function(rid) {
+        rid.add('reservations_completed', 1);
+        rid.set('last_reservation_treatment', reservationData.treatment || '');
+        rid.set('is_lead', true);
+      });
+    },
+
     // 전화 클릭
     trackPhoneCall: function(source) {
       if (typeof gtag === 'function') {
+        // ★ GA4 표준 이벤트: contact (자동 주요 이벤트 인식 가능)
+        gtag('event', 'contact', {
+          event_category: 'conversion',
+          method: 'phone',
+          event_label: source || pageType,
+          page_type: pageType
+        });
+        // 커스텀 이벤트 (기존 호환 + 상세 분석)
         gtag('event', 'phone_call_click', {
           event_category: 'conversion',
           event_label: source || pageType,
@@ -397,12 +446,23 @@
         treatment_name: treatmentName,
         device_type: deviceType
       });
+      // Meta Pixel: Contact 이벤트
+      if (typeof fbq === 'function') {
+        fbq('track', 'Contact', { content_name: 'phone_call' });
+      }
       safeIdentify(function(pid) { pid.add('phone_clicks', 1); });
     },
 
     // 카카오 상담 클릭
     trackKakao: function(source) {
       if (typeof gtag === 'function') {
+        // ★ GA4 표준 이벤트: contact (method로 구분)
+        gtag('event', 'contact', {
+          event_category: 'conversion',
+          method: 'kakao',
+          event_label: source || pageType
+        });
+        // 커스텀 이벤트 (기존 호환)
         gtag('event', 'kakao_click', {
           event_category: 'conversion',
           event_label: source || pageType
@@ -414,6 +474,10 @@
         page_path: path,
         device_type: deviceType
       });
+      // Meta Pixel: Contact 이벤트
+      if (typeof fbq === 'function') {
+        fbq('track', 'Contact', { content_name: 'kakao_talk' });
+      }
       safeIdentify(function(kid) { kid.add('kakao_clicks', 1); });
     },
 
@@ -481,12 +545,74 @@
       window._bdMaxScroll = Math.max(window._bdMaxScroll || 0, depth);
     },
 
-    // 지도 클릭
+    // 지도/길찾기 클릭
     trackMapClick: function(mapType) {
       if (typeof gtag === 'function') {
-        gtag('event', 'map_click', { event_category: 'engagement', event_label: mapType });
+        // ★ GA4: 지도 클릭도 전환으로 추적
+        gtag('event', 'map_click', {
+          event_category: 'conversion',
+          event_label: mapType,
+          method: mapType
+        });
       }
       amplitude.track('Map Click', { map_type: mapType, page_path: path, device_type: deviceType });
+      safeIdentify(function(mid) { mid.add('map_clicks', 1); });
+    },
+
+    // 길찾기 클릭 (네이버지도/카카오맵/구글맵 길찾기 버튼)
+    trackDirections: function(mapType) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'directions_click', {
+          event_category: 'conversion',
+          event_label: mapType || 'unknown',
+          method: mapType || 'unknown'
+        });
+      }
+      amplitude.track('Directions Click', {
+        map_type: mapType || 'unknown',
+        page_type: pageType,
+        page_path: path,
+        device_type: deviceType
+      });
+    },
+
+    // 회원가입 완료
+    trackSignup: function(method) {
+      if (typeof gtag === 'function') {
+        // ★ GA4 표준 이벤트: sign_up
+        gtag('event', 'sign_up', {
+          method: method || 'email'
+        });
+      }
+      amplitude.track('Sign Up', {
+        method: method || 'email',
+        page_path: path,
+        device_type: deviceType
+      });
+      if (typeof fbq === 'function') {
+        fbq('track', 'CompleteRegistration', { content_name: method || 'email' });
+      }
+      safeIdentify(function(sid) {
+        sid.set('is_registered', true);
+        sid.set('signup_method', method || 'email');
+        sid.setOnce('signup_date', new Date().toISOString().split('T')[0]);
+      });
+    },
+
+    // 로그인
+    trackLogin: function(method) {
+      if (typeof gtag === 'function') {
+        // ★ GA4 표준 이벤트: login
+        gtag('event', 'login', {
+          method: method || 'email'
+        });
+      }
+      amplitude.track('Login', {
+        method: method || 'email',
+        page_path: path,
+        device_type: deviceType
+      });
+      safeIdentify(function(lid) { lid.add('login_count', 1); });
     },
 
     // CTA 클릭 (범용)
@@ -649,14 +775,28 @@
     });
 
     // 4. 지도 링크 자동 감지
-    document.querySelectorAll('a[href*="map.naver"], a[href*="map.kakao"], a[href*="google.com/maps"]').forEach(function(el) {
+    document.querySelectorAll('a[href*="map.naver"], a[href*="map.kakao"], a[href*="google.com/maps"], a[href*="naver.me"], a[href*="nmap"]').forEach(function(el) {
       el.addEventListener('click', function() {
         var mapType = 'unknown';
-        if (el.href.includes('naver')) mapType = 'naver';
+        if (el.href.includes('naver') || el.href.includes('nmap')) mapType = 'naver';
         else if (el.href.includes('kakao')) mapType = 'kakao';
         else if (el.href.includes('google')) mapType = 'google';
-        bdAnalytics.trackMapClick(mapType);
+        // 길찾기 링크인지 확인
+        if (el.href.includes('direction') || el.href.includes('route') || el.href.includes('길찾기') || el.textContent.includes('길찾기') || el.textContent.includes('오시는')) {
+          bdAnalytics.trackDirections(mapType);
+        } else {
+          bdAnalytics.trackMapClick(mapType);
+        }
       });
+    });
+
+    // 4-1. 길찾기 버튼 자동 감지 (data-directions 속성 또는 텍스트 기반)
+    document.querySelectorAll('[data-directions], a:not([href*="map"])').forEach(function(el) {
+      if (el.dataset && el.dataset.directions) {
+        el.addEventListener('click', function() {
+          bdAnalytics.trackDirections(el.dataset.directions);
+        });
+      }
     });
 
     // 5. 외부 링크 자동 감지
@@ -715,7 +855,14 @@
       });
     });
 
-    console.log('[BD Analytics v3] GA4 + Amplitude(Script Loader) 초기화 완료 | page_type=' + pageType + ' | channel=' + refInfo.channel + '/' + refInfo.source);
+    // 12. 회원가입/로그인 폼 자동 감지
+    document.querySelectorAll('form[action*="register"], form[action*="signup"], #registerForm').forEach(function(el) {
+      el.addEventListener('submit', function() {
+        bdAnalytics.trackSignup('email');
+      });
+    });
+
+    console.log('[BD Analytics v4] GA4 전환추적 강화 + Amplitude(Script Loader) 초기화 완료 | page_type=' + pageType + ' | channel=' + refInfo.channel + '/' + refInfo.source);
   });
 
 })();

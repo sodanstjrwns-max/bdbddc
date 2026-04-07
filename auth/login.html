@@ -135,7 +135,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
   .auth-right{padding:20px 16px;padding-top:40px}
 }
 </style>
-<script src="/js/analytics.js?v=20260402v3" defer></script>
+<script src="/js/analytics.js?v=20260407v4" defer></script>
 <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
 <script>Weglot.initialize({api_key:'wg_cd7087d43782c81ecb41e27570c3bfcd2'});</script>
 </head>
@@ -285,7 +285,10 @@ document.getElementById('loginForm').addEventListener('submit',async function(e)
     }
     sucEl.textContent='로그인 성공! '+result.user.name+'님 환영합니다.';
     sucEl.className='msg success';errEl.className='msg';
-
+    // ★ GA4 전환 추적: 로그인 성공
+    if (typeof bdAnalytics !== 'undefined' && bdAnalytics.trackLogin) {
+      bdAnalytics.trackLogin('email');
+    }
     var params=new URLSearchParams(window.location.search);
     var redirect=params.get('redirect')||'/auth/mypage';
     setTimeout(function(){window.location.href=redirect;},800);
