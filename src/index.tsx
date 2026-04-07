@@ -2042,22 +2042,51 @@ app.get('/column/', async (c) => {
   }
   const filterTitle = doctorFilter && SLUG_TO_DOCTOR[doctorFilter] ? `${SLUG_TO_DOCTOR[doctorFilter]}의 ` : ''
   
+  const COL_LIST_DOCTOR_INFO: Record<string, { specialty: string }> = {
+    moon: { specialty: '대표원장 · 통합치의학과 전문의' },
+    kim: { specialty: '통합치의학과 전문의' },
+    hyun: { specialty: '통합치의학과 전문의' },
+    lee: { specialty: '임플란트센터장' },
+    'kim-mg': { specialty: '통합치의학과 전문의' },
+    lim: { specialty: '교정과' },
+    jo: { specialty: '소아치과 전문의' },
+    'kang-mj': { specialty: '통합치의학과 전문의' },
+    'kim-mj': { specialty: '통합치의학과 전문의' },
+    park: { specialty: '구강외과' },
+    seo: { specialty: '통합치의학과 전문의' },
+    'lee-bm': { specialty: '통합치의학과 전문의' },
+    kang: { specialty: '통합치의학과 전문의' },
+    choi: { specialty: '통합치의학과 전문의' },
+    'park-sb': { specialty: '통합치의학과 전문의' },
+  }
+
   const colCards = columns.map((col: any) => {
-    const excerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 100) + '...'
+    const excerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 120) + '...'
     const date = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'short', day:'numeric' })
     const slug = DOCTOR_SLUG_MAP[col.doctorName] || ''
-    return `<a href="/column/${col.id}" class="col-list-card">
-      ${col.thumbnailImage ? `<div class="col-list-thumb"><img src="${col.thumbnailImage}" alt="${col.title}" loading="lazy"></div>` : ''}
-      <div class="col-list-body">
-        <div class="col-list-meta">
-          ${col.category ? `<span class="col-list-cat">${col.category}</span>` : ''}
-          <span class="col-list-date"><i class="far fa-calendar"></i> ${date}</span>
-        </div>
-        <h3>${col.title}</h3>
-        <p>${excerpt}</p>
-        <div class="col-list-author">${slug ? `<img src="/images/doctors/${slug}-profile.webp" alt="${col.doctorName}" class="col-list-author-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="col-list-author-fallback" style="display:none">${(col.doctorName || '').charAt(0)}</span>` : `<i class="fas fa-user-md"></i>`} ${slug ? `<a href="/doctors/${slug}" onclick="event.stopPropagation();event.preventDefault();location.href='/doctors/${slug}'" style="color:#6B4226;text-decoration:none;border-bottom:1px dashed #c9a96e;font-weight:600;transition:color 0.2s">${col.doctorName || ''}</a>` : (col.doctorName || '')}</div>
-      </div>
-    </a>`
+    const drSpec = COL_LIST_DOCTOR_INFO[slug]?.specialty || '치과의사'
+    const thumbHtml = col.thumbnailImage 
+      ? `<div class="cc-thumb"><img src="${col.thumbnailImage}" alt="${col.title}" loading="lazy">${col.category ? `<span class="cc-cat">${col.category}</span>` : ''}</div>`
+      : `<div class="cc-thumb cc-thumb-empty"><div class="cc-thumb-placeholder"><i class="fas fa-pen-nib"></i></div>${col.category ? `<span class="cc-cat">${col.category}</span>` : ''}</div>`
+    const avatarHtml = slug 
+      ? `<img src="/images/doctors/${slug}-profile.webp" alt="${col.doctorName}" class="cc-avatar-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="cc-avatar-fb" style="display:none">${(col.doctorName || '').charAt(0)}</span>`
+      : `<span class="cc-avatar-fb">${(col.doctorName || '서').charAt(0)}</span>`
+    return `<a href="/column/${col.id}" class="cc-card">
+${thumbHtml}
+<div class="cc-body">
+<h3 class="cc-title">${col.title}</h3>
+<p class="cc-excerpt">${excerpt}</p>
+<div class="cc-footer">
+<div class="cc-author">
+<div class="cc-avatar">${avatarHtml}</div>
+<div class="cc-author-info">
+<span class="cc-author-name">${col.doctorName || ''}</span>
+<span class="cc-author-meta">${drSpec} · ${date}</span>
+</div>
+</div>
+</div>
+</div>
+</a>`
   }).join('')
 
   // 원장 필터 버튼
@@ -2084,7 +2113,7 @@ ${TRACKING_HEAD}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 <link rel="stylesheet" href="/css/site-v5.css?v=0b6913b4">
 <style>
-.col-page{max-width:860px;margin:0 auto;padding:40px 20px}
+.col-page{max-width:900px;margin:0 auto;padding:40px 20px}
 .col-hero{text-align:center;margin-bottom:36px}
 .col-hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#6B4226;background:#f5f0eb;padding:5px 14px;border-radius:50px;margin-bottom:12px}
 .col-hero h1{font-size:1.8rem;font-weight:800;color:#333;margin-bottom:8px}
@@ -2092,23 +2121,48 @@ ${TRACKING_HEAD}
 .col-filter-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
 .col-filter-btn{padding:6px 18px;border-radius:50px;font-size:.82rem;font-weight:600;color:#888;background:#f5f0eb;text-decoration:none;transition:all .2s}
 .col-filter-btn.active,.col-filter-btn:hover{background:#6B4226;color:#fff}
-.col-list-grid{display:grid;grid-template-columns:1fr;gap:20px}
-.col-list-card{display:grid;grid-template-columns:200px 1fr;background:#fff;border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 12px rgba(107,66,38,.06);transition:transform .2s,box-shadow .2s}
-.col-list-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(107,66,38,.12)}
-.col-list-thumb{aspect-ratio:4/3;overflow:hidden;background:#f0ebe4}
-.col-list-thumb img{width:100%;height:100%;object-fit:cover}
-.col-list-body{padding:20px 24px;display:flex;flex-direction:column;justify-content:center}
-.col-list-meta{display:flex;gap:10px;align-items:center;margin-bottom:8px}
-.col-list-cat{font-size:.72rem;font-weight:600;color:#3b82f6;background:#dbeafe;padding:2px 10px;border-radius:50px}
-.col-list-date{font-size:.75rem;color:#aaa;display:flex;align-items:center;gap:4px}
-.col-list-body h3{font-size:1.08rem;font-weight:700;color:#333;margin:0 0 6px;line-height:1.4}
-.col-list-body p{font-size:.85rem;color:#777;line-height:1.5;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.col-list-author{font-size:.78rem;color:#999;display:flex;align-items:center;gap:8px}
-.col-list-author-img{width:22px;height:22px;border-radius:50%;object-fit:cover;border:1.5px solid #ede6dd;flex-shrink:0}
-.col-list-author-fallback{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:.55rem;font-weight:700;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ===== COLUMN CARD GRID ===== */
+.col-list-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+
+/* Card */
+.cc-card{display:flex;flex-direction:column;background:#fff;border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 16px rgba(107,66,38,.06);transition:transform .28s ease,box-shadow .28s ease;border:1px solid rgba(107,66,38,.06)}
+.cc-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(107,66,38,.13)}
+
+/* Thumbnail */
+.cc-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#f5f0eb}
+.cc-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.cc-card:hover .cc-thumb img{transform:scale(1.05)}
+.cc-thumb-empty{display:flex;align-items:center;justify-content:center}
+.cc-thumb-placeholder{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#f5f0eb 0%,#ede6dd 100%)}
+.cc-thumb-placeholder i{font-size:2.5rem;color:#d4c5b3}
+.cc-cat{position:absolute;top:12px;left:12px;font-size:.7rem;font-weight:700;color:#fff;background:rgba(107,66,38,.85);backdrop-filter:blur(8px);padding:4px 12px;border-radius:50px;letter-spacing:.3px}
+
+/* Body */
+.cc-body{padding:20px 22px 18px;display:flex;flex-direction:column;flex:1}
+.cc-title{font-size:1.05rem;font-weight:700;color:#222;margin:0 0 8px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cc-excerpt{font-size:.84rem;color:#888;line-height:1.6;margin:0 0 16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+
+/* Footer / Author */
+.cc-footer{border-top:1px solid #f0ebe4;padding-top:14px;margin-top:auto}
+.cc-author{display:flex;align-items:center;gap:10px}
+.cc-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #f5f0eb}
+.cc-avatar-img{width:100%;height:100%;object-fit:cover}
+.cc-avatar-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:.8rem;font-weight:700;border-radius:50%}
+.cc-author-info{display:flex;flex-direction:column;min-width:0}
+.cc-author-name{font-size:.82rem;font-weight:700;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc-author-meta{font-size:.7rem;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
 .col-empty{text-align:center;padding:60px 20px;color:#999}
 .col-empty i{font-size:3rem;color:#d4c5b3;margin-bottom:16px;display:block}
-@media(max-width:600px){.col-list-card{grid-template-columns:1fr}.col-hero h1{font-size:1.4rem}}
+
+@media(max-width:700px){
+  .col-list-grid{grid-template-columns:1fr}
+  .col-hero h1{font-size:1.4rem}
+}
+@media(min-width:701px) and (max-width:900px){
+  .col-list-grid{grid-template-columns:repeat(2,1fr);gap:18px}
+}
 </style>
 </head>
 <body>
