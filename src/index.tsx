@@ -496,8 +496,8 @@ app.post('/api/admin/upload', async (c) => {
     if (!file) return c.json({ error: '파일이 없습니다' }, 400)
 
     // 파일 유효성 검사
-    const maxSize = 10 * 1024 * 1024 // 10MB
-    if (file.size > maxSize) return c.json({ error: '10MB 이하 파일만 업로드 가능합니다' }, 400)
+    const maxSize = 20 * 1024 * 1024 // 20MB
+    if (file.size > maxSize) return c.json({ error: '20MB 이하 파일만 업로드 가능합니다' }, 400)
     
     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
     if (!allowedTypes.includes(file.type)) return c.json({ error: '허용되지 않는 파일 형식입니다 (JPG, PNG, WebP, GIF만 가능)' }, 400)
