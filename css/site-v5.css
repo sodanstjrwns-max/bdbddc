@@ -199,3 +199,38 @@
   .faq-section .faq-answer p::before,
   .faq-inline-section .faq-answer p::before{width:24px;height:24px;min-width:24px;font-size:0.72rem;border-radius:6px}
 }
+
+/* ─── Type Card Grid (Treatment Types) ─── */
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:var(--space-lg)}
+.type-grid-hint{text-align:center;margin-top:var(--space-lg);display:flex;align-items:center;justify-content:center;gap:8px;font-size:0.95rem;color:var(--text-secondary)}
+.type-grid-hint i{color:var(--brand-gold);font-size:1rem}
+.type-card{position:relative;display:flex;flex-direction:column;padding:28px 24px;background:var(--white);border:1px solid var(--border-color);border-radius:var(--radius-xl);transition:all var(--transition-base);overflow:hidden;text-decoration:none;color:inherit;cursor:pointer}
+.type-card:hover{border-color:var(--brand-gold-light);box-shadow:var(--shadow-card-hover);transform:translateY(-4px)}
+a.type-card{display:flex}
+a.type-card:hover{color:inherit;text-decoration:none}
+.type-card-arrow{position:absolute;top:16px;right:16px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--gray-100);border-radius:50%;color:var(--text-tertiary);font-size:0.85rem;transition:all var(--transition-base)}
+.type-card:hover .type-card-arrow{background:var(--brand);color:var(--white);transform:translate(2px,-2px)}
+.type-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(107,66,38,.06),rgba(200,169,126,.1));border-radius:var(--radius-md);color:var(--brand);font-size:1.2rem;margin-bottom:var(--space-md)}
+.type-card h3{font-size:1.15rem;font-weight:800;color:var(--text-primary);margin-bottom:8px}
+.type-card>p{font-size:0.92rem;color:var(--text-secondary);line-height:1.6;margin-bottom:var(--space-md)}
+.type-features{display:flex;flex-direction:column;gap:6px;margin-bottom:var(--space-md);flex:1}
+.type-features li{display:flex;align-items:center;gap:8px;font-size:0.88rem;color:var(--text-secondary)}
+.type-features li i{color:var(--brand-gold);font-size:0.75rem;flex-shrink:0}
+.type-recommend{padding:10px 14px;background:var(--gray-50);border-radius:var(--radius-md);font-size:0.85rem;color:var(--text-secondary);margin-top:auto}
+.type-recommend strong{color:var(--brand);font-weight:700}
+.type-badge{position:absolute;top:16px;left:16px;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:var(--radius-full);background:var(--brand);color:var(--white);z-index:2}
+.type-badge.hot{background:var(--red)}
+.type-badge.new{background:var(--green)}
+.type-card.featured{background:linear-gradient(135deg,var(--brand),var(--brand-light));border-color:transparent;color:var(--white)}
+.type-card.featured h3,.type-card.featured>p{color:var(--white)}
+.type-card.featured>p{opacity:.85}
+.type-card.featured .type-icon{background:rgba(255,255,255,.15);color:var(--white)}
+.type-card.featured .type-card-arrow{background:rgba(255,255,255,.2);color:var(--white)}
+.type-card.featured:hover .type-card-arrow{background:var(--white);color:var(--brand)}
+.type-card.featured .type-features li{color:rgba(255,255,255,.85)}
+.type-card.featured .type-features li i{color:var(--brand-gold-light)}
+.type-card.featured .type-recommend{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85)}
+.type-card.featured .type-recommend strong{color:var(--brand-gold-light)}
+.type-card.featured .type-badge{background:var(--white);color:var(--brand)}
+@media(max-width:1024px){.type-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.type-grid{grid-template-columns:1fr}}
