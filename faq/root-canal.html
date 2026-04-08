@@ -8,7 +8,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
 <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>신경치료(근관치료) 자주 묻는 질문 | 천안 신경치료(근관치료) FAQ — 서울비디치과</title>
+  <title>신경치료(근관치료) 자주 묻는 질문 | 천안 신경치료(근관치료) FAQ - 서울비디치과</title>
   <meta name="description" content="신경치료 과정, 통증, 기간, 필요성 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="abstract" content="신경치료 과정, 통증, 기간, 필요성 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="ai-summary" content="신경치료 과정, 통증, 기간, 필요성 등 자주 묻는 질문과 서울비디치과 전문의 답변">
@@ -277,7 +277,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }</script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
+  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".faq-sub-hero h1",".faq-hero-desc",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
 <!-- Weglot Multilingual -->
@@ -287,6 +287,433 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+<style>
+/* ─── FAQ Sub-page Premium Design v2 ─── */
+.faq-sub-hero {
+  position: relative;
+  padding: 40px 24px 48px;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  overflow: hidden;
+}
+.faq-sub-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #6366f108 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.faq-sub-hero .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.faq-sub-hero .breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.faq-sub-hero .breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.faq-sub-hero .breadcrumb a:hover { color: var(--brand); }
+.faq-sub-hero .breadcrumb .sep { color: var(--gray-300); margin: 0 2px; }
+
+.faq-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #6366f112;
+  border: 1.5px solid #6366f125;
+  color: #6366f1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.faq-sub-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.faq-sub-hero h1 .quote-line {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.faq-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+.faq-hero-expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.faq-hero-expert i { color: #6366f1; }
+
+.faq-hero-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.faq-stat-item {
+  text-align: center;
+  min-width: 80px;
+}
+.faq-stat-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #6366f1;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.faq-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ─── TOP FAQ Cards ─── */
+.faq-top-section {
+  padding: 48px 24px 32px;
+  background: var(--white);
+}
+.faq-top-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-top-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-top-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.faq-top-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.faq-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-top-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  animation: fadeInUp 0.5s ease both;
+}
+.faq-top-card:hover {
+  border-color: #6366f130;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-top-card-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.faq-top-card-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.faq-top-card-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Search Box ─── */
+.faq-search-bar {
+  padding: 0 24px;
+  margin: -16px auto 0;
+  max-width: 1240px;
+  position: relative;
+  z-index: 10;
+}
+.faq-search-box {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq-search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.faq-search-box input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 4px 20px #6366f115;
+}
+.faq-search-box input::placeholder { color: var(--text-tertiary); }
+.faq-search-box .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+.faq-search-count {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-search-count.visible { display: block; }
+
+/* ─── FAQ Main Section (Premium) ─── */
+.faq-main-section {
+  padding: 48px 24px 64px;
+  background: var(--white);
+}
+.faq-main-section .container { max-width: 840px; margin: 0 auto; }
+.faq-main-section .faq-category-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.faq-total-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #6366f110;
+  color: #6366f1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* Premium FAQ Item */
+.faq-main-section .faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.faq-main-section .faq-item:hover {
+  border-color: #6366f130;
+}
+.faq-main-section .faq-item.active {
+  border-color: #6366f140;
+  box-shadow: 0 4px 16px #6366f110;
+}
+.faq-main-section .faq-question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-main-section .faq-question:hover { color: #6366f1; }
+.faq-main-section .faq-question::after { display: none; }
+
+.faq-main-section .faq-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, var(--brand), #8b5a2b);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-q-badge {
+  background: linear-gradient(135deg, #6366f1, #6366f1cc);
+}
+.faq-main-section .faq-q-text {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.faq-main-section .faq-item.active .faq-q-text { color: #6366f1; }
+.faq-main-section .faq-icon {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #6366f1;
+}
+
+.faq-main-section .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-main-section .faq-item.active .faq-answer {
+  max-height: 600px;
+  padding: 0 20px 20px 62px;
+}
+.faq-main-section .faq-a-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border-left: 3px solid #6366f1;
+}
+.faq-no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+/* ─── Related FAQ Cards ─── */
+.faq-related-section {
+  padding: 48px 24px;
+  background: var(--gray-50);
+}
+.faq-related-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-related-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.faq-related-header h2 { font-size: 1.4rem; font-weight: 800; }
+.faq-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.faq-related-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.faq-related-card:hover {
+  border-color: var(--brand-gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-related-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.faq-related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.faq-related-card-body span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .faq-top-grid { grid-template-columns: 1fr; }
+  .faq-related-grid { grid-template-columns: 1fr; }
+  .faq-hero-stats { gap: 16px; }
+  .faq-stat-item { min-width: 60px; }
+  .faq-sub-hero { padding: 32px 20px 40px; }
+  .faq-main-section .faq-item.active .faq-answer { padding: 0 16px 16px 16px; }
+  .faq-main-section .faq-question { padding: 16px; }
+  .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -328,60 +755,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">신경치료(근관치료) FAQ</span>
+
+    <!-- ═══════ Treatment-style Sub Hero ═══════ -->
+    <section class="faq-sub-hero" aria-label="신경치료(근관치료) FAQ">
+      <div class="container">
+        <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>신경치료(근관치료)</span></div>
+        <div class="faq-page-badge"><i class="fas fa-microscope"></i> 정밀치료</div>
+        <h1>
+          <span class="quote-line">"신경치료가 아프다던데..."</span>
+          <span class="text-gradient">신경치료 궁금증 해결</span>
         </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          신경치료(근관치료) 자주 묻는 질문
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
+        <p class="faq-hero-desc">신경치료 과정, 통증, 기간, 필요성 등 자주 묻는 질문과 서울비디치과 전문의 답변</p>
+        <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 보존과 전문의가 답변합니다</div>
+        <div class="faq-hero-stats">
+          <div class="faq-stat-item"><span class="faq-stat-value">90%+</span><span class="faq-stat-label">성공률</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">1~3회</span><span class="faq-stat-label">내원 횟수</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">무통</span><span class="faq-stat-label">마취 시술</span></div>
         </div>
       </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-    <!-- Hero -->
-    <section class="faq-hero">
-        <h2>🔬 신경치료(근관치료) FAQ</h2>
-        <p class="lead">신경치료(근관치료)에 관한 모든 궁금증을 해결해 드립니다<br>보존과 전문의가 답변합니다</p>
-        <p class="faq-count">총 <strong>20개</strong>의 질문과 답변</p>
     </section>
 
-    <!-- FAQ 카테고리 네비게이션 -->
+    <!-- ═══════ FAQ Category Navigation ═══════ -->
     <section class="faq-nav">
         <div class="faq-nav-container">
             <a href="/faq/implant" class="faq-nav-item">임플란트</a>
@@ -403,194 +797,264 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- FAQ 내용 -->
-    <section class="faq-section">
-        <div class="faq-category">
-            <h2 class="faq-category-title">🔬 신경치료(근관치료) 자주 묻는 질문</h2>
-            <div class="faq-item">
+    <!-- ═══════ TOP 3 FAQ Cards ═══════ -->
+    <section class="faq-top-section">
+      <div class="container">
+        <div class="faq-top-header">
+          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <p>환자분들이 가장 궁금해하는 TOP 3</p>
+        </div>
+        <div class="faq-top-grid">
+          <div class="faq-top-card" style="animation-delay: 0s">
+            <div class="faq-top-card-num" style="background: #6366f1;">1</div>
+            <div class="faq-top-card-content">
+              <h3>신경치료란 무엇인가요?</h3>
+              <p>신경치료(근관치료)는 충치나 외상으로 치아 내부의 신경(치수)이 감염되거나 괴사했을 때, 감염된 신경을 제거하고 내부를 소독·충전하는 치료입니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.1s">
+            <div class="faq-top-card-num" style="background: #6366f1;">2</div>
+            <div class="faq-top-card-content">
+              <h3>신경치료는 아픈가요?</h3>
+              <p>충분한 마취 후 진행하므로 치료 중 통증은 거의 없습니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.2s">
+            <div class="faq-top-card-num" style="background: #6366f1;">3</div>
+            <div class="faq-top-card-content">
+              <h3>신경치료 후에 치아가 약해지나요?</h3>
+              <p>신경을 제거하면 치아에 혈액 공급이 끊겨 건조하고 약해질 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Search ═══════ -->
+    <div class="faq-search-bar">
+      <div class="faq-search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="faqSearchInput" placeholder="신경치료(근관치료) FAQ 검색... (예: 비용, 통증, 기간)" autocomplete="off">
+      </div>
+      <p class="faq-search-count" id="faqSearchCount"></p>
+    </div>
+
+    <!-- ═══════ FAQ Main Content ═══════ -->
+    <section class="faq-main-section">
+        <div class="container">
+            <h2 class="faq-category-title">
+              <i class="fas fa-microscope" style="color: #6366f1;"></i>
+              신경치료(근관치료) 자주 묻는 질문
+              <span class="faq-total-badge">20개</span>
+            </h2>
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-                    <span>신경치료란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">1</span>
+                    <span class="faq-q-text">신경치료란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <p>신경치료(근관치료)는 충치나 외상으로 치아 내부의 신경(치수)이 감염되거나 괴사했을 때, 감염된 신경을 제거하고 내부를 소독·충전하는 치료입니다. 치아를 발치하지 않고 보존하기 위한 중요한 치료법입니다.</p>
+                    <div class="faq-a-content">신경치료(근관치료)는 충치나 외상으로 치아 내부의 신경(치수)이 감염되거나 괴사했을 때, 감염된 신경을 제거하고 내부를 소독·충전하는 치료입니다. 치아를 발치하지 않고 보존하기 위한 중요한 치료법입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                    <span>신경치료는 아픈가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">2</span>
+                    <span class="faq-q-text">신경치료는 아픈가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <p>충분한 마취 후 진행하므로 치료 중 통증은 거의 없습니다. 오히려 신경치료를 받기 전 치통이 훨씬 고통스럽습니다. 치료 후 1~2일간 약간의 불편감이 있을 수 있으나 진통제로 조절됩니다.</p>
+                    <div class="faq-a-content">충분한 마취 후 진행하므로 치료 중 통증은 거의 없습니다. 오히려 신경치료를 받기 전 치통이 훨씬 고통스럽습니다. 치료 후 1~2일간 약간의 불편감이 있을 수 있으나 진통제로 조절됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                    <span>신경치료 후에 치아가 약해지나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">3</span>
+                    <span class="faq-q-text">신경치료 후에 치아가 약해지나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <p>신경을 제거하면 치아에 혈액 공급이 끊겨 건조하고 약해질 수 있습니다. 이 때문에 신경치료 후 크라운(보철물)을 씌워 치아를 보호하는 것이 일반적입니다.</p>
+                    <div class="faq-a-content">신경을 제거하면 치아에 혈액 공급이 끊겨 건조하고 약해질 수 있습니다. 이 때문에 신경치료 후 크라운(보철물)을 씌워 치아를 보호하는 것이 일반적입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                    <span>신경치료는 몇 번 방문해야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">4</span>
+                    <span class="faq-q-text">신경치료는 몇 번 방문해야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <p>일반적으로 2~3회 내원이 필요합니다. 감염 정도에 따라 더 많은 내원이 필요할 수 있으며, 각 내원 간격은 1~2주입니다. 급성 통증 시 응급 처치 후 순차적으로 진행합니다.</p>
+                    <div class="faq-a-content">일반적으로 2~3회 내원이 필요합니다. 감염 정도에 따라 더 많은 내원이 필요할 수 있으며, 각 내원 간격은 1~2주입니다. 급성 통증 시 응급 처치 후 순차적으로 진행합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                    <span>신경치료를 안 하면 어떻게 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">5</span>
+                    <span class="faq-q-text">신경치료를 안 하면 어떻게 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <p>감염된 신경을 방치하면 치아 뿌리 끝에 고름(치근단 농양)이 생기고, 주변 뼈로 감염이 퍼질 수 있습니다. 얼굴 붓기, 심한 통증이 발생하며, 결국 발치가 불가피해집니다.</p>
+                    <div class="faq-a-content">감염된 신경을 방치하면 치아 뿌리 끝에 고름(치근단 농양)이 생기고, 주변 뼈로 감염이 퍼질 수 있습니다. 얼굴 붓기, 심한 통증이 발생하며, 결국 발치가 불가피해집니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                    <span>신경치료한 치아는 영구적인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">6</span>
+                    <span class="faq-q-text">신경치료한 치아는 영구적인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <p>적절한 신경치료 + 크라운 보호 시 오래 사용할 수 있습니다. 하지만 재감염, 치아 파절 등의 위험이 있으므로 정기 검진이 중요합니다. 성공률은 약 90~95%입니다.</p>
+                    <div class="faq-a-content">적절한 신경치료 + 크라운 보호 시 오래 사용할 수 있습니다. 하지만 재감염, 치아 파절 등의 위험이 있으므로 정기 검진이 중요합니다. 성공률은 약 90~95%입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
-                    <span>서울비디치과 신경치료가 특별한 이유는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">7</span>
+                    <span class="faq-q-text">서울비디치과 신경치료가 특별한 이유는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <p>서울비디치과에서는 디지털 X-ray와 전자 근관장 측정기로 정밀한 신경치료를 제공합니다. 보존과 전문의가 직접 치료하며, 최소 침습으로 치아 보존 가능성을 최대화합니다.</p>
+                    <div class="faq-a-content">서울비디치과에서는 디지털 X-ray와 전자 근관장 측정기로 정밀한 신경치료를 제공합니다. 보존과 전문의가 직접 치료하며, 최소 침습으로 치아 보존 가능성을 최대화합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
-                    <span>신경치료 중에 통증이 재발할 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">8</span>
+                    <span class="faq-q-text">신경치료 중에 통증이 재발할 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <p>치료 회차 사이에 일시적으로 통증이 악화될 수 있습니다. 이는 치료 과정에서 약제가 신경에 작용하면서 나타나는 반응이며, 진통제로 조절 가능합니다. 하지만 심한 붓기나 발열이 동반되면 즉시 내원하세요.</p>
+                    <div class="faq-a-content">치료 회차 사이에 일시적으로 통증이 악화될 수 있습니다. 이는 치료 과정에서 약제가 신경에 작용하면서 나타나는 반응이며, 진통제로 조절 가능합니다. 하지만 심한 붓기나 발열이 동반되면 즉시 내원하세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
-                    <span>신경치료 후 크라운을 반드시 씌워야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">9</span>
+                    <span class="faq-q-text">신경치료 후 크라운을 반드시 씌워야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <p>대부분의 경우 크라운(보철물)으로 감싸는 것을 권합니다. 신경치료 후 치아는 수분 공급이 끊겨 건조해지고 부서지기 쉽습니다. 특히 어금니는 씹는 힘이 크므로 크라운 없이 사용하면 파절 위험이 높습니다.</p>
+                    <div class="faq-a-content">대부분의 경우 크라운(보철물)으로 감싸는 것을 권합니다. 신경치료 후 치아는 수분 공급이 끊겨 건조해지고 부서지기 쉽습니다. 특히 어금니는 씹는 힘이 크므로 크라운 없이 사용하면 파절 위험이 높습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
-                    <span>신경치료를 하면 치아가 변색되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">10</span>
+                    <span class="faq-q-text">신경치료를 하면 치아가 변색되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <p>신경치료 후 시간이 지나면 치아가 어두워질 수 있습니다. 이는 남아있는 혈액 성분이 분해되면서 나타나는 현상입니다. 내부 미백(워킹 블리치)으로 개선 가능하며, 앞니의 경우 라미네이트나 크라운으로 심미성을 회복할 수 있습니다.</p>
+                    <div class="faq-a-content">신경치료 후 시간이 지나면 치아가 어두워질 수 있습니다. 이는 남아있는 혈액 성분이 분해되면서 나타나는 현상입니다. 내부 미백(워킹 블리치)으로 개선 가능하며, 앞니의 경우 라미네이트나 크라운으로 심미성을 회복할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
-                    <span>신경치료 실패란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">11</span>
+                    <span class="faq-q-text">신경치료 실패란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <p>신경치료 후 세균이 완전히 제거되지 않거나 재감염이 발생하여 증상이 재발하는 경우입니다. 치아 뿌리 끝에 염증(치근단 병소)이 남아있으면 재신경치료 또는 치근단 수술이 필요합니다. 성공률은 초치료 약 90~95%, 재치료 약 70~85%입니다.</p>
+                    <div class="faq-a-content">신경치료 후 세균이 완전히 제거되지 않거나 재감염이 발생하여 증상이 재발하는 경우입니다. 치아 뿌리 끝에 염증(치근단 병소)이 남아있으면 재신경치료 또는 치근단 수술이 필요합니다. 성공률은 초치료 약 90~95%, 재치료 약 70~85%입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-11">
-                    <span>신경치료 비용은 얼마인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">12</span>
+                    <span class="faq-q-text">신경치료 비용은 얼마인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <p>신경치료는 건강보험이 적용되어 본인부담은 약 3~10만원 수준입니다(치아 위치와 뿌리 수에 따라 다름). 하지만 신경치료 후 씌우는 크라운은 재료에 따라 비급여일 수 있으므로, 전체 비용은 상담 시 안내드립니다.</p>
+                    <div class="faq-a-content">신경치료는 건강보험이 적용되어 본인부담은 약 3~10만원 수준입니다(치아 위치와 뿌리 수에 따라 다름). 하지만 신경치료 후 씌우는 크라운은 재료에 따라 비급여일 수 있으므로, 전체 비용은 상담 시 안내드립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
-                    <span>신경치료 기간 중 음식을 먹어도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">13</span>
+                    <span class="faq-q-text">신경치료 기간 중 음식을 먹어도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <p>치료 중간(임시 충전물 상태)에는 해당 치아로 딱딱한 음식을 씹지 않는 것이 좋습니다. 임시 충전물이 빠질 수 있고, 약해진 치아가 깨질 수 있습니다. 반대쪽으로 식사하시고, 임시 충전물이 빠지면 바로 내원하세요.</p>
+                    <div class="faq-a-content">치료 중간(임시 충전물 상태)에는 해당 치아로 딱딱한 음식을 씹지 않는 것이 좋습니다. 임시 충전물이 빠질 수 있고, 약해진 치아가 깨질 수 있습니다. 반대쪽으로 식사하시고, 임시 충전물이 빠지면 바로 내원하세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-13">
-                    <span>재신경치료란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">14</span>
+                    <span class="faq-q-text">재신경치료란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <p>이전에 신경치료한 치아의 감염이 재발했을 때, 기존 충전 재료를 제거하고 다시 소독·충전하는 시술입니다. 초치료보다 난이도가 높지만, 발치를 피하고 치아를 보존할 수 있는 마지막 기회인 경우가 많습니다.</p>
+                    <div class="faq-a-content">이전에 신경치료한 치아의 감염이 재발했을 때, 기존 충전 재료를 제거하고 다시 소독·충전하는 시술입니다. 초치료보다 난이도가 높지만, 발치를 피하고 치아를 보존할 수 있는 마지막 기회인 경우가 많습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
-                    <span>치근단 수술(치근단 절제술)이란?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">15</span>
+                    <span class="faq-q-text">치근단 수술(치근단 절제술)이란?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <p>일반 신경치료나 재신경치료로 해결되지 않을 때, 잇몸을 열고 감염된 치아 뿌리 끝을 절제하는 수술입니다. 미세현미경 하에 진행하여 정밀도가 높으며, 발치를 피하는 마지막 보존적 치료법입니다.</p>
+                    <div class="faq-a-content">일반 신경치료나 재신경치료로 해결되지 않을 때, 잇몸을 열고 감염된 치아 뿌리 끝을 절제하는 수술입니다. 미세현미경 하에 진행하여 정밀도가 높으며, 발치를 피하는 마지막 보존적 치료법입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
-                    <span>살아있는 신경도 치료해야 하는 경우가 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">16</span>
+                    <span class="faq-q-text">살아있는 신경도 치료해야 하는 경우가 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <p>네, 보철 치료를 위해 치아를 많이 삭제해야 하거나, 충치가 신경에 매우 가까운 경우 예방적으로 신경치료를 하기도 합니다. 또한 깨진 치아의 신경이 노출된 경우에도 신경치료가 필요합니다.</p>
+                    <div class="faq-a-content">네, 보철 치료를 위해 치아를 많이 삭제해야 하거나, 충치가 신경에 매우 가까운 경우 예방적으로 신경치료를 하기도 합니다. 또한 깨진 치아의 신경이 노출된 경우에도 신경치료가 필요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
-                    <span>앞니 신경치료와 어금니 신경치료는 다른가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">17</span>
+                    <span class="faq-q-text">앞니 신경치료와 어금니 신경치료는 다른가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <p>원리는 같지만, 앞니는 보통 뿌리가 1개여서 치료가 비교적 간단합니다. 어금니는 뿌리가 3~4개이고 근관 구조가 복잡하여 치료 난이도가 높고 시간이 더 걸립니다. 비용도 뿌리 수에 따라 차이가 있습니다.</p>
+                    <div class="faq-a-content">원리는 같지만, 앞니는 보통 뿌리가 1개여서 치료가 비교적 간단합니다. 어금니는 뿌리가 3~4개이고 근관 구조가 복잡하여 치료 난이도가 높고 시간이 더 걸립니다. 비용도 뿌리 수에 따라 차이가 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
-                    <span>어린이도 신경치료를 할 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">18</span>
+                    <span class="faq-q-text">어린이도 신경치료를 할 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <p>네, 유치와 영구치 모두 신경치료가 가능합니다. 유치의 경우 완전한 신경치료 대신 부분 신경치료(치수절단술)를 하는 경우가 많으며, 이는 영구치가 정상적으로 나올 때까지 유치를 보존하기 위함입니다.</p>
+                    <div class="faq-a-content">네, 유치와 영구치 모두 신경치료가 가능합니다. 유치의 경우 완전한 신경치료 대신 부분 신경치료(치수절단술)를 하는 경우가 많으며, 이는 영구치가 정상적으로 나올 때까지 유치를 보존하기 위함입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
-                    <span>신경치료한 치아가 다시 아플 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">19</span>
+                    <span class="faq-q-text">신경치료한 치아가 다시 아플 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <p>신경이 제거되었으므로 치아 자체의 통증은 없지만, 치아 뿌리 끝 주변(치근단)의 잇몸이나 뼈에 염증이 재발하면 통증이 생길 수 있습니다. 이를 "치근단 주위 조직염"이라 하며, 재치료나 치근단 수술로 해결합니다.</p>
+                    <div class="faq-a-content">신경이 제거되었으므로 치아 자체의 통증은 없지만, 치아 뿌리 끝 주변(치근단)의 잇몸이나 뼈에 염증이 재발하면 통증이 생길 수 있습니다. 이를 "치근단 주위 조직염"이라 하며, 재치료나 치근단 수술로 해결합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-19">
-                    <span>신경치료 중 약냄새가 나는데 정상인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">20</span>
+                    <span class="faq-q-text">신경치료 중 약냄새가 나는데 정상인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
-                    <p>네, 정상입니다. 근관 내부를 소독하는 약제(차아염소산나트륨, 수산화칼슘 등)에서 나는 냄새이며, 치료가 진행되면서 사라집니다. 약제는 인체에 무해한 농도로 사용됩니다.</p>
+                    <div class="faq-a-content">네, 정상입니다. 근관 내부를 소독하는 약제(차아염소산나트륨, 수산화칼슘 등)에서 나는 냄새이며, 치료가 진행되면서 사라집니다. 약제는 인체에 무해한 농도로 사용됩니다.</div>
                 </div>
+            </div>
+            <div class="faq-no-results" id="faqNoResults">
+              <i class="fas fa-search"></i>
+              <p>검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
+    <!-- ═══════ CTA Section ═══════ -->
     <section class="section-cta reveal">
       <div class="container">
         <div class="cta-card">
@@ -605,7 +1069,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 관련 치료 페이지 링크 -->
+    <!-- ═══════ Related FAQ ═══════ -->
+    <section class="faq-related-section">
+      <div class="container">
+        <div class="faq-related-header">
+          <h2>다른 FAQ도 확인해 보세요</h2>
+        </div>
+        <div class="faq-related-grid">
+          <a href="/faq/crown" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #f59e0b12; color: #f59e0b;"><i class="fas fa-crown"></i></div>
+            <div class="faq-related-card-body"><h3>크라운(보철치료) FAQ</h3><span>20개 질문</span></div>
+          </a>
+          <a href="/faq/cavity" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #3b82f612; color: #3b82f6;"><i class="fas fa-search"></i></div>
+            <div class="faq-related-card-body"><h3>충치치료 FAQ</h3><span>20개 질문</span></div>
+          </a>
+          <a href="/faq/sedation" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #6366f112; color: #6366f1;"><i class="fas fa-bed"></i></div>
+            <div class="faq-related-card-body"><h3>수면치료 FAQ</h3><span>21개 질문</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Page Nav ═══════ -->
     <section class="section-sm">
       <div class="container">
         <div class="page-nav-v2">
@@ -624,7 +1111,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
@@ -668,13 +1155,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
-      // FAQ toggle (accessible)
-      document.querySelectorAll('.faq-question').forEach(function(btn){
+      // FAQ toggle (premium)
+      document.querySelectorAll('.faq-main-section .faq-question').forEach(function(btn){
         btn.addEventListener('click',function(){
           var item=this.parentElement;
           var expanded=this.getAttribute('aria-expanded')==='true';
           // Close all
-          document.querySelectorAll('.faq-item.active').forEach(function(i){
+          document.querySelectorAll('.faq-main-section .faq-item.active').forEach(function(i){
             i.classList.remove('active');
             i.querySelector('.faq-question').setAttribute('aria-expanded','false');
           });
@@ -682,9 +1169,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if(!expanded){
             item.classList.add('active');
             this.setAttribute('aria-expanded','true');
+            // Smooth scroll into view
+            setTimeout(function(){ item.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
           }
         });
       });
+
+      // FAQ Search
+      var searchInput=document.getElementById('faqSearchInput');
+      var searchCount=document.getElementById('faqSearchCount');
+      var noResults=document.getElementById('faqNoResults');
+      if(searchInput){
+        searchInput.addEventListener('input',function(){
+          var q=this.value.toLowerCase().trim();
+          var items=document.querySelectorAll('.faq-main-section .faq-item');
+          var visible=0;
+          items.forEach(function(item){
+            var text=item.textContent.toLowerCase();
+            if(!q||text.indexOf(q)!==-1){
+              item.style.display='';
+              visible++;
+            } else {
+              item.style.display='none';
+            }
+          });
+          if(q){
+            searchCount.textContent=visible+'개 결과';
+            searchCount.classList.add('visible');
+            noResults.style.display=visible===0?'block':'none';
+          } else {
+            searchCount.classList.remove('visible');
+            noResults.style.display='none';
+          }
+        });
+      }
+
       // Reveal animation
       var els=document.querySelectorAll('.reveal');
       if(!els.length)return;

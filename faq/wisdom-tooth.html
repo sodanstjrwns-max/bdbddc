@@ -8,7 +8,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
 <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>사랑니 발치 자주 묻는 질문 | 천안 사랑니 발치 FAQ — 서울비디치과</title>
+  <title>사랑니 발치 자주 묻는 질문 | 천안 사랑니 발치 FAQ - 서울비디치과</title>
   <meta name="description" content="사랑니 발치 통증, 비용, 회복기간, 합병증 등 자주 묻는 질문과 서울비디치과 구강외과 전문의 답변">
   <meta name="abstract" content="사랑니 발치 통증, 비용, 회복기간, 합병증 등 자주 묻는 질문과 서울비디치과 구강외과 전문의 답변">
   <meta name="ai-summary" content="사랑니 발치 통증, 비용, 회복기간, 합병증 등 자주 묻는 질문과 서울비디치과 구강외과 전문의 답변">
@@ -293,7 +293,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }</script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
+  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".faq-sub-hero h1",".faq-hero-desc",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
 <!-- Weglot Multilingual -->
@@ -303,6 +303,433 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+<style>
+/* ─── FAQ Sub-page Premium Design v2 ─── */
+.faq-sub-hero {
+  position: relative;
+  padding: 40px 24px 48px;
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  overflow: hidden;
+}
+.faq-sub-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #10b98108 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.faq-sub-hero .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.faq-sub-hero .breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.faq-sub-hero .breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.faq-sub-hero .breadcrumb a:hover { color: var(--brand); }
+.faq-sub-hero .breadcrumb .sep { color: var(--gray-300); margin: 0 2px; }
+
+.faq-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #10b98112;
+  border: 1.5px solid #10b98125;
+  color: #10b981;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.faq-sub-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.faq-sub-hero h1 .quote-line {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.faq-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+.faq-hero-expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.faq-hero-expert i { color: #10b981; }
+
+.faq-hero-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.faq-stat-item {
+  text-align: center;
+  min-width: 80px;
+}
+.faq-stat-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #10b981;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.faq-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ─── TOP FAQ Cards ─── */
+.faq-top-section {
+  padding: 48px 24px 32px;
+  background: var(--white);
+}
+.faq-top-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-top-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-top-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.faq-top-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.faq-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-top-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  animation: fadeInUp 0.5s ease both;
+}
+.faq-top-card:hover {
+  border-color: #10b98130;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-top-card-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.faq-top-card-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.faq-top-card-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Search Box ─── */
+.faq-search-bar {
+  padding: 0 24px;
+  margin: -16px auto 0;
+  max-width: 1240px;
+  position: relative;
+  z-index: 10;
+}
+.faq-search-box {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq-search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.faq-search-box input:focus {
+  border-color: #10b981;
+  box-shadow: 0 4px 20px #10b98115;
+}
+.faq-search-box input::placeholder { color: var(--text-tertiary); }
+.faq-search-box .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+.faq-search-count {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-search-count.visible { display: block; }
+
+/* ─── FAQ Main Section (Premium) ─── */
+.faq-main-section {
+  padding: 48px 24px 64px;
+  background: var(--white);
+}
+.faq-main-section .container { max-width: 840px; margin: 0 auto; }
+.faq-main-section .faq-category-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.faq-total-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #10b98110;
+  color: #10b981;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* Premium FAQ Item */
+.faq-main-section .faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.faq-main-section .faq-item:hover {
+  border-color: #10b98130;
+}
+.faq-main-section .faq-item.active {
+  border-color: #10b98140;
+  box-shadow: 0 4px 16px #10b98110;
+}
+.faq-main-section .faq-question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-main-section .faq-question:hover { color: #10b981; }
+.faq-main-section .faq-question::after { display: none; }
+
+.faq-main-section .faq-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, var(--brand), #8b5a2b);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-q-badge {
+  background: linear-gradient(135deg, #10b981, #10b981cc);
+}
+.faq-main-section .faq-q-text {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.faq-main-section .faq-item.active .faq-q-text { color: #10b981; }
+.faq-main-section .faq-icon {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #10b981;
+}
+
+.faq-main-section .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-main-section .faq-item.active .faq-answer {
+  max-height: 600px;
+  padding: 0 20px 20px 62px;
+}
+.faq-main-section .faq-a-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border-left: 3px solid #10b981;
+}
+.faq-no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+/* ─── Related FAQ Cards ─── */
+.faq-related-section {
+  padding: 48px 24px;
+  background: var(--gray-50);
+}
+.faq-related-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-related-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.faq-related-header h2 { font-size: 1.4rem; font-weight: 800; }
+.faq-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.faq-related-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.faq-related-card:hover {
+  border-color: var(--brand-gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-related-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.faq-related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.faq-related-card-body span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .faq-top-grid { grid-template-columns: 1fr; }
+  .faq-related-grid { grid-template-columns: 1fr; }
+  .faq-hero-stats { gap: 16px; }
+  .faq-stat-item { min-width: 60px; }
+  .faq-sub-hero { padding: 32px 20px 40px; }
+  .faq-main-section .faq-item.active .faq-answer { padding: 0 16px 16px 16px; }
+  .faq-main-section .faq-question { padding: 16px; }
+  .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -344,60 +771,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">사랑니 발치 FAQ</span>
+
+    <!-- ═══════ Treatment-style Sub Hero ═══════ -->
+    <section class="faq-sub-hero" aria-label="사랑니 발치 FAQ">
+      <div class="container">
+        <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>사랑니 발치</span></div>
+        <div class="faq-page-badge"><i class="fas fa-hand-holding-medical"></i> CT 정밀진단</div>
+        <h1>
+          <span class="quote-line">"사랑니, 꼭 빼야 하나요?"</span>
+          <span class="text-gradient">사랑니 발치 완전 가이드</span>
         </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          사랑니 발치 자주 묻는 질문
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
+        <p class="faq-hero-desc">사랑니 발치 통증, 비용, 회복기간, 합병증 등 자주 묻는 질문과 서울비디치과 구강외과 전문의 답변</p>
+        <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 구강외과 전문의가 답변합니다</div>
+        <div class="faq-hero-stats">
+          <div class="faq-stat-item"><span class="faq-stat-value">보험적용</span><span class="faq-stat-label">건강보험</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">3~7일</span><span class="faq-stat-label">회복 기간</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">CT 정밀</span><span class="faq-stat-label">진단</span></div>
         </div>
       </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-    <!-- Hero -->
-    <section class="faq-hero">
-        <h2>🦷 사랑니 발치 FAQ</h2>
-        <p class="lead">사랑니 발치에 관한 모든 궁금증을 해결해 드립니다<br>구강외과 전문의가 답변합니다</p>
-        <p class="faq-count">총 <strong>22개</strong>의 질문과 답변</p>
     </section>
 
-    <!-- FAQ 카테고리 네비게이션 -->
+    <!-- ═══════ FAQ Category Navigation ═══════ -->
     <section class="faq-nav">
         <div class="faq-nav-container">
             <a href="/faq/implant" class="faq-nav-item">임플란트</a>
@@ -419,212 +813,284 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- FAQ 내용 -->
-    <section class="faq-section">
-        <div class="faq-category">
-            <h2 class="faq-category-title">🦷 사랑니 발치 자주 묻는 질문</h2>
-            <div class="faq-item">
+    <!-- ═══════ TOP 3 FAQ Cards ═══════ -->
+    <section class="faq-top-section">
+      <div class="container">
+        <div class="faq-top-header">
+          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <p>환자분들이 가장 궁금해하는 TOP 3</p>
+        </div>
+        <div class="faq-top-grid">
+          <div class="faq-top-card" style="animation-delay: 0s">
+            <div class="faq-top-card-num" style="background: #10b981;">1</div>
+            <div class="faq-top-card-content">
+              <h3>사랑니는 꼭 빼야 하나요?</h3>
+              <p>모든 사랑니를 빼야 하는 것은 아닙니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.1s">
+            <div class="faq-top-card-num" style="background: #10b981;">2</div>
+            <div class="faq-top-card-content">
+              <h3>사랑니 발치가 아픈가요?</h3>
+              <p>충분한 마취 후 발치하므로 시술 중 통증은 거의 없습니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.2s">
+            <div class="faq-top-card-num" style="background: #10b981;">3</div>
+            <div class="faq-top-card-content">
+              <h3>매복 사랑니란 무엇인가요?</h3>
+              <p>매복 사랑니는 잇몸뼈 속에 묻혀 있거나 비스듬히 나와 있는 사랑니입니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Search ═══════ -->
+    <div class="faq-search-bar">
+      <div class="faq-search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="faqSearchInput" placeholder="사랑니 발치 FAQ 검색... (예: 비용, 통증, 기간)" autocomplete="off">
+      </div>
+      <p class="faq-search-count" id="faqSearchCount"></p>
+    </div>
+
+    <!-- ═══════ FAQ Main Content ═══════ -->
+    <section class="faq-main-section">
+        <div class="container">
+            <h2 class="faq-category-title">
+              <i class="fas fa-hand-holding-medical" style="color: #10b981;"></i>
+              사랑니 발치 자주 묻는 질문
+              <span class="faq-total-badge">22개</span>
+            </h2>
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-                    <span>사랑니는 꼭 빼야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">1</span>
+                    <span class="faq-q-text">사랑니는 꼭 빼야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <p>모든 사랑니를 빼야 하는 것은 아닙니다. 충치, 잇몸 염증, 인접 치아 손상, 낭종 등의 문제가 있거나 예상되는 경우 발치를 권합니다. 똑바로 나와 있고 건강한 사랑니는 보존할 수 있습니다.</p>
+                    <div class="faq-a-content">모든 사랑니를 빼야 하는 것은 아닙니다. 충치, 잇몸 염증, 인접 치아 손상, 낭종 등의 문제가 있거나 예상되는 경우 발치를 권합니다. 똑바로 나와 있고 건강한 사랑니는 보존할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                    <span>사랑니 발치가 아픈가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">2</span>
+                    <span class="faq-q-text">사랑니 발치가 아픈가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <p>충분한 마취 후 발치하므로 시술 중 통증은 거의 없습니다. 발치 후 2~3일간 욱신거리는 통증과 붓기가 있을 수 있으나, 처방 진통제로 조절 가능합니다. 서울비디치과에서는 수면 하 발치도 가능합니다.</p>
+                    <div class="faq-a-content">충분한 마취 후 발치하므로 시술 중 통증은 거의 없습니다. 발치 후 2~3일간 욱신거리는 통증과 붓기가 있을 수 있으나, 처방 진통제로 조절 가능합니다. 서울비디치과에서는 수면 하 발치도 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                    <span>매복 사랑니란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">3</span>
+                    <span class="faq-q-text">매복 사랑니란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <p>매복 사랑니는 잇몸뼈 속에 묻혀 있거나 비스듬히 나와 있는 사랑니입니다. 일반 발치보다 난이도가 높으며, 잇몸 절개와 뼈 삭제가 필요할 수 있습니다. 파노라마·CT 촬영으로 정확한 위치를 확인한 후 발치합니다.</p>
+                    <div class="faq-a-content">매복 사랑니는 잇몸뼈 속에 묻혀 있거나 비스듬히 나와 있는 사랑니입니다. 일반 발치보다 난이도가 높으며, 잇몸 절개와 뼈 삭제가 필요할 수 있습니다. 파노라마·CT 촬영으로 정확한 위치를 확인한 후 발치합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                    <span>사랑니 발치 비용은 얼마인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">4</span>
+                    <span class="faq-q-text">사랑니 발치 비용은 얼마인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <p>단순 발치는 건강보험이 적용되어 비교적 저렴합니다. 매복 사랑니는 난이도에 따라 비용이 달라지며, 보험 적용 시 본인부담금은 수만 원 수준입니다. 정확한 비용은 검진 후 안내드립니다.</p>
+                    <div class="faq-a-content">단순 발치는 건강보험이 적용되어 비교적 저렴합니다. 매복 사랑니는 난이도에 따라 비용이 달라지며, 보험 적용 시 본인부담금은 수만 원 수준입니다. 정확한 비용은 검진 후 안내드립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                    <span>사랑니 발치 후 회복 기간은?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">5</span>
+                    <span class="faq-q-text">사랑니 발치 후 회복 기간은?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <p>일반적으로 3~7일이면 일상생활이 가능합니다. 완전한 잇몸 치유에는 4~6주가 걸릴 수 있습니다. 발치 후 지시사항(냉찜질, 부드러운 식사, 금연 등)을 잘 따르면 회복이 빨라집니다.</p>
+                    <div class="faq-a-content">일반적으로 3~7일이면 일상생활이 가능합니다. 완전한 잇몸 치유에는 4~6주가 걸릴 수 있습니다. 발치 후 지시사항(냉찜질, 부드러운 식사, 금연 등)을 잘 따르면 회복이 빨라집니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                    <span>사랑니 4개를 한번에 빼도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">6</span>
+                    <span class="faq-q-text">사랑니 4개를 한번에 빼도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <p>가능하지만 한쪽씩(2개) 빼는 것이 일반적입니다. 양쪽을 동시에 빼면 식사에 어려움이 있을 수 있어, 2~3주 간격으로 나눠 발치하는 것을 권합니다. 수면치료 시 한 번에 4개를 빼는 경우도 있습니다.</p>
+                    <div class="faq-a-content">가능하지만 한쪽씩(2개) 빼는 것이 일반적입니다. 양쪽을 동시에 빼면 식사에 어려움이 있을 수 있어, 2~3주 간격으로 나눠 발치하는 것을 권합니다. 수면치료 시 한 번에 4개를 빼는 경우도 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
-                    <span>사랑니 발치 후 식사는 언제부터?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">7</span>
+                    <span class="faq-q-text">사랑니 발치 후 식사는 언제부터?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <p>마취가 풀린 후(약 2~3시간 뒤) 반대쪽으로 부드러운 음식(죽, 수프)을 드실 수 있습니다. 2~3일간 뜨겁고 자극적인 음식은 피하시고, 빨대 사용도 삼가세요(건조 소켓 예방).</p>
+                    <div class="faq-a-content">마취가 풀린 후(약 2~3시간 뒤) 반대쪽으로 부드러운 음식(죽, 수프)을 드실 수 있습니다. 2~3일간 뜨겁고 자극적인 음식은 피하시고, 빨대 사용도 삼가세요(건조 소켓 예방).</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
-                    <span>건조 소켓이란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">8</span>
+                    <span class="faq-q-text">건조 소켓이란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <p>발치 후 피떡(혈병)이 빠지면서 뼈가 노출되는 합병증입니다. 심한 통증이 특징이며, 발치 후 2~5일째에 주로 발생합니다. 예방을 위해 빨대 사용, 침 뱉기, 흡연을 삼가고, 발치 부위를 자극하지 마세요.</p>
+                    <div class="faq-a-content">발치 후 피떡(혈병)이 빠지면서 뼈가 노출되는 합병증입니다. 심한 통증이 특징이며, 발치 후 2~5일째에 주로 발생합니다. 예방을 위해 빨대 사용, 침 뱉기, 흡연을 삼가고, 발치 부위를 자극하지 마세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
-                    <span>사랑니 발치 후 붓기는 얼마나?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">9</span>
+                    <span class="faq-q-text">사랑니 발치 후 붓기는 얼마나?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <p>발치 난이도에 따라 다르지만, 보통 2~3일째 최대로 붓고 이후 서서히 빠집니다. 발치 직후 48시간은 냉찜질, 이후는 온찜질이 붓기 완화에 도움됩니다.</p>
+                    <div class="faq-a-content">발치 난이도에 따라 다르지만, 보통 2~3일째 최대로 붓고 이후 서서히 빠집니다. 발치 직후 48시간은 냉찜질, 이후는 온찜질이 붓기 완화에 도움됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
-                    <span>서울비디치과에서 사랑니 발치가 좋은 이유는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">10</span>
+                    <span class="faq-q-text">서울비디치과에서 사랑니 발치가 좋은 이유는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <p>서울비디치과는 구강외과 전문의가 직접 발치하며, CT 기반 정밀 진단으로 신경 손상 위험을 최소화합니다. 독립 수술실에서 무균 상태로 시술하고, 수면 하 발치도 가능해 공포 없이 편안하게 치료받을 수 있습니다.</p>
+                    <div class="faq-a-content">서울비디치과는 구강외과 전문의가 직접 발치하며, CT 기반 정밀 진단으로 신경 손상 위험을 최소화합니다. 독립 수술실에서 무균 상태로 시술하고, 수면 하 발치도 가능해 공포 없이 편안하게 치료받을 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
-                    <span>사랑니 발치에 보험이 적용되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">11</span>
+                    <span class="faq-q-text">사랑니 발치에 보험이 적용되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <p>단순 발치와 매복 사랑니 발치 모두 건강보험이 적용됩니다. 단순 발치는 본인부담 약 1~3만원, 난이도가 높은 매복 사랑니는 본인부담 약 3~6만원 수준입니다. 파노라마 촬영도 보험 적용됩니다.</p>
+                    <div class="faq-a-content">단순 발치와 매복 사랑니 발치 모두 건강보험이 적용됩니다. 단순 발치는 본인부담 약 1~3만원, 난이도가 높은 매복 사랑니는 본인부담 약 3~6만원 수준입니다. 파노라마 촬영도 보험 적용됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-11">
-                    <span>사랑니가 옆으로 누워 있다는데 위험한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">12</span>
+                    <span class="faq-q-text">사랑니가 옆으로 누워 있다는데 위험한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <p>수평 매복 사랑니는 인접 치아를 밀거나 충치를 유발할 수 있으므로 발치를 권합니다. 하악(아래턱)의 경우 하치조 신경과 가까울 수 있어 CT 촬영으로 신경 위치를 정밀 확인한 후 안전하게 발치합니다.</p>
+                    <div class="faq-a-content">수평 매복 사랑니는 인접 치아를 밀거나 충치를 유발할 수 있으므로 발치를 권합니다. 하악(아래턱)의 경우 하치조 신경과 가까울 수 있어 CT 촬영으로 신경 위치를 정밀 확인한 후 안전하게 발치합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
-                    <span>사랑니 발치 후 실밥은 언제 풀어야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">13</span>
+                    <span class="faq-q-text">사랑니 발치 후 실밥은 언제 풀어야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <p>일반적으로 7~10일 후 내원하여 실밥을 제거합니다. 흡수성 실을 사용한 경우 자연스럽게 녹으므로 별도 제거가 필요 없을 수 있습니다.</p>
+                    <div class="faq-a-content">일반적으로 7~10일 후 내원하여 실밥을 제거합니다. 흡수성 실을 사용한 경우 자연스럽게 녹으므로 별도 제거가 필요 없을 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-13">
-                    <span>사랑니 발치 후 양치는 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">14</span>
+                    <span class="faq-q-text">사랑니 발치 후 양치는 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <p>발치 부위를 제외한 다른 치아는 정상적으로 양치하세요. 발치 부위는 3~4일간 칫솔이 직접 닿지 않도록 하고, 소금물이나 처방 가글액으로 가볍게 헹구세요. 강하게 가글하면 피떡이 빠질 수 있으니 주의하세요.</p>
+                    <div class="faq-a-content">발치 부위를 제외한 다른 치아는 정상적으로 양치하세요. 발치 부위는 3~4일간 칫솔이 직접 닿지 않도록 하고, 소금물이나 처방 가글액으로 가볍게 헹구세요. 강하게 가글하면 피떡이 빠질 수 있으니 주의하세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
-                    <span>사랑니 발치 시간은 얼마나 걸리나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">15</span>
+                    <span class="faq-q-text">사랑니 발치 시간은 얼마나 걸리나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <p>단순 발치는 5~15분, 매복 사랑니는 20~40분 정도 소요됩니다. 난이도가 높은 완전 매복 사랑니는 1시간 이상 걸릴 수도 있습니다. 수면 하 발치 시 여러 개를 한 번에 진행할 수 있습니다.</p>
+                    <div class="faq-a-content">단순 발치는 5~15분, 매복 사랑니는 20~40분 정도 소요됩니다. 난이도가 높은 완전 매복 사랑니는 1시간 이상 걸릴 수도 있습니다. 수면 하 발치 시 여러 개를 한 번에 진행할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
-                    <span>사랑니 발치 후 담배를 피워도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">16</span>
+                    <span class="faq-q-text">사랑니 발치 후 담배를 피워도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <p>절대 안 됩니다. 흡연은 건조 소켓(드라이 소켓) 위험을 크게 높이고, 상처 치유를 지연시킵니다. 최소 발치 후 1주일, 가능하면 2주간 금연을 강력히 권합니다.</p>
+                    <div class="faq-a-content">절대 안 됩니다. 흡연은 건조 소켓(드라이 소켓) 위험을 크게 높이고, 상처 치유를 지연시킵니다. 최소 발치 후 1주일, 가능하면 2주간 금연을 강력히 권합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
-                    <span>사랑니 발치 후 술을 마셔도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">17</span>
+                    <span class="faq-q-text">사랑니 발치 후 술을 마셔도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <p>발치 후 최소 3~5일간은 음주를 피하세요. 알코올은 혈관을 확장시켜 출혈을 유발하고, 약물과 상호작용할 수 있습니다. 항생제 복용 중에는 음주가 약효를 떨어뜨립니다.</p>
+                    <div class="faq-a-content">발치 후 최소 3~5일간은 음주를 피하세요. 알코올은 혈관을 확장시켜 출혈을 유발하고, 약물과 상호작용할 수 있습니다. 항생제 복용 중에는 음주가 약효를 떨어뜨립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
-                    <span>사랑니 발치 후 이상 증상은 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">18</span>
+                    <span class="faq-q-text">사랑니 발치 후 이상 증상은 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <p>다음 증상이 나타나면 즉시 내원하세요: ① 발치 3일 후에도 심해지는 통증(건조 소켓 의심) ② 38도 이상의 발열 ③ 지속적인 출혈(30분 이상) ④ 입을 벌리기 어려운 개구제한 ⑤ 심한 악취. 서울비디치과는 365일 진료로 즉시 대응합니다.</p>
+                    <div class="faq-a-content">다음 증상이 나타나면 즉시 내원하세요: ① 발치 3일 후에도 심해지는 통증(건조 소켓 의심) ② 38도 이상의 발열 ③ 지속적인 출혈(30분 이상) ④ 입을 벌리기 어려운 개구제한 ⑤ 심한 악취. 서울비디치과는 365일 진료로 즉시 대응합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
-                    <span>사랑니 때문에 앞니가 삐뚤어질 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">19</span>
+                    <span class="faq-q-text">사랑니 때문에 앞니가 삐뚤어질 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <p>논쟁이 있는 주제이지만, 사랑니가 앞쪽 치아를 미는 힘이 치열 변화에 일부 영향을 줄 수 있다는 견해가 있습니다. 교정 치료를 받은 경우 교정 전문의가 사랑니 발치를 권하는 경우가 많습니다.</p>
+                    <div class="faq-a-content">논쟁이 있는 주제이지만, 사랑니가 앞쪽 치아를 미는 힘이 치열 변화에 일부 영향을 줄 수 있다는 견해가 있습니다. 교정 치료를 받은 경우 교정 전문의가 사랑니 발치를 권하는 경우가 많습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-19">
-                    <span>사랑니 발치 후 빈 자리에 임플란트를 해야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">20</span>
+                    <span class="faq-q-text">사랑니 발치 후 빈 자리에 임플란트를 해야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
-                    <p>아닙니다. 사랑니는 씹는 기능에 거의 기여하지 않으므로, 발치 후 빈 자리를 채울 필요가 없습니다. 자연스럽게 잇몸이 아물면서 치유됩니다.</p>
+                    <div class="faq-a-content">아닙니다. 사랑니는 씹는 기능에 거의 기여하지 않으므로, 발치 후 빈 자리를 채울 필요가 없습니다. 자연스럽게 잇몸이 아물면서 치유됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-20">
-                    <span>사랑니가 아프지 않아도 빼야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">21</span>
+                    <span class="faq-q-text">사랑니가 아프지 않아도 빼야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-20">
-                    <p>현재 증상이 없어도 X-ray 상 향후 문제가 예상되는 경우(충치·낭종 위험, 인접 치아 영향 등) 예방적 발치를 권합니다. 젊을 때(20~30대) 발치하는 것이 합병증이 적고 회복이 빠릅니다.</p>
+                    <div class="faq-a-content">현재 증상이 없어도 X-ray 상 향후 문제가 예상되는 경우(충치·낭종 위험, 인접 치아 영향 등) 예방적 발치를 권합니다. 젊을 때(20~30대) 발치하는 것이 합병증이 적고 회복이 빠릅니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-21">
-                    <span>사랑니 발치 후 감각이 둔해졌어요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">22</span>
+                    <span class="faq-q-text">사랑니 발치 후 감각이 둔해졌어요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-21">
-                    <p>하악 사랑니 발치 시 하치조 신경 또는 설신경이 일시적으로 영향을 받아 입술·혀의 감각이 둔해질 수 있습니다. 대부분 2~6개월 내에 자연 회복되며, 영구적인 손상은 매우 드뭅니다. 서울비디치과에서는 CT 기반 신경 위치 확인으로 이 위험을 최소화합니다.</p>
+                    <div class="faq-a-content">하악 사랑니 발치 시 하치조 신경 또는 설신경이 일시적으로 영향을 받아 입술·혀의 감각이 둔해질 수 있습니다. 대부분 2~6개월 내에 자연 회복되며, 영구적인 손상은 매우 드뭅니다. 서울비디치과에서는 CT 기반 신경 위치 확인으로 이 위험을 최소화합니다.</div>
                 </div>
+            </div>
+            <div class="faq-no-results" id="faqNoResults">
+              <i class="fas fa-search"></i>
+              <p>검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
+    <!-- ═══════ CTA Section ═══════ -->
     <section class="section-cta reveal">
       <div class="container">
         <div class="cta-card">
@@ -639,7 +1105,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 관련 치료 페이지 링크 -->
+    <!-- ═══════ Related FAQ ═══════ -->
+    <section class="faq-related-section">
+      <div class="container">
+        <div class="faq-related-header">
+          <h2>다른 FAQ도 확인해 보세요</h2>
+        </div>
+        <div class="faq-related-grid">
+          <a href="/faq/sedation" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #6366f112; color: #6366f1;"><i class="fas fa-bed"></i></div>
+            <div class="faq-related-card-body"><h3>수면치료 FAQ</h3><span>21개 질문</span></div>
+          </a>
+          <a href="/faq/emergency" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #ef444412; color: #ef4444;"><i class="fas fa-ambulance"></i></div>
+            <div class="faq-related-card-body"><h3>응급치과 FAQ</h3><span>19개 질문</span></div>
+          </a>
+          <a href="/faq/scaling" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #14b8a612; color: #14b8a6;"><i class="fas fa-broom"></i></div>
+            <div class="faq-related-card-body"><h3>스케일링 FAQ</h3><span>19개 질문</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Page Nav ═══════ -->
     <section class="section-sm">
       <div class="container">
         <div class="page-nav-v2">
@@ -658,7 +1147,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
@@ -702,13 +1191,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
-      // FAQ toggle (accessible)
-      document.querySelectorAll('.faq-question').forEach(function(btn){
+      // FAQ toggle (premium)
+      document.querySelectorAll('.faq-main-section .faq-question').forEach(function(btn){
         btn.addEventListener('click',function(){
           var item=this.parentElement;
           var expanded=this.getAttribute('aria-expanded')==='true';
           // Close all
-          document.querySelectorAll('.faq-item.active').forEach(function(i){
+          document.querySelectorAll('.faq-main-section .faq-item.active').forEach(function(i){
             i.classList.remove('active');
             i.querySelector('.faq-question').setAttribute('aria-expanded','false');
           });
@@ -716,9 +1205,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if(!expanded){
             item.classList.add('active');
             this.setAttribute('aria-expanded','true');
+            // Smooth scroll into view
+            setTimeout(function(){ item.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
           }
         });
       });
+
+      // FAQ Search
+      var searchInput=document.getElementById('faqSearchInput');
+      var searchCount=document.getElementById('faqSearchCount');
+      var noResults=document.getElementById('faqNoResults');
+      if(searchInput){
+        searchInput.addEventListener('input',function(){
+          var q=this.value.toLowerCase().trim();
+          var items=document.querySelectorAll('.faq-main-section .faq-item');
+          var visible=0;
+          items.forEach(function(item){
+            var text=item.textContent.toLowerCase();
+            if(!q||text.indexOf(q)!==-1){
+              item.style.display='';
+              visible++;
+            } else {
+              item.style.display='none';
+            }
+          });
+          if(q){
+            searchCount.textContent=visible+'개 결과';
+            searchCount.classList.add('visible');
+            noResults.style.display=visible===0?'block':'none';
+          } else {
+            searchCount.classList.remove('visible');
+            noResults.style.display='none';
+          }
+        });
+      }
+
       // Reveal animation
       var els=document.querySelectorAll('.reveal');
       if(!els.length)return;

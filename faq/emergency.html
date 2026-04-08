@@ -8,7 +8,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
 <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>응급치과 자주 묻는 질문 | 천안 응급치과 FAQ — 서울비디치과</title>
+  <title>응급치과 자주 묻는 질문 | 천안 응급치과 FAQ - 서울비디치과</title>
   <meta name="description" content="치과 응급 상황 대처법, 야간·주말 진료 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="abstract" content="치과 응급 상황 대처법, 야간·주말 진료 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="ai-summary" content="치과 응급 상황 대처법, 야간·주말 진료 등 자주 묻는 질문과 서울비디치과 전문의 답변">
@@ -269,7 +269,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }</script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
+  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".faq-sub-hero h1",".faq-hero-desc",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
 <!-- Weglot Multilingual -->
@@ -279,6 +279,433 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+<style>
+/* ─── FAQ Sub-page Premium Design v2 ─── */
+.faq-sub-hero {
+  position: relative;
+  padding: 40px 24px 48px;
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  overflow: hidden;
+}
+.faq-sub-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #ef444408 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.faq-sub-hero .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.faq-sub-hero .breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.faq-sub-hero .breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.faq-sub-hero .breadcrumb a:hover { color: var(--brand); }
+.faq-sub-hero .breadcrumb .sep { color: var(--gray-300); margin: 0 2px; }
+
+.faq-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #ef444412;
+  border: 1.5px solid #ef444425;
+  color: #ef4444;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.faq-sub-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.faq-sub-hero h1 .quote-line {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.faq-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+.faq-hero-expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.faq-hero-expert i { color: #ef4444; }
+
+.faq-hero-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.faq-stat-item {
+  text-align: center;
+  min-width: 80px;
+}
+.faq-stat-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ef4444;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.faq-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ─── TOP FAQ Cards ─── */
+.faq-top-section {
+  padding: 48px 24px 32px;
+  background: var(--white);
+}
+.faq-top-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-top-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-top-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.faq-top-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.faq-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-top-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  animation: fadeInUp 0.5s ease both;
+}
+.faq-top-card:hover {
+  border-color: #ef444430;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-top-card-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.faq-top-card-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.faq-top-card-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Search Box ─── */
+.faq-search-bar {
+  padding: 0 24px;
+  margin: -16px auto 0;
+  max-width: 1240px;
+  position: relative;
+  z-index: 10;
+}
+.faq-search-box {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq-search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.faq-search-box input:focus {
+  border-color: #ef4444;
+  box-shadow: 0 4px 20px #ef444415;
+}
+.faq-search-box input::placeholder { color: var(--text-tertiary); }
+.faq-search-box .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+.faq-search-count {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-search-count.visible { display: block; }
+
+/* ─── FAQ Main Section (Premium) ─── */
+.faq-main-section {
+  padding: 48px 24px 64px;
+  background: var(--white);
+}
+.faq-main-section .container { max-width: 840px; margin: 0 auto; }
+.faq-main-section .faq-category-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.faq-total-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #ef444410;
+  color: #ef4444;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* Premium FAQ Item */
+.faq-main-section .faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.faq-main-section .faq-item:hover {
+  border-color: #ef444430;
+}
+.faq-main-section .faq-item.active {
+  border-color: #ef444440;
+  box-shadow: 0 4px 16px #ef444410;
+}
+.faq-main-section .faq-question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-main-section .faq-question:hover { color: #ef4444; }
+.faq-main-section .faq-question::after { display: none; }
+
+.faq-main-section .faq-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, var(--brand), #8b5a2b);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-q-badge {
+  background: linear-gradient(135deg, #ef4444, #ef4444cc);
+}
+.faq-main-section .faq-q-text {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.faq-main-section .faq-item.active .faq-q-text { color: #ef4444; }
+.faq-main-section .faq-icon {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #ef4444;
+}
+
+.faq-main-section .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-main-section .faq-item.active .faq-answer {
+  max-height: 600px;
+  padding: 0 20px 20px 62px;
+}
+.faq-main-section .faq-a-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border-left: 3px solid #ef4444;
+}
+.faq-no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+/* ─── Related FAQ Cards ─── */
+.faq-related-section {
+  padding: 48px 24px;
+  background: var(--gray-50);
+}
+.faq-related-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-related-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.faq-related-header h2 { font-size: 1.4rem; font-weight: 800; }
+.faq-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.faq-related-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.faq-related-card:hover {
+  border-color: var(--brand-gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-related-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.faq-related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.faq-related-card-body span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .faq-top-grid { grid-template-columns: 1fr; }
+  .faq-related-grid { grid-template-columns: 1fr; }
+  .faq-hero-stats { gap: 16px; }
+  .faq-stat-item { min-width: 60px; }
+  .faq-sub-hero { padding: 32px 20px 40px; }
+  .faq-main-section .faq-item.active .faq-answer { padding: 0 16px 16px 16px; }
+  .faq-main-section .faq-question { padding: 16px; }
+  .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -320,60 +747,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">응급치과 FAQ</span>
+
+    <!-- ═══════ Treatment-style Sub Hero ═══════ -->
+    <section class="faq-sub-hero" aria-label="응급치과 FAQ">
+      <div class="container">
+        <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>응급치과</span></div>
+        <div class="faq-page-badge"><i class="fas fa-ambulance"></i> 365일 진료</div>
+        <h1>
+          <span class="quote-line">"치아가 갑자기 아파요!"</span>
+          <span class="text-gradient">응급 치과 가이드</span>
         </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          응급치과 자주 묻는 질문
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
+        <p class="faq-hero-desc">치과 응급 상황 대처법, 야간·주말 진료 등 자주 묻는 질문과 서울비디치과 전문의 답변</p>
+        <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 365일 진료 전문 의료진이 답변합니다</div>
+        <div class="faq-hero-stats">
+          <div class="faq-stat-item"><span class="faq-stat-value">365일</span><span class="faq-stat-label">진료</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">야간 20시</span><span class="faq-stat-label">평일</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">즉시</span><span class="faq-stat-label">대응</span></div>
         </div>
       </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-    <!-- Hero -->
-    <section class="faq-hero">
-        <h2>🚨 응급치과 FAQ</h2>
-        <p class="lead">응급치과에 관한 모든 궁금증을 해결해 드립니다<br>365일 진료 전문 의료진이 답변합니다</p>
-        <p class="faq-count">총 <strong>19개</strong>의 질문과 답변</p>
     </section>
 
-    <!-- FAQ 카테고리 네비게이션 -->
+    <!-- ═══════ FAQ Category Navigation ═══════ -->
     <section class="faq-nav">
         <div class="faq-nav-container">
             <a href="/faq/implant" class="faq-nav-item">임플란트</a>
@@ -395,185 +789,254 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- FAQ 내용 -->
-    <section class="faq-section">
-        <div class="faq-category">
-            <h2 class="faq-category-title">🚨 응급치과 자주 묻는 질문</h2>
-            <div class="faq-item">
+    <!-- ═══════ TOP 3 FAQ Cards ═══════ -->
+    <section class="faq-top-section">
+      <div class="container">
+        <div class="faq-top-header">
+          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <p>환자분들이 가장 궁금해하는 TOP 3</p>
+        </div>
+        <div class="faq-top-grid">
+          <div class="faq-top-card" style="animation-delay: 0s">
+            <div class="faq-top-card-num" style="background: #ef4444;">1</div>
+            <div class="faq-top-card-content">
+              <h3>갑자기 치아가 너무 아파요, 어떻게 하나요?</h3>
+              <p>일반 진통제(이부프로펜 계열)를 복용하고, 아픈 부위에 냉찜질을 하세요.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.1s">
+            <div class="faq-top-card-num" style="background: #ef4444;">2</div>
+            <div class="faq-top-card-content">
+              <h3>치아가 부러졌어요, 어떻게 하나요?</h3>
+              <p>부러진 조각을 찾아 우유나 생리식염수에 보관하고, 즉시 치과를 방문하세요.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.2s">
+            <div class="faq-top-card-num" style="background: #ef4444;">3</div>
+            <div class="faq-top-card-content">
+              <h3>치아가 완전히 빠졌어요!</h3>
+              <p>빠진 치아를 뿌리를 만지지 않고 집어서, 우유(없으면 입안에 물고)에 보관 후 30분 이내에 치과를 방문하세요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Search ═══════ -->
+    <div class="faq-search-bar">
+      <div class="faq-search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="faqSearchInput" placeholder="응급치과 FAQ 검색... (예: 비용, 통증, 기간)" autocomplete="off">
+      </div>
+      <p class="faq-search-count" id="faqSearchCount"></p>
+    </div>
+
+    <!-- ═══════ FAQ Main Content ═══════ -->
+    <section class="faq-main-section">
+        <div class="container">
+            <h2 class="faq-category-title">
+              <i class="fas fa-ambulance" style="color: #ef4444;"></i>
+              응급치과 자주 묻는 질문
+              <span class="faq-total-badge">19개</span>
+            </h2>
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-                    <span>갑자기 치아가 너무 아파요, 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">1</span>
+                    <span class="faq-q-text">갑자기 치아가 너무 아파요, 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <p>일반 진통제(이부프로펜 계열)를 복용하고, 아픈 부위에 냉찜질을 하세요. 뜨거운 음식과 자극적인 음식은 피하시고, 가능한 빨리 치과에 방문하세요. 서울비디치과는 365일 진료하므로 주말·공휴일에도 내원 가능합니다.</p>
+                    <div class="faq-a-content">일반 진통제(이부프로펜 계열)를 복용하고, 아픈 부위에 냉찜질을 하세요. 뜨거운 음식과 자극적인 음식은 피하시고, 가능한 빨리 치과에 방문하세요. 서울비디치과는 365일 진료하므로 주말·공휴일에도 내원 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                    <span>치아가 부러졌어요, 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">2</span>
+                    <span class="faq-q-text">치아가 부러졌어요, 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <p>부러진 조각을 찾아 우유나 생리식염수에 보관하고, 즉시 치과를 방문하세요. 부러진 조각을 접착하거나, 레진·크라운으로 수복할 수 있습니다. 빨리 올수록 치료 결과가 좋습니다.</p>
+                    <div class="faq-a-content">부러진 조각을 찾아 우유나 생리식염수에 보관하고, 즉시 치과를 방문하세요. 부러진 조각을 접착하거나, 레진·크라운으로 수복할 수 있습니다. 빨리 올수록 치료 결과가 좋습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                    <span>치아가 완전히 빠졌어요!</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">3</span>
+                    <span class="faq-q-text">치아가 완전히 빠졌어요!</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <p>빠진 치아를 뿌리를 만지지 않고 집어서, 우유(없으면 입안에 물고)에 보관 후 30분 이내에 치과를 방문하세요. 재식립 성공률은 시간이 지날수록 낮아지므로 최대한 빨리 내원하는 것이 중요합니다.</p>
+                    <div class="faq-a-content">빠진 치아를 뿌리를 만지지 않고 집어서, 우유(없으면 입안에 물고)에 보관 후 30분 이내에 치과를 방문하세요. 재식립 성공률은 시간이 지날수록 낮아지므로 최대한 빨리 내원하는 것이 중요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                    <span>잇몸이 심하게 부었어요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">4</span>
+                    <span class="faq-q-text">잇몸이 심하게 부었어요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <p>잇몸 농양(고름)일 가능성이 있습니다. 따뜻한 소금물로 가볍게 가글하고, 부은 쪽에 냉찜질을 하세요. 자의적으로 고름을 짜지 마시고, 가능한 빨리 치과를 방문하여 배농 및 항생제 처방을 받으세요.</p>
+                    <div class="faq-a-content">잇몸 농양(고름)일 가능성이 있습니다. 따뜻한 소금물로 가볍게 가글하고, 부은 쪽에 냉찜질을 하세요. 자의적으로 고름을 짜지 마시고, 가능한 빨리 치과를 방문하여 배농 및 항생제 처방을 받으세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                    <span>크라운이 빠졌어요, 응급 상황인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">5</span>
+                    <span class="faq-q-text">크라운이 빠졌어요, 응급 상황인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <p>즉각적인 응급은 아니지만, 빨리 치과를 방문하시는 것이 좋습니다. 빠진 크라운을 보관하시고, 그동안 해당 치아로 식사를 피하세요. 임시로 약국의 치과용 접착제를 사용할 수 있습니다.</p>
+                    <div class="faq-a-content">즉각적인 응급은 아니지만, 빨리 치과를 방문하시는 것이 좋습니다. 빠진 크라운을 보관하시고, 그동안 해당 치아로 식사를 피하세요. 임시로 약국의 치과용 접착제를 사용할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                    <span>서울비디치과 365일 진료 시간은?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">6</span>
+                    <span class="faq-q-text">서울비디치과 365일 진료 시간은?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <p>평일 09:00-20:00(점심 12:30-14:00), 토·일 09:00-17:00, 공휴일 09:00-13:00 진료합니다. 365일 쉬지 않으므로 급성 치통이나 응급 상황에 빠르게 대응할 수 있습니다. ☎ 041-415-2892</p>
+                    <div class="faq-a-content">평일 09:00-20:00(점심 12:30-14:00), 토·일 09:00-17:00, 공휴일 09:00-13:00 진료합니다. 365일 쉬지 않으므로 급성 치통이나 응급 상황에 빠르게 대응할 수 있습니다. ☎ 041-415-2892</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
-                    <span>치아에 금이 갔어요, 응급인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">7</span>
+                    <span class="faq-q-text">치아에 금이 갔어요, 응급인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <p>눈에 보이는 금이 있거나 씹을 때 날카로운 통증이 있으면 치아 균열(크랙)일 수 있습니다. 해당 치아로 식사를 피하고, 빠른 시일 내에 치과를 방문하세요. 방치하면 균열이 진행되어 발치가 필요할 수 있습니다.</p>
+                    <div class="faq-a-content">눈에 보이는 금이 있거나 씹을 때 날카로운 통증이 있으면 치아 균열(크랙)일 수 있습니다. 해당 치아로 식사를 피하고, 빠른 시일 내에 치과를 방문하세요. 방치하면 균열이 진행되어 발치가 필요할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
-                    <span>교정 와이어가 찔러서 아파요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">8</span>
+                    <span class="faq-q-text">교정 와이어가 찔러서 아파요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <p>교정용 왁스(약국 또는 치과에서 제공)로 튀어나온 와이어를 감싸 임시 조치하세요. 불편함이 심하면 와이어를 무딘 부분으로 구부리거나, 소독한 손톱깎이로 잘라낼 수 있습니다. 가능한 빨리 치과에서 조정받으세요.</p>
+                    <div class="faq-a-content">교정용 왁스(약국 또는 치과에서 제공)로 튀어나온 와이어를 감싸 임시 조치하세요. 불편함이 심하면 와이어를 무딘 부분으로 구부리거나, 소독한 손톱깎이로 잘라낼 수 있습니다. 가능한 빨리 치과에서 조정받으세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
-                    <span>갑자기 입이 안 벌어져요(개구제한)</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">9</span>
+                    <span class="faq-q-text">갑자기 입이 안 벌어져요(개구제한)</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <p>턱관절 장애, 턱 주변 근육 경련, 감염 등이 원인일 수 있습니다. 온찜질(따뜻한 수건)을 10~15분간 대고, 부드럽게 입을 벌려보세요. 개선되지 않으면 치과를 방문하세요. 서울비디치과는 턱관절 전문의가 상주합니다.</p>
+                    <div class="faq-a-content">턱관절 장애, 턱 주변 근육 경련, 감염 등이 원인일 수 있습니다. 온찜질(따뜻한 수건)을 10~15분간 대고, 부드럽게 입을 벌려보세요. 개선되지 않으면 치과를 방문하세요. 서울비디치과는 턱관절 전문의가 상주합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
-                    <span>충전물(레진)이 빠졌어요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">10</span>
+                    <span class="faq-q-text">충전물(레진)이 빠졌어요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <p>당장 응급은 아니지만, 빈 공간에 세균이 침투하면 충치가 진행됩니다. 해당 치아로 식사를 피하고, 양치를 꼼꼼히 하며, 가능한 빨리(1주 이내) 치과를 방문하세요.</p>
+                    <div class="faq-a-content">당장 응급은 아니지만, 빈 공간에 세균이 침투하면 충치가 진행됩니다. 해당 치아로 식사를 피하고, 양치를 꼼꼼히 하며, 가능한 빨리(1주 이내) 치과를 방문하세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
-                    <span>잇몸에서 갑자기 피가 멈추지 않아요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">11</span>
+                    <span class="faq-q-text">잇몸에서 갑자기 피가 멈추지 않아요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <p>깨끗한 거즈나 티백을 접어 출혈 부위를 꽉 물고 30분 이상 압박하세요. 머리를 높이 하고, 뜨거운 음식·음료·운동을 피하세요. 30분 이상 압박해도 출혈이 멈추지 않으면 즉시 치과 또는 응급실을 방문하세요.</p>
+                    <div class="faq-a-content">깨끗한 거즈나 티백을 접어 출혈 부위를 꽉 물고 30분 이상 압박하세요. 머리를 높이 하고, 뜨거운 음식·음료·운동을 피하세요. 30분 이상 압박해도 출혈이 멈추지 않으면 즉시 치과 또는 응급실을 방문하세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-11">
-                    <span>이가 흔들려요, 빠질 것 같아요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">12</span>
+                    <span class="faq-q-text">이가 흔들려요, 빠질 것 같아요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <p>치아 흔들림(동요)은 잇몸병 악화, 외상, 치아 파절 등이 원인입니다. 해당 치아에 힘을 주지 마시고, 가능한 빨리 치과를 방문하세요. 원인에 따라 스플린팅(고정), 잇몸 치료, 또는 기타 처치가 필요합니다.</p>
+                    <div class="faq-a-content">치아 흔들림(동요)은 잇몸병 악화, 외상, 치아 파절 등이 원인입니다. 해당 치아에 힘을 주지 마시고, 가능한 빨리 치과를 방문하세요. 원인에 따라 스플린팅(고정), 잇몸 치료, 또는 기타 처치가 필요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
-                    <span>임시 크라운이 빠졌어요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">13</span>
+                    <span class="faq-q-text">임시 크라운이 빠졌어요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <p>빠진 임시 크라운을 깨끗이 씻어 보관하고, 해당 치아로 식사를 피하세요. 약국의 임시 치과 접착제로 다시 끼울 수 있지만, 가능한 빨리 치과에서 재접착받으세요. 임시 크라운 없이 오래 두면 삭제된 치아가 이동할 수 있습니다.</p>
+                    <div class="faq-a-content">빠진 임시 크라운을 깨끗이 씻어 보관하고, 해당 치아로 식사를 피하세요. 약국의 임시 치과 접착제로 다시 끼울 수 있지만, 가능한 빨리 치과에서 재접착받으세요. 임시 크라운 없이 오래 두면 삭제된 치아가 이동할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-13">
-                    <span>얼굴이 심하게 부었어요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">14</span>
+                    <span class="faq-q-text">얼굴이 심하게 부었어요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <p>치성 감염(치아 원인 감염)으로 얼굴이 붓는 것은 심각한 상황일 수 있습니다. 목 부위까지 부었거나, 호흡이나 삼킴이 어려우면 즉시 응급실을 방문하세요. 구강 내 감염이 목으로 퍼지면(루드비히 앙기나) 생명이 위험할 수 있습니다.</p>
+                    <div class="faq-a-content">치성 감염(치아 원인 감염)으로 얼굴이 붓는 것은 심각한 상황일 수 있습니다. 목 부위까지 부었거나, 호흡이나 삼킴이 어려우면 즉시 응급실을 방문하세요. 구강 내 감염이 목으로 퍼지면(루드비히 앙기나) 생명이 위험할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
-                    <span>아이가 넘어져서 앞니를 다쳤어요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">15</span>
+                    <span class="faq-q-text">아이가 넘어져서 앞니를 다쳤어요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <p>① 출혈이 있으면 거즈로 지혈 ② 빠진 영구치는 우유에 보관 ③ 흔들리는 치아는 건드리지 말기 ④ 30분 이내에 치과 방문이 이상적. 유치가 빠진 경우 재식립은 하지 않지만, X-ray로 영구치 손상 여부를 확인해야 합니다.</p>
+                    <div class="faq-a-content">① 출혈이 있으면 거즈로 지혈 ② 빠진 영구치는 우유에 보관 ③ 흔들리는 치아는 건드리지 말기 ④ 30분 이내에 치과 방문이 이상적. 유치가 빠진 경우 재식립은 하지 않지만, X-ray로 영구치 손상 여부를 확인해야 합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
-                    <span>치과에 갈 때까지 통증을 줄이는 방법은?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">16</span>
+                    <span class="faq-q-text">치과에 갈 때까지 통증을 줄이는 방법은?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <p>① 이부프로펜(애드빌, 부루펜) 복용 — 치통에 가장 효과적 ② 아픈 부위 뺨에 냉찜질(얼음팩) 15분 ③ 소금물 가글(따뜻한 물 + 소금 1/2 티스푼) ④ 자극적인 음식 피하기 ⑤ 머리를 높이 하고 눕기. 아세트아미노펜(타이레놀)도 도움됩니다.</p>
+                    <div class="faq-a-content">① 이부프로펜(애드빌, 부루펜) 복용 — 치통에 가장 효과적 ② 아픈 부위 뺨에 냉찜질(얼음팩) 15분 ③ 소금물 가글(따뜻한 물 + 소금 1/2 티스푼) ④ 자극적인 음식 피하기 ⑤ 머리를 높이 하고 눕기. 아세트아미노펜(타이레놀)도 도움됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
-                    <span>주말·공휴일에도 진료를 받을 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">17</span>
+                    <span class="faq-q-text">주말·공휴일에도 진료를 받을 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <p>서울비디치과는 365일 쉬지 않고 진료합니다. 토·일요일 09:00~17:00, 공휴일 09:00~13:00 진료하며, 급성 통증·외상·감염 등 응급 상황에 빠르게 대응합니다. ☎ 041-415-2892로 전화 후 방문하시면 대기 시간을 줄일 수 있습니다.</p>
+                    <div class="faq-a-content">서울비디치과는 365일 쉬지 않고 진료합니다. 토·일요일 09:00~17:00, 공휴일 09:00~13:00 진료하며, 급성 통증·외상·감염 등 응급 상황에 빠르게 대응합니다. ☎ 041-415-2892로 전화 후 방문하시면 대기 시간을 줄일 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
-                    <span>어린이 치과 응급 상황 시 주의사항은?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">18</span>
+                    <span class="faq-q-text">어린이 치과 응급 상황 시 주의사항은?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <p>아이가 놀라지 않도록 차분하게 대처하세요. 출혈은 깨끗한 거즈로 압박, 빠진 영구치는 우유 보관, 부러진 치아 조각도 보관합니다. 가능하면 30분 이내에 치과를 방문하되, 의식 장애나 심한 안면 외상은 즉시 응급실(119)로 연락하세요.</p>
+                    <div class="faq-a-content">아이가 놀라지 않도록 차분하게 대처하세요. 출혈은 깨끗한 거즈로 압박, 빠진 영구치는 우유 보관, 부러진 치아 조각도 보관합니다. 가능하면 30분 이내에 치과를 방문하되, 의식 장애나 심한 안면 외상은 즉시 응급실(119)로 연락하세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
-                    <span>응급 치과 방문 전 어떤 정보를 준비하면 좋나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">19</span>
+                    <span class="faq-q-text">응급 치과 방문 전 어떤 정보를 준비하면 좋나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <p>① 증상 시작 시점과 경과 ② 현재 복용 중인 약물 ③ 기저질환(당뇨, 고혈압, 항혈전제 복용 등) ④ 알러지 정보 ⑤ 이전 치과 치료 이력. 이 정보를 미리 정리하면 더 빠르고 정확한 진료가 가능합니다.</p>
+                    <div class="faq-a-content">① 증상 시작 시점과 경과 ② 현재 복용 중인 약물 ③ 기저질환(당뇨, 고혈압, 항혈전제 복용 등) ④ 알러지 정보 ⑤ 이전 치과 치료 이력. 이 정보를 미리 정리하면 더 빠르고 정확한 진료가 가능합니다.</div>
                 </div>
+            </div>
+            <div class="faq-no-results" id="faqNoResults">
+              <i class="fas fa-search"></i>
+              <p>검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
+    <!-- ═══════ CTA Section ═══════ -->
     <section class="section-cta reveal">
       <div class="container">
         <div class="cta-card">
@@ -588,7 +1051,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 관련 치료 페이지 링크 -->
+    <!-- ═══════ Related FAQ ═══════ -->
+    <section class="faq-related-section">
+      <div class="container">
+        <div class="faq-related-header">
+          <h2>다른 FAQ도 확인해 보세요</h2>
+        </div>
+        <div class="faq-related-grid">
+          <a href="/faq/wisdom-tooth" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #10b98112; color: #10b981;"><i class="fas fa-hand-holding-medical"></i></div>
+            <div class="faq-related-card-body"><h3>사랑니 발치 FAQ</h3><span>22개 질문</span></div>
+          </a>
+          <a href="/faq/sedation" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #6366f112; color: #6366f1;"><i class="fas fa-bed"></i></div>
+            <div class="faq-related-card-body"><h3>수면치료 FAQ</h3><span>21개 질문</span></div>
+          </a>
+          <a href="/faq/root-canal" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #6366f112; color: #6366f1;"><i class="fas fa-microscope"></i></div>
+            <div class="faq-related-card-body"><h3>신경치료(근관치료) FAQ</h3><span>20개 질문</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Page Nav ═══════ -->
     <section class="section-sm">
       <div class="container">
         <div class="page-nav-v2">
@@ -607,7 +1093,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
@@ -651,13 +1137,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
-      // FAQ toggle (accessible)
-      document.querySelectorAll('.faq-question').forEach(function(btn){
+      // FAQ toggle (premium)
+      document.querySelectorAll('.faq-main-section .faq-question').forEach(function(btn){
         btn.addEventListener('click',function(){
           var item=this.parentElement;
           var expanded=this.getAttribute('aria-expanded')==='true';
           // Close all
-          document.querySelectorAll('.faq-item.active').forEach(function(i){
+          document.querySelectorAll('.faq-main-section .faq-item.active').forEach(function(i){
             i.classList.remove('active');
             i.querySelector('.faq-question').setAttribute('aria-expanded','false');
           });
@@ -665,9 +1151,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if(!expanded){
             item.classList.add('active');
             this.setAttribute('aria-expanded','true');
+            // Smooth scroll into view
+            setTimeout(function(){ item.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
           }
         });
       });
+
+      // FAQ Search
+      var searchInput=document.getElementById('faqSearchInput');
+      var searchCount=document.getElementById('faqSearchCount');
+      var noResults=document.getElementById('faqNoResults');
+      if(searchInput){
+        searchInput.addEventListener('input',function(){
+          var q=this.value.toLowerCase().trim();
+          var items=document.querySelectorAll('.faq-main-section .faq-item');
+          var visible=0;
+          items.forEach(function(item){
+            var text=item.textContent.toLowerCase();
+            if(!q||text.indexOf(q)!==-1){
+              item.style.display='';
+              visible++;
+            } else {
+              item.style.display='none';
+            }
+          });
+          if(q){
+            searchCount.textContent=visible+'개 결과';
+            searchCount.classList.add('visible');
+            noResults.style.display=visible===0?'block':'none';
+          } else {
+            searchCount.classList.remove('visible');
+            noResults.style.display='none';
+          }
+        });
+      }
+
       // Reveal animation
       var els=document.querySelectorAll('.reveal');
       if(!els.length)return;

@@ -8,7 +8,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
 <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>턱관절(TMJ) 치료 자주 묻는 질문 | 천안 턱관절(TMJ) 치료 FAQ — 서울비디치과</title>
+  <title>턱관절(TMJ) 치료 자주 묻는 질문 | 천안 턱관절(TMJ) 치료 FAQ - 서울비디치과</title>
   <meta name="description" content="턱관절 통증, 소리, 치료방법, 이갈이 등 자주 묻는 질문과 서울비디치과 턱관절 전문의 답변">
   <meta name="abstract" content="턱관절 통증, 소리, 치료방법, 이갈이 등 자주 묻는 질문과 서울비디치과 턱관절 전문의 답변">
   <meta name="ai-summary" content="턱관절 통증, 소리, 치료방법, 이갈이 등 자주 묻는 질문과 서울비디치과 턱관절 전문의 답변">
@@ -277,7 +277,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }</script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
+  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".faq-sub-hero h1",".faq-hero-desc",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
 <!-- Weglot Multilingual -->
@@ -287,6 +287,433 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+<style>
+/* ─── FAQ Sub-page Premium Design v2 ─── */
+.faq-sub-hero {
+  position: relative;
+  padding: 40px 24px 48px;
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  overflow: hidden;
+}
+.faq-sub-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #8b5cf608 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.faq-sub-hero .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.faq-sub-hero .breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.faq-sub-hero .breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.faq-sub-hero .breadcrumb a:hover { color: var(--brand); }
+.faq-sub-hero .breadcrumb .sep { color: var(--gray-300); margin: 0 2px; }
+
+.faq-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #8b5cf612;
+  border: 1.5px solid #8b5cf625;
+  color: #8b5cf6;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.faq-sub-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.faq-sub-hero h1 .quote-line {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.faq-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+.faq-hero-expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.faq-hero-expert i { color: #8b5cf6; }
+
+.faq-hero-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.faq-stat-item {
+  text-align: center;
+  min-width: 80px;
+}
+.faq-stat-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #8b5cf6;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.faq-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ─── TOP FAQ Cards ─── */
+.faq-top-section {
+  padding: 48px 24px 32px;
+  background: var(--white);
+}
+.faq-top-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-top-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-top-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.faq-top-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.faq-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-top-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  animation: fadeInUp 0.5s ease both;
+}
+.faq-top-card:hover {
+  border-color: #8b5cf630;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-top-card-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.faq-top-card-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.faq-top-card-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Search Box ─── */
+.faq-search-bar {
+  padding: 0 24px;
+  margin: -16px auto 0;
+  max-width: 1240px;
+  position: relative;
+  z-index: 10;
+}
+.faq-search-box {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq-search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.faq-search-box input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 4px 20px #8b5cf615;
+}
+.faq-search-box input::placeholder { color: var(--text-tertiary); }
+.faq-search-box .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+.faq-search-count {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-search-count.visible { display: block; }
+
+/* ─── FAQ Main Section (Premium) ─── */
+.faq-main-section {
+  padding: 48px 24px 64px;
+  background: var(--white);
+}
+.faq-main-section .container { max-width: 840px; margin: 0 auto; }
+.faq-main-section .faq-category-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.faq-total-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #8b5cf610;
+  color: #8b5cf6;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* Premium FAQ Item */
+.faq-main-section .faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.faq-main-section .faq-item:hover {
+  border-color: #8b5cf630;
+}
+.faq-main-section .faq-item.active {
+  border-color: #8b5cf640;
+  box-shadow: 0 4px 16px #8b5cf610;
+}
+.faq-main-section .faq-question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-main-section .faq-question:hover { color: #8b5cf6; }
+.faq-main-section .faq-question::after { display: none; }
+
+.faq-main-section .faq-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, var(--brand), #8b5a2b);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-q-badge {
+  background: linear-gradient(135deg, #8b5cf6, #8b5cf6cc);
+}
+.faq-main-section .faq-q-text {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.faq-main-section .faq-item.active .faq-q-text { color: #8b5cf6; }
+.faq-main-section .faq-icon {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #8b5cf6;
+}
+
+.faq-main-section .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-main-section .faq-item.active .faq-answer {
+  max-height: 600px;
+  padding: 0 20px 20px 62px;
+}
+.faq-main-section .faq-a-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border-left: 3px solid #8b5cf6;
+}
+.faq-no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+/* ─── Related FAQ Cards ─── */
+.faq-related-section {
+  padding: 48px 24px;
+  background: var(--gray-50);
+}
+.faq-related-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-related-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.faq-related-header h2 { font-size: 1.4rem; font-weight: 800; }
+.faq-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.faq-related-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.faq-related-card:hover {
+  border-color: var(--brand-gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-related-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.faq-related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.faq-related-card-body span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .faq-top-grid { grid-template-columns: 1fr; }
+  .faq-related-grid { grid-template-columns: 1fr; }
+  .faq-hero-stats { gap: 16px; }
+  .faq-stat-item { min-width: 60px; }
+  .faq-sub-hero { padding: 32px 20px 40px; }
+  .faq-main-section .faq-item.active .faq-answer { padding: 0 16px 16px 16px; }
+  .faq-main-section .faq-question { padding: 16px; }
+  .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -328,60 +755,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">턱관절(TMJ) 치료 FAQ</span>
+
+    <!-- ═══════ Treatment-style Sub Hero ═══════ -->
+    <section class="faq-sub-hero" aria-label="턱관절(TMJ) 치료 FAQ">
+      <div class="container">
+        <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>턱관절(TMJ) 치료</span></div>
+        <div class="faq-page-badge"><i class="fas fa-bone"></i> 턱관절센터</div>
+        <h1>
+          <span class="quote-line">"턱에서 소리가 나요"</span>
+          <span class="text-gradient">턱관절장애 FAQ</span>
         </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          턱관절(TMJ) 치료 자주 묻는 질문
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
+        <p class="faq-hero-desc">턱관절 통증, 소리, 치료방법, 이갈이 등 자주 묻는 질문과 서울비디치과 턱관절 전문의 답변</p>
+        <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 턱관절·구강안면통증 전문의가 답변합니다</div>
+        <div class="faq-hero-stats">
+          <div class="faq-stat-item"><span class="faq-stat-value">비수술</span><span class="faq-stat-label">우선 치료</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">맞춤</span><span class="faq-stat-label">스플린트</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">정밀 진단</span><span class="faq-stat-label">CT/MRI</span></div>
         </div>
       </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-    <!-- Hero -->
-    <section class="faq-hero">
-        <h2>🦴 턱관절(TMJ) 치료 FAQ</h2>
-        <p class="lead">턱관절(TMJ) 치료에 관한 모든 궁금증을 해결해 드립니다<br>턱관절·구강안면통증 전문의가 답변합니다</p>
-        <p class="faq-count">총 <strong>20개</strong>의 질문과 답변</p>
     </section>
 
-    <!-- FAQ 카테고리 네비게이션 -->
+    <!-- ═══════ FAQ Category Navigation ═══════ -->
     <section class="faq-nav">
         <div class="faq-nav-container">
             <a href="/faq/implant" class="faq-nav-item">임플란트</a>
@@ -403,194 +797,264 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- FAQ 내용 -->
-    <section class="faq-section">
-        <div class="faq-category">
-            <h2 class="faq-category-title">🦴 턱관절(TMJ) 치료 자주 묻는 질문</h2>
-            <div class="faq-item">
+    <!-- ═══════ TOP 3 FAQ Cards ═══════ -->
+    <section class="faq-top-section">
+      <div class="container">
+        <div class="faq-top-header">
+          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <p>환자분들이 가장 궁금해하는 TOP 3</p>
+        </div>
+        <div class="faq-top-grid">
+          <div class="faq-top-card" style="animation-delay: 0s">
+            <div class="faq-top-card-num" style="background: #8b5cf6;">1</div>
+            <div class="faq-top-card-content">
+              <h3>턱관절 장애란 무엇인가요?</h3>
+              <p>턱관절 장애(TMD)는 턱 관절이나 주변 근육에 통증, 소리, 개구 제한 등이 발생하는 질환의 총칭입니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.1s">
+            <div class="faq-top-card-num" style="background: #8b5cf6;">2</div>
+            <div class="faq-top-card-content">
+              <h3>턱관절에서 소리가 나면 치료해야 하나요?</h3>
+              <p>소리만 나고 통증이 없으면 반드시 치료가 필요하진 않습니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.2s">
+            <div class="faq-top-card-num" style="background: #8b5cf6;">3</div>
+            <div class="faq-top-card-content">
+              <h3>턱관절 장애의 원인은 무엇인가요?</h3>
+              <p>이갈이·이 악물기 습관, 스트레스, 외상, 부정교합, 한쪽으로만 씹는 습관, 장시간 입 벌리기(치과 치료, 하품) 등이 원인이 될 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Search ═══════ -->
+    <div class="faq-search-bar">
+      <div class="faq-search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="faqSearchInput" placeholder="턱관절(TMJ) 치료 FAQ 검색... (예: 비용, 통증, 기간)" autocomplete="off">
+      </div>
+      <p class="faq-search-count" id="faqSearchCount"></p>
+    </div>
+
+    <!-- ═══════ FAQ Main Content ═══════ -->
+    <section class="faq-main-section">
+        <div class="container">
+            <h2 class="faq-category-title">
+              <i class="fas fa-bone" style="color: #8b5cf6;"></i>
+              턱관절(TMJ) 치료 자주 묻는 질문
+              <span class="faq-total-badge">20개</span>
+            </h2>
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-                    <span>턱관절 장애란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">1</span>
+                    <span class="faq-q-text">턱관절 장애란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <p>턱관절 장애(TMD)는 턱 관절이나 주변 근육에 통증, 소리, 개구 제한 등이 발생하는 질환의 총칭입니다. 입을 벌릴 때 '딱딱', '삐걱' 소리가 나거나, 턱이 아프거나, 입이 잘 안 벌어지는 증상이 대표적입니다.</p>
+                    <div class="faq-a-content">턱관절 장애(TMD)는 턱 관절이나 주변 근육에 통증, 소리, 개구 제한 등이 발생하는 질환의 총칭입니다. 입을 벌릴 때 '딱딱', '삐걱' 소리가 나거나, 턱이 아프거나, 입이 잘 안 벌어지는 증상이 대표적입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                    <span>턱관절에서 소리가 나면 치료해야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">2</span>
+                    <span class="faq-q-text">턱관절에서 소리가 나면 치료해야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <p>소리만 나고 통증이 없으면 반드시 치료가 필요하진 않습니다. 하지만 통증이 동반되거나, 입이 잘 안 벌어지거나, 소리가 점점 심해지면 전문의 진단을 받아야 합니다. 방치하면 악화될 수 있습니다.</p>
+                    <div class="faq-a-content">소리만 나고 통증이 없으면 반드시 치료가 필요하진 않습니다. 하지만 통증이 동반되거나, 입이 잘 안 벌어지거나, 소리가 점점 심해지면 전문의 진단을 받아야 합니다. 방치하면 악화될 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                    <span>턱관절 장애의 원인은 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">3</span>
+                    <span class="faq-q-text">턱관절 장애의 원인은 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <p>이갈이·이 악물기 습관, 스트레스, 외상, 부정교합, 한쪽으로만 씹는 습관, 장시간 입 벌리기(치과 치료, 하품) 등이 원인이 될 수 있습니다. 여러 원인이 복합적으로 작용하는 경우가 많습니다.</p>
+                    <div class="faq-a-content">이갈이·이 악물기 습관, 스트레스, 외상, 부정교합, 한쪽으로만 씹는 습관, 장시간 입 벌리기(치과 치료, 하품) 등이 원인이 될 수 있습니다. 여러 원인이 복합적으로 작용하는 경우가 많습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                    <span>턱관절 치료는 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">4</span>
+                    <span class="faq-q-text">턱관절 치료는 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <p>① 교합안정장치(스플린트) 착용 ② 약물 치료(소염진통제, 근이완제) ③ 물리치료 ④ 습관 교정(이 악물기 방지) ⑤ 보톡스 주사(심한 근육 경직 시). 대부분 보존적 치료로 호전되며, 수술이 필요한 경우는 드뭅니다.</p>
+                    <div class="faq-a-content">① 교합안정장치(스플린트) 착용 ② 약물 치료(소염진통제, 근이완제) ③ 물리치료 ④ 습관 교정(이 악물기 방지) ⑤ 보톡스 주사(심한 근육 경직 시). 대부분 보존적 치료로 호전되며, 수술이 필요한 경우는 드뭅니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                    <span>이갈이는 치료가 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">5</span>
+                    <span class="faq-q-text">이갈이는 치료가 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <p>이갈이 자체를 완전히 없애기는 어렵지만, 야간 교합장치(나이트가드)로 치아 마모와 턱관절 부담을 줄일 수 있습니다. 스트레스 관리, 카페인 줄이기, 취침 전 이완 운동도 도움이 됩니다.</p>
+                    <div class="faq-a-content">이갈이 자체를 완전히 없애기는 어렵지만, 야간 교합장치(나이트가드)로 치아 마모와 턱관절 부담을 줄일 수 있습니다. 스트레스 관리, 카페인 줄이기, 취침 전 이완 운동도 도움이 됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                    <span>턱관절 치료 기간은 얼마나 걸리나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">6</span>
+                    <span class="faq-q-text">턱관절 치료 기간은 얼마나 걸리나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <p>경미한 경우 2~4주, 중등도는 3~6개월, 만성 턱관절 장애는 6개월 이상 걸릴 수 있습니다. 꾸준한 치료와 습관 교정이 중요합니다.</p>
+                    <div class="faq-a-content">경미한 경우 2~4주, 중등도는 3~6개월, 만성 턱관절 장애는 6개월 이상 걸릴 수 있습니다. 꾸준한 치료와 습관 교정이 중요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
-                    <span>턱관절 장애를 예방하려면?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">7</span>
+                    <span class="faq-q-text">턱관절 장애를 예방하려면?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <p>이 악물기 습관 인식 + 교정, 딱딱한 음식(오징어, 얼음 등) 줄이기, 양쪽으로 균등하게 씹기, 턱 괴기 금지, 스트레스 관리, 충분한 수면이 중요합니다.</p>
+                    <div class="faq-a-content">이 악물기 습관 인식 + 교정, 딱딱한 음식(오징어, 얼음 등) 줄이기, 양쪽으로 균등하게 씹기, 턱 괴기 금지, 스트레스 관리, 충분한 수면이 중요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
-                    <span>서울비디치과 턱관절 치료가 특별한 이유는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">8</span>
+                    <span class="faq-q-text">서울비디치과 턱관절 치료가 특별한 이유는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <p>서울비디치과에는 턱관절·구강안면통증 전문의(이병민 원장)가 상주하며, 서울대 수준의 턱관절 클리닉을 운영합니다. CT·MRI 기반 정밀 진단과 맞춤형 스플린트 제작으로 체계적인 치료가 가능합니다.</p>
+                    <div class="faq-a-content">서울비디치과에는 턱관절·구강안면통증 전문의(이병민 원장)가 상주하며, 서울대 수준의 턱관절 클리닉을 운영합니다. CT·MRI 기반 정밀 진단과 맞춤형 스플린트 제작으로 체계적인 치료가 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
-                    <span>턱관절 장애 치료비에 보험이 적용되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">9</span>
+                    <span class="faq-q-text">턱관절 장애 치료비에 보험이 적용되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <p>교합안정장치(스플린트) 제작은 건강보험이 적용되어 본인부담 약 8~15만원 수준입니다. 약물 치료, 물리치료도 보험 적용이 가능합니다. 보톡스 등 일부 치료는 비급여입니다.</p>
+                    <div class="faq-a-content">교합안정장치(스플린트) 제작은 건강보험이 적용되어 본인부담 약 8~15만원 수준입니다. 약물 치료, 물리치료도 보험 적용이 가능합니다. 보톡스 등 일부 치료는 비급여입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
-                    <span>이 악물기 습관은 어떻게 고치나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">10</span>
+                    <span class="faq-q-text">이 악물기 습관은 어떻게 고치나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <p>의식적으로 입술은 닫고, 치아는 떨어뜨리는 것이 기본입니다. 컴퓨터나 핸드폰에 '이 떼기'라는 알림을 설정하거나, 눈에 띄는 곳에 스티커를 붙여 수시로 확인하세요. 취침 시에는 교합안정장치가 효과적입니다.</p>
+                    <div class="faq-a-content">의식적으로 입술은 닫고, 치아는 떨어뜨리는 것이 기본입니다. 컴퓨터나 핸드폰에 '이 떼기'라는 알림을 설정하거나, 눈에 띄는 곳에 스티커를 붙여 수시로 확인하세요. 취침 시에는 교합안정장치가 효과적입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
-                    <span>턱이 빠진 것 같은 느낌(개구 불능)이 들면?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">11</span>
+                    <span class="faq-q-text">턱이 빠진 것 같은 느낌(개구 불능)이 들면?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <p>입이 벌어진 채로 닫히지 않는다면 턱관절 탈구일 수 있습니다. 무리하게 닫으려 하지 마시고 즉시 치과 또는 응급실을 방문하세요. 턱 양쪽을 아래로 눌러 뒤로 미는 방법(도수 정복)으로 치료합니다.</p>
+                    <div class="faq-a-content">입이 벌어진 채로 닫히지 않는다면 턱관절 탈구일 수 있습니다. 무리하게 닫으려 하지 마시고 즉시 치과 또는 응급실을 방문하세요. 턱 양쪽을 아래로 눌러 뒤로 미는 방법(도수 정복)으로 치료합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-11">
-                    <span>턱관절 장애가 두통을 유발하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">12</span>
+                    <span class="faq-q-text">턱관절 장애가 두통을 유발하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <p>네, 턱관절 장애는 측두근(관자놀이 근육) 긴장으로 긴장성 두통을 유발할 수 있습니다. 또한 이갈이·이 악물기로 인한 근육 피로가 두통, 목·어깨 통증으로 이어지기도 합니다. 턱관절 치료 후 두통이 개선되는 경우가 많습니다.</p>
+                    <div class="faq-a-content">네, 턱관절 장애는 측두근(관자놀이 근육) 긴장으로 긴장성 두통을 유발할 수 있습니다. 또한 이갈이·이 악물기로 인한 근육 피로가 두통, 목·어깨 통증으로 이어지기도 합니다. 턱관절 치료 후 두통이 개선되는 경우가 많습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
-                    <span>스플린트(교합안정장치)는 얼마나 착용해야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">13</span>
+                    <span class="faq-q-text">스플린트(교합안정장치)는 얼마나 착용해야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <p>일반적으로 취침 시 매일 착용하며, 증상에 따라 주간에도 착용하기도 합니다. 치료 기간은 3~6개월이 기본이며, 만성 턱관절 장애는 장기간 유지 착용이 필요합니다. 정기 내원하여 스플린트 적합도를 조정합니다.</p>
+                    <div class="faq-a-content">일반적으로 취침 시 매일 착용하며, 증상에 따라 주간에도 착용하기도 합니다. 치료 기간은 3~6개월이 기본이며, 만성 턱관절 장애는 장기간 유지 착용이 필요합니다. 정기 내원하여 스플린트 적합도를 조정합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-13">
-                    <span>턱관절에서 '뚝' 소리가 나는 것과 '사각사각' 소리의 차이는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">14</span>
+                    <span class="faq-q-text">턱관절에서 '뚝' 소리가 나는 것과 '사각사각' 소리의 차이는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <p>"뚝/딱" 소리(클릭)는 관절원판(디스크)이 제자리를 벗어났다가 돌아오면서 나는 소리이며, "사각사각/모래 갈리는" 소리(크레피투스)는 관절면이 거칠어져(퇴행성 변화) 나는 소리입니다. 크레피투스가 더 심한 단계일 수 있으므로 전문의 진단이 필요합니다.</p>
+                    <div class="faq-a-content">"뚝/딱" 소리(클릭)는 관절원판(디스크)이 제자리를 벗어났다가 돌아오면서 나는 소리이며, "사각사각/모래 갈리는" 소리(크레피투스)는 관절면이 거칠어져(퇴행성 변화) 나는 소리입니다. 크레피투스가 더 심한 단계일 수 있으므로 전문의 진단이 필요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
-                    <span>보톡스가 턱관절 치료에 효과가 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">15</span>
+                    <span class="faq-q-text">보톡스가 턱관절 치료에 효과가 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <p>교근(씹는 근육)에 보톡스를 주사하면 근육의 과도한 수축을 줄여 턱관절 부담을 완화할 수 있습니다. 이갈이·이 악물기로 인한 근육 통증과 비대에 효과적이며, 3~6개월 간격으로 반복 시술합니다. 사각턱 개선 효과도 있습니다.</p>
+                    <div class="faq-a-content">교근(씹는 근육)에 보톡스를 주사하면 근육의 과도한 수축을 줄여 턱관절 부담을 완화할 수 있습니다. 이갈이·이 악물기로 인한 근육 통증과 비대에 효과적이며, 3~6개월 간격으로 반복 시술합니다. 사각턱 개선 효과도 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
-                    <span>턱관절 MRI 검사가 필요한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">16</span>
+                    <span class="faq-q-text">턱관절 MRI 검사가 필요한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <p>CT는 뼈 구조를, MRI는 관절원판(디스크)과 연조직 상태를 보여줍니다. 소리, 개구 제한, 재발성 탈구 등이 있을 때 MRI로 디스크 위치와 상태를 정확히 확인합니다. 서울비디치과에서는 필요 시 MRI 검사를 의뢰합니다.</p>
+                    <div class="faq-a-content">CT는 뼈 구조를, MRI는 관절원판(디스크)과 연조직 상태를 보여줍니다. 소리, 개구 제한, 재발성 탈구 등이 있을 때 MRI로 디스크 위치와 상태를 정확히 확인합니다. 서울비디치과에서는 필요 시 MRI 검사를 의뢰합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
-                    <span>교정 치료가 턱관절에 영향을 주나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">17</span>
+                    <span class="faq-q-text">교정 치료가 턱관절에 영향을 주나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <p>교합(물리는 위치)이 턱관절 증상에 영향을 줄 수 있으므로, 턱관절 장애가 있으면 교정 전에 턱관절 상태를 안정시키는 것이 원칙입니다. 교정으로 교합이 개선되면 턱관절 증상이 호전되는 경우도 있습니다.</p>
+                    <div class="faq-a-content">교합(물리는 위치)이 턱관절 증상에 영향을 줄 수 있으므로, 턱관절 장애가 있으면 교정 전에 턱관절 상태를 안정시키는 것이 원칙입니다. 교정으로 교합이 개선되면 턱관절 증상이 호전되는 경우도 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
-                    <span>스트레스와 턱관절 장애의 관계는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">18</span>
+                    <span class="faq-q-text">스트레스와 턱관절 장애의 관계는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <p>스트레스는 턱관절 장애의 주요 악화 요인입니다. 스트레스를 받으면 무의식적으로 이를 악물거나 갈게 되어 턱관절과 근육에 과부하가 걸립니다. 스트레스 관리(명상, 운동, 충분한 수면)가 치료의 일부입니다.</p>
+                    <div class="faq-a-content">스트레스는 턱관절 장애의 주요 악화 요인입니다. 스트레스를 받으면 무의식적으로 이를 악물거나 갈게 되어 턱관절과 근육에 과부하가 걸립니다. 스트레스 관리(명상, 운동, 충분한 수면)가 치료의 일부입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
-                    <span>턱관절 장애가 귀 통증을 유발하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">19</span>
+                    <span class="faq-q-text">턱관절 장애가 귀 통증을 유발하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <p>네, 턱관절은 귀 바로 앞에 위치해 있어 턱관절 염증이나 근육 긴장이 귀 통증, 이명(귀 울림), 이충만감(귀 먹먹함)을 유발할 수 있습니다. 이비인후과에서 이상이 없다면 턱관절 전문의 진단을 받아보세요.</p>
+                    <div class="faq-a-content">네, 턱관절은 귀 바로 앞에 위치해 있어 턱관절 염증이나 근육 긴장이 귀 통증, 이명(귀 울림), 이충만감(귀 먹먹함)을 유발할 수 있습니다. 이비인후과에서 이상이 없다면 턱관절 전문의 진단을 받아보세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-19">
-                    <span>턱관절 수술이 필요한 경우는 언제인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">20</span>
+                    <span class="faq-q-text">턱관절 수술이 필요한 경우는 언제인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
-                    <p>보존적 치료(스플린트, 약물, 물리치료)에 6개월 이상 반응하지 않는 심한 경우에 수술을 고려합니다. 관절경 수술(최소 침습), 관절원판 정복술, 관절면 성형술 등이 있으며, 수술이 필요한 경우는 전체의 5~10%에 불과합니다.</p>
+                    <div class="faq-a-content">보존적 치료(스플린트, 약물, 물리치료)에 6개월 이상 반응하지 않는 심한 경우에 수술을 고려합니다. 관절경 수술(최소 침습), 관절원판 정복술, 관절면 성형술 등이 있으며, 수술이 필요한 경우는 전체의 5~10%에 불과합니다.</div>
                 </div>
+            </div>
+            <div class="faq-no-results" id="faqNoResults">
+              <i class="fas fa-search"></i>
+              <p>검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
+    <!-- ═══════ CTA Section ═══════ -->
     <section class="section-cta reveal">
       <div class="container">
         <div class="cta-card">
@@ -605,7 +1069,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 관련 치료 페이지 링크 -->
+    <!-- ═══════ Related FAQ ═══════ -->
+    <section class="faq-related-section">
+      <div class="container">
+        <div class="faq-related-header">
+          <h2>다른 FAQ도 확인해 보세요</h2>
+        </div>
+        <div class="faq-related-grid">
+          <a href="/faq/sedation" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #6366f112; color: #6366f1;"><i class="fas fa-bed"></i></div>
+            <div class="faq-related-card-body"><h3>수면치료 FAQ</h3><span>21개 질문</span></div>
+          </a>
+          <a href="/faq/crown" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #f59e0b12; color: #f59e0b;"><i class="fas fa-crown"></i></div>
+            <div class="faq-related-card-body"><h3>크라운(보철치료) FAQ</h3><span>20개 질문</span></div>
+          </a>
+          <a href="/faq/orthodontics" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #ec489912; color: #ec4899;"><i class="fas fa-teeth-open"></i></div>
+            <div class="faq-related-card-body"><h3>치아교정 FAQ</h3><span>24개 질문</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Page Nav ═══════ -->
     <section class="section-sm">
       <div class="container">
         <div class="page-nav-v2">
@@ -624,7 +1111,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
@@ -668,13 +1155,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
-      // FAQ toggle (accessible)
-      document.querySelectorAll('.faq-question').forEach(function(btn){
+      // FAQ toggle (premium)
+      document.querySelectorAll('.faq-main-section .faq-question').forEach(function(btn){
         btn.addEventListener('click',function(){
           var item=this.parentElement;
           var expanded=this.getAttribute('aria-expanded')==='true';
           // Close all
-          document.querySelectorAll('.faq-item.active').forEach(function(i){
+          document.querySelectorAll('.faq-main-section .faq-item.active').forEach(function(i){
             i.classList.remove('active');
             i.querySelector('.faq-question').setAttribute('aria-expanded','false');
           });
@@ -682,9 +1169,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if(!expanded){
             item.classList.add('active');
             this.setAttribute('aria-expanded','true');
+            // Smooth scroll into view
+            setTimeout(function(){ item.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
           }
         });
       });
+
+      // FAQ Search
+      var searchInput=document.getElementById('faqSearchInput');
+      var searchCount=document.getElementById('faqSearchCount');
+      var noResults=document.getElementById('faqNoResults');
+      if(searchInput){
+        searchInput.addEventListener('input',function(){
+          var q=this.value.toLowerCase().trim();
+          var items=document.querySelectorAll('.faq-main-section .faq-item');
+          var visible=0;
+          items.forEach(function(item){
+            var text=item.textContent.toLowerCase();
+            if(!q||text.indexOf(q)!==-1){
+              item.style.display='';
+              visible++;
+            } else {
+              item.style.display='none';
+            }
+          });
+          if(q){
+            searchCount.textContent=visible+'개 결과';
+            searchCount.classList.add('visible');
+            noResults.style.display=visible===0?'block':'none';
+          } else {
+            searchCount.classList.remove('visible');
+            noResults.style.display='none';
+          }
+        });
+      }
+
       // Reveal animation
       var els=document.querySelectorAll('.reveal');
       if(!els.length)return;

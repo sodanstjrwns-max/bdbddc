@@ -8,7 +8,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
 <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>임플란트 자주 묻는 질문 | 천안 임플란트 FAQ — 서울비디치과</title>
+  <title>임플란트 자주 묻는 질문 | 천안 임플란트 FAQ - 서울비디치과</title>
   <meta name="description" content="임플란트 비용, 수술 기간, 통증, 수명, 관리법 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="abstract" content="임플란트 비용, 수술 기간, 통증, 수명, 관리법 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="ai-summary" content="임플란트 비용, 수술 기간, 통증, 수명, 관리법 등 자주 묻는 질문과 서울비디치과 전문의 답변">
@@ -317,7 +317,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }</script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
+  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".faq-sub-hero h1",".faq-hero-desc",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
 <!-- Weglot Multilingual -->
@@ -327,6 +327,433 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+<style>
+/* ─── FAQ Sub-page Premium Design v2 ─── */
+.faq-sub-hero {
+  position: relative;
+  padding: 40px 24px 48px;
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  overflow: hidden;
+}
+.faq-sub-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #0ea5e908 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.faq-sub-hero .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.faq-sub-hero .breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.faq-sub-hero .breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.faq-sub-hero .breadcrumb a:hover { color: var(--brand); }
+.faq-sub-hero .breadcrumb .sep { color: var(--gray-300); margin: 0 2px; }
+
+.faq-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #0ea5e912;
+  border: 1.5px solid #0ea5e925;
+  color: #0ea5e9;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.faq-sub-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.faq-sub-hero h1 .quote-line {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.faq-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+.faq-hero-expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.faq-hero-expert i { color: #0ea5e9; }
+
+.faq-hero-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.faq-stat-item {
+  text-align: center;
+  min-width: 80px;
+}
+.faq-stat-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #0ea5e9;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.faq-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ─── TOP FAQ Cards ─── */
+.faq-top-section {
+  padding: 48px 24px 32px;
+  background: var(--white);
+}
+.faq-top-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-top-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-top-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.faq-top-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.faq-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-top-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  animation: fadeInUp 0.5s ease both;
+}
+.faq-top-card:hover {
+  border-color: #0ea5e930;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-top-card-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.faq-top-card-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.faq-top-card-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Search Box ─── */
+.faq-search-bar {
+  padding: 0 24px;
+  margin: -16px auto 0;
+  max-width: 1240px;
+  position: relative;
+  z-index: 10;
+}
+.faq-search-box {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq-search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.faq-search-box input:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 4px 20px #0ea5e915;
+}
+.faq-search-box input::placeholder { color: var(--text-tertiary); }
+.faq-search-box .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+.faq-search-count {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-search-count.visible { display: block; }
+
+/* ─── FAQ Main Section (Premium) ─── */
+.faq-main-section {
+  padding: 48px 24px 64px;
+  background: var(--white);
+}
+.faq-main-section .container { max-width: 840px; margin: 0 auto; }
+.faq-main-section .faq-category-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.faq-total-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #0ea5e910;
+  color: #0ea5e9;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* Premium FAQ Item */
+.faq-main-section .faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.faq-main-section .faq-item:hover {
+  border-color: #0ea5e930;
+}
+.faq-main-section .faq-item.active {
+  border-color: #0ea5e940;
+  box-shadow: 0 4px 16px #0ea5e910;
+}
+.faq-main-section .faq-question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-main-section .faq-question:hover { color: #0ea5e9; }
+.faq-main-section .faq-question::after { display: none; }
+
+.faq-main-section .faq-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, var(--brand), #8b5a2b);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-q-badge {
+  background: linear-gradient(135deg, #0ea5e9, #0ea5e9cc);
+}
+.faq-main-section .faq-q-text {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.faq-main-section .faq-item.active .faq-q-text { color: #0ea5e9; }
+.faq-main-section .faq-icon {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #0ea5e9;
+}
+
+.faq-main-section .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-main-section .faq-item.active .faq-answer {
+  max-height: 600px;
+  padding: 0 20px 20px 62px;
+}
+.faq-main-section .faq-a-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border-left: 3px solid #0ea5e9;
+}
+.faq-no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+/* ─── Related FAQ Cards ─── */
+.faq-related-section {
+  padding: 48px 24px;
+  background: var(--gray-50);
+}
+.faq-related-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-related-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.faq-related-header h2 { font-size: 1.4rem; font-weight: 800; }
+.faq-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.faq-related-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.faq-related-card:hover {
+  border-color: var(--brand-gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-related-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.faq-related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.faq-related-card-body span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .faq-top-grid { grid-template-columns: 1fr; }
+  .faq-related-grid { grid-template-columns: 1fr; }
+  .faq-hero-stats { gap: 16px; }
+  .faq-stat-item { min-width: 60px; }
+  .faq-sub-hero { padding: 32px 20px 40px; }
+  .faq-main-section .faq-item.active .faq-answer { padding: 0 16px 16px 16px; }
+  .faq-main-section .faq-question { padding: 16px; }
+  .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -368,60 +795,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">임플란트 FAQ</span>
+
+    <!-- ═══════ Treatment-style Sub Hero ═══════ -->
+    <section class="faq-sub-hero" aria-label="임플란트 FAQ">
+      <div class="container">
+        <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>임플란트</span></div>
+        <div class="faq-page-badge"><i class="fas fa-tooth"></i> 전문센터</div>
+        <h1>
+          <span class="quote-line">"다른 곳에서 안 된다고요?"</span>
+          <span class="text-gradient">임플란트의 모든 궁금증 해결</span>
         </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          임플란트 자주 묻는 질문
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
+        <p class="faq-hero-desc">임플란트 비용, 수술 기간, 통증, 수명, 관리법 등 자주 묻는 질문과 서울비디치과 전문의 답변</p>
+        <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 서울대 출신 전문의가 답변합니다</div>
+        <div class="faq-hero-stats">
+          <div class="faq-stat-item"><span class="faq-stat-value">95~98%</span><span class="faq-stat-label">성공률</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">20~30년</span><span class="faq-stat-label">수명</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">6개</span><span class="faq-stat-label">전용 수술실</span></div>
         </div>
       </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-    <!-- Hero -->
-    <section class="faq-hero">
-        <h2>🦷 임플란트 FAQ</h2>
-        <p class="lead">임플란트에 관한 모든 궁금증을 해결해 드립니다<br>서울대 출신 전문의가 답변합니다</p>
-        <p class="faq-count">총 <strong>25개</strong>의 질문과 답변</p>
     </section>
 
-    <!-- FAQ 카테고리 네비게이션 -->
+    <!-- ═══════ FAQ Category Navigation ═══════ -->
     <section class="faq-nav">
         <div class="faq-nav-container">
             <a href="/faq/implant" class="faq-nav-item active">임플란트</a>
@@ -443,239 +837,314 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- FAQ 내용 -->
-    <section class="faq-section">
-        <div class="faq-category">
-            <h2 class="faq-category-title">🦷 임플란트 자주 묻는 질문</h2>
-            <div class="faq-item">
+    <!-- ═══════ TOP 3 FAQ Cards ═══════ -->
+    <section class="faq-top-section">
+      <div class="container">
+        <div class="faq-top-header">
+          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <p>환자분들이 가장 궁금해하는 TOP 3</p>
+        </div>
+        <div class="faq-top-grid">
+          <div class="faq-top-card" style="animation-delay: 0s">
+            <div class="faq-top-card-num" style="background: #0ea5e9;">1</div>
+            <div class="faq-top-card-content">
+              <h3>임플란트란 무엇인가요?</h3>
+              <p>임플란트는 상실된 치아 부위의 잇몸뼈(치조골)에 티타늄 인공 나사를 심고, 그 위에 인공 치아(크라운)를 연결하는 치료입니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.1s">
+            <div class="faq-top-card-num" style="background: #0ea5e9;">2</div>
+            <div class="faq-top-card-content">
+              <h3>임플란트 비용은 얼마인가요?</h3>
+              <p>임플란트 비용은 사용하는 픽스처(나사) 브랜드, 상부 보철물 종류, 뼈이식 여부 등에 따라 달라집니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.2s">
+            <div class="faq-top-card-num" style="background: #0ea5e9;">3</div>
+            <div class="faq-top-card-content">
+              <h3>임플란트 수명은 얼마나 되나요?</h3>
+              <p>임플란트 자체(티타늄 픽스처)는 반영구적이며, 관리만 잘하면 20~30년 이상 사용할 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Search ═══════ -->
+    <div class="faq-search-bar">
+      <div class="faq-search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="faqSearchInput" placeholder="임플란트 FAQ 검색... (예: 비용, 통증, 기간)" autocomplete="off">
+      </div>
+      <p class="faq-search-count" id="faqSearchCount"></p>
+    </div>
+
+    <!-- ═══════ FAQ Main Content ═══════ -->
+    <section class="faq-main-section">
+        <div class="container">
+            <h2 class="faq-category-title">
+              <i class="fas fa-tooth" style="color: #0ea5e9;"></i>
+              임플란트 자주 묻는 질문
+              <span class="faq-total-badge">25개</span>
+            </h2>
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-                    <span>임플란트란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">1</span>
+                    <span class="faq-q-text">임플란트란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <p>임플란트는 상실된 치아 부위의 잇몸뼈(치조골)에 티타늄 인공 나사를 심고, 그 위에 인공 치아(크라운)를 연결하는 치료입니다. 자연치아와 가장 유사한 기능과 심미성을 회복할 수 있어, 현재 치아 상실의 최선 치료로 인정받고 있습니다.</p>
+                    <div class="faq-a-content">임플란트는 상실된 치아 부위의 잇몸뼈(치조골)에 티타늄 인공 나사를 심고, 그 위에 인공 치아(크라운)를 연결하는 치료입니다. 자연치아와 가장 유사한 기능과 심미성을 회복할 수 있어, 현재 치아 상실의 최선 치료로 인정받고 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                    <span>임플란트 비용은 얼마인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">2</span>
+                    <span class="faq-q-text">임플란트 비용은 얼마인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <p>임플란트 비용은 사용하는 픽스처(나사) 브랜드, 상부 보철물 종류, 뼈이식 여부 등에 따라 달라집니다. 서울비디치과에서는 상담 후 정확한 견적을 안내드리며, 무이자 할부도 가능합니다. 65세 이상은 국민건강보험 적용(본인부담 30%)이 가능합니다.</p>
+                    <div class="faq-a-content">임플란트 비용은 사용하는 픽스처(나사) 브랜드, 상부 보철물 종류, 뼈이식 여부 등에 따라 달라집니다. 서울비디치과에서는 상담 후 정확한 견적을 안내드리며, 무이자 할부도 가능합니다. 65세 이상은 국민건강보험 적용(본인부담 30%)이 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                    <span>임플란트 수명은 얼마나 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">3</span>
+                    <span class="faq-q-text">임플란트 수명은 얼마나 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <p>임플란트 자체(티타늄 픽스처)는 반영구적이며, 관리만 잘하면 20~30년 이상 사용할 수 있습니다. 다만 상부 크라운은 10~15년 주기로 교체가 필요할 수 있습니다. 정기 검진과 올바른 구강 관리가 수명을 결정하는 핵심입니다.</p>
+                    <div class="faq-a-content">임플란트 자체(티타늄 픽스처)는 반영구적이며, 관리만 잘하면 20~30년 이상 사용할 수 있습니다. 다만 상부 크라운은 10~15년 주기로 교체가 필요할 수 있습니다. 정기 검진과 올바른 구강 관리가 수명을 결정하는 핵심입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                    <span>임플란트 시술 시 통증이 심한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">4</span>
+                    <span class="faq-q-text">임플란트 시술 시 통증이 심한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <p>시술 중에는 충분한 국소마취를 하므로 통증은 거의 없습니다. 서울비디치과에서는 수면진정 하 임플란트도 가능하여, 치과 공포증이 있는 분도 편안하게 시술받으실 수 있습니다. 시술 후 2~3일간 약간의 붓기와 불편감이 있을 수 있으나, 처방 약으로 충분히 조절됩니다.</p>
+                    <div class="faq-a-content">시술 중에는 충분한 국소마취를 하므로 통증은 거의 없습니다. 서울비디치과에서는 수면진정 하 임플란트도 가능하여, 치과 공포증이 있는 분도 편안하게 시술받으실 수 있습니다. 시술 후 2~3일간 약간의 붓기와 불편감이 있을 수 있으나, 처방 약으로 충분히 조절됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                    <span>임플란트 치료 기간은 얼마나 걸리나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">5</span>
+                    <span class="faq-q-text">임플란트 치료 기간은 얼마나 걸리나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <p>일반적으로 하악(아래턱) 2~3개월, 상악(위턱) 4~6개월 정도 소요됩니다. 뼈이식이 필요한 경우 추가 기간이 필요할 수 있습니다. 서울비디치과에서는 당일 임플란트(즉시 식립)도 가능하며, 환자 상태에 따라 최적의 치료 계획을 수립합니다.</p>
+                    <div class="faq-a-content">일반적으로 하악(아래턱) 2~3개월, 상악(위턱) 4~6개월 정도 소요됩니다. 뼈이식이 필요한 경우 추가 기간이 필요할 수 있습니다. 서울비디치과에서는 당일 임플란트(즉시 식립)도 가능하며, 환자 상태에 따라 최적의 치료 계획을 수립합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                    <span>누구나 임플란트를 할 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">6</span>
+                    <span class="faq-q-text">누구나 임플란트를 할 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <p>대부분의 성인은 임플란트가 가능하지만, 조절되지 않는 당뇨, 심한 골다공증, 항암 치료 중인 경우 등은 사전 평가가 필요합니다. 잇몸뼈가 부족한 경우에도 뼈이식(GBR)을 통해 임플란트가 가능합니다. 정확한 판단은 CT 촬영 후 전문의 상담을 통해 확인하실 수 있습니다.</p>
+                    <div class="faq-a-content">대부분의 성인은 임플란트가 가능하지만, 조절되지 않는 당뇨, 심한 골다공증, 항암 치료 중인 경우 등은 사전 평가가 필요합니다. 잇몸뼈가 부족한 경우에도 뼈이식(GBR)을 통해 임플란트가 가능합니다. 정확한 판단은 CT 촬영 후 전문의 상담을 통해 확인하실 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
-                    <span>임플란트에 보험이 적용되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">7</span>
+                    <span class="faq-q-text">임플란트에 보험이 적용되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <p>만 65세 이상 어르신은 평생 2개까지 국민건강보험이 적용됩니다. 본인부담금은 약 30%(약 50~60만원 선)이며, 차상위계층은 본인부담 10%입니다. 65세 미만은 비급여로, 정확한 비용은 상담 시 안내드립니다.</p>
+                    <div class="faq-a-content">만 65세 이상 어르신은 평생 2개까지 국민건강보험이 적용됩니다. 본인부담금은 약 30%(약 50~60만원 선)이며, 차상위계층은 본인부담 10%입니다. 65세 미만은 비급여로, 정확한 비용은 상담 시 안내드립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
-                    <span>임플란트 후 바로 식사할 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">8</span>
+                    <span class="faq-q-text">임플란트 후 바로 식사할 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <p>시술 당일은 반대쪽으로 부드러운 음식(죽, 수프 등)을 드시는 것이 좋습니다. 약 1~2주 후부터 일반 식사가 가능하며, 최종 보철물 장착 후에는 거의 모든 음식을 드실 수 있습니다. 단, 딱딱한 얼음이나 뼈 등은 자연 치아에서도 피하는 것이 좋습니다.</p>
+                    <div class="faq-a-content">시술 당일은 반대쪽으로 부드러운 음식(죽, 수프 등)을 드시는 것이 좋습니다. 약 1~2주 후부터 일반 식사가 가능하며, 최종 보철물 장착 후에는 거의 모든 음식을 드실 수 있습니다. 단, 딱딱한 얼음이나 뼈 등은 자연 치아에서도 피하는 것이 좋습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
-                    <span>임플란트 후 관리는 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">9</span>
+                    <span class="faq-q-text">임플란트 후 관리는 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <p>자연 치아와 동일하게 하루 2~3회 칫솔질 + 치간칫솔 또는 치실 사용이 기본입니다. 임플란트 주위염(임플란트 잇몸병) 예방을 위해 3~6개월마다 정기 검진 및 스케일링을 받으시는 것이 중요합니다.</p>
+                    <div class="faq-a-content">자연 치아와 동일하게 하루 2~3회 칫솔질 + 치간칫솔 또는 치실 사용이 기본입니다. 임플란트 주위염(임플란트 잇몸병) 예방을 위해 3~6개월마다 정기 검진 및 스케일링을 받으시는 것이 중요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
-                    <span>임플란트가 실패할 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">10</span>
+                    <span class="faq-q-text">임플란트가 실패할 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <p>현대 임플란트의 성공률은 95~98%로 매우 높습니다. 하지만 흡연, 관리 부실, 과도한 하중 등으로 실패할 수 있습니다. 서울비디치과에서는 CT 기반 정밀 진단과 서울대 출신 전문의 협진으로 실패 위험을 최소화합니다.</p>
+                    <div class="faq-a-content">현대 임플란트의 성공률은 95~98%로 매우 높습니다. 하지만 흡연, 관리 부실, 과도한 하중 등으로 실패할 수 있습니다. 서울비디치과에서는 CT 기반 정밀 진단과 서울대 출신 전문의 협진으로 실패 위험을 최소화합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
-                    <span>앞니 임플란트도 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">11</span>
+                    <span class="faq-q-text">앞니 임플란트도 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <p>네, 가능합니다. 앞니 임플란트는 심미성이 매우 중요하므로, 잇몸 라인과 치아 색상, 모양을 정밀하게 설계해야 합니다. 서울비디치과에서는 디지털 스캔과 맞춤 어버트먼트를 활용해 자연치아와 구분이 어려운 수준의 앞니 임플란트를 제공합니다.</p>
+                    <div class="faq-a-content">네, 가능합니다. 앞니 임플란트는 심미성이 매우 중요하므로, 잇몸 라인과 치아 색상, 모양을 정밀하게 설계해야 합니다. 서울비디치과에서는 디지털 스캔과 맞춤 어버트먼트를 활용해 자연치아와 구분이 어려운 수준의 앞니 임플란트를 제공합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-11">
-                    <span>뼈이식이 필요하다는데 아픈가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">12</span>
+                    <span class="faq-q-text">뼈이식이 필요하다는데 아픈가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <p>뼈이식(GBR)은 임플란트를 심을 뼈가 부족할 때 뼈를 보충하는 시술입니다. 마취 하에 진행되므로 시술 중 통증은 없으며, 시술 후 붓기와 불편감은 약 3~5일간 지속될 수 있습니다. 뼈이식은 임플란트 성공률을 높이는 중요한 과정입니다.</p>
+                    <div class="faq-a-content">뼈이식(GBR)은 임플란트를 심을 뼈가 부족할 때 뼈를 보충하는 시술입니다. 마취 하에 진행되므로 시술 중 통증은 없으며, 시술 후 붓기와 불편감은 약 3~5일간 지속될 수 있습니다. 뼈이식은 임플란트 성공률을 높이는 중요한 과정입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
-                    <span>임플란트와 브릿지, 어떤 게 나은가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">13</span>
+                    <span class="faq-q-text">임플란트와 브릿지, 어떤 게 나은가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <p>브릿지는 양쪽 건강한 치아를 깎아야 하는 단점이 있고, 임플란트는 인접 치아 손상 없이 독립적으로 시술합니다. 장기적으로 임플란트가 인접 치아 보존, 뼈 흡수 방지, 세정 편의성 면에서 우수합니다. 다만 전신 건강 상태에 따라 브릿지가 적합한 경우도 있으므로 전문의 상담을 권합니다.</p>
+                    <div class="faq-a-content">브릿지는 양쪽 건강한 치아를 깎아야 하는 단점이 있고, 임플란트는 인접 치아 손상 없이 독립적으로 시술합니다. 장기적으로 임플란트가 인접 치아 보존, 뼈 흡수 방지, 세정 편의성 면에서 우수합니다. 다만 전신 건강 상태에 따라 브릿지가 적합한 경우도 있으므로 전문의 상담을 권합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-13">
-                    <span>서울비디치과 임플란트가 특별한 이유는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">14</span>
+                    <span class="faq-q-text">서울비디치과 임플란트가 특별한 이유는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <p>서울비디치과는 독립 수술실 6개를 보유하고 있으며, 에어샤워 감염관리 시스템을 운영합니다. 서울대 출신 전문의 15인이 케이스별 협진하며, CT·디지털 스캔 기반 정밀 진단으로 최적의 치료 계획을 수립합니다. 365일 진료로 바쁜 직장인도 편하게 내원하실 수 있습니다.</p>
+                    <div class="faq-a-content">서울비디치과는 독립 수술실 6개를 보유하고 있으며, 에어샤워 감염관리 시스템을 운영합니다. 서울대 출신 전문의 15인이 케이스별 협진하며, CT·디지털 스캔 기반 정밀 진단으로 최적의 치료 계획을 수립합니다. 365일 진료로 바쁜 직장인도 편하게 내원하실 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
-                    <span>네비게이션 임플란트란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">15</span>
+                    <span class="faq-q-text">네비게이션 임플란트란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <p>네비게이션 임플란트는 CT 데이터를 기반으로 3D 가이드를 제작하여, 컴퓨터가 설계한 정확한 위치·각도·깊이로 임플란트를 식립하는 첨단 시술입니다. 기존 방식 대비 정확도가 높아 신경 손상 위험이 줄고, 절개를 최소화하여 회복이 빠릅니다. 서울비디치과에서는 복잡한 케이스에 네비게이션 임플란트를 적용합니다.</p>
+                    <div class="faq-a-content">네비게이션 임플란트는 CT 데이터를 기반으로 3D 가이드를 제작하여, 컴퓨터가 설계한 정확한 위치·각도·깊이로 임플란트를 식립하는 첨단 시술입니다. 기존 방식 대비 정확도가 높아 신경 손상 위험이 줄고, 절개를 최소화하여 회복이 빠릅니다. 서울비디치과에서는 복잡한 케이스에 네비게이션 임플란트를 적용합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
-                    <span>당일 임플란트(즉시 식립)가 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">16</span>
+                    <span class="faq-q-text">당일 임플란트(즉시 식립)가 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <p>네, 조건이 맞으면 발치와 동시에 임플란트를 식립하는 즉시 식립이 가능합니다. 뼈 상태가 양호하고 감염이 없는 경우 당일 식립으로 치료 기간을 크게 단축할 수 있습니다. 다만 모든 케이스에 적용되는 것은 아니므로 CT 검사 후 전문의가 판단합니다.</p>
+                    <div class="faq-a-content">네, 조건이 맞으면 발치와 동시에 임플란트를 식립하는 즉시 식립이 가능합니다. 뼈 상태가 양호하고 감염이 없는 경우 당일 식립으로 치료 기간을 크게 단축할 수 있습니다. 다만 모든 케이스에 적용되는 것은 아니므로 CT 검사 후 전문의가 판단합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
-                    <span>임플란트 수술 후 운동해도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">17</span>
+                    <span class="faq-q-text">임플란트 수술 후 운동해도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <p>시술 후 1~2주간은 격렬한 운동(달리기, 웨이트, 수영 등)을 피하시는 것이 좋습니다. 혈압이 올라가면 출혈과 붓기가 심해질 수 있습니다. 가벼운 산책은 다음 날부터 가능하며, 전문의 확인 후 점진적으로 운동 강도를 높이세요.</p>
+                    <div class="faq-a-content">시술 후 1~2주간은 격렬한 운동(달리기, 웨이트, 수영 등)을 피하시는 것이 좋습니다. 혈압이 올라가면 출혈과 붓기가 심해질 수 있습니다. 가벼운 산책은 다음 날부터 가능하며, 전문의 확인 후 점진적으로 운동 강도를 높이세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
-                    <span>임플란트 시술 후 흡연해도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">18</span>
+                    <span class="faq-q-text">임플란트 시술 후 흡연해도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <p>흡연은 임플란트 실패의 가장 큰 위험 요인 중 하나입니다. 니코틴이 혈관을 수축시켜 뼈와 임플란트의 유착(골유착)을 방해합니다. 최소 시술 전후 4~8주간 금연을 강력히 권장하며, 가능하면 완전 금연이 이상적입니다.</p>
+                    <div class="faq-a-content">흡연은 임플란트 실패의 가장 큰 위험 요인 중 하나입니다. 니코틴이 혈관을 수축시켜 뼈와 임플란트의 유착(골유착)을 방해합니다. 최소 시술 전후 4~8주간 금연을 강력히 권장하며, 가능하면 완전 금연이 이상적입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
-                    <span>임플란트와 자연 치아의 차이점은?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">19</span>
+                    <span class="faq-q-text">임플란트와 자연 치아의 차이점은?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <p>자연 치아에는 치주인대(쿠션 역할)가 있지만 임플란트에는 없어 뼈에 직접 붙습니다. 따라서 씹는 감각이 약간 다를 수 있고, 과도한 힘이 직접 뼈에 전달됩니다. 기능과 심미성은 자연치아와 거의 동일하지만, 정기적 관리가 더욱 중요합니다.</p>
+                    <div class="faq-a-content">자연 치아에는 치주인대(쿠션 역할)가 있지만 임플란트에는 없어 뼈에 직접 붙습니다. 따라서 씹는 감각이 약간 다를 수 있고, 과도한 힘이 직접 뼈에 전달됩니다. 기능과 심미성은 자연치아와 거의 동일하지만, 정기적 관리가 더욱 중요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-19">
-                    <span>당뇨가 있어도 임플란트가 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">20</span>
+                    <span class="faq-q-text">당뇨가 있어도 임플란트가 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
-                    <p>조절되는 당뇨(HbA1c 7% 이하)라면 임플란트가 가능합니다. 다만 혈당 조절이 안 되면 감염 위험이 높고 골유착이 지연될 수 있으므로, 내과 주치의와 협진하여 혈당을 안정시킨 후 시술합니다. 서울비디치과에서는 당뇨 환자를 위한 맞춤 프로토콜을 운영합니다.</p>
+                    <div class="faq-a-content">조절되는 당뇨(HbA1c 7% 이하)라면 임플란트가 가능합니다. 다만 혈당 조절이 안 되면 감염 위험이 높고 골유착이 지연될 수 있으므로, 내과 주치의와 협진하여 혈당을 안정시킨 후 시술합니다. 서울비디치과에서는 당뇨 환자를 위한 맞춤 프로토콜을 운영합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-20">
-                    <span>임플란트 주위염이란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">21</span>
+                    <span class="faq-q-text">임플란트 주위염이란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-20">
-                    <p>임플란트 주위염은 임플란트 주변 잇몸과 뼈에 염증이 생기는 질환으로, 자연 치아의 잇몸병과 유사합니다. 주된 원인은 구강 위생 관리 부실과 정기 검진 미이행입니다. 초기에 발견하면 치료가 가능하지만, 방치하면 임플란트를 빼야 할 수 있으므로 6개월마다 정기 검진이 필수입니다.</p>
+                    <div class="faq-a-content">임플란트 주위염은 임플란트 주변 잇몸과 뼈에 염증이 생기는 질환으로, 자연 치아의 잇몸병과 유사합니다. 주된 원인은 구강 위생 관리 부실과 정기 검진 미이행입니다. 초기에 발견하면 치료가 가능하지만, 방치하면 임플란트를 빼야 할 수 있으므로 6개월마다 정기 검진이 필수입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-21">
-                    <span>어금니와 앞니 임플란트는 다른가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">22</span>
+                    <span class="faq-q-text">어금니와 앞니 임플란트는 다른가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-21">
-                    <p>기본 원리는 같지만, 앞니 임플란트는 심미성(잇몸 라인, 색상, 투명도)이 매우 중요하고, 어금니 임플란트는 씹는 힘을 견딜 수 있는 내구성이 핵심입니다. 앞니는 맞춤 어버트먼트와 올세라믹 크라운을, 어금니는 지르코니아나 골드 크라운을 주로 사용합니다.</p>
+                    <div class="faq-a-content">기본 원리는 같지만, 앞니 임플란트는 심미성(잇몸 라인, 색상, 투명도)이 매우 중요하고, 어금니 임플란트는 씹는 힘을 견딜 수 있는 내구성이 핵심입니다. 앞니는 맞춤 어버트먼트와 올세라믹 크라운을, 어금니는 지르코니아나 골드 크라운을 주로 사용합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-22">
-                    <span>임플란트 할부 결제가 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">23</span>
+                    <span class="faq-q-text">임플란트 할부 결제가 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-22">
-                    <p>네, 가능합니다. 서울비디치과에서는 무이자 할부(신용카드), 치과 전용 의료 할부 등 다양한 결제 방법을 제공합니다. 부담 없이 치료받으실 수 있도록 개인 맞춤 결제 계획도 상담 시 안내드립니다.</p>
+                    <div class="faq-a-content">네, 가능합니다. 서울비디치과에서는 무이자 할부(신용카드), 치과 전용 의료 할부 등 다양한 결제 방법을 제공합니다. 부담 없이 치료받으실 수 있도록 개인 맞춤 결제 계획도 상담 시 안내드립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-23">
-                    <span>임플란트 틀니와 일반 임플란트의 차이는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">24</span>
+                    <span class="faq-q-text">임플란트 틀니와 일반 임플란트의 차이는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-23">
-                    <p>일반 임플란트는 개별 치아를 하나씩 심는 방식이고, 임플란트 틀니(오버덴처)는 2~4개의 임플란트에 틀니를 고정하는 방식입니다. 다수의 치아가 없는 무치악 환자에게 적합하며, 일반 틀니보다 안정적이면서 전체 임플란트보다 경제적입니다.</p>
+                    <div class="faq-a-content">일반 임플란트는 개별 치아를 하나씩 심는 방식이고, 임플란트 틀니(오버덴처)는 2~4개의 임플란트에 틀니를 고정하는 방식입니다. 다수의 치아가 없는 무치악 환자에게 적합하며, 일반 틀니보다 안정적이면서 전체 임플란트보다 경제적입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-24">
-                    <span>임플란트 보증(보증기간)은 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">25</span>
+                    <span class="faq-q-text">임플란트 보증(보증기간)은 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-24">
-                    <p>서울비디치과에서는 임플란트 시술 후 일정 기간 보증 프로그램을 운영합니다. 정기 검진을 꾸준히 받으시면 보증 혜택을 받으실 수 있습니다. 보증 조건과 기간은 사용 픽스처 브랜드와 시술 유형에 따라 다르므로 상담 시 자세히 안내드립니다.</p>
+                    <div class="faq-a-content">서울비디치과에서는 임플란트 시술 후 일정 기간 보증 프로그램을 운영합니다. 정기 검진을 꾸준히 받으시면 보증 혜택을 받으실 수 있습니다. 보증 조건과 기간은 사용 픽스처 브랜드와 시술 유형에 따라 다르므로 상담 시 자세히 안내드립니다.</div>
                 </div>
+            </div>
+            <div class="faq-no-results" id="faqNoResults">
+              <i class="fas fa-search"></i>
+              <p>검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
+    <!-- ═══════ CTA Section ═══════ -->
     <section class="section-cta reveal">
       <div class="container">
         <div class="cta-card">
@@ -690,7 +1159,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 관련 치료 페이지 링크 -->
+    <!-- ═══════ Related FAQ ═══════ -->
+    <section class="faq-related-section">
+      <div class="container">
+        <div class="faq-related-header">
+          <h2>다른 FAQ도 확인해 보세요</h2>
+        </div>
+        <div class="faq-related-grid">
+          <a href="/faq/crown" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #f59e0b12; color: #f59e0b;"><i class="fas fa-crown"></i></div>
+            <div class="faq-related-card-body"><h3>크라운(보철치료) FAQ</h3><span>20개 질문</span></div>
+          </a>
+          <a href="/faq/sedation" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #6366f112; color: #6366f1;"><i class="fas fa-bed"></i></div>
+            <div class="faq-related-card-body"><h3>수면치료 FAQ</h3><span>21개 질문</span></div>
+          </a>
+          <a href="/faq/gum" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #ef444412; color: #ef4444;"><i class="fas fa-shield-virus"></i></div>
+            <div class="faq-related-card-body"><h3>잇몸치료(치주치료) FAQ</h3><span>20개 질문</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Page Nav ═══════ -->
     <section class="section-sm">
       <div class="container">
         <div class="page-nav-v2">
@@ -709,7 +1201,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
@@ -753,13 +1245,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
-      // FAQ toggle (accessible)
-      document.querySelectorAll('.faq-question').forEach(function(btn){
+      // FAQ toggle (premium)
+      document.querySelectorAll('.faq-main-section .faq-question').forEach(function(btn){
         btn.addEventListener('click',function(){
           var item=this.parentElement;
           var expanded=this.getAttribute('aria-expanded')==='true';
           // Close all
-          document.querySelectorAll('.faq-item.active').forEach(function(i){
+          document.querySelectorAll('.faq-main-section .faq-item.active').forEach(function(i){
             i.classList.remove('active');
             i.querySelector('.faq-question').setAttribute('aria-expanded','false');
           });
@@ -767,9 +1259,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if(!expanded){
             item.classList.add('active');
             this.setAttribute('aria-expanded','true');
+            // Smooth scroll into view
+            setTimeout(function(){ item.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
           }
         });
       });
+
+      // FAQ Search
+      var searchInput=document.getElementById('faqSearchInput');
+      var searchCount=document.getElementById('faqSearchCount');
+      var noResults=document.getElementById('faqNoResults');
+      if(searchInput){
+        searchInput.addEventListener('input',function(){
+          var q=this.value.toLowerCase().trim();
+          var items=document.querySelectorAll('.faq-main-section .faq-item');
+          var visible=0;
+          items.forEach(function(item){
+            var text=item.textContent.toLowerCase();
+            if(!q||text.indexOf(q)!==-1){
+              item.style.display='';
+              visible++;
+            } else {
+              item.style.display='none';
+            }
+          });
+          if(q){
+            searchCount.textContent=visible+'개 결과';
+            searchCount.classList.add('visible');
+            noResults.style.display=visible===0?'block':'none';
+          } else {
+            searchCount.classList.remove('visible');
+            noResults.style.display='none';
+          }
+        });
+      }
+
       // Reveal animation
       var els=document.querySelectorAll('.reveal');
       if(!els.length)return;

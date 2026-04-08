@@ -8,7 +8,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
 <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>인비절라인 자주 묻는 질문 | 천안 인비절라인 FAQ — 서울비디치과</title>
+  <title>인비절라인 자주 묻는 질문 | 천안 인비절라인 FAQ - 서울비디치과</title>
   <meta name="description" content="인비절라인 투명교정 비용, 기간, 착용법, 관리법 등 자주 묻는 질문과 서울비디치과 교정 전문의 답변">
   <meta name="abstract" content="인비절라인 투명교정 비용, 기간, 착용법, 관리법 등 자주 묻는 질문과 서울비디치과 교정 전문의 답변">
   <meta name="ai-summary" content="인비절라인 투명교정 비용, 기간, 착용법, 관리법 등 자주 묻는 질문과 서울비디치과 교정 전문의 답변">
@@ -309,7 +309,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }</script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
+  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".faq-sub-hero h1",".faq-hero-desc",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
 <!-- Weglot Multilingual -->
@@ -319,6 +319,433 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+<style>
+/* ─── FAQ Sub-page Premium Design v2 ─── */
+.faq-sub-hero {
+  position: relative;
+  padding: 40px 24px 48px;
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  overflow: hidden;
+}
+.faq-sub-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #8b5cf608 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.faq-sub-hero .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.faq-sub-hero .breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.faq-sub-hero .breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.faq-sub-hero .breadcrumb a:hover { color: var(--brand); }
+.faq-sub-hero .breadcrumb .sep { color: var(--gray-300); margin: 0 2px; }
+
+.faq-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #8b5cf612;
+  border: 1.5px solid #8b5cf625;
+  color: #8b5cf6;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.faq-sub-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.faq-sub-hero h1 .quote-line {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.faq-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+.faq-hero-expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.faq-hero-expert i { color: #8b5cf6; }
+
+.faq-hero-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.faq-stat-item {
+  text-align: center;
+  min-width: 80px;
+}
+.faq-stat-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #8b5cf6;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.faq-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ─── TOP FAQ Cards ─── */
+.faq-top-section {
+  padding: 48px 24px 32px;
+  background: var(--white);
+}
+.faq-top-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-top-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-top-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.faq-top-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.faq-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-top-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  animation: fadeInUp 0.5s ease both;
+}
+.faq-top-card:hover {
+  border-color: #8b5cf630;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-top-card-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.faq-top-card-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.faq-top-card-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Search Box ─── */
+.faq-search-bar {
+  padding: 0 24px;
+  margin: -16px auto 0;
+  max-width: 1240px;
+  position: relative;
+  z-index: 10;
+}
+.faq-search-box {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq-search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.faq-search-box input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 4px 20px #8b5cf615;
+}
+.faq-search-box input::placeholder { color: var(--text-tertiary); }
+.faq-search-box .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+.faq-search-count {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-search-count.visible { display: block; }
+
+/* ─── FAQ Main Section (Premium) ─── */
+.faq-main-section {
+  padding: 48px 24px 64px;
+  background: var(--white);
+}
+.faq-main-section .container { max-width: 840px; margin: 0 auto; }
+.faq-main-section .faq-category-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.faq-total-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #8b5cf610;
+  color: #8b5cf6;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* Premium FAQ Item */
+.faq-main-section .faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.faq-main-section .faq-item:hover {
+  border-color: #8b5cf630;
+}
+.faq-main-section .faq-item.active {
+  border-color: #8b5cf640;
+  box-shadow: 0 4px 16px #8b5cf610;
+}
+.faq-main-section .faq-question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-main-section .faq-question:hover { color: #8b5cf6; }
+.faq-main-section .faq-question::after { display: none; }
+
+.faq-main-section .faq-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, var(--brand), #8b5a2b);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-q-badge {
+  background: linear-gradient(135deg, #8b5cf6, #8b5cf6cc);
+}
+.faq-main-section .faq-q-text {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.faq-main-section .faq-item.active .faq-q-text { color: #8b5cf6; }
+.faq-main-section .faq-icon {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #8b5cf6;
+}
+
+.faq-main-section .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-main-section .faq-item.active .faq-answer {
+  max-height: 600px;
+  padding: 0 20px 20px 62px;
+}
+.faq-main-section .faq-a-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border-left: 3px solid #8b5cf6;
+}
+.faq-no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+/* ─── Related FAQ Cards ─── */
+.faq-related-section {
+  padding: 48px 24px;
+  background: var(--gray-50);
+}
+.faq-related-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-related-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.faq-related-header h2 { font-size: 1.4rem; font-weight: 800; }
+.faq-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.faq-related-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.faq-related-card:hover {
+  border-color: var(--brand-gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-related-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.faq-related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.faq-related-card-body span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .faq-top-grid { grid-template-columns: 1fr; }
+  .faq-related-grid { grid-template-columns: 1fr; }
+  .faq-hero-stats { gap: 16px; }
+  .faq-stat-item { min-width: 60px; }
+  .faq-sub-hero { padding: 32px 20px 40px; }
+  .faq-main-section .faq-item.active .faq-answer { padding: 0 16px 16px 16px; }
+  .faq-main-section .faq-question { padding: 16px; }
+  .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -360,60 +787,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">인비절라인 FAQ</span>
+
+    <!-- ═══════ Treatment-style Sub Hero ═══════ -->
+    <section class="faq-sub-hero" aria-label="인비절라인 FAQ">
+      <div class="container">
+        <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>인비절라인</span></div>
+        <div class="faq-page-badge"><i class="fas fa-teeth"></i> 다이아몬드 등급</div>
+        <h1>
+          <span class="quote-line">"교정 티 안 나게 할 수 있나요?"</span>
+          <span class="text-gradient">투명교정의 모든 것</span>
         </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          인비절라인 자주 묻는 질문
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
+        <p class="faq-hero-desc">인비절라인 투명교정 비용, 기간, 착용법, 관리법 등 자주 묻는 질문과 서울비디치과 교정 전문의 답변</p>
+        <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 인비절라인 교정 전문의가 답변합니다</div>
+        <div class="faq-hero-stats">
+          <div class="faq-stat-item"><span class="faq-stat-value">12~18개월</span><span class="faq-stat-label">평균 기간</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">투명</span><span class="faq-stat-label">교정장치</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">다이아몬드</span><span class="faq-stat-label">등급</span></div>
         </div>
       </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-    <!-- Hero -->
-    <section class="faq-hero">
-        <h2>😁 인비절라인 FAQ</h2>
-        <p class="lead">인비절라인에 관한 모든 궁금증을 해결해 드립니다<br>인비절라인 교정 전문의가 답변합니다</p>
-        <p class="faq-count">총 <strong>24개</strong>의 질문과 답변</p>
     </section>
 
-    <!-- FAQ 카테고리 네비게이션 -->
+    <!-- ═══════ FAQ Category Navigation ═══════ -->
     <section class="faq-nav">
         <div class="faq-nav-container">
             <a href="/faq/implant" class="faq-nav-item">임플란트</a>
@@ -435,230 +829,304 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- FAQ 내용 -->
-    <section class="faq-section">
-        <div class="faq-category">
-            <h2 class="faq-category-title">😁 인비절라인 자주 묻는 질문</h2>
-            <div class="faq-item">
+    <!-- ═══════ TOP 3 FAQ Cards ═══════ -->
+    <section class="faq-top-section">
+      <div class="container">
+        <div class="faq-top-header">
+          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <p>환자분들이 가장 궁금해하는 TOP 3</p>
+        </div>
+        <div class="faq-top-grid">
+          <div class="faq-top-card" style="animation-delay: 0s">
+            <div class="faq-top-card-num" style="background: #8b5cf6;">1</div>
+            <div class="faq-top-card-content">
+              <h3>인비절라인이란 무엇인가요?</h3>
+              <p>인비절라인은 투명한 플라스틱 장치(얼라이너)를 이용한 교정 치료입니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.1s">
+            <div class="faq-top-card-num" style="background: #8b5cf6;">2</div>
+            <div class="faq-top-card-content">
+              <h3>인비절라인 비용은 얼마인가요?</h3>
+              <p>교정 범위(부분/전체), 난이도, 치료 기간에 따라 달라집니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.2s">
+            <div class="faq-top-card-num" style="background: #8b5cf6;">3</div>
+            <div class="faq-top-card-content">
+              <h3>인비절라인 교정 기간은 얼마나 걸리나요?</h3>
+              <p>일반적으로 12~18개월이며, 간단한 부분 교정은 6개월 이내로 가능합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Search ═══════ -->
+    <div class="faq-search-bar">
+      <div class="faq-search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="faqSearchInput" placeholder="인비절라인 FAQ 검색... (예: 비용, 통증, 기간)" autocomplete="off">
+      </div>
+      <p class="faq-search-count" id="faqSearchCount"></p>
+    </div>
+
+    <!-- ═══════ FAQ Main Content ═══════ -->
+    <section class="faq-main-section">
+        <div class="container">
+            <h2 class="faq-category-title">
+              <i class="fas fa-teeth" style="color: #8b5cf6;"></i>
+              인비절라인 자주 묻는 질문
+              <span class="faq-total-badge">24개</span>
+            </h2>
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-                    <span>인비절라인이란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">1</span>
+                    <span class="faq-q-text">인비절라인이란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <p>인비절라인은 투명한 플라스틱 장치(얼라이너)를 이용한 교정 치료입니다. 기존 철사 교정과 달리 눈에 거의 보이지 않으며, 탈착이 가능해 식사와 양치에 불편이 없습니다. 전 세계 1,700만 명 이상이 선택한 가장 대중적인 투명교정 시스템입니다.</p>
+                    <div class="faq-a-content">인비절라인은 투명한 플라스틱 장치(얼라이너)를 이용한 교정 치료입니다. 기존 철사 교정과 달리 눈에 거의 보이지 않으며, 탈착이 가능해 식사와 양치에 불편이 없습니다. 전 세계 1,700만 명 이상이 선택한 가장 대중적인 투명교정 시스템입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                    <span>인비절라인 비용은 얼마인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">2</span>
+                    <span class="faq-q-text">인비절라인 비용은 얼마인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <p>교정 범위(부분/전체), 난이도, 치료 기간에 따라 달라집니다. 서울비디치과에서는 무료 상담 후 정확한 비용을 안내드리며, 무이자 할부와 카드 결제가 가능합니다.</p>
+                    <div class="faq-a-content">교정 범위(부분/전체), 난이도, 치료 기간에 따라 달라집니다. 서울비디치과에서는 무료 상담 후 정확한 비용을 안내드리며, 무이자 할부와 카드 결제가 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                    <span>인비절라인 교정 기간은 얼마나 걸리나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">3</span>
+                    <span class="faq-q-text">인비절라인 교정 기간은 얼마나 걸리나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <p>일반적으로 12~18개월이며, 간단한 부분 교정은 6개월 이내로 가능합니다. 클린체크(3D 시뮬레이션)를 통해 치료 시작 전 예상 기간과 결과를 미리 확인하실 수 있습니다.</p>
+                    <div class="faq-a-content">일반적으로 12~18개월이며, 간단한 부분 교정은 6개월 이내로 가능합니다. 클린체크(3D 시뮬레이션)를 통해 치료 시작 전 예상 기간과 결과를 미리 확인하실 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                    <span>하루에 몇 시간 착용해야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">4</span>
+                    <span class="faq-q-text">하루에 몇 시간 착용해야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <p>하루 20~22시간 착용이 권장됩니다. 식사와 양치 시에만 제거하고, 나머지 시간은 항상 착용해야 계획대로 교정이 진행됩니다. 착용 시간이 부족하면 치료 기간이 늘어날 수 있습니다.</p>
+                    <div class="faq-a-content">하루 20~22시간 착용이 권장됩니다. 식사와 양치 시에만 제거하고, 나머지 시간은 항상 착용해야 계획대로 교정이 진행됩니다. 착용 시간이 부족하면 치료 기간이 늘어날 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                    <span>인비절라인 착용 시 통증이 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">5</span>
+                    <span class="faq-q-text">인비절라인 착용 시 통증이 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <p>새 장치로 교체 후 1~3일간 약간의 압박감이 있을 수 있으나, 철사 교정에 비해 통증이 현저히 적습니다. 대부분 일상생활에 지장 없이 적응하며, 진통제가 필요한 경우는 드뭅니다.</p>
+                    <div class="faq-a-content">새 장치로 교체 후 1~3일간 약간의 압박감이 있을 수 있으나, 철사 교정에 비해 통증이 현저히 적습니다. 대부분 일상생활에 지장 없이 적응하며, 진통제가 필요한 경우는 드뭅니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                    <span>인비절라인으로 모든 교정이 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">6</span>
+                    <span class="faq-q-text">인비절라인으로 모든 교정이 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <p>가벼운 삐뚤림부터 중등도 부정교합까지 대부분 가능합니다. 다만 심한 골격성 부정교합이나 복잡한 케이스는 기존 교정이 적합할 수 있습니다. 정확한 판단은 전문의 진단 후 결정됩니다.</p>
+                    <div class="faq-a-content">가벼운 삐뚤림부터 중등도 부정교합까지 대부분 가능합니다. 다만 심한 골격성 부정교합이나 복잡한 케이스는 기존 교정이 적합할 수 있습니다. 정확한 판단은 전문의 진단 후 결정됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
-                    <span>인비절라인 관리는 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">7</span>
+                    <span class="faq-q-text">인비절라인 관리는 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <p>매일 미지근한 물과 부드러운 칫솔로 세척하면 됩니다. 뜨거운 물은 변형의 원인이 되므로 피하세요. 전용 세정제를 사용하면 더욱 위생적으로 관리할 수 있습니다.</p>
+                    <div class="faq-a-content">매일 미지근한 물과 부드러운 칫솔로 세척하면 됩니다. 뜨거운 물은 변형의 원인이 되므로 피하세요. 전용 세정제를 사용하면 더욱 위생적으로 관리할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
-                    <span>인비절라인 중에 식사 제한이 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">8</span>
+                    <span class="faq-q-text">인비절라인 중에 식사 제한이 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <p>장치를 제거하고 식사하므로 음식 제한이 없습니다! 이것이 철사 교정 대비 가장 큰 장점 중 하나입니다. 단, 식사 후 양치 후 다시 착용해야 합니다.</p>
+                    <div class="faq-a-content">장치를 제거하고 식사하므로 음식 제한이 없습니다! 이것이 철사 교정 대비 가장 큰 장점 중 하나입니다. 단, 식사 후 양치 후 다시 착용해야 합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
-                    <span>교정 후 유지장치는 얼마나 착용하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">9</span>
+                    <span class="faq-q-text">교정 후 유지장치는 얼마나 착용하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <p>교정 완료 후 처음 6개월은 거의 하루 종일, 이후 취침 시에만 유지장치를 착용합니다. 유지장치를 소홀히 하면 재발 가능성이 있으므로 전문의 지시를 따라 착용해 주세요.</p>
+                    <div class="faq-a-content">교정 완료 후 처음 6개월은 거의 하루 종일, 이후 취침 시에만 유지장치를 착용합니다. 유지장치를 소홀히 하면 재발 가능성이 있으므로 전문의 지시를 따라 착용해 주세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
-                    <span>인비절라인과 일반 교정의 차이점은?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">10</span>
+                    <span class="faq-q-text">인비절라인과 일반 교정의 차이점은?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <p>인비절라인은 투명하여 심미적이고, 탈착 가능하며, 통증이 적고, 구강 위생 관리가 쉽습니다. 일반 교정은 복잡한 케이스에 효과적이며, 비용이 상대적으로 저렴할 수 있습니다. 서울비디치과에서는 환자별 최적의 방법을 추천드립니다.</p>
+                    <div class="faq-a-content">인비절라인은 투명하여 심미적이고, 탈착 가능하며, 통증이 적고, 구강 위생 관리가 쉽습니다. 일반 교정은 복잡한 케이스에 효과적이며, 비용이 상대적으로 저렴할 수 있습니다. 서울비디치과에서는 환자별 최적의 방법을 추천드립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
-                    <span>성인도 교정이 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">11</span>
+                    <span class="faq-q-text">성인도 교정이 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <p>물론입니다! 인비절라인은 특히 성인에게 인기가 높습니다. 직장인, 대학생 등 외모에 신경 쓰이는 분들이 투명교정을 많이 선택하며, 나이 제한 없이 잇몸과 치아 상태만 괜찮다면 교정이 가능합니다.</p>
+                    <div class="faq-a-content">물론입니다! 인비절라인은 특히 성인에게 인기가 높습니다. 직장인, 대학생 등 외모에 신경 쓰이는 분들이 투명교정을 많이 선택하며, 나이 제한 없이 잇몸과 치아 상태만 괜찮다면 교정이 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-11">
-                    <span>서울비디치과 인비절라인이 특별한 이유는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">12</span>
+                    <span class="faq-q-text">서울비디치과 인비절라인이 특별한 이유는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <p>서울비디치과는 인비절라인 공식 인증 치과로, 풍부한 케이스 경험을 보유하고 있습니다. 3D 클린체크 시뮬레이션으로 치료 전 결과를 미리 확인할 수 있으며, 교정 전문의가 시작부터 끝까지 직접 관리합니다.</p>
+                    <div class="faq-a-content">서울비디치과는 인비절라인 공식 인증 치과로, 풍부한 케이스 경험을 보유하고 있습니다. 3D 클린체크 시뮬레이션으로 치료 전 결과를 미리 확인할 수 있으며, 교정 전문의가 시작부터 끝까지 직접 관리합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
-                    <span>인비절라인 치료 전 치아 본뜨기가 필요한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">13</span>
+                    <span class="faq-q-text">인비절라인 치료 전 치아 본뜨기가 필요한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <p>서울비디치과에서는 기존의 불편한 본뜨기(인상) 대신 iTero 디지털 스캐너를 사용합니다. 구역질 없이 2~3분이면 정밀한 3D 치아 모델이 완성되며, 이를 기반으로 인비절라인 본사에서 맞춤 장치를 제작합니다.</p>
+                    <div class="faq-a-content">서울비디치과에서는 기존의 불편한 본뜨기(인상) 대신 iTero 디지털 스캐너를 사용합니다. 구역질 없이 2~3분이면 정밀한 3D 치아 모델이 완성되며, 이를 기반으로 인비절라인 본사에서 맞춤 장치를 제작합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-13">
-                    <span>인비절라인 치료 중 여행을 가도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">14</span>
+                    <span class="faq-q-text">인비절라인 치료 중 여행을 가도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <p>물론입니다! 인비절라인의 큰 장점 중 하나입니다. 여행 시 여분의 얼라이너와 케이스만 챙기시면 됩니다. 다만 착용 시간(20~22시간)을 유지해야 하므로 식사 후 바로 착용하는 습관이 중요합니다.</p>
+                    <div class="faq-a-content">물론입니다! 인비절라인의 큰 장점 중 하나입니다. 여행 시 여분의 얼라이너와 케이스만 챙기시면 됩니다. 다만 착용 시간(20~22시간)을 유지해야 하므로 식사 후 바로 착용하는 습관이 중요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
-                    <span>인비절라인 장치를 분실하면 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">15</span>
+                    <span class="faq-q-text">인비절라인 장치를 분실하면 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <p>분실 시 즉시 치과에 연락하세요. 이전 단계의 장치를 다시 착용하거나, 다음 단계 장치로 넘어갈 수 있습니다. 재제작이 필요한 경우도 있으므로, 항상 이전 단계 장치를 보관해 두시는 것을 권장합니다.</p>
+                    <div class="faq-a-content">분실 시 즉시 치과에 연락하세요. 이전 단계의 장치를 다시 착용하거나, 다음 단계 장치로 넘어갈 수 있습니다. 재제작이 필요한 경우도 있으므로, 항상 이전 단계 장치를 보관해 두시는 것을 권장합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
-                    <span>커피나 차를 마실 때 얼라이너를 빼야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">16</span>
+                    <span class="faq-q-text">커피나 차를 마실 때 얼라이너를 빼야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <p>네, 뜨거운 음료는 장치를 변형시킬 수 있고, 색소가 있는 음료(커피, 녹차, 홍차 등)는 장치를 착색시킵니다. 물은 착용 상태로 마셔도 됩니다. 음료를 마신 후 양치하고 다시 착용하세요.</p>
+                    <div class="faq-a-content">네, 뜨거운 음료는 장치를 변형시킬 수 있고, 색소가 있는 음료(커피, 녹차, 홍차 등)는 장치를 착색시킵니다. 물은 착용 상태로 마셔도 됩니다. 음료를 마신 후 양치하고 다시 착용하세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
-                    <span>인비절라인 교정 중 임신해도 괜찮나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">17</span>
+                    <span class="faq-q-text">인비절라인 교정 중 임신해도 괜찮나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <p>인비절라인 자체는 임신에 영향을 주지 않습니다. 다만 임신 중 호르몬 변화로 잇몸이 약해질 수 있으므로 구강 관리에 더 신경 써야 합니다. X-ray 촬영은 임신 중 피해야 하므로, 임신 계획이 있다면 미리 치료 계획을 상담하세요.</p>
+                    <div class="faq-a-content">인비절라인 자체는 임신에 영향을 주지 않습니다. 다만 임신 중 호르몬 변화로 잇몸이 약해질 수 있으므로 구강 관리에 더 신경 써야 합니다. X-ray 촬영은 임신 중 피해야 하므로, 임신 계획이 있다면 미리 치료 계획을 상담하세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
-                    <span>인비절라인은 치아에 어태치먼트를 붙이나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">18</span>
+                    <span class="faq-q-text">인비절라인은 치아에 어태치먼트를 붙이나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <p>네, 대부분의 케이스에서 치아 표면에 투명한 레진 돌기(어태치먼트)를 부착합니다. 얼라이너가 치아를 더 정밀하게 움직이도록 도와주는 역할이며, 치아색이라 거의 눈에 띄지 않습니다. 교정 완료 후 깨끗하게 제거합니다.</p>
+                    <div class="faq-a-content">네, 대부분의 케이스에서 치아 표면에 투명한 레진 돌기(어태치먼트)를 부착합니다. 얼라이너가 치아를 더 정밀하게 움직이도록 도와주는 역할이며, 치아색이라 거의 눈에 띄지 않습니다. 교정 완료 후 깨끗하게 제거합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
-                    <span>인비절라인 교정 결과를 미리 볼 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">19</span>
+                    <span class="faq-q-text">인비절라인 교정 결과를 미리 볼 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <p>네! 클린체크(ClinCheck) 3D 시뮬레이션으로 교정 시작 전에 최종 결과를 미리 확인할 수 있습니다. 치아가 어떻게 움직이는지 단계별로 보여주므로, 치료에 대한 확신을 가지고 시작하실 수 있습니다.</p>
+                    <div class="faq-a-content">네! 클린체크(ClinCheck) 3D 시뮬레이션으로 교정 시작 전에 최종 결과를 미리 확인할 수 있습니다. 치아가 어떻게 움직이는지 단계별로 보여주므로, 치료에 대한 확신을 가지고 시작하실 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-19">
-                    <span>인비절라인은 부분 교정도 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">20</span>
+                    <span class="faq-q-text">인비절라인은 부분 교정도 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
-                    <p>네, 가능합니다. 인비절라인 Go(부분 교정용)는 앞니 배열만 간단히 교정하는 제품으로, 6개월 이내에 완료되는 경우가 많습니다. 심한 부정교합이 아닌 가벼운 삐뚤림, 벌어짐에 효과적이며 비용도 전체 교정보다 저렴합니다.</p>
+                    <div class="faq-a-content">네, 가능합니다. 인비절라인 Go(부분 교정용)는 앞니 배열만 간단히 교정하는 제품으로, 6개월 이내에 완료되는 경우가 많습니다. 심한 부정교합이 아닌 가벼운 삐뚤림, 벌어짐에 효과적이며 비용도 전체 교정보다 저렴합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-20">
-                    <span>인비절라인 착용 중 발음에 영향이 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">21</span>
+                    <span class="faq-q-text">인비절라인 착용 중 발음에 영향이 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-20">
-                    <p>처음 1~2주는 약간의 혀짤배기 느낌이 있을 수 있지만, 대부분 빠르게 적응합니다. 발표, 면접 등 중요한 자리에서는 일시적으로 제거할 수 있는 것도 인비절라인의 장점입니다.</p>
+                    <div class="faq-a-content">처음 1~2주는 약간의 혀짤배기 느낌이 있을 수 있지만, 대부분 빠르게 적응합니다. 발표, 면접 등 중요한 자리에서는 일시적으로 제거할 수 있는 것도 인비절라인의 장점입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-21">
-                    <span>인비절라인 교정 비용에 포함되는 항목은?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">22</span>
+                    <span class="faq-q-text">인비절라인 교정 비용에 포함되는 항목은?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-21">
-                    <p>서울비디치과의 인비절라인 패키지에는 진단·클린체크 시뮬레이션·얼라이너 전 세트·어태치먼트·정기 내원 관리·유지장치가 포함됩니다. 추가 비용 없이 완료까지 관리하며, 구체적인 비용은 상담 시 안내드립니다.</p>
+                    <div class="faq-a-content">서울비디치과의 인비절라인 패키지에는 진단·클린체크 시뮬레이션·얼라이너 전 세트·어태치먼트·정기 내원 관리·유지장치가 포함됩니다. 추가 비용 없이 완료까지 관리하며, 구체적인 비용은 상담 시 안내드립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-22">
-                    <span>인비절라인은 몇 살부터 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">23</span>
+                    <span class="faq-q-text">인비절라인은 몇 살부터 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-22">
-                    <p>인비절라인 퍼스트(First)는 만 6~10세 혼합치열기 아이들을 위한 제품으로, 성장기 교정에도 활용됩니다. 일반 인비절라인은 영구치열이 완성된 청소년(약 12세 이상)부터 가능합니다. 상한 연령 제한은 없습니다.</p>
+                    <div class="faq-a-content">인비절라인 퍼스트(First)는 만 6~10세 혼합치열기 아이들을 위한 제품으로, 성장기 교정에도 활용됩니다. 일반 인비절라인은 영구치열이 완성된 청소년(약 12세 이상)부터 가능합니다. 상한 연령 제한은 없습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-23">
-                    <span>인비절라인 교정 중 충치가 생기면 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">24</span>
+                    <span class="faq-q-text">인비절라인 교정 중 충치가 생기면 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-23">
-                    <p>교정 중에도 충치 치료가 가능합니다. 다만 치아 형태가 변하면 얼라이너 적합도에 영향을 줄 수 있으므로, 치료 범위에 따라 얼라이너 재제작이 필요할 수 있습니다. 교정 중 구강 관리를 철저히 하는 것이 가장 중요합니다.</p>
+                    <div class="faq-a-content">교정 중에도 충치 치료가 가능합니다. 다만 치아 형태가 변하면 얼라이너 적합도에 영향을 줄 수 있으므로, 치료 범위에 따라 얼라이너 재제작이 필요할 수 있습니다. 교정 중 구강 관리를 철저히 하는 것이 가장 중요합니다.</div>
                 </div>
+            </div>
+            <div class="faq-no-results" id="faqNoResults">
+              <i class="fas fa-search"></i>
+              <p>검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
+    <!-- ═══════ CTA Section ═══════ -->
     <section class="section-cta reveal">
       <div class="container">
         <div class="cta-card">
@@ -673,7 +1141,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 관련 치료 페이지 링크 -->
+    <!-- ═══════ Related FAQ ═══════ -->
+    <section class="faq-related-section">
+      <div class="container">
+        <div class="faq-related-header">
+          <h2>다른 FAQ도 확인해 보세요</h2>
+        </div>
+        <div class="faq-related-grid">
+          <a href="/faq/orthodontics" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #ec489912; color: #ec4899;"><i class="fas fa-teeth-open"></i></div>
+            <div class="faq-related-card-body"><h3>치아교정 FAQ</h3><span>24개 질문</span></div>
+          </a>
+          <a href="/faq/whitening" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #06b6d412; color: #06b6d4;"><i class="fas fa-sun"></i></div>
+            <div class="faq-related-card-body"><h3>치아미백 FAQ</h3><span>20개 질문</span></div>
+          </a>
+          <a href="/faq/glownate" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #f59e0b12; color: #f59e0b;"><i class="fas fa-star"></i></div>
+            <div class="faq-related-card-body"><h3>글로우네이트(라미네이트) FAQ</h3><span>24개 질문</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Page Nav ═══════ -->
     <section class="section-sm">
       <div class="container">
         <div class="page-nav-v2">
@@ -692,7 +1183,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
@@ -736,13 +1227,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
-      // FAQ toggle (accessible)
-      document.querySelectorAll('.faq-question').forEach(function(btn){
+      // FAQ toggle (premium)
+      document.querySelectorAll('.faq-main-section .faq-question').forEach(function(btn){
         btn.addEventListener('click',function(){
           var item=this.parentElement;
           var expanded=this.getAttribute('aria-expanded')==='true';
           // Close all
-          document.querySelectorAll('.faq-item.active').forEach(function(i){
+          document.querySelectorAll('.faq-main-section .faq-item.active').forEach(function(i){
             i.classList.remove('active');
             i.querySelector('.faq-question').setAttribute('aria-expanded','false');
           });
@@ -750,9 +1241,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if(!expanded){
             item.classList.add('active');
             this.setAttribute('aria-expanded','true');
+            // Smooth scroll into view
+            setTimeout(function(){ item.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
           }
         });
       });
+
+      // FAQ Search
+      var searchInput=document.getElementById('faqSearchInput');
+      var searchCount=document.getElementById('faqSearchCount');
+      var noResults=document.getElementById('faqNoResults');
+      if(searchInput){
+        searchInput.addEventListener('input',function(){
+          var q=this.value.toLowerCase().trim();
+          var items=document.querySelectorAll('.faq-main-section .faq-item');
+          var visible=0;
+          items.forEach(function(item){
+            var text=item.textContent.toLowerCase();
+            if(!q||text.indexOf(q)!==-1){
+              item.style.display='';
+              visible++;
+            } else {
+              item.style.display='none';
+            }
+          });
+          if(q){
+            searchCount.textContent=visible+'개 결과';
+            searchCount.classList.add('visible');
+            noResults.style.display=visible===0?'block':'none';
+          } else {
+            searchCount.classList.remove('visible');
+            noResults.style.display='none';
+          }
+        });
+      }
+
       // Reveal animation
       var els=document.querySelectorAll('.reveal');
       if(!els.length)return;

@@ -8,7 +8,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
 <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>수면치료 자주 묻는 질문 | 천안 수면치료 FAQ — 서울비디치과</title>
+  <title>수면치료 자주 묻는 질문 | 천안 수면치료 FAQ - 서울비디치과</title>
   <meta name="description" content="수면치료(수면진정) 안전성, 비용, 대상, 진행 과정 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="abstract" content="수면치료(수면진정) 안전성, 비용, 대상, 진행 과정 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="ai-summary" content="수면치료(수면진정) 안전성, 비용, 대상, 진행 과정 등 자주 묻는 질문과 서울비디치과 전문의 답변">
@@ -285,7 +285,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }</script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
+  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".faq-sub-hero h1",".faq-hero-desc",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
 <!-- Weglot Multilingual -->
@@ -295,6 +295,433 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+<style>
+/* ─── FAQ Sub-page Premium Design v2 ─── */
+.faq-sub-hero {
+  position: relative;
+  padding: 40px 24px 48px;
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  overflow: hidden;
+}
+.faq-sub-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #6366f108 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.faq-sub-hero .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.faq-sub-hero .breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.faq-sub-hero .breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.faq-sub-hero .breadcrumb a:hover { color: var(--brand); }
+.faq-sub-hero .breadcrumb .sep { color: var(--gray-300); margin: 0 2px; }
+
+.faq-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #6366f112;
+  border: 1.5px solid #6366f125;
+  color: #6366f1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.faq-sub-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.faq-sub-hero h1 .quote-line {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.faq-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+.faq-hero-expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.faq-hero-expert i { color: #6366f1; }
+
+.faq-hero-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.faq-stat-item {
+  text-align: center;
+  min-width: 80px;
+}
+.faq-stat-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #6366f1;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.faq-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ─── TOP FAQ Cards ─── */
+.faq-top-section {
+  padding: 48px 24px 32px;
+  background: var(--white);
+}
+.faq-top-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-top-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-top-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.faq-top-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.faq-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-top-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  animation: fadeInUp 0.5s ease both;
+}
+.faq-top-card:hover {
+  border-color: #6366f130;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-top-card-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.faq-top-card-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.faq-top-card-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Search Box ─── */
+.faq-search-bar {
+  padding: 0 24px;
+  margin: -16px auto 0;
+  max-width: 1240px;
+  position: relative;
+  z-index: 10;
+}
+.faq-search-box {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq-search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.faq-search-box input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 4px 20px #6366f115;
+}
+.faq-search-box input::placeholder { color: var(--text-tertiary); }
+.faq-search-box .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+.faq-search-count {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-search-count.visible { display: block; }
+
+/* ─── FAQ Main Section (Premium) ─── */
+.faq-main-section {
+  padding: 48px 24px 64px;
+  background: var(--white);
+}
+.faq-main-section .container { max-width: 840px; margin: 0 auto; }
+.faq-main-section .faq-category-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.faq-total-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #6366f110;
+  color: #6366f1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* Premium FAQ Item */
+.faq-main-section .faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.faq-main-section .faq-item:hover {
+  border-color: #6366f130;
+}
+.faq-main-section .faq-item.active {
+  border-color: #6366f140;
+  box-shadow: 0 4px 16px #6366f110;
+}
+.faq-main-section .faq-question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-main-section .faq-question:hover { color: #6366f1; }
+.faq-main-section .faq-question::after { display: none; }
+
+.faq-main-section .faq-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, var(--brand), #8b5a2b);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-q-badge {
+  background: linear-gradient(135deg, #6366f1, #6366f1cc);
+}
+.faq-main-section .faq-q-text {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.faq-main-section .faq-item.active .faq-q-text { color: #6366f1; }
+.faq-main-section .faq-icon {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #6366f1;
+}
+
+.faq-main-section .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-main-section .faq-item.active .faq-answer {
+  max-height: 600px;
+  padding: 0 20px 20px 62px;
+}
+.faq-main-section .faq-a-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border-left: 3px solid #6366f1;
+}
+.faq-no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+/* ─── Related FAQ Cards ─── */
+.faq-related-section {
+  padding: 48px 24px;
+  background: var(--gray-50);
+}
+.faq-related-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-related-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.faq-related-header h2 { font-size: 1.4rem; font-weight: 800; }
+.faq-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.faq-related-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.faq-related-card:hover {
+  border-color: var(--brand-gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-related-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.faq-related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.faq-related-card-body span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .faq-top-grid { grid-template-columns: 1fr; }
+  .faq-related-grid { grid-template-columns: 1fr; }
+  .faq-hero-stats { gap: 16px; }
+  .faq-stat-item { min-width: 60px; }
+  .faq-sub-hero { padding: 32px 20px 40px; }
+  .faq-main-section .faq-item.active .faq-answer { padding: 0 16px 16px 16px; }
+  .faq-main-section .faq-question { padding: 16px; }
+  .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -336,60 +763,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">수면치료 FAQ</span>
+
+    <!-- ═══════ Treatment-style Sub Hero ═══════ -->
+    <section class="faq-sub-hero" aria-label="수면치료 FAQ">
+      <div class="container">
+        <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>수면치료</span></div>
+        <div class="faq-page-badge"><i class="fas fa-bed"></i> 안심 시스템</div>
+        <h1>
+          <span class="quote-line">"치과가 너무 무서워요"</span>
+          <span class="text-gradient">수면치료로 편안하게</span>
         </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          수면치료 자주 묻는 질문
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
+        <p class="faq-hero-desc">수면치료(수면진정) 안전성, 비용, 대상, 진행 과정 등 자주 묻는 질문과 서울비디치과 전문의 답변</p>
+        <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 수면진정 전문 의료진이 답변합니다</div>
+        <div class="faq-hero-stats">
+          <div class="faq-stat-item"><span class="faq-stat-value">안전</span><span class="faq-stat-label">수면치료</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">무통</span><span class="faq-stat-label">시술</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">365일</span><span class="faq-stat-label">가능</span></div>
         </div>
       </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-    <!-- Hero -->
-    <section class="faq-hero">
-        <h2>😴 수면치료 FAQ</h2>
-        <p class="lead">수면치료에 관한 모든 궁금증을 해결해 드립니다<br>수면진정 전문 의료진이 답변합니다</p>
-        <p class="faq-count">총 <strong>21개</strong>의 질문과 답변</p>
     </section>
 
-    <!-- FAQ 카테고리 네비게이션 -->
+    <!-- ═══════ FAQ Category Navigation ═══════ -->
     <section class="faq-nav">
         <div class="faq-nav-container">
             <a href="/faq/implant" class="faq-nav-item">임플란트</a>
@@ -411,203 +805,274 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- FAQ 내용 -->
-    <section class="faq-section">
-        <div class="faq-category">
-            <h2 class="faq-category-title">😴 수면치료 자주 묻는 질문</h2>
-            <div class="faq-item">
+    <!-- ═══════ TOP 3 FAQ Cards ═══════ -->
+    <section class="faq-top-section">
+      <div class="container">
+        <div class="faq-top-header">
+          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <p>환자분들이 가장 궁금해하는 TOP 3</p>
+        </div>
+        <div class="faq-top-grid">
+          <div class="faq-top-card" style="animation-delay: 0s">
+            <div class="faq-top-card-num" style="background: #6366f1;">1</div>
+            <div class="faq-top-card-content">
+              <h3>수면치료(수면진정)란 무엇인가요?</h3>
+              <p>수면치료는 정맥 진정제를 투여하여 환자를 반수면 상태로 만든 뒤 치과 치료를 진행하는 방법입니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.1s">
+            <div class="faq-top-card-num" style="background: #6366f1;">2</div>
+            <div class="faq-top-card-content">
+              <h3>수면치료는 안전한가요?</h3>
+              <p>수면진정은 전신마취와 달리 자발 호흡이 유지되어 매우 안전합니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.2s">
+            <div class="faq-top-card-num" style="background: #6366f1;">3</div>
+            <div class="faq-top-card-content">
+              <h3>수면치료 대상은 누구인가요?</h3>
+              <p>치과 공포증이 심한 분, 구역반사가 심한 분, 장시간 치료가 필요한 분(임플란트 여러 개 등), 장애가 있어 협조가 어려운 분, 소아 환자 등이 대상입니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Search ═══════ -->
+    <div class="faq-search-bar">
+      <div class="faq-search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="faqSearchInput" placeholder="수면치료 FAQ 검색... (예: 비용, 통증, 기간)" autocomplete="off">
+      </div>
+      <p class="faq-search-count" id="faqSearchCount"></p>
+    </div>
+
+    <!-- ═══════ FAQ Main Content ═══════ -->
+    <section class="faq-main-section">
+        <div class="container">
+            <h2 class="faq-category-title">
+              <i class="fas fa-bed" style="color: #6366f1;"></i>
+              수면치료 자주 묻는 질문
+              <span class="faq-total-badge">21개</span>
+            </h2>
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-                    <span>수면치료(수면진정)란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">1</span>
+                    <span class="faq-q-text">수면치료(수면진정)란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <p>수면치료는 정맥 진정제를 투여하여 환자를 반수면 상태로 만든 뒤 치과 치료를 진행하는 방법입니다. 전신마취와 달리 의식은 유지되지만 불안과 통증을 느끼지 못하며, 치료가 끝나면 마치 잠에서 깬 것처럼 편안하게 느끼게 됩니다.</p>
+                    <div class="faq-a-content">수면치료는 정맥 진정제를 투여하여 환자를 반수면 상태로 만든 뒤 치과 치료를 진행하는 방법입니다. 전신마취와 달리 의식은 유지되지만 불안과 통증을 느끼지 못하며, 치료가 끝나면 마치 잠에서 깬 것처럼 편안하게 느끼게 됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                    <span>수면치료는 안전한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">2</span>
+                    <span class="faq-q-text">수면치료는 안전한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <p>수면진정은 전신마취와 달리 자발 호흡이 유지되어 매우 안전합니다. 서울비디치과에서는 생체 모니터링 장비로 혈압, 산소포화도, 심박수를 실시간 체크하며, 경험 많은 전문의가 시술합니다.</p>
+                    <div class="faq-a-content">수면진정은 전신마취와 달리 자발 호흡이 유지되어 매우 안전합니다. 서울비디치과에서는 생체 모니터링 장비로 혈압, 산소포화도, 심박수를 실시간 체크하며, 경험 많은 전문의가 시술합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                    <span>수면치료 대상은 누구인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">3</span>
+                    <span class="faq-q-text">수면치료 대상은 누구인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <p>치과 공포증이 심한 분, 구역반사가 심한 분, 장시간 치료가 필요한 분(임플란트 여러 개 등), 장애가 있어 협조가 어려운 분, 소아 환자 등이 대상입니다.</p>
+                    <div class="faq-a-content">치과 공포증이 심한 분, 구역반사가 심한 분, 장시간 치료가 필요한 분(임플란트 여러 개 등), 장애가 있어 협조가 어려운 분, 소아 환자 등이 대상입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                    <span>수면치료 비용은 얼마인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">4</span>
+                    <span class="faq-q-text">수면치료 비용은 얼마인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <p>수면진정 비용은 별도로 추가되며, 시술 시간과 난이도에 따라 달라집니다. 서울비디치과에서는 상담 시 정확한 비용을 안내드립니다.</p>
+                    <div class="faq-a-content">수면진정 비용은 별도로 추가되며, 시술 시간과 난이도에 따라 달라집니다. 서울비디치과에서는 상담 시 정확한 비용을 안내드립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                    <span>수면치료 전 준비사항이 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">5</span>
+                    <span class="faq-q-text">수면치료 전 준비사항이 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <p>시술 전 최소 6~8시간 금식(음식, 물 포함)이 필요합니다. 복용 중인 약이 있으면 사전에 알려주셔야 하며, 시술 당일 보호자 동행과 자가 운전은 삼가야 합니다.</p>
+                    <div class="faq-a-content">시술 전 최소 6~8시간 금식(음식, 물 포함)이 필요합니다. 복용 중인 약이 있으면 사전에 알려주셔야 하며, 시술 당일 보호자 동행과 자가 운전은 삼가야 합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                    <span>수면치료 후 일상생활이 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">6</span>
+                    <span class="faq-q-text">수면치료 후 일상생활이 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <p>진정제 효과가 완전히 사라지는 데 2~4시간 정도 걸립니다. 당일은 운전, 중요한 결정, 격렬한 운동을 피하시고, 보호자와 함께 귀가하시길 권합니다. 다음 날부터는 정상 활동이 가능합니다.</p>
+                    <div class="faq-a-content">진정제 효과가 완전히 사라지는 데 2~4시간 정도 걸립니다. 당일은 운전, 중요한 결정, 격렬한 운동을 피하시고, 보호자와 함께 귀가하시길 권합니다. 다음 날부터는 정상 활동이 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
-                    <span>수면치료 중 의식이 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">7</span>
+                    <span class="faq-q-text">수면치료 중 의식이 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <p>반수면 상태로 약간의 의식은 있지만, 대부분의 환자가 치료 과정을 기억하지 못합니다. 의사의 간단한 지시(입 벌리기 등)에는 반응할 수 있는 상태입니다.</p>
+                    <div class="faq-a-content">반수면 상태로 약간의 의식은 있지만, 대부분의 환자가 치료 과정을 기억하지 못합니다. 의사의 간단한 지시(입 벌리기 등)에는 반응할 수 있는 상태입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
-                    <span>어린이도 수면치료가 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">8</span>
+                    <span class="faq-q-text">어린이도 수면치료가 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <p>네, 가능합니다. 소아 환자의 경우 치과 공포가 심하거나 치료 협조가 어려울 때 수면치료를 적용합니다. 서울비디치과에서는 소아치과 전문의가 안전하게 진행합니다.</p>
+                    <div class="faq-a-content">네, 가능합니다. 소아 환자의 경우 치과 공포가 심하거나 치료 협조가 어려울 때 수면치료를 적용합니다. 서울비디치과에서는 소아치과 전문의가 안전하게 진행합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
-                    <span>수면치료와 전신마취의 차이는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">9</span>
+                    <span class="faq-q-text">수면치료와 전신마취의 차이는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <p>수면진정은 자발 호흡이 유지되고 의식이 일부 있는 상태이며, 전신마취는 완전히 의식을 잃고 인공호흡이 필요합니다. 치과에서는 대부분 수면진정으로 충분하며, 전신마취보다 회복이 빠르고 부작용이 적습니다.</p>
+                    <div class="faq-a-content">수면진정은 자발 호흡이 유지되고 의식이 일부 있는 상태이며, 전신마취는 완전히 의식을 잃고 인공호흡이 필요합니다. 치과에서는 대부분 수면진정으로 충분하며, 전신마취보다 회복이 빠르고 부작용이 적습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
-                    <span>서울비디치과 수면치료가 특별한 이유는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">10</span>
+                    <span class="faq-q-text">서울비디치과 수면치료가 특별한 이유는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <p>서울비디치과는 수면치료 전용 장비와 독립 수술실을 갖추고 있으며, 실시간 모니터링 시스템으로 환자 안전을 최우선합니다. '겁쟁이도 안심 치과'를 모토로, 치과가 무서운 모든 분들이 편안하게 치료받을 수 있도록 최선을 다합니다.</p>
+                    <div class="faq-a-content">서울비디치과는 수면치료 전용 장비와 독립 수술실을 갖추고 있으며, 실시간 모니터링 시스템으로 환자 안전을 최우선합니다. '겁쟁이도 안심 치과'를 모토로, 치과가 무서운 모든 분들이 편안하게 치료받을 수 있도록 최선을 다합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
-                    <span>수면치료 중 호흡에 문제가 생길 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">11</span>
+                    <span class="faq-q-text">수면치료 중 호흡에 문제가 생길 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <p>수면진정은 자발 호흡이 유지되는 상태이므로 호흡 문제 발생 가능성은 매우 낮습니다. 서울비디치과에서는 산소포화도 모니터를 실시간으로 확인하며, 비상 장비를 완비하고 있어 만일의 상황에도 즉각 대응합니다.</p>
+                    <div class="faq-a-content">수면진정은 자발 호흡이 유지되는 상태이므로 호흡 문제 발생 가능성은 매우 낮습니다. 서울비디치과에서는 산소포화도 모니터를 실시간으로 확인하며, 비상 장비를 완비하고 있어 만일의 상황에도 즉각 대응합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-11">
-                    <span>수면치료 비용은 보험이 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">12</span>
+                    <span class="faq-q-text">수면치료 비용은 보험이 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <p>수면진정 비용은 현재 건강보험 비급여 항목입니다. 치료 비용과 별도로 추가되며, 시술 시간과 사용 약제에 따라 달라집니다. 다만 수면치료 덕분에 한 번에 여러 시술을 진행하면 전체 치료 기간과 내원 횟수를 줄일 수 있습니다.</p>
+                    <div class="faq-a-content">수면진정 비용은 현재 건강보험 비급여 항목입니다. 치료 비용과 별도로 추가되며, 시술 시간과 사용 약제에 따라 달라집니다. 다만 수면치료 덕분에 한 번에 여러 시술을 진행하면 전체 치료 기간과 내원 횟수를 줄일 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
-                    <span>수면치료 후 구역질이 나거나 어지러울 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">13</span>
+                    <span class="faq-q-text">수면치료 후 구역질이 나거나 어지러울 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <p>일부 환자에서 진정제 회복 과정에서 가벼운 메스꺼움이나 어지러움이 나타날 수 있습니다. 대부분 30분~1시간 내에 사라지며, 증상이 있으면 회복실에서 충분히 쉰 후 귀가합니다.</p>
+                    <div class="faq-a-content">일부 환자에서 진정제 회복 과정에서 가벼운 메스꺼움이나 어지러움이 나타날 수 있습니다. 대부분 30분~1시간 내에 사라지며, 증상이 있으면 회복실에서 충분히 쉰 후 귀가합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-13">
-                    <span>수면치료 시 사용하는 약물은 안전한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">14</span>
+                    <span class="faq-q-text">수면치료 시 사용하는 약물은 안전한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <p>프로포폴, 미다졸람, 덱스메데토미딘 등 의료용으로 검증된 약제를 사용합니다. 전문의가 환자의 체중, 건강 상태, 시술 시간을 고려해 적정 용량을 투여하며, 실시간 모니터링으로 안전을 확보합니다.</p>
+                    <div class="faq-a-content">프로포폴, 미다졸람, 덱스메데토미딘 등 의료용으로 검증된 약제를 사용합니다. 전문의가 환자의 체중, 건강 상태, 시술 시간을 고려해 적정 용량을 투여하며, 실시간 모니터링으로 안전을 확보합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
-                    <span>고혈압·심장질환이 있어도 수면치료가 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">15</span>
+                    <span class="faq-q-text">고혈압·심장질환이 있어도 수면치료가 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <p>가능할 수 있지만 사전 평가가 필수입니다. 현재 복용 중인 약물 정보를 알려주시면, 전문의가 안전 여부를 판단합니다. 조절되지 않는 고혈압이나 심한 심장 질환은 수면치료가 제한될 수 있으며, 주치의 소견서가 필요할 수 있습니다.</p>
+                    <div class="faq-a-content">가능할 수 있지만 사전 평가가 필수입니다. 현재 복용 중인 약물 정보를 알려주시면, 전문의가 안전 여부를 판단합니다. 조절되지 않는 고혈압이나 심한 심장 질환은 수면치료가 제한될 수 있으며, 주치의 소견서가 필요할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
-                    <span>수면치료로 어떤 시술을 받을 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">16</span>
+                    <span class="faq-q-text">수면치료로 어떤 시술을 받을 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <p>거의 모든 치과 시술에 수면치료를 적용할 수 있습니다. 임플란트, 사랑니 발치, 다수 충치 치료, 잇몸 수술, 소아 치료 등이 대표적입니다. 특히 장시간 치료가 필요한 경우 한 번에 여러 시술을 진행할 수 있어 효율적입니다.</p>
+                    <div class="faq-a-content">거의 모든 치과 시술에 수면치료를 적용할 수 있습니다. 임플란트, 사랑니 발치, 다수 충치 치료, 잇몸 수술, 소아 치료 등이 대표적입니다. 특히 장시간 치료가 필요한 경우 한 번에 여러 시술을 진행할 수 있어 효율적입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
-                    <span>수면치료 후 다음 날 출근이 가능한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">17</span>
+                    <span class="faq-q-text">수면치료 후 다음 날 출근이 가능한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <p>대부분 다음 날 정상 활동이 가능합니다. 당일은 졸릴 수 있으므로 중요한 업무나 운전은 피하시고, 충분히 휴식하세요. 개인차가 있지만 대체로 6~8시간이면 완전히 회복됩니다.</p>
+                    <div class="faq-a-content">대부분 다음 날 정상 활동이 가능합니다. 당일은 졸릴 수 있으므로 중요한 업무나 운전은 피하시고, 충분히 휴식하세요. 개인차가 있지만 대체로 6~8시간이면 완전히 회복됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
-                    <span>수면치료를 여러 번 받아도 괜찮나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">18</span>
+                    <span class="faq-q-text">수면치료를 여러 번 받아도 괜찮나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <p>네, 의학적으로 수면진정의 반복 시술은 안전합니다. 수면진정에 사용되는 약물은 체내에 축적되지 않으며, 이전 시술과 충분한 간격(보통 1~2주)을 두면 문제없습니다.</p>
+                    <div class="faq-a-content">네, 의학적으로 수면진정의 반복 시술은 안전합니다. 수면진정에 사용되는 약물은 체내에 축적되지 않으며, 이전 시술과 충분한 간격(보통 1~2주)을 두면 문제없습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
-                    <span>웃음가스(아산화질소)와 수면진정의 차이는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">19</span>
+                    <span class="faq-q-text">웃음가스(아산화질소)와 수면진정의 차이는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <p>웃음가스(N2O)는 코로 흡입하는 가벼운 진정법으로, 긴장 완화 효과가 있지만 수면 상태에 이르지는 않습니다. 수면진정은 정맥 주사로 더 깊은 진정 상태를 유도합니다. 가벼운 치과 공포는 웃음가스, 심한 공포나 장시간 시술은 수면진정이 적합합니다.</p>
+                    <div class="faq-a-content">웃음가스(N2O)는 코로 흡입하는 가벼운 진정법으로, 긴장 완화 효과가 있지만 수면 상태에 이르지는 않습니다. 수면진정은 정맥 주사로 더 깊은 진정 상태를 유도합니다. 가벼운 치과 공포는 웃음가스, 심한 공포나 장시간 시술은 수면진정이 적합합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-19">
-                    <span>수면치료 후 기억이 나나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">20</span>
+                    <span class="faq-q-text">수면치료 후 기억이 나나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
-                    <p>대부분의 환자가 치료 과정을 거의 또는 전혀 기억하지 못합니다. 이를 "역행성 기억상실" 효과라 하며, 치과 공포가 심한 분에게는 큰 장점입니다. 마치 잠을 자고 일어난 것처럼 느끼게 됩니다.</p>
+                    <div class="faq-a-content">대부분의 환자가 치료 과정을 거의 또는 전혀 기억하지 못합니다. 이를 "역행성 기억상실" 효과라 하며, 치과 공포가 심한 분에게는 큰 장점입니다. 마치 잠을 자고 일어난 것처럼 느끼게 됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-20">
-                    <span>수면치료 전 왜 금식을 해야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">21</span>
+                    <span class="faq-q-text">수면치료 전 왜 금식을 해야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-20">
-                    <p>진정 상태에서는 구역 반사가 감소하므로, 위 내용물이 역류하여 기도로 들어갈 위험(흡인)을 예방하기 위해 최소 6~8시간 금식이 필요합니다. 물도 시술 2시간 전부터 삼가야 합니다.</p>
+                    <div class="faq-a-content">진정 상태에서는 구역 반사가 감소하므로, 위 내용물이 역류하여 기도로 들어갈 위험(흡인)을 예방하기 위해 최소 6~8시간 금식이 필요합니다. 물도 시술 2시간 전부터 삼가야 합니다.</div>
                 </div>
+            </div>
+            <div class="faq-no-results" id="faqNoResults">
+              <i class="fas fa-search"></i>
+              <p>검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
+    <!-- ═══════ CTA Section ═══════ -->
     <section class="section-cta reveal">
       <div class="container">
         <div class="cta-card">
@@ -622,7 +1087,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 관련 치료 페이지 링크 -->
+    <!-- ═══════ Related FAQ ═══════ -->
+    <section class="faq-related-section">
+      <div class="container">
+        <div class="faq-related-header">
+          <h2>다른 FAQ도 확인해 보세요</h2>
+        </div>
+        <div class="faq-related-grid">
+          <a href="/faq/implant" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #0ea5e912; color: #0ea5e9;"><i class="fas fa-tooth"></i></div>
+            <div class="faq-related-card-body"><h3>임플란트 FAQ</h3><span>25개 질문</span></div>
+          </a>
+          <a href="/faq/wisdom-tooth" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #10b98112; color: #10b981;"><i class="fas fa-hand-holding-medical"></i></div>
+            <div class="faq-related-card-body"><h3>사랑니 발치 FAQ</h3><span>22개 질문</span></div>
+          </a>
+          <a href="/faq/pediatric" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #f472b612; color: #f472b6;"><i class="fas fa-baby"></i></div>
+            <div class="faq-related-card-body"><h3>소아치과 FAQ</h3><span>22개 질문</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Page Nav ═══════ -->
     <section class="section-sm">
       <div class="container">
         <div class="page-nav-v2">
@@ -641,7 +1129,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
@@ -685,13 +1173,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
-      // FAQ toggle (accessible)
-      document.querySelectorAll('.faq-question').forEach(function(btn){
+      // FAQ toggle (premium)
+      document.querySelectorAll('.faq-main-section .faq-question').forEach(function(btn){
         btn.addEventListener('click',function(){
           var item=this.parentElement;
           var expanded=this.getAttribute('aria-expanded')==='true';
           // Close all
-          document.querySelectorAll('.faq-item.active').forEach(function(i){
+          document.querySelectorAll('.faq-main-section .faq-item.active').forEach(function(i){
             i.classList.remove('active');
             i.querySelector('.faq-question').setAttribute('aria-expanded','false');
           });
@@ -699,9 +1187,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if(!expanded){
             item.classList.add('active');
             this.setAttribute('aria-expanded','true');
+            // Smooth scroll into view
+            setTimeout(function(){ item.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
           }
         });
       });
+
+      // FAQ Search
+      var searchInput=document.getElementById('faqSearchInput');
+      var searchCount=document.getElementById('faqSearchCount');
+      var noResults=document.getElementById('faqNoResults');
+      if(searchInput){
+        searchInput.addEventListener('input',function(){
+          var q=this.value.toLowerCase().trim();
+          var items=document.querySelectorAll('.faq-main-section .faq-item');
+          var visible=0;
+          items.forEach(function(item){
+            var text=item.textContent.toLowerCase();
+            if(!q||text.indexOf(q)!==-1){
+              item.style.display='';
+              visible++;
+            } else {
+              item.style.display='none';
+            }
+          });
+          if(q){
+            searchCount.textContent=visible+'개 결과';
+            searchCount.classList.add('visible');
+            noResults.style.display=visible===0?'block':'none';
+          } else {
+            searchCount.classList.remove('visible');
+            noResults.style.display='none';
+          }
+        });
+      }
+
       // Reveal animation
       var els=document.querySelectorAll('.reveal');
       if(!els.length)return;

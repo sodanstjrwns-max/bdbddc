@@ -8,7 +8,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
 <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>스케일링 자주 묻는 질문 | 천안 스케일링 FAQ — 서울비디치과</title>
+  <title>스케일링 자주 묻는 질문 | 천안 스케일링 FAQ - 서울비디치과</title>
   <meta name="description" content="스케일링 주기, 통증, 보험적용, 효과 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="abstract" content="스케일링 주기, 통증, 보험적용, 효과 등 자주 묻는 질문과 서울비디치과 전문의 답변">
   <meta name="ai-summary" content="스케일링 주기, 통증, 보험적용, 효과 등 자주 묻는 질문과 서울비디치과 전문의 답변">
@@ -269,7 +269,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }</script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
+  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".faq-sub-hero h1",".faq-hero-desc",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
 <!-- Weglot Multilingual -->
@@ -279,6 +279,433 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+<style>
+/* ─── FAQ Sub-page Premium Design v2 ─── */
+.faq-sub-hero {
+  position: relative;
+  padding: 40px 24px 48px;
+  background: linear-gradient(135deg, #f0fdfa, #ccfbf1);
+  overflow: hidden;
+}
+.faq-sub-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #14b8a608 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.faq-sub-hero .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.faq-sub-hero .breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.faq-sub-hero .breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.faq-sub-hero .breadcrumb a:hover { color: var(--brand); }
+.faq-sub-hero .breadcrumb .sep { color: var(--gray-300); margin: 0 2px; }
+
+.faq-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #14b8a612;
+  border: 1.5px solid #14b8a625;
+  color: #14b8a6;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.faq-sub-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.faq-sub-hero h1 .quote-line {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.faq-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+.faq-hero-expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.faq-hero-expert i { color: #14b8a6; }
+
+.faq-hero-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.faq-stat-item {
+  text-align: center;
+  min-width: 80px;
+}
+.faq-stat-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #14b8a6;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.faq-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ─── TOP FAQ Cards ─── */
+.faq-top-section {
+  padding: 48px 24px 32px;
+  background: var(--white);
+}
+.faq-top-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-top-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-top-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.faq-top-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.faq-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-top-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  animation: fadeInUp 0.5s ease both;
+}
+.faq-top-card:hover {
+  border-color: #14b8a630;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-top-card-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.faq-top-card-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.faq-top-card-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Search Box ─── */
+.faq-search-bar {
+  padding: 0 24px;
+  margin: -16px auto 0;
+  max-width: 1240px;
+  position: relative;
+  z-index: 10;
+}
+.faq-search-box {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq-search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.faq-search-box input:focus {
+  border-color: #14b8a6;
+  box-shadow: 0 4px 20px #14b8a615;
+}
+.faq-search-box input::placeholder { color: var(--text-tertiary); }
+.faq-search-box .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+.faq-search-count {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-search-count.visible { display: block; }
+
+/* ─── FAQ Main Section (Premium) ─── */
+.faq-main-section {
+  padding: 48px 24px 64px;
+  background: var(--white);
+}
+.faq-main-section .container { max-width: 840px; margin: 0 auto; }
+.faq-main-section .faq-category-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.faq-total-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #14b8a610;
+  color: #14b8a6;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* Premium FAQ Item */
+.faq-main-section .faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.faq-main-section .faq-item:hover {
+  border-color: #14b8a630;
+}
+.faq-main-section .faq-item.active {
+  border-color: #14b8a640;
+  box-shadow: 0 4px 16px #14b8a610;
+}
+.faq-main-section .faq-question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-main-section .faq-question:hover { color: #14b8a6; }
+.faq-main-section .faq-question::after { display: none; }
+
+.faq-main-section .faq-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, var(--brand), #8b5a2b);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-q-badge {
+  background: linear-gradient(135deg, #14b8a6, #14b8a6cc);
+}
+.faq-main-section .faq-q-text {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.faq-main-section .faq-item.active .faq-q-text { color: #14b8a6; }
+.faq-main-section .faq-icon {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #14b8a6;
+}
+
+.faq-main-section .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-main-section .faq-item.active .faq-answer {
+  max-height: 600px;
+  padding: 0 20px 20px 62px;
+}
+.faq-main-section .faq-a-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border-left: 3px solid #14b8a6;
+}
+.faq-no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+/* ─── Related FAQ Cards ─── */
+.faq-related-section {
+  padding: 48px 24px;
+  background: var(--gray-50);
+}
+.faq-related-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-related-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.faq-related-header h2 { font-size: 1.4rem; font-weight: 800; }
+.faq-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.faq-related-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.faq-related-card:hover {
+  border-color: var(--brand-gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-related-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.faq-related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.faq-related-card-body span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .faq-top-grid { grid-template-columns: 1fr; }
+  .faq-related-grid { grid-template-columns: 1fr; }
+  .faq-hero-stats { gap: 16px; }
+  .faq-stat-item { min-width: 60px; }
+  .faq-sub-hero { padding: 32px 20px 40px; }
+  .faq-main-section .faq-item.active .faq-answer { padding: 0 16px 16px 16px; }
+  .faq-main-section .faq-question { padding: 16px; }
+  .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -320,60 +747,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">스케일링 FAQ</span>
+
+    <!-- ═══════ Treatment-style Sub Hero ═══════ -->
+    <section class="faq-sub-hero" aria-label="스케일링 FAQ">
+      <div class="container">
+        <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>스케일링</span></div>
+        <div class="faq-page-badge"><i class="fas fa-broom"></i> 예방치료</div>
+        <h1>
+          <span class="quote-line">"스케일링, 꼭 해야 하나요?"</span>
+          <span class="text-gradient">스케일링 완전 가이드</span>
         </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          스케일링 자주 묻는 질문
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
+        <p class="faq-hero-desc">스케일링 주기, 통증, 보험적용, 효과 등 자주 묻는 질문과 서울비디치과 전문의 답변</p>
+        <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 치주과 전문의가 답변합니다</div>
+        <div class="faq-hero-stats">
+          <div class="faq-stat-item"><span class="faq-stat-value">연 1회</span><span class="faq-stat-label">보험 적용</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">30분</span><span class="faq-stat-label">소요 시간</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">예방</span><span class="faq-stat-label">핵심</span></div>
         </div>
       </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-    <!-- Hero -->
-    <section class="faq-hero">
-        <h2>🧹 스케일링 FAQ</h2>
-        <p class="lead">스케일링에 관한 모든 궁금증을 해결해 드립니다<br>치주과 전문의가 답변합니다</p>
-        <p class="faq-count">총 <strong>19개</strong>의 질문과 답변</p>
     </section>
 
-    <!-- FAQ 카테고리 네비게이션 -->
+    <!-- ═══════ FAQ Category Navigation ═══════ -->
     <section class="faq-nav">
         <div class="faq-nav-container">
             <a href="/faq/implant" class="faq-nav-item">임플란트</a>
@@ -395,185 +789,254 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- FAQ 내용 -->
-    <section class="faq-section">
-        <div class="faq-category">
-            <h2 class="faq-category-title">🧹 스케일링 자주 묻는 질문</h2>
-            <div class="faq-item">
+    <!-- ═══════ TOP 3 FAQ Cards ═══════ -->
+    <section class="faq-top-section">
+      <div class="container">
+        <div class="faq-top-header">
+          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <p>환자분들이 가장 궁금해하는 TOP 3</p>
+        </div>
+        <div class="faq-top-grid">
+          <div class="faq-top-card" style="animation-delay: 0s">
+            <div class="faq-top-card-num" style="background: #14b8a6;">1</div>
+            <div class="faq-top-card-content">
+              <h3>스케일링이란 무엇인가요?</h3>
+              <p>스케일링은 초음파 기구를 이용해 치아 표면과 잇몸 사이에 쌓인 치석(석회화된 치태)을 제거하는 시술입니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.1s">
+            <div class="faq-top-card-num" style="background: #14b8a6;">2</div>
+            <div class="faq-top-card-content">
+              <h3>스케일링은 보험이 되나요?</h3>
+              <p>만 19세 이상은 연 1회 건강보험이 적용됩니다(매년 1월 1일 기준 초기화).</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.2s">
+            <div class="faq-top-card-num" style="background: #14b8a6;">3</div>
+            <div class="faq-top-card-content">
+              <h3>스케일링이 아픈가요?</h3>
+              <p>치석이 많거나 잇몸 상태가 좋지 않으면 시술 중 약간의 불편감이 있을 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Search ═══════ -->
+    <div class="faq-search-bar">
+      <div class="faq-search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="faqSearchInput" placeholder="스케일링 FAQ 검색... (예: 비용, 통증, 기간)" autocomplete="off">
+      </div>
+      <p class="faq-search-count" id="faqSearchCount"></p>
+    </div>
+
+    <!-- ═══════ FAQ Main Content ═══════ -->
+    <section class="faq-main-section">
+        <div class="container">
+            <h2 class="faq-category-title">
+              <i class="fas fa-broom" style="color: #14b8a6;"></i>
+              스케일링 자주 묻는 질문
+              <span class="faq-total-badge">19개</span>
+            </h2>
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-                    <span>스케일링이란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">1</span>
+                    <span class="faq-q-text">스케일링이란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <p>스케일링은 초음파 기구를 이용해 치아 표면과 잇몸 사이에 쌓인 치석(석회화된 치태)을 제거하는 시술입니다. 잇몸병 예방과 치료의 가장 기본적이고 중요한 과정입니다.</p>
+                    <div class="faq-a-content">스케일링은 초음파 기구를 이용해 치아 표면과 잇몸 사이에 쌓인 치석(석회화된 치태)을 제거하는 시술입니다. 잇몸병 예방과 치료의 가장 기본적이고 중요한 과정입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                    <span>스케일링은 보험이 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">2</span>
+                    <span class="faq-q-text">스케일링은 보험이 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <p>만 19세 이상은 연 1회 건강보험이 적용됩니다(매년 1월 1일 기준 초기화). 본인부담금은 약 1만 5천원~2만원 수준입니다. 연 1회 이상이나 추가 치주 치료는 비급여가 될 수 있습니다.</p>
+                    <div class="faq-a-content">만 19세 이상은 연 1회 건강보험이 적용됩니다(매년 1월 1일 기준 초기화). 본인부담금은 약 1만 5천원~2만원 수준입니다. 연 1회 이상이나 추가 치주 치료는 비급여가 될 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                    <span>스케일링이 아픈가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">3</span>
+                    <span class="faq-q-text">스케일링이 아픈가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <p>치석이 많거나 잇몸 상태가 좋지 않으면 시술 중 약간의 불편감이 있을 수 있습니다. 통증이 심한 경우 마취 후 진행할 수 있습니다. 정기적으로 받으면 치석이 적어 불편감도 줄어듭니다.</p>
+                    <div class="faq-a-content">치석이 많거나 잇몸 상태가 좋지 않으면 시술 중 약간의 불편감이 있을 수 있습니다. 통증이 심한 경우 마취 후 진행할 수 있습니다. 정기적으로 받으면 치석이 적어 불편감도 줄어듭니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                    <span>스케일링 후 이가 벌어진 느낌이 드는데?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">4</span>
+                    <span class="faq-q-text">스케일링 후 이가 벌어진 느낌이 드는데?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <p>이것은 치석이 치아 사이를 메우고 있다가 제거되면서 생기는 정상적인 현상입니다. 시간이 지나면 잇몸이 건강해지면서 자연스럽게 회복됩니다. 치석을 그대로 두면 잇몸병이 악화됩니다.</p>
+                    <div class="faq-a-content">이것은 치석이 치아 사이를 메우고 있다가 제거되면서 생기는 정상적인 현상입니다. 시간이 지나면 잇몸이 건강해지면서 자연스럽게 회복됩니다. 치석을 그대로 두면 잇몸병이 악화됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                    <span>스케일링 후 주의사항이 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">5</span>
+                    <span class="faq-q-text">스케일링 후 주의사항이 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <p>시술 후 2~3시간은 뜨겁고 자극적인 음식을 피하세요. 약간의 잇몸 출혈은 정상이며, 1~2일 내에 멈춥니다. 시린 증상이 있으면 시린이 전용 치약을 사용하세요.</p>
+                    <div class="faq-a-content">시술 후 2~3시간은 뜨겁고 자극적인 음식을 피하세요. 약간의 잇몸 출혈은 정상이며, 1~2일 내에 멈춥니다. 시린 증상이 있으면 시린이 전용 치약을 사용하세요.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                    <span>스케일링을 자주 하면 치아가 약해지나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">6</span>
+                    <span class="faq-q-text">스케일링을 자주 하면 치아가 약해지나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <p>전혀 그렇지 않습니다! 이것은 가장 흔한 오해입니다. 스케일링은 치석만 제거하며, 치아 자체를 깎는 것이 아닙니다. 오히려 스케일링을 안 하면 잇몸병으로 치아를 잃을 수 있습니다.</p>
+                    <div class="faq-a-content">전혀 그렇지 않습니다! 이것은 가장 흔한 오해입니다. 스케일링은 치석만 제거하며, 치아 자체를 깎는 것이 아닙니다. 오히려 스케일링을 안 하면 잇몸병으로 치아를 잃을 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
-                    <span>서울비디치과 스케일링이 특별한 이유는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">7</span>
+                    <span class="faq-q-text">서울비디치과 스케일링이 특별한 이유는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <p>서울비디치과에서는 스케일링 후 잇몸 상태를 평가하여 추가 치주 치료 필요 여부를 안내드립니다. 365일 진료로 바쁜 일정에도 편하게 내원하실 수 있으며, 예방 중심의 구강 관리 프로그램을 운영합니다.</p>
+                    <div class="faq-a-content">서울비디치과에서는 스케일링 후 잇몸 상태를 평가하여 추가 치주 치료 필요 여부를 안내드립니다. 365일 진료로 바쁜 일정에도 편하게 내원하실 수 있으며, 예방 중심의 구강 관리 프로그램을 운영합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
-                    <span>스케일링 후 잇몸 출혈이 있는데 정상인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">8</span>
+                    <span class="faq-q-text">스케일링 후 잇몸 출혈이 있는데 정상인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <p>네, 정상입니다. 치석 제거 과정에서 염증이 있던 잇몸에서 약간의 출혈이 있을 수 있으며, 1~2일 내에 멈춥니다. 오히려 출혈이 있다는 것은 잇몸에 염증이 있었다는 증거이며, 스케일링 후 잇몸이 건강해지면서 출혈이 줄어듭니다.</p>
+                    <div class="faq-a-content">네, 정상입니다. 치석 제거 과정에서 염증이 있던 잇몸에서 약간의 출혈이 있을 수 있으며, 1~2일 내에 멈춥니다. 오히려 출혈이 있다는 것은 잇몸에 염증이 있었다는 증거이며, 스케일링 후 잇몸이 건강해지면서 출혈이 줄어듭니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
-                    <span>스케일링 주기는 어떻게 결정하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">9</span>
+                    <span class="faq-q-text">스케일링 주기는 어떻게 결정하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <p>일반적으로 6개월에 1회가 표준이며, 잇몸 상태에 따라 달라집니다. 건강한 잇몸은 1년에 1회, 잇몸병이 있거나 치석이 빨리 쌓이는 경우 3~4개월마다 받는 것을 권합니다. 보험은 연 1회 적용됩니다.</p>
+                    <div class="faq-a-content">일반적으로 6개월에 1회가 표준이며, 잇몸 상태에 따라 달라집니다. 건강한 잇몸은 1년에 1회, 잇몸병이 있거나 치석이 빨리 쌓이는 경우 3~4개월마다 받는 것을 권합니다. 보험은 연 1회 적용됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
-                    <span>스케일링으로 치아가 하얘지나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">10</span>
+                    <span class="faq-q-text">스케일링으로 치아가 하얘지나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <p>스케일링은 치석과 표면 착색(커피·담배 얼룩)을 제거하므로 원래 치아색으로 돌아가는 효과가 있습니다. 하지만 치아 자체를 밝게 하는 미백과는 다릅니다. 스케일링 후 깨끗한 느낌은 착색 제거 효과입니다.</p>
+                    <div class="faq-a-content">스케일링은 치석과 표면 착색(커피·담배 얼룩)을 제거하므로 원래 치아색으로 돌아가는 효과가 있습니다. 하지만 치아 자체를 밝게 하는 미백과는 다릅니다. 스케일링 후 깨끗한 느낌은 착색 제거 효과입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
-                    <span>에어플로우(에어 스케일링)란 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">11</span>
+                    <span class="faq-q-text">에어플로우(에어 스케일링)란 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <p>에어플로우는 미세 분말(중탄산나트륨 등)을 고압 물·공기와 함께 분사하여 착색과 치태를 제거하는 방법입니다. 일반 스케일링 후 추가로 진행하면 치아 표면이 더 매끈해지고 착색 제거 효과가 뛰어납니다.</p>
+                    <div class="faq-a-content">에어플로우는 미세 분말(중탄산나트륨 등)을 고압 물·공기와 함께 분사하여 착색과 치태를 제거하는 방법입니다. 일반 스케일링 후 추가로 진행하면 치아 표면이 더 매끈해지고 착색 제거 효과가 뛰어납니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-11">
-                    <span>스케일링 전 마취를 해도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">12</span>
+                    <span class="faq-q-text">스케일링 전 마취를 해도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <p>물론입니다. 잇몸이 예민하거나 치석이 많아 통증이 걱정되는 분은 마취 후 스케일링을 받을 수 있습니다. 마취 젤(표면 마취)이나 국소 마취를 적용하면 거의 무통으로 시술받을 수 있습니다.</p>
+                    <div class="faq-a-content">물론입니다. 잇몸이 예민하거나 치석이 많아 통증이 걱정되는 분은 마취 후 스케일링을 받을 수 있습니다. 마취 젤(표면 마취)이나 국소 마취를 적용하면 거의 무통으로 시술받을 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
-                    <span>임산부도 스케일링을 받아도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">13</span>
+                    <span class="faq-q-text">임산부도 스케일링을 받아도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <p>네, 임신 중 스케일링은 안전하며 오히려 권장됩니다. 임신성 치은염은 매우 흔하며, 잇몸 관리를 소홀히 하면 악화됩니다. 임신 중기(4~6개월)가 가장 안전한 시기이며, 필요하면 언제든 가능합니다.</p>
+                    <div class="faq-a-content">네, 임신 중 스케일링은 안전하며 오히려 권장됩니다. 임신성 치은염은 매우 흔하며, 잇몸 관리를 소홀히 하면 악화됩니다. 임신 중기(4~6개월)가 가장 안전한 시기이며, 필요하면 언제든 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-13">
-                    <span>스케일링과 잇몸 치료(SRP)의 차이는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">14</span>
+                    <span class="faq-q-text">스케일링과 잇몸 치료(SRP)의 차이는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <p>스케일링은 치아 잇몸선 위(치은연상)의 치석을 제거하는 것이고, SRP(치근활택술)는 잇몸 아래(치은연하)의 치석과 감염 조직까지 제거하는 깊은 청소입니다. 스케일링은 예방 목적, SRP는 치료 목적으로 마취 하에 진행됩니다.</p>
+                    <div class="faq-a-content">스케일링은 치아 잇몸선 위(치은연상)의 치석을 제거하는 것이고, SRP(치근활택술)는 잇몸 아래(치은연하)의 치석과 감염 조직까지 제거하는 깊은 청소입니다. 스케일링은 예방 목적, SRP는 치료 목적으로 마취 하에 진행됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
-                    <span>스케일링 후 치아 사이가 벌어진 것 같아요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">15</span>
+                    <span class="faq-q-text">스케일링 후 치아 사이가 벌어진 것 같아요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <p>치석이 치아 사이 공간을 메우고 있다가 제거되면서 생기는 정상적인 현상입니다. 시간이 지나면 잇몸이 건강해지면서 일부 회복됩니다. 다만 잇몸뼈가 이미 흡수된 경우 완전히 원래대로 돌아오지는 않을 수 있습니다.</p>
+                    <div class="faq-a-content">치석이 치아 사이 공간을 메우고 있다가 제거되면서 생기는 정상적인 현상입니다. 시간이 지나면 잇몸이 건강해지면서 일부 회복됩니다. 다만 잇몸뼈가 이미 흡수된 경우 완전히 원래대로 돌아오지는 않을 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
-                    <span>전동 칫솔을 쓰면 스케일링을 안 받아도 되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">16</span>
+                    <span class="faq-q-text">전동 칫솔을 쓰면 스케일링을 안 받아도 되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <p>전동 칫솔은 수동 칫솔보다 효과적으로 치태를 제거할 수 있지만, 치석(석회화된 치태)은 가정에서 제거할 수 없습니다. 치석은 반드시 치과의 전문 장비로 제거해야 하므로, 전동 칫솔 사용과 관계없이 정기 스케일링은 필요합니다.</p>
+                    <div class="faq-a-content">전동 칫솔은 수동 칫솔보다 효과적으로 치태를 제거할 수 있지만, 치석(석회화된 치태)은 가정에서 제거할 수 없습니다. 치석은 반드시 치과의 전문 장비로 제거해야 하므로, 전동 칫솔 사용과 관계없이 정기 스케일링은 필요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
-                    <span>스케일링은 20대부터 받아야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">17</span>
+                    <span class="faq-q-text">스케일링은 20대부터 받아야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <p>만 19세 이상이면 누구나 건강보험 스케일링을 받을 수 있습니다. 치석은 연령에 관계없이 쌓이므로, 일찍부터 정기 스케일링을 받는 것이 잇몸 건강을 지키는 최선의 방법입니다. 특히 흡연자, 교정 환자는 더 자주 받는 것이 좋습니다.</p>
+                    <div class="faq-a-content">만 19세 이상이면 누구나 건강보험 스케일링을 받을 수 있습니다. 치석은 연령에 관계없이 쌓이므로, 일찍부터 정기 스케일링을 받는 것이 잇몸 건강을 지키는 최선의 방법입니다. 특히 흡연자, 교정 환자는 더 자주 받는 것이 좋습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
-                    <span>스케일링 시 치아 에나멜이 손상되지 않나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">18</span>
+                    <span class="faq-q-text">스케일링 시 치아 에나멜이 손상되지 않나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <p>전문의가 시행하는 스케일링은 에나멜을 손상시키지 않습니다. 초음파 스케일러의 진동이 치석만 분쇄하여 제거하며, 단단한 에나멜에는 영향을 주지 않습니다. 연구적으로도 정기 스케일링이 에나멜을 손상시킨다는 근거는 없습니다.</p>
+                    <div class="faq-a-content">전문의가 시행하는 스케일링은 에나멜을 손상시키지 않습니다. 초음파 스케일러의 진동이 치석만 분쇄하여 제거하며, 단단한 에나멜에는 영향을 주지 않습니다. 연구적으로도 정기 스케일링이 에나멜을 손상시킨다는 근거는 없습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
-                    <span>스케일링 후 시린 증상은 얼마나 지속되나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">19</span>
+                    <span class="faq-q-text">스케일링 후 시린 증상은 얼마나 지속되나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <p>보통 3~7일, 길어야 2주 내에 사라집니다. 치석이 덮고 있던 치아 뿌리가 노출되면서 일시적으로 시린 것이며, 시린이 전용 치약을 사용하면 빠르게 완화됩니다. 2주 이상 지속되면 내원하여 확인하세요.</p>
+                    <div class="faq-a-content">보통 3~7일, 길어야 2주 내에 사라집니다. 치석이 덮고 있던 치아 뿌리가 노출되면서 일시적으로 시린 것이며, 시린이 전용 치약을 사용하면 빠르게 완화됩니다. 2주 이상 지속되면 내원하여 확인하세요.</div>
                 </div>
+            </div>
+            <div class="faq-no-results" id="faqNoResults">
+              <i class="fas fa-search"></i>
+              <p>검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
+    <!-- ═══════ CTA Section ═══════ -->
     <section class="section-cta reveal">
       <div class="container">
         <div class="cta-card">
@@ -588,7 +1051,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 관련 치료 페이지 링크 -->
+    <!-- ═══════ Related FAQ ═══════ -->
+    <section class="faq-related-section">
+      <div class="container">
+        <div class="faq-related-header">
+          <h2>다른 FAQ도 확인해 보세요</h2>
+        </div>
+        <div class="faq-related-grid">
+          <a href="/faq/gum" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #ef444412; color: #ef4444;"><i class="fas fa-shield-virus"></i></div>
+            <div class="faq-related-card-body"><h3>잇몸치료(치주치료) FAQ</h3><span>20개 질문</span></div>
+          </a>
+          <a href="/faq/cavity" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #3b82f612; color: #3b82f6;"><i class="fas fa-search"></i></div>
+            <div class="faq-related-card-body"><h3>충치치료 FAQ</h3><span>20개 질문</span></div>
+          </a>
+          <a href="/faq/whitening" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #06b6d412; color: #06b6d4;"><i class="fas fa-sun"></i></div>
+            <div class="faq-related-card-body"><h3>치아미백 FAQ</h3><span>20개 질문</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Page Nav ═══════ -->
     <section class="section-sm">
       <div class="container">
         <div class="page-nav-v2">
@@ -607,7 +1093,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
@@ -651,13 +1137,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
-      // FAQ toggle (accessible)
-      document.querySelectorAll('.faq-question').forEach(function(btn){
+      // FAQ toggle (premium)
+      document.querySelectorAll('.faq-main-section .faq-question').forEach(function(btn){
         btn.addEventListener('click',function(){
           var item=this.parentElement;
           var expanded=this.getAttribute('aria-expanded')==='true';
           // Close all
-          document.querySelectorAll('.faq-item.active').forEach(function(i){
+          document.querySelectorAll('.faq-main-section .faq-item.active').forEach(function(i){
             i.classList.remove('active');
             i.querySelector('.faq-question').setAttribute('aria-expanded','false');
           });
@@ -665,9 +1151,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if(!expanded){
             item.classList.add('active');
             this.setAttribute('aria-expanded','true');
+            // Smooth scroll into view
+            setTimeout(function(){ item.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
           }
         });
       });
+
+      // FAQ Search
+      var searchInput=document.getElementById('faqSearchInput');
+      var searchCount=document.getElementById('faqSearchCount');
+      var noResults=document.getElementById('faqNoResults');
+      if(searchInput){
+        searchInput.addEventListener('input',function(){
+          var q=this.value.toLowerCase().trim();
+          var items=document.querySelectorAll('.faq-main-section .faq-item');
+          var visible=0;
+          items.forEach(function(item){
+            var text=item.textContent.toLowerCase();
+            if(!q||text.indexOf(q)!==-1){
+              item.style.display='';
+              visible++;
+            } else {
+              item.style.display='none';
+            }
+          });
+          if(q){
+            searchCount.textContent=visible+'개 결과';
+            searchCount.classList.add('visible');
+            noResults.style.display=visible===0?'block':'none';
+          } else {
+            searchCount.classList.remove('visible');
+            noResults.style.display='none';
+          }
+        });
+      }
+
       // Reveal animation
       var els=document.querySelectorAll('.reveal');
       if(!els.length)return;

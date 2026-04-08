@@ -8,7 +8,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
 <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
@@ -32,7 +32,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>치아교정 자주 묻는 질문 | 천안 치아교정 FAQ — 서울비디치과</title>
+  <title>치아교정 자주 묻는 질문 | 천안 치아교정 FAQ - 서울비디치과</title>
   <meta name="description" content="치아교정 비용, 기간, 종류, 통증, 유지장치 등 자주 묻는 질문과 서울비디치과 교정 전문의 답변">
   <meta name="abstract" content="치아교정 비용, 기간, 종류, 통증, 유지장치 등 자주 묻는 질문과 서울비디치과 교정 전문의 답변">
   <meta name="ai-summary" content="치아교정 비용, 기간, 종류, 통증, 유지장치 등 자주 묻는 질문과 서울비디치과 교정 전문의 답변">
@@ -309,7 +309,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }</script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
+  {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".faq-sub-hero h1",".faq-hero-desc",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
 <!-- Weglot Multilingual -->
@@ -319,6 +319,433 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+<style>
+/* ─── FAQ Sub-page Premium Design v2 ─── */
+.faq-sub-hero {
+  position: relative;
+  padding: 40px 24px 48px;
+  background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+  overflow: hidden;
+}
+.faq-sub-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #ec489908 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.faq-sub-hero .container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.faq-sub-hero .breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.faq-sub-hero .breadcrumb a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.faq-sub-hero .breadcrumb a:hover { color: var(--brand); }
+.faq-sub-hero .breadcrumb .sep { color: var(--gray-300); margin: 0 2px; }
+
+.faq-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: #ec489912;
+  border: 1.5px solid #ec489925;
+  color: #ec4899;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.faq-sub-hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.faq-sub-hero h1 .quote-line {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.faq-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+.faq-hero-expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+}
+.faq-hero-expert i { color: #ec4899; }
+
+.faq-hero-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.faq-stat-item {
+  text-align: center;
+  min-width: 80px;
+}
+.faq-stat-value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ec4899;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.faq-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ─── TOP FAQ Cards ─── */
+.faq-top-section {
+  padding: 48px 24px 32px;
+  background: var(--white);
+}
+.faq-top-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-top-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-top-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.faq-top-header p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.faq-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.faq-top-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  animation: fadeInUp 0.5s ease both;
+}
+.faq-top-card:hover {
+  border-color: #ec489930;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-top-card-num {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+.faq-top-card-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.faq-top-card-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Search Box ─── */
+.faq-search-bar {
+  padding: 0 24px;
+  margin: -16px auto 0;
+  max-width: 1240px;
+  position: relative;
+  z-index: 10;
+}
+.faq-search-box {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+.faq-search-box input {
+  width: 100%;
+  padding: 16px 20px 16px 48px;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  outline: none;
+}
+.faq-search-box input:focus {
+  border-color: #ec4899;
+  box-shadow: 0 4px 20px #ec489915;
+}
+.faq-search-box input::placeholder { color: var(--text-tertiary); }
+.faq-search-box .search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 1rem;
+}
+.faq-search-count {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-search-count.visible { display: block; }
+
+/* ─── FAQ Main Section (Premium) ─── */
+.faq-main-section {
+  padding: 48px 24px 64px;
+  background: var(--white);
+}
+.faq-main-section .container { max-width: 840px; margin: 0 auto; }
+.faq-main-section .faq-category-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.faq-total-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #ec489910;
+  color: #ec4899;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* Premium FAQ Item */
+.faq-main-section .faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.faq-main-section .faq-item:hover {
+  border-color: #ec489930;
+}
+.faq-main-section .faq-item.active {
+  border-color: #ec489940;
+  box-shadow: 0 4px 16px #ec489910;
+}
+.faq-main-section .faq-question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color 0.2s;
+}
+.faq-main-section .faq-question:hover { color: #ec4899; }
+.faq-main-section .faq-question::after { display: none; }
+
+.faq-main-section .faq-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  background: linear-gradient(135deg, var(--brand), #8b5a2b);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-q-badge {
+  background: linear-gradient(135deg, #ec4899, #ec4899cc);
+}
+.faq-main-section .faq-q-text {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.faq-main-section .faq-item.active .faq-q-text { color: #ec4899; }
+.faq-main-section .faq-icon {
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.faq-main-section .faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #ec4899;
+}
+
+.faq-main-section .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-main-section .faq-item.active .faq-answer {
+  max-height: 600px;
+  padding: 0 20px 20px 62px;
+}
+.faq-main-section .faq-a-content {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border-left: 3px solid #ec4899;
+}
+.faq-no-results {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-tertiary);
+  display: none;
+}
+.faq-no-results i { font-size: 2rem; margin-bottom: 12px; display: block; }
+
+/* ─── Related FAQ Cards ─── */
+.faq-related-section {
+  padding: 48px 24px;
+  background: var(--gray-50);
+}
+.faq-related-section .container { max-width: 1240px; margin: 0 auto; }
+.faq-related-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.faq-related-header h2 { font-size: 1.4rem; font-weight: 800; }
+.faq-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 840px;
+  margin: 0 auto;
+}
+.faq-related-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.faq-related-card:hover {
+  border-color: var(--brand-gold-light);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.faq-related-card-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.faq-related-card-body h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.faq-related-card-body span {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .faq-top-grid { grid-template-columns: 1fr; }
+  .faq-related-grid { grid-template-columns: 1fr; }
+  .faq-hero-stats { gap: 16px; }
+  .faq-stat-item { min-width: 60px; }
+  .faq-sub-hero { padding: 32px 20px 40px; }
+  .faq-main-section .faq-item.active .faq-answer { padding: 0 16px 16px 16px; }
+  .faq-main-section .faq-question { padding: 16px; }
+  .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -360,60 +787,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
 
   <main id="main-content" role="main">
-  
-  <!-- ═══════ HERO ═══════ -->
-  <section class="hero" aria-label="서울비디치과">
-    <div class="hero-bg-pattern" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
-        
-        <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">치아교정 FAQ</span>
+
+    <!-- ═══════ Treatment-style Sub Hero ═══════ -->
+    <section class="faq-sub-hero" aria-label="치아교정 FAQ">
+      <div class="container">
+        <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>치아교정</span></div>
+        <div class="faq-page-badge"><i class="fas fa-teeth-open"></i> 전문센터</div>
+        <h1>
+          <span class="quote-line">"교정, 얼마나 걸리고 아픈가요?"</span>
+          <span class="text-gradient">치아교정 완전 가이드</span>
         </h1>
-        
-        <p class="hero-sub reveal delay-2">
-          치아교정 자주 묻는 질문
-        </p>
-        
-        <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
-          <span class="hero-trust-divider"></span>
-          <span class="hero-trust-item"><i class="fas fa-clock"></i> 평일 야간 20시</span>
-          <span class="hero-trust-divider desktop-only"></span>
-          <span class="hero-trust-item desktop-only"><i class="fas fa-map-marker-alt"></i> 천안 불당동</span>
-        </div>
-        
-        <div class="hero-cta-group reveal delay-4">
-          <a href="/reservation" class="btn btn-primary btn-lg">
-            <i class="fas fa-calendar-check"></i> 상담 예약하기
-          </a>
-          <a href="tel:0414152892" class="btn btn-outline btn-lg">
-            <i class="fas fa-phone"></i> 041-415-2892
-          </a>
+        <p class="faq-hero-desc">치아교정 비용, 기간, 종류, 통증, 유지장치 등 자주 묻는 질문과 서울비디치과 교정 전문의 답변</p>
+        <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 교정 전문의가 답변합니다</div>
+        <div class="faq-hero-stats">
+          <div class="faq-stat-item"><span class="faq-stat-value">1.5~2.5년</span><span class="faq-stat-label">평균 기간</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">5가지+</span><span class="faq-stat-label">교정 방법</span></div>
+          <div class="faq-stat-item"><span class="faq-stat-value">전문의</span><span class="faq-stat-label">협진</span></div>
         </div>
       </div>
-    </div>
-    
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-    <!-- Hero -->
-    <section class="faq-hero">
-        <h2>🦷 치아교정 FAQ</h2>
-        <p class="lead">치아교정에 관한 모든 궁금증을 해결해 드립니다<br>교정 전문의가 답변합니다</p>
-        <p class="faq-count">총 <strong>24개</strong>의 질문과 답변</p>
     </section>
 
-    <!-- FAQ 카테고리 네비게이션 -->
+    <!-- ═══════ FAQ Category Navigation ═══════ -->
     <section class="faq-nav">
         <div class="faq-nav-container">
             <a href="/faq/implant" class="faq-nav-item">임플란트</a>
@@ -435,230 +829,304 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- FAQ 내용 -->
-    <section class="faq-section">
-        <div class="faq-category">
-            <h2 class="faq-category-title">🦷 치아교정 자주 묻는 질문</h2>
-            <div class="faq-item">
+    <!-- ═══════ TOP 3 FAQ Cards ═══════ -->
+    <section class="faq-top-section">
+      <div class="container">
+        <div class="faq-top-header">
+          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <p>환자분들이 가장 궁금해하는 TOP 3</p>
+        </div>
+        <div class="faq-top-grid">
+          <div class="faq-top-card" style="animation-delay: 0s">
+            <div class="faq-top-card-num" style="background: #ec4899;">1</div>
+            <div class="faq-top-card-content">
+              <h3>치아교정은 왜 필요한가요?</h3>
+              <p>삐뚤어진 치아는 외모뿐 아니라 씹는 기능, 발음, 턱관절 건강, 구강 위생에 영향을 줍니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.1s">
+            <div class="faq-top-card-num" style="background: #ec4899;">2</div>
+            <div class="faq-top-card-content">
+              <h3>치아교정 종류에는 어떤 것들이 있나요?</h3>
+              <p>메탈 교정(가장 경제적), 세라믹 교정(치아색 브라켓), 자가결찰 교정(클리피씨, 데이몬), 설측 교정(안쪽 부착), 인비절라인(투명교정) 등이 있습니다.</p>
+            </div>
+          </div>
+          <div class="faq-top-card" style="animation-delay: 0.2s">
+            <div class="faq-top-card-num" style="background: #ec4899;">3</div>
+            <div class="faq-top-card-content">
+              <h3>치아교정 비용은 얼마인가요?</h3>
+              <p>교정 종류, 난이도, 기간에 따라 달라집니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Search ═══════ -->
+    <div class="faq-search-bar">
+      <div class="faq-search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="faqSearchInput" placeholder="치아교정 FAQ 검색... (예: 비용, 통증, 기간)" autocomplete="off">
+      </div>
+      <p class="faq-search-count" id="faqSearchCount"></p>
+    </div>
+
+    <!-- ═══════ FAQ Main Content ═══════ -->
+    <section class="faq-main-section">
+        <div class="container">
+            <h2 class="faq-category-title">
+              <i class="fas fa-teeth-open" style="color: #ec4899;"></i>
+              치아교정 자주 묻는 질문
+              <span class="faq-total-badge">24개</span>
+            </h2>
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-0">
-                    <span>치아교정은 왜 필요한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">1</span>
+                    <span class="faq-q-text">치아교정은 왜 필요한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <p>삐뚤어진 치아는 외모뿐 아니라 씹는 기능, 발음, 턱관절 건강, 구강 위생에 영향을 줍니다. 교정 치료를 통해 고른 치열, 올바른 교합, 아름다운 미소를 만들 수 있으며, 장기적으로 치아 건강을 보호합니다.</p>
+                    <div class="faq-a-content">삐뚤어진 치아는 외모뿐 아니라 씹는 기능, 발음, 턱관절 건강, 구강 위생에 영향을 줍니다. 교정 치료를 통해 고른 치열, 올바른 교합, 아름다운 미소를 만들 수 있으며, 장기적으로 치아 건강을 보호합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-                    <span>치아교정 종류에는 어떤 것들이 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">2</span>
+                    <span class="faq-q-text">치아교정 종류에는 어떤 것들이 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <p>메탈 교정(가장 경제적), 세라믹 교정(치아색 브라켓), 자가결찰 교정(클리피씨, 데이몬), 설측 교정(안쪽 부착), 인비절라인(투명교정) 등이 있습니다. 각각 장단점이 다르므로 전문의와 상담 후 선택하시길 권합니다.</p>
+                    <div class="faq-a-content">메탈 교정(가장 경제적), 세라믹 교정(치아색 브라켓), 자가결찰 교정(클리피씨, 데이몬), 설측 교정(안쪽 부착), 인비절라인(투명교정) 등이 있습니다. 각각 장단점이 다르므로 전문의와 상담 후 선택하시길 권합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-                    <span>치아교정 비용은 얼마인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">3</span>
+                    <span class="faq-q-text">치아교정 비용은 얼마인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <p>교정 종류, 난이도, 기간에 따라 달라집니다. 메탈 교정이 가장 경제적이며, 인비절라인이나 설측 교정은 상대적으로 비용이 높습니다. 서울비디치과에서는 무료 상담 후 정확한 견적을 안내드립니다.</p>
+                    <div class="faq-a-content">교정 종류, 난이도, 기간에 따라 달라집니다. 메탈 교정이 가장 경제적이며, 인비절라인이나 설측 교정은 상대적으로 비용이 높습니다. 서울비디치과에서는 무료 상담 후 정확한 견적을 안내드립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
-                    <span>치아교정 기간은 얼마나 걸리나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">4</span>
+                    <span class="faq-q-text">치아교정 기간은 얼마나 걸리나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <p>평균 1년 6개월~2년 6개월이며, 부분 교정은 6개월~1년 정도입니다. 교정 방법, 부정교합의 정도, 환자의 협조도에 따라 달라질 수 있습니다.</p>
+                    <div class="faq-a-content">평균 1년 6개월~2년 6개월이며, 부분 교정은 6개월~1년 정도입니다. 교정 방법, 부정교합의 정도, 환자의 협조도에 따라 달라질 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-                    <span>교정 중 통증이 심한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">5</span>
+                    <span class="faq-q-text">교정 중 통증이 심한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <p>장치 부착 후 3~5일간 치아가 움직이면서 뻐근한 느낌이 있지만, 참을 수 있는 수준입니다. 와이어 조정 후에도 2~3일간 불편감이 있을 수 있으며, 점차 적응됩니다.</p>
+                    <div class="faq-a-content">장치 부착 후 3~5일간 치아가 움직이면서 뻐근한 느낌이 있지만, 참을 수 있는 수준입니다. 와이어 조정 후에도 2~3일간 불편감이 있을 수 있으며, 점차 적응됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
-                    <span>교정 중 음식 제한이 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">6</span>
+                    <span class="faq-q-text">교정 중 음식 제한이 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <p>고정식 교정(메탈, 세라믹)은 딱딱한 음식(사탕, 얼음 등)과 끈적한 음식(캐러멜, 떡 등)을 피해야 합니다. 투명교정(인비절라인)은 장치를 빼고 식사하므로 제한이 없습니다.</p>
+                    <div class="faq-a-content">고정식 교정(메탈, 세라믹)은 딱딱한 음식(사탕, 얼음 등)과 끈적한 음식(캐러멜, 떡 등)을 피해야 합니다. 투명교정(인비절라인)은 장치를 빼고 식사하므로 제한이 없습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
-                    <span>교정 중 양치는 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">7</span>
+                    <span class="faq-q-text">교정 중 양치는 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <p>교정용 칫솔, 치간칫솔, 워터픽 등을 활용해 장치 주변을 꼼꼼히 닦아야 합니다. 식사 후 매번 양치하는 것이 이상적이며, 구강 세정기 사용을 권장합니다. 관리가 소홀하면 충치나 잇몸 질환이 생길 수 있습니다.</p>
+                    <div class="faq-a-content">교정용 칫솔, 치간칫솔, 워터픽 등을 활용해 장치 주변을 꼼꼼히 닦아야 합니다. 식사 후 매번 양치하는 것이 이상적이며, 구강 세정기 사용을 권장합니다. 관리가 소홀하면 충치나 잇몸 질환이 생길 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
-                    <span>성인 교정은 늦지 않나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">8</span>
+                    <span class="faq-q-text">성인 교정은 늦지 않나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <p>전혀 늦지 않습니다. 최근 성인 교정 비율이 꾸준히 증가하고 있으며, 30~50대 교정도 매우 흔합니다. 잇몸과 치아 상태만 양호하면 나이에 관계없이 교정이 가능합니다.</p>
+                    <div class="faq-a-content">전혀 늦지 않습니다. 최근 성인 교정 비율이 꾸준히 증가하고 있으며, 30~50대 교정도 매우 흔합니다. 잇몸과 치아 상태만 양호하면 나이에 관계없이 교정이 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
-                    <span>교정 후 유지장치는 꼭 해야 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">9</span>
+                    <span class="faq-q-text">교정 후 유지장치는 꼭 해야 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <p>네, 반드시 해야 합니다. 유지장치를 하지 않으면 치아가 원래 위치로 돌아가는 '재발'이 일어날 수 있습니다. 교정 완료 후 최소 2년 이상, 가능하면 장기간 착용을 권장합니다.</p>
+                    <div class="faq-a-content">네, 반드시 해야 합니다. 유지장치를 하지 않으면 치아가 원래 위치로 돌아가는 '재발'이 일어날 수 있습니다. 교정 완료 후 최소 2년 이상, 가능하면 장기간 착용을 권장합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
-                    <span>발치 교정과 비발치 교정의 차이는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">10</span>
+                    <span class="faq-q-text">발치 교정과 비발치 교정의 차이는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <p>치아가 심하게 겹쳐 공간이 부족할 때 발치(주로 소구치 4개)를 하여 공간을 확보합니다. 비발치 교정은 치아 삭제(IPR)나 확장으로 공간을 만듭니다. 어떤 방법이 적합한지는 전문의 진단이 필요합니다.</p>
+                    <div class="faq-a-content">치아가 심하게 겹쳐 공간이 부족할 때 발치(주로 소구치 4개)를 하여 공간을 확보합니다. 비발치 교정은 치아 삭제(IPR)나 확장으로 공간을 만듭니다. 어떤 방법이 적합한지는 전문의 진단이 필요합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
-                    <span>서울비디치과 교정이 특별한 이유는?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">11</span>
+                    <span class="faq-q-text">서울비디치과 교정이 특별한 이유는?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <p>서울비디치과는 교정 전문의가 직접 진료하며, 디지털 교정 시스템과 3D 시뮬레이션을 활용합니다. 다양한 교정 옵션(인비절라인, 세라믹, 설측 등)을 제공하고, 365일 진료로 교정 기간 중 긴급 상황에도 빠르게 대응합니다.</p>
+                    <div class="faq-a-content">서울비디치과는 교정 전문의가 직접 진료하며, 디지털 교정 시스템과 3D 시뮬레이션을 활용합니다. 다양한 교정 옵션(인비절라인, 세라믹, 설측 등)을 제공하고, 365일 진료로 교정 기간 중 긴급 상황에도 빠르게 대응합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-11">
-                    <span>교정 치료 시작 전 검사 과정은?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">12</span>
+                    <span class="faq-q-text">교정 치료 시작 전 검사 과정은?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <p>파노라마·세팔로 X-ray, 구강 사진, 디지털 스캔(또는 치아 본뜨기), 얼굴 분석 등을 진행합니다. 이 자료를 바탕으로 교정 전문의가 정밀 진단 후 치료 계획을 수립하며, 환자에게 상세히 설명합니다.</p>
+                    <div class="faq-a-content">파노라마·세팔로 X-ray, 구강 사진, 디지털 스캔(또는 치아 본뜨기), 얼굴 분석 등을 진행합니다. 이 자료를 바탕으로 교정 전문의가 정밀 진단 후 치료 계획을 수립하며, 환자에게 상세히 설명합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
-                    <span>교정 장치가 빠지거나 부러지면?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">13</span>
+                    <span class="faq-q-text">교정 장치가 빠지거나 부러지면?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <p>가능한 빨리 치과에 연락하세요. 임시 조치로 교정용 왁스(약국 구입 가능)로 튀어나온 와이어를 감쌀 수 있습니다. 서울비디치과는 365일 진료하므로 주말·공휴일에도 긴급 대응이 가능합니다.</p>
+                    <div class="faq-a-content">가능한 빨리 치과에 연락하세요. 임시 조치로 교정용 왁스(약국 구입 가능)로 튀어나온 와이어를 감쌀 수 있습니다. 서울비디치과는 365일 진료하므로 주말·공휴일에도 긴급 대응이 가능합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-13">
-                    <span>교정 중 충치가 생기면 어떻게 하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">14</span>
+                    <span class="faq-q-text">교정 중 충치가 생기면 어떻게 하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <p>교정 장치를 일시적으로 조정하거나 제거한 후 충치 치료를 진행할 수 있습니다. 교정 중에는 음식물이 끼기 쉬워 충치 위험이 높으므로, 교정 전용 칫솔·치간칫솔·워터픽으로 꼼꼼히 관리해야 합니다.</p>
+                    <div class="faq-a-content">교정 장치를 일시적으로 조정하거나 제거한 후 충치 치료를 진행할 수 있습니다. 교정 중에는 음식물이 끼기 쉬워 충치 위험이 높으므로, 교정 전용 칫솔·치간칫솔·워터픽으로 꼼꼼히 관리해야 합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
-                    <span>자가결찰 교정(클리피씨, 데이몬)이란?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">15</span>
+                    <span class="faq-q-text">자가결찰 교정(클리피씨, 데이몬)이란?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <p>자가결찰 교정은 브라켓 자체에 와이어를 고정하는 클립이 있어 고무링이 필요 없는 교정 방식입니다. 마찰이 적어 치아 이동이 효율적이고, 통증이 줄며, 내원 간격을 늘릴 수 있는 장점이 있습니다.</p>
+                    <div class="faq-a-content">자가결찰 교정은 브라켓 자체에 와이어를 고정하는 클립이 있어 고무링이 필요 없는 교정 방식입니다. 마찰이 적어 치아 이동이 효율적이고, 통증이 줄며, 내원 간격을 늘릴 수 있는 장점이 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
-                    <span>설측(안쪽) 교정은 어떤 분에게 적합한가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">16</span>
+                    <span class="faq-q-text">설측(안쪽) 교정은 어떤 분에게 적합한가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <p>설측 교정은 치아 안쪽에 장치를 붙이므로 밖에서 전혀 보이지 않습니다. 외모에 민감한 직업(방송인, 승무원, 영업직 등)이나 결혼을 앞둔 분들에게 인기가 높습니다. 다만 발음 적응 기간이 필요하고 비용이 높은 편입니다.</p>
+                    <div class="faq-a-content">설측 교정은 치아 안쪽에 장치를 붙이므로 밖에서 전혀 보이지 않습니다. 외모에 민감한 직업(방송인, 승무원, 영업직 등)이나 결혼을 앞둔 분들에게 인기가 높습니다. 다만 발음 적응 기간이 필요하고 비용이 높은 편입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
-                    <span>교정 비용을 할부로 낼 수 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">17</span>
+                    <span class="faq-q-text">교정 비용을 할부로 낼 수 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <p>네, 서울비디치과에서는 무이자 카드 할부와 치과 전용 할부 프로그램을 운영합니다. 교정은 장기 치료이므로 월 납부 방식으로 부담을 줄일 수 있으며, 상담 시 맞춤 결제 계획을 안내드립니다.</p>
+                    <div class="faq-a-content">네, 서울비디치과에서는 무이자 카드 할부와 치과 전용 할부 프로그램을 운영합니다. 교정은 장기 치료이므로 월 납부 방식으로 부담을 줄일 수 있으며, 상담 시 맞춤 결제 계획을 안내드립니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
-                    <span>교정 치료 중 치아가 흔들리는 느낌이 정상인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">18</span>
+                    <span class="faq-q-text">교정 치료 중 치아가 흔들리는 느낌이 정상인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <p>네, 정상입니다! 교정은 치아를 뼈 안에서 이동시키는 치료이므로, 이동 중인 치아가 약간 흔들리는 것은 당연한 현상입니다. 교정이 끝나면 치아가 새 위치에서 안정화되어 흔들림이 사라집니다.</p>
+                    <div class="faq-a-content">네, 정상입니다! 교정은 치아를 뼈 안에서 이동시키는 치료이므로, 이동 중인 치아가 약간 흔들리는 것은 당연한 현상입니다. 교정이 끝나면 치아가 새 위치에서 안정화되어 흔들림이 사라집니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
-                    <span>교정 중 입술이 돌출되어 보이는 느낌이 들어요</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">19</span>
+                    <span class="faq-q-text">교정 중 입술이 돌출되어 보이는 느낌이 들어요</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <p>교정 장치(특히 메탈·세라믹 브라켓)의 두께 때문에 입술이 약간 돌출되어 보일 수 있습니다. 이는 일시적 현상이며, 장치 제거 후 원래대로 돌아갑니다. 오히려 교정 완료 후 치열이 정돈되면 입매가 개선됩니다.</p>
+                    <div class="faq-a-content">교정 장치(특히 메탈·세라믹 브라켓)의 두께 때문에 입술이 약간 돌출되어 보일 수 있습니다. 이는 일시적 현상이며, 장치 제거 후 원래대로 돌아갑니다. 오히려 교정 완료 후 치열이 정돈되면 입매가 개선됩니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-19">
-                    <span>투명 교정과 브라켓 교정, 어떤 것이 좋은가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">20</span>
+                    <span class="faq-q-text">투명 교정과 브라켓 교정, 어떤 것이 좋은가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
-                    <p>투명 교정(인비절라인)은 심미적이고 편리하지만, 복잡한 케이스에는 브라켓 교정이 더 효과적일 수 있습니다. 경미~중등도 부정교합은 투명 교정, 심한 부정교합·발치 교정·골격 문제는 브라켓 교정이 유리합니다. 전문의 진단 후 결정합니다.</p>
+                    <div class="faq-a-content">투명 교정(인비절라인)은 심미적이고 편리하지만, 복잡한 케이스에는 브라켓 교정이 더 효과적일 수 있습니다. 경미~중등도 부정교합은 투명 교정, 심한 부정교합·발치 교정·골격 문제는 브라켓 교정이 유리합니다. 전문의 진단 후 결정합니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-20">
-                    <span>미니스크류(미니 임플란트)는 무엇인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">21</span>
+                    <span class="faq-q-text">미니스크류(미니 임플란트)는 무엇인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-20">
-                    <p>교정용 미니스크류는 잇몸뼈에 작은 나사를 심어 치아를 당기는 고정원으로 사용하는 것입니다. 발치 교정이나 매복치 견인 시 효과적이며, 국소 마취 후 간단히 식립합니다. 교정 완료 후 쉽게 제거되며 흉터가 남지 않습니다.</p>
+                    <div class="faq-a-content">교정용 미니스크류는 잇몸뼈에 작은 나사를 심어 치아를 당기는 고정원으로 사용하는 것입니다. 발치 교정이나 매복치 견인 시 효과적이며, 국소 마취 후 간단히 식립합니다. 교정 완료 후 쉽게 제거되며 흉터가 남지 않습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-21">
-                    <span>소아·청소년 교정의 적기는 언제인가요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">22</span>
+                    <span class="faq-q-text">소아·청소년 교정의 적기는 언제인가요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-21">
-                    <p>미국 교정학회는 만 7세에 첫 교정 상담을 권장합니다. 1차 교정(조기 교정)은 7~10세에, 2차 교정(본교정)은 영구치열 완성 후(12~14세)에 진행합니다. 턱 성장 문제는 성장기에 교정하는 것이 효과적입니다.</p>
+                    <div class="faq-a-content">미국 교정학회는 만 7세에 첫 교정 상담을 권장합니다. 1차 교정(조기 교정)은 7~10세에, 2차 교정(본교정)은 영구치열 완성 후(12~14세)에 진행합니다. 턱 성장 문제는 성장기에 교정하는 것이 효과적입니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-22">
-                    <span>교정 후 얼굴형이 변하나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">23</span>
+                    <span class="faq-q-text">교정 후 얼굴형이 변하나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-22">
-                    <p>치열 교정은 치아와 입매에 영향을 주므로, 돌출입 교정 시 입이 들어가면서 E-라인이 개선되어 옆모습이 달라질 수 있습니다. 하지만 턱뼈 자체를 바꾸는 것은 아니므로, 심한 골격 문제는 양악 수술이 필요할 수 있습니다.</p>
+                    <div class="faq-a-content">치열 교정은 치아와 입매에 영향을 주므로, 돌출입 교정 시 입이 들어가면서 E-라인이 개선되어 옆모습이 달라질 수 있습니다. 하지만 턱뼈 자체를 바꾸는 것은 아니므로, 심한 골격 문제는 양악 수술이 필요할 수 있습니다.</div>
                 </div>
             </div>
-            <div class="faq-item">
+            <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-23">
-                    <span>교정 기간을 단축할 수 있는 방법이 있나요?</span>
-                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                    <span class="faq-q-badge">24</span>
+                    <span class="faq-q-text">교정 기간을 단축할 수 있는 방법이 있나요?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-23">
-                    <p>최신 자가결찰 장치, 미세 진동 장치(AcceleDent), 코르티코토미(미세 피질골 절개술) 등으로 치아 이동 속도를 높일 수 있습니다. 또한 정기 내원을 빠짐없이 하고 교정 지시사항을 잘 따르면 치료 기간이 단축됩니다.</p>
+                    <div class="faq-a-content">최신 자가결찰 장치, 미세 진동 장치(AcceleDent), 코르티코토미(미세 피질골 절개술) 등으로 치아 이동 속도를 높일 수 있습니다. 또한 정기 내원을 빠짐없이 하고 교정 지시사항을 잘 따르면 치료 기간이 단축됩니다.</div>
                 </div>
+            </div>
+            <div class="faq-no-results" id="faqNoResults">
+              <i class="fas fa-search"></i>
+              <p>검색 결과가 없습니다.<br>다른 키워드로 검색해 보세요.</p>
             </div>
         </div>
     </section>
 
-    <!-- CTA 섹션 -->
+    <!-- ═══════ CTA Section ═══════ -->
     <section class="section-cta reveal">
       <div class="container">
         <div class="cta-card">
@@ -673,7 +1141,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 관련 치료 페이지 링크 -->
+    <!-- ═══════ Related FAQ ═══════ -->
+    <section class="faq-related-section">
+      <div class="container">
+        <div class="faq-related-header">
+          <h2>다른 FAQ도 확인해 보세요</h2>
+        </div>
+        <div class="faq-related-grid">
+          <a href="/faq/invisalign" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #8b5cf612; color: #8b5cf6;"><i class="fas fa-teeth"></i></div>
+            <div class="faq-related-card-body"><h3>인비절라인 FAQ</h3><span>24개 질문</span></div>
+          </a>
+          <a href="/faq/wisdom-tooth" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #10b98112; color: #10b981;"><i class="fas fa-hand-holding-medical"></i></div>
+            <div class="faq-related-card-body"><h3>사랑니 발치 FAQ</h3><span>22개 질문</span></div>
+          </a>
+          <a href="/faq/scaling" class="faq-related-card">
+            <div class="faq-related-card-icon" style="background: #14b8a612; color: #14b8a6;"><i class="fas fa-broom"></i></div>
+            <div class="faq-related-card-body"><h3>스케일링 FAQ</h3><span>19개 질문</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ Page Nav ═══════ -->
     <section class="section-sm">
       <div class="container">
         <div class="page-nav-v2">
@@ -692,7 +1183,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-top">
-        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
+        <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication - 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
@@ -736,13 +1227,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){
-      // FAQ toggle (accessible)
-      document.querySelectorAll('.faq-question').forEach(function(btn){
+      // FAQ toggle (premium)
+      document.querySelectorAll('.faq-main-section .faq-question').forEach(function(btn){
         btn.addEventListener('click',function(){
           var item=this.parentElement;
           var expanded=this.getAttribute('aria-expanded')==='true';
           // Close all
-          document.querySelectorAll('.faq-item.active').forEach(function(i){
+          document.querySelectorAll('.faq-main-section .faq-item.active').forEach(function(i){
             i.classList.remove('active');
             i.querySelector('.faq-question').setAttribute('aria-expanded','false');
           });
@@ -750,9 +1241,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if(!expanded){
             item.classList.add('active');
             this.setAttribute('aria-expanded','true');
+            // Smooth scroll into view
+            setTimeout(function(){ item.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
           }
         });
       });
+
+      // FAQ Search
+      var searchInput=document.getElementById('faqSearchInput');
+      var searchCount=document.getElementById('faqSearchCount');
+      var noResults=document.getElementById('faqNoResults');
+      if(searchInput){
+        searchInput.addEventListener('input',function(){
+          var q=this.value.toLowerCase().trim();
+          var items=document.querySelectorAll('.faq-main-section .faq-item');
+          var visible=0;
+          items.forEach(function(item){
+            var text=item.textContent.toLowerCase();
+            if(!q||text.indexOf(q)!==-1){
+              item.style.display='';
+              visible++;
+            } else {
+              item.style.display='none';
+            }
+          });
+          if(q){
+            searchCount.textContent=visible+'개 결과';
+            searchCount.classList.add('visible');
+            noResults.style.display=visible===0?'block':'none';
+          } else {
+            searchCount.classList.remove('visible');
+            noResults.style.display='none';
+          }
+        });
+      }
+
       // Reveal animation
       var els=document.querySelectorAll('.reveal');
       if(!els.length)return;
