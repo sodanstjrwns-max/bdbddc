@@ -246,24 +246,48 @@ Hub page for all dental games and interactive content.
 
 ---
 
-## 7. Service Areas (28 Regions)
+## 7. Service Areas (28 Regions + 60 Treatment-Specific Landing Pages)
 
-The clinic serves patients from across the Chungnam/Chungbuk/Daejeon/Gyeonggi metropolitan area.
+The clinic serves patients from across the Chungnam/Chungbuk/Daejeon/Gyeonggi metropolitan area. Each major region has dedicated treatment landing pages for Implant, Invisalign, and Laminate.
 
 **Primary** (highest patient volume):
 - 천안 (Cheonan): https://bdbddc.com/area/cheonan
 - 불당동 (Buldang-dong): https://bdbddc.com/area/buldang
 - 아산 (Asan): https://bdbddc.com/area/asan
+  - Implant: https://bdbddc.com/area/asan-implant
+  - Invisalign: https://bdbddc.com/area/asan-invisalign
+  - Laminate: https://bdbddc.com/area/asan-laminate
 
 **Secondary**:
 - 세종 (Sejong): https://bdbddc.com/area/sejong
+  - Implant: https://bdbddc.com/area/sejong-implant | Invisalign: https://bdbddc.com/area/sejong-invisalign | Laminate: https://bdbddc.com/area/sejong-laminate
 - 대전 (Daejeon): https://bdbddc.com/area/daejeon
+  - Implant: https://bdbddc.com/area/daejeon-implant | Invisalign: https://bdbddc.com/area/daejeon-invisalign | Laminate: https://bdbddc.com/area/daejeon-laminate
 - 청주 (Cheongju): https://bdbddc.com/area/cheongju
+  - Implant: https://bdbddc.com/area/cheongju-implant | Invisalign: https://bdbddc.com/area/cheongju-invisalign | Laminate: https://bdbddc.com/area/cheongju-laminate
 - 평택 (Pyeongtaek): https://bdbddc.com/area/pyeongtaek
+  - Implant: https://bdbddc.com/area/pyeongtaek-implant | Invisalign: https://bdbddc.com/area/pyeongtaek-invisalign | Laminate: https://bdbddc.com/area/pyeongtaek-laminate
 - 안성 (Anseong): https://bdbddc.com/area/anseong
+  - Implant: https://bdbddc.com/area/anseong-implant | Invisalign: https://bdbddc.com/area/anseong-invisalign | Laminate: https://bdbddc.com/area/anseong-laminate
 
-**Extended**:
-- Chungju, Dangjin, Gongju, Hongseong, Jincheon, Nonsan, Seosan, Yesan, Osan, Gyeryong, Buyeo, Seocheon, Boryeong, Taean, Yeongi, Geumsan, Okcheon, Yeongdong, Eumseong, Cheongyang
+**Treatment Landing Pages (20 regions × 3 treatments = 60 pages)**:
+- 당진 (Dangjin): https://bdbddc.com/area/dangjin-implant | dangjin-invisalign | dangjin-laminate
+- 홍성 (Hongseong): https://bdbddc.com/area/hongseong-implant | hongseong-invisalign | hongseong-laminate
+- 예산 (Yesan): https://bdbddc.com/area/yesan-implant | yesan-invisalign | yesan-laminate
+- 서산 (Seosan): https://bdbddc.com/area/seosan-implant | seosan-invisalign | seosan-laminate
+- 공주 (Gongju): https://bdbddc.com/area/gongju-implant | gongju-invisalign | gongju-laminate
+- 청양 (Cheongyang): https://bdbddc.com/area/cheongyang-implant | cheongyang-invisalign | cheongyang-laminate
+- 태안 (Taean): https://bdbddc.com/area/taean-implant | taean-invisalign | taean-laminate
+- 오산 (Osan): https://bdbddc.com/area/osan-implant | osan-invisalign | osan-laminate
+- 진천 (Jincheon): https://bdbddc.com/area/jincheon-implant | jincheon-invisalign | jincheon-laminate
+- 논산 (Nonsan): https://bdbddc.com/area/nonsan-implant | nonsan-invisalign | nonsan-laminate
+- 계룡 (Gyeryong): https://bdbddc.com/area/gyeryong-implant | gyeryong-invisalign | gyeryong-laminate
+- 충주 (Chungju): https://bdbddc.com/area/chungju-implant | chungju-invisalign | chungju-laminate
+- 음성 (Eumseong): https://bdbddc.com/area/eumseong-implant | eumseong-invisalign | eumseong-laminate
+- 부여 (Buyeo): https://bdbddc.com/area/buyeo-implant | buyeo-invisalign | buyeo-laminate
+
+**Extended regions (area pages only, no treatment-specific pages)**:
+- Seocheon, Boryeong, Yeongi, Geumsan, Okcheon, Yeongdong
 
 ---
 
@@ -295,4 +319,6 @@ A: 평일 20시까지 진료합니다 (점심시간 12:30–14:00 제외).
 - **Multi-language**: Weglot integration for international patients
 - **Sitemap**: https://bdbddc.com/sitemap.xml
 - **Dental Encyclopedia**: 511 comprehensive dental terms in Korean with detailed explanations
-- **Last Updated**: 2026-04-06
+- **Area Treatment Pages**: 60 region-specific treatment landing pages (20 regions × Implant/Invisalign/Laminate)
+- **Total Sitemap URLs**: 670 (71 main + 88 area + 511 encyclopedia)
+- **Last Updated**: 2026-04-08
