@@ -6,8 +6,8 @@
 
   <!-- ═══════════════════════════════════════ -->
   <!-- 서울비디치과 메인 사이트맵               -->
-  <!-- 최종 업데이트: 2026-04-06               -->
-  <!-- 총 URL: 72개                            -->
+  <!-- 최종 업데이트: 2026-04-08               -->
+  <!-- 총 URL: 74개                            -->
   <!-- ═══════════════════════════════════════ -->
 
   <!-- ===== 1. 메인 페이지 ===== -->
@@ -83,10 +83,25 @@
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/orthodontics</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
+
+  <!-- 교정 상세 (장치별) -->
+  <url>
+    <loc>https://bdbddc.com/treatments/orthodontic-clippy-c</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/treatments/orthodontic-clarity-ultra</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
   <url>
     <loc>https://bdbddc.com/treatments/sedation</loc>
     <lastmod>2026-04-06</lastmod>
