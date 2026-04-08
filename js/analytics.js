@@ -24,11 +24,10 @@
   // GTM은 dataLayer만 생성하고 gtag() 전역 함수를 만들지 않음
   // analytics.js에서 gtag()를 직접 호출하므로 여기서 정의 필요
   window.dataLayer = window.dataLayer || [];
-  if (typeof window.gtag !== 'function') {
-    window.gtag = function() { window.dataLayer.push(arguments); };
-    window.gtag('js', new Date());
-    window.gtag('config', 'G-3NQP355YQM', { send_page_view: false }); // GTM이 page_view 처리
-  }
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag; // 전역에서도 접근 가능하게
+  gtag('js', new Date());
+  gtag('config', 'G-3NQP355YQM', { send_page_view: false }); // GTM이 page_view 처리
 
   // ─── Amplitude 초기화 (Script Loader 방식) ───
   // SDK는 HTML <head>에서 cdn.amplitude.com/script/API_KEY.js 로 로드됨
