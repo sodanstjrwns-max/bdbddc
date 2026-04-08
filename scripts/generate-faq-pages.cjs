@@ -14,23 +14,28 @@ const faqDir = path.join(__dirname, '..', 'faq');
 const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
 
 // 카테고리별 아이콘 & FontAwesome 매핑
+// 브랜드 메인 컬러 (모든 카테고리 통일)
+const BRAND = '#6B4226';
+const BRAND_GOLD = '#C8A97E';
+const BRAND_BG = 'linear-gradient(135deg, #FAF6F1, #F3ECE4)';
+
 const categoryMeta = {
-  implant: { icon: 'fa-tooth', emoji: '🦷', color: '#0ea5e9', bgGrad: 'linear-gradient(135deg, #f0f9ff, #e0f2fe)', expertTitle: '임플란트 전문의', badge: '전문센터' },
-  invisalign: { icon: 'fa-teeth', emoji: '😁', color: '#8b5cf6', bgGrad: 'linear-gradient(135deg, #f5f3ff, #ede9fe)', expertTitle: '인비절라인 교정 전문의', badge: '다이아몬드 등급' },
-  orthodontics: { icon: 'fa-teeth-open', emoji: '🦷', color: '#ec4899', bgGrad: 'linear-gradient(135deg, #fdf2f8, #fce7f3)', expertTitle: '교정 전문의', badge: '전문센터' },
-  glownate: { icon: 'fa-star', emoji: '✨', color: '#f59e0b', bgGrad: 'linear-gradient(135deg, #fffbeb, #fef3c7)', expertTitle: '심미치료 전문의', badge: 'HOT' },
-  sedation: { icon: 'fa-bed', emoji: '😴', color: '#6366f1', bgGrad: 'linear-gradient(135deg, #eef2ff, #e0e7ff)', expertTitle: '수면진정 전문 의료진', badge: '안심 시스템' },
-  'wisdom-tooth': { icon: 'fa-hand-holding-medical', emoji: '🦷', color: '#10b981', bgGrad: 'linear-gradient(135deg, #ecfdf5, #d1fae5)', expertTitle: '구강외과 전문의', badge: 'CT 정밀진단' },
-  pediatric: { icon: 'fa-baby', emoji: '👶', color: '#f472b6', bgGrad: 'linear-gradient(135deg, #fdf2f8, #fce7f3)', expertTitle: '소아치과 전문의 3인', badge: '전문의 3인' },
-  whitening: { icon: 'fa-sun', emoji: '🪥', color: '#06b6d4', bgGrad: 'linear-gradient(135deg, #ecfeff, #cffafe)', expertTitle: '심미치료 전문의', badge: '프리미엄' },
-  cavity: { icon: 'fa-search', emoji: '🔍', color: '#3b82f6', bgGrad: 'linear-gradient(135deg, #eff6ff, #dbeafe)', expertTitle: '보존과 전문의', badge: '보존치료' },
-  gum: { icon: 'fa-shield-virus', emoji: '🩸', color: '#ef4444', bgGrad: 'linear-gradient(135deg, #fef2f2, #fee2e2)', expertTitle: '치주과 전문의', badge: '치주치료' },
-  tmj: { icon: 'fa-bone', emoji: '🦴', color: '#8b5cf6', bgGrad: 'linear-gradient(135deg, #f5f3ff, #ede9fe)', expertTitle: '턱관절 전문의', badge: '턱관절센터' },
-  scaling: { icon: 'fa-broom', emoji: '🧹', color: '#14b8a6', bgGrad: 'linear-gradient(135deg, #f0fdfa, #ccfbf1)', expertTitle: '치주과 전문의', badge: '예방치료' },
-  'root-canal': { icon: 'fa-microscope', emoji: '🔬', color: '#6366f1', bgGrad: 'linear-gradient(135deg, #eef2ff, #e0e7ff)', expertTitle: '보존과 전문의', badge: '정밀치료' },
-  crown: { icon: 'fa-crown', emoji: '👑', color: '#f59e0b', bgGrad: 'linear-gradient(135deg, #fffbeb, #fef3c7)', expertTitle: '보철 전문의', badge: '보철치료' },
-  denture: { icon: 'fa-teeth', emoji: '🦷', color: '#0ea5e9', bgGrad: 'linear-gradient(135deg, #f0f9ff, #e0f2fe)', expertTitle: '보철 전문의', badge: '보철치료' },
-  emergency: { icon: 'fa-ambulance', emoji: '🚨', color: '#ef4444', bgGrad: 'linear-gradient(135deg, #fef2f2, #fee2e2)', expertTitle: '365일 진료 의료진', badge: '365일 진료' }
+  implant: { icon: 'fa-tooth', emoji: '🦷', color: BRAND, bgGrad: BRAND_BG, expertTitle: '임플란트 전문의', badge: '전문센터' },
+  invisalign: { icon: 'fa-teeth', emoji: '😁', color: BRAND, bgGrad: BRAND_BG, expertTitle: '인비절라인 교정 전문의', badge: '다이아몬드 등급' },
+  orthodontics: { icon: 'fa-teeth-open', emoji: '🦷', color: BRAND, bgGrad: BRAND_BG, expertTitle: '교정 전문의', badge: '전문센터' },
+  glownate: { icon: 'fa-star', emoji: '✨', color: BRAND, bgGrad: BRAND_BG, expertTitle: '심미치료 전문의', badge: 'HOT' },
+  sedation: { icon: 'fa-bed', emoji: '😴', color: BRAND, bgGrad: BRAND_BG, expertTitle: '수면진정 전문 의료진', badge: '안심 시스템' },
+  'wisdom-tooth': { icon: 'fa-hand-holding-medical', emoji: '🦷', color: BRAND, bgGrad: BRAND_BG, expertTitle: '구강외과 전문의', badge: 'CT 정밀진단' },
+  pediatric: { icon: 'fa-baby', emoji: '👶', color: BRAND, bgGrad: BRAND_BG, expertTitle: '소아치과 전문의 3인', badge: '전문의 3인' },
+  whitening: { icon: 'fa-sun', emoji: '🪥', color: BRAND, bgGrad: BRAND_BG, expertTitle: '심미치료 전문의', badge: '프리미엄' },
+  cavity: { icon: 'fa-search', emoji: '🔍', color: BRAND, bgGrad: BRAND_BG, expertTitle: '보존과 전문의', badge: '보존치료' },
+  gum: { icon: 'fa-shield-virus', emoji: '🩸', color: BRAND, bgGrad: BRAND_BG, expertTitle: '치주과 전문의', badge: '치주치료' },
+  tmj: { icon: 'fa-bone', emoji: '🦴', color: BRAND, bgGrad: BRAND_BG, expertTitle: '턱관절 전문의', badge: '턱관절센터' },
+  scaling: { icon: 'fa-broom', emoji: '🧹', color: BRAND, bgGrad: BRAND_BG, expertTitle: '치주과 전문의', badge: '예방치료' },
+  'root-canal': { icon: 'fa-microscope', emoji: '🔬', color: BRAND, bgGrad: BRAND_BG, expertTitle: '보존과 전문의', badge: '정밀치료' },
+  crown: { icon: 'fa-crown', emoji: '👑', color: BRAND, bgGrad: BRAND_BG, expertTitle: '보철 전문의', badge: '보철치료' },
+  denture: { icon: 'fa-teeth', emoji: '🦷', color: BRAND, bgGrad: BRAND_BG, expertTitle: '보철 전문의', badge: '보철치료' },
+  emergency: { icon: 'fa-ambulance', emoji: '🚨', color: BRAND, bgGrad: BRAND_BG, expertTitle: '365일 진료 의료진', badge: '365일 진료' }
 };
 
 // 카테고리별 전문가 설명
@@ -143,7 +148,7 @@ function generateTopFaqCards(faqs, slug) {
     // 답변에서 첫 문장만 추출
     const shortAnswer = faq.a.split('.')[0] + '.';
     return `          <div class="faq-top-card" style="animation-delay: ${i * 0.1}s">
-            <div class="faq-top-card-num" style="background: ${meta.color};">${i + 1}</div>
+            <div class="faq-top-card-num">${i + 1}</div>
             <div class="faq-top-card-content">
               <h3>${faq.q}</h3>
               <p>${shortAnswer}</p>
@@ -212,20 +217,67 @@ function getRelatedFaqs(currentSlug) {
   return (relatedMap[currentSlug] || ['implant', 'invisalign', 'scaling']).map(slug => {
     const info = data[slug];
     const meta = categoryMeta[slug] || categoryMeta.implant;
-    return { slug, title: info ? info.title : slug, count: info ? info.faqs.length : 0, icon: meta.icon, color: meta.color };
+    return { slug, title: info ? info.title : slug, count: info ? info.faqs.length : 0, icon: meta.icon, color: BRAND };
   });
 }
 
-// 페이지 내 인라인 CSS (FAQ 전용 프리미엄 스타일)
+// 페이지 내 인라인 CSS (FAQ 전용 프리미엄 스타일) — 브랜드 컬러 통일
 function getFaqPageCSS(slug) {
-  const meta = categoryMeta[slug] || categoryMeta.implant;
   return `
 <style>
-/* ─── FAQ Sub-page Premium Design v2 ─── */
+/* ─── FAQ Sub-page Premium Design v3 (Brand Color Only) ─── */
+
+/* ─── FAQ Navigation (inline override) ─── */
+.faq-nav {
+  padding: 16px 0;
+  position: sticky;
+  top: var(--header-height, 72px);
+  z-index: 50;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color, #E8E6E3);
+}
+.faq-nav-container {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 24px;
+  max-width: 1240px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.faq-nav-container::-webkit-scrollbar { display: none; }
+.faq-nav-item {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary, #78716C);
+  background: var(--gray-100, #F5F4F2);
+  border-radius: 9999px;
+  border: 1.5px solid transparent;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.faq-nav-item:hover {
+  color: var(--brand, #6B4226);
+  background: rgba(107,66,38,0.06);
+  border-color: rgba(107,66,38,0.15);
+}
+.faq-nav-item.active {
+  color: #fff;
+  background: var(--brand, #6B4226);
+  border-color: var(--brand, #6B4226);
+}
+
 .faq-sub-hero {
   position: relative;
   padding: 40px 24px 48px;
-  ${meta.bgGrad ? `background: ${meta.bgGrad};` : ''}
+  background: linear-gradient(135deg, #FAF6F1, #F3ECE4);
   overflow: hidden;
 }
 .faq-sub-hero::before {
@@ -235,7 +287,7 @@ function getFaqPageCSS(slug) {
   right: -20%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, ${meta.color}08 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(107,66,38,0.04) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -266,9 +318,9 @@ function getFaqPageCSS(slug) {
   align-items: center;
   gap: 6px;
   padding: 6px 16px;
-  background: ${meta.color}12;
-  border: 1.5px solid ${meta.color}25;
-  color: ${meta.color};
+  background: rgba(107,66,38,0.08);
+  border: 1.5px solid rgba(107,66,38,0.15);
+  color: var(--brand);
   font-size: 0.82rem;
   font-weight: 700;
   border-radius: 999px;
@@ -312,7 +364,7 @@ function getFaqPageCSS(slug) {
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   margin-bottom: 20px;
 }
-.faq-hero-expert i { color: ${meta.color}; }
+.faq-hero-expert i { color: var(--brand); }
 
 .faq-hero-stats {
   display: flex;
@@ -326,7 +378,7 @@ function getFaqPageCSS(slug) {
 .faq-stat-value {
   font-size: 1.4rem;
   font-weight: 900;
-  color: ${meta.color};
+  color: var(--brand);
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
@@ -375,7 +427,7 @@ function getFaqPageCSS(slug) {
   animation: fadeInUp 0.5s ease both;
 }
 .faq-top-card:hover {
-  border-color: ${meta.color}30;
+  border-color: rgba(107,66,38,0.2);
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   transform: translateY(-2px);
 }
@@ -390,6 +442,7 @@ function getFaqPageCSS(slug) {
   color: #fff;
   font-size: 0.85rem;
   font-weight: 800;
+  background: linear-gradient(135deg, var(--brand), var(--brand-light));
 }
 .faq-top-card-content h3 {
   font-size: 0.95rem;
@@ -431,8 +484,8 @@ function getFaqPageCSS(slug) {
   outline: none;
 }
 .faq-search-box input:focus {
-  border-color: ${meta.color};
-  box-shadow: 0 4px 20px ${meta.color}15;
+  border-color: var(--brand);
+  box-shadow: 0 4px 20px rgba(107,66,38,0.1);
 }
 .faq-search-box input::placeholder { color: var(--text-tertiary); }
 .faq-search-box .search-icon {
@@ -472,8 +525,8 @@ function getFaqPageCSS(slug) {
   display: inline-flex;
   align-items: center;
   padding: 3px 12px;
-  background: ${meta.color}10;
-  color: ${meta.color};
+  background: rgba(107,66,38,0.06);
+  color: var(--brand);
   font-size: 0.78rem;
   font-weight: 700;
   border-radius: 999px;
@@ -489,11 +542,11 @@ function getFaqPageCSS(slug) {
   overflow: hidden;
 }
 .faq-main-section .faq-item:hover {
-  border-color: ${meta.color}30;
+  border-color: rgba(107,66,38,0.18);
 }
 .faq-main-section .faq-item.active {
-  border-color: ${meta.color}40;
-  box-shadow: 0 4px 16px ${meta.color}10;
+  border-color: rgba(107,66,38,0.25);
+  box-shadow: 0 4px 16px rgba(107,66,38,0.08);
 }
 .faq-main-section .faq-question {
   display: flex;
@@ -510,7 +563,7 @@ function getFaqPageCSS(slug) {
   text-align: left;
   transition: color 0.2s;
 }
-.faq-main-section .faq-question:hover { color: ${meta.color}; }
+.faq-main-section .faq-question:hover { color: var(--brand); }
 .faq-main-section .faq-question::after { display: none; }
 
 .faq-main-section .faq-q-badge {
@@ -528,7 +581,7 @@ function getFaqPageCSS(slug) {
   flex-shrink: 0;
 }
 .faq-main-section .faq-item.active .faq-q-badge {
-  background: linear-gradient(135deg, ${meta.color}, ${meta.color}cc);
+  background: linear-gradient(135deg, var(--brand-dark), var(--brand));
 }
 .faq-main-section .faq-q-text {
   flex: 1;
@@ -537,7 +590,7 @@ function getFaqPageCSS(slug) {
   color: var(--text-primary);
   line-height: 1.5;
 }
-.faq-main-section .faq-item.active .faq-q-text { color: ${meta.color}; }
+.faq-main-section .faq-item.active .faq-q-text { color: var(--brand); }
 .faq-main-section .faq-icon {
   color: var(--text-tertiary);
   font-size: 0.85rem;
@@ -546,7 +599,7 @@ function getFaqPageCSS(slug) {
 }
 .faq-main-section .faq-item.active .faq-icon {
   transform: rotate(180deg);
-  color: ${meta.color};
+  color: var(--brand);
 }
 
 .faq-main-section .faq-answer {
@@ -565,7 +618,7 @@ function getFaqPageCSS(slug) {
   padding: 16px 20px;
   background: var(--gray-50);
   border-radius: 12px;
-  border-left: 3px solid ${meta.color};
+  border-left: 3px solid var(--brand);
 }
 .faq-no-results {
   text-align: center;
@@ -617,6 +670,8 @@ function getFaqPageCSS(slug) {
   justify-content: center;
   border-radius: 12px;
   font-size: 1.1rem;
+  background: rgba(107,66,38,0.06);
+  color: var(--brand);
 }
 .faq-related-card-body h3 {
   font-size: 0.95rem;
@@ -853,7 +908,7 @@ ${generateFaqNav(slug)}
     <section class="faq-top-section">
       <div class="container">
         <div class="faq-top-header">
-          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <h2><i class="fas fa-fire" style="color: var(--brand-gold);"></i> 가장 많이 묻는 질문</h2>
           <p>환자분들이 가장 궁금해하는 TOP 3</p>
         </div>
         <div class="faq-top-grid">
@@ -875,7 +930,7 @@ ${generateTopFaqCards(info.faqs, slug)}
     <section class="faq-main-section">
         <div class="container">
             <h2 class="faq-category-title">
-              <i class="fas ${meta.icon}" style="color: ${meta.color};"></i>
+              <i class="fas ${meta.icon}" style="color: var(--brand);"></i>
               ${info.title} 자주 묻는 질문
               <span class="faq-total-badge">${faqCount}개</span>
             </h2>
@@ -910,7 +965,7 @@ ${generateFaqItems(info.faqs)}
         </div>
         <div class="faq-related-grid">
 ${relatedFaqs.map(r => `          <a href="/faq/${r.slug}" class="faq-related-card">
-            <div class="faq-related-card-icon" style="background: ${r.color}12; color: ${r.color};"><i class="fas ${r.icon}"></i></div>
+            <div class="faq-related-card-icon"><i class="fas ${r.icon}"></i></div>
             <div class="faq-related-card-body"><h3>${r.title} FAQ</h3><span>${r.count}개 질문</span></div>
           </a>`).join('\n')}
         </div>

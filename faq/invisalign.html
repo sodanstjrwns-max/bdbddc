@@ -321,11 +321,59 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 </script>
 
 <style>
-/* ─── FAQ Sub-page Premium Design v2 ─── */
+/* ─── FAQ Sub-page Premium Design v3 (Brand Color Only) ─── */
+
+/* ─── FAQ Navigation (inline override) ─── */
+.faq-nav {
+  padding: 16px 0;
+  position: sticky;
+  top: var(--header-height, 72px);
+  z-index: 50;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color, #E8E6E3);
+}
+.faq-nav-container {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 24px;
+  max-width: 1240px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.faq-nav-container::-webkit-scrollbar { display: none; }
+.faq-nav-item {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary, #78716C);
+  background: var(--gray-100, #F5F4F2);
+  border-radius: 9999px;
+  border: 1.5px solid transparent;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.faq-nav-item:hover {
+  color: var(--brand, #6B4226);
+  background: rgba(107,66,38,0.06);
+  border-color: rgba(107,66,38,0.15);
+}
+.faq-nav-item.active {
+  color: #fff;
+  background: var(--brand, #6B4226);
+  border-color: var(--brand, #6B4226);
+}
+
 .faq-sub-hero {
   position: relative;
   padding: 40px 24px 48px;
-  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  background: linear-gradient(135deg, #FAF6F1, #F3ECE4);
   overflow: hidden;
 }
 .faq-sub-hero::before {
@@ -335,7 +383,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   right: -20%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, #8b5cf608 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(107,66,38,0.04) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -366,9 +414,9 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   align-items: center;
   gap: 6px;
   padding: 6px 16px;
-  background: #8b5cf612;
-  border: 1.5px solid #8b5cf625;
-  color: #8b5cf6;
+  background: rgba(107,66,38,0.08);
+  border: 1.5px solid rgba(107,66,38,0.15);
+  color: var(--brand);
   font-size: 0.82rem;
   font-weight: 700;
   border-radius: 999px;
@@ -412,7 +460,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   margin-bottom: 20px;
 }
-.faq-hero-expert i { color: #8b5cf6; }
+.faq-hero-expert i { color: var(--brand); }
 
 .faq-hero-stats {
   display: flex;
@@ -426,7 +474,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 .faq-stat-value {
   font-size: 1.4rem;
   font-weight: 900;
-  color: #8b5cf6;
+  color: var(--brand);
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
@@ -475,7 +523,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   animation: fadeInUp 0.5s ease both;
 }
 .faq-top-card:hover {
-  border-color: #8b5cf630;
+  border-color: rgba(107,66,38,0.2);
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   transform: translateY(-2px);
 }
@@ -490,6 +538,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   color: #fff;
   font-size: 0.85rem;
   font-weight: 800;
+  background: linear-gradient(135deg, var(--brand), var(--brand-light));
 }
 .faq-top-card-content h3 {
   font-size: 0.95rem;
@@ -531,8 +580,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   outline: none;
 }
 .faq-search-box input:focus {
-  border-color: #8b5cf6;
-  box-shadow: 0 4px 20px #8b5cf615;
+  border-color: var(--brand);
+  box-shadow: 0 4px 20px rgba(107,66,38,0.1);
 }
 .faq-search-box input::placeholder { color: var(--text-tertiary); }
 .faq-search-box .search-icon {
@@ -572,8 +621,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   display: inline-flex;
   align-items: center;
   padding: 3px 12px;
-  background: #8b5cf610;
-  color: #8b5cf6;
+  background: rgba(107,66,38,0.06);
+  color: var(--brand);
   font-size: 0.78rem;
   font-weight: 700;
   border-radius: 999px;
@@ -589,11 +638,11 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   overflow: hidden;
 }
 .faq-main-section .faq-item:hover {
-  border-color: #8b5cf630;
+  border-color: rgba(107,66,38,0.18);
 }
 .faq-main-section .faq-item.active {
-  border-color: #8b5cf640;
-  box-shadow: 0 4px 16px #8b5cf610;
+  border-color: rgba(107,66,38,0.25);
+  box-shadow: 0 4px 16px rgba(107,66,38,0.08);
 }
 .faq-main-section .faq-question {
   display: flex;
@@ -610,7 +659,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   text-align: left;
   transition: color 0.2s;
 }
-.faq-main-section .faq-question:hover { color: #8b5cf6; }
+.faq-main-section .faq-question:hover { color: var(--brand); }
 .faq-main-section .faq-question::after { display: none; }
 
 .faq-main-section .faq-q-badge {
@@ -628,7 +677,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   flex-shrink: 0;
 }
 .faq-main-section .faq-item.active .faq-q-badge {
-  background: linear-gradient(135deg, #8b5cf6, #8b5cf6cc);
+  background: linear-gradient(135deg, var(--brand-dark), var(--brand));
 }
 .faq-main-section .faq-q-text {
   flex: 1;
@@ -637,7 +686,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   color: var(--text-primary);
   line-height: 1.5;
 }
-.faq-main-section .faq-item.active .faq-q-text { color: #8b5cf6; }
+.faq-main-section .faq-item.active .faq-q-text { color: var(--brand); }
 .faq-main-section .faq-icon {
   color: var(--text-tertiary);
   font-size: 0.85rem;
@@ -646,7 +695,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 }
 .faq-main-section .faq-item.active .faq-icon {
   transform: rotate(180deg);
-  color: #8b5cf6;
+  color: var(--brand);
 }
 
 .faq-main-section .faq-answer {
@@ -665,7 +714,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   padding: 16px 20px;
   background: var(--gray-50);
   border-radius: 12px;
-  border-left: 3px solid #8b5cf6;
+  border-left: 3px solid var(--brand);
 }
 .faq-no-results {
   text-align: center;
@@ -717,6 +766,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   justify-content: center;
   border-radius: 12px;
   font-size: 1.1rem;
+  background: rgba(107,66,38,0.06);
+  color: var(--brand);
 }
 .faq-related-card-body h3 {
   font-size: 0.95rem;
@@ -833,26 +884,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="faq-top-section">
       <div class="container">
         <div class="faq-top-header">
-          <h2><i class="fas fa-fire" style="color: #ef4444;"></i> 가장 많이 묻는 질문</h2>
+          <h2><i class="fas fa-fire" style="color: var(--brand-gold);"></i> 가장 많이 묻는 질문</h2>
           <p>환자분들이 가장 궁금해하는 TOP 3</p>
         </div>
         <div class="faq-top-grid">
           <div class="faq-top-card" style="animation-delay: 0s">
-            <div class="faq-top-card-num" style="background: #8b5cf6;">1</div>
+            <div class="faq-top-card-num">1</div>
             <div class="faq-top-card-content">
               <h3>인비절라인이란 무엇인가요?</h3>
               <p>인비절라인은 투명한 플라스틱 장치(얼라이너)를 이용한 교정 치료입니다.</p>
             </div>
           </div>
           <div class="faq-top-card" style="animation-delay: 0.1s">
-            <div class="faq-top-card-num" style="background: #8b5cf6;">2</div>
+            <div class="faq-top-card-num">2</div>
             <div class="faq-top-card-content">
               <h3>인비절라인 비용은 얼마인가요?</h3>
               <p>교정 범위(부분/전체), 난이도, 치료 기간에 따라 달라집니다.</p>
             </div>
           </div>
           <div class="faq-top-card" style="animation-delay: 0.2s">
-            <div class="faq-top-card-num" style="background: #8b5cf6;">3</div>
+            <div class="faq-top-card-num">3</div>
             <div class="faq-top-card-content">
               <h3>인비절라인 교정 기간은 얼마나 걸리나요?</h3>
               <p>일반적으로 12~18개월이며, 간단한 부분 교정은 6개월 이내로 가능합니다.</p>
@@ -875,7 +926,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="faq-main-section">
         <div class="container">
             <h2 class="faq-category-title">
-              <i class="fas fa-teeth" style="color: #8b5cf6;"></i>
+              <i class="fas fa-teeth" style="color: var(--brand);"></i>
               인비절라인 자주 묻는 질문
               <span class="faq-total-badge">24개</span>
             </h2>
@@ -1149,15 +1200,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="faq-related-grid">
           <a href="/faq/orthodontics" class="faq-related-card">
-            <div class="faq-related-card-icon" style="background: #ec489912; color: #ec4899;"><i class="fas fa-teeth-open"></i></div>
+            <div class="faq-related-card-icon"><i class="fas fa-teeth-open"></i></div>
             <div class="faq-related-card-body"><h3>치아교정 FAQ</h3><span>24개 질문</span></div>
           </a>
           <a href="/faq/whitening" class="faq-related-card">
-            <div class="faq-related-card-icon" style="background: #06b6d412; color: #06b6d4;"><i class="fas fa-sun"></i></div>
+            <div class="faq-related-card-icon"><i class="fas fa-sun"></i></div>
             <div class="faq-related-card-body"><h3>치아미백 FAQ</h3><span>20개 질문</span></div>
           </a>
           <a href="/faq/glownate" class="faq-related-card">
-            <div class="faq-related-card-icon" style="background: #f59e0b12; color: #f59e0b;"><i class="fas fa-star"></i></div>
+            <div class="faq-related-card-icon"><i class="fas fa-star"></i></div>
             <div class="faq-related-card-body"><h3>글로우네이트(라미네이트) FAQ</h3><span>24개 질문</span></div>
           </a>
         </div>
