@@ -444,6 +444,122 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }
 </script>
+<style>
+/* ===== 카드 클릭 유도 배너 ===== */
+.type-grid-cta-banner {
+  margin-top: 32px;
+  padding: 0 8px;
+}
+.cta-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 36px;
+  background: linear-gradient(135deg, rgba(107,66,38,0.06) 0%, rgba(200,169,126,0.12) 100%);
+  border: 2px dashed var(--brand-gold);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  animation: bannerGlow 3s ease-in-out infinite;
+}
+@keyframes bannerGlow {
+  0%, 100% { border-color: var(--brand-gold); box-shadow: 0 0 0 0 rgba(200,169,126,0); }
+  50% { border-color: var(--brand); box-shadow: 0 0 20px rgba(200,169,126,0.2); }
+}
+.cta-banner-icon-pulse {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cta-banner-icon-pulse i {
+  font-size: 1.5rem;
+  color: var(--brand);
+  position: relative;
+  z-index: 2;
+  animation: pointerBounce 1.5s ease-in-out infinite;
+}
+@keyframes pointerBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(-8deg); }
+  75% { transform: translateY(2px) rotate(4deg); }
+}
+.pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--brand-gold);
+  transform: translate(-50%, -50%);
+  animation: pulseRing 2s ease-out infinite;
+}
+.pulse-ring.delay {
+  animation-delay: 0.6s;
+}
+@keyframes pulseRing {
+  0% { transform: translate(-50%, -50%) scale(0.6); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
+}
+.cta-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cta-banner-text strong {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand);
+  letter-spacing: -0.02em;
+}
+.cta-banner-text span {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.cta-banner-arrows {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.bounce-arrow {
+  font-size: 1rem;
+  color: var(--brand-gold);
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+.bounce-arrow.a1 { animation-delay: 0s; opacity: 0.4; }
+.bounce-arrow.a2 { animation-delay: 0.15s; opacity: 0.7; }
+.bounce-arrow.a3 { animation-delay: 0.3s; opacity: 1; }
+@keyframes arrowBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .cta-banner-inner {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .cta-banner-text strong {
+    font-size: 1.05rem;
+  }
+  .cta-banner-text span {
+    font-size: 0.85rem;
+  }
+  .cta-banner-arrows {
+    display: none;
+  }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -626,7 +742,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="type-price"><span style="font-size:1rem;font-weight:700;color:#6B4226;">상담 후 안내</span></div>
           </a>
         </div>
-        <p class="type-grid-hint"><i class="fas fa-hand-pointer"></i> 각 카드를 눌러 자세한 내용을 확인하세요</p>
+        <!-- 카드 클릭 유도 배너 -->
+        <div class="type-grid-cta-banner">
+          <div class="cta-banner-inner">
+            <div class="cta-banner-icon-pulse">
+              <span class="pulse-ring"></span>
+              <span class="pulse-ring delay"></span>
+              <i class="fas fa-hand-pointer"></i>
+            </div>
+            <div class="cta-banner-text">
+              <strong>각 프로그램을 눌러보세요</strong>
+              <span>프로그램별 상세 설명 · 치료 과정 · 비용 · FAQ를 확인할 수 있습니다</span>
+            </div>
+            <div class="cta-banner-arrows">
+              <i class="fas fa-chevron-right bounce-arrow a1"></i>
+              <i class="fas fa-chevron-right bounce-arrow a2"></i>
+              <i class="fas fa-chevron-right bounce-arrow a3"></i>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
     <section class="section">
