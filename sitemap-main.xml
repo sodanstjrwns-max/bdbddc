@@ -7,7 +7,7 @@
   <!-- ═══════════════════════════════════════ -->
   <!-- 서울비디치과 메인 사이트맵               -->
   <!-- 최종 업데이트: 2026-04-08               -->
-  <!-- 총 URL: 74개                            -->
+  <!-- 총 URL: 71개 (페이지)                    -->
   <!-- ═══════════════════════════════════════ -->
 
   <!-- ===== 1. 메인 페이지 ===== -->
@@ -86,6 +86,38 @@
     <lastmod>2026-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
+  </url>
+
+  <!-- 교정 프로그램별 상세 -->
+  <url>
+    <loc>https://bdbddc.com/treatments/ortho-best</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/treatments/ortho-moderate</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/treatments/ortho-light</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/treatments/ortho-express</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/treatments/ortho-first</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <!-- 교정 상세 (장치별) -->
