@@ -1,4 +1,144 @@
-<!DOCTYPE html>
+#!/usr/bin/env node
+/**
+ * FAQ 페이지 자동 생성 스크립트
+ * - faq-data.json에서 13개 새 카테고리의 전용 FAQ 페이지 생성
+ * - 기존 implant.html, orthodontics.html 템플릿 기반
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const dataPath = path.join(__dirname, 'faq-data.json');
+const faqDir = path.join(__dirname, '..', 'faq');
+const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+// 이미 존재하는 페이지는 스킵
+const existingPages = ['implant', 'orthodontics'];
+
+// 카테고리별 아이콘 매핑
+const categoryIcons = {
+  invisalign: '😁',
+  orthodontics: '🦷',
+  glownate: '✨',
+  sedation: '😴',
+  'wisdom-tooth': '🦷',
+  pediatric: '👶',
+  whitening: '🪥',
+  cavity: '🔍',
+  gum: '🩸',
+  tmj: '🦴',
+  scaling: '🧹',
+  'root-canal': '🔬',
+  crown: '👑',
+  denture: '🦷',
+  emergency: '🚨'
+};
+
+// 카테고리별 전문가 설명
+const expertTexts = {
+  invisalign: '인비절라인 교정 전문의가 답변합니다',
+  orthodontics: '교정 전문의가 답변합니다',
+  glownate: '심미치료 전문의가 답변합니다',
+  sedation: '수면진정 전문 의료진이 답변합니다',
+  'wisdom-tooth': '구강외과 전문의가 답변합니다',
+  pediatric: '소아치과 전문의 3인이 답변합니다',
+  whitening: '심미치료 전문의가 답변합니다',
+  cavity: '보존과 전문의가 답변합니다',
+  gum: '치주과 전문의가 답변합니다',
+  tmj: '턱관절·구강안면통증 전문의가 답변합니다',
+  scaling: '치주과 전문의가 답변합니다',
+  'root-canal': '보존과 전문의가 답변합니다',
+  crown: '보철 전문의가 답변합니다',
+  denture: '보철 전문의가 답변합니다',
+  emergency: '365일 진료 전문 의료진이 답변합니다'
+};
+
+// FAQ 네비게이션 생성
+function generateFaqNav(activeSlug) {
+  const navItems = [
+    { slug: 'implant', label: '임플란트' },
+    { slug: 'invisalign', label: '인비절라인' },
+    { slug: 'orthodontics', label: '치아교정' },
+    { slug: 'glownate', label: '글로우네이트' },
+    { slug: 'sedation', label: '수면치료' },
+    { slug: 'wisdom-tooth', label: '사랑니' },
+    { slug: 'pediatric', label: '소아치과' },
+    { slug: 'whitening', label: '미백' },
+    { slug: 'cavity', label: '충치' },
+    { slug: 'gum', label: '잇몸' },
+    { slug: 'root-canal', label: '신경치료' },
+    { slug: 'crown', label: '크라운' },
+    { slug: 'tmj', label: 'TMJ' },
+    { slug: 'scaling', label: '스케일링' },
+    { slug: 'denture', label: '틀니' },
+    { slug: 'emergency', label: '응급' },
+  ];
+  return navItems.map(item => 
+    `            <a href="/faq/${item.slug}" class="faq-nav-item${item.slug === activeSlug ? ' active' : ''}">${item.label}</a>`
+  ).join('\n');
+}
+
+// FAQ Schema.org JSON-LD 생성
+function generateFaqSchema(faqs) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  };
+  return JSON.stringify(schema, null, 2);
+}
+
+// FAQ 아이템 HTML 생성
+function generateFaqItems(faqs) {
+  return faqs.map((faq, i) => `            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-${i}">
+                    <span>${faq.q}</span>
+                    <i class="fas fa-chevron-down faq-toggle-icon"></i>
+                </button>
+                <div class="faq-answer" id="faq-answer-${i}">
+                    <p>${faq.a}</p>
+                </div>
+            </div>`).join('\n');
+}
+
+// 연관 치료 페이지 링크
+function getRelatedTreatmentLink(slug) {
+  const map = {
+    invisalign: '/treatments/invisalign',
+    orthodontics: '/treatments/orthodontics',
+    glownate: '/treatments/glownate',
+    sedation: '/treatments/sedation',
+    'wisdom-tooth': '/treatments/wisdom-tooth',
+    pediatric: '/treatments/pediatric',
+    whitening: '/treatments/whitening',
+    cavity: '/treatments/cavity',
+    gum: '/treatments/gum',
+    tmj: '/treatments/tmj',
+    scaling: '/treatments/scaling',
+    'root-canal': '/treatments/root-canal',
+    crown: '/treatments/crown',
+    denture: '/treatments/denture',
+    emergency: '/treatments/emergency',
+    implant: '/treatments/implant'
+  };
+  return map[slug] || '/treatments/';
+}
+
+// HTML 페이지 생성
+function generateFaqPage(slug, info) {
+  const icon = categoryIcons[slug] || '🦷';
+  const expert = expertTexts[slug] || '서울대 출신 전문의가 답변합니다';
+  const faqCount = info.faqs.length;
+  const treatmentLink = getRelatedTreatmentLink(slug);
+
+  return `<!DOCTYPE html>
 <html lang="ko" prefix="og: https://ogp.me/ns#">
 <head>
 <!-- Google Tag Manager -->
@@ -32,29 +172,29 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>인비절라인·교정 자주 묻는 질문 | 천안 교정 FAQ — 서울비디치과</title>
-  <meta name="description" content="서울비디치과 교정 FAQ — 인비절라인 비용, 교정 기간, 통증, 유지장치 등 치아교정 자주 묻는 질문과 전문의 답변 모음.">
-  <meta name="abstract" content="서울비디치과 교정 FAQ — 인비절라인 비용, 교정 기간, 통증, 유지장치 등 치아교정 자주 묻는 질문과 전문의 답변 모음.">
-  <meta name="ai-summary" content="서울비디치과 교정 FAQ — 인비절라인 비용, 교정 기간, 통증, 유지장치 등 치아교정 자주 묻는 질문과 전문의 답변 모음.">
-  <meta name="keywords" content="교정 FAQ, 인비절라인 질문, 천안 교정, 인비절라인 비용, 투명교정, 서울비디치과 교정">
+  <title>${info.title} 자주 묻는 질문 | 천안 ${info.title} FAQ — 서울비디치과</title>
+  <meta name="description" content="${info.description}">
+  <meta name="abstract" content="${info.description}">
+  <meta name="ai-summary" content="${info.description}">
+  <meta name="keywords" content="${info.keywords}">
   <meta name="author" content="서울비디치과">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <link rel="canonical" href="https://bdbddc.com/faq/orthodontics">
+  <link rel="canonical" href="https://bdbddc.com/faq/${slug}">
   <meta name="geo.region" content="KR-44">
   <meta name="geo.placename" content="천안시, 충청남도">
   <meta name="geo.position" content="36.8151;127.1139">
-  <meta property="og:title" content="교정 FAQ | 서울비디치과">
-  <meta property="og:description" content="서울비디치과 교정 FAQ — 인비절라인 비용, 교정 기간, 통증, 유지장치 등 치아교정 자주 묻는 질문과 전문의 답변 모음.">
+  <meta property="og:title" content="${info.title} FAQ | 서울비디치과">
+  <meta property="og:description" content="${info.description}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://bdbddc.com/faq/orthodontics">
+  <meta property="og:url" content="https://bdbddc.com/faq/${slug}">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="서울비디치과">
   <meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="교정 FAQ | 서울비디치과">
-  <meta name="twitter:description" content="서울비디치과 치아교정 관련 자주 묻는 질문">
+  <meta name="twitter:title" content="${info.title} FAQ | 서울비디치과">
+  <meta name="twitter:description" content="${info.description}">
   <meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg">
   <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
@@ -66,89 +206,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   <link rel="stylesheet" href="../css/site-v5.css?v=b413d3a5">
-<link rel="prefetch" href="/reservation" as="document">
+  <link rel="prefetch" href="/reservation" as="document">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"교정 FAQ","item":"https://bdbddc.com/faq/orthodontics"}]}
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"FAQ","item":"https://bdbddc.com/faq"},{"@type":"ListItem","position":3,"name":"${info.title} FAQ","item":"https://bdbddc.com/faq/${slug}"}]}
   </script>
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "인비절라인이란 무엇인가요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "인비절라인은 투명한 플라스틱 재질의 교정 장치입니다. 기존 금속 브라켓과 달리 눈에 거의 보이지 않아 심미적으로 우수하며, 탈착이 가능해 식사와 칫솔질이 편리합니다. 서울비디치과는 대규모 규모의 인비절라인 센터 를 운영하고 있습니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "인비절라인 교정 기간은 얼마나 걸리나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "케이스에 따라 다르지만: 전체 교정 (풀): 12~24개월 부분 교정 (라이트): 6~12개월 전치부 교정: 3~6개월 정확한 기간은 3D 스캔 후 시뮬레이션을 통해 안내드립니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "인비절라인은 하루에 몇 시간 착용해야 하나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "하루 20~22시간 착용해야 최적의 결과를 얻을 수 있습니다. 식사와 칫솔질 시에만 제거하며, 착용 시간이 부족하면 치료 기간이 늘어날 수 있습니다. 💡 착용 시간을 기록하는 앱을 활용하면 관리가 편해집니다!"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "인비절라인 비용은 얼마인가요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "인비절라인 풀: 500~700만원 인비절라인 라이트: 300~400만원 인비절라인 퍼스트 (소아): 400~500만원 부분 앞니 교정: 150~250만원 정확한 비용은 상담 후 결정됩니다. 무이자 할부도 가능합니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "교정 비용에는 무엇이 포함되나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "서울비디치과 교정 비용에는 아래가 포함됩니다: 전체 치료 기간의 장치 비용 정기 내원 시 점검 비용 추가 장치 제작 비용 (필요시) 교정 후 유지장치 1세트"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "인비절라인 착용 중 음식 제한이 있나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "인비절라인은 식사 시 제거 하므로, 음식 제한이 없습니다! 이는 기존 브라켓 교정 대비 큰 장점입니다. 다만, 장치 착용 중에는 물 외의 음료(커피, 주스 등)는 피하는 것이 좋습니다. 색소 침착과 충치 위험이 있습니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "인비절라인 관리는 어떻게 하나요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "매일 흐르는 물에 부드러운 칫솔로 세척 뜨거운 물 사용 금지 (변형 위험) 전용 세정제 사용 권장 착용 전 반드시 칫솔질"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "교정 중 통증이 심한가요?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "새로운 장치로 교체 후 2~3일간 약간의 압박감과 불편함이 있을 수 있습니다. 이는 치아가 이동하는 정상적인 과정입니다. 기존 브라켓 교정보다 통증이 훨씬 적은 것으로 알려져 있습니다."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "서울비디치과 교정이 특별한 이유는?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "대규모 인비절라인 센터: 풍부한 경험과 노하우 서울대 출신 전문의 2인: 교정과 전문의 상주 일요일 진료: 바쁜 직장인/학생도 편리하게 3D 측정 + AI 진단: 정확한 치료 계획 소아치과 협진: 성장기 교정 전문"
-      }
-    }
-  ]
-}
+${generateFaqSchema(info.faqs)}
 </script>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -164,7 +227,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     "addressCountry": "KR"
   },
   "sameAs": ["https://pf.kakao.com/_Cxivlxb","https://www.youtube.com/@BDtube","https://www.youtube.com/@geoptongryung","https://naver.me/5yPnKmqQ"],
-    "aggregateRating": {
+  "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
     "reviewCount": "2847",
@@ -176,98 +239,19 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     "longitude": 127.1139
   },
   "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "09:00",
-      "closes": "20:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Saturday",
-        "Sunday"
-      ],
-      "opens": "09:00",
-      "closes": "17:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "PublicHolidays",
-      "opens": "09:00",
-      "closes": "13:00"
-    }
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"20:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"09:00","closes":"17:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"PublicHolidays","opens":"09:00","closes":"13:00"}
   ],
   "areaServed": [
-    {
-      "@type": "City",
-      "name": "천안시"
-    },
-    {
-      "@type": "City",
-      "name": "아산시"
-    },
-    {
-      "@type": "City",
-      "name": "세종시"
-    },
-    {
-      "@type": "City",
-      "name": "대전시"
-    },
-    {
-      "@type": "City",
-      "name": "청주시"
-    },
-    {
-      "@type": "City",
-      "name": "평택시"
-    },
-    {
-      "@type": "City",
-      "name": "공주시"
-    },
-    {
-      "@type": "City",
-      "name": "당진시"
-    },
-    {
-      "@type": "City",
-      "name": "서산시"
-    },
-    {
-      "@type": "City",
-      "name": "논산시"
-    },
-    {
-      "@type": "City",
-      "name": "예산군"
-    },
-    {
-      "@type": "City",
-      "name": "홍성군"
-    },
-    {
-      "@type": "City",
-      "name": "충주시"
-    },
-    {
-      "@type": "City",
-      "name": "진천군"
-    },
-    {
-      "@type": "City",
-      "name": "안성시"
-    }
+    {"@type":"City","name":"천안시"},{"@type":"City","name":"아산시"},{"@type":"City","name":"세종시"},
+    {"@type":"City","name":"대전시"},{"@type":"City","name":"청주시"},{"@type":"City","name":"평택시"},
+    {"@type":"City","name":"공주시"},{"@type":"City","name":"당진시"},{"@type":"City","name":"서산시"},
+    {"@type":"City","name":"논산시"},{"@type":"City","name":"예산군"},{"@type":"City","name":"홍성군"},
+    {"@type":"City","name":"충주시"},{"@type":"City","name":"진천군"},{"@type":"City","name":"안성시"}
   ]
 }</script>
-<script type="application/ld+json">
+  <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebPage","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero-headline",".hero-sub",".faq-category-title"]}}
   </script>
 <script src="/js/analytics.js?v=20260408v6" defer></script>
@@ -303,8 +287,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </li>
           <li class="nav-item"><a href="/doctors/">의료진</a></li>
           <li class="nav-item"><a href="/mission">비디미션</a></li>
-          <li class="nav-item has-dropdown"><a href="/blog/">콘텐츠</a><ul class="simple-dropdown"><li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li><li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="/cases/gallery"><i class="fas fa-lock"></i> 비포/애프터</a></li>              <li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>
-            </ul></li>
+          <li class="nav-item has-dropdown"><a href="/blog/">콘텐츠</a><ul class="simple-dropdown"><li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li><li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="/cases/gallery"><i class="fas fa-lock"></i> 비포/애프터</a></li><li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li></ul></li>
           <li class="nav-item has-dropdown"><a href="/directions">안내</a><ul class="simple-dropdown"><li><a href="/pricing" class="nav-highlight">💰 비용 안내</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/directions">오시는 길</a></li><li><a href="/faq">자주 묻는 질문</a></li><li><a href="/notice/"><i class="fas fa-bullhorn"></i> 공지사항</a></li></ul></li>
           <li class="nav-item has-dropdown"><a href="/games" style="color:#EC4899;font-weight:700;">🎮 플레이</a><ul class="simple-dropdown"><li><a href="/flight"><i class="fas fa-rocket"></i> 치석 플라이트</a></li><li><a href="/run"><i class="fas fa-running"></i> 투쓰런</a></li><li><a href="/checkup"><i class="fas fa-dna"></i> 치BTI</a></li><li><a href="/games"><i class="fas fa-th"></i> 전체 게임</a></li></ul></li>
         </ul>
@@ -321,7 +304,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <main id="main-content" role="main">
   
-  
   <!-- ═══════ HERO ═══════ -->
   <section class="hero" aria-label="서울비디치과">
     <div class="hero-bg-pattern" aria-hidden="true"></div>
@@ -333,11 +315,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="hero-brand-name reveal">SEOUL BD DENTAL CLINIC</p>
         
         <h1 class="hero-headline reveal delay-1">
-          <span class="text-gradient">교정 FAQ</span>
+          <span class="text-gradient">${info.title} FAQ</span>
         </h1>
         
         <p class="hero-sub reveal delay-2">
-          교정 자주 묻는 질문
+          ${info.title} 자주 묻는 질문
         </p>
         
         <div class="hero-trust-row reveal delay-3">
@@ -367,178 +349,58 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-<!-- ■ 통합 헤더 -->
-    
-
+    <!-- Hero -->
     <section class="faq-hero">
-        <h2>😁 교정/인비절라인 FAQ</h2>
-        <p class="lead">치아교정에 관한 모든 궁금증을 해결해 드립니다<br>서울대 출신 교정 전문의가 답변합니다</p>
+        <h2>${icon} ${info.title} FAQ</h2>
+        <p class="lead">${info.title}에 관한 모든 궁금증을 해결해 드립니다<br>${expert}</p>
+        <p class="faq-count">총 <strong>${faqCount}개</strong>의 질문과 답변</p>
     </section>
 
+    <!-- FAQ 카테고리 네비게이션 -->
     <section class="faq-nav">
         <div class="faq-nav-container">
-            <a href="/faq/implant" class="faq-nav-item">임플란트</a>
-            <a href="/faq/invisalign" class="faq-nav-item">인비절라인</a>
-            <a href="/faq/orthodontics" class="faq-nav-item active">치아교정</a>
-            <a href="/faq/glownate" class="faq-nav-item">글로우네이트</a>
-            <a href="/faq/sedation" class="faq-nav-item">수면치료</a>
-            <a href="/faq/wisdom-tooth" class="faq-nav-item">사랑니</a>
-            <a href="/faq/pediatric" class="faq-nav-item">소아치과</a>
-            <a href="/faq/whitening" class="faq-nav-item">미백</a>
-            <a href="/faq/cavity" class="faq-nav-item">충치</a>
-            <a href="/faq/gum" class="faq-nav-item">잇몸</a>
-            <a href="/faq/root-canal" class="faq-nav-item">신경치료</a>
-            <a href="/faq/crown" class="faq-nav-item">크라운</a>
-            <a href="/faq/tmj" class="faq-nav-item">TMJ</a>
-            <a href="/faq/scaling" class="faq-nav-item">스케일링</a>
-            <a href="/faq/denture" class="faq-nav-item">틀니</a>
-            <a href="/faq/emergency" class="faq-nav-item">응급</a>
+${generateFaqNav(slug)}
         </div>
     </section>
 
+    <!-- FAQ 내용 -->
     <section class="faq-section">
         <div class="faq-category">
-            <h2>📋 인비절라인 기본 정보</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question">인비절라인이란 무엇인가요?</div>
-                <div class="faq-answer">
-                    <p>인비절라인은 투명한 플라스틱 재질의 교정 장치입니다. 기존 금속 브라켓과 달리 눈에 거의 보이지 않아 심미적으로 우수하며, 탈착이 가능해 식사와 칫솔질이 편리합니다.</p>
-                    <p>서울비디치과는 <strong>대규모 규모의 인비절라인 센터</strong>를 운영하고 있습니다.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">인비절라인 교정 기간은 얼마나 걸리나요?</div>
-                <div class="faq-answer">
-                    <p>케이스에 따라 다르지만:</p>
-                    <ul>
-                        <li><strong>전체 교정 (풀):</strong> 12~24개월</li>
-                        <li><strong>부분 교정 (라이트):</strong> 6~12개월</li>
-                        <li><strong>전치부 교정:</strong> 3~6개월</li>
-                    </ul>
-                    <p>정확한 기간은 3D 스캔 후 시뮬레이션을 통해 안내드립니다.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">인비절라인은 하루에 몇 시간 착용해야 하나요?</div>
-                <div class="faq-answer">
-                    <p><strong>하루 20~22시간</strong> 착용해야 최적의 결과를 얻을 수 있습니다.</p>
-                    <p>식사와 칫솔질 시에만 제거하며, 착용 시간이 부족하면 치료 기간이 늘어날 수 있습니다.</p>
-                    <div class="highlight-box">
-                        <p>💡 착용 시간을 기록하는 앱을 활용하면 관리가 편해집니다!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-category">
-            <h2>💰 비용 및 결제</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question">인비절라인 비용은 얼마인가요?</div>
-                <div class="faq-answer">
-                    <ul>
-                        <li><strong>인비절라인 풀:</strong> 500~700만원</li>
-                        <li><strong>인비절라인 라이트:</strong> 300~400만원</li>
-                        <li><strong>인비절라인 퍼스트 (소아):</strong> 400~500만원</li>
-                        <li><strong>부분 앞니 교정:</strong> 150~250만원</li>
-                    </ul>
-                    <p>정확한 비용은 상담 후 결정됩니다. 무이자 할부도 가능합니다.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">교정 비용에는 무엇이 포함되나요?</div>
-                <div class="faq-answer">
-                    <p>서울비디치과 교정 비용에는 아래가 포함됩니다:</p>
-                    <ul>
-                        <li>전체 치료 기간의 장치 비용</li>
-                        <li>정기 내원 시 점검 비용</li>
-                        <li>추가 장치 제작 비용 (필요시)</li>
-                        <li>교정 후 유지장치 1세트</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-category">
-            <h2>⚠️ 주의사항 및 관리</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question">인비절라인 착용 중 음식 제한이 있나요?</div>
-                <div class="faq-answer">
-                    <p>인비절라인은 식사 시 <strong>제거</strong>하므로, 음식 제한이 없습니다! 이는 기존 브라켓 교정 대비 큰 장점입니다.</p>
-                    <p>다만, 장치 착용 중에는 물 외의 음료(커피, 주스 등)는 피하는 것이 좋습니다. 색소 침착과 충치 위험이 있습니다.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">인비절라인 관리는 어떻게 하나요?</div>
-                <div class="faq-answer">
-                    <ul>
-                        <li>매일 흐르는 물에 부드러운 칫솔로 세척</li>
-                        <li>뜨거운 물 사용 금지 (변형 위험)</li>
-                        <li>전용 세정제 사용 권장</li>
-                        <li>착용 전 반드시 칫솔질</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">교정 중 통증이 심한가요?</div>
-                <div class="faq-answer">
-                    <p>새로운 장치로 교체 후 2~3일간 약간의 압박감과 불편함이 있을 수 있습니다. 이는 치아가 이동하는 정상적인 과정입니다.</p>
-                    <p>기존 브라켓 교정보다 통증이 <strong>훨씬 적은</strong> 것으로 알려져 있습니다.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-category">
-            <h2>🏥 서울비디치과 교정 장점</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question">서울비디치과 교정이 특별한 이유는?</div>
-                <div class="faq-answer">
-                    <ul>
-                        <li><strong>대규모 인비절라인 센터:</strong> 풍부한 경험과 노하우</li>
-                        <li><strong>서울대 출신 전문의 2인:</strong> 교정과 전문의 상주</li>
-                        <li><strong>일요일 진료:</strong> 바쁜 직장인/학생도 편리하게</li>
-                        <li><strong>3D 측정 + AI 진단:</strong> 정확한 치료 계획</li>
-                        <li><strong>소아치과 협진:</strong> 성장기 교정 전문</li>
-                    </ul>
-                </div>
-            </div>
+            <h2 class="faq-category-title">${icon} ${info.title} 자주 묻는 질문</h2>
+${generateFaqItems(info.faqs)}
         </div>
     </section>
 
-    <section class="cta-section">
-        <h2>교정 상담이 필요하신가요?</h2>
-        <p>무료 3D 시뮬레이션으로 교정 후 모습을 미리 확인하세요</p>
-        
-        <div class="cta-buttons">
-            <a href="/reservation" class="cta-btn primary">상담 예약</a>
-            <a href="tel:0414152892" class="cta-btn secondary">📞 041-415-2892</a>
+    <!-- CTA 섹션 -->
+    <section class="section-cta reveal">
+      <div class="container">
+        <div class="cta-card">
+          <h2 class="cta-headline">더 궁금한 점이 있으신가요?</h2>
+          <p class="cta-sub">${info.title} 관련 궁금한 점은 서울비디치과 전문의에게 직접 상담받으세요.</p>
+          <div class="cta-buttons">
+            <a href="/reservation" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
+            <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
+          </div>
+          <p class="cta-phone"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
         </div>
-    </section>
-
-
-  <section class="cta-section" aria-label="상담 안내">
-    <div class="container">
-      <div class="cta-box reveal">
-        <span class="cta-badge">상담 안내</span>
-        <h2>더 궁금한 점이 있으신가요?</h2>
-        <p>전화나 카카오톡으로 부담 없이 문의해주세요.</p>
-        <div class="cta-buttons">
-          <a href="/reservation" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 상담 예약</a>
-          <a href="tel:041-415-2892" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> 041-415-2892</a>
-        </div>
-        <p class="cta-phone"><i class="fas fa-clock"></i> 365일 진료 | 평일 09:00-20:00 | 토·일 09:00-17:00</p>
       </div>
-    </div>
-  </section>
-  
+    </section>
+
+    <!-- 관련 치료 페이지 링크 -->
+    <section class="section-sm">
+      <div class="container">
+        <div class="page-nav-v2">
+          <a href="/faq" class="prev"><span class="nav-label"><i class="fas fa-arrow-left"></i> 이전</span><span class="nav-title">전체 FAQ</span></a>
+          <a href="${treatmentLink}" class="next"><span class="nav-label">자세히 <i class="fas fa-arrow-right"></i></span><span class="nav-title">${info.title} 상세 안내</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-sm">
+      <div class="container">
+        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+      </div>
+    </section>
   </main>
   <footer class="footer" role="contentinfo">
     <div class="container">
@@ -546,8 +408,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="footer-brand"><a href="/" class="footer-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><p class="footer-slogan">Best Dedication — 정성을 다하는 헌신</p></div>
         <div class="footer-links">
           <div class="footer-col"><strong class="section-heading">전문센터</strong><ul><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/glownate">심미레진</a></li></ul></div>
-          <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li>
-              <li><a href="/column/">원장 컬럼</a></li></ul></div>
+          <div class="footer-col"><strong class="section-heading">병원 안내</strong><ul><li><a href="/doctors/">의료진</a></li><li><a href="/mission">비디미션</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/cases/gallery">Before/After</a></li><li><a href="/column/">원장 컬럼</a></li></ul></div>
           <div class="footer-col"><strong class="section-heading">고객 지원</strong><ul><li><a href="/reservation">예약/상담</a></li><li><a href="/blog/">블로그/콘텐츠</a></li><li><a href="/faq">자주 묻는 질문</a></li><li><a href="/directions">오시는 길</a></li></ul></div>
         </div>
       </div>
@@ -573,8 +434,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-tooth"></i> 진료 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="/treatments/">전체 진료</a></li><li class="submenu-divider">전문센터</li><li><a href="/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li><li><a href="/treatments/implant">임플란트센터</a></li><li><a href="/treatments/invisalign">인비절라인</a></li><li><a href="/treatments/orthodontics">치아교정</a></li><li><a href="/treatments/pediatric">소아치과</a></li><li><a href="/treatments/aesthetic">심미레진</a></li><li class="submenu-divider">일반 진료</li><li><a href="/treatments/cavity">충치치료</a></li><li><a href="/treatments/resin">레진치료</a></li><li><a href="/treatments/scaling">스케일링</a></li><li><a href="/treatments/gum">잇몸치료</a></li></ul></li>
       <li><a href="/doctors/"><i class="fas fa-user-md"></i> 의료진</a></li>
       <li><a href="/mission"><i class="fas fa-heart"></i> 비디미션</a></li>
-      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li><li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="/cases/gallery"><i class="fas fa-lock"></i> 비포/애프터</a></li>          <li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>
-        </ul></li>
+      <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li><li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li><li><a href="/cases/gallery"><i class="fas fa-lock"></i> 비포/애프터</a></li><li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li></ul></li>
       <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false"><i class="fas fa-hospital"></i> 안내 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="/pricing">💰 비용 안내</a></li><li><a href="/floor-guide">비디치과 둘러보기</a></li><li><a href="/directions">오시는 길</a></li><li><a href="/faq">자주 묻는 질문</a></li><li><a href="/notice/"><i class="fas fa-bullhorn"></i> 공지사항</a></li></ul></li>
       <li class="mobile-nav-item has-submenu"><a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false" style="color:#EC4899;font-weight:700;">🎮 플레이 <i class="fas fa-chevron-down toggle-icon"></i></a><ul class="mobile-nav-submenu"><li><a href="/flight"><i class="fas fa-rocket"></i> 치석 플라이트</a></li><li><a href="/run"><i class="fas fa-running"></i> 투쓰런</a></li><li><a href="/checkup"><i class="fas fa-dna"></i> 치BTI</a></li><li><a href="/games"><i class="fas fa-th"></i> 전체 게임</a></li></ul></li>
       <li><a href="/reservation" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
@@ -588,18 +448,63 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/main.js" defer></script>
   <script src="/js/gnb.js" defer></script>
   <script>
-    document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
-  </script>
-
-  <script>
-    document.querySelectorAll('.faq-question').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        var item=this.parentElement;
-        var isActive=item.classList.contains('active');
-        document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('active');});
-        if(!isActive)item.classList.add('active');
+    document.addEventListener('DOMContentLoaded',function(){
+      // FAQ toggle (accessible)
+      document.querySelectorAll('.faq-question').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          var item=this.parentElement;
+          var expanded=this.getAttribute('aria-expanded')==='true';
+          // Close all
+          document.querySelectorAll('.faq-item.active').forEach(function(i){
+            i.classList.remove('active');
+            i.querySelector('.faq-question').setAttribute('aria-expanded','false');
+          });
+          // Open if was closed
+          if(!expanded){
+            item.classList.add('active');
+            this.setAttribute('aria-expanded','true');
+          }
+        });
       });
+      // Reveal animation
+      var els=document.querySelectorAll('.reveal');
+      if(!els.length)return;
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+        });
+      },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+      els.forEach(function(el){obs.observe(el);});
     });
   </script>
 </body>
-</html>
+</html>`;
+}
+
+// 메인 실행
+let created = 0;
+let skipped = 0;
+
+for (const [slug, info] of Object.entries(data)) {
+  if (existingPages.includes(slug)) {
+    console.log(`⏭️  SKIP: faq/${slug}.html (이미 존재)`);
+    skipped++;
+    continue;
+  }
+  
+  const html = generateFaqPage(slug, info);
+  const outPath = path.join(faqDir, `${slug}.html`);
+  fs.writeFileSync(outPath, html, 'utf-8');
+  console.log(`✅ CREATED: faq/${slug}.html (${info.faqs.length} FAQs, ${(html.length / 1024).toFixed(1)}KB)`);
+  created++;
+}
+
+console.log(`\n📊 결과: ${created}개 생성, ${skipped}개 스킵`);
+console.log(`📁 총 FAQ 페이지: ${created + existingPages.length}개`);
+
+// 전체 FAQ 수 계산
+let totalFaqs = 0;
+for (const info of Object.values(data)) {
+  totalFaqs += info.faqs.length;
+}
+console.log(`❓ 총 FAQ 질문 수: ${totalFaqs}개`);
