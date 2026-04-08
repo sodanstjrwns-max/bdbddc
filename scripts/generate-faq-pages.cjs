@@ -12,8 +12,8 @@ const dataPath = path.join(__dirname, 'faq-data.json');
 const faqDir = path.join(__dirname, '..', 'faq');
 const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
 
-// 이미 존재하는 페이지는 스킵
-const existingPages = ['implant', 'orthodontics'];
+// 모든 페이지 재생성 (기존 파일 덮어쓰기)
+const existingPages = [];
 
 // 카테고리별 아이콘 매핑
 const categoryIcons = {
