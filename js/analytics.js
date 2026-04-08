@@ -2,6 +2,12 @@
  * 서울비디치과 통합 Analytics v4
  * GTM (GTM-KKVMVZHK) → GA4 (G-3NQP355YQM) + Amplitude (87529341cb075dcdbefabce3994958aa)
  * 
+ * v5 변경사항 (2026-04-08):
+ * - Area CTA 전용 GA4 이벤트 추적 (data-cta, data-area, data-treatment 속성 기반)
+ * - area_cta_click 이벤트: 지역명·치료명·CTA유형 포함 → 어느 지역 키워드가 전환에 기여하는지 측정
+ * - area_page_view 이벤트: area_seo 페이지 진입 시 지역·치료 파라미터 자동 전송
+ * - 기존 CTA 이벤트(trackPhoneCall, trackKakao, trackReservation)와 이중 전송으로 호환성 유지
+ *
  * v4 변경사항 (2026-04-07):
  * - GA4 표준 전환 이벤트 추가 (generate_lead, contact → 자동 주요 이벤트 인식)
  * - 예약 폼 제출 성공 추적 (trackReservationComplete)
@@ -258,9 +264,18 @@
   }
 
   var areaName = '';
+  var areaTreatment = '';
   if (pageType === 'area_seo') {
     var m3 = path.match(/\/area\/([^/.]+)/);
-    if (m3) areaName = m3[1];
+    if (m3) {
+      areaName = m3[1];
+      // area slug에서 지역명과 치료명 분리: e.g., 'asan-implant' → area='asan', treatment='implant'
+      var areaParts = areaName.split('-');
+      if (areaParts.length >= 2) {
+        areaTreatment = areaParts[areaParts.length - 1]; // 'implant', 'invisalign', 'laminate'
+        areaName = areaParts.slice(0, -1).join('-'); // 'asan', 'pyeongtaek' etc.
+      }
+    }
   }
 
   var gameName = '';
@@ -856,8 +871,49 @@
       });
     });
 
-    // 11. 진료 CTA 버튼 자동 감지 (예약, 전화, 카카오 외의 CTA)
-    document.querySelectorAll('[data-cta], .btn-cta, .cta-btn').forEach(function(el) {
+    // 11. Area 페이지 전용 CTA 정밀 추적 (data-area + data-treatment + data-cta)
+    // → GA4에서 '어느 지역 키워드가 전환(전화/예약/카카오)으로 이어지는지' 측정
+    document.querySelectorAll('[data-cta][data-area][data-treatment]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var ctaType = el.dataset.cta;          // 'phone', 'reservation', 'kakao', 'directions'
+        var ctaArea = el.dataset.area;          // 'asan', 'daejeon', 'sejong'
+        var ctaTreatment = el.dataset.treatment; // 'implant', 'invisalign', 'laminate'
+        var ctaSection = el.closest('section') ? el.closest('section').getAttribute('aria-label') || el.closest('section').className : 'unknown';
+
+        // ★ GA4 커스텀 이벤트: area_cta_click (핵심 전환 이벤트)
+        if (typeof gtag === 'function') {
+          gtag('event', 'area_cta_click', {
+            event_category: 'area_conversion',
+            cta_type: ctaType,
+            area_name: ctaArea,
+            treatment_type: ctaTreatment,
+            cta_section: ctaSection,
+            page_path: path
+          });
+        }
+        // Amplitude 이벤트
+        amplitude.track('Area CTA Click', {
+          cta_type: ctaType,
+          area_name: ctaArea,
+          treatment_type: ctaTreatment,
+          cta_section: ctaSection,
+          page_path: path,
+          device_type: deviceType,
+          channel: refInfo.channel
+        });
+        // Meta Pixel: 지역별 전환 이벤트
+        if (typeof fbq === 'function' && (ctaType === 'phone' || ctaType === 'reservation' || ctaType === 'kakao')) {
+          fbq('trackCustom', 'AreaConversion', {
+            area: ctaArea,
+            treatment: ctaTreatment,
+            cta_type: ctaType
+          });
+        }
+      });
+    });
+
+    // 11-1. 일반 CTA 버튼 자동 감지 (area CTA가 아닌 경우)
+    document.querySelectorAll('[data-cta]:not([data-area]), .btn-cta, .cta-btn').forEach(function(el) {
       el.addEventListener('click', function() {
         var name = el.dataset.cta || el.textContent.trim().substring(0, 30);
         bdAnalytics.trackCTA(name, el.closest('section') ? el.closest('section').className : 'unknown');
@@ -871,7 +927,35 @@
       });
     });
 
-    console.log('[BD Analytics v4] GA4 전환추적 강화 + Amplitude(Script Loader) 초기화 완료 | page_type=' + pageType + ' | channel=' + refInfo.channel + '/' + refInfo.source);
+    // 13. Area 페이지 진입 시 area_page_view 이벤트 (지역·치료 파라미터 포함)
+    if (pageType === 'area_seo' && areaName) {
+      if (typeof gtag === 'function') {
+        gtag('event', 'area_page_view', {
+          event_category: 'area_engagement',
+          area_name: areaName,
+          treatment_type: areaTreatment || 'general',
+          channel: refInfo.channel,
+          source: refInfo.source,
+          device_type: deviceType
+        });
+      }
+      amplitude.track('Area Page View', {
+        area_name: areaName,
+        treatment_type: areaTreatment || 'general',
+        page_path: path,
+        channel: refInfo.channel,
+        source: refInfo.source,
+        device_type: deviceType
+      });
+      // 지역 SEO 페이지 방문 유저 프로퍼티 누적
+      safeIdentify(function(aid) {
+        aid.add('area_pages_viewed', 1);
+        aid.append('viewed_areas', areaName);
+        if (areaTreatment) aid.append('viewed_area_treatments', areaTreatment);
+      });
+    }
+
+    console.log('[BD Analytics v5] GA4 전환추적 강화 + Area CTA 정밀추적 + Amplitude(Script Loader) 초기화 완료 | page_type=' + pageType + (areaName ? ' | area=' + areaName + '/' + areaTreatment : '') + ' | channel=' + refInfo.channel + '/' + refInfo.source);
   });
 
 })();
