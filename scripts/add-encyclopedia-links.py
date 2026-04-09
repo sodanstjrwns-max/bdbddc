@@ -35,8 +35,8 @@ MIN_TERM_LENGTH = 3
 DRY_RUN = '--dry-run' in sys.argv
 
 # HTML에서 절대 건드리지 않을 태그들
-# button은 FAQ 질문에 용어가 있을 수 있으므로 SKIP에서 제외
-SKIP_TAGS = {'script', 'style', 'noscript', 'code', 'pre', 'input', 'textarea', 'select', 'option'}
+# button은 FAQ 질문 토글이므로 내부에 <a> 링크 삽입하면 HTML 깨짐 → SKIP 유지
+SKIP_TAGS = {'script', 'style', 'noscript', 'code', 'pre', 'input', 'textarea', 'select', 'option', 'button'}
 # Self-closing 태그들
 VOID_TAGS = {'br', 'hr', 'img', 'input', 'meta', 'link', 'col', 'area', 'base', 'embed', 'source', 'track', 'wbr'}
 
