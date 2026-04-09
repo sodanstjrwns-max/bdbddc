@@ -58,7 +58,6 @@
     
     for (var i = 0; i < maxShow; i++) {
       var cs = cases[i];
-      // ★ 의료법 준수: 비로그인 시 이미지 URL 미제공 → placeholder 사용
       var hasImg = cs.hasAnyImage || !!cs.beforeImage;
       var imgContent;
       if (cs.beforeImage) {
@@ -73,9 +72,7 @@
           '<div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.6));padding:12px 14px;">' +
             '<span style="font-size:.7rem;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);padding:3px 8px;border-radius:20px;color:#fff;"><i class="fas fa-images" style="margin-right:3px;"></i> Before/After</span>' +
           '</div>' +
-          '<div style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);padding:3px 10px;border-radius:20px;">' +
-            '<i class="fas fa-lock" style="font-size:.6rem;color:#fff;margin-right:3px;"></i><span style="font-size:.65rem;color:#fff;">로그인 후 보기</span>' +
-          '</div>' +
+
         '</div>' +
         '<div style="padding:14px 16px;">' +
           '<div style="font-size:.95rem;font-weight:700;color:#333;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (cs.title || '케이스') + '</div>' +
@@ -97,7 +94,7 @@
         cardHtml +
       '</div>' +
       (cases.length > maxShow ? '<div style="text-align:center;"><a href="/cases/gallery" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 ' + cases.length + '건 보기</a></div>' : '') +
-      '<div style="text-align:center;margin-top:16px;font-size:.75rem;color:#aaa;"><i class="fas fa-lock" style="margin-right:4px;"></i> Before/After 상세 사진은 로그인 후 확인 가능합니다 · <a href="/auth/login" style="color:#6B4226;text-decoration:underline;">로그인하기</a></div>' +
+
     '</div>';
 
     ctaSection.parentNode.insertBefore(section, ctaSection);

@@ -72,13 +72,10 @@
       if (hasIntraoral) typeBadges += '<span style="padding:3px 8px;background:rgba(168,85,247,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-camera" style="margin-right:2px"></i>구내</span>';
       if (hasPano) typeBadges += '<span style="padding:3px 8px;background:rgba(59,130,246,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-x-ray" style="margin-right:2px"></i>파노</span>';
 
-      // ★ 의료법 준수: 비로그인 시 이미지 URL 없음 → placeholder 배경 + 잠금 표시
       var imgTag;
-      if (imgSrc && isLoggedIn) {
-        // 로그인 상태: 실제 이미지 표시
+      if (imgSrc) {
         imgTag = '<img src="' + imgSrc + '" alt="Before" style="width:100%;height:100%;object-fit:cover;" loading="lazy" onerror="this.style.display=&quot;none&quot;">';
       } else {
-        // 비로그인 또는 이미지 URL 없음: 잠금 placeholder
         imgTag = '<div style="width:100%;height:100%;background:linear-gradient(135deg,#e8dfd6,#d4c5b5);display:flex;align-items:center;justify-content:center"><i class="fas fa-teeth" style="font-size:2.5rem;color:rgba(107,66,38,0.25)"></i></div>';
       }
 
@@ -91,7 +88,7 @@
         '<div style="position:absolute;top:12px;right:12px;display:flex;gap:4px;z-index:2">' +
           typeBadges +
         '</div>' +
-        (isLoggedIn ? '' : '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;background:rgba(0,0,0,0.15)"><i class="fas fa-lock" style="font-size:2rem;color:rgba(255,255,255,0.9);margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,0.3)"></i><span style="color:#fff;font-size:0.8rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5)">로그인 후 확인</span></div>') +
+
         '</div>';
     } else {
       imageHtml = '<div style="aspect-ratio:16/9;background:linear-gradient(135deg,#f5f0eb,#e8dfd6);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#c9a96e">' +
