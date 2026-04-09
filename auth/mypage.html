@@ -517,6 +517,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 }
 .logout-btn:hover { color: var(--red); }
 
+/* 토스트 애니메이션 */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 /* 반응형 */
 @media (max-width: 600px) {
   .mypage-wrapper { padding: 20px 16px 100px; }
@@ -875,6 +881,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       document.getElementById('infoGender').textContent = user.gender === 'male' ? '남성' : user.gender === 'female' ? '여성' : '-';
       document.getElementById('infoCreatedAt').textContent = user.createdAt ? new Date(user.createdAt).toLocaleDateString('ko-KR') : '-';
       
+      // 마케팅 수신 동의 상태 반영
+      var mkCheckbox = document.getElementById('marketingAgree');
+      var mkStatus = document.getElementById('marketingStatus');
+      if (mkCheckbox) {
+        mkCheckbox.checked = !!user.marketingConsent;
+        mkStatus.textContent = user.marketingConsent ? '동의' : '미동의';
+      }
+      
       document.getElementById('editName').value = user.name || '';
       document.getElementById('editEmail').value = user.email || '';
       document.getElementById('editPhone').value = user.phone || '';
@@ -918,10 +932,46 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       alert('회원 탈퇴 기능은 준비 중입니다.\n병원으로 문의해주세요: 041-415-2892'); 
     }
   }
-  function updateMarketing() { 
-    var checked = document.getElementById('marketingAgree').checked;
-    document.getElementById('marketingStatus').textContent = checked ? '동의' : '미동의';
-    alert('마케팅 수신 동의 변경은 준비 중입니다.'); 
+  async function updateMarketing() { 
+    var checkbox = document.getElementById('marketingAgree');
+    var statusEl = document.getElementById('marketingStatus');
+    var newValue = checkbox.checked;
+    
+    try {
+      var res = await fetch('/api/auth/marketing', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ marketingConsent: newValue })
+      });
+      var data = await res.json();
+      
+      if (data.success) {
+        statusEl.textContent = newValue ? '동의' : '미동의';
+        // 토스트 메시지
+        showToast(newValue ? '마케팅 수신에 동의하셨습니다.' : '마케팅 수신 동의를 철회하셨습니다.');
+      } else {
+        // 실패 시 롤백
+        checkbox.checked = !newValue;
+        statusEl.textContent = !newValue ? '동의' : '미동의';
+        showToast(data.error || '변경에 실패했습니다.', true);
+      }
+    } catch(e) {
+      checkbox.checked = !newValue;
+      statusEl.textContent = !newValue ? '동의' : '미동의';
+      showToast('네트워크 오류가 발생했습니다.', true);
+    }
+  }
+  
+  // 토스트 알림
+  function showToast(msg, isError) {
+    var existing = document.querySelector('.mypage-toast');
+    if (existing) existing.remove();
+    var toast = document.createElement('div');
+    toast.className = 'mypage-toast';
+    toast.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:12px;font-size:0.85rem;font-weight:600;z-index:9999;animation:toastIn 0.3s ease;box-shadow:0 4px 20px rgba(0,0,0,0.15);' + (isError ? 'background:#fef2f2;color:#dc2626;border:1px solid #fecaca;' : 'background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;');
+    toast.innerHTML = '<i class="fas ' + (isError ? 'fa-exclamation-circle' : 'fa-check-circle') + '" style="margin-right:6px;"></i>' + msg;
+    document.body.appendChild(toast);
+    setTimeout(function() { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(function() { toast.remove(); }, 300); }, 2500);
   }
   </script>
 

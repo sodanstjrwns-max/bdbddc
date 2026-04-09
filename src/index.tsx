@@ -342,7 +342,29 @@ app.get('/api/auth/me', async (c) => {
   const members = await getMembers(r2)
   const m = members.find((x: any) => x.id === userId)
   if (!m) return c.json({ loggedIn: false })
-  return c.json({ loggedIn: true, user: { id: m.id, email: m.email, name: m.name, phone: m.phone } })
+  return c.json({ loggedIn: true, user: { id: m.id, email: m.email, name: m.name, phone: m.phone, marketingConsent: !!m.marketingConsent, createdAt: m.createdAt || '' } })
+})
+
+// [인증] 마케팅 수신 동의 변경
+app.put('/api/auth/marketing', async (c) => {
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: '서버 오류' }, 500)
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, SITE_SESSION_COOKIE)
+  if (!token) return c.json({ error: '로그인이 필요합니다' }, 401)
+  const userId = await verifySiteSession(token, secret)
+  if (!userId) return c.json({ error: '로그인이 필요합니다' }, 401)
+
+  const { marketingConsent } = await c.req.json()
+  const members = await getMembers(r2)
+  const idx = members.findIndex((x: any) => x.id === userId)
+  if (idx === -1) return c.json({ error: '회원 정보를 찾을 수 없습니다' }, 404)
+
+  members[idx].marketingConsent = !!marketingConsent
+  members[idx].marketingConsentUpdatedAt = new Date().toISOString()
+  await saveMembers(r2, members)
+
+  return c.json({ success: true, marketingConsent: !!marketingConsent })
 })
 
 // ============================================
