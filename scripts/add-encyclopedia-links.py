@@ -43,7 +43,7 @@ def load_terms():
     for item in items:
         term = item['term']
         short = item['short']
-        url = f"/encyclopedia/{term}"
+        url = f"/encyclopedia/#{term}"
         
         # 메인 용어
         if len(term) >= MIN_TERM_LENGTH:
