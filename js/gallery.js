@@ -73,7 +73,7 @@
       if (hasPano) typeBadges += '<span style="padding:3px 8px;background:rgba(59,130,246,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-x-ray" style="margin-right:2px"></i>파노</span>';
 
       imageHtml = '<div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#f0ebe4">' +
-        '<img src="' + imgSrc + '" alt="Before" style="width:100%;height:100%;object-fit:cover;' + (isLoggedIn ? '' : 'filter:blur(10px) brightness(0.8);') + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=\\\'display:flex;height:100%;align-items:center;justify-content:center;color:#ccc;font-size:3rem\\\"><i class=\\\'fas fa-teeth\\\'></i></div>\'">' +
+        '<img src="' + imgSrc + '" alt="Before" style="width:100%;height:100%;object-fit:cover;' + (isLoggedIn ? '' : 'filter:blur(10px) brightness(0.8);') + '" loading="lazy" onerror="this.style.display=&quot;none&quot;">' +
         '<div style="position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:2">' +
           '<span style="padding:4px 10px;background:rgba(0,0,0,0.6);color:white;border-radius:20px;font-size:0.65rem;font-weight:600">BEFORE</span>' +
           '<span style="padding:4px 10px;background:rgba(107,66,38,0.85);color:white;border-radius:20px;font-size:0.65rem;font-weight:600">AFTER</span>' +
