@@ -58,12 +58,18 @@
     
     for (var i = 0; i < maxShow; i++) {
       var cs = cases[i];
-      var thumb = cs.beforeImage || '/images/icons/favicon.svg';
-      var date = new Date(cs.createdAt).toLocaleDateString('ko-KR', {year:'numeric',month:'short'});
+      // ★ 의료법 준수: 비로그인 시 이미지 URL 미제공 → placeholder 사용
+      var hasImg = cs.hasAnyImage || !!cs.beforeImage;
+      var imgContent;
+      if (cs.beforeImage) {
+        imgContent = '<img src="' + cs.beforeImage + '" alt="' + (cs.title || 'Before/After') + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">';
+      } else {
+        imgContent = '<div style="width:100%;height:100%;background:linear-gradient(135deg,#e8dfd6,#d4c5b5);display:flex;align-items:center;justify-content:center"><i class="fas fa-teeth" style="font-size:2rem;color:rgba(107,66,38,0.2)"></i></div>';
+      }
       
       cardHtml += '<a href="/cases/' + cs.id + '" class="ba-case-card" style="display:block;background:#fff;border:1px solid #e8e0d8;border-radius:16px;overflow:hidden;text-decoration:none;color:#333;transition:all .3s;box-shadow:0 2px 8px rgba(107,66,38,0.06);">' +
         '<div style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#f0ebe4;">' +
-          '<img src="' + thumb + '" alt="' + (cs.title || 'Before/After') + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;" onerror="this.src=\'/images/icons/favicon.svg\'">' +
+          imgContent +
           '<div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.6));padding:12px 14px;">' +
             '<span style="font-size:.7rem;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);padding:3px 8px;border-radius:20px;color:#fff;"><i class="fas fa-images" style="margin-right:3px;"></i> Before/After</span>' +
           '</div>' +

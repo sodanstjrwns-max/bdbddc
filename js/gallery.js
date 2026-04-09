@@ -24,7 +24,7 @@
     'whitening': 'whitening',
     'cavity': 'general', 'crown': 'general', 'inlay': 'general',
     'root-canal': 'general', 're-root-canal': 'general', 'bridge': 'general', 'denture': 'general',
-    'sedation': 'general', 'prevention': 'general', 'tmj': 'general', 'bruxism': 'general', 'emergency': 'general',
+    'sedation': 'general', 'prevention': 'general',  // sedation도 일반치료 그룹 'tmj': 'general', 'bruxism': 'general', 'emergency': 'general',
     'scaling': 'gum', 'gum': 'gum', 'periodontitis': 'gum', 'gum-surgery': 'gum',
     'wisdom-tooth': 'gum', 'apicoectomy': 'gum'
   };
@@ -39,16 +39,16 @@
     whitening:'미백', bridge:'브릿지', denture:'틀니',
     scaling:'스케일링', gum:'잇몸치료', periodontitis:'치주염',
     'gum-surgery':'잇몸수술', 'wisdom-tooth':'사랑니발치',
-    apicoectomy:'치근단절제술', prevention:'예방치료',
+    apicoectomy:'치근단절제술', sedation:'수면치료', prevention:'예방치료',
     tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
   };
 
-  // 이미지 카운트 계산
+  // 이미지 유무 확인 (API가 hasIntraoral, hasPano, hasAnyImage 플래그 제공)
   function getImgCount(c) {
     var cnt = 0;
-    if (c.beforeImage && !c.beforeImage.includes('favicon')) cnt++;
+    if (c.hasIntraoral || (c.beforeImage && !c.beforeImage.includes('favicon'))) cnt++;
     if (c.afterImage) cnt++;
-    if (c.panBeforeImage) cnt++;
+    if (c.hasPano || c.panBeforeImage) cnt++;
     if (c.panAfterImage) cnt++;
     return cnt;
   }
@@ -58,11 +58,11 @@
     var catLabel = CATS[c.category] || c.category || '';
     var catSlugMap = { 'front-crown': 'crown' };
     var treatmentSlug = catSlugMap[c.category] || c.category;
-    var hasIntraoral = c.beforeImage && !c.beforeImage.includes('favicon');
-    var hasPano = c.panBeforeImage || c.panAfterImage;
-    // 썸네일: API에서 내려온 thumbnailImage 우선, 없으면 fallback
+    // ★ 의료법 준수: 비로그인 시 API에서 이미지 URL 미제공, 플래그만 사용
+    var hasIntraoral = c.hasIntraoral || (c.beforeImage && !c.beforeImage.includes('favicon'));
+    var hasPano = c.hasPano || c.panBeforeImage || c.panAfterImage;
     var imgSrc = c.thumbnailImage || c.beforeImage || c.panBeforeImage || '';
-    var hasAnyImage = !!imgSrc;
+    var hasAnyImage = c.hasAnyImage || !!imgSrc;
     var imgCount = getImgCount(c);
 
     var imageHtml;
@@ -72,8 +72,18 @@
       if (hasIntraoral) typeBadges += '<span style="padding:3px 8px;background:rgba(168,85,247,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-camera" style="margin-right:2px"></i>구내</span>';
       if (hasPano) typeBadges += '<span style="padding:3px 8px;background:rgba(59,130,246,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-x-ray" style="margin-right:2px"></i>파노</span>';
 
+      // ★ 의료법 준수: 비로그인 시 이미지 URL 없음 → placeholder 배경 + 잠금 표시
+      var imgTag;
+      if (imgSrc && isLoggedIn) {
+        // 로그인 상태: 실제 이미지 표시
+        imgTag = '<img src="' + imgSrc + '" alt="Before" style="width:100%;height:100%;object-fit:cover;" loading="lazy" onerror="this.style.display=&quot;none&quot;">';
+      } else {
+        // 비로그인 또는 이미지 URL 없음: 잠금 placeholder
+        imgTag = '<div style="width:100%;height:100%;background:linear-gradient(135deg,#e8dfd6,#d4c5b5);display:flex;align-items:center;justify-content:center"><i class="fas fa-teeth" style="font-size:2.5rem;color:rgba(107,66,38,0.25)"></i></div>';
+      }
+
       imageHtml = '<div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#f0ebe4">' +
-        '<img src="' + imgSrc + '" alt="Before" style="width:100%;height:100%;object-fit:cover;' + (isLoggedIn ? '' : 'filter:blur(10px) brightness(0.8);') + '" loading="lazy" onerror="this.style.display=&quot;none&quot;">' +
+        imgTag +
         '<div style="position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:2">' +
           '<span style="padding:4px 10px;background:rgba(0,0,0,0.6);color:white;border-radius:20px;font-size:0.65rem;font-weight:600">BEFORE</span>' +
           '<span style="padding:4px 10px;background:rgba(107,66,38,0.85);color:white;border-radius:20px;font-size:0.65rem;font-weight:600">AFTER</span>' +
@@ -81,7 +91,7 @@
         '<div style="position:absolute;top:12px;right:12px;display:flex;gap:4px;z-index:2">' +
           typeBadges +
         '</div>' +
-        (isLoggedIn ? '' : '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;"><i class="fas fa-lock" style="font-size:2rem;color:rgba(255,255,255,0.9);margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,0.3)"></i><span style="color:#fff;font-size:0.8rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5)">로그인 후 확인</span></div>') +
+        (isLoggedIn ? '' : '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;background:rgba(0,0,0,0.15)"><i class="fas fa-lock" style="font-size:2rem;color:rgba(255,255,255,0.9);margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,0.3)"></i><span style="color:#fff;font-size:0.8rem;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,0.5)">로그인 후 확인</span></div>') +
         '</div>';
     } else {
       imageHtml = '<div style="aspect-ratio:16/9;background:linear-gradient(135deg,#f5f0eb,#e8dfd6);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#c9a96e">' +

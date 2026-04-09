@@ -521,11 +521,26 @@ app.post('/api/admin/upload', async (c) => {
 })
 
 // 이미지 조회 (GET /api/images/*)
+// ★ 의료법 준수: cases/ 이미지는 로그인 사용자만 접근 가능
 app.get('/api/images/*', async (c) => {
   const r2 = c.env.R2
   if (!r2) return c.text('R2 not configured', 500)
 
   const key = c.req.path.replace('/api/images/', '')
+  
+  // cases/ 경로 이미지는 인증 필요 (의료법상 비포/애프터 이미지 보호)
+  if (key.startsWith('cases/')) {
+    const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+    const adminToken = getCookie(c, ADMIN_SESSION_COOKIE)
+    const siteToken = getCookie(c, 'bd_session')
+    let authed = false
+    if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
+    if (siteToken && await verifySiteSession(siteToken, secret)) authed = true
+    if (!authed) {
+      return c.text('Login required', 403)
+    }
+  }
+  
   const object = await r2.get(key)
   if (!object) return c.notFound()
 
@@ -576,6 +591,7 @@ async function saveCases(r2: R2Bucket, cases: any[]) {
 }
 
 // [공개] 카테고리별 케이스 조회 — 진료 페이지에서 호출
+// ★ 의료법 준수: 비로그인 시 이미지 URL 미노출
 app.get('/api/cases', async (c) => {
   const r2 = c.env.R2
   if (!r2) return c.json([])
@@ -589,10 +605,19 @@ app.get('/api/cases', async (c) => {
     published = published.filter((cs: any) => cs.category === category)
   }
   
-  // 민감정보 제외 (썸네일용 이미지만 제공)
+  // 로그인 여부 확인
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const adminToken = getCookie(c, ADMIN_SESSION_COOKIE)
+  const siteToken = getCookie(c, 'bd_session')
+  let authed = false
+  if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
+  if (siteToken && await verifySiteSession(siteToken, secret)) authed = true
+  
   const safe = published.map((cs: any) => {
-    // 썸네일: 아무 이미지든 첫 번째로 있는 것 사용
-    const thumb = cs.beforeImage || cs.afterImage || cs.panBeforeImage || cs.panAfterImage || ''
+    const hasIntraoral = !!(cs.beforeImage && !cs.beforeImage.includes('favicon'))
+    const hasPano = !!(cs.panBeforeImage || cs.panAfterImage)
+    const hasAnyImage = !!(cs.beforeImage || cs.afterImage || cs.panBeforeImage || cs.panAfterImage)
+    
     return {
       id: cs.id,
       title: cs.title,
@@ -601,9 +626,14 @@ app.get('/api/cases', async (c) => {
       doctorSlug: DOCTOR_SLUG_MAP[cs.doctorName] || '',
       treatmentPeriod: cs.treatmentPeriod,
       description: cs.description,
-      beforeImage: cs.beforeImage, // 구내포토 Before
-      panBeforeImage: cs.panBeforeImage || '', // 파노라마 Before
-      thumbnailImage: thumb, // ★ 확실한 썸네일 (뭘 올리든 첫 번째 이미지)
+      // ★ 의료법 준수: 로그인 사용자만 이미지 URL 제공
+      beforeImage: authed ? (cs.beforeImage || '') : '',
+      panBeforeImage: authed ? (cs.panBeforeImage || '') : '',
+      thumbnailImage: authed ? (cs.beforeImage || cs.afterImage || cs.panBeforeImage || cs.panAfterImage || '') : '',
+      // 비로그인 시 이미지 유무 플래그만 제공 (카드 UI 표시용)
+      hasIntraoral,
+      hasPano,
+      hasAnyImage,
       createdAt: cs.createdAt,
     }
   })
@@ -1809,7 +1839,7 @@ app.get('/doctors/:slug', async (c) => {
     whitening:'미백', bridge:'브릿지', denture:'틀니',
     scaling:'스케일링', gum:'잇몸치료', periodontitis:'치주염',
     'gum-surgery':'잇몸수술', 'wisdom-tooth':'사랑니발치',
-    apicoectomy:'치근단절제술', prevention:'예방치료',
+    apicoectomy:'치근단절제술', sedation:'수면치료', prevention:'예방치료',
     tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
   }
   
@@ -2608,7 +2638,7 @@ app.get('/cases/:id', async (c) => {
     whitening:'미백', bridge:'브릿지', denture:'틀니',
     scaling:'스케일링', gum:'잇몸치료', periodontitis:'치주염',
     'gum-surgery':'잇몸수술', 'wisdom-tooth':'사랑니발치',
-    apicoectomy:'치근단절제술', prevention:'예방치료',
+    apicoectomy:'치근단절제술', sedation:'수면치료', prevention:'예방치료',
     tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
   }
   
@@ -2617,8 +2647,10 @@ app.get('/cases/:id', async (c) => {
   const catLink = cs.category ? `/treatments/${catSlugMap[cs.category] || cs.category}` : ''
   const dateStr = new Date(cs.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
   
-  // 통합 상세 페이지: 텍스트는 항상 노출(SEO), 이미지만 로그인 여부로 blur/원본
+  // ★ 의료법 준수: 비로그인 시 이미지 URL 자체를 HTML에 미포함
   const imgStyle = authed ? '' : 'filter:blur(14px) brightness(.85);pointer-events:none;'
+  // 비로그인 시 이미지 URL 대신 빈 placeholder 사용
+  const safeImg = (url: string) => authed ? url : ''
   
   // 백과사전 자동 링크: 설명 텍스트에서 백과사전 용어를 찾아 링크로 변환
   let descText = (cs.description || '').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>')
@@ -2727,16 +2759,16 @@ ${(cs.beforeImage || cs.afterImage) ? `
 <div class="case-img-section">
 <div class="case-img-section-title"><i class="fas fa-camera" style="color:#a855f7"></i> 구내포토 <span class="badge intraoral">Intraoral</span></div>
 <div class="case-images">
-${cs.beforeImage ? `<div class="case-img-box"><img src="${cs.beforeImage}" alt="${cs.title} 구내포토 Before — ${cs.doctorName}" style="${imgStyle}"><span class="case-img-label before">Before</span>${lockOverlay}</div>` : ''}
-${cs.afterImage ? `<div class="case-img-box"><img src="${cs.afterImage}" alt="${cs.title} 구내포토 After — ${cs.doctorName}" style="${imgStyle}"><span class="case-img-label after">After</span>${lockOverlay}</div>` : ''}
+${cs.beforeImage ? `<div class="case-img-box">${authed ? `<img src="${safeImg(cs.beforeImage)}" alt="${cs.title} 구내포토 Before — ${cs.doctorName}" style="${imgStyle}">` : `<div style="width:100%;height:100%;background:linear-gradient(135deg,#e8dfd6,#d4c5b5);display:flex;align-items:center;justify-content:center"><i class="fas fa-teeth" style="font-size:2.5rem;color:rgba(107,66,38,0.2)"></i></div>`}<span class="case-img-label before">Before</span>${lockOverlay}</div>` : ''}
+${cs.afterImage ? `<div class="case-img-box">${authed ? `<img src="${safeImg(cs.afterImage)}" alt="${cs.title} 구내포토 After — ${cs.doctorName}" style="${imgStyle}">` : `<div style="width:100%;height:100%;background:linear-gradient(135deg,#e8dfd6,#d4c5b5);display:flex;align-items:center;justify-content:center"><i class="fas fa-teeth" style="font-size:2.5rem;color:rgba(107,66,38,0.2)"></i></div>`}<span class="case-img-label after">After</span>${lockOverlay}</div>` : ''}
 </div>
 </div>` : ''}
 ${(cs.panBeforeImage || cs.panAfterImage) ? `
 <div class="case-img-section">
 <div class="case-img-section-title"><i class="fas fa-x-ray" style="color:#3b82f6"></i> 파노라마 <span class="badge panorama">Panorama</span></div>
 <div class="case-images">
-${cs.panBeforeImage ? `<div class="case-img-box"><img src="${cs.panBeforeImage}" alt="${cs.title} 파노라마 Before — ${cs.doctorName}" style="${imgStyle}"><span class="case-img-label before">Before</span>${lockOverlay}</div>` : ''}
-${cs.panAfterImage ? `<div class="case-img-box"><img src="${cs.panAfterImage}" alt="${cs.title} 파노라마 After — ${cs.doctorName}" style="${imgStyle}"><span class="case-img-label after">After</span>${lockOverlay}</div>` : ''}
+${cs.panBeforeImage ? `<div class="case-img-box">${authed ? `<img src="${safeImg(cs.panBeforeImage)}" alt="${cs.title} 파노라마 Before — ${cs.doctorName}" style="${imgStyle}">` : `<div style="width:100%;height:100%;background:linear-gradient(135deg,#e8dfd6,#d4c5b5);display:flex;align-items:center;justify-content:center"><i class="fas fa-x-ray" style="font-size:2.5rem;color:rgba(59,130,246,0.2)"></i></div>`}<span class="case-img-label before">Before</span>${lockOverlay}</div>` : ''}
+${cs.panAfterImage ? `<div class="case-img-box">${authed ? `<img src="${safeImg(cs.panAfterImage)}" alt="${cs.title} 파노라마 After — ${cs.doctorName}" style="${imgStyle}">` : `<div style="width:100%;height:100%;background:linear-gradient(135deg,#e8dfd6,#d4c5b5);display:flex;align-items:center;justify-content:center"><i class="fas fa-x-ray" style="font-size:2.5rem;color:rgba(59,130,246,0.2)"></i></div>`}<span class="case-img-label after">After</span>${lockOverlay}</div>` : ''}
 </div>
 </div>` : ''}
 ${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight:700;color:#333;margin-bottom:8px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:6px;"></i> 치료 설명</h3><p>${descText}</p></div>` : ''}
