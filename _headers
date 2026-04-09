@@ -2,15 +2,17 @@
 # 서울비디치과 (Seoul BD Dental) - Custom Headers
 # Cloudflare Pages _headers file
 # Security + Performance + Cache optimization
+# bdseoulbd.com iframe 포워딩 허용 (CSP frame-ancestors)
+# NOTE: public/_headers가 빌드 시 dist/_headers로 복사됨
 # ═══════════════════════════════════════════════════════════════
 
 /*
   X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(self), interest-cohort=()
-  Content-Security-Policy: frame-ancestors 'self'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: frame-ancestors 'self' https://bdseoulbd.com https://*.bdseoulbd.com
 
 # Static assets - aggressive caching (1 year)
 /css/*

@@ -1,33 +1,26 @@
-# Cloudflare Pages Security Headers
-# https://bdbddc.com
+# ═══════════════════════════════════════════════════════════════
+# 서울비디치과 (Seoul BD Dental) - Custom Headers
+# Cloudflare Pages _headers file
+# Security + Performance + Cache optimization
+# bdseoulbd.com iframe 포워딩 허용 (CSP frame-ancestors)
+# ═══════════════════════════════════════════════════════════════
 
 /*
-  # XSS 보호
-  X-XSS-Protection: 1; mode=block
-  
-  # 클릭재킹 방지
-  X-Frame-Options: SAMEORIGIN
-  
-  # MIME 스니핑 방지
   X-Content-Type-Options: nosniff
-  
-  # Referrer 정책
+  X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
-  
-  # 권한 정책
-  Permissions-Policy: geolocation=(), microphone=(), camera=()
-  
-  # HSTS (HTTPS 강제)
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self), interest-cohort=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: frame-ancestors 'self' https://bdseoulbd.com https://*.bdseoulbd.com
 
-# JavaScript 파일 (명시적 MIME 타입)
+# JavaScript 파일
 /js/*
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=86400, must-revalidate
   Content-Type: application/javascript; charset=utf-8
 
-# CSS 파일 (명시적 MIME 타입)
+# CSS 파일
 /css/*
-  Cache-Control: public, max-age=2592000
+  Cache-Control: public, max-age=31536000, immutable, stale-while-revalidate=86400
   Content-Type: text/css; charset=utf-8
 
 # 이미지 캐시 (1년)
@@ -43,3 +36,39 @@
 /fonts/*.woff2
   Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
+
+/manifest.json
+  Cache-Control: public, max-age=86400
+
+# HTML pages - CDN caches 24h, browser caches 30min
+/*.html
+  Cache-Control: public, max-age=1800, s-maxage=86400
+
+# Encyclopedia SSR pages - CDN aggressive caching (24h edge, 1h browser)
+/encyclopedia/*
+  Cache-Control: public, max-age=3600, s-maxage=86400
+  X-Robots-Tag: index, follow
+
+# SEO files
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=utf-8
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+
+/llms.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+  X-Robots-Tag: noindex
+
+# YouTube cache data - short cache for fresh content
+/data/*
+  Cache-Control: public, max-age=600, must-revalidate
+  Content-Type: application/json; charset=utf-8
+
+# IndexNow key
+/6f74445f7ec14eccb522a4d3f253128c.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
