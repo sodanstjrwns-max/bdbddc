@@ -788,6 +788,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -837,9 +886,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-page-badge"><i class="fas fa-baby"></i> 전문의 3인</div>
         <h1>
           <span class="quote-line">"아이가 치과를 무서워해요"</span>
-          <span class="text-gradient">소아치과 궁금증 해결</span>
+          <span class="text-gradient"><a href="/encyclopedia/#소아치과" class="enc-inline-link" title="어린이 구강 건강을 전문으로 다루는 분야" data-enc-term="소아치과">소아치과</a> 궁금증 해결</span>
         </h1>
-        <p class="faq-hero-desc">천안 소아치과 첫 내원 시기, 충치 예방, 실란트, 불소 도포, 유치 관리까지 22가지 FAQ를 서울비디치과 소아치과 전문의 3인이 상세히 답변합니다.</p>
+        <p class="faq-hero-desc">천안 소아치과 첫 내원 시기, 충치 예방, <a href="/encyclopedia/#실란트" class="enc-inline-link" title="어금니 홈을 메워 충치를 예방하는 시술" data-enc-term="실란트">실란트</a>, <a href="/encyclopedia/#불소 도포" class="enc-inline-link" title="치아에 불소를 발라 충치를 예방하는 시술" data-enc-term="불소 도포">불소 도포</a>, 유치 관리까지 22가지 FAQ를 서울비디치과 소아치과 전문의 3인이 상세히 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 소아치과 전문의 3인이 답변합니다</div>
         <div class="faq-hero-stats">
           <div class="faq-stat-item"><span class="faq-stat-value">3인</span><span class="faq-stat-label">전문의</span></div>
@@ -882,7 +931,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="faq-top-card" style="animation-delay: 0s">
             <div class="faq-top-card-num">1</div>
             <div class="faq-top-card-content">
-              <h3>아이의 첫 치과 방문은 언제가 좋나요?</h3>
+              <h3>아이의 <a href="/encyclopedia/#첫 치과 방문" class="enc-inline-link" title="아이의 첫 치과 방문 시기와 방법" data-enc-term="첫 치과 방문">첫 치과 방문</a>은 언제가 좋나요?</h3>
               <p>첫 유치가 나오는 생후 6개월~1세 사이에 첫 방문을 권합니다.</p>
             </div>
           </div>
@@ -897,7 +946,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-top-card-num">3</div>
             <div class="faq-top-card-content">
               <h3>실란트란 무엇인가요?</h3>
-              <p>실란트(치면열구전색)는 어금니의 깊은 홈을 메워 충치를 예방하는 시술입니다.</p>
+              <p>실란트(치면열구전색)는 <a href="/encyclopedia/#어금니" class="enc-inline-link" title="뒤쪽에 위치한 음식을 갈아 씹는 치아" data-enc-term="어금니">어금니</a>의 깊은 홈을 메워 충치를 예방하는 시술입니다.</p>
             </div>
           </div>
         </div>
@@ -938,7 +987,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <div class="faq-a-content">네, 반드시 치료해야 합니다. 유치 충치를 방치하면 통증, 감염으로 이어지고, 아래 영구치 발육에 악영향을 줄 수 있습니다. 또한 유치는 영구치가 나올 자리를 유지하는 중요한 역할을 합니다.</div>
+                    <div class="faq-a-content">네, 반드시 치료해야 합니다. <a href="/encyclopedia/#유치 충치" class="enc-inline-link" title="아이의 젖니에 생긴 충치" data-enc-term="유치 충치">유치 충치</a>를 방치하면 통증, 감염으로 이어지고, 아래 <a href="/encyclopedia/#영구치" class="enc-inline-link" title="유치 후 나는 성인 치아" data-enc-term="영구치">영구치</a> 발육에 악영향을 줄 수 있습니다. 또한 유치는 영구치가 나올 자리를 유지하는 중요한 역할을 합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -948,7 +997,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <div class="faq-a-content">실란트(치면열구전색)는 어금니의 깊은 홈을 메워 충치를 예방하는 시술입니다. 통증 없이 간단하게 진행되며, 만 18세 이하 영구치 어금니(제1·2대구치)는 건강보험이 적용됩니다.</div>
+                    <div class="faq-a-content">실란트(치면열구전색)는 어금니의 깊은 홈을 메워 충치를 예방하는 시술입니다. 통증 없이 간단하게 진행되며, 만 18세 이하 영구치 어금니(제1·2<a href="/encyclopedia/#대구치" class="enc-inline-link" title="치열 뒤쪽에 위치한 큰 어금니로 음식을 잘게 분쇄합니다." data-enc-term="대구치">대구치</a>)는 건강보험이 적용됩니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -968,7 +1017,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <div class="faq-a-content">서울비디치과에서는 '행동조절'이라는 단계적 적응 방법을 사용합니다. 첫 방문에서 바로 치료하지 않고, 치과 환경에 익숙해지는 과정을 거칩니다. 심한 공포증이 있는 경우 수면치료도 가능합니다.</div>
+                    <div class="faq-a-content">서울비디치과에서는 '행동조절'이라는 단계적 적응 방법을 사용합니다. 첫 방문에서 바로 치료하지 않고, 치과 환경에 익숙해지는 과정을 거칩니다. 심한 공포증이 있는 경우 <a href="/encyclopedia/#수면치료" class="enc-inline-link" title="진정 상태에서 치과 치료를 받는 방법" data-enc-term="수면치료">수면치료</a>도 가능합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -978,7 +1027,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <div class="faq-a-content">유치가 빠진 후 6개월~1년 이내에 영구치가 나오는 것이 일반적입니다. 1년 이상 안 나오면 X-ray 검사로 영구치 위치와 상태를 확인해야 합니다. 매복치나 선천 결손일 수 있습니다.</div>
+                    <div class="faq-a-content">유치가 빠진 후 6개월~1년 이내에 영구치가 나오는 것이 일반적입니다. 1년 이상 안 나오면 <a href="/encyclopedia/#엑스레이" class="enc-inline-link" title="방사선을 이용한 치아 내부 촬영" data-enc-term="엑스레이">X-ray</a> 검사로 영구치 위치와 상태를 확인해야 합니다. <a href="/encyclopedia/#매복치" class="enc-inline-link" title="잇몸뼈 속에 묻혀 나오지 못한 치아" data-enc-term="매복치">매복치</a>나 선천 결손일 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -988,7 +1037,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <div class="faq-a-content">① 하루 2회 이상 불소 치약으로 양치 (보호자가 마무리) ② 6개월마다 정기 검진 + 불소 도포 ③ 실란트 시술 ④ 간식은 정해진 시간에, 끈적이는 음식은 피하기 ⑤ 쥬스·탄산음료 대신 물 마시기.</div>
+                    <div class="faq-a-content">① 하루 2회 이상 불소 치약으로 양치 (보호자가 마무리) ② 6개월마다 <a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a> + 불소 도포 ③ 실란트 시술 ④ 간식은 정해진 시간에, 끈적이는 음식은 피하기 ⑤ 쥬스·탄산음료 대신 물 마시기.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1008,7 +1057,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <div class="faq-a-content">소아치과 전문의는 아이의 성장 발육, 행동 조절, 유치 특성에 대한 추가 교육을 3년간 받은 전문가입니다. 아이의 심리를 이해하고 덜 무서운 치료 환경을 만드는 것이 일반치과와의 가장 큰 차이입니다.</div>
+                    <div class="faq-a-content">소아치과 전문의는 아이의 성장 발육, <a href="/encyclopedia/#행동 조절" class="enc-inline-link" title="소아 치과에서 아이가 치료를 받을 수 있도록 돕는 심리적·행동적 기법입니다." data-enc-term="행동 조절">행동 조절</a>, 유치 특성에 대한 추가 교육을 3년간 받은 전문가입니다. 아이의 심리를 이해하고 덜 무서운 치료 환경을 만드는 것이 일반치과와의 가장 큰 차이입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1028,7 +1077,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <div class="faq-a-content">치과에서 사용하는 불소 농도와 양은 안전 기준 내로 관리됩니다. 불소 과잉(불소증)은 고농도를 장기간 섭취할 때 발생하며, 6개월 주기 전문가 불소 도포는 전혀 문제가 없습니다. 오히려 충치 예방에 매우 효과적입니다.</div>
+                    <div class="faq-a-content">치과에서 사용하는 불소 농도와 양은 안전 기준 내로 관리됩니다. 불소 과잉(<a href="/encyclopedia/#불소증" class="enc-inline-link" title="과도한 불소 섭취로 인한 치아 변색" data-enc-term="불소증">불소증</a>)은 고농도를 장기간 섭취할 때 발생하며, 6개월 주기 전문가 불소 도포는 전혀 문제가 없습니다. 오히려 충치 예방에 매우 효과적입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1038,13 +1087,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <div class="faq-a-content">네, 큰 영향을 줍니다. 유치 충치가 심해져 뿌리 끝에 감염이 생기면 그 아래 발달 중인 영구치의 법랑질(에나멜)이 손상될 수 있습니다(터너치). 또한 유치를 너무 일찍 빼면 영구치 나올 공간이 부족해져 교정이 필요할 수 있습니다.</div>
+                    <div class="faq-a-content">네, 큰 영향을 줍니다. 유치 충치가 심해져 뿌리 끝에 감염이 생기면 그 아래 발달 중인 영구치의 <a href="/encyclopedia/#법랑질" class="enc-inline-link" title="치아 표면을 감싸는 가장 단단한 조직" data-enc-term="법랑질">법랑질</a>(에나멜)이 손상될 수 있습니다(터너치). 또한 유치를 너무 일찍 빼면 영구치 나올 공간이 부족해져 교정이 필요할 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
                     <span class="faq-q-badge">13</span>
-                    <span class="faq-q-text">아이 치아 외상(부딪힘) 시 응급 조치는?</span>
+                    <span class="faq-q-text">아이 <a href="/encyclopedia/#치아 외상" class="enc-inline-link" title="외부 충격에 의한 치아 손상" data-enc-term="치아 외상">치아 외상</a>(부딪힘) 시 응급 조치는?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
@@ -1078,7 +1127,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <div class="faq-a-content">검은 줄은 충치일 수도 있지만, 치아 홈의 착색이나 치석일 수도 있습니다. X-ray로 확인해야 정확히 알 수 있습니다. 걱정되시면 내원하여 검진받으세요. 실란트가 되어 있어도 정기 검진은 필요합니다.</div>
+                    <div class="faq-a-content">검은 줄은 충치일 수도 있지만, <a href="/encyclopedia/#열구" class="enc-inline-link" title="어금니 교합면에 있는 좁고 깊은 홈입니다." data-enc-term="열구">치아 홈</a>의 착색이나 치석일 수도 있습니다. X-ray로 확인해야 정확히 알 수 있습니다. 걱정되시면 내원하여 검진받으세요. 실란트가 되어 있어도 정기 검진은 필요합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1088,7 +1137,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <div class="faq-a-content">만 3~4세까지의 손가락 빨기는 크게 걱정하지 않아도 됩니다. 하지만 4세 이후에도 지속되면 앞니가 벌어지거나 돌출되고, 위턱이 좁아질 수 있습니다. 습관을 억지로 금지하기보다 칭찬과 보상으로 자연스럽게 유도하세요.</div>
+                    <div class="faq-a-content">만 3~4세까지의 <a href="/encyclopedia/#손가락 빨기" class="enc-inline-link" title="영유아의 손가락 흡입 습관" data-enc-term="손가락 빨기">손가락 빨기</a>는 크게 걱정하지 않아도 됩니다. 하지만 4세 이후에도 지속되면 앞니가 벌어지거나 돌출되고, 위턱이 좁아질 수 있습니다. 습관을 억지로 금지하기보다 칭찬과 보상으로 자연스럽게 유도하세요.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1114,7 +1163,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-19">
                     <span class="faq-q-badge">20</span>
-                    <span class="faq-q-text">아이 스케일링도 필요한가요?</span>
+                    <span class="faq-q-text">아이 <a href="/encyclopedia/#스케일링" class="enc-inline-link" title="치석과 치태를 제거하는 예방 치료" data-enc-term="스케일링">스케일링</a>도 필요한가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
@@ -1128,7 +1177,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-20">
-                    <div class="faq-a-content">외상으로 치아 신경이 손상되면 치아가 회색이나 노란색으로 변색될 수 있습니다. 신경이 괴사한 경우 신경치료가 필요하며, 추후 미백이나 라미네이트로 심미 개선이 가능합니다. 외상 후 반드시 정기 관찰이 필요합니다.</div>
+                    <div class="faq-a-content">외상으로 치아 신경이 손상되면 치아가 회색이나 노란색으로 변색될 수 있습니다. 신경이 괴사한 경우 <a href="/encyclopedia/#신경치료" class="enc-inline-link" title="감염된 치아 신경을 제거하고 충전하는 치료" data-enc-term="신경치료">신경치료</a>가 필요하며, 추후 미백이나 <a href="/encyclopedia/#라미네이트" class="enc-inline-link" title="앞니 표면에 얇은 도자기를 붙이는 심미 시술" data-enc-term="라미네이트">라미네이트</a>로 심미 개선이 가능합니다. 외상 후 반드시 정기 관찰이 필요합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1198,7 +1247,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

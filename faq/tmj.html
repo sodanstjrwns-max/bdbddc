@@ -772,6 +772,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -823,7 +872,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="quote-line">"턱에서 소리가 나요"</span>
           <span class="text-gradient">턱관절장애 FAQ</span>
         </h1>
-        <p class="faq-hero-desc">천안 턱관절(TMJ) 통증, 소리, 치료 방법, 이갈이 원인과 스플린트 치료까지 20가지 FAQ를 서울비디치과 턱관절 전문의가 상세히 답변합니다.</p>
+        <p class="faq-hero-desc">천안 턱관절(<a href="/encyclopedia/#턱관절 장애" class="enc-inline-link" title="턱관절의 통증·소리·운동 제한 증상" data-enc-term="턱관절 장애">TMJ</a>) 통증, 소리, 치료 방법, <a href="/encyclopedia/#이갈이" class="enc-inline-link" title="수면 중 또는 무의식 중 치아를 가는 습관" data-enc-term="이갈이">이갈이</a> 원인과 <a href="/encyclopedia/#스플린트 치료" class="enc-inline-link" title="턱관절 장애 치료를 위한 구강 내 장치 치료" data-enc-term="스플린트 치료">스플린트 치료</a>까지 20가지 FAQ를 서울비디치과 턱관절 전문의가 상세히 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 턱관절·구강안면통증 전문의가 답변합니다</div>
         <div class="faq-hero-stats">
           <div class="faq-stat-item"><span class="faq-stat-value">비수술</span><span class="faq-stat-label">우선 치료</span></div>
@@ -881,7 +930,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-top-card-num">3</div>
             <div class="faq-top-card-content">
               <h3>턱관절 장애의 원인은 무엇인가요?</h3>
-              <p>이갈이·이 악물기 습관, 스트레스, 외상, 부정교합, 한쪽으로만 씹는 습관, 장시간 입 벌리기(치과 치료, 하품) 등이 원인이 될 수 있습니다.</p>
+              <p>이갈이·이 악물기 습관, 스트레스, 외상, <a href="/encyclopedia/#부정교합" class="enc-inline-link" title="위아래 치아의 맞물림이 비정상인 상태" data-enc-term="부정교합">부정교합</a>, 한쪽으로만 씹는 습관, 장시간 입 벌리기(치과 치료, 하품) 등이 원인이 될 수 있습니다.</p>
             </div>
           </div>
         </div>
@@ -942,7 +991,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <div class="faq-a-content">① 교합안정장치(스플린트) 착용 ② 약물 치료(소염진통제, 근이완제) ③ 물리치료 ④ 습관 교정(이 악물기 방지) ⑤ 보톡스 주사(심한 근육 경직 시). 대부분 보존적 치료로 호전되며, 수술이 필요한 경우는 드뭅니다.</div>
+                    <div class="faq-a-content">① <a href="/encyclopedia/#나이트가드" class="enc-inline-link" title="이갈이 방지를 위한 맞춤형 마우스피스" data-enc-term="나이트가드">교합안정장치</a>(스플린트) 착용 ② 약물 치료(소염진통제, 근이완제) ③ 물리치료 ④ 습관 교정(이 악물기 방지) ⑤ 보톡스 주사(심한 근육 경직 시). 대부분 <a href="/encyclopedia/#보존적 치료" class="enc-inline-link" title="치아를 최대한 보존하는 치료 철학" data-enc-term="보존적 치료">보존적 치료</a>로 호전되며, 수술이 필요한 경우는 드뭅니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1162,7 +1211,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

@@ -772,6 +772,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -820,10 +869,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>크라운(보철치료)</span></div>
         <div class="faq-page-badge"><i class="fas fa-crown"></i> 보철치료</div>
         <h1>
-          <span class="quote-line">"크라운, 어떤 재료가 좋나요?"</span>
+          <span class="quote-line">"<a href="/encyclopedia/#크라운" class="enc-inline-link" title="손상된 치아 전체를 씌우는 인공 캡" data-enc-term="크라운">크라운</a>, 어떤 재료가 좋나요?"</span>
           <span class="text-gradient">크라운 완전 가이드</span>
         </h1>
-        <p class="faq-hero-desc">천안 크라운(보철) 종류(지르코니아, 세라믹, PFM), 비용, 수명, 관리법까지 20가지 자주 묻는 질문을 서울비디치과 보철 전문의가 상세히 답변합니다.</p>
+        <p class="faq-hero-desc">천안 크라운(보철) 종류(<a href="/encyclopedia/#지르코니아" class="enc-inline-link" title="고강도 세라믹 치과 재료" data-enc-term="지르코니아">지르코니아</a>, 세라믹, <a href="/encyclopedia/#PFM" class="enc-inline-link" title="금속 위에 도자기를 입힌 크라운" data-enc-term="PFM">PFM</a>), 비용, 수명, 관리법까지 20가지 자주 묻는 질문을 서울비디치과 보철 전문의가 상세히 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 보철 전문의가 답변합니다</div>
         <div class="faq-hero-stats">
           <div class="faq-stat-item"><span class="faq-stat-value">10~15년</span><span class="faq-stat-label">수명</span></div>
@@ -874,7 +923,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-top-card-num">2</div>
             <div class="faq-top-card-content">
               <h3>크라운 종류에는 무엇이 있나요?</h3>
-              <p>① PFM(도재-금속 크라운) — 안쪽 금속 + 바깥 도재 ② 올세라믹(e.</p>
+              <p>① PFM(도재-금속 크라운) — 안쪽 금속 + 바깥 도재 ② 올<a href="/encyclopedia/#세라믹" class="enc-inline-link" title="도자기 계열 치과 재료의 총칭" data-enc-term="세라믹">세라믹</a>(e.</p>
             </div>
           </div>
           <div class="faq-top-card" style="animation-delay: 0.2s">
@@ -912,7 +961,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <div class="faq-a-content">크라운은 충치나 파절로 손상된 치아 전체를 감싸는 보철물(치아 모자)입니다. 치아의 강도를 회복하고 모양과 기능을 복원합니다. 신경치료 후, 큰 충치 치료 후, 치아 파절 시 주로 적용합니다.</div>
+                    <div class="faq-a-content">크라운은 충치나 파절로 손상된 치아 전체를 감싸는 보철물(치아 모자)입니다. 치아의 강도를 회복하고 모양과 기능을 복원합니다. <a href="/encyclopedia/#신경치료" class="enc-inline-link" title="감염된 치아 신경을 제거하고 충전하는 치료" data-enc-term="신경치료">신경치료</a> 후, 큰 충치 치료 후, <a href="/encyclopedia/#치아 파절" class="enc-inline-link" title="치아가 깨지거나 금이 간 상태" data-enc-term="치아 파절">치아 파절</a> 시 주로 적용합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -922,7 +971,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-1">
-                    <div class="faq-a-content">① PFM(도재-금속 크라운) — 안쪽 금속 + 바깥 도재 ② 올세라믹(e.max) — 자연치아와 가장 유사 ③ 지르코니아 — 가장 강하고 심미적 ④ 골드 크라운 — 생체적합성 최고. 위치와 용도에 따라 최적의 재료를 추천합니다.</div>
+                    <div class="faq-a-content">① PFM(도재-금속 크라운) — 안쪽 금속 + 바깥 도재 ② 올세라믹(<a href="/encyclopedia/#e.max" class="enc-inline-link" title="리튬 디실리케이트 세라믹 재료" data-enc-term="e.max">e.max</a>) — 자연치아와 가장 유사 ③ 지르코니아 — 가장 강하고 심미적 ④ <a href="/encyclopedia/#골드 크라운" class="enc-inline-link" title="금합금으로 만든 치아 캡" data-enc-term="골드 크라운">골드 크라운</a> — 생체적합성 최고. 위치와 용도에 따라 최적의 재료를 추천합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -932,7 +981,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <div class="faq-a-content">재료에 따라 다르며, 지르코니아·올세라믹이 가장 비싸고 PFM이 상대적으로 경제적입니다. 건강보험이 적용되는 경우(12세 이하 유치 크라운 등)도 있으니 상담 시 안내드립니다.</div>
+                    <div class="faq-a-content">재료에 따라 다르며, 지르코니아·올세라믹이 가장 비싸고 PFM이 상대적으로 경제적입니다. 건강보험이 적용되는 경우(12세 이하 <a href="/encyclopedia/#SSC" class="enc-inline-link" title="유치에 씌우는 스테인리스 스틸 크라운" data-enc-term="SSC">유치 크라운</a> 등)도 있으니 상담 시 안내드립니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -942,7 +991,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <div class="faq-a-content">일반적으로 10~15년이며, 관리를 잘하면 20년 이상 사용하는 경우도 많습니다. 정기 검진, 올바른 양치, 딱딱한 음식 주의가 수명을 결정합니다.</div>
+                    <div class="faq-a-content">일반적으로 10~15년이며, 관리를 잘하면 20년 이상 사용하는 경우도 많습니다. <a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>, 올바른 양치, 딱딱한 음식 주의가 수명을 결정합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -952,7 +1001,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <div class="faq-a-content">① 첫 번째 내원: 치아 삭제 + 인상(본뜨기) + 임시 크라운 ② 기공 과정: 약 1~2주 ③ 두 번째 내원: 최종 크라운 접착. 디지털 스캔을 사용하면 더 정밀한 결과를 얻을 수 있습니다.</div>
+                    <div class="faq-a-content">① 첫 번째 내원: <a href="/encyclopedia/#치아 삭제" class="enc-inline-link" title="크라운이나 라미네이트를 씌우기 위해 치아를 다듬는 과정입니다." data-enc-term="치아 삭제">치아 삭제</a> + 인상(<a href="/encyclopedia/#인상 채득" class="enc-inline-link" title="보철물 제작을 위해 치아와 잇몸의 본을 뜨는 과정" data-enc-term="인상 채득">본뜨기</a>) + <a href="/encyclopedia/#임시 크라운" class="enc-inline-link" title="최종 보철물 제작 기간 동안 임시로 장착하는 크라운" data-enc-term="임시 크라운">임시 크라운</a> ② 기공 과정: 약 1~2주 ③ 두 번째 내원: 최종 크라운 접착. 디지털 스캔을 사용하면 더 정밀한 결과를 얻을 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -972,17 +1021,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <div class="faq-a-content">서울비디치과에서는 디지털 스캔과 CAD/CAM 시스템으로 정밀한 크라운을 제작합니다. 보철 전문의가 직접 치료하며, 색상과 형태를 자연 치아에 맞게 맞춤 제작합니다.</div>
+                    <div class="faq-a-content">서울비디치과에서는 디지털 스캔과 <a href="/encyclopedia/#CAD/CAM" class="enc-inline-link" title="컴퓨터로 보철물을 설계·제작하는 기술" data-enc-term="CAD/CAM">CAD/CAM</a> 시스템으로 정밀한 크라운을 제작합니다. 보철 전문의가 직접 치료하며, 색상과 형태를 자연 치아에 맞게 맞춤 제작합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
                     <span class="faq-q-badge">8</span>
-                    <span class="faq-q-text">지르코니아 크라운과 올세라믹(e.max)의 차이는?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#지르코니아 크라운" class="enc-inline-link" title="고강도 세라믹으로 만든 치아 캡" data-enc-term="지르코니아 크라운">지르코니아 크라운</a>과 올세라믹(e.max)의 차이는?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <div class="faq-a-content">지르코니아는 강도가 매우 높아(금속급) 어금니에 적합하고, 올세라믹(e.max)은 투명도와 색감이 자연치아에 가장 유사하여 앞니에 주로 사용합니다. 최근에는 심미형 지르코니아도 앞니에 활용되고 있습니다.</div>
+                    <div class="faq-a-content">지르코니아는 강도가 매우 높아(금속급) <a href="/encyclopedia/#어금니" class="enc-inline-link" title="뒤쪽에 위치한 음식을 갈아 씹는 치아" data-enc-term="어금니">어금니</a>에 적합하고, 올세라믹(e.max)은 투명도와 색감이 자연치아에 가장 유사하여 앞니에 주로 사용합니다. 최근에는 심미형 지르코니아도 앞니에 활용되고 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1022,7 +1071,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <div class="faq-a-content">일부 항목에 건강보험이 적용됩니다. 12세 이하 영구치 크라운(SSC), 65세 이상 임플란트 크라운 등은 보험 적용이 가능합니다. 일반 성인의 보철 크라운(지르코니아, 올세라믹 등)은 비급여입니다.</div>
+                    <div class="faq-a-content">일부 항목에 건강보험이 적용됩니다. 12세 이하 <a href="/encyclopedia/#영구치" class="enc-inline-link" title="유치 후 나는 성인 치아" data-enc-term="영구치">영구치</a> 크라운(SSC), 65세 이상 <a href="/encyclopedia/#임플란트" class="enc-inline-link" title="인공 치근을 심어 치아를 복원하는 시술" data-enc-term="임플란트">임플란트</a> 크라운 등은 보험 적용이 가능합니다. 일반 성인의 보철 크라운(지르코니아, 올세라믹 등)은 비급여입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1042,13 +1091,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <div class="faq-a-content">네, 크라운 경계 부위(마진)에서 이차 충치가 발생할 수 있습니다. 크라운과 잇몸 사이 경계를 꼼꼼히 양치하고, 치실·치간칫솔을 사용하여 예방하세요. 정기 검진에서 X-ray로 확인하는 것이 중요합니다.</div>
+                    <div class="faq-a-content">네, 크라운 경계 부위(마진)에서 이차 충치가 발생할 수 있습니다. 크라운과 잇몸 사이 경계를 꼼꼼히 양치하고, 치실·치간칫솔을 사용하여 예방하세요. 정기 검진에서 <a href="/encyclopedia/#엑스레이" class="enc-inline-link" title="방사선을 이용한 치아 내부 촬영" data-enc-term="엑스레이">X-ray</a>로 확인하는 것이 중요합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
                     <span class="faq-q-badge">15</span>
-                    <span class="faq-q-text">크라운과 브릿지의 차이는?</span>
+                    <span class="faq-q-text">크라운과 <a href="/encyclopedia/#브릿지" class="enc-inline-link" title="빠진 치아 양쪽 치아를 깎아 연결하는 보철" data-enc-term="브릿지">브릿지</a>의 차이는?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
@@ -1082,7 +1131,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <div class="faq-a-content">세라믹·지르코니아 크라운도 과도한 힘(이갈이, 딱딱한 음식)으로 파절될 수 있습니다. 이갈이 습관이 있다면 야간 보호장치(나이트가드) 착용을 권장합니다. 골드 크라운은 파절 위험이 가장 낮습니다.</div>
+                    <div class="faq-a-content">세라믹·지르코니아 크라운도 과도한 힘(<a href="/encyclopedia/#이갈이" class="enc-inline-link" title="수면 중 또는 무의식 중 치아를 가는 습관" data-enc-term="이갈이">이갈이</a>, 딱딱한 음식)으로 파절될 수 있습니다. 이갈이 습관이 있다면 야간 보호장치(<a href="/encyclopedia/#나이트가드" class="enc-inline-link" title="이갈이 방지를 위한 맞춤형 마우스피스" data-enc-term="나이트가드">나이트가드</a>) 착용을 권장합니다. 골드 크라운은 파절 위험이 가장 낮습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1162,7 +1211,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

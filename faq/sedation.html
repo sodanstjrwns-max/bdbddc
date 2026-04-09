@@ -780,6 +780,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -829,7 +878,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-page-badge"><i class="fas fa-bed"></i> 안심 시스템</div>
         <h1>
           <span class="quote-line">"치과가 너무 무서워요"</span>
-          <span class="text-gradient">수면치료로 편안하게</span>
+          <span class="text-gradient"><a href="/encyclopedia/#수면치료" class="enc-inline-link" title="진정 상태에서 치과 치료를 받는 방법" data-enc-term="수면치료">수면치료</a>로 편안하게</span>
         </h1>
         <p class="faq-hero-desc">천안 수면치료(수면진정) 안전성, 비용, 대상 환자, 진행 과정 등 21가지 자주 묻는 질문을 서울비디치과 수면진정 전문 의료진이 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 수면진정 전문 의료진이 답변합니다</div>
@@ -889,7 +938,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-top-card-num">3</div>
             <div class="faq-top-card-content">
               <h3>수면치료 대상은 누구인가요?</h3>
-              <p>치과 공포증이 심한 분, 구역반사가 심한 분, 장시간 치료가 필요한 분(임플란트 여러 개 등), 장애가 있어 협조가 어려운 분, 소아 환자 등이 대상입니다.</p>
+              <p><a href="/encyclopedia/#치과 공포증" class="enc-inline-link" title="치과 치료에 대한 극심한 두려움" data-enc-term="치과 공포증">치과 공포증</a>이 심한 분, 구역반사가 심한 분, 장시간 치료가 필요한 분(<a href="/encyclopedia/#임플란트" class="enc-inline-link" title="인공 치근을 심어 치아를 복원하는 시술" data-enc-term="임플란트">임플란트</a> 여러 개 등), 장애가 있어 협조가 어려운 분, 소아 환자 등이 대상입니다.</p>
             </div>
           </div>
         </div>
@@ -990,7 +1039,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <div class="faq-a-content">네, 가능합니다. 소아 환자의 경우 치과 공포가 심하거나 치료 협조가 어려울 때 수면치료를 적용합니다. 서울비디치과에서는 소아치과 전문의가 안전하게 진행합니다.</div>
+                    <div class="faq-a-content">네, 가능합니다. 소아 환자의 경우 치과 공포가 심하거나 치료 협조가 어려울 때 수면치료를 적용합니다. 서울비디치과에서는 <a href="/encyclopedia/#소아치과" class="enc-inline-link" title="어린이 구강 건강을 전문으로 다루는 분야" data-enc-term="소아치과">소아치과</a> 전문의가 안전하게 진행합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1030,7 +1079,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <div class="faq-a-content">수면진정 비용은 현재 건강보험 비급여 항목입니다. 치료 비용과 별도로 추가되며, 시술 시간과 사용 약제에 따라 달라집니다. 다만 수면치료 덕분에 한 번에 여러 시술을 진행하면 전체 치료 기간과 내원 횟수를 줄일 수 있습니다.</div>
+                    <div class="faq-a-content">수면진정 비용은 현재 건강보험 <a href="/encyclopedia/#비급여 항목" class="enc-inline-link" title="건강보험이 적용되지 않아 환자가 전액 부담하는 항목" data-enc-term="비급여 항목">비급여 항목</a>입니다. 치료 비용과 별도로 추가되며, 시술 시간과 사용 약제에 따라 달라집니다. 다만 수면치료 덕분에 한 번에 여러 시술을 진행하면 전체 치료 기간과 내원 횟수를 줄일 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1070,7 +1119,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
-                    <div class="faq-a-content">거의 모든 치과 시술에 수면치료를 적용할 수 있습니다. 임플란트, 사랑니 발치, 다수 충치 치료, 잇몸 수술, 소아 치료 등이 대표적입니다. 특히 장시간 치료가 필요한 경우 한 번에 여러 시술을 진행할 수 있어 효율적입니다.</div>
+                    <div class="faq-a-content">거의 모든 치과 시술에 수면치료를 적용할 수 있습니다. 임플란트, <a href="/encyclopedia/#사랑니 발치" class="enc-inline-link" title="매복되거나 문제를 일으키는 사랑니를 제거하는 시술" data-enc-term="사랑니 발치">사랑니 발치</a>, 다수 충치 치료, <a href="/encyclopedia/#잇몸 수술" class="enc-inline-link" title="잇몸 질환 치료를 위한 외과적 시술" data-enc-term="잇몸 수술">잇몸 수술</a>, 소아 치료 등이 대표적입니다. 특히 장시간 치료가 필요한 경우 한 번에 여러 시술을 진행할 수 있어 효율적입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1096,7 +1145,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
                     <span class="faq-q-badge">19</span>
-                    <span class="faq-q-text">웃음가스(아산화질소)와 수면진정의 차이는?</span>
+                    <span class="faq-q-text">웃음가스(<a href="/encyclopedia/#웃음가스" class="enc-inline-link" title="흡입용 진정 가스 (아산화질소)" data-enc-term="웃음가스">아산화질소</a>)와 수면진정의 차이는?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
@@ -1180,7 +1229,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

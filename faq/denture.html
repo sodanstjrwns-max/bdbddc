@@ -772,6 +772,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -823,7 +872,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="quote-line">"틀니, 잘 맞을까요?"</span>
           <span class="text-gradient">틀니 궁금증 해결</span>
         </h1>
-        <p class="faq-hero-desc">천안 틀니 종류(부분틀니, 전체틀니, 임플란트 틀니), 비용, 건강보험 적용, 관리법까지 20가지 FAQ를 서울비디치과 보철 전문의가 답변합니다.</p>
+        <p class="faq-hero-desc">천안 틀니 종류(부분틀니, 전체틀니, <a href="/encyclopedia/#오버덴처" class="enc-inline-link" title="임플란트 위에 올리는 탈착식 틀니" data-enc-term="오버덴처">임플란트 틀니</a>), 비용, 건강보험 적용, 관리법까지 20가지 FAQ를 서울비디치과 보철 전문의가 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 보철 전문의가 답변합니다</div>
         <div class="faq-hero-stats">
           <div class="faq-stat-item"><span class="faq-stat-value">맞춤</span><span class="faq-stat-label">제작</span></div>
@@ -867,7 +916,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-top-card-num">1</div>
             <div class="faq-top-card-content">
               <h3>틀니 종류에는 무엇이 있나요?</h3>
-              <p>① 완전 틀니(무치악) ② 부분 틀니(일부 치아 남아있는 경우) ③ 임플란트 틀니(임플란트로 고정) 등이 있습니다.</p>
+              <p>① <a href="/encyclopedia/#완전 틀니" class="enc-inline-link" title="모든 치아가 없을 때 사용하는 총의치" data-enc-term="완전 틀니">완전 틀니</a>(무치악) ② <a href="/encyclopedia/#부분 틀니" class="enc-inline-link" title="일부 치아가 없을 때 사용하는 국소의치" data-enc-term="부분 틀니">부분 틀니</a>(일부 치아 남아있는 경우) ③ <a href="/encyclopedia/#임플란트" class="enc-inline-link" title="인공 치근을 심어 치아를 복원하는 시술" data-enc-term="임플란트">임플란트</a> 틀니(임플란트로 고정) 등이 있습니다.</p>
             </div>
           </div>
           <div class="faq-top-card" style="animation-delay: 0.1s">
@@ -938,7 +987,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
                     <span class="faq-q-badge">4</span>
-                    <span class="faq-q-text">틀니 관리는 어떻게 하나요?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#틀니 관리" class="enc-inline-link" title="틀니의 올바른 세척과 보관법" data-enc-term="틀니 관리">틀니 관리</a>는 어떻게 하나요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
@@ -952,7 +1001,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <div class="faq-a-content">잇몸뼈가 시간이 지나면서 흡수되어 틀니가 헐거워질 수 있습니다. 이런 경우 틀니 이장(안쪽 리베이스) 또는 재제작이 필요합니다. 참지 마시고 치과에 방문하여 조정받으세요.</div>
+                    <div class="faq-a-content">잇몸뼈가 시간이 지나면서 흡수되어 틀니가 헐거워질 수 있습니다. 이런 경우 틀니 이장(안쪽 <a href="/encyclopedia/#리베이스" class="enc-inline-link" title="틀니 안쪽을 새로 입히는 시술" data-enc-term="리베이스">리베이스</a>) 또는 재제작이 필요합니다. 참지 마시고 치과에 방문하여 조정받으세요.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -982,7 +1031,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <div class="faq-a-content">상악(위) 완전 틀니는 입천장을 덮으므로 미각이 약간 감소할 수 있습니다. 하지만 대부분 적응하며, 임플란트 틀니는 입천장을 덮지 않으므로 미각 영향이 없습니다.</div>
+                    <div class="faq-a-content">상악(위) 완전 틀니는 <a href="/encyclopedia/#구개" class="enc-inline-link" title="입천장을 이루는 뼈와 점막" data-enc-term="구개">입천장</a>을 덮으므로 미각이 약간 감소할 수 있습니다. 하지만 대부분 적응하며, 임플란트 틀니는 입천장을 덮지 않으므로 미각 영향이 없습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1002,7 +1051,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <div class="faq-a-content">수면 시 틀니를 빼는 것을 권합니다. 잇몸이 쉴 시간이 필요하며, 끼고 자면 잇몸 염증, 구내염, 곰팡이 감염(칸디다증) 위험이 높아집니다. 빼서 물이나 틀니 세정액에 보관하세요.</div>
+                    <div class="faq-a-content">수면 시 틀니를 빼는 것을 권합니다. 잇몸이 쉴 시간이 필요하며, 끼고 자면 잇몸 염증, <a href="/encyclopedia/#구내염" class="enc-inline-link" title="입 안 점막에 생기는 염증" data-enc-term="구내염">구내염</a>, 곰팡이 감염(<a href="/encyclopedia/#구강 칸디다증" class="enc-inline-link" title="면역력 저하 시 구강 점막에 칸디다 곰팡이가 증식하여 흰 막이 생기는 감염" data-enc-term="구강 칸디다증">칸디다증</a>) 위험이 높아집니다. 빼서 물이나 틀니 세정액에 보관하세요.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1162,7 +1211,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

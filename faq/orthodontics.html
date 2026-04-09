@@ -804,6 +804,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -853,9 +902,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-page-badge"><i class="fas fa-teeth-open"></i> 전문센터</div>
         <h1>
           <span class="quote-line">"교정, 얼마나 걸리고 아픈가요?"</span>
-          <span class="text-gradient">치아교정 완전 가이드</span>
+          <span class="text-gradient"><a href="/encyclopedia/#교정" class="enc-inline-link" title="치아 배열과 교합을 바로잡는 치료" data-enc-term="교정">치아교정</a> 완전 가이드</span>
         </h1>
-        <p class="faq-hero-desc">천안 치아교정 비용, 교정 기간, 교정 종류(클리피씨, 세라믹, 설측), 통증 관리까지 24가지 FAQ를 서울비디치과 교정 전문의가 상세히 답변합니다.</p>
+        <p class="faq-hero-desc">천안 치아교정 비용, 교정 기간, 교정 종류(<a href="/encyclopedia/#클리피씨" class="enc-inline-link" title="자가결찰 세라믹 브라켓 교정장치" data-enc-term="클리피씨">클리피씨</a>, 세라믹, 설측), 통증 관리까지 24가지 FAQ를 서울비디치과 교정 전문의가 상세히 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 교정 전문의가 답변합니다</div>
         <div class="faq-hero-stats">
           <div class="faq-stat-item"><span class="faq-stat-value">1.5~2.5년</span><span class="faq-stat-label">평균 기간</span></div>
@@ -906,7 +955,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-top-card-num">2</div>
             <div class="faq-top-card-content">
               <h3>치아교정 종류에는 어떤 것들이 있나요?</h3>
-              <p>메탈 교정(가장 경제적), 세라믹 교정(치아색 브라켓), 자가결찰 교정(클리피씨, 데이몬), 설측 교정(안쪽 부착), 인비절라인(투명교정) 등이 있습니다.</p>
+              <p>메탈 교정(가장 경제적), <a href="/encyclopedia/#세라믹" class="enc-inline-link" title="도자기 계열 치과 재료의 총칭" data-enc-term="세라믹">세라믹</a> 교정(치아색 브라켓), 자가결찰 교정(클리피씨, <a href="/encyclopedia/#셀프 라이게이팅 브라켓" class="enc-inline-link" title="와이어를 자동으로 잡아주는 교정 장치" data-enc-term="셀프 라이게이팅 브라켓">데이몬</a>), <a href="/encyclopedia/#설측 교정" class="enc-inline-link" title="치아 안쪽에 부착하는 보이지 않는 교정" data-enc-term="설측 교정">설측 교정</a>(안쪽 부착), <a href="/encyclopedia/#인비절라인" class="enc-inline-link" title="투명한 맞춤형 교정장치" data-enc-term="인비절라인">인비절라인</a>(투명교정) 등이 있습니다.</p>
             </div>
           </div>
           <div class="faq-top-card" style="animation-delay: 0.2s">
@@ -974,7 +1023,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <div class="faq-a-content">평균 1년 6개월~2년 6개월이며, 부분 교정은 6개월~1년 정도입니다. 교정 방법, 부정교합의 정도, 환자의 협조도에 따라 달라질 수 있습니다.</div>
+                    <div class="faq-a-content">평균 1년 6개월~2년 6개월이며, 부분 교정은 6개월~1년 정도입니다. 교정 방법, <a href="/encyclopedia/#부정교합" class="enc-inline-link" title="위아래 치아의 맞물림이 비정상인 상태" data-enc-term="부정교합">부정교합</a>의 정도, 환자의 협조도에 따라 달라질 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1004,7 +1053,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <div class="faq-a-content">교정용 칫솔, 치간칫솔, 워터픽 등을 활용해 장치 주변을 꼼꼼히 닦아야 합니다. 식사 후 매번 양치하는 것이 이상적이며, 구강 세정기 사용을 권장합니다. 관리가 소홀하면 충치나 잇몸 질환이 생길 수 있습니다.</div>
+                    <div class="faq-a-content">교정용 칫솔, 치간칫솔, 워터픽 등을 활용해 장치 주변을 꼼꼼히 닦아야 합니다. 식사 후 매번 양치하는 것이 이상적이며, <a href="/encyclopedia/#구강 세정기" class="enc-inline-link" title="물줄기로 치아 사이를 세척하는 기기" data-enc-term="구강 세정기">구강 세정기</a> 사용을 권장합니다. 관리가 소홀하면 충치나 잇몸 질환이 생길 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1020,7 +1069,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
                     <span class="faq-q-badge">9</span>
-                    <span class="faq-q-text">교정 후 유지장치는 꼭 해야 하나요?</span>
+                    <span class="faq-q-text">교정 후 <a href="/encyclopedia/#유지장치" class="enc-inline-link" title="교정 치료 후 치아가 원래 위치로 돌아가는 것을 막는 장치입니다." data-enc-term="유지장치">유지장치</a>는 꼭 해야 하나요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
@@ -1034,7 +1083,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <div class="faq-a-content">치아가 심하게 겹쳐 공간이 부족할 때 발치(주로 소구치 4개)를 하여 공간을 확보합니다. 비발치 교정은 치아 삭제(IPR)나 확장으로 공간을 만듭니다. 어떤 방법이 적합한지는 전문의 진단이 필요합니다.</div>
+                    <div class="faq-a-content">치아가 심하게 겹쳐 공간이 부족할 때 발치(주로 <a href="/encyclopedia/#소구치" class="enc-inline-link" title="견치와 대구치 사이에 위치하며 음식을 부수는 역할을 합니다." data-enc-term="소구치">소구치</a> 4개)를 하여 공간을 확보합니다. 비발치 교정은 <a href="/encyclopedia/#치아 삭제" class="enc-inline-link" title="크라운이나 라미네이트를 씌우기 위해 치아를 다듬는 과정입니다." data-enc-term="치아 삭제">치아 삭제</a>(<a href="/encyclopedia/#스트리핑" class="enc-inline-link" title="치아 사이를 미세하게 다듬는 교정 과정" data-enc-term="스트리핑">IPR</a>)나 확장으로 공간을 만듭니다. 어떤 방법이 적합한지는 전문의 진단이 필요합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1054,7 +1103,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <div class="faq-a-content">파노라마·세팔로 X-ray, 구강 사진, 디지털 스캔(또는 치아 본뜨기), 얼굴 분석 등을 진행합니다. 이 자료를 바탕으로 교정 전문의가 정밀 진단 후 치료 계획을 수립하며, 환자에게 상세히 설명합니다.</div>
+                    <div class="faq-a-content"><a href="/encyclopedia/#파노라마" class="enc-inline-link" title="전체 치아와 턱을 보는 기본 방사선 사진" data-enc-term="파노라마">파노라마</a>·<a href="/encyclopedia/#세파로 분석" class="enc-inline-link" title="측면 두부 방사선을 분석하여 교정 진단" data-enc-term="세파로 분석">세팔로</a> <a href="/encyclopedia/#엑스레이" class="enc-inline-link" title="방사선을 이용한 치아 내부 촬영" data-enc-term="엑스레이">X-ray</a>, 구강 사진, 디지털 스캔(또는 <a href="/encyclopedia/#인상" class="enc-inline-link" title="치아 본을 뜨는 과정" data-enc-term="인상">치아 본뜨기</a>), 얼굴 분석 등을 진행합니다. 이 자료를 바탕으로 교정 전문의가 정밀 진단 후 <a href="/encyclopedia/#치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 수립하며, 환자에게 상세히 설명합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1064,7 +1113,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <div class="faq-a-content">가능한 빨리 치과에 연락하세요. 임시 조치로 교정용 왁스(약국 구입 가능)로 튀어나온 와이어를 감쌀 수 있습니다. 서울비디치과는 365일 진료하므로 주말·공휴일에도 긴급 대응이 가능합니다.</div>
+                    <div class="faq-a-content">가능한 빨리 치과에 연락하세요. 임시 조치로 <a href="/encyclopedia/#교정용 왁스" class="enc-inline-link" title="브라켓 자극으로부터 점막을 보호하는 왁스" data-enc-term="교정용 왁스">교정용 왁스</a>(약국 구입 가능)로 튀어나온 와이어를 감쌀 수 있습니다. 서울비디치과는 365일 진료하므로 주말·공휴일에도 긴급 대응이 가능합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1124,13 +1173,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <div class="faq-a-content">교정 장치(특히 메탈·세라믹 브라켓)의 두께 때문에 입술이 약간 돌출되어 보일 수 있습니다. 이는 일시적 현상이며, 장치 제거 후 원래대로 돌아갑니다. 오히려 교정 완료 후 치열이 정돈되면 입매가 개선됩니다.</div>
+                    <div class="faq-a-content">교정 장치(특히 메탈·<a href="/encyclopedia/#세라믹 브라켓" class="enc-inline-link" title="치아색과 비슷한 심미 교정 장치" data-enc-term="세라믹 브라켓">세라믹 브라켓</a>)의 두께 때문에 입술이 약간 돌출되어 보일 수 있습니다. 이는 일시적 현상이며, 장치 제거 후 원래대로 돌아갑니다. 오히려 교정 완료 후 치열이 정돈되면 입매가 개선됩니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-19">
                     <span class="faq-q-badge">20</span>
-                    <span class="faq-q-text">투명 교정과 브라켓 교정, 어떤 것이 좋은가요?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#투명 교정" class="enc-inline-link" title="투명한 플라스틱 장치를 이용한 교정" data-enc-term="투명 교정">투명 교정</a>과 브라켓 교정, 어떤 것이 좋은가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
@@ -1140,11 +1189,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-20">
                     <span class="faq-q-badge">21</span>
-                    <span class="faq-q-text">미니스크류(미니 임플란트)는 무엇인가요?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#미니스크류" class="enc-inline-link" title="교정 치료에서 치아 이동의 고정원으로 사용하는 작은 나사입니다." data-enc-term="미니스크류">미니스크류</a>(<a href="/encyclopedia/#미니 임플란트" class="enc-inline-link" title="직경이 작은 소형 임플란트" data-enc-term="미니 임플란트">미니 임플란트</a>)는 무엇인가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-20">
-                    <div class="faq-a-content">교정용 미니스크류는 잇몸뼈에 작은 나사를 심어 치아를 당기는 고정원으로 사용하는 것입니다. 발치 교정이나 매복치 견인 시 효과적이며, 국소 마취 후 간단히 식립합니다. 교정 완료 후 쉽게 제거되며 흉터가 남지 않습니다.</div>
+                    <div class="faq-a-content"><a href="/encyclopedia/#교정용 미니스크류" class="enc-inline-link" title="교정 시 고정원으로 사용하는 작은 나사" data-enc-term="교정용 미니스크류">교정용 미니스크류</a>는 잇몸뼈에 작은 나사를 심어 치아를 당기는 고정원으로 사용하는 것입니다. 발치 교정이나 <a href="/encyclopedia/#매복치" class="enc-inline-link" title="잇몸뼈 속에 묻혀 나오지 못한 치아" data-enc-term="매복치">매복치</a> 견인 시 효과적이며, 국소 마취 후 간단히 식립합니다. 교정 완료 후 쉽게 제거되며 흉터가 남지 않습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1154,7 +1203,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-21">
-                    <div class="faq-a-content">미국 교정학회는 만 7세에 첫 교정 상담을 권장합니다. 1차 교정(조기 교정)은 7~10세에, 2차 교정(본교정)은 영구치열 완성 후(12~14세)에 진행합니다. 턱 성장 문제는 성장기에 교정하는 것이 효과적입니다.</div>
+                    <div class="faq-a-content">미국 교정학회는 만 7세에 첫 교정 상담을 권장합니다. 1차 교정(조기 교정)은 7~10세에, <a href="/encyclopedia/#2차 교정" class="enc-inline-link" title="이전 교정 치료 후 재발하여 다시 시행하는 교정" data-enc-term="2차 교정">2차 교정</a>(본교정)은 <a href="/encyclopedia/#영구치" class="enc-inline-link" title="유치 후 나는 성인 치아" data-enc-term="영구치">영구치</a>열 완성 후(12~14세)에 진행합니다. 턱 성장 문제는 성장기에 교정하는 것이 효과적입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1234,7 +1283,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

@@ -772,6 +772,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -823,7 +872,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="quote-line">"잇몸에서 피가 나요"</span>
           <span class="text-gradient">잇몸치료 궁금증 해결</span>
         </h1>
-        <p class="faq-hero-desc">천안 잇몸병(치주질환) 원인, 증상, 치료 방법, 잇몸 수술, 관리법까지 20가지 자주 묻는 질문을 서울비디치과 치주과 전문의가 상세히 답변합니다.</p>
+        <p class="faq-hero-desc">천안 <a href="/encyclopedia/#치주 질환" class="enc-inline-link" title="잇몸과 치아 지지 조직에 발생하는 질환의 총칭" data-enc-term="치주 질환">잇몸병</a>(치주질환) 원인, 증상, 치료 방법, <a href="/encyclopedia/#잇몸 수술" class="enc-inline-link" title="잇몸 질환 치료를 위한 외과적 시술" data-enc-term="잇몸 수술">잇몸 수술</a>, 관리법까지 20가지 자주 묻는 질문을 서울비디치과 <a href="/encyclopedia/#치주과" class="enc-inline-link" title="잇몸 질환을 전문으로 치료하는 분야" data-enc-term="치주과">치주과</a> 전문의가 상세히 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 치주과 전문의가 답변합니다</div>
         <div class="faq-hero-stats">
           <div class="faq-stat-item"><span class="faq-stat-value">보험적용</span><span class="faq-stat-label">기본 치료</span></div>
@@ -867,20 +916,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-top-card-num">1</div>
             <div class="faq-top-card-content">
               <h3>잇몸병(치주질환)이란 무엇인가요?</h3>
-              <p>잇몸병은 치태(플라크)와 치석에 의해 잇몸과 치조골에 염증이 생기는 질환입니다.</p>
+              <p>잇몸병은 치태(<a href="/encyclopedia/#치태" class="enc-inline-link" title="치아 표면에 끈적이게 달라붙는 세균막" data-enc-term="치태">플라크</a>)와 치석에 의해 잇몸과 <a href="/encyclopedia/#치조골" class="enc-inline-link" title="치아를 감싸 지지하는 턱뼈 부분" data-enc-term="치조골">치조골</a>에 염증이 생기는 질환입니다.</p>
             </div>
           </div>
           <div class="faq-top-card" style="animation-delay: 0.1s">
             <div class="faq-top-card-num">2</div>
             <div class="faq-top-card-content">
               <h3>잇몸병의 증상은 무엇인가요?</h3>
-              <p>양치 시 피가 남, 잇몸이 붓고 빨갛게 변함, 입냄새가 심함, 치아가 길어 보임(잇몸 퇴축), 치아가 흔들림, 씹을 때 불편함 등이 대표 증상입니다.</p>
+              <p>양치 시 피가 남, 잇몸이 붓고 빨갛게 변함, <a href="/encyclopedia/#구취" class="enc-inline-link" title="입에서 나는 불쾌한 냄새" data-enc-term="구취">입냄새</a>가 심함, 치아가 길어 보임(잇몸 퇴축), 치아가 흔들림, 씹을 때 불편함 등이 대표 증상입니다.</p>
             </div>
           </div>
           <div class="faq-top-card" style="animation-delay: 0.2s">
             <div class="faq-top-card-num">3</div>
             <div class="faq-top-card-content">
-              <h3>스케일링은 얼마나 자주 받아야 하나요?</h3>
+              <h3><a href="/encyclopedia/#스케일링" class="enc-inline-link" title="치석과 치태를 제거하는 예방 치료" data-enc-term="스케일링">스케일링</a>은 얼마나 자주 받아야 하나요?</h3>
               <p>건강보험으로 연 1회 스케일링이 지원됩니다.</p>
             </div>
           </div>
@@ -912,7 +961,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <div class="faq-a-content">잇몸병은 치태(플라크)와 치석에 의해 잇몸과 치조골에 염증이 생기는 질환입니다. 초기에는 잇몸 출혈(치은염)로 시작하여, 방치하면 잇몸뼈가 녹아 치아가 흔들리고 빠지게 됩니다(치주염). 한국 성인의 80% 이상이 경험하는 매우 흔한 질환입니다.</div>
+                    <div class="faq-a-content">잇몸병은 치태(플라크)와 치석에 의해 잇몸과 치조골에 염증이 생기는 질환입니다. 초기에는 <a href="/encyclopedia/#치은 출혈" class="enc-inline-link" title="잇몸에서 피가 나는 증상으로 치주질환의 초기 신호" data-enc-term="치은 출혈">잇몸 출혈</a>(<a href="/encyclopedia/#치은염" class="enc-inline-link" title="잇몸에만 국한된 초기 염증" data-enc-term="치은염">치은염</a>)로 시작하여, 방치하면 잇몸뼈가 녹아 치아가 흔들리고 빠지게 됩니다(<a href="/encyclopedia/#치주염" class="enc-inline-link" title="잇몸과 치조골을 파괴하는 염증 질환" data-enc-term="치주염">치주염</a>). 한국 성인의 80% 이상이 경험하는 매우 흔한 질환입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -942,7 +991,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <div class="faq-a-content">네, 정상적인 반응입니다. 치석이 제거되면서 치아 뿌리가 노출되어 일시적으로 시릴 수 있으며, 보통 1~2주 내에 사라집니다. 시린이 전용 치약을 사용하면 도움이 됩니다.</div>
+                    <div class="faq-a-content">네, 정상적인 반응입니다. 치석이 제거되면서 <a href="/encyclopedia/#치근" class="enc-inline-link" title="잇몸 아래에 위치한 치아의 뿌리 부분" data-enc-term="치근">치아 뿌리</a>가 노출되어 일시적으로 시릴 수 있으며, 보통 1~2주 내에 사라집니다. <a href="/encyclopedia/#시린이" class="enc-inline-link" title="찬 음식이나 공기에 치아가 시린 증상입니다." data-enc-term="시린이">시린이</a> 전용 치약을 사용하면 도움이 됩니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -952,7 +1001,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <div class="faq-a-content">① 스케일링(치석 제거) ② 치근활택술(잇몸 아래 치석 제거) ③ 치주 수술(심한 경우 잇몸을 열고 청소) ④ 유지 관리(정기 검진). 단계별로 진행되며, 대부분 비수술적 치료로 충분합니다.</div>
+                    <div class="faq-a-content">① 스케일링(치석 제거) ② 치근활택술(잇몸 아래 치석 제거) ③ 치주 수술(심한 경우 잇몸을 열고 청소) ④ 유지 관리(<a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>). 단계별로 진행되며, 대부분 비수술적 치료로 충분합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -972,7 +1021,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <div class="faq-a-content">비수술적 치료(스케일링, 치근활택술)로 개선되지 않는 깊은 치주낭(6mm 이상), 심한 뼈 손실이 있는 경우 잇몸 수술을 고려합니다. 잇몸을 열어 깊은 곳의 치석과 염증 조직을 제거하고, 필요 시 뼈이식을 합니다.</div>
+                    <div class="faq-a-content">비수술적 치료(스케일링, 치근활택술)로 개선되지 않는 깊은 <a href="/encyclopedia/#치주낭" class="enc-inline-link" title="치아와 잇몸 사이의 비정상적으로 깊어진 홈" data-enc-term="치주낭">치주낭</a>(6mm 이상), 심한 뼈 손실이 있는 경우 잇몸 수술을 고려합니다. 잇몸을 열어 깊은 곳의 치석과 염증 조직을 제거하고, 필요 시 <a href="/encyclopedia/#뼈이식" class="enc-inline-link" title="부족한 치조골을 보충하는 수술" data-enc-term="뼈이식">뼈이식</a>을 합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -982,7 +1031,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-7">
-                    <div class="faq-a-content">① 올바른 양치법(변형 바스법) ② 치실/치간칫솔 매일 사용 ③ 6개월마다 스케일링 ④ 금연 (흡연은 잇몸병 최대 위험 요인) ⑤ 당뇨·스트레스 관리. 특히 금연만으로도 잇몸병 위험을 크게 줄일 수 있습니다.</div>
+                    <div class="faq-a-content">① 올바른 양치법(변형 <a href="/encyclopedia/#바스법" class="enc-inline-link" title="치과에서 가장 권장하는 칫솔질 방법" data-enc-term="바스법">바스법</a>) ② 치실/치간칫솔 매일 사용 ③ 6개월마다 스케일링 ④ 금연 (흡연은 잇몸병 최대 위험 요인) ⑤ 당뇨·스트레스 관리. 특히 금연만으로도 잇몸병 위험을 크게 줄일 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -992,7 +1041,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <div class="faq-a-content">서울비디치과에는 치주과 전문의가 있어 체계적인 잇몸 치료가 가능합니다. 디지털 X-ray로 정확한 뼈 상태를 진단하고, 환자별 맞춤 유지 관리 프로그램을 제공합니다. 365일 진료로 급성 잇몸 통증에도 빠르게 대응합니다.</div>
+                    <div class="faq-a-content">서울비디치과에는 치주과 전문의가 있어 체계적인 잇몸 치료가 가능합니다. 디지털 <a href="/encyclopedia/#엑스레이" class="enc-inline-link" title="방사선을 이용한 치아 내부 촬영" data-enc-term="엑스레이">X-ray</a>로 정확한 뼈 상태를 진단하고, 환자별 맞춤 유지 관리 프로그램을 제공합니다. 365일 진료로 급성 잇몸 통증에도 빠르게 대응합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1012,7 +1061,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <div class="faq-a-content">한번 내려간(퇴축된) 잇몸은 자연적으로 회복되지 않습니다. 심한 경우 잇몸 이식 수술로 개선할 수 있습니다. 더 이상의 퇴축을 막기 위해 올바른 양치법(강하게 문지르지 않기)과 정기 검진이 중요합니다.</div>
+                    <div class="faq-a-content">한번 내려간(퇴축된) 잇몸은 자연적으로 회복되지 않습니다. 심한 경우 <a href="/encyclopedia/#치은 이식술" class="enc-inline-link" title="잇몸을 이식하는 수술" data-enc-term="치은 이식술">잇몸 이식</a> 수술로 개선할 수 있습니다. 더 이상의 퇴축을 막기 위해 올바른 양치법(강하게 문지르지 않기)과 정기 검진이 중요합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1042,7 +1091,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-13">
-                    <div class="faq-a-content">치주 재생 수술(GTR, 뼈이식)을 통해 일부 회복이 가능합니다. 다만 모든 결손 부위가 재생되는 것은 아니며, 결손 형태와 범위에 따라 결과가 다릅니다. 무엇보다 더 이상의 뼈 흡수를 막는 유지 관리가 핵심입니다.</div>
+                    <div class="faq-a-content">치주 재생 수술(<a href="/encyclopedia/#조직 재생 유도술" class="enc-inline-link" title="잇몸뼈 재생을 유도하는 치주 수술" data-enc-term="조직 재생 유도술">GTR</a>, 뼈이식)을 통해 일부 회복이 가능합니다. 다만 모든 결손 부위가 재생되는 것은 아니며, 결손 형태와 범위에 따라 결과가 다릅니다. 무엇보다 더 이상의 <a href="/encyclopedia/#치조골 흡수" class="enc-inline-link" title="잇몸 아래 치아를 지지하는 뼈가 녹아 줄어드는 현상입니다." data-enc-term="치조골 흡수">뼈 흡수</a>를 막는 유지 관리가 핵심입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1068,11 +1117,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-16">
                     <span class="faq-q-badge">17</span>
-                    <span class="faq-q-text">칫솔질을 세게 해야 깨끗한 건 아닌가요?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#칫솔질" class="enc-inline-link" title="치아와 잇몸을 닦는 구강 위생의 기본" data-enc-term="칫솔질">칫솔질</a>을 세게 해야 깨끗한 건 아닌가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <div class="faq-a-content">세게 닦으면 오히려 잇몸이 다치고 퇴축되며, 치아 표면(에나멜)이 마모됩니다. 부드러운 모의 칫솔을 45도 각도로 잇몸 경계에 대고, 작은 원을 그리듯 가볍게 닦는 변형 바스법이 가장 효과적입니다.</div>
+                    <div class="faq-a-content">세게 닦으면 오히려 잇몸이 다치고 퇴축되며, 치아 표면(<a href="/encyclopedia/#법랑질" class="enc-inline-link" title="치아 표면을 감싸는 가장 단단한 조직" data-enc-term="법랑질">에나멜</a>)이 마모됩니다. 부드러운 모의 칫솔을 45도 각도로 잇몸 경계에 대고, 작은 원을 그리듯 가볍게 닦는 변형 바스법이 가장 효과적입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1088,7 +1137,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-18">
                     <span class="faq-q-badge">19</span>
-                    <span class="faq-q-text">워터픽(구강 세정기)만 쓰면 양치를 안 해도 되나요?</span>
+                    <span class="faq-q-text">워터픽(<a href="/encyclopedia/#구강 세정기" class="enc-inline-link" title="물줄기로 치아 사이를 세척하는 기기" data-enc-term="구강 세정기">구강 세정기</a>)만 쓰면 양치를 안 해도 되나요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
@@ -1162,7 +1211,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

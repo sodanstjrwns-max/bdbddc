@@ -764,6 +764,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -812,10 +861,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>스케일링</span></div>
         <div class="faq-page-badge"><i class="fas fa-broom"></i> 예방치료</div>
         <h1>
-          <span class="quote-line">"스케일링, 꼭 해야 하나요?"</span>
+          <span class="quote-line">"<a href="/encyclopedia/#스케일링" class="enc-inline-link" title="치석과 치태를 제거하는 예방 치료" data-enc-term="스케일링">스케일링</a>, 꼭 해야 하나요?"</span>
           <span class="text-gradient">스케일링 완전 가이드</span>
         </h1>
-        <p class="faq-hero-desc">천안 스케일링 주기, 통증 여부, 건강보험 적용 기준, 스케일링 효과와 관리법까지 19가지 자주 묻는 질문을 서울비디치과 치주과 전문의가 답변합니다.</p>
+        <p class="faq-hero-desc">천안 스케일링 주기, 통증 여부, 건강보험 적용 기준, 스케일링 효과와 관리법까지 19가지 자주 묻는 질문을 서울비디치과 <a href="/encyclopedia/#치주과" class="enc-inline-link" title="잇몸 질환을 전문으로 치료하는 분야" data-enc-term="치주과">치주과</a> 전문의가 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 치주과 전문의가 답변합니다</div>
         <div class="faq-hero-stats">
           <div class="faq-stat-item"><span class="faq-stat-value">연 1회</span><span class="faq-stat-label">보험 적용</span></div>
@@ -904,7 +953,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <div class="faq-a-content">스케일링은 초음파 기구를 이용해 치아 표면과 잇몸 사이에 쌓인 치석(석회화된 치태)을 제거하는 시술입니다. 잇몸병 예방과 치료의 가장 기본적이고 중요한 과정입니다.</div>
+                    <div class="faq-a-content">스케일링은 초음파 기구를 이용해 치아 표면과 잇몸 사이에 쌓인 치석(석회화된 치태)을 제거하는 시술입니다. <a href="/encyclopedia/#치주 질환" class="enc-inline-link" title="잇몸과 치아 지지 조직에 발생하는 질환의 총칭" data-enc-term="치주 질환">잇몸병</a> 예방과 치료의 가장 기본적이고 중요한 과정입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -944,7 +993,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <div class="faq-a-content">시술 후 2~3시간은 뜨겁고 자극적인 음식을 피하세요. 약간의 잇몸 출혈은 정상이며, 1~2일 내에 멈춥니다. 시린 증상이 있으면 시린이 전용 치약을 사용하세요.</div>
+                    <div class="faq-a-content">시술 후 2~3시간은 뜨겁고 자극적인 음식을 피하세요. 약간의 <a href="/encyclopedia/#치은 출혈" class="enc-inline-link" title="잇몸에서 피가 나는 증상으로 치주질환의 초기 신호" data-enc-term="치은 출혈">잇몸 출혈</a>은 정상이며, 1~2일 내에 멈춥니다. 시린 증상이 있으면 <a href="/encyclopedia/#시린이" class="enc-inline-link" title="찬 음식이나 공기에 치아가 시린 증상입니다." data-enc-term="시린이">시린이</a> 전용 치약을 사용하세요.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1014,7 +1063,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <div class="faq-a-content">물론입니다. 잇몸이 예민하거나 치석이 많아 통증이 걱정되는 분은 마취 후 스케일링을 받을 수 있습니다. 마취 젤(표면 마취)이나 국소 마취를 적용하면 거의 무통으로 시술받을 수 있습니다.</div>
+                    <div class="faq-a-content">물론입니다. 잇몸이 예민하거나 치석이 많아 통증이 걱정되는 분은 마취 후 스케일링을 받을 수 있습니다. 마취 젤(<a href="/encyclopedia/#표면 마취" class="enc-inline-link" title="주사 전 잇몸에 바르는 마취 젤" data-enc-term="표면 마취">표면 마취</a>)이나 국소 마취를 적용하면 거의 무통으로 시술받을 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1024,7 +1073,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <div class="faq-a-content">네, 임신 중 스케일링은 안전하며 오히려 권장됩니다. 임신성 치은염은 매우 흔하며, 잇몸 관리를 소홀히 하면 악화됩니다. 임신 중기(4~6개월)가 가장 안전한 시기이며, 필요하면 언제든 가능합니다.</div>
+                    <div class="faq-a-content">네, 임신 중 스케일링은 안전하며 오히려 권장됩니다. 임신성 <a href="/encyclopedia/#치은염" class="enc-inline-link" title="잇몸에만 국한된 초기 염증" data-enc-term="치은염">치은염</a>은 매우 흔하며, 잇몸 관리를 소홀히 하면 악화됩니다. 임신 중기(4~6개월)가 가장 안전한 시기이며, 필요하면 언제든 가능합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1050,7 +1099,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-15">
                     <span class="faq-q-badge">16</span>
-                    <span class="faq-q-text">전동 칫솔을 쓰면 스케일링을 안 받아도 되나요?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#전동 칫솔" class="enc-inline-link" title="전동으로 작동하는 칫솔" data-enc-term="전동 칫솔">전동 칫솔</a>을 쓰면 스케일링을 안 받아도 되나요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-15">
@@ -1070,11 +1119,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
                     <span class="faq-q-badge">18</span>
-                    <span class="faq-q-text">스케일링 시 치아 에나멜이 손상되지 않나요?</span>
+                    <span class="faq-q-text">스케일링 시 치아 <a href="/encyclopedia/#법랑질" class="enc-inline-link" title="치아 표면을 감싸는 가장 단단한 조직" data-enc-term="법랑질">에나멜</a>이 손상되지 않나요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <div class="faq-a-content">전문의가 시행하는 스케일링은 에나멜을 손상시키지 않습니다. 초음파 스케일러의 진동이 치석만 분쇄하여 제거하며, 단단한 에나멜에는 영향을 주지 않습니다. 연구적으로도 정기 스케일링이 에나멜을 손상시킨다는 근거는 없습니다.</div>
+                    <div class="faq-a-content">전문의가 시행하는 스케일링은 에나멜을 손상시키지 않습니다. <a href="/encyclopedia/#초음파 스케일러" class="enc-inline-link" title="초음파 진동으로 치석을 제거하는 기구" data-enc-term="초음파 스케일러">초음파 스케일러</a>의 진동이 치석만 분쇄하여 제거하며, 단단한 에나멜에는 영향을 주지 않습니다. 연구적으로도 정기 스케일링이 에나멜을 손상시킨다는 근거는 없습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1084,7 +1133,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <div class="faq-a-content">보통 3~7일, 길어야 2주 내에 사라집니다. 치석이 덮고 있던 치아 뿌리가 노출되면서 일시적으로 시린 것이며, 시린이 전용 치약을 사용하면 빠르게 완화됩니다. 2주 이상 지속되면 내원하여 확인하세요.</div>
+                    <div class="faq-a-content">보통 3~7일, 길어야 2주 내에 사라집니다. 치석이 덮고 있던 <a href="/encyclopedia/#치근" class="enc-inline-link" title="잇몸 아래에 위치한 치아의 뿌리 부분" data-enc-term="치근">치아 뿌리</a>가 노출되면서 일시적으로 시린 것이며, 시린이 전용 치약을 사용하면 빠르게 완화됩니다. 2주 이상 지속되면 내원하여 확인하세요.</div>
                 </div>
             </div>
             <div class="faq-no-results" id="faqNoResults">
@@ -1144,7 +1193,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

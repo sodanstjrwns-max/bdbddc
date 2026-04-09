@@ -804,6 +804,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -853,9 +902,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-page-badge"><i class="fas fa-star"></i> HOT</div>
         <h1>
           <span class="quote-line">"연예인 치아, 나도 가능한가요?"</span>
-          <span class="text-gradient">글로우네이트 FAQ</span>
+          <span class="text-gradient"><a href="/encyclopedia/#글로우네이트" class="enc-inline-link" title="서울비디치과 독자 심미 치료 프로그램" data-enc-term="글로우네이트">글로우네이트</a> FAQ</span>
         </h1>
-        <p class="faq-hero-desc">천안 글로우네이트(라미네이트) 비용, 시술 과정, 수명, 관리법 등 24가지 자주 묻는 질문을 서울비디치과 심미치료 전문의가 상세히 답변합니다.</p>
+        <p class="faq-hero-desc">천안 글로우네이트(<a href="/encyclopedia/#라미네이트" class="enc-inline-link" title="앞니 표면에 얇은 도자기를 붙이는 심미 시술" data-enc-term="라미네이트">라미네이트</a>) 비용, 시술 과정, 수명, 관리법 등 24가지 자주 묻는 질문을 서울비디치과 심미치료 전문의가 상세히 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 심미치료 전문의가 답변합니다</div>
         <div class="faq-hero-stats">
           <div class="faq-stat-item"><span class="faq-stat-value">10~15년</span><span class="faq-stat-label">유지 기간</span></div>
@@ -944,7 +993,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-0">
-                    <div class="faq-a-content">글로우네이트는 서울비디치과의 프리미엄 라미네이트 브랜드입니다. 치아 표면에 얇은 세라믹을 부착하여 치아의 색상, 모양, 크기를 개선하는 심미 치료입니다. 연예인, 인플루언서들이 많이 선택하는 대표적인 심미 치료법입니다.</div>
+                    <div class="faq-a-content">글로우네이트는 서울비디치과의 프리미엄 라미네이트 브랜드입니다. 치아 표면에 얇은 <a href="/encyclopedia/#세라믹" class="enc-inline-link" title="도자기 계열 치과 재료의 총칭" data-enc-term="세라믹">세라믹</a>을 부착하여 치아의 색상, 모양, 크기를 개선하는 심미 치료입니다. 연예인, 인플루언서들이 많이 선택하는 대표적인 심미 치료법입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -964,7 +1013,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <div class="faq-a-content">라미네이트는 재료 종류(e.max, 지르코니아 등), 시술 개수에 따라 달라집니다. 서울비디치과에서는 상담 후 정확한 견적을 안내드리며, 무이자 할부가 가능합니다.</div>
+                    <div class="faq-a-content">라미네이트는 재료 종류(<a href="/encyclopedia/#e.max" class="enc-inline-link" title="리튬 디실리케이트 세라믹 재료" data-enc-term="e.max">e.max</a>, <a href="/encyclopedia/#지르코니아" class="enc-inline-link" title="고강도 세라믹 치과 재료" data-enc-term="지르코니아">지르코니아</a> 등), 시술 개수에 따라 달라집니다. 서울비디치과에서는 상담 후 정확한 견적을 안내드리며, 무이자 할부가 가능합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -994,7 +1043,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <div class="faq-a-content">관리를 잘하면 10~15년 이상 사용할 수 있습니다. 정기 검진과 올바른 구강 관리, 과도한 힘(이 갈기, 딱딱한 음식 등)을 피하면 수명을 늘릴 수 있습니다.</div>
+                    <div class="faq-a-content">관리를 잘하면 10~15년 이상 사용할 수 있습니다. <a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>과 올바른 구강 관리, 과도한 힘(이 갈기, 딱딱한 음식 등)을 피하면 수명을 늘릴 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1004,7 +1053,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <div class="faq-a-content">치아 삭제 시 마취를 하므로 시술 중 통증은 거의 없습니다. 시술 후 1~2일간 약간의 시린 증상이 있을 수 있으나 곧 사라집니다.</div>
+                    <div class="faq-a-content"><a href="/encyclopedia/#치아 삭제" class="enc-inline-link" title="크라운이나 라미네이트를 씌우기 위해 치아를 다듬는 과정입니다." data-enc-term="치아 삭제">치아 삭제</a> 시 마취를 하므로 시술 중 통증은 거의 없습니다. 시술 후 1~2일간 약간의 시린 증상이 있을 수 있으나 곧 사라집니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1034,7 +1083,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <div class="faq-a-content">일반 치아와 동일하게 양치하면 됩니다. 단, 딱딱한 음식(생 당근, 얼음 등)을 앞니로 깨물지 않도록 주의하고, 이갈이가 있다면 야간 보호장치 착용을 권장합니다. 6개월마다 정기 검진을 받으세요.</div>
+                    <div class="faq-a-content">일반 치아와 동일하게 양치하면 됩니다. 단, 딱딱한 음식(생 당근, 얼음 등)을 앞니로 깨물지 않도록 주의하고, <a href="/encyclopedia/#이갈이" class="enc-inline-link" title="수면 중 또는 무의식 중 치아를 가는 습관" data-enc-term="이갈이">이갈이</a>가 있다면 야간 보호장치 착용을 권장합니다. 6개월마다 정기 검진을 받으세요.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1054,7 +1103,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-11">
-                    <div class="faq-a-content">네, 가능합니다. 앞니 사이 공간(이개, diastema)은 라미네이트의 대표적인 적응증 중 하나입니다. 치아 폭을 약간 넓게 디자인하여 자연스럽게 공간을 메울 수 있습니다.</div>
+                    <div class="faq-a-content">네, 가능합니다. 앞니 사이 공간(이개, diastema)은 라미네이트의 대표적인 <a href="/encyclopedia/#적응증" class="enc-inline-link" title="특정 치료가 적합한 상태나 조건" data-enc-term="적응증">적응증</a> 중 하나입니다. 치아 폭을 약간 넓게 디자인하여 자연스럽게 공간을 메울 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1110,7 +1159,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
                     <span class="faq-q-badge">18</span>
-                    <span class="faq-q-text">라미네이트와 크라운은 무엇이 다른가요?</span>
+                    <span class="faq-q-text">라미네이트와 <a href="/encyclopedia/#크라운" class="enc-inline-link" title="손상된 치아 전체를 씌우는 인공 캡" data-enc-term="크라운">크라운</a>은 무엇이 다른가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
@@ -1150,7 +1199,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-21">
                     <span class="faq-q-badge">22</span>
-                    <span class="faq-q-text">연예인들이 하는 치아 성형과 라미네이트는 같은 건가요?</span>
+                    <span class="faq-q-text">연예인들이 하는 <a href="/encyclopedia/#치아 성형" class="enc-inline-link" title="치아 형태를 깎아 다듬는 미세 시술" data-enc-term="치아 성형">치아 성형</a>과 라미네이트는 같은 건가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-21">
@@ -1234,7 +1283,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

@@ -804,6 +804,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -853,7 +902,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-page-badge"><i class="fas fa-teeth"></i> 다이아몬드 등급</div>
         <h1>
           <span class="quote-line">"교정 티 안 나게 할 수 있나요?"</span>
-          <span class="text-gradient">투명교정의 모든 것</span>
+          <span class="text-gradient"><a href="/encyclopedia/#인비절라인" class="enc-inline-link" title="투명한 맞춤형 교정장치" data-enc-term="인비절라인">투명교정</a>의 모든 것</span>
         </h1>
         <p class="faq-hero-desc">천안 인비절라인 투명교정 비용, 교정 기간, 착용 시간, 관리 요령 등 24가지 자주 묻는 질문을 서울비디치과 인비절라인 다이아몬드 등급 전문의가 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 인비절라인 교정 전문의가 답변합니다</div>
@@ -994,7 +1043,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <div class="faq-a-content">가벼운 삐뚤림부터 중등도 부정교합까지 대부분 가능합니다. 다만 심한 골격성 부정교합이나 복잡한 케이스는 기존 교정이 적합할 수 있습니다. 정확한 판단은 전문의 진단 후 결정됩니다.</div>
+                    <div class="faq-a-content">가벼운 삐뚤림부터 중등도 <a href="/encyclopedia/#부정교합" class="enc-inline-link" title="위아래 치아의 맞물림이 비정상인 상태" data-enc-term="부정교합">부정교합</a>까지 대부분 가능합니다. 다만 심한 골격성 부정교합이나 복잡한 케이스는 기존 교정이 적합할 수 있습니다. 정확한 판단은 전문의 진단 후 결정됩니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1020,7 +1069,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
                     <span class="faq-q-badge">9</span>
-                    <span class="faq-q-text">교정 후 유지장치는 얼마나 착용하나요?</span>
+                    <span class="faq-q-text">교정 후 <a href="/encyclopedia/#유지장치" class="enc-inline-link" title="교정 치료 후 치아가 원래 위치로 돌아가는 것을 막는 장치입니다." data-enc-term="유지장치">유지장치</a>는 얼마나 착용하나요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
@@ -1060,11 +1109,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
                     <span class="faq-q-badge">13</span>
-                    <span class="faq-q-text">인비절라인 치료 전 치아 본뜨기가 필요한가요?</span>
+                    <span class="faq-q-text">인비절라인 치료 전 <a href="/encyclopedia/#인상" class="enc-inline-link" title="치아 본을 뜨는 과정" data-enc-term="인상">치아 본뜨기</a>가 필요한가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <div class="faq-a-content">서울비디치과에서는 기존의 불편한 본뜨기(인상) 대신 iTero 디지털 스캐너를 사용합니다. 구역질 없이 2~3분이면 정밀한 3D 치아 모델이 완성되며, 이를 기반으로 인비절라인 본사에서 맞춤 장치를 제작합니다.</div>
+                    <div class="faq-a-content">서울비디치과에서는 기존의 불편한 <a href="/encyclopedia/#인상 채득" class="enc-inline-link" title="보철물 제작을 위해 치아와 잇몸의 본을 뜨는 과정" data-enc-term="인상 채득">본뜨기</a>(인상) 대신 <a href="/encyclopedia/#구강 스캐너" class="enc-inline-link" title="디지털로 치아 본을 뜨는 장비" data-enc-term="구강 스캐너">iTero</a> 디지털 스캐너를 사용합니다. 구역질 없이 2~3분이면 정밀한 3D 치아 모델이 완성되며, 이를 기반으로 인비절라인 본사에서 맞춤 장치를 제작합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1104,13 +1153,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-16">
-                    <div class="faq-a-content">인비절라인 자체는 임신에 영향을 주지 않습니다. 다만 임신 중 호르몬 변화로 잇몸이 약해질 수 있으므로 구강 관리에 더 신경 써야 합니다. X-ray 촬영은 임신 중 피해야 하므로, 임신 계획이 있다면 미리 치료 계획을 상담하세요.</div>
+                    <div class="faq-a-content">인비절라인 자체는 임신에 영향을 주지 않습니다. 다만 임신 중 호르몬 변화로 잇몸이 약해질 수 있으므로 구강 관리에 더 신경 써야 합니다. <a href="/encyclopedia/#엑스레이" class="enc-inline-link" title="방사선을 이용한 치아 내부 촬영" data-enc-term="엑스레이">X-ray</a> 촬영은 임신 중 피해야 하므로, 임신 계획이 있다면 미리 <a href="/encyclopedia/#치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 상담하세요.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-17">
                     <span class="faq-q-badge">18</span>
-                    <span class="faq-q-text">인비절라인은 치아에 어태치먼트를 붙이나요?</span>
+                    <span class="faq-q-text">인비절라인은 치아에 <a href="/encyclopedia/#어태치먼트" class="enc-inline-link" title="투명 교정 시 치아에 붙이는 작은 돌기" data-enc-term="어태치먼트">어태치먼트</a>를 붙이나요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
@@ -1124,7 +1173,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <div class="faq-a-content">네! 클린체크(ClinCheck) 3D 시뮬레이션으로 교정 시작 전에 최종 결과를 미리 확인할 수 있습니다. 치아가 어떻게 움직이는지 단계별로 보여주므로, 치료에 대한 확신을 가지고 시작하실 수 있습니다.</div>
+                    <div class="faq-a-content">네! 클린체크(<a href="/encyclopedia/#ClinCheck" class="enc-inline-link" title="인비절라인의 3D 치료 시뮬레이션" data-enc-term="ClinCheck">ClinCheck</a>) 3D 시뮬레이션으로 교정 시작 전에 최종 결과를 미리 확인할 수 있습니다. 치아가 어떻게 움직이는지 단계별로 보여주므로, 치료에 대한 확신을 가지고 시작하실 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1164,7 +1213,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-22">
-                    <div class="faq-a-content">인비절라인 퍼스트(First)는 만 6~10세 혼합치열기 아이들을 위한 제품으로, 성장기 교정에도 활용됩니다. 일반 인비절라인은 영구치열이 완성된 청소년(약 12세 이상)부터 가능합니다. 상한 연령 제한은 없습니다.</div>
+                    <div class="faq-a-content">인비절라인 퍼스트(First)는 만 6~10세 혼합치열기 아이들을 위한 제품으로, 성장기 교정에도 활용됩니다. 일반 인비절라인은 <a href="/encyclopedia/#영구치" class="enc-inline-link" title="유치 후 나는 성인 치아" data-enc-term="영구치">영구치</a>열이 완성된 청소년(약 12세 이상)부터 가능합니다. 상한 연령 제한은 없습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1174,7 +1223,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-23">
-                    <div class="faq-a-content">교정 중에도 충치 치료가 가능합니다. 다만 치아 형태가 변하면 얼라이너 적합도에 영향을 줄 수 있으므로, 치료 범위에 따라 얼라이너 재제작이 필요할 수 있습니다. 교정 중 구강 관리를 철저히 하는 것이 가장 중요합니다.</div>
+                    <div class="faq-a-content">교정 중에도 충치 치료가 가능합니다. 다만 치아 형태가 변하면 얼라이너 적합도에 영향을 줄 수 있으므로, 치료 범위에 따라 얼라이너 재제작이 필요할 수 있습니다. <a href="/encyclopedia/#교정 중 구강 관리" class="enc-inline-link" title="교정 장치 착용 중 치아와 잇몸을 관리하는 방법" data-enc-term="교정 중 구강 관리">교정 중 구강 관리</a>를 철저히 하는 것이 가장 중요합니다.</div>
                 </div>
             </div>
             <div class="faq-no-results" id="faqNoResults">
@@ -1234,7 +1283,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

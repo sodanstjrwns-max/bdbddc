@@ -812,6 +812,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -861,7 +910,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-page-badge"><i class="fas fa-tooth"></i> 전문센터</div>
         <h1>
           <span class="quote-line">"다른 곳에서 안 된다고요?"</span>
-          <span class="text-gradient">임플란트의 모든 궁금증 해결</span>
+          <span class="text-gradient"><a href="/encyclopedia/#임플란트" class="enc-inline-link" title="인공 치근을 심어 치아를 복원하는 시술" data-enc-term="임플란트">임플란트</a>의 모든 궁금증 해결</span>
         </h1>
         <p class="faq-hero-desc">천안 임플란트 비용, 수술 기간, 통증 정도, 수명, 사후 관리법까지 환자분들이 가장 많이 묻는 질문 25가지를 서울비디치과 서울대 출신 전문의가 상세히 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 서울대 출신 전문의가 답변합니다</div>
@@ -907,20 +956,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-top-card-num">1</div>
             <div class="faq-top-card-content">
               <h3>임플란트란 무엇인가요?</h3>
-              <p>임플란트는 상실된 치아 부위의 잇몸뼈(치조골)에 티타늄 인공 나사를 심고, 그 위에 인공 치아(크라운)를 연결하는 치료입니다.</p>
+              <p>임플란트는 상실된 치아 부위의 잇몸뼈(<a href="/encyclopedia/#치조골" class="enc-inline-link" title="치아를 감싸 지지하는 턱뼈 부분" data-enc-term="치조골">치조골</a>)에 <a href="/encyclopedia/#티타늄" class="enc-inline-link" title="임플란트 인공 뿌리에 사용되는 금속" data-enc-term="티타늄">티타늄</a> 인공 나사를 심고, 그 위에 인공 치아(<a href="/encyclopedia/#크라운" class="enc-inline-link" title="손상된 치아 전체를 씌우는 인공 캡" data-enc-term="크라운">크라운</a>)를 연결하는 치료입니다.</p>
             </div>
           </div>
           <div class="faq-top-card" style="animation-delay: 0.1s">
             <div class="faq-top-card-num">2</div>
             <div class="faq-top-card-content">
               <h3>임플란트 비용은 얼마인가요?</h3>
-              <p>임플란트 비용은 사용하는 픽스처(나사) 브랜드, 상부 보철물 종류, 뼈이식 여부 등에 따라 달라집니다.</p>
+              <p>임플란트 비용은 사용하는 픽스처(나사) 브랜드, 상부 보철물 종류, <a href="/encyclopedia/#뼈이식" class="enc-inline-link" title="부족한 치조골을 보충하는 수술" data-enc-term="뼈이식">뼈이식</a> 여부 등에 따라 달라집니다.</p>
             </div>
           </div>
           <div class="faq-top-card" style="animation-delay: 0.2s">
             <div class="faq-top-card-num">3</div>
             <div class="faq-top-card-content">
-              <h3>임플란트 수명은 얼마나 되나요?</h3>
+              <h3><a href="/encyclopedia/#임플란트 수명" class="enc-inline-link" title="임플란트의 예상 사용 기간" data-enc-term="임플란트 수명">임플란트 수명</a>은 얼마나 되나요?</h3>
               <p>임플란트 자체(티타늄 픽스처)는 반영구적이며, 관리만 잘하면 20~30년 이상 사용할 수 있습니다.</p>
             </div>
           </div>
@@ -972,7 +1021,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-2">
-                    <div class="faq-a-content">임플란트 자체(티타늄 픽스처)는 반영구적이며, 관리만 잘하면 20~30년 이상 사용할 수 있습니다. 다만 상부 크라운은 10~15년 주기로 교체가 필요할 수 있습니다. 정기 검진과 올바른 구강 관리가 수명을 결정하는 핵심입니다.</div>
+                    <div class="faq-a-content">임플란트 자체(티타늄 픽스처)는 반영구적이며, 관리만 잘하면 20~30년 이상 사용할 수 있습니다. 다만 상부 크라운은 10~15년 주기로 교체가 필요할 수 있습니다. <a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>과 올바른 구강 관리가 수명을 결정하는 핵심입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -982,7 +1031,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-3">
-                    <div class="faq-a-content">시술 중에는 충분한 국소마취를 하므로 통증은 거의 없습니다. 서울비디치과에서는 수면진정 하 임플란트도 가능하여, 치과 공포증이 있는 분도 편안하게 시술받으실 수 있습니다. 시술 후 2~3일간 약간의 붓기와 불편감이 있을 수 있으나, 처방 약으로 충분히 조절됩니다.</div>
+                    <div class="faq-a-content">시술 중에는 충분한 국소마취를 하므로 통증은 거의 없습니다. 서울비디치과에서는 수면진정 하 임플란트도 가능하여, <a href="/encyclopedia/#치과 공포증" class="enc-inline-link" title="치과 치료에 대한 극심한 두려움" data-enc-term="치과 공포증">치과 공포증</a>이 있는 분도 편안하게 시술받으실 수 있습니다. 시술 후 2~3일간 약간의 붓기와 불편감이 있을 수 있으나, 처방 약으로 충분히 조절됩니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -992,7 +1041,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <div class="faq-a-content">일반적으로 하악(아래턱) 2~3개월, 상악(위턱) 4~6개월 정도 소요됩니다. 뼈이식이 필요한 경우 추가 기간이 필요할 수 있습니다. 서울비디치과에서는 당일 임플란트(즉시 식립)도 가능하며, 환자 상태에 따라 최적의 치료 계획을 수립합니다.</div>
+                    <div class="faq-a-content">일반적으로 하악(<a href="/encyclopedia/#하악" class="enc-inline-link" title="아래턱을 의미하며, 유일하게 움직이는 얼굴 뼈입니다." data-enc-term="하악">아래턱</a>) 2~3개월, 상악(위턱) 4~6개월 정도 소요됩니다. 뼈이식이 필요한 경우 추가 기간이 필요할 수 있습니다. 서울비디치과에서는 당일 임플란트(<a href="/encyclopedia/#발치 후 즉시 임플란트" class="enc-inline-link" title="치아를 뽑은 직후 같은 자리에 바로 임플란트를 심는 시술입니다." data-enc-term="발치 후 즉시 임플란트">즉시 식립</a>)도 가능하며, 환자 상태에 따라 최적의 <a href="/encyclopedia/#치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 수립합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1002,7 +1051,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <div class="faq-a-content">대부분의 성인은 임플란트가 가능하지만, 조절되지 않는 당뇨, 심한 골다공증, 항암 치료 중인 경우 등은 사전 평가가 필요합니다. 잇몸뼈가 부족한 경우에도 뼈이식(GBR)을 통해 임플란트가 가능합니다. 정확한 판단은 CT 촬영 후 전문의 상담을 통해 확인하실 수 있습니다.</div>
+                    <div class="faq-a-content">대부분의 성인은 임플란트가 가능하지만, 조절되지 않는 당뇨, 심한 골다공증, 항암 치료 중인 경우 등은 사전 평가가 필요합니다. 잇몸뼈가 부족한 경우에도 뼈이식(<a href="/encyclopedia/#GBR" class="enc-inline-link" title="차단막을 이용한 골 재생 유도술" data-enc-term="GBR">GBR</a>)을 통해 임플란트가 가능합니다. 정확한 판단은 CT 촬영 후 전문의 상담을 통해 확인하실 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1028,11 +1077,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
                     <span class="faq-q-badge">9</span>
-                    <span class="faq-q-text">임플란트 후 관리는 어떻게 하나요?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#임플란트 후 관리" class="enc-inline-link" title="임플란트 식립 후 장기적으로 관리하는 방법" data-enc-term="임플란트 후 관리">임플란트 후 관리</a>는 어떻게 하나요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <div class="faq-a-content">자연 치아와 동일하게 하루 2~3회 칫솔질 + 치간칫솔 또는 치실 사용이 기본입니다. 임플란트 주위염(임플란트 잇몸병) 예방을 위해 3~6개월마다 정기 검진 및 스케일링을 받으시는 것이 중요합니다.</div>
+                    <div class="faq-a-content">자연 치아와 동일하게 하루 2~3회 <a href="/encyclopedia/#칫솔질" class="enc-inline-link" title="치아와 잇몸을 닦는 구강 위생의 기본" data-enc-term="칫솔질">칫솔질</a> + 치간칫솔 또는 치실 사용이 기본입니다. <a href="/encyclopedia/#임플란트 주위염" class="enc-inline-link" title="임플란트 주변 잇몸과 뼈에 염증이 생긴 상태" data-enc-term="임플란트 주위염">임플란트 주위염</a>(임플란트 <a href="/encyclopedia/#치주 질환" class="enc-inline-link" title="잇몸과 치아 지지 조직에 발생하는 질환의 총칭" data-enc-term="치주 질환">잇몸병</a>) 예방을 위해 3~6개월마다 정기 검진 및 <a href="/encyclopedia/#스케일링" class="enc-inline-link" title="치석과 치태를 제거하는 예방 치료" data-enc-term="스케일링">스케일링</a>을 받으시는 것이 중요합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1068,11 +1117,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-12">
                     <span class="faq-q-badge">13</span>
-                    <span class="faq-q-text">임플란트와 브릿지, 어떤 게 나은가요?</span>
+                    <span class="faq-q-text">임플란트와 <a href="/encyclopedia/#브릿지" class="enc-inline-link" title="빠진 치아 양쪽 치아를 깎아 연결하는 보철" data-enc-term="브릿지">브릿지</a>, 어떤 게 나은가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-12">
-                    <div class="faq-a-content">브릿지는 양쪽 건강한 치아를 깎아야 하는 단점이 있고, 임플란트는 인접 치아 손상 없이 독립적으로 시술합니다. 장기적으로 임플란트가 인접 치아 보존, 뼈 흡수 방지, 세정 편의성 면에서 우수합니다. 다만 전신 건강 상태에 따라 브릿지가 적합한 경우도 있으므로 전문의 상담을 권합니다.</div>
+                    <div class="faq-a-content">브릿지는 양쪽 건강한 치아를 깎아야 하는 단점이 있고, 임플란트는 인접 치아 손상 없이 독립적으로 시술합니다. 장기적으로 임플란트가 인접 치아 보존, <a href="/encyclopedia/#치조골 흡수" class="enc-inline-link" title="잇몸 아래 치아를 지지하는 뼈가 녹아 줄어드는 현상입니다." data-enc-term="치조골 흡수">뼈 흡수</a> 방지, 세정 편의성 면에서 우수합니다. 다만 전신 건강 상태에 따라 브릿지가 적합한 경우도 있으므로 전문의 상담을 권합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1088,7 +1137,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
                     <span class="faq-q-badge">15</span>
-                    <span class="faq-q-text">네비게이션 임플란트란 무엇인가요?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#네비게이션 임플란트" class="enc-inline-link" title="디지털 가이드로 정밀 식립하는 임플란트" data-enc-term="네비게이션 임플란트">네비게이션 임플란트</a>란 무엇인가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
@@ -1122,7 +1171,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <div class="faq-a-content">흡연은 임플란트 실패의 가장 큰 위험 요인 중 하나입니다. 니코틴이 혈관을 수축시켜 뼈와 임플란트의 유착(골유착)을 방해합니다. 최소 시술 전후 4~8주간 금연을 강력히 권장하며, 가능하면 완전 금연이 이상적입니다.</div>
+                    <div class="faq-a-content">흡연은 <a href="/encyclopedia/#임플란트 실패" class="enc-inline-link" title="임플란트가 탈락하거나 합병증이 생기는 경우" data-enc-term="임플란트 실패">임플란트 실패</a>의 가장 큰 위험 요인 중 하나입니다. 니코틴이 혈관을 수축시켜 뼈와 임플란트의 유착(<a href="/encyclopedia/#골유착" class="enc-inline-link" title="임플란트가 뼈와 결합하는 과정" data-enc-term="골유착">골유착</a>)을 방해합니다. 최소 시술 전후 4~8주간 금연을 강력히 권장하며, 가능하면 완전 금연이 이상적입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1132,7 +1181,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-18">
-                    <div class="faq-a-content">자연 치아에는 치주인대(쿠션 역할)가 있지만 임플란트에는 없어 뼈에 직접 붙습니다. 따라서 씹는 감각이 약간 다를 수 있고, 과도한 힘이 직접 뼈에 전달됩니다. 기능과 심미성은 자연치아와 거의 동일하지만, 정기적 관리가 더욱 중요합니다.</div>
+                    <div class="faq-a-content">자연 치아에는 <a href="/encyclopedia/#치주인대" class="enc-inline-link" title="치아와 치조골을 연결하는 섬유 조직" data-enc-term="치주인대">치주인대</a>(쿠션 역할)가 있지만 임플란트에는 없어 뼈에 직접 붙습니다. 따라서 씹는 감각이 약간 다를 수 있고, 과도한 힘이 직접 뼈에 전달됩니다. 기능과 심미성은 자연치아와 거의 동일하지만, 정기적 관리가 더욱 중요합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1158,11 +1207,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-21">
                     <span class="faq-q-badge">22</span>
-                    <span class="faq-q-text">어금니와 앞니 임플란트는 다른가요?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#어금니" class="enc-inline-link" title="뒤쪽에 위치한 음식을 갈아 씹는 치아" data-enc-term="어금니">어금니</a>와 앞니 임플란트는 다른가요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-21">
-                    <div class="faq-a-content">기본 원리는 같지만, 앞니 임플란트는 심미성(잇몸 라인, 색상, 투명도)이 매우 중요하고, 어금니 임플란트는 씹는 힘을 견딜 수 있는 내구성이 핵심입니다. 앞니는 맞춤 어버트먼트와 올세라믹 크라운을, 어금니는 지르코니아나 골드 크라운을 주로 사용합니다.</div>
+                    <div class="faq-a-content">기본 원리는 같지만, 앞니 임플란트는 심미성(잇몸 라인, 색상, 투명도)이 매우 중요하고, 어금니 임플란트는 씹는 힘을 견딜 수 있는 내구성이 핵심입니다. 앞니는 맞춤 어버트먼트와 올<a href="/encyclopedia/#세라믹" class="enc-inline-link" title="도자기 계열 치과 재료의 총칭" data-enc-term="세라믹">세라믹</a> 크라운을, 어금니는 <a href="/encyclopedia/#지르코니아" class="enc-inline-link" title="고강도 세라믹 치과 재료" data-enc-term="지르코니아">지르코니아</a>나 <a href="/encyclopedia/#골드 크라운" class="enc-inline-link" title="금합금으로 만든 치아 캡" data-enc-term="골드 크라운">골드 크라운</a>을 주로 사용합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1178,7 +1227,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-23">
                     <span class="faq-q-badge">24</span>
-                    <span class="faq-q-text">임플란트 틀니와 일반 임플란트의 차이는?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#오버덴처" class="enc-inline-link" title="임플란트 위에 올리는 탈착식 틀니" data-enc-term="오버덴처">임플란트 틀니</a>와 일반 임플란트의 차이는?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-23">
@@ -1188,7 +1237,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-24">
                     <span class="faq-q-badge">25</span>
-                    <span class="faq-q-text">임플란트 보증(보증기간)은 있나요?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#임플란트 보증" class="enc-inline-link" title="임플란트 제품 및 시술 보증 제도" data-enc-term="임플란트 보증">임플란트 보증</a>(보증기간)은 있나요?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-24">
@@ -1252,7 +1301,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

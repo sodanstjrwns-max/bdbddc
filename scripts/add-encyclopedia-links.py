@@ -29,6 +29,8 @@ from html.parser import HTMLParser
 # ===== 설정 =====
 ENCYCLOPEDIA_JSON = 'public/data/encyclopedia.json'
 TREATMENT_DIR = 'treatments'
+FAQ_DIR = 'faq'
+FAQ_MAIN = 'faq.html'
 MIN_TERM_LENGTH = 3
 DRY_RUN = '--dry-run' in sys.argv
 
@@ -368,14 +370,79 @@ def main():
         else:
             print(f"  {fname:42s}   0개 (매칭 없음)")
     
+    treatment_links = total_links
+    treatment_file_count = total_files
+    
+    print(f"\n  진료 페이지 소계: {total_files}개 파일, {total_links}개 링크")
+    
+    # ========================================
+    # 3. FAQ 페이지 처리
+    # ========================================
+    print(f"\n{'─' * 70}")
+    print(f"  FAQ 페이지 처리")
+    print(f"{'─' * 70}\n")
+    
+    # FAQ 파일 목록: faq.html + faq/*.html
+    faq_files = []
+    if os.path.exists(FAQ_MAIN):
+        faq_files.append(FAQ_MAIN)
+    if os.path.isdir(FAQ_DIR):
+        for fname in sorted(os.listdir(FAQ_DIR)):
+            if fname.endswith('.html'):
+                faq_files.append(os.path.join(FAQ_DIR, fname))
+    
+    print(f"  FAQ 파일: {len(faq_files)}개\n")
+    
+    faq_links = 0
+    faq_file_count = 0
+    
+    for filepath in faq_files:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            original = f.read()
+        
+        # 기존 인라인 링크 제거 (clean start)
+        cleaned = remove_existing_inline_links(original)
+        
+        # 링크 삽입
+        modified, stats = add_links_to_html(cleaned, term_map, sorted_terms, filepath)
+        
+        # CSS 추가
+        modified = add_inline_link_css(modified)
+        
+        if stats['total_links'] > 0:
+            faq_links += stats['total_links']
+            faq_file_count += 1
+            total_links += stats['total_links']
+            total_files += 1
+            
+            terms_preview = ', '.join(stats['terms'][:10])
+            more = f" ... +{len(stats['terms'])-10}" if len(stats['terms']) > 10 else ""
+            print(f"  {filepath:42s} {stats['total_links']:3d}개 | {terms_preview}{more}")
+            
+            if not DRY_RUN:
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    f.write(modified)
+        else:
+            print(f"  {filepath:42s}   0개 (매칭 없음)")
+    
+    print(f"\n  FAQ 소계: {faq_file_count}개 파일, {faq_links}개 링크")
+    
+    # ========================================
+    # 4. 최종 요약
+    # ========================================
     print(f"\n{'=' * 70}")
-    print(f"  완료: {total_files}개 파일에 총 {total_links}개 인라인 링크 삽입")
+    print(f"  최종 결과")
+    print(f"{'=' * 70}")
+    print(f"  진료 페이지: {treatment_file_count}개 파일, {treatment_links}개 링크")
+    print(f"  FAQ 페이지:  {faq_file_count}개 파일, {faq_links}개 링크")
+    print(f"  ─────────────────────────")
+    print(f"  합계:        {total_files}개 파일, {total_links}개 인라인 링크")
     if total_links > 0:
         avg = total_links / total_files if total_files > 0 else 0
-        print(f"  평균: 파일당 {avg:.1f}개 링크")
+        print(f"  평균:        파일당 {avg:.1f}개 링크")
     
     if DRY_RUN:
-        print("  DRY RUN — 실제 파일은 변경되지 않았습니다")
+        print("\n  DRY RUN — 실제 파일은 변경되지 않았습니다")
     print(f"{'=' * 70}")
 
 

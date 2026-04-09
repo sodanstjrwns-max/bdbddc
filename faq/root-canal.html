@@ -772,6 +772,55 @@ section.faq-nav .faq-nav-container a.faq-nav-item.active,
   .faq-main-section .faq-q-badge { width: 26px; height: 26px; min-width: 26px; font-size: 0.75rem; border-radius: 8px; }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -820,10 +869,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="breadcrumb"><a href="/">홈</a><span class="sep">/</span><a href="/faq">FAQ</a><span class="sep">/</span><span>신경치료(근관치료)</span></div>
         <div class="faq-page-badge"><i class="fas fa-microscope"></i> 정밀치료</div>
         <h1>
-          <span class="quote-line">"신경치료가 아프다던데..."</span>
+          <span class="quote-line">"<a href="/encyclopedia/#신경치료" class="enc-inline-link" title="감염된 치아 신경을 제거하고 충전하는 치료" data-enc-term="신경치료">신경치료</a>가 아프다던데..."</span>
           <span class="text-gradient">신경치료 궁금증 해결</span>
         </h1>
-        <p class="faq-hero-desc">천안 신경치료(근관치료) 과정, 통증, 내원 횟수, 치료 후 크라운 필요성까지 20가지 자주 묻는 질문을 서울비디치과 보존과 전문의가 상세히 답변합니다.</p>
+        <p class="faq-hero-desc">천안 신경치료(근관치료) 과정, 통증, 내원 횟수, 치료 후 <a href="/encyclopedia/#크라운" class="enc-inline-link" title="손상된 치아 전체를 씌우는 인공 캡" data-enc-term="크라운">크라운</a> 필요성까지 20가지 자주 묻는 질문을 서울비디치과 <a href="/encyclopedia/#보존과" class="enc-inline-link" title="자연 치아를 살리는 치료 분야" data-enc-term="보존과">보존과</a> 전문의가 상세히 답변합니다.</p>
         <div class="faq-hero-expert"><i class="fas fa-user-md"></i> 보존과 전문의가 답변합니다</div>
         <div class="faq-hero-stats">
           <div class="faq-stat-item"><span class="faq-stat-value">90%+</span><span class="faq-stat-label">성공률</span></div>
@@ -952,7 +1001,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-4">
-                    <div class="faq-a-content">감염된 신경을 방치하면 치아 뿌리 끝에 고름(치근단 농양)이 생기고, 주변 뼈로 감염이 퍼질 수 있습니다. 얼굴 붓기, 심한 통증이 발생하며, 결국 발치가 불가피해집니다.</div>
+                    <div class="faq-a-content">감염된 신경을 방치하면 <a href="/encyclopedia/#치근" class="enc-inline-link" title="잇몸 아래에 위치한 치아의 뿌리 부분" data-enc-term="치근">치아 뿌리</a> 끝에 고름(<a href="/encyclopedia/#치근단 농양" class="enc-inline-link" title="치아 뿌리 끝에 고름이 생긴 상태" data-enc-term="치근단 농양">치근단 농양</a>)이 생기고, 주변 뼈로 감염이 퍼질 수 있습니다. 얼굴 붓기, 심한 통증이 발생하며, 결국 발치가 불가피해집니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -962,7 +1011,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-5">
-                    <div class="faq-a-content">적절한 신경치료 + 크라운 보호 시 오래 사용할 수 있습니다. 하지만 재감염, 치아 파절 등의 위험이 있으므로 정기 검진이 중요합니다. 성공률은 약 90~95%입니다.</div>
+                    <div class="faq-a-content">적절한 신경치료 + 크라운 보호 시 오래 사용할 수 있습니다. 하지만 재감염, <a href="/encyclopedia/#치아 파절" class="enc-inline-link" title="치아가 깨지거나 금이 간 상태" data-enc-term="치아 파절">치아 파절</a> 등의 위험이 있으므로 <a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>이 중요합니다. 성공률은 약 90~95%입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -972,7 +1021,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-6">
-                    <div class="faq-a-content">서울비디치과에서는 디지털 X-ray와 전자 근관장 측정기로 정밀한 신경치료를 제공합니다. 보존과 전문의가 직접 치료하며, 최소 침습으로 치아 보존 가능성을 최대화합니다.</div>
+                    <div class="faq-a-content">서울비디치과에서는 디지털 <a href="/encyclopedia/#엑스레이" class="enc-inline-link" title="방사선을 이용한 치아 내부 촬영" data-enc-term="엑스레이">X-ray</a>와 전자 근관장 측정기로 정밀한 신경치료를 제공합니다. 보존과 전문의가 직접 치료하며, 최소 침습으로 치아 보존 가능성을 최대화합니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -992,7 +1041,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-8">
-                    <div class="faq-a-content">대부분의 경우 크라운(보철물)으로 감싸는 것을 권합니다. 신경치료 후 치아는 수분 공급이 끊겨 건조해지고 부서지기 쉽습니다. 특히 어금니는 씹는 힘이 크므로 크라운 없이 사용하면 파절 위험이 높습니다.</div>
+                    <div class="faq-a-content">대부분의 경우 크라운(보철물)으로 감싸는 것을 권합니다. 신경치료 후 치아는 수분 공급이 끊겨 건조해지고 부서지기 쉽습니다. 특히 <a href="/encyclopedia/#어금니" class="enc-inline-link" title="뒤쪽에 위치한 음식을 갈아 씹는 치아" data-enc-term="어금니">어금니</a>는 씹는 힘이 크므로 크라운 없이 사용하면 파절 위험이 높습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1002,7 +1051,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-9">
-                    <div class="faq-a-content">신경치료 후 시간이 지나면 치아가 어두워질 수 있습니다. 이는 남아있는 혈액 성분이 분해되면서 나타나는 현상입니다. 내부 미백(워킹 블리치)으로 개선 가능하며, 앞니의 경우 라미네이트나 크라운으로 심미성을 회복할 수 있습니다.</div>
+                    <div class="faq-a-content">신경치료 후 시간이 지나면 치아가 어두워질 수 있습니다. 이는 남아있는 혈액 성분이 분해되면서 나타나는 현상입니다. <a href="/encyclopedia/#치아 탈색" class="enc-inline-link" title="신경치료 후 변색된 치아를 밝게 하는 시술" data-enc-term="치아 탈색">내부 미백</a>(워킹 블리치)으로 개선 가능하며, 앞니의 경우 <a href="/encyclopedia/#라미네이트" class="enc-inline-link" title="앞니 표면에 얇은 도자기를 붙이는 심미 시술" data-enc-term="라미네이트">라미네이트</a>나 크라운으로 심미성을 회복할 수 있습니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1012,7 +1061,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-10">
-                    <div class="faq-a-content">신경치료 후 세균이 완전히 제거되지 않거나 재감염이 발생하여 증상이 재발하는 경우입니다. 치아 뿌리 끝에 염증(치근단 병소)이 남아있으면 재신경치료 또는 치근단 수술이 필요합니다. 성공률은 초치료 약 90~95%, 재치료 약 70~85%입니다.</div>
+                    <div class="faq-a-content">신경치료 후 세균이 완전히 제거되지 않거나 재감염이 발생하여 증상이 재발하는 경우입니다. 치아 뿌리 끝에 염증(<a href="/encyclopedia/#치근단 병소" class="enc-inline-link" title="치아 뿌리 끝에 감염·낭종이 생긴 상태" data-enc-term="치근단 병소">치근단 병소</a>)이 남아있으면 <a href="/encyclopedia/#재신경치료" class="enc-inline-link" title="이전 신경치료가 실패한 치아를 재치료" data-enc-term="재신경치료">재신경치료</a> 또는 치근단 수술이 필요합니다. 성공률은 초치료 약 90~95%, 재치료 약 70~85%입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1048,11 +1097,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="faq-item reveal">
                 <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-14">
                     <span class="faq-q-badge">15</span>
-                    <span class="faq-q-text">치근단 수술(치근단 절제술)이란?</span>
+                    <span class="faq-q-text"><a href="/encyclopedia/#치근단" class="enc-inline-link" title="치아 뿌리의 끝 부분" data-enc-term="치근단">치근단</a> 수술(<a href="/encyclopedia/#치근단 절제술" class="enc-inline-link" title="치아 뿌리 끝을 수술로 제거하는 시술" data-enc-term="치근단 절제술">치근단 절제술</a>)이란?</span>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-14">
-                    <div class="faq-a-content">일반 신경치료나 재신경치료로 해결되지 않을 때, 잇몸을 열고 감염된 치아 뿌리 끝을 절제하는 수술입니다. 미세현미경 하에 진행하여 정밀도가 높으며, 발치를 피하는 마지막 보존적 치료법입니다.</div>
+                    <div class="faq-a-content">일반 신경치료나 재신경치료로 해결되지 않을 때, 잇몸을 열고 감염된 치아 뿌리 끝을 절제하는 수술입니다. <a href="/encyclopedia/#미세현미경" class="enc-inline-link" title="최대 25배 확대로 정밀 치료하는 장비" data-enc-term="미세현미경">미세현미경</a> 하에 진행하여 정밀도가 높으며, 발치를 피하는 마지막 <a href="/encyclopedia/#보존적 치료" class="enc-inline-link" title="치아를 최대한 보존하는 치료 철학" data-enc-term="보존적 치료">보존적 치료</a>법입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1082,7 +1131,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-17">
-                    <div class="faq-a-content">네, 유치와 영구치 모두 신경치료가 가능합니다. 유치의 경우 완전한 신경치료 대신 부분 신경치료(치수절단술)를 하는 경우가 많으며, 이는 영구치가 정상적으로 나올 때까지 유치를 보존하기 위함입니다.</div>
+                    <div class="faq-a-content">네, 유치와 <a href="/encyclopedia/#영구치" class="enc-inline-link" title="유치 후 나는 성인 치아" data-enc-term="영구치">영구치</a> 모두 신경치료가 가능합니다. 유치의 경우 완전한 신경치료 대신 부분 신경치료(치수절단술)를 하는 경우가 많으며, 이는 영구치가 정상적으로 나올 때까지 유치를 보존하기 위함입니다.</div>
                 </div>
             </div>
             <div class="faq-item reveal">
@@ -1102,7 +1151,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i class="fas fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer" id="faq-answer-19">
-                    <div class="faq-a-content">네, 정상입니다. 근관 내부를 소독하는 약제(차아염소산나트륨, 수산화칼슘 등)에서 나는 냄새이며, 치료가 진행되면서 사라집니다. 약제는 인체에 무해한 농도로 사용됩니다.</div>
+                    <div class="faq-a-content">네, 정상입니다. 근관 내부를 소독하는 약제(차아염소산나트륨, <a href="/encyclopedia/#수산화칼슘" class="enc-inline-link" title="치수 보호와 소독에 사용되는 기본 치과 재료" data-enc-term="수산화칼슘">수산화칼슘</a> 등)에서 나는 냄새이며, 치료가 진행되면서 사라집니다. 약제는 인체에 무해한 농도로 사용됩니다.</div>
                 </div>
             </div>
             <div class="faq-no-results" id="faqNoResults">
@@ -1162,7 +1211,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/#의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>
