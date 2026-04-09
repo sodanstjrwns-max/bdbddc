@@ -907,7 +907,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     
     // Features
     html += '<div class="result-features">';
-    html += '<h3>🔍 ' + code + ' 유형 특징</h3>';
+    html += '<h2>🔍 ' + code + ' 유형 특징</h2>';
     typeData.features.forEach(function(f) {
       html += '<div class="result-feature-item"><span class="result-feature-icon">•</span><span class="result-feature-text">' + f + '</span></div>';
     });
@@ -924,7 +924,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     
     // Persona
     html += '<div class="result-persona">';
-    html += '<h3>🎯 이런 사람에게 많이 나와요</h3>';
+    html += '<h2>🎯 이런 사람에게 많이 나와요</h2>';
     html += '<div class="result-persona-list">';
     typeData.persona.forEach(function(p) {
       html += '<div class="result-persona-item"><span class="dot"></span>' + p + '</div>';
@@ -934,7 +934,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     
     // CTA
     html += '<div class="result-cta">';
-    html += '<h3>💡 지금 당장 할 수 있는 것</h3>';
+    html += '<h2>💡 지금 당장 할 수 있는 것</h2>';
     html += '<p>' + typeData.cta + '</p>';
     html += '<a href="/reservation" class="btn-reserve-result"><i class="fas fa-calendar-check"></i> 편하게 상담 예약하기</a>';
     html += '<div class="result-cta-action">* 365일 진료 · 평일 야간 20시까지</div>';
