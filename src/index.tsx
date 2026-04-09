@@ -546,8 +546,15 @@ app.get('/api/images/*', async (c) => {
 
   const headers = new Headers()
   headers.set('Content-Type', object.httpMetadata?.contentType || 'image/jpeg')
-  headers.set('Cache-Control', 'public, max-age=31536000, immutable')
   headers.set('ETag', object.etag)
+  
+  // cases/ 이미지는 CDN 캐시 금지 (인증 필요하므로)
+  if (key.startsWith('cases/')) {
+    headers.set('Cache-Control', 'private, no-store, no-cache, must-revalidate')
+    headers.set('CDN-Cache-Control', 'no-store')
+  } else {
+    headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+  }
 
   return new Response(object.body, { headers })
 })
