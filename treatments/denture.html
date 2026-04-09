@@ -185,6 +185,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }
 </script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -256,7 +305,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
             <span class="problem-text">"틀니가 빠질까 걱정돼요"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-            <span class="solution-text">정밀 유지력 + 임플란트 틀니</span>
+            <span class="solution-text">정밀 유지력 + <a href="/encyclopedia/오버덴처" class="enc-inline-link" title="임플란트 위에 올리는 탈착식 틀니" data-enc-term="오버덴처">임플란트 틀니</a></span>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
@@ -276,7 +325,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="treatment-options">
           <div class="treatment-option-card">
             <div class="opt-icon"><i class="fas fa-teeth"></i></div>
-            <h3>총의치(완전틀니)</h3>
+            <h3><a href="/encyclopedia/완전 틀니" class="enc-inline-link" title="모든 치아가 없을 때 사용하는 총의치" data-enc-term="완전 틀니">총의치</a>(완전틀니)</h3>
             <p>모든 치아가 상실된 경우 사용합니다.</p>
             <div class="opt-tags"><span>전체 상실</span><span>아크릴·금속상</span></div>
           </div>
@@ -288,7 +337,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="treatment-option-card">
             <div class="opt-icon"><i class="fas fa-cog"></i></div>
-            <h3>임플란트 오버덴쳐</h3>
+            <h3><a href="/encyclopedia/임플란트" class="enc-inline-link" title="인공 치근을 심어 치아를 복원하는 시술" data-enc-term="임플란트">임플란트</a> 오버덴쳐</h3>
             <p>임플란트 2~4개로 틀니를 고정하여 뛰어난 유지력을 제공합니다.</p>
             <div class="opt-tags"><span>높은 유지력</span><span>안정적</span><span>추천</span></div>
           </div>
@@ -305,7 +354,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="process-step-v2">
             <div class="step-dot">1</div>
             <h3>정밀 검진</h3>
-            <p>잔존 치아, 잇몸 상태를 검사하고 치료 계획을 수립합니다.</p>
+            <p>잔존 치아, 잇몸 상태를 검사하고 <a href="/encyclopedia/치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 수립합니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">2</div>
@@ -381,7 +430,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="faq-q-text">틀니를 하면 맛을 느끼기 어려운가요?</span>
               <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
             </button>
-            <div class="faq-answer" id="faq-4" role="region"><p>상악(위) 틀니는 입천장을 덮기 때문에 미각이 다소 줄어들 수 있습니다. 임플란트 틀니는 입천장을 덮지 않아 자연스러운 미각을 유지할 수 있습니다.</p></div>
+            <div class="faq-answer" id="faq-4" role="region"><p>상악(위) 틀니는 <a href="/encyclopedia/구개" class="enc-inline-link" title="입천장을 이루는 뼈와 점막" data-enc-term="구개">입천장</a>을 덮기 때문에 미각이 다소 줄어들 수 있습니다. 임플란트 틀니는 입천장을 덮지 않아 자연스러운 미각을 유지할 수 있습니다.</p></div>
           </div>
         </div>
       </div>
@@ -445,7 +494,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   
@@ -461,7 +510,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-0">
-              <p>① 완전 틀니(무치악) ② 부분 틀니(일부 치아 남아있는 경우) ③ 임플란트 틀니(임플란트로 고정) 등이 있습니다. 남아있는 치아 상태와 잇몸뼈 상태에 따라 적합한 종류가 달라집니다.</p>
+              <p>① 완전 틀니(무치악) ② <a href="/encyclopedia/부분 틀니" class="enc-inline-link" title="일부 치아가 없을 때 사용하는 국소의치" data-enc-term="부분 틀니">부분 틀니</a>(일부 치아 남아있는 경우) ③ 임플란트 틀니(임플란트로 고정) 등이 있습니다. 남아있는 치아 상태와 잇몸뼈 상태에 따라 적합한 종류가 달라집니다.</p>
             </div>
           </div>
           <div class="faq-item">
@@ -497,7 +546,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-4">
-              <p>잇몸뼈가 시간이 지나면서 흡수되어 틀니가 헐거워질 수 있습니다. 이런 경우 틀니 이장(안쪽 리베이스) 또는 재제작이 필요합니다. 참지 마시고 치과에 방문하여 조정받으세요.</p>
+              <p>잇몸뼈가 시간이 지나면서 흡수되어 틀니가 헐거워질 수 있습니다. 이런 경우 틀니 이장(안쪽 <a href="/encyclopedia/리베이스" class="enc-inline-link" title="틀니 안쪽을 새로 입히는 시술" data-enc-term="리베이스">리베이스</a>) 또는 재제작이 필요합니다. 참지 마시고 치과에 방문하여 조정받으세요.</p>
             </div>
           </div>
           <div class="faq-item">

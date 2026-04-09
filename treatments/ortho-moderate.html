@@ -68,6 +68,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <!-- Weglot Multilingual -->
 <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
 <script>Weglot.initialize({api_key:'wg_cd7087d43782c81ecb41e27570c3bfcd2'});</script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK"
@@ -148,7 +197,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="container">
         <div style="background:#f0f9ff;border-left:4px solid #0ea5e9;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;max-width:800px;margin:0 auto;">
           <h2 style="font-size:1.15rem;font-weight:700;color:#0369a1;margin:0 0 0.5rem 0;">모더레이트 교정이란?</h2>
-          <p style="margin:0;color:#334155;line-height:1.7;font-size:0.95rem;">모더레이트 교정은 중등도 부정교합에 최적화된 교정 프로그램입니다. 23단계의 체계적인 장치 세트로 효율적인 교정을 진행합니다. 전체 교정까지는 필요 없지만 단순 부분 교정으로는 해결이 어려운 케이스에 적합합니다. 디지털 정밀 진단으로 최적의 교정 계획을 수립하고, 리파인먼트 2회가 포함되어 세밀한 마무리가 가능합니다.</p>
+          <p style="margin:0;color:#334155;line-height:1.7;font-size:0.95rem;">모더레이트 교정은 중등도 <a href="/encyclopedia/부정교합" class="enc-inline-link" title="위아래 치아의 맞물림이 비정상인 상태" data-enc-term="부정교합">부정교합</a>에 최적화된 교정 프로그램입니다. 23단계의 체계적인 장치 세트로 효율적인 교정을 진행합니다. 전체 교정까지는 필요 없지만 단순 부분 교정으로는 해결이 어려운 케이스에 적합합니다. 디지털 정밀 진단으로 최적의 교정 계획을 수립하고, 리파인먼트 2회가 포함되어 세밀한 마무리가 가능합니다.</p>
         </div>
       </div>
     </section>
@@ -188,7 +237,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
             <span class="problem-text">"장치가 눈에 띌까 걱정돼요"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-            <span class="solution-text">세라믹 장치로 심미성 확보</span>
+            <span class="solution-text"><a href="/encyclopedia/세라믹" class="enc-inline-link" title="도자기 계열 치과 재료의 총칭" data-enc-term="세라믹">세라믹</a> 장치로 심미성 확보</span>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
@@ -220,7 +269,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="why-card">
             <div class="why-card-icon"><i class="fas fa-cube"></i></div>
             <h3>디지털 정밀 진단</h3>
-            <p>3D CT, 구강스캐너로 정밀 진단 후 최적의 교정 계획을 수립합니다.</p>
+            <p><a href="/encyclopedia/CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a>, 구강스캐너로 정밀 진단 후 최적의 교정 계획을 수립합니다.</p>
           </div>
           <div class="why-card">
             <div class="why-card-icon"><i class="fas fa-redo"></i></div>
@@ -230,7 +279,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="why-card">
             <div class="why-card-icon"><i class="fas fa-gem"></i></div>
             <h3>세라믹 장치</h3>
-            <p>치아색 세라믹 브라켓으로 교정 중에도 심미성을 유지합니다.</p>
+            <p>치아색 <a href="/encyclopedia/세라믹 브라켓" class="enc-inline-link" title="치아색과 비슷한 심미 교정 장치" data-enc-term="세라믹 브라켓">세라믹 브라켓</a>으로 교정 중에도 심미성을 유지합니다.</p>
           </div>
           <div class="why-card">
             <div class="why-card-icon"><i class="fas fa-coins"></i></div>
@@ -287,7 +336,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="process-step-v2">
             <div class="step-dot">2</div>
             <h3>교정 계획 수립</h3>
-            <p>검진 결과를 바탕으로 클리피씨/클라리티울트라 중 최적의 장치를 선택하고 교정 계획을 세웁니다.</p>
+            <p>검진 결과를 바탕으로 <a href="/encyclopedia/클리피씨" class="enc-inline-link" title="자가결찰 세라믹 브라켓 교정장치" data-enc-term="클리피씨">클리피씨</a>/클라리티울트라 중 최적의 장치를 선택하고 교정 계획을 세웁니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">3</div>
@@ -306,8 +355,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">6</div>
-            <h3>유지장치 & 관리</h3>
-            <p>교정 후 유지장치(리테이너)를 장착합니다. 정기 검진으로 결과를 유지합니다.</p>
+            <h3><a href="/encyclopedia/유지장치" class="enc-inline-link" title="교정 치료 후 치아가 원래 위치로 돌아가는 것을 막는 장치입니다." data-enc-term="유지장치">유지장치</a> & 관리</h3>
+            <p>교정 후 유지장치(<a href="/encyclopedia/리테이너" class="enc-inline-link" title="교정 후 치아 위치를 유지하는 장치" data-enc-term="리테이너">리테이너</a>)를 장착합니다. <a href="/encyclopedia/정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>으로 결과를 유지합니다.</p>
           </div>
         </div>
       </div>
@@ -583,7 +632,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

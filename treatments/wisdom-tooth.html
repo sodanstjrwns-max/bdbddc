@@ -203,6 +203,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }
 </script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -271,15 +320,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="max-width:700px;margin:0 auto;">
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
-            <span class="problem-text">"사랑니 발치가 너무 무서워요"</span>
+            <span class="problem-text">"<a href="/encyclopedia/사랑니 발치" class="enc-inline-link" title="매복되거나 문제를 일으키는 사랑니를 제거하는 시술" data-enc-term="사랑니 발치">사랑니 발치</a>가 너무 무서워요"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
             <span class="solution-text">수면 발치로 편안하게</span>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
-            <span class="problem-text">"매복 사랑니가 신경 옆이래요"</span>
+            <span class="problem-text">"매복 <a href="/encyclopedia/사랑니" class="enc-inline-link" title="가장 마지막에 나는 세 번째 큰어금니" data-enc-term="사랑니">사랑니</a>가 신경 옆이래요"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-            <span class="solution-text">3D CT 정밀 분석 후 안전 발치</span>
+            <span class="solution-text"><a href="/encyclopedia/CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a> 정밀 분석 후 안전 발치</span>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
@@ -503,7 +552,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   
@@ -537,7 +586,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-2">
-              <p>매복 사랑니는 잇몸뼈 속에 묻혀 있거나 비스듬히 나와 있는 사랑니입니다. 일반 발치보다 난이도가 높으며, 잇몸 절개와 뼈 삭제가 필요할 수 있습니다. 파노라마·CT 촬영으로 정확한 위치를 확인한 후 발치합니다.</p>
+              <p>매복 사랑니는 잇몸뼈 속에 묻혀 있거나 비스듬히 나와 있는 사랑니입니다. 일반 발치보다 난이도가 높으며, 잇몸 절개와 뼈 삭제가 필요할 수 있습니다. <a href="/encyclopedia/파노라마" class="enc-inline-link" title="전체 치아와 턱을 보는 기본 방사선 사진" data-enc-term="파노라마">파노라마</a>·CT 촬영으로 정확한 위치를 확인한 후 발치합니다.</p>
             </div>
           </div>
           <div class="faq-item">
@@ -564,7 +613,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-5">
-              <p>가능하지만 한쪽씩(2개) 빼는 것이 일반적입니다. 양쪽을 동시에 빼면 식사에 어려움이 있을 수 있어, 2~3주 간격으로 나눠 발치하는 것을 권합니다. 수면치료 시 한 번에 4개를 빼는 경우도 있습니다.</p>
+              <p>가능하지만 한쪽씩(2개) 빼는 것이 일반적입니다. 양쪽을 동시에 빼면 식사에 어려움이 있을 수 있어, 2~3주 간격으로 나눠 발치하는 것을 권합니다. <a href="/encyclopedia/수면치료" class="enc-inline-link" title="진정 상태에서 치과 치료를 받는 방법" data-enc-term="수면치료">수면치료</a> 시 한 번에 4개를 빼는 경우도 있습니다.</p>
             </div>
           </div>
           <div class="faq-item">
@@ -582,7 +631,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-7">
-              <p>발치 후 피떡(혈병)이 빠지면서 뼈가 노출되는 합병증입니다. 심한 통증이 특징이며, 발치 후 2~5일째에 주로 발생합니다. 예방을 위해 빨대 사용, 침 뱉기, 흡연을 삼가고, 발치 부위를 자극하지 마세요.</p>
+              <p>발치 후 피떡(혈병)이 빠지면서 뼈가 노출되는 <a href="/encyclopedia/합병증" class="enc-inline-link" title="치료 후 발생할 수 있는 부작용" data-enc-term="합병증">합병증</a>입니다. 심한 통증이 특징이며, 발치 후 2~5일째에 주로 발생합니다. 예방을 위해 빨대 사용, 침 뱉기, 흡연을 삼가고, 발치 부위를 자극하지 마세요.</p>
             </div>
           </div>
         </div>

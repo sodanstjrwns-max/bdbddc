@@ -203,6 +203,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }
 </script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -276,13 +325,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="concern-card">
             <div class="concern-icon"><i class="fas fa-tooth"></i></div>
-            <h3>치아 파절/탈락</h3>
+            <h3><a href="/encyclopedia/치아 파절" class="enc-inline-link" title="치아가 깨지거나 금이 간 상태" data-enc-term="치아 파절">치아 파절</a>/탈락</h3>
             <p>사고나 충격으로 치아가 부러지거나 빠졌나요?</p>
           </div>
           <div class="concern-card">
             <div class="concern-icon"><i class="fas fa-crown"></i></div>
-            <h3>보철물 탈락</h3>
-            <p>크라운, 브릿지 등 보철물이 빠졌나요?</p>
+            <h3><a href="/encyclopedia/보철물 탈락" class="enc-inline-link" title="크라운, 브릿지 등 보철물이 빠진 상태입니다." data-enc-term="보철물 탈락">보철물 탈락</a></h3>
+            <p><a href="/encyclopedia/크라운" class="enc-inline-link" title="손상된 치아 전체를 씌우는 인공 캡" data-enc-term="크라운">크라운</a>, <a href="/encyclopedia/브릿지" class="enc-inline-link" title="빠진 치아 양쪽 치아를 깎아 연결하는 보철" data-enc-term="브릿지">브릿지</a> 등 보철물이 빠졌나요?</p>
           </div>
           <div class="concern-card">
             <div class="concern-icon"><i class="fas fa-tint"></i></div>
@@ -317,7 +366,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="process-step-v2">
             <div class="step-dot">4</div>
             <h3>후속 치료 안내</h3>
-            <p>응급 처치 후 필요한 후속 치료 계획을 안내드립니다.</p>
+            <p>응급 처치 후 필요한 후속 <a href="/encyclopedia/치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 안내드립니다.</p>
           </div>
         </div>
       </div>
@@ -456,7 +505,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   
@@ -526,7 +575,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-6">
-              <p>눈에 보이는 금이 있거나 씹을 때 날카로운 통증이 있으면 치아 균열(크랙)일 수 있습니다. 해당 치아로 식사를 피하고, 빠른 시일 내에 치과를 방문하세요. 방치하면 균열이 진행되어 발치가 필요할 수 있습니다.</p>
+              <p>눈에 보이는 금이 있거나 씹을 때 날카로운 통증이 있으면 <a href="/encyclopedia/치아 균열" class="enc-inline-link" title="치아에 눈에 보이지 않는 미세한 금이 간 상태" data-enc-term="치아 균열">치아 균열</a>(크랙)일 수 있습니다. 해당 치아로 식사를 피하고, 빠른 시일 내에 치과를 방문하세요. 방치하면 균열이 진행되어 발치가 필요할 수 있습니다.</p>
             </div>
           </div>
           <div class="faq-item">
@@ -535,7 +584,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-7">
-              <p>교정용 왁스(약국 또는 치과에서 제공)로 튀어나온 와이어를 감싸 임시 조치하세요. 불편함이 심하면 와이어를 무딘 부분으로 구부리거나, 소독한 손톱깎이로 잘라낼 수 있습니다. 가능한 빨리 치과에서 조정받으세요.</p>
+              <p><a href="/encyclopedia/교정용 왁스" class="enc-inline-link" title="브라켓 자극으로부터 점막을 보호하는 왁스" data-enc-term="교정용 왁스">교정용 왁스</a>(약국 또는 치과에서 제공)로 튀어나온 와이어를 감싸 임시 조치하세요. 불편함이 심하면 와이어를 무딘 부분으로 구부리거나, 소독한 손톱깎이로 잘라낼 수 있습니다. 가능한 빨리 치과에서 조정받으세요.</p>
             </div>
           </div>
         </div>

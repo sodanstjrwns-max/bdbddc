@@ -560,6 +560,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   }
 }
 </style>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -630,7 +679,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
             <span class="problem-text">"철사 교정기가 부담스러워요"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-            <span class="solution-text">투명 인비절라인으로 티 안나게</span>
+            <span class="solution-text">투명 <a href="/encyclopedia/인비절라인" class="enc-inline-link" title="투명한 맞춤형 교정장치" data-enc-term="인비절라인">인비절라인</a>으로 티 안나게</span>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
@@ -787,12 +836,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="diff-card">
             <div class="diff-num">04</div>
-            <h3>ClinCheck 3D 시뮬레이션</h3>
+            <h3><a href="/encyclopedia/ClinCheck" class="enc-inline-link" title="인비절라인의 3D 치료 시뮬레이션" data-enc-term="ClinCheck">ClinCheck</a> 3D 시뮬레이션</h3>
             <p>교정 전 최종 결과를 3D로 미리 확인합니다. 치아 이동 과정을 단계별로 시뮬레이션합니다.</p>
           </div>
           <div class="diff-card">
             <div class="diff-num">05</div>
-            <h3>디지털 iTero 스캐너</h3>
+            <h3>디지털 <a href="/encyclopedia/구강 스캐너" class="enc-inline-link" title="디지털로 치아 본을 뜨는 장비" data-enc-term="구강 스캐너">iTero</a> 스캐너</h3>
             <p>기존 석고 인상 대신 디지털 구강스캐너로 정밀하고 편안하게 인상을 채득합니다.</p>
           </div>
           <div class="diff-card">
@@ -833,9 +882,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div style="width:100px;height:100px;border-radius:50%;margin:0 auto 16px;overflow:hidden;border:3px solid #6B4226;box-shadow:0 4px 12px rgba(107,66,38,0.2);">
               <img src="/images/doctors/lim-profile.webp" alt="임지원 원장 프로필" style="width:100%;height:100%;object-fit:cover;" loading="lazy" onerror="this.onerror=null;this.src='/images/doctors/lim-profile.jpg'">
             </div>
-            <div style="margin-bottom:4px;"><span style="display:inline-block;padding:3px 12px;background:var(--brand);color:#fff;border-radius:50px;font-size:0.72rem;font-weight:700;">치아교정 전문</span></div>
+            <div style="margin-bottom:4px;"><span style="display:inline-block;padding:3px 12px;background:var(--brand);color:#fff;border-radius:50px;font-size:0.72rem;font-weight:700;"><a href="/encyclopedia/교정" class="enc-inline-link" title="치아 배열과 교합을 바로잡는 치료" data-enc-term="교정">치아교정</a> 전문</span></div>
             <h3 style="font-size:1.3rem;font-weight:800;color:#333;margin:8px 0 4px;">임지원 <span style="font-weight:400;font-size:0.9rem;color:#666;">원장</span></h3>
-            <p style="font-size:0.85rem;color:#888;margin-bottom:16px;">인비절라인 · 비수술 교정 · 3급 부정교합</p>
+            <p style="font-size:0.85rem;color:#888;margin-bottom:16px;">인비절라인 · 비수술 교정 · 3급 <a href="/encyclopedia/부정교합" class="enc-inline-link" title="위아래 치아의 맞물림이 비정상인 상태" data-enc-term="부정교합">부정교합</a></p>
             <ul style="list-style:none;padding:0;margin:0 0 16px;font-size:0.82rem;color:#555;text-align:left;">
               <li style="padding:4px 0;"><i class="fas fa-graduation-cap" style="color:#6B4226;margin-right:8px;width:14px;text-align:center;"></i>서울대학교 치의학과</li>
               <li style="padding:4px 0;"><i class="fas fa-graduation-cap" style="color:#6B4226;margin-right:8px;width:14px;text-align:center;"></i>서울대학교 치의학대학원 석사</li>
@@ -863,17 +912,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="process-step-v2">
             <div class="step-dot">1</div>
             <h3>정밀 상담 & 검진</h3>
-            <p>3D CT, 구강스캐너, 교합 분석으로 현재 상태를 정확히 파악합니다.</p>
+            <p><a href="/encyclopedia/CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a>, 구강스캐너, 교합 분석으로 현재 상태를 정확히 파악합니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">2</div>
             <h3>ClinCheck 3D 설계</h3>
-            <p>디지털 시뮬레이션으로 최종 교정 결과를 미리 확인하고 치료 계획을 확정합니다.</p>
+            <p>디지털 시뮬레이션으로 최종 교정 결과를 미리 확인하고 <a href="/encyclopedia/치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 확정합니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">3</div>
             <h3>맞춤 장치 제작</h3>
-            <p>인비절라인 본사에서 환자 맞춤 투명 교정 장치를 제작합니다. 약 2주 소요됩니다.</p>
+            <p>인비절라인 본사에서 환자 맞춤 <a href="/encyclopedia/투명 교정" class="enc-inline-link" title="투명한 플라스틱 장치를 이용한 교정" data-enc-term="투명 교정">투명 교정</a> 장치를 제작합니다. 약 2주 소요됩니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">4</div>
@@ -887,7 +936,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">6</div>
-            <h3>교정 완료 & 유지장치</h3>
+            <h3>교정 완료 & <a href="/encyclopedia/유지장치" class="enc-inline-link" title="교정 치료 후 치아가 원래 위치로 돌아가는 것을 막는 장치입니다." data-enc-term="유지장치">유지장치</a></h3>
             <p>교정 완료 후 유지장치를 장착하여 결과를 안정적으로 유지합니다.</p>
           </div>
         </div>
@@ -924,8 +973,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div><div class="review-name">박**님</div><span class="review-source naver">네이버</span></div>
             </div>
             <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="review-text">아이 교정을 인비절라인 퍼스트로 시작했어요. <mark>아이도 불편해하지 않고</mark> 칫솔질도 제대로 해서 충치 걱정도 없어요.</p>
-            <div class="review-tags"><span>소아 교정</span><span>인비절라인 퍼스트</span></div>
+            <p class="review-text">아이 교정을 인비절라인 퍼스트로 시작했어요. <mark>아이도 불편해하지 않고</mark> <a href="/encyclopedia/칫솔질" class="enc-inline-link" title="치아와 잇몸을 닦는 구강 위생의 기본" data-enc-term="칫솔질">칫솔질</a>도 제대로 해서 충치 걱정도 없어요.</p>
+            <div class="review-tags"><span><a href="/encyclopedia/소아 교정" class="enc-inline-link" title="성장기 아이의 치아와 턱 교정" data-enc-term="소아 교정">소아 교정</a></span><span>인비절라인 퍼스트</span></div>
           </div>
         </div>
       </div>
@@ -1103,7 +1152,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   

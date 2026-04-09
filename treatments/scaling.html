@@ -185,6 +185,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }
 </script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -253,7 +302,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="max-width:700px;margin:0 auto;">
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
-            <span class="problem-text">"스케일링이 아프다던데요"</span>
+            <span class="problem-text">"<a href="/encyclopedia/스케일링" class="enc-inline-link" title="치석과 치태를 제거하는 예방 치료" data-enc-term="스케일링">스케일링</a>이 아프다던데요"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
             <span class="solution-text">부분 마취로 통증 최소화</span>
           </div>
@@ -366,7 +415,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="faq-q-text">임신 중에도 스케일링을 받을 수 있나요?</span>
               <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
             </button>
-            <div class="faq-answer" id="faq-5" role="region"><p>임신 중기(4~6개월)에는 가능합니다. 임신성 치은염 예방을 위해 오히려 권장되며, 내원 시 임신 사실을 알려주시면 안전하게 진행합니다.</p></div>
+            <div class="faq-answer" id="faq-5" role="region"><p>임신 중기(4~6개월)에는 가능합니다. 임신성 <a href="/encyclopedia/치은염" class="enc-inline-link" title="잇몸에만 국한된 초기 염증" data-enc-term="치은염">치은염</a> 예방을 위해 오히려 권장되며, 내원 시 임신 사실을 알려주시면 안전하게 진행합니다.</p></div>
           </div>
         </div>
       </div>
@@ -426,7 +475,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   
@@ -442,7 +491,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-0">
-              <p>스케일링은 초음파 기구를 이용해 치아 표면과 잇몸 사이에 쌓인 치석(석회화된 치태)을 제거하는 시술입니다. 잇몸병 예방과 치료의 가장 기본적이고 중요한 과정입니다.</p>
+              <p>스케일링은 초음파 기구를 이용해 치아 표면과 잇몸 사이에 쌓인 치석(석회화된 치태)을 제거하는 시술입니다. <a href="/encyclopedia/치주 질환" class="enc-inline-link" title="잇몸과 치아 지지 조직에 발생하는 질환의 총칭" data-enc-term="치주 질환">잇몸병</a> 예방과 치료의 가장 기본적이고 중요한 과정입니다.</p>
             </div>
           </div>
           <div class="faq-item">
@@ -478,7 +527,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-4">
-              <p>시술 후 2~3시간은 뜨겁고 자극적인 음식을 피하세요. 약간의 잇몸 출혈은 정상이며, 1~2일 내에 멈춥니다. 시린 증상이 있으면 시린이 전용 치약을 사용하세요.</p>
+              <p>시술 후 2~3시간은 뜨겁고 자극적인 음식을 피하세요. 약간의 <a href="/encyclopedia/치은 출혈" class="enc-inline-link" title="잇몸에서 피가 나는 증상으로 치주질환의 초기 신호" data-enc-term="치은 출혈">잇몸 출혈</a>은 정상이며, 1~2일 내에 멈춥니다. 시린 증상이 있으면 <a href="/encyclopedia/시린이" class="enc-inline-link" title="찬 음식이나 공기에 치아가 시린 증상입니다." data-enc-term="시린이">시린이</a> 전용 치약을 사용하세요.</p>
             </div>
           </div>
           <div class="faq-item">

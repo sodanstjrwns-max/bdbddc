@@ -203,6 +203,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }
 </script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -271,7 +320,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="max-width:700px;margin:0 auto;">
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
-            <span class="problem-text">"신경치료가 너무 아프다던데요"</span>
+            <span class="problem-text">"<a href="/encyclopedia/신경치료" class="enc-inline-link" title="감염된 치아 신경을 제거하고 충전하는 치료" data-enc-term="신경치료">신경치료</a>가 너무 아프다던데요"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
             <span class="solution-text">충분한 마취로 무통 치료</span>
           </div>
@@ -305,7 +354,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="diff-card">
             <div class="diff-num">02</div>
             <h3>Ni-Ti 로터리 파일</h3>
-            <p>유연한 니켈-티타늄 파일로 만곡 근관도 안전하게 성형합니다.</p>
+            <p>유연한 니켈-<a href="/encyclopedia/티타늄" class="enc-inline-link" title="임플란트 인공 뿌리에 사용되는 금속" data-enc-term="티타늄">티타늄</a> 파일로 만곡 근관도 안전하게 성형합니다.</p>
           </div>
           <div class="diff-card">
             <div class="diff-num">03</div>
@@ -314,7 +363,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="diff-card">
             <div class="diff-num">04</div>
-            <h3>3D CT 근관 분석</h3>
+            <h3><a href="/encyclopedia/CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a> 근관 분석</h3>
             <p>복잡한 근관 구조를 3D CT로 사전 분석하여 치료 성공률을 높입니다.</p>
           </div>
         </div>
@@ -326,7 +375,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="container">
         <div class="section-header">
           <h2>신경치료 <span class="text-gradient">담당 원장</span></h2>
-          <p class="section-subtitle">서울대 출신 보존과 전문의가 자연치아를 지킵니다</p>
+          <p class="section-subtitle">서울대 출신 <a href="/encyclopedia/보존과" class="enc-inline-link" title="자연 치아를 살리는 치료 분야" data-enc-term="보존과">보존과</a> 전문의가 자연치아를 지킵니다</p>
         </div>
         <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
           <!-- 조설아 원장 -->
@@ -336,7 +385,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div style="margin-bottom:4px;"><span style="display:inline-block;padding:3px 12px;background:#6B4226;color:#fff;border-radius:50px;font-size:0.72rem;font-weight:700;">치과보존과 전문의</span></div>
             <h3 style="font-size:1.3rem;font-weight:800;color:#333;margin:8px 0 4px;">조설아 <span style="font-weight:400;font-size:0.9rem;color:#666;">원장</span></h3>
-            <p style="font-size:0.85rem;color:#888;margin-bottom:16px;">신경치료 · 재신경치료 · 보존치료</p>
+            <p style="font-size:0.85rem;color:#888;margin-bottom:16px;">신경치료 · <a href="/encyclopedia/재신경치료" class="enc-inline-link" title="이전 신경치료가 실패한 치아를 재치료" data-enc-term="재신경치료">재신경치료</a> · 보존치료</p>
             <ul style="list-style:none;padding:0;margin:0 0 16px;font-size:0.82rem;color:#555;text-align:left;">
               <li style="padding:4px 0;"><i class="fas fa-graduation-cap" style="color:#6B4226;margin-right:8px;width:14px;text-align:center;"></i>서울대학교 치의학과</li>
               <li style="padding:4px 0;"><i class="fas fa-graduation-cap" style="color:#6B4226;margin-right:8px;width:14px;text-align:center;"></i>서울대학교 치의학대학원 석사</li>
@@ -380,7 +429,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="process-step-v2">
             <div class="step-dot">1</div>
             <h3>진단 & 마취</h3>
-            <p>엑스레이·3D CT로 감염 범위를 확인하고 충분히 마취합니다.</p>
+            <p><a href="/encyclopedia/엑스레이" class="enc-inline-link" title="방사선을 이용한 치아 내부 촬영" data-enc-term="엑스레이">엑스레이</a>·3D CT로 감염 범위를 확인하고 충분히 마취합니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">2</div>
@@ -394,7 +443,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">4</div>
-            <h3>크라운 장착</h3>
+            <h3><a href="/encyclopedia/크라운" class="enc-inline-link" title="손상된 치아 전체를 씌우는 인공 캡" data-enc-term="크라운">크라운</a> 장착</h3>
             <p>신경치료 완료 후 크라운을 장착하여 치아를 보호합니다.</p>
           </div>
         </div>
@@ -481,7 +530,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="faq-q-text">신경치료 횟수가 왜 여러 번인가요?</span>
               <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
             </button>
-            <div class="faq-answer" id="faq-6" role="region"><p>치아 뿌리 속 신경관의 감염을 완전히 제거하기 위해 보통 2~3회 방문이 필요합니다. 감염이 심하면 추가 방문이 필요할 수 있으며, 충분히 소독해야 장기적 성공률이 높아집니다.</p></div>
+            <div class="faq-answer" id="faq-6" role="region"><p><a href="/encyclopedia/치근" class="enc-inline-link" title="잇몸 아래에 위치한 치아의 뿌리 부분" data-enc-term="치근">치아 뿌리</a> 속 신경관의 감염을 완전히 제거하기 위해 보통 2~3회 방문이 필요합니다. 감염이 심하면 추가 방문이 필요할 수 있으며, 충분히 소독해야 장기적 성공률이 높아집니다.</p></div>
           </div>
         </div>
       </div>
@@ -553,7 +602,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   
@@ -605,7 +654,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-4">
-              <p>감염된 신경을 방치하면 치아 뿌리 끝에 고름(치근단 농양)이 생기고, 주변 뼈로 감염이 퍼질 수 있습니다. 얼굴 붓기, 심한 통증이 발생하며, 결국 발치가 불가피해집니다.</p>
+              <p>감염된 신경을 방치하면 치아 뿌리 끝에 고름(<a href="/encyclopedia/치근단 농양" class="enc-inline-link" title="치아 뿌리 끝에 고름이 생긴 상태" data-enc-term="치근단 농양">치근단 농양</a>)이 생기고, 주변 뼈로 감염이 퍼질 수 있습니다. 얼굴 붓기, 심한 통증이 발생하며, 결국 발치가 불가피해집니다.</p>
             </div>
           </div>
           <div class="faq-item">
@@ -614,7 +663,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <i class="fas fa-chevron-down faq-toggle-icon"></i>
             </button>
             <div class="faq-answer" id="treat-faq-5">
-              <p>적절한 신경치료 + 크라운 보호 시 오래 사용할 수 있습니다. 하지만 재감염, 치아 파절 등의 위험이 있으므로 정기 검진이 중요합니다. 성공률은 약 90~95%입니다.</p>
+              <p>적절한 신경치료 + 크라운 보호 시 오래 사용할 수 있습니다. 하지만 재감염, <a href="/encyclopedia/치아 파절" class="enc-inline-link" title="치아가 깨지거나 금이 간 상태" data-enc-term="치아 파절">치아 파절</a> 등의 위험이 있으므로 <a href="/encyclopedia/정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>이 중요합니다. 성공률은 약 90~95%입니다.</p>
             </div>
           </div>
           <div class="faq-item">

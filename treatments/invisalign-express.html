@@ -68,6 +68,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <!-- Weglot Multilingual -->
 <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
 <script>Weglot.initialize({api_key:'wg_cd7087d43782c81ecb41e27570c3bfcd2'});</script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK"
@@ -150,7 +199,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="section" style="padding:var(--space-2xl) 0;">
       <div class="container">
         <div style="background:#f0f9ff;border-left:4px solid #0ea5e9;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;max-width:800px;margin:0 auto;">
-          <h2 style="font-size:1.15rem;font-weight:700;color:#0369a1;margin:0 0 0.5rem 0;">인비절라인 익스프레스이란?</h2>
+          <h2 style="font-size:1.15rem;font-weight:700;color:#0369a1;margin:0 0 0.5rem 0;"><a href="/encyclopedia/인비절라인" class="enc-inline-link" title="투명한 맞춤형 교정장치" data-enc-term="인비절라인">인비절라인</a> 익스프레스이란?</h2>
           <p style="margin:0;color:#334155;line-height:1.7;font-size:0.95rem;">인비절라인 익스프레스(Express)는 아주 간단한 배열 문제를 최단 기간에 해결하기 위한 미니 패키지입니다. 7단계의 얼라이너로 구성되며, 미세한 앞니 삐뚤림, 약간의 치아 간격, 이전 교정 후 경미한 재발 등을 3~6개월 내에 교정합니다. 인비절라인 전 제품군 중 가장 경제적입니다.</p>
         </div>
       </div>
@@ -190,7 +239,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
-            <span class="problem-text">"보철(크라운) 전 치아 위치 조정이 필요해요"</span>
+            <span class="problem-text">"보철(<a href="/encyclopedia/크라운" class="enc-inline-link" title="손상된 치아 전체를 씌우는 인공 캡" data-enc-term="크라운">크라운</a>) 전 치아 위치 조정이 필요해요"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
             <span class="solution-text">보철 전 pre-ortho에 딱</span>
           </div>
@@ -229,7 +278,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="why-card">
             <div class="why-card-icon"><i class="fas fa-cube"></i></div>
-            <h3>ClinCheck 3D 포함</h3>
+            <h3><a href="/encyclopedia/ClinCheck" class="enc-inline-link" title="인비절라인의 3D 치료 시뮬레이션" data-enc-term="ClinCheck">ClinCheck</a> 3D 포함</h3>
             <p>익스프레스에도 ClinCheck 시뮬레이션이 포함됩니다. 결과를 미리 확인합니다.</p>
           </div>
           <div class="why-card">
@@ -262,7 +311,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="diff-card">
             <div class="diff-num">02</div>
             <h3>보철 전 교정(Pre-ortho)</h3>
-            <p>크라운이나 라미네이트 전 치아 위치를 미세 조정합니다.</p>
+            <p>크라운이나 <a href="/encyclopedia/라미네이트" class="enc-inline-link" title="앞니 표면에 얇은 도자기를 붙이는 심미 시술" data-enc-term="라미네이트">라미네이트</a> 전 치아 위치를 미세 조정합니다.</p>
           </div>
           <div class="diff-card">
             <div class="diff-num">03</div>
@@ -313,7 +362,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">6</div>
-            <h3>교정 완료 & 유지장치</h3>
+            <h3>교정 완료 & <a href="/encyclopedia/유지장치" class="enc-inline-link" title="교정 치료 후 치아가 원래 위치로 돌아가는 것을 막는 장치입니다." data-enc-term="유지장치">유지장치</a></h3>
             <p>목표 달성 후 유지장치를 장착합니다.</p>
           </div>
         </div>
@@ -332,7 +381,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <tbody>
               <tr><td>장치 단계</td><td class="col-highlight">14단계</td><td class="col-highlight"><strong>7단계</strong></td><td>절반</td></tr>
               <tr><td>리파인먼트</td><td class="col-highlight">1회</td><td class="col-highlight"><strong>미포함</strong></td><td>간단 케이스</td></tr>
-              <tr><td>교정 범위</td><td class="col-highlight">앞니~소구치</td><td class="col-highlight"><strong>앞니 미세 조정</strong></td><td>더 집중</td></tr>
+              <tr><td>교정 범위</td><td class="col-highlight">앞니~<a href="/encyclopedia/소구치" class="enc-inline-link" title="견치와 대구치 사이에 위치하며 음식을 부수는 역할을 합니다." data-enc-term="소구치">소구치</a></td><td class="col-highlight"><strong>앞니 미세 조정</strong></td><td>더 집중</td></tr>
               <tr><td>교정 기간</td><td class="col-highlight">6~12개월</td><td class="col-highlight"><strong>3~6개월</strong></td><td>더 빠름</td></tr>
               <tr><td>비용</td><td class="col-highlight">450만원</td><td class="col-highlight"><strong>300만원</strong></td><td>150만원 절약</td></tr>
               <tr><td>ClinCheck</td><td class="col-highlight">✅</td><td class="col-highlight">✅</td><td>동일</td></tr>
@@ -608,7 +657,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- 법적 고지 -->
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

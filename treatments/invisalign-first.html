@@ -68,6 +68,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <!-- Weglot Multilingual -->
 <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
 <script>Weglot.initialize({api_key:'wg_cd7087d43782c81ecb41e27570c3bfcd2'});</script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK"
@@ -150,8 +199,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="section" style="padding:var(--space-2xl) 0;">
       <div class="container">
         <div style="background:#f0f9ff;border-left:4px solid #0ea5e9;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;max-width:800px;margin:0 auto;">
-          <h2 style="font-size:1.15rem;font-weight:700;color:#0369a1;margin:0 0 0.5rem 0;">인비절라인 퍼스트이란?</h2>
-          <p style="margin:0;color:#334155;line-height:1.7;font-size:0.95rem;">인비절라인 퍼스트(First)는 유치와 영구치가 혼재하는 혼합치열기(6~10세) 아이를 위한 전용 교정 프로그램입니다. 좁은 악궁을 확장하여 영구치가 올바른 위치에 맹출하도록 유도하고, 교차교합이나 전치부 반대교합을 조기에 교정합니다. 1단계(퍼스트) 교정 후 영구치열이 완성되면 2단계 교정(컴프리헨시브 등)을 진행할 수 있습니다.</p>
+          <h2 style="font-size:1.15rem;font-weight:700;color:#0369a1;margin:0 0 0.5rem 0;"><a href="/encyclopedia/인비절라인" class="enc-inline-link" title="투명한 맞춤형 교정장치" data-enc-term="인비절라인">인비절라인</a> 퍼스트이란?</h2>
+          <p style="margin:0;color:#334155;line-height:1.7;font-size:0.95rem;">인비절라인 퍼스트(First)는 유치와 <a href="/encyclopedia/영구치" class="enc-inline-link" title="유치 후 나는 성인 치아" data-enc-term="영구치">영구치</a>가 혼재하는 혼합치열기(6~10세) 아이를 위한 전용 교정 프로그램입니다. 좁은 악궁을 확장하여 영구치가 올바른 위치에 맹출하도록 유도하고, <a href="/encyclopedia/교차교합" class="enc-inline-link" title="위아래 치아의 좌우 교합이 뒤바뀐 상태" data-enc-term="교차교합">교차교합</a>이나 전치부 <a href="/encyclopedia/반대교합" class="enc-inline-link" title="아래 치아가 위 치아보다 앞에 있는 상태" data-enc-term="반대교합">반대교합</a>을 조기에 교정합니다. 1단계(퍼스트) 교정 후 영구치열이 완성되면 2단계 교정(컴프리헨시브 등)을 진행할 수 있습니다.</p>
         </div>
       </div>
     </section>
@@ -190,9 +239,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
-            <span class="problem-text">"소아 교정은 어디서 해야 하나요?"</span>
+            <span class="problem-text">"<a href="/encyclopedia/소아 교정" class="enc-inline-link" title="성장기 아이의 치아와 턱 교정" data-enc-term="소아 교정">소아 교정</a>은 어디서 해야 하나요?"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-            <span class="solution-text">소아치과 전문의 + 교정 전문의 협진</span>
+            <span class="solution-text"><a href="/encyclopedia/소아치과" class="enc-inline-link" title="어린이 구강 건강을 전문으로 다루는 분야" data-enc-term="소아치과">소아치과</a> 전문의 + 교정 전문의 협진</span>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
@@ -289,12 +338,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="process-step-v2">
             <div class="step-dot">1</div>
             <h3>성장 발달 검진</h3>
-            <p>3D CT, 구강스캐너, 성장판 평가로 아이의 현재 상태와 성장 가능성을 분석합니다.</p>
+            <p><a href="/encyclopedia/CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a>, 구강스캐너, 성장판 평가로 아이의 현재 상태와 성장 가능성을 분석합니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">2</div>
             <h3>교정 계획 수립 (부모 상담)</h3>
-            <p>교정 전문의 + 소아치과 전문의가 함께 치료 계획을 수립합니다. 부모님과 목표를 공유합니다.</p>
+            <p>교정 전문의 + 소아치과 전문의가 함께 <a href="/encyclopedia/치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 수립합니다. 부모님과 목표를 공유합니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">3</div>
@@ -609,7 +658,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- 법적 고지 -->
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

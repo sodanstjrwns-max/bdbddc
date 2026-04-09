@@ -209,6 +209,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -352,7 +401,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="section-header reveal">
         <span class="section-badge"><i class="fas fa-tooth"></i> 보존/일반</span>
         <h2 class="section-title">보존 · <span class="text-gradient">일반 진료</span></h2>
-        <p class="section-subtitle">충치, 신경치료, 보철 등 기본 진료 분야</p>
+        <p class="section-subtitle">충치, <a href="/encyclopedia/신경치료" class="enc-inline-link" title="감염된 치아 신경을 제거하고 충전하는 치료" data-enc-term="신경치료">신경치료</a>, 보철 등 기본 진료 분야</p>
       </div>
 
       <div class="treatment-grid">
@@ -426,7 +475,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="section-header reveal">
         <span class="section-badge"><i class="fas fa-teeth-open"></i> 잇몸/외과</span>
         <h2 class="section-title">잇몸 · <span class="text-gradient">외과 진료</span></h2>
-        <p class="section-subtitle">잇몸 건강과 구강 외과적 치료</p>
+        <p class="section-subtitle">잇몸 건강과 <a href="/encyclopedia/구강 외과" class="enc-inline-link" title="구강·턱 부위의 외과적 치료 분야" data-enc-term="구강 외과">구강 외과</a>적 치료</p>
       </div>
 
       <div class="treatment-grid">
@@ -476,7 +525,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="section-header reveal">
         <span class="section-badge"><i class="fas fa-plus-circle"></i> 기타</span>
         <h2 class="section-title">기타 <span class="text-gradient">진료</span></h2>
-        <p class="section-subtitle">턱관절, 이갈이, 예방진료 등</p>
+        <p class="section-subtitle">턱관절, <a href="/encyclopedia/이갈이" class="enc-inline-link" title="수면 중 또는 무의식 중 치아를 가는 습관" data-enc-term="이갈이">이갈이</a>, 예방진료 등</p>
       </div>
 
       <div class="treatment-grid">

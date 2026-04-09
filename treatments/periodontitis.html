@@ -398,6 +398,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -455,18 +504,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="section">
       <div class="container">
         <div class="section-header">
-          <h2>치주염 <span class="text-gradient">위험 신호</span></h2>
+          <h2><a href="/encyclopedia/치주염" class="enc-inline-link" title="잇몸과 치조골을 파괴하는 염증 질환" data-enc-term="치주염">치주염</a> <span class="text-gradient">위험 신호</span></h2>
           <p class="section-subtitle">이런 증상이 있다면 즉시 검진하세요</p>
         </div>
         <div class="concern-grid">
           <div class="concern-card">
             <div class="concern-icon"><i class="fas fa-tint"></i></div>
-            <h3>잇몸 출혈</h3>
-            <p>칫솔질이나 식사 시 잇몸에서 피가 납니다.</p>
+            <h3><a href="/encyclopedia/치은 출혈" class="enc-inline-link" title="잇몸에서 피가 나는 증상으로 치주질환의 초기 신호" data-enc-term="치은 출혈">잇몸 출혈</a></h3>
+            <p><a href="/encyclopedia/칫솔질" class="enc-inline-link" title="치아와 잇몸을 닦는 구강 위생의 기본" data-enc-term="칫솔질">칫솔질</a>이나 식사 시 잇몸에서 피가 납니다.</p>
           </div>
           <div class="concern-card">
             <div class="concern-icon"><i class="fas fa-wind"></i></div>
-            <h3>심한 입냄새</h3>
+            <h3>심한 <a href="/encyclopedia/구취" class="enc-inline-link" title="입에서 나는 불쾌한 냄새" data-enc-term="구취">입냄새</a></h3>
             <p>양치를 해도 입냄새가 지속됩니다.</p>
           </div>
           <div class="concern-card">
@@ -492,17 +541,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="process-step-v2">
             <div class="step-dot">1</div>
             <h3>치주 정밀 검진</h3>
-            <p>치주낭 측정, 방사선 검사, 세균 검사로 정확히 진단합니다.</p>
+            <p><a href="/encyclopedia/치주낭" class="enc-inline-link" title="치아와 잇몸 사이의 비정상적으로 깊어진 홈" data-enc-term="치주낭">치주낭</a> 측정, 방사선 검사, 세균 검사로 정확히 진단합니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">2</div>
             <h3>비수술적 치료</h3>
-            <p>스케일링, 치근활택술로 치석과 감염 조직을 제거합니다.</p>
+            <p><a href="/encyclopedia/스케일링" class="enc-inline-link" title="치석과 치태를 제거하는 예방 치료" data-enc-term="스케일링">스케일링</a>, 치근활택술로 치석과 감염 조직을 제거합니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">3</div>
             <h3>수술적 치료 (필요 시)</h3>
-            <p>중등도 이상은 잇몸수술, 골이식 등 수술적 치료를 합니다.</p>
+            <p>중등도 이상은 <a href="/encyclopedia/치주판막수술" class="enc-inline-link" title="잇몸을 열어 깊은 치주낭의 치석과 감염 조직을 제거하는 수술" data-enc-term="치주판막수술">잇몸수술</a>, <a href="/encyclopedia/뼈이식" class="enc-inline-link" title="부족한 치조골을 보충하는 수술" data-enc-term="뼈이식">골이식</a> 등 수술적 치료를 합니다.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">4</div>
@@ -632,7 +681,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

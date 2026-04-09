@@ -383,6 +383,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
     });
 </script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -447,7 +496,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="max-width:700px;margin:0 auto;">
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
-            <span class="problem-text">"신경치료를 했는데 또 아파요"</span>
+            <span class="problem-text">"<a href="/encyclopedia/신경치료" class="enc-inline-link" title="감염된 치아 신경을 제거하고 충전하는 치료" data-enc-term="신경치료">신경치료</a>를 했는데 또 아파요"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
             <span class="solution-text">근관 내 잔존 감염 정밀 제거</span>
           </div>
@@ -455,13 +504,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
             <span class="problem-text">"발치하라는데 다른 방법 없나요?"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-            <span class="solution-text">재신경치료로 치아 보존 시도</span>
+            <span class="solution-text"><a href="/encyclopedia/재신경치료" class="enc-inline-link" title="이전 신경치료가 실패한 치아를 재치료" data-enc-term="재신경치료">재신경치료</a>로 치아 보존 시도</span>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
             <span class="problem-text">"재치료 성공률이 낮다던데"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-            <span class="solution-text">현미경+3D CT로 성공률 향상</span>
+            <span class="solution-text">현미경+<a href="/encyclopedia/CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a>로 성공률 향상</span>
           </div>
         </div>
       </div>
@@ -486,11 +535,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="diff-card">
             <div class="diff-num">03</div>
             <h3>초음파 기구</h3>
-            <p>초음파 기구로 기존 충전재와 포스트를 안전하게 제거합니다.</p>
+            <p>초음파 기구로 기존 충전재와 <a href="/encyclopedia/포스트" class="enc-inline-link" title="신경치료 후 치아 내부에 세우는 기둥" data-enc-term="포스트">포스트</a>를 안전하게 제거합니다.</p>
           </div>
           <div class="diff-card">
             <div class="diff-num">04</div>
-            <h3>MTA 충전</h3>
+            <h3><a href="/encyclopedia/MTA" class="enc-inline-link" title="치수 보호 및 뿌리 수복용 시멘트" data-enc-term="MTA">MTA</a> 충전</h3>
             <p>생체적합성이 높은 MTA로 근첨부를 정밀 밀봉합니다.</p>
           </div>
         </div>
@@ -502,7 +551,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="container">
         <div class="section-header">
           <h2>재신경치료 <span class="text-gradient">담당 원장</span></h2>
-          <p class="section-subtitle">서울대 출신 보존과 전문의가 자연치아를 끝까지 지킵니다</p>
+          <p class="section-subtitle">서울대 출신 <a href="/encyclopedia/보존과" class="enc-inline-link" title="자연 치아를 살리는 치료 분야" data-enc-term="보존과">보존과</a> 전문의가 자연치아를 끝까지 지킵니다</p>
         </div>
         <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
           <!-- 조설아 원장 -->
@@ -575,7 +624,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">5</div>
-            <h3>크라운 재장착</h3>
+            <h3><a href="/encyclopedia/크라운" class="enc-inline-link" title="손상된 치아 전체를 씌우는 인공 캡" data-enc-term="크라운">크라운</a> 재장착</h3>
             <p>새 크라운을 제작·장착하여 치아를 보호합니다.</p>
           </div>
         </div>
@@ -629,7 +678,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="faq-q-text">재치료 후에도 실패하면?</span>
               <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
             </button>
-            <div class="faq-answer" id="faq-3" role="region"><p>치근단절제술(apicoectomy)로 추가 치료가 가능합니다.</p></div>
+            <div class="faq-answer" id="faq-3" role="region"><p><a href="/encyclopedia/치근단" class="enc-inline-link" title="치아 뿌리의 끝 부분" data-enc-term="치근단">치근단</a>절제술(apicoectomy)로 추가 치료가 가능합니다.</p></div>
           </div>
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false" aria-controls="faq-4">
@@ -645,7 +694,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span class="faq-q-text">재신경치료 실패 시 바로 발치해야 하나요?</span>
               <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
             </button>
-            <div class="faq-answer" id="faq-5" role="region"><p>치근단절제술(수술적 접근)이라는 추가 방법이 있습니다. 그래도 안 되면 발치 후 임플란트를 고려합니다. 단계적으로 자연치아 보존을 시도합니다.</p></div>
+            <div class="faq-answer" id="faq-5" role="region"><p>치근단절제술(수술적 접근)이라는 추가 방법이 있습니다. 그래도 안 되면 발치 후 <a href="/encyclopedia/임플란트" class="enc-inline-link" title="인공 치근을 심어 치아를 복원하는 시술" data-enc-term="임플란트">임플란트</a>를 고려합니다. 단계적으로 자연치아 보존을 시도합니다.</p></div>
           </div>
         </div>
       </div>
@@ -697,7 +746,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>

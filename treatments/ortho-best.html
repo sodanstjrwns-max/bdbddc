@@ -68,6 +68,55 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <!-- Weglot Multilingual -->
 <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
 <script>Weglot.initialize({api_key:'wg_cd7087d43782c81ecb41e27570c3bfcd2'});</script>
+
+  <!-- Encyclopedia Inline Link Style -->
+  <style>
+    .enc-inline-link {
+      color: #6B4226;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: #c9a96e;
+      cursor: help;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .enc-inline-link:hover {
+      color: #c9a96e;
+      text-decoration-style: solid;
+    }
+    /* 툴팁 */
+    .enc-inline-link:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .enc-inline-link:hover::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #333;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK"
@@ -148,7 +197,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="container">
         <div style="background:#f0f9ff;border-left:4px solid #0ea5e9;padding:1.2rem 1.5rem;border-radius:0 8px 8px 0;max-width:800px;margin:0 auto;">
           <h2 style="font-size:1.15rem;font-weight:700;color:#0369a1;margin:0 0 0.5rem 0;">컴프리헨시브 교정이란?</h2>
-          <p style="margin:0;color:#334155;line-height:1.7;font-size:0.95rem;">컴프리헨시브 교정은 클리피씨(자가결찰) 또는 클라리티울트라(세라믹) 브라켓을 사용한 전체 치열 교정 프로그램입니다. 5년간 무제한 장치 교체가 가능하며, 발치 교정·복잡한 부정교합·돌출입 등 모든 유형의 교정 케이스를 커버합니다. 중간에 장치를 교체하거나 와이어를 변경하더라도 추가 비용 없이 진행할 수 있어 가장 안정적인 선택입니다.</p>
+          <p style="margin:0;color:#334155;line-height:1.7;font-size:0.95rem;">컴프리헨시브 교정은 <a href="/encyclopedia/클리피씨" class="enc-inline-link" title="자가결찰 세라믹 브라켓 교정장치" data-enc-term="클리피씨">클리피씨</a>(자가결찰) 또는 클라리티울트라(세라믹) 브라켓을 사용한 전체 치열 교정 프로그램입니다. 5년간 무제한 장치 교체가 가능하며, 발치 교정·복잡한 <a href="/encyclopedia/부정교합" class="enc-inline-link" title="위아래 치아의 맞물림이 비정상인 상태" data-enc-term="부정교합">부정교합</a>·돌출입 등 모든 유형의 교정 케이스를 커버합니다. 중간에 장치를 교체하거나 와이어를 변경하더라도 추가 비용 없이 진행할 수 있어 가장 안정적인 선택입니다.</p>
         </div>
       </div>
     </section>
@@ -188,7 +237,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
             <span class="problem-text">"직장인인데 장치가 눈에 띌까요?"</span>
             <span class="arrow"><i class="fas fa-arrow-right"></i></span>
-            <span class="solution-text">세라믹 장치로 심미성 확보</span>
+            <span class="solution-text"><a href="/encyclopedia/세라믹" class="enc-inline-link" title="도자기 계열 치과 재료의 총칭" data-enc-term="세라믹">세라믹</a> 장치로 심미성 확보</span>
           </div>
           <div class="concern-item-row">
             <span class="problem-icon"><i class="fas fa-times-circle"></i></span>
@@ -215,12 +264,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="why-card">
             <div class="why-card-icon"><i class="fas fa-teeth"></i></div>
             <h3>전체 치열 교정</h3>
-            <p>앞니부터 어금니까지 전체 치열을 교정합니다. 총생(덧니), 벌어짐, 돌출입, 교합 불일치 등 모든 케이스에 대응합니다.</p>
+            <p>앞니부터 <a href="/encyclopedia/어금니" class="enc-inline-link" title="뒤쪽에 위치한 음식을 갈아 씹는 치아" data-enc-term="어금니">어금니</a>까지 전체 치열을 교정합니다. 총생(덧니), 벌어짐, 돌출입, 교합 불일치 등 모든 케이스에 대응합니다.</p>
           </div>
           <div class="why-card">
             <div class="why-card-icon"><i class="fas fa-cube"></i></div>
             <h3>디지털 정밀 진단</h3>
-            <p>3D CT, 구강스캐너, 교합 분석으로 최적의 교정 계획을 수립합니다. 디지털 시뮬레이션으로 예상 결과를 확인합니다.</p>
+            <p><a href="/encyclopedia/CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a>, 구강스캐너, 교합 분석으로 최적의 교정 계획을 수립합니다. 디지털 시뮬레이션으로 예상 결과를 확인합니다.</p>
           </div>
           <div class="why-card">
             <div class="why-card-icon"><i class="fas fa-sync-alt"></i></div>
@@ -261,7 +310,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="diff-card">
             <div class="diff-num">03</div>
             <h3>복잡한 케이스 전문</h3>
-            <p>과개교합, 개방교합, 3급 부정교합 등 난이도 높은 케이스를 해결합니다.</p>
+            <p><a href="/encyclopedia/과개교합" class="enc-inline-link" title="윗니가 아랫니를 과도하게 덮는 상태" data-enc-term="과개교합">과개교합</a>, <a href="/encyclopedia/개방교합" class="enc-inline-link" title="앞니가 맞닿지 않아 열려 있는 상태" data-enc-term="개방교합">개방교합</a>, 3급 부정교합 등 난이도 높은 케이스를 해결합니다.</p>
           </div>
           <div class="diff-card">
             <div class="diff-num">04</div>
@@ -292,7 +341,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="process-step-v2">
             <div class="step-dot">3</div>
             <h3>장치 부착</h3>
-            <p>치아 표면에 세라믹 브라켓을 정밀하게 부착합니다. 약 1시간 소요.</p>
+            <p>치아 표면에 <a href="/encyclopedia/세라믹 브라켓" class="enc-inline-link" title="치아색과 비슷한 심미 교정 장치" data-enc-term="세라믹 브라켓">세라믹 브라켓</a>을 정밀하게 부착합니다. 약 1시간 소요.</p>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">4</div>
@@ -306,8 +355,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="process-step-v2">
             <div class="step-dot">6</div>
-            <h3>유지장치 & 관리</h3>
-            <p>교정 후 유지장치(리테이너)를 장착합니다. 정기 검진으로 결과를 유지합니다.</p>
+            <h3><a href="/encyclopedia/유지장치" class="enc-inline-link" title="교정 치료 후 치아가 원래 위치로 돌아가는 것을 막는 장치입니다." data-enc-term="유지장치">유지장치</a> & 관리</h3>
+            <p>교정 후 유지장치(<a href="/encyclopedia/리테이너" class="enc-inline-link" title="교정 후 치아 위치를 유지하는 장치" data-enc-term="리테이너">리테이너</a>)를 장착합니다. <a href="/encyclopedia/정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>으로 결과를 유지합니다.</p>
           </div>
         </div>
       </div>
@@ -599,7 +648,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <section class="section-sm">
       <div class="container">
-        <div class="legal-box">*본 정보는 의료법 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
+        <div class="legal-box">*본 정보는 <a href="/encyclopedia/의료법" class="enc-inline-link" title="의료 행위와 의료기관을 규율하는 법률" data-enc-term="의료법">의료법</a> 및 의료광고 심의 기준을 준수하며, 개인에 따라 결과가 다를 수 있습니다. 반드시 전문의와 상담 후 결정하시기 바랍니다.</div>
       </div>
     </section>
   </main>
