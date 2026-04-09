@@ -13,14 +13,15 @@
 
   // 카테고리 한글 매핑
   const CATS = {
-    implant:'임플란트', invisalign:'교정(인비절라인)', pediatric:'소아치과',
+    implant:'임플란트', invisalign:'인비절라인', orthodontics:'치아교정',
+    'front-crown':'앞니크라운', pediatric:'소아치과',
     aesthetic:'심미레진', glownate:'글로우네이트', cavity:'충치치료',
     resin:'레진치료', crown:'크라운', inlay:'인레이/온레이',
     'root-canal':'신경치료', 're-root-canal':'재신경치료',
     whitening:'미백', bridge:'브릿지', denture:'틀니',
     scaling:'스케일링', gum:'잇몸치료', periodontitis:'치주염',
     'gum-surgery':'잇몸수술', 'wisdom-tooth':'사랑니발치',
-    apicoectomy:'치근단절제술', prevention:'예방치료',
+    apicoectomy:'치근단절제술', sedation:'수면치료', prevention:'예방치료',
     tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
   };
 
