@@ -964,27 +964,126 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </section>
-    <section class="section">
+    <section class="section" id="fixtures">
       <div class="container">
         <div class="section-header">
-          <h2>세계적으로 검증된 <span class="text-gradient">프리미엄 임플란트</span></h2>
-          <p class="section-subtitle">환자의 구강 상태에 따라 최적의 제품을 추천드립니다</p>
+          <h2>서울비디치과가 선택한 <span class="text-gradient">프리미엄 픽스처</span></h2>
+          <p class="section-subtitle">세계적으로 검증된 3종의 픽스처로 최적의 결과를 만듭니다</p>
         </div>
-        <div class="compare-table-wrap">
-          <table class="compare-table">
-            <thead><tr><th scope="col">비교 항목</th><th scope="col">오스템 (<a href="/encyclopedia/#오스템" class="enc-inline-link" title="국내 대표 임플란트 브랜드" data-enc-term="오스템">Osstem</a>)</th><th scope="col" class="col-highlight">스트라우만 (<a href="/encyclopedia/#스트라우만" class="enc-inline-link" title="스위스 프리미엄 임플란트 브랜드" data-enc-term="스트라우만">Straumann</a>)</th><th scope="col">네오 (Neo)</th></tr></thead>
-            <tbody>
-              <tr><td>원산지</td><td>한국</td><td class="col-highlight">스위스</td><td>한국</td></tr>
-              <tr><td>글로벌 점유율</td><td>세계 1위</td><td class="col-highlight">세계 2위</td><td>국내 인기</td></tr>
-              <tr><td><a href="/encyclopedia/#골유착" class="enc-inline-link" title="임플란트가 뼈와 결합하는 과정" data-enc-term="골유착">골유착</a> 기간</td><td>2~4개월</td><td class="col-highlight">6~8주 (SLActive)</td><td>2~4개월</td></tr>
-              <tr><td>표면 처리</td><td>SA</td><td class="col-highlight">SLActive® (초친수성)</td><td>RBM</td></tr>
-              <tr><td>임상 데이터</td><td>30년+</td><td class="col-highlight">40년+ (최다)</td><td>15년+</td></tr>
-              <tr><td>보증 기간</td><td>10년</td><td class="col-highlight">평생 (조건부)</td><td>10년</td></tr>
-              <tr><td>가격대</td><td>합리적</td><td class="col-highlight">프리미엄</td><td>합리적</td></tr>
-            </tbody>
-          </table>
+        <style>
+          .fixture-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);margin-top:var(--space-xl);}
+          .fixture-card{background:#fff;border-radius:16px;padding:2rem 1.5rem;box-shadow:0 2px 16px rgba(107,66,38,0.07);border:1px solid #ede6df;transition:all 0.35s;position:relative;overflow:hidden;text-decoration:none;color:inherit;display:block;}
+          .fixture-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(107,66,38,0.13);border-color:#c9a96e;}
+          .fixture-card-badge{position:absolute;top:16px;right:16px;font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;}
+          .fixture-card-badge.korea{background:#e0f2fe;color:#0369a1;}
+          .fixture-card-badge.swiss{background:#fef3c7;color:#92400e;}
+          .fixture-card-brand{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+          .fixture-card-brand img{width:36px;height:36px;object-fit:contain;}
+          .fixture-card-brand-logo{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;color:#fff;flex-shrink:0;}
+          .fixture-card-brand-logo.osstem{background:linear-gradient(135deg,#1e40af,#3b82f6);}
+          .fixture-card-brand-logo.straumann{background:linear-gradient(135deg,#b45309,#f59e0b);}
+          .fixture-card-brand-text{font-size:0.8rem;color:var(--text-tertiary);font-weight:500;}
+          .fixture-card h3{font-size:1.25rem;font-weight:800;color:#1e293b;margin:0.5rem 0 0.6rem;}
+          .fixture-card .fixture-desc{font-size:0.9rem;color:var(--text-secondary);line-height:1.7;margin-bottom:1.2rem;min-height:52px;}
+          .fixture-card-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.2rem;}
+          .fixture-spec{background:#faf8f5;padding:8px 10px;border-radius:8px;font-size:0.78rem;}
+          .fixture-spec-label{color:var(--text-tertiary);display:block;margin-bottom:2px;font-size:0.7rem;}
+          .fixture-spec-value{color:#1e293b;font-weight:700;}
+          .fixture-card-features{list-style:none;padding:0;margin:0 0 1.2rem;}
+          .fixture-card-features li{font-size:0.85rem;color:#334155;padding:4px 0;display:flex;align-items:flex-start;gap:6px;line-height:1.5;}
+          .fixture-card-features li i{color:#6B4226;font-size:0.7rem;margin-top:5px;flex-shrink:0;}
+          .fixture-card-cta{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 0;border-top:1px solid #f0ebe5;font-size:0.85rem;font-weight:600;color:#6B4226;transition:color 0.2s;}
+          .fixture-card:hover .fixture-card-cta{color:#c9a96e;}
+          @media(max-width:900px){.fixture-grid{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto;}}
+        </style>
+        <div class="fixture-grid">
+          <!-- 1. 오스템 CA -->
+          <a href="/treatments/fixture-osstem-ca" class="fixture-card">
+            <span class="fixture-card-badge korea">KOREA</span>
+            <div class="fixture-card-brand">
+              <div class="fixture-card-brand-logo osstem">OS</div>
+              <div class="fixture-card-brand-text">Osstem Implant</div>
+            </div>
+            <h3>오스템 CA</h3>
+            <p class="fixture-desc">칼슘 이온 코팅으로 골세포 결합 속도를 높인 임플란트. 초기 고정력이 우수합니다.</p>
+            <div class="fixture-card-specs">
+              <div class="fixture-spec"><span class="fixture-spec-label">표면 처리</span><span class="fixture-spec-value">CA (칼슘 코팅)</span></div>
+              <div class="fixture-spec"><span class="fixture-spec-label">골유착 기간</span><span class="fixture-spec-value">4~6주</span></div>
+              <div class="fixture-spec"><span class="fixture-spec-label">원산지</span><span class="fixture-spec-value">한국</span></div>
+              <div class="fixture-spec"><span class="fixture-spec-label">등급</span><span class="fixture-spec-value">스탠다드</span></div>
+            </div>
+            <ul class="fixture-card-features">
+              <li><i class="fas fa-check-circle"></i>SA 대비 칼슘 용액 추가로 빠른 골유착</li>
+              <li><i class="fas fa-check-circle"></i>초기 안정성 우수, 흡연·당뇨 환자 적합</li>
+              <li><i class="fas fa-check-circle"></i>세계 점유율 1위 오스템의 검증된 기술</li>
+            </ul>
+            <div class="fixture-card-cta">자세히 보기 <i class="fas fa-arrow-right"></i></div>
+          </a>
+          <!-- 2. 오스템 SOI -->
+          <a href="/treatments/fixture-osstem-soi" class="fixture-card">
+            <span class="fixture-card-badge korea">PREMIUM</span>
+            <div class="fixture-card-brand">
+              <div class="fixture-card-brand-logo osstem">OS</div>
+              <div class="fixture-card-brand-text">Osstem Implant</div>
+            </div>
+            <h3>오스템 SOI</h3>
+            <p class="fixture-desc">초친수성 표면으로 혈액 응고를 극대화하여 골유착을 획기적으로 앞당긴 최상위 픽스처입니다.</p>
+            <div class="fixture-card-specs">
+              <div class="fixture-spec"><span class="fixture-spec-label">표면 처리</span><span class="fixture-spec-value">SOI (초친수성)</span></div>
+              <div class="fixture-spec"><span class="fixture-spec-label">골유착 기간</span><span class="fixture-spec-value">약 4주</span></div>
+              <div class="fixture-spec"><span class="fixture-spec-label">원산지</span><span class="fixture-spec-value">한국</span></div>
+              <div class="fixture-spec"><span class="fixture-spec-label">등급</span><span class="fixture-spec-value">최상위</span></div>
+            </div>
+            <ul class="fixture-card-features">
+              <li><i class="fas fa-check-circle"></i>단백질 결합력 기존 대비 약 130배 향상</li>
+              <li><i class="fas fa-check-circle"></i>골유착 35% 이상 단축, 최상위 예후</li>
+              <li><i class="fas fa-check-circle"></i>고령자·전신질환자·약한 골질에 최적</li>
+            </ul>
+            <div class="fixture-card-cta">자세히 보기 <i class="fas fa-arrow-right"></i></div>
+          </a>
+          <!-- 3. 스트라우만 록솔리드 SLActive -->
+          <a href="/treatments/fixture-straumann-roxolid" class="fixture-card">
+            <span class="fixture-card-badge swiss">SWISS</span>
+            <div class="fixture-card-brand">
+              <div class="fixture-card-brand-logo straumann">ST</div>
+              <div class="fixture-card-brand-text">Straumann</div>
+            </div>
+            <h3>스트라우만 록솔리드 SLActive</h3>
+            <p class="fixture-desc">지르코늄-티타늄 합금과 초친수성 SLActive 표면의 만남. 세계 최고 수준의 임상 근거를 보유합니다.</p>
+            <div class="fixture-card-specs">
+              <div class="fixture-spec"><span class="fixture-spec-label">표면 처리</span><span class="fixture-spec-value">SLActive®</span></div>
+              <div class="fixture-spec"><span class="fixture-spec-label">골유착 기간</span><span class="fixture-spec-value">6~8주</span></div>
+              <div class="fixture-spec"><span class="fixture-spec-label">원산지</span><span class="fixture-spec-value">스위스</span></div>
+              <div class="fixture-spec"><span class="fixture-spec-label">소재</span><span class="fixture-spec-value">Roxolid® (TiZr)</span></div>
+            </div>
+            <ul class="fixture-card-features">
+              <li><i class="fas fa-check-circle"></i>10년 생존율 95.1~98.8%, 세계 최다 임상 데이터</li>
+              <li><i class="fas fa-check-circle"></i>Roxolid® 합금 — 순수 티타늄 대비 높은 강도</li>
+              <li><i class="fas fa-check-circle"></i>좁은 직경(2.9mm) 식립 가능, 뼈이식 최소화</li>
+            </ul>
+            <div class="fixture-card-cta">자세히 보기 <i class="fas fa-arrow-right"></i></div>
+          </a>
         </div>
-        <p style="text-align:center;margin-top:var(--space-lg);font-size:var(--text-sm);color:var(--color-gray-500);"><i class="fas fa-info-circle" style="color:var(--color-primary);margin-right:4px;"></i>환자의 구강 상태, 골질, 부위에 따라 최적의 임플란트를 추천드립니다.</p>
+        <!-- 카드 클릭 유도 -->
+        <div class="type-grid-cta-banner" style="margin-top:var(--space-xl);">
+          <div class="cta-banner-inner">
+            <div class="cta-banner-icon-pulse">
+              <span class="pulse-ring"></span>
+              <span class="pulse-ring delay"></span>
+              <i class="fas fa-hand-pointer"></i>
+            </div>
+            <div class="cta-banner-text">
+              <strong>각 픽스처를 눌러보세요</strong>
+              <span>공식 사양 · 표면 기술 · 임상 근거 · 추천 케이스를 확인할 수 있습니다</span>
+            </div>
+            <div class="cta-banner-arrows">
+              <i class="fas fa-chevron-right bounce-arrow a1"></i>
+              <i class="fas fa-chevron-right bounce-arrow a2"></i>
+              <i class="fas fa-chevron-right bounce-arrow a3"></i>
+            </div>
+          </div>
+        </div>
+        <p style="text-align:center;margin-top:var(--space-lg);font-size:var(--text-sm);color:var(--color-gray-500);"><i class="fas fa-info-circle" style="color:var(--color-primary);margin-right:4px;"></i>환자의 구강 상태, 골질, 부위에 따라 최적의 픽스처를 추천드립니다.</p>
       </div>
     </section>
     <section class="section">
