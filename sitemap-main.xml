@@ -6,8 +6,8 @@
 
   <!-- ═══════════════════════════════════════ -->
   <!-- 서울비디치과 메인 사이트맵               -->
-  <!-- 최종 업데이트: 2026-04-09               -->
-  <!-- 총 URL: 102개 (페이지)                    -->
+  <!-- 최종 업데이트: 2026-04-10               -->
+  <!-- 총 URL: 105개 (페이지)                    -->
   <!-- ═══════════════════════════════════════ -->
 
   <!-- ===== 1. 메인 페이지 ===== -->
@@ -53,7 +53,7 @@
   <!-- 전문센터 (매출 핵심) -->
   <url>
     <loc>https://bdbddc.com/treatments/implant</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.92</priority>
   </url>
@@ -261,6 +261,26 @@
     <priority>0.75</priority>
   </url>
 
+
+  <!-- 임플란트 픽스처 상세 -->
+  <url>
+    <loc>https://bdbddc.com/treatments/fixture-osstem-ca</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/treatments/fixture-osstem-soi</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.84</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/treatments/fixture-straumann-roxolid</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.84</priority>
+  </url>
 
   <!-- 임플란트 세부 프로그램 -->
   <url>
