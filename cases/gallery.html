@@ -88,195 +88,302 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .image-modal-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
     .image-modal-meta { display: flex; gap: 16px; margin-top: 12px; font-size: 0.88rem; color: var(--text-secondary); }
 
-    /* ===== Gallery Card v7: 비포사진 + 전체정보 통합 카드 ===== */
-    .gallery-grid {
+    /* ===== Gallery Card v9: 프리미엄 의료 포트폴리오 카드 ===== */
+
+    /* 그리드: site-v5.css 완전 무시 */
+    .gallery-grid,
+    div.gallery-grid,
+    #galleryGrid,
+    #galleryGrid.gallery-grid {
       display: grid !important;
       grid-template-columns: repeat(3, 1fr) !important;
       gap: 24px !important;
-      max-width: 1140px !important;
+      max-width: 1120px !important;
       margin: 0 auto !important;
       padding: 0 24px !important;
+      align-items: start !important;
     }
 
-    /* ── 카드 본체 ── */
-    .gc-card {
+    /* 카드: 절대 쪼개지지 않는 단일 블록 */
+    a.gc-card,
+    .gc-card,
+    .gallery-grid > .gc-card,
+    .gallery-grid > a.gc-card {
       display: flex !important;
       flex-direction: column !important;
+      position: relative !important;
+      background: #ffffff !important;
+      border-radius: 16px !important;
+      overflow: hidden !important;
+      border: none !important;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.08), 0 0 0 1px rgba(107,66,38,0.06) !important;
       text-decoration: none !important;
       color: inherit !important;
-      background: #fff !important;
-      border-radius: 14px !important;
-      overflow: hidden !important;
-      border: 1px solid #eee !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
-      transition: transform 0.3s, box-shadow 0.3s !important;
+      cursor: pointer !important;
+      transition: transform 0.3s cubic-bezier(.22,.68,0,1.2), box-shadow 0.3s ease !important;
     }
+    a.gc-card:hover,
     .gc-card:hover {
-      transform: translateY(-4px) !important;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.13) !important;
-      border-color: rgba(107,66,38,0.2) !important;
+      transform: translateY(-6px) scale(1.01) !important;
+      box-shadow: 0 16px 48px rgba(107,66,38,0.15), 0 0 0 1px rgba(107,66,38,0.1) !important;
     }
 
-    /* ── 사진 영역 ── */
+    /* ── 사진 영역: 카드 상단 ── */
     .gc-photo {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4/3;
-      overflow: hidden;
-      background: linear-gradient(135deg, #f7f3ef 0%, #ede6dd 100%);
-      flex-shrink: 0;
+      position: relative !important;
+      width: 100% !important;
+      aspect-ratio: 4 / 3 !important;
+      overflow: hidden !important;
+      background: linear-gradient(135deg, #f7f1ea 0%, #ece3d8 100%) !important;
+      flex-shrink: 0 !important;
     }
     .gc-img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      transition: transform 0.4s ease;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      transition: transform 0.5s cubic-bezier(.22,.68,0,1.2) !important;
     }
-    .gc-card:hover .gc-img { transform: scale(1.05); }
+    a.gc-card:hover .gc-img,
+    .gc-card:hover .gc-img {
+      transform: scale(1.06) !important;
+    }
 
     /* 이미지 없을 때 플레이스홀더 */
     .gc-ph {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 8px;
-      background: linear-gradient(135deg, #f5efe8 0%, #e8ddd0 100%);
-      color: rgba(107,66,38,0.25);
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      background: linear-gradient(145deg, #f7f1ea, #ece3d8) !important;
+      color: #c8a97e !important;
     }
-    .gc-ph i { font-size: 2.8rem; }
-    .gc-ph span { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; }
+    .gc-ph i { font-size: 2.4rem !important; opacity: 0.4 !important; }
+    .gc-ph span { font-size: 0.72rem !important; font-weight: 600 !important; opacity: 0.5 !important; letter-spacing: 0.02em !important; }
 
-    /* 사진 위 뱃지들 */
+    /* 사진 위 BEFORE 뱃지 + 이미지 유형 */
     .gc-photo-badges {
-      position: absolute;
-      top: 10px; left: 10px; right: 10px;
-      display: flex; justify-content: space-between;
-      align-items: flex-start;
-      z-index: 2; pointer-events: none;
+      position: absolute !important;
+      top: 10px !important;
+      left: 10px !important;
+      right: 10px !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      z-index: 2 !important;
+      pointer-events: none !important;
     }
     .gc-before-label {
-      padding: 4px 12px;
-      background: rgba(107,66,38,0.85);
-      color: #fff;
-      border-radius: 6px;
-      font-size: 0.6rem; font-weight: 800;
-      letter-spacing: 0.06em;
-      backdrop-filter: blur(6px);
+      padding: 4px 12px !important;
+      background: linear-gradient(135deg, #6B4226, #8B5E3C) !important;
+      color: #fff !important;
+      border-radius: 6px !important;
+      font-size: 0.6rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      box-shadow: 0 2px 8px rgba(107,66,38,0.3) !important;
+    }
+    .gc-badges-right {
+      display: flex !important;
+      gap: 4px !important;
     }
     .gc-type-tag {
-      padding: 3px 9px;
-      background: rgba(0,0,0,0.45);
-      color: #fff;
-      border-radius: 6px;
-      font-size: 0.58rem; font-weight: 700;
-      display: inline-flex; align-items: center; gap: 3px;
-      backdrop-filter: blur(6px);
+      padding: 3px 8px !important;
+      background: rgba(0,0,0,0.45) !important;
+      color: #fff !important;
+      border-radius: 5px !important;
+      font-size: 0.56rem !important;
+      font-weight: 700 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 3px !important;
+      backdrop-filter: blur(6px) !important;
+      -webkit-backdrop-filter: blur(6px) !important;
     }
-    .gc-type-pano { background: rgba(59,130,246,0.7); }
+    .gc-type-pano { background: rgba(59,130,246,0.65) !important; }
 
-    /* ── 컨텐츠 영역 ── */
+    /* 사진 하단 그라데이션 (부드러운 전환) */
+    .gc-photo::after {
+      content: '' !important;
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 40px !important;
+      background: linear-gradient(to top, rgba(255,255,255,0.6), transparent) !important;
+      pointer-events: none !important;
+      z-index: 1 !important;
+    }
+
+    /* ── 텍스트 영역 ── */
     .gc-content {
-      display: flex; flex-direction: column;
-      padding: 16px 18px 14px;
-      gap: 10px; flex: 1;
+      display: flex !important;
+      flex-direction: column !important;
+      padding: 16px 18px 14px !important;
+      gap: 8px !important;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
     }
 
-    /* 태그 행 */
+    /* 상단: 카테고리 + 기간 + 사진수 */
     .gc-tags {
-      display: flex; align-items: center;
-      gap: 8px; flex-wrap: wrap;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      flex-wrap: wrap !important;
+      flex-shrink: 0 !important;
     }
     .gc-cat {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 4px 12px;
-      background: rgba(107,66,38,0.08);
-      color: var(--brand, #6B4226);
-      border-radius: 20px;
-      font-size: 0.72rem; font-weight: 700;
-      text-decoration: none;
-      pointer-events: auto;
-      transition: background 0.2s;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      padding: 3px 10px !important;
+      background: linear-gradient(135deg, rgba(107,66,38,0.08), rgba(107,66,38,0.04)) !important;
+      color: #6B4226 !important;
+      border-radius: 20px !important;
+      font-size: 0.7rem !important;
+      font-weight: 700 !important;
+      text-decoration: none !important;
+      pointer-events: auto !important;
+      transition: background 0.2s !important;
+      border: 1px solid rgba(107,66,38,0.08) !important;
     }
-    .gc-cat i { font-size: 0.6rem; }
-    .gc-cat:hover { background: rgba(107,66,38,0.15); }
+    .gc-cat i { font-size: 0.58rem !important; }
+    .gc-cat:hover { background: rgba(107,66,38,0.14) !important; }
     .gc-period {
-      font-size: 0.72rem;
-      color: var(--text-secondary, #78716C);
-      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.68rem !important;
+      color: #a8a29e !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 3px !important;
     }
-    .gc-period i { font-size: 0.6rem; }
+    .gc-period i { font-size: 0.56rem !important; }
     .gc-img-count {
-      font-size: 0.68rem;
-      color: var(--text-tertiary, #a8a29e);
-      display: inline-flex; align-items: center; gap: 4px;
-      margin-left: auto;
+      font-size: 0.64rem !important;
+      color: #a8a29e !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 3px !important;
+      margin-left: auto !important;
     }
 
     /* 제목 */
     .gc-title {
-      font-size: 1rem; font-weight: 800;
-      color: var(--text-primary, #1C1917);
-      line-height: 1.4; letter-spacing: -0.01em;
-      display: -webkit-box; -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical; overflow: hidden;
+      font-size: 0.95rem !important;
+      font-weight: 800 !important;
+      color: #1C1917 !important;
+      line-height: 1.4 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+      flex-shrink: 0 !important;
+      letter-spacing: -0.01em !important;
     }
 
     /* 설명 */
     .gc-desc {
-      font-size: 0.82rem; line-height: 1.6;
-      color: var(--text-secondary, #78716C);
-      display: -webkit-box; -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical; overflow: hidden;
-      margin: 0;
+      font-size: 0.8rem !important;
+      line-height: 1.6 !important;
+      color: #78716C !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      flex: 0 1 auto !important;
     }
 
-    /* 하단: 원장 + 자세히보기 */
+    /* 하단: 원장 + CTA */
     .gc-footer {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      margin-top: auto;
-      padding-top: 10px;
-      border-top: 1px solid var(--border-color, #eee);
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      margin-top: auto !important;
+      padding-top: 10px !important;
+      border-top: 1px solid #f5f0eb !important;
+      flex-shrink: 0 !important;
     }
     .gc-doc {
-      display: flex; align-items: center; gap: 8px;
-      pointer-events: auto;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      pointer-events: auto !important;
     }
     .gc-doc-avatar {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: linear-gradient(135deg, #6B4226, #a0714f);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 0.65rem; font-weight: 800;
-      flex-shrink: 0;
+      width: 26px !important;
+      height: 26px !important;
+      border-radius: 50% !important;
+      background: linear-gradient(135deg, #6B4226, #a0714f) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #fff !important;
+      font-size: 0.6rem !important;
+      font-weight: 800 !important;
+      flex-shrink: 0 !important;
+      box-shadow: 0 1px 3px rgba(107,66,38,0.2) !important;
     }
     .gc-doc-link,
     .gc-doc-name {
-      font-size: 0.8rem; font-weight: 600;
-      color: var(--text-primary, #1C1917);
-      text-decoration: none;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      color: #44403C !important;
+      text-decoration: none !important;
     }
-    .gc-doc-link:hover { color: var(--brand, #6B4226); }
+    .gc-doc-link:hover { color: #6B4226 !important; }
     .gc-more {
-      font-size: 0.72rem; font-weight: 600;
-      color: var(--brand, #6B4226);
-      display: inline-flex; align-items: center; gap: 4px;
-      opacity: 0; transition: opacity 0.2s;
+      font-size: 0.7rem !important;
+      font-weight: 700 !important;
+      color: #6B4226 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      opacity: 0 !important;
+      transition: opacity 0.25s, transform 0.25s !important;
     }
-    .gc-more i { font-size: 0.6rem; transition: transform 0.2s; }
-    .gc-card:hover .gc-more { opacity: 1; }
-    .gc-card:hover .gc-more i { transform: translateX(3px); }
+    .gc-more i {
+      font-size: 0.58rem !important;
+      transition: transform 0.25s !important;
+    }
+    a.gc-card:hover .gc-more,
+    .gc-card:hover .gc-more {
+      opacity: 1 !important;
+    }
+    a.gc-card:hover .gc-more i,
+    .gc-card:hover .gc-more i {
+      transform: translateX(3px) !important;
+    }
 
     /* ── 반응형 ── */
-    @media (max-width: 860px) {
-      .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 18px !important; }
+    @media (max-width: 900px) {
+      .gallery-grid,
+      div.gallery-grid,
+      #galleryGrid,
+      #galleryGrid.gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 18px !important;
+        max-width: 700px !important;
+      }
     }
-    @media (max-width: 540px) {
-      .gallery-grid { grid-template-columns: 1fr !important; gap: 16px !important; padding: 0 16px !important; max-width: 420px !important; }
-      .gc-content { padding: 14px 14px 12px; gap: 8px; }
-      .gc-title { font-size: 0.92rem; }
-      .gc-desc { font-size: 0.78rem; -webkit-line-clamp: 2; }
-      .gc-cat { font-size: 0.66rem; padding: 3px 10px; }
-      .gc-doc-avatar { width: 24px; height: 24px; font-size: 0.58rem; }
-      .gc-doc-link, .gc-doc-name { font-size: 0.74rem; }
-      .gc-more { opacity: 1; }
+    @media (max-width: 560px) {
+      .gallery-grid,
+      div.gallery-grid,
+      #galleryGrid,
+      #galleryGrid.gallery-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        padding: 0 16px !important;
+        max-width: 420px !important;
+      }
+      .gc-content { padding: 14px 16px 12px !important; }
+      .gc-title { font-size: 0.9rem !important; }
+      .gc-desc { font-size: 0.76rem !important; }
+      .gc-more { opacity: 1 !important; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     }
   </style>
@@ -855,7 +962,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
-  <script src="/js/gallery-cb60c544.js" defer></script>
+  <script src="/js/gallery-49e418fc.js" defer></script>
   <script>
     function closeImageModal() {
       var m = document.getElementById('imageModal');

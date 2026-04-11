@@ -1,7 +1,7 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v7
- * - 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 카드
- * - 이미지 없는 케이스도 예쁜 플레이스홀더
+ * 서울비디치과 비포/애프터 갤러리 시스템 v9
+ * - 프리미엄 카드: 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 완벽한 카드
+ * - 쪼개지지 않는 단일 블록
  */
 (function() {
   'use strict';
@@ -40,7 +40,6 @@
     tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
   };
 
-  // 카테고리별 아이콘
   var CAT_ICONS = {
     implant:'fa-tooth', invisalign:'fa-teeth-open', orthodontics:'fa-teeth',
     pediatric:'fa-baby', 'front-crown':'fa-crown',
@@ -54,38 +53,32 @@
     tmj:'fa-head-side', bruxism:'fa-compress', emergency:'fa-ambulance'
   };
 
-  // 설명 텍스트 정리 (체크마크, 번호 등 제거하고 첫 문장만)
   function cleanDesc(desc) {
     if (!desc) return '';
-    // 첫 줄만 (빈줄 이전까지)
     var firstPara = desc.split(/\n\s*\n/)[0] || '';
-    // 이모지/특수문자 정리
     firstPara = firstPara.replace(/[✅❌⭐🔹🔸▶►●•]/g, '').replace(/^\d+\.\s*/gm, '').trim();
-    // 줄바꿈을 공백으로
     firstPara = firstPara.replace(/\n/g, ' ').trim();
-    // 최대 80자
-    if (firstPara.length > 80) firstPara = firstPara.substring(0, 80) + '…';
+    if (firstPara.length > 90) firstPara = firstPara.substring(0, 90) + '…';
     return firstPara;
   }
 
-  // ─── 카드 렌더링 v7: 비포사진 + 모든 정보 하나의 카드 ───
+  // ─── 카드 렌더링 v9: 프리미엄 통합 카드 ───
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
     var catSlugMap = { 'front-crown': 'crown' };
     var treatmentSlug = catSlugMap[c.category] || c.category;
     var hasIntraoral = c.hasIntraoral || (c.beforeImage && !c.beforeImage.includes('favicon'));
     var hasPano = c.hasPano || c.panBeforeImage || c.panAfterImage;
-    // 비포 사진만 표시 (애프터 사진은 숨김)
     var imgSrc = c.thumbnailImage || c.beforeImage || c.panBeforeImage || '';
     var hasAnyImage = c.hasAnyImage || !!imgSrc;
     var catIcon = CAT_ICONS[c.category] || 'fa-tooth';
 
-    // 이미지 유형 뱃지
-    var typeBadges = '';
-    if (hasIntraoral) typeBadges += '<span class="gc-type-tag"><i class="fas fa-camera"></i> 구내</span>';
-    if (hasPano) typeBadges += '<span class="gc-type-tag gc-type-pano"><i class="fas fa-x-ray"></i> 파노</span>';
+    // 우측 뱃지 (이미지 유형)
+    var rightBadges = '';
+    if (hasIntraoral) rightBadges += '<span class="gc-type-tag"><i class="fas fa-camera"></i> 구내</span>';
+    if (hasPano) rightBadges += '<span class="gc-type-tag gc-type-pano"><i class="fas fa-x-ray"></i> 파노</span>';
 
-    // 비포 사진 또는 예쁜 플레이스홀더
+    // 사진 영역
     var photoHtml;
     if (hasAnyImage && imgSrc) {
       photoHtml =
@@ -95,7 +88,7 @@
           '<div class="gc-ph" style="display:none"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
           '<div class="gc-photo-badges">' +
             '<span class="gc-before-label">BEFORE</span>' +
-            typeBadges +
+            '<div class="gc-badges-right">' + rightBadges + '</div>' +
           '</div>' +
         '</div>';
     } else {
@@ -118,7 +111,17 @@
       ? '<span class="gc-period"><i class="far fa-clock"></i> ' + c.treatmentPeriod + '</span>'
       : '';
 
-    // 설명 (2~3줄)
+    // 이미지 수
+    var imgCount = 0;
+    if (c.beforeImage) imgCount++;
+    if (c.afterImage) imgCount++;
+    if (c.panBeforeImage) imgCount++;
+    if (c.panAfterImage) imgCount++;
+    var imgCountHtml = imgCount > 0
+      ? '<span class="gc-img-count"><i class="far fa-images"></i> ' + imgCount + '장</span>'
+      : '';
+
+    // 설명
     var desc = cleanDesc(c.description);
     var descHtml = desc
       ? '<p class="gc-desc">' + desc + '</p>'
@@ -130,16 +133,7 @@
       ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doc-link">' + (c.doctorName || '') + '</a>'
       : '<span class="gc-doc-name">' + (c.doctorName || '') + '</span>';
 
-    // 이미지 수 표시
-    var imgCount = 0;
-    if (c.beforeImage) imgCount++;
-    if (c.afterImage) imgCount++;
-    if (c.panBeforeImage) imgCount++;
-    if (c.panAfterImage) imgCount++;
-    var imgCountHtml = imgCount > 0
-      ? '<span class="gc-img-count"><i class="far fa-images"></i> ' + imgCount + '장</span>'
-      : '';
-
+    // 카드 조립
     return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '">' +
       photoHtml +
       '<div class="gc-content">' +
@@ -157,7 +151,6 @@
     '</a>';
   }
 
-  // 갤러리 렌더링
   function renderGallery(filter) {
     var grid = document.getElementById('galleryGrid');
     var loading = document.getElementById('loadingState');
@@ -191,7 +184,6 @@
     grid.innerHTML = html;
   }
 
-  // 통계
   function updateStats() {
     var counts = { all: cases.length, implant: 0, invisalign: 0, orthodontics: 0, 'front-crown': 0, aesthetic: 0, glownate: 0, resin: 0, whitening: 0, general: 0, gum: 0 };
     cases.forEach(function(c) {
