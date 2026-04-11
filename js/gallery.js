@@ -53,61 +53,66 @@
     return cnt;
   }
 
-  // 카드 렌더링
+  // 카드 렌더링 — 사진+정보 통합 카드 (v3 — 이미지/텍스트 분리형)
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
     var catSlugMap = { 'front-crown': 'crown' };
     var treatmentSlug = catSlugMap[c.category] || c.category;
-    // ★ 의료법 준수: 비로그인 시 API에서 이미지 URL 미제공, 플래그만 사용
     var hasIntraoral = c.hasIntraoral || (c.beforeImage && !c.beforeImage.includes('favicon'));
     var hasPano = c.hasPano || c.panBeforeImage || c.panAfterImage;
     var imgSrc = c.thumbnailImage || c.beforeImage || c.panBeforeImage || '';
     var hasAnyImage = c.hasAnyImage || !!imgSrc;
-    var imgCount = getImgCount(c);
 
-    var imageHtml;
-    if (hasAnyImage) {
-      // 뱃지: 실제 있는 이미지 종류만 표시
-      var typeBadges = '';
-      if (hasIntraoral) typeBadges += '<span style="padding:3px 8px;background:rgba(168,85,247,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-camera" style="margin-right:2px"></i>구내</span>';
-      if (hasPano) typeBadges += '<span style="padding:3px 8px;background:rgba(59,130,246,0.85);color:white;border-radius:12px;font-size:0.6rem;font-weight:600"><i class="fas fa-x-ray" style="margin-right:2px"></i>파노</span>';
+    // 이미지 유형 뱃지
+    var typeBadges = '';
+    if (hasIntraoral) typeBadges += '<span class="gc-badge gc-badge-intra"><i class="fas fa-camera"></i>구내</span>';
+    if (hasPano) typeBadges += '<span class="gc-badge gc-badge-pano"><i class="fas fa-x-ray"></i>파노</span>';
 
-      var imgTag;
-      if (imgSrc) {
-        imgTag = '<img src="' + imgSrc + '" alt="Before" style="width:100%;height:100%;object-fit:cover;" loading="lazy" onerror="this.style.display=&quot;none&quot;">';
-      } else {
-        imgTag = '<div style="width:100%;height:100%;background:linear-gradient(135deg,#e8dfd6,#d4c5b5);display:flex;align-items:center;justify-content:center"><i class="fas fa-teeth" style="font-size:2.5rem;color:rgba(107,66,38,0.25)"></i></div>';
-      }
-
-      imageHtml = '<div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#f0ebe4">' +
-        imgTag +
-        '<div style="position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:2">' +
-          '<span style="padding:4px 10px;background:rgba(0,0,0,0.6);color:white;border-radius:20px;font-size:0.65rem;font-weight:600">BEFORE</span>' +
-          '<span style="padding:4px 10px;background:rgba(107,66,38,0.85);color:white;border-radius:20px;font-size:0.65rem;font-weight:600">AFTER</span>' +
-        '</div>' +
-        '<div style="position:absolute;top:12px;right:12px;display:flex;gap:4px;z-index:2">' +
-          typeBadges +
-        '</div>' +
-
-        '</div>';
+    // 이미지 영역
+    var imgTag;
+    if (hasAnyImage && imgSrc) {
+      imgTag = '<img src="' + imgSrc + '" alt="' + (c.title || 'Before/After') + '" class="gc-img" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=gc-img-placeholder><i class=fas\\ fa-teeth></i></div>\'">';
     } else {
-      imageHtml = '<div style="aspect-ratio:16/9;background:linear-gradient(135deg,#f5f0eb,#e8dfd6);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#c9a96e">' +
-        '<i class="fas fa-teeth" style="font-size:3rem;margin-bottom:8px;opacity:0.5"></i>' +
-        '<span style="font-size:0.8rem;color:#999">사진 준비 중</span>' +
-        '</div>';
+      imgTag = '<div class="gc-img-placeholder"><i class="fas fa-teeth"></i></div>';
     }
 
-    return '<a href="/cases/' + c.id + '" class="gallery-card" data-category="' + (filterGroupMap[c.category] || 'general') + '" style="display:block;background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #f0f0f0;transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;color:inherit" onmouseover="this.style.transform=\'translateY(-4px)\';this.style.boxShadow=\'0 8px 24px rgba(0,0,0,0.1)\'" onmouseout="this.style.transform=\'none\';this.style.boxShadow=\'0 2px 12px rgba(0,0,0,0.06)\'">' +
-      imageHtml +
-      '<div style="padding:16px">' +
-        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
-          (c.category ? '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" style="display:inline-block;padding:3px 10px;background:#6B4226;color:white;border-radius:20px;font-size:0.7rem;font-weight:600;text-decoration:none;transition:background 0.2s" onmouseover="this.style.background=\'#8B5A3E\'" onmouseout="this.style.background=\'#6B4226\'">' + catLabel + '</a>' : '<span style="display:inline-block;padding:3px 10px;background:#6B4226;color:white;border-radius:20px;font-size:0.7rem;font-weight:600">' + catLabel + '</span>') +
-          (c.treatmentPeriod ? '<span style="font-size:0.72rem;color:#999"><i class="fas fa-clock" style="margin-right:3px"></i>' + c.treatmentPeriod + '</span>' : '') +
+    // 카테고리 링크 vs 스팬
+    var catHtml = c.category
+      ? '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-cat">' + catLabel + '</a>'
+      : '<span class="gc-cat">' + catLabel + '</span>';
+
+    // 기간 표시
+    var periodHtml = c.treatmentPeriod
+      ? '<span class="gc-period"><i class="fas fa-clock"></i>' + c.treatmentPeriod + '</span>'
+      : '';
+
+    // 의사 정보
+    var doctorInitial = (c.doctorName || '?').charAt(0);
+    var doctorHtml = c.doctorSlug
+      ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doctor-link">' + (c.doctorName || '') + '</a>'
+      : '<span class="gc-doctor-name">' + (c.doctorName || '') + '</span>';
+
+    return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '">' +
+      // ── 이미지 영역 ──
+      '<div class="gc-thumb">' +
+        imgTag +
+        '<div class="gc-badges-top">' +
+          '<div class="gc-ba-badges">' +
+            '<span class="gc-badge gc-badge-before">BEFORE</span>' +
+            '<span class="gc-badge gc-badge-after">AFTER</span>' +
+          '</div>' +
+          (typeBadges ? '<div class="gc-type-badges">' + typeBadges + '</div>' : '') +
         '</div>' +
-        '<h3 style="font-size:1rem;font-weight:700;margin-bottom:6px;color:#1a1a2e">' + (c.title || '') + '</h3>' +
-        '<div style="display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid #f0f0f0">' +
-          '<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#a0714f);display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:700">' + ((c.doctorName || '?').charAt(0)) + '</div>' +
-          (c.doctorSlug ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" style="font-size:0.82rem;font-weight:600;color:#6B4226;text-decoration:none;border-bottom:1px dashed #c9a96e;transition:color 0.2s" onmouseover="this.style.color=\'#a0714f\'" onmouseout="this.style.color=\'#6B4226\'">' + (c.doctorName || '') + '</a>' : '<span style="font-size:0.82rem;font-weight:600;color:#333">' + (c.doctorName || '') + '</span>') +
+      '</div>' +
+      // ── 텍스트 정보 영역 (이미지 바깥) ──
+      '<div class="gc-body">' +
+        '<div class="gc-meta-row">' +
+          catHtml + periodHtml +
+        '</div>' +
+        '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
+        '<div class="gc-doctor">' +
+          '<div class="gc-doctor-avatar">' + doctorInitial + '</div>' +
+          doctorHtml +
         '</div>' +
       '</div>' +
     '</a>';
