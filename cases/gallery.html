@@ -88,169 +88,195 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .image-modal-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
     .image-modal-meta { display: flex; gap: 16px; margin-top: 12px; font-size: 0.88rem; color: var(--text-secondary); }
 
-    /* ===== Gallery Card v6: 사진 위에 정보가 오버레이된 완전 통합 카드 ===== */
+    /* ===== Gallery Card v7: 비포사진 + 전체정보 통합 카드 ===== */
     .gallery-grid {
       display: grid !important;
       grid-template-columns: repeat(3, 1fr) !important;
       gap: 24px !important;
-      max-width: 1100px !important;
+      max-width: 1140px !important;
       margin: 0 auto !important;
       padding: 0 24px !important;
     }
 
-    /* 카드: 하나의 덩어리 */
+    /* ── 카드 본체 ── */
     .gc-card {
-      display: block !important;
+      display: flex !important;
+      flex-direction: column !important;
       text-decoration: none !important;
       color: inherit !important;
-      border-radius: 16px !important;
+      background: #fff !important;
+      border-radius: 14px !important;
       overflow: hidden !important;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12) !important;
-      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-      position: relative !important;
+      border: 1px solid #eee !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+      transition: transform 0.3s, box-shadow 0.3s !important;
     }
     .gc-card:hover {
-      transform: translateY(-6px) scale(1.02) !important;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.2) !important;
+      transform: translateY(-4px) !important;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.13) !important;
+      border-color: rgba(107,66,38,0.2) !important;
     }
 
-    /* 비주얼 래퍼: 사진 + 오버레이를 감싸는 단일 컨테이너 */
-    .gc-visual {
-      position: relative !important;
-      width: 100% !important;
-      aspect-ratio: 3/4 !important;
-      overflow: hidden !important;
-      background: #1a1a1a !important;
+    /* ── 사진 영역 ── */
+    .gc-photo {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f7f3ef 0%, #ede6dd 100%);
+      flex-shrink: 0;
     }
-
-    /* 사진 */
     .gc-img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      display: block !important;
-      transition: transform 0.5s ease !important;
-    }
-    .gc-card:hover .gc-img { transform: scale(1.06) !important; }
-    .gc-img-placeholder {
       width: 100%; height: 100%;
-      background: linear-gradient(135deg, #3d2b1f, #5a3d2b);
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,0.15); font-size: 3.5rem;
+      object-fit: cover; display: block;
+      transition: transform 0.4s ease;
+    }
+    .gc-card:hover .gc-img { transform: scale(1.05); }
+
+    /* 이미지 없을 때 플레이스홀더 */
+    .gc-ph {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      background: linear-gradient(135deg, #f5efe8 0%, #e8ddd0 100%);
+      color: rgba(107,66,38,0.25);
+    }
+    .gc-ph i { font-size: 2.8rem; }
+    .gc-ph span { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; }
+
+    /* 사진 위 뱃지들 */
+    .gc-photo-badges {
+      position: absolute;
+      top: 10px; left: 10px; right: 10px;
+      display: flex; justify-content: space-between;
+      align-items: flex-start;
+      z-index: 2; pointer-events: none;
+    }
+    .gc-before-label {
+      padding: 4px 12px;
+      background: rgba(107,66,38,0.85);
+      color: #fff;
+      border-radius: 6px;
+      font-size: 0.6rem; font-weight: 800;
+      letter-spacing: 0.06em;
+      backdrop-filter: blur(6px);
+    }
+    .gc-type-tag {
+      padding: 3px 9px;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      border-radius: 6px;
+      font-size: 0.58rem; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 3px;
+      backdrop-filter: blur(6px);
+    }
+    .gc-type-pano { background: rgba(59,130,246,0.7); }
+
+    /* ── 컨텐츠 영역 ── */
+    .gc-content {
+      display: flex; flex-direction: column;
+      padding: 16px 18px 14px;
+      gap: 10px; flex: 1;
     }
 
-    /* 오버레이: 사진 위에 깔리는 그라데이션 + 정보 */
-    .gc-overlay {
-      position: absolute !important;
-      inset: 0 !important;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: space-between !important;
-      padding: 14px !important;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.15) 0%,
-        transparent 35%,
-        transparent 45%,
-        rgba(0,0,0,0.65) 100%
-      ) !important;
-      z-index: 2 !important;
-      pointer-events: none !important;
+    /* 태그 행 */
+    .gc-tags {
+      display: flex; align-items: center;
+      gap: 8px; flex-wrap: wrap;
     }
-
-    /* 오버레이 상단: BEFORE/AFTER + 구내/파노 뱃지 */
-    .gc-overlay-top {
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: flex-start !important;
-    }
-    .gc-ba-badges { display: flex; gap: 5px; }
-    .gc-type-badges { display: flex; gap: 5px; }
-    .gc-badge {
-      padding: 4px 10px; border-radius: 20px;
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.03em;
-      display: inline-flex; align-items: center; gap: 4px;
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    }
-    .gc-badge-before { background: rgba(0,0,0,0.5); color: #fff; }
-    .gc-badge-after  { background: rgba(107,66,38,0.85); color: #fff; }
-    .gc-badge-intra  { background: rgba(168,85,247,0.75); color: #fff; }
-    .gc-badge-pano   { background: rgba(59,130,246,0.75); color: #fff; }
-
-    /* 오버레이 하단: 카테고리 + 제목 + 원장 */
-    .gc-overlay-bottom {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 6px !important;
-    }
-
-    /* 카테고리 + 기간 행 */
-    .gc-info-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .gc-cat {
-      display: inline-block; padding: 3px 11px;
-      background: rgba(255,255,255,0.2); color: #fff;
-      border-radius: 20px; font-size: 0.68rem; font-weight: 700;
-      text-decoration: none; pointer-events: auto;
-      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 12px;
+      background: rgba(107,66,38,0.08);
+      color: var(--brand, #6B4226);
+      border-radius: 20px;
+      font-size: 0.72rem; font-weight: 700;
+      text-decoration: none;
+      pointer-events: auto;
       transition: background 0.2s;
     }
-    .gc-cat:hover { background: rgba(255,255,255,0.35); color: #fff; }
+    .gc-cat i { font-size: 0.6rem; }
+    .gc-cat:hover { background: rgba(107,66,38,0.15); }
     .gc-period {
-      font-size: 0.7rem; color: rgba(255,255,255,0.8);
+      font-size: 0.72rem;
+      color: var(--text-secondary, #78716C);
       display: inline-flex; align-items: center; gap: 4px;
     }
-    .gc-period i { font-size: 0.58rem; }
+    .gc-period i { font-size: 0.6rem; }
+    .gc-img-count {
+      font-size: 0.68rem;
+      color: var(--text-tertiary, #a8a29e);
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-left: auto;
+    }
 
     /* 제목 */
     .gc-title {
-      font-size: 0.95rem; font-weight: 700; color: #fff;
-      line-height: 1.35; text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      font-size: 1rem; font-weight: 800;
+      color: var(--text-primary, #1C1917);
+      line-height: 1.4; letter-spacing: -0.01em;
       display: -webkit-box; -webkit-line-clamp: 2;
       -webkit-box-orient: vertical; overflow: hidden;
     }
 
-    /* 담당 원장 */
-    .gc-doctor {
-      display: flex; align-items: center; gap: 8px;
-      margin-top: 2px; pointer-events: auto;
+    /* 설명 */
+    .gc-desc {
+      font-size: 0.82rem; line-height: 1.6;
+      color: var(--text-secondary, #78716C);
+      display: -webkit-box; -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden;
+      margin: 0;
     }
-    .gc-doctor-avatar {
-      width: 26px; height: 26px; border-radius: 50%;
-      background: rgba(255,255,255,0.25); backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 0.62rem; font-weight: 800;
-      flex-shrink: 0; border: 1.5px solid rgba(255,255,255,0.4);
-    }
-    .gc-doctor-link,
-    .gc-doctor-name {
-      font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.9);
-      text-decoration: none; text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-    .gc-doctor-link:hover { color: #fff; }
 
-    /* === 반응형 === */
+    /* 하단: 원장 + 자세히보기 */
+    .gc-footer {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-color, #eee);
+    }
+    .gc-doc {
+      display: flex; align-items: center; gap: 8px;
+      pointer-events: auto;
+    }
+    .gc-doc-avatar {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, #6B4226, #a0714f);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 0.65rem; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .gc-doc-link,
+    .gc-doc-name {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--text-primary, #1C1917);
+      text-decoration: none;
+    }
+    .gc-doc-link:hover { color: var(--brand, #6B4226); }
+    .gc-more {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--brand, #6B4226);
+      display: inline-flex; align-items: center; gap: 4px;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .gc-more i { font-size: 0.6rem; transition: transform 0.2s; }
+    .gc-card:hover .gc-more { opacity: 1; }
+    .gc-card:hover .gc-more i { transform: translateX(3px); }
+
+    /* ── 반응형 ── */
     @media (max-width: 860px) {
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 18px !important;
-        max-width: 700px !important;
-      }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 18px !important; }
     }
     @media (max-width: 540px) {
-      .gallery-grid {
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
-        padding: 0 16px !important;
-        max-width: 400px !important;
-      }
-      .gc-visual { aspect-ratio: 3/4 !important; }
-      .gc-overlay { padding: 12px !important; }
-      .gc-title { font-size: 0.88rem; }
-      .gc-badge { font-size: 0.56rem; padding: 3px 8px; }
-      .gc-cat { font-size: 0.62rem; padding: 2px 9px; }
-      .gc-doctor-avatar { width: 22px; height: 22px; font-size: 0.54rem; }
-      .gc-doctor-link, .gc-doctor-name { font-size: 0.72rem; }
-      .gc-period { font-size: 0.62rem; }
+      .gallery-grid { grid-template-columns: 1fr !important; gap: 16px !important; padding: 0 16px !important; max-width: 420px !important; }
+      .gc-content { padding: 14px 14px 12px; gap: 8px; }
+      .gc-title { font-size: 0.92rem; }
+      .gc-desc { font-size: 0.78rem; -webkit-line-clamp: 2; }
+      .gc-cat { font-size: 0.66rem; padding: 3px 10px; }
+      .gc-doc-avatar { width: 24px; height: 24px; font-size: 0.58rem; }
+      .gc-doc-link, .gc-doc-name { font-size: 0.74rem; }
+      .gc-more { opacity: 1; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     }
   </style>
@@ -829,7 +855,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
-  <script src="/js/gallery-cf40203e.js" defer></script>
+  <script src="/js/gallery-cb60c544.js" defer></script>
   <script>
     function closeImageModal() {
       var m = document.getElementById('imageModal');

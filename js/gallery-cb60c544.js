@@ -1,9 +1,7 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템
- * - R2 API 연동 (동적 데이터)
- * - 카테고리 필터링 (24개 진료 카테고리 대응)
- * - 로그인 여부에 따른 잠금/열림 표시
- * - 반응형 카드 레이아웃
+ * 서울비디치과 비포/애프터 갤러리 시스템 v7
+ * - 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 카드
+ * - 이미지 없는 케이스도 예쁜 플레이스홀더
  */
 (function() {
   'use strict';
@@ -12,7 +10,6 @@
   var currentFilter = 'all';
   var isLoggedIn = false;
 
-  // 카테고리 → 필터 그룹 매핑 (admin 업로드 카테고리와 일치)
   var filterGroupMap = {
     'implant': 'implant',
     'invisalign': 'invisalign',
@@ -24,12 +21,12 @@
     'whitening': 'whitening',
     'cavity': 'general', 'crown': 'general', 'inlay': 'general',
     'root-canal': 'general', 're-root-canal': 'general', 'bridge': 'general', 'denture': 'general',
-    'sedation': 'general', 'prevention': 'general',  // sedation도 일반치료 그룹 'tmj': 'general', 'bruxism': 'general', 'emergency': 'general',
+    'sedation': 'general', 'prevention': 'general',
+    'tmj': 'general', 'bruxism': 'general', 'emergency': 'general',
     'scaling': 'gum', 'gum': 'gum', 'periodontitis': 'gum', 'gum-surgery': 'gum',
     'wisdom-tooth': 'gum', 'apicoectomy': 'gum'
   };
 
-  // 카테고리 한글 라벨
   var CATS = {
     implant:'임플란트', invisalign:'인비절라인', orthodontics:'치아교정', pediatric:'소아치과',
     'front-crown':'앞니크라운',
@@ -43,76 +40,118 @@
     tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
   };
 
-  // 이미지 유무 확인 (API가 hasIntraoral, hasPano, hasAnyImage 플래그 제공)
-  function getImgCount(c) {
-    var cnt = 0;
-    if (c.hasIntraoral || (c.beforeImage && !c.beforeImage.includes('favicon'))) cnt++;
-    if (c.afterImage) cnt++;
-    if (c.hasPano || c.panBeforeImage) cnt++;
-    if (c.panAfterImage) cnt++;
-    return cnt;
+  // 카테고리별 아이콘
+  var CAT_ICONS = {
+    implant:'fa-tooth', invisalign:'fa-teeth-open', orthodontics:'fa-teeth',
+    pediatric:'fa-baby', 'front-crown':'fa-crown',
+    aesthetic:'fa-sparkles', glownate:'fa-gem', cavity:'fa-fill-drip',
+    resin:'fa-fill', crown:'fa-crown', inlay:'fa-puzzle-piece',
+    'root-canal':'fa-syringe', 're-root-canal':'fa-syringe',
+    whitening:'fa-sun', bridge:'fa-bridge', denture:'fa-teeth',
+    scaling:'fa-broom', gum:'fa-hand-holding-medical', periodontitis:'fa-disease',
+    'gum-surgery':'fa-scalpel', 'wisdom-tooth':'fa-tooth',
+    apicoectomy:'fa-cut', sedation:'fa-bed', prevention:'fa-shield-alt',
+    tmj:'fa-head-side', bruxism:'fa-compress', emergency:'fa-ambulance'
+  };
+
+  // 설명 텍스트 정리 (체크마크, 번호 등 제거하고 첫 문장만)
+  function cleanDesc(desc) {
+    if (!desc) return '';
+    // 첫 줄만 (빈줄 이전까지)
+    var firstPara = desc.split(/\n\s*\n/)[0] || '';
+    // 이모지/특수문자 정리
+    firstPara = firstPara.replace(/[✅❌⭐🔹🔸▶►●•]/g, '').replace(/^\d+\.\s*/gm, '').trim();
+    // 줄바꿈을 공백으로
+    firstPara = firstPara.replace(/\n/g, ' ').trim();
+    // 최대 80자
+    if (firstPara.length > 80) firstPara = firstPara.substring(0, 80) + '…';
+    return firstPara;
   }
 
-  // 카드 렌더링 — v6: 사진+정보 완전 통합 카드 (하나의 카드 안에 전부)
+  // ─── 카드 렌더링 v7: 비포사진 + 모든 정보 하나의 카드 ───
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
     var catSlugMap = { 'front-crown': 'crown' };
     var treatmentSlug = catSlugMap[c.category] || c.category;
     var hasIntraoral = c.hasIntraoral || (c.beforeImage && !c.beforeImage.includes('favicon'));
     var hasPano = c.hasPano || c.panBeforeImage || c.panAfterImage;
+    // 비포 사진만 표시 (애프터 사진은 숨김)
     var imgSrc = c.thumbnailImage || c.beforeImage || c.panBeforeImage || '';
     var hasAnyImage = c.hasAnyImage || !!imgSrc;
+    var catIcon = CAT_ICONS[c.category] || 'fa-tooth';
 
     // 이미지 유형 뱃지
     var typeBadges = '';
-    if (hasIntraoral) typeBadges += '<span class="gc-badge gc-badge-intra"><i class="fas fa-camera"></i> 구내</span>';
-    if (hasPano) typeBadges += '<span class="gc-badge gc-badge-pano"><i class="fas fa-x-ray"></i> 파노</span>';
+    if (hasIntraoral) typeBadges += '<span class="gc-type-tag"><i class="fas fa-camera"></i> 구내</span>';
+    if (hasPano) typeBadges += '<span class="gc-type-tag gc-type-pano"><i class="fas fa-x-ray"></i> 파노</span>';
 
-    // 이미지
-    var imgTag;
+    // 비포 사진 또는 예쁜 플레이스홀더
+    var photoHtml;
     if (hasAnyImage && imgSrc) {
-      imgTag = '<img src="' + imgSrc + '" alt="' + (c.title || 'Before/After') + '" class="gc-img" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
-               '<div class="gc-img-placeholder" style="display:none"><i class="fas fa-teeth"></i></div>';
+      photoHtml =
+        '<div class="gc-photo">' +
+          '<img src="' + imgSrc + '" alt="' + (c.title || 'Before') + '" class="gc-img" loading="lazy" ' +
+            'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+          '<div class="gc-ph" style="display:none"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
+          '<div class="gc-photo-badges">' +
+            '<span class="gc-before-label">BEFORE</span>' +
+            typeBadges +
+          '</div>' +
+        '</div>';
     } else {
-      imgTag = '<div class="gc-img-placeholder"><i class="fas fa-teeth"></i></div>';
+      photoHtml =
+        '<div class="gc-photo">' +
+          '<div class="gc-ph"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
+          '<div class="gc-photo-badges">' +
+            '<span class="gc-before-label">BEFORE</span>' +
+          '</div>' +
+        '</div>';
     }
 
     // 카테고리
     var catHtml = c.category
-      ? '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-cat">' + catLabel + '</a>'
-      : '<span class="gc-cat">' + catLabel + '</span>';
+      ? '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</a>'
+      : '<span class="gc-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</span>';
 
     // 기간
     var periodHtml = c.treatmentPeriod
-      ? '<span class="gc-period"><i class="fas fa-clock"></i> ' + c.treatmentPeriod + '</span>'
+      ? '<span class="gc-period"><i class="far fa-clock"></i> ' + c.treatmentPeriod + '</span>'
       : '';
 
-    // 의사
+    // 설명 (2~3줄)
+    var desc = cleanDesc(c.description);
+    var descHtml = desc
+      ? '<p class="gc-desc">' + desc + '</p>'
+      : '';
+
+    // 담당 원장
     var doctorInitial = (c.doctorName || '?').charAt(0);
     var doctorHtml = c.doctorSlug
-      ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doctor-link">' + (c.doctorName || '') + '</a>'
-      : '<span class="gc-doctor-name">' + (c.doctorName || '') + '</span>';
+      ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doc-link">' + (c.doctorName || '') + '</a>'
+      : '<span class="gc-doc-name">' + (c.doctorName || '') + '</span>';
 
-    // ─── 하나의 통합 카드: 사진 + 모든 정보가 한 박스 안에 ───
+    // 이미지 수 표시
+    var imgCount = 0;
+    if (c.beforeImage) imgCount++;
+    if (c.afterImage) imgCount++;
+    if (c.panBeforeImage) imgCount++;
+    if (c.panAfterImage) imgCount++;
+    var imgCountHtml = imgCount > 0
+      ? '<span class="gc-img-count"><i class="far fa-images"></i> ' + imgCount + '장</span>'
+      : '';
+
     return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '">' +
-      '<div class="gc-visual">' +
-        imgTag +
-        '<div class="gc-overlay">' +
-          '<div class="gc-overlay-top">' +
-            '<div class="gc-ba-badges">' +
-              '<span class="gc-badge gc-badge-before">BEFORE</span>' +
-              '<span class="gc-badge gc-badge-after">AFTER</span>' +
-            '</div>' +
-            (typeBadges ? '<div class="gc-type-badges">' + typeBadges + '</div>' : '') +
+      photoHtml +
+      '<div class="gc-content">' +
+        '<div class="gc-tags">' + catHtml + periodHtml + imgCountHtml + '</div>' +
+        '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
+        descHtml +
+        '<div class="gc-footer">' +
+          '<div class="gc-doc">' +
+            '<div class="gc-doc-avatar">' + doctorInitial + '</div>' +
+            doctorHtml +
           '</div>' +
-          '<div class="gc-overlay-bottom">' +
-            '<div class="gc-info-row">' + catHtml + periodHtml + '</div>' +
-            '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
-            '<div class="gc-doctor">' +
-              '<div class="gc-doctor-avatar">' + doctorInitial + '</div>' +
-              doctorHtml +
-            '</div>' +
-          '</div>' +
+          '<span class="gc-more">자세히 보기 <i class="fas fa-arrow-right"></i></span>' +
         '</div>' +
       '</div>' +
     '</a>';
@@ -125,7 +164,6 @@
     var empty = document.getElementById('emptyState');
     if (!grid) return;
 
-    // 최신 케이스가 위로 (createdAt 내림차순)
     var sorted = cases.slice().sort(function(a, b) {
       return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
     });
@@ -153,7 +191,7 @@
     grid.innerHTML = html;
   }
 
-  // 통계 업데이트
+  // 통계
   function updateStats() {
     var counts = { all: cases.length, implant: 0, invisalign: 0, orthodontics: 0, 'front-crown': 0, aesthetic: 0, glownate: 0, resin: 0, whitening: 0, general: 0, gum: 0 };
     cases.forEach(function(c) {
@@ -181,44 +219,30 @@
     if (document.getElementById('statAesthetic')) document.getElementById('statAesthetic').textContent = (counts.aesthetic || 0);
   }
 
-  // R2에서 케이스 로드
   async function loadCasesFromAPI() {
     try {
       var res = await fetch('/api/cases');
-      if (res.ok) {
-        cases = await res.json();
-      }
+      if (res.ok) { cases = await res.json(); }
     } catch(e) {
       console.warn('케이스 로드 실패:', e);
       cases = [];
     }
   }
 
-  // 로그인 상태 확인 (gnb.js의 전역 상태도 활용)
   async function checkAuth() {
     try {
-      // gnb.js가 이미 /api/auth/me를 호출했으면 그 결과를 쓴다
-      if (window.__bdAuth && window.__bdAuth.loggedIn) {
-        isLoggedIn = true;
-        return;
-      }
+      if (window.__bdAuth && window.__bdAuth.loggedIn) { isLoggedIn = true; return; }
       var res = await fetch('/api/auth/me');
       var data = await res.json();
       isLoggedIn = data.loggedIn || false;
-    } catch(e) {
-      isLoggedIn = false;
-    }
+    } catch(e) { isLoggedIn = false; }
   }
 
-  // 초기화
   document.addEventListener('DOMContentLoaded', async function() {
-    // 병렬 로드
     await Promise.all([loadCasesFromAPI(), checkAuth()]);
-
     updateStats();
     renderGallery('all');
 
-    // 필터 버튼 바인딩
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -227,7 +251,5 @@
         renderGallery(currentFilter);
       });
     });
-
-    // 헤더 로그인 상태 업데이트는 gnb.js의 initAuthSync()가 담당
   });
 })();
