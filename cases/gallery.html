@@ -88,23 +88,23 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .image-modal-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
     .image-modal-meta { display: flex; gap: 16px; margin-top: 12px; font-size: 0.88rem; color: var(--text-secondary); }
 
-    /* ===== Gallery Card v10: Weglot-safe — <div> 카드 + JS 네비게이션 ===== */
+    /* ===== Gallery Card v11: Premium Medical Portfolio + Login Gate ===== */
 
-    /* 그리드: site-v5.css 완전 무시 */
+    /* ── 그리드: site-v5.css 완전 오버라이드 ── */
     .gallery-grid,
     div.gallery-grid,
     #galleryGrid,
     #galleryGrid.gallery-grid {
       display: grid !important;
       grid-template-columns: repeat(3, 1fr) !important;
-      gap: 24px !important;
-      max-width: 1120px !important;
+      gap: 28px !important;
+      max-width: 1200px !important;
       margin: 0 auto !important;
-      padding: 0 24px !important;
+      padding: 0 28px !important;
       align-items: start !important;
     }
 
-    /* 카드: 절대 쪼개지지 않는 단일 블록 (Weglot-safe: div 사용) */
+    /* ── 카드: Weglot-safe <div> 블록 ── */
     div.gc-card,
     .gc-card,
     .gallery-grid > .gc-card,
@@ -113,28 +113,34 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       flex-direction: column !important;
       position: relative !important;
       background: #ffffff !important;
-      border-radius: 16px !important;
+      border-radius: 20px !important;
       overflow: hidden !important;
       border: none !important;
-      box-shadow: 0 2px 12px rgba(107,66,38,0.08), 0 0 0 1px rgba(107,66,38,0.06) !important;
+      box-shadow:
+        0 1px 3px rgba(0,0,0,0.04),
+        0 4px 16px rgba(107,66,38,0.06),
+        0 0 0 1px rgba(107,66,38,0.04) !important;
       text-decoration: none !important;
       color: inherit !important;
       cursor: pointer !important;
-      transition: transform 0.3s cubic-bezier(.22,.68,0,1.2), box-shadow 0.3s ease !important;
+      transition: all 0.35s cubic-bezier(.22,.68,0,1.15) !important;
     }
     div.gc-card:hover,
     .gc-card:hover {
-      transform: translateY(-6px) scale(1.01) !important;
-      box-shadow: 0 16px 48px rgba(107,66,38,0.15), 0 0 0 1px rgba(107,66,38,0.1) !important;
+      transform: translateY(-8px) !important;
+      box-shadow:
+        0 8px 30px rgba(107,66,38,0.12),
+        0 20px 60px rgba(107,66,38,0.08),
+        0 0 0 1px rgba(107,66,38,0.08) !important;
     }
 
-    /* ── 사진 영역: 카드 상단 ── */
+    /* ── 사진 영역 ── */
     .gc-photo {
       position: relative !important;
       width: 100% !important;
-      aspect-ratio: 4 / 3 !important;
+      height: 200px !important;
       overflow: hidden !important;
-      background: linear-gradient(135deg, #f7f1ea 0%, #ece3d8 100%) !important;
+      background: linear-gradient(145deg, #faf7f4 0%, #f0e9e0 100%) !important;
       flex-shrink: 0 !important;
     }
     .gc-img {
@@ -142,14 +148,14 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       height: 100% !important;
       object-fit: cover !important;
       display: block !important;
-      transition: transform 0.5s cubic-bezier(.22,.68,0,1.2) !important;
+      transition: transform 0.6s cubic-bezier(.22,.68,0,1.15) !important;
     }
     div.gc-card:hover .gc-img,
     .gc-card:hover .gc-img {
-      transform: scale(1.06) !important;
+      transform: scale(1.08) !important;
     }
 
-    /* 이미지 없을 때 플레이스홀더 */
+    /* 플레이스홀더 */
     .gc-ph {
       width: 100% !important;
       height: 100% !important;
@@ -157,217 +163,406 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
-      gap: 8px !important;
-      background: linear-gradient(145deg, #f7f1ea, #ece3d8) !important;
+      gap: 10px !important;
+      background: linear-gradient(145deg, #faf7f4, #f0e9e0) !important;
       color: #c8a97e !important;
     }
-    .gc-ph i { font-size: 2.4rem !important; opacity: 0.4 !important; }
-    .gc-ph span { font-size: 0.72rem !important; font-weight: 600 !important; opacity: 0.5 !important; letter-spacing: 0.02em !important; }
+    .gc-ph i { font-size: 2.2rem !important; opacity: 0.35 !important; }
+    .gc-ph span { font-size: 0.7rem !important; font-weight: 600 !important; opacity: 0.45 !important; letter-spacing: 0.04em !important; }
 
-    /* 사진 위 BEFORE 뱃지 + 이미지 유형 */
-    .gc-photo-badges {
+    /* 사진 위 뱃지 오버레이 */
+    .gc-photo-overlay {
       position: absolute !important;
-      top: 10px !important;
-      left: 10px !important;
-      right: 10px !important;
+      top: 12px !important;
+      left: 12px !important;
+      right: 12px !important;
       display: flex !important;
       justify-content: space-between !important;
       align-items: flex-start !important;
-      z-index: 2 !important;
+      z-index: 3 !important;
       pointer-events: none !important;
     }
-    .gc-before-label {
-      padding: 4px 12px !important;
+    .gc-badge-before {
+      padding: 5px 14px !important;
       background: linear-gradient(135deg, #6B4226, #8B5E3C) !important;
       color: #fff !important;
-      border-radius: 6px !important;
-      font-size: 0.6rem !important;
+      border-radius: 8px !important;
+      font-size: 0.58rem !important;
       font-weight: 800 !important;
-      letter-spacing: 0.1em !important;
+      letter-spacing: 0.12em !important;
       text-transform: uppercase !important;
-      box-shadow: 0 2px 8px rgba(107,66,38,0.3) !important;
+      box-shadow: 0 2px 10px rgba(107,66,38,0.35) !important;
     }
-    .gc-badges-right {
+    .gc-badge-types {
       display: flex !important;
-      gap: 4px !important;
+      gap: 5px !important;
     }
-    .gc-type-tag {
-      padding: 3px 8px !important;
-      background: rgba(0,0,0,0.45) !important;
+    .gc-badge-type {
+      padding: 4px 10px !important;
+      background: rgba(0,0,0,0.5) !important;
       color: #fff !important;
-      border-radius: 5px !important;
-      font-size: 0.56rem !important;
+      border-radius: 6px !important;
+      font-size: 0.55rem !important;
       font-weight: 700 !important;
       display: inline-flex !important;
       align-items: center !important;
-      gap: 3px !important;
-      backdrop-filter: blur(6px) !important;
-      -webkit-backdrop-filter: blur(6px) !important;
+      gap: 4px !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
     }
-    .gc-type-pano { background: rgba(59,130,246,0.65) !important; }
+    .gc-badge-pano { background: rgba(59,130,246,0.6) !important; }
 
-    /* 사진 하단 그라데이션 (부드러운 전환) */
+    /* 사진 수 뱃지 (우하단) */
+    .gc-photo-count {
+      position: absolute !important;
+      bottom: 10px !important;
+      right: 12px !important;
+      padding: 4px 10px !important;
+      background: rgba(0,0,0,0.55) !important;
+      color: #fff !important;
+      border-radius: 6px !important;
+      font-size: 0.6rem !important;
+      font-weight: 700 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 4px !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      z-index: 3 !important;
+    }
+
+    /* 로그인 힌트 (비로그인 시 사진 하단) */
+    .gc-login-hint {
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      padding: 8px 14px !important;
+      background: linear-gradient(to top, rgba(107,66,38,0.9) 0%, rgba(107,66,38,0.7) 60%, transparent 100%) !important;
+      color: #fff !important;
+      font-size: 0.65rem !important;
+      font-weight: 600 !important;
+      text-align: center !important;
+      z-index: 4 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 6px !important;
+      letter-spacing: 0.01em !important;
+    }
+    .gc-login-hint i {
+      font-size: 0.55rem !important;
+    }
+
+    /* 사진→텍스트 부드러운 전환 */
     .gc-photo::after {
       content: '' !important;
       position: absolute !important;
       bottom: 0 !important;
       left: 0 !important;
       right: 0 !important;
-      height: 40px !important;
-      background: linear-gradient(to top, rgba(255,255,255,0.6), transparent) !important;
+      height: 50px !important;
+      background: linear-gradient(to top, rgba(255,255,255,0.8), transparent) !important;
       pointer-events: none !important;
-      z-index: 1 !important;
+      z-index: 2 !important;
     }
 
     /* ── 텍스트 영역 ── */
-    .gc-content {
+    .gc-body {
       display: flex !important;
       flex-direction: column !important;
-      padding: 16px 18px 14px !important;
-      gap: 8px !important;
+      padding: 18px 20px 16px !important;
+      gap: 10px !important;
       flex: 1 1 auto !important;
       min-height: 0 !important;
     }
 
-    /* 상단: 카테고리 + 기간 + 사진수 */
-    .gc-tags {
+    /* 메타: 카테고리 + 기간 */
+    .gc-meta {
       display: flex !important;
       align-items: center !important;
-      gap: 8px !important;
+      gap: 10px !important;
       flex-wrap: wrap !important;
       flex-shrink: 0 !important;
     }
-    .gc-cat {
+    .gc-category {
       display: inline-flex !important;
       align-items: center !important;
-      gap: 4px !important;
-      padding: 3px 10px !important;
-      background: linear-gradient(135deg, rgba(107,66,38,0.08), rgba(107,66,38,0.04)) !important;
+      gap: 5px !important;
+      padding: 4px 12px !important;
+      background: #faf7f4 !important;
       color: #6B4226 !important;
       border-radius: 20px !important;
       font-size: 0.7rem !important;
       font-weight: 700 !important;
       text-decoration: none !important;
       pointer-events: auto !important;
-      transition: background 0.2s !important;
-      border: 1px solid rgba(107,66,38,0.08) !important;
+      transition: all 0.2s !important;
+      border: 1px solid rgba(107,66,38,0.1) !important;
     }
-    .gc-cat i { font-size: 0.58rem !important; }
-    .gc-cat:hover { background: rgba(107,66,38,0.14) !important; }
+    .gc-category i { font-size: 0.58rem !important; }
+    .gc-category:hover {
+      background: rgba(107,66,38,0.12) !important;
+      border-color: rgba(107,66,38,0.2) !important;
+    }
     .gc-period {
-      font-size: 0.68rem !important;
+      font-size: 0.7rem !important;
       color: #a8a29e !important;
       display: inline-flex !important;
       align-items: center !important;
-      gap: 3px !important;
+      gap: 4px !important;
+      font-weight: 500 !important;
     }
-    .gc-period i { font-size: 0.56rem !important; }
-    .gc-img-count {
-      font-size: 0.64rem !important;
-      color: #a8a29e !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 3px !important;
-      margin-left: auto !important;
-    }
+    .gc-period i { font-size: 0.56rem !important; color: #c5b8aa !important; }
 
     /* 제목 */
     .gc-title {
-      font-size: 0.95rem !important;
+      font-size: 1rem !important;
       font-weight: 800 !important;
       color: #1C1917 !important;
-      line-height: 1.4 !important;
+      line-height: 1.45 !important;
       display: -webkit-box !important;
       -webkit-line-clamp: 2 !important;
       -webkit-box-orient: vertical !important;
       overflow: hidden !important;
       flex-shrink: 0 !important;
-      letter-spacing: -0.01em !important;
+      letter-spacing: -0.02em !important;
+      margin: 0 !important;
     }
 
-    /* 설명 */
+    /* 설명 (3줄!) */
     .gc-desc {
-      font-size: 0.8rem !important;
-      line-height: 1.6 !important;
+      font-size: 0.82rem !important;
+      line-height: 1.65 !important;
       color: #78716C !important;
       display: -webkit-box !important;
-      -webkit-line-clamp: 2 !important;
+      -webkit-line-clamp: 3 !important;
       -webkit-box-orient: vertical !important;
       overflow: hidden !important;
       margin: 0 !important;
       flex: 0 1 auto !important;
+      word-break: keep-all !important;
     }
 
     /* 하단: 원장 + CTA */
-    .gc-footer {
+    .gc-bottom {
       display: flex !important;
       align-items: center !important;
       justify-content: space-between !important;
       margin-top: auto !important;
-      padding-top: 10px !important;
+      padding-top: 12px !important;
       border-top: 1px solid #f5f0eb !important;
       flex-shrink: 0 !important;
     }
-    .gc-doc {
+    .gc-doctor {
       display: flex !important;
       align-items: center !important;
       gap: 8px !important;
       pointer-events: auto !important;
     }
-    .gc-doc-avatar {
-      width: 26px !important;
-      height: 26px !important;
+    .gc-avatar {
+      width: 28px !important;
+      height: 28px !important;
       border-radius: 50% !important;
-      background: linear-gradient(135deg, #6B4226, #a0714f) !important;
+      background: linear-gradient(135deg, #6B4226 0%, #a0714f 100%) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       color: #fff !important;
-      font-size: 0.6rem !important;
+      font-size: 0.62rem !important;
       font-weight: 800 !important;
       flex-shrink: 0 !important;
-      box-shadow: 0 1px 3px rgba(107,66,38,0.2) !important;
+      box-shadow: 0 2px 6px rgba(107,66,38,0.2) !important;
     }
-    .gc-doc-link,
-    .gc-doc-name {
-      font-size: 0.78rem !important;
+    .gc-doctor-link,
+    .gc-doctor-name {
+      font-size: 0.8rem !important;
       font-weight: 600 !important;
       color: #44403C !important;
       text-decoration: none !important;
     }
-    .gc-doc-link:hover { color: #6B4226 !important; }
-    .gc-more {
-      font-size: 0.7rem !important;
+    .gc-doctor-link:hover { color: #6B4226 !important; text-decoration: underline !important; }
+    .gc-cta {
+      font-size: 0.72rem !important;
       font-weight: 700 !important;
       color: #6B4226 !important;
       display: inline-flex !important;
       align-items: center !important;
-      gap: 4px !important;
+      gap: 5px !important;
       opacity: 0 !important;
-      transition: opacity 0.25s, transform 0.25s !important;
+      transform: translateX(-4px) !important;
+      transition: opacity 0.3s, transform 0.3s !important;
     }
-    .gc-more i {
-      font-size: 0.58rem !important;
-      transition: transform 0.25s !important;
+    .gc-cta i {
+      font-size: 0.56rem !important;
+      transition: transform 0.3s !important;
     }
-    div.gc-card:hover .gc-more,
-    .gc-card:hover .gc-more {
+    div.gc-card:hover .gc-cta,
+    .gc-card:hover .gc-cta {
       opacity: 1 !important;
+      transform: translateX(0) !important;
     }
-    div.gc-card:hover .gc-more i,
-    .gc-card:hover .gc-more i {
+    div.gc-card:hover .gc-cta i,
+    .gc-card:hover .gc-cta i {
       transform: translateX(3px) !important;
     }
 
+    /* ── 로그인 모달 ── */
+    .login-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-modal.active {
+      display: flex;
+    }
+    .login-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .login-modal-card {
+      position: relative;
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px 36px 32px;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: loginModalIn 0.35s cubic-bezier(.22,.68,0,1.15);
+    }
+    @keyframes loginModalIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .login-modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      border: none;
+      background: #f5f5f4;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #78716c;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .login-modal-close:hover { background: #e7e5e4; color: #44403c; }
+    .login-modal-icon {
+      margin-bottom: 20px;
+    }
+    .login-modal-icon-ring {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #faf7f4, #f0e9e0);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #6B4226;
+      font-size: 1.4rem;
+      border: 2px solid rgba(107,66,38,0.1);
+    }
+    .login-modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #1c1917;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+    }
+    .login-modal-desc {
+      font-size: 0.88rem;
+      color: #78716c;
+      line-height: 1.6;
+      margin: 0 0 20px;
+    }
+    .login-modal-benefits {
+      background: #faf7f4;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .login-modal-benefit {
+      font-size: 0.82rem;
+      color: #44403c;
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .login-modal-benefit i {
+      color: #6B4226;
+      font-size: 0.78rem;
+      flex-shrink: 0;
+    }
+    .login-modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .login-modal-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .login-modal-btn-primary {
+      background: linear-gradient(135deg, #6B4226, #8B5E3C);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(107,66,38,0.25);
+    }
+    .login-modal-btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(107,66,38,0.35);
+      color: #fff;
+    }
+    .login-modal-btn-secondary {
+      background: #faf7f4;
+      color: #6B4226;
+      border: 1px solid rgba(107,66,38,0.12);
+    }
+    .login-modal-btn-secondary:hover {
+      background: #f0e9e0;
+      color: #6B4226;
+    }
+    .login-modal-note {
+      font-size: 0.72rem;
+      color: #a8a29e;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    .login-modal-note i { font-size: 0.6rem; }
+
     /* ── 반응형 ── */
-    @media (max-width: 900px) {
+    @media (max-width: 960px) {
       .gallery-grid,
       div.gallery-grid,
       #galleryGrid,
       #galleryGrid.gallery-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 18px !important;
-        max-width: 700px !important;
+        gap: 20px !important;
+        max-width: 720px !important;
+        padding: 0 20px !important;
       }
     }
     @media (max-width: 560px) {
@@ -376,15 +571,17 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       #galleryGrid,
       #galleryGrid.gallery-grid {
         grid-template-columns: 1fr !important;
-        gap: 16px !important;
+        gap: 18px !important;
         padding: 0 16px !important;
-        max-width: 420px !important;
+        max-width: 440px !important;
       }
-      .gc-content { padding: 14px 16px 12px !important; }
-      .gc-title { font-size: 0.9rem !important; }
-      .gc-desc { font-size: 0.76rem !important; }
-      .gc-more { opacity: 1 !important; }
+      .gc-photo { height: 220px !important; }
+      .gc-body { padding: 16px 18px 14px !important; }
+      .gc-title { font-size: 0.95rem !important; }
+      .gc-desc { font-size: 0.78rem !important; }
+      .gc-cta { opacity: 1 !important; transform: translateX(0) !important; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .login-modal-card { padding: 32px 24px 24px; border-radius: 20px; }
     }
   </style>
 <script type="application/ld+json">{
@@ -962,7 +1159,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
-  <script src="/js/gallery-c41613bc.js" defer></script>
+  <script src="/js/gallery-e72d0eec.js" defer></script>
   <script>
     function closeImageModal() {
       var m = document.getElementById('imageModal');

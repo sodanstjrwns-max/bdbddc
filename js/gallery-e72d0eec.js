@@ -1,7 +1,9 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v10
- * - Weglot DOM 깨짐 방지: <a> 대신 <div> + JS 클릭 네비게이션
- * - 프리미엄 카드: 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 카드
+ * 서울비디치과 비포/애프터 갤러리 시스템 v11
+ * - Weglot DOM 깨짐 방지: <div> + JS 클릭 네비게이션
+ * - 비로그인 시 세련된 모달 안내 (로그인 페이지 리다이렉트 대신)
+ * - 카드: 비포사진 + 카테고리 + 치료기간 + 제목 + 설명(3줄) + 원장 = 통합
+ * - 비로그인 시 "애프터 사진은 로그인 후 확인" 힌트 표시
  */
 (function() {
   'use strict';
@@ -58,11 +60,72 @@
     var firstPara = desc.split(/\n\s*\n/)[0] || '';
     firstPara = firstPara.replace(/[✅❌⭐🔹🔸▶►●•]/g, '').replace(/^\d+\.\s*/gm, '').trim();
     firstPara = firstPara.replace(/\n/g, ' ').trim();
-    if (firstPara.length > 90) firstPara = firstPara.substring(0, 90) + '…';
+    if (firstPara.length > 120) firstPara = firstPara.substring(0, 120) + '…';
     return firstPara;
   }
 
-  // ─── 카드 렌더링 v10: Weglot-safe — <div> 사용 ───
+  // ─── 로그인 안내 모달 ───
+  function createLoginModal() {
+    if (document.getElementById('loginPromptModal')) return;
+    var modal = document.createElement('div');
+    modal.id = 'loginPromptModal';
+    modal.className = 'login-modal';
+    modal.innerHTML =
+      '<div class="login-modal-backdrop"></div>' +
+      '<div class="login-modal-card">' +
+        '<button class="login-modal-close" aria-label="닫기"><i class="fas fa-times"></i></button>' +
+        '<div class="login-modal-icon">' +
+          '<div class="login-modal-icon-ring">' +
+            '<i class="fas fa-lock"></i>' +
+          '</div>' +
+        '</div>' +
+        '<h3 class="login-modal-title">로그인이 필요합니다</h3>' +
+        '<p class="login-modal-desc">치료 전/후 사진과 상세 케이스 정보는<br>로그인 후 확인하실 수 있습니다.</p>' +
+        '<div class="login-modal-benefits">' +
+          '<div class="login-modal-benefit"><i class="fas fa-check-circle"></i> 비포/애프터 사진 전체 공개</div>' +
+          '<div class="login-modal-benefit"><i class="fas fa-check-circle"></i> 파노라마·구내 사진 확인</div>' +
+          '<div class="login-modal-benefit"><i class="fas fa-check-circle"></i> 상세 치료 과정 열람</div>' +
+        '</div>' +
+        '<div class="login-modal-actions">' +
+          '<a href="/auth/login" class="login-modal-btn login-modal-btn-primary" id="loginModalLoginBtn">' +
+            '<i class="fas fa-sign-in-alt"></i> 로그인하기' +
+          '</a>' +
+          '<a href="/auth/register" class="login-modal-btn login-modal-btn-secondary">' +
+            '<i class="fas fa-user-plus"></i> 회원가입 (10초)' +
+          '</a>' +
+        '</div>' +
+        '<p class="login-modal-note"><i class="fas fa-shield-alt"></i> 개인정보는 안전하게 보호됩니다</p>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    // 이벤트 바인딩
+    modal.querySelector('.login-modal-backdrop').addEventListener('click', closeLoginModal);
+    modal.querySelector('.login-modal-close').addEventListener('click', closeLoginModal);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLoginModal();
+    });
+  }
+
+  function showLoginModal(redirectPath) {
+    createLoginModal();
+    var modal = document.getElementById('loginPromptModal');
+    var loginBtn = document.getElementById('loginModalLoginBtn');
+    if (loginBtn && redirectPath) {
+      loginBtn.href = '/auth/login?redirect=' + encodeURIComponent(redirectPath);
+    }
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLoginModal() {
+    var modal = document.getElementById('loginPromptModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  // ─── 카드 렌더링 v11 ───
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
     var catSlugMap = { 'front-crown': 'crown' };
@@ -73,10 +136,12 @@
     var hasAnyImage = c.hasAnyImage || !!imgSrc;
     var catIcon = CAT_ICONS[c.category] || 'fa-tooth';
 
-    // 우측 뱃지
-    var rightBadges = '';
-    if (hasIntraoral) rightBadges += '<span class="gc-type-tag"><i class="fas fa-camera"></i> 구내</span>';
-    if (hasPano) rightBadges += '<span class="gc-type-tag gc-type-pano"><i class="fas fa-x-ray"></i> 파노</span>';
+    // 이미지 수
+    var imgCount = 0;
+    if (c.beforeImage) imgCount++;
+    if (c.afterImage) imgCount++;
+    if (c.panBeforeImage) imgCount++;
+    if (c.panAfterImage) imgCount++;
 
     // 사진 영역
     var photoHtml;
@@ -86,66 +151,54 @@
           '<img src="' + imgSrc + '" alt="' + (c.title || 'Before') + '" class="gc-img" loading="lazy" ' +
             'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
           '<div class="gc-ph" style="display:none"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
-          '<div class="gc-photo-badges">' +
-            '<span class="gc-before-label">BEFORE</span>' +
-            '<div class="gc-badges-right">' + rightBadges + '</div>' +
+          '<div class="gc-photo-overlay">' +
+            '<span class="gc-badge-before">BEFORE</span>' +
+            '<div class="gc-badge-types">' +
+              (hasIntraoral ? '<span class="gc-badge-type"><i class="fas fa-camera"></i> 구내</span>' : '') +
+              (hasPano ? '<span class="gc-badge-type gc-badge-pano"><i class="fas fa-x-ray"></i> 파노</span>' : '') +
+            '</div>' +
           '</div>' +
+          (imgCount > 1 ? '<div class="gc-photo-count"><i class="far fa-images"></i> ' + imgCount + '</div>' : '') +
+          (!isLoggedIn ? '<div class="gc-login-hint"><i class="fas fa-lock"></i> 로그인 후 애프터 사진 확인</div>' : '') +
         '</div>';
     } else {
       photoHtml =
         '<div class="gc-photo">' +
           '<div class="gc-ph"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
-          '<div class="gc-photo-badges">' +
-            '<span class="gc-before-label">BEFORE</span>' +
+          '<div class="gc-photo-overlay">' +
+            '<span class="gc-badge-before">BEFORE</span>' +
           '</div>' +
         '</div>';
     }
 
-    // 카테고리
-    var catHtml = c.category
-      ? '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</a>'
-      : '<span class="gc-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</span>';
-
-    // 기간
-    var periodHtml = c.treatmentPeriod
-      ? '<span class="gc-period"><i class="far fa-clock"></i> ' + c.treatmentPeriod + '</span>'
-      : '';
-
-    // 이미지 수
-    var imgCount = 0;
-    if (c.beforeImage) imgCount++;
-    if (c.afterImage) imgCount++;
-    if (c.panBeforeImage) imgCount++;
-    if (c.panAfterImage) imgCount++;
-    var imgCountHtml = imgCount > 0
-      ? '<span class="gc-img-count"><i class="far fa-images"></i> ' + imgCount + '장</span>'
-      : '';
-
-    // 설명
+    // 설명 (3줄까지)
     var desc = cleanDesc(c.description);
-    var descHtml = desc
-      ? '<p class="gc-desc">' + desc + '</p>'
-      : '';
 
-    // 담당 원장
+    // 원장
     var doctorInitial = (c.doctorName || '?').charAt(0);
-    var doctorHtml = c.doctorSlug
-      ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doc-link">' + (c.doctorName || '') + '</a>'
-      : '<span class="gc-doc-name">' + (c.doctorName || '') + '</span>';
+    var doctorDisplay = c.doctorSlug
+      ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doctor-link">' + (c.doctorName || '') + '</a>'
+      : '<span class="gc-doctor-name">' + (c.doctorName || '') + '</span>';
 
-    // ★ 핵심: <a> 대신 <div> 사용 → Weglot이 DOM 쪼개는 것 방지
     return '<div class="gc-card" data-href="/cases/' + c.id + '" data-category="' + (filterGroupMap[c.category] || 'general') + '" role="link" tabindex="0">' +
       photoHtml +
-      '<div class="gc-content">' +
-        '<div class="gc-tags">' + catHtml + periodHtml + imgCountHtml + '</div>' +
+      '<div class="gc-body">' +
+        // 상단 메타 라인: 카테고리 + 기간
+        '<div class="gc-meta">' +
+          '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-category"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</a>' +
+          (c.treatmentPeriod ? '<span class="gc-period"><i class="far fa-clock"></i> ' + c.treatmentPeriod + '</span>' : '') +
+        '</div>' +
+        // 제목
         '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
-        descHtml +
-        '<div class="gc-footer">' +
-          '<div class="gc-doc">' +
-            '<div class="gc-doc-avatar">' + doctorInitial + '</div>' +
-            doctorHtml +
+        // 설명 (3줄)
+        (desc ? '<p class="gc-desc">' + desc + '</p>' : '') +
+        // 하단: 원장 + CTA
+        '<div class="gc-bottom">' +
+          '<div class="gc-doctor">' +
+            '<div class="gc-avatar">' + doctorInitial + '</div>' +
+            doctorDisplay +
           '</div>' +
-          '<span class="gc-more">자세히 보기 <i class="fas fa-arrow-right"></i></span>' +
+          '<span class="gc-cta">자세히 <i class="fas fa-chevron-right"></i></span>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -183,18 +236,25 @@
     filtered.forEach(function(c) { html += renderCard(c); });
     grid.innerHTML = html;
 
-    // ★ 카드 클릭 이벤트 바인딩 (Weglot-safe 네비게이션)
+    // 카드 클릭 이벤트 — 비로그인 시 모달 표시
     grid.querySelectorAll('.gc-card[data-href]').forEach(function(card) {
       card.addEventListener('click', function(e) {
-        // 내부 링크(카테고리, 원장) 클릭은 무시
         if (e.target.closest('a')) return;
         var href = card.getAttribute('data-href');
+        if (!isLoggedIn) {
+          showLoginModal(href);
+          return;
+        }
         if (href) window.location.href = href;
       });
       card.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           var href = card.getAttribute('data-href');
+          if (!isLoggedIn) {
+            showLoginModal(href);
+            return;
+          }
           if (href) window.location.href = href;
         }
       });
