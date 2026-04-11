@@ -1,7 +1,7 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v9
- * - 프리미엄 카드: 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 완벽한 카드
- * - 쪼개지지 않는 단일 블록
+ * 서울비디치과 비포/애프터 갤러리 시스템 v10
+ * - Weglot DOM 깨짐 방지: <a> 대신 <div> + JS 클릭 네비게이션
+ * - 프리미엄 카드: 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 카드
  */
 (function() {
   'use strict';
@@ -62,7 +62,7 @@
     return firstPara;
   }
 
-  // ─── 카드 렌더링 v9: 프리미엄 통합 카드 ───
+  // ─── 카드 렌더링 v10: Weglot-safe — <div> 사용 ───
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
     var catSlugMap = { 'front-crown': 'crown' };
@@ -73,7 +73,7 @@
     var hasAnyImage = c.hasAnyImage || !!imgSrc;
     var catIcon = CAT_ICONS[c.category] || 'fa-tooth';
 
-    // 우측 뱃지 (이미지 유형)
+    // 우측 뱃지
     var rightBadges = '';
     if (hasIntraoral) rightBadges += '<span class="gc-type-tag"><i class="fas fa-camera"></i> 구내</span>';
     if (hasPano) rightBadges += '<span class="gc-type-tag gc-type-pano"><i class="fas fa-x-ray"></i> 파노</span>';
@@ -133,8 +133,8 @@
       ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doc-link">' + (c.doctorName || '') + '</a>'
       : '<span class="gc-doc-name">' + (c.doctorName || '') + '</span>';
 
-    // 카드 조립
-    return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '">' +
+    // ★ 핵심: <a> 대신 <div> 사용 → Weglot이 DOM 쪼개는 것 방지
+    return '<div class="gc-card" data-href="/cases/' + c.id + '" data-category="' + (filterGroupMap[c.category] || 'general') + '" role="link" tabindex="0">' +
       photoHtml +
       '<div class="gc-content">' +
         '<div class="gc-tags">' + catHtml + periodHtml + imgCountHtml + '</div>' +
@@ -148,7 +148,7 @@
           '<span class="gc-more">자세히 보기 <i class="fas fa-arrow-right"></i></span>' +
         '</div>' +
       '</div>' +
-    '</a>';
+    '</div>';
   }
 
   function renderGallery(filter) {
@@ -182,6 +182,23 @@
     var html = '';
     filtered.forEach(function(c) { html += renderCard(c); });
     grid.innerHTML = html;
+
+    // ★ 카드 클릭 이벤트 바인딩 (Weglot-safe 네비게이션)
+    grid.querySelectorAll('.gc-card[data-href]').forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        // 내부 링크(카테고리, 원장) 클릭은 무시
+        if (e.target.closest('a')) return;
+        var href = card.getAttribute('data-href');
+        if (href) window.location.href = href;
+      });
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          var href = card.getAttribute('data-href');
+          if (href) window.location.href = href;
+        }
+      });
+    });
   }
 
   function updateStats() {

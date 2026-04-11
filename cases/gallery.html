@@ -88,7 +88,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .image-modal-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
     .image-modal-meta { display: flex; gap: 16px; margin-top: 12px; font-size: 0.88rem; color: var(--text-secondary); }
 
-    /* ===== Gallery Card v9: 프리미엄 의료 포트폴리오 카드 ===== */
+    /* ===== Gallery Card v10: Weglot-safe — <div> 카드 + JS 네비게이션 ===== */
 
     /* 그리드: site-v5.css 완전 무시 */
     .gallery-grid,
@@ -104,11 +104,11 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       align-items: start !important;
     }
 
-    /* 카드: 절대 쪼개지지 않는 단일 블록 */
-    a.gc-card,
+    /* 카드: 절대 쪼개지지 않는 단일 블록 (Weglot-safe: div 사용) */
+    div.gc-card,
     .gc-card,
     .gallery-grid > .gc-card,
-    .gallery-grid > a.gc-card {
+    .gallery-grid > div.gc-card {
       display: flex !important;
       flex-direction: column !important;
       position: relative !important;
@@ -122,7 +122,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       cursor: pointer !important;
       transition: transform 0.3s cubic-bezier(.22,.68,0,1.2), box-shadow 0.3s ease !important;
     }
-    a.gc-card:hover,
+    div.gc-card:hover,
     .gc-card:hover {
       transform: translateY(-6px) scale(1.01) !important;
       box-shadow: 0 16px 48px rgba(107,66,38,0.15), 0 0 0 1px rgba(107,66,38,0.1) !important;
@@ -144,7 +144,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       display: block !important;
       transition: transform 0.5s cubic-bezier(.22,.68,0,1.2) !important;
     }
-    a.gc-card:hover .gc-img,
+    div.gc-card:hover .gc-img,
     .gc-card:hover .gc-img {
       transform: scale(1.06) !important;
     }
@@ -350,11 +350,11 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       font-size: 0.58rem !important;
       transition: transform 0.25s !important;
     }
-    a.gc-card:hover .gc-more,
+    div.gc-card:hover .gc-more,
     .gc-card:hover .gc-more {
       opacity: 1 !important;
     }
-    a.gc-card:hover .gc-more i,
+    div.gc-card:hover .gc-more i,
     .gc-card:hover .gc-more i {
       transform: translateX(3px) !important;
     }
@@ -962,7 +962,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
-  <script src="/js/gallery-49e418fc.js" defer></script>
+  <script src="/js/gallery-c41613bc.js" defer></script>
   <script>
     function closeImageModal() {
       var m = document.getElementById('imageModal');
