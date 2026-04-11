@@ -53,7 +53,7 @@
     return cnt;
   }
 
-  // 카드 렌더링 — 사진+정보 통합 카드 (v3 — 이미지/텍스트 분리형)
+  // 카드 렌더링 — v6: 사진+정보 완전 통합 카드 (하나의 카드 안에 전부)
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
     var catSlugMap = { 'front-crown': 'crown' };
@@ -65,54 +65,54 @@
 
     // 이미지 유형 뱃지
     var typeBadges = '';
-    if (hasIntraoral) typeBadges += '<span class="gc-badge gc-badge-intra"><i class="fas fa-camera"></i>구내</span>';
-    if (hasPano) typeBadges += '<span class="gc-badge gc-badge-pano"><i class="fas fa-x-ray"></i>파노</span>';
+    if (hasIntraoral) typeBadges += '<span class="gc-badge gc-badge-intra"><i class="fas fa-camera"></i> 구내</span>';
+    if (hasPano) typeBadges += '<span class="gc-badge gc-badge-pano"><i class="fas fa-x-ray"></i> 파노</span>';
 
-    // 이미지 영역
+    // 이미지
     var imgTag;
     if (hasAnyImage && imgSrc) {
-      imgTag = '<img src="' + imgSrc + '" alt="' + (c.title || 'Before/After') + '" class="gc-img" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=gc-img-placeholder><i class=fas\\ fa-teeth></i></div>\'">';
+      imgTag = '<img src="' + imgSrc + '" alt="' + (c.title || 'Before/After') + '" class="gc-img" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+               '<div class="gc-img-placeholder" style="display:none"><i class="fas fa-teeth"></i></div>';
     } else {
       imgTag = '<div class="gc-img-placeholder"><i class="fas fa-teeth"></i></div>';
     }
 
-    // 카테고리 링크 vs 스팬
+    // 카테고리
     var catHtml = c.category
       ? '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-cat">' + catLabel + '</a>'
       : '<span class="gc-cat">' + catLabel + '</span>';
 
-    // 기간 표시
+    // 기간
     var periodHtml = c.treatmentPeriod
-      ? '<span class="gc-period"><i class="fas fa-clock"></i>' + c.treatmentPeriod + '</span>'
+      ? '<span class="gc-period"><i class="fas fa-clock"></i> ' + c.treatmentPeriod + '</span>'
       : '';
 
-    // 의사 정보
+    // 의사
     var doctorInitial = (c.doctorName || '?').charAt(0);
     var doctorHtml = c.doctorSlug
       ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doctor-link">' + (c.doctorName || '') + '</a>'
       : '<span class="gc-doctor-name">' + (c.doctorName || '') + '</span>';
 
+    // ─── 하나의 통합 카드: 사진 + 모든 정보가 한 박스 안에 ───
     return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '">' +
-      // ── 이미지 영역 ──
-      '<div class="gc-thumb">' +
+      '<div class="gc-visual">' +
         imgTag +
-        '<div class="gc-badges-top">' +
-          '<div class="gc-ba-badges">' +
-            '<span class="gc-badge gc-badge-before">BEFORE</span>' +
-            '<span class="gc-badge gc-badge-after">AFTER</span>' +
+        '<div class="gc-overlay">' +
+          '<div class="gc-overlay-top">' +
+            '<div class="gc-ba-badges">' +
+              '<span class="gc-badge gc-badge-before">BEFORE</span>' +
+              '<span class="gc-badge gc-badge-after">AFTER</span>' +
+            '</div>' +
+            (typeBadges ? '<div class="gc-type-badges">' + typeBadges + '</div>' : '') +
           '</div>' +
-          (typeBadges ? '<div class="gc-type-badges">' + typeBadges + '</div>' : '') +
-        '</div>' +
-      '</div>' +
-      // ── 텍스트 정보 영역 (이미지 바깥) ──
-      '<div class="gc-body">' +
-        '<div class="gc-meta-row">' +
-          catHtml + periodHtml +
-        '</div>' +
-        '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
-        '<div class="gc-doctor">' +
-          '<div class="gc-doctor-avatar">' + doctorInitial + '</div>' +
-          doctorHtml +
+          '<div class="gc-overlay-bottom">' +
+            '<div class="gc-info-row">' + catHtml + periodHtml + '</div>' +
+            '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
+            '<div class="gc-doctor">' +
+              '<div class="gc-doctor-avatar">' + doctorInitial + '</div>' +
+              doctorHtml +
+            '</div>' +
+          '</div>' +
         '</div>' +
       '</div>' +
     '</a>';
