@@ -88,11 +88,31 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .image-modal-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
     .image-modal-meta { display: flex; gap: 16px; margin-top: 12px; font-size: 0.88rem; color: var(--text-secondary); }
 
-    /* ===== Gallery Card v3: 이미지/텍스트 분리형 통합 카드 ===== */
-    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    /* ===== Gallery Card v4: 고정 카드 크기 — 해상도 무관 동일 형태 ===== */
+    /* !important로 site-v5.css의 .gallery-grid 규칙을 확실히 덮어씌움 */
+    .gallery-grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+      gap: 20px !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      padding: 0 20px !important;
+    }
 
-    /* 카드 전체 */
-    .gc-card { display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); border: 1px solid var(--border-color, #f0f0f0); transition: transform 0.25s, box-shadow 0.25s; text-decoration: none; color: inherit; background: #fff; }
+    /* 카드 전체 — 수직 구조 강제 */
+    .gc-card {
+      display: flex !important;
+      flex-direction: column !important;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      border: 1px solid var(--border-color, #f0f0f0);
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-decoration: none;
+      color: inherit;
+      background: #fff;
+      max-width: 400px;
+    }
     .gc-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,0.13); }
 
     /* 이미지 영역 */
@@ -111,7 +131,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .gc-badge-intra { background: rgba(168,85,247,0.8); color: #fff; backdrop-filter: blur(4px); }
     .gc-badge-pano { background: rgba(59,130,246,0.8); color: #fff; backdrop-filter: blur(4px); }
 
-    /* 텍스트 정보 영역 (이미지 아래) */
+    /* 텍스트 정보 영역 (이미지 바로 아래) */
     .gc-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
     .gc-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .gc-cat { display: inline-block; padding: 3px 10px; background: rgba(107,66,38,0.08); color: var(--brand, #6B4226); border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-decoration: none; transition: background 0.2s; pointer-events: auto; }
@@ -125,23 +145,17 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .gc-doctor-link:hover { color: var(--brand, #6B4226); }
     .gc-doctor-name { font-size: 0.78rem; font-weight: 600; color: var(--text-secondary, #78716C); }
 
-    @media (max-width: 768px) {
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 12px; }
-      .gc-thumb { aspect-ratio: 4/3; }
+    /* 모바일: 카드 크기만 살짝 조정, 구조는 동일 */
+    @media (max-width: 640px) {
+      .gallery-grid { gap: 14px !important; padding: 0 12px !important; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important; }
       .gc-body { padding: 10px 12px 12px; gap: 4px; }
-      .gc-title { font-size: 0.82rem; }
+      .gc-title { font-size: 0.85rem; }
       .gc-badge { font-size: 0.54rem; padding: 2px 7px; }
-      .gc-cat { font-size: 0.62rem; padding: 2px 8px; }
+      .gc-cat { font-size: 0.64rem; padding: 2px 8px; }
       .gc-doctor-avatar { width: 20px; height: 20px; font-size: 0.52rem; }
       .gc-doctor-link, .gc-doctor-name { font-size: 0.7rem; }
       .gc-period { font-size: 0.62rem; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    }
-    @media (max-width: 480px) {
-      .gallery-grid { grid-template-columns: 1fr; gap: 14px; }
-      .gc-thumb { aspect-ratio: 16/10; }
-      .gc-body { padding: 12px 14px 14px; }
-      .gc-title { font-size: 0.88rem; }
     }
   </style>
 <script type="application/ld+json">{
