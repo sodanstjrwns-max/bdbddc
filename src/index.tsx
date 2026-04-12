@@ -2714,11 +2714,27 @@ ${TRACKING_HEAD}
 .case-img-section-title .badge.intraoral{background:#f3e8ff;color:#a855f7}
 .case-img-section-title .badge.panorama{background:#dbeafe;color:#3b82f6}
 .case-images{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.case-img-box{position:relative;border-radius:16px;overflow:hidden;background:#f0ebe4;aspect-ratio:16/9}
-.case-img-box img{width:100%;height:100%;object-fit:cover}
-.case-img-label{position:absolute;top:12px;left:12px;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:50px;color:#fff;z-index:3}
+.case-img-box{position:relative;border-radius:16px;overflow:hidden;background:#f0ebe4;aspect-ratio:16/9;cursor:zoom-in;transition:box-shadow .3s}
+.case-img-box:hover{box-shadow:0 4px 20px rgba(107,66,38,.15)}
+.case-img-box img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.case-img-box:hover img{transform:scale(1.03)}
+.case-img-label{position:absolute;top:12px;left:12px;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:50px;color:#fff;z-index:3;pointer-events:none}
 .case-img-label.before{background:#f59e0b}
 .case-img-label.after{background:#22c55e}
+.case-img-zoom{position:absolute;bottom:10px;right:10px;width:36px;height:36px;background:rgba(0,0,0,.45);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none;backdrop-filter:blur(4px)}
+.case-img-box:hover .case-img-zoom{opacity:1}
+/* 라이트박스 */
+.case-lightbox{display:none;position:fixed;inset:0;z-index:10001;align-items:center;justify-content:center;background:rgba(0,0,0,.92)}
+.case-lightbox.active{display:flex}
+.case-lb-close{position:absolute;top:20px;right:20px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1.2rem;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center;transition:all .2s;backdrop-filter:blur(8px)}
+.case-lb-close:hover{background:rgba(255,255,255,.3);transform:scale(1.1)}
+.case-lb-img{max-width:92vw;max-height:85vh;object-fit:contain;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.4)}
+.case-lb-label{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);padding:8px 24px;background:rgba(0,0,0,.6);color:#fff;border-radius:50px;font-size:.88rem;font-weight:700;backdrop-filter:blur(8px)}
+.case-lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;backdrop-filter:blur(8px)}
+.case-lb-nav:hover{background:rgba(255,255,255,.25)}
+.case-lb-prev{left:16px}
+.case-lb-next{right:16px}
+@media(max-width:600px){.case-lb-img{max-width:98vw;max-height:75vh;border-radius:8px}.case-lb-close{top:12px;right:12px}}
 .case-desc{font-size:1rem;color:#555;line-height:1.8;margin-bottom:32px;padding:20px 24px;background:#faf7f3;border-radius:16px}
 .case-cta{text-align:center;padding:32px;background:linear-gradient(135deg,#6B4226,#8B5E3C);border-radius:16px;color:#fff}
 .login-banner{text-align:center;padding:20px;background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:16px;margin-bottom:24px;border:1px solid #f59e0b33}
@@ -2756,16 +2772,16 @@ ${(cs.beforeImage || cs.afterImage) ? `
 <div class="case-img-section">
 <div class="case-img-section-title"><i class="fas fa-camera" style="color:#a855f7"></i> 구내포토 <span class="badge intraoral">Intraoral</span></div>
 <div class="case-images">
-${cs.beforeImage ? `<div class="case-img-box"><img src="${safeImg(cs.beforeImage)}" alt="${cs.title} 구내포토 Before — ${cs.doctorName}" loading="lazy"><span class="case-img-label before">Before</span></div>` : ''}
-${cs.afterImage ? `<div class="case-img-box"><img src="${safeImg(cs.afterImage)}" alt="${cs.title} 구내포토 After — ${cs.doctorName}" loading="lazy"><span class="case-img-label after">After</span></div>` : ''}
+${cs.beforeImage ? `<div class="case-img-box" onclick="openCaseLB(this)" data-src="${safeImg(cs.beforeImage)}" data-label="구내포토 Before"><img src="${safeImg(cs.beforeImage)}" alt="${cs.title} 구내포토 Before — ${cs.doctorName}" loading="lazy"><span class="case-img-label before">Before</span><span class="case-img-zoom"><i class="fas fa-search-plus"></i></span></div>` : ''}
+${cs.afterImage ? `<div class="case-img-box" onclick="openCaseLB(this)" data-src="${safeImg(cs.afterImage)}" data-label="구내포토 After"><img src="${safeImg(cs.afterImage)}" alt="${cs.title} 구내포토 After — ${cs.doctorName}" loading="lazy"><span class="case-img-label after">After</span><span class="case-img-zoom"><i class="fas fa-search-plus"></i></span></div>` : ''}
 </div>
 </div>` : ''}
 ${(cs.panBeforeImage || cs.panAfterImage) ? `
 <div class="case-img-section">
 <div class="case-img-section-title"><i class="fas fa-x-ray" style="color:#3b82f6"></i> 파노라마 <span class="badge panorama">Panorama</span></div>
 <div class="case-images">
-${cs.panBeforeImage ? `<div class="case-img-box"><img src="${safeImg(cs.panBeforeImage)}" alt="${cs.title} 파노라마 Before — ${cs.doctorName}" loading="lazy"><span class="case-img-label before">Before</span></div>` : ''}
-${cs.panAfterImage ? `<div class="case-img-box"><img src="${safeImg(cs.panAfterImage)}" alt="${cs.title} 파노라마 After — ${cs.doctorName}" loading="lazy"><span class="case-img-label after">After</span></div>` : ''}
+${cs.panBeforeImage ? `<div class="case-img-box" onclick="openCaseLB(this)" data-src="${safeImg(cs.panBeforeImage)}" data-label="파노라마 Before"><img src="${safeImg(cs.panBeforeImage)}" alt="${cs.title} 파노라마 Before — ${cs.doctorName}" loading="lazy"><span class="case-img-label before">Before</span><span class="case-img-zoom"><i class="fas fa-search-plus"></i></span></div>` : ''}
+${cs.panAfterImage ? `<div class="case-img-box" onclick="openCaseLB(this)" data-src="${safeImg(cs.panAfterImage)}" data-label="파노라마 After"><img src="${safeImg(cs.panAfterImage)}" alt="${cs.title} 파노라마 After — ${cs.doctorName}" loading="lazy"><span class="case-img-label after">After</span><span class="case-img-zoom"><i class="fas fa-search-plus"></i></span></div>` : ''}
 </div>
 </div>` : ''}
 ${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight:700;color:#333;margin-bottom:8px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:6px;"></i> 치료 설명</h3><p>${descText}</p></div>` : ''}
@@ -2782,11 +2798,53 @@ ${cs.category ? `<a href="/treatments/${cs.category}" style="display:inline-flex
 </div>
 </div>
 </main>
+<div class="case-lightbox" id="caseLB" onclick="if(event.target===this)closeCaseLB()">
+<button class="case-lb-close" onclick="closeCaseLB()"><i class="fas fa-times"></i></button>
+<button class="case-lb-nav case-lb-prev" id="caseLBPrev" onclick="navCaseLB(-1)"><i class="fas fa-chevron-left"></i></button>
+<img class="case-lb-img" id="caseLBImg" alt="">
+<button class="case-lb-nav case-lb-next" id="caseLBNext" onclick="navCaseLB(1)"><i class="fas fa-chevron-right"></i></button>
+<div class="case-lb-label" id="caseLBLabel"></div>
+</div>
 <script src="/js/main.js" defer></script>
 <script src="/js/gnb.js" defer></script>
 <script>
 // 조회수 기록
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'case',page_id:'${id}'})}).catch(function(){});
+
+// 케이스 상세 라이트박스
+var caseLBItems=[];var caseLBIdx=0;
+(function(){
+  var boxes=document.querySelectorAll('.case-img-box[data-src]');
+  boxes.forEach(function(b,i){caseLBItems.push({src:b.getAttribute('data-src'),label:b.getAttribute('data-label')});});
+})();
+function openCaseLB(el){
+  var src=el.getAttribute('data-src');
+  for(var i=0;i<caseLBItems.length;i++){if(caseLBItems[i].src===src){caseLBIdx=i;break;}}
+  showCaseLBPhoto();
+  document.getElementById('caseLB').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeCaseLB(){
+  document.getElementById('caseLB').classList.remove('active');
+  document.body.style.overflow='';
+}
+function showCaseLBPhoto(){
+  var item=caseLBItems[caseLBIdx];
+  if(!item)return;
+  var img=document.getElementById('caseLBImg');
+  img.src=item.src;img.alt=item.label;
+  document.getElementById('caseLBLabel').textContent=item.label;
+  document.getElementById('caseLBPrev').style.display=caseLBIdx>0?'flex':'none';
+  document.getElementById('caseLBNext').style.display=caseLBIdx<caseLBItems.length-1?'flex':'none';
+}
+function navCaseLB(dir){caseLBIdx+=dir;if(caseLBIdx<0)caseLBIdx=0;if(caseLBIdx>=caseLBItems.length)caseLBIdx=caseLBItems.length-1;showCaseLBPhoto();}
+document.addEventListener('keydown',function(e){
+  var lb=document.getElementById('caseLB');
+  if(!lb||!lb.classList.contains('active'))return;
+  if(e.key==='Escape')closeCaseLB();
+  if(e.key==='ArrowLeft')navCaseLB(-1);
+  if(e.key==='ArrowRight')navCaseLB(1);
+});
 </script>
 </body>
 </html>`)
