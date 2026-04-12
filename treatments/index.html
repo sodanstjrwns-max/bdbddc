@@ -221,6 +221,28 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       transition: all 0.2s;
       position: relative;
     }
+    /* 제목(h1, h2) 내부 백과사전 링크는 점선 밑줄 제거 */
+    h1 .enc-inline-link,
+    h2 .enc-inline-link,
+    .page-badge .enc-inline-link {
+      text-decoration: none;
+      color: inherit;
+      cursor: inherit;
+    }
+    h1 .enc-inline-link:hover,
+    h2 .enc-inline-link:hover,
+    .page-badge .enc-inline-link:hover {
+      text-decoration: none;
+      color: inherit;
+    }
+    h1 .enc-inline-link:hover::after,
+    h1 .enc-inline-link:hover::before,
+    h2 .enc-inline-link:hover::after,
+    h2 .enc-inline-link:hover::before,
+    .page-badge .enc-inline-link:hover::after,
+    .page-badge .enc-inline-link:hover::before {
+      display: none;
+    }
     .enc-inline-link:hover {
       color: #c9a96e;
       text-decoration-style: solid;
