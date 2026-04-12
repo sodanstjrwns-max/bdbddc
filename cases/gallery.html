@@ -350,6 +350,80 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     }
     .gc-period i { font-size: 0.56rem !important; color: #c5b8aa !important; }
 
+    /* 지역 */
+    .gc-region {
+      font-size: 0.68rem !important;
+      color: #6B4226 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 3px !important;
+      font-weight: 600 !important;
+      background: rgba(107,66,38,0.06) !important;
+      padding: 2px 8px !important;
+      border-radius: 10px !important;
+    }
+    .gc-region i { font-size: 0.55rem !important; color: #c9a96e !important; }
+
+    /* 지역 필터 */
+    .region-filter-section {
+      padding: 0 20px;
+      max-width: 1200px;
+      margin: -8px auto 12px;
+    }
+    .region-filter-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .region-filter-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #78716c;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .region-filter-label i { color: #c9a96e; font-size: 0.72rem; }
+    .region-chip {
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: #f5f4f2;
+      color: #57534e;
+      border: 1px solid #e8e6e3;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .region-chip:hover { background: #f5f0eb; border-color: #c9a96e; color: #6B4226; }
+    .region-chip.active {
+      background: #6B4226;
+      color: #fff;
+      border-color: #6B4226;
+    }
+    .region-chip .chip-count {
+      font-size: 0.65rem;
+      opacity: 0.7;
+      margin-left: 3px;
+    }
+    .region-more-btn {
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: none;
+      color: #78716c;
+      border: 1px dashed #d6d3ce;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .region-more-btn:hover { border-color: #6B4226; color: #6B4226; }
+    .region-extra-chips { display: none; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+    .region-extra-chips.open { display: flex; }
+
     /* 제목 */
     .gc-title {
       font-size: 1rem !important;
@@ -919,6 +993,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button class="filter-btn" data-filter="gum">잇몸/외과 <span class="count" id="countGum">0</span></button>
     </div>
   </section>
+
+  <!-- 지역 필터 -->
+  <div class="region-filter-section" id="regionFilterSection" style="display:none;">
+    <div class="region-filter-wrap" id="regionFilterWrap">
+      <span class="region-filter-label"><i class="fas fa-map-marker-alt"></i> 지역</span>
+      <button class="region-chip active" data-region="all">전체</button>
+      <!-- 동적으로 채워짐 -->
+    </div>
+  </div>
   
   <!-- 갤러리 섹션 -->
   <section class="gallery-section" id="gallerySection">

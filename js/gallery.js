@@ -8,6 +8,7 @@
 
   var cases = [];
   var currentFilter = 'all';
+  var currentRegion = 'all';
   var isLoggedIn = false;
 
   var filterGroupMap = {
@@ -140,10 +141,15 @@
       ? '<span class="gc-img-count"><i class="far fa-images"></i> ' + imgCount + '장</span>'
       : '';
 
-    return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '">' +
+    // 지역 표시
+    var regionHtml = c.region
+      ? '<span class="gc-region"><i class="fas fa-map-marker-alt"></i> ' + c.region + '</span>'
+      : '';
+
+    return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '" data-region="' + (c.region || '') + '">' +
       photoHtml +
       '<div class="gc-content">' +
-        '<div class="gc-tags">' + catHtml + periodHtml + imgCountHtml + '</div>' +
+        '<div class="gc-tags">' + catHtml + periodHtml + imgCountHtml + regionHtml + '</div>' +
         '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
         descHtml +
         '<div class="gc-footer">' +
@@ -173,6 +179,13 @@
       filtered = sorted;
     } else {
       filtered = sorted.filter(function(c) { return (filterGroupMap[c.category] || 'general') === filter; });
+    }
+
+    // 지역 필터 적용
+    if (currentRegion !== 'all') {
+      filtered = filtered.filter(function(c) {
+        return (c.region || '').indexOf(currentRegion) !== -1;
+      });
     }
 
     if (loading) loading.style.display = 'none';
@@ -238,9 +251,67 @@
     } catch(e) { isLoggedIn = false; }
   }
 
+  // 지역 필터 칩 동적 생성
+  function buildRegionFilter() {
+    var regionSection = document.getElementById('regionFilterSection');
+    var wrap = document.getElementById('regionFilterWrap');
+    if (!regionSection || !wrap) return;
+
+    // 지역별 카운트 수집
+    var regionCount = {};
+    cases.forEach(function(c) {
+      if (c.region) {
+        // 시/도 단위로 그루핑 (", " 뒤의 시/도명 추출)
+        var parts = c.region.split(', ');
+        var key = parts.length > 1 ? parts[0] : c.region; // "천안시" or "서울"
+        regionCount[key] = (regionCount[key] || 0) + 1;
+      }
+    });
+
+    var regionKeys = Object.keys(regionCount);
+    if (regionKeys.length === 0) { regionSection.style.display = 'none'; return; }
+
+    // 카운트 내림차순 정렬
+    regionKeys.sort(function(a, b) { return regionCount[b] - regionCount[a]; });
+
+    regionSection.style.display = 'block';
+
+    // 상위 6개는 바로 표시, 나머지는 "더보기"
+    var mainChips = regionKeys.slice(0, 6);
+    var extraChips = regionKeys.slice(6);
+
+    var html = '<span class="region-filter-label"><i class="fas fa-map-marker-alt"></i> 지역</span>';
+    html += '<button class="region-chip active" data-region="all">전체</button>';
+    mainChips.forEach(function(r) {
+      html += '<button class="region-chip" data-region="' + r + '">' + r + '<span class="chip-count">' + regionCount[r] + '</span></button>';
+    });
+
+    if (extraChips.length > 0) {
+      html += '<button class="region-more-btn" id="regionMoreBtn" onclick="document.getElementById(\'regionExtraChips\').classList.toggle(\'open\');this.textContent=this.textContent.includes(\'+\')?\'접기\':\'+ ' + extraChips.length + '개 더보기\'">+ ' + extraChips.length + '개 더보기</button>';
+      html += '<div class="region-extra-chips" id="regionExtraChips">';
+      extraChips.forEach(function(r) {
+        html += '<button class="region-chip" data-region="' + r + '">' + r + '<span class="chip-count">' + regionCount[r] + '</span></button>';
+      });
+      html += '</div>';
+    }
+
+    wrap.innerHTML = html;
+
+    // 이벤트 바인딩
+    wrap.querySelectorAll('.region-chip').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        wrap.querySelectorAll('.region-chip').forEach(function(c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        currentRegion = chip.getAttribute('data-region');
+        renderGallery(currentFilter);
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', async function() {
     await Promise.all([loadCasesFromAPI(), checkAuth()]);
     updateStats();
+    buildRegionFilter();
     renderGallery('all');
 
     document.querySelectorAll('.filter-btn').forEach(function(btn) {

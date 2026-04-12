@@ -646,6 +646,7 @@ app.get('/api/cases', async (c) => {
       hasIntraoral,
       hasPano,
       hasAnyImage,
+      region: cs.region || '',
       createdAt: cs.createdAt,
     }
   })
@@ -2673,8 +2674,8 @@ app.get('/cases/:id', async (c) => {
 <head>
 ${TRACKING_HEAD}
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${cs.title} | Before/After — 서울비디치과</title>
-<meta name="description" content="${cs.title} — ${cs.doctorName || '서울비디치과'} ${catLabel} 치료 전후 사진. ${cs.treatmentPeriod ? '치료기간 ' + cs.treatmentPeriod + '.' : ''} 서울비디치과 비포/애프터.">
+<title>${cs.title}${cs.region ? ' | ' + cs.region : ''} | Before/After — 서울비디치과</title>
+<meta name="description" content="${cs.title} — ${cs.doctorName || '서울비디치과'} ${catLabel} 치료 전후 사진.${cs.region ? ' ' + cs.region + '에서 내원.' : ''} ${cs.treatmentPeriod ? '치료기간 ' + cs.treatmentPeriod + '.' : ''} 서울비디치과 비포/애프터.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://bdbddc.com/cases/${id}">
 <meta property="og:title" content="${cs.title} | Before/After — 서울비디치과">
@@ -2694,7 +2695,7 @@ ${TRACKING_HEAD}
   "description":"${catLabel} 치료 전후 — ${cs.doctorName || '서울비디치과'}",
   "url":"https://bdbddc.com/cases/${id}",
   "datePublished":"${cs.createdAt || ''}",
-  "author":{"@type":"Dentist","name":"서울비디치과","telephone":"+82-41-415-2892"},
+  "author":{"@type":"Dentist","name":"서울비디치과","telephone":"+82-41-415-2892"${cs.region ? ',"areaServed":{"@type":"City","name":"' + cs.region + '"}' : ''}},
   "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
     {"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},
     {"@type":"ListItem","position":2,"name":"Before/After","item":"https://bdbddc.com/cases/gallery"},
@@ -2764,6 +2765,7 @@ ${TRACKING_HEAD}
 <div class="case-meta">
 <span><i class="fas fa-user-md" style="color:#c9a96e;"></i> ${DOCTOR_SLUG_MAP[cs.doctorName] ? `<a href="/doctors/${DOCTOR_SLUG_MAP[cs.doctorName]}" style="color:#6B4226;text-decoration:none;border-bottom:1px dashed #c9a96e;font-weight:600;transition:color 0.2s;">${cs.doctorName}</a>` : (cs.doctorName || '')}</span>
 ${cs.treatmentPeriod ? `<span><i class="fas fa-clock" style="color:#c9a96e;"></i> 치료기간: ${cs.treatmentPeriod}</span>` : ''}
+${cs.region ? `<span><i class="fas fa-map-marker-alt" style="color:#c9a96e;"></i> ${cs.region}</span>` : ''}
 <span><i class="far fa-calendar" style="color:#c9a96e;"></i> ${dateStr}</span>
 </div>
 </div>

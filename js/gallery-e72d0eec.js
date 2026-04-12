@@ -11,6 +11,7 @@
 
   var cases = [];
   var currentFilter = 'all';
+  var currentRegion = 'all';
   var isLoggedIn = false;
 
   var filterGroupMap = {
@@ -367,13 +368,19 @@
       ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doctor-link">' + (c.doctorName || '') + '</a>'
       : '<span class="gc-doctor-name">' + (c.doctorName || '') + '</span>';
 
-    return '<div class="gc-card" data-href="/cases/' + c.id + '" data-category="' + (filterGroupMap[c.category] || 'general') + '" role="link" tabindex="0">' +
+    // 지역 표시
+    var regionHtml = c.region
+      ? '<span class="gc-region"><i class="fas fa-map-marker-alt"></i> ' + c.region + '</span>'
+      : '';
+
+    return '<div class="gc-card" data-href="/cases/' + c.id + '" data-category="' + (filterGroupMap[c.category] || 'general') + '" data-region="' + (c.region || '') + '" role="link" tabindex="0">' +
       photoHtml +
       '<div class="gc-body">' +
-        // 상단 메타 라인: 카테고리 + 기간
+        // 상단 메타 라인: 카테고리 + 기간 + 지역
         '<div class="gc-meta">' +
           '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-category"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</a>' +
           (c.treatmentPeriod ? '<span class="gc-period"><i class="far fa-clock"></i> ' + c.treatmentPeriod + '</span>' : '') +
+          regionHtml +
         '</div>' +
         // 제목
         '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
@@ -406,6 +413,13 @@
       filtered = sorted;
     } else {
       filtered = sorted.filter(function(c) { return (filterGroupMap[c.category] || 'general') === filter; });
+    }
+
+    // 지역 필터 적용
+    if (currentRegion !== 'all') {
+      filtered = filtered.filter(function(c) {
+        return (c.region || '').indexOf(currentRegion) !== -1;
+      });
     }
 
     if (loading) loading.style.display = 'none';
@@ -506,9 +520,72 @@
     } catch(e) { isLoggedIn = false; }
   }
 
+  // 지역 필터 칩 동적 생성
+  function buildRegionFilter() {
+    var regionSection = document.getElementById('regionFilterSection');
+    var wrap = document.getElementById('regionFilterWrap');
+    if (!regionSection || !wrap) return;
+
+    var regionCount = {};
+    cases.forEach(function(c) {
+      if (c.region) {
+        var parts = c.region.split(', ');
+        var key = parts.length > 1 ? parts[0] : c.region;
+        regionCount[key] = (regionCount[key] || 0) + 1;
+      }
+    });
+
+    var regionKeys = Object.keys(regionCount);
+    if (regionKeys.length === 0) { regionSection.style.display = 'none'; return; }
+
+    regionKeys.sort(function(a, b) { return regionCount[b] - regionCount[a]; });
+
+    regionSection.style.display = 'block';
+    var mainChips = regionKeys.slice(0, 6);
+    var extraChips = regionKeys.slice(6);
+
+    var html = '<span class="region-filter-label"><i class="fas fa-map-marker-alt"></i> 지역</span>';
+    html += '<button class="region-chip active" data-region="all">전체</button>';
+    mainChips.forEach(function(r) {
+      html += '<button class="region-chip" data-region="' + r + '">' + r + '<span class="chip-count">' + regionCount[r] + '</span></button>';
+    });
+
+    if (extraChips.length > 0) {
+      html += '<button class="region-more-btn" id="regionMoreBtn">+ ' + extraChips.length + '개 더보기</button>';
+      html += '<div class="region-extra-chips" id="regionExtraChips">';
+      extraChips.forEach(function(r) {
+        html += '<button class="region-chip" data-region="' + r + '">' + r + '<span class="chip-count">' + regionCount[r] + '</span></button>';
+      });
+      html += '</div>';
+    }
+
+    wrap.innerHTML = html;
+
+    // 더보기 버튼
+    var moreBtn = document.getElementById('regionMoreBtn');
+    if (moreBtn) {
+      moreBtn.addEventListener('click', function() {
+        var extra = document.getElementById('regionExtraChips');
+        extra.classList.toggle('open');
+        moreBtn.textContent = extra.classList.contains('open') ? '접기' : '+ ' + extraChips.length + '개 더보기';
+      });
+    }
+
+    // 칩 이벤트
+    wrap.querySelectorAll('.region-chip').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        wrap.querySelectorAll('.region-chip').forEach(function(c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+        currentRegion = chip.getAttribute('data-region');
+        renderGallery(currentFilter);
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', async function() {
     await Promise.all([loadCasesFromAPI(), checkAuth()]);
     updateStats();
+    buildRegionFilter();
     renderGallery('all');
 
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
