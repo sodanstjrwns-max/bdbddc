@@ -392,26 +392,40 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     span[style*="color"] .enc-inline-link,
     span[style*="background"] .enc-inline-link {
       color: inherit !important;
-      -webkit-text-fill-color: inherit;
+      -webkit-text-fill-color: initial;
       text-decoration: none;
     }
     /* 제목(h1, h2) 내부 백과사전 링크는 점선 밑줄 제거 */
     h1 .enc-inline-link,
     h2 .enc-inline-link,
-    .page-badge .enc-inline-link,
-    .text-gradient .enc-inline-link {
+    .page-badge .enc-inline-link {
       text-decoration: none;
       color: inherit;
       cursor: inherit;
-      -webkit-text-fill-color: inherit;
+      -webkit-text-fill-color: initial;
+    }
+    /* text-gradient 내 링크는 동일 gradient 효과 적용 */
+    .text-gradient .enc-inline-link {
+      text-decoration: none;
+      cursor: inherit;
+      background: linear-gradient(135deg, var(--brand), var(--brand-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     h1 .enc-inline-link:hover,
     h2 .enc-inline-link:hover,
-    .page-badge .enc-inline-link:hover,
-    .text-gradient .enc-inline-link:hover {
+    .page-badge .enc-inline-link:hover {
       text-decoration: none;
       color: inherit;
-      -webkit-text-fill-color: inherit;
+      -webkit-text-fill-color: initial;
+    }
+    .text-gradient .enc-inline-link:hover {
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--brand), var(--brand-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     h1 .enc-inline-link:hover::after,
     h1 .enc-inline-link:hover::before,
