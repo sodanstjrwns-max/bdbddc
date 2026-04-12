@@ -254,6 +254,36 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       font-size: 0.55rem !important;
     }
 
+    /* 확대 힌트 (호버 시 돋보기 아이콘) */
+    .gc-zoom-hint {
+      position: absolute !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) scale(0.8) !important;
+      width: 48px !important;
+      height: 48px !important;
+      background: rgba(0,0,0,0.5) !important;
+      color: #fff !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 1.1rem !important;
+      opacity: 0 !important;
+      transition: all 0.3s ease !important;
+      z-index: 5 !important;
+      pointer-events: none !important;
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+    }
+    .gc-card:hover .gc-zoom-hint {
+      opacity: 1 !important;
+      transform: translate(-50%, -50%) scale(1) !important;
+    }
+    .gc-img {
+      cursor: zoom-in !important;
+    }
+
     /* 사진→텍스트 부드러운 전환 */
     .gc-photo::after {
       content: '' !important;
