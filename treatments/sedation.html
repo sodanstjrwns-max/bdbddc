@@ -68,6 +68,32 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "홈",
+      "item": "https://bdbddc.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "진료",
+      "item": "https://bdbddc.com/treatments/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "수면치료",
+      "item": "https://bdbddc.com/treatments/sedation"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "MedicalWebPage",
   "name": "서울비디치과 수면치료(의식하진정)",
   "about": {
@@ -163,25 +189,31 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }
 </script>
-<script type="application/ld+json">{
+<script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "Dentist",
   "@id": "https://bdbddc.com/#dentist",
   "name": "서울비디치과",
-    "url": "https://bdbddc.com",
-    "telephone": "+82-41-415-2892",
-    "email": "info@bdbddc.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "불당34길 14, 1~5층",
-      "addressLocality": "천안시 서북구 불당동",
-      "addressRegion": "충청남도",
-      "postalCode": "31156",
-      "addressCountry": "KR"
-    },
-    "image": "https://bdbddc.com/images/og-sedation.jpg",
-    "sameAs": ["https://pf.kakao.com/_Cxivlxb","https://www.youtube.com/@BDtube","https://www.youtube.com/@geoptongryung","https://naver.me/5yPnKmqQ"],
-    "priceRange": "₩₩",
+  "url": "https://bdbddc.com",
+  "telephone": "+82-41-415-2892",
+  "email": "info@bdbddc.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "불당34길 14, 1~5층",
+    "addressLocality": "천안시 서북구 불당동",
+    "addressRegion": "충청남도",
+    "postalCode": "31156",
+    "addressCountry": "KR"
+  },
+  "image": "https://bdbddc.com/images/og-sedation.jpg",
+  "sameAs": [
+    "https://pf.kakao.com/_Cxivlxb",
+    "https://www.youtube.com/@BDtube",
+    "https://www.youtube.com/@geoptongryung",
+    "https://naver.me/5yPnKmqQ"
+  ],
+  "priceRange": "₩₩",
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",
@@ -191,22 +223,43 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   "review": [
     {
       "@type": "Review",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
-      "author": {"@type": "Person", "name": "이**"},
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "이**"
+      },
       "reviewBody": "치과 공포증이 심했는데 수면치료 받으니 정말 아무것도 몰랐어요. 눈 감았다 뜨니 끝나있었습니다.",
       "datePublished": "2026-02-10"
     },
     {
       "@type": "Review",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
-      "author": {"@type": "Person", "name": "박**"},
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "박**"
+      },
       "reviewBody": "사랑니 4개를 수면으로 한 번에 다 뽑았는데 전혀 기억이 없어요. 진짜 신세계입니다.",
       "datePublished": "2026-01-25"
     },
     {
       "@type": "Review",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
-      "author": {"@type": "Person", "name": "김**"},
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "김**"
+      },
       "reviewBody": "아이가 치과만 가면 울었는데 수면치료 후 트라우마 없이 치료 잘 받았어요.",
       "datePublished": "2026-03-05"
     }
@@ -217,11 +270,78 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     "longitude": 127.1139
   },
   "openingHoursSpecification": [
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "20:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "09:00", "closes": "17:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "PublicHolidays", "opens": "09:00", "closes": "13:00"}
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "09:00",
+      "closes": "17:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "PublicHolidays",
+      "opens": "09:00",
+      "closes": "13:00"
+    }
+  ],
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "천안시"
+    },
+    {
+      "@type": "City",
+      "name": "아산시"
+    },
+    {
+      "@type": "City",
+      "name": "세종시"
+    },
+    {
+      "@type": "City",
+      "name": "대전시"
+    },
+    {
+      "@type": "City",
+      "name": "청주시"
+    },
+    {
+      "@type": "City",
+      "name": "평택시"
+    },
+    {
+      "@type": "City",
+      "name": "공주시"
+    },
+    {
+      "@type": "City",
+      "name": "당진시"
+    },
+    {
+      "@type": "City",
+      "name": "서산시"
+    },
+    {
+      "@type": "City",
+      "name": "논산시"
+    }
   ]
-}</script>
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
