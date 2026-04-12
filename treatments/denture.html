@@ -227,26 +227,39 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       transition: all 0.2s;
       position: relative;
     }
+    /* 인라인 스타일 배지 안의 링크는 부모 색상 상속 */
+    span[style*="color"] .enc-inline-link,
+    span[style*="background"] .enc-inline-link {
+      color: inherit !important;
+      -webkit-text-fill-color: inherit;
+      text-decoration: none;
+    }
     /* 제목(h1, h2) 내부 백과사전 링크는 점선 밑줄 제거 */
     h1 .enc-inline-link,
     h2 .enc-inline-link,
-    .page-badge .enc-inline-link {
+    .page-badge .enc-inline-link,
+    .text-gradient .enc-inline-link {
       text-decoration: none;
       color: inherit;
       cursor: inherit;
+      -webkit-text-fill-color: inherit;
     }
     h1 .enc-inline-link:hover,
     h2 .enc-inline-link:hover,
-    .page-badge .enc-inline-link:hover {
+    .page-badge .enc-inline-link:hover,
+    .text-gradient .enc-inline-link:hover {
       text-decoration: none;
       color: inherit;
+      -webkit-text-fill-color: inherit;
     }
     h1 .enc-inline-link:hover::after,
     h1 .enc-inline-link:hover::before,
     h2 .enc-inline-link:hover::after,
     h2 .enc-inline-link:hover::before,
     .page-badge .enc-inline-link:hover::after,
-    .page-badge .enc-inline-link:hover::before {
+    .page-badge .enc-inline-link:hover::before,
+    .text-gradient .enc-inline-link:hover::after,
+    .text-gradient .enc-inline-link:hover::before {
       display: none;
     }
     .enc-inline-link:hover {
