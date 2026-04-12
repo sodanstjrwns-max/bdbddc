@@ -333,9 +333,9 @@
     var photoHtml;
     if (hasAnyImage && imgSrc) {
       photoHtml =
-        '<div class="gc-photo">' +
+        '<div class="gc-photo" data-action="lightbox" data-case-id="' + c.id + '" data-photo-type="before" style="cursor:zoom-in">' +
           '<img src="' + imgSrc + '" alt="' + (c.title || 'Before') + '" class="gc-img" loading="lazy" ' +
-            'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" data-action="lightbox" data-case-id="' + c.id + '" data-photo-type="before">' +
+            'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
           '<div class="gc-ph" style="display:none"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
           '<div class="gc-photo-overlay">' +
             '<span class="gc-badge-before">BEFORE</span>' +
@@ -423,13 +423,12 @@
     filtered.forEach(function(c) { html += renderCard(c); });
     grid.innerHTML = html;
 
-    // 사진 클릭 → 라이트박스 열기
-    grid.querySelectorAll('[data-action="lightbox"]').forEach(function(img) {
-      img.style.cursor = 'zoom-in';
-      img.addEventListener('click', function(e) {
+    // 사진 영역(gc-photo) 클릭 → 라이트박스 열기
+    grid.querySelectorAll('.gc-photo[data-action="lightbox"]').forEach(function(photoDiv) {
+      photoDiv.addEventListener('click', function(e) {
         e.stopPropagation();
-        var caseId = img.getAttribute('data-case-id');
-        var photoType = img.getAttribute('data-photo-type') || 'before';
+        var caseId = photoDiv.getAttribute('data-case-id');
+        var photoType = photoDiv.getAttribute('data-photo-type') || 'before';
         var caseItem = cases.find(function(c) { return c.id === caseId; });
         if (caseItem) openLightbox(caseItem, photoType);
       });
@@ -439,7 +438,7 @@
     grid.querySelectorAll('.gc-card[data-href]').forEach(function(card) {
       card.addEventListener('click', function(e) {
         if (e.target.closest('a')) return;
-        if (e.target.closest('[data-action="lightbox"]')) return;  // 사진 클릭은 라이트박스로
+        if (e.target.closest('.gc-photo[data-action="lightbox"]')) return;  // 사진 영역 클릭은 라이트박스로
         var href = card.getAttribute('data-href');
         if (!isLoggedIn) {
           showLoginModal(href);
