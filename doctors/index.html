@@ -1051,11 +1051,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var cards=document.querySelectorAll('.doctor-card-v2');
       
       function activateFilter(filterValue) {
-        filterBtns.forEach(function(b){b.classList.remove('active');b.style.background='';b.style.color='';b.style.borderColor='';});
+        filterBtns.forEach(function(b){b.classList.remove('active');});
         var targetBtn = document.querySelector('.filter-btn[data-filter="'+filterValue+'"]');
         if(targetBtn){
           targetBtn.classList.add('active');
-          targetBtn.style.background='var(--brand-primary)';targetBtn.style.color='#fff';targetBtn.style.borderColor='var(--brand-primary)';
         }
         cards.forEach(function(card){
           if(filterValue==='all'||card.dataset.specialty===filterValue){card.style.display='';} 
