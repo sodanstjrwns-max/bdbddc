@@ -146,10 +146,21 @@
       ? '<span class="gc-region"><i class="fas fa-map-marker-alt"></i> ' + c.region + '</span>'
       : '';
 
+    // 환자 정보 (나이·성별)
+    var patientHtml = '';
+    if (c.patientAge || c.patientGender) {
+      var genderText = c.patientGender === 'male' ? '남성' : c.patientGender === 'female' ? '여성' : '';
+      var ageText = c.patientAge || '';
+      var patientText = [ageText, genderText].filter(Boolean).join(' ');
+      if (patientText) {
+        patientHtml = '<span class="gc-patient"><i class="fas fa-user"></i> ' + patientText + '</span>';
+      }
+    }
+
     return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '" data-region="' + (c.region || '') + '">' +
       photoHtml +
       '<div class="gc-content">' +
-        '<div class="gc-tags">' + catHtml + periodHtml + imgCountHtml + regionHtml + '</div>' +
+        '<div class="gc-tags">' + catHtml + periodHtml + imgCountHtml + regionHtml + patientHtml + '</div>' +
         '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
         descHtml +
         '<div class="gc-footer">' +

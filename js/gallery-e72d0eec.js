@@ -1,10 +1,7 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v12
- * - Weglot DOM 깨짐 방지: <div> + JS 클릭 네비게이션
- * - 비로그인 시 세련된 모달 안내 (로그인 페이지 리다이렉트 대신)
- * - 카드: 비포사진 + 카테고리 + 치료기간 + 제목 + 설명(3줄) + 원장 = 통합
- * - 비로그인 시 "애프터 사진은 로그인 후 확인" 힌트 표시
- * - 사진 클릭 시 라이트박스(큰 사진 모달) + 비포/애프터 탭 전환
+ * 서울비디치과 비포/애프터 갤러리 시스템 v7
+ * - 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 카드
+ * - 이미지 없는 케이스도 예쁜 플레이스홀더
  */
 (function() {
   'use strict';
@@ -44,6 +41,7 @@
     tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
   };
 
+  // 카테고리별 아이콘
   var CAT_ICONS = {
     implant:'fa-tooth', invisalign:'fa-teeth-open', orthodontics:'fa-teeth',
     pediatric:'fa-baby', 'front-crown':'fa-crown',
@@ -57,347 +55,126 @@
     tmj:'fa-head-side', bruxism:'fa-compress', emergency:'fa-ambulance'
   };
 
+  // 설명 텍스트 정리 (체크마크, 번호 등 제거하고 첫 문장만)
   function cleanDesc(desc) {
     if (!desc) return '';
+    // 첫 줄만 (빈줄 이전까지)
     var firstPara = desc.split(/\n\s*\n/)[0] || '';
+    // 이모지/특수문자 정리
     firstPara = firstPara.replace(/[✅❌⭐🔹🔸▶►●•]/g, '').replace(/^\d+\.\s*/gm, '').trim();
+    // 줄바꿈을 공백으로
     firstPara = firstPara.replace(/\n/g, ' ').trim();
-    if (firstPara.length > 120) firstPara = firstPara.substring(0, 120) + '…';
+    // 최대 80자
+    if (firstPara.length > 80) firstPara = firstPara.substring(0, 80) + '…';
     return firstPara;
   }
 
-  // ─── 라이트박스 (사진 확대 모달) ───
-  function createLightbox() {
-    if (document.getElementById('photoLightbox')) return;
-    var lb = document.createElement('div');
-    lb.id = 'photoLightbox';
-    lb.className = 'photo-lightbox';
-    lb.innerHTML =
-      '<div class="lb-backdrop"></div>' +
-      '<div class="lb-container">' +
-        '<button class="lb-close" aria-label="닫기"><i class="fas fa-times"></i></button>' +
-        '<div class="lb-tabs" id="lbTabs"></div>' +
-        '<div class="lb-image-wrap">' +
-          '<img class="lb-img" id="lbImg" alt="">' +
-          '<div class="lb-loading"><i class="fas fa-spinner fa-spin"></i></div>' +
-          '<div class="lb-lock" id="lbLock">' +
-            '<div class="lb-lock-inner">' +
-              '<i class="fas fa-lock"></i>' +
-              '<p>애프터 사진은 로그인 후 확인 가능합니다</p>' +
-              '<a href="/auth/login" class="lb-lock-btn" id="lbLoginBtn"><i class="fas fa-sign-in-alt"></i> 로그인하기</a>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="lb-info" id="lbInfo"></div>' +
-        '<div class="lb-nav">' +
-          '<button class="lb-nav-btn lb-prev" id="lbPrev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>' +
-          '<button class="lb-nav-btn lb-next" id="lbNext" aria-label="다음"><i class="fas fa-chevron-right"></i></button>' +
-        '</div>' +
-      '</div>';
-    document.body.appendChild(lb);
-
-    // 스타일 주입
-    if (!document.getElementById('lightboxStyles')) {
-      var style = document.createElement('style');
-      style.id = 'lightboxStyles';
-      style.textContent =
-        '.photo-lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:10001;align-items:center;justify-content:center;}' +
-        '.photo-lightbox.active{display:flex;}' +
-        '.lb-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.92);cursor:pointer;}' +
-        '.lb-container{position:relative;width:95%;max-width:800px;max-height:92vh;display:flex;flex-direction:column;z-index:1;}' +
-        '.lb-close{position:absolute;top:-8px;right:-8px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.1rem;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center;transition:all .2s;backdrop-filter:blur(8px);}' +
-        '.lb-close:hover{background:rgba(255,255,255,0.3);transform:scale(1.1);}' +
-        '.lb-tabs{display:flex;gap:4px;margin-bottom:8px;justify-content:center;}' +
-        '.lb-tab{padding:8px 20px;border-radius:50px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);font-size:0.85rem;font-weight:700;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);}' +
-        '.lb-tab:hover{border-color:rgba(255,255,255,0.4);color:#fff;}' +
-        '.lb-tab.active{background:rgba(107,66,38,0.9);border-color:#C8A97E;color:#fff;}' +
-        '.lb-tab .lb-tab-icon{margin-right:6px;}' +
-        '.lb-image-wrap{position:relative;border-radius:12px;overflow:hidden;background:#111;min-height:200px;display:flex;align-items:center;justify-content:center;}' +
-        '.lb-img{display:block;max-width:100%;max-height:70vh;margin:0 auto;object-fit:contain;transition:opacity .3s;}' +
-        '.lb-img.loading{opacity:0;}' +
-        '.lb-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1.5rem;}' +
-        '.lb-lock{display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);align-items:center;justify-content:center;text-align:center;color:#fff;}' +
-        '.lb-lock.active{display:flex;}' +
-        '.lb-lock-inner i{font-size:2.5rem;color:#C8A97E;margin-bottom:16px;display:block;}' +
-        '.lb-lock-inner p{font-size:1rem;opacity:0.8;margin-bottom:20px;}' +
-        '.lb-lock-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:all .2s;}' +
-        '.lb-lock-btn:hover{background:#8B6344;transform:translateY(-2px);}' +
-        '.lb-info{padding:12px 4px;text-align:center;color:rgba(255,255,255,0.7);font-size:0.88rem;}' +
-        '.lb-info strong{color:#fff;font-weight:700;}' +
-        '.lb-info .lb-info-cat{display:inline-block;padding:2px 10px;border-radius:50px;background:rgba(200,169,126,0.2);color:#C8A97E;font-size:0.78rem;font-weight:600;margin-right:8px;}' +
-        '.lb-nav-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:1.1rem;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;}' +
-        '.lb-nav-btn:hover{background:rgba(255,255,255,0.25);}' +
-        '.lb-nav-btn:disabled{opacity:0.2;cursor:default;}' +
-        '.lb-prev{left:-56px;}' +
-        '.lb-next{right:-56px;}' +
-        '@media(max-width:900px){.lb-prev{left:8px;}.lb-next{right:8px;}.lb-container{width:100%;max-width:100%;padding:0 8px;}.lb-close{top:8px;right:16px;}}' +
-        '@media(max-width:600px){.lb-tab{padding:6px 14px;font-size:0.78rem;}.lb-nav-btn{width:36px;height:36px;font-size:0.9rem;}.lb-img{max-height:55vh;}}';
-      document.head.appendChild(style);
-    }
-
-    // 이벤트
-    lb.querySelector('.lb-backdrop').addEventListener('click', closeLightbox);
-    lb.querySelector('.lb-close').addEventListener('click', closeLightbox);
-    document.addEventListener('keydown', function(e) {
-      if (!lb.classList.contains('active')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') navigateLightbox(-1);
-      if (e.key === 'ArrowRight') navigateLightbox(1);
-    });
-    document.getElementById('lbPrev').addEventListener('click', function() { navigateLightbox(-1); });
-    document.getElementById('lbNext').addEventListener('click', function() { navigateLightbox(1); });
-  }
-
-  var lbPhotos = [];  // [{label, type, src}]
-  var lbCurrentIdx = 0;
-  var lbCaseData = null;
-
-  function openLightbox(caseItem, startType) {
-    createLightbox();
-    lbCaseData = caseItem;
-    lbPhotos = [];
-
-    // 사진 목록 구성
-    if (caseItem.beforeImage) lbPhotos.push({ label: 'BEFORE 구내', type: 'before', src: caseItem.beforeImage });
-    if (caseItem.panBeforeImage) lbPhotos.push({ label: 'BEFORE 파노', type: 'before-pano', src: caseItem.panBeforeImage });
-    if (caseItem.afterImage) lbPhotos.push({ label: 'AFTER 구내', type: 'after', src: caseItem.afterImage });
-    if (caseItem.panAfterImage) lbPhotos.push({ label: 'AFTER 파노', type: 'after-pano', src: caseItem.panAfterImage });
-
-    if (lbPhotos.length === 0) return;
-
-    // 시작 인덱스
-    lbCurrentIdx = 0;
-    if (startType) {
-      for (var i = 0; i < lbPhotos.length; i++) {
-        if (lbPhotos[i].type === startType) { lbCurrentIdx = i; break; }
-      }
-    }
-
-    // 탭 생성
-    var tabsEl = document.getElementById('lbTabs');
-    tabsEl.innerHTML = '';
-    lbPhotos.forEach(function(p, idx) {
-      var isAfter = p.type.startsWith('after');
-      var locked = isAfter && !isLoggedIn;
-      var tab = document.createElement('button');
-      tab.className = 'lb-tab' + (idx === lbCurrentIdx ? ' active' : '');
-      tab.innerHTML = '<span class="lb-tab-icon"><i class="fas ' + (isAfter ? 'fa-star' : 'fa-camera') + '"></i></span>' + p.label + (locked ? ' <i class="fas fa-lock" style="margin-left:4px;font-size:0.7rem;opacity:0.6;"></i>' : '');
-      tab.addEventListener('click', function() { showLightboxPhoto(idx); });
-      tabsEl.appendChild(tab);
-    });
-
-    showLightboxPhoto(lbCurrentIdx);
-
-    // 케이스 정보
-    var catLabel = CATS[caseItem.category] || caseItem.category || '';
-    var infoEl = document.getElementById('lbInfo');
-    infoEl.innerHTML = '<span class="lb-info-cat">' + catLabel + '</span> <strong>' + (caseItem.title || '') + '</strong>' + (caseItem.doctorName ? ' · ' + caseItem.doctorName + ' 원장' : '');
-
-    // 로그인 버튼 redirect
-    var loginBtn = document.getElementById('lbLoginBtn');
-    if (loginBtn) loginBtn.href = '/auth/login?redirect=/cases/' + caseItem.id;
-
-    var lb = document.getElementById('photoLightbox');
-    lb.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function showLightboxPhoto(idx) {
-    if (idx < 0 || idx >= lbPhotos.length) return;
-    lbCurrentIdx = idx;
-    var photo = lbPhotos[idx];
-    var isAfter = photo.type.startsWith('after');
-    var locked = isAfter && !isLoggedIn;
-
-    var img = document.getElementById('lbImg');
-    var lockEl = document.getElementById('lbLock');
-
-    // 탭 활성화
-    var tabs = document.querySelectorAll('#lbTabs .lb-tab');
-    tabs.forEach(function(t, i) { t.classList.toggle('active', i === idx); });
-
-    // 네비게이션 버튼
-    document.getElementById('lbPrev').disabled = (idx === 0);
-    document.getElementById('lbNext').disabled = (idx === lbPhotos.length - 1);
-
-    if (locked) {
-      img.style.display = 'none';
-      lockEl.classList.add('active');
-    } else {
-      lockEl.classList.remove('active');
-      img.style.display = 'block';
-      img.classList.add('loading');
-      img.onload = function() { img.classList.remove('loading'); };
-      img.onerror = function() { img.classList.remove('loading'); img.alt = '사진을 불러올 수 없습니다'; };
-      img.src = photo.src;
-      img.alt = photo.label + ' - ' + (lbCaseData ? lbCaseData.title : '');
-    }
-  }
-
-  function navigateLightbox(dir) {
-    var newIdx = lbCurrentIdx + dir;
-    if (newIdx >= 0 && newIdx < lbPhotos.length) {
-      showLightboxPhoto(newIdx);
-    }
-  }
-
-  function closeLightbox() {
-    var lb = document.getElementById('photoLightbox');
-    if (lb) {
-      lb.classList.remove('active');
-      document.body.style.overflow = '';
-      var img = document.getElementById('lbImg');
-      if (img) img.src = '';
-    }
-  }
-
-  // ─── 로그인 안내 모달 ───
-  function createLoginModal() {
-    if (document.getElementById('loginPromptModal')) return;
-    var modal = document.createElement('div');
-    modal.id = 'loginPromptModal';
-    modal.className = 'login-modal';
-    modal.innerHTML =
-      '<div class="login-modal-backdrop"></div>' +
-      '<div class="login-modal-card">' +
-        '<button class="login-modal-close" aria-label="닫기"><i class="fas fa-times"></i></button>' +
-        '<div class="login-modal-icon">' +
-          '<div class="login-modal-icon-ring">' +
-            '<i class="fas fa-lock"></i>' +
-          '</div>' +
-        '</div>' +
-        '<h3 class="login-modal-title">로그인이 필요합니다</h3>' +
-        '<p class="login-modal-desc">치료 전/후 사진과 상세 케이스 정보는<br>로그인 후 확인하실 수 있습니다.</p>' +
-        '<div class="login-modal-benefits">' +
-          '<div class="login-modal-benefit"><i class="fas fa-check-circle"></i> 비포/애프터 사진 전체 공개</div>' +
-          '<div class="login-modal-benefit"><i class="fas fa-check-circle"></i> 파노라마·구내 사진 확인</div>' +
-          '<div class="login-modal-benefit"><i class="fas fa-check-circle"></i> 상세 치료 과정 열람</div>' +
-        '</div>' +
-        '<div class="login-modal-actions">' +
-          '<a href="/auth/login" class="login-modal-btn login-modal-btn-primary" id="loginModalLoginBtn">' +
-            '<i class="fas fa-sign-in-alt"></i> 로그인하기' +
-          '</a>' +
-          '<a href="/auth/register" class="login-modal-btn login-modal-btn-secondary">' +
-            '<i class="fas fa-user-plus"></i> 회원가입 (10초)' +
-          '</a>' +
-        '</div>' +
-        '<p class="login-modal-note"><i class="fas fa-shield-alt"></i> 개인정보는 안전하게 보호됩니다</p>' +
-      '</div>';
-    document.body.appendChild(modal);
-
-    // 이벤트 바인딩
-    modal.querySelector('.login-modal-backdrop').addEventListener('click', closeLoginModal);
-    modal.querySelector('.login-modal-close').addEventListener('click', closeLoginModal);
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeLoginModal();
-    });
-  }
-
-  function showLoginModal(redirectPath) {
-    createLoginModal();
-    var modal = document.getElementById('loginPromptModal');
-    var loginBtn = document.getElementById('loginModalLoginBtn');
-    if (loginBtn && redirectPath) {
-      loginBtn.href = '/auth/login?redirect=' + encodeURIComponent(redirectPath);
-    }
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLoginModal() {
-    var modal = document.getElementById('loginPromptModal');
-    if (modal) {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  }
-
-  // ─── 카드 렌더링 v11 ───
+  // ─── 카드 렌더링 v7: 비포사진 + 모든 정보 하나의 카드 ───
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
     var catSlugMap = { 'front-crown': 'crown' };
     var treatmentSlug = catSlugMap[c.category] || c.category;
     var hasIntraoral = c.hasIntraoral || (c.beforeImage && !c.beforeImage.includes('favicon'));
     var hasPano = c.hasPano || c.panBeforeImage || c.panAfterImage;
+    // 비포 사진만 표시 (애프터 사진은 숨김)
     var imgSrc = c.thumbnailImage || c.beforeImage || c.panBeforeImage || '';
     var hasAnyImage = c.hasAnyImage || !!imgSrc;
     var catIcon = CAT_ICONS[c.category] || 'fa-tooth';
 
-    // 이미지 수
-    var imgCount = 0;
-    if (c.beforeImage) imgCount++;
-    if (c.afterImage) imgCount++;
-    if (c.panBeforeImage) imgCount++;
-    if (c.panAfterImage) imgCount++;
+    // 이미지 유형 뱃지
+    var typeBadges = '';
+    if (hasIntraoral) typeBadges += '<span class="gc-type-tag"><i class="fas fa-camera"></i> 구내</span>';
+    if (hasPano) typeBadges += '<span class="gc-type-tag gc-type-pano"><i class="fas fa-x-ray"></i> 파노</span>';
 
-    // 사진 영역
+    // 비포 사진 또는 예쁜 플레이스홀더
     var photoHtml;
     if (hasAnyImage && imgSrc) {
       photoHtml =
-        '<div class="gc-photo" data-action="lightbox" data-case-id="' + c.id + '" data-photo-type="before" style="cursor:zoom-in">' +
+        '<div class="gc-photo">' +
           '<img src="' + imgSrc + '" alt="' + (c.title || 'Before') + '" class="gc-img" loading="lazy" ' +
             'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
           '<div class="gc-ph" style="display:none"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
-          '<div class="gc-photo-overlay">' +
-            '<span class="gc-badge-before">BEFORE</span>' +
-            '<div class="gc-badge-types">' +
-              (hasIntraoral ? '<span class="gc-badge-type"><i class="fas fa-camera"></i> 구내</span>' : '') +
-              (hasPano ? '<span class="gc-badge-type gc-badge-pano"><i class="fas fa-x-ray"></i> 파노</span>' : '') +
-            '</div>' +
+          '<div class="gc-photo-badges">' +
+            '<span class="gc-before-label">BEFORE</span>' +
+            typeBadges +
           '</div>' +
-          (imgCount > 1 ? '<div class="gc-photo-count"><i class="far fa-images"></i> ' + imgCount + '</div>' : '') +
-          (!isLoggedIn ? '<div class="gc-login-hint"><i class="fas fa-lock"></i> 로그인 후 애프터 사진 확인</div>' : '') +
-          '<div class="gc-zoom-hint"><i class="fas fa-search-plus"></i></div>' +
         '</div>';
     } else {
       photoHtml =
         '<div class="gc-photo">' +
           '<div class="gc-ph"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
-          '<div class="gc-photo-overlay">' +
-            '<span class="gc-badge-before">BEFORE</span>' +
+          '<div class="gc-photo-badges">' +
+            '<span class="gc-before-label">BEFORE</span>' +
           '</div>' +
         '</div>';
     }
 
-    // 설명 (3줄까지)
-    var desc = cleanDesc(c.description);
+    // 카테고리
+    var catHtml = c.category
+      ? '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</a>'
+      : '<span class="gc-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</span>';
 
-    // 원장
+    // 기간
+    var periodHtml = c.treatmentPeriod
+      ? '<span class="gc-period"><i class="far fa-clock"></i> ' + c.treatmentPeriod + '</span>'
+      : '';
+
+    // 설명 (2~3줄)
+    var desc = cleanDesc(c.description);
+    var descHtml = desc
+      ? '<p class="gc-desc">' + desc + '</p>'
+      : '';
+
+    // 담당 원장
     var doctorInitial = (c.doctorName || '?').charAt(0);
-    var doctorDisplay = c.doctorSlug
-      ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doctor-link">' + (c.doctorName || '') + '</a>'
-      : '<span class="gc-doctor-name">' + (c.doctorName || '') + '</span>';
+    var doctorHtml = c.doctorSlug
+      ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doc-link">' + (c.doctorName || '') + '</a>'
+      : '<span class="gc-doc-name">' + (c.doctorName || '') + '</span>';
+
+    // 이미지 수 표시
+    var imgCount = 0;
+    if (c.beforeImage) imgCount++;
+    if (c.afterImage) imgCount++;
+    if (c.panBeforeImage) imgCount++;
+    if (c.panAfterImage) imgCount++;
+    var imgCountHtml = imgCount > 0
+      ? '<span class="gc-img-count"><i class="far fa-images"></i> ' + imgCount + '장</span>'
+      : '';
 
     // 지역 표시
     var regionHtml = c.region
       ? '<span class="gc-region"><i class="fas fa-map-marker-alt"></i> ' + c.region + '</span>'
       : '';
 
-    return '<div class="gc-card" data-href="/cases/' + c.id + '" data-category="' + (filterGroupMap[c.category] || 'general') + '" data-region="' + (c.region || '') + '" role="link" tabindex="0">' +
+    // 환자 정보 (나이·성별)
+    var patientHtml = '';
+    if (c.patientAge || c.patientGender) {
+      var genderText = c.patientGender === 'male' ? '남성' : c.patientGender === 'female' ? '여성' : '';
+      var ageText = c.patientAge || '';
+      var patientText = [ageText, genderText].filter(Boolean).join(' ');
+      if (patientText) {
+        patientHtml = '<span class="gc-patient"><i class="fas fa-user"></i> ' + patientText + '</span>';
+      }
+    }
+
+    return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '" data-region="' + (c.region || '') + '">' +
       photoHtml +
-      '<div class="gc-body">' +
-        // 상단 메타 라인: 카테고리 + 기간 + 지역
-        '<div class="gc-meta">' +
-          '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-category"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</a>' +
-          (c.treatmentPeriod ? '<span class="gc-period"><i class="far fa-clock"></i> ' + c.treatmentPeriod + '</span>' : '') +
-          regionHtml +
-        '</div>' +
-        // 제목
+      '<div class="gc-content">' +
+        '<div class="gc-tags">' + catHtml + periodHtml + imgCountHtml + regionHtml + patientHtml + '</div>' +
         '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
-        // 설명 (3줄)
-        (desc ? '<p class="gc-desc">' + desc + '</p>' : '') +
-        // 하단: 원장 + CTA
-        '<div class="gc-bottom">' +
-          '<div class="gc-doctor">' +
-            '<div class="gc-avatar">' + doctorInitial + '</div>' +
-            doctorDisplay +
+        descHtml +
+        '<div class="gc-footer">' +
+          '<div class="gc-doc">' +
+            '<div class="gc-doc-avatar">' + doctorInitial + '</div>' +
+            doctorHtml +
           '</div>' +
-          '<span class="gc-cta">자세히 <i class="fas fa-chevron-right"></i></span>' +
+          '<span class="gc-more">자세히 보기 <i class="fas fa-arrow-right"></i></span>' +
         '</div>' +
       '</div>' +
-    '</div>';
+    '</a>';
   }
 
+  // 갤러리 렌더링
   function renderGallery(filter) {
     var grid = document.getElementById('galleryGrid');
     var loading = document.getElementById('loadingState');
@@ -436,44 +213,9 @@
     var html = '';
     filtered.forEach(function(c) { html += renderCard(c); });
     grid.innerHTML = html;
-
-    // 사진 영역(gc-photo) 클릭 → 라이트박스 열기
-    grid.querySelectorAll('.gc-photo[data-action="lightbox"]').forEach(function(photoDiv) {
-      photoDiv.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var caseId = photoDiv.getAttribute('data-case-id');
-        var photoType = photoDiv.getAttribute('data-photo-type') || 'before';
-        var caseItem = cases.find(function(c) { return c.id === caseId; });
-        if (caseItem) openLightbox(caseItem, photoType);
-      });
-    });
-
-    // 카드 클릭 이벤트 — 비로그인 시 모달 표시
-    grid.querySelectorAll('.gc-card[data-href]').forEach(function(card) {
-      card.addEventListener('click', function(e) {
-        if (e.target.closest('a')) return;
-        if (e.target.closest('.gc-photo[data-action="lightbox"]')) return;  // 사진 영역 클릭은 라이트박스로
-        var href = card.getAttribute('data-href');
-        if (!isLoggedIn) {
-          showLoginModal(href);
-          return;
-        }
-        if (href) window.location.href = href;
-      });
-      card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          var href = card.getAttribute('data-href');
-          if (!isLoggedIn) {
-            showLoginModal(href);
-            return;
-          }
-          if (href) window.location.href = href;
-        }
-      });
-    });
   }
 
+  // 통계
   function updateStats() {
     var counts = { all: cases.length, implant: 0, invisalign: 0, orthodontics: 0, 'front-crown': 0, aesthetic: 0, glownate: 0, resin: 0, whitening: 0, general: 0, gum: 0 };
     cases.forEach(function(c) {
@@ -526,11 +268,13 @@
     var wrap = document.getElementById('regionFilterWrap');
     if (!regionSection || !wrap) return;
 
+    // 지역별 카운트 수집
     var regionCount = {};
     cases.forEach(function(c) {
       if (c.region) {
+        // 시/도 단위로 그루핑 (", " 뒤의 시/도명 추출)
         var parts = c.region.split(', ');
-        var key = parts.length > 1 ? parts[0] : c.region;
+        var key = parts.length > 1 ? parts[0] : c.region; // "천안시" or "서울"
         regionCount[key] = (regionCount[key] || 0) + 1;
       }
     });
@@ -538,9 +282,12 @@
     var regionKeys = Object.keys(regionCount);
     if (regionKeys.length === 0) { regionSection.style.display = 'none'; return; }
 
+    // 카운트 내림차순 정렬
     regionKeys.sort(function(a, b) { return regionCount[b] - regionCount[a]; });
 
     regionSection.style.display = 'block';
+
+    // 상위 6개는 바로 표시, 나머지는 "더보기"
     var mainChips = regionKeys.slice(0, 6);
     var extraChips = regionKeys.slice(6);
 
@@ -551,7 +298,7 @@
     });
 
     if (extraChips.length > 0) {
-      html += '<button class="region-more-btn" id="regionMoreBtn">+ ' + extraChips.length + '개 더보기</button>';
+      html += '<button class="region-more-btn" id="regionMoreBtn" onclick="document.getElementById(\'regionExtraChips\').classList.toggle(\'open\');this.textContent=this.textContent.includes(\'+\')?\'접기\':\'+ ' + extraChips.length + '개 더보기\'">+ ' + extraChips.length + '개 더보기</button>';
       html += '<div class="region-extra-chips" id="regionExtraChips">';
       extraChips.forEach(function(r) {
         html += '<button class="region-chip" data-region="' + r + '">' + r + '<span class="chip-count">' + regionCount[r] + '</span></button>';
@@ -561,17 +308,7 @@
 
     wrap.innerHTML = html;
 
-    // 더보기 버튼
-    var moreBtn = document.getElementById('regionMoreBtn');
-    if (moreBtn) {
-      moreBtn.addEventListener('click', function() {
-        var extra = document.getElementById('regionExtraChips');
-        extra.classList.toggle('open');
-        moreBtn.textContent = extra.classList.contains('open') ? '접기' : '+ ' + extraChips.length + '개 더보기';
-      });
-    }
-
-    // 칩 이벤트
+    // 이벤트 바인딩
     wrap.querySelectorAll('.region-chip').forEach(function(chip) {
       chip.addEventListener('click', function() {
         wrap.querySelectorAll('.region-chip').forEach(function(c) { c.classList.remove('active'); });

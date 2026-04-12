@@ -647,6 +647,8 @@ app.get('/api/cases', async (c) => {
       hasPano,
       hasAnyImage,
       region: cs.region || '',
+      patientGender: cs.patientGender || '',
+      patientAge: cs.patientAge || '',
       createdAt: cs.createdAt,
     }
   })
