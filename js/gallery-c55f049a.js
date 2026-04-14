@@ -191,7 +191,8 @@
     // 케이스 정보
     var catLabel = CATS[caseItem.category] || caseItem.category || '';
     var infoEl = document.getElementById('lbInfo');
-    infoEl.innerHTML = '<span class="lb-info-cat">' + catLabel + '</span> <strong>' + (caseItem.title || '') + '</strong>' + (caseItem.doctorName ? ' · ' + caseItem.doctorName + ' 원장' : '');
+    var docNameClean = (caseItem.doctorName || '').replace(/ 원장$/, '');
+    infoEl.innerHTML = '<span class="lb-info-cat">' + catLabel + '</span> <strong>' + (caseItem.title || '') + '</strong>' + (docNameClean ? ' · ' + docNameClean + ' 원장' : '');
 
     // 로그인 버튼 redirect
     var loginBtn = document.getElementById('lbLoginBtn');
