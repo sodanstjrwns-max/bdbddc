@@ -3521,6 +3521,9 @@ app.get('/checkup', serveStatic({ path: './checkup.html' }))
 app.get('/run', serveStatic({ path: './run.html' }))
 app.get('/games', serveStatic({ path: './games.html' }))
 
+// 디자인 트렌드 데모
+app.get('/demo-trends', serveStatic({ path: './demo-trends.html' }))
+
 // Root level HTML files with .html extension → handled by 301 redirects above
 
 // ============================================
