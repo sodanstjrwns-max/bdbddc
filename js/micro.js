@@ -1,10 +1,8 @@
 /**
- * 서울비디치과 Micro-Interactions & Scroll Animations v1.0
+ * 서울비디치과 Micro-Interactions & Scroll Animations v2.0
  * =========================================================
- * - 스크롤 Reveal 자동 적용 (섹션, 카드, 그리드 아이템)
- * - 숫자 카운트업 애니메이션
- * - 프로그레스 바 애니메이션
- * - GNB 스크롤 강화
+ * v1.0 — 스크롤 Reveal, 카운트업, GNB 강화
+ * v2.0 — 후기 스태거, 마우스 글로우, 히어로 효과 추가
  * =========================================================
  */
 
@@ -13,8 +11,7 @@
 
   // ─── 1. 스크롤 Reveal 자동 적용 ───
   function initScrollReveal() {
-    // 자동으로 reveal 대상 탐색 (HTML 수정 없이!)
-    const selectors = [
+    var selectors = [
       '.section-header',
       '.section-badge',
       '.treatment-card',
@@ -36,42 +33,38 @@
       '.hero-trust-row',
       '.faq-category',
       '.concern-item',
-      // 치료 상세 페이지
       '.info-card',
       '.step-card',
       '.case-card',
       '.price-table',
       '.cta-section',
       '.process-step',
-      // 공통 섹션
+      // 시설 매거진
+      '.fac-mag-stat',
+      '.fac-mag-card',
+      // 공통
       '.section > .container > *',
     ];
 
-    const elements = document.querySelectorAll(selectors.join(','));
+    var elements = document.querySelectorAll(selectors.join(','));
 
-    elements.forEach(el => {
-      // 이미 적용된 요소 스킵
+    elements.forEach(function(el) {
       if (el.classList.contains('mi-reveal')) return;
-      // 히어로 내부는 스킵 (이미 보이는 영역)
       if (el.closest('.hero')) return;
-      // 헤더/GNB 내부 스킵
       if (el.closest('.site-header') || el.closest('.mobile-nav')) return;
-      // footer 내부 스킵
       if (el.closest('.site-footer') || el.closest('footer')) return;
-      // 이미 animate 클래스가 있는 요소 스킵
       if (el.classList.contains('animate-fade-in-up') || el.classList.contains('animate-fade-in')) return;
-
       el.classList.add('mi-reveal');
     });
 
-    // 그리드 아이템에 스태거 딜레이 적용
-    const grids = document.querySelectorAll(
+    // 그리드 스태거 딜레이
+    var grids = document.querySelectorAll(
       '.treatment-grid, .why-grid, .philosophy-cards, .doctors-grid, .reviews-grid, .type-grid, .concerns-grid, .video-stats, .floor-stack'
     );
 
-    grids.forEach(grid => {
-      const children = grid.children;
-      for (let i = 0; i < children.length && i < 6; i++) {
+    grids.forEach(function(grid) {
+      var children = grid.children;
+      for (var i = 0; i < children.length && i < 6; i++) {
         if (children[i].classList.contains('mi-reveal')) {
           children[i].classList.add('mi-delay-' + (i + 1));
         }
@@ -80,12 +73,11 @@
 
     // IntersectionObserver
     if (!('IntersectionObserver' in window)) {
-      // fallback: 그냥 다 보여줌
-      document.querySelectorAll('.mi-reveal').forEach(el => el.classList.add('mi-visible'));
+      document.querySelectorAll('.mi-reveal').forEach(function(el) { el.classList.add('mi-visible'); });
       return;
     }
 
-    const observer = new IntersectionObserver(function(entries) {
+    var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('mi-visible');
@@ -103,16 +95,15 @@
     });
   }
 
-  // ─── 2. 숫자 카운트업 ───
+  // ─── 2. 숫자 카운트업 (v2: innerHTML 보존) ───
   function initCountUp() {
-    // 이미 있는 숫자 요소 탐색
-    const statNumbers = document.querySelectorAll(
-      '.video-stat-number, .stat-number, .why-card-stat .num'
+    var statNumbers = document.querySelectorAll(
+      '.video-stat-number, .stat-number, .why-card-stat .num, .fac-mag-stat-num'
     );
 
     if (!statNumbers.length) return;
 
-    const countObserver = new IntersectionObserver(function(entries) {
+    var countObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting && !entry.target.dataset.miCounted) {
           entry.target.dataset.miCounted = 'true';
@@ -120,7 +111,7 @@
           countObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
 
     statNumbers.forEach(function(el) {
       countObserver.observe(el);
@@ -128,60 +119,65 @@
   }
 
   function animateNumber(el) {
-    // 텍스트에서 숫자 추출
-    var text = el.textContent.trim();
-    var match = text.match(/[\d,]+/);
+    // innerHTML 기반 — <span> 태그 보존
+    var html = el.innerHTML;
+    var textOnly = el.textContent.trim();
+
+    // "1~5" 같은 범위 숫자는 스킵
+    if (textOnly.match(/[~\-\/]/)) return;
+    // "1:1" 같은 비율 숫자는 스킵
+    if (textOnly.match(/^\d+:\d+$/)) return;
+
+    var match = textOnly.match(/^(\d[\d,]*)/);
     if (!match) return;
 
-    var numStr = match[0].replace(/,/g, '');
+    var numStr = match[1].replace(/,/g, '');
     var target = parseInt(numStr, 10);
     if (isNaN(target) || target === 0) return;
 
-    // 원래 텍스트에서 숫자 부분만 교체할 준비
-    var prefix = text.substring(0, text.indexOf(match[0]));
-    var suffix = text.substring(text.indexOf(match[0]) + match[0].length);
+    // innerHTML에서 숫자 부분의 위치 찾기
+    var numInHtml = html.indexOf(match[1]);
+    if (numInHtml === -1) return;
 
-    var duration = Math.min(2000, Math.max(800, target * 0.5));
+    var beforeNum = html.substring(0, numInHtml);
+    var afterNum = html.substring(numInHtml + match[1].length);
+
+    var duration = target >= 100 ? 1800 : 1200;
     var start = performance.now();
 
     function update(now) {
       var elapsed = now - start;
       var progress = Math.min(elapsed / duration, 1);
-      // easeOutQuart
       var eased = 1 - Math.pow(1 - progress, 4);
       var current = Math.floor(eased * target);
 
-      el.textContent = prefix + current.toLocaleString() + suffix;
+      el.innerHTML = beforeNum + (target >= 1000 ? current.toLocaleString() : current) + afterNum;
 
       if (progress < 1) {
         requestAnimationFrame(update);
       } else {
-        el.textContent = text; // 원래 텍스트 복원 (소수점, +, 기타 포함)
+        el.innerHTML = html; // 원래 HTML 복원
       }
     }
 
-    el.textContent = prefix + '0' + suffix;
+    el.innerHTML = beforeNum + '0' + afterNum;
     requestAnimationFrame(update);
   }
 
-  // ─── 3. GNB 스크롤 강화 (기존 보강) ───
+  // ─── 3. GNB 스크롤 강화 ───
   function enhanceHeader() {
     var header = document.getElementById('header') || document.querySelector('.site-header');
     if (!header) return;
 
-    // 이미 initHeader()가 있으므로 추가 효과만
-    var lastY = 0;
     var ticking = false;
 
     function onScroll() {
       if (!ticking) {
         requestAnimationFrame(function() {
           var y = window.scrollY;
-          // 스크롤 방향 감지 — 아래로 갈수록 그림자 강화
           if (y > 100) {
             header.style.boxShadow = '0 2px 20px rgba(107,66,38,' + Math.min(0.08, y / 5000) + ')';
           }
-          lastY = y;
           ticking = false;
         });
         ticking = true;
@@ -191,7 +187,7 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  // ─── 4. 맨위로 버튼 부드러운 스크롤 ───
+  // ─── 4. 맨위로 버튼 ───
   function enhanceScrollTop() {
     var btn = document.getElementById('scrollToTopBtn');
     if (!btn) return;
@@ -202,14 +198,117 @@
     });
   }
 
-  // ─── 5. 초기화 ───
+  // ═══════════════════════════════════════════
+  //  v2.0 신규 기능
+  // ═══════════════════════════════════════════
+
+  // ─── 5. 후기 카드 스태거 등장 ───
+  function initReviewStagger() {
+    var reviewsGrid = document.querySelector('.reviews-grid');
+    if (!reviewsGrid) return;
+
+    var cards = reviewsGrid.querySelectorAll('.review-card');
+    cards.forEach(function(card, i) {
+      card.style.transitionDelay = (i * 120) + 'ms';
+    });
+  }
+
+  // ─── 6. 마우스 글로우 효과 ───
+  function initMouseGlow() {
+    // 카드에 마우스 따라다니는 은은한 빛
+    var glowTargets = document.querySelectorAll(
+      '.treatment-card, .why-card, .philosophy-card, .type-card, .review-card, .why-hero-card'
+    );
+
+    if (!glowTargets.length) return;
+    // 모바일은 스킵
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    glowTargets.forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        card.style.setProperty('--glow-x', x + 'px');
+        card.style.setProperty('--glow-y', y + 'px');
+      });
+    });
+  }
+
+  // ─── 7. 히어로 텍스트 순차 페이드 효과 ───
+  function initHeroEntrance() {
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    // 히어로 내부 reveal 요소들 순차 등장
+    var reveals = hero.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+
+    reveals.forEach(function(el, i) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+
+      setTimeout(function() {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 200 + (i * 150));
+    });
+  }
+
+  // ─── 8. 히어로 CTA 버튼 호버 빛 효과 ───
+  function initCtaShine() {
+    var ctaBtns = document.querySelectorAll('.hero-cta-group .btn, .btn-primary.btn-lg');
+    if (!ctaBtns.length) return;
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    ctaBtns.forEach(function(btn) {
+      btn.addEventListener('mousemove', function(e) {
+        var rect = btn.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+        btn.style.setProperty('--shine-x', x + '%');
+      });
+    });
+  }
+
+  // ─── 9. 스크롤 프로그레스 인디케이터 (상단 바) ───
+  function initScrollProgress() {
+    // 메인 페이지에서만
+    if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') return;
+
+    var bar = document.createElement('div');
+    bar.className = 'mi-scroll-progress';
+    document.body.appendChild(bar);
+
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          var scrollTop = window.scrollY;
+          var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          var progress = docHeight > 0 ? (scrollTop / docHeight * 100) : 0;
+          bar.style.width = progress + '%';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // ─── 10. 초기화 ───
   function init() {
-    // DOM 로드 후 약간 딜레이 (기존 스크립트와 충돌 방지)
     setTimeout(function() {
+      // v1.0
       initScrollReveal();
       initCountUp();
       enhanceHeader();
       enhanceScrollTop();
+      // v2.0
+      initReviewStagger();
+      initMouseGlow();
+      initHeroEntrance();
+      initCtaShine();
+      initScrollProgress();
     }, 100);
   }
 
