@@ -94,10 +94,10 @@
       '@keyframes bdMsgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}' +
       '@keyframes bdDot{0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-6px);opacity:1}}' +
 
-      // 모바일 반응형
-      '@media(max-width:500px){' +
-        '#bd-chat-window{bottom:0;right:0;left:0;width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0;}' +
-        '#bd-chat-fab{bottom:80px;right:16px;width:54px;height:54px;font-size:1.3rem;}' +
+      // 모바일 반응형 — mobile-bottom-cta(72px 높이)와 겹치지 않도록 조정
+      '@media(max-width:768px){' +
+        '#bd-chat-window{bottom:0;right:0;left:0;width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0;z-index:10000;}' +
+        '#bd-chat-fab{bottom:86px;right:16px;width:52px;height:52px;font-size:1.2rem;z-index:9998;}' +
       '}';
     document.head.appendChild(style);
 
@@ -266,7 +266,7 @@
     .catch(function(err) {
       hideTyping();
       console.error('Chat error:', err);
-      var errorMsg = '네트워크 오류가 발생했습니다. 전화(041-415-2892)로 문의해 주세요.';
+      var errorMsg = '죄송합니다, 잠시 연결이 원활하지 않습니다. 😊\n잠시 후 다시 시도하시거나, 전화(041-415-2892)로 문의해 주세요.';
       state.messages.push({ role: 'assistant', content: errorMsg });
       renderMessage({ role: 'assistant', content: errorMsg });
     })
