@@ -1,6 +1,12 @@
 /**
- * 비디 AI 상담사 — 플로팅 챗봇 v1.0
+ * 비디 AI 상담사 — 플로팅 챗봇 v2.0
  * 서울비디치과 전용
+ * 
+ * v2.0 변경사항:
+ * - 모바일 하단 CTA 바와 겹침 방지 (bottom 위치 동적 계산)
+ * - 네트워크 오류 시 자동 재시도 (최대 2회)
+ * - 에러 메시지 더 친절하게 개선
+ * - API 응답 상태별 세분화된 에러 처리
  */
 (function() {
   'use strict';
@@ -14,7 +20,9 @@
     apiUrl: '/api/chat',
     maxMessages: 40,
     greetingDelay: 500,
-    typingDelay: 600
+    typingDelay: 600,
+    maxRetries: 2,        // 네트워크 오류 시 재시도 횟수
+    retryDelay: 1500      // 재시도 간격 (ms)
   };
 
   // ─── 상태 ───
@@ -24,13 +32,22 @@
     isTyping: false
   };
 
+  // ─── 모바일 하단 CTA 높이 감지 ───
+  function getMobileBottomOffset() {
+    var mobileCta = document.querySelector('.mobile-bottom-cta');
+    if (mobileCta && window.getComputedStyle(mobileCta).display !== 'none') {
+      return mobileCta.offsetHeight + 16; // CTA 높이 + 여백
+    }
+    return 24; // 데스크탑 기본값
+  }
+
   // ─── HTML 삽입 ───
   function createUI() {
     // 스타일
     var style = document.createElement('style');
     style.id = 'bd-chatbot-styles';
     style.textContent =
-      // 플로팅 버튼
+      // 플로팅 버튼 — 데스크탑: floating-cta 위에 배치
       '#bd-chat-fab{position:fixed;bottom:200px;right:24px;z-index:9998;width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:1.5rem;box-shadow:0 4px 24px rgba(107,66,38,0.4),0 0 0 3px rgba(200,169,126,0.2);transition:all .3s cubic-bezier(.22,1,.36,1);-webkit-tap-highlight-color:transparent;}' +
       '#bd-chat-fab:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(107,66,38,0.5),0 0 0 4px rgba(200,169,126,0.3);}' +
       '#bd-chat-fab.open{transform:rotate(90deg) scale(0.9);background:rgba(107,66,38,0.8);}' +
@@ -65,6 +82,11 @@
       '.bd-msg-bubble a{color:#C8A97E;text-decoration:underline;font-weight:600;}' +
       '.bd-msg-user .bd-msg-bubble a{color:#e8d5b8;}' +
 
+      // 재시도 버튼
+      '.bd-retry-btn{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:6px 14px;background:rgba(107,66,38,0.08);border:1px solid rgba(107,66,38,0.2);border-radius:20px;color:#6B4226;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all .2s;}' +
+      '.bd-retry-btn:hover{background:rgba(107,66,38,0.15);border-color:#6B4226;}' +
+      '.bd-retry-btn i{font-size:0.7rem;}' +
+
       // 타이핑 인디케이터
       '.bd-typing{display:flex;gap:8px;max-width:88%;align-items:flex-end;}' +
       '.bd-typing .bd-msg-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.7rem;flex-shrink:0;}' +
@@ -94,10 +116,15 @@
       '@keyframes bdMsgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}' +
       '@keyframes bdDot{0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-6px);opacity:1}}' +
 
-      // 모바일 반응형 — mobile-bottom-cta(72px 높이)와 겹치지 않도록 조정
-      '@media(max-width:768px){' +
+      // ─── 모바일 반응형 ───
+      // mobile-bottom-cta 높이(~72px) + safe-area + 여백 확보
+      // 1024px 이하에서 mobile-bottom-cta가 display:grid 됨
+      '@media(max-width:1024px){' +
+        '#bd-chat-fab{bottom:90px;right:16px;width:52px;height:52px;font-size:1.2rem;z-index:9998;}' +
+      '}' +
+      // 500px 이하 모바일: 채팅창 풀스크린
+      '@media(max-width:500px){' +
         '#bd-chat-window{bottom:0;right:0;left:0;width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0;z-index:10000;}' +
-        '#bd-chat-fab{bottom:86px;right:16px;width:52px;height:52px;font-size:1.2rem;z-index:9998;}' +
       '}';
     document.head.appendChild(style);
 
@@ -113,34 +140,52 @@
     win.id = 'bd-chat-window';
     win.innerHTML =
       '<div class="bd-chat-header">' +
-        '<div class="bd-chat-avatar">🦷</div>' +
+        '<div class="bd-chat-avatar">\uD83E\uDDB7</div>' +
         '<div class="bd-chat-header-info">' +
-          '<h4>비디 AI 상담사</h4>' +
-          '<p>서울비디치과 · 24시간 응답</p>' +
+          '<h4>\uBE44\uB514 AI \uC0C1\uB2F4\uC0AC</h4>' +
+          '<p>\uC11C\uC6B8\uBE44\uB514\uCE58\uACFC \u00B7 24\uC2DC\uAC04 \uC751\uB2F5</p>' +
         '</div>' +
-        '<button class="bd-chat-header-close" aria-label="닫기"><i class="fas fa-times"></i></button>' +
+        '<button class="bd-chat-header-close" aria-label="\uB2EB\uAE30"><i class="fas fa-times"></i></button>' +
       '</div>' +
       '<div class="bd-chat-body" id="bdChatBody"></div>' +
       '<div class="bd-quick-btns" id="bdQuickBtns"></div>' +
       '<div class="bd-chat-input">' +
-        '<textarea id="bdChatInput" rows="1" placeholder="궁금한 점을 물어보세요..." maxlength="1000"></textarea>' +
-        '<button class="bd-chat-send" id="bdChatSend" aria-label="전송"><i class="fas fa-paper-plane"></i></button>' +
+        '<textarea id="bdChatInput" rows="1" placeholder="\uAD81\uAE08\uD55C \uC810\uC744 \uBB3C\uC5B4\uBCF4\uC138\uC694..." maxlength="1000"></textarea>' +
+        '<button class="bd-chat-send" id="bdChatSend" aria-label="\uC804\uC1A1"><i class="fas fa-paper-plane"></i></button>' +
       '</div>' +
-      '<div class="bd-chat-brand">Powered by 서울비디치과 AI</div>';
+      '<div class="bd-chat-brand">Powered by \uC11C\uC6B8\uBE44\uB514\uCE58\uACFC AI</div>';
     document.body.appendChild(win);
+
+    // 모바일에서 FAB 위치 동적 보정
+    adjustFabPosition();
+    window.addEventListener('resize', adjustFabPosition);
 
     return { fab: fab, win: win };
   }
 
+  // ─── FAB 위치 동적 조정 ───
+  function adjustFabPosition() {
+    var fab = document.getElementById('bd-chat-fab');
+    if (!fab) return;
+
+    // 모바일에서만 동적 계산 (1024px 이하)
+    if (window.innerWidth <= 1024) {
+      var offset = getMobileBottomOffset();
+      fab.style.bottom = offset + 'px';
+    } else {
+      fab.style.bottom = ''; // CSS 기본값 사용 (200px)
+    }
+  }
+
   // ─── 퀵 버튼 ───
   var QUICK_QUESTIONS = [
-    { label: '진료시간', text: '진료시간이 어떻게 되나요?' },
-    { label: '오시는 길', text: '서울비디치과 위치가 어디인가요?' },
-    { label: '임플란트', text: '임플란트 상담 받고 싶어요' },
-    { label: '교정/인비절라인', text: '인비절라인 교정 상담 가능할까요?' },
-    { label: '글로우네이트', text: '글로우네이트가 뭔가요?' },
-    { label: '비용 안내', text: '치료 비용이 궁금해요' },
-    { label: '예약하기', text: '상담 예약하고 싶어요' }
+    { label: '\uC9C4\uB8CC\uC2DC\uAC04', text: '\uC9C4\uB8CC\uC2DC\uAC04\uC774 \uC5B4\uB5BB\uAC8C \uB418\uB098\uC694?' },
+    { label: '\uC624\uC2DC\uB294 \uAE38', text: '\uC11C\uC6B8\uBE44\uB514\uCE58\uACFC \uC704\uCE58\uAC00 \uC5B4\uB514\uC778\uAC00\uC694?' },
+    { label: '\uC784\uD50C\uB780\uD2B8', text: '\uC784\uD50C\uB780\uD2B8 \uC0C1\uB2F4 \uBC1B\uACE0 \uC2F6\uC5B4\uC694' },
+    { label: '\uAD50\uC815/\uC778\uBE44\uC808\uB77C\uC778', text: '\uC778\uBE44\uC808\uB77C\uC778 \uAD50\uC815 \uC0C1\uB2F4 \uAC00\uB2A5\uD560\uAE4C\uC694?' },
+    { label: '\uAE00\uB85C\uC6B0\uB124\uC774\uD2B8', text: '\uAE00\uB85C\uC6B0\uB124\uC774\uD2B8\uAC00 \uBB58\uAC00\uC694?' },
+    { label: '\uBE44\uC6A9 \uC548\uB0B4', text: '\uCE58\uB8CC \uBE44\uC6A9\uC774 \uAD81\uAE08\uD574\uC694' },
+    { label: '\uC608\uC57D\uD558\uAE30', text: '\uC0C1\uB2F4 \uC608\uC57D\uD558\uACE0 \uC2F6\uC5B4\uC694' }
   ];
 
   function renderQuickBtns() {
@@ -165,7 +210,7 @@
   }
 
   // ─── 메시지 렌더링 ───
-  function renderMessage(msg) {
+  function renderMessage(msg, options) {
     var body = document.getElementById('bdChatBody');
     if (!body) return;
 
@@ -174,11 +219,29 @@
 
     var avatar = document.createElement('div');
     avatar.className = 'bd-msg-avatar';
-    avatar.textContent = msg.role === 'user' ? '👤' : '🦷';
+    avatar.textContent = msg.role === 'user' ? '\uD83D\uDC64' : '\uD83E\uDDB7';
 
     var bubble = document.createElement('div');
     bubble.className = 'bd-msg-bubble';
     bubble.innerHTML = formatText(msg.content);
+
+    // 에러 메시지에 재시도 버튼 추가
+    if (options && options.showRetry && options.retryText) {
+      var retryBtn = document.createElement('button');
+      retryBtn.className = 'bd-retry-btn';
+      retryBtn.innerHTML = '<i class="fas fa-redo"></i> \uB2E4\uC2DC \uC2DC\uB3C4';
+      retryBtn.addEventListener('click', function() {
+        // 에러 메시지 제거
+        var lastMsg = state.messages[state.messages.length - 1];
+        if (lastMsg && lastMsg.role === 'assistant') {
+          state.messages.pop();
+          div.remove();
+        }
+        // 마지막 유저 메시지로 재시도
+        sendMessage(options.retryText);
+      });
+      bubble.appendChild(retryBtn);
+    }
 
     div.appendChild(avatar);
     div.appendChild(bubble);
@@ -205,7 +268,7 @@
     div.className = 'bd-typing';
     div.id = 'bdTyping';
     div.innerHTML =
-      '<div class="bd-msg-avatar">🦷</div>' +
+      '<div class="bd-msg-avatar">\uD83E\uDDB7</div>' +
       '<div class="bd-typing-dots"><div class="bd-typing-dot"></div><div class="bd-typing-dot"></div><div class="bd-typing-dot"></div></div>';
     body.appendChild(div);
     scrollToBottom();
@@ -225,7 +288,40 @@
     }
   }
 
-  // ─── API 호출 ───
+  // ─── API 호출 (재시도 지원) ───
+  function callChatAPI(apiMessages, retryCount) {
+    retryCount = retryCount || 0;
+
+    return fetch(CONFIG.apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: apiMessages })
+    })
+    .then(function(res) {
+      if (res.ok) return res.json();
+
+      // 상태 코드별 세분화된 처리
+      if (res.status === 500 || res.status === 502 || res.status === 503) {
+        // 서버 오류는 재시도 가능
+        if (retryCount < CONFIG.maxRetries) {
+          return new Promise(function(resolve) {
+            setTimeout(function() {
+              resolve(callChatAPI(apiMessages, retryCount + 1));
+            }, CONFIG.retryDelay * (retryCount + 1));
+          });
+        }
+      }
+
+      // 재시도 불가능한 에러 또는 재시도 초과
+      return res.json().catch(function() { return {}; }).then(function(data) {
+        var error = new Error(data.error || 'API error: ' + res.status);
+        error.status = res.status;
+        error.serverMessage = data.error;
+        throw error;
+      });
+    });
+  }
+
   function sendMessage(text) {
     if (!text || !text.trim() || state.isTyping) return;
     text = text.trim();
@@ -248,27 +344,39 @@
       return { role: m.role, content: m.content };
     });
 
-    fetch(CONFIG.apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: apiMessages })
-    })
-    .then(function(res) {
-      if (!res.ok) throw new Error('API error: ' + res.status);
-      return res.json();
-    })
+    var originalText = text; // 재시도용 보존
+
+    callChatAPI(apiMessages)
     .then(function(data) {
       hideTyping();
-      var reply = data.reply || '죄송합니다, 응답을 생성하지 못했습니다.';
+      var reply = data.reply || '\uC8C4\uC1A1\uD569\uB2C8\uB2E4, \uC751\uB2F5\uC744 \uC0DD\uC131\uD558\uC9C0 \uBABB\uD588\uC2B5\uB2C8\uB2E4.';
       state.messages.push({ role: 'assistant', content: reply });
       renderMessage({ role: 'assistant', content: reply });
     })
     .catch(function(err) {
       hideTyping();
       console.error('Chat error:', err);
-      var errorMsg = '죄송합니다, 잠시 연결이 원활하지 않습니다. 😊\n잠시 후 다시 시도하시거나, 전화(041-415-2892)로 문의해 주세요.';
+
+      var errorMsg;
+      var showRetry = true;
+
+      if (err.status === 400) {
+        errorMsg = '\uBA54\uC2DC\uC9C0\uB97C \uB2E4\uC2DC \uC785\uB825\uD574 \uC8FC\uC138\uC694.';
+        showRetry = false;
+      } else if (err.status === 500 && err.serverMessage && err.serverMessage.indexOf('\uC900\uBE44 \uC911') !== -1) {
+        errorMsg = 'AI \uC0C1\uB2F4 \uC11C\uBE44\uC2A4\uAC00 \uC900\uBE44 \uC911\uC785\uB2C8\uB2E4.\n\uC804\uD654(041-415-2892)\uB85C \uBB38\uC758\uD574 \uC8FC\uC138\uC694.';
+        showRetry = false;
+      } else if (err.message && err.message.indexOf('Failed to fetch') !== -1) {
+        errorMsg = '\uC778\uD130\uB137 \uC5F0\uACB0\uC744 \uD655\uC778\uD574 \uC8FC\uC138\uC694.\nWi-Fi \uB610\uB294 \uB370\uC774\uD130 \uC5F0\uACB0 \uD6C4 \uB2E4\uC2DC \uC2DC\uB3C4\uD574 \uBCF4\uC138\uC694.';
+      } else {
+        errorMsg = '\uC7A0\uC2DC \uC5F0\uACB0\uC774 \uC6D0\uD65C\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.\n\uC7A0\uC2DC \uD6C4 \uB2E4\uC2DC \uC2DC\uB3C4\uD558\uC2DC\uAC70\uB098, \uC804\uD654(041-415-2892)\uB85C \uBB38\uC758\uD574 \uC8FC\uC138\uC694.';
+      }
+
       state.messages.push({ role: 'assistant', content: errorMsg });
-      renderMessage({ role: 'assistant', content: errorMsg });
+      renderMessage(
+        { role: 'assistant', content: errorMsg },
+        { showRetry: showRetry, retryText: originalText }
+      );
     })
     .finally(function() {
       state.isTyping = false;
@@ -298,7 +406,7 @@
       // 첫 오픈 시 인사
       if (state.messages.length === 0) {
         setTimeout(function() {
-          var greeting = '안녕하세요! 서울비디치과 AI 상담사 비디입니다 😊\n\n진료, 예약, 비용 등 궁금한 점을 편하게 물어보세요.';
+          var greeting = '\uC548\uB155\uD558\uC138\uC694! \uC11C\uC6B8\uBE44\uB514\uCE58\uACFC AI \uC0C1\uB2F4\uC0AC \uBE44\uB514\uC785\uB2C8\uB2E4 \uD83D\uDE0A\n\n\uC9C4\uB8CC, \uC608\uC57D, \uBE44\uC6A9 \uB4F1 \uAD81\uAE08\uD55C \uC810\uC744 \uD3B8\uD558\uAC8C \uBB3C\uC5B4\uBCF4\uC138\uC694.';
           state.messages.push({ role: 'assistant', content: greeting });
           renderMessage({ role: 'assistant', content: greeting });
           renderQuickBtns();
