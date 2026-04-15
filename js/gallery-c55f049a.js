@@ -66,7 +66,10 @@
     return firstPara;
   }
 
-  // ─── 라이트박스 (사진 확대 모달) ───
+  // ─── 라이트박스 v14: Before/After 드래그 슬라이더 ───
+  var lbCaseData = null;
+  var sliderDragging = false;
+
   function createLightbox() {
     if (document.getElementById('photoLightbox')) return;
     var lb = document.createElement('div');
@@ -76,117 +79,293 @@
       '<div class="lb-backdrop"></div>' +
       '<div class="lb-container">' +
         '<button class="lb-close" aria-label="닫기"><i class="fas fa-times"></i></button>' +
-        '<div class="lb-tabs" id="lbTabs"></div>' +
-        '<div class="lb-image-wrap">' +
-          '<img class="lb-img" id="lbImg" alt="">' +
-          '<div class="lb-loading"><i class="fas fa-spinner fa-spin"></i></div>' +
-          '<div class="lb-lock" id="lbLock">' +
-            '<div class="lb-lock-inner">' +
-              '<i class="fas fa-lock"></i>' +
-              '<p>애프터 사진은 로그인 후 확인 가능합니다</p>' +
-              '<a href="/auth/login" class="lb-lock-btn" id="lbLoginBtn"><i class="fas fa-sign-in-alt"></i> 로그인하기</a>' +
+        // 슬라이더 모드
+        '<div class="lb-slider-wrap" id="lbSliderWrap" style="display:none;">' +
+          '<div class="lb-slider" id="lbSlider">' +
+            '<img class="lb-slider-after" id="lbSliderAfter" alt="After" draggable="false">' +
+            '<div class="lb-slider-before-clip" id="lbSliderBeforeClip">' +
+              '<img class="lb-slider-before" id="lbSliderBefore" alt="Before" draggable="false">' +
+            '</div>' +
+            '<div class="lb-slider-handle" id="lbSliderHandle">' +
+              '<div class="lb-slider-handle-line"></div>' +
+              '<div class="lb-slider-handle-btn">' +
+                '<i class="fas fa-chevron-left"></i><i class="fas fa-chevron-right"></i>' +
+              '</div>' +
+              '<div class="lb-slider-handle-line"></div>' +
+            '</div>' +
+            '<div class="lb-slider-label lb-slider-label-before">BEFORE</div>' +
+            '<div class="lb-slider-label lb-slider-label-after">AFTER</div>' +
+            '<div class="lb-lock" id="lbLock">' +
+              '<div class="lb-lock-inner">' +
+                '<i class="fas fa-lock"></i>' +
+                '<p>애프터 사진은 로그인 후 확인 가능합니다</p>' +
+                '<a href="/auth/login" class="lb-lock-btn" id="lbLoginBtn"><i class="fas fa-sign-in-alt"></i> 로그인하기</a>' +
+              '</div>' +
             '</div>' +
           '</div>' +
+          '<p class="lb-slider-hint" id="lbSliderHint"><i class="fas fa-arrows-alt-h"></i> 좌우로 드래그하여 비교하세요</p>' +
         '</div>' +
+        // 단일 이미지 모드 (파노라마 등)
+        '<div class="lb-image-wrap" id="lbImageWrap" style="display:none;">' +
+          '<img class="lb-img" id="lbImg" alt="" draggable="false">' +
+          '<div class="lb-loading"><i class="fas fa-spinner fa-spin"></i></div>' +
+        '</div>' +
+        // 탭 (파노라마가 있을 때)
+        '<div class="lb-tabs" id="lbTabs"></div>' +
         '<div class="lb-info" id="lbInfo"></div>' +
-        '<div class="lb-nav">' +
-          '<button class="lb-nav-btn lb-prev" id="lbPrev" aria-label="이전"><i class="fas fa-chevron-left"></i></button>' +
-          '<button class="lb-nav-btn lb-next" id="lbNext" aria-label="다음"><i class="fas fa-chevron-right"></i></button>' +
-        '</div>' +
       '</div>';
     document.body.appendChild(lb);
 
     // 스타일 주입
-    if (!document.getElementById('lightboxStyles')) {
-      var style = document.createElement('style');
-      style.id = 'lightboxStyles';
-      style.textContent =
+    if (!document.getElementById('lightboxStylesV14')) {
+      var s = document.createElement('style');
+      s.id = 'lightboxStylesV14';
+      s.textContent =
+        /* 기본 레이아웃 */
         '.photo-lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:10001;align-items:center;justify-content:center;}' +
         '.photo-lightbox.active{display:flex;}' +
         '.lb-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.92);cursor:pointer;}' +
-        '.lb-container{position:relative;width:95%;max-width:800px;max-height:92vh;display:flex;flex-direction:column;z-index:1;}' +
-        '.lb-close{position:absolute;top:-8px;right:-8px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.1rem;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center;transition:all .2s;backdrop-filter:blur(8px);}' +
+        '.lb-container{position:relative;width:95%;max-width:820px;max-height:92vh;display:flex;flex-direction:column;z-index:1;}' +
+        '.lb-close{position:absolute;top:-8px;right:-8px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all .2s;backdrop-filter:blur(8px);}' +
         '.lb-close:hover{background:rgba(255,255,255,0.3);transform:scale(1.1);}' +
-        '.lb-tabs{display:flex;gap:4px;margin-bottom:8px;justify-content:center;}' +
-        '.lb-tab{padding:8px 20px;border-radius:50px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);font-size:0.85rem;font-weight:700;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);}' +
-        '.lb-tab:hover{border-color:rgba(255,255,255,0.4);color:#fff;}' +
-        '.lb-tab.active{background:rgba(107,66,38,0.9);border-color:#C8A97E;color:#fff;}' +
-        '.lb-tab .lb-tab-icon{margin-right:6px;}' +
+        /* 슬라이더 */
+        '.lb-slider-wrap{position:relative;}' +
+        '.lb-slider{position:relative;border-radius:12px;overflow:hidden;background:#111;cursor:col-resize;user-select:none;-webkit-user-select:none;touch-action:pan-y pinch-zoom;}' +
+        '.lb-slider-after{display:block;width:100%;max-height:70vh;object-fit:contain;pointer-events:none;}' +
+        '.lb-slider-before-clip{position:absolute;top:0;left:0;bottom:0;width:50%;overflow:hidden;z-index:2;pointer-events:none;}' +
+        '.lb-slider-before{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;pointer-events:none;}' +
+        '.lb-slider-handle{position:absolute;top:0;bottom:0;left:50%;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateX(-50%);pointer-events:none;}' +
+        '.lb-slider-handle-line{width:3px;flex:1;background:rgba(255,255,255,0.9);border-radius:2px;box-shadow:0 0 8px rgba(0,0,0,0.4);}' +
+        '.lb-slider-handle-btn{width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;gap:2px;color:#6B4226;font-size:0.7rem;margin:4px 0;flex-shrink:0;}' +
+        '.lb-slider-label{position:absolute;bottom:12px;padding:6px 16px;border-radius:8px;font-size:0.75rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;z-index:3;pointer-events:none;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}' +
+        '.lb-slider-label-before{left:12px;background:rgba(107,66,38,0.85);color:#fff;}' +
+        '.lb-slider-label-after{right:12px;background:rgba(200,169,126,0.85);color:#fff;}' +
+        '.lb-slider-hint{text-align:center;color:rgba(255,255,255,0.5);font-size:0.82rem;margin-top:8px;transition:opacity 0.5s;}' +
+        '.lb-slider-hint i{margin-right:6px;}' +
+        /* 로그인 잠금 (슬라이더 위) */
+        '.lb-lock{display:none;position:absolute;top:0;right:0;bottom:0;width:50%;background:rgba(0,0,0,0.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);align-items:center;justify-content:center;text-align:center;color:#fff;z-index:6;}' +
+        '.lb-lock.active{display:flex;}' +
+        '.lb-lock-inner i{font-size:2.2rem;color:#C8A97E;margin-bottom:12px;display:block;}' +
+        '.lb-lock-inner p{font-size:0.92rem;opacity:0.8;margin-bottom:16px;line-height:1.5;}' +
+        '.lb-lock-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:#6B4226;color:#fff;border-radius:50px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:all .2s;}' +
+        '.lb-lock-btn:hover{background:#8B6344;transform:translateY(-2px);}' +
+        /* 단일 이미지 모드 */
         '.lb-image-wrap{position:relative;border-radius:12px;overflow:hidden;background:#111;min-height:200px;display:flex;align-items:center;justify-content:center;}' +
         '.lb-img{display:block;max-width:100%;max-height:70vh;margin:0 auto;object-fit:contain;transition:opacity .3s;}' +
         '.lb-img.loading{opacity:0;}' +
         '.lb-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:1.5rem;}' +
-        '.lb-lock{display:none;position:absolute;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);align-items:center;justify-content:center;text-align:center;color:#fff;}' +
-        '.lb-lock.active{display:flex;}' +
-        '.lb-lock-inner i{font-size:2.5rem;color:#C8A97E;margin-bottom:16px;display:block;}' +
-        '.lb-lock-inner p{font-size:1rem;opacity:0.8;margin-bottom:20px;}' +
-        '.lb-lock-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:all .2s;}' +
-        '.lb-lock-btn:hover{background:#8B6344;transform:translateY(-2px);}' +
+        /* 탭 (파노라마용) */
+        '.lb-tabs{display:flex;gap:4px;margin-top:8px;justify-content:center;}' +
+        '.lb-tabs:empty{display:none;}' +
+        '.lb-tab{padding:8px 20px;border-radius:50px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);font-size:0.82rem;font-weight:700;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);}' +
+        '.lb-tab:hover{border-color:rgba(255,255,255,0.4);color:#fff;}' +
+        '.lb-tab.active{background:rgba(107,66,38,0.9);border-color:#C8A97E;color:#fff;}' +
+        '.lb-tab .lb-tab-icon{margin-right:6px;}' +
+        /* 케이스 정보 */
         '.lb-info{padding:12px 4px;text-align:center;color:rgba(255,255,255,0.7);font-size:0.88rem;}' +
         '.lb-info strong{color:#fff;font-weight:700;}' +
         '.lb-info .lb-info-cat{display:inline-block;padding:2px 10px;border-radius:50px;background:rgba(200,169,126,0.2);color:#C8A97E;font-size:0.78rem;font-weight:600;margin-right:8px;}' +
-        '.lb-nav-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:1.1rem;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;}' +
-        '.lb-nav-btn:hover{background:rgba(255,255,255,0.25);}' +
-        '.lb-nav-btn:disabled{opacity:0.2;cursor:default;}' +
-        '.lb-prev{left:-56px;}' +
-        '.lb-next{right:-56px;}' +
-        '@media(max-width:900px){.lb-prev{left:8px;}.lb-next{right:8px;}.lb-container{width:100%;max-width:100%;padding:0 8px;}.lb-close{top:8px;right:16px;}}' +
-        '@media(max-width:600px){.lb-tab{padding:6px 14px;font-size:0.78rem;}.lb-nav-btn{width:36px;height:36px;font-size:0.9rem;}.lb-img{max-height:55vh;}}';
-      document.head.appendChild(style);
+        /* 반응형 */
+        '@media(max-width:900px){.lb-container{width:100%;max-width:100%;padding:0 8px;}.lb-close{top:8px;right:16px;}}' +
+        '@media(max-width:600px){.lb-tab{padding:6px 14px;font-size:0.76rem;}.lb-slider-handle-btn{width:36px;height:36px;font-size:0.6rem;}.lb-slider-label{font-size:0.65rem;padding:4px 10px;}.lb-slider-after,.lb-slider-before{max-height:55vh;}.lb-img{max-height:55vh;}}';
+      document.head.appendChild(s);
     }
 
-    // 이벤트
+    // 이벤트 — 닫기
     lb.querySelector('.lb-backdrop').addEventListener('click', closeLightbox);
     lb.querySelector('.lb-close').addEventListener('click', closeLightbox);
     document.addEventListener('keydown', function(e) {
       if (!lb.classList.contains('active')) return;
       if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') navigateLightbox(-1);
-      if (e.key === 'ArrowRight') navigateLightbox(1);
     });
-    document.getElementById('lbPrev').addEventListener('click', function() { navigateLightbox(-1); });
-    document.getElementById('lbNext').addEventListener('click', function() { navigateLightbox(1); });
+
+    // 드래그 슬라이더 이벤트
+    initSliderDrag();
   }
 
-  var lbPhotos = [];  // [{label, type, src}]
-  var lbCurrentIdx = 0;
-  var lbCaseData = null;
+  function initSliderDrag() {
+    var slider = document.getElementById('lbSlider');
+    if (!slider) return;
+
+    function getPos(e) {
+      var rect = slider.getBoundingClientRect();
+      var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      var x = clientX - rect.left;
+      var pct = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      return pct;
+    }
+
+    function updateSlider(pct) {
+      var clip = document.getElementById('lbSliderBeforeClip');
+      var handle = document.getElementById('lbSliderHandle');
+      if (clip) clip.style.width = pct + '%';
+      if (handle) handle.style.left = pct + '%';
+      // 힌트 숨김
+      var hint = document.getElementById('lbSliderHint');
+      if (hint && hint.style.opacity !== '0') hint.style.opacity = '0';
+    }
+
+    // 마우스
+    slider.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      sliderDragging = true;
+      updateSlider(getPos(e));
+    });
+    document.addEventListener('mousemove', function(e) {
+      if (!sliderDragging) return;
+      e.preventDefault();
+      updateSlider(getPos(e));
+    });
+    document.addEventListener('mouseup', function() {
+      sliderDragging = false;
+    });
+
+    // 터치
+    slider.addEventListener('touchstart', function(e) {
+      sliderDragging = true;
+      updateSlider(getPos(e));
+    }, { passive: true });
+    slider.addEventListener('touchmove', function(e) {
+      if (!sliderDragging) return;
+      updateSlider(getPos(e));
+    }, { passive: true });
+    slider.addEventListener('touchend', function() {
+      sliderDragging = false;
+    });
+  }
 
   function openLightbox(caseItem, startType) {
     createLightbox();
     lbCaseData = caseItem;
-    lbPhotos = [];
 
-    // 사진 목록 구성
-    if (caseItem.beforeImage) lbPhotos.push({ label: 'BEFORE 구내', type: 'before', src: caseItem.beforeImage });
-    if (caseItem.panBeforeImage) lbPhotos.push({ label: 'BEFORE 파노', type: 'before-pano', src: caseItem.panBeforeImage });
-    if (caseItem.afterImage) lbPhotos.push({ label: 'AFTER 구내', type: 'after', src: caseItem.afterImage });
-    if (caseItem.panAfterImage) lbPhotos.push({ label: 'AFTER 파노', type: 'after-pano', src: caseItem.panAfterImage });
+    var hasBothIntraoral = !!(caseItem.beforeImage && caseItem.afterImage);
+    var hasPanoBefore = !!caseItem.panBeforeImage;
+    var hasPanoAfter = !!caseItem.panAfterImage;
+    var hasBothPano = hasPanoBefore && hasPanoAfter;
+    var afterLocked = !isLoggedIn;
 
-    if (lbPhotos.length === 0) return;
-
-    // 시작 인덱스
-    lbCurrentIdx = 0;
-    if (startType) {
-      for (var i = 0; i < lbPhotos.length; i++) {
-        if (lbPhotos[i].type === startType) { lbCurrentIdx = i; break; }
-      }
-    }
-
-    // 탭 생성
+    var sliderWrap = document.getElementById('lbSliderWrap');
+    var imageWrap = document.getElementById('lbImageWrap');
     var tabsEl = document.getElementById('lbTabs');
     tabsEl.innerHTML = '';
-    lbPhotos.forEach(function(p, idx) {
-      var isAfter = p.type.startsWith('after');
-      var locked = isAfter && !isLoggedIn;
-      var tab = document.createElement('button');
-      tab.className = 'lb-tab' + (idx === lbCurrentIdx ? ' active' : '');
-      tab.innerHTML = '<span class="lb-tab-icon"><i class="fas ' + (isAfter ? 'fa-star' : 'fa-camera') + '"></i></span>' + p.label + (locked ? ' <i class="fas fa-lock" style="margin-left:4px;font-size:0.7rem;opacity:0.6;"></i>' : '');
-      tab.addEventListener('click', function() { showLightboxPhoto(idx); });
-      tabsEl.appendChild(tab);
-    });
 
-    showLightboxPhoto(lbCurrentIdx);
+    // ─── 모드 결정 ───
+    // 구내 before+after 둘 다 있으면 → 슬라이더 모드 (기본)
+    // 파노라마 있으면 → 탭으로 전환 가능
+    // 하나만 있으면 → 단일 이미지 모드
+
+    var currentMode = 'slider'; // slider | pano-slider | single
+    var tabItems = [];
+
+    if (hasBothIntraoral) {
+      tabItems.push({ id: 'intraoral', label: '구내 비교', icon: 'fa-camera', mode: 'slider', before: caseItem.beforeImage, after: caseItem.afterImage });
+    } else if (caseItem.beforeImage) {
+      tabItems.push({ id: 'before-only', label: 'BEFORE 구내', icon: 'fa-camera', mode: 'single', src: caseItem.beforeImage });
+    }
+
+    if (hasBothPano) {
+      tabItems.push({ id: 'pano', label: '파노라마 비교', icon: 'fa-x-ray', mode: 'slider', before: caseItem.panBeforeImage, after: caseItem.panAfterImage });
+    } else {
+      if (hasPanoBefore) tabItems.push({ id: 'pano-before', label: 'BEFORE 파노', icon: 'fa-x-ray', mode: 'single', src: caseItem.panBeforeImage });
+      if (hasPanoAfter) tabItems.push({ id: 'pano-after', label: 'AFTER 파노', icon: 'fa-x-ray', mode: 'single', src: caseItem.panAfterImage, isAfter: true });
+    }
+
+    if (tabItems.length === 0) return;
+
+    // 탭 생성 (2개 이상일 때만 표시)
+    if (tabItems.length > 1) {
+      tabItems.forEach(function(item, idx) {
+        var isAfterOnly = item.isAfter && afterLocked;
+        var tab = document.createElement('button');
+        tab.className = 'lb-tab' + (idx === 0 ? ' active' : '');
+        tab.innerHTML = '<span class="lb-tab-icon"><i class="fas ' + item.icon + '"></i></span>' + item.label + (isAfterOnly ? ' <i class="fas fa-lock" style="margin-left:4px;font-size:0.65rem;opacity:0.5;"></i>' : '');
+        tab.addEventListener('click', function() { switchTab(idx); });
+        tabsEl.appendChild(tab);
+      });
+    }
+
+    // 첫 번째 탭 표시
+    switchTab(0);
+
+    function switchTab(idx) {
+      var item = tabItems[idx];
+      if (!item) return;
+
+      // 탭 활성화
+      var tabs = tabsEl.querySelectorAll('.lb-tab');
+      tabs.forEach(function(t, i) { t.classList.toggle('active', i === idx); });
+
+      var lockEl = document.getElementById('lbLock');
+
+      if (item.mode === 'slider') {
+        sliderWrap.style.display = 'block';
+        imageWrap.style.display = 'none';
+
+        var beforeImg = document.getElementById('lbSliderBefore');
+        var afterImg = document.getElementById('lbSliderAfter');
+        var clip = document.getElementById('lbSliderBeforeClip');
+        var handle = document.getElementById('lbSliderHandle');
+        var hint = document.getElementById('lbSliderHint');
+
+        // 초기 위치 50%
+        clip.style.width = '50%';
+        handle.style.left = '50%';
+        if (hint) hint.style.opacity = '1';
+
+        // 이미지 로드 — before 크기를 after에 정확히 맞춤
+        function syncBeforeSize() {
+          if (afterImg.naturalWidth && afterImg.offsetHeight) {
+            beforeImg.style.width = afterImg.offsetWidth + 'px';
+            beforeImg.style.height = afterImg.offsetHeight + 'px';
+          }
+        }
+        beforeImg.onload = syncBeforeSize;
+        afterImg.onload = syncBeforeSize;
+        // 리사이즈 대응
+        window.addEventListener('resize', syncBeforeSize);
+
+        afterImg.src = item.after;
+        beforeImg.src = item.before;
+
+        // 로그인 잠금
+        if (afterLocked) {
+          lockEl.classList.add('active');
+          handle.style.display = 'none';
+          clip.style.width = '100%';
+          if (hint) hint.style.display = 'none';
+        } else {
+          lockEl.classList.remove('active');
+          handle.style.display = 'flex';
+          if (hint) hint.style.display = 'block';
+        }
+      } else {
+        // 단일 이미지 모드
+        sliderWrap.style.display = 'none';
+        imageWrap.style.display = 'flex';
+        lockEl.classList.remove('active');
+
+        var img = document.getElementById('lbImg');
+        var isAfterType = item.isAfter;
+
+        if (isAfterType && afterLocked) {
+          img.style.display = 'none';
+          // 간단한 잠금 표시
+          imageWrap.innerHTML = '<img class="lb-img" id="lbImg" alt="" draggable="false" style="display:none">' +
+            '<div class="lb-loading" style="display:none;"></div>' +
+            '<div style="text-align:center;color:#fff;padding:40px;"><i class="fas fa-lock" style="font-size:2.5rem;color:#C8A97E;margin-bottom:16px;display:block;"></i><p style="font-size:1rem;opacity:0.8;margin-bottom:20px;">애프터 사진은 로그인 후 확인 가능합니다</p><a href="/auth/login?redirect=/cases/' + caseItem.id + '" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;font-weight:700;font-size:0.95rem;text-decoration:none;"><i class="fas fa-sign-in-alt"></i> 로그인하기</a></div>';
+        } else {
+          imageWrap.innerHTML = '<img class="lb-img" id="lbImg" alt="" draggable="false">' +
+            '<div class="lb-loading"><i class="fas fa-spinner fa-spin"></i></div>';
+          img = document.getElementById('lbImg');
+          img.onload = function() { img.style.opacity = '1'; imageWrap.querySelector('.lb-loading').style.display = 'none'; };
+          img.onerror = function() { img.alt = '사진을 불러올 수 없습니다'; imageWrap.querySelector('.lb-loading').style.display = 'none'; };
+          img.style.opacity = '0';
+          img.src = item.src;
+          img.alt = item.label + ' - ' + (caseItem.title || '');
+          setTimeout(function() { img.style.opacity = '1'; }, 100);
+        }
+      }
+    }
 
     // 케이스 정보
     var catLabel = CATS[caseItem.category] || caseItem.category || '';
@@ -203,52 +382,15 @@
     document.body.style.overflow = 'hidden';
   }
 
-  function showLightboxPhoto(idx) {
-    if (idx < 0 || idx >= lbPhotos.length) return;
-    lbCurrentIdx = idx;
-    var photo = lbPhotos[idx];
-    var isAfter = photo.type.startsWith('after');
-    var locked = isAfter && !isLoggedIn;
-
-    var img = document.getElementById('lbImg');
-    var lockEl = document.getElementById('lbLock');
-
-    // 탭 활성화
-    var tabs = document.querySelectorAll('#lbTabs .lb-tab');
-    tabs.forEach(function(t, i) { t.classList.toggle('active', i === idx); });
-
-    // 네비게이션 버튼
-    document.getElementById('lbPrev').disabled = (idx === 0);
-    document.getElementById('lbNext').disabled = (idx === lbPhotos.length - 1);
-
-    if (locked) {
-      img.style.display = 'none';
-      lockEl.classList.add('active');
-    } else {
-      lockEl.classList.remove('active');
-      img.style.display = 'block';
-      img.classList.add('loading');
-      img.onload = function() { img.classList.remove('loading'); };
-      img.onerror = function() { img.classList.remove('loading'); img.alt = '사진을 불러올 수 없습니다'; };
-      img.src = photo.src;
-      img.alt = photo.label + ' - ' + (lbCaseData ? lbCaseData.title : '');
-    }
-  }
-
-  function navigateLightbox(dir) {
-    var newIdx = lbCurrentIdx + dir;
-    if (newIdx >= 0 && newIdx < lbPhotos.length) {
-      showLightboxPhoto(newIdx);
-    }
-  }
-
   function closeLightbox() {
     var lb = document.getElementById('photoLightbox');
     if (lb) {
       lb.classList.remove('active');
       document.body.style.overflow = '';
-      var img = document.getElementById('lbImg');
-      if (img) img.src = '';
+      sliderDragging = false;
+      // 이미지 src 정리
+      var imgs = lb.querySelectorAll('img');
+      imgs.forEach(function(img) { img.src = ''; });
     }
   }
 
