@@ -80,13 +80,17 @@
       '<div class="lb-backdrop"></div>' +
       '<div class="lb-container">' +
         '<button class="lb-close" aria-label="닫기"><i class="fas fa-times"></i></button>' +
-        /* ── 슬라이더 모드 ── */
+        /* ── v17 커튼 슬라이더 모드 ── */
         '<div class="lb-slider-wrap" id="lbSliderWrap" style="display:none;">' +
           '<div class="lb-slider" id="lbSlider">' +
-            /* After: 뒷면 (전체) */
-            '<img class="lb-s-img lb-s-after" id="lbAfterImg" alt="After" draggable="false">' +
-            /* Before: 앞면 (clip-path로 커팅) */
-            '<img class="lb-s-img lb-s-before" id="lbBeforeImg" alt="Before" draggable="false">' +
+            /* After 레이어: 전체 배경으로 깔림 */
+            '<div class="lb-layer lb-layer-after" id="lbLayerAfter">' +
+              '<img class="lb-s-img" id="lbAfterImg" alt="After" draggable="false">' +
+            '</div>' +
+            /* Before 레이어: width를 슬라이더 %로 제어, overflow:hidden */
+            '<div class="lb-layer lb-layer-before" id="lbLayerBefore">' +
+              '<img class="lb-s-img" id="lbBeforeImg" alt="Before" draggable="false">' +
+            '</div>' +
             /* 핸들 */
             '<div class="lb-handle" id="lbHandle">' +
               '<div class="lb-handle-line"></div>' +
@@ -117,10 +121,10 @@
       '</div>';
     document.body.appendChild(lb);
 
-    /* ── 스타일 주입 ── */
-    if (!document.getElementById('lbStylesV16')) {
+    /* ── v17 스타일 주입 ── */
+    if (!document.getElementById('lbStylesV17')) {
       var s = document.createElement('style');
-      s.id = 'lbStylesV16';
+      s.id = 'lbStylesV17';
       s.textContent =
         /* 모달 기본 */
         '.photo-lightbox{display:none;position:fixed;inset:0;z-index:10001;align-items:center;justify-content:center;}' +
@@ -130,20 +134,25 @@
         '.lb-close{position:absolute;top:-12px;right:-12px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all .25s cubic-bezier(.22,1,.36,1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}' +
         '.lb-close:hover{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);transform:scale(1.08);}' +
 
-        /* ── 슬라이더 컨테이너 ── */
+        /* ── v17 커튼 슬라이더 ── */
         '.lb-slider-wrap{position:relative;}' +
         '.lb-slider{position:relative;border-radius:16px;overflow:hidden;background:#0a0806;cursor:col-resize;user-select:none;-webkit-user-select:none;touch-action:pan-y pinch-zoom;box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.06);}' +
 
-        /* ── 이미지: v16 — 완전 동일 크기 고정 ── */
-        '.lb-s-img{display:block;pointer-events:none;}' +
-        '.lb-s-after{position:relative;z-index:1;width:100%;max-height:70vh;object-fit:contain;}' +
-        '.lb-s-before{position:absolute;top:0;left:0;right:0;bottom:0;z-index:2;width:100%;height:100%;object-fit:contain;clip-path:inset(0 50% 0 0);}' +
+        /* 레이어 공통 — 둘 다 동일 크기 */
+        '.lb-layer{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;}' +
+        '.lb-layer-after{z-index:1;}' +
+        '.lb-layer-before{z-index:2;width:50%;}' + /* 초기 50% — JS가 덮어씀 */
+
+        /* 이미지: 항상 슬라이더 전체 크기, 절대 변하지 않음 */
+        '.lb-s-img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;}' +
+        /* Before 이미지는 레이어 width가 줄어도 슬라이더 전체 크기 유지 */
+        '.lb-layer-before .lb-s-img{width:var(--slider-w,100%);max-width:none;min-width:var(--slider-w,100%);}' +
 
         /* ── 핸들: 고급스러운 글래스 ── */
         '.lb-handle{position:absolute;top:0;bottom:0;left:50%;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translateX(-50%);pointer-events:none;transition:left 0.06s cubic-bezier(.22,1,.36,1);}' +
-        '.lb-handle-line{width:2px;flex:1;background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,0.85) 15%,rgba(255,255,255,0.85) 85%,transparent 100%);border-radius:2px;}' +
-        '.lb-handle-grip{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.95);box-shadow:0 4px 20px rgba(0,0,0,0.35),0 0 0 2px rgba(255,255,255,0.3),inset 0 1px 0 rgba(255,255,255,1);display:flex;align-items:center;justify-content:center;color:#6B4226;margin:6px 0;flex-shrink:0;transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s;}' +
-        '.lb-slider:active .lb-handle-grip,.lb-slider.dragging .lb-handle-grip{transform:scale(1.12);box-shadow:0 6px 28px rgba(107,66,38,0.4),0 0 0 3px rgba(200,169,126,0.5),inset 0 1px 0 rgba(255,255,255,1);}' +
+        '.lb-handle-line{width:2.5px;flex:1;background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,0.9) 12%,rgba(255,255,255,0.9) 88%,transparent 100%);border-radius:2px;box-shadow:0 0 8px rgba(200,169,126,0.3);}' +
+        '.lb-handle-grip{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.97);box-shadow:0 4px 24px rgba(0,0,0,0.4),0 0 0 2px rgba(255,255,255,0.35),0 0 16px rgba(200,169,126,0.15),inset 0 1px 0 rgba(255,255,255,1);display:flex;align-items:center;justify-content:center;color:#6B4226;margin:6px 0;flex-shrink:0;transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s;}' +
+        '.lb-slider:active .lb-handle-grip,.lb-slider.dragging .lb-handle-grip{transform:scale(1.15);box-shadow:0 6px 32px rgba(107,66,38,0.45),0 0 0 3px rgba(200,169,126,0.6),0 0 24px rgba(200,169,126,0.25),inset 0 1px 0 rgba(255,255,255,1);}' +
 
         /* ── 라벨 ── */
         '.lb-label{position:absolute;bottom:16px;padding:7px 18px;border-radius:50px;font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;z-index:3;pointer-events:none;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);transition:opacity .4s;}' +
@@ -183,7 +192,7 @@
 
         /* ── 반응형 ── */
         '@media(max-width:900px){.lb-container{width:100%;max-width:100%;padding:0 6px;}.lb-close{top:8px;right:14px;}}' +
-        '@media(max-width:600px){.lb-tab{padding:6px 16px;font-size:0.75rem;}.lb-handle-grip{width:40px;height:40px;}.lb-handle-grip svg{width:20px;height:20px;}.lb-label{font-size:0.62rem;padding:5px 12px;bottom:10px;}.lb-s-after{max-height:55vh;}.lb-img{max-height:55vh;}.lb-slider{border-radius:12px;}}' +
+        '@media(max-width:600px){.lb-tab{padding:6px 16px;font-size:0.75rem;}.lb-handle-grip{width:40px;height:40px;}.lb-handle-grip svg{width:20px;height:20px;}.lb-label{font-size:0.62rem;padding:5px 12px;bottom:10px;}.lb-img{max-height:55vh;}.lb-slider{border-radius:12px;}}' +
 
         /* ── 애니메이션 ── */
         '@keyframes lbFadeIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}' +
@@ -203,16 +212,15 @@
     initSliderDrag();
   }
 
-  /* v16: after 이미지의 실제 렌더링 크기로 slider 고정 */
+  /* v17: after 이미지 로드 후 슬라이더 크기 고정 */
   function syncSliderSize(afterImg) {
     var slider = document.getElementById('lbSlider');
     if (!slider || !afterImg) return;
-    // after img가 object-fit:contain이므로 실제 표시 크기 계산
     var natW = afterImg.naturalWidth;
     var natH = afterImg.naturalHeight;
     if (!natW || !natH) return;
     var containerW = slider.parentElement.clientWidth;
-    var maxH = window.innerWidth <= 600 ? window.innerHeight * 0.55 : window.innerHeight * 0.7; // responsive max-height
+    var maxH = window.innerWidth <= 600 ? window.innerHeight * 0.55 : window.innerHeight * 0.7;
     var ratio = natW / natH;
     var renderW = containerW;
     var renderH = containerW / ratio;
@@ -220,10 +228,13 @@
       renderH = maxH;
       renderW = maxH * ratio;
     }
-    // slider 크기를 이미지 렌더링 크기로 고정
-    slider.style.width = Math.round(renderW) + 'px';
-    slider.style.height = Math.round(renderH) + 'px';
+    var w = Math.round(renderW);
+    var h = Math.round(renderH);
+    slider.style.width = w + 'px';
+    slider.style.height = h + 'px';
     slider.style.margin = '0 auto';
+    /* Before 이미지가 항상 슬라이더 전체 크기를 유지하도록 CSS 변수 설정 */
+    slider.style.setProperty('--slider-w', w + 'px');
   }
 
   function initSliderDrag() {
@@ -237,9 +248,10 @@
     }
 
     function applyPosition(pct) {
-      var beforeImg = document.getElementById('lbBeforeImg');
+      /* v17 커튼 방식: Before 레이어의 width를 변경 (이미지 크기는 고정) */
+      var beforeLayer = document.getElementById('lbLayerBefore');
       var handle = document.getElementById('lbHandle');
-      if (beforeImg) beforeImg.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+      if (beforeLayer) beforeLayer.style.width = pct + '%';
       if (handle) handle.style.left = pct + '%';
       // 첫 드래그 시 힌트 숨김
       var hint = document.getElementById('lbHint');
@@ -338,17 +350,17 @@
         sliderWrap.style.display = 'block';
         imageWrap.style.display = 'none';
 
+        var beforeLayer = document.getElementById('lbLayerBefore');
         var beforeImg = document.getElementById('lbBeforeImg');
         var afterImg = document.getElementById('lbAfterImg');
         var handle = document.getElementById('lbHandle');
         var hint = document.getElementById('lbHint');
 
-        // 초기 50%
-        beforeImg.style.clipPath = 'inset(0 50% 0 0)';
+        // v17 커튼 방식: Before 레이어 width로 제어 (이미지 크기 불변)
+        beforeLayer.style.width = '50%';
         handle.style.left = '50%';
         if (hint) hint.style.opacity = '1';
 
-        // 이미지 세팅 (v16: 동일 크기 보장)
         // resize 핸들러 제거 (이전 탭에서 남은 것)
         if (sliderResizeHandler) {
           window.removeEventListener('resize', sliderResizeHandler);
@@ -370,7 +382,7 @@
         if (afterLocked) {
           lockEl.classList.add('active');
           handle.style.display = 'none';
-          beforeImg.style.clipPath = 'none';
+          beforeLayer.style.width = '100%';
           if (hint) hint.style.display = 'none';
         } else {
           lockEl.classList.remove('active');
