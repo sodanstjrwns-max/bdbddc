@@ -257,6 +257,7 @@ a { color:inherit; text-decoration:none; }
     <div class="nav-section">
       <div class="nav-section-label">CRM</div>
       <a href="/admin/reservations" class="nav-item"><i class="fas fa-calendar-check"></i> 예약/문의 <span class="badge-count" id="rsvCount">–</span></a>
+      <a href="/admin/careers" class="nav-item"><i class="fas fa-user-tie"></i> 채용 지원 <span class="badge-count" id="careerCount">–</span></a>
       <a href="#members" class="nav-item" onclick="scrollToMembers()"><i class="fas fa-users"></i> 회원관리 <span class="badge-count" id="memberCount">–</span></a>
     </div>
     <div class="nav-section">
@@ -574,6 +575,24 @@ async function loadReservationStats() {
   } catch(e) { console.error('Reservation stats error:', e); }
 }
 loadReservationStats();
+
+// Load career application stats
+async function loadCareerStats() {
+  try {
+    const res = await fetch('/api/admin/careers?limit=5');
+    if (res.status === 401) return;
+    if (!res.ok) return;
+    const data = await res.json();
+    const newCount = (data.stats || []).find(s => s.status === 'new');
+    const total = data.total || 0;
+    const pending = newCount ? newCount.count : 0;
+
+    // Update sidebar badge
+    const badge = document.getElementById('careerCount');
+    if (badge) badge.textContent = pending > 0 ? pending : '–';
+  } catch(e) { console.error('Career stats error:', e); }
+}
+loadCareerStats();
 
 // Load total page views
 async function loadViewStats() {

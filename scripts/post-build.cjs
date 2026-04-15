@@ -9,7 +9,7 @@ const staticFiles = [
   'sitemap.xml','sitemap-main.xml','sitemap-area.xml','sitemap-encyclopedia.xml',
   'robots.txt','6f74445f7ec14eccb522a4d3f253128c.txt','bdbddc2026indexnow.txt',
   'blueprint.html','llms.txt','llms-full.txt',
-  'flight.html','games.html','run.html','_redirects'
+  'flight.html','games.html','run.html','careers.html','_redirects'
 ];
 staticFiles.forEach(f => {
   try { fs.copyFileSync(f, 'dist/' + f); } catch(e) {}
@@ -30,7 +30,7 @@ const routes = JSON.parse(fs.readFileSync('dist/_routes.json', 'utf8'));
 const includeRoutes = [
   '/encyclopedia/*','/admin/*','/admin','/cases/*',
   '/flight','/games','/run',
-  '/column/*','/column','/doctors/*',
+  '/column/*','/column','/doctors/*','/careers',
   '/bdx','/bdx/*','/local-seo','/tables/*'
 ];
 includeRoutes.forEach(r => {

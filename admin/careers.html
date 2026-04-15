@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>채용 지원 관리 | 서울비디치과 Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg: #0f1117; --bg-card: #1a1d27; --bg-sidebar: #141620; --bg-hover: #222538;
+  --border: #2a2d3e; --text: #e4e6ef; --text-dim: #8b8fa3; --text-muted: #5d6178;
+  --accent: #6B4226; --accent-light: #8B5E3C; --accent-glow: rgba(107,66,38,0.15);
+  --green: #22c55e; --green-bg: rgba(34,197,94,0.1);
+  --blue: #3b82f6; --blue-bg: rgba(59,130,246,0.1);
+  --purple: #a855f7; --purple-bg: rgba(168,85,247,0.1);
+  --orange: #f59e0b; --orange-bg: rgba(245,158,11,0.1);
+  --red: #ef4444; --red-bg: rgba(239,68,68,0.1);
+  --cyan: #06b6d4; --cyan-bg: rgba(6,182,212,0.1);
+  --radius: 12px; --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3); --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
+a{color:inherit;text-decoration:none}
+
+/* SIDEBAR */
+.sidebar{width:260px;min-height:100vh;background:var(--bg-sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;transition:transform var(--transition)}
+.sidebar-header{padding:24px 20px;border-bottom:1px solid var(--border)}
+.sidebar-brand{display:flex;align-items:center;gap:12px}
+.sidebar-brand-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--accent-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.sidebar-brand-text h2{font-size:.95rem;font-weight:700;color:var(--text);line-height:1.2}
+.sidebar-brand-text span{font-size:.72rem;color:var(--text-muted);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto}
+.nav-section{margin-bottom:24px}
+.nav-section-label{font-size:.68rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;padding:0 8px;margin-bottom:8px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-sm);color:var(--text-dim);font-size:.88rem;font-weight:500;transition:all var(--transition);cursor:pointer;margin-bottom:2px}
+.nav-item:hover{background:var(--bg-hover);color:var(--text)}
+.nav-item.active{background:var(--accent-glow);color:#d4956a;font-weight:600}
+.nav-item.active i{color:#d4956a}
+.nav-item i{width:18px;text-align:center;font-size:.85rem}
+.nav-item .badge-count{margin-left:auto;background:var(--accent);color:#fff;font-size:.65rem;padding:2px 7px;border-radius:10px;font-weight:600}
+.sidebar-footer{padding:16px 12px;border-top:1px solid var(--border)}
+.nav-item.logout{color:var(--red)}
+.nav-item.logout:hover{background:var(--red-bg)}
+
+/* MAIN */
+.main{margin-left:260px;flex:1;min-height:100vh}
+.topbar{height:64px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:var(--bg-sidebar);position:sticky;top:0;z-index:50}
+.topbar-left{display:flex;align-items:center;gap:16px}
+.topbar-left h1{font-size:1.1rem;font-weight:700}
+.breadcrumb{font-size:.8rem;color:var(--text-muted)}
+.topbar-right{display:flex;align-items:center;gap:16px}
+.mobile-menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;padding:8px}
+.content{padding:28px 32px;max-width:1400px}
+
+/* Stats */
+.stats-row{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.stat-pill{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:20px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all var(--transition);border:1px solid var(--border);background:var(--bg-card)}
+.stat-pill:hover{border-color:var(--accent);transform:translateY(-1px)}
+.stat-pill.active{border-color:var(--accent);background:var(--accent-glow)}
+.stat-pill .count{font-weight:800}
+
+/* Filter */
+.filter-bar{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.filter-bar select,.filter-bar input{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;color:var(--text);font-size:.85rem;font-family:inherit}
+.filter-bar select:focus,.filter-bar input:focus{outline:none;border-color:var(--accent)}
+.btn-export{display:flex;align-items:center;gap:6px;background:var(--bg-hover);color:var(--text);border:1px solid var(--border);padding:8px 16px;border-radius:var(--radius-sm);font-size:.82rem;cursor:pointer;font-family:inherit;transition:all var(--transition)}
+.btn-export:hover{border-color:var(--accent);transform:translateY(-1px)}
+
+/* Table */
+.table-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.table-wrap table{width:100%;border-collapse:collapse}
+.table-wrap th{padding:12px 16px;text-align:left;font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-sidebar)}
+.table-wrap td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:.85rem;vertical-align:middle}
+.table-wrap tr:hover td{background:var(--bg-hover)}
+.table-wrap tr:last-child td{border-bottom:none}
+
+/* Status badges */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:8px;font-size:.72rem;font-weight:600}
+.badge-new{background:var(--blue-bg);color:var(--blue)}
+.badge-reviewing{background:var(--orange-bg);color:var(--orange)}
+.badge-contacted{background:var(--cyan-bg);color:var(--cyan)}
+.badge-hired{background:var(--green-bg);color:var(--green)}
+.badge-rejected{background:var(--red-bg);color:var(--red)}
+
+/* Applicant card (detail modal) */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:9999;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.modal-overlay.active{display:flex}
+.modal-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:640px;margin:auto;overflow:hidden}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-size:1.05rem;font-weight:700}
+.modal-close{background:none;border:none;color:var(--text-dim);font-size:1.2rem;cursor:pointer;padding:4px}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:24px}
+.detail-row{display:flex;gap:16px;margin-bottom:16px}
+.detail-label{font-size:.78rem;color:var(--text-muted);font-weight:600;min-width:80px;flex-shrink:0}
+.detail-value{font-size:.9rem;color:var(--text)}
+.detail-photo{width:80px;height:80px;border-radius:50%;overflow:hidden;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--bg)}
+.detail-photo img{width:100%;height:100%;object-fit:cover}
+.detail-photo i{font-size:2rem;color:var(--text-muted)}
+.career-list{list-style:none;padding:0}
+.career-item{padding:10px 14px;background:var(--bg);border-radius:var(--radius-sm);margin-bottom:8px;border:1px solid rgba(255,255,255,.05)}
+.career-item-company{font-weight:600;font-size:.88rem}
+.career-item-meta{font-size:.78rem;color:var(--text-muted);margin-top:4px}
+.modal-actions{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap}
+.modal-actions select{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;color:var(--text);font-size:.85rem;font-family:inherit;flex:1}
+.modal-actions .btn{padding:8px 18px;border-radius:var(--radius-sm);border:none;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all var(--transition)}
+.btn-save{background:var(--accent);color:#fff}
+.btn-save:hover{background:var(--accent-light)}
+.btn-delete{background:var(--red-bg);color:var(--red);border:1px solid rgba(239,68,68,.2) !important}
+.btn-delete:hover{background:var(--red);color:#fff}
+.admin-note-area{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;color:var(--text);font-size:.85rem;font-family:inherit;resize:vertical;min-height:60px;margin-top:12px}
+.admin-note-area:focus{outline:none;border-color:var(--accent)}
+
+/* Empty state */
+.empty-state{padding:60px 20px;text-align:center;color:var(--text-muted)}
+.empty-state i{font-size:2.5rem;opacity:.3;display:block;margin-bottom:12px}
+.empty-state p{font-size:.9rem}
+
+/* Responsive */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0);box-shadow:0 0 40px rgba(0,0,0,.5)}
+  .main{margin-left:0}
+  .topbar{padding:0 16px}
+  .content{padding:20px 16px}
+  .mobile-menu-btn{display:block}
+  .stats-row{flex-direction:column}
+  .filter-bar{flex-direction:column;align-items:stretch}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+  .sidebar-overlay.open{display:block}
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">BD</div>
+      <div class="sidebar-brand-text">
+        <h2>서울비디치과</h2>
+        <span>Admin Console</span>
+      </div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">
+      <div class="nav-section-label">Overview</div>
+      <a href="/admin/" class="nav-item"><i class="fas fa-th-large"></i> 대시보드</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Content</div>
+      <a href="/admin/cases" class="nav-item"><i class="fas fa-images"></i> Before/After</a>
+      <a href="/admin/columns" class="nav-item"><i class="fas fa-pen-nib"></i> 원장 컬럼</a>
+      <a href="/admin/notices" class="nav-item"><i class="fas fa-megaphone"></i> 공지사항</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">CRM</div>
+      <a href="/admin/reservations" class="nav-item"><i class="fas fa-calendar-check"></i> 예약/문의</a>
+      <a href="/admin/careers" class="nav-item active"><i class="fas fa-user-tie"></i> 채용 지원 <span class="badge-count" id="sidebarBadge">–</span></a>
+      <a href="/admin/#members" class="nav-item"><i class="fas fa-users"></i> 회원관리</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Links</div>
+      <a href="/" target="_blank" rel="noopener" class="nav-item"><i class="fas fa-external-link-alt"></i> 사이트 보기</a>
+      <a href="/careers" target="_blank" rel="noopener" class="nav-item"><i class="fas fa-briefcase"></i> 채용 페이지</a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="/admin/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <h1><i class="fas fa-user-tie" style="margin-right:8px;color:#d4956a"></i> 채용 지원 관리</h1>
+      <span class="breadcrumb">Admin / 채용 지원</span>
+    </div>
+    <div class="topbar-right">
+      <a href="/careers" target="_blank" rel="noopener" style="font-size:.82rem;color:var(--accent-light);display:flex;align-items:center;gap:6px"><i class="fas fa-external-link-alt"></i> 채용 페이지 보기</a>
+    </div>
+  </header>
+
+  <div class="content">
+    <!-- Status Pills -->
+    <div class="stats-row" id="statusPills">
+      <div class="stat-pill active" onclick="filterByStatus('')">
+        <span>전체</span>
+        <span class="count" id="countAll">0</span>
+      </div>
+      <div class="stat-pill" onclick="filterByStatus('new')">
+        <span style="color:var(--blue)">● </span><span>신규</span>
+        <span class="count" id="countNew">0</span>
+      </div>
+      <div class="stat-pill" onclick="filterByStatus('reviewing')">
+        <span style="color:var(--orange)">● </span><span>검토중</span>
+        <span class="count" id="countReviewing">0</span>
+      </div>
+      <div class="stat-pill" onclick="filterByStatus('contacted')">
+        <span style="color:var(--cyan)">● </span><span>연락완료</span>
+        <span class="count" id="countContacted">0</span>
+      </div>
+      <div class="stat-pill" onclick="filterByStatus('hired')">
+        <span style="color:var(--green)">● </span><span>채용</span>
+        <span class="count" id="countHired">0</span>
+      </div>
+      <div class="stat-pill" onclick="filterByStatus('rejected')">
+        <span style="color:var(--red)">● </span><span>불합격</span>
+        <span class="count" id="countRejected">0</span>
+      </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar">
+      <input type="text" id="searchInput" placeholder="🔍 이름, 연락처, 이메일 검색..." style="flex:1;min-width:200px" oninput="renderTable()">
+      <button class="btn-export" onclick="exportCSV()"><i class="fas fa-download"></i> CSV 다운로드</button>
+      <button class="btn-export" onclick="loadData()" title="새로고침"><i class="fas fa-sync-alt"></i></button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>#</th>
+          <th>이름</th>
+          <th>지원 분야</th>
+          <th>연락처</th>
+          <th>경력</th>
+          <th>상태</th>
+          <th>지원일</th>
+          <th>관리</th>
+        </tr></thead>
+        <tbody id="applicantsTable">
+          <tr><td colspan="8" class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>데이터 불러오는 중...</p></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="modalTitle">지원자 상세정보</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- Dynamically filled -->
+    </div>
+    <div class="modal-actions" id="modalActions">
+      <!-- Dynamically filled -->
+    </div>
+  </div>
+</div>
+
+<script>
+let allApplicants = [];
+let currentFilter = '';
+let currentApplicant = null;
+
+// Status label map
+const STATUS_MAP = {
+  'new': { label: '신규', class: 'badge-new', icon: 'fa-inbox' },
+  'reviewing': { label: '검토중', class: 'badge-reviewing', icon: 'fa-eye' },
+  'contacted': { label: '연락완료', class: 'badge-contacted', icon: 'fa-phone' },
+  'hired': { label: '채용', class: 'badge-hired', icon: 'fa-check-circle' },
+  'rejected': { label: '불합격', class: 'badge-rejected', icon: 'fa-times-circle' }
+};
+
+async function loadData() {
+  try {
+    const res = await fetch('/api/admin/careers?limit=200');
+    if (res.status === 401) { location.href = '/admin/login'; return; }
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    allApplicants = data.applications || [];
+
+    // Update counts
+    const stats = {};
+    (data.stats || []).forEach(s => { stats[s.status] = s.count; });
+    document.getElementById('countAll').textContent = data.total || 0;
+    document.getElementById('countNew').textContent = stats['new'] || 0;
+    document.getElementById('countReviewing').textContent = stats['reviewing'] || 0;
+    document.getElementById('countContacted').textContent = stats['contacted'] || 0;
+    document.getElementById('countHired').textContent = stats['hired'] || 0;
+    document.getElementById('countRejected').textContent = stats['rejected'] || 0;
+
+    // Sidebar badge
+    const newCount = stats['new'] || 0;
+    document.getElementById('sidebarBadge').textContent = newCount > 0 ? newCount : '–';
+
+    renderTable();
+  } catch(e) {
+    console.error(e);
+    document.getElementById('applicantsTable').innerHTML = '<tr><td colspan="8" class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>데이터를 불러올 수 없습니다</p></td></tr>';
+  }
+}
+
+function renderTable() {
+  const tbody = document.getElementById('applicantsTable');
+  const search = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+
+  let filtered = allApplicants;
+  if (currentFilter) {
+    filtered = filtered.filter(a => a.status === currentFilter);
+  }
+  if (search) {
+    filtered = filtered.filter(a =>
+      (a.name || '').toLowerCase().includes(search) ||
+      (a.phone || '').includes(search) ||
+      (a.email || '').toLowerCase().includes(search) ||
+      (a.position || '').toLowerCase().includes(search)
+    );
+  }
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><i class="fas fa-inbox"></i><p>지원 내역이 없습니다</p></td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map((a, i) => {
+    const st = STATUS_MAP[a.status] || STATUS_MAP['new'];
+    const dt = a.applied_at ? new Date(a.applied_at) : new Date();
+    const dateStr = dt.toLocaleDateString('ko-KR', {month:'short', day:'numeric'});
+    const timeStr = dt.toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'});
+    const isNew = a.status === 'new';
+
+    return '<tr style="cursor:pointer;' + (isNew ? 'background:rgba(59,130,246,0.03);' : '') + '" onclick="showDetail(' + a.id + ')">'
+      + '<td style="color:var(--text-muted)">' + (i + 1) + '</td>'
+      + '<td><strong>' + (a.name || '–') + '</strong>' + (a.photo_key ? ' <i class="fas fa-camera" style="color:var(--text-muted);font-size:.7rem" title="사진 첨부"></i>' : '') + '</td>'
+      + '<td>' + (a.position || '–') + '</td>'
+      + '<td style="font-size:.82rem;color:var(--text-dim)">' + (a.phone || '–') + '</td>'
+      + '<td style="font-size:.82rem;color:var(--text-dim)">' + (a.experience || '미기재') + '</td>'
+      + '<td><span class="badge ' + st.class + '"><i class="fas ' + st.icon + '"></i> ' + st.label + '</span></td>'
+      + '<td style="font-size:.8rem;color:var(--text-muted)">' + dateStr + '<br>' + timeStr + '</td>'
+      + '<td><button onclick="event.stopPropagation();showDetail(' + a.id + ')" style="background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;color:var(--text-dim);cursor:pointer;font-size:.78rem;font-family:inherit"><i class="fas fa-eye"></i></button></td>'
+      + '</tr>';
+  }).join('');
+}
+
+function filterByStatus(status) {
+  currentFilter = status;
+  // Update active pill
+  document.querySelectorAll('.stat-pill').forEach((pill, i) => {
+    const statuses = ['', 'new', 'reviewing', 'contacted', 'hired', 'rejected'];
+    pill.classList.toggle('active', statuses[i] === status);
+  });
+  renderTable();
+}
+
+function showDetail(id) {
+  const app = allApplicants.find(a => a.id === id);
+  if (!app) return;
+  currentApplicant = app;
+
+  const st = STATUS_MAP[app.status] || STATUS_MAP['new'];
+  const dt = app.applied_at ? new Date(app.applied_at) : new Date();
+  const dateStr = dt.toLocaleString('ko-KR', {year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit'});
+
+  // Parse careers
+  let careers = [];
+  try { careers = app.careers ? JSON.parse(app.careers) : []; } catch(e) {}
+
+  let html = '<div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:20px">';
+  html += '<div class="detail-photo">';
+  if (app.photo_key) {
+    html += '<img src="/api/images/' + app.photo_key + '" alt="프로필">';
+  } else {
+    html += '<i class="fas fa-user"></i>';
+  }
+  html += '</div>';
+  html += '<div style="flex:1">';
+  html += '<div style="font-size:1.2rem;font-weight:700;margin-bottom:4px">' + (app.name || '–') + '</div>';
+  html += '<div style="font-size:.85rem;color:var(--text-dim);margin-bottom:8px">' + (app.position || '') + ' · ' + (app.experience || '경력 미기재') + '</div>';
+  html += '<span class="badge ' + st.class + '" style="font-size:.78rem"><i class="fas ' + st.icon + '"></i> ' + st.label + '</span>';
+  html += '</div></div>';
+
+  // Info rows
+  const rows = [
+    ['연락처', '<a href="tel:' + (app.phone||'') + '" style="color:var(--blue)">' + (app.phone || '–') + '</a>'],
+    ['이메일', app.email ? '<a href="mailto:' + app.email + '" style="color:var(--blue)">' + app.email + '</a>' : '미기재'],
+    ['생년월일', app.birth || '미기재'],
+    ['희망 근무', app.work_days || '미기재'],
+    ['희망 입사일', app.start_date || '미기재'],
+    ['자격증', app.license || '미기재'],
+    ['지원일시', dateStr],
+  ];
+
+  rows.forEach(function(r) {
+    html += '<div class="detail-row"><div class="detail-label">' + r[0] + '</div><div class="detail-value">' + r[1] + '</div></div>';
+  });
+
+  // Careers
+  if (careers.length > 0) {
+    html += '<div style="margin-top:16px"><div class="detail-label" style="margin-bottom:8px">이전 경력</div><ul class="career-list">';
+    careers.forEach(function(c) {
+      html += '<li class="career-item"><div class="career-item-company">' + (c.company || '미기재') + '</div>';
+      html += '<div class="career-item-meta">' + (c.period || '') + (c.role ? ' · ' + c.role : '') + '</div></li>';
+    });
+    html += '</ul></div>';
+  }
+
+  // Message
+  if (app.message) {
+    html += '<div style="margin-top:16px"><div class="detail-label" style="margin-bottom:8px">하고 싶은 말</div>';
+    html += '<div style="background:var(--bg);padding:14px 16px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.05);font-size:.9rem;line-height:1.7;white-space:pre-wrap">' + escapeHtml(app.message) + '</div></div>';
+  }
+
+  // Admin note
+  html += '<div style="margin-top:16px"><div class="detail-label" style="margin-bottom:8px">관리자 메모</div>';
+  html += '<textarea class="admin-note-area" id="adminNote" placeholder="내부 메모를 작성하세요...">' + (app.admin_note || '') + '</textarea></div>';
+
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modalTitle').textContent = (app.name || '지원자') + ' · 상세정보';
+
+  // Actions
+  let actionsHtml = '<select id="statusSelect">';
+  Object.keys(STATUS_MAP).forEach(function(key) {
+    actionsHtml += '<option value="' + key + '"' + (app.status === key ? ' selected' : '') + '>' + STATUS_MAP[key].label + '</option>';
+  });
+  actionsHtml += '</select>';
+  actionsHtml += '<button class="btn btn-save" onclick="saveStatus()"><i class="fas fa-save" style="margin-right:4px"></i> 저장</button>';
+  actionsHtml += '<button class="btn btn-delete" onclick="deleteApplicant(' + app.id + ')"><i class="fas fa-trash-alt" style="margin-right:4px"></i> 삭제</button>';
+
+  document.getElementById('modalActions').innerHTML = actionsHtml;
+  document.getElementById('detailModal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('detailModal').classList.remove('active');
+  currentApplicant = null;
+}
+
+async function saveStatus() {
+  if (!currentApplicant) return;
+  const status = document.getElementById('statusSelect').value;
+  const note = document.getElementById('adminNote').value;
+
+  try {
+    const res = await fetch('/api/admin/careers/' + currentApplicant.id, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ status, admin_note: note })
+    });
+    if (!res.ok) throw new Error('Update failed');
+    closeModal();
+    await loadData();
+  } catch(e) {
+    alert('저장 실패: ' + e.message);
+  }
+}
+
+async function deleteApplicant(id) {
+  if (!confirm('이 지원서를 삭제하시겠습니까?\n삭제 후 복구할 수 없습니다.')) return;
+  try {
+    const res = await fetch('/api/admin/careers/' + id, { method: 'DELETE' });
+    if (!res.ok) throw new Error('Delete failed');
+    closeModal();
+    await loadData();
+  } catch(e) {
+    alert('삭제 실패: ' + e.message);
+  }
+}
+
+function exportCSV() {
+  if (!allApplicants.length) { alert('내보낼 데이터가 없습니다.'); return; }
+  const header = '번호,이름,지원분야,연락처,이메일,경력,희망근무,자격증,상태,지원일,메모\n';
+  const rows = allApplicants.map(function(a, i) {
+    const st = STATUS_MAP[a.status] || {label:'신규'};
+    return [
+      i+1,
+      '"'+(a.name||'')+'"',
+      '"'+(a.position||'')+'"',
+      '"'+(a.phone||'')+'"',
+      '"'+(a.email||'')+'"',
+      '"'+(a.experience||'')+'"',
+      '"'+(a.work_days||'')+'"',
+      '"'+(a.license||'')+'"',
+      '"'+st.label+'"',
+      '"'+(a.applied_at ? new Date(a.applied_at).toLocaleString('ko-KR') : '')+'"',
+      '"'+(a.admin_note||'').replace(/"/g,'""')+'"',
+    ].join(',');
+  }).join('\n');
+  const bom = '\uFEFF';
+  const blob = new Blob([bom + header + rows], {type:'text/csv;charset=utf-8;'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = '서울비디치과_채용지원_' + new Date().toISOString().slice(0,10) + '.csv';
+  link.click();
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+
+// Close modal on overlay click
+document.getElementById('detailModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Keyboard: Escape to close
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+// Load data on start
+loadData();
+</script>
+</body>
+</html>
