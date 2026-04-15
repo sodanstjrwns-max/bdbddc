@@ -3874,6 +3874,153 @@ https://bdbddc.com/admin/
   }
 }
 
+// ============================================
+// 🤖 비디 AI 상담사 — GPT-4o 챗봇 API
+// ============================================
+const BD_SYSTEM_PROMPT = `당신은 서울비디치과의 AI 상담사 "비디"입니다.
+
+## 역할
+- 환자(또는 잠재 환자)의 치과 관련 질문에 친절하고 전문적으로 답변합니다.
+- 따뜻하고 안심시키는 톤을 사용하되, 정확한 정보를 전달합니다.
+- 존댓말을 사용하고, 이모지는 적절히(과하지 않게) 사용합니다.
+- 핵심을 먼저 말하고, 필요시 부연 설명합니다.
+- 모르는 것은 모른다고 솔직히 말하고, 전화(041-415-2892) 안내합니다.
+
+## 서울비디치과 핵심 정보
+
+### 기본 정보
+- 정식명칭: 서울비디치과의원
+- 대표원장: 문석준 (서울대학교 치의학대학원 석사, 통합치의학과 전문의)
+- 위치: 충남 천안시 서북구 불당34길 14 (불당동)
+- 전화: 041-415-2892
+- 규모: 5개 층, 400평, 6개 독립 수술실, 2개 회복실
+- 에어샤워 시스템, 서울대학교 치과병원급 감염관리 체계
+
+### 의료진
+- 서울대 출신 15인 원장 협진 체제
+- 대표원장 3인: 문석준, 김민수, 현정민 (모두 통합치의학과 전문의)
+- 소아치과 전문의 3인 상주
+- 각 분야 전문의가 환자별 최적 치료 계획 수립
+
+### 진료시간
+- 평일 (월~금): 09:00 ~ 20:00 (야간진료)
+- 토요일: 09:00 ~ 17:00
+- 일요일: 09:00 ~ 17:00
+- 공휴일: 09:00 ~ 13:00
+- 점심시간: 13:00 ~ 14:00
+- ⭐ 365일 진료 (일요일, 공휴일 포함)
+
+### 주요 진료과목
+1. **글로우네이트 (Glownate)**: 서울비디치과 자체 심미치료 브랜드. 라미네이트보다 치아 삭제량 적고, 자연스러운 결과. 글로우(빛나는) + 네이트(자연스러운) 합성어.
+2. **임플란트**: 6개 전용 수술실, 네비게이션 임플란트, 수면 임플란트
+3. **인비절라인**: 투명교정, 인비절라인 공식 인증 클리닉
+4. **치아교정**: 브라켓교정, 설측교정, 투명교정
+5. **소아치과**: 전문의 3인 상주, 수면진료 가능
+6. **심미레진 / 레진치료**
+7. **미백**
+8. **수면진료**: 소아·성인 모두 가능
+9. **사랑니 발치**
+10. **잇몸치료 / 스케일링**
+11. **충치치료**
+
+### 비용 관련
+- 구체적인 비용은 환자 상태에 따라 다르므로 정확한 금액은 안내하지 마세요.
+- "정확한 비용은 구강 상태를 확인한 후 안내해 드릴 수 있어요. 상담 예약 도와드릴까요?" 로 유도하세요.
+- 비용 안내 페이지 안내 가능: /pricing
+
+### 예약/상담
+- 온라인 예약: https://bdbddc.com/reservation 또는 홈페이지 상단 "상담 예약하기"
+- 전화 예약: 041-415-2892
+- 카카오톡 상담: https://pf.kakao.com/_Cxivlxb
+- 네이버 예약: https://naver.me/5yPnKmqQ
+
+### 오시는 길
+- 주소: 충남 천안시 서북구 불당34길 14
+- 불당동 중심상업지역
+- 주차 가능 (건물 앞 + 인근 주차장)
+
+## 대화 규칙
+1. 첫 인사에서 너무 길게 말하지 마세요. 간결하게.
+2. 환자가 아파하거나 불안해하면 공감 먼저, 그다음 안내.
+3. 진단/처방은 절대 하지 마세요. "정확한 진단은 내원 후 원장님 상담이 필요해요"라고 안내.
+4. 3문장 이내로 답변하되, 복잡한 질문은 적절히 길게.
+5. 예약/전화 유도는 자연스럽게 (매 답변마다 하지 말 것).
+6. 다른 치과 비교질문은 "저희 치과의 장점은 말씀드릴 수 있지만, 다른 병원에 대해서는 답변드리기 어려워요" 로 대응.
+7. 의료법상 문제될 수 있는 과장 표현 금지.
+8. 답변이 길어질 때는 줄바꿈으로 가독성을 높이세요.`;
+
+app.post('/api/chat', async (c) => {
+  const apiKey = c.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    return c.json({ error: 'AI 상담 서비스가 준비 중입니다.' }, 500);
+  }
+
+  let body: { messages?: Array<{role: string; content: string}>; message?: string };
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: '잘못된 요청입니다.' }, 400);
+  }
+
+  // messages 배열 또는 단일 message 지원
+  let userMessages: Array<{role: string; content: string}> = [];
+  if (body.messages && Array.isArray(body.messages)) {
+    userMessages = body.messages.slice(-20); // 최근 20개까지만
+  } else if (body.message && typeof body.message === 'string') {
+    userMessages = [{ role: 'user', content: body.message }];
+  } else {
+    return c.json({ error: '메시지를 입력해주세요.' }, 400);
+  }
+
+  // 메시지 길이 제한
+  userMessages = userMessages.map(m => ({
+    role: m.role === 'assistant' ? 'assistant' : 'user',
+    content: String(m.content).slice(0, 2000)
+  }));
+
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + apiKey
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        messages: [
+          { role: 'system', content: BD_SYSTEM_PROMPT },
+          ...userMessages
+        ],
+        temperature: 0.7,
+        max_tokens: 800,
+        top_p: 0.9,
+        frequency_penalty: 0.3,
+        presence_penalty: 0.2
+      })
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error('OpenAI API error:', response.status, errText);
+      return c.json({ error: 'AI 응답 생성에 실패했습니다. 잠시 후 다시 시도해주세요.' }, 502);
+    }
+
+    const data = await response.json() as any;
+    const reply = data.choices?.[0]?.message?.content || '죄송합니다, 응답을 생성하지 못했습니다.';
+
+    return c.json({
+      reply: reply,
+      usage: {
+        prompt_tokens: data.usage?.prompt_tokens || 0,
+        completion_tokens: data.usage?.completion_tokens || 0
+      }
+    });
+  } catch (err: any) {
+    console.error('Chat API error:', err);
+    return c.json({ error: '네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.' }, 500);
+  }
+});
+
 // Catch-all fallback to index.html (SPA style, but not needed here)
 // app.get('*', serveStatic({ path: './index.html' }))
 
