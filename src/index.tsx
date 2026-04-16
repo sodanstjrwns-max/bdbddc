@@ -19,6 +19,20 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>()
 
 // ============================================
+// seoulbddc.com → bdbddc.com 301 리디렉트
+// ============================================
+app.use('*', async (c, next) => {
+  const host = new URL(c.req.url).hostname
+  if (host === 'seoulbddc.com' || host === 'www.seoulbddc.com') {
+    const url = new URL(c.req.url)
+    url.hostname = 'bdbddc.com'
+    url.protocol = 'https:'
+    return c.redirect(url.toString(), 301)
+  }
+  await next()
+})
+
+// ============================================
 // Meta Pixel + GTM + Amplitude 공통 트래킹 코드
 // ============================================
 const TRACKING_HEAD = `<!-- Google Tag Manager -->
