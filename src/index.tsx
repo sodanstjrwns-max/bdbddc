@@ -1385,45 +1385,8 @@ app.get('/api/health', (c) => {
 })
 
 // Google Reviews API Proxy (CORS 우회)
-const GOOGLE_PLACE_ID = 'ChIJGW_8w4coezURxnwkO_3piX0'
-const GOOGLE_API_KEY = 'AIzaSyD9PuRUYq7vHfzXGlqm4v7nakzBUptk2-0'
-
-app.get('/api/google-reviews', async (c) => {
-  try {
-    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${GOOGLE_PLACE_ID}&fields=rating,user_ratings_total,reviews,url&key=${GOOGLE_API_KEY}&language=ko&reviews_sort=newest`
-    
-    const response = await fetch(url)
-    const data: any = await response.json()
-    
-    // 캐시 헤더 설정 (1시간)
-    c.header('Cache-Control', 'public, max-age=3600')
-    
-    // 리뷰 데이터 정제
-    const reviews = (data?.result?.reviews || []).map((r: any) => ({
-      author_name: r.author_name,
-      rating: r.rating,
-      text: r.text,
-      time: r.time,
-      relative_time_description: r.relative_time_description,
-      profile_photo_url: r.profile_photo_url
-    }))
-
-    return c.json({
-      status: data.status,
-      result: {
-        rating: data?.result?.rating || 4.9,
-        user_ratings_total: data?.result?.user_ratings_total || 2847,
-        url: data?.result?.url || 'https://g.page/seoulbd-dental',
-        reviews: reviews
-      }
-    })
-  } catch (error) {
-    return c.json({ 
-      status: 'error',
-      result: { rating: 4.9, user_ratings_total: 2847, url: '', reviews: [] }
-    }, 500)
-  }
-})
+// Google Reviews API 제거됨 (의료법 준수 — 사이트 내 환자 후기 직접 게재 불가)
+// 네이버/구글 리뷰 확인은 외부 링크로 대체
 
 // 인블로그 RSS 프록시 API (CORS 우회)
 app.get('/api/inblog-rss', async (c) => {
