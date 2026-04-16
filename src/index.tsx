@@ -1454,6 +1454,97 @@ app.use('/data/*', serveStatic())
 // ============================================
 
 // ============================================
+// 공통 SSR 헤더 + 모바일 네비게이션 HTML
+// ============================================
+function ssrHeader(): string {
+  return `<header class="site-header" id="siteHeader">
+<div class="header-container">
+<div class="header-brand"><a href="/" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a><div class="clinic-status open" aria-live="polite"><span class="status-dot"></span><span class="status-text">진료중</span><span class="status-time"></span></div></div>
+<div class="header-actions"><a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a><a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a><button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button></div>
+</div>
+</header>
+<div class="header-spacer"></div>`;
+}
+
+function ssrMobileNav(): string {
+  return `<nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
+<div class="mobile-nav-header">
+<span class="logo-icon">🦷</span>
+<button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button>
+</div>
+<ul class="mobile-nav-menu">
+<li class="mobile-nav-item has-submenu">
+<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+<i class="fas fa-tooth"></i> 진료 <i class="fas fa-chevron-down toggle-icon"></i></a>
+<ul class="mobile-nav-submenu">
+<li><a href="/treatments/">전체 진료</a></li>
+<li class="submenu-divider">전문센터</li>
+<li><a href="/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>
+<li><a href="/treatments/implant">임플란트센터</a></li>
+<li><a href="/treatments/invisalign">인비절라인</a></li>
+<li><a href="/treatments/orthodontics">치아교정</a></li>
+<li><a href="/treatments/pediatric">소아치과</a></li>
+<li><a href="/treatments/aesthetic">심미레진</a></li>
+<li class="submenu-divider">일반 진료</li>
+<li><a href="/treatments/cavity">충치치료</a></li>
+<li><a href="/treatments/resin">레진치료</a></li>
+<li><a href="/treatments/scaling">스케일링</a></li>
+<li><a href="/treatments/gum">잇몸치료</a></li>
+</ul>
+</li>
+<li><a href="/doctors/"><i class="fas fa-user-md"></i> 의료진</a></li>
+<li><a href="/mission"><i class="fas fa-heart"></i> 비디미션</a></li>
+<li class="mobile-nav-item has-submenu">
+<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+<i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i></a>
+<ul class="mobile-nav-submenu">
+<li><a href="/cases/gallery" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>
+<li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li>
+<li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>
+<li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>
+<li><a href="/column/"><i class="fas fa-pen-nib"></i> 원장 컬럼</a></li>
+</ul>
+</li>
+<li class="mobile-nav-item has-submenu">
+<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+<i class="fas fa-hospital"></i> 안내 <i class="fas fa-chevron-down toggle-icon"></i></a>
+<ul class="mobile-nav-submenu">
+<li><a href="/pricing">💰 비용 안내</a></li>
+<li><a href="/floor-guide">비디치과 둘러보기</a></li>
+<li><a href="/directions">오시는 길</a></li>
+<li><a href="/faq">자주 묻는 질문</a></li>
+<li><a href="/notice/"><i class="fas fa-bullhorn"></i> 공지사항</a></li>
+<li><a href="/careers"><i class="fas fa-user-tie"></i> 상시채용</a></li>
+</ul>
+</li>
+<li class="mobile-nav-item has-submenu">
+<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false" style="color:#EC4899;font-weight:700;">
+🎮 플레이 <i class="fas fa-chevron-down toggle-icon"></i></a>
+<ul class="mobile-nav-submenu">
+<li><a href="/flight"><i class="fas fa-rocket"></i> 치석 플라이트</a></li>
+<li><a href="/run"><i class="fas fa-running"></i> 투쓰런</a></li>
+<li><a href="/checkup"><i class="fas fa-dna"></i> 치BTI</a></li>
+<li><a href="/games"><i class="fas fa-th"></i> 전체 게임</a></li>
+</ul>
+</li>
+<li><a href="/reservation" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+</ul>
+<div class="mobile-auth-buttons">
+<a href="/auth/login" class="btn-auth"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+<a href="/auth/register" class="btn-auth"><i class="fas fa-user-plus"></i> 회원가입</a>
+</div>
+<div class="mobile-nav-footer">
+<p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365일 진료 | 평일 야간진료</p>
+<div class="mobile-nav-quick-btns">
+<a href="/pricing" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 비용 안내</a>
+<a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 전화 예약</a>
+</div>
+</div>
+</nav>
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>`;
+}
+
+// ============================================
 // 인블로그 프록시 HTML 정리 함수
 // ============================================
 function cleanInblogHtml(html: string): string {
@@ -2228,13 +2319,7 @@ ${TRACKING_HEAD}
 </style>
 </head>
 <body>
-<header class="site-header" id="siteHeader">
-<div class="header-container">
-<div class="header-brand"><a href="/" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a></div>
-<div class="header-actions"><a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i></a><a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a></div>
-</div>
-</header>
-<div class="header-spacer"></div>
+${ssrHeader()}
 <main>
 <div class="col-page">
 <div class="col-hero">
@@ -2248,6 +2333,7 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 �
 </div>
 </div>
 </main>
+${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
 <script src="/js/gnb.js" defer></script>
 </body>
@@ -2438,13 +2524,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 </style>
 </head>
 <body>
-<header class="site-header" id="siteHeader">
-<div class="header-container">
-<div class="header-brand"><a href="/" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a></div>
-<div class="header-actions"><a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i></a><a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a></div>
-</div>
-</header>
-<div class="header-spacer"></div>
+${ssrHeader()}
 <main>
 <div class="col-detail">
 <nav style="font-size:.85rem;color:#888;margin-bottom:20px;">
@@ -2510,6 +2590,7 @@ ${doctorSlug ? `<div class="col-author-box">
 </div>
 </div>
 </main>
+${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
 <script src="/js/gnb.js" defer></script>
 <script>
@@ -2668,13 +2749,7 @@ ${TRACKING_HEAD}
 </style>
 </head>
 <body>
-<header class="site-header" id="siteHeader">
-<div class="header-container">
-<div class="header-brand"><a href="/" class="site-logo"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a></div>
-<div class="header-actions"><a href="tel:0414152892" class="header-phone"><i class="fas fa-phone"></i></a><a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a></div>
-</div>
-</header>
-<div class="header-spacer"></div>
+${ssrHeader()}
 <main>
 <div class="case-detail">
 <nav style="font-size:.85rem;color:#888;margin-bottom:20px;">
@@ -2730,6 +2805,7 @@ ${cs.category ? `<a href="/treatments/${cs.category}" style="display:inline-flex
 <button class="case-lb-nav case-lb-next" id="caseLBNext" onclick="navCaseLB(1)"><i class="fas fa-chevron-right"></i></button>
 <div class="case-lb-label" id="caseLBLabel"></div>
 </div>
+${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
 <script src="/js/gnb.js" defer></script>
 <script>
@@ -3078,18 +3154,7 @@ ${TRACKING_HEAD}
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header class="site-header" id="siteHeader">
-<div class="header-container">
-<div class="header-brand">
-<a href="/" class="site-logo" aria-label="서울비디치과 홈"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
-</div>
-<div class="header-actions">
-<a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
-<a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
-</div>
-</div>
-</header>
-<div class="header-spacer"></div>
+${ssrHeader()}
 
 <main id="main-content" role="main">
 <nav class="content-tabs">
@@ -3183,6 +3248,7 @@ ${nextItem ? `<a href="/encyclopedia/${encodeURIComponent(nextItem.term)}" style
 </div>
 </footer>
 
+${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
 <script src="/js/gnb.js" defer></script>
 </body>
@@ -3313,18 +3379,7 @@ ${TRACKING_HEAD}
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<header class="site-header" id="siteHeader">
-<div class="header-container">
-<div class="header-brand">
-<a href="/" class="site-logo" aria-label="서울비디치과 홈"><span class="logo-icon">🦷</span><span class="logo-text">서울비디치과</span></a>
-</div>
-<div class="header-actions">
-<a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
-<a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
-</div>
-</div>
-</header>
-<div class="header-spacer"></div>
+${ssrHeader()}
 
 <main id="main-content" role="main">
 <nav class="content-tabs">
@@ -3405,6 +3460,7 @@ ${otherCats}
 </div>
 </footer>
 
+${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
 <script src="/js/gnb.js" defer></script>
 </body>
