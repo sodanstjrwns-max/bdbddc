@@ -55,6 +55,9 @@ function initMobileNav() {
 
   if (!menuBtn || !nav) return;
 
+  // gnb.js와 중복 바인딩 방지
+  menuBtn.__mobileNavBound = true;
+
   function openNav() {
     nav.classList.add('active');
     overlay.classList.add('active');

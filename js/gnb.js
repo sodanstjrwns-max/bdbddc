@@ -111,19 +111,58 @@
     // 모바일 메뉴 토글
     // ========================================
     function initMobileMenu() {
-        const menuBtn = document.querySelector('.mobile-menu-btn');
-        const nav = document.querySelector('.main-nav');
-        const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown > a');
+        // main.js의 initMobileNav()가 #mobileMenuBtn → #mobileNav 사이드바를
+        // 올바르게 처리하므로, 여기서는 main.js가 로드되지 않는 페이지를 위해
+        // fallback으로 동일한 로직을 적용한다.
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('mobileNav');
+        const closeBtn = document.getElementById('mobileNavClose');
+        const overlay = document.getElementById('mobileNavOverlay');
 
-        if (menuBtn && nav) {
-            menuBtn.addEventListener('click', () => {
-                menuBtn.classList.toggle('active');
-                nav.classList.toggle('active');
-                document.body.classList.toggle('menu-open');
+        if (menuBtn && nav && !menuBtn.__mobileNavBound) {
+            // main.js가 이미 바인딩했으면 중복 방지
+            menuBtn.__mobileNavBound = true;
+
+            function openNav() {
+                nav.classList.add('active');
+                if (overlay) overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeNav() {
+                nav.classList.remove('active');
+                if (overlay) overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            menuBtn.addEventListener('click', openNav);
+            if (closeBtn) closeBtn.addEventListener('click', closeNav);
+            if (overlay) overlay.addEventListener('click', closeNav);
+
+            // Handle submenu toggles
+            nav.querySelectorAll('.mobile-nav-submenu-toggle').forEach(function(toggle) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var parent = this.closest('.mobile-nav-item');
+                    if (parent) parent.classList.toggle('expanded');
+                });
+            });
+
+            // Close on direct link click
+            nav.querySelectorAll('a:not(.mobile-nav-submenu-toggle)').forEach(function(link) {
+                link.addEventListener('click', closeNav);
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && nav.classList.contains('active')) {
+                    closeNav();
+                }
             });
         }
 
-        // 모바일에서 드롭다운 토글
+        // 데스크톱 메가 드롭다운 토글 (유지)
+        const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown > a');
         dropdownItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 if (window.innerWidth <= 992) {
