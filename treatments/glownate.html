@@ -647,9 +647,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       padding-top: var(--header-height, 72px);
       background: #0a0806;
     }
+    /* 이미지를 오른쪽 55%에만 배치 */
     .gn-hero-slideshow {
       position: absolute;
-      inset: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 60%;
       z-index: 0;
     }
     .gn-hero-slide {
@@ -664,9 +668,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       height: 100%;
       object-fit: cover;
     }
-    .gn-hero-slide:nth-child(1) img { object-position: 75% 15%; }
-    .gn-hero-slide:nth-child(2) img { object-position: 70% 20%; }
-    .gn-hero-slide:nth-child(3) img { object-position: 68% 25%; }
+    .gn-hero-slide:nth-child(1) img { object-position: 40% 15%; }
+    .gn-hero-slide:nth-child(2) img { object-position: 45% 20%; }
+    .gn-hero-slide:nth-child(3) img { object-position: 42% 25%; }
     /* Ken Burns 줌 효과 */
     .gn-hero-slide.active img {
       animation: kenBurns 8s ease-out forwards;
@@ -675,17 +679,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       from { transform: scale(1); }
       to   { transform: scale(1.08); }
     }
-    /* 왼쪽 그라디언트 오버레이 */
+    /* 왼쪽→이미지 방향 그라디언트 (이미지 왼쪽 가장자리만 페이드) */
     .gn-hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        100deg,
-        rgba(10,8,6,0.95) 0%,
-        rgba(10,8,6,0.88) 32%,
-        rgba(10,8,6,0.55) 50%,
-        rgba(10,8,6,0.12) 68%,
-        transparent 100%
+        90deg,
+        #0a0806 0%,
+        #0a0806 38%,
+        rgba(10,8,6,0.85) 44%,
+        rgba(10,8,6,0.4) 54%,
+        transparent 68%
       );
       z-index: 1;
     }
@@ -698,7 +702,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       width: 100%;
     }
     .gn-hero-inner {
-      max-width: 580px;
+      max-width: 520px;
     }
     /* 슬라이드 인디케이터 */
     .gn-slide-dots {
@@ -1074,7 +1078,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         align-items: flex-end;
         padding-bottom: 56px;
       }
-      .gn-hero-slide img { object-position: 60% 15% !important; }
+      .gn-hero-slideshow {
+        width: 100% !important;
+        left: 0 !important;
+      }
+      .gn-hero-slide img { object-position: 55% 15% !important; }
       .gn-hero-overlay {
         background: linear-gradient(
           0deg,
@@ -1082,7 +1090,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           rgba(10,8,6,0.82) 35%,
           rgba(10,8,6,0.35) 65%,
           transparent 100%
-        );
+        ) !important;
       }
       .gn-hero-content { padding: 0 24px; }
       .gn-hero-inner { max-width: 100%; }
