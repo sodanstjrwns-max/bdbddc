@@ -21,6 +21,11 @@
 /tables/notices                           /notice/    301
 /tables/*                                 /pricing    301
 
+# 존재하지 않는 경로 → 올바른 페이지로 301 리디렉트 (404 해소)
+/treatments/laminate      /treatments/glownate    301
+/treatments/checkup       /checkup                301
+/area/cheonan-implant     /area/cheonan           301
+
 # 삭제된 페이지 → 메인으로 리디렉트
 /bdx/       /    301
 /bdx        /    301
