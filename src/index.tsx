@@ -1446,7 +1446,8 @@ function ssrHeader(): string {
 <div class="mega-dropdown-section"><strong class="section-heading">전문센터</strong><ul>
 <li><a href="/treatments/glownate">✨ 글로우네이트</a></li>
 <li><a href="/treatments/implant">임플란트 <span class="badge">6개 수술실</span></a></li>
-<li><a href="/treatments/invisalign">치아교정 <span class="badge">대규모</span></a></li>
+<li><a href="/treatments/invisalign">인비절라인 <span class="badge">다이아몬드</span></a></li>
+<li><a href="/treatments/orthodontics">치아교정 <span class="badge">장치교정</span></a></li>
 <li><a href="/treatments/pediatric">소아치과 <span class="badge">전문의 3인</span></a></li>
 <li><a href="/treatments/aesthetic">심미레진</a></li>
 </ul></div>
