@@ -1,6 +1,8 @@
 # 서울비디치과 — Cloudflare Pages Redirects
-# column/ → /blog/ 301 서버사이드 리디렉트 (SEO 크레딧 100% 전달)
+# 최종 업데이트: 2026-04-16
+# =============================================
 
+# column/ → /blog/ 301 서버사이드 리디렉트
 /column     /blog    301
 /column/    /blog    301
 /column/columns    /blog    301
@@ -8,7 +10,7 @@
 /column/index      /blog    301
 /column/index.html /blog    301
 
-# GSC 404 에러 해결 — 이전 사이트 잔재 301 리다이렉트
+# GSC 404 에러 해결 — 이전 사이트 잔재 리디렉트
 /tables/treatments/treatments/gum.html    /pricing    301
 /tables/treatments/treatments/index.html  /pricing    301
 /tables/treatments/implant.html           /pricing    301
@@ -19,7 +21,54 @@
 /tables/notices                           /notice/    301
 /tables/*                                 /pricing    301
 
-# 삭제된 페이지 → 메인으로 리다이렉트
+# 삭제된 페이지 → 메인으로 리디렉트
 /bdx/       /    301
 /bdx        /    301
 /local-seo  /    301
+
+# =============================================
+# 이전 사이트 URL 패턴 → 현재 URL 리디렉트
+# GSC 404 58개 해결용
+# =============================================
+
+# 이전 사이트 URL → 현재 페이지 매핑
+/treatment        /treatments/    301
+/treatment/*      /treatments/    301
+/doctor           /doctors/       301
+/doctor/*         /doctors/       301
+/staff            /doctors/       301
+/staff/*          /doctors/       301
+/about            /mission        301
+/about/*          /mission        301
+/contact          /reservation    301
+/contact/*        /reservation    301
+/info             /               301
+/info/*           /               301
+/consulting       /reservation    301
+/consult          /reservation    301
+/board            /notice/        301
+/board/*          /notice/        301
+/bbs              /notice/        301
+/bbs/*            /notice/        301
+/page             /               301
+/page/*           /               301
+/view             /               301
+/view/*           /               301
+/gallery          /cases/gallery  301
+/gallery/*        /cases/gallery  301
+
+# 한글 경로 패턴
+/진료과목         /treatments/    301
+/의료진           /doctors/       301
+/오시는길         /directions     301
+/예약             /reservation    301
+/비용             /pricing        301
+
+# 잘못된 확장자 패턴
+/index.php        /               301
+/index.asp        /               301
+/default.asp      /               301
+/home             /               301
+/home/*           /               301
+/main             /               301
+/main/*           /               301

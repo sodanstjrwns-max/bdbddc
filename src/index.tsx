@@ -1185,14 +1185,11 @@ app.get('/tables/treatments/implant.html', (c) => c.redirect('/pricing', 301))
 app.get('/tables/notices', (c) => c.redirect('/notice/', 301))
 app.get('/tables/*', (c) => c.redirect('/pricing', 301))
 
-// 2) 삭제된 페이지 → 410 Gone (Google 색인 영구 제거)
-const gone410 = (c: any) => new Response(
-  '<!DOCTYPE html><html><head><meta name="robots" content="noindex"><title>Gone</title></head><body><h1>410 Gone</h1><p>This page has been permanently removed.</p></body></html>',
-  { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex' } }
-)
-app.get('/bdx/', gone410)
-app.get('/bdx', gone410)
-app.get('/local-seo', gone410)
+// 2) 삭제된 페이지 → 301 리디렉트 (GSC 4xx 오류 해결)
+app.get('/bdx/', (c) => c.redirect('/', 301))
+app.get('/bdx', (c) => c.redirect('/', 301))
+app.get('/bdx/*', (c) => c.redirect('/', 301))
+app.get('/local-seo', (c) => c.redirect('/', 301))
 
 // ============================================
 // 치BTI 참여 통계 API
@@ -1582,15 +1579,10 @@ form:has(input[placeholder="Email"]) { display: none !important; }
 }
 
 // ============================================
-// /blog/category/* → 410 Gone (인블로그 카테고리 깨진 URL 제거)
+// /blog/category/* → 301 리디렉트 (인블로그 카테고리 깨진 URL → 블로그 메인)
 // Google Search Console에서 52개 4xx 에러 해결용
 // ============================================
-app.all('/blog/category/*', (c) => {
-  return new Response(
-    '<!DOCTYPE html><html><head><meta name="robots" content="noindex"><title>Gone</title></head><body><h1>410 Gone</h1><p>This page has been permanently removed.</p></body></html>',
-    { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex' } }
-  )
-})
+app.all('/blog/category/*', (c) => c.redirect('/blog/', 301))
 
 // ============================================
 // 인블로그 프록시 (/blog/* → bdbddc.inblog.ai)
@@ -1609,12 +1601,9 @@ app.all('/blog/*', async (c) => {
       },
     })
     
-    // 인블로그 404 → 410 Gone 변환 (삭제된 글은 Google 색인에서 제거)
+    // 인블로그 404 → 301 리디렉트 (삭제된 블로그 글 → 블로그 메인으로)
     if (response.status === 404) {
-      return new Response(
-        '<!DOCTYPE html><html><head><meta name="robots" content="noindex"><title>Gone</title></head><body><h1>410 Gone</h1><p>This blog post has been permanently removed.</p></body></html>',
-        { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex' } }
-      )
+      return c.redirect('/blog/', 301)
     }
 
     // HTML 응답인 경우 내부 링크 수정
