@@ -232,5 +232,9 @@ a.type-card:hover{color:inherit;text-decoration:none}
 .type-card.featured .type-recommend{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85)}
 .type-card.featured .type-recommend strong{color:var(--brand-gold-light)}
 .type-card.featured .type-badge{background:var(--white);color:var(--brand)}
-@media(max-width:1024px){.type-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.type-grid{grid-template-columns:1fr}}
+@media(max-width:1024px){.type-grid{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:repeat(2,1fr)}.grid-2col{grid-template-columns:1fr !important}}
+@media(max-width:640px){.type-grid{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr}.concerns-grid{grid-template-columns:1fr}.grid-2col{grid-template-columns:1fr !important}}
+
+/* ─── Responsive Grid Utilities ─── */
+.grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto}
+.grid-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
