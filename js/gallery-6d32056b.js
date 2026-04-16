@@ -185,14 +185,35 @@
         '.lb-tab.active{background:linear-gradient(135deg,rgba(107,66,38,0.9),rgba(139,94,60,0.9));border-color:#C8A97E;color:#fff;}' +
         '.lb-tab .lb-tab-icon{margin-right:6px;}' +
 
-        /* ── 정보 ── */
-        '.lb-info{padding:12px 4px;text-align:center;color:rgba(255,255,255,0.6);font-size:0.85rem;}' +
-        '.lb-info strong{color:#fff;font-weight:700;}' +
-        '.lb-info .lb-info-cat{display:inline-block;padding:3px 12px;border-radius:50px;background:rgba(200,169,126,0.15);color:#C8A97E;font-size:0.75rem;font-weight:600;margin-right:8px;border:1px solid rgba(200,169,126,0.2);}' +
+        /* ── 상세 정보 패널 v18 ── */
+        '.lb-info{padding:16px 0 8px;color:rgba(255,255,255,0.7);font-size:0.85rem;max-height:35vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,169,126,0.3) transparent;}' +
+        '.lb-info::-webkit-scrollbar{width:4px;}' +
+        '.lb-info::-webkit-scrollbar-thumb{background:rgba(200,169,126,0.3);border-radius:4px;}' +
+        '.lb-info-header{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px;}' +
+        '.lb-info-title-area{flex:1;min-width:200px;}' +
+        '.lb-info-title{color:#fff;font-size:1.1rem;font-weight:800;margin:0 0 8px;line-height:1.4;}' +
+        '.lb-info-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}' +
+        '.lb-info-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:50px;font-size:0.72rem;font-weight:600;border:1px solid rgba(255,255,255,0.08);}' +
+        '.lb-info-tag i{font-size:0.62rem;}' +
+        '.lb-info-tag.cat{background:rgba(200,169,126,0.15);color:#C8A97E;border-color:rgba(200,169,126,0.2);}' +
+        '.lb-info-tag.period{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);}' +
+        '.lb-info-tag.region{background:rgba(100,180,255,0.1);color:rgba(140,195,255,0.9);}' +
+        '.lb-info-tag.patient{background:rgba(180,140,255,0.1);color:rgba(190,160,255,0.9);}' +
+        '.lb-info-desc{margin:12px 0;padding:12px 16px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.06);line-height:1.75;color:rgba(255,255,255,0.65);font-size:0.82rem;white-space:pre-line;}' +
+        '.lb-info-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);}' +
+        '.lb-info-doctor{display:flex;align-items:center;gap:10px;text-decoration:none;color:rgba(255,255,255,0.7);transition:color .2s;}' +
+        '.lb-info-doctor:hover{color:#C8A97E;}' +
+        '.lb-info-doctor-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.82rem;flex-shrink:0;}' +
+        '.lb-info-doctor-name{font-weight:700;color:#fff;font-size:0.85rem;}' +
+        '.lb-info-doctor-sub{font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:1px;}' +
+        '.lb-info-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;border-radius:50px;font-weight:700;font-size:0.8rem;text-decoration:none;transition:all .25s;border:1px solid rgba(200,169,126,0.3);white-space:nowrap;}' +
+        '.lb-info-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(107,66,38,0.4);background:linear-gradient(135deg,#7a4d2f,#9a6d4a);}' +
+        '.lb-info-cta i{font-size:0.7rem;}' +
+        '.lb-info-empty-desc{text-align:center;padding:8px 0;color:rgba(255,255,255,0.3);font-size:0.78rem;font-style:italic;}' +
 
         /* ── 반응형 ── */
         '@media(max-width:900px){.lb-container{width:100%;max-width:100%;padding:0 6px;}.lb-close{top:8px;right:14px;}}' +
-        '@media(max-width:600px){.lb-container{width:100%;max-width:100%;padding:0 4px;max-height:100vh;}.lb-tab{padding:6px 16px;font-size:0.75rem;}.lb-handle-grip{width:44px;height:44px;}.lb-handle-grip svg{width:22px;height:22px;}.lb-label{font-size:0.62rem;padding:5px 12px;bottom:10px;}.lb-img{max-height:55vh;}.lb-slider{border-radius:12px;}.lb-hint{font-size:0.75rem;}.lb-hint i{margin-right:6px;}}' +
+        '@media(max-width:600px){.lb-container{width:100%;max-width:100%;padding:0 4px;max-height:100vh;}.lb-tab{padding:6px 16px;font-size:0.75rem;}.lb-handle-grip{width:44px;height:44px;}.lb-handle-grip svg{width:22px;height:22px;}.lb-label{font-size:0.62rem;padding:5px 12px;bottom:10px;}.lb-img{max-height:55vh;}.lb-slider{border-radius:12px;}.lb-hint{font-size:0.75rem;}.lb-hint i{margin-right:6px;}.lb-info{max-height:30vh;padding:12px 0 6px;}.lb-info-title{font-size:0.95rem;}.lb-info-desc{padding:10px 12px;font-size:0.78rem;}.lb-info-footer{flex-direction:column;align-items:stretch;gap:10px;}.lb-info-cta{justify-content:center;}}' +
 
         /* ── 애니메이션 ── */
         '@keyframes lbFadeIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}' +
@@ -417,11 +438,63 @@
       }
     }
 
-    // 케이스 정보
+    // 케이스 상세 정보 v18
     var catLabel = CATS[caseItem.category] || caseItem.category || '';
+    var catIcon = CAT_ICONS[caseItem.category] || 'fa-tooth';
     var infoEl = document.getElementById('lbInfo');
     var docNameClean = (caseItem.doctorName || '').replace(/ 원장$/, '');
-    infoEl.innerHTML = '<span class="lb-info-cat">' + catLabel + '</span> <strong>' + (caseItem.title || '') + '</strong>' + (docNameClean ? ' &middot; ' + docNameClean + ' 원장' : '');
+    var docInitial = (docNameClean || '?').charAt(0);
+    var catSlugMap = { 'front-crown': 'crown' };
+    var treatmentSlug = catSlugMap[caseItem.category] || caseItem.category;
+
+    // 메타 태그 구성
+    var metaHtml = '<span class="lb-info-tag cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</span>';
+    if (caseItem.treatmentPeriod) {
+      metaHtml += '<span class="lb-info-tag period"><i class="far fa-clock"></i> ' + caseItem.treatmentPeriod + '</span>';
+    }
+    if (caseItem.region) {
+      metaHtml += '<span class="lb-info-tag region"><i class="fas fa-map-marker-alt"></i> ' + caseItem.region + '</span>';
+    }
+    var patientParts = [];
+    if (caseItem.patientAge) patientParts.push(caseItem.patientAge);
+    if (caseItem.patientGender) patientParts.push(caseItem.patientGender === 'male' ? '남성' : caseItem.patientGender === 'female' ? '여성' : '');
+    var patientText = patientParts.filter(Boolean).join(' ');
+    if (patientText) {
+      metaHtml += '<span class="lb-info-tag patient"><i class="fas fa-user"></i> ' + patientText + '</span>';
+    }
+
+    // 설명 (전체 텍스트)
+    var fullDesc = (caseItem.description || '').trim();
+    var descHtml = fullDesc
+      ? '<div class="lb-info-desc">' + fullDesc.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>'
+      : '';
+
+    // 원장 정보
+    var doctorHtml = '';
+    if (docNameClean) {
+      var doctorLink = caseItem.doctorSlug ? '/doctors/' + caseItem.doctorSlug : '#';
+      doctorHtml = '<a href="' + doctorLink + '" class="lb-info-doctor" onclick="event.stopPropagation()">' +
+        '<div class="lb-info-doctor-avatar">' + docInitial + '</div>' +
+        '<div><div class="lb-info-doctor-name">' + docNameClean + ' 원장</div>' +
+        '<div class="lb-info-doctor-sub">담당 ' + catLabel + '</div></div>' +
+      '</a>';
+    }
+
+    // CTA
+    var ctaHtml = '<a href="/treatments/' + treatmentSlug + '" class="lb-info-cta" onclick="event.stopPropagation()"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>';
+
+    infoEl.innerHTML =
+      '<div class="lb-info-header">' +
+        '<div class="lb-info-title-area">' +
+          '<h3 class="lb-info-title">' + (caseItem.title || catLabel + ' 케이스') + '</h3>' +
+          '<div class="lb-info-meta">' + metaHtml + '</div>' +
+        '</div>' +
+      '</div>' +
+      descHtml +
+      '<div class="lb-info-footer">' +
+        doctorHtml +
+        ctaHtml +
+      '</div>';
 
     // 로그인 redirect
     var loginBtn = document.getElementById('lbLoginBtn');
