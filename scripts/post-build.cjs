@@ -30,7 +30,7 @@ const routes = JSON.parse(fs.readFileSync('dist/_routes.json', 'utf8'));
 const includeRoutes = [
   '/encyclopedia/*','/admin/*','/admin','/cases/*',
   '/flight','/games','/run',
-  '/column/*','/column','/doctors/*','/careers',
+  '/column/*','/column','/doctors/*',
   '/bdx','/bdx/*','/local-seo','/tables/*'
 ];
 includeRoutes.forEach(r => {
