@@ -647,10 +647,15 @@
     filtered.forEach(function(c) { html += renderCard(c); });
     grid.innerHTML = html;
 
-    // 사진 영역(gc-photo) 클릭 → 라이트박스 열기
+    // 사진 영역(gc-photo) 클릭 → 비로그인: 로그인 모달 / 로그인: 라이트박스
     grid.querySelectorAll('.gc-photo[data-action="lightbox"]').forEach(function(photoDiv) {
       photoDiv.addEventListener('click', function(e) {
         e.stopPropagation();
+        if (!isLoggedIn) {
+          var cardEl = photoDiv.closest('.gc-card[data-href]');
+          showLoginModal(cardEl ? cardEl.getAttribute('data-href') : '/cases/gallery');
+          return;
+        }
         var caseId = photoDiv.getAttribute('data-case-id');
         var photoType = photoDiv.getAttribute('data-photo-type') || 'before';
         var caseItem = cases.find(function(c) { return c.id === caseId; });
@@ -658,39 +663,39 @@
       });
     });
 
-    // 카드 클릭 이벤트 — 어디를 눌러도 라이트박스 (슬라이더) 열기
+    // 카드 클릭 이벤트 — 비로그인: 로그인 모달 / 로그인: 라이트박스(슬라이더)
     grid.querySelectorAll('.gc-card[data-href]').forEach(function(card) {
       card.addEventListener('click', function(e) {
         if (e.target.closest('a')) return;
-        if (e.target.closest('.gc-photo[data-action="lightbox"]')) return;  // 사진 영역 클릭은 이미 라이트박스 핸들러가 처리
-        // 텍스트 영역 클릭도 라이트박스로 통일
-        var caseId = card.querySelector('.gc-photo[data-case-id]');
-        if (caseId) {
-          var id = caseId.getAttribute('data-case-id');
-          var caseItem = cases.find(function(c) { return c.id === id; });
-          if (caseItem) { openLightbox(caseItem, 'before'); return; }
-        }
-        // 사진이 없는 경우 fallback: 로그인 모달 또는 상세 페이지
+        if (e.target.closest('.gc-photo[data-action="lightbox"]')) return;
         var href = card.getAttribute('data-href');
+        // 비로그인 → 로그인 모달
         if (!isLoggedIn) {
           showLoginModal(href);
           return;
+        }
+        // 로그인 → 라이트박스(슬라이더)
+        var caseIdEl = card.querySelector('.gc-photo[data-case-id]');
+        if (caseIdEl) {
+          var id = caseIdEl.getAttribute('data-case-id');
+          var caseItem = cases.find(function(c) { return c.id === id; });
+          if (caseItem) { openLightbox(caseItem, 'before'); return; }
         }
         if (href) window.location.href = href;
       });
       card.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          var caseId = card.querySelector('.gc-photo[data-case-id]');
-          if (caseId) {
-            var id = caseId.getAttribute('data-case-id');
-            var caseItem = cases.find(function(c) { return c.id === id; });
-            if (caseItem) { openLightbox(caseItem, 'before'); return; }
-          }
           var href = card.getAttribute('data-href');
           if (!isLoggedIn) {
             showLoginModal(href);
             return;
+          }
+          var caseIdEl = card.querySelector('.gc-photo[data-case-id]');
+          if (caseIdEl) {
+            var id = caseIdEl.getAttribute('data-case-id');
+            var caseItem = cases.find(function(c) { return c.id === id; });
+            if (caseItem) { openLightbox(caseItem, 'before'); return; }
           }
           if (href) window.location.href = href;
         }
