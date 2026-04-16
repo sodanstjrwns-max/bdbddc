@@ -130,14 +130,12 @@
         '.photo-lightbox{display:none;position:fixed;inset:0;z-index:10001;align-items:center;justify-content:center;}' +
         '.photo-lightbox.active{display:flex;}' +
         '.lb-backdrop{position:absolute;inset:0;background:rgba(10,8,6,0.94);cursor:pointer;}' +
-        '.lb-container{position:relative;width:94%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;z-index:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(200,169,126,0.3) transparent;}' +
-        '.lb-container::-webkit-scrollbar{width:4px;}' +
-        '.lb-container::-webkit-scrollbar-thumb{background:rgba(200,169,126,0.3);border-radius:4px;}' +
+        '.lb-container{position:relative;width:94%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;z-index:1;overflow:hidden;}' +
         '.lb-close{position:absolute;top:-12px;right:-12px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all .25s cubic-bezier(.22,1,.36,1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}' +
         '.lb-close:hover{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);transform:scale(1.08);}' +
 
         /* ── v17 커튼 슬라이더 ── */
-        '.lb-slider-wrap{position:relative;}' +
+        '.lb-slider-wrap{position:relative;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;}' +
         '.lb-slider{position:relative;border-radius:16px;overflow:hidden;background:#0a0806;cursor:col-resize;user-select:none;-webkit-user-select:none;touch-action:none;box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.06);}' +
 
         /* 레이어 공통 — 둘 다 동일 크기 */
@@ -187,9 +185,9 @@
         '.lb-tab.active{background:linear-gradient(135deg,rgba(107,66,38,0.9),rgba(139,94,60,0.9));border-color:#C8A97E;color:#fff;}' +
         '.lb-tab .lb-tab-icon{margin-right:6px;}' +
 
-        /* ── 상세 정보 패널 v18 ── */
-        '.lb-info{padding:16px 0 8px;color:rgba(255,255,255,0.7);font-size:0.85rem;max-height:35vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,169,126,0.3) transparent;}' +
-        '.lb-info::-webkit-scrollbar{width:4px;}' +
+        /* ── 상세 정보 패널 v19 ── */
+        '.lb-info{padding:16px 12px 8px;color:rgba(255,255,255,0.7);font-size:0.85rem;flex:0 0 auto;max-height:40vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,169,126,0.3) transparent;}' +
+        '.lb-info::-webkit-scrollbar{width:5px;}' +
         '.lb-info::-webkit-scrollbar-thumb{background:rgba(200,169,126,0.3);border-radius:4px;}' +
         '.lb-info-header{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px;}' +
         '.lb-info-title-area{flex:1;min-width:200px;}' +
@@ -215,7 +213,7 @@
 
         /* ── 반응형 ── */
         '@media(max-width:900px){.lb-container{width:100%;max-width:100%;padding:0 6px;}.lb-close{top:8px;right:14px;}}' +
-        '@media(max-width:600px){.lb-container{width:100%;max-width:100%;padding:0 4px;max-height:100vh;}.lb-tab{padding:6px 16px;font-size:0.75rem;}.lb-handle-grip{width:44px;height:44px;}.lb-handle-grip svg{width:22px;height:22px;}.lb-label{font-size:0.62rem;padding:5px 12px;bottom:10px;}.lb-img{max-height:55vh;}.lb-slider{border-radius:12px;}.lb-hint{font-size:0.75rem;}.lb-hint i{margin-right:6px;}.lb-info{max-height:30vh;padding:12px 0 6px;}.lb-info-title{font-size:0.95rem;}.lb-info-desc{padding:10px 12px;font-size:0.78rem;}.lb-info-footer{flex-direction:column;align-items:stretch;gap:10px;}.lb-info-cta{justify-content:center;}}' +
+        '@media(max-width:600px){.lb-container{width:100%;max-width:100%;padding:0 4px;max-height:100dvh;}.lb-tab{padding:6px 16px;font-size:0.75rem;}.lb-handle-grip{width:44px;height:44px;}.lb-handle-grip svg{width:22px;height:22px;}.lb-label{font-size:0.62rem;padding:5px 12px;bottom:10px;}.lb-img{max-height:40vh;}.lb-slider{border-radius:12px;}.lb-hint{font-size:0.75rem;}.lb-hint i{margin-right:6px;}.lb-info{max-height:45vh;padding:12px 8px 6px;}.lb-info-title{font-size:0.95rem;}.lb-info-desc{padding:10px 12px;font-size:0.78rem;}.lb-info-footer{flex-direction:column;align-items:stretch;gap:10px;}.lb-info-cta{justify-content:center;}}' +
 
         /* ── 애니메이션 ── */
         '@keyframes lbFadeIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}' +
@@ -243,7 +241,12 @@
     var natH = afterImg.naturalHeight;
     if (!natW || !natH) return;
     var containerW = slider.parentElement.clientWidth;
-    var maxH = window.innerWidth <= 600 ? window.innerHeight * 0.45 : window.innerHeight * 0.55;
+    /* 슬라이더 최대 높이: 탭+info 공간(최소 200px) 확보 */
+    var reserveForInfo = 220;
+    var maxH = Math.min(
+      window.innerWidth <= 600 ? window.innerHeight * 0.45 : window.innerHeight * 0.50,
+      window.innerHeight * 0.92 - reserveForInfo
+    );
     var ratio = natW / natH;
     var renderW = containerW;
     var renderH = containerW / ratio;
