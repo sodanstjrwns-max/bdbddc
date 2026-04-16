@@ -631,16 +631,123 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header-spacer"></div>
   <main id="main-content" role="main">
 
+  <style>
+    .glownate-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-top: 32px;
+    }
+    .glownate-hero-img {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(107,66,38,0.15);
+    }
+    .glownate-hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .glownate-hero-img .img-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 24px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .glownate-model-banner {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      max-height: 420px;
+    }
+    .glownate-model-banner img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+    .glownate-model-banner .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(107,66,38,0.85) 0%, rgba(107,66,38,0.4) 50%, transparent 100%);
+      display: flex;
+      align-items: center;
+      padding: 0 60px;
+    }
+    .banner-overlay-text {
+      max-width: 480px;
+      color: #fff;
+    }
+    .banner-overlay-text h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin: 0 0 12px;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+    }
+    .banner-overlay-text p {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin: 0;
+      line-height: 1.7;
+    }
+    @media (max-width: 768px) {
+      .glownate-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .glownate-hero-img {
+        max-height: 300px;
+      }
+      .glownate-model-banner {
+        max-height: 320px;
+      }
+      .glownate-model-banner img {
+        height: 320px;
+      }
+      .glownate-model-banner .banner-overlay {
+        padding: 0 24px;
+        background: linear-gradient(0deg, rgba(107,66,38,0.85) 0%, rgba(107,66,38,0.5) 60%, transparent 100%);
+        align-items: flex-end;
+        padding-bottom: 32px;
+      }
+      .banner-overlay-text h3 {
+        font-size: 1.3rem;
+      }
+      .banner-overlay-text p {
+        font-size: 0.88rem;
+      }
+    }
+  </style>
   <section class="treatment-page-hero" aria-label="글로우네이트">
     <div class="container">
       <div class="breadcrumb"><a href="../">홈</a><span class="sep">/</span><a href="/treatments/">진료</a><span class="sep">/</span><span>글로우네이트(라미네이트)</span></div>
       <div class="page-badge"><i class="fas fa-sparkles"></i> 천안 <a href="/encyclopedia/#라미네이트" class="enc-inline-link" title="앞니 표면에 얇은 도자기를 붙이는 심미 시술" data-enc-term="라미네이트">라미네이트</a> 전문</div>
-      <h1>천안 라미네이트의 새로운 기준,<br><span class="text-gradient"><a href="/encyclopedia/#글로우네이트" class="enc-inline-link" title="서울비디치과 독자 심미 치료 프로그램" data-enc-term="글로우네이트">글로우네이트</a>(라미네이트)</span></h1>
-      <p class="hero-desc treatment-intro">서울비디치과만의 프리미엄 라미네이트 프로그램 — 천안 라미네이트 잘하는 곳으로 유명한 서울비디치과에서 최소 삭제 원칙으로 자연치아를 보존하면서 환하고 투명한 미소를 완성하는 차세대 포세린 라미네이트입니다. 앞니 라미네이트, <a href="/encyclopedia/#치아 변색" class="enc-inline-link" title="치아 색이 변하는 현상" data-enc-term="치아 변색">치아 변색</a> 교정, 치아 사이 벌어짐 개선까지 라미네이트 한 가지로 해결합니다.</p>
-      <div class="hero-stats">
-        <div class="stat-item"><span class="stat-value">15인</span><span class="stat-label">전문 원장 협진</span></div>
-        <div class="stat-item"><span class="stat-value">최소삭제</span><span class="stat-label">자연치아 보존</span></div>
-        <div class="stat-item"><span class="stat-value">5F</span><span class="stat-label">전용 심미센터</span></div>
+      <div class="glownate-hero-grid">
+        <div>
+          <h1>천안 라미네이트의 새로운 기준,<br><span class="text-gradient"><a href="/encyclopedia/#글로우네이트" class="enc-inline-link" title="서울비디치과 독자 심미 치료 프로그램" data-enc-term="글로우네이트">글로우네이트</a>(라미네이트)</span></h1>
+          <p class="hero-desc treatment-intro">서울비디치과만의 프리미엄 라미네이트 프로그램 — 천안 라미네이트 잘하는 곳으로 유명한 서울비디치과에서 최소 삭제 원칙으로 자연치아를 보존하면서 환하고 투명한 미소를 완성하는 차세대 포세린 라미네이트입니다. 앞니 라미네이트, <a href="/encyclopedia/#치아 변색" class="enc-inline-link" title="치아 색이 변하는 현상" data-enc-term="치아 변색">치아 변색</a> 교정, 치아 사이 벌어짐 개선까지 라미네이트 한 가지로 해결합니다.</p>
+          <div class="hero-stats">
+            <div class="stat-item"><span class="stat-value">15인</span><span class="stat-label">전문 원장 협진</span></div>
+            <div class="stat-item"><span class="stat-value">최소삭제</span><span class="stat-label">자연치아 보존</span></div>
+            <div class="stat-item"><span class="stat-value">5F</span><span class="stat-label">전용 심미센터</span></div>
+          </div>
+        </div>
+        <div class="glownate-hero-img">
+          <img src="/images/glownate-model-1.jpg" alt="글로우네이트 라미네이트로 완성한 환한 미소" width="1024" height="683" loading="eager">
+          <div class="img-caption">글로우네이트로 완성한 자신감 있는 미소</div>
+        </div>
       </div>
     </div>
   </section>
@@ -743,6 +850,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </section>
+    <!-- 모델 비주얼 배너 -->
+    <section class="glownate-model-banner" aria-label="글로우네이트 결과 비주얼">
+      <img src="/images/glownate-model-2.jpg" alt="글로우네이트 라미네이트 - 자연스럽고 아름다운 미소" width="1024" height="683" loading="lazy">
+      <div class="banner-overlay">
+        <div class="banner-overlay-text">
+          <h3>자연치아보다<br>더 자연스러운 미소</h3>
+          <p>DSD 디지털 스마일 디자인으로 얼굴형, 피부톤, 잇몸라인까지 분석하여 당신만을 위한 맞춤 라미네이트를 제작합니다.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="section-header">
