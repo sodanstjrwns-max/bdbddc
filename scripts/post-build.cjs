@@ -26,17 +26,18 @@ dirs.forEach(d => {
 cp.execSync('mkdir -p dist/data && cp -rT public/data dist/data');
 
 // 3. Patch _routes.json
-const routes = JSON.parse(fs.readFileSync('dist/_routes.json', 'utf8'));
-const includeRoutes = [
-  '/encyclopedia/*','/admin/*','/admin','/cases/*',
-  '/flight','/games','/run',
-  '/column/*','/column','/doctors/*',
-  '/bdx','/bdx/*','/local-seo','/tables/*'
-];
-includeRoutes.forEach(r => {
-  if (!routes.include.includes(r)) routes.include.push(r);
-});
-routes.exclude = routes.exclude.filter(e => e !== '/cases/*' && e !== '/column/*' && e !== '/doctors/*');
+// Include /* to ensure ALL requests go through Worker (needed for seoulbddc.com → bdbddc.com redirect)
+// Static assets for bdbddc.com are excluded so they're served directly without Worker overhead
+const routes = {
+  version: 1,
+  include: ['/*'],
+  exclude: [
+    '/css/*','/js/*','/images/*','/static/*','/data/*',
+    '/manifest.json','/sitemap.xml','/sitemap-main.xml','/sitemap-area.xml','/sitemap-encyclopedia.xml',
+    '/robots.txt','/6f74445f7ec14eccb522a4d3f253128c.txt','/bdbddc2026indexnow.txt',
+    '/llms.txt','/llms-full.txt'
+  ]
+};
 fs.writeFileSync('dist/_routes.json', JSON.stringify(routes, null, 2));
 
 // 4. Create static redirect pages for GSC 404 fix
