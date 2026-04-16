@@ -632,132 +632,519 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <main id="main-content" role="main">
 
   <style>
-    .glownate-hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
+    /* ════════════════════════════════════════
+       GLOWNATE — Magazine-Style Premium Design
+       ════════════════════════════════════════ */
+
+    /* ── 풀스크린 히어로 슬라이드쇼 ── */
+    .gn-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
       align-items: center;
-      margin-top: 32px;
+      overflow: hidden;
+      margin-top: calc(var(--header-height, 72px) * -1);
+      padding-top: var(--header-height, 72px);
+      background: #0a0806;
     }
-    .glownate-hero-img {
+    .gn-hero-slideshow {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .gn-hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+    .gn-hero-slide.active { opacity: 1; }
+    .gn-hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gn-hero-slide:nth-child(1) img { object-position: 65% 15%; }
+    .gn-hero-slide:nth-child(2) img { object-position: 50% 20%; }
+    .gn-hero-slide:nth-child(3) img { object-position: 50% 25%; }
+    /* Ken Burns 줌 효과 */
+    .gn-hero-slide.active img {
+      animation: kenBurns 8s ease-out forwards;
+    }
+    @keyframes kenBurns {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+    /* 왼쪽 그라디언트 오버레이 */
+    .gn-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(10,8,6,0.93) 0%,
+        rgba(10,8,6,0.85) 28%,
+        rgba(10,8,6,0.5) 52%,
+        rgba(10,8,6,0.15) 72%,
+        transparent 100%
+      );
+      z-index: 1;
+    }
+    .gn-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--container-max, 1280px);
+      margin: 0 auto;
+      padding: 0 56px;
+      width: 100%;
+    }
+    .gn-hero-inner {
+      max-width: 580px;
+    }
+    /* 슬라이드 인디케이터 */
+    .gn-slide-dots {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .gn-slide-dots button {
+      width: 32px;
+      height: 3px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.4s;
+      padding: 0;
+    }
+    .gn-slide-dots button.active {
+      width: 48px;
+      background: #C8A97E;
+    }
+    .gn-hero .breadcrumb { margin-bottom: 20px; }
+    .gn-hero .breadcrumb a,
+    .gn-hero .breadcrumb span { color: rgba(255,255,255,0.4); font-size: 0.82rem; }
+    .gn-hero .breadcrumb a:hover { color: rgba(255,255,255,0.7); }
+    .gn-hero .page-badge {
+      color: #C8A97E;
+      background: rgba(200,169,126,0.1);
+      border: 1px solid rgba(200,169,126,0.18);
+      display: inline-flex;
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .gn-hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+      margin-bottom: 22px;
+    }
+    .gn-hero h1 .text-gradient {
+      background: linear-gradient(135deg, #C8A97E 0%, #E8D5B7 50%, #C8A97E 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+    .gn-hero .hero-desc {
+      color: rgba(255,255,255,0.65);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 36px;
+      max-width: 460px;
+    }
+    .gn-hero .hero-desc .enc-inline-link {
+      color: rgba(255,255,255,0.65) !important;
+      text-decoration-color: rgba(200,169,126,0.3);
+    }
+    .gn-hero-stats {
+      display: flex;
+      gap: 36px;
+      margin-bottom: 40px;
+    }
+    .gn-hero-stats .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .gn-hero-stats .stat-value {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: #C8A97E;
+      letter-spacing: -0.02em;
+    }
+    .gn-hero-stats .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+    .gn-hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .gn-hero-cta .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 36px;
+      background: linear-gradient(135deg, #C8A97E, #A8845A);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+      box-shadow: 0 4px 24px rgba(200,169,126,0.3);
+    }
+    .gn-hero-cta .btn-hero-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(200,169,126,0.45);
+    }
+    .gn-hero-cta .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 30px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.35s;
+      backdrop-filter: blur(12px);
+    }
+    .gn-hero-cta .btn-hero-secondary:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+    /* 스크롤 힌트 */
+    .gn-scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+    }
+    .gn-scroll-hint .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(200,169,126,0.5), transparent);
+      animation: scrollDown 2s infinite;
+    }
+    @keyframes scrollDown {
+      0%   { opacity: 1; transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      50.1%{ transform: scaleY(1); transform-origin: bottom; }
+      100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ── 중간 시네마 배너 (모델2) ── */
+    .gn-cinema-banner {
+      position: relative;
+      margin: 0;
+      overflow: hidden;
+      height: 520px;
+    }
+    .gn-cinema-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 18%;
+      display: block;
+      transition: transform 6s ease-out;
+    }
+    .gn-cinema-banner:hover img {
+      transform: scale(1.03);
+    }
+    .gn-cinema-banner .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        100deg,
+        rgba(20,14,8,0.9) 0%,
+        rgba(20,14,8,0.65) 35%,
+        rgba(20,14,8,0.2) 60%,
+        transparent 100%
+      );
+      display: flex;
+      align-items: center;
+      padding: 0 64px;
+    }
+    .gn-cinema-text {
+      max-width: 500px;
+      color: #fff;
+    }
+    .gn-cinema-text .cinema-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #C8A97E;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .gn-cinema-text .cinema-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: #C8A97E;
+    }
+    .gn-cinema-text h3 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin: 0 0 16px;
+      line-height: 1.3;
+      letter-spacing: -0.03em;
+    }
+    .gn-cinema-text p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      margin: 0;
+      line-height: 1.75;
+    }
+
+    /* ── 매거진 결과 갤러리 (모델3,4) ── */
+    .gn-magazine-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .gn-magazine-card {
       position: relative;
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(107,66,38,0.15);
+      cursor: default;
     }
-    .glownate-hero-img img {
+    .gn-magazine-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
     }
-    .glownate-hero-img .img-caption {
+    .gn-magazine-card:hover img {
+      transform: scale(1.04);
+    }
+    .gn-magazine-card .card-overlay {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 20px 24px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+      padding: 32px 28px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.55));
+      transition: padding 0.3s;
+    }
+    .gn-magazine-card:hover .card-overlay {
+      padding-bottom: 36px;
+    }
+    .gn-magazine-card .card-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(200,169,126,0.85);
       color: #fff;
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      border-radius: 20px;
+      margin-bottom: 10px;
     }
-    .glownate-model-banner {
-      position: relative;
+    .gn-magazine-card .card-title {
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
       margin: 0;
-      padding: 0;
-      overflow: hidden;
-      max-height: 420px;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+      line-height: 1.5;
     }
-    .glownate-model-banner img {
-      width: 100%;
-      height: 420px;
-      object-fit: cover;
-      object-position: center 20%;
-      display: block;
-    }
-    .glownate-model-banner .banner-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(107,66,38,0.85) 0%, rgba(107,66,38,0.4) 50%, transparent 100%);
+    /* 오른쪽 카드: 이미지 + 인용문 스택 */
+    .gn-magazine-stack {
       display: flex;
-      align-items: center;
-      padding: 0 60px;
+      flex-direction: column;
+      gap: 20px;
     }
-    .banner-overlay-text {
-      max-width: 480px;
-      color: #fff;
+    .gn-magazine-quote {
+      background: linear-gradient(135deg, #f9f6f1, #fff5ed);
+      border-radius: 24px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: 1px solid rgba(200,169,126,0.15);
     }
-    .banner-overlay-text h3 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin: 0 0 12px;
-      line-height: 1.35;
-      letter-spacing: -0.03em;
+    .gn-magazine-quote .quote-icon {
+      font-size: 2rem;
+      color: #C8A97E;
+      margin-bottom: 12px;
+      line-height: 1;
     }
-    .banner-overlay-text p {
-      font-size: 1rem;
-      opacity: 0.9;
-      margin: 0;
+    .gn-magazine-quote blockquote {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #333;
       line-height: 1.7;
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
     }
+    .gn-magazine-quote cite {
+      font-size: 0.82rem;
+      color: #999;
+      font-style: normal;
+    }
+
+    /* ── 제작 과정 — 에디토리얼 레이아웃 ── */
+    .gn-process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .gn-process-card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      transition: transform 0.35s, box-shadow 0.35s;
+    }
+    .gn-process-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(107,66,38,0.12);
+    }
+    .gn-process-card .card-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .gn-process-card .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+    }
+    .gn-process-card:hover .card-img img {
+      transform: scale(1.06);
+    }
+    .gn-process-card .card-body {
+      padding: 20px 22px;
+    }
+    .gn-process-card .card-body h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #333;
+      margin: 0 0 6px;
+    }
+    .gn-process-card .card-body p {
+      font-size: 0.82rem;
+      color: #777;
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    /* ── 모바일 반응형 ── */
     @media (max-width: 768px) {
-      .glownate-hero-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-      .glownate-hero-img {
-        max-height: 300px;
-      }
-      .glownate-model-banner {
-        max-height: 320px;
-      }
-      .glownate-model-banner img {
-        height: 320px;
-      }
-      .glownate-model-banner .banner-overlay {
-        padding: 0 24px;
-        background: linear-gradient(0deg, rgba(107,66,38,0.85) 0%, rgba(107,66,38,0.5) 60%, transparent 100%);
+      .gn-hero {
+        min-height: 100vh;
+        min-height: 100svh;
         align-items: flex-end;
-        padding-bottom: 32px;
+        padding-bottom: 56px;
       }
-      .banner-overlay-text h3 {
-        font-size: 1.3rem;
+      .gn-hero-slide img { object-position: 55% 15% !important; }
+      .gn-hero-overlay {
+        background: linear-gradient(
+          0deg,
+          rgba(10,8,6,0.96) 0%,
+          rgba(10,8,6,0.82) 35%,
+          rgba(10,8,6,0.35) 65%,
+          transparent 100%
+        );
       }
-      .banner-overlay-text p {
-        font-size: 0.88rem;
+      .gn-hero-content { padding: 0 24px; }
+      .gn-hero-inner { max-width: 100%; }
+      .gn-hero h1 { font-size: 1.9rem; }
+      .gn-hero .hero-desc { font-size: 0.88rem; max-width: 100%; }
+      .gn-hero-stats { gap: 20px; flex-wrap: wrap; }
+      .gn-hero-stats .stat-value { font-size: 1.3rem; }
+      .gn-hero-cta .btn-hero-primary,
+      .gn-hero-cta .btn-hero-secondary { padding: 13px 24px; font-size: 0.9rem; }
+      .gn-scroll-hint { display: none; }
+      .gn-slide-dots { margin-bottom: 20px; }
+      /* 시네마 배너 모바일 */
+      .gn-cinema-banner { height: 380px; }
+      .gn-cinema-banner .banner-overlay {
+        padding: 0 24px;
+        background: linear-gradient(0deg, rgba(20,14,8,0.92) 0%, rgba(20,14,8,0.55) 55%, transparent 100%);
+        align-items: flex-end;
+        padding-bottom: 36px;
       }
-    }
-    @media (max-width: 768px) {
-      .glownate-process-grid {
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
-      }
-      .glownate-result-grid {
-        grid-template-columns: 1fr !important;
-      }
+      .gn-cinema-text h3 { font-size: 1.5rem; }
+      .gn-cinema-text p { font-size: 0.85rem; }
+      /* 매거진 그리드 모바일 */
+      .gn-magazine-grid { grid-template-columns: 1fr; }
+      .gn-magazine-card .card-overlay { padding: 24px 20px; }
+      .gn-magazine-quote { padding: 24px 20px; }
+      /* 제작 과정 모바일 */
+      .gn-process-grid { grid-template-columns: 1fr; gap: 16px; }
     }
   </style>
-  <section class="treatment-page-hero" aria-label="글로우네이트">
-    <div class="container">
-      <div class="breadcrumb"><a href="../">홈</a><span class="sep">/</span><a href="/treatments/">진료</a><span class="sep">/</span><span>글로우네이트(라미네이트)</span></div>
-      <div class="page-badge"><i class="fas fa-sparkles"></i> 천안 <a href="/encyclopedia/#라미네이트" class="enc-inline-link" title="앞니 표면에 얇은 도자기를 붙이는 심미 시술" data-enc-term="라미네이트">라미네이트</a> 전문</div>
-      <div class="glownate-hero-grid">
-        <div>
-          <h1>천안 라미네이트의 새로운 기준,<br><span class="text-gradient"><a href="/encyclopedia/#글로우네이트" class="enc-inline-link" title="서울비디치과 독자 심미 치료 프로그램" data-enc-term="글로우네이트">글로우네이트</a>(라미네이트)</span></h1>
-          <p class="hero-desc treatment-intro">서울비디치과만의 프리미엄 라미네이트 프로그램 — 천안 라미네이트 잘하는 곳으로 유명한 서울비디치과에서 최소 삭제 원칙으로 자연치아를 보존하면서 환하고 투명한 미소를 완성하는 차세대 포세린 라미네이트입니다. 앞니 라미네이트, <a href="/encyclopedia/#치아 변색" class="enc-inline-link" title="치아 색이 변하는 현상" data-enc-term="치아 변색">치아 변색</a> 교정, 치아 사이 벌어짐 개선까지 라미네이트 한 가지로 해결합니다.</p>
-          <div class="hero-stats">
-            <div class="stat-item"><span class="stat-value">15인</span><span class="stat-label">전문 원장 협진</span></div>
-            <div class="stat-item"><span class="stat-value">최소삭제</span><span class="stat-label">자연치아 보존</span></div>
-            <div class="stat-item"><span class="stat-value">5F</span><span class="stat-label">전용 심미센터</span></div>
-          </div>
+  <section class="gn-hero" aria-label="글로우네이트">
+    <!-- 풀스크린 슬라이드쇼 배경 -->
+    <div class="gn-hero-slideshow">
+      <div class="gn-hero-slide active"><img src="/images/glownate-model-1.jpg" alt="글로우네이트 라미네이트로 완성한 환한 미소" width="1024" height="683" loading="eager" fetchpriority="high"></div>
+      <div class="gn-hero-slide"><img src="/images/glownate-model-3.jpg" alt="글로우네이트 — 자신감 있는 환한 미소" width="1024" height="683" loading="eager"></div>
+      <div class="gn-hero-slide"><img src="/images/glownate-model-4.jpg" alt="글로우네이트 — 자연스럽고 아름다운 스마일" width="1024" height="683" loading="eager"></div>
+    </div>
+    <div class="gn-hero-overlay"></div>
+    <div class="gn-hero-content">
+      <div class="gn-hero-inner">
+        <div class="breadcrumb"><a href="../">홈</a><span class="sep">/</span><a href="/treatments/">진료</a><span class="sep">/</span><span>글로우네이트</span></div>
+        <div class="gn-slide-dots">
+          <button class="active" data-slide="0" aria-label="슬라이드 1"></button>
+          <button data-slide="1" aria-label="슬라이드 2"></button>
+          <button data-slide="2" aria-label="슬라이드 3"></button>
         </div>
-        <div class="glownate-hero-img">
-          <img src="/images/glownate-model-1.jpg" alt="글로우네이트 라미네이트로 완성한 환한 미소" width="1024" height="683" loading="eager">
-          <div class="img-caption">글로우네이트로 완성한 자신감 있는 미소</div>
+        <div class="page-badge"><i class="fas fa-sparkles"></i> 천안 <a href="/encyclopedia/#라미네이트" class="enc-inline-link" title="앞니 표면에 얇은 도자기를 붙이는 심미 시술" data-enc-term="라미네이트">라미네이트</a> 전문</div>
+        <h1>천안 라미네이트의<br>새로운 기준,<br><span class="text-gradient"><a href="/encyclopedia/#글로우네이트" class="enc-inline-link" title="서울비디치과 독자 심미 치료 프로그램" data-enc-term="글로우네이트">글로우네이트</a></span></h1>
+        <p class="hero-desc">최소 삭제 원칙으로 자연치아를 보존하면서 환하고 투명한 미소를 완성하는 서울비디치과만의 프리미엄 포세린 라미네이트입니다.</p>
+        <div class="gn-hero-stats">
+          <div class="stat-item"><span class="stat-value">15인</span><span class="stat-label">서울대 원장 협진</span></div>
+          <div class="stat-item"><span class="stat-value">최소삭제</span><span class="stat-label">자연치아 보존</span></div>
+          <div class="stat-item"><span class="stat-value">5F</span><span class="stat-label">전용 심미센터</span></div>
+        </div>
+        <div class="gn-hero-cta">
+          <a href="/reservation" class="btn-hero-primary"><i class="fas fa-calendar-check"></i> 글로우네이트 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn-hero-secondary"><i class="fas fa-phone"></i> 041-415-2892</a>
         </div>
       </div>
+    </div>
+    <div class="gn-scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
     <section class="section">
@@ -859,11 +1246,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </section>
-    <!-- 모델 비주얼 배너 -->
-    <section class="glownate-model-banner" aria-label="글로우네이트 결과 비주얼">
+    <!-- 시네마 비주얼 배너 -->
+    <section class="gn-cinema-banner" aria-label="글로우네이트 결과 비주얼">
       <img src="/images/glownate-model-2.jpg" alt="글로우네이트 라미네이트 - 자연스럽고 아름다운 미소" width="1024" height="683" loading="lazy">
       <div class="banner-overlay">
-        <div class="banner-overlay-text">
+        <div class="gn-cinema-text">
+          <div class="cinema-label">Premium Smile Design</div>
           <h3>자연치아보다<br>더 자연스러운 미소</h3>
           <p>DSD 디지털 스마일 디자인으로 얼굴형, 피부톤, 잇몸라인까지 분석하여 당신만을 위한 맞춤 라미네이트를 제작합니다.</p>
         </div>
@@ -911,43 +1299,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 글로우네이트 제작 과정 갤러리 -->
+    <!-- 글로우네이트 제작 과정 — 에디토리얼 갤러리 -->
     <section class="section" style="background:#f9f7f4;">
       <div class="container">
         <div class="section-header">
           <h2>글로우네이트 <span class="text-gradient">제작 현장</span></h2>
           <p class="section-subtitle">원내 기공소에서 전담 기공사가 직접 제작하는 프리미엄 라미네이트</p>
         </div>
-        <div class="glownate-process-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto;">
-          <div style="border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);background:#fff;">
-            <div style="aspect-ratio:4/3;overflow:hidden;">
-              <img src="/images/glownate-process-1.jpg" alt="글로우네이트 라미네이트 정밀 세팅 — 원내 기공소에서 포세린 라미네이트를 핀셋으로 정밀하게 다듬는 모습" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" loading="lazy" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div class="gn-process-grid">
+          <div class="gn-process-card">
+            <div class="card-img">
+              <img src="/images/glownate-process-1.jpg" alt="글로우네이트 라미네이트 정밀 세팅 — 원내 기공소에서 포세린 라미네이트를 핀셋으로 정밀하게 다듬는 모습" loading="lazy">
             </div>
-            <div style="padding:16px 20px;">
-              <h4 style="font-size:0.95rem;font-weight:700;color:#333;margin:0 0 6px;">정밀 세팅 & 형태 확인</h4>
-              <p style="font-size:0.83rem;color:#666;margin:0;line-height:1.6;">포세린 라미네이트를 치아 모형에 하나하나 정밀하게 세팅하며 형태와 적합도를 확인합니다.</p>
-            </div>
-          </div>
-          <div style="border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);background:#fff;">
-            <div style="aspect-ratio:4/3;overflow:hidden;">
-              <img src="/images/glownate-process-2.jpg" alt="글로우네이트 라미네이트 CAD/CAM 밀링 — 디지털 장비로 포세린 블럭을 정밀하게 밀링하는 과정" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" loading="lazy" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            </div>
-            <div style="padding:16px 20px;">
-              <h4 style="font-size:0.95rem;font-weight:700;color:#333;margin:0 0 6px;">디지털 CAD/CAM 밀링</h4>
-              <p style="font-size:0.83rem;color:#666;margin:0;line-height:1.6;">디지털 장비로 포세린 블럭을 정밀하게 밀링하여 완벽한 형태의 라미네이트를 제작합니다.</p>
+            <div class="card-body">
+              <h4>정밀 세팅 & 형태 확인</h4>
+              <p>포세린 라미네이트를 치아 모형에 하나하나 정밀하게 세팅하며 형태와 적합도를 확인합니다.</p>
             </div>
           </div>
-          <div style="border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);background:#fff;">
-            <div style="aspect-ratio:4/3;overflow:hidden;">
-              <img src="/images/glownate-process-3.jpg" alt="Amber Press Master HT+ A0.5 포세린 블럭 — 글로우네이트에 사용되는 프리미엄 세라믹 소재" style="width:100%;height:100%;object-fit:cover;transition:transform 0.3s;" loading="lazy" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <div class="gn-process-card">
+            <div class="card-img">
+              <img src="/images/glownate-process-2.jpg" alt="글로우네이트 라미네이트 CAD/CAM 밀링 — 디지털 장비로 포세린 블럭을 정밀하게 밀링하는 과정" loading="lazy">
             </div>
-            <div style="padding:16px 20px;">
-              <h4 style="font-size:0.95rem;font-weight:700;color:#333;margin:0 0 6px;">프리미엄 포세린 블럭</h4>
-              <p style="font-size:0.83rem;color:#666;margin:0;line-height:1.6;">Amber Press Master HT+ A0.5 — 자연치아에 가장 가까운 투명도와 색상을 재현하는 프리미엄 소재입니다.</p>
+            <div class="card-body">
+              <h4>디지털 CAD/CAM 밀링</h4>
+              <p>디지털 장비로 포세린 블럭을 정밀하게 밀링하여 완벽한 형태의 라미네이트를 제작합니다.</p>
+            </div>
+          </div>
+          <div class="gn-process-card">
+            <div class="card-img">
+              <img src="/images/glownate-process-3.jpg" alt="Amber Press Master HT+ A0.5 포세린 블럭 — 글로우네이트에 사용되는 프리미엄 세라믹 소재" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h4>프리미엄 포세린 블럭</h4>
+              <p>Amber Press Master HT+ A0.5 — 자연치아에 가장 가까운 투명도와 색상을 재현하는 프리미엄 소재입니다.</p>
             </div>
           </div>
         </div>
-        <p style="text-align:center;margin-top:20px;font-size:0.85rem;color:#888;">※ 실제 서울비디치과 원내 기공소에서 촬영한 글로우네이트 제작 과정입니다.</p>
+        <p style="text-align:center;margin-top:24px;font-size:0.82rem;color:#999;letter-spacing:0.02em;">※ 실제 서울비디치과 원내 기공소에서 촬영한 글로우네이트 제작 과정입니다.</p>
       </div>
     </section>
 
@@ -1028,24 +1416,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </section>
-    <!-- 글로우네이트 결과 비주얼 -->
-    <section style="padding:64px 0;background:linear-gradient(135deg,#faf7f3 0%,#fff5f0 100%);">
+    <!-- 글로우네이트 결과 — 매거진 레이아웃 -->
+    <section style="padding:72px 0;background:linear-gradient(135deg,#faf7f3 0%,#fff5f0 100%);">
       <div class="container">
         <div class="section-header">
           <h2>글로우네이트가 만드는 <span class="text-gradient">자신감</span></h2>
           <p class="section-subtitle">최소 삭제로 완성한 자연스럽고 환한 미소</p>
         </div>
-        <div class="glownate-result-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto;">
-          <div style="border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(107,66,38,0.12);position:relative;">
-            <img src="/images/glownate-model-3.jpg" alt="글로우네이트 라미네이트 — 환하고 자신감 있는 미소" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-            <div style="position:absolute;bottom:0;left:0;right:0;padding:24px;background:linear-gradient(transparent,rgba(0,0,0,0.5));">
-              <p style="color:#fff;font-size:0.95rem;font-weight:700;margin:0;text-shadow:0 1px 4px rgba(0,0,0,0.3);">자연광 아래에서도 빛나는 투명한 미소</p>
+        <div class="gn-magazine-grid">
+          <!-- 왼쪽: 큰 이미지 -->
+          <div class="gn-magazine-card" style="min-height:480px;">
+            <img src="/images/glownate-model-3.jpg" alt="글로우네이트 라미네이트 — 환하고 자신감 있는 미소" loading="lazy">
+            <div class="card-overlay">
+              <span class="card-tag">GLOWNATE</span>
+              <p class="card-title">자연광 아래에서도 빛나는<br>투명하고 환한 미소</p>
             </div>
           </div>
-          <div style="border-radius:20px;overflow:hidden;box-shadow:0 8px 32px rgba(107,66,38,0.12);position:relative;">
-            <img src="/images/glownate-model-4.jpg" alt="글로우네이트 라미네이트 — 자연치아처럼 자연스러운 라미네이트" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-            <div style="position:absolute;bottom:0;left:0;right:0;padding:24px;background:linear-gradient(transparent,rgba(0,0,0,0.5));">
-              <p style="color:#fff;font-size:0.95rem;font-weight:700;margin:0;text-shadow:0 1px 4px rgba(0,0,0,0.3);">DSD 맞춤 설계로 얼굴과 조화로운 스마일 라인</p>
+          <!-- 오른쪽: 작은 이미지 + 인용문 -->
+          <div class="gn-magazine-stack">
+            <div class="gn-magazine-card" style="flex:1;min-height:260px;">
+              <img src="/images/glownate-model-4.jpg" alt="글로우네이트 라미네이트 — 자연치아처럼 자연스러운 라미네이트" loading="lazy">
+              <div class="card-overlay">
+                <span class="card-tag">DSD DESIGN</span>
+                <p class="card-title">얼굴과 조화로운 스마일 라인</p>
+              </div>
+            </div>
+            <div class="gn-magazine-quote">
+              <div class="quote-icon">"</div>
+              <blockquote>라미네이트 했는데 친구들이 몰라요. 그냥 치아가 예뻐졌다고만...</blockquote>
+              <cite>— 글로우네이트 프리미엄 시술 후기</cite>
             </div>
           </div>
         </div>
@@ -1518,6 +1917,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
       // Reveal animation
       var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});
+
+      // ── 히어로 슬라이드쇼 ──
+      (function(){
+        var slides = document.querySelectorAll('.gn-hero-slide');
+        var dots = document.querySelectorAll('.gn-slide-dots button');
+        if (slides.length < 2) return;
+        var current = 0;
+        var total = slides.length;
+        var interval = 5000; // 5초 간격
+        var timer;
+
+        function goTo(idx) {
+          slides[current].classList.remove('active');
+          dots[current].classList.remove('active');
+          current = idx % total;
+          slides[current].classList.add('active');
+          dots[current].classList.add('active');
+        }
+
+        function autoPlay() {
+          timer = setInterval(function(){ goTo(current + 1); }, interval);
+        }
+
+        dots.forEach(function(dot, i) {
+          dot.addEventListener('click', function() {
+            clearInterval(timer);
+            goTo(i);
+            autoPlay();
+          });
+        });
+
+        autoPlay();
+
+        // 페이지 비활성 시 멈추고 활성 시 재시작
+        document.addEventListener('visibilitychange', function() {
+          if (document.hidden) { clearInterval(timer); }
+          else { autoPlay(); }
+        });
+      })();
     });
   </script>
 </body>
