@@ -1185,7 +1185,12 @@ app.get('/tables/treatments/implant.html', (c) => c.redirect('/pricing', 301))
 app.get('/tables/notices', (c) => c.redirect('/notice/', 301))
 app.get('/tables/*', (c) => c.redirect('/pricing', 301))
 
-// 2) 삭제된 페이지 → 301 리디렉트 (GSC 4xx 오류 해결)
+// 2) 존재하지 않는 경로 → 301 리디렉트 (404 해소)
+app.get('/treatments/laminate', (c) => c.redirect('/treatments/glownate', 301))  // 라미네이트 → 글로우네이트(BD 자체 진료과)
+app.get('/treatments/checkup', (c) => c.redirect('/checkup', 301))               // 검진은 root /checkup으로
+app.get('/area/cheonan-implant', (c) => c.redirect('/area/cheonan', 301))         // 천안-임플란트 → 천안 지역 페이지
+
+// 3) 삭제된 페이지 → 301 리디렉트 (GSC 4xx 오류 해결)
 app.get('/bdx/', (c) => c.redirect('/', 301))
 app.get('/bdx', (c) => c.redirect('/', 301))
 app.get('/bdx/*', (c) => c.redirect('/', 301))
