@@ -912,47 +912,130 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 치료 과정 -->
-    <section class="section" style="background:#f8f9fa;">
+    <!-- ═══ 스크롤 기반 치료 타임라인 (Patient Funnel) ═══ -->
+    <section class="section tl-section" id="treatmentTimeline">
       <div class="container">
         <div class="section-header">
+          <span class="section-badge"><i class="fas fa-shoe-prints"></i> 치료 여정 안내</span>
           <h2>치아교정 <span class="text-gradient">치료 과정</span></h2>
           <p class="section-subtitle">상담부터 유지까지 체계적인 6단계</p>
         </div>
-        <div class="process-timeline-v2">
-          <div class="process-step-v2">
-            <div class="step-dot">1</div>
-            <h3>정밀 상담 & 검진</h3>
-            <p><a href="/encyclopedia/#CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a>, 구강스캐너, 교합 분석 등 디지털 정밀 검진으로 현재 상태를 정확히 파악합니다.</p>
+        <div class="tl-progress-wrap" id="tlProgressWrap">
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="tlProgressFill"></div></div>
+          <div class="tl-progress-labels">
+            <span class="tl-plabel active" data-step="0">상담</span>
+            <span class="tl-plabel" data-step="1">계획</span>
+            <span class="tl-plabel" data-step="2">부착</span>
+            <span class="tl-plabel" data-step="3">조정</span>
+            <span class="tl-plabel" data-step="4">제거</span>
+            <span class="tl-plabel" data-step="5">유지</span>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">2</div>
-            <h3>교정 계획 수립</h3>
-            <p>검진 결과를 바탕으로 클리피씨/클라리티울트라 중 최적의 장치를 선택하고 교정 계획을 세웁니다.</p>
+        </div>
+        <div class="tl-vertical">
+          <div class="tl-step" data-step="0">
+            <div class="tl-line-seg"><div class="tl-dot"><span>1</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-search-plus"></i></div>
+              <div class="tl-card-body">
+                <h3>정밀 상담 & 검진</h3>
+                <p><a href="/encyclopedia/#CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a>, 구강스캐너, 교합 분석 등 디지털 정밀 검진으로 현재 치아 상태와 골격을 정확히 파악합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 40분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-map-pin"></i> 4층 교정센터</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>교정 전후 시뮬레이션 영상을 보여드립니다. "내 치아가 이렇게 바뀐다고요?" 직접 확인해보세요!</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">3</div>
-            <h3>장치 부착</h3>
-            <p>치아 표면에 <a href="/encyclopedia/#세라믹 브라켓" class="enc-inline-link" title="치아색과 비슷한 심미 교정 장치" data-enc-term="세라믹 브라켓">세라믹 브라켓</a>을 정밀하게 부착합니다. 약 1시간 정도 소요됩니다.</p>
+          <div class="tl-step" data-step="1">
+            <div class="tl-line-seg"><div class="tl-dot"><span>2</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-clipboard-list"></i></div>
+              <div class="tl-card-body">
+                <h3>교정 계획 수립</h3>
+                <p>검진 결과를 바탕으로 클리피씨/클라리티울트라 중 최적의 장치를 선택하고, 예상 기간과 비용을 투명하게 안내합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 20분</span>
+                  <span class="tl-meta"><i class="fas fa-won-sign"></i> 비용 안내 포함</span>
+                  <span class="tl-meta"><i class="fas fa-user-md"></i> 교정 전문의 상담</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>궁금한 점은 모두 질문해주세요. 장치 종류, 기간, 비용까지 상세히 설명드립니다.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">4</div>
-            <h3>정기 내원 & 와이어 조정</h3>
-            <p>클리피씨 6~8주, 클라리티울트라 4~6주 간격으로 와이어를 교체하며 치아를 이동시킵니다.</p>
+          <div class="tl-step" data-step="2">
+            <div class="tl-line-seg"><div class="tl-dot"><span>3</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-teeth"></i></div>
+              <div class="tl-card-body">
+                <h3>장치 부착</h3>
+                <p>치아 표면에 <a href="/encyclopedia/#세라믹 브라켓" class="enc-inline-link" title="치아색과 비슷한 심미 교정 장치" data-enc-term="세라믹 브라켓">세라믹 브라켓</a>을 정밀하게 부착합니다. 치아색과 유사해 눈에 잘 띄지 않습니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 1시간</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-meh"></i> 약간의 이물감</span>
+                  <span class="tl-meta"><i class="fas fa-eye-slash"></i> 심미 세라믹</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>처음 3~5일은 입안이 어색하지만 금방 적응됩니다. 부드러운 음식을 드세요.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">5</div>
-            <h3>장치 제거</h3>
-            <p>목표 교정 결과에 도달하면 브라켓을 제거합니다. 치아 표면을 깨끗하게 마무리합니다.</p>
+          <div class="tl-step" data-step="3">
+            <div class="tl-line-seg"><div class="tl-dot"><span>4</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-sync-alt"></i></div>
+              <div class="tl-card-body">
+                <h3>정기 내원 & 와이어 조정</h3>
+                <p>클리피씨 6~8주, 클라리티울트라 4~6주 간격으로 와이어를 교체하며 치아를 정밀하게 이동시킵니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 내원 시 약 20분</span>
+                  <span class="tl-meta"><i class="fas fa-redo"></i> 4~8주 간격</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-meh"></i> 조정 후 1~2일 뻐근</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>와이어 교체 후 1~2일 뻐근할 수 있어요. 치아가 움직이고 있다는 좋은 신호입니다!</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">6</div>
-            <h3><a href="/encyclopedia/#유지장치" class="enc-inline-link" title="교정 치료 후 치아가 원래 위치로 돌아가는 것을 막는 장치입니다." data-enc-term="유지장치">유지장치</a> & 관리</h3>
-            <p>교정 후 치아가 원래 자리로 돌아가지 않도록 유지장치를 착용합니다. <a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>으로 관리합니다.</p>
+          <div class="tl-step" data-step="4">
+            <div class="tl-line-seg"><div class="tl-dot"><span>5</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-check-double"></i></div>
+              <div class="tl-card-body">
+                <h3>장치 제거</h3>
+                <p>목표 교정 결과에 도달하면 브라켓을 제거합니다. 치아 표면을 깨끗하게 마무리하고 새로운 미소를 확인합니다!</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 30~40분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile-beam"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-star"></i> 새 미소 확인!</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>그동안의 노력이 보상받는 순간! 제거 후 바로 유지장치를 장착합니다.</span></div>
+              </div>
+            </div>
           </div>
+          <div class="tl-step" data-step="5">
+            <div class="tl-line-seg"><div class="tl-dot"><span>6</span></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-shield-alt"></i></div>
+              <div class="tl-card-body">
+                <h3><a href="/encyclopedia/#유지장치" class="enc-inline-link" title="교정 치료 후 치아가 원래 위치로 돌아가는 것을 막는 장치입니다." data-enc-term="유지장치">유지장치</a> & 관리</h3>
+                <p>교정 후 치아가 원래 자리로 돌아가지 않도록 유지장치를 착용합니다. <a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a>으로 아름다운 미소를 유지합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 유지장치 6개월~1년</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile-beam"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-heart"></i> 아름다운 미소 유지</span>
+                </div>
+                <div class="tl-tip tl-tip-final"><i class="fas fa-check-circle"></i><span>교정 완료! 유지장치를 잘 착용하면 평생 아름다운 미소를 유지할 수 있습니다.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-complete-cta">
+          <p class="tl-cta-lead">전체 교정 기간 <strong>약 1년 6개월~2년 6개월 (케이스별 상이)</strong></p>
+          <a href="/reservation?ref_category=치아교정" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 치아교정 상담 예약하기</a>
         </div>
       </div>
     </section>
+    <!-- ═══ /치아교정 타임라인 끝 ═══ -->
 
     <!-- 교정 적용 케이스 -->
     <section class="section">
@@ -1305,5 +1388,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});
     });
   </script>
+  <script>(function(){var steps=document.querySelectorAll('.tl-step');var fill=document.getElementById('tlProgressFill');var labels=document.querySelectorAll('.tl-plabel');if(!steps.length||!fill)return;var total=steps.length;var activeIdx=-1;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){var idx=parseInt(e.target.dataset.step);if(e.isIntersecting){e.target.classList.add('tl-visible');if(idx>activeIdx)activeIdx=idx;}});steps.forEach(function(s,i){s.classList.remove('tl-active','tl-done');if(i<activeIdx)s.classList.add('tl-done');else if(i===activeIdx)s.classList.add('tl-active');});fill.style.width=Math.min(((activeIdx+1)/total)*100,100)+'%';labels.forEach(function(l,i){l.classList.remove('active','done');if(i<activeIdx)l.classList.add('done');else if(i===activeIdx)l.classList.add('active');});},{threshold:0.4,rootMargin:'-10% 0px -30% 0px'});steps.forEach(function(s){obs.observe(s);});})();</script>
 </body>
 </html>

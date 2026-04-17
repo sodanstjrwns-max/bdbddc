@@ -811,38 +811,109 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="section">
       <div class="container">
         <div class="section-header">
+          <span class="section-badge"><i class="fas fa-shoe-prints"></i> 진료 여정 안내</span>
           <h2>소아치과 <span class="text-gradient">진료 과정</span></h2>
-          <p class="section-subtitle">아이의 적응부터 치료까지</p>
+          <p class="section-subtitle">아이의 마음을 열고, 건강한 치아를 지키는 5단계</p>
         </div>
-        <div class="process-timeline-v2">
-          <div class="process-step-v2">
-            <div class="step-dot">1</div>
-            <h3>첫 만남 & 적응</h3>
-            <p>아이와 친해지는 시간을 가집니다. Tell-Show-Do 기법으로 치료 과정을 설명합니다.</p>
+        <div class="tl-progress-wrap" id="tlProgressWrap">
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="tlProgressFill"></div></div>
+          <div class="tl-progress-labels">
+            <span class="tl-plabel active" data-step="0">적응</span>
+            <span class="tl-plabel" data-step="1">검진</span>
+            <span class="tl-plabel" data-step="2">치료</span>
+            <span class="tl-plabel" data-step="3">예방</span>
+            <span class="tl-plabel" data-step="4">관리</span>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">2</div>
-            <h3>정밀 검진</h3>
-            <p><a href="/encyclopedia/#파노라마" class="enc-inline-link" title="전체 치아와 턱을 보는 기본 방사선 사진" data-enc-term="파노라마">파노라마</a>, 구강 검사로 현재 상태를 확인하고 <a href="/encyclopedia/#치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 수립합니다.</p>
+        </div>
+        <div class="tl-vertical">
+          <div class="tl-step" data-step="0">
+            <div class="tl-line-seg"><div class="tl-dot"><span>1</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+              <div class="tl-card-body">
+                <h3>첫 만남 & 적응</h3>
+                <p>아이와 친해지는 시간을 가집니다. Tell-Show-Do 기법으로 치료 도구를 보여주고, 소리를 들려주며 차근차근 적응시킵니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 10~15분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile-beam"></i> 놀이처럼 진행</span>
+                  <span class="tl-meta"><i class="fas fa-child"></i> 아이 전용 공간</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>"치과 간다"보다 "이 닦는 선생님 만나러 간다"라고 말해주시면 아이가 더 편안해해요!</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">3</div>
-            <h3>치료 진행</h3>
-            <p>행동유도, 웃음가스, 수면치료 등 아이의 상태에 맞는 방법으로 치료합니다.</p>
+          <div class="tl-step" data-step="1">
+            <div class="tl-line-seg"><div class="tl-dot"><span>2</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-x-ray"></i></div>
+              <div class="tl-card-body">
+                <h3>정밀 검진</h3>
+                <p><a href="/encyclopedia/#파노라마" class="enc-inline-link" title="전체 치아와 턱을 보는 기본 방사선 사진" data-enc-term="파노라마">파노라마</a>, 구강 검사로 현재 상태를 확인하고 <a href="/encyclopedia/#치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 수립합니다. 부모님께 결과를 상세히 설명드립니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 15~20분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-comments"></i> 부모님 상담 포함</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>충치가 없더라도 영구치 교환 시기, 턱 성장 상태를 함께 확인합니다.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">4</div>
-            <h3>예방 관리</h3>
-            <p>불소도포, 실란트 등 예방 치료와 올바른 <a href="/encyclopedia/#칫솔질" class="enc-inline-link" title="치아와 잇몸을 닦는 구강 위생의 기본" data-enc-term="칫솔질">칫솔질</a> 교육을 진행합니다.</p>
+          <div class="tl-step" data-step="2">
+            <div class="tl-line-seg"><div class="tl-dot"><span>3</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-tooth"></i></div>
+              <div class="tl-card-body">
+                <h3>치료 진행</h3>
+                <p>행동유도, 웃음가스, 수면치료 등 아이의 상태와 공포 수준에 맞는 최적의 방법으로 안전하게 치료합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 치료에 따라 상이</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile"></i> 맞춤 진정법 적용</span>
+                  <span class="tl-meta"><i class="fas fa-user-md"></i> 소아 전문의 3인</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>치료 중 아이가 울어도 괜찮아요. 전문 소아 의료진이 아이 페이스에 맞춰 진행합니다.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">5</div>
-            <h3><a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a></h3>
-            <p>3~6개월 간격으로 정기 검진하여 건강한 영구치 성장을 관리합니다.</p>
+          <div class="tl-step" data-step="3">
+            <div class="tl-line-seg"><div class="tl-dot"><span>4</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-shield-virus"></i></div>
+              <div class="tl-card-body">
+                <h3>예방 관리</h3>
+                <p>불소도포, 실란트 등 예방 치료와 올바른 <a href="/encyclopedia/#칫솔질" class="enc-inline-link" title="치아와 잇몸을 닦는 구강 위생의 기본" data-enc-term="칫솔질">칫솔질</a> 교육을 진행합니다. 부모님께 가정 관리법도 안내합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 15분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile-beam"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-magic"></i> 불소 + 실란트</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>불소도포 후 30분간 음식을 드시지 않으면 효과가 극대화됩니다!</span></div>
+              </div>
+            </div>
           </div>
+          <div class="tl-step" data-step="4">
+            <div class="tl-line-seg"><div class="tl-dot"><span>5</span></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-calendar-check"></i></div>
+              <div class="tl-card-body">
+                <h3><a href="/encyclopedia/#정기 검진" class="enc-inline-link" title="구강 건강을 점검하는 정기적 치과 방문" data-enc-term="정기 검진">정기 검진</a> & 성장 관리</h3>
+                <p>3~6개월 간격으로 정기 검진하여 건강한 영구치 성장을 관리합니다. 교정 필요 여부도 함께 확인합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 3~6개월 간격</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile-beam"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-seedling"></i> 성장기 맞춤 관리</span>
+                </div>
+                <div class="tl-tip tl-tip-final"><i class="fas fa-check-circle"></i><span>꾸준한 정기 검진이 건강한 영구치의 시작! 아이가 치과를 무서워하지 않게 됩니다.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-complete-cta">
+          <p class="tl-cta-lead">우리 아이 첫 치과 방문 <strong>생후 12개월~만 2세 권장</strong></p>
+          <a href="/reservation?ref_category=소아치과" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 소아치과 상담 예약하기</a>
         </div>
       </div>
     </section>
+    <!-- ═══ /소아치과 타임라인 끝 ═══ -->
     <section class="section">
       <div class="container">
         <div class="section-header">
@@ -1206,5 +1277,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});
     });
   </script>
+  <script>(function(){var steps=document.querySelectorAll('.tl-step');var fill=document.getElementById('tlProgressFill');var labels=document.querySelectorAll('.tl-plabel');if(!steps.length||!fill)return;var total=steps.length;var activeIdx=-1;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){var idx=parseInt(e.target.dataset.step);if(e.isIntersecting){e.target.classList.add('tl-visible');if(idx>activeIdx)activeIdx=idx;}});steps.forEach(function(s,i){s.classList.remove('tl-active','tl-done');if(i<activeIdx)s.classList.add('tl-done');else if(i===activeIdx)s.classList.add('tl-active');});fill.style.width=Math.min(((activeIdx+1)/total)*100,100)+'%';labels.forEach(function(l,i){l.classList.remove('active','done');if(i<activeIdx)l.classList.add('done');else if(i===activeIdx)l.classList.add('active');});},{threshold:0.4,rootMargin:'-10% 0px -30% 0px'});steps.forEach(function(s){obs.observe(s);});})();</script>
 </body>
 </html>

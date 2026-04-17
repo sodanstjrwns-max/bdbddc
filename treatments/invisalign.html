@@ -1103,47 +1103,128 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <section class="section">
+    <!-- ═══ 스크롤 기반 치료 타임라인 (Patient Funnel) ═══ -->
+    <section class="section tl-section" id="treatmentTimeline">
       <div class="container">
         <div class="section-header">
+          <span class="section-badge"><i class="fas fa-shoe-prints"></i> 치료 여정 안내</span>
           <h2>인비절라인 <span class="text-gradient">치료 과정</span></h2>
           <p class="section-subtitle">상담부터 유지까지 체계적인 6단계</p>
-          <p style="text-align:center;font-size:.88rem;color:#888;margin-top:-8px;">· 추가 단계 필요시 1세트 제작 가능(추가비용 발생)</p>
         </div>
-        <div class="process-timeline-v2">
-          <div class="process-step-v2">
-            <div class="step-dot">1</div>
-            <h3>정밀 상담 & 검진</h3>
-            <p><a href="/encyclopedia/#CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a>, 구강스캐너, 교합 분석으로 현재 상태를 정확히 파악합니다.</p>
+        <div class="tl-progress-wrap" id="tlProgressWrap">
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="tlProgressFill"></div></div>
+          <div class="tl-progress-labels">
+            <span class="tl-plabel active" data-step="0">검진</span>
+            <span class="tl-plabel" data-step="1">설계</span>
+            <span class="tl-plabel" data-step="2">제작</span>
+            <span class="tl-plabel" data-step="3">장착</span>
+            <span class="tl-plabel" data-step="4">경과</span>
+            <span class="tl-plabel" data-step="5">완료</span>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">2</div>
-            <h3>ClinCheck 3D 설계</h3>
-            <p>디지털 시뮬레이션으로 최종 교정 결과를 미리 확인하고 <a href="/encyclopedia/#치료 계획" class="enc-inline-link" title="종합적인 치과 치료 순서와 방법 설계" data-enc-term="치료 계획">치료 계획</a>을 확정합니다.</p>
+        </div>
+        <div class="tl-vertical">
+          <div class="tl-step" data-step="0">
+            <div class="tl-line-seg"><div class="tl-dot"><span>1</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-search-plus"></i></div>
+              <div class="tl-card-body">
+                <h3>정밀 상담 & 검진</h3>
+                <p><a href="/encyclopedia/#CBCT" class="enc-inline-link" title="치과용 3D CT" data-enc-term="CBCT">3D CT</a>, 구강스캐너, 교합 분석으로 현재 상태를 정확히 파악합니다. 교정 가능 여부와 예상 기간을 안내드립니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 40분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-map-pin"></i> 4층 교정센터</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>교정 전후 시뮬레이션 영상을 보여드립니다. "내 치아가 이렇게 바뀐다고요?" 직접 확인해보세요!</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">3</div>
-            <h3>맞춤 장치 제작</h3>
-            <p>인비절라인 본사에서 환자 맞춤 <a href="/encyclopedia/#투명 교정" class="enc-inline-link" title="투명한 플라스틱 장치를 이용한 교정" data-enc-term="투명 교정">투명 교정</a> 장치를 제작합니다. 약 2주 소요됩니다.</p>
+          <div class="tl-step" data-step="1">
+            <div class="tl-line-seg"><div class="tl-dot"><span>2</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-cube"></i></div>
+              <div class="tl-card-body">
+                <h3>ClinCheck 3D 설계</h3>
+                <p>디지털 시뮬레이션으로 최종 교정 결과를 미리 확인합니다. 치아 이동 과정을 단계별 3D 영상으로 보여드립니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 1~2주 (설계 기간)</span>
+                  <span class="tl-meta"><i class="fas fa-laptop-medical"></i> 3D 시뮬레이션</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>최종 결과가 마음에 들 때까지 설계를 수정할 수 있습니다. 원장님과 함께 결정하세요.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">4</div>
-            <h3>장치 장착 & 교육</h3>
-            <p>첫 세트의 교정 장치를 장착하고, 착용 방법과 관리법을 안내드립니다.</p>
+          <div class="tl-step" data-step="2">
+            <div class="tl-line-seg"><div class="tl-dot"><span>3</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-industry"></i></div>
+              <div class="tl-card-body">
+                <h3>맞춤 장치 제작</h3>
+                <p>인비절라인 본사(미국)에서 환자 맞춤 <a href="/encyclopedia/#투명 교정" class="enc-inline-link" title="투명한 플라스틱 장치를 이용한 교정" data-enc-term="투명 교정">투명 교정</a> 장치를 제작합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 2주 (제작 기간)</span>
+                  <span class="tl-meta"><i class="fas fa-globe-americas"></i> 미국 본사 제작</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>이 기간 동안 내원할 필요 없습니다. 장치 도착 시 연락드립니다.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">5</div>
-            <h3>정기 내원 & 경과 관찰</h3>
-            <p>4~6주 간격으로 내원하여 경과를 확인하고 다음 장치로 교체합니다.</p>
+          <div class="tl-step" data-step="3">
+            <div class="tl-line-seg"><div class="tl-dot"><span>4</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-teeth"></i></div>
+              <div class="tl-card-body">
+                <h3>장치 장착 & 교육</h3>
+                <p>첫 세트의 투명 교정 장치를 장착하고, 착용/탈착 방법과 관리법을 꼼꼼히 안내드립니다. 어태치먼트 부착도 이때 진행합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 30~40분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile"></i> 약간의 압박감</span>
+                  <span class="tl-meta"><i class="fas fa-clock"></i> 하루 20~22시간 착용</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>처음 2~3일은 약간 뻐근할 수 있어요. 치아가 움직이기 시작했다는 좋은 신호입니다!</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">6</div>
-            <h3>교정 완료 & <a href="/encyclopedia/#유지장치" class="enc-inline-link" title="교정 치료 후 치아가 원래 위치로 돌아가는 것을 막는 장치입니다." data-enc-term="유지장치">유지장치</a></h3>
-            <p>교정 완료 후 유지장치를 장착하여 결과를 안정적으로 유지합니다.</p>
+          <div class="tl-step" data-step="4">
+            <div class="tl-line-seg"><div class="tl-dot"><span>5</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-sync-alt"></i></div>
+              <div class="tl-card-body">
+                <h3>정기 내원 & 경과 관찰</h3>
+                <p>4~6주 간격으로 내원하여 교정 경과를 확인하고 다음 장치 세트로 교체합니다. 계획대로 진행되는지 꼼꼼히 체크합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 내원 시 약 15분</span>
+                  <span class="tl-meta"><i class="fas fa-redo"></i> 4~6주 간격</span>
+                  <span class="tl-meta"><i class="fas fa-exchange-alt"></i> 장치 2주마다 교체</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>식사/양치 시 장치를 빼고, 나머지 시간엔 꼭 착용! 착용 시간이 결과를 좌우합니다.</span></div>
+              </div>
+            </div>
           </div>
+          <div class="tl-step" data-step="5">
+            <div class="tl-line-seg"><div class="tl-dot"><span>6</span></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-smile-beam"></i></div>
+              <div class="tl-card-body">
+                <h3>교정 완료 & <a href="/encyclopedia/#유지장치" class="enc-inline-link" title="교정 후 치아가 돌아가는 것을 막는 장치" data-enc-term="유지장치">유지장치</a></h3>
+                <p>교정 완료 후 유지장치를 장착하여 결과를 안정적으로 유지합니다. 새로운 미소가 완성됩니다!</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 유지장치 6개월~1년</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile-beam"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-star"></i> 새로운 미소 완성</span>
+                </div>
+                <div class="tl-tip tl-tip-final"><i class="fas fa-check-circle"></i><span>교정 완료! 유지장치를 잘 착용하면 아름다운 미소가 영원히 유지됩니다.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-complete-cta">
+          <p class="tl-cta-lead">전체 교정 기간 <strong>약 6~18개월 (프로그램별 상이)</strong></p>
+          <a href="/reservation?ref_category=인비절라인" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 인비절라인 상담 예약하기</a>
         </div>
       </div>
     </section>
+    <!-- ═══ /인비절라인 타임라인 끝 ═══ -->
     <section class="section">
       <div class="container">
         <div class="section-header">
