@@ -487,7 +487,7 @@
     }
 
     // CTA
-    var ctaHtml = '<a href="/treatments/' + treatmentSlug + '" class="lb-info-cta" onclick="event.stopPropagation()"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>';
+    var ctaHtml = '<a href="/reservation" class="lb-info-cta" onclick="event.stopPropagation()"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>';
 
     infoEl.innerHTML =
       '<div class="lb-info-header">' +
