@@ -130,12 +130,13 @@
         '.photo-lightbox{display:none;position:fixed;inset:0;z-index:10001;align-items:center;justify-content:center;}' +
         '.photo-lightbox.active{display:flex;}' +
         '.lb-backdrop{position:absolute;inset:0;background:rgba(10,8,6,0.94);cursor:pointer;}' +
-        '.lb-container{position:relative;width:94%;max-width:860px;height:90vh;display:flex;flex-direction:column;align-items:center;z-index:1;overflow:hidden;}' +
+        '.lb-container{position:relative;width:94%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;align-items:center;z-index:1;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;}' +
+        '.lb-container::-webkit-scrollbar{display:none;}' +
         '.lb-close{position:absolute;top:-12px;right:-12px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all .25s cubic-bezier(.22,1,.36,1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}' +
         '.lb-close:hover{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);transform:scale(1.08);}' +
 
         /* ── v17 커튼 슬라이더 ── */
-        '.lb-slider-wrap{position:relative;flex:1 1 auto;min-height:100px;overflow:hidden;width:100%;display:flex;flex-direction:column;align-items:center;}' +
+        '.lb-slider-wrap{position:relative;flex:0 0 auto;overflow:hidden;width:100%;display:flex;flex-direction:column;align-items:center;}' +
         '.lb-slider{position:relative;border-radius:16px;overflow:hidden;background:#0a0806;cursor:col-resize;user-select:none;-webkit-user-select:none;touch-action:none;box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.06);}' +
 
         /* 레이어 공통 — 둘 다 동일 크기 */
