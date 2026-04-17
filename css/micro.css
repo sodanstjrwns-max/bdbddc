@@ -251,19 +251,15 @@
 .philosophy-card,
 .type-card,
 .review-card,
-.why-hero-card,
-.tl-card {
+.why-hero-card {
   --glow-x: 50%;
   --glow-y: 50%;
-  position: relative;
-  overflow: hidden;
 }
 .treatment-card::after,
 .why-card::after,
 .philosophy-card::after,
 .type-card::after,
-.why-hero-card::after,
-.tl-card::after {
+.why-hero-card::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -282,9 +278,39 @@
 .why-card:hover::after,
 .philosophy-card:hover::after,
 .type-card:hover::after,
-.why-hero-card:hover::after,
+.why-hero-card:hover::after {
+  opacity: 1;
+}
+
+/* ── 11-b. 타임라인 카드 글로우네이트 (tl-card 전용) ── */
+.tl-card {
+  --glow-x: 50%;
+  --glow-y: 50%;
+  position: relative !important;
+  overflow: hidden !important;
+}
+.tl-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--glow-x) var(--glow-y),
+    rgba(200, 169, 126, 0.15),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
 .tl-card:hover::after {
   opacity: 1;
+}
+/* 호버 시 카드 경계선 골드 강조 */
+.tl-card:hover {
+  border-color: rgba(200, 169, 126, 0.4) !important;
+  box-shadow: 0 8px 32px rgba(200, 169, 126, 0.12) !important;
 }
 /* review-card는 position이 relative일 때만 동작 */
 .review-card { position: relative; overflow: hidden; }
