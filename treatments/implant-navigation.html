@@ -454,47 +454,129 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 치료 과정 -->
-    <section class="section" style="background:var(--gray-50);">
+    <!-- ═══ 네비게이션 임플란트 스크롤 타임라인 ═══ -->
+    <section class="section tl-section" id="treatmentTimeline" style="background:var(--gray-50);">
       <div class="container">
         <div class="section-header">
-          <h2>체계적인 <span class="text-gradient">6단계</span> 치료 과정</h2>
-          <p class="section-subtitle">정밀 검진부터 보철물 완성까지</p>
+          <span class="section-badge"><i class="fas fa-crosshairs"></i> 네비게이션 치료 여정</span>
+          <h2>0.1mm 정밀 식립, <span class="text-gradient">6단계</span> 과정</h2>
+          <p class="section-subtitle">실시간 3D 추적으로 가장 안전한 식립을 실현합니다</p>
         </div>
-        <div class="process-timeline-v2">
-          <div class="process-step-v2">
-            <div class="step-dot">1</div>
-            <h3>3D CT 정밀 촬영</h3>
-            <p>잇몸뼈 밀도, 신경 위치, 인접 치아를 분석합니다.</p>
+        <div class="tl-progress-wrap" id="tlProgressWrap">
+          <div class="tl-progress-bar"><div class="tl-progress-fill" id="tlProgressFill"></div></div>
+          <div class="tl-progress-labels">
+            <span class="tl-plabel active" data-step="0">CT분석</span>
+            <span class="tl-plabel" data-step="1">시뮬</span>
+            <span class="tl-plabel" data-step="2">가이드</span>
+            <span class="tl-plabel" data-step="3">식립</span>
+            <span class="tl-plabel" data-step="4">골유착</span>
+            <span class="tl-plabel" data-step="5">보철</span>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">2</div>
-            <h3>가상 수술 시뮬레이션</h3>
-            <p>컴퓨터에서 식립 위치·각도·깊이를 시뮬레이션합니다.</p>
+        </div>
+        <div class="tl-vertical">
+          <div class="tl-step" data-step="0">
+            <div class="tl-line-seg"><div class="tl-dot"><span>1</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-x-ray"></i></div>
+              <div class="tl-card-body">
+                <h3>3D CT 정밀 분석</h3>
+                <p><a href="/encyclopedia/#CBCT" class="enc-inline-link" title="치과용 3D CT로, 뼈와 치아 구조를 입체적으로 확인하는 영상 검사입니다." data-enc-term="CBCT">3D CT</a>로 잇몸뼈 밀도, <a href="/encyclopedia/#하악관 신경" class="enc-inline-link" title="아래턱뼈의 주요 감각 신경" data-enc-term="하악관 신경">하악관 신경</a> 위치, 상악동 거리까지 0.1mm 단위로 분석합니다. 네비게이션 식립의 출발점입니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 20분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-map-pin"></i> 5층 검진센터</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>일반 임플란트 대비 더 정밀한 CT 분석이 진행됩니다. 신경·혈관 위치를 3D로 완벽히 파악합니다.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">3</div>
-            <h3>협진 &amp; 계획 확정</h3>
-            <p>15인 전문의가 최종 계획을 확정합니다.</p>
+          <div class="tl-step" data-step="1">
+            <div class="tl-line-seg"><div class="tl-dot"><span>2</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-cube"></i></div>
+              <div class="tl-card-body">
+                <h3>가상 수술 시뮬레이션</h3>
+                <p>CT 데이터를 기반으로 컴퓨터에서 식립 위치·각도·깊이를 시뮬레이션합니다. 수술 전에 결과를 미리 예측하여 최적의 포지셔닝을 결정합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 30분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-laptop-medical"></i> 3D 시뮬레이션</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>시뮬레이션 결과를 직접 보여드립니다. "이 위치에 이 각도로 심습니다"를 눈으로 확인하세요.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">4</div>
-            <h3>네비게이션 가이드 식립</h3>
-            <p>실시간 위치 표시 하에 정밀 식립합니다.</p>
+          <div class="tl-step" data-step="2">
+            <div class="tl-line-seg"><div class="tl-dot"><span>3</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-drafting-compass"></i></div>
+              <div class="tl-card-body">
+                <h3><a href="/encyclopedia/#서지컬 가이드" class="enc-inline-link" title="CT 기반 맞춤형 수술 안내 장치" data-enc-term="서지컬 가이드">서지컬 가이드</a> 제작</h3>
+                <p>시뮬레이션 데이터를 바탕으로 환자 맞춤형 수술 가이드를 제작합니다. 이 가이드가 네비게이션 시스템과 연동되어 실시간 위치를 추적합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 제작 약 3~5일</span>
+                  <span class="tl-meta"><i class="fas fa-cogs"></i> 맞춤 제작</span>
+                  <span class="tl-meta"><i class="fas fa-users"></i> 15인 협진 확정</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>이 단계에서 15인 전문의 협진으로 최종 수술 계획을 확정합니다. 궁금한 점을 모두 질문해주세요.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">5</div>
-            <h3><a href="/encyclopedia/#골유착 기간" class="enc-inline-link" title="임플란트가 뼈와 붙는 데 걸리는 시간" data-enc-term="골유착 기간">골유착 기간</a></h3>
-            <p>2~4개월. SLActive 시 6~8주 단축 가능.</p>
+          <div class="tl-step" data-step="3">
+            <div class="tl-line-seg"><div class="tl-dot"><span>4</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-crosshairs"></i></div>
+              <div class="tl-card-body">
+                <h3>네비게이션 실시간 식립</h3>
+                <p>실시간 3D 위치 추적 시스템으로 0.1mm 이내의 정밀도로 식립합니다. 모니터에서 임플란트 위치를 실시간으로 확인하며 신경·혈관을 안전하게 피합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 1개당 약 15~25분</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile"></i> 무통 (마취/수면)</span>
+                  <span class="tl-meta"><i class="fas fa-shield-alt"></i> 6개 독립 수술실</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>일반 임플란트 대비 수술 시간 30~50% 단축! 시뮬레이션대로 정확히 식립하므로 오차가 거의 없습니다.</span></div>
+              </div>
+            </div>
           </div>
-          <div class="process-step-v2">
-            <div class="step-dot">6</div>
-            <h3>맞춤 보철물 완성</h3>
-            <p>원내 기공소에서 맞춤 <a href="/encyclopedia/#크라운" class="enc-inline-link" title="손상된 치아 전체를 씌우는 인공 캡" data-enc-term="크라운">크라운</a>을 장착합니다.</p>
+          <div class="tl-step" data-step="4">
+            <div class="tl-line-seg"><div class="tl-dot"><span>5</span></div><div class="tl-connector"></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-bone"></i></div>
+              <div class="tl-card-body">
+                <h3><a href="/encyclopedia/#골유착 기간" class="enc-inline-link" title="임플란트가 뼈와 붙는 데 걸리는 시간" data-enc-term="골유착 기간">골유착</a> & 경과 관찰</h3>
+                <p>정밀 식립 덕분에 골유착 성공률이 높습니다. <a href="/encyclopedia/#SLActive" class="enc-inline-link" title="스트라우만 초친수성 표면처리(6~8주 골유착)" data-enc-term="SLActive">SLActive</a> 사용 시 6~8주로 단축 가능합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 일반 2~4개월 / SLActive 6~8주</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile-beam"></i> 일상생활 가능</span>
+                </div>
+                <div class="tl-tip"><i class="fas fa-lightbulb"></i><span>정밀 식립으로 뼈 손상이 최소화되어, 일반 임플란트 대비 골유착 성공률이 더 높습니다.</span></div>
+              </div>
+            </div>
           </div>
+          <div class="tl-step" data-step="5">
+            <div class="tl-line-seg"><div class="tl-dot"><span>6</span></div></div>
+            <div class="tl-card">
+              <div class="tl-card-icon"><i class="fas fa-crown"></i></div>
+              <div class="tl-card-body">
+                <h3>맞춤 보철물 완성</h3>
+                <p>원내 기공소에서 정밀 식립 데이터 기반으로 맞춤 <a href="/encyclopedia/#지르코니아 크라운" class="enc-inline-link" title="고강도 세라믹으로 만든 치아 캡" data-enc-term="지르코니아 크라운">지르코니아 크라운</a>을 제작·장착합니다. 자연치아와 구분이 안 되는 심미성을 구현합니다.</p>
+                <div class="tl-meta-row">
+                  <span class="tl-meta"><i class="far fa-clock"></i> 약 30분 (2회 내원)</span>
+                  <span class="tl-meta tl-pain"><i class="fas fa-smile-beam"></i> 무통</span>
+                  <span class="tl-meta"><i class="fas fa-tooth"></i> 자연치아급 심미성</span>
+                </div>
+                <div class="tl-tip tl-tip-final"><i class="fas fa-check-circle"></i><span>치료 완료! 정밀 식립으로 장기 성공률이 높습니다. 6개월 정기 검진을 추천합니다.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-complete-cta">
+          <p class="tl-cta-lead">전체 치료 기간 <strong>약 3~6개월, 4~6회 내원</strong></p>
+          <a href="/reservation?ref_category=네비게이션+임플란트" class="btn btn-primary btn-lg"><i class="fas fa-calendar-check"></i> 네비게이션 임플란트 상담 예약</a>
         </div>
       </div>
     </section>
+    <!-- ═══ /네비게이션 임플란트 타임라인 끝 ═══ -->
 
     <!-- 비교표 -->
     <section class="section">
@@ -880,5 +962,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="/js/main.js" defer></script>
 <script src="/js/gnb-v2.js" defer></script>
+  <script>(function(){var v=document.querySelector('.tl-vertical');if(v)v.classList.add('tl-animated');var steps=document.querySelectorAll('.tl-step');var fill=document.getElementById('tlProgressFill');var labels=document.querySelectorAll('.tl-plabel');if(!steps.length||!fill)return;var total=steps.length;var activeIdx=-1;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){var idx=parseInt(e.target.dataset.step);if(e.isIntersecting){e.target.classList.add('tl-visible');if(idx>activeIdx)activeIdx=idx;}});steps.forEach(function(s,i){s.classList.remove('tl-active','tl-done');if(i<activeIdx)s.classList.add('tl-done');else if(i===activeIdx)s.classList.add('tl-active');});fill.style.width=Math.min(((activeIdx+1)/total)*100,100)+'%';labels.forEach(function(l,i){l.classList.remove('active','done');if(i<activeIdx)l.classList.add('done');else if(i===activeIdx)l.classList.add('active');});},{threshold:0.3,rootMargin:'0px 0px -15% 0px'});steps.forEach(function(s){obs.observe(s);});})();</script>
 </body>
 </html>
