@@ -130,13 +130,15 @@
         '.photo-lightbox{display:none;position:fixed;inset:0;z-index:10001;align-items:center;justify-content:center;}' +
         '.photo-lightbox.active{display:flex;}' +
         '.lb-backdrop{position:absolute;inset:0;background:rgba(10,8,6,0.94);cursor:pointer;}' +
-        '.lb-container{position:relative;width:94%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;align-items:center;z-index:1;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;}' +
-        '.lb-container::-webkit-scrollbar{display:none;}' +
+        '.lb-container{position:relative;width:94%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;align-items:center;z-index:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,169,126,0.25) transparent;}' +
+        '.lb-container::-webkit-scrollbar{width:4px;}' +
+        '.lb-container::-webkit-scrollbar-thumb{background:rgba(200,169,126,0.25);border-radius:4px;}' +
+        '.lb-container::-webkit-scrollbar-track{background:transparent;}' +
         '.lb-close{position:absolute;top:-12px;right:-12px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all .25s cubic-bezier(.22,1,.36,1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}' +
         '.lb-close:hover{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);transform:scale(1.08);}' +
 
         /* ── v17 커튼 슬라이더 ── */
-        '.lb-slider-wrap{position:relative;flex:0 0 auto;overflow:hidden;width:100%;display:flex;flex-direction:column;align-items:center;}' +
+        '.lb-slider-wrap{position:relative;flex:0 0 auto;overflow:hidden;width:100%;display:flex;flex-direction:column;align-items:center;max-height:calc(92vh - 280px);}' +
         '.lb-slider{position:relative;border-radius:16px;overflow:hidden;background:#0a0806;cursor:col-resize;user-select:none;-webkit-user-select:none;touch-action:none;box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.06);}' +
 
         /* 레이어 공통 — 둘 다 동일 크기 */
@@ -214,7 +216,7 @@
 
         /* ── 반응형 ── */
         '@media(max-width:900px){.lb-container{width:100%;max-width:100%;padding:0 6px;}.lb-close{top:8px;right:14px;}}' +
-        '@media(max-width:600px){.lb-container{width:100%;max-width:100%;padding:0 4px;height:100dvh;}.lb-tab{padding:6px 16px;font-size:0.75rem;}.lb-handle-grip{width:44px;height:44px;}.lb-handle-grip svg{width:22px;height:22px;}.lb-label{font-size:0.62rem;padding:5px 12px;bottom:10px;}.lb-img{max-height:40vh;}.lb-slider{border-radius:12px;}.lb-hint{font-size:0.75rem;}.lb-hint i{margin-right:6px;}.lb-info{max-height:45vh;padding:12px 8px 6px;}.lb-info-title{font-size:0.95rem;}.lb-info-desc{padding:10px 12px;font-size:0.78rem;}.lb-info-footer{flex-direction:column;align-items:stretch;gap:10px;}.lb-info-cta{justify-content:center;}}' +
+        '@media(max-width:600px){.lb-container{width:100%;max-width:100%;padding:0 4px;max-height:100dvh;}.lb-slider-wrap{max-height:45vh;}.lb-tab{padding:6px 16px;font-size:0.75rem;}.lb-handle-grip{width:44px;height:44px;}.lb-handle-grip svg{width:22px;height:22px;}.lb-label{font-size:0.62rem;padding:5px 12px;bottom:10px;}.lb-img{max-height:40vh;}.lb-slider{border-radius:12px;}.lb-hint{font-size:0.75rem;}.lb-hint i{margin-right:6px;}.lb-info{max-height:none;padding:12px 8px 6px;}.lb-info-title{font-size:0.95rem;}.lb-info-desc{padding:10px 12px;font-size:0.78rem;}.lb-info-footer{flex-direction:column;align-items:stretch;gap:10px;}.lb-info-cta{justify-content:center;}}' +
 
         /* ── 애니메이션 ── */
         '@keyframes lbFadeIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}' +
@@ -260,9 +262,10 @@
     var natH = afterImg.naturalHeight;
     if (!natW || !natH) return;
     var containerW = slider.parentElement.clientWidth;
-    /* info 패널(~200px)+탭(40px)+힌트(30px) 공간 반드시 확보 */
-    var reserveH = 270;
-    var maxH = (window.innerHeight * 0.90) - reserveH;
+    /* info 패널+탭+힌트+유사케이스 공간 확보 (모바일은 더 적극적으로 제한) */
+    var isMobile = window.innerWidth <= 600;
+    var reserveH = isMobile ? 0 : 290;
+    var maxH = isMobile ? (window.innerHeight * 0.44) : ((window.innerHeight * 0.92) - reserveH);
     var ratio = natW / natH;
     var renderW = containerW;
     var renderH = containerW / ratio;
