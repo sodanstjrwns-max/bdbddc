@@ -238,3 +238,14 @@ a.type-card:hover{color:inherit;text-decoration:none}
 /* ─── Responsive Grid Utilities ─── */
 .grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto}
 .grid-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+
+/* ═══ Scroll-depth CTA stages (Patient Funnel) ═══ */
+.btn-reserve,.mobile-cta-btn.reserve{transition:all .35s cubic-bezier(.4,0,.2,1)}
+.cta-explore{background:#3B82F6!important;box-shadow:0 0 0 0 rgba(59,130,246,.5)}
+.cta-consider{background:#8B5CF6!important;box-shadow:0 0 0 0 rgba(139,92,246,.5)}
+.cta-decide{background:var(--brand)!important}
+.cta-action{background:#EF4444!important;animation:ctaPulse 1.5s ease-in-out infinite}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.5)}50%{box-shadow:0 0 0 10px rgba(239,68,68,0)}}
+.mobile-cta-btn.cta-explore{background:#3B82F6!important;color:#fff!important}
+.mobile-cta-btn.cta-consider{background:#8B5CF6!important;color:#fff!important}
+.mobile-cta-btn.cta-action{background:#EF4444!important;color:#fff!important;animation:ctaPulse 1.5s ease-in-out infinite}

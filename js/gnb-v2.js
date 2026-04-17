@@ -335,6 +335,42 @@
     }
 
     // ========================================
+    // 스크롤 깊이별 CTA 변화 (페이션트 퍼널)
+    // 0~25%: 탐색 → 💬 무료 상담 | 25~50%: 검토 → 📋 내 케이스 진단
+    // 50~75%: 확신 → 📅 지금 예약 | 75~100%: 행동 → 🔥 오늘 상담 가능!
+    // ========================================
+    function initScrollCTA() {
+        var stages = [
+            { pct: 0,  icon: 'fa-comment-dots', txt: '무료 상담 받기', mob: '상담', cls: 'cta-explore' },
+            { pct: 25, icon: 'fa-clipboard-check', txt: '내 케이스 진단받기', mob: '진단', cls: 'cta-consider' },
+            { pct: 50, icon: 'fa-calendar-check', txt: '지금 예약하기', mob: '예약', cls: 'cta-decide' },
+            { pct: 75, icon: 'fa-fire', txt: '오늘 상담 가능!', mob: '지금 예약', cls: 'cta-action' }
+        ];
+        var headerBtn = document.querySelector('.btn-reserve');
+        var mobileBtn = document.querySelector('.mobile-cta-btn.reserve');
+        var prev = -1;
+        function update() {
+            var h = document.documentElement.scrollHeight - window.innerHeight;
+            var pct = h > 0 ? (window.pageYOffset / h) * 100 : 0;
+            var idx = pct >= 75 ? 3 : pct >= 50 ? 2 : pct >= 25 ? 1 : 0;
+            if (idx === prev) return;
+            prev = idx;
+            var s = stages[idx];
+            if (headerBtn) {
+                headerBtn.innerHTML = '<i class="fas ' + s.icon + '"></i> ' + s.txt;
+                headerBtn.className = 'btn-reserve ' + s.cls;
+            }
+            if (mobileBtn) {
+                mobileBtn.querySelector('i').className = 'fas ' + s.icon;
+                mobileBtn.querySelector('span').textContent = s.mob;
+                mobileBtn.className = 'mobile-cta-btn reserve primary ' + s.cls;
+            }
+        }
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+    }
+
+    // ========================================
     // Exit Intent 팝업
     // ========================================
     function initExitIntent() {
@@ -495,6 +531,7 @@
         initHeaderScroll();
         initMobileMenu();
         initFloatingCTA();
+        initScrollCTA();
         initExitIntent();
         initScrollAnimations();
         initCountUp();
