@@ -2387,7 +2387,7 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 �
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb.js" defer></script>
+<script src="/js/gnb-v2.js" defer></script>
 </body>
 </html>`)
 })
@@ -2644,7 +2644,7 @@ ${doctorSlug ? `<div class="col-author-box">
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb.js" defer></script>
+<script src="/js/gnb-v2.js" defer></script>
 <script>
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'column',page_id:'${id}'})}).catch(function(){});
 </script>
@@ -2859,7 +2859,7 @@ ${cs.category ? `<a href="/treatments/${cs.category}" style="display:inline-flex
 </div>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb.js" defer></script>
+<script src="/js/gnb-v2.js" defer></script>
 <script>
 // 조회수 기록
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'case',page_id:'${id}'})}).catch(function(){});
@@ -3302,7 +3302,7 @@ ${nextItem ? `<a href="/encyclopedia/${encodeURIComponent(nextItem.term)}" style
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb.js" defer></script>
+<script src="/js/gnb-v2.js" defer></script>
 </body>
 </html>`
 
@@ -3514,7 +3514,7 @@ ${otherCats}
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb.js" defer></script>
+<script src="/js/gnb-v2.js" defer></script>
 </body>
 </html>`
 
