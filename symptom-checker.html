@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ko" prefix="og: https://ogp.me/ns#">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>증상 체커 | 내 증상에 맞는 치료 찾기 — 서울비디치과</title>
+<meta name="description" content="치아 통증, 잇몸 출혈, 시린이 등 증상을 선택하면 맞춤 치료와 실제 케이스를 보여드립니다. 서울비디치과 AI 증상 체커.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://bdbddc.com/symptom-checker">
+<meta property="og:title" content="증상 체커 | 서울비디치과">
+<meta property="og:description" content="내 증상에 맞는 치료 찾기 — 증상을 선택하면 맞춤 치료와 실제 케이스를 보여드립니다.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bdbddc.com/symptom-checker">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="서울비디치과">
+<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg">
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6B4226">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/site-v5.css?v=e118df2e">
+<link rel="stylesheet" href="/css/micro.css?v=76265019">
+<style>
+/* ── 증상 체커 고유 스타일 ── */
+.sc-page{min-height:100vh;padding-top:80px;background:linear-gradient(180deg,#faf7f3 0%,#fff 40%)}
+.sc-container{max-width:800px;margin:0 auto;padding:40px 20px 60px}
+
+/* 히어로 */
+.sc-hero{text-align:center;margin-bottom:40px}
+.sc-hero-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5E3C);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:1.6rem;margin-bottom:16px;box-shadow:0 8px 32px rgba(107,66,38,0.2)}
+.sc-hero h1{font-size:1.8rem;font-weight:800;color:#1c1917;margin:0 0 8px}
+.sc-hero h1 em{color:#6B4226;font-style:normal}
+.sc-hero p{font-size:0.95rem;color:#78716c;line-height:1.6}
+
+/* 단계 표시 */
+.sc-steps{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:32px}
+.sc-step-dot{width:10px;height:10px;border-radius:50%;background:#e0d5c8;transition:all .3s}
+.sc-step-dot.active{background:#6B4226;transform:scale(1.3)}
+.sc-step-line{width:32px;height:2px;background:#e0d5c8;border-radius:1px}
+
+/* 카드 컨테이너 */
+.sc-card{background:#fff;border:1px solid #e8e0d8;border-radius:20px;padding:32px;box-shadow:0 4px 20px rgba(0,0,0,0.04);animation:scFadeIn .4s ease}
+@keyframes scFadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* 부위 선택 */
+.sc-section-title{font-size:1.1rem;font-weight:700;color:#333;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.sc-section-title i{color:#C8A97E;font-size:0.9rem}
+
+.sc-area-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sc-area-btn{border:2px solid #e8e0d8;background:#faf7f4;border-radius:14px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .25s;font-size:0.88rem;font-weight:600;color:#44403c}
+.sc-area-btn:hover{border-color:#C8A97E;background:#fff;transform:translateY(-2px);box-shadow:0 4px 12px rgba(107,66,38,0.08)}
+.sc-area-btn.selected{border-color:#6B4226;background:linear-gradient(135deg,#faf7f4,#f5ede4);color:#6B4226;box-shadow:0 4px 16px rgba(107,66,38,0.12)}
+.sc-area-btn .sc-area-icon{font-size:1.6rem;display:block;margin-bottom:8px}
+
+/* 증상 선택 */
+.sc-symptom-list{display:flex;flex-direction:column;gap:10px}
+.sc-symptom-btn{border:2px solid #e8e0d8;background:#fff;border-radius:12px;padding:14px 18px;text-align:left;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px;font-size:0.9rem;color:#44403c}
+.sc-symptom-btn:hover{border-color:#C8A97E;background:#faf7f4}
+.sc-symptom-btn.selected{border-color:#6B4226;background:#faf7f4;color:#6B4226;font-weight:600}
+.sc-symptom-btn .sc-sym-check{width:22px;height:22px;border:2px solid #d6d3d1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:transparent;transition:all .2s;flex-shrink:0}
+.sc-symptom-btn.selected .sc-sym-check{border-color:#6B4226;background:#6B4226;color:#fff}
+
+/* 결과 영역 */
+.sc-result{animation:scFadeIn .5s ease}
+.sc-result-header{text-align:center;margin-bottom:28px}
+.sc-result-header h2{font-size:1.4rem;font-weight:800;color:#1c1917;margin:0 0 6px}
+.sc-result-header p{font-size:0.88rem;color:#78716c}
+
+/* 추천 치료 카드 */
+.sc-treatment-card{background:linear-gradient(135deg,#faf7f4,#f5ede4);border:1px solid #e0d5c8;border-radius:16px;padding:24px;margin-bottom:16px;transition:all .3s}
+.sc-treatment-card:hover{box-shadow:0 4px 16px rgba(107,66,38,0.1)}
+.sc-tx-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.sc-tx-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6B4226,#8B5E3C);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0}
+.sc-tx-name{font-size:1.05rem;font-weight:700;color:#1c1917}
+.sc-tx-match{font-size:0.72rem;color:#fff;background:#6B4226;padding:2px 8px;border-radius:20px;margin-left:8px}
+.sc-tx-desc{font-size:0.85rem;color:#57534e;line-height:1.6;margin-bottom:14px}
+.sc-tx-actions{display:flex;gap:10px;flex-wrap:wrap}
+.sc-tx-btn{padding:10px 18px;border-radius:10px;font-size:0.82rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s}
+.sc-tx-btn-primary{background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;box-shadow:0 2px 8px rgba(107,66,38,0.2)}
+.sc-tx-btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(107,66,38,0.3)}
+.sc-tx-btn-outline{background:#fff;color:#6B4226;border:1px solid rgba(107,66,38,0.2)}
+.sc-tx-btn-outline:hover{background:#faf7f4}
+
+/* 관련 케이스 */
+.sc-cases-section{margin-top:24px}
+.sc-cases-title{font-size:0.9rem;font-weight:700;color:#44403c;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.sc-cases-title i{color:#C8A97E}
+.sc-cases-grid{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
+.sc-cases-grid::-webkit-scrollbar{display:none}
+.sc-case-card{flex:0 0 auto;width:200px;background:#fff;border:1px solid #e8e0d8;border-radius:14px;overflow:hidden;text-decoration:none;color:#333;transition:all .25s;cursor:pointer}
+.sc-case-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(107,66,38,0.1)}
+.sc-case-img{width:100%;aspect-ratio:4/3;overflow:hidden;background:#f0ebe4}
+.sc-case-img img{width:100%;height:100%;object-fit:cover}
+.sc-case-body{padding:10px 12px}
+.sc-case-title{font-size:0.78rem;font-weight:600;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px}
+.sc-case-meta{font-size:0.68rem;color:#A8A29E;display:flex;gap:8px}
+.sc-case-meta i{color:#C8A97E;margin-right:2px}
+
+/* CTA 하단 */
+.sc-cta-section{text-align:center;margin-top:32px;padding:24px;background:linear-gradient(135deg,#6B4226,#5a3720);border-radius:16px;color:#fff}
+.sc-cta-section h3{font-size:1.1rem;font-weight:700;margin:0 0 6px}
+.sc-cta-section p{font-size:0.82rem;opacity:0.8;margin:0 0 16px}
+.sc-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:#fff;color:#6B4226;border-radius:12px;font-weight:700;font-size:0.92rem;text-decoration:none;transition:all .2s}
+.sc-cta-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+
+/* 네비 버튼 */
+.sc-nav-btns{display:flex;justify-content:space-between;margin-top:24px}
+.sc-nav-btn{padding:12px 24px;border-radius:12px;font-size:0.88rem;font-weight:600;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s}
+.sc-nav-prev{background:#f5f0eb;color:#6B4226}
+.sc-nav-prev:hover{background:#ebe3d8}
+.sc-nav-next{background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;box-shadow:0 2px 8px rgba(107,66,38,0.2)}
+.sc-nav-next:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(107,66,38,0.3)}
+.sc-nav-next:disabled{opacity:0.4;cursor:not-allowed;transform:none}
+
+/* 반응형 */
+@media(max-width:600px){
+  .sc-container{padding:24px 16px 40px}
+  .sc-hero h1{font-size:1.4rem}
+  .sc-area-grid{grid-template-columns:repeat(2,1fr)}
+  .sc-card{padding:20px 16px}
+  .sc-tx-actions{flex-direction:column}
+  .sc-tx-btn{justify-content:center}
+  .sc-case-card{width:170px}
+}
+</style>
+</head>
+<body>
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-container">
+    <div class="header-brand">
+      <a href="/" class="site-logo" aria-label="서울비디치과 홈">
+        <span class="logo-icon">🦷</span>
+        <span class="logo-text">서울비디치과</span>
+      </a>
+      <div class="clinic-status open" aria-live="polite">
+        <span class="status-dot"></span>
+        <span class="status-text">진료중</span>
+        <span class="status-time">20:00까지</span>
+      </div>
+    </div>
+    <nav class="main-nav" id="mainNav" aria-label="메인 네비게이션">
+      <ul>
+        <li class="nav-item has-dropdown"><a href="/treatments/">진료</a>
+          <div class="mega-dropdown"><div class="mega-dropdown-grid">
+            <div class="mega-dropdown-section"><strong class="section-heading">전문센터</strong><ul>
+              <li><a href="/treatments/glownate">✨ 글로우네이트</a></li>
+              <li><a href="/treatments/implant">임플란트</a></li>
+              <li><a href="/treatments/invisalign">인비절라인</a></li>
+              <li><a href="/treatments/orthodontics">치아교정</a></li>
+              <li><a href="/treatments/pediatric">소아치과</a></li>
+              <li><a href="/treatments/aesthetic">심미레진</a></li>
+            </ul></div>
+            <div class="mega-dropdown-section"><strong class="section-heading">일반/보존 진료</strong><ul>
+              <li><a href="/treatments/cavity">충치치료</a></li>
+              <li><a href="/treatments/resin">레진치료</a></li>
+              <li><a href="/treatments/crown">크라운</a></li>
+              <li><a href="/treatments/inlay">인레이/온레이</a></li>
+              <li><a href="/treatments/root-canal">신경치료</a></li>
+              <li><a href="/treatments/whitening">미백</a></li>
+            </ul></div>
+            <div class="mega-dropdown-section"><strong class="section-heading">잇몸/외과</strong><ul>
+              <li><a href="/treatments/scaling">스케일링</a></li>
+              <li><a href="/treatments/gum">잇몸치료</a></li>
+              <li><a href="/treatments/periodontitis">치주염</a></li>
+              <li><a href="/treatments/wisdom-tooth">사랑니 발치</a></li>
+              <li><a href="/treatments/tmj">턱관절장애</a></li>
+              <li><a href="/treatments/bruxism">이갈이/이악물기</a></li>
+            </ul></div>
+          </div></div>
+        </li>
+        <li class="nav-item"><a href="/doctors/">의료진</a></li>
+        <li class="nav-item"><a href="/mission">비디미션</a></li>
+        <li class="nav-item has-dropdown"><a href="/cases/gallery">콘텐츠</a>
+          <ul class="simple-dropdown">
+            <li><a href="/cases/gallery" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>
+            <li><a href="/blog/">블로그</a></li>
+            <li><a href="/video/">영상</a></li>
+            <li><a href="/encyclopedia/">치과 백과사전</a></li>
+            <li><a href="/column/">원장 컬럼</a></li>
+          </ul>
+        </li>
+        <li class="nav-item has-dropdown"><a href="/directions">안내</a>
+          <ul class="simple-dropdown">
+            <li><a href="/pricing" class="nav-highlight">💰 비용 안내</a></li>
+            <li><a href="/floor-guide">비디치과 둘러보기</a></li>
+            <li><a href="/directions">오시는 길</a></li>
+            <li><a href="/faq">자주 묻는 질문</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="tel:0414152892" class="header-phone" aria-label="전화 문의"><i class="fas fa-phone"></i></a>
+      <div class="auth-buttons">
+        <a href="/auth/login" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+        <a href="/auth/register" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 회원가입</a>
+      </div>
+      <a href="/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i> 예약하기</a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
+  <div class="mobile-nav-header">
+    <span class="logo-icon">🦷</span>
+    <button class="mobile-nav-close" id="mobileNavClose" aria-label="메뉴 닫기"><i class="fas fa-times"></i></button>
+  </div>
+  <ul class="mobile-nav-menu">
+    <li><a href="/treatments/"><i class="fas fa-tooth"></i> 진료</a></li>
+    <li><a href="/doctors/"><i class="fas fa-user-md"></i> 의료진</a></li>
+    <li><a href="/cases/gallery"><i class="fas fa-images"></i> 비포/애프터</a></li>
+    <li><a href="/pricing"><i class="fas fa-won-sign"></i> 비용 안내</a></li>
+    <li><a href="/directions"><i class="fas fa-map-marker-alt"></i> 오시는 길</a></li>
+    <li><a href="/reservation" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>
+  </ul>
+</nav>
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+<main class="sc-page">
+  <div class="sc-container">
+    <!-- 히어로 -->
+    <div class="sc-hero">
+      <div class="sc-hero-icon"><i class="fas fa-stethoscope"></i></div>
+      <h1>내 증상에 맞는 <em>치료</em> 찾기</h1>
+      <p>증상을 선택하시면 맞춤 치료와 실제 Before/After 케이스를 보여드립니다</p>
+    </div>
+
+    <!-- 단계 표시 -->
+    <div class="sc-steps">
+      <div class="sc-step-dot active" data-step="1"></div>
+      <div class="sc-step-line"></div>
+      <div class="sc-step-dot" data-step="2"></div>
+      <div class="sc-step-line"></div>
+      <div class="sc-step-dot" data-step="3"></div>
+    </div>
+
+    <!-- STEP 1: 부위 선택 -->
+    <div class="sc-card" id="step1">
+      <div class="sc-section-title"><i class="fas fa-hand-pointer"></i> 불편한 부위를 선택해주세요</div>
+      <div class="sc-area-grid">
+        <button class="sc-area-btn" data-area="front-teeth">
+          <span class="sc-area-icon">😁</span>앞니
+        </button>
+        <button class="sc-area-btn" data-area="back-teeth">
+          <span class="sc-area-icon">🦷</span>어금니
+        </button>
+        <button class="sc-area-btn" data-area="gum">
+          <span class="sc-area-icon">🩸</span>잇몸
+        </button>
+        <button class="sc-area-btn" data-area="whole">
+          <span class="sc-area-icon">😬</span>전체/교합
+        </button>
+        <button class="sc-area-btn" data-area="child">
+          <span class="sc-area-icon">👶</span>소아
+        </button>
+        <button class="sc-area-btn" data-area="jaw">
+          <span class="sc-area-icon">💆</span>턱/관절
+        </button>
+      </div>
+      <div class="sc-nav-btns" style="justify-content:flex-end">
+        <button class="sc-nav-btn sc-nav-next" id="btnStep1Next" disabled><span>다음</span> <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- STEP 2: 증상 선택 -->
+    <div class="sc-card" id="step2" style="display:none">
+      <div class="sc-section-title"><i class="fas fa-list-check"></i> <span id="step2Title">해당하는 증상을 모두 선택해주세요</span></div>
+      <div class="sc-symptom-list" id="symptomList"></div>
+      <div class="sc-nav-btns">
+        <button class="sc-nav-btn sc-nav-prev" onclick="goStep(1)"><i class="fas fa-arrow-left"></i> <span>이전</span></button>
+        <button class="sc-nav-btn sc-nav-next" id="btnStep2Next" disabled><span>결과 보기</span> <i class="fas fa-magic"></i></button>
+      </div>
+    </div>
+
+    <!-- STEP 3: 결과 -->
+    <div id="step3" style="display:none"></div>
+  </div>
+</main>
+
+<!-- 하단 CTA 바 -->
+<div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
+  <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
+  <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
+  <a href="/reservation" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
+  <a href="/directions" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
+</div>
+
+<script src="/js/analytics.js?v=20260408v7" defer></script>
+<script src="/js/gnb.js" defer></script>
+<script>
+(function() {
+  'use strict';
+
+  // ── 증상 데이터베이스 ──
+  var SYMPTOM_DB = {
+    'front-teeth': {
+      title: '앞니 부위 증상',
+      symptoms: [
+        { id: 'ft-broken', text: '앞니가 깨지거나 부러졌어요', icon: 'fa-bolt' },
+        { id: 'ft-gap', text: '앞니 사이가 벌어져 있어요', icon: 'fa-arrows-alt-h' },
+        { id: 'ft-color', text: '앞니 색이 변했어요 (누렇거나 검게)', icon: 'fa-palette' },
+        { id: 'ft-crooked', text: '앞니가 삐뚤삐뚤해요', icon: 'fa-random' },
+        { id: 'ft-cavity', text: '앞니에 충치가 있어요', icon: 'fa-exclamation-circle' },
+        { id: 'ft-protruding', text: '앞니가 튀어나왔어요 (돌출입)', icon: 'fa-compress-alt' },
+        { id: 'ft-missing', text: '앞니가 빠졌어요', icon: 'fa-minus-circle' },
+        { id: 'ft-shape', text: '앞니 모양이 마음에 안 들어요', icon: 'fa-shapes' }
+      ],
+      treatments: {
+        'ft-broken': [
+          { slug: 'glownate', name: '글로우네이트 치아성형', match: '최적', desc: '최소 삭제로 자연스러운 앞니 복원. 당일 완성 가능.', icon: 'fa-gem' },
+          { slug: 'crown', name: '크라운', match: '적합', desc: '심하게 파손된 경우 크라운으로 전체 씌움 치료.', icon: 'fa-crown' }
+        ],
+        'ft-gap': [
+          { slug: 'glownate', name: '글로우네이트', match: '최적', desc: '벌어진 앞니 사이를 자연스럽게 메워줍니다.', icon: 'fa-gem' },
+          { slug: 'invisalign', name: '인비절라인', match: '적합', desc: '투명교정으로 치아를 이동시켜 벌어진 간격 교정.', icon: 'fa-teeth-open' }
+        ],
+        'ft-color': [
+          { slug: 'whitening', name: '미백', match: '적합', desc: '전문 미백으로 누런 치아를 하얗게.', icon: 'fa-sun' },
+          { slug: 'glownate', name: '글로우네이트', match: '최적', desc: '변색이 심한 경우 라미네이트로 완벽한 색상 개선.', icon: 'fa-gem' }
+        ],
+        'ft-crooked': [
+          { slug: 'invisalign', name: '인비절라인', match: '최적', desc: '투명 교정장치로 티 나지 않게 교정.', icon: 'fa-teeth-open' },
+          { slug: 'orthodontics', name: '치아교정', match: '적합', desc: '장치교정으로 정확하고 효과적인 치아 이동.', icon: 'fa-teeth' }
+        ],
+        'ft-cavity': [
+          { slug: 'resin', name: '레진치료', match: '최적', desc: '자연치아 색상과 동일한 레진으로 충치 치료.', icon: 'fa-fill' },
+          { slug: 'glownate', name: '글로우네이트', match: '적합', desc: '충치가 넓은 경우 라미네이트로 심미적 복원.', icon: 'fa-gem' }
+        ],
+        'ft-protruding': [
+          { slug: 'orthodontics', name: '치아교정', match: '최적', desc: '발치교정으로 돌출입을 개선합니다.', icon: 'fa-teeth' },
+          { slug: 'invisalign', name: '인비절라인', match: '적합', desc: '경미한 돌출은 투명교정으로도 개선 가능.', icon: 'fa-teeth-open' }
+        ],
+        'ft-missing': [
+          { slug: 'implant', name: '임플란트', match: '최적', desc: '빠진 치아를 자연치아처럼 복원하는 최선의 방법.', icon: 'fa-tooth' },
+          { slug: 'bridge', name: '브릿지', match: '적합', desc: '양쪽 치아를 이용한 보철 치료.', icon: 'fa-bridge' }
+        ],
+        'ft-shape': [
+          { slug: 'glownate', name: '글로우네이트', match: '최적', desc: '원하는 모양으로 앞니를 디자인합니다.', icon: 'fa-gem' },
+          { slug: 'aesthetic', name: '심미레진', match: '적합', desc: '레진 본딩으로 간단한 모양 보정.', icon: 'fa-sparkles' }
+        ]
+      }
+    },
+    'back-teeth': {
+      title: '어금니 부위 증상',
+      symptoms: [
+        { id: 'bt-pain', text: '어금니가 아파요 (씹을 때)', icon: 'fa-bolt' },
+        { id: 'bt-cavity', text: '어금니에 구멍(충치)이 보여요', icon: 'fa-exclamation-circle' },
+        { id: 'bt-sensitive', text: '차가운 음식에 시려요', icon: 'fa-snowflake' },
+        { id: 'bt-cracked', text: '어금니가 깨졌어요', icon: 'fa-crack' },
+        { id: 'bt-missing', text: '어금니가 빠졌어요', icon: 'fa-minus-circle' },
+        { id: 'bt-wisdom', text: '사랑니가 아파요', icon: 'fa-head-side-virus' }
+      ],
+      treatments: {
+        'bt-pain': [
+          { slug: 'root-canal', name: '신경치료', match: '최적', desc: '심한 통증은 신경까지 감염된 경우가 많습니다.', icon: 'fa-syringe' },
+          { slug: 'cavity', name: '충치치료', match: '적합', desc: '초기 통증이라면 충치 치료로 해결.', icon: 'fa-fill-drip' }
+        ],
+        'bt-cavity': [
+          { slug: 'inlay', name: '인레이/온레이', match: '최적', desc: '어금니 충치를 정밀하게 복원.', icon: 'fa-puzzle-piece' },
+          { slug: 'resin', name: '레진치료', match: '적합', desc: '작은 충치는 레진으로 당일 치료.', icon: 'fa-fill' }
+        ],
+        'bt-sensitive': [
+          { slug: 'cavity', name: '충치치료', match: '적합', desc: '시린 증상의 원인을 파악하여 치료.', icon: 'fa-fill-drip' },
+          { slug: 'scaling', name: '스케일링', match: '참고', desc: '치석 제거 후 잇몸 건강 회복.', icon: 'fa-broom' }
+        ],
+        'bt-cracked': [
+          { slug: 'crown', name: '크라운', match: '최적', desc: '깨진 어금니를 크라운으로 완전히 감싸 보호.', icon: 'fa-crown' },
+          { slug: 'inlay', name: '인레이', match: '적합', desc: '부분적 파절은 인레이로 복원.', icon: 'fa-puzzle-piece' }
+        ],
+        'bt-missing': [
+          { slug: 'implant', name: '임플란트', match: '최적', desc: '빠진 어금니를 단단하게 복원.', icon: 'fa-tooth' },
+          { slug: 'denture', name: '틀니/브릿지', match: '적합', desc: '다수 치아 상실 시 보철 방법.', icon: 'fa-teeth' }
+        ],
+        'bt-wisdom': [
+          { slug: 'wisdom-tooth', name: '사랑니 발치', match: '최적', desc: '경험 풍부한 전문의의 안전한 발치.', icon: 'fa-tooth' },
+          { slug: 'sedation', name: '수면치과', match: '참고', desc: '공포가 있다면 수면 하에 편안하게.', icon: 'fa-bed' }
+        ]
+      }
+    },
+    'gum': {
+      title: '잇몸 증상',
+      symptoms: [
+        { id: 'gm-bleed', text: '양치할 때 잇몸에서 피가 나요', icon: 'fa-tint' },
+        { id: 'gm-swollen', text: '잇몸이 부었어요', icon: 'fa-circle' },
+        { id: 'gm-receding', text: '잇몸이 내려갔어요 (치아가 길어 보여요)', icon: 'fa-arrow-down' },
+        { id: 'gm-loose', text: '치아가 흔들려요', icon: 'fa-random' },
+        { id: 'gm-smell', text: '구취(입냄새)가 심해요', icon: 'fa-wind' },
+        { id: 'gm-pain', text: '잇몸이 욱신욱신 아파요', icon: 'fa-bolt' }
+      ],
+      treatments: {
+        'gm-bleed': [
+          { slug: 'scaling', name: '스케일링', match: '최적', desc: '치석 제거로 잇몸 건강을 회복합니다.', icon: 'fa-broom' },
+          { slug: 'gum', name: '잇몸치료', match: '적합', desc: '잇몸 염증이 깊은 경우 전문 치료.', icon: 'fa-hand-holding-medical' }
+        ],
+        'gm-swollen': [
+          { slug: 'gum', name: '잇몸치료', match: '최적', desc: '부종의 원인을 찾아 정밀 치료.', icon: 'fa-hand-holding-medical' },
+          { slug: 'scaling', name: '스케일링', match: '적합', desc: '치석이 원인이라면 스케일링부터.', icon: 'fa-broom' }
+        ],
+        'gm-receding': [
+          { slug: 'gum-surgery', name: '잇몸수술', match: '최적', desc: '내려간 잇몸을 수술로 보정합니다.', icon: 'fa-scalpel' },
+          { slug: 'gum', name: '잇몸치료', match: '적합', desc: '진행을 멈추는 보존 치료.', icon: 'fa-hand-holding-medical' }
+        ],
+        'gm-loose': [
+          { slug: 'periodontitis', name: '치주염 치료', match: '최적', desc: '긴급! 흔들리는 치아를 최대한 보존합니다.', icon: 'fa-disease' },
+          { slug: 'implant', name: '임플란트', match: '참고', desc: '보존 불가 시 임플란트로 대체.', icon: 'fa-tooth' }
+        ],
+        'gm-smell': [
+          { slug: 'scaling', name: '스케일링', match: '최적', desc: '구취의 주요 원인인 치석과 세균 제거.', icon: 'fa-broom' },
+          { slug: 'gum', name: '잇몸치료', match: '적합', desc: '만성 잇몸 질환이 원인일 수 있습니다.', icon: 'fa-hand-holding-medical' }
+        ],
+        'gm-pain': [
+          { slug: 'gum', name: '잇몸치료', match: '최적', desc: '통증 원인을 정밀 진단합니다.', icon: 'fa-hand-holding-medical' },
+          { slug: 'root-canal', name: '신경치료', match: '참고', desc: '치아 내부 문제일 수 있습니다.', icon: 'fa-syringe' }
+        ]
+      }
+    },
+    'whole': {
+      title: '전체/교합 증상',
+      symptoms: [
+        { id: 'wh-crooked', text: '전체적으로 치아가 삐뚤어요', icon: 'fa-random' },
+        { id: 'wh-overbite', text: '위아래 치아가 안 맞아요', icon: 'fa-arrows-alt-v' },
+        { id: 'wh-yellow', text: '전체적으로 치아가 누래요', icon: 'fa-palette' },
+        { id: 'wh-multiple', text: '여러 개 치아가 빠졌어요', icon: 'fa-minus-circle' },
+        { id: 'wh-checkup', text: '오랫동안 치과를 안 갔어요', icon: 'fa-calendar-times' }
+      ],
+      treatments: {
+        'wh-crooked': [
+          { slug: 'invisalign', name: '인비절라인', match: '최적', desc: '투명교정으로 보이지 않게 가지런하게.', icon: 'fa-teeth-open' },
+          { slug: 'orthodontics', name: '치아교정', match: '적합', desc: '장치교정으로 정확한 교합까지 맞춤.', icon: 'fa-teeth' }
+        ],
+        'wh-overbite': [
+          { slug: 'orthodontics', name: '치아교정', match: '최적', desc: '교합 불균형을 근본적으로 해결.', icon: 'fa-teeth' },
+          { slug: 'invisalign', name: '인비절라인', match: '적합', desc: '경미한 부정교합은 투명교정으로.', icon: 'fa-teeth-open' }
+        ],
+        'wh-yellow': [
+          { slug: 'whitening', name: '미백', match: '최적', desc: '전문 미백으로 환한 미소를 되찾으세요.', icon: 'fa-sun' },
+          { slug: 'scaling', name: '스케일링', match: '참고', desc: '치석 제거로 기본적인 색상 회복.', icon: 'fa-broom' }
+        ],
+        'wh-multiple': [
+          { slug: 'implant', name: '임플란트', match: '최적', desc: '다수 치아를 안정적으로 복원.', icon: 'fa-tooth' },
+          { slug: 'denture', name: '틀니', match: '적합', desc: '전체 또는 부분 틀니 옵션.', icon: 'fa-teeth' }
+        ],
+        'wh-checkup': [
+          { slug: 'cavity', name: '종합검진+충치', match: '최적', desc: '전체 구강 상태를 점검하고 치료 계획을 세웁니다.', icon: 'fa-fill-drip' },
+          { slug: 'scaling', name: '스케일링', match: '적합', desc: '오래 안 갔다면 스케일링부터 시작!', icon: 'fa-broom' }
+        ]
+      }
+    },
+    'child': {
+      title: '소아 증상',
+      symptoms: [
+        { id: 'ch-cavity', text: '아이 치아에 충치가 있어요', icon: 'fa-exclamation-circle' },
+        { id: 'ch-crooked', text: '아이 치아가 고르지 않아요', icon: 'fa-random' },
+        { id: 'ch-afraid', text: '아이가 치과를 무서워해요', icon: 'fa-sad-tear' },
+        { id: 'ch-loose', text: '유치가 안 빠져요', icon: 'fa-clock' },
+        { id: 'ch-checkup', text: '아이 첫 치과 방문이에요', icon: 'fa-baby' }
+      ],
+      treatments: {
+        'ch-cavity': [
+          { slug: 'pediatric', name: '소아치과', match: '최적', desc: '소아 전문의가 아이 눈높이에서 치료합니다.', icon: 'fa-baby' }
+        ],
+        'ch-crooked': [
+          { slug: 'pediatric', name: '소아교정 상담', match: '최적', desc: '적절한 교정 시기와 방법을 상담합니다.', icon: 'fa-baby' },
+          { slug: 'invisalign', name: '인비절라인 퍼스트', match: '적합', desc: '성장기 아이를 위한 투명교정.', icon: 'fa-teeth-open' }
+        ],
+        'ch-afraid': [
+          { slug: 'pediatric', name: '소아치과', match: '최적', desc: '아이 전문 의료진이 편안한 환경을 만들어 줍니다.', icon: 'fa-baby' },
+          { slug: 'sedation', name: '수면치과', match: '참고', desc: '극도의 공포 시 수면 하 진료 가능.', icon: 'fa-bed' }
+        ],
+        'ch-loose': [
+          { slug: 'pediatric', name: '소아치과', match: '최적', desc: '유치 발치 시기를 판단하고 안전하게 처리.', icon: 'fa-baby' }
+        ],
+        'ch-checkup': [
+          { slug: 'pediatric', name: '소아치과 검진', match: '최적', desc: '첫 방문부터 즐거운 경험을 선사합니다.', icon: 'fa-baby' }
+        ]
+      }
+    },
+    'jaw': {
+      title: '턱/관절 증상',
+      symptoms: [
+        { id: 'jw-click', text: '입 벌릴 때 턱에서 소리가 나요', icon: 'fa-volume-up' },
+        { id: 'jw-pain', text: '턱이 아파요', icon: 'fa-bolt' },
+        { id: 'jw-lock', text: '입이 잘 안 벌어져요', icon: 'fa-lock' },
+        { id: 'jw-grind', text: '잘 때 이를 갈아요', icon: 'fa-moon' },
+        { id: 'jw-headache', text: '두통/편두통이 자주 있어요', icon: 'fa-head-side-virus' }
+      ],
+      treatments: {
+        'jw-click': [
+          { slug: 'tmj', name: '턱관절 치료', match: '최적', desc: '턱관절 장애의 원인을 진단합니다.', icon: 'fa-head-side' },
+          { slug: 'bruxism', name: '이갈이 치료', match: '참고', desc: '이갈이가 원인일 수 있습니다.', icon: 'fa-compress' }
+        ],
+        'jw-pain': [
+          { slug: 'tmj', name: '턱관절 치료', match: '최적', desc: '정밀 검사로 통증 원인을 찾습니다.', icon: 'fa-head-side' }
+        ],
+        'jw-lock': [
+          { slug: 'tmj', name: '턱관절 치료', match: '최적', desc: '개구 제한의 원인을 진단하고 치료.', icon: 'fa-head-side' }
+        ],
+        'jw-grind': [
+          { slug: 'bruxism', name: '이갈이 치료', match: '최적', desc: '나이트가드 제작 등 맞춤 치료.', icon: 'fa-compress' },
+          { slug: 'tmj', name: '턱관절 치료', match: '참고', desc: '턱관절에 영향을 줄 수 있어 함께 관리.', icon: 'fa-head-side' }
+        ],
+        'jw-headache': [
+          { slug: 'tmj', name: '턱관절 치료', match: '최적', desc: '만성 두통은 턱관절 문제일 수 있습니다.', icon: 'fa-head-side' },
+          { slug: 'bruxism', name: '이갈이/이악물기', match: '적합', desc: '수면 중 이악물기가 두통 원인일 수 있습니다.', icon: 'fa-compress' }
+        ]
+      }
+    }
+  };
+
+  // 카테고리 → API category 매핑
+  var SLUG_TO_API_CAT = {
+    'glownate':'glownate','invisalign':'invisalign','orthodontics':'orthodontics',
+    'implant':'implant','crown':'crown','resin':'resin','cavity':'cavity',
+    'inlay':'inlay','whitening':'whitening','scaling':'scaling','gum':'gum',
+    'periodontitis':'periodontitis','gum-surgery':'gum-surgery',
+    'wisdom-tooth':'wisdom-tooth','root-canal':'root-canal','bridge':'bridge',
+    'denture':'denture','sedation':'sedation','tmj':'tmj','bruxism':'bruxism',
+    'aesthetic':'aesthetic','pediatric':'pediatric'
+  };
+
+  var selectedArea = null;
+  var selectedSymptoms = [];
+
+  // ── STEP 1: 부위 선택 ──
+  document.querySelectorAll('.sc-area-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.sc-area-btn').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      selectedArea = btn.getAttribute('data-area');
+      document.getElementById('btnStep1Next').disabled = false;
+    });
+  });
+
+  document.getElementById('btnStep1Next').addEventListener('click', function() {
+    if (!selectedArea) return;
+    goStep(2);
+  });
+
+  document.getElementById('btnStep2Next').addEventListener('click', function() {
+    if (selectedSymptoms.length === 0) return;
+    showResults();
+  });
+
+  function goStep(step) {
+    document.getElementById('step1').style.display = step === 1 ? 'block' : 'none';
+    document.getElementById('step2').style.display = step === 2 ? 'block' : 'none';
+    document.getElementById('step3').style.display = step === 3 ? 'block' : 'none';
+
+    document.querySelectorAll('.sc-step-dot').forEach(function(d) {
+      d.classList.toggle('active', parseInt(d.getAttribute('data-step')) <= step);
+    });
+
+    if (step === 2) buildSymptomList();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function buildSymptomList() {
+    var data = SYMPTOM_DB[selectedArea];
+    if (!data) return;
+    document.getElementById('step2Title').textContent = data.title + ' — 해당하는 증상을 모두 선택해주세요';
+    var list = document.getElementById('symptomList');
+    list.innerHTML = '';
+    selectedSymptoms = [];
+    document.getElementById('btnStep2Next').disabled = true;
+
+    data.symptoms.forEach(function(s) {
+      var btn = document.createElement('button');
+      btn.className = 'sc-symptom-btn';
+      btn.type = 'button';
+      btn.innerHTML = '<span class="sc-sym-check"><i class="fas fa-check"></i></span>' +
+        '<i class="fas ' + s.icon + '" style="color:#C8A97E;font-size:0.85rem;"></i> ' + s.text;
+      btn.addEventListener('click', function() {
+        btn.classList.toggle('selected');
+        if (btn.classList.contains('selected')) {
+          selectedSymptoms.push(s.id);
+        } else {
+          selectedSymptoms = selectedSymptoms.filter(function(x) { return x !== s.id; });
+        }
+        document.getElementById('btnStep2Next').disabled = selectedSymptoms.length === 0;
+      });
+      list.appendChild(btn);
+    });
+  }
+
+  function showResults() {
+    goStep(3);
+    var data = SYMPTOM_DB[selectedArea];
+    if (!data) return;
+
+    // 추천 치료 수집 (중복 제거, 최적 우선)
+    var txMap = {};
+    var matchOrder = { '최적': 0, '적합': 1, '참고': 2 };
+    selectedSymptoms.forEach(function(symId) {
+      var txList = data.treatments[symId] || [];
+      txList.forEach(function(tx) {
+        if (!txMap[tx.slug] || matchOrder[tx.match] < matchOrder[txMap[tx.slug].match]) {
+          txMap[tx.slug] = tx;
+        }
+      });
+    });
+
+    var sortedTx = Object.values(txMap).sort(function(a, b) {
+      return (matchOrder[a.match] || 9) - (matchOrder[b.match] || 9);
+    });
+
+    // 결과 HTML 생성
+    var container = document.getElementById('step3');
+    var txHtml = '';
+    sortedTx.forEach(function(tx) {
+      txHtml +=
+        '<div class="sc-treatment-card" data-slug="' + tx.slug + '">' +
+          '<div class="sc-tx-header">' +
+            '<div class="sc-tx-icon"><i class="fas ' + tx.icon + '"></i></div>' +
+            '<div><span class="sc-tx-name">' + tx.name + '</span><span class="sc-tx-match">' + tx.match + '</span></div>' +
+          '</div>' +
+          '<div class="sc-tx-desc">' + tx.desc + '</div>' +
+          '<div class="sc-tx-actions">' +
+            '<a href="/reservation?ref_category=' + encodeURIComponent(tx.name) + '" class="sc-tx-btn sc-tx-btn-primary"><i class="fas fa-calendar-check"></i> 이 치료 상담받기</a>' +
+            '<a href="/treatments/' + tx.slug + '" class="sc-tx-btn sc-tx-btn-outline"><i class="fas fa-info-circle"></i> 상세 안내</a>' +
+          '</div>' +
+          '<div class="sc-cases-wrap" id="cases-' + tx.slug + '"></div>' +
+        '</div>';
+    });
+
+    container.innerHTML =
+      '<div class="sc-card sc-result">' +
+        '<div class="sc-result-header">' +
+          '<h2><i class="fas fa-clipboard-check" style="color:#C8A97E;margin-right:8px;"></i>맞춤 치료 추천 결과</h2>' +
+          '<p>선택하신 증상을 기반으로 추천드리는 치료입니다</p>' +
+        '</div>' +
+        txHtml +
+        '<div class="sc-cta-section">' +
+          '<h3>어떤 치료가 맞을지 고민되시나요?</h3>' +
+          '<p>전문 상담사가 무료로 상담해드립니다</p>' +
+          '<a href="/reservation" class="sc-cta-btn"><i class="fas fa-calendar-check"></i> 무료 상담 예약하기</a>' +
+        '</div>' +
+        '<div class="sc-nav-btns" style="justify-content:center">' +
+          '<button class="sc-nav-btn sc-nav-prev" onclick="location.reload()"><i class="fas fa-redo"></i> <span>처음부터 다시하기</span></button>' +
+        '</div>' +
+      '</div>';
+    container.style.display = 'block';
+
+    // 각 치료별 실제 케이스 로드
+    sortedTx.forEach(function(tx) {
+      loadCasesForTreatment(tx.slug);
+    });
+  }
+
+  function loadCasesForTreatment(slug) {
+    var apiCat = SLUG_TO_API_CAT[slug] || slug;
+    fetch('/api/cases?category=' + encodeURIComponent(apiCat))
+      .then(function(r) { return r.json(); })
+      .then(function(cases) {
+        if (!cases || !cases.length) return;
+        var wrap = document.getElementById('cases-' + slug);
+        if (!wrap) return;
+
+        var maxCases = Math.min(cases.length, 4);
+        var cardsHtml = '';
+        for (var i = 0; i < maxCases; i++) {
+          var cs = cases[i];
+          var imgSrc = cs.beforeImage || cs.thumbnailImage || '';
+          cardsHtml +=
+            '<a href="/cases/gallery" class="sc-case-card">' +
+              '<div class="sc-case-img">' +
+                (imgSrc ? '<img src="' + imgSrc + '" alt="' + (cs.title || '') + '" loading="lazy">' : '') +
+              '</div>' +
+              '<div class="sc-case-body">' +
+                '<div class="sc-case-title">' + (cs.title || '케이스') + '</div>' +
+                '<div class="sc-case-meta">' +
+                  (cs.doctorName ? '<span><i class="fas fa-user-md"></i> ' + cs.doctorName + '</span>' : '') +
+                  (cs.patientAge ? '<span><i class="fas fa-user"></i> ' + cs.patientAge + '</span>' : '') +
+                '</div>' +
+              '</div>' +
+            '</a>';
+        }
+
+        wrap.innerHTML =
+          '<div class="sc-cases-section">' +
+            '<div class="sc-cases-title"><i class="fas fa-images"></i> 실제 치료 케이스 (' + cases.length + '건)</div>' +
+            '<div class="sc-cases-grid">' + cardsHtml + '</div>' +
+          '</div>';
+      })
+      .catch(function() {});
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -3542,6 +3542,7 @@ app.get('/blueprint', serveStatic({ path: './blueprint.html' }))
 // 게임 (플레이)
 app.get('/flight', serveStatic({ path: './flight.html' }))
 app.get('/checkup', serveStatic({ path: './checkup.html' }))
+app.get('/symptom-checker', serveStatic({ path: './symptom-checker.html' }))
 app.get('/run', serveStatic({ path: './run.html' }))
 app.get('/games', serveStatic({ path: './games.html' }))
 

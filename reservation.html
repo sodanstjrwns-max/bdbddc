@@ -585,6 +585,18 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
                 <label class="f-label">연락처 <span class="req">*</span></label>
                 <input type="tel" id="rsvPhone" class="f-input" placeholder="010-0000-0000" required>
               </div>
+              <!-- #8 케이스 참조 카드 (쿼리 파라미터로 전달됨) -->
+              <div id="refCaseCard" style="display:none;background:linear-gradient(135deg,#faf7f4,#f5ede4);border:1px solid #e0d5c8;border-radius:14px;padding:14px 16px;margin-bottom:16px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5E3C);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.7rem;flex-shrink:0;"><i class="fas fa-images"></i></div>
+                  <div>
+                    <div style="font-size:0.72rem;color:#A8A29E;font-weight:600;">참고 케이스</div>
+                    <div id="refCaseTitle" style="font-size:0.88rem;font-weight:700;color:#333;"></div>
+                  </div>
+                  <button type="button" id="refCaseRemove" style="margin-left:auto;background:none;border:none;color:#A8A29E;cursor:pointer;font-size:0.8rem;padding:4px;" title="제거"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="refCaseMeta" style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.75rem;color:#78716c;"></div>
+              </div>
               <div class="f-group">
                 <label class="f-label">증상 또는 문의사항</label>
                 <textarea id="rsvMsg" class="f-textarea" placeholder="증상이나 궁금하신 점을 입력해주세요"></textarea>
@@ -804,6 +816,49 @@ function hideMsg(){errEl.className='rsv-msg';sucEl.className='rsv-msg';}
 (function(){
   var d=document.getElementById('rsvDate');
   if(d){var t=new Date();d.min=t.toISOString().split('T')[0];}
+})();
+
+// #8 케이스 참조 자동 첨부
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var refCase=params.get('ref_case');
+  var refTitle=params.get('ref_title');
+  var refDoctor=params.get('ref_doctor');
+  var refCategory=params.get('ref_category');
+  if(!refCase||!refTitle) return;
+
+  var card=document.getElementById('refCaseCard');
+  var titleEl=document.getElementById('refCaseTitle');
+  var metaEl=document.getElementById('refCaseMeta');
+  var msgEl=document.getElementById('rsvMsg');
+  if(!card||!titleEl) return;
+
+  titleEl.textContent=refTitle;
+  var metaTags='';
+  if(refCategory) metaTags+='<span style="background:rgba(107,66,38,0.08);padding:2px 8px;border-radius:20px;"><i class="fas fa-tooth" style="color:#C8A97E;margin-right:3px;"></i>'+refCategory+'</span>';
+  if(refDoctor) metaTags+='<span style="background:rgba(107,66,38,0.08);padding:2px 8px;border-radius:20px;"><i class="fas fa-user-md" style="color:#C8A97E;margin-right:3px;"></i>'+refDoctor+'</span>';
+  metaEl.innerHTML=metaTags;
+  card.style.display='block';
+
+  // 텍스트 영역에 자동 메시지
+  if(!msgEl.value) {
+    msgEl.value='[참고 케이스: '+refTitle+'] 이 케이스와 비슷한 상담을 받고 싶습니다.';
+  }
+
+  // 진료 항목 자동 선택 (카테고리 매칭)
+  var catMap={'임플란트':'implant','인비절라인':'invisalign','치아교정':'orthodontics','소아치과':'pediatric','글로우네이트':'glownate','충치치료':'cavity','미백':'whitening','잇몸치료':'gum'};
+  var txVal=catMap[refCategory]||'';
+  if(txVal){
+    var radio=document.querySelector('input[name="treatment"][value="'+txVal+'"]');
+    if(radio){radio.checked=true;rsvGo(2);}
+  }
+
+  // 제거 버튼
+  document.getElementById('refCaseRemove').addEventListener('click',function(){
+    card.style.display='none';
+    msgEl.value='';
+    window.history.replaceState({},'','/reservation');
+  });
 })();
 
 // Phone auto-format

@@ -9,7 +9,7 @@ const staticFiles = [
   'sitemap.xml','sitemap-main.xml','sitemap-area.xml','sitemap-encyclopedia.xml',
   'robots.txt','6f74445f7ec14eccb522a4d3f253128c.txt','bdbddc2026indexnow.txt',
   'blueprint.html','llms.txt','llms-full.txt',
-  'flight.html','games.html','run.html','careers.html','_redirects'
+  'flight.html','games.html','run.html','careers.html','symptom-checker.html','_redirects'
 ];
 staticFiles.forEach(f => {
   try { fs.copyFileSync(f, 'dist/' + f); } catch(e) {}
