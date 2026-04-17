@@ -251,15 +251,19 @@
 .philosophy-card,
 .type-card,
 .review-card,
-.why-hero-card {
+.why-hero-card,
+.tl-card {
   --glow-x: 50%;
   --glow-y: 50%;
+  position: relative;
+  overflow: hidden;
 }
 .treatment-card::after,
 .why-card::after,
 .philosophy-card::after,
 .type-card::after,
-.why-hero-card::after {
+.why-hero-card::after,
+.tl-card::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -278,7 +282,8 @@
 .why-card:hover::after,
 .philosophy-card:hover::after,
 .type-card:hover::after,
-.why-hero-card:hover::after {
+.why-hero-card:hover::after,
+.tl-card:hover::after {
   opacity: 1;
 }
 /* review-card는 position이 relative일 때만 동작 */
@@ -367,7 +372,8 @@
   .floor-item:hover, .video-stat:hover { transform: none !important; }
   .mi-phone-shake, .mi-bounce-up { animation: none !important; }
   .treatment-card::after, .why-card::after, .philosophy-card::after,
-  .type-card::after, .why-hero-card::after, .review-card::after { display: none; }
+  .type-card::after, .why-hero-card::after, .review-card::after,
+  .tl-card::after { display: none; }
   .mi-scroll-progress { display: none; }
   .hero-cta-group .btn::after, .btn-primary.btn-lg::after { display: none; }
 }
@@ -375,6 +381,7 @@
 /* 모바일에서 글로우/샤인 비활성화 (터치 기기) */
 @media (hover: none) {
   .treatment-card::after, .why-card::after, .philosophy-card::after,
-  .type-card::after, .why-hero-card::after, .review-card::after { display: none !important; }
+  .type-card::after, .why-hero-card::after, .review-card::after,
+  .tl-card::after { display: none !important; }
   .hero-cta-group .btn::after, .btn-primary.btn-lg::after { display: none !important; }
 }

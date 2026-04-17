@@ -217,7 +217,7 @@
   function initMouseGlow() {
     // 카드에 마우스 따라다니는 은은한 빛
     var glowTargets = document.querySelectorAll(
-      '.treatment-card, .why-card, .philosophy-card, .type-card, .review-card, .why-hero-card'
+      '.treatment-card, .why-card, .philosophy-card, .type-card, .review-card, .why-hero-card, .tl-card'
     );
 
     if (!glowTargets.length) return;
