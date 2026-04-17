@@ -130,12 +130,12 @@
         '.photo-lightbox{display:none;position:fixed;inset:0;z-index:10001;align-items:center;justify-content:center;}' +
         '.photo-lightbox.active{display:flex;}' +
         '.lb-backdrop{position:absolute;inset:0;background:rgba(10,8,6,0.94);cursor:pointer;}' +
-        '.lb-container{position:relative;width:94%;max-width:860px;height:90vh;display:flex;flex-direction:column;z-index:1;overflow:hidden;}' +
+        '.lb-container{position:relative;width:94%;max-width:860px;height:90vh;display:flex;flex-direction:column;align-items:center;z-index:1;overflow:hidden;}' +
         '.lb-close{position:absolute;top:-12px;right:-12px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all .25s cubic-bezier(.22,1,.36,1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}' +
         '.lb-close:hover{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);transform:scale(1.08);}' +
 
         /* ── v17 커튼 슬라이더 ── */
-        '.lb-slider-wrap{position:relative;flex:1 1 auto;min-height:100px;overflow:hidden;}' +
+        '.lb-slider-wrap{position:relative;flex:1 1 auto;min-height:100px;overflow:hidden;width:100%;display:flex;flex-direction:column;align-items:center;}' +
         '.lb-slider{position:relative;border-radius:16px;overflow:hidden;background:#0a0806;cursor:col-resize;user-select:none;-webkit-user-select:none;touch-action:none;box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.06);}' +
 
         /* 레이어 공통 — 둘 다 동일 크기 */
@@ -161,7 +161,7 @@
         '.lb-label-a{right:16px;background:rgba(200,169,126,0.75);color:#fff;}' +
 
         /* ── 힌트 ── */
-        '.lb-hint{text-align:center;color:rgba(255,255,255,0.4);font-size:0.8rem;margin-top:10px;transition:opacity .6s;letter-spacing:0.02em;}' +
+        '.lb-hint{text-align:center;color:rgba(255,255,255,0.4);font-size:0.8rem;margin-top:8px;transition:opacity .6s;letter-spacing:0.02em;flex-shrink:0;}' +
         '.lb-hint i{margin-right:8px;color:rgba(200,169,126,0.6);}' +
 
         /* ── 잠금 ── */
@@ -186,21 +186,21 @@
         '.lb-tab .lb-tab-icon{margin-right:6px;}' +
 
         /* ── 상세 정보 패널 v20 ── */
-        '.lb-info{padding:14px 12px 10px;color:rgba(255,255,255,0.7);font-size:0.85rem;flex:0 0 auto;min-height:160px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,169,126,0.3) transparent;}' +
+        '.lb-info{padding:14px 16px 10px;color:rgba(255,255,255,0.7);font-size:0.85rem;flex:0 0 auto;min-height:160px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(200,169,126,0.3) transparent;width:100%;}' +
         '.lb-info::-webkit-scrollbar{width:5px;}' +
         '.lb-info::-webkit-scrollbar-thumb{background:rgba(200,169,126,0.3);border-radius:4px;}' +
-        '.lb-info-header{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px;}' +
-        '.lb-info-title-area{flex:1;min-width:200px;}' +
+        '.lb-info-header{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px;justify-content:center;text-align:center;}' +
+        '.lb-info-title-area{flex:1;min-width:200px;display:flex;flex-direction:column;align-items:center;}' +
         '.lb-info-title{color:#fff;font-size:1.1rem;font-weight:800;margin:0 0 8px;line-height:1.4;}' +
-        '.lb-info-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}' +
+        '.lb-info-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;}' +
         '.lb-info-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:50px;font-size:0.72rem;font-weight:600;border:1px solid rgba(255,255,255,0.08);}' +
         '.lb-info-tag i{font-size:0.62rem;}' +
         '.lb-info-tag.cat{background:rgba(200,169,126,0.15);color:#C8A97E;border-color:rgba(200,169,126,0.2);}' +
         '.lb-info-tag.period{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);}' +
         '.lb-info-tag.region{background:rgba(100,180,255,0.1);color:rgba(140,195,255,0.9);}' +
         '.lb-info-tag.patient{background:rgba(180,140,255,0.1);color:rgba(190,160,255,0.9);}' +
-        '.lb-info-desc{margin:12px 0;padding:12px 16px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.06);line-height:1.75;color:rgba(255,255,255,0.65);font-size:0.82rem;white-space:pre-line;}' +
-        '.lb-info-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);}' +
+        '.lb-info-desc{margin:10px 0;padding:12px 16px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.06);line-height:1.75;color:rgba(255,255,255,0.65);font-size:0.82rem;white-space:pre-line;text-align:left;}' +
+        '.lb-info-footer{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);}' +
         '.lb-info-doctor{display:flex;align-items:center;gap:10px;text-decoration:none;color:rgba(255,255,255,0.7);transition:color .2s;}' +
         '.lb-info-doctor:hover{color:#C8A97E;}' +
         '.lb-info-doctor-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.82rem;flex-shrink:0;}' +
