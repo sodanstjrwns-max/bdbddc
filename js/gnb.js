@@ -79,6 +79,144 @@
     }
 
     // ========================================
+    // 통일 메뉴 동적 주입 (모든 페이지에서 동일한 메뉴 보장)
+    // ========================================
+    function syncNavMenus() {
+        // ── 데스크탑 메뉴 (canonical) ──
+        var mainNav = document.getElementById('mainNav');
+        if (mainNav) {
+            mainNav.innerHTML =
+            '<ul>' +
+            // 진료 (mega dropdown)
+            '<li class="nav-item has-dropdown"><a href="/treatments/">진료</a>' +
+            '<div class="mega-dropdown"><div class="mega-dropdown-grid">' +
+            '<div class="mega-dropdown-section"><strong class="section-heading">전문센터</strong><ul>' +
+            '<li><a href="/treatments/glownate">✨ 글로우네이트</a></li>' +
+            '<li><a href="/treatments/implant">임플란트 <span class="badge">6개 수술실</span></a></li>' +
+            '<li><a href="/treatments/invisalign">인비절라인 <span class="badge">다이아몬드</span></a></li>' +
+            '<li><a href="/treatments/orthodontics">치아교정 <span class="badge">장치교정</span></a></li>' +
+            '<li><a href="/treatments/pediatric">소아치과 <span class="badge">전문의 3인</span></a></li>' +
+            '<li><a href="/treatments/aesthetic">심미레진</a></li>' +
+            '</ul></div>' +
+            '<div class="mega-dropdown-section"><strong class="section-heading">일반/보존 진료</strong><ul>' +
+            '<li><a href="/treatments/cavity">충치치료</a></li>' +
+            '<li><a href="/treatments/resin">레진치료</a></li>' +
+            '<li><a href="/treatments/crown">크라운</a></li>' +
+            '<li><a href="/treatments/inlay">인레이/온레이</a></li>' +
+            '<li><a href="/treatments/root-canal">신경치료</a></li>' +
+            '<li><a href="/treatments/whitening">미백</a></li>' +
+            '</ul></div>' +
+            '<div class="mega-dropdown-section"><strong class="section-heading">잇몸/외과</strong><ul>' +
+            '<li><a href="/treatments/scaling">스케일링</a></li>' +
+            '<li><a href="/treatments/gum">잇몸치료</a></li>' +
+            '<li><a href="/treatments/periodontitis">치주염</a></li>' +
+            '<li><a href="/treatments/wisdom-tooth">사랑니 발치</a></li>' +
+            '<li><a href="/treatments/tmj">턱관절장애</a></li>' +
+            '<li><a href="/treatments/bruxism">이갈이/이악물기</a></li>' +
+            '</ul></div>' +
+            '</div></div></li>' +
+            // 의료진
+            '<li class="nav-item"><a href="/doctors/">의료진</a></li>' +
+            // 비디미션
+            '<li class="nav-item"><a href="/mission">비디미션</a></li>' +
+            // 콘텐츠
+            '<li class="nav-item has-dropdown"><a href="/cases/gallery">콘텐츠</a>' +
+            '<ul class="simple-dropdown">' +
+            '<li><a href="/cases/gallery" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>' +
+            '<li><a href="/symptom-checker" style="color:#EC4899;font-weight:600;">🩺 AI 증상체커</a></li>' +
+            '<li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li>' +
+            '<li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>' +
+            '<li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>' +
+            '<li><a href="/column/"><i class="fas fa-pen-nib"></i> 원장 컬럼</a></li>' +
+            '</ul></li>' +
+            // 안내
+            '<li class="nav-item has-dropdown"><a href="/directions">안내</a>' +
+            '<ul class="simple-dropdown">' +
+            '<li><a href="/pricing" class="nav-highlight">💰 비용 안내</a></li>' +
+            '<li><a href="/floor-guide">비디치과 둘러보기</a></li>' +
+            '<li><a href="/directions">오시는 길</a></li>' +
+            '<li><a href="/faq">자주 묻는 질문</a></li>' +
+            '<li><a href="/notice/"><i class="fas fa-bullhorn"></i> 공지사항</a></li>' +
+            '<li><a href="/careers"><i class="fas fa-user-tie"></i> 상시채용</a></li>' +
+            '</ul></li>' +
+            // 플레이
+            '<li class="nav-item has-dropdown"><a href="/games" style="color:#EC4899;font-weight:700;">🎮 플레이</a>' +
+            '<ul class="simple-dropdown">' +
+            '<li><a href="/flight"><i class="fas fa-rocket"></i> 치석 플라이트</a></li>' +
+            '<li><a href="/run"><i class="fas fa-running"></i> 투쓰런</a></li>' +
+            '<li><a href="/checkup"><i class="fas fa-dna"></i> 치BTI</a></li>' +
+            '<li><a href="/games"><i class="fas fa-th"></i> 전체 게임</a></li>' +
+            '</ul></li>' +
+            '</ul>';
+        }
+
+        // ── 모바일 메뉴 (canonical) ──
+        var mobileMenu = document.querySelector('.mobile-nav-menu');
+        if (mobileMenu) {
+            mobileMenu.innerHTML =
+            // 진료
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
+            '<i class="fas fa-tooth"></i> 진료 <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/treatments/">전체 진료</a></li>' +
+            '<li class="submenu-divider">전문센터</li>' +
+            '<li><a href="/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>' +
+            '<li><a href="/treatments/implant">임플란트센터</a></li>' +
+            '<li><a href="/treatments/invisalign">인비절라인</a></li>' +
+            '<li><a href="/treatments/orthodontics">치아교정</a></li>' +
+            '<li><a href="/treatments/pediatric">소아치과</a></li>' +
+            '<li><a href="/treatments/aesthetic">심미레진</a></li>' +
+            '<li class="submenu-divider">일반 진료</li>' +
+            '<li><a href="/treatments/cavity">충치치료</a></li>' +
+            '<li><a href="/treatments/resin">레진치료</a></li>' +
+            '<li><a href="/treatments/scaling">스케일링</a></li>' +
+            '<li><a href="/treatments/gum">잇몸치료</a></li>' +
+            '</ul></li>' +
+            // 의료진
+            '<li><a href="/doctors/"><i class="fas fa-user-md"></i> 의료진</a></li>' +
+            // 비디미션
+            '<li><a href="/mission"><i class="fas fa-heart"></i> 비디미션</a></li>' +
+            // 콘텐츠
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
+            '<i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/cases/gallery" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>' +
+            '<li><a href="/symptom-checker" style="color:#EC4899;font-weight:600;">🩺 AI 증상체커</a></li>' +
+            '<li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li>' +
+            '<li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>' +
+            '<li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>' +
+            '<li><a href="/column/"><i class="fas fa-pen-nib"></i> 원장 컬럼</a></li>' +
+            '</ul></li>' +
+            // 안내
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
+            '<i class="fas fa-hospital"></i> 안내 <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/pricing">💰 비용 안내</a></li>' +
+            '<li><a href="/floor-guide">비디치과 둘러보기</a></li>' +
+            '<li><a href="/directions">오시는 길</a></li>' +
+            '<li><a href="/faq">자주 묻는 질문</a></li>' +
+            '<li><a href="/notice/"><i class="fas fa-bullhorn"></i> 공지사항</a></li>' +
+            '<li><a href="/careers"><i class="fas fa-user-tie"></i> 상시채용</a></li>' +
+            '</ul></li>' +
+            // 플레이
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false" style="color:#EC4899;font-weight:700;">' +
+            '🎮 플레이 <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/flight"><i class="fas fa-rocket"></i> 치석 플라이트</a></li>' +
+            '<li><a href="/run"><i class="fas fa-running"></i> 투쓰런</a></li>' +
+            '<li><a href="/checkup"><i class="fas fa-dna"></i> 치BTI</a></li>' +
+            '<li><a href="/games"><i class="fas fa-th"></i> 전체 게임</a></li>' +
+            '</ul></li>' +
+            // 예약
+            '<li><a href="/reservation" class="highlight"><i class="fas fa-calendar-check"></i> 예약하기</a></li>';
+        }
+    }
+
+    // ========================================
     // 헤더 스크롤 효과
     // ========================================
     function initHeaderScroll() {
@@ -350,6 +488,7 @@
     // 초기화
     // ========================================
     function init() {
+        syncNavMenus(); // 메뉴 통일 (가장 먼저 실행)
         updateClinicStatus();
         setInterval(updateClinicStatus, 60000); // 1분마다 업데이트
 
