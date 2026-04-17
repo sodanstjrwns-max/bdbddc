@@ -655,14 +655,16 @@ app.get('/api/cases', async (c) => {
       doctorSlug: DOCTOR_SLUG_MAP[cs.doctorName] || '',
       treatmentPeriod: cs.treatmentPeriod,
       description: cs.description,
+      // ★ 의료법 준수: 비로그인 시 after 이미지 URL 미노출
       beforeImage: cs.beforeImage || '',
-      afterImage: cs.afterImage || '',
+      afterImage: authed ? (cs.afterImage || '') : '',
       panBeforeImage: cs.panBeforeImage || '',
-      panAfterImage: cs.panAfterImage || '',
-      thumbnailImage: cs.beforeImage || cs.afterImage || cs.panBeforeImage || cs.panAfterImage || '',
+      panAfterImage: authed ? (cs.panAfterImage || '') : '',
+      thumbnailImage: cs.beforeImage || (authed ? cs.afterImage : '') || cs.panBeforeImage || (authed ? cs.panAfterImage : '') || '',
       hasIntraoral,
       hasPano,
       hasAnyImage,
+      afterLocked: !authed,
       region: cs.region || '',
       patientGender: cs.patientGender || '',
       patientAge: cs.patientAge || '',
@@ -677,7 +679,7 @@ app.get('/api/cases', async (c) => {
   return c.json(safe)
 })
 
-// [공개] 케이스 상세
+// [공개] 케이스 상세 — ★ 비로그인 시 after 이미지 미노출
 app.get('/api/cases/:id', async (c) => {
   const r2 = c.env.R2
   if (!r2) return c.json({ error: '스토리지 없음' }, 500)
@@ -688,7 +690,22 @@ app.get('/api/cases/:id', async (c) => {
   
   if (!cs) return c.json({ error: '케이스를 찾을 수 없습니다' }, 404)
   
-  return c.json(cs)
+  // 로그인 여부 확인
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const adminToken = getCookie(c, ADMIN_SESSION_COOKIE)
+  const siteToken = getCookie(c, 'bd_session')
+  let authed = false
+  if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
+  if (siteToken && await verifySiteSession(siteToken, secret)) authed = true
+  
+  // ★ 비로그인 시 after 이미지 URL 제거
+  const result = { ...cs, afterLocked: !authed }
+  if (!authed) {
+    result.afterImage = ''
+    result.panAfterImage = ''
+  }
+  
+  return c.json(result)
 })
 
 // [관리자] 케이스 전체 목록 (관리 화면용)
