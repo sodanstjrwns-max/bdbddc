@@ -264,8 +264,9 @@ a.type-card:hover{color:inherit;text-decoration:none}
 
 /* Vertical timeline */
 .tl-vertical{position:relative;max-width:780px;margin:0 auto}
-.tl-step{display:flex;gap:24px;margin-bottom:48px;opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(.25,.46,.45,.94)}
-.tl-step.tl-visible{opacity:1;transform:translateY(0)}
+.tl-step{display:flex;gap:24px;margin-bottom:48px;opacity:1;transform:translateY(0);transition:all .7s cubic-bezier(.25,.46,.45,.94)}
+.tl-animated .tl-step{opacity:0;transform:translateY(40px)}
+.tl-animated .tl-step.tl-visible{opacity:1;transform:translateY(0)}
 .tl-step:last-child{margin-bottom:0}
 
 /* Line segment */
