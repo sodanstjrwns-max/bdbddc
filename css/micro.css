@@ -926,3 +926,709 @@
   .cine-divider { margin: 28px auto; }
   .cine-pull blockquote { font-size: 0.95rem; }
 }
+
+/* ═══════════════════════════════════════════════════
+   PEDIATRIC LUXURY MAGAZINE GALLERY v2.0
+   럭셔리 매거진·에디토리얼 레이아웃 (소아치과 전용)
+   ═══════════════════════════════════════════════════ */
+
+/* ── Base Section ── */
+.pedo-mag {
+  padding: 100px 0 80px;
+  background: #faf9f6;
+  position: relative;
+  overflow: hidden;
+}
+.pedo-mag::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(107,66,38,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(201,169,110,0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+.pedo-mag--warm {
+  background: linear-gradient(180deg, #fef7f0 0%, #faf9f6 40%, #f0faf5 70%, #faf9f6 100%);
+}
+
+/* ── Header ── */
+.pedo-mag__header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+.pedo-mag__eyebrow {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #c9a96e;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.pedo-mag__title {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800;
+  color: #222;
+  line-height: 1.35;
+  margin: 0 0 16px;
+}
+.pedo-mag__accent {
+  background: linear-gradient(135deg, #6B4226 20%, #c9a96e 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.pedo-mag__lead {
+  font-size: 0.95rem;
+  color: #777;
+  line-height: 1.8;
+  margin: 0;
+}
+.pedo-mag__rule {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+.pedo-mag__rule span {
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c9a96e, transparent);
+}
+
+/* ── Tag Label ── */
+.pedo-mag__tag {
+  display: inline-block;
+  padding: 3px 12px;
+  background: rgba(107,66,38,0.9);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+
+/* ── Hero Full-Bleed ── */
+.pedo-mag__hero {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+  overflow: hidden;
+}
+.pedo-mag__hero img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  filter: brightness(0.92) contrast(1.03);
+  transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.pedo-mag__hero:hover img {
+  transform: scale(1.02);
+}
+.pedo-mag__hero-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  right: 40px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 70%, transparent 100%);
+  padding: 80px 32px 28px;
+  border-radius: 0 0 6px 6px;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+}
+.pedo-mag__hero-overlay h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 6px 0 4px;
+  line-height: 1.4;
+}
+.pedo-mag__hero-overlay p {
+  color: rgba(255,255,255,0.78);
+  font-size: 0.82rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Quote Divider ── */
+.pedo-mag__quote {
+  max-width: 640px;
+  margin: 0 auto 52px;
+  padding: 0 24px;
+  text-align: center;
+}
+.pedo-mag__quote blockquote {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #6B4226;
+  line-height: 1.9;
+  margin: 0;
+  position: relative;
+  padding: 0 20px;
+}
+.pedo-mag__quote blockquote::before,
+.pedo-mag__quote blockquote::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: #c9a96e;
+  margin: 0 auto 20px;
+}
+.pedo-mag__quote blockquote::after {
+  margin: 20px auto 0;
+}
+
+/* ── Grid A : 2+1 스택 (시설) ── */
+.pedo-mag__grid-a {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+}
+.pedo-mag__cell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.pedo-mag__cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease, filter 0.5s ease;
+  filter: brightness(0.88) saturate(0.95);
+}
+.pedo-mag__cell:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.95) saturate(1.05);
+}
+.pedo-mag__cell--tall {
+  grid-row: span 2;
+}
+.pedo-mag__cell--tall img {
+  height: 100%;
+  min-height: 400px;
+}
+.pedo-mag__cell--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pedo-mag__cell-inner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  flex: 1;
+}
+.pedo-mag__cell-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease, filter 0.5s ease;
+  filter: brightness(0.88) saturate(0.95);
+}
+.pedo-mag__cell-inner:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.95) saturate(1.05);
+}
+
+/* ── Caption Overlay ── */
+.pedo-mag__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 60px 18px 16px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.4s ease;
+}
+.pedo-mag__cell:hover .pedo-mag__caption,
+.pedo-mag__cell-inner:hover .pedo-mag__caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+.pedo-mag__caption h4 {
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 4px 0 2px;
+  line-height: 1.3;
+}
+.pedo-mag__caption p {
+  color: rgba(255,255,255,0.72);
+  font-size: 0.72rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Cinema Wide ── */
+.pedo-mag__cinema {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+  overflow: hidden;
+}
+.pedo-mag__cinema img {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+  filter: brightness(0.85) saturate(0.92);
+  transition: transform 0.8s ease;
+}
+.pedo-mag__cinema:hover img {
+  transform: scale(1.02);
+}
+.pedo-mag__cinema-cap {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  padding: 64px 28px 22px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+  border-radius: 0 0 4px 4px;
+}
+.pedo-mag__cinema-cap h4 {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 6px 0 3px;
+}
+.pedo-mag__cinema-cap p {
+  color: rgba(255,255,255,0.72);
+  font-size: 0.78rem;
+  margin: 0;
+}
+
+/* ── Grid B : 3컬럼 (진료) ── */
+.pedo-mag__grid-b {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+}
+.pedo-mag__grid-b .pedo-mag__cell img {
+  aspect-ratio: 3 / 4;
+}
+
+/* ── Split : 텍스트+이미지 ── */
+.pedo-mag__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+  align-items: center;
+}
+.pedo-mag__split-img {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.pedo-mag__split-img img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.9) saturate(0.95);
+  transition: transform 0.8s ease;
+}
+.pedo-mag__split-img:hover img {
+  transform: scale(1.03);
+}
+.pedo-mag__split-img .pedo-mag__tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+.pedo-mag__split-text {
+  padding: 40px 48px;
+}
+.pedo-mag__split-text h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #333;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+.pedo-mag__split-text p {
+  font-size: 0.88rem;
+  color: #666;
+  line-height: 1.9;
+  margin: 0 0 24px;
+}
+.pedo-mag__split-sig {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c9a96e;
+  font-weight: 600;
+}
+
+/* ── Duo : 2컬럼 ── */
+.pedo-mag__duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+}
+.pedo-mag__duo .pedo-mag__cell img {
+  aspect-ratio: 16 / 10;
+}
+
+/* ── Scroll Reveal ── */
+.pedo-mag .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.pedo-mag .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══ Responsive ═══ */
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .pedo-mag { padding: 80px 0 60px; }
+  .pedo-mag__hero-overlay h3 { font-size: 1.1rem; }
+  .pedo-mag__split-text { padding: 28px 32px; }
+  .pedo-mag__split-text h3 { font-size: 1.2rem; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .pedo-mag { padding: 64px 0 48px; }
+  .pedo-mag__header { margin-bottom: 40px; }
+  .pedo-mag__eyebrow { font-size: 0.58rem; letter-spacing: 0.25em; }
+  .pedo-mag__lead { font-size: 0.85rem; }
+  .pedo-mag__hero img { aspect-ratio: 16 / 10; }
+  .pedo-mag__hero-overlay { padding: 50px 18px 16px; left: 0; right: 0; }
+  .pedo-mag__hero-overlay h3 { font-size: 0.95rem; }
+  .pedo-mag__hero-overlay p { font-size: 0.72rem; }
+  .pedo-mag__quote blockquote { font-size: 0.92rem; }
+
+  /* 그리드 A: 1컬럼 스택 */
+  .pedo-mag__grid-a {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .pedo-mag__cell--tall { grid-row: span 1; }
+  .pedo-mag__cell--tall img { min-height: auto; aspect-ratio: 4 / 3; }
+  .pedo-mag__cell--stack { flex-direction: row; }
+  .pedo-mag__cell--stack .pedo-mag__cell-inner img { aspect-ratio: 1; }
+
+  /* 그리드 B: 1 + 2 */
+  .pedo-mag__grid-b {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .pedo-mag__grid-b .pedo-mag__cell:first-child {
+    grid-column: span 2;
+  }
+  .pedo-mag__grid-b .pedo-mag__cell:first-child img {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Split: 세로 스택 */
+  .pedo-mag__split {
+    grid-template-columns: 1fr;
+  }
+  .pedo-mag__split-img img { aspect-ratio: 4 / 3; }
+  .pedo-mag__split-text {
+    padding: 24px 16px;
+    text-align: center;
+  }
+  .pedo-mag__split-text h3 { font-size: 1.15rem; }
+  .pedo-mag__split-text p { font-size: 0.82rem; }
+
+  /* Duo: 1컬럼 */
+  .pedo-mag__duo {
+    grid-template-columns: 1fr;
+  }
+
+  /* Cinema */
+  .pedo-mag__cinema img { aspect-ratio: 16 / 9; }
+  .pedo-mag__cinema-cap { padding: 40px 16px 14px; left: 0; right: 0; }
+  .pedo-mag__cinema-cap h4 { font-size: 0.88rem; }
+
+  /* 모바일 캡션 항상 표시 */
+  .pedo-mag__caption {
+    opacity: 1;
+    transform: translateY(0);
+    padding: 36px 12px 10px;
+  }
+  .pedo-mag__caption h4 { font-size: 0.78rem; }
+  .pedo-mag__caption p { font-size: 0.65rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Pastel Luxury Kids Gallery  v1.0
+   — Warm editorial layout for pediatric dentistry
+   ═══════════════════════════════════════════════════════════ */
+
+.kids-gallery {
+  position: relative;
+  padding: 80px 0;
+  background: linear-gradient(180deg, #fefcf9 0%, #f4f0ff 50%, #fef4f0 100%);
+  overflow: hidden;
+}
+
+/* Header */
+.kids-gallery .kids-header {
+  text-align: center;
+  margin-bottom: 48px;
+  padding: 0 20px;
+}
+.kids-gallery .kids-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #7c5cbf;
+  background: rgba(124,92,191,0.08);
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 14px;
+}
+.kids-gallery .kids-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2d2235;
+  line-height: 1.3;
+  margin: 0 0 10px;
+}
+.kids-gallery .kids-title .text-pastel {
+  background: linear-gradient(135deg, #7c5cbf, #e57ba0, #f9a85c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.kids-gallery .kids-subtitle {
+  font-size: 0.92rem;
+  color: #888;
+  font-weight: 400;
+}
+
+/* Polaroid-style grid */
+.kids-mosaic {
+  display: grid;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Polaroid card */
+.kids-card {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+.kids-card:hover {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow: 0 12px 32px rgba(124,92,191,0.15);
+}
+.kids-card .kids-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.kids-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.kids-card:hover img {
+  transform: scale(1.06);
+}
+
+/* Sticker-style tag on image */
+.kids-sticker {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 50px;
+  z-index: 2;
+  letter-spacing: 0.04em;
+}
+.kids-sticker.purple { background: rgba(124,92,191,0.9); color: #fff; }
+.kids-sticker.pink { background: rgba(229,123,160,0.9); color: #fff; }
+.kids-sticker.mint { background: rgba(52,199,163,0.9); color: #fff; }
+.kids-sticker.orange { background: rgba(249,168,92,0.9); color: #fff; }
+.kids-sticker.sky { background: rgba(100,181,246,0.9); color: #fff; }
+
+/* Caption bar below image */
+.kids-card .kids-cap {
+  padding: 12px 14px;
+}
+.kids-cap .kc-title {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.kids-cap .kc-desc {
+  display: block;
+  font-size: 0.72rem;
+  color: #999;
+  line-height: 1.4;
+}
+
+/* Span helpers */
+.kids-card.kids-hero {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.kids-card.kids-wide {
+  grid-column: span 2;
+}
+.kids-card.kids-hero .kids-img-wrap { height: 100%; }
+.kids-card.kids-hero img { min-height: 100%; }
+.kids-card .kids-img-wrap.ks-sq { aspect-ratio: 1 / 1; }
+.kids-card .kids-img-wrap.ks-land { aspect-ratio: 4 / 3; }
+
+/* Cute divider */
+.kids-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: #c9a0dc;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+.kids-divider::before,
+.kids-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #e8d0f0, transparent);
+  border-radius: 1px;
+}
+
+/* Pull-quote */
+.kids-pull {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+  text-align: center;
+}
+.kids-pull blockquote {
+  font-size: 1.15rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #6b5a7e;
+  line-height: 1.9;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.kids-pull cite {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #c080d0;
+  font-style: normal;
+  letter-spacing: 0.08em;
+}
+
+/* Scroll reveal */
+.kids-card {
+  opacity: 0;
+  transform: translateY(32px) rotate(1deg);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+.kids-card.revealed {
+  opacity: 1;
+  transform: translateY(0) rotate(0);
+}
+.kids-card:nth-child(1) { transition-delay: 0s; }
+.kids-card:nth-child(2) { transition-delay: 0.08s; }
+.kids-card:nth-child(3) { transition-delay: 0.16s; }
+.kids-card:nth-child(4) { transition-delay: 0.24s; }
+.kids-card:nth-child(5) { transition-delay: 0.32s; }
+.kids-card:nth-child(6) { transition-delay: 0.4s; }
+.kids-card:nth-child(7) { transition-delay: 0.48s; }
+.kids-card:nth-child(8) { transition-delay: 0.56s; }
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  .kids-mosaic { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .kids-gallery .kids-title { font-size: 1.6rem; }
+  .kids-card.kids-hero { grid-column: span 2; grid-row: span 2; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .kids-gallery { padding: 48px 0; }
+  .kids-gallery .kids-header { margin-bottom: 28px; }
+  .kids-gallery .kids-title { font-size: 1.25rem; }
+  .kids-mosaic {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 12px;
+  }
+  .kids-card.kids-hero {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  .kids-card.kids-hero .kids-img-wrap { aspect-ratio: 16 / 9; }
+  .kids-card.kids-wide { grid-column: span 2; }
+  .kids-card .kids-cap { padding: 10px 12px; }
+  .kids-cap .kc-title { font-size: 0.78rem; }
+  .kids-cap .kc-desc { font-size: 0.68rem; }
+  .kids-divider { margin: 24px auto; }
+  .kids-pull blockquote { font-size: 0.95rem; }
+  .kids-card:hover { transform: none; }
+}
