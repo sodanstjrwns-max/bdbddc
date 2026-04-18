@@ -310,12 +310,11 @@
                 }
             });
         }
-    }
 
-        // 데스크톱 메가 드롭다운 토글 (유지)
-        const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown > a');
-        dropdownItems.forEach(item => {
-            item.addEventListener('click', (e) => {
+        // 데스크톱 메가 드롭다운 토글 (모바일 뷰포트에서만 작동)
+        var dropdownItems = document.querySelectorAll('.nav-item.has-dropdown > a');
+        dropdownItems.forEach(function(item) {
+            item.addEventListener('click', function(e) {
                 if (window.innerWidth <= 992) {
                     e.preventDefault();
                     item.parentElement.classList.toggle('open');
