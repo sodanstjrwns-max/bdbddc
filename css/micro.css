@@ -928,6 +928,384 @@
 }
 
 /* ═══════════════════════════════════════════════════
+   EDITORIAL MAGAZINE GALLERY v3.0  (ed-mag)
+   공통 럭셔리 매거진 레이아웃 — 임플란트·인비절라인·교정
+   ═══════════════════════════════════════════════════ */
+
+/* ── Base Section ── */
+.ed-mag {
+  padding: 100px 0 80px;
+  background: #faf9f6;
+  position: relative;
+  overflow: hidden;
+}
+.ed-mag::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(107,66,38,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(201,169,110,0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ── Dark variant (Implant) ── */
+.ed-mag--dark {
+  background: #0a0a0a;
+}
+.ed-mag--dark::before {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(201,169,110,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(107,66,38,0.04) 0%, transparent 50%);
+}
+.ed-mag--dark .ed-mag__title { color: #f0ece4; }
+.ed-mag--dark .ed-mag__lead { color: #999; }
+.ed-mag--dark .ed-mag__quote blockquote { color: #c9a96e; }
+.ed-mag--dark .ed-mag__split-text h3 { color: #f0ece4; }
+.ed-mag--dark .ed-mag__split-text p { color: #aaa; }
+.ed-mag--dark .ed-mag__split-text { background: rgba(20,20,20,0.5); }
+
+/* ── Header ── */
+.ed-mag__header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+  position: relative; z-index: 1;
+}
+.ed-mag__eyebrow {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #c9a96e;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.ed-mag__title {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800;
+  color: #222;
+  line-height: 1.35;
+  margin: 0 0 16px;
+}
+.ed-mag__accent {
+  background: linear-gradient(135deg, #6B4226 20%, #c9a96e 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.ed-mag__lead {
+  font-size: 0.95rem;
+  color: #777;
+  line-height: 1.8;
+  margin: 0;
+}
+.ed-mag__rule {
+  display: flex; justify-content: center; margin-top: 28px;
+}
+.ed-mag__rule span {
+  width: 50px; height: 2px;
+  background: linear-gradient(90deg, transparent, #c9a96e, transparent);
+}
+
+/* ── Tag ── */
+.ed-mag__tag {
+  display: inline-block;
+  padding: 3px 12px;
+  background: rgba(107,66,38,0.9);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+.ed-mag--dark .ed-mag__tag {
+  background: rgba(201,169,110,0.85);
+  color: #111;
+}
+
+/* ── Hero ── */
+.ed-mag__hero {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+  overflow: hidden;
+}
+.ed-mag__hero img {
+  width: 100%; height: auto;
+  aspect-ratio: 16 / 8;
+  object-fit: cover; display: block;
+  border-radius: 6px;
+  filter: brightness(0.92) contrast(1.03);
+  transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.ed-mag--dark .ed-mag__hero img {
+  filter: brightness(0.80) contrast(1.1) saturate(0.85);
+}
+.ed-mag__hero:hover img { transform: scale(1.02); }
+.ed-mag__hero-overlay {
+  position: absolute;
+  bottom: 0; left: 20px; right: 20px;
+  padding: 80px 32px 28px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 70%, transparent 100%);
+  border-radius: 0 0 6px 6px;
+}
+.ed-mag__hero-overlay h3 {
+  color: #fff; font-size: 1.3rem; font-weight: 700;
+  margin: 6px 0 4px; line-height: 1.4;
+}
+.ed-mag__hero-overlay p {
+  color: rgba(255,255,255,0.78); font-size: 0.82rem;
+  margin: 0; line-height: 1.5;
+}
+
+/* ── Quote ── */
+.ed-mag__quote {
+  max-width: 640px;
+  margin: 0 auto 52px;
+  padding: 0 24px;
+  text-align: center;
+}
+.ed-mag__quote blockquote {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: 300; font-style: italic;
+  color: #6B4226; line-height: 1.9;
+  margin: 0; position: relative; padding: 0 20px;
+}
+.ed-mag__quote blockquote::before,
+.ed-mag__quote blockquote::after {
+  content: ''; display: block;
+  width: 36px; height: 1px;
+  background: #c9a96e;
+  margin: 0 auto 20px;
+}
+.ed-mag__quote blockquote::after { margin: 20px auto 0; }
+
+/* ── Grid A : 2+1 stack ── */
+.ed-mag__grid-a {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+}
+.ed-mag__cell {
+  position: relative; overflow: hidden; border-radius: 4px;
+}
+.ed-mag__cell img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.7s ease, filter 0.5s ease;
+  filter: brightness(0.88) saturate(0.95);
+}
+.ed-mag--dark .ed-mag__cell img {
+  filter: brightness(0.78) contrast(1.08) saturate(0.82);
+}
+.ed-mag__cell:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.95) saturate(1.05);
+}
+.ed-mag--dark .ed-mag__cell:hover img {
+  filter: brightness(0.88) saturate(0.95);
+}
+.ed-mag__cell--tall { grid-row: span 2; }
+.ed-mag__cell--tall img { height: 100%; min-height: 400px; }
+.ed-mag__cell--stack {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.ed-mag__cell-inner {
+  position: relative; overflow: hidden;
+  border-radius: 4px; flex: 1;
+}
+.ed-mag__cell-inner img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.7s ease, filter 0.5s ease;
+  filter: brightness(0.88) saturate(0.95);
+}
+.ed-mag--dark .ed-mag__cell-inner img {
+  filter: brightness(0.78) contrast(1.08) saturate(0.82);
+}
+.ed-mag__cell-inner:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.95) saturate(1.05);
+}
+
+/* ── Caption Overlay ── */
+.ed-mag__caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 60px 18px 16px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+  opacity: 0; transform: translateY(8px);
+  transition: all 0.4s ease;
+}
+.ed-mag__cell:hover .ed-mag__caption,
+.ed-mag__cell-inner:hover .ed-mag__caption {
+  opacity: 1; transform: translateY(0);
+}
+.ed-mag__caption h4 {
+  color: #fff; font-size: 0.88rem; font-weight: 700;
+  margin: 4px 0 2px; line-height: 1.3;
+}
+.ed-mag__caption p {
+  color: rgba(255,255,255,0.72); font-size: 0.72rem;
+  margin: 0; line-height: 1.4;
+}
+
+/* ── Cinema ── */
+.ed-mag__cinema {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+  overflow: hidden;
+}
+.ed-mag__cinema img {
+  width: 100%; aspect-ratio: 21 / 9;
+  object-fit: cover; display: block;
+  border-radius: 4px;
+  filter: brightness(0.85) saturate(0.92);
+  transition: transform 0.8s ease;
+}
+.ed-mag--dark .ed-mag__cinema img {
+  filter: brightness(0.75) contrast(1.1) saturate(0.8);
+}
+.ed-mag__cinema:hover img { transform: scale(1.02); }
+.ed-mag__cinema-cap {
+  position: absolute;
+  bottom: 0; left: 20px; right: 20px;
+  padding: 64px 28px 22px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+  border-radius: 0 0 4px 4px;
+}
+.ed-mag__cinema-cap h4 {
+  color: #fff; font-size: 1rem; font-weight: 700;
+  margin: 6px 0 3px;
+}
+.ed-mag__cinema-cap p {
+  color: rgba(255,255,255,0.72); font-size: 0.78rem; margin: 0;
+}
+
+/* ── Grid B : 3 columns ── */
+.ed-mag__grid-b {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+}
+.ed-mag__grid-b .ed-mag__cell img { aspect-ratio: 3 / 4; }
+
+/* ── Split ── */
+.ed-mag__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+  align-items: center;
+}
+.ed-mag__split--reverse { direction: rtl; }
+.ed-mag__split--reverse > * { direction: ltr; }
+.ed-mag__split-img {
+  position: relative; overflow: hidden; border-radius: 4px;
+}
+.ed-mag__split-img img {
+  width: 100%; aspect-ratio: 4 / 5;
+  object-fit: cover; display: block;
+  filter: brightness(0.9) saturate(0.95);
+  transition: transform 0.8s ease;
+}
+.ed-mag--dark .ed-mag__split-img img {
+  filter: brightness(0.78) saturate(0.85);
+}
+.ed-mag__split-img:hover img { transform: scale(1.03); }
+.ed-mag__split-img .ed-mag__tag {
+  position: absolute; top: 16px; left: 16px;
+}
+.ed-mag__split-text { padding: 40px 48px; }
+.ed-mag__split-text h3 {
+  font-size: 1.4rem; font-weight: 800;
+  color: #333; line-height: 1.5;
+  margin: 0 0 16px;
+}
+.ed-mag__split-text p {
+  font-size: 0.88rem; color: #666;
+  line-height: 1.9; margin: 0 0 24px;
+}
+.ed-mag__split-sig {
+  display: block;
+  font-size: 0.68rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #c9a96e; font-weight: 600;
+}
+
+/* ── Duo ── */
+.ed-mag__duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 20px;
+}
+.ed-mag__duo .ed-mag__cell img { aspect-ratio: 16 / 10; }
+
+/* ── Scroll Reveal ── */
+.ed-mag .reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.ed-mag .reveal.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ═══ ED-MAG Responsive ═══ */
+@media (max-width: 1024px) {
+  .ed-mag { padding: 80px 0 60px; }
+  .ed-mag__hero-overlay h3 { font-size: 1.1rem; }
+  .ed-mag__split-text { padding: 28px 32px; }
+  .ed-mag__split-text h3 { font-size: 1.2rem; }
+}
+@media (max-width: 640px) {
+  .ed-mag { padding: 64px 0 48px; }
+  .ed-mag__header { margin-bottom: 40px; }
+  .ed-mag__eyebrow { font-size: 0.58rem; letter-spacing: 0.25em; }
+  .ed-mag__lead { font-size: 0.85rem; }
+  .ed-mag__hero img { aspect-ratio: 16 / 10; }
+  .ed-mag__hero-overlay { padding: 50px 18px 16px; left: 0; right: 0; }
+  .ed-mag__hero-overlay h3 { font-size: 0.95rem; }
+  .ed-mag__hero-overlay p { font-size: 0.72rem; }
+  .ed-mag__quote blockquote { font-size: 0.92rem; }
+  .ed-mag__grid-a { grid-template-columns: 1fr; gap: 5px; }
+  .ed-mag__cell--tall { grid-row: span 1; }
+  .ed-mag__cell--tall img { min-height: auto; aspect-ratio: 4 / 3; }
+  .ed-mag__cell--stack { flex-direction: row; }
+  .ed-mag__cell--stack .ed-mag__cell-inner img { aspect-ratio: 1; }
+  .ed-mag__grid-b { grid-template-columns: repeat(2, 1fr); }
+  .ed-mag__grid-b .ed-mag__cell:first-child { grid-column: span 2; }
+  .ed-mag__grid-b .ed-mag__cell:first-child img { aspect-ratio: 16 / 9; }
+  .ed-mag__split { grid-template-columns: 1fr; }
+  .ed-mag__split--reverse { direction: ltr; }
+  .ed-mag__split-img img { aspect-ratio: 4 / 3; }
+  .ed-mag__split-text { padding: 24px 16px; text-align: center; }
+  .ed-mag__split-text h3 { font-size: 1.15rem; }
+  .ed-mag__split-text p { font-size: 0.82rem; }
+  .ed-mag__duo { grid-template-columns: 1fr; }
+  .ed-mag__cinema img { aspect-ratio: 16 / 9; }
+  .ed-mag__cinema-cap { padding: 40px 16px 14px; left: 0; right: 0; }
+  .ed-mag__cinema-cap h4 { font-size: 0.88rem; }
+  .ed-mag__caption { opacity: 1; transform: translateY(0); padding: 36px 12px 10px; }
+  .ed-mag__caption h4 { font-size: 0.78rem; }
+  .ed-mag__caption p { font-size: 0.65rem; }
+}
+
+/* ═══════════════════════════════════════════════════
    PEDIATRIC LUXURY MAGAZINE GALLERY v2.0
    럭셔리 매거진·에디토리얼 레이아웃 (소아치과 전용)
    ═══════════════════════════════════════════════════ */

@@ -64,7 +64,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   <link rel="stylesheet" href="../css/site-v5.css?v=1a91d774">
-  <link rel="stylesheet" href="/css/micro.css?v=5050d17d">
+  <link rel="stylesheet" href="/css/micro.css?v=ac2f0073">
   <link rel="prefetch" href="/reservation" as="document">
   <script type="application/ld+json">
 {
@@ -822,98 +822,117 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- ═══ Magazine Photo Gallery — 교정센터 시설 & 진료 ═══ -->
-    <section class="mag-gallery" aria-label="교정센터 시설 갤러리">
-      <div class="container">
-        <div class="section-header" style="text-align:center;">
-          <span class="mag-kicker">Seoul BD Dental &mdash; Orthodontic Center</span>
-          <h2 class="mag-title">전문 교정센터의 <span class="text-gradient">프리미엄 환경</span></h2>
-          <p class="mag-subtitle">서울대 교정 전문의가 진료하는 1층 전용 교정센터</p>
+    <!-- ═══ Luxury Magazine Gallery — 교정센터 시설 & 진료 ═══ -->
+    <section class="ed-mag" aria-label="교정센터 시설 갤러리">
+      <div class="ed-mag__header">
+        <span class="ed-mag__eyebrow">Seoul BD Dental &mdash; Orthodontic Center</span>
+        <h2 class="ed-mag__title">전문 교정센터의<br><span class="ed-mag__accent">프리미엄 환경</span></h2>
+        <p class="ed-mag__lead">서울대 교정 전문의가 진료하는 1층 전용 교정센터.<br>클리피씨, 클라리티울트라 등 검증된 장치만 사용합니다.</p>
+        <div class="ed-mag__rule"><span></span></div>
+      </div>
+
+      <!-- 히어로 풀블리드 -->
+      <div class="ed-mag__hero reveal">
+        <img src="/images/ortho-gallery/reception-wide.jpg" alt="교정센터 전경" loading="lazy">
+        <div class="ed-mag__hero-overlay">
+          <span class="ed-mag__tag">Center</span>
+          <h3>넓고 쾌적한 1층 전용 교정센터</h3>
+          <p>교정만을 위한 독립된 프리미엄 공간</p>
         </div>
       </div>
 
-      <!-- Row 1 : Facility overview -->
-      <div class="mag-mosaic" id="magOrtho1">
-        <div class="mag-cell mag-feature">
-          <img src="/images/ortho-gallery/reception-wide.jpg" alt="교정센터 전경" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Center</span>
-            <span class="cap-text">넓고 쾌적한 1층 전용 교정센터</span>
-          </div>
-        </div>
-        <div class="mag-cell mag-sq">
+      <!-- 인용구 -->
+      <div class="ed-mag__quote reveal">
+        <blockquote>"정확한 진단, 검증된 장치,<br>서울대 전문의의 손끝에서 완성되는 아름다운 교정."</blockquote>
+      </div>
+
+      <!-- 2+1 스택 그리드 -->
+      <div class="ed-mag__grid-a reveal">
+        <div class="ed-mag__cell ed-mag__cell--tall">
           <img src="/images/ortho-gallery/reception-front.jpg" alt="접수 데스크" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Reception</span>
-            <span class="cap-text">전용 접수 카운터</span>
+          <div class="ed-mag__caption">
+            <span class="ed-mag__tag">Reception</span>
+            <h4>전용 접수 카운터</h4>
+            <p>교정 환자 전담 안내</p>
           </div>
         </div>
-        <div class="mag-cell mag-sq">
-          <img src="/images/ortho-gallery/lounge-wide.jpg" alt="라운지 대기공간" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Lounge</span>
-            <span class="cap-text">프리미엄 대기 라운지</span>
+        <div class="ed-mag__cell--stack">
+          <div class="ed-mag__cell-inner">
+            <img src="/images/ortho-gallery/lounge-wide.jpg" alt="라운지 대기공간" loading="lazy">
+            <div class="ed-mag__caption">
+              <span class="ed-mag__tag">Lounge</span>
+              <h4>프리미엄 대기 라운지</h4>
+              <p>인비절라인 브랜딩 공간</p>
+            </div>
           </div>
-        </div>
-        <div class="mag-cell mag-sq">
-          <img src="/images/ortho-gallery/consultation-table.jpg" alt="상담 테이블" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Consultation</span>
-            <span class="cap-text">맞춤 상담 안내</span>
-          </div>
-        </div>
-        <div class="mag-cell mag-sq">
-          <img src="/images/ortho-gallery/treatment-room.jpg" alt="교정 진료실" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Clinic Room</span>
-            <span class="cap-text">최신 디지털 진료실</span>
+          <div class="ed-mag__cell-inner">
+            <img src="/images/ortho-gallery/consultation-table.jpg" alt="상담 테이블" loading="lazy">
+            <div class="ed-mag__caption">
+              <span class="ed-mag__tag">Consultation</span>
+              <h4>1:1 맞춤 상담</h4>
+              <p>치료 계획 상세 안내</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="mag-divider">진료 현장</div>
-
-      <!-- Quote -->
-      <div class="mag-quote">
-        <blockquote>"정확한 진단, 검증된 장치, 서울대 전문의의 손끝에서 완성되는 아름다운 교정."</blockquote>
-        <cite>서울비디치과 교정센터</cite>
-      </div>
-
-      <!-- Row 2 : Treatment & care -->
-      <div class="mag-mosaic" id="magOrtho2">
-        <div class="mag-cell mag-wide mag-land">
+      <!-- 텍스트+이미지 스플릿 -->
+      <div class="ed-mag__split reveal">
+        <div class="ed-mag__split-img">
           <img src="/images/ortho-gallery/doctor-surgery.jpg" alt="교정 진료 모습" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Surgery</span>
-            <span class="cap-text">전문의 팀 협진 진료</span>
-          </div>
+          <span class="ed-mag__tag">Surgery</span>
         </div>
-        <div class="mag-cell mag-sq">
+        <div class="ed-mag__split-text">
+          <h3>서울대 교정 전문의<br>팀 협진 시스템</h3>
+          <p>클리피씨(자가결찰), 클라리티울트라(심미) 등 검증된 장치만을 엄선합니다. 교정·보철·심미 전문의가 함께 최적의 결과를 만들어냅니다.</p>
+          <span class="ed-mag__split-sig">Seoul BD Dental &middot; Orthodontic Center</span>
+        </div>
+      </div>
+
+      <!-- 3컬럼 그리드 -->
+      <div class="ed-mag__grid-b reveal">
+        <div class="ed-mag__cell">
           <img src="/images/ortho-gallery/doctor-treatment.jpg" alt="원장 진료" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Doctor</span>
-            <span class="cap-text">전문의 직접 진료</span>
+          <div class="ed-mag__caption">
+            <span class="ed-mag__tag">Doctor</span>
+            <h4>전문의 직접 진료</h4>
+            <p>디지털 교정 설계</p>
           </div>
         </div>
-        <div class="mag-cell mag-sq">
+        <div class="ed-mag__cell">
           <img src="/images/ortho-gallery/hygienist-closeup.jpg" alt="치위생사 클로즈업" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Precision</span>
-            <span class="cap-text">정밀한 구강 케어</span>
+          <div class="ed-mag__caption">
+            <span class="ed-mag__tag">Precision</span>
+            <h4>정밀한 구강 케어</h4>
+            <p>브라켓 주변 집중 관리</p>
           </div>
         </div>
-        <div class="mag-cell mag-sq">
+        <div class="ed-mag__cell">
           <img src="/images/ortho-gallery/hygienist-care.jpg" alt="치위생사 케어" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Care</span>
-            <span class="cap-text">세심한 환자 관리</span>
+          <div class="ed-mag__caption">
+            <span class="ed-mag__tag">Care</span>
+            <h4>전담 치위생사 케어</h4>
+            <p>세심한 환자 관리</p>
           </div>
         </div>
-        <div class="mag-cell mag-sq">
+      </div>
+
+      <!-- 듀오 마감 -->
+      <div class="ed-mag__duo reveal">
+        <div class="ed-mag__cell">
+          <img src="/images/ortho-gallery/treatment-room.jpg" alt="교정 진료실" loading="lazy">
+          <div class="ed-mag__caption">
+            <span class="ed-mag__tag">Clinic</span>
+            <h4>최신 디지털 진료실</h4>
+            <p>디지털 촬영 일체형</p>
+          </div>
+        </div>
+        <div class="ed-mag__cell">
           <img src="/images/ortho-gallery/faq-wall.jpg" alt="안내 게시판" loading="lazy">
-          <div class="mag-caption">
-            <span class="cap-label">Guide</span>
-            <span class="cap-text">체계적 환자 안내</span>
+          <div class="ed-mag__caption">
+            <span class="ed-mag__tag">Guide</span>
+            <h4>체계적 환자 안내</h4>
+            <p>교정 과정 한눈에</p>
           </div>
         </div>
       </div>
@@ -1487,6 +1506,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </script>
   <script>(function(){var v=document.querySelector('.tl-vertical');if(v)v.classList.add('tl-animated');var steps=document.querySelectorAll('.tl-step');var fill=document.getElementById('tlProgressFill');var labels=document.querySelectorAll('.tl-plabel');if(!steps.length||!fill)return;var total=steps.length;var activeIdx=-1;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){var idx=parseInt(e.target.dataset.step);if(e.isIntersecting){e.target.classList.add('tl-visible');if(idx>activeIdx)activeIdx=idx;}});steps.forEach(function(s,i){s.classList.remove('tl-active','tl-done');if(i<activeIdx)s.classList.add('tl-done');else if(i===activeIdx)s.classList.add('tl-active');});fill.style.width=Math.min(((activeIdx+1)/total)*100,100)+'%';labels.forEach(function(l,i){l.classList.remove('active','done');if(i<activeIdx)l.classList.add('done');else if(i===activeIdx)l.classList.add('active');});},{threshold:0.3,rootMargin:'0px 0px -15% 0px'});steps.forEach(function(s){obs.observe(s);});})();</script>
   <!-- Magazine gallery scroll reveal -->
-  <script>(function(){var cells=document.querySelectorAll('.mag-cell');if(!cells.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});cells.forEach(function(c){obs.observe(c);});})();</script>
+  <!-- Editorial magazine gallery scroll reveal -->
+  <script>(function(){var f=document.querySelectorAll('.ed-mag .reveal');if(!f.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});f.forEach(function(c){obs.observe(c);});})();</script>
 </body>
 </html>
