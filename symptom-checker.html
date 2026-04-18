@@ -661,6 +661,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     });
   }
 
+  /* ── 로그인 상태 확인 ── */
+  var scIsLoggedIn = false;
+  fetch('/api/auth/me').then(function(r){return r.json()}).then(function(d){
+    scIsLoggedIn = d.loggedIn || false;
+  }).catch(function(){});
+
+  /* ── 로그인 모달 (treatment-cases.js 와 동일) ── */
+  function ensureLoginModal(){
+    if(document.getElementById('scLoginModal')) return;
+    var m=document.createElement('div');m.id='scLoginModal';
+    m.style.cssText='display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;align-items:center;justify-content:center;';
+    m.innerHTML=
+      '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);" id="scLoginBg"></div>'+
+      '<div style="position:relative;background:#fff;border-radius:24px;padding:40px 36px 32px;max-width:420px;width:90%;box-shadow:0 24px 80px rgba(0,0,0,0.2);text-align:center;animation:scModalIn .35s cubic-bezier(.22,.68,0,1.15);">'+
+        '<button id="scLoginClose" style="position:absolute;top:16px;right:16px;width:36px;height:36px;border:none;background:#f5f5f4;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#78716c;font-size:0.9rem;"><i class="fas fa-times"></i></button>'+
+        '<div style="margin-bottom:20px;"><div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#faf7f4,#f0e9e0);display:inline-flex;align-items:center;justify-content:center;color:#6B4226;font-size:1.4rem;border:2px solid rgba(107,66,38,0.1);"><i class="fas fa-lock"></i></div></div>'+
+        '<h3 style="font-size:1.25rem;font-weight:800;color:#1c1917;margin:0 0 8px;">로그인이 필요합니다</h3>'+
+        '<p style="font-size:0.88rem;color:#78716c;line-height:1.6;margin:0 0 20px;">치료 전/후 사진과 상세 케이스 정보는<br>로그인 후 확인하실 수 있습니다.</p>'+
+        '<div style="background:#faf7f4;border-radius:14px;padding:16px 20px;margin-bottom:24px;text-align:left;">'+
+          '<div style="font-size:0.82rem;color:#44403c;padding:5px 0;display:flex;align-items:center;gap:10px;"><i class="fas fa-check-circle" style="color:#6B4226;font-size:0.78rem;"></i> 비포/애프터 사진 전체 공개</div>'+
+          '<div style="font-size:0.82rem;color:#44403c;padding:5px 0;display:flex;align-items:center;gap:10px;"><i class="fas fa-check-circle" style="color:#6B4226;font-size:0.78rem;"></i> 파노라마·구내 사진 확인</div>'+
+          '<div style="font-size:0.82rem;color:#44403c;padding:5px 0;display:flex;align-items:center;gap:10px;"><i class="fas fa-check-circle" style="color:#6B4226;font-size:0.78rem;"></i> 상세 치료 과정 열람</div>'+
+        '</div>'+
+        '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">'+
+          '<a href="/auth/login" id="scLoginBtn" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:14px;font-size:0.92rem;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;box-shadow:0 4px 16px rgba(107,66,38,0.25);"><i class="fas fa-sign-in-alt"></i> 로그인하기</a>'+
+          '<a href="/auth/register" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:14px;font-size:0.92rem;font-weight:700;text-decoration:none;background:#faf7f4;color:#6B4226;border:1px solid rgba(107,66,38,0.12);"><i class="fas fa-user-plus"></i> 회원가입 (10초)</a>'+
+        '</div>'+
+        '<p style="font-size:0.72rem;color:#a8a29e;margin:0;display:flex;align-items:center;justify-content:center;gap:5px;"><i class="fas fa-shield-alt" style="font-size:0.6rem;"></i> 개인정보는 안전하게 보호됩니다</p>'+
+      '</div>';
+    document.body.appendChild(m);
+    if(!document.getElementById('scModalKF')){var s=document.createElement('style');s.id='scModalKF';s.textContent='@keyframes scModalIn{from{opacity:0;transform:scale(0.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}';document.head.appendChild(s);}
+    document.getElementById('scLoginBg').addEventListener('click',closeScLogin);
+    document.getElementById('scLoginClose').addEventListener('click',closeScLogin);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeScLogin();});
+  }
+  function showScLogin(path){
+    ensureLoginModal();
+    var m=document.getElementById('scLoginModal');
+    var btn=document.getElementById('scLoginBtn');
+    if(btn&&path) btn.href='/auth/login?redirect='+encodeURIComponent(path);
+    m.style.display='flex';document.body.style.overflow='hidden';
+  }
+  function closeScLogin(){
+    var m=document.getElementById('scLoginModal');
+    if(m){m.style.display='none';document.body.style.overflow='';}
+  }
+
   function loadCasesForTreatment(slug) {
     var apiCat = SLUG_TO_API_CAT[slug] || slug;
     fetch('/api/cases?category=' + encodeURIComponent(apiCat))
@@ -675,8 +722,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         for (var i = 0; i < maxCases; i++) {
           var cs = cases[i];
           var imgSrc = cs.beforeImage || cs.thumbnailImage || '';
+          var caseHref = '/cases/' + cs.id;
           cardsHtml +=
-            '<a href="/cases/gallery" class="sc-case-card">' +
+            '<a href="' + caseHref + '" class="sc-case-card" data-case-href="' + caseHref + '">' +
               '<div class="sc-case-img">' +
                 (imgSrc ? '<img src="' + imgSrc + '" alt="' + (cs.title || '') + '" loading="lazy">' : '') +
               '</div>' +
@@ -695,6 +743,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             '<div class="sc-cases-title"><i class="fas fa-images"></i> 실제 치료 케이스 (' + cases.length + '건)</div>' +
             '<div class="sc-cases-grid">' + cardsHtml + '</div>' +
           '</div>';
+
+        /* ── 카드 클릭: 로그인 체크 후 개별 케이스 페이지로 이동 ── */
+        wrap.querySelectorAll('.sc-case-card').forEach(function(card){
+          card.addEventListener('click', function(e){
+            e.preventDefault();
+            var href = card.getAttribute('data-case-href');
+            if(!scIsLoggedIn){
+              showScLogin(href);
+              return;
+            }
+            if(href) window.location.href = href;
+          });
+        });
       })
       .catch(function() {});
   }
