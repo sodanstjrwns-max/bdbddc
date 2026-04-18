@@ -257,27 +257,37 @@
         const closeBtn = document.getElementById('mobileNavClose');
         const overlay = document.getElementById('mobileNavOverlay');
 
-        if (menuBtn && nav && !menuBtn.__mobileNavBound) {
-            // main.js가 이미 바인딩했으면 중복 방지
-            menuBtn.__mobileNavBound = true;
+        // syncNavMenus()가 innerHTML을 교체하면 기존 이벤트가 전부 사라지므로
+        // main.js가 이미 바인딩했더라도 서브메뉴 토글은 반드시 다시 바인딩해야 한다.
+        if (menuBtn && nav) {
+            if (!menuBtn.__mobileNavBound) {
+                menuBtn.__mobileNavBound = true;
 
-            function openNav() {
-                nav.classList.add('active');
-                if (overlay) overlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                function openNav() {
+                    nav.classList.add('active');
+                    if (overlay) overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeNav() {
+                    nav.classList.remove('active');
+                    if (overlay) overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+
+                menuBtn.addEventListener('click', openNav);
+                if (closeBtn) closeBtn.addEventListener('click', closeNav);
+                if (overlay) overlay.addEventListener('click', closeNav);
+
+                // Close on Escape
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && nav.classList.contains('active')) {
+                        closeNav();
+                    }
+                });
             }
 
-            function closeNav() {
-                nav.classList.remove('active');
-                if (overlay) overlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-
-            menuBtn.addEventListener('click', openNav);
-            if (closeBtn) closeBtn.addEventListener('click', closeNav);
-            if (overlay) overlay.addEventListener('click', closeNav);
-
-            // Handle submenu toggles
+            // 서브메뉴 토글 — syncNavMenus()가 innerHTML을 교체했으므로 항상 재바인딩
             nav.querySelectorAll('.mobile-nav-submenu-toggle').forEach(function(toggle) {
                 toggle.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -286,16 +296,13 @@
                 });
             });
 
-            // Close on direct link click
+            // 직접 링크 클릭 시 메뉴 닫기 — 항상 재바인딩
             nav.querySelectorAll('a:not(.mobile-nav-submenu-toggle)').forEach(function(link) {
-                link.addEventListener('click', closeNav);
-            });
-
-            // Close on Escape
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && nav.classList.contains('active')) {
-                    closeNav();
-                }
+                link.addEventListener('click', function() {
+                    nav.classList.remove('active');
+                    if (overlay) overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
             });
         }
 
