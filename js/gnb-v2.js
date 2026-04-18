@@ -162,7 +162,7 @@
             '<li><a href="/treatments/">전체 진료</a></li>' +
             '<li class="submenu-divider">전문센터</li>' +
             '<li><a href="/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>' +
-            '<li><a href="/treatments/implant">임플란트센터</a></li>' +
+            '<li><a href="/treatments/implant">임플란트</a></li>' +
             '<li><a href="/treatments/invisalign">인비절라인</a></li>' +
             '<li><a href="/treatments/orthodontics">치아교정</a></li>' +
             '<li><a href="/treatments/pediatric">소아치과</a></li>' +
@@ -379,12 +379,12 @@
 
     // ========================================
     // 스크롤 깊이별 CTA 변화 (페이션트 퍼널)
-    // 0~25%: 탐색 → 💬 무료 상담 | 25~50%: 검토 → 📋 내 케이스 진단
+    // 0~25%: 탐색 → 📅 편리한 상담예약 | 25~50%: 검토 → 📋 내 케이스 진단
     // 50~75%: 확신 → 📅 지금 예약 | 75~100%: 행동 → 🔥 오늘 상담 가능!
     // ========================================
     function initScrollCTA() {
         var stages = [
-            { pct: 0,  icon: 'fa-comment-dots', txt: '무료 상담 받기', mob: '상담', cls: 'cta-explore' },
+            { pct: 0,  icon: 'fa-calendar-check', txt: '편리한 상담예약', mob: '상담예약', cls: 'cta-explore' },
             { pct: 25, icon: 'fa-clipboard-check', txt: '내 케이스 진단받기', mob: '진단', cls: 'cta-consider' },
             { pct: 50, icon: 'fa-calendar-check', txt: '지금 예약하기', mob: '예약', cls: 'cta-decide' },
             { pct: 75, icon: 'fa-fire', txt: '오늘 상담 가능!', mob: '지금 예약', cls: 'cta-action' }
