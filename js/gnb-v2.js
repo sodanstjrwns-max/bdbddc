@@ -249,62 +249,68 @@
     // 모바일 메뉴 토글
     // ========================================
     function initMobileMenu() {
-        // main.js의 initMobileNav()가 #mobileMenuBtn → #mobileNav 사이드바를
-        // 올바르게 처리하므로, 여기서는 main.js가 로드되지 않는 페이지를 위해
-        // fallback으로 동일한 로직을 적용한다.
-        const menuBtn = document.getElementById('mobileMenuBtn');
-        const nav = document.getElementById('mobileNav');
-        const closeBtn = document.getElementById('mobileNavClose');
-        const overlay = document.getElementById('mobileNavOverlay');
+        var menuBtn = document.getElementById('mobileMenuBtn');
+        var nav = document.getElementById('mobileNav');
+        var closeBtn = document.getElementById('mobileNavClose');
+        var overlay = document.getElementById('mobileNavOverlay');
 
-        // syncNavMenus()가 innerHTML을 교체하면 기존 이벤트가 전부 사라지므로
-        // main.js가 이미 바인딩했더라도 서브메뉴 토글은 반드시 다시 바인딩해야 한다.
-        if (menuBtn && nav) {
-            if (!menuBtn.__mobileNavBound) {
-                menuBtn.__mobileNavBound = true;
+        if (!menuBtn || !nav) return;
 
-                function openNav() {
-                    nav.classList.add('active');
-                    if (overlay) overlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
+        function openNav() {
+            nav.classList.add('active');
+            if (overlay) overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-                function closeNav() {
-                    nav.classList.remove('active');
-                    if (overlay) overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
+        function closeNav() {
+            nav.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
-                menuBtn.addEventListener('click', openNav);
-                if (closeBtn) closeBtn.addEventListener('click', closeNav);
-                if (overlay) overlay.addEventListener('click', closeNav);
-
-                // Close on Escape
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && nav.classList.contains('active')) {
-                        closeNav();
-                    }
-                });
-            }
-
-            // 서브메뉴 토글 — syncNavMenus()가 innerHTML을 교체했으므로 항상 재바인딩
-            nav.querySelectorAll('.mobile-nav-submenu-toggle').forEach(function(toggle) {
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    var parent = this.closest('.mobile-nav-item');
-                    if (parent) parent.classList.toggle('expanded');
-                });
-            });
-
-            // 직접 링크 클릭 시 메뉴 닫기 — 항상 재바인딩
-            nav.querySelectorAll('a:not(.mobile-nav-submenu-toggle)').forEach(function(link) {
-                link.addEventListener('click', function() {
-                    nav.classList.remove('active');
-                    if (overlay) overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
+        // 열기/닫기 (menuBtn, closeBtn, overlay는 innerHTML로 교체되지 않으므로 1회만)
+        if (!menuBtn.__gnbBound) {
+            menuBtn.__gnbBound = true;
+            menuBtn.addEventListener('click', openNav);
+            if (closeBtn) closeBtn.addEventListener('click', closeNav);
+            if (overlay) overlay.addEventListener('click', closeNav);
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && nav.classList.contains('active')) closeNav();
             });
         }
+
+        // ★★★ 이벤트 위임 (Event Delegation) ★★★
+        // nav에 한 번만 걸면 innerHTML이 교체되어도 항상 작동한다.
+        // 중복 방지를 위해 플래그 사용
+        if (!nav.__submenuDelegated) {
+            nav.__submenuDelegated = true;
+
+            nav.addEventListener('click', function(e) {
+                // 1) 서브메뉴 토글 클릭 감지
+                var toggle = e.target.closest('.mobile-nav-submenu-toggle');
+                if (toggle) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var parent = toggle.closest('.mobile-nav-item') || toggle.parentElement;
+                    if (parent) {
+                        // 아코디언: 다른 서브메뉴 닫기
+                        var siblings = parent.parentElement.querySelectorAll('.mobile-nav-item.expanded');
+                        siblings.forEach(function(sib) {
+                            if (sib !== parent) sib.classList.remove('expanded');
+                        });
+                        parent.classList.toggle('expanded');
+                    }
+                    return;
+                }
+
+                // 2) 서브메뉴 내 링크 클릭 → 메뉴 닫기
+                var link = e.target.closest('a:not(.mobile-nav-submenu-toggle)');
+                if (link) {
+                    closeNav();
+                }
+            });
+        }
+    }
 
         // 데스크톱 메가 드롭다운 토글 (유지)
         const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown > a');

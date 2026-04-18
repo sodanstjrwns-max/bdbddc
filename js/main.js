@@ -48,56 +48,10 @@ function initHeader() {
  * Mobile Navigation with Submenu Support
  */
 function initMobileNav() {
-  const menuBtn = document.getElementById('mobileMenuBtn');
-  const closeBtn = document.getElementById('mobileNavClose');
-  const nav = document.getElementById('mobileNav');
-  const overlay = document.getElementById('mobileNavOverlay');
-
-  if (!menuBtn || !nav) return;
-
-  // gnb.js와 중복 바인딩 방지
-  menuBtn.__mobileNavBound = true;
-
-  function openNav() {
-    nav.classList.add('active');
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeNav() {
-    nav.classList.remove('active');
-    overlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  menuBtn.addEventListener('click', openNav);
-  closeBtn?.addEventListener('click', closeNav);
-  overlay?.addEventListener('click', closeNav);
-
-  // Handle submenu toggles
-  nav.querySelectorAll('.mobile-nav-submenu-toggle').forEach(toggle => {
-    toggle.addEventListener('click', function(e) {
-      e.preventDefault();
-      const parent = this.closest('.mobile-nav-item');
-      const submenu = parent.querySelector('.mobile-nav-submenu');
-      
-      if (parent && submenu) {
-        parent.classList.toggle('expanded');
-      }
-    });
-  });
-
-  // Close on direct link click (not submenu toggle)
-  nav.querySelectorAll('a:not(.mobile-nav-submenu-toggle)').forEach(link => {
-    link.addEventListener('click', closeNav);
-  });
-
-  // Close on escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && nav.classList.contains('active')) {
-      closeNav();
-    }
-  });
+  // gnb-v2.js가 syncNavMenus()로 메뉴를 동적 교체한 뒤
+  // initMobileMenu()에서 모든 이벤트를 바인딩하므로
+  // main.js에서는 모바일 메뉴를 처리하지 않는다.
+  // (main.js가 먼저 바인딩 → gnb-v2가 innerHTML 교체 → 이벤트 소실 방지)
 }
 
 /**
