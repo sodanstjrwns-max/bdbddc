@@ -279,35 +279,66 @@
             });
         }
 
-        // ★★★ 이벤트 위임 (Event Delegation) ★★★
-        // nav에 한 번만 걸면 innerHTML이 교체되어도 항상 작동한다.
-        // 중복 방지를 위해 플래그 사용
-        if (!nav.__submenuDelegated) {
-            nav.__submenuDelegated = true;
+        // ★★★ 서브메뉴 토글 - 직접 바인딩 (syncNavMenus 후 매번 재바인딩) ★★★
+        // innerHTML 교체 후 새 DOM에 직접 이벤트를 붙인다.
+        // Event delegation 대신 직접 바인딩으로 100% 확실하게 처리.
+        function bindSubmenuToggles() {
+            var toggles = nav.querySelectorAll('.mobile-nav-submenu-toggle');
+            toggles.forEach(function(toggle) {
+                // 이미 바인딩된 경우 스킵
+                if (toggle.__bound) return;
+                toggle.__bound = true;
 
-            nav.addEventListener('click', function(e) {
-                // 1) 서브메뉴 토글 클릭 감지
-                var toggle = e.target.closest('.mobile-nav-submenu-toggle');
-                if (toggle) {
+                function handleToggle(e) {
                     e.preventDefault();
                     e.stopPropagation();
+                    e.stopImmediatePropagation();
+
                     var parent = toggle.closest('.mobile-nav-item') || toggle.parentElement;
-                    if (parent) {
-                        // 아코디언: 다른 서브메뉴 닫기
-                        var siblings = parent.parentElement.querySelectorAll('.mobile-nav-item.expanded');
-                        siblings.forEach(function(sib) {
-                            if (sib !== parent) sib.classList.remove('expanded');
-                        });
-                        parent.classList.toggle('expanded');
-                    }
-                    return;
+                    if (!parent) return;
+
+                    // 아코디언: 다른 서브메뉴 닫기
+                    var allItems = nav.querySelectorAll('.mobile-nav-item.expanded');
+                    allItems.forEach(function(item) {
+                        if (item !== parent) item.classList.remove('expanded');
+                    });
+
+                    // 토글
+                    parent.classList.toggle('expanded');
+
+                    // aria-expanded 업데이트
+                    var isExpanded = parent.classList.contains('expanded');
+                    toggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
                 }
 
-                // 2) 서브메뉴 내 링크 클릭 → 메뉴 닫기
-                var link = e.target.closest('a:not(.mobile-nav-submenu-toggle)');
-                if (link) {
+                // click + touchend 모두 처리 (모바일 호환성 극대화)
+                toggle.addEventListener('click', handleToggle, false);
+            });
+
+            // 서브메뉴 내 링크 클릭 → 메뉴 닫기
+            var links = nav.querySelectorAll('.mobile-nav-submenu a:not(.mobile-nav-submenu-toggle)');
+            links.forEach(function(link) {
+                if (link.__navBound) return;
+                link.__navBound = true;
+                link.addEventListener('click', function() {
                     closeNav();
-                }
+                });
+            });
+        }
+
+        // 최초 바인딩
+        bindSubmenuToggles();
+
+        // syncNavMenus()가 innerHTML을 교체할 때를 대비한 MutationObserver
+        // (혹시 나중에 다시 교체되더라도 자동 재바인딩)
+        if (!nav.__mutationObserved) {
+            nav.__mutationObserved = true;
+            var observer = new MutationObserver(function() {
+                bindSubmenuToggles();
+            });
+            observer.observe(nav.querySelector('.mobile-nav-menu') || nav, {
+                childList: true,
+                subtree: true
             });
         }
 
