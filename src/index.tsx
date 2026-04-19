@@ -787,6 +787,38 @@ app.delete('/api/admin/cases/:id', async (c) => {
   return c.json({ success: true, deleted: id })
 })
 
+// [관리자] 케이스 일괄 메타 업데이트 (스타일/병력 등)
+app.post('/api/admin/cases/batch-meta', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+  
+  const r2 = c.env.R2
+  if (!r2) return c.json({ error: 'R2 없음' }, 500)
+  
+  const body = await c.req.json() as { updates: Array<{ id: string, medicalHistory?: string[], laminateStyle?: string }> }
+  const { updates } = body
+  if (!Array.isArray(updates)) return c.json({ error: 'updates 배열 필요' }, 400)
+  
+  const allCases = await getCases(r2)
+  let updated = 0
+  
+  for (const upd of updates) {
+    const idx = allCases.findIndex((x: any) => x.id === upd.id)
+    if (idx >= 0) {
+      if (upd.medicalHistory !== undefined) allCases[idx].medicalHistory = upd.medicalHistory
+      if (upd.laminateStyle !== undefined) allCases[idx].laminateStyle = upd.laminateStyle
+      allCases[idx].updatedAt = new Date().toISOString()
+      updated++
+    }
+  }
+  
+  await saveCases(r2, allCases)
+  return c.json({ success: true, updated, total: allCases.length })
+})
+
 // ===== 예약 API =====
 app.post('/api/reservation', async (c) => {
   try {

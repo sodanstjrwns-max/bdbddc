@@ -1,8 +1,9 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v8
+ * 서울비디치과 비포/애프터 갤러리 시스템 v9
  * - 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 카드
- * - 임플란트: 환자 병력 태그 표시 + 병력별 필터
- * - 글로우네이트: 시술 스타일 태그 표시 + 스타일별 필터
+ * - 임플란트: 환자 병력 태그 표시 + 병력별 서브필터 (클릭 시 나타남)
+ * - 글로우네이트: 시술 스타일 태그 표시 + 스타일별 서브필터 (클릭 시 나타남)
+ * v9: 서브필터 강제 표시 보장 + 캐시 버스팅 + 미지정 카운트 포함
  */
 (function() {
   'use strict';
@@ -230,16 +231,28 @@
 
     // ★ 글로우네이트 스타일 서브필터 적용
     if (filter === 'glownate' && currentStyle !== 'all') {
-      filtered = filtered.filter(function(c) {
-        return c.laminateStyle === currentStyle;
-      });
+      if (currentStyle === 'unspecified') {
+        filtered = filtered.filter(function(c) {
+          return !c.laminateStyle || !STYLE_LABELS[c.laminateStyle];
+        });
+      } else {
+        filtered = filtered.filter(function(c) {
+          return c.laminateStyle === currentStyle;
+        });
+      }
     }
 
     // ★ 임플란트 병력 서브필터 적용
     if (filter === 'implant' && currentMedical !== 'all') {
-      filtered = filtered.filter(function(c) {
-        return c.medicalHistory && c.medicalHistory.indexOf(currentMedical) !== -1;
-      });
+      if (currentMedical === 'none') {
+        filtered = filtered.filter(function(c) {
+          return !c.medicalHistory || c.medicalHistory.length === 0;
+        });
+      } else {
+        filtered = filtered.filter(function(c) {
+          return c.medicalHistory && c.medicalHistory.indexOf(currentMedical) !== -1;
+        });
+      }
     }
 
     if (loading) loading.style.display = 'none';
@@ -286,27 +299,35 @@
     if (document.getElementById('statAesthetic')) document.getElementById('statAesthetic').textContent = (counts.aesthetic || 0);
   }
 
-  // ★ 글로우네이트 스타일 서브필터 동적 생성
+  // ★ 글로우네이트 스타일 서브필터 — 동적 재생성 (전체 + 3스타일 + 미지정)
   function buildGlownateSubFilter() {
     var wrap = document.querySelector('#glownateSubFilter .sub-filter-wrap');
     if (!wrap) return;
 
+    var totalGlownate = 0;
     var styleCounts = { 'white-pretty': 0, 'bright-pretty': 0, 'natural-pretty': 0 };
-    var glownateTotal = 0;
+    var unspecified = 0;
     cases.forEach(function(c) {
       if ((filterGroupMap[c.category] || 'general') === 'glownate') {
-        glownateTotal++;
-        if (c.laminateStyle && styleCounts.hasOwnProperty(c.laminateStyle)) {
-          styleCounts[c.laminateStyle]++;
+        totalGlownate++;
+        if (c.laminateStyle && STYLE_LABELS[c.laminateStyle]) {
+          styleCounts[c.laminateStyle] = (styleCounts[c.laminateStyle] || 0) + 1;
+        } else {
+          unspecified++;
         }
       }
     });
 
-    var html = '<span class="sub-filter-label"><i class="fas fa-palette"></i> 시술 스타일</span>';
-    html += '<button class="sub-chip active" data-style="all">전체 <span class="sub-count">' + glownateTotal + '</span></button>';
-    html += '<button class="sub-chip" data-style="white-pretty"><span class="sub-chip-icon">' + STYLE_LABELS['white-pretty'].icon + '</span> ' + STYLE_LABELS['white-pretty'].label + ' <span class="sub-count">' + styleCounts['white-pretty'] + '</span></button>';
-    html += '<button class="sub-chip" data-style="bright-pretty"><span class="sub-chip-icon">' + STYLE_LABELS['bright-pretty'].icon + '</span> ' + STYLE_LABELS['bright-pretty'].label + ' <span class="sub-count">' + styleCounts['bright-pretty'] + '</span></button>';
-    html += '<button class="sub-chip" data-style="natural-pretty"><span class="sub-chip-icon">' + STYLE_LABELS['natural-pretty'].icon + '</span> ' + STYLE_LABELS['natural-pretty'].label + ' <span class="sub-count">' + styleCounts['natural-pretty'] + '</span></button>';
+    // 서브필터 HTML 동적 생성
+    var html = '<span class="sub-filter-label"><i class="fas fa-palette"></i> 스타일</span>';
+    html += '<button class="sub-chip active" data-style="all">전체 <span class="sub-count">' + totalGlownate + '</span></button>';
+    ['white-pretty', 'bright-pretty', 'natural-pretty'].forEach(function(key) {
+      var s = STYLE_LABELS[key];
+      html += '<button class="sub-chip" data-style="' + key + '">' + s.icon + ' ' + s.label + ' <span class="sub-count">' + styleCounts[key] + '</span></button>';
+    });
+    if (unspecified > 0) {
+      html += '<button class="sub-chip" data-style="unspecified">🏷️ 미지정 <span class="sub-count">' + unspecified + '</span></button>';
+    }
 
     wrap.innerHTML = html;
 
@@ -321,34 +342,39 @@
     });
   }
 
-  // ★ 임플란트 병력 서브필터 동적 생성
+  // ★ 임플란트 병력 서브필터 동적 생성 (항상 생성)
   function buildImplantSubFilter() {
     var wrap = document.querySelector('#implantSubFilter .sub-filter-wrap');
     if (!wrap) return;
 
-    // 병력 카운트 수집
+    var totalImplant = 0;
     var medCounts = {};
+    var noHistory = 0;
     cases.forEach(function(c) {
-      if ((filterGroupMap[c.category] || 'general') === 'implant' && c.medicalHistory && c.medicalHistory.length > 0) {
-        c.medicalHistory.forEach(function(tag) {
-          medCounts[tag] = (medCounts[tag] || 0) + 1;
-        });
+      if ((filterGroupMap[c.category] || 'general') === 'implant') {
+        totalImplant++;
+        if (c.medicalHistory && c.medicalHistory.length > 0) {
+          c.medicalHistory.forEach(function(tag) {
+            if (tag) medCounts[tag] = (medCounts[tag] || 0) + 1;
+          });
+        } else {
+          noHistory++;
+        }
       }
     });
 
     var tags = Object.keys(medCounts);
-
     // 카운트 내림차순 정렬
     tags.sort(function(a, b) { return medCounts[b] - medCounts[a]; });
 
-    var implantTotal = cases.filter(function(c) { return (filterGroupMap[c.category] || 'general') === 'implant'; }).length;
-    var html = '<span class="sub-filter-label"><i class="fas fa-notes-medical"></i> 환자 병력</span>';
-    html += '<button class="sub-chip active" data-medical="all">전체 <span class="sub-count">' + implantTotal + '</span></button>';
-    if (tags.length > 0) {
-      tags.forEach(function(tag) {
-        var icon = MEDICAL_ICONS[tag] || 'fa-notes-medical';
-        html += '<button class="sub-chip" data-medical="' + tag + '"><i class="fas ' + icon + '"></i> ' + tag + ' <span class="sub-count">' + medCounts[tag] + '</span></button>';
-      });
+    var html = '<span class="sub-filter-label"><i class="fas fa-notes-medical"></i> 병력</span>';
+    html += '<button class="sub-chip active" data-medical="all">전체 <span class="sub-count">' + totalImplant + '</span></button>';
+    tags.forEach(function(tag) {
+      var icon = MEDICAL_ICONS[tag] || 'fa-notes-medical';
+      html += '<button class="sub-chip" data-medical="' + tag + '"><i class="fas ' + icon + '"></i> ' + tag + ' <span class="sub-count">' + medCounts[tag] + '</span></button>';
+    });
+    if (noHistory > 0) {
+      html += '<button class="sub-chip" data-medical="none"><i class="fas fa-minus-circle"></i> 미기록 <span class="sub-count">' + noHistory + '</span></button>';
     }
 
     wrap.innerHTML = html;
@@ -364,7 +390,7 @@
     });
   }
 
-  // ★ 서브필터 표시/숨기기 토글 (애니메이션 포함)
+  // ★ 서브필터 표시/숨기기 토글 — v9 강화: 스크롤 + 하이라이트
   function toggleSubFilters(filter) {
     var glownateFilter = document.getElementById('glownateSubFilter');
     var implantFilter = document.getElementById('implantSubFilter');
@@ -372,13 +398,10 @@
     if (glownateFilter) {
       if (filter === 'glownate') {
         glownateFilter.style.display = 'block';
-        glownateFilter.style.opacity = '0';
-        glownateFilter.style.transform = 'translateY(-8px)';
-        setTimeout(function() {
-          glownateFilter.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-          glownateFilter.style.opacity = '1';
-          glownateFilter.style.transform = 'translateY(0)';
-        }, 10);
+        // 서브필터 리빌드 (최신 데이터 반영)
+        buildGlownateSubFilter();
+        // 스크롤하여 서브필터가 보이도록
+        setTimeout(function() { glownateFilter.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
       } else {
         glownateFilter.style.display = 'none';
       }
@@ -386,35 +409,17 @@
     if (implantFilter) {
       if (filter === 'implant') {
         implantFilter.style.display = 'block';
-        implantFilter.style.opacity = '0';
-        implantFilter.style.transform = 'translateY(-8px)';
-        setTimeout(function() {
-          implantFilter.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-          implantFilter.style.opacity = '1';
-          implantFilter.style.transform = 'translateY(0)';
-        }, 10);
+        // 서브필터 리빌드 (최신 데이터 반영)
+        buildImplantSubFilter();
+        setTimeout(function() { implantFilter.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
       } else {
         implantFilter.style.display = 'none';
       }
     }
 
     // 필터 변경 시 서브필터 리셋
-    if (filter !== 'glownate') {
-      currentStyle = 'all';
-      var glownateWrap = document.querySelector('#glownateSubFilter .sub-filter-wrap');
-      if (glownateWrap) glownateWrap.querySelectorAll('.sub-chip').forEach(function(c) {
-        c.classList.remove('active');
-        if (c.getAttribute('data-style') === 'all') c.classList.add('active');
-      });
-    }
-    if (filter !== 'implant') {
-      currentMedical = 'all';
-      var implantWrap = document.querySelector('#implantSubFilter .sub-filter-wrap');
-      if (implantWrap) implantWrap.querySelectorAll('.sub-chip').forEach(function(c) {
-        c.classList.remove('active');
-        if (c.getAttribute('data-medical') === 'all') c.classList.add('active');
-      });
-    }
+    if (filter !== 'glownate') currentStyle = 'all';
+    if (filter !== 'implant') currentMedical = 'all';
   }
 
   async function loadCasesFromAPI() {
@@ -491,10 +496,12 @@
   document.addEventListener('DOMContentLoaded', async function() {
     await Promise.all([loadCasesFromAPI(), checkAuth()]);
     updateStats();
+    buildRegionFilter();
     buildGlownateSubFilter();
     buildImplantSubFilter();
-    buildRegionFilter();
     renderGallery('all');
+
+    console.log('[Gallery v9] 로드 완료 — 케이스:', cases.length, '| 서브필터 빌드 완료');
 
     // 메인 카테고리 필터 버튼
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
