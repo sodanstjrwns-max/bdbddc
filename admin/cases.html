@@ -160,6 +160,28 @@ tbody tr:last-child td{border-bottom:none}
 .spin{animation:spin 1s linear infinite}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
+/* Conditional Fields: Medical History Tags & Laminate Style */
+.conditional-field{display:none;margin-bottom:18px;animation:fadeSlide .25s ease}
+.conditional-field.visible{display:block}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.tag-selector{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.tag-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:50px;border:1px solid var(--border);background:var(--bg);color:var(--text-dim);font-size:.82rem;font-weight:600;cursor:pointer;transition:all var(--transition);user-select:none}
+.tag-chip:hover{border-color:var(--accent);color:var(--text)}
+.tag-chip.selected{background:var(--accent-glow);border-color:var(--accent);color:var(--accent-light)}
+.tag-chip.selected i{color:var(--accent-light)}
+.tag-chip i{font-size:.72rem;color:var(--text-muted)}
+.tag-chip .tag-check{display:none;font-size:.68rem}
+.tag-chip.selected .tag-check{display:inline}
+.field-hint{font-size:.72rem;color:var(--text-muted);margin-top:6px}
+/* Laminate style cards */
+.style-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.style-card{padding:16px 12px;border-radius:var(--radius);border:2px solid var(--border);background:var(--bg);text-align:center;cursor:pointer;transition:all var(--transition)}
+.style-card:hover{border-color:var(--accent);background:var(--accent-glow)}
+.style-card.selected{border-color:var(--accent);background:var(--accent-glow);box-shadow:0 0 0 1px var(--accent)}
+.style-card-icon{font-size:1.4rem;margin-bottom:6px}
+.style-card-label{font-size:.82rem;font-weight:700;color:var(--text)}
+.style-card-desc{font-size:.68rem;color:var(--text-muted);margin-top:3px}
+
 /* Region autocomplete */
 .region-search-wrap{position:relative}
 .region-search-wrap input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 14px 10px 36px;border-radius:var(--radius-sm);font-size:.88rem;font-family:inherit;outline:none;transition:border-color var(--transition)}
@@ -487,6 +509,48 @@ tbody tr:last-child td{border-bottom:none}
           </div>
           <input type="hidden" id="regionValue" value="">
         </div>
+        <!-- 🏥 임플란트 전용: 환자 병력 태그 -->
+        <div class="conditional-field" id="medicalHistoryField">
+          <label style="display:block;font-size:.8rem;font-weight:600;color:var(--text-dim);margin-bottom:6px"><i class="fas fa-notes-medical" style="margin-right:4px;color:var(--blue)"></i> 환자 병력 <span style="font-weight:400;color:var(--text-muted);font-size:.72rem">(해당 항목 선택)</span></label>
+          <div class="tag-selector" id="medicalTags">
+            <span class="tag-chip" data-tag="고혈압"><i class="fas fa-heartbeat"></i> 고혈압 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="당뇨"><i class="fas fa-tint"></i> 당뇨 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="골다공증"><i class="fas fa-bone"></i> 골다공증 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="심장질환"><i class="fas fa-heart"></i> 심장질환 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="혈액희석제"><i class="fas fa-pills"></i> 혈액희석제 복용 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="비스포스포네이트"><i class="fas fa-capsules"></i> 비스포스포네이트 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="흡연"><i class="fas fa-smoking"></i> 흡연 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="뼈이식"><i class="fas fa-teeth"></i> 뼈이식 필요 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="상악동거상"><i class="fas fa-lungs"></i> 상악동거상술 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="무치악"><i class="fas fa-tooth"></i> 완전 무치악 <i class="fas fa-check tag-check"></i></span>
+            <span class="tag-chip" data-tag="건강"><i class="fas fa-check-circle"></i> 특이사항 없음 <i class="fas fa-check tag-check"></i></span>
+          </div>
+          <div class="field-hint">* 임플란트 케이스에서 환자 병력이 태그로 표시됩니다</div>
+        </div>
+
+        <!-- ✨ 글로우네이트 전용: 스타일 카테고리 -->
+        <div class="conditional-field" id="laminateStyleField">
+          <label style="display:block;font-size:.8rem;font-weight:600;color:var(--text-dim);margin-bottom:6px"><i class="fas fa-palette" style="margin-right:4px;color:var(--purple)"></i> 시술 스타일 <span class="req">*</span></label>
+          <div class="style-cards" id="styleCards">
+            <div class="style-card" data-style="white-pretty" onclick="selectStyle(this)">
+              <div class="style-card-icon">🤍</div>
+              <div class="style-card-label">하얗고 예쁘게</div>
+              <div class="style-card-desc">밝고 환한 화이트톤</div>
+            </div>
+            <div class="style-card" data-style="bright-pretty" onclick="selectStyle(this)">
+              <div class="style-card-icon">✨</div>
+              <div class="style-card-label">밝고 예쁘게</div>
+              <div class="style-card-desc">자연스러운 밝은 톤</div>
+            </div>
+            <div class="style-card" data-style="natural-pretty" onclick="selectStyle(this)">
+              <div class="style-card-icon">🌿</div>
+              <div class="style-card-label">자연스럽고 예쁘게</div>
+              <div class="style-card-desc">내 치아같은 자연톤</div>
+            </div>
+          </div>
+          <div class="field-hint">* 글로우네이트 갤러리에서 스타일별 분류에 사용됩니다</div>
+        </div>
+
         <div class="form-group"><label>설명</label><textarea id="caseDescription" placeholder="케이스 상세 설명..."></textarea></div>
 
         <!-- Image Upload via R2 (4장: 구내포토 B/A + 파노라마 B/A) -->
@@ -895,6 +959,46 @@ function renderCases() {
 const IMG_KEYS = ['before', 'after', 'panBefore', 'panAfter'];
 const IMG_FIELD_MAP = { before:'beforeImage', after:'afterImage', panBefore:'panBeforeImage', panAfter:'panAfterImage' };
 
+// ─── 카테고리별 조건부 필드 표시 ───
+function toggleConditionalFields() {
+  var cat = document.getElementById('caseCategory').value;
+  var medField = document.getElementById('medicalHistoryField');
+  var styleField = document.getElementById('laminateStyleField');
+  medField.classList.toggle('visible', cat === 'implant');
+  styleField.classList.toggle('visible', cat === 'glownate');
+}
+document.getElementById('caseCategory').addEventListener('change', toggleConditionalFields);
+
+// ─── 병력 태그 토글 ───
+document.getElementById('medicalTags').addEventListener('click', function(e) {
+  var chip = e.target.closest('.tag-chip');
+  if (!chip) return;
+  chip.classList.toggle('selected');
+});
+function getSelectedMedicalTags() {
+  return Array.from(document.querySelectorAll('#medicalTags .tag-chip.selected')).map(function(c) { return c.getAttribute('data-tag'); });
+}
+function setMedicalTags(tags) {
+  document.querySelectorAll('#medicalTags .tag-chip').forEach(function(c) {
+    c.classList.toggle('selected', tags && tags.indexOf(c.getAttribute('data-tag')) !== -1);
+  });
+}
+
+// ─── 글로우네이트 스타일 선택 ───
+function selectStyle(el) {
+  document.querySelectorAll('#styleCards .style-card').forEach(function(c) { c.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+function getSelectedStyle() {
+  var sel = document.querySelector('#styleCards .style-card.selected');
+  return sel ? sel.getAttribute('data-style') : '';
+}
+function setSelectedStyle(style) {
+  document.querySelectorAll('#styleCards .style-card').forEach(function(c) {
+    c.classList.toggle('selected', c.getAttribute('data-style') === style);
+  });
+}
+
 function openModal(id) {
   editingId = id || null;
   document.getElementById('modalTitle').textContent = id ? '케이스 수정' : '새 케이스 추가';
@@ -909,6 +1013,10 @@ function openModal(id) {
       document.getElementById('caseDescription').value = c.description||'';
       document.getElementById('patientGender').value = c.patientGender||'';
       document.getElementById('patientAge').value = c.patientAge||'';
+      // 병력/스타일 복원
+      setMedicalTags(c.medicalHistory || []);
+      setSelectedStyle(c.laminateStyle || '');
+      toggleConditionalFields();
       // 지역 복원
       if (c.region) {
         document.getElementById('regionValue').value = c.region;
@@ -936,6 +1044,9 @@ function openModal(id) {
       clearPreview(k);
     });
     clearRegion();
+    setMedicalTags([]);
+    setSelectedStyle('');
+    toggleConditionalFields();
   }
   document.getElementById('caseModal').classList.add('open');
 }
@@ -962,6 +1073,8 @@ async function saveCase() {
   const gender = document.getElementById('patientGender').value;
   const age = document.getElementById('patientAge').value;
   if (!title || !category || !doctor || !gender || !age) { showToast('필수 항목을 입력하세요', true); return; }
+  // 글로우네이트인데 스타일 미선택 시 경고
+  if (category === 'glownate' && !getSelectedStyle()) { showToast('글로우네이트 스타일을 선택하세요', true); return; }
   const data = {
     title, category, doctorName: doctor,
     patientGender: gender,
@@ -971,6 +1084,10 @@ async function saveCase() {
     status: document.getElementById('caseStatus').value,
     description: document.getElementById('caseDescription').value.trim(),
     region: document.getElementById('regionValue').value || '',
+    // 임플란트 병력 태그
+    medicalHistory: category === 'implant' ? getSelectedMedicalTags() : [],
+    // 글로우네이트 스타일
+    laminateStyle: category === 'glownate' ? getSelectedStyle() : '',
     // 4장 이미지 (구내포토 B/A + 파노라마 B/A)
     beforeImage: document.getElementById('beforeR2Url').value || '',
     afterImage: document.getElementById('afterR2Url').value || '',

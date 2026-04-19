@@ -668,6 +668,8 @@ app.get('/api/cases', async (c) => {
       region: cs.region || '',
       patientGender: cs.patientGender || '',
       patientAge: cs.patientAge || '',
+      medicalHistory: cs.medicalHistory || [],
+      laminateStyle: cs.laminateStyle || '',
       createdAt: cs.createdAt,
     }
   })
