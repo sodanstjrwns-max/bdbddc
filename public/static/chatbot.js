@@ -57,15 +57,15 @@
       '#bd-chat-fab.open{transform:rotate(90deg) scale(0.9);background:rgba(107,66,38,0.8);}' +
       '#bd-chat-fab .fab-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#e74c3c;display:none;align-items:center;justify-content:center;font-size:0.6rem;font-weight:800;color:#fff;border:2px solid #fff;}' +
 
-      // 채팅 창
-      '#bd-chat-window{position:fixed;bottom:270px;right:24px;z-index:9999;width:380px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 200px);border-radius:20px;overflow:hidden;display:none;flex-direction:column;background:#faf9f7;box-shadow:0 20px 60px rgba(0,0,0,0.2),0 0 0 1px rgba(200,169,126,0.15);transform:translateY(20px) scale(0.95);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);}' +
+      // 채팅 창 (580px로 예약폼 대응)
+      '#bd-chat-window{position:fixed;bottom:270px;right:24px;z-index:9999;width:380px;max-width:calc(100vw - 32px);height:580px;max-height:calc(100vh - 140px);border-radius:20px;overflow:hidden;display:none;flex-direction:column;background:#faf9f7;box-shadow:0 20px 60px rgba(0,0,0,0.2),0 0 0 1px rgba(200,169,126,0.15);transform:translateY(20px) scale(0.95);opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);}' +
       '#bd-chat-window.open{display:flex;transform:translateY(0) scale(1);opacity:1;}' +
 
-      // 헤더
-      '.bd-chat-header{padding:18px 20px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;display:flex;align-items:center;gap:12px;flex-shrink:0;}' +
-      '.bd-chat-avatar{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:2px solid rgba(255,255,255,0.25);flex-shrink:0;}' +
-      '.bd-chat-header-info h4{margin:0;font-size:0.95rem;font-weight:700;letter-spacing:-0.01em;}' +
-      '.bd-chat-header-info p{margin:2px 0 0;font-size:0.72rem;opacity:0.75;font-weight:400;}' +
+      // 헤더 (컴팩트)
+      '.bd-chat-header{padding:12px 16px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;display:flex;align-items:center;gap:10px;flex-shrink:0;}' +
+      '.bd-chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:1rem;border:2px solid rgba(255,255,255,0.25);flex-shrink:0;}' +
+      '.bd-chat-header-info h4{margin:0;font-size:0.88rem;font-weight:700;letter-spacing:-0.01em;}' +
+      '.bd-chat-header-info p{margin:1px 0 0;font-size:0.68rem;opacity:0.75;font-weight:400;}' +
       '.bd-chat-header-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.7);font-size:1.1rem;cursor:pointer;padding:4px;transition:color .2s;-webkit-tap-highlight-color:transparent;}' +
       '.bd-chat-header-close:hover{color:#fff;}' +
 
@@ -105,7 +105,7 @@
       '.bd-quick-btn:hover{background:rgba(200,169,126,0.2);border-color:#C8A97E;}' +
 
       // 입력 영역
-      '.bd-chat-input{padding:12px 16px;border-top:1px solid rgba(200,169,126,0.12);display:flex;gap:8px;align-items:flex-end;background:#fff;flex-shrink:0;}' +
+      '.bd-chat-input{padding:8px 12px;border-top:1px solid rgba(200,169,126,0.12);display:flex;gap:8px;align-items:flex-end;background:#fff;flex-shrink:0;}' +
       '.bd-chat-input textarea{flex:1;border:1px solid rgba(200,169,126,0.2);border-radius:12px;padding:10px 14px;font-size:0.88rem;resize:none;outline:none;font-family:inherit;max-height:100px;min-height:40px;line-height:1.4;transition:border-color .2s;background:#faf9f7;}' +
       '.bd-chat-input textarea:focus{border-color:#C8A97E;}' +
       '.bd-chat-input textarea::placeholder{color:rgba(107,66,38,0.35);}' +
@@ -114,29 +114,29 @@
       '.bd-chat-send:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none;}' +
 
       // 브랜딩
-      '.bd-chat-brand{text-align:center;padding:4px;font-size:0.62rem;color:rgba(107,66,38,0.25);background:#fff;flex-shrink:0;}' +
+      '.bd-chat-brand{text-align:center;padding:2px;font-size:0.58rem;color:rgba(107,66,38,0.2);background:#fff;flex-shrink:0;}' +
 
-      // 인라인 예약 폼 — 컴팩트 디자인 (스크롤 없이 전체 표시)
-      '.bd-booking-form{background:linear-gradient(135deg,#faf5ee,#f5ede0);border:1px solid rgba(200,169,126,0.35);border-radius:12px;padding:12px;margin:8px 0;animation:bdMsgIn .4s ease;width:100%;box-sizing:border-box;}' +
-      '.bd-booking-form h5{margin:0 0 8px;font-size:.82rem;font-weight:700;color:#6B4226;display:flex;align-items:center;gap:5px;}' +
-      '.bd-booking-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;}' +
+      // 인라인 예약 폼 — 버블 안 컴팩트 디자인 v5 (스크롤 없이 전체 표시)
+      '.bd-booking-form{background:linear-gradient(135deg,#faf5ee,#f5ede0);border:1px solid rgba(200,169,126,0.3);border-radius:10px;padding:10px;margin-top:8px;animation:bdMsgIn .3s ease;}' +
+      '.bd-booking-form h5{margin:0 0 7px;font-size:.78rem;font-weight:700;color:#6B4226;display:flex;align-items:center;gap:4px;}' +
+      '.bd-booking-row{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:5px;}' +
       '.bd-booking-row.full{grid-template-columns:1fr;}' +
-      '.bd-booking-field{display:flex;flex-direction:column;gap:2px;}' +
-      '.bd-booking-field label{font-size:.65rem;font-weight:600;color:#8B5E3C;letter-spacing:.3px;}' +
-      '.bd-booking-field input,.bd-booking-field select{padding:7px 9px;border:1px solid rgba(200,169,126,0.3);border-radius:7px;font-size:.8rem;font-family:inherit;background:#fff;color:#2c2419;outline:none;transition:border-color .2s;-webkit-appearance:none;height:34px;box-sizing:border-box;}' +
-      '.bd-booking-field input:focus,.bd-booking-field select:focus{border-color:#C8A97E;box-shadow:0 0 0 2px rgba(200,169,126,0.15);}' +
-      '.bd-booking-field input::placeholder{color:rgba(107,66,38,0.3);}' +
-      '.bd-booking-submit{width:100%;padding:9px;border:none;border-radius:8px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:.84rem;font-weight:700;cursor:pointer;margin-top:4px;transition:all .2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;}' +
-      '.bd-booking-submit:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(107,66,38,0.3);}' +
+      '.bd-booking-field{display:flex;flex-direction:column;gap:1px;}' +
+      '.bd-booking-field label{font-size:.6rem;font-weight:600;color:#8B5E3C;letter-spacing:.2px;}' +
+      '.bd-booking-field input,.bd-booking-field select{padding:5px 7px;border:1px solid rgba(200,169,126,0.25);border-radius:6px;font-size:.76rem;font-family:inherit;background:#fff;color:#2c2419;outline:none;transition:border-color .2s;-webkit-appearance:none;height:30px;box-sizing:border-box;}' +
+      '.bd-booking-field input:focus,.bd-booking-field select:focus{border-color:#C8A97E;box-shadow:0 0 0 1.5px rgba(200,169,126,0.12);}' +
+      '.bd-booking-field input::placeholder{color:rgba(107,66,38,0.3);font-size:.72rem;}' +
+      '.bd-booking-submit{width:100%;padding:8px;border:none;border-radius:7px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;margin-top:3px;transition:all .2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px;}' +
+      '.bd-booking-submit:hover{transform:translateY(-1px);box-shadow:0 3px 12px rgba(107,66,38,0.3);}' +
       '.bd-booking-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}' +
-      '.bd-booking-submit .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none;}' +
+      '.bd-booking-submit .spinner{width:13px;height:13px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none;}' +
       '@keyframes spin{to{transform:rotate(360deg)}}' +
-      '.bd-booking-success{text-align:center;padding:14px 10px;animation:bdMsgIn .4s ease;}' +
-      '.bd-booking-success .check-icon{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin:0 auto 8px;animation:bdPop .5s cubic-bezier(.22,1,.36,1);}' +
-      '.bd-booking-success h5{font-size:.88rem;font-weight:700;color:#22c55e;margin:0 0 4px;}' +
-      '.bd-booking-success p{font-size:.76rem;color:#6B4226;margin:0;line-height:1.4;}' +
+      '.bd-booking-success{text-align:center;padding:12px 8px;animation:bdMsgIn .3s ease;}' +
+      '.bd-booking-success .check-icon{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;margin:0 auto 6px;animation:bdPop .5s cubic-bezier(.22,1,.36,1);}' +
+      '.bd-booking-success h5{font-size:.82rem;font-weight:700;color:#22c55e;margin:0 0 3px;}' +
+      '.bd-booking-success p{font-size:.72rem;color:#6B4226;margin:0;line-height:1.35;}' +
       '@keyframes bdPop{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}' +
-      '.bd-booking-error{font-size:.75rem;color:#e74c3c;margin-top:4px;display:none;}' +
+      '.bd-booking-error{font-size:.7rem;color:#e74c3c;margin-top:3px;display:none;}' +
 
       // 애니메이션
       '@keyframes bdMsgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}' +
@@ -337,8 +337,15 @@
     bubble.className = 'bd-msg-bubble';
     bubble.innerHTML = formatText(msg.content);
 
-    // [BOOKING_FORM] 처리 — 인라인 예약 폼을 별도 전폭 블록으로 삽입
-    var shouldShowBookingForm = msg.role === 'assistant' && hasBookingForm(msg.content) && !state.bookingFormShown;
+    // [BOOKING_FORM] 처리 — 메시지 버블 안에 예약 폼 삽입
+    if (msg.role === 'assistant' && hasBookingForm(msg.content) && !state.bookingFormShown) {
+      state.bookingFormShown = true;
+      var formHtml = createBookingFormHTML();
+      var formDiv = document.createElement('div');
+      formDiv.innerHTML = formHtml;
+      bubble.appendChild(formDiv.firstChild);
+      setTimeout(function() { bindBookingForm(bubble); }, 50);
+    }
 
     // 에러 메시지에 재시도 버튼 추가
     if (options && options.showRetry && options.retryText) {
@@ -359,17 +366,6 @@
     div.appendChild(avatar);
     div.appendChild(bubble);
     body.appendChild(div);
-
-    // 예약 폼은 메시지 버블 밖에, 채팅 바디 전폭으로 삽입
-    if (shouldShowBookingForm) {
-      state.bookingFormShown = true;
-      var formWrapper = document.createElement('div');
-      formWrapper.style.cssText = 'width:100%;padding:0 4px;box-sizing:border-box;animation:bdMsgIn .4s ease;';
-      formWrapper.innerHTML = createBookingFormHTML();
-      body.appendChild(formWrapper);
-      setTimeout(function() { bindBookingForm(formWrapper); }, 50);
-    }
-
     scrollToBottom();
   }
 
