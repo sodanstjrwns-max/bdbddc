@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
 
   <meta charset="UTF-8">
@@ -40,6 +40,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <meta name="author" content="서울비디치과">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="canonical" href="https://bdbddc.com/doctors/kim">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/doctors/kim">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/doctors/kim">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/doctors/kim">
   <meta name="geo.region" content="KR-44">
   <meta name="geo.placename" content="천안시, 충청남도">
   <meta name="geo.position" content="36.8151;127.1139">
@@ -403,7 +407,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="container">
             <div class="profile-photo-wrapper">
                 <div class="profile-photo-frame">
-                    <img src="../images/doctors/kim-profile.jpg" alt="김민수 대표원장 프로필 사진" width="300" height="400">
+                    <img src="../images/doctors/kim-profile.webp" alt="김민수 대표원장 프로필 사진" width="300" height="400">
                     <div class="profile-photo-placeholder" style="display:none;">
                         <i class="fas fa-user-md"></i>
                         <span>프로필 사진 촬영 예정</span>
@@ -481,7 +485,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="../images/doctors/kim-treatment-1.jpg" alt="김민수 원장 1" onerror="this.style.opacity='0.3'" width="300" height="400" loading="lazy">
+                <img src="../images/doctors/kim-treatment-1.webp" alt="김민수 원장 1" onerror="this.style.opacity='0.3'" width="300" height="400" loading="lazy">
                 <div class="gallery-item-placeholder" style="display: none;">
                     <i class="fas fa-camera"></i>
                     <span>진료 사진 1 촬영 예정</span>
@@ -489,7 +493,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="gallery-item-label">김민수 원장 1</div>
             </div>
             <div class="gallery-item">
-                <img src="../images/doctors/kim-treatment-2.jpg" alt="김민수 원장 2" onerror="this.style.opacity='0.3'" width="300" height="400" loading="lazy">
+                <img src="../images/doctors/kim-treatment-2.webp" alt="김민수 원장 2" onerror="this.style.opacity='0.3'" width="300" height="400" loading="lazy">
                 <div class="gallery-item-placeholder" style="display: none;">
                     <i class="fas fa-camera"></i>
                     <span>진료 사진 2 촬영 예정</span>
@@ -884,5 +888,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

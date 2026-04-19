@@ -4,12 +4,15 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize all components
-  initHeader();
-  initMobileNav();
+  // Initialize all components (각 모듈 독립 실행 — 하나가 실패해도 나머지 정상 동작)
+  function safeRun(fn, name) {
+    try { fn(); } catch (e) { console.warn('[main.js] ' + name + ' error:', e.message); }
+  }
+  safeRun(initHeader, 'header');
+  safeRun(initMobileNav, 'mobileNav');
   // initScrollAnimations(); // 비활성화 — micro.js initScrollReveal이 통합 담당
-  initFAQ();
-  initSmoothScroll();
+  safeRun(initFAQ, 'faq');
+  safeRun(initSmoothScroll, 'smoothScroll');
   // initFloatingCTA(); // 비활성화 - HTML의 .floating-cta 사용
 });
 

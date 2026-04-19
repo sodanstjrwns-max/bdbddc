@@ -17,7 +17,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -243,6 +243,10 @@ tbody tr:hover{background:var(--bg-hover)}
   }
 </script>
 <!-- End Microsoft Clarity -->
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/admin/columns">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/admin/columns">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/admin/columns">
 </head>
 <body>
 
@@ -854,7 +858,7 @@ function renderTable() {
     const seoScore = calcSEOScore(c);
     const seoClass = seoScore >= 70 ? 'good' : seoScore >= 40 ? 'ok' : 'bad';
     return '<tr>'
-      + '<td>' + (c.thumbnailImage ? '<img src="' + c.thumbnailImage + '" style="width:60px;height:40px;border-radius:6px;object-fit:cover;">' : '<span style="color:var(--text-muted)">—</span>') + '</td>'
+      + '<td>' + (c.thumbnailImage ? '<img src="' + c.thumbnailImage + '" alt="Ce7cB7fc C378B124C77c" style="width:60px;height:40px;border-radius:6px;object-fit:cover;">' : '<span style="color:var(--text-muted)">—</span>') + '</td>'
       + '<td><strong>' + (c.title || '') + '</strong></td>'
       + '<td>' + (c.doctorName || '') + '</td>'
       + '<td><span class="seo-score ' + seoClass + '">' + seoScore + '</span></td>'
@@ -894,7 +898,7 @@ function openModal(col) {
   const thumbBox = document.getElementById('thumbBox');
   if (col?.thumbnailImage) {
     thumbBox.classList.add('has-image');
-    thumbBox.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="' + col.thumbnailImage + '"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>';
+    thumbBox.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="' + col.thumbnailImage + '" alt="Ce7cB7fc C378B124C77c"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>';
   } else {
     thumbBox.classList.remove('has-image');
     thumbBox.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><div class="upload-placeholder"><i class="fas fa-image" style="font-size:1.3rem;color:var(--text-muted);margin-bottom:6px;"></i><div style="font-size:.78rem;color:var(--text-dim)">클릭하여 대표 이미지 업로드</div><div style="font-size:.68rem;color:var(--text-muted);margin-top:4px">SNS 공유 시 표시됩니다 (1200x630 권장)</div></div>';
@@ -974,7 +978,7 @@ async function uploadThumb(input) {
     document.getElementById('colThumb').value = url;
     const box = document.getElementById('thumbBox');
     box.classList.add('has-image');
-    box.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="' + url + '"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>';
+    box.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="' + url + '" alt="Ce7cB7fc C378B124C77c"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>';
     showToast('이미지 업로드 완료');
     updateSEO();
   } catch(e) { showToast('이미지 업로드 실패', true); }
@@ -998,6 +1002,11 @@ function showToast(msg, isError) {
 
 // Init
 loadColumns();
+</script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
 </script>
 </body>
 </html>

@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
 
   <meta charset="UTF-8">
@@ -38,6 +38,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <meta name="author" content="서울비디치과">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="canonical" href="https://bdbddc.com/doctors/index">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/doctors/index">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/doctors/index">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/doctors/index">
   <meta name="geo.region" content="KR-44">
   <meta name="geo.placename" content="천안시, 충청남도">
   <meta name="geo.position" content="36.8151;127.1139">
@@ -732,7 +736,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         list.innerHTML = available.map(function(d){
           var roleTag = d.role ? '<span class="doc-role">' + d.role + '</span>' : '';
           return '<a href="/doctors/' + d.id + '" class="schedule-doctor-item">' +
-            '<img class="schedule-doctor-avatar" src="' + imgBase + d.id + '-profile.jpg" alt="' + d.name + '" loading="lazy" onerror="this.style.opacity=\'0.3\'">' +
+            '<img class="schedule-doctor-avatar" src="' + imgBase + d.id + '-profile.webp" alt="' + d.name + '" loading="lazy" onerror="this.style.opacity=\'0.3\'">' +
             '<div class="schedule-doctor-info">' +
               '<div class="schedule-doctor-name">' + d.name + ' 원장' + roleTag + '</div>' +
               '<div class="schedule-doctor-time"><i class="fas fa-clock"></i> ' + d.schedule[day] + '</div>' +
@@ -797,7 +801,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/moon" class="doctor-card-v2" data-specialty="representative">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/moon-profile.jpg" alt="문석준 대표원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/moon-profile.webp" alt="문석준 대표원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -815,7 +819,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/kim" class="doctor-card-v2" data-specialty="representative">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kim-profile.jpg" alt="김민수 대표원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kim-profile.webp" alt="김민수 대표원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -833,7 +837,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/hyun" class="doctor-card-v2" data-specialty="representative">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/hyun-profile.jpg" alt="현정민 대표원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/hyun-profile.webp" alt="현정민 대표원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -851,7 +855,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/lee" class="doctor-card-v2" data-specialty="implant">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/lee-profile.jpg" alt="이승엽 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/lee-profile.webp" alt="이승엽 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -869,7 +873,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/choi" class="doctor-card-v2" data-specialty="general">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/choi-profile.jpg" alt="최종훈 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/choi-profile.webp" alt="최종훈 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -887,7 +891,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/kang" class="doctor-card-v2" data-specialty="general">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kang-profile.jpg" alt="강경민 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kang-profile.webp" alt="강경민 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -905,7 +909,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/park-sb" class="doctor-card-v2" data-specialty="general">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/park-sb-profile.jpg" alt="박수빈 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/park-sb-profile.webp" alt="박수빈 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -923,7 +927,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/lim" class="doctor-card-v2" data-specialty="orthodontics">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/lim-profile.jpg" alt="임지원 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/lim-profile.webp" alt="임지원 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -941,7 +945,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/kim-mg" class="doctor-card-v2" data-specialty="orthodontics">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kim-mg-profile.jpg" alt="김민규 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kim-mg-profile.webp" alt="김민규 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -959,7 +963,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/kang-mj" class="doctor-card-v2" data-specialty="conservative">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kang-mj-profile.jpg" alt="강민지 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kang-mj-profile.webp" alt="강민지 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -977,7 +981,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/jo" class="doctor-card-v2" data-specialty="conservative">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/jo-profile.jpg" alt="조설아 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/jo-profile.webp" alt="조설아 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -995,7 +999,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/kim-mj" class="doctor-card-v2" data-specialty="pediatric">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kim-mj-profile.jpg" alt="김민진 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/kim-mj-profile.webp" alt="김민진 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -1013,7 +1017,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/seo" class="doctor-card-v2" data-specialty="pediatric">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/seo-profile.jpg" alt="서희원 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/seo-profile.webp" alt="서희원 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -1031,7 +1035,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/park" class="doctor-card-v2" data-specialty="pediatric">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/park-profile.jpg" alt="박상현 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/park-profile.webp" alt="박상현 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -1049,7 +1053,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="/doctors/lee-bm" class="doctor-card-v2" data-specialty="oral-medicine">
             <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
             <div class="doctor-card-photo">
-              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/lee-bm-profile.jpg" alt="이병민 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
+              <img src="https://raw.githubusercontent.com/sodanstjrwns-max/bdbddc/main/images/doctors/lee-bm-profile.webp" alt="이병민 원장" loading="lazy" onerror="this.style.opacity='0.3'" width="300" height="400">
               <div class="doctor-card-photo-fallback" style="display:none;"><i class="fas fa-user-md"></i></div>
             </div>
             <div class="doctor-card-body">
@@ -1243,5 +1247,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
   </script>
 
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

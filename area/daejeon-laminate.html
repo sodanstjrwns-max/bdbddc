@@ -7,6 +7,10 @@
   <meta name="description" content="대전 라미네이트 잘하는 치과 — 대전광역시에서 차로 40분. 서울비디치과 글로우네이트, 최소삭제 포세린 라미네이트, DSD 디자인 ☎041-415-2892">
   <meta name="keywords" content="대전 라미네이트, 대전 라미네이트 잘하는곳, 대전 치아 라미네이트, 대전 글로우네이트, 대전 라미네이트 비용, 서울비디치과">
   <link rel="canonical" href="https://bdbddc.com/area/daejeon-laminate">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/area/daejeon-laminate">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/area/daejeon-laminate">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/area/daejeon-laminate">
   <meta name="geo.position" content="36.8151;127.1139">
   <meta name="geo.placename" content="서울비디치과">
   <meta name="geo.region" content="KR-44">
@@ -547,5 +551,10 @@
   <script>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
 
   <meta charset="UTF-8">
@@ -36,6 +36,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <meta name="description" content="서울비디치과 상시채용. 주4일 기본, 입사 첫날부터. 인센티브 기준 투명 공개. 진료실·상담팀 치과위생사 모집. 경력 무관.">
   <meta name="keywords" content="치과위생사 채용, 천안 치과 채용, 서울비디치과 채용, 주4일 치과, 치과위생사 구인, 천안 불당동 채용">
   <link rel="canonical" href="https://bdbddc.com/careers">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/careers">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/careers">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/careers">
   <meta property="og:type" content="website">
   <meta property="og:title" content="채용 안내 | 서울비디치과 — 감히 평생 직장을 꿈꿉니다">
   <meta property="og:description" content="주4일 기본, 입사 첫날부터. 인센티브 기준 투명 공개. 진료실·상담팀 치과위생사 모집.">
@@ -1490,5 +1494,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     reveals.forEach(function(el) { obs.observe(el); });
   });
   </script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

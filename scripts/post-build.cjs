@@ -9,7 +9,8 @@ const staticFiles = [
   'sitemap.xml','sitemap-main.xml','sitemap-area.xml','sitemap-encyclopedia.xml',
   'robots.txt','6f74445f7ec14eccb522a4d3f253128c.txt','bdbddc2026indexnow.txt',
   'blueprint.html','llms.txt','llms-full.txt',
-  'flight.html','games.html','run.html','careers.html','symptom-checker.html','_redirects'
+  'flight.html','games.html','run.html','careers.html','symptom-checker.html','_redirects',
+  'sw.js','_headers'
 ];
 staticFiles.forEach(f => {
   try { fs.copyFileSync(f, 'dist/' + f); } catch(e) {}
@@ -24,6 +25,8 @@ dirs.forEach(d => {
   try { cp.execSync('mkdir -p dist/' + d + ' && cp -rT ' + d + ' dist/' + d); } catch(e) {}
 });
 cp.execSync('mkdir -p dist/data && cp -rT public/data dist/data');
+// Copy public/images (glownate etc.) to dist/images, merging with existing
+try { cp.execSync('cp -r public/images/* dist/images/ 2>/dev/null || true'); } catch(e) {}
 
 // 3. Patch _routes.json
 // Include /* to ensure ALL requests go through Worker (needed for seoulbddc.com → bdbddc.com redirect)
@@ -35,7 +38,7 @@ const routes = {
     '/css/*','/js/*','/images/*','/static/*','/data/*',
     '/manifest.json','/sitemap.xml','/sitemap-main.xml','/sitemap-area.xml','/sitemap-encyclopedia.xml',
     '/robots.txt','/6f74445f7ec14eccb522a4d3f253128c.txt','/bdbddc2026indexnow.txt',
-    '/llms.txt','/llms-full.txt'
+    '/llms.txt','/llms-full.txt','/sw.js'
   ]
 };
 fs.writeFileSync('dist/_routes.json', JSON.stringify(routes, null, 2));

@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
@@ -46,6 +46,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <meta property="og:image:height" content="630">
 
   <link rel="canonical" href="https://bdbddc.com/flight">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/flight">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/flight">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/flight">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
@@ -2059,5 +2063,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <script src="/js/micro.js?v=fc744130" defer></script>
   <script src="/static/chatbot.js" defer></script>
 <script src="/js/gnb-v2.js?v=853a02fb" defer></script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

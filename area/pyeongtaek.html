@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
 
   <meta charset="UTF-8">
@@ -38,6 +38,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <meta name="author" content="서울비디치과">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="canonical" href="https://bdbddc.com/area/pyeongtaek">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/area/pyeongtaek">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/area/pyeongtaek">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/area/pyeongtaek">
   <meta name="geo.region" content="KR-41">
   <meta name="geo.placename" content="천안시, 충청남도">
   <meta name="geo.position" content="36.8151;127.1139">
@@ -757,5 +761,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

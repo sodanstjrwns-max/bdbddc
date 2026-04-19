@@ -83,7 +83,7 @@
     // ========================================
     function syncNavMenus() {
         // ── 데스크탑 메뉴 (canonical) ──
-        var mainNav = document.getElementById('mainNav');
+        const mainNav = document.getElementById('mainNav');
         if (mainNav) {
             mainNav.innerHTML =
             '<ul>' +
@@ -151,7 +151,7 @@
         }
 
         // ── 모바일 메뉴 (canonical) ──
-        var mobileMenu = document.querySelector('.mobile-nav-menu');
+        const mobileMenu = document.querySelector('.mobile-nav-menu');
         if (mobileMenu) {
             mobileMenu.innerHTML =
             // 진료
@@ -249,10 +249,10 @@
     // 모바일 메뉴 토글
     // ========================================
     function initMobileMenu() {
-        var menuBtn = document.getElementById('mobileMenuBtn');
-        var nav = document.getElementById('mobileNav');
-        var closeBtn = document.getElementById('mobileNavClose');
-        var overlay = document.getElementById('mobileNavOverlay');
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('mobileNav');
+        const closeBtn = document.getElementById('mobileNavClose');
+        const overlay = document.getElementById('mobileNavOverlay');
 
         if (!menuBtn || !nav) return;
 
@@ -283,7 +283,7 @@
         // innerHTML 교체 후 새 DOM에 직접 이벤트를 붙인다.
         // Event delegation 대신 직접 바인딩으로 100% 확실하게 처리.
         function bindSubmenuToggles() {
-            var toggles = nav.querySelectorAll('.mobile-nav-submenu-toggle');
+            const toggles = nav.querySelectorAll('.mobile-nav-submenu-toggle');
             toggles.forEach(function(toggle) {
                 // 이미 바인딩된 경우 스킵
                 if (toggle.__bound) return;
@@ -294,11 +294,11 @@
                     e.stopPropagation();
                     e.stopImmediatePropagation();
 
-                    var parent = toggle.closest('.mobile-nav-item') || toggle.parentElement;
+                    const parent = toggle.closest('.mobile-nav-item') || toggle.parentElement;
                     if (!parent) return;
 
                     // 아코디언: 다른 서브메뉴 닫기
-                    var allItems = nav.querySelectorAll('.mobile-nav-item.expanded');
+                    const allItems = nav.querySelectorAll('.mobile-nav-item.expanded');
                     allItems.forEach(function(item) {
                         if (item !== parent) item.classList.remove('expanded');
                     });
@@ -307,7 +307,7 @@
                     parent.classList.toggle('expanded');
 
                     // aria-expanded 업데이트
-                    var isExpanded = parent.classList.contains('expanded');
+                    const isExpanded = parent.classList.contains('expanded');
                     toggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
                 }
 
@@ -316,7 +316,7 @@
             });
 
             // 서브메뉴 내 링크 클릭 → 메뉴 닫기
-            var links = nav.querySelectorAll('.mobile-nav-submenu a:not(.mobile-nav-submenu-toggle)');
+            const links = nav.querySelectorAll('.mobile-nav-submenu a:not(.mobile-nav-submenu-toggle)');
             links.forEach(function(link) {
                 if (link.__navBound) return;
                 link.__navBound = true;
@@ -333,7 +333,7 @@
         // (혹시 나중에 다시 교체되더라도 자동 재바인딩)
         if (!nav.__mutationObserved) {
             nav.__mutationObserved = true;
-            var observer = new MutationObserver(function() {
+            const observer = new MutationObserver(function() {
                 bindSubmenuToggles();
             });
             observer.observe(nav.querySelector('.mobile-nav-menu') || nav, {
@@ -343,7 +343,7 @@
         }
 
         // 데스크톱 메가 드롭다운 토글 (모바일 뷰포트에서만 작동)
-        var dropdownItems = document.querySelectorAll('.nav-item.has-dropdown > a');
+        const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown > a');
         dropdownItems.forEach(function(item) {
             item.addEventListener('click', function(e) {
                 if (window.innerWidth <= 992) {
@@ -383,22 +383,22 @@
     // 50~75%: 확신 → 📅 지금 예약 | 75~100%: 행동 → 🔥 오늘 상담 가능!
     // ========================================
     function initScrollCTA() {
-        var stages = [
+        const stages = [
             { pct: 0,  icon: 'fa-calendar-check', txt: '편리한 상담예약', mob: '상담예약', cls: 'cta-explore' },
             { pct: 25, icon: 'fa-clipboard-check', txt: '내 케이스 진단받기', mob: '진단', cls: 'cta-consider' },
             { pct: 50, icon: 'fa-calendar-check', txt: '지금 예약하기', mob: '예약', cls: 'cta-decide' },
             { pct: 75, icon: 'fa-fire', txt: '오늘 상담 가능!', mob: '지금 예약', cls: 'cta-action' }
         ];
-        var headerBtn = document.querySelector('.btn-reserve');
-        var mobileBtn = document.querySelector('.mobile-cta-btn.reserve');
-        var prev = -1;
+        const headerBtn = document.querySelector('.btn-reserve');
+        const mobileBtn = document.querySelector('.mobile-cta-btn.reserve');
+        let prev = -1;
         function update() {
-            var h = document.documentElement.scrollHeight - window.innerHeight;
-            var pct = h > 0 ? (window.pageYOffset / h) * 100 : 0;
-            var idx = pct >= 75 ? 3 : pct >= 50 ? 2 : pct >= 25 ? 1 : 0;
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = h > 0 ? (window.pageYOffset / h) * 100 : 0;
+            const idx = pct >= 75 ? 3 : pct >= 50 ? 2 : pct >= 25 ? 1 : 0;
             if (idx === prev) return;
             prev = idx;
-            var s = stages[idx];
+            const s = stages[idx];
             if (headerBtn) {
                 headerBtn.innerHTML = '<i class="fas ' + s.icon + '"></i> ' + s.txt;
                 headerBtn.className = 'btn-reserve ' + s.cls;
@@ -538,8 +538,8 @@
             .then(function(data) {
                 if (!data.loggedIn || !data.user) return;
 
-                var name = data.user.name || '';
-                var logoutFn = "(async function(){await fetch('/api/auth/logout',{method:'POST'});location.reload()})()";
+                const name = data.user.name || '';
+                const logoutFn = "(async function(){await fetch('/api/auth/logout',{method:'POST'});location.reload()})()";
 
                 // 데스크톱 헤더 .auth-buttons
                 document.querySelectorAll('.auth-buttons').forEach(function(el) {
@@ -564,21 +564,25 @@
     }
 
     // ========================================
-    // 초기화
+    // 초기화 (각 모듈 독립 실행 — 하나가 실패해도 나머지 정상 동작)
     // ========================================
+    function safeRun(fn, name) {
+        try { fn(); } catch (e) { console.warn('[gnb-v2] ' + name + ' error:', e.message); }
+    }
+
     function init() {
-        syncNavMenus(); // 메뉴 통일 (가장 먼저 실행)
-        updateClinicStatus();
+        safeRun(syncNavMenus, 'syncNavMenus'); // 메뉴 통일 (가장 먼저 실행)
+        safeRun(updateClinicStatus, 'clinicStatus');
         setInterval(updateClinicStatus, 60000); // 1분마다 업데이트
 
-        initHeaderScroll();
-        initMobileMenu();
-        initFloatingCTA();
-        initScrollCTA();
-        initExitIntent();
-        initScrollAnimations();
-        initCountUp();
-        initAuthSync();
+        safeRun(initHeaderScroll, 'headerScroll');
+        safeRun(initMobileMenu, 'mobileMenu');
+        safeRun(initFloatingCTA, 'floatingCTA');
+        safeRun(initScrollCTA, 'scrollCTA');
+        safeRun(initExitIntent, 'exitIntent');
+        safeRun(initScrollAnimations, 'scrollAnimations');
+        safeRun(initCountUp, 'countUp');
+        safeRun(initAuthSync, 'authSync');
     }
 
     // DOM 로드 후 실행

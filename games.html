@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +36,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <meta name="abstract" content="서울비디치과 플레이 — 치석 플라이트, 치BTI 등 다양한 치과 게임과 테스트를 즐겨보세요.">
   <meta name="ai-summary" content="서울비디치과 플레이 — 치석 플라이트, 치BTI 등 다양한 치과 게임과 테스트를 즐겨보세요.">
   <link rel="canonical" href="https://bdbddc.com/games">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/games">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/games">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/games">
   <meta property="og:title" content="플레이 🎮 | 서울비디치과">
   <meta property="og:description" content="서울비디치과의 재미있는 치과 게임! 치석 플라이트, 투쓰런, 치BTI 등 다양한 게임을 즐겨보세요.">
   <meta property="og:url" content="https://bdbddc.com/games">
@@ -571,5 +575,10 @@ document.addEventListener('DOMContentLoaded', function() {
   <script src="/js/micro.js?v=fc744130" defer></script>
   <script src="/static/chatbot.js" defer></script>
 <script src="/js/gnb-v2.js?v=853a02fb" defer></script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

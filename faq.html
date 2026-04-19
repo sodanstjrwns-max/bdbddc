@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
 
   <meta charset="UTF-8">
@@ -42,6 +42,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   
   <!-- Canonical & Geo -->
   <link rel="canonical" href="https://bdbddc.com/faq">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/faq">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/faq">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/faq">
   <meta name="geo.region" content="KR-44">
   <meta name="geo.placename" content="천안시, 충청남도">
   <meta name="geo.position" content="36.8151;127.1139">
@@ -1424,5 +1428,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
     });
   </script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

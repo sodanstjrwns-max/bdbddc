@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
 
   <meta charset="UTF-8">
@@ -40,6 +40,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <meta name="author" content="서울비디치과">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="canonical" href="https://bdbddc.com/encyclopedia/">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/encyclopedia/">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/encyclopedia/">
   <meta name="geo.region" content="KR-44">
   <meta name="geo.placename" content="천안시, 충청남도">
   <meta name="geo.position" content="36.8151;127.1139">
@@ -802,5 +806,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <script src="/static/chatbot.js" defer></script>
   <script src="/js/gnb-v2.js?v=853a02fb" defer></script>
   <script src="/js/encyclopedia.js?v=20260323c" defer></script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

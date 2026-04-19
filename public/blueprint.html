@@ -832,7 +832,11 @@ strong { color: #1a1a2e; }
 
 <code><meta description></code>: 150자 이내. 예: "<code>{병원명}</code> (예: 서울비디치과) 임플란트 — <code>{차별점1}</code> (예: 서울대 15인 원장 협진), 네비게이션 정밀 수술, 수면 임플란트 가능."
 
-<code><link rel="canonical"></code>: https://<code>{도메인}</code> (예: bdbddc.com)/{경로}.
+<code><link rel="canonical">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/treatments/implant">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/treatments/implant">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/treatments/implant"></code>: https://<code>{도메인}</code> (예: bdbddc.com)/{경로}.
 
 <code><meta name="robots"></code>: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1".
 
@@ -1307,5 +1311,10 @@ strong { color: #1a1a2e; }
 
 </div><!-- /.container -->
 
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>

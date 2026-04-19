@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
+/ alt=""></noscript>
 <!-- End Meta Pixel Code -->
 
   <meta charset="UTF-8">
@@ -46,6 +46,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   
   <!-- ■ Canonical -->
   <link rel="canonical" href="https://bdbddc.com/">
+  <!-- hreflang (Weglot 다국어 연동) -->
+  <link rel="alternate" hreflang="ko" href="https://bdbddc.com/">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/">
   
   <!-- ■ Geo & Local SEO -->
   <meta name="geo.region" content="KR-44">
@@ -1036,7 +1040,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fac-mag-card fac-hero">
           <picture>
             <source srcset="/images/facility/waiting-room.webp" type="image/webp">
-            <img src="/images/facility/waiting-room.jpg" loading="lazy" alt="서울비디치과 카페 같은 대기 공간" width="800" height="500" decoding="async">
+            <img src="/images/facility/waiting-room.webp" loading="lazy" alt="서울비디치과 카페 같은 대기 공간" width="800" height="500" decoding="async">
           </picture>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">01</span>
@@ -1051,7 +1055,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fac-mag-card">
           <picture>
             <source srcset="/images/facility/treatment-room.webp" type="image/webp">
-            <img src="/images/facility/treatment-room.jpg" loading="lazy" alt="서울비디치과 개별 진료 공간" width="400" height="500" decoding="async">
+            <img src="/images/facility/treatment-room.webp" loading="lazy" alt="서울비디치과 개별 진료 공간" width="400" height="500" decoding="async">
           </picture>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">02</span>
@@ -1066,7 +1070,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fac-mag-card">
           <picture>
             <source srcset="/images/facility/surgery-tools.webp" type="image/webp">
-            <img src="/images/facility/surgery-tools.jpg" loading="lazy" alt="서울비디치과 무균 수술실 장비" width="400" height="500" decoding="async">
+            <img src="/images/facility/surgery-tools.webp" loading="lazy" alt="서울비디치과 무균 수술실 장비" width="400" height="500" decoding="async">
           </picture>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">03</span>
@@ -1081,7 +1085,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fac-mag-card">
           <picture>
             <source srcset="/images/facility/xray-equipment.webp" type="image/webp">
-            <img src="/images/facility/xray-equipment.jpg" loading="lazy" alt="서울비디치과 3D CT 진단 장비" width="400" height="500" decoding="async">
+            <img src="/images/facility/xray-equipment.webp" loading="lazy" alt="서울비디치과 3D CT 진단 장비" width="400" height="500" decoding="async">
           </picture>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">04</span>
@@ -1096,7 +1100,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fac-mag-card">
           <picture>
             <source srcset="/images/facility/kids-playroom.webp" type="image/webp">
-            <img src="/images/facility/kids-playroom.jpg" loading="lazy" alt="서울비디치과 소아치과 키즈 놀이공간" width="400" height="500" decoding="async">
+            <img src="/images/facility/kids-playroom.webp" loading="lazy" alt="서울비디치과 소아치과 키즈 놀이공간" width="400" height="500" decoding="async">
           </picture>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">05</span>
@@ -1111,7 +1115,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fac-mag-card fac-hero">
           <picture>
             <source srcset="/images/facility/dental-lab.webp" type="image/webp">
-            <img src="/images/facility/dental-lab.jpg" loading="lazy" alt="서울비디치과 원내 디지털 기공소" width="800" height="500" decoding="async">
+            <img src="/images/facility/dental-lab.webp" loading="lazy" alt="서울비디치과 원내 디지털 기공소" width="800" height="500" decoding="async">
           </picture>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">06</span>
@@ -1489,5 +1493,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- 구글 실시간 리뷰 로딩 제거됨 (의료법 준수) -->
 
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
 </body>
 </html>
