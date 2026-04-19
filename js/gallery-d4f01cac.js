@@ -519,7 +519,7 @@
     var docNameClean = (caseItem.doctorName || '').replace(/ 원장$/, '');
     var descText = (caseItem.description || '').split(/\n\s*\n/)[0] || '';
     descText = descText.replace(/[✅❌⭐🔹🔸▶►●•]/g, '').replace(/^\d+\.\s*/gm, '').trim();
-    if (descText.length > 300) descText = descText.substring(0, 300) + '…';
+    if (descText.length > 500) descText = descText.substring(0, 500) + '…';
 
     var genderLabel = caseItem.patientGender === 'male' ? '남성' : caseItem.patientGender === 'female' ? '여성' : '';
     var patientParts = [caseItem.patientAge || '', genderLabel].filter(Boolean);
