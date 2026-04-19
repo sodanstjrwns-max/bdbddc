@@ -1,5 +1,5 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v17
+ * 서울비디치과 비포/애프터 갤러리 시스템 v18
  * - v13 기반: 슬라이더 + 라이트박스 + 로그인모달 + 카드 완전 복원
  * - v9 서브필터 병합: 글로우네이트 스타일 + 임플란트 병력 서브필터
  * - 카드에 스타일/병력 태그 표시
@@ -206,20 +206,24 @@
         '.lb-info{padding:0 4px;color:rgba(255,255,255,0.7);font-size:0.85rem;overflow-y:auto;flex:1;min-height:0;}' +
         '.lb-detail-panel{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;margin-top:6px;}' +
         '.lb-detail-header{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;}' +
-        '.lb-info .lb-info-cat{display:inline-block;padding:4px 14px;border-radius:50px;background:rgba(200,169,126,0.15);color:#C8A97E;font-size:0.75rem;font-weight:600;border:1px solid rgba(200,169,126,0.2);}' +
+        '.lb-info .lb-info-cat{display:inline-block;padding:3px 10px;border-radius:50px;background:rgba(200,169,126,0.15);color:#C8A97E;font-size:0.7rem;font-weight:600;border:1px solid rgba(200,169,126,0.2);}' +
         '.lb-detail-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:10px;font-size:0.72rem;font-weight:600;}' +
         '.lb-style-chip{background:rgba(200,169,126,0.12);color:#C8A97E;border:1px solid rgba(200,169,126,0.18);}' +
         '.lb-medical-chip{background:rgba(254,243,199,0.15);color:#fde68a;border:1px solid rgba(253,230,138,0.2);}' +
         '.lb-medical-chip i{font-size:0.6rem;}' +
         '.lb-detail-title{font-size:0.88rem;font-weight:800;color:#fff;margin:0 0 4px;line-height:1.35;letter-spacing:-0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}' +
-        '.lb-detail-desc{font-size:0.75rem;color:rgba(255,255,255,0.5);line-height:1.5;margin:0 0 6px;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}' +
+        '.lb-detail-desc{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.65;margin:0 0 6px;word-break:keep-all;}' +
         '.lb-detail-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}' +
         '.lb-detail-item{display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;color:rgba(255,255,255,0.5);}' +
         '.lb-detail-item i{font-size:0.65rem;color:rgba(200,169,126,0.6);}' +
         '.lb-detail-medical{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px;}' +
-        /* 태그 칩 행 — 한 줄 스크롤 */
-        '.lb-detail-tags{display:flex;align-items:center;gap:6px;margin-bottom:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;scrollbar-width:none;}' +
-        '.lb-detail-tags::-webkit-scrollbar{display:none;}' +
+        /* v18: 메타 인라인 — 1줄 텍스트 */
+        '.lb-meta-line{display:flex;align-items:center;gap:0;margin-bottom:6px;font-size:0.75rem;color:rgba(255,255,255,0.5);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex-wrap:nowrap;line-height:1;}' +
+        '.lb-meta-line .lb-ml-item{display:inline-flex;align-items:center;gap:3px;flex-shrink:0;}' +
+        '.lb-meta-line .lb-ml-sep{margin:0 6px;color:rgba(255,255,255,0.2);flex-shrink:0;}' +
+        '.lb-meta-line .lb-ml-cat{color:#C8A97E;font-weight:700;}' +
+        '.lb-meta-line .lb-ml-style{color:#C8A97E;}' +
+        '.lb-meta-line i{font-size:0.6rem;}' +
         '.lb-tag-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:600;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.1);}' +
         '.lb-tag-chip i{font-size:0.6rem;color:rgba(200,169,126,0.6);}' +
         '.lb-tag-region{background:rgba(59,130,246,0.12);color:rgba(147,197,253,0.9);border-color:rgba(59,130,246,0.2);}' +
@@ -235,8 +239,11 @@
         'a.lb-doctor-name:hover{color:#C8A97E;}' +
         '.lb-doctor-spec{font-size:0.65rem;color:rgba(255,255,255,0.4);}' +
 
-        /* CTA 버튼 — 컴팩트 */
-        '.lb-cta-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px 18px;border-radius:12px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:0.82rem;font-weight:700;text-decoration:none;border:1px solid rgba(200,169,126,0.3);transition:all 0.25s;box-shadow:0 4px 16px rgba(107,66,38,0.25);margin:4px 0 6px;cursor:pointer;}' +
+        /* v18: 원장+CTA 한 행 레이아웃 */
+        '.lb-doc-cta-row{display:flex;align-items:center;gap:10px;margin:6px 0;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);}' +
+        '.lb-doc-cta-row .lb-doctor-profile{flex-shrink:0;border-top:none;padding:0;margin:0;}' +
+        /* CTA 버튼 — 슬림 */
+        '.lb-cta-btn{display:flex;align-items:center;justify-content:center;gap:5px;flex:1;padding:9px 14px;border-radius:10px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:0.78rem;font-weight:700;text-decoration:none;border:1px solid rgba(200,169,126,0.3);transition:all 0.25s;box-shadow:0 4px 16px rgba(107,66,38,0.25);cursor:pointer;white-space:nowrap;}' +
         '.lb-cta-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(107,66,38,0.4);color:#fff;}' +
         '.lb-cta-btn i{font-size:0.82rem;}' +
 
@@ -270,10 +277,10 @@
           '.lb-hint i{margin-right:4px;}' +
           '.lb-detail-panel{padding:10px 12px;margin-top:4px;}' +
           '.lb-detail-title{font-size:0.82rem;}' +
-          '.lb-detail-desc{font-size:0.72rem;-webkit-line-clamp:1;}' +
-          '.lb-detail-tags .lb-info-cat{padding:3px 10px;font-size:0.68rem;}' +
-          '.lb-tag-chip{padding:2px 8px;font-size:0.65rem;}' +
-          '.lb-cta-btn{padding:9px 14px;font-size:0.78rem;border-radius:10px;margin:3px 0 4px;}' +
+          '.lb-detail-desc{font-size:0.74rem;line-height:1.55;}' +
+          '.lb-meta-line{font-size:0.7rem;}' +
+          '.lb-meta-line .lb-ml-sep{margin:0 4px;}' +
+          '.lb-cta-btn{padding:8px 12px;font-size:0.75rem;border-radius:9px;}' +
           '.lb-similar-card{width:95px;}' +
           '.lb-similar-img{height:50px;}' +
           '.lb-similar-body{padding:4px 6px;}' +
@@ -512,7 +519,7 @@
     var docNameClean = (caseItem.doctorName || '').replace(/ 원장$/, '');
     var descText = (caseItem.description || '').split(/\n\s*\n/)[0] || '';
     descText = descText.replace(/[✅❌⭐🔹🔸▶►●•]/g, '').replace(/^\d+\.\s*/gm, '').trim();
-    if (descText.length > 100) descText = descText.substring(0, 100) + '…';
+    if (descText.length > 300) descText = descText.substring(0, 300) + '…';
 
     var genderLabel = caseItem.patientGender === 'male' ? '남성' : caseItem.patientGender === 'female' ? '여성' : '';
     var patientParts = [caseItem.patientAge || '', genderLabel].filter(Boolean);
@@ -588,20 +595,43 @@
         '</div>';
     }
 
+    // v18: 메타를 인라인 1줄로 압축, 설명 충분히 표시
+    var metaParts = [];
+    metaParts.push('<span class="lb-ml-item lb-ml-cat"><i class="fas ' + (CAT_ICONS[caseItem.category] || 'fa-tooth') + '"></i> ' + catLabel + '</span>');
+    if (styleLabel) metaParts.push('<span class="lb-ml-item lb-ml-style">' + styleLabel + '</span>');
+    if (caseItem.treatmentPeriod) metaParts.push('<span class="lb-ml-item"><i class="far fa-clock"></i> ' + caseItem.treatmentPeriod + '</span>');
+    if (caseItem.region) metaParts.push('<span class="lb-ml-item"><i class="fas fa-map-marker-alt"></i> ' + caseItem.region + '</span>');
+    if (patientParts.length > 0) metaParts.push('<span class="lb-ml-item"><i class="fas fa-user"></i> ' + patientParts.join(' ') + '</span>');
+    var metaLineHtml = '<div class="lb-meta-line">' + metaParts.join('<span class="lb-ml-sep">·</span>') + '</div>';
+
+    // 병력 태그 — 인라인
+    var medInlineHtml = '';
+    if (caseItem.medicalHistory && caseItem.medicalHistory.length > 0) {
+      var medItems = caseItem.medicalHistory.map(function(t) {
+        var icon = MEDICAL_ICONS[t] || 'fa-notes-medical';
+        return '<span class="lb-ml-item" style="color:#fde68a;"><i class="fas ' + icon + '"></i> ' + t + '</span>';
+      });
+      medInlineHtml = '<div class="lb-meta-line" style="margin-bottom:4px;">' + medItems.join('<span class="lb-ml-sep">·</span>') + '</div>';
+    }
+
     infoEl.innerHTML =
       '<div class="lb-detail-panel">' +
         '<h3 class="lb-detail-title">' + (caseItem.title || '') + '</h3>' +
-        '<div class="lb-detail-tags">' +
-          '<span class="lb-info-cat"><i class="fas ' + (CAT_ICONS[caseItem.category] || 'fa-tooth') + '"></i> ' + catLabel + '</span>' +
-          (caseItem.treatmentPeriod ? '<span class="lb-tag-chip"><i class="far fa-clock"></i> ' + caseItem.treatmentPeriod + '</span>' : '') +
-          (caseItem.region ? '<span class="lb-tag-chip lb-tag-region"><i class="fas fa-map-marker-alt"></i> ' + caseItem.region + '</span>' : '') +
-          (patientParts.length > 0 ? '<span class="lb-tag-chip lb-tag-patient"><i class="fas fa-user"></i> ' + patientParts.join(' ') + '</span>' : '') +
-          (styleLabel ? '<span class="lb-detail-chip lb-style-chip">' + styleLabel + '</span>' : '') +
-        '</div>' +
+        metaLineHtml +
+        medInlineHtml +
         (descText ? '<p class="lb-detail-desc">' + descText.replace(/\n/g, '<br>') + '</p>' : '') +
-        (medicalTags ? '<div class="lb-detail-medical">' + medicalTags + '</div>' : '') +
-        doctorProfileHtml +
-        ctaHtml +
+        '<div class="lb-doc-cta-row">' +
+          (docNameClean ? 
+            '<div class="lb-doctor-profile">' +
+              '<div class="lb-doctor-avatar">' + docInitial + '</div>' +
+              '<div class="lb-doctor-info">' +
+                (docSlug ? '<a href="/doctors/' + docSlug + '" class="lb-doctor-name" onclick="event.stopPropagation()">' + docNameClean + ' 원장</a>' :
+                  '<span class="lb-doctor-name">' + docNameClean + ' 원장</span>') +
+                '<span class="lb-doctor-spec">' + docSpecialty + '</span>' +
+              '</div>' +
+            '</div>' : '') +
+          ctaHtml +
+        '</div>' +
         similarHtml +
       '</div>';
 
@@ -1131,7 +1161,7 @@
     buildRegionFilter();
     renderGallery('all');
 
-    console.log('[Gallery v17] 로드 완료 — 케이스: ' + cases.length + ' | 슬라이더+서브필터+상세패널+CTA+비슷한케이스 빌드 | 한화면최적화');
+    console.log('[Gallery v18] 로드 완료 — 케이스: ' + cases.length + ' | 인라인메타+설명확장+원장CTA행 | 한화면최적화');
 
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
