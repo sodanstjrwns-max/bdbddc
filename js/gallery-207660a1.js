@@ -1,5 +1,5 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v16
+ * 서울비디치과 비포/애프터 갤러리 시스템 v17
  * - v13 기반: 슬라이더 + 라이트박스 + 로그인모달 + 카드 완전 복원
  * - v9 서브필터 병합: 글로우네이트 스타일 + 임플란트 병력 서브필터
  * - 카드에 스타일/병력 태그 표시
@@ -147,7 +147,7 @@
         '.photo-lightbox{display:none;position:fixed;inset:0;z-index:10001;align-items:center;justify-content:center;}' +
         '.photo-lightbox.active{display:flex;}' +
         '.lb-backdrop{position:absolute;inset:0;background:rgba(10,8,6,0.94);cursor:pointer;}' +
-        '.lb-container{position:relative;width:94%;max-width:860px;max-height:92vh;display:flex;flex-direction:column;z-index:1;}' +
+        '.lb-container{position:relative;width:94%;max-width:860px;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;z-index:1;overflow:hidden;}' +
         '.lb-close{position:absolute;top:-12px;right:-12px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all .25s cubic-bezier(.22,1,.36,1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}' +
         '.lb-close:hover{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);transform:scale(1.08);}' +
 
@@ -177,8 +177,8 @@
         '.lb-label-b{left:16px;background:rgba(107,66,38,0.8);color:rgba(255,255,255,0.95);}' +
         '.lb-label-a{right:16px;background:rgba(200,169,126,0.75);color:#fff;}' +
 
-        /* ── 힌트 ── */
-        '.lb-hint{text-align:center;color:rgba(255,255,255,0.4);font-size:0.8rem;margin-top:10px;transition:opacity .6s;letter-spacing:0.02em;}' +
+        /* ── 힌트 — 모바일에서 숨김 ── */
+        '.lb-hint{text-align:center;color:rgba(255,255,255,0.4);font-size:0.75rem;margin-top:4px;transition:opacity .6s;letter-spacing:0.02em;}' +
         '.lb-hint i{margin-right:8px;color:rgba(200,169,126,0.6);}' +
 
         /* ── 잠금 ── */
@@ -202,23 +202,24 @@
         '.lb-tab.active{background:linear-gradient(135deg,rgba(107,66,38,0.9),rgba(139,94,60,0.9));border-color:#C8A97E;color:#fff;}' +
         '.lb-tab .lb-tab-icon{margin-right:6px;}' +
 
-        /* ── 정보 패널 v15: 케이스 상세 ── */
-        '.lb-info{padding:0 4px;color:rgba(255,255,255,0.7);font-size:0.85rem;max-height:35vh;overflow-y:auto;}' +
-        '.lb-detail-panel{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 18px;margin-top:10px;}' +
-        '.lb-detail-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;}' +
+        /* ── 정보 패널 v17: 한 화면 최적화 ── */
+        '.lb-info{padding:0 4px;color:rgba(255,255,255,0.7);font-size:0.85rem;overflow-y:auto;flex:1;min-height:0;}' +
+        '.lb-detail-panel{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px 14px;margin-top:6px;}' +
+        '.lb-detail-header{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;}' +
         '.lb-info .lb-info-cat{display:inline-block;padding:4px 14px;border-radius:50px;background:rgba(200,169,126,0.15);color:#C8A97E;font-size:0.75rem;font-weight:600;border:1px solid rgba(200,169,126,0.2);}' +
         '.lb-detail-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:10px;font-size:0.72rem;font-weight:600;}' +
         '.lb-style-chip{background:rgba(200,169,126,0.12);color:#C8A97E;border:1px solid rgba(200,169,126,0.18);}' +
         '.lb-medical-chip{background:rgba(254,243,199,0.15);color:#fde68a;border:1px solid rgba(253,230,138,0.2);}' +
         '.lb-medical-chip i{font-size:0.6rem;}' +
-        '.lb-detail-title{font-size:1rem;font-weight:800;color:#fff;margin:0 0 8px;line-height:1.5;letter-spacing:-0.02em;}' +
-        '.lb-detail-desc{font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.7;margin:0 0 10px;word-break:keep-all;}' +
-        '.lb-detail-meta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px;}' +
+        '.lb-detail-title{font-size:0.88rem;font-weight:800;color:#fff;margin:0 0 4px;line-height:1.35;letter-spacing:-0.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}' +
+        '.lb-detail-desc{font-size:0.75rem;color:rgba(255,255,255,0.5);line-height:1.5;margin:0 0 6px;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}' +
+        '.lb-detail-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}' +
         '.lb-detail-item{display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;color:rgba(255,255,255,0.5);}' +
         '.lb-detail-item i{font-size:0.65rem;color:rgba(200,169,126,0.6);}' +
-        '.lb-detail-medical{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}' +
-        /* 태그 칩 행 */
-        '.lb-detail-tags{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;}' +
+        '.lb-detail-medical{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px;}' +
+        /* 태그 칩 행 — 한 줄 스크롤 */
+        '.lb-detail-tags{display:flex;align-items:center;gap:6px;margin-bottom:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;scrollbar-width:none;}' +
+        '.lb-detail-tags::-webkit-scrollbar{display:none;}' +
         '.lb-tag-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:600;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.1);}' +
         '.lb-tag-chip i{font-size:0.6rem;color:rgba(200,169,126,0.6);}' +
         '.lb-tag-region{background:rgba(59,130,246,0.12);color:rgba(147,197,253,0.9);border-color:rgba(59,130,246,0.2);}' +
@@ -226,37 +227,60 @@
         '.lb-tag-patient{background:rgba(168,130,214,0.12);color:rgba(216,180,254,0.9);border-color:rgba(168,130,214,0.2);}' +
         '.lb-tag-patient i{color:rgba(192,132,252,0.7);}' +
 
-        /* 원장 프로필 */
-        '.lb-doctor-profile{display:flex;align-items:center;gap:12px;padding:14px 0;margin:8px 0;border-top:1px solid rgba(255,255,255,0.06);}' +
-        '.lb-doctor-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#a0714f);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.85rem;font-weight:800;flex-shrink:0;box-shadow:0 2px 8px rgba(107,66,38,0.3);}' +
+        /* 원장 프로필 — 컴팩트 인라인 */
+        '.lb-doctor-profile{display:flex;align-items:center;gap:8px;padding:6px 0;margin:2px 0;border-top:1px solid rgba(255,255,255,0.06);}' +
+        '.lb-doctor-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#a0714f);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.7rem;font-weight:800;flex-shrink:0;box-shadow:0 2px 8px rgba(107,66,38,0.3);}' +
         '.lb-doctor-info{display:flex;flex-direction:column;gap:2px;}' +
-        '.lb-doctor-name{font-size:0.88rem;font-weight:700;color:#fff;text-decoration:none;transition:color 0.2s;}' +
+        '.lb-doctor-name{font-size:0.78rem;font-weight:700;color:#fff;text-decoration:none;transition:color 0.2s;}' +
         'a.lb-doctor-name:hover{color:#C8A97E;}' +
-        '.lb-doctor-spec{font-size:0.72rem;color:rgba(255,255,255,0.4);}' +
+        '.lb-doctor-spec{font-size:0.65rem;color:rgba(255,255,255,0.4);}' +
 
-        /* CTA 버튼 */
-        '.lb-cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 24px;border-radius:14px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:0.92rem;font-weight:700;text-decoration:none;border:1px solid rgba(200,169,126,0.3);transition:all 0.25s;box-shadow:0 4px 16px rgba(107,66,38,0.25);margin:4px 0 12px;cursor:pointer;}' +
+        /* CTA 버튼 — 컴팩트 */
+        '.lb-cta-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px 18px;border-radius:12px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:0.82rem;font-weight:700;text-decoration:none;border:1px solid rgba(200,169,126,0.3);transition:all 0.25s;box-shadow:0 4px 16px rgba(107,66,38,0.25);margin:4px 0 6px;cursor:pointer;}' +
         '.lb-cta-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(107,66,38,0.4);color:#fff;}' +
         '.lb-cta-btn i{font-size:0.82rem;}' +
 
-        /* 비슷한 케이스 */
-        '.lb-similar-section{margin-top:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);}' +
-        '.lb-similar-heading{font-size:0.82rem;font-weight:700;color:rgba(255,255,255,0.6);margin:0 0 10px;display:flex;align-items:center;gap:6px;}' +
+        /* 비슷한 케이스 — 미니 */
+        '.lb-similar-section{margin-top:4px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);}' +
+        '.lb-similar-heading{font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.5);margin:0 0 6px;display:flex;align-items:center;gap:4px;}' +
         '.lb-similar-heading i{font-size:0.7rem;color:rgba(200,169,126,0.5);}' +
         '.lb-similar-grid{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;}' +
-        '.lb-similar-card{flex:0 0 auto;width:140px;border-radius:12px;overflow:hidden;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.2s;}' +
+        '.lb-similar-card{flex:0 0 auto;width:110px;border-radius:10px;overflow:hidden;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.2s;}' +
         '.lb-similar-card:hover{border-color:rgba(200,169,126,0.3);background:rgba(255,255,255,0.08);}' +
-        '.lb-similar-img{width:100%;height:90px;overflow:hidden;background:rgba(255,255,255,0.03);}' +
+        '.lb-similar-img{width:100%;height:60px;overflow:hidden;background:rgba(255,255,255,0.03);}' +
         '.lb-similar-img img{width:100%;height:100%;object-fit:cover;display:block;}' +
         '.lb-similar-ph{display:flex;align-items:center;justify-content:center;color:rgba(200,169,126,0.3);font-size:1.4rem;}' +
-        '.lb-similar-body{padding:8px 10px;}' +
-        '.lb-similar-title{font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.8);margin:0 0 4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}' +
-        '.lb-similar-meta{font-size:0.62rem;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:3px;flex-wrap:wrap;}' +
+        '.lb-similar-body{padding:5px 7px;}' +
+        '.lb-similar-title{font-size:0.65rem;font-weight:700;color:rgba(255,255,255,0.8);margin:0 0 2px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}' +
+        '.lb-similar-meta{font-size:0.58rem;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:2px;flex-wrap:nowrap;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}' +
         '.lb-similar-meta i{font-size:0.55rem;}' +
 
-        /* ── 반응형 ── */
+        /* ── 반응형 v17 — 한 화면 최적화 ── */
         '@media(max-width:900px){.lb-container{width:100%;max-width:100%;padding:0 6px;}.lb-close{top:8px;right:14px;}}' +
-        '@media(max-width:600px){.lb-container{width:100%;max-width:100%;padding:0 4px;max-height:100vh;}.lb-tab{padding:6px 16px;font-size:0.75rem;}.lb-handle-grip{width:44px;height:44px;}.lb-handle-grip svg{width:22px;height:22px;}.lb-label{font-size:0.62rem;padding:5px 12px;bottom:10px;}.lb-img{max-height:55vh;}.lb-slider{border-radius:12px;}.lb-hint{font-size:0.75rem;}.lb-hint i{margin-right:6px;}}' +
+        '@media(max-width:600px){' +
+          '.lb-container{width:100%;max-width:100%;padding:8px 6px;max-height:100vh;max-height:100dvh;display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden;}' +
+          '.lb-tab{padding:5px 14px;font-size:0.7rem;}' +
+          '.lb-tabs{margin-top:6px;gap:4px;}' +
+          '.lb-handle-grip{width:38px;height:38px;}' +
+          '.lb-handle-grip svg{width:18px;height:18px;}' +
+          '.lb-label{font-size:0.58rem;padding:4px 10px;bottom:8px;}' +
+          '.lb-img{max-height:36vh;}' +
+          '.lb-slider{border-radius:10px;}' +
+          '.lb-hint{font-size:0.7rem;margin-top:4px;}' +
+          '.lb-hint i{margin-right:4px;}' +
+          '.lb-detail-panel{padding:10px 12px;margin-top:4px;}' +
+          '.lb-detail-title{font-size:0.82rem;}' +
+          '.lb-detail-desc{font-size:0.72rem;-webkit-line-clamp:1;}' +
+          '.lb-detail-tags .lb-info-cat{padding:3px 10px;font-size:0.68rem;}' +
+          '.lb-tag-chip{padding:2px 8px;font-size:0.65rem;}' +
+          '.lb-cta-btn{padding:9px 14px;font-size:0.78rem;border-radius:10px;margin:3px 0 4px;}' +
+          '.lb-similar-card{width:95px;}' +
+          '.lb-similar-img{height:50px;}' +
+          '.lb-similar-body{padding:4px 6px;}' +
+          '.lb-similar-title{font-size:0.6rem;}' +
+          '.lb-doctor-profile{padding:4px 0;}' +
+          '.lb-close{top:2px;right:8px;width:36px;height:36px;font-size:0.85rem;}' +
+        '}' +
 
         /* ── 애니메이션 ── */
         '@keyframes lbFadeIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}' +
@@ -276,7 +300,7 @@
     initSliderDrag();
   }
 
-  /* v17: after 이미지 로드 후 슬라이더 크기 고정 */
+  /* v17: after 이미지 로드 후 슬라이더 크기 고정 — 한 화면 최적화 */
   function syncSliderSize(afterImg) {
     var slider = document.getElementById('lbSlider');
     if (!slider || !afterImg) return;
@@ -284,7 +308,8 @@
     var natH = afterImg.naturalHeight;
     if (!natW || !natH) return;
     var containerW = slider.parentElement.clientWidth;
-    var maxH = window.innerWidth <= 600 ? window.innerHeight * 0.55 : window.innerHeight * 0.7;
+    /* v17: 모바일에서 슬라이더 높이를 뷰포트의 36%로 제한 → 한 화면에 모두 표시 */
+    var maxH = window.innerWidth <= 600 ? window.innerHeight * 0.36 : window.innerHeight * 0.52;
     var ratio = natW / natH;
     var renderW = containerW;
     var renderH = containerW / ratio;
@@ -487,7 +512,7 @@
     var docNameClean = (caseItem.doctorName || '').replace(/ 원장$/, '');
     var descText = (caseItem.description || '').split(/\n\s*\n/)[0] || '';
     descText = descText.replace(/[✅❌⭐🔹🔸▶►●•]/g, '').replace(/^\d+\.\s*/gm, '').trim();
-    if (descText.length > 200) descText = descText.substring(0, 200) + '…';
+    if (descText.length > 100) descText = descText.substring(0, 100) + '…';
 
     var genderLabel = caseItem.patientGender === 'male' ? '남성' : caseItem.patientGender === 'female' ? '여성' : '';
     var patientParts = [caseItem.patientAge || '', genderLabel].filter(Boolean);
@@ -1106,7 +1131,7 @@
     buildRegionFilter();
     renderGallery('all');
 
-    console.log('[Gallery v16] 로드 완료 — 케이스: ' + cases.length + ' | 슬라이더+서브필터+상세패널+CTA+비슷한케이스 빌드');
+    console.log('[Gallery v17] 로드 완료 — 케이스: ' + cases.length + ' | 슬라이더+서브필터+상세패널+CTA+비슷한케이스 빌드 | 한화면최적화');
 
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
