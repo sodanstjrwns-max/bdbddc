@@ -1,9 +1,9 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v9
- * - 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 카드
- * - 임플란트: 환자 병력 태그 표시 + 병력별 서브필터 (필터 클릭 시 동적 생성)
- * - 글로우네이트: 시술 스타일 태그 표시 + 스타일별 서브필터 (필터 클릭 시 동적 생성)
- * - v9: 서브필터 강제 표시 + toggleSubFilters에서 build 호출 + 애니메이션
+ * 서울비디치과 비포/애프터 갤러리 시스템 v11
+ * - 카드 v12: 미니멀 클린 디자인 — 사진 위 BEFORE+카테고리만, 본문에 작은 칩
+ * - 임플란트: 환자 병력 태그 (본문 칩) + 병력별 서브필터
+ * - 글로우네이트: 시술 스타일 태그 (본문 칩) + 스타일별 서브필터
+ * - 서브필터 강제 표시 + toggleSubFilters에서 build 호출 + 애니메이션
  */
 (function() {
   'use strict';
@@ -84,121 +84,79 @@
     return firstPara;
   }
 
-  // ─── 카드 렌더링 v8: 병력 태그 + 스타일 태그 추가 ───
+  // ─── 카드 렌더링 v11: 클린 미니멀 디자인 ───
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
-    var catSlugMap = { 'front-crown': 'crown' };
-    var treatmentSlug = catSlugMap[c.category] || c.category;
-    var hasIntraoral = c.hasIntraoral || (c.beforeImage && !c.beforeImage.includes('favicon'));
-    var hasPano = c.hasPano || c.panBeforeImage || c.panAfterImage;
     var imgSrc = c.thumbnailImage || c.beforeImage || c.panBeforeImage || '';
     var hasAnyImage = c.hasAnyImage || !!imgSrc;
     var catIcon = CAT_ICONS[c.category] || 'fa-tooth';
 
-    // 이미지 유형 뱃지
-    var typeBadges = '';
-    if (hasIntraoral) typeBadges += '<span class="gc-type-tag"><i class="fas fa-camera"></i> 구내</span>';
-    if (hasPano) typeBadges += '<span class="gc-type-tag gc-type-pano"><i class="fas fa-x-ray"></i> 파노</span>';
-
-    // 비포 사진 또는 예쁜 플레이스홀더
+    // ── 1) 사진 영역: BEFORE + 카테고리 뱃지만 (심플) ──
     var photoHtml;
     if (hasAnyImage && imgSrc) {
       photoHtml =
         '<div class="gc-photo">' +
           '<img src="' + imgSrc + '" alt="' + (c.title || 'Before') + '" class="gc-img" loading="lazy" ' +
             'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
-          '<div class="gc-ph" style="display:none"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
-          '<div class="gc-photo-badges">' +
-            '<span class="gc-before-label">BEFORE</span>' +
-            typeBadges +
+          '<div class="gc-ph" style="display:none"><i class="fas ' + catIcon + '"></i></div>' +
+          '<div class="gc-photo-overlay">' +
+            '<span class="gc-badge-before">BEFORE</span>' +
+            '<span class="gc-badge-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</span>' +
           '</div>' +
         '</div>';
     } else {
       photoHtml =
         '<div class="gc-photo">' +
-          '<div class="gc-ph"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
-          '<div class="gc-photo-badges">' +
-            '<span class="gc-before-label">BEFORE</span>' +
+          '<div class="gc-ph"><i class="fas ' + catIcon + '"></i></div>' +
+          '<div class="gc-photo-overlay">' +
+            '<span class="gc-badge-before">BEFORE</span>' +
+            '<span class="gc-badge-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</span>' +
           '</div>' +
         '</div>';
     }
 
-    // 카테고리
-    var catHtml = c.category
-      ? '<a href="/treatments/' + treatmentSlug + '" onclick="event.stopPropagation()" class="gc-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</a>'
-      : '<span class="gc-cat"><i class="fas ' + catIcon + '"></i> ' + catLabel + '</span>';
-
-    // 기간
-    var periodHtml = c.treatmentPeriod
-      ? '<span class="gc-period"><i class="far fa-clock"></i> ' + c.treatmentPeriod + '</span>'
-      : '';
-
-    // 설명
+    // ── 2) 본문: 제목 + 태그칩 + 설명 ──
     var desc = cleanDesc(c.description);
-    var descHtml = desc ? '<p class="gc-desc">' + desc + '</p>' : '';
 
-    // 담당 원장
-    var doctorInitial = (c.doctorName || '?').charAt(0);
-    var doctorHtml = c.doctorSlug
-      ? '<a href="/doctors/' + c.doctorSlug + '" onclick="event.stopPropagation()" class="gc-doc-link">' + (c.doctorName || '') + '</a>'
-      : '<span class="gc-doc-name">' + (c.doctorName || '') + '</span>';
-
-    // 이미지 수
-    var imgCount = 0;
-    if (c.beforeImage) imgCount++;
-    if (c.afterImage) imgCount++;
-    if (c.panBeforeImage) imgCount++;
-    if (c.panAfterImage) imgCount++;
-    var imgCountHtml = imgCount > 0
-      ? '<span class="gc-img-count"><i class="far fa-images"></i> ' + imgCount + '장</span>'
-      : '';
-
-    // 지역
-    var regionHtml = c.region
-      ? '<span class="gc-region"><i class="fas fa-map-marker-alt"></i> ' + c.region + '</span>'
-      : '';
-
-    // 환자 정보
-    var patientHtml = '';
-    if (c.patientAge || c.patientGender) {
-      var genderText = c.patientGender === 'male' ? '남성' : c.patientGender === 'female' ? '여성' : '';
-      var ageText = c.patientAge || '';
-      var patientText = [ageText, genderText].filter(Boolean).join(' ');
-      if (patientText) {
-        patientHtml = '<span class="gc-patient"><i class="fas fa-user"></i> ' + patientText + '</span>';
-      }
-    }
-
-    // ★ 임플란트 병력 태그
-    var medicalHtml = '';
-    if (c.category === 'implant' && c.medicalHistory && c.medicalHistory.length > 0) {
-      var tags = c.medicalHistory.map(function(tag) {
-        var icon = MEDICAL_ICONS[tag] || 'fa-notes-medical';
-        return '<span class="gc-medical-tag"><i class="fas ' + icon + '"></i> ' + tag + '</span>';
-      }).join('');
-      medicalHtml = '<div class="gc-medical-tags">' + tags + '</div>';
-    }
-
-    // ★ 글로우네이트 스타일 태그
-    var styleHtml = '';
+    // 태그 칩 영역 (스타일/병력만 — 깔끔한 인라인 칩)
+    var chipsHtml = '';
     if (c.category === 'glownate' && c.laminateStyle && STYLE_LABELS[c.laminateStyle]) {
       var s = STYLE_LABELS[c.laminateStyle];
-      styleHtml = '<span class="gc-style-tag ' + c.laminateStyle + '">' + s.icon + ' ' + s.label + '</span>';
+      chipsHtml += '<span class="gc-chip gc-chip-style">' + s.icon + ' ' + s.label + '</span>';
+    }
+    if (c.category === 'implant' && c.medicalHistory && c.medicalHistory.length > 0) {
+      c.medicalHistory.slice(0, 2).forEach(function(tag) {
+        var icon = MEDICAL_ICONS[tag] || 'fa-notes-medical';
+        chipsHtml += '<span class="gc-chip gc-chip-med"><i class="fas ' + icon + '"></i> ' + tag + '</span>';
+      });
+      if (c.medicalHistory.length > 2) {
+        chipsHtml += '<span class="gc-chip gc-chip-more">+' + (c.medicalHistory.length - 2) + '</span>';
+      }
+    }
+    var chipsRow = chipsHtml ? '<div class="gc-chips">' + chipsHtml + '</div>' : '';
+
+    // ── 3) 하단: 원장 · 기간 · 지역 ──
+    var doctorInitial = (c.doctorName || '?').charAt(0);
+    var metaLeft = '';
+    if (c.doctorName) {
+      metaLeft = '<span class="gc-avatar">' + doctorInitial + '</span><span class="gc-doctor-name">' + c.doctorName + ' 원장</span>';
+    }
+    var metaRight = [];
+    if (c.treatmentPeriod) metaRight.push('<i class="far fa-clock"></i> ' + c.treatmentPeriod);
+    if (c.region) {
+      var shortRegion = c.region.split(',')[0].trim();
+      metaRight.push('<i class="fas fa-map-marker-alt"></i> ' + shortRegion);
     }
 
     return '<a href="/cases/' + c.id + '" class="gc-card" data-category="' + (filterGroupMap[c.category] || 'general') + '" data-region="' + (c.region || '') + '">' +
       photoHtml +
-      '<div class="gc-content">' +
-        '<div class="gc-tags">' + catHtml + styleHtml + periodHtml + imgCountHtml + regionHtml + patientHtml + '</div>' +
+      '<div class="gc-body">' +
         '<h3 class="gc-title">' + (c.title || '') + '</h3>' +
-        medicalHtml +
-        descHtml +
-        '<div class="gc-footer">' +
-          '<div class="gc-doc">' +
-            '<div class="gc-doc-avatar">' + doctorInitial + '</div>' +
-            doctorHtml +
-          '</div>' +
-          '<span class="gc-more">자세히 보기 <i class="fas fa-arrow-right"></i></span>' +
+        chipsRow +
+        (desc ? '<p class="gc-desc">' + desc + '</p>' : '') +
+        '<div class="gc-bottom">' +
+          '<div class="gc-doctor">' + metaLeft + '</div>' +
+          '<div class="gc-meta-right">' + metaRight.join('<span class="gc-dot">·</span>') + '</div>' +
         '</div>' +
       '</div>' +
     '</a>';
@@ -489,7 +447,7 @@
     buildRegionFilter();
     renderGallery('all');
 
-    console.log('[Gallery v9] 로드 완료 — 케이스: ' + cases.length + ' | 서브필터 빌드 완료');
+    console.log('[Gallery v11] 로드 완료 — 케이스: ' + cases.length + ' | 카드 v12 + 서브필터 빌드');
 
     // 메인 카테고리 필터 버튼
     document.querySelectorAll('.filter-btn').forEach(function(btn) {

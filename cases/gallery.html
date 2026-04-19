@@ -117,59 +117,51 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .image-modal-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
     .image-modal-meta { display: flex; gap: 16px; margin-top: 12px; font-size: 0.88rem; color: var(--text-secondary); }
 
-    /* ===== Gallery Card v11: Premium Medical Portfolio + Login Gate ===== */
+    /* ===== Gallery Card v12: Minimal Clean Design ===== */
 
-    /* ── 그리드: site-v5.css 완전 오버라이드 ── */
+    /* ── 그리드 ── */
     .gallery-grid,
     div.gallery-grid,
     #galleryGrid,
     #galleryGrid.gallery-grid {
       display: grid !important;
       grid-template-columns: repeat(3, 1fr) !important;
-      gap: 28px !important;
+      gap: 24px !important;
       max-width: 1200px !important;
       margin: 0 auto !important;
-      padding: 0 28px !important;
+      padding: 0 24px !important;
       align-items: start !important;
     }
 
-    /* ── 카드: Weglot-safe <div> 블록 ── */
-    div.gc-card,
-    .gc-card,
-    .gallery-grid > .gc-card,
-    .gallery-grid > div.gc-card {
+    /* ── 카드 ── */
+    a.gc-card,
+    .gc-card {
       display: flex !important;
       flex-direction: column !important;
       position: relative !important;
-      background: #ffffff !important;
-      border-radius: 20px !important;
+      background: #fff !important;
+      border-radius: 16px !important;
       overflow: hidden !important;
-      border: none !important;
-      box-shadow:
-        0 1px 3px rgba(0,0,0,0.04),
-        0 4px 16px rgba(107,66,38,0.06),
-        0 0 0 1px rgba(107,66,38,0.04) !important;
+      border: 1px solid rgba(0,0,0,0.06) !important;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
       text-decoration: none !important;
       color: inherit !important;
       cursor: pointer !important;
-      transition: all 0.35s cubic-bezier(.22,.68,0,1.15) !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
     }
-    div.gc-card:hover,
+    a.gc-card:hover,
     .gc-card:hover {
-      transform: translateY(-8px) !important;
-      box-shadow:
-        0 8px 30px rgba(107,66,38,0.12),
-        0 20px 60px rgba(107,66,38,0.08),
-        0 0 0 1px rgba(107,66,38,0.08) !important;
+      transform: translateY(-4px) !important;
+      box-shadow: 0 8px 24px rgba(107,66,38,0.10) !important;
     }
 
-    /* ── 사진 영역 ── */
+    /* ── 사진 ── */
     .gc-photo {
       position: relative !important;
       width: 100% !important;
-      height: 200px !important;
+      aspect-ratio: 4/3 !important;
       overflow: hidden !important;
-      background: linear-gradient(145deg, #faf7f4 0%, #f0e9e0 100%) !important;
+      background: #f5f2ef !important;
       flex-shrink: 0 !important;
     }
     .gc-img {
@@ -177,34 +169,27 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       height: 100% !important;
       object-fit: cover !important;
       display: block !important;
-      transition: transform 0.6s cubic-bezier(.22,.68,0,1.15) !important;
+      transition: transform 0.5s ease !important;
     }
-    div.gc-card:hover .gc-img,
-    .gc-card:hover .gc-img {
-      transform: scale(1.08) !important;
-    }
+    .gc-card:hover .gc-img { transform: scale(1.04) !important; }
 
-    /* 플레이스홀더 */
     .gc-ph {
       width: 100% !important;
       height: 100% !important;
       display: flex !important;
-      flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
-      gap: 10px !important;
-      background: linear-gradient(145deg, #faf7f4, #f0e9e0) !important;
+      background: #f5f2ef !important;
       color: #c8a97e !important;
     }
-    .gc-ph i { font-size: 2.2rem !important; opacity: 0.35 !important; }
-    .gc-ph span { font-size: 0.7rem !important; font-weight: 600 !important; opacity: 0.45 !important; letter-spacing: 0.04em !important; }
+    .gc-ph i { font-size: 2rem !important; opacity: 0.3 !important; }
 
-    /* 사진 위 뱃지 오버레이 */
+    /* 사진 위 오버레이: BEFORE(좌) + 카테고리(우) */
     .gc-photo-overlay {
       position: absolute !important;
-      top: 12px !important;
-      left: 12px !important;
-      right: 12px !important;
+      top: 10px !important;
+      left: 10px !important;
+      right: 10px !important;
       display: flex !important;
       justify-content: space-between !important;
       align-items: flex-start !important;
@@ -212,200 +197,138 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       pointer-events: none !important;
     }
     .gc-badge-before {
-      padding: 5px 14px !important;
-      background: linear-gradient(135deg, #6B4226, #8B5E3C) !important;
-      color: #fff !important;
-      border-radius: 8px !important;
-      font-size: 0.58rem !important;
-      font-weight: 800 !important;
-      letter-spacing: 0.12em !important;
-      text-transform: uppercase !important;
-      box-shadow: 0 2px 10px rgba(107,66,38,0.35) !important;
-    }
-    .gc-badge-types {
-      display: flex !important;
-      gap: 5px !important;
-    }
-    .gc-badge-type {
       padding: 4px 10px !important;
-      background: rgba(0,0,0,0.5) !important;
-      color: #fff !important;
-      border-radius: 6px !important;
-      font-size: 0.55rem !important;
-      font-weight: 700 !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 4px !important;
-      backdrop-filter: blur(8px) !important;
-      -webkit-backdrop-filter: blur(8px) !important;
-    }
-    .gc-badge-pano { background: rgba(59,130,246,0.6) !important; }
-
-    /* 사진 수 뱃지 (우하단) */
-    .gc-photo-count {
-      position: absolute !important;
-      bottom: 10px !important;
-      right: 12px !important;
-      padding: 4px 10px !important;
-      background: rgba(0,0,0,0.55) !important;
+      background: rgba(107,66,38,0.85) !important;
       color: #fff !important;
       border-radius: 6px !important;
       font-size: 0.6rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.1em !important;
+      backdrop-filter: blur(4px) !important;
+    }
+    .gc-badge-cat {
+      padding: 4px 10px !important;
+      background: rgba(255,255,255,0.88) !important;
+      color: #6B4226 !important;
+      border-radius: 6px !important;
+      font-size: 0.65rem !important;
       font-weight: 700 !important;
+      backdrop-filter: blur(4px) !important;
       display: inline-flex !important;
       align-items: center !important;
       gap: 4px !important;
-      backdrop-filter: blur(8px) !important;
-      -webkit-backdrop-filter: blur(8px) !important;
-      z-index: 3 !important;
-      pointer-events: none !important;
     }
+    .gc-badge-cat i { font-size: 0.55rem !important; }
 
-    /* 로그인 힌트 (비로그인 시 사진 하단) */
-    .gc-login-hint {
-      position: absolute !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      padding: 8px 14px !important;
-      background: linear-gradient(to top, rgba(107,66,38,0.9) 0%, rgba(107,66,38,0.7) 60%, transparent 100%) !important;
-      color: #fff !important;
-      font-size: 0.65rem !important;
-      font-weight: 600 !important;
-      text-align: center !important;
-      z-index: 4 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 6px !important;
-      letter-spacing: 0.01em !important;
-      pointer-events: none !important;
-    }
-    .gc-login-hint i {
-      font-size: 0.55rem !important;
-    }
-
-    /* 확대 힌트 (호버 시 돋보기 아이콘) */
-    .gc-zoom-hint {
-      position: absolute !important;
-      top: 50% !important;
-      left: 50% !important;
-      transform: translate(-50%, -50%) scale(0.8) !important;
-      width: 48px !important;
-      height: 48px !important;
-      background: rgba(0,0,0,0.5) !important;
-      color: #fff !important;
-      border-radius: 50% !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      font-size: 1.1rem !important;
-      opacity: 0 !important;
-      transition: all 0.3s ease !important;
-      z-index: 5 !important;
-      pointer-events: none !important;
-      backdrop-filter: blur(4px) !important;
-      -webkit-backdrop-filter: blur(4px) !important;
-    }
-    .gc-card:hover .gc-zoom-hint {
-      opacity: 1 !important;
-      transform: translate(-50%, -50%) scale(1) !important;
-    }
-    .gc-photo[data-action="lightbox"] {
-      cursor: zoom-in !important;
-    }
-    .gc-img {
-      cursor: zoom-in !important;
-    }
-
-    /* 사진→텍스트 부드러운 전환 */
-    .gc-photo::after {
-      content: '' !important;
-      position: absolute !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      height: 50px !important;
-      background: linear-gradient(to top, rgba(255,255,255,0.8), transparent) !important;
-      pointer-events: none !important;
-      z-index: 2 !important;
-    }
-
-    /* ── 텍스트 영역 ── */
+    /* ── 본문 ── */
     .gc-body {
       display: flex !important;
       flex-direction: column !important;
-      padding: 18px 20px 16px !important;
-      gap: 10px !important;
+      padding: 14px 16px 14px !important;
+      gap: 8px !important;
       flex: 1 1 auto !important;
-      min-height: 0 !important;
     }
 
-    /* 메타: 카테고리 + 기간 */
-    .gc-meta {
+    .gc-title {
+      font-size: 0.92rem !important;
+      font-weight: 700 !important;
+      color: #1C1917 !important;
+      line-height: 1.4 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      letter-spacing: -0.01em !important;
+    }
+
+    /* 태그 칩 (스타일/병력) — 본문 안 작은 칩 */
+    .gc-chips {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 5px !important;
+    }
+    .gc-chip {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 3px !important;
+      padding: 3px 8px !important;
+      border-radius: 4px !important;
+      font-size: 0.65rem !important;
+      font-weight: 600 !important;
+      line-height: 1.3 !important;
+    }
+    .gc-chip i { font-size: 0.55rem !important; }
+    .gc-chip-style {
+      background: rgba(107,66,38,0.08) !important;
+      color: #6B4226 !important;
+    }
+    .gc-chip-med {
+      background: rgba(59,130,246,0.08) !important;
+      color: #2563eb !important;
+    }
+    .gc-chip-more {
+      background: #f5f4f2 !important;
+      color: #78716c !important;
+    }
+
+    .gc-desc {
+      font-size: 0.78rem !important;
+      line-height: 1.55 !important;
+      color: #78716C !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      word-break: keep-all !important;
+    }
+
+    /* ── 하단: 원장 + 메타 ── */
+    .gc-bottom {
       display: flex !important;
       align-items: center !important;
-      gap: 10px !important;
-      flex-wrap: wrap !important;
+      justify-content: space-between !important;
+      margin-top: auto !important;
+      padding-top: 10px !important;
+      border-top: 1px solid #f0ece7 !important;
+    }
+    .gc-doctor {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+    .gc-avatar {
+      width: 24px !important;
+      height: 24px !important;
+      border-radius: 50% !important;
+      background: linear-gradient(135deg, #6B4226, #a0714f) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #fff !important;
+      font-size: 0.55rem !important;
+      font-weight: 800 !important;
       flex-shrink: 0 !important;
     }
-    .gc-category {
-      display: inline-flex !important;
+    .gc-doctor-name {
+      font-size: 0.75rem !important;
+      font-weight: 600 !important;
+      color: #44403C !important;
+    }
+    .gc-meta-right {
+      display: flex !important;
       align-items: center !important;
-      gap: 5px !important;
-      padding: 4px 12px !important;
-      background: #faf7f4 !important;
-      color: #6B4226 !important;
-      border-radius: 20px !important;
-      font-size: 0.7rem !important;
-      font-weight: 700 !important;
-      text-decoration: none !important;
-      pointer-events: auto !important;
-      transition: all 0.2s !important;
-      border: 1px solid rgba(107,66,38,0.1) !important;
-    }
-    .gc-category i { font-size: 0.58rem !important; }
-    .gc-category:hover {
-      background: rgba(107,66,38,0.12) !important;
-      border-color: rgba(107,66,38,0.2) !important;
-    }
-    .gc-period {
-      font-size: 0.7rem !important;
+      gap: 3px !important;
+      font-size: 0.68rem !important;
       color: #a8a29e !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 4px !important;
       font-weight: 500 !important;
     }
-    .gc-period i { font-size: 0.56rem !important; color: #c5b8aa !important; }
-
-    /* 지역 */
-    .gc-region {
-      font-size: 0.68rem !important;
-      color: #6B4226 !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 3px !important;
-      font-weight: 600 !important;
-      background: rgba(107,66,38,0.06) !important;
-      padding: 2px 8px !important;
-      border-radius: 10px !important;
+    .gc-meta-right i { font-size: 0.55rem !important; margin-right: 2px !important; }
+    .gc-dot {
+      margin: 0 2px !important;
+      color: #d6d3d1 !important;
     }
-    .gc-region i { font-size: 0.55rem !important; color: #c9a96e !important; }
-
-    /* 환자 정보 (나이·성별) */
-    .gc-patient {
-      font-size: 0.68rem !important;
-      color: #57534e !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 3px !important;
-      font-weight: 600 !important;
-      background: rgba(87,83,78,0.06) !important;
-      padding: 2px 8px !important;
-      border-radius: 10px !important;
-    }
-    .gc-patient i { font-size: 0.55rem !important; color: #a8a29e !important; }
 
     /* 지역 필터 */
     .region-filter-section {
@@ -466,98 +389,6 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .region-more-btn:hover { border-color: #6B4226; color: #6B4226; }
     .region-extra-chips { display: none; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
     .region-extra-chips.open { display: flex; }
-
-    /* 제목 */
-    .gc-title {
-      font-size: 1rem !important;
-      font-weight: 800 !important;
-      color: #1C1917 !important;
-      line-height: 1.45 !important;
-      display: -webkit-box !important;
-      -webkit-line-clamp: 2 !important;
-      -webkit-box-orient: vertical !important;
-      overflow: hidden !important;
-      flex-shrink: 0 !important;
-      letter-spacing: -0.02em !important;
-      margin: 0 !important;
-    }
-
-    /* 설명 (3줄!) */
-    .gc-desc {
-      font-size: 0.82rem !important;
-      line-height: 1.65 !important;
-      color: #78716C !important;
-      display: -webkit-box !important;
-      -webkit-line-clamp: 3 !important;
-      -webkit-box-orient: vertical !important;
-      overflow: hidden !important;
-      margin: 0 !important;
-      flex: 0 1 auto !important;
-      word-break: keep-all !important;
-    }
-
-    /* 하단: 원장 + CTA */
-    .gc-bottom {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-between !important;
-      margin-top: auto !important;
-      padding-top: 12px !important;
-      border-top: 1px solid #f5f0eb !important;
-      flex-shrink: 0 !important;
-    }
-    .gc-doctor {
-      display: flex !important;
-      align-items: center !important;
-      gap: 8px !important;
-      pointer-events: auto !important;
-    }
-    .gc-avatar {
-      width: 28px !important;
-      height: 28px !important;
-      border-radius: 50% !important;
-      background: linear-gradient(135deg, #6B4226 0%, #a0714f 100%) !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      color: #fff !important;
-      font-size: 0.62rem !important;
-      font-weight: 800 !important;
-      flex-shrink: 0 !important;
-      box-shadow: 0 2px 6px rgba(107,66,38,0.2) !important;
-    }
-    .gc-doctor-link,
-    .gc-doctor-name {
-      font-size: 0.8rem !important;
-      font-weight: 600 !important;
-      color: #44403C !important;
-      text-decoration: none !important;
-    }
-    .gc-doctor-link:hover { color: #6B4226 !important; text-decoration: underline !important; }
-    .gc-cta {
-      font-size: 0.72rem !important;
-      font-weight: 700 !important;
-      color: #6B4226 !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 5px !important;
-      opacity: 0 !important;
-      transform: translateX(-4px) !important;
-      transition: opacity 0.3s, transform 0.3s !important;
-    }
-    .gc-cta i {
-      font-size: 0.56rem !important;
-      transition: transform 0.3s !important;
-    }
-    div.gc-card:hover .gc-cta,
-    .gc-card:hover .gc-cta {
-      opacity: 1 !important;
-      transform: translateX(0) !important;
-    }
-    div.gc-card:hover .gc-cta i,
-    .gc-card:hover .gc-cta i {
-      transform: translateX(3px) !important;
-    }
 
     /* ── 로그인 모달 ── */
     .login-modal {
@@ -712,9 +543,9 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       #galleryGrid,
       #galleryGrid.gallery-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 20px !important;
+        gap: 16px !important;
         max-width: 720px !important;
-        padding: 0 20px !important;
+        padding: 0 16px !important;
       }
     }
     @media (max-width: 560px) {
@@ -723,15 +554,18 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       #galleryGrid,
       #galleryGrid.gallery-grid {
         grid-template-columns: 1fr !important;
-        gap: 18px !important;
-        padding: 0 16px !important;
+        gap: 14px !important;
+        padding: 0 14px !important;
         max-width: 440px !important;
       }
-      .gc-photo { height: 220px !important; }
-      .gc-body { padding: 16px 18px 14px !important; }
-      .gc-title { font-size: 0.95rem !important; }
-      .gc-desc { font-size: 0.78rem !important; }
-      .gc-cta { opacity: 1 !important; transform: translateX(0) !important; }
+      .gc-photo { aspect-ratio: 3/2 !important; }
+      .gc-body { padding: 12px 14px 12px !important; gap: 6px !important; }
+      .gc-title { font-size: 0.88rem !important; }
+      .gc-desc { font-size: 0.75rem !important; -webkit-line-clamp: 2 !important; }
+      .gc-chip { font-size: 0.6rem !important; padding: 2px 6px !important; }
+      .gc-meta-right { font-size: 0.62rem !important; }
+      .gc-avatar { width: 22px !important; height: 22px !important; font-size: 0.5rem !important; }
+      .gc-doctor-name { font-size: 0.7rem !important; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
       .login-modal-card { padding: 32px 24px 24px; border-radius: 20px; }
     }
@@ -1372,7 +1206,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
-  <script src="/js/gallery-1af3d901.js" defer></script>
+  <script src="/js/gallery-6d523510.js" defer></script>
   <script>
     function closeImageModal() {
       var m = document.getElementById('imageModal');
