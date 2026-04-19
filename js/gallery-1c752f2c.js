@@ -1,5 +1,5 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v15
+ * 서울비디치과 비포/애프터 갤러리 시스템 v16
  * - v13 기반: 슬라이더 + 라이트박스 + 로그인모달 + 카드 완전 복원
  * - v9 서브필터 병합: 글로우네이트 스타일 + 임플란트 병력 서브필터
  * - 카드에 스타일/병력 태그 표시
@@ -217,9 +217,42 @@
         '.lb-detail-item{display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;color:rgba(255,255,255,0.5);}' +
         '.lb-detail-item i{font-size:0.65rem;color:rgba(200,169,126,0.6);}' +
         '.lb-detail-medical{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}' +
-        '.lb-detail-link{display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:600;color:#C8A97E;text-decoration:none;margin-top:4px;transition:color 0.2s;}' +
-        '.lb-detail-link:hover{color:#fff;}' +
-        '.lb-detail-link i{font-size:0.65rem;}' +
+        /* 태그 칩 행 */
+        '.lb-detail-tags{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;}' +
+        '.lb-tag-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:50px;font-size:0.72rem;font-weight:600;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.1);}' +
+        '.lb-tag-chip i{font-size:0.6rem;color:rgba(200,169,126,0.6);}' +
+        '.lb-tag-region{background:rgba(59,130,246,0.12);color:rgba(147,197,253,0.9);border-color:rgba(59,130,246,0.2);}' +
+        '.lb-tag-region i{color:rgba(96,165,250,0.7);}' +
+        '.lb-tag-patient{background:rgba(168,130,214,0.12);color:rgba(216,180,254,0.9);border-color:rgba(168,130,214,0.2);}' +
+        '.lb-tag-patient i{color:rgba(192,132,252,0.7);}' +
+
+        /* 원장 프로필 */
+        '.lb-doctor-profile{display:flex;align-items:center;gap:12px;padding:14px 0;margin:8px 0;border-top:1px solid rgba(255,255,255,0.06);}' +
+        '.lb-doctor-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#a0714f);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.85rem;font-weight:800;flex-shrink:0;box-shadow:0 2px 8px rgba(107,66,38,0.3);}' +
+        '.lb-doctor-info{display:flex;flex-direction:column;gap:2px;}' +
+        '.lb-doctor-name{font-size:0.88rem;font-weight:700;color:#fff;text-decoration:none;transition:color 0.2s;}' +
+        'a.lb-doctor-name:hover{color:#C8A97E;}' +
+        '.lb-doctor-spec{font-size:0.72rem;color:rgba(255,255,255,0.4);}' +
+
+        /* CTA 버튼 */
+        '.lb-cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 24px;border-radius:14px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:0.92rem;font-weight:700;text-decoration:none;border:1px solid rgba(200,169,126,0.3);transition:all 0.25s;box-shadow:0 4px 16px rgba(107,66,38,0.25);margin:4px 0 12px;cursor:pointer;}' +
+        '.lb-cta-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(107,66,38,0.4);color:#fff;}' +
+        '.lb-cta-btn i{font-size:0.82rem;}' +
+
+        /* 비슷한 케이스 */
+        '.lb-similar-section{margin-top:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);}' +
+        '.lb-similar-heading{font-size:0.82rem;font-weight:700;color:rgba(255,255,255,0.6);margin:0 0 10px;display:flex;align-items:center;gap:6px;}' +
+        '.lb-similar-heading i{font-size:0.7rem;color:rgba(200,169,126,0.5);}' +
+        '.lb-similar-grid{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;}' +
+        '.lb-similar-card{flex:0 0 auto;width:140px;border-radius:12px;overflow:hidden;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.2s;}' +
+        '.lb-similar-card:hover{border-color:rgba(200,169,126,0.3);background:rgba(255,255,255,0.08);}' +
+        '.lb-similar-img{width:100%;height:90px;overflow:hidden;background:rgba(255,255,255,0.03);}' +
+        '.lb-similar-img img{width:100%;height:100%;object-fit:cover;display:block;}' +
+        '.lb-similar-ph{display:flex;align-items:center;justify-content:center;color:rgba(200,169,126,0.3);font-size:1.4rem;}' +
+        '.lb-similar-body{padding:8px 10px;}' +
+        '.lb-similar-title{font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.8);margin:0 0 4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}' +
+        '.lb-similar-meta{font-size:0.62rem;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:3px;flex-wrap:wrap;}' +
+        '.lb-similar-meta i{font-size:0.55rem;}' +
 
         /* ── 반응형 ── */
         '@media(max-width:900px){.lb-container{width:100%;max-width:100%;padding:0 6px;}.lb-close{top:8px;right:14px;}}' +
@@ -470,23 +503,94 @@
       }).join('');
     }
 
+    // ── 담당 원장 프로필 ──
+    var docInitial = (docNameClean || '?').charAt(0);
+    var docSlug = caseItem.doctorSlug || '';
+    var docSpecialty = '';
+    if (caseItem.category === 'glownate') docSpecialty = '담당 글로우네이트';
+    else if (caseItem.category === 'implant') docSpecialty = '담당 임플란트';
+    else if (caseItem.category === 'invisalign') docSpecialty = '담당 인비절라인';
+    else if (caseItem.category === 'orthodontics') docSpecialty = '담당 교정';
+    else docSpecialty = '담당 ' + catLabel;
+
+    var doctorProfileHtml = docNameClean ?
+      '<div class="lb-doctor-profile">' +
+        '<div class="lb-doctor-avatar">' + docInitial + '</div>' +
+        '<div class="lb-doctor-info">' +
+          (docSlug ? '<a href="/doctors/' + docSlug + '" class="lb-doctor-name" onclick="event.stopPropagation()">' + docNameClean + ' 원장</a>' :
+            '<span class="lb-doctor-name">' + docNameClean + ' 원장</span>') +
+          '<span class="lb-doctor-spec">' + docSpecialty + '</span>' +
+        '</div>' +
+      '</div>' : '';
+
+    // ── CTA 버튼 ──
+    var ctaHtml =
+      '<a href="/reservation?case=' + caseItem.id + '&category=' + (caseItem.category || '') + '" class="lb-cta-btn" onclick="event.stopPropagation()">' +
+        '<i class="fas fa-calendar-check"></i> 이 케이스처럼 상담받기' +
+      '</a>';
+
+    // ── 비슷한 케이스 (같은 카테고리, 본인 제외, 최대 3개) ──
+    var caseGroup = filterGroupMap[caseItem.category] || 'general';
+    var similarCases = cases.filter(function(c) {
+      return c.id !== caseItem.id && (filterGroupMap[c.category] || 'general') === caseGroup;
+    }).slice(0, 3);
+
+    var similarHtml = '';
+    if (similarCases.length > 0) {
+      var cards = similarCases.map(function(sc) {
+        var scImg = sc.thumbnailImage || sc.beforeImage || '';
+        var scCatIcon = CAT_ICONS[sc.category] || 'fa-tooth';
+        var scTitle = (sc.title || '').length > 24 ? sc.title.substring(0, 24) + '…' : (sc.title || '');
+        var scDoc = (sc.doctorName || '').replace(/ 원장$/, '');
+        var scGender = sc.patientGender === 'male' ? '남성' : sc.patientGender === 'female' ? '여성' : '';
+        var scPatient = [sc.patientAge || '', scGender].filter(Boolean).join(' ');
+        return '<div class="lb-similar-card" data-case-id="' + sc.id + '">' +
+          (scImg ? '<div class="lb-similar-img"><img src="' + scImg + '" alt="' + scTitle + '" loading="lazy"></div>' :
+            '<div class="lb-similar-img lb-similar-ph"><i class="fas ' + scCatIcon + '"></i></div>') +
+          '<div class="lb-similar-body">' +
+            '<p class="lb-similar-title">' + scTitle + '</p>' +
+            '<span class="lb-similar-meta">' +
+              (scDoc ? '<i class="fas fa-user-md"></i> ' + scDoc + ' 원장' : '') +
+              (scPatient ? ' &middot; <i class="fas fa-user"></i> ' + scPatient : '') +
+            '</span>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      similarHtml =
+        '<div class="lb-similar-section">' +
+          '<h4 class="lb-similar-heading"><i class="fas fa-th"></i> 비슷한 케이스</h4>' +
+          '<div class="lb-similar-grid">' + cards + '</div>' +
+        '</div>';
+    }
+
     infoEl.innerHTML =
       '<div class="lb-detail-panel">' +
-        '<div class="lb-detail-header">' +
-          '<span class="lb-info-cat">' + catLabel + '</span>' +
+        '<h3 class="lb-detail-title">' + (caseItem.title || '') + '</h3>' +
+        '<div class="lb-detail-tags">' +
+          '<span class="lb-info-cat"><i class="fas ' + (CAT_ICONS[caseItem.category] || 'fa-tooth') + '"></i> ' + catLabel + '</span>' +
+          (caseItem.treatmentPeriod ? '<span class="lb-tag-chip"><i class="far fa-clock"></i> ' + caseItem.treatmentPeriod + '</span>' : '') +
+          (caseItem.region ? '<span class="lb-tag-chip lb-tag-region"><i class="fas fa-map-marker-alt"></i> ' + caseItem.region + '</span>' : '') +
+          (patientParts.length > 0 ? '<span class="lb-tag-chip lb-tag-patient"><i class="fas fa-user"></i> ' + patientParts.join(' ') + '</span>' : '') +
           (styleLabel ? '<span class="lb-detail-chip lb-style-chip">' + styleLabel + '</span>' : '') +
         '</div>' +
-        '<h3 class="lb-detail-title">' + (caseItem.title || '') + '</h3>' +
         (descText ? '<p class="lb-detail-desc">' + descText.replace(/\n/g, '<br>') + '</p>' : '') +
-        '<div class="lb-detail-meta">' +
-          (docNameClean ? '<span class="lb-detail-item"><i class="fas fa-user-md"></i> ' + docNameClean + ' 원장</span>' : '') +
-          (caseItem.treatmentPeriod ? '<span class="lb-detail-item"><i class="far fa-clock"></i> ' + caseItem.treatmentPeriod + '</span>' : '') +
-          (patientParts.length > 0 ? '<span class="lb-detail-item"><i class="fas fa-user"></i> ' + patientParts.join(' ') + '</span>' : '') +
-          (caseItem.region ? '<span class="lb-detail-item"><i class="fas fa-map-marker-alt"></i> ' + caseItem.region + '</span>' : '') +
-        '</div>' +
         (medicalTags ? '<div class="lb-detail-medical">' + medicalTags + '</div>' : '') +
-        '<a href="/cases/' + caseItem.id + '" class="lb-detail-link" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> 케이스 상세보기</a>' +
+        doctorProfileHtml +
+        ctaHtml +
+        similarHtml +
       '</div>';
+
+    // 비슷한 케이스 카드 클릭 → 해당 케이스로 라이트박스 전환
+    setTimeout(function() {
+      infoEl.querySelectorAll('.lb-similar-card').forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var scId = card.getAttribute('data-case-id');
+          var sc = cases.find(function(c) { return c.id === scId; });
+          if (sc) { closeLightbox(); setTimeout(function() { openLightbox(sc, 'before'); }, 200); }
+        });
+      });
+    }, 50);
 
     // 로그인 redirect
     var loginBtn = document.getElementById('lbLoginBtn');
@@ -1002,7 +1106,7 @@
     buildRegionFilter();
     renderGallery('all');
 
-    console.log('[Gallery v15] 로드 완료 — 케이스: ' + cases.length + ' | 슬라이더+서브필터+상세패널 빌드');
+    console.log('[Gallery v16] 로드 완료 — 케이스: ' + cases.length + ' | 슬라이더+서브필터+상세패널+CTA+비슷한케이스 빌드');
 
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
