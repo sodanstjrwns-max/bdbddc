@@ -116,27 +116,27 @@
       // 브랜딩
       '.bd-chat-brand{text-align:center;padding:4px;font-size:0.62rem;color:rgba(107,66,38,0.25);background:#fff;flex-shrink:0;}' +
 
-      // 인라인 예약 폼
-      '.bd-booking-form{background:linear-gradient(135deg,#faf5ee,#f5ede0);border:1px solid rgba(200,169,126,0.35);border-radius:14px;padding:16px;margin-top:10px;animation:bdMsgIn .4s ease;}' +
-      '.bd-booking-form h5{margin:0 0 12px;font-size:.88rem;font-weight:700;color:#6B4226;display:flex;align-items:center;gap:6px;}' +
-      '.bd-booking-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}' +
+      // 인라인 예약 폼 — 컴팩트 디자인 (스크롤 없이 전체 표시)
+      '.bd-booking-form{background:linear-gradient(135deg,#faf5ee,#f5ede0);border:1px solid rgba(200,169,126,0.35);border-radius:12px;padding:12px;margin:8px 0;animation:bdMsgIn .4s ease;width:100%;box-sizing:border-box;}' +
+      '.bd-booking-form h5{margin:0 0 8px;font-size:.82rem;font-weight:700;color:#6B4226;display:flex;align-items:center;gap:5px;}' +
+      '.bd-booking-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;}' +
       '.bd-booking-row.full{grid-template-columns:1fr;}' +
-      '.bd-booking-field{display:flex;flex-direction:column;gap:3px;}' +
-      '.bd-booking-field label{font-size:.7rem;font-weight:600;color:#8B5E3C;letter-spacing:.3px;}' +
-      '.bd-booking-field input,.bd-booking-field select{padding:9px 11px;border:1px solid rgba(200,169,126,0.3);border-radius:8px;font-size:.84rem;font-family:inherit;background:#fff;color:#2c2419;outline:none;transition:border-color .2s;-webkit-appearance:none;}' +
+      '.bd-booking-field{display:flex;flex-direction:column;gap:2px;}' +
+      '.bd-booking-field label{font-size:.65rem;font-weight:600;color:#8B5E3C;letter-spacing:.3px;}' +
+      '.bd-booking-field input,.bd-booking-field select{padding:7px 9px;border:1px solid rgba(200,169,126,0.3);border-radius:7px;font-size:.8rem;font-family:inherit;background:#fff;color:#2c2419;outline:none;transition:border-color .2s;-webkit-appearance:none;height:34px;box-sizing:border-box;}' +
       '.bd-booking-field input:focus,.bd-booking-field select:focus{border-color:#C8A97E;box-shadow:0 0 0 2px rgba(200,169,126,0.15);}' +
       '.bd-booking-field input::placeholder{color:rgba(107,66,38,0.3);}' +
-      '.bd-booking-submit{width:100%;padding:11px;border:none;border-radius:10px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:.88rem;font-weight:700;cursor:pointer;margin-top:6px;transition:all .2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;}' +
+      '.bd-booking-submit{width:100%;padding:9px;border:none;border-radius:8px;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:.84rem;font-weight:700;cursor:pointer;margin-top:4px;transition:all .2s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;}' +
       '.bd-booking-submit:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(107,66,38,0.3);}' +
       '.bd-booking-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}' +
-      '.bd-booking-submit .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none;}' +
+      '.bd-booking-submit .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:none;}' +
       '@keyframes spin{to{transform:rotate(360deg)}}' +
-      '.bd-booking-success{text-align:center;padding:20px 12px;animation:bdMsgIn .4s ease;}' +
-      '.bd-booking-success .check-icon{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin:0 auto 12px;animation:bdPop .5s cubic-bezier(.22,1,.36,1);}' +
-      '.bd-booking-success h5{font-size:.95rem;font-weight:700;color:#22c55e;margin:0 0 6px;}' +
-      '.bd-booking-success p{font-size:.8rem;color:#6B4226;margin:0;line-height:1.5;}' +
+      '.bd-booking-success{text-align:center;padding:14px 10px;animation:bdMsgIn .4s ease;}' +
+      '.bd-booking-success .check-icon{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin:0 auto 8px;animation:bdPop .5s cubic-bezier(.22,1,.36,1);}' +
+      '.bd-booking-success h5{font-size:.88rem;font-weight:700;color:#22c55e;margin:0 0 4px;}' +
+      '.bd-booking-success p{font-size:.76rem;color:#6B4226;margin:0;line-height:1.4;}' +
       '@keyframes bdPop{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}' +
-      '.bd-booking-error{font-size:.78rem;color:#e74c3c;margin-top:6px;display:none;}' +
+      '.bd-booking-error{font-size:.75rem;color:#e74c3c;margin-top:4px;display:none;}' +
 
       // 애니메이션
       '@keyframes bdMsgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}' +
@@ -337,16 +337,8 @@
     bubble.className = 'bd-msg-bubble';
     bubble.innerHTML = formatText(msg.content);
 
-    // [BOOKING_FORM] 처리 — 인라인 예약 폼 삽입
-    if (msg.role === 'assistant' && hasBookingForm(msg.content) && !state.bookingFormShown) {
-      state.bookingFormShown = true;
-      var formHtml = createBookingFormHTML();
-      var formDiv = document.createElement('div');
-      formDiv.innerHTML = formHtml;
-      bubble.appendChild(formDiv.firstChild);
-      // 폼 이벤트 바인딩은 DOM 삽입 후
-      setTimeout(function() { bindBookingForm(bubble); }, 50);
-    }
+    // [BOOKING_FORM] 처리 — 인라인 예약 폼을 별도 전폭 블록으로 삽입
+    var shouldShowBookingForm = msg.role === 'assistant' && hasBookingForm(msg.content) && !state.bookingFormShown;
 
     // 에러 메시지에 재시도 버튼 추가
     if (options && options.showRetry && options.retryText) {
@@ -367,6 +359,17 @@
     div.appendChild(avatar);
     div.appendChild(bubble);
     body.appendChild(div);
+
+    // 예약 폼은 메시지 버블 밖에, 채팅 바디 전폭으로 삽입
+    if (shouldShowBookingForm) {
+      state.bookingFormShown = true;
+      var formWrapper = document.createElement('div');
+      formWrapper.style.cssText = 'width:100%;padding:0 4px;box-sizing:border-box;animation:bdMsgIn .4s ease;';
+      formWrapper.innerHTML = createBookingFormHTML();
+      body.appendChild(formWrapper);
+      setTimeout(function() { bindBookingForm(formWrapper); }, 50);
+    }
+
     scrollToBottom();
   }
 
