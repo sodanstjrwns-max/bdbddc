@@ -1,5 +1,5 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v14
+ * 서울비디치과 비포/애프터 갤러리 시스템 v15
  * - v13 기반: 슬라이더 + 라이트박스 + 로그인모달 + 카드 완전 복원
  * - v9 서브필터 병합: 글로우네이트 스타일 + 임플란트 병력 서브필터
  * - 카드에 스타일/병력 태그 표시
@@ -202,10 +202,24 @@
         '.lb-tab.active{background:linear-gradient(135deg,rgba(107,66,38,0.9),rgba(139,94,60,0.9));border-color:#C8A97E;color:#fff;}' +
         '.lb-tab .lb-tab-icon{margin-right:6px;}' +
 
-        /* ── 정보 ── */
-        '.lb-info{padding:12px 4px;text-align:center;color:rgba(255,255,255,0.6);font-size:0.85rem;}' +
-        '.lb-info strong{color:#fff;font-weight:700;}' +
-        '.lb-info .lb-info-cat{display:inline-block;padding:3px 12px;border-radius:50px;background:rgba(200,169,126,0.15);color:#C8A97E;font-size:0.75rem;font-weight:600;margin-right:8px;border:1px solid rgba(200,169,126,0.2);}' +
+        /* ── 정보 패널 v15: 케이스 상세 ── */
+        '.lb-info{padding:0 4px;color:rgba(255,255,255,0.7);font-size:0.85rem;max-height:35vh;overflow-y:auto;}' +
+        '.lb-detail-panel{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px 18px;margin-top:10px;}' +
+        '.lb-detail-header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;}' +
+        '.lb-info .lb-info-cat{display:inline-block;padding:4px 14px;border-radius:50px;background:rgba(200,169,126,0.15);color:#C8A97E;font-size:0.75rem;font-weight:600;border:1px solid rgba(200,169,126,0.2);}' +
+        '.lb-detail-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:10px;font-size:0.72rem;font-weight:600;}' +
+        '.lb-style-chip{background:rgba(200,169,126,0.12);color:#C8A97E;border:1px solid rgba(200,169,126,0.18);}' +
+        '.lb-medical-chip{background:rgba(254,243,199,0.15);color:#fde68a;border:1px solid rgba(253,230,138,0.2);}' +
+        '.lb-medical-chip i{font-size:0.6rem;}' +
+        '.lb-detail-title{font-size:1rem;font-weight:800;color:#fff;margin:0 0 8px;line-height:1.5;letter-spacing:-0.02em;}' +
+        '.lb-detail-desc{font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.7;margin:0 0 10px;word-break:keep-all;}' +
+        '.lb-detail-meta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px;}' +
+        '.lb-detail-item{display:inline-flex;align-items:center;gap:5px;font-size:0.78rem;color:rgba(255,255,255,0.5);}' +
+        '.lb-detail-item i{font-size:0.65rem;color:rgba(200,169,126,0.6);}' +
+        '.lb-detail-medical{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}' +
+        '.lb-detail-link{display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:600;color:#C8A97E;text-decoration:none;margin-top:4px;transition:color 0.2s;}' +
+        '.lb-detail-link:hover{color:#fff;}' +
+        '.lb-detail-link i{font-size:0.65rem;}' +
 
         /* ── 반응형 ── */
         '@media(max-width:900px){.lb-container{width:100%;max-width:100%;padding:0 6px;}.lb-close{top:8px;right:14px;}}' +
@@ -434,11 +448,45 @@
       }
     }
 
-    // 케이스 정보
+    // ★ v15: 케이스 상세정보 패널 — 모든 정보 표시
     var catLabel = CATS[caseItem.category] || caseItem.category || '';
     var infoEl = document.getElementById('lbInfo');
     var docNameClean = (caseItem.doctorName || '').replace(/ 원장$/, '');
-    infoEl.innerHTML = '<span class="lb-info-cat">' + catLabel + '</span> <strong>' + (caseItem.title || '') + '</strong>' + (docNameClean ? ' &middot; ' + docNameClean + ' 원장' : '');
+    var descText = (caseItem.description || '').split(/\n\s*\n/)[0] || '';
+    descText = descText.replace(/[✅❌⭐🔹🔸▶►●•]/g, '').replace(/^\d+\.\s*/gm, '').trim();
+    if (descText.length > 200) descText = descText.substring(0, 200) + '…';
+
+    var genderLabel = caseItem.patientGender === 'male' ? '남성' : caseItem.patientGender === 'female' ? '여성' : '';
+    var patientParts = [caseItem.patientAge || '', genderLabel].filter(Boolean);
+    var styleLabel = '';
+    if (caseItem.laminateStyle && STYLE_LABELS[caseItem.laminateStyle]) {
+      styleLabel = STYLE_LABELS[caseItem.laminateStyle].icon + ' ' + STYLE_LABELS[caseItem.laminateStyle].label;
+    }
+    var medicalTags = '';
+    if (caseItem.medicalHistory && caseItem.medicalHistory.length > 0) {
+      medicalTags = caseItem.medicalHistory.map(function(t) {
+        var icon = MEDICAL_ICONS[t] || 'fa-notes-medical';
+        return '<span class="lb-detail-chip lb-medical-chip"><i class="fas ' + icon + '"></i> ' + t + '</span>';
+      }).join('');
+    }
+
+    infoEl.innerHTML =
+      '<div class="lb-detail-panel">' +
+        '<div class="lb-detail-header">' +
+          '<span class="lb-info-cat">' + catLabel + '</span>' +
+          (styleLabel ? '<span class="lb-detail-chip lb-style-chip">' + styleLabel + '</span>' : '') +
+        '</div>' +
+        '<h3 class="lb-detail-title">' + (caseItem.title || '') + '</h3>' +
+        (descText ? '<p class="lb-detail-desc">' + descText.replace(/\n/g, '<br>') + '</p>' : '') +
+        '<div class="lb-detail-meta">' +
+          (docNameClean ? '<span class="lb-detail-item"><i class="fas fa-user-md"></i> ' + docNameClean + ' 원장</span>' : '') +
+          (caseItem.treatmentPeriod ? '<span class="lb-detail-item"><i class="far fa-clock"></i> ' + caseItem.treatmentPeriod + '</span>' : '') +
+          (patientParts.length > 0 ? '<span class="lb-detail-item"><i class="fas fa-user"></i> ' + patientParts.join(' ') + '</span>' : '') +
+          (caseItem.region ? '<span class="lb-detail-item"><i class="fas fa-map-marker-alt"></i> ' + caseItem.region + '</span>' : '') +
+        '</div>' +
+        (medicalTags ? '<div class="lb-detail-medical">' + medicalTags + '</div>' : '') +
+        '<a href="/cases/' + caseItem.id + '" class="lb-detail-link" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> 케이스 상세보기</a>' +
+      '</div>';
 
     // 로그인 redirect
     var loginBtn = document.getElementById('lbLoginBtn');
@@ -698,52 +746,43 @@
     filtered.forEach(function(c) { html += renderCard(c); });
     grid.innerHTML = html;
 
-    // 사진 영역(gc-photo) 클릭 → 라이트박스 열기
+    // ★ v15: 비로그인 → 로그인 모달, 로그인 → 라이트박스
+    function handleCardAction(caseId, href) {
+      if (!isLoggedIn) {
+        showLoginModal(href || '/cases/' + caseId);
+        return;
+      }
+      var caseItem = cases.find(function(c) { return c.id === caseId; });
+      if (caseItem) openLightbox(caseItem, 'before');
+    }
+
+    // 사진 영역(gc-photo) 클릭
     grid.querySelectorAll('.gc-photo[data-action="lightbox"]').forEach(function(photoDiv) {
       photoDiv.addEventListener('click', function(e) {
         e.stopPropagation();
         var caseId = photoDiv.getAttribute('data-case-id');
-        var photoType = photoDiv.getAttribute('data-photo-type') || 'before';
-        var caseItem = cases.find(function(c) { return c.id === caseId; });
-        if (caseItem) openLightbox(caseItem, photoType);
+        var href = photoDiv.closest('.gc-card') ? photoDiv.closest('.gc-card').getAttribute('data-href') : '';
+        handleCardAction(caseId, href);
       });
     });
 
-    // 카드 클릭 이벤트 — 어디를 눌러도 라이트박스 (슬라이더) 열기
+    // 카드 클릭 이벤트
     grid.querySelectorAll('.gc-card[data-href]').forEach(function(card) {
       card.addEventListener('click', function(e) {
         if (e.target.closest('a')) return;
-        if (e.target.closest('.gc-photo[data-action="lightbox"]')) return;  // 사진 영역 클릭은 이미 라이트박스 핸들러가 처리
-        // 텍스트 영역 클릭도 라이트박스로 통일
-        var caseId = card.querySelector('.gc-photo[data-case-id]');
-        if (caseId) {
-          var id = caseId.getAttribute('data-case-id');
-          var caseItem = cases.find(function(c) { return c.id === id; });
-          if (caseItem) { openLightbox(caseItem, 'before'); return; }
-        }
-        // 사진이 없는 경우 fallback: 로그인 모달 또는 상세 페이지
+        if (e.target.closest('.gc-photo[data-action="lightbox"]')) return;
+        var photoEl = card.querySelector('.gc-photo[data-case-id]');
+        var caseId = photoEl ? photoEl.getAttribute('data-case-id') : '';
         var href = card.getAttribute('data-href');
-        if (!isLoggedIn) {
-          showLoginModal(href);
-          return;
-        }
-        if (href) window.location.href = href;
+        handleCardAction(caseId, href);
       });
       card.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          var caseId = card.querySelector('.gc-photo[data-case-id]');
-          if (caseId) {
-            var id = caseId.getAttribute('data-case-id');
-            var caseItem = cases.find(function(c) { return c.id === id; });
-            if (caseItem) { openLightbox(caseItem, 'before'); return; }
-          }
+          var photoEl = card.querySelector('.gc-photo[data-case-id]');
+          var caseId = photoEl ? photoEl.getAttribute('data-case-id') : '';
           var href = card.getAttribute('data-href');
-          if (!isLoggedIn) {
-            showLoginModal(href);
-            return;
-          }
-          if (href) window.location.href = href;
+          handleCardAction(caseId, href);
         }
       });
     });
@@ -963,7 +1002,7 @@
     buildRegionFilter();
     renderGallery('all');
 
-    console.log('[Gallery v14] 로드 완료 — 케이스: ' + cases.length + ' | 슬라이더+서브필터 빌드');
+    console.log('[Gallery v15] 로드 완료 — 케이스: ' + cases.length + ' | 슬라이더+서브필터+상세패널 빌드');
 
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
