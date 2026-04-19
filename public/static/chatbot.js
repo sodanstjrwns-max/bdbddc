@@ -1,7 +1,12 @@
 /**
- * 비디 AI 상담사 — 플로팅 챗봇 v2.0
+ * 비디 AI 상담사 — 플로팅 챗봇 v3.0 (Multilingual)
  * 서울비디치과 전용
  * 
+ * v3.0 변경사항:
+ * - 🌍 다국어 자동 감지 + 응답 (한/영/중/일/베트남어)
+ * - 다국어 인사말 + 퀵 버튼 + 플레이스홀더
+ * - Weglot 연동: 현재 사이트 언어 감지
+ *
  * v2.0 변경사항:
  * - 모바일 하단 CTA 바와 겹침 방지 (bottom 위치 동적 계산)
  * - 네트워크 오류 시 자동 재시도 (최대 2회)
@@ -143,14 +148,14 @@
         '<div class="bd-chat-avatar">\uD83E\uDDB7</div>' +
         '<div class="bd-chat-header-info">' +
           '<h4>\uBE44\uB514 AI \uC0C1\uB2F4\uC0AC</h4>' +
-          '<p>\uC11C\uC6B8\uBE44\uB514\uCE58\uACFC \u00B7 24\uC2DC\uAC04 \uC751\uB2F5</p>' +
+          '<p>Seoul BD Dental \u00B7 24/7 Multilingual</p>' +
         '</div>' +
         '<button class="bd-chat-header-close" aria-label="\uB2EB\uAE30"><i class="fas fa-times"></i></button>' +
       '</div>' +
       '<div class="bd-chat-body" id="bdChatBody"></div>' +
       '<div class="bd-quick-btns" id="bdQuickBtns"></div>' +
       '<div class="bd-chat-input">' +
-        '<textarea id="bdChatInput" rows="1" placeholder="\uAD81\uAE08\uD55C \uC810\uC744 \uBB3C\uC5B4\uBCF4\uC138\uC694..." maxlength="1000"></textarea>' +
+        '<textarea id="bdChatInput" rows="1" placeholder="' + getPlaceholder() + '" maxlength="1000"></textarea>' +
         '<button class="bd-chat-send" id="bdChatSend" aria-label="\uC804\uC1A1"><i class="fas fa-paper-plane"></i></button>' +
       '</div>' +
       '<div class="bd-chat-brand">Powered by \uC11C\uC6B8\uBE44\uB514\uCE58\uACFC AI</div>';
@@ -177,16 +182,102 @@
     }
   }
 
-  // ─── 퀵 버튼 ───
-  var QUICK_QUESTIONS = [
-    { label: '\uC9C4\uB8CC\uC2DC\uAC04', text: '\uC9C4\uB8CC\uC2DC\uAC04\uC774 \uC5B4\uB5BB\uAC8C \uB418\uB098\uC694?' },
-    { label: '\uC624\uC2DC\uB294 \uAE38', text: '\uC11C\uC6B8\uBE44\uB514\uCE58\uACFC \uC704\uCE58\uAC00 \uC5B4\uB514\uC778\uAC00\uC694?' },
-    { label: '\uC784\uD50C\uB780\uD2B8', text: '\uC784\uD50C\uB780\uD2B8 \uC0C1\uB2F4 \uBC1B\uACE0 \uC2F6\uC5B4\uC694' },
-    { label: '\uAD50\uC815/\uC778\uBE44\uC808\uB77C\uC778', text: '\uC778\uBE44\uC808\uB77C\uC778 \uAD50\uC815 \uC0C1\uB2F4 \uAC00\uB2A5\uD560\uAE4C\uC694?' },
-    { label: '\uAE00\uB85C\uC6B0\uB124\uC774\uD2B8', text: '\uAE00\uB85C\uC6B0\uB124\uC774\uD2B8\uAC00 \uBB58\uAC00\uC694?' },
-    { label: '\uBE44\uC6A9 \uC548\uB0B4', text: '\uCE58\uB8CC \uBE44\uC6A9\uC774 \uAD81\uAE08\uD574\uC694' },
-    { label: '\uC608\uC57D\uD558\uAE30', text: '\uC0C1\uB2F4 \uC608\uC57D\uD558\uACE0 \uC2F6\uC5B4\uC694' }
-  ];
+  // ─── 다국어 감지 ───
+  function detectLang() {
+    // 1. Weglot 현재 언어 감지
+    if (window.Weglot && typeof Weglot.getCurrentLang === 'function') {
+      var wl = Weglot.getCurrentLang();
+      if (wl && wl !== 'ko') return wl; // en, zh, ja, vi 등
+    }
+    // 2. URL 파라미터 (?lang=en)
+    var urlLang = new URLSearchParams(window.location.search).get('lang');
+    if (urlLang) return urlLang;
+    // 3. 브라우저 언어
+    var bl = (navigator.language || '').toLowerCase();
+    if (bl.startsWith('en')) return 'en';
+    if (bl.startsWith('zh')) return 'zh';
+    if (bl.startsWith('ja')) return 'ja';
+    if (bl.startsWith('vi')) return 'vi';
+    return 'ko';
+  }
+
+  // ─── 다국어 인사말 ───
+  var GREETINGS = {
+    ko: '안녕하세요! 서울비디치과 AI 상담사 비디입니다 😊\n\n진료, 예약, 비용 등 궁금한 점을 편하게 물어보세요.',
+    en: 'Hello! I\'m BD, the AI consultant at Seoul BD Dental 😊\n\nFeel free to ask about treatments, appointments, or costs.\nI can answer in English!',
+    zh: '您好！我是首尔BD牙科的AI顾问BD 😊\n\n欢迎咨询诊疗、预约、费用等问题。\n我可以用中文回答！',
+    ja: 'こんにちは！ソウルBD歯科のAIカウンセラーBDです 😊\n\n治療、予約、費用など、お気軽にご質問ください。\n日本語でお答えします！',
+    vi: 'Xin chào! Tôi là BD, tư vấn viên AI của Seoul BD Dental 😊\n\nHãy thoải mái hỏi về điều trị, đặt lịch hoặc chi phí.\nTôi có thể trả lời bằng tiếng Việt!'
+  };
+
+  // ─── 다국어 플레이스홀더 ───
+  function getPlaceholder() {
+    var lang = detectLang();
+    var placeholders = {
+      ko: '궁금한 점을 물어보세요...',
+      en: 'Ask me anything...',
+      zh: '请输入您的问题...',
+      ja: 'ご質問をどうぞ...',
+      vi: 'Hãy đặt câu hỏi...'
+    };
+    return placeholders[lang] || placeholders.en;
+  }
+
+  // ─── 퀵 버튼 (다국어) ───
+  var QUICK_QUESTIONS_MAP = {
+    ko: [
+      { label: '진료시간', text: '진료시간이 어떻게 되나요?' },
+      { label: '오시는 길', text: '서울비디치과 위치가 어디인가요?' },
+      { label: '임플란트', text: '임플란트 상담 받고 싶어요' },
+      { label: '교정/인비절라인', text: '인비절라인 교정 상담 가능할까요?' },
+      { label: '글로우네이트', text: '글로우네이트가 뭔가요?' },
+      { label: '비용 안내', text: '치료 비용이 궁금해요' },
+      { label: '예약하기', text: '상담 예약하고 싶어요' }
+    ],
+    en: [
+      { label: 'Hours', text: 'What are your business hours?' },
+      { label: 'Location', text: 'Where is Seoul BD Dental located?' },
+      { label: 'Implant', text: 'I want to consult about dental implants' },
+      { label: 'Invisalign', text: 'Can I get Invisalign consultation?' },
+      { label: 'Glownate', text: 'What is Glownate (veneer)?' },
+      { label: 'Pricing', text: 'How much do treatments cost?' },
+      { label: 'Book Now', text: 'I want to make an appointment' }
+    ],
+    zh: [
+      { label: '营业时间', text: '请问营业时间是什么时候？' },
+      { label: '位置', text: '请问牙科在哪里？' },
+      { label: '种植牙', text: '我想咨询种植牙' },
+      { label: '隐适美', text: '可以咨询隐适美矫正吗？' },
+      { label: '贴面', text: 'Glownate贴面是什么？' },
+      { label: '费用', text: '治疗费用大概多少？' },
+      { label: '预约', text: '我想预约咨询' }
+    ],
+    ja: [
+      { label: '診療時間', text: '診療時間を教えてください' },
+      { label: 'アクセス', text: '歯科医院の場所はどこですか？' },
+      { label: 'インプラント', text: 'インプラントの相談をしたいです' },
+      { label: 'インビザライン', text: 'インビザライン矯正の相談はできますか？' },
+      { label: 'グロウネイト', text: 'グロウネイト（ラミネート）とは何ですか？' },
+      { label: '費用', text: '治療費用はどのくらいですか？' },
+      { label: '予約', text: '相談の予約をしたいです' }
+    ],
+    vi: [
+      { label: 'Giờ làm việc', text: 'Giờ làm việc của phòng khám là gì?' },
+      { label: 'Vị trí', text: 'Phòng khám ở đâu?' },
+      { label: 'Implant', text: 'Tôi muốn tư vấn về cấy ghép implant' },
+      { label: 'Invisalign', text: 'Tôi có thể tư vấn niềng răng Invisalign không?' },
+      { label: 'Glownate', text: 'Glownate (mặt dán sứ) là gì?' },
+      { label: 'Chi phí', text: 'Chi phí điều trị khoảng bao nhiêu?' },
+      { label: 'Đặt lịch', text: 'Tôi muốn đặt lịch hẹn' }
+    ]
+  };
+
+  function getQuickQuestions() {
+    var lang = detectLang();
+    return QUICK_QUESTIONS_MAP[lang] || QUICK_QUESTIONS_MAP.en;
+  }
+
+  var QUICK_QUESTIONS = getQuickQuestions();
 
   function renderQuickBtns() {
     var container = document.getElementById('bdQuickBtns');
@@ -406,7 +497,10 @@
       // 첫 오픈 시 인사
       if (state.messages.length === 0) {
         setTimeout(function() {
-          var greeting = '\uC548\uB155\uD558\uC138\uC694! \uC11C\uC6B8\uBE44\uB514\uCE58\uACFC AI \uC0C1\uB2F4\uC0AC \uBE44\uB514\uC785\uB2C8\uB2E4 \uD83D\uDE0A\n\n\uC9C4\uB8CC, \uC608\uC57D, \uBE44\uC6A9 \uB4F1 \uAD81\uAE08\uD55C \uC810\uC744 \uD3B8\uD558\uAC8C \uBB3C\uC5B4\uBCF4\uC138\uC694.';
+          var lang = detectLang();
+          var greeting = GREETINGS[lang] || GREETINGS.en;
+          // 퀵 버튼도 현재 언어에 맞게 갱신
+          QUICK_QUESTIONS = getQuickQuestions();
           state.messages.push({ role: 'assistant', content: greeting });
           renderMessage({ role: 'assistant', content: greeting });
           renderQuickBtns();
