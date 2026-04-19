@@ -28,6 +28,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
   --bg: #0f1117;
@@ -193,8 +194,11 @@ a { color:inherit; text-decoration:none; }
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
 /* ===== RESPONSIVE ===== */
+@media(max-width:1200px) {
+  .stats-grid { grid-template-columns:repeat(3,1fr) !important; }
+}
 @media(max-width:1024px) {
-  .stats-grid { grid-template-columns:repeat(2,1fr); }
+  .stats-grid { grid-template-columns:repeat(2,1fr) !important; }
   .grid-2 { grid-template-columns:1fr; }
 }
 @media(max-width:768px) {
@@ -312,31 +316,39 @@ a { color:inherit; text-decoration:none; }
       <div class="welcome-date"><i class="far fa-calendar-alt"></i> <span id="currentDate">–</span></div>
     </div>
 
-    <!-- Stats Grid -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon blue"><i class="fas fa-images"></i></div>
-          <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 12%</div>
-        </div>
-        <div class="stat-value" id="statCases">0</div>
-        <div class="stat-label">Before/After 케이스</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-header">
-          <div class="stat-icon green"><i class="fas fa-bullhorn"></i></div>
-          <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 3건</div>
-        </div>
-        <div class="stat-value" id="statNotices">0</div>
-        <div class="stat-label">공지사항</div>
-      </div>
+    <!-- Stats Grid - 5 columns -->
+    <div class="stats-grid" style="grid-template-columns:repeat(5,1fr)">
       <div class="stat-card" style="cursor:pointer" onclick="location.href='/admin/reservations'">
         <div class="stat-header">
           <div class="stat-icon" style="background:var(--orange-bg);color:var(--orange)"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-trend" id="rsvTrendToday"></div>
+        </div>
+        <div class="stat-value" id="statRsvToday">–</div>
+        <div class="stat-label">오늘 예약</div>
+      </div>
+      <div class="stat-card" style="cursor:pointer" onclick="location.href='/admin/reservations'">
+        <div class="stat-header">
+          <div class="stat-icon" style="background:var(--red-bg);color:var(--red)"><i class="fas fa-hourglass-half"></i></div>
           <div class="stat-trend" id="rsvTrend"></div>
         </div>
         <div class="stat-value" id="statReservations">0</div>
-        <div class="stat-label">예약/문의 (대기중)</div>
+        <div class="stat-label">대기중 예약</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon" style="background:var(--green-bg);color:var(--green)"><i class="fas fa-chart-line"></i></div>
+          <div class="stat-trend" id="rsvMonthTrend"></div>
+        </div>
+        <div class="stat-value" id="statRsvMonth">–</div>
+        <div class="stat-label">이번달 예약</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <div class="stat-icon blue"><i class="fas fa-images"></i></div>
+          <div class="stat-trend up"><i class="fas fa-arrow-up"></i></div>
+        </div>
+        <div class="stat-value" id="statCases">0</div>
+        <div class="stat-label">B/A 케이스</div>
       </div>
       <div class="stat-card" style="cursor:pointer" onclick="scrollToMembers()">
         <div class="stat-header">
@@ -348,88 +360,113 @@ a { color:inherit; text-decoration:none; }
       </div>
     </div>
 
-    <!-- Two Columns -->
+    <!-- 📊 경영 콕핏 - 차트 섹션 -->
     <div class="grid-2">
-      <!-- Quick Actions -->
+      <!-- 예약 추이 차트 (14일) -->
       <div class="card">
         <div class="card-header">
-          <div class="card-title"><i class="fas fa-bolt"></i> 빠른 작업</div>
+          <div class="card-title"><i class="fas fa-chart-line" style="color:var(--blue)"></i> 예약 추이 (최근 14일)</div>
+          <div class="card-action" id="rsvChartSummary" style="font-size:.72rem;color:var(--text-muted)">로딩중...</div>
         </div>
-        <div class="card-body">
-          <div class="quick-grid">
-            <a href="/admin/cases" class="quick-btn">
-              <div class="quick-btn-icon" style="background:var(--blue-bg);color:var(--blue);"><i class="fas fa-plus"></i></div>
-              <div><div class="quick-btn-text">새 케이스 추가</div><div class="quick-btn-sub">Before/After 등록</div></div>
-            </a>
-            <a href="/admin/notices" class="quick-btn">
-              <div class="quick-btn-icon" style="background:var(--green-bg);color:var(--green);"><i class="fas fa-edit"></i></div>
-              <div><div class="quick-btn-text">공지사항 작성</div><div class="quick-btn-sub">새 공지 작성</div></div>
-            </a>
-            <a href="/cases/gallery" target="_blank" rel="noopener" class="quick-btn">
-              <div class="quick-btn-icon" style="background:var(--purple-bg);color:var(--purple);"><i class="fas fa-eye"></i></div>
-              <div><div class="quick-btn-text">갤러리 확인</div><div class="quick-btn-sub">공개 페이지 확인</div></div>
-            </a>
-            <a href="/admin/reservations" class="quick-btn">
-              <div class="quick-btn-icon" style="background:var(--orange-bg);color:var(--orange);"><i class="fas fa-calendar-check"></i></div>
-              <div><div class="quick-btn-text">예약/문의 확인</div><div class="quick-btn-sub">신규 예약 확인</div></div>
-            </a>
-            <a href="/" target="_blank" rel="noopener" class="quick-btn">
-              <div class="quick-btn-icon" style="background:rgba(100,100,100,0.1);color:#888;"><i class="fas fa-globe"></i></div>
-              <div><div class="quick-btn-text">사이트 보기</div><div class="quick-btn-sub">bdbddc.com</div></div>
-            </a>
-          </div>
+        <div class="card-body" style="padding:12px 16px">
+          <canvas id="chartDailyTrend" height="200"></canvas>
         </div>
       </div>
 
-      <!-- Site Status -->
+      <!-- 인기 치료 TOP5 차트 -->
       <div class="card">
         <div class="card-header">
-          <div class="card-title"><i class="fas fa-server"></i> 사이트 현황</div>
+          <div class="card-title"><i class="fas fa-trophy" style="color:var(--orange)"></i> 인기 치료 TOP 5</div>
         </div>
+        <div class="card-body" style="padding:12px 16px">
+          <canvas id="chartTreatmentTop5" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- 케이스 카테고리 분포 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-images" style="color:var(--purple)"></i> 케이스 카테고리 분포</div>
+        </div>
+        <div class="card-body" style="padding:12px 16px">
+          <canvas id="chartCaseCategory" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- 월별 매출 추정 (예약 기반) -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-won-sign" style="color:var(--green)"></i> 월별 예약 추이 (6개월)</div>
+          <div class="card-action" id="revenueHint" style="font-size:.68rem;color:var(--text-muted)">예약 수 기반 추정</div>
+        </div>
+        <div class="card-body" style="padding:12px 16px">
+          <canvas id="chartMonthlyRevenue" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- 최근 예약 실시간 피드 + 지역 분포 -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-bell" style="color:var(--green)"></i> 최근 예약 (실시간)</div>
+          <a href="/admin/reservations" class="card-action">전체 보기 <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div class="card-body" style="padding:0;max-height:320px;overflow-y:auto">
+          <ul class="recent-list" id="recentRsvList" style="padding:0 16px">
+            <li class="recent-item"><div class="recent-info"><div class="recent-title" style="color:var(--text-muted)">로딩중...</div></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 예약 전환율 인사이트 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-lightbulb" style="color:var(--orange)"></i> 경영 인사이트</div>
+        </div>
+        <div class="card-body" id="insightsBody" style="padding:16px 20px">
+          <div style="text-align:center;color:var(--text-muted);padding:20px">분석중...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 빠른 작업 + 사이트 현황 -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-bolt"></i> 빠른 작업</div></div>
+        <div class="card-body">
+          <div class="quick-grid">
+            <a href="/admin/cases" class="quick-btn"><div class="quick-btn-icon" style="background:var(--blue-bg);color:var(--blue);"><i class="fas fa-plus"></i></div><div><div class="quick-btn-text">새 케이스 추가</div><div class="quick-btn-sub">Before/After 등록</div></div></a>
+            <a href="/admin/reservations" class="quick-btn"><div class="quick-btn-icon" style="background:var(--orange-bg);color:var(--orange);"><i class="fas fa-calendar-check"></i></div><div><div class="quick-btn-text">예약/문의 확인</div><div class="quick-btn-sub">신규 예약 확인</div></div></a>
+            <a href="/admin/notices" class="quick-btn"><div class="quick-btn-icon" style="background:var(--green-bg);color:var(--green);"><i class="fas fa-edit"></i></div><div><div class="quick-btn-text">공지사항 작성</div><div class="quick-btn-sub">새 공지 작성</div></div></a>
+            <a href="/" target="_blank" class="quick-btn"><div class="quick-btn-icon" style="background:rgba(100,100,100,0.1);color:#888;"><i class="fas fa-globe"></i></div><div><div class="quick-btn-text">사이트 보기</div><div class="quick-btn-sub">bdbddc.com</div></div></a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-server"></i> 사이트 현황</div></div>
         <div class="card-body">
           <div class="site-status-grid">
-            <div class="site-status-item">
-              <div class="site-status-label">웹사이트</div>
-              <div class="site-status-value"><span class="status-dot online"></span> 정상 운영중</div>
-            </div>
-            <div class="site-status-item">
-              <div class="site-status-label">도메인</div>
-              <div class="site-status-value">bdbddc.com</div>
-            </div>
-            <div class="site-status-item">
-              <div class="site-status-label">플랫폼</div>
-              <div class="site-status-value"><i class="fas fa-cloud" style="color:var(--blue);"></i> Cloudflare Pages</div>
-            </div>
-            <div class="site-status-item">
-              <div class="site-status-label">총 페이지</div>
-              <div class="site-status-value">560+ 페이지</div>
-            </div>
+            <div class="site-status-item"><div class="site-status-label">웹사이트</div><div class="site-status-value"><span class="status-dot online"></span> 정상 운영중</div></div>
+            <div class="site-status-item"><div class="site-status-label">도메인</div><div class="site-status-value">bdbddc.com</div></div>
+            <div class="site-status-item"><div class="site-status-label">플랫폼</div><div class="site-status-value"><i class="fas fa-cloud" style="color:var(--blue)"></i> Cloudflare Pages</div></div>
+            <div class="site-status-item"><div class="site-status-label">총 페이지</div><div class="site-status-value">560+ 페이지</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SEO Tools: IndexNow & Google Ping -->
+    <!-- SEO Tools -->
     <div class="seo-card">
       <div class="seo-title"><i class="fas fa-search"></i> 검색엔진 색인 요청 (SEO)</div>
       <div class="seo-btns">
-        <button class="seo-btn" id="btnIndexNow" onclick="runIndexNow()">
-          <div class="seo-btn-icon" style="background:var(--blue-bg);color:var(--blue)"><i class="fas fa-bolt"></i></div>
-          <div>
-            <div class="seo-btn-title">IndexNow 전체 제출</div>
-            <div class="seo-btn-desc">Bing · Yandex · Naver에 80+개 URL 즉시 알림</div>
-          </div>
-        </button>
-        <button class="seo-btn" id="btnGooglePing" onclick="runGooglePing()">
-          <div class="seo-btn-icon" style="background:var(--green-bg);color:var(--green)"><i class="fab fa-google"></i></div>
-          <div>
-            <div class="seo-btn-title">Google Sitemap Ping</div>
-            <div class="seo-btn-desc">sitemap.xml 변경을 Google에 알림</div>
-          </div>
-        </button>
+        <button class="seo-btn" id="btnIndexNow" onclick="runIndexNow()"><div class="seo-btn-icon" style="background:var(--blue-bg);color:var(--blue)"><i class="fas fa-bolt"></i></div><div><div class="seo-btn-title">IndexNow 전체 제출</div><div class="seo-btn-desc">Bing · Yandex · Naver에 80+개 URL 즉시 알림</div></div></button>
+        <button class="seo-btn" id="btnGooglePing" onclick="runGooglePing()"><div class="seo-btn-icon" style="background:var(--green-bg);color:var(--green)"><i class="fab fa-google"></i></div><div><div class="seo-btn-title">Google Sitemap Ping</div><div class="seo-btn-desc">sitemap.xml 변경을 Google에 알림</div></div></button>
       </div>
       <div class="seo-result" id="seoResult"></div>
-      <div style="margin-top:12px;font-size:.72rem;color:var(--text-muted)"><i class="fas fa-info-circle" style="margin-right:4px"></i> 케이스/공지 저장 시 자동으로 IndexNow가 실행됩니다. 사이트 대규모 수정 시 수동 버튼을 사용하세요.</div>
+      <div style="margin-top:12px;font-size:.72rem;color:var(--text-muted)"><i class="fas fa-info-circle" style="margin-right:4px"></i> 케이스/공지 저장 시 자동으로 IndexNow가 실행됩니다.</div>
     </div>
 
     <!-- 회원 관리 섹션 -->
@@ -485,114 +522,374 @@ a { color:inherit; text-decoration:none; }
 </div>
 
 <script>
-// Time & Date
+// =============================================
+// 원장님 경영 콕핏 — Dashboard v2.0
+// =============================================
+
+// 치료명 한글 매핑
+const TREAT_MAP = {
+  'implant':'임플란트','invisalign':'인비절라인','glownate':'글로우네이트',
+  'general':'일반진료','whitening':'미백','orthodontics':'교정',
+  'root-canal':'신경치료','gum':'잇몸치료','wisdom':'사랑니',
+  'crown':'크라운','bridge':'브릿지','resin':'심미레진',
+  'checkup':'검진','veneer':'라미네이트','pediatric':'소아치과',
+  'laminate':'라미네이트','aesthetic':'심미보철'
+};
+function treatLabel(k) { return TREAT_MAP[k] || k; }
+
+// Chart.js 다크 테마
+Chart.defaults.color = '#8b8fa3';
+Chart.defaults.borderColor = 'rgba(42,45,62,0.6)';
+Chart.defaults.font.family = 'Pretendard,-apple-system,sans-serif';
+
+// 차트 인스턴스
+let chartTrend, chartTop5, chartCategory, chartRevenue;
+
+// 시간 업데이트
 function updateTime() {
   const now = new Date();
-  const timeEl = document.getElementById('currentTime');
-  const dateEl = document.getElementById('currentDate');
-  if (timeEl) timeEl.textContent = now.toLocaleTimeString('ko-KR', { hour:'2-digit', minute:'2-digit' });
-  if (dateEl) dateEl.textContent = now.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+  const t = document.getElementById('currentTime');
+  const d = document.getElementById('currentDate');
+  if (t) t.textContent = now.toLocaleTimeString('ko-KR', { hour:'2-digit', minute:'2-digit' });
+  if (d) d.textContent = now.toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
 }
-updateTime();
-setInterval(updateTime, 30000);
+updateTime(); setInterval(updateTime, 30000);
 
-// Load stats from localStorage + API
-function loadDashboard() {
+// ===== 메인 대시보드 로드 (통합 API) =====
+async function loadCockpit() {
   try {
-    const cases = JSON.parse(localStorage.getItem('bd_cases') || '[]');
-    const notices = JSON.parse(localStorage.getItem('bd_notices') || '[]');
-    document.getElementById('statCases').textContent = cases.length;
-    document.getElementById('statNotices').textContent = notices.length;
-    document.getElementById('caseCount').textContent = cases.length;
-    document.getElementById('noticeCount').textContent = notices.length;
+    const res = await fetch('/api/admin/dashboard-stats');
+    if (res.status === 401) { console.warn('Not logged in'); return; }
+    if (!res.ok) { console.error('Dashboard API error', res.status); return; }
+    const data = await res.json();
+    const ov = data.overview || {};
 
-    // Recent items
-    const all = [
-      ...cases.map(c => ({ ...c, _type:'case' })),
-      ...notices.map(n => ({ ...n, _type:'notice' }))
-    ].sort((a,b) => new Date(b.updatedAt||b.createdAt||0) - new Date(a.updatedAt||a.createdAt||0)).slice(0,6);
+    // === 1. 통계 카드 업데이트 ===
+    setText('statRsvToday', ov.reservationsToday || 0);
+    setText('statReservations', ov.reservationsPending || 0);
+    setText('statRsvMonth', ov.reservationsThisMonth || 0);
+    setText('statCases', ov.totalCases || 0);
+    setText('statMembers', ov.totalMembers || 0);
 
-    const listEl = document.getElementById('recentList');
-    if (all.length === 0) {
-      listEl.innerHTML = '<li class="recent-item"><div class="recent-info"><div class="recent-title" style="color:var(--text-muted);">등록된 콘텐츠가 없습니다</div><div class="recent-meta">케이스나 공지사항을 추가해보세요</div></div></li>';
-      return;
-    }
-    listEl.innerHTML = all.map(item => {
-      const isCase = item._type === 'case';
-      const status = item.status || 'published';
-      const dateStr = new Date(item.updatedAt||item.createdAt||Date.now()).toLocaleDateString('ko-KR');
-      return `<li class="recent-item">
-        <div class="recent-dot ${status}"></div>
-        <div class="recent-info">
-          <div class="recent-title">${item.title || '제목 없음'}</div>
-          <div class="recent-meta">${dateStr} · ${isCase ? (item.doctorName||'') : ''}</div>
-        </div>
-        <span class="recent-badge ${isCase ? 'case' : 'notice'}">${isCase ? '케이스' : '공지'}</span>
-      </li>`;
-    }).join('');
-  } catch(e) { console.error(e); }
-}
-loadDashboard();
+    // 사이드바 배지
+    setText('caseCount', ov.totalCases || '–');
+    setText('rsvCount', ov.reservationsPending > 0 ? ov.reservationsPending : '–');
+    setText('memberCount', ov.totalMembers || '–');
 
-// Load reservation stats from API
-async function loadReservationStats() {
-  try {
-    const res = await fetch('/api/admin/reservations');
-    if (res.status === 401) return; // not logged in
-    if (!res.ok) return;
-    const reservations = await res.json();
-    if (!Array.isArray(reservations)) return;
-
-    const pending = reservations.filter(r => r.status === 'pending' || !r.status).length;
-    const total = reservations.length;
-
-    // Update dashboard stat card
-    document.getElementById('statReservations').textContent = pending;
-
-    // Update sidebar badge
-    const rsvBadge = document.getElementById('rsvCount');
-    if (rsvBadge) rsvBadge.textContent = pending > 0 ? pending : '–';
-
-    // Update trend badge
-    const trendEl = document.getElementById('rsvTrend');
-    if (trendEl) {
-      if (pending > 0) {
-        trendEl.className = 'stat-trend up';
-        trendEl.innerHTML = '<i class="fas fa-arrow-up"></i> ' + pending + '건 대기';
+    // 대기중 예약 트렌드
+    const rsvTrend = document.getElementById('rsvTrend');
+    if (rsvTrend) {
+      if (ov.reservationsPending > 0) {
+        rsvTrend.className = 'stat-trend up';
+        rsvTrend.innerHTML = '<i class="fas fa-exclamation"></i> 처리필요';
+        rsvTrend.style.color = 'var(--red)'; rsvTrend.style.background = 'var(--red-bg)';
       } else {
-        trendEl.className = 'stat-trend';
-        trendEl.innerHTML = '<i class="fas fa-check"></i> 처리완료';
-        trendEl.style.color = 'var(--green)';
-        trendEl.style.background = 'var(--green-bg)';
+        rsvTrend.className = 'stat-trend';
+        rsvTrend.innerHTML = '<i class="fas fa-check"></i> OK';
+        rsvTrend.style.color = 'var(--green)'; rsvTrend.style.background = 'var(--green-bg)';
       }
     }
 
-    // Add recent reservations to recent list
-    if (reservations.length > 0) {
-      const recentRsvs = reservations.slice(0, 3);
-      const listEl = document.getElementById('recentList');
-      if (listEl) {
-        const existingItems = listEl.innerHTML;
-        const rsvHtml = recentRsvs.map(r => {
-          const dateStr = new Date(r.createdAt || Date.now()).toLocaleDateString('ko-KR');
-          const statusDot = r.status === 'completed' ? 'published' : 'draft';
-          return `<li class="recent-item">
-            <div class="recent-dot ${statusDot}"></div>
-            <div class="recent-info">
-              <div class="recent-title">${r.name || '이름없음'} · ${r.treatment || '미지정'}</div>
-              <div class="recent-meta">${dateStr} · ${r.phone || ''}</div>
-            </div>
-            <span class="recent-badge" style="background:var(--orange-bg);color:var(--orange);">예약</span>
-          </li>`;
-        }).join('');
-        listEl.innerHTML = rsvHtml + existingItems;
+    // 오늘 예약 트렌드
+    const todayTrend = document.getElementById('rsvTrendToday');
+    if (todayTrend && ov.reservationsToday > 0) {
+      todayTrend.className = 'stat-trend up';
+      todayTrend.innerHTML = '<i class="fas fa-arrow-up"></i> ' + ov.reservationsToday + '건';
+    }
+
+    // 이번달 vs 지난달
+    const monthTrend = document.getElementById('rsvMonthTrend');
+    if (monthTrend) {
+      const diff = (ov.reservationsThisMonth || 0) - (ov.reservationsLastMonth || 0);
+      if (diff >= 0) {
+        monthTrend.className = 'stat-trend up';
+        monthTrend.innerHTML = '<i class="fas fa-arrow-up"></i> 전월 대비 +' + diff;
+      } else {
+        monthTrend.className = 'stat-trend down';
+        monthTrend.innerHTML = '<i class="fas fa-arrow-down"></i> 전월 대비 ' + diff;
       }
     }
-  } catch(e) { console.error('Reservation stats error:', e); }
+
+    // 회원 트렌드
+    const mt = document.getElementById('memberTrend');
+    if (mt && ov.membersThisWeek > 0) {
+      mt.className = 'stat-trend up';
+      mt.innerHTML = '<i class="fas fa-arrow-up"></i> 이번주 +' + ov.membersThisWeek;
+    }
+
+    // === 2. 차트 렌더링 ===
+    renderDailyTrendChart(data.dailyTrend || []);
+    renderTreatmentTop5Chart(data.treatmentTop5 || []);
+    renderCaseCategoryChart(data.casesByCategory || {});
+    renderMonthlyRevenueChart(data.recentReservations || []);
+
+    // === 3. 최근 예약 피드 ===
+    renderRecentReservations(data.recentReservations || []);
+
+    // === 4. 경영 인사이트 ===
+    renderInsights(data);
+
+    // 차트 요약
+    const sum = document.getElementById('rsvChartSummary');
+    if (sum) {
+      const total14 = (data.dailyTrend || []).reduce((s, d) => s + d.count, 0);
+      const avg = (total14 / 14).toFixed(1);
+      sum.textContent = '14일 합계 ' + total14 + '건 · 일평균 ' + avg + '건';
+    }
+
+  } catch (e) { console.error('Dashboard load error:', e); }
 }
-loadReservationStats();
 
-// Load career application stats
+// === 차트: 예약 추이 (14일) ===
+function renderDailyTrendChart(trend) {
+  const ctx = document.getElementById('chartDailyTrend');
+  if (!ctx) return;
+  if (chartTrend) chartTrend.destroy();
+
+  const labels = trend.map(d => {
+    const dt = new Date(d.date);
+    return (dt.getMonth()+1) + '/' + dt.getDate();
+  });
+  const values = trend.map(d => d.count);
+
+  chartTrend = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: '예약 수',
+        data: values,
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59,130,246,0.1)',
+        borderWidth: 2.5,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        pointBackgroundColor: '#3b82f6'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 11 } }, grid: { color: 'rgba(42,45,62,0.4)' } },
+        x: { ticks: { font: { size: 10 } }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+// === 차트: 인기 치료 TOP5 (수평 막대) ===
+function renderTreatmentTop5Chart(top5) {
+  const ctx = document.getElementById('chartTreatmentTop5');
+  if (!ctx) return;
+  if (chartTop5) chartTop5.destroy();
+
+  const labels = top5.map(t => treatLabel(t.name));
+  const values = top5.map(t => t.count);
+  const colors = ['#f59e0b','#ef4444','#3b82f6','#22c55e','#a855f7'];
+
+  chartTop5 = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors.slice(0, values.length).map(c => c + '33'),
+        borderColor: colors.slice(0, values.length),
+        borderWidth: 1.5,
+        borderRadius: 6,
+        barPercentage: 0.6
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 11 } }, grid: { color: 'rgba(42,45,62,0.4)' } },
+        y: { ticks: { font: { size: 11, weight: 600 } }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+// === 차트: 케이스 카테고리 분포 (도넛) ===
+function renderCaseCategoryChart(cats) {
+  const ctx = document.getElementById('chartCaseCategory');
+  if (!ctx) return;
+  if (chartCategory) chartCategory.destroy();
+
+  const entries = Object.entries(cats).sort((a,b) => b[1] - a[1]);
+  const labels = entries.map(e => treatLabel(e[0]));
+  const values = entries.map(e => e[1]);
+  const palette = ['#3b82f6','#f59e0b','#22c55e','#a855f7','#ef4444','#06b6d4','#ec4899','#84cc16','#f97316','#6366f1'];
+
+  chartCategory = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: palette.slice(0, values.length),
+        borderColor: '#1a1d27',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'right', labels: { boxWidth: 12, padding: 10, font: { size: 11 } } }
+      },
+      cutout: '55%'
+    }
+  });
+}
+
+// === 차트: 월별 예약 추이 (6개월) ===
+function renderMonthlyRevenueChart(recentRsv) {
+  const ctx = document.getElementById('chartMonthlyRevenue');
+  if (!ctx) return;
+  if (chartRevenue) chartRevenue.destroy();
+
+  // 최근 6개월 집계
+  const now = new Date();
+  const months = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    months.push(d.toISOString().slice(0,7));
+  }
+
+  // 전체 예약에서 월별 집계 (recentReservations는 최근 10개뿐이므로 dailyTrend 활용)
+  // API에서 받은 recentReservations로 근사치 산출
+  const monthCounts = {};
+  months.forEach(m => monthCounts[m] = 0);
+  recentRsv.forEach(r => {
+    const m = (r.createdAt || '').slice(0,7);
+    if (monthCounts[m] !== undefined) monthCounts[m]++;
+  });
+
+  const labels = months.map(m => {
+    const [y, mm] = m.split('-');
+    return mm + '월';
+  });
+  const values = months.map(m => monthCounts[m]);
+
+  chartRevenue = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '예약 수',
+        data: values,
+        backgroundColor: 'rgba(34,197,94,0.2)',
+        borderColor: '#22c55e',
+        borderWidth: 1.5,
+        borderRadius: 8,
+        barPercentage: 0.5
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 11 } }, grid: { color: 'rgba(42,45,62,0.4)' } },
+        x: { ticks: { font: { size: 11 } }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+// === 최근 예약 피드 ===
+function renderRecentReservations(rsvList) {
+  const el = document.getElementById('recentRsvList');
+  if (!el) return;
+  if (!rsvList.length) {
+    el.innerHTML = '<li class="recent-item"><div class="recent-info"><div class="recent-title" style="color:var(--text-muted)">예약 데이터가 없습니다</div></div></li>';
+    return;
+  }
+  const statusMap = {
+    'pending': { dot:'draft', label:'대기', color:'var(--orange)', bg:'var(--orange-bg)' },
+    'confirmed': { dot:'published', label:'확인', color:'var(--green)', bg:'var(--green-bg)' },
+    'completed': { dot:'published', label:'완료', color:'var(--blue)', bg:'var(--blue-bg)' },
+    'cancelled': { dot:'', label:'취소', color:'var(--red)', bg:'var(--red-bg)' }
+  };
+  el.innerHTML = rsvList.map(r => {
+    const st = statusMap[r.status] || statusMap.pending;
+    const dateStr = r.date || new Date(r.createdAt || 0).toLocaleDateString('ko-KR');
+    const timeStr = r.time || '';
+    return '<li class="recent-item">' +
+      '<div class="recent-dot ' + st.dot + '"></div>' +
+      '<div class="recent-info">' +
+        '<div class="recent-title">' + (r.name || '–') + ' · ' + treatLabel(r.treatment || '') + '</div>' +
+        '<div class="recent-meta">' + dateStr + ' ' + timeStr + ' · ' + (r.phone || '') + '</div>' +
+      '</div>' +
+      '<span class="recent-badge" style="background:' + st.bg + ';color:' + st.color + '">' + st.label + '</span>' +
+    '</li>';
+  }).join('');
+}
+
+// === 경영 인사이트 자동 생성 ===
+function renderInsights(data) {
+  const el = document.getElementById('insightsBody');
+  if (!el) return;
+  const ov = data.overview || {};
+  const insights = [];
+
+  // 인사이트 1: 오늘 예약
+  if (ov.reservationsToday > 0) {
+    insights.push({ icon:'fa-fire', color:'var(--orange)', text:'오늘 <strong>' + ov.reservationsToday + '건</strong>의 새 예약이 접수되었습니다.' });
+  } else {
+    insights.push({ icon:'fa-moon', color:'var(--text-muted)', text:'오늘은 아직 새 예약이 없습니다. 마케팅 활동을 점검해보세요.' });
+  }
+
+  // 인사이트 2: 대기 예약 알림
+  if (ov.reservationsPending > 3) {
+    insights.push({ icon:'fa-exclamation-triangle', color:'var(--red)', text:'<strong>' + ov.reservationsPending + '건</strong>의 예약이 대기 중입니다. 빠른 처리가 필요합니다!' });
+  }
+
+  // 인사이트 3: 전월 대비
+  const diff = (ov.reservationsThisMonth || 0) - (ov.reservationsLastMonth || 0);
+  if (diff > 0) {
+    insights.push({ icon:'fa-chart-line', color:'var(--green)', text:'이번달 예약이 전월 대비 <strong>+' + diff + '건</strong> 증가 중입니다. 좋은 흐름입니다!' });
+  } else if (diff < 0) {
+    insights.push({ icon:'fa-chart-line', color:'var(--red)', text:'이번달 예약이 전월 대비 <strong>' + diff + '건</strong> 감소했습니다. 원인 분석이 필요합니다.' });
+  }
+
+  // 인사이트 4: TOP 치료
+  if (data.treatmentTop5 && data.treatmentTop5.length > 0) {
+    const top = data.treatmentTop5[0];
+    insights.push({ icon:'fa-trophy', color:'var(--orange)', text:'가장 인기있는 치료: <strong>' + treatLabel(top.name) + '</strong> (' + top.count + '건)' });
+  }
+
+  // 인사이트 5: 신규 회원
+  if (ov.membersThisWeek > 0) {
+    insights.push({ icon:'fa-user-plus', color:'var(--purple)', text:'이번주 <strong>' + ov.membersThisWeek + '명</strong>이 새로 가입했습니다.' });
+  }
+
+  if (insights.length === 0) {
+    insights.push({ icon:'fa-info-circle', color:'var(--text-muted)', text:'아직 분석할 데이터가 충분하지 않습니다.' });
+  }
+
+  el.innerHTML = insights.map(ins =>
+    '<div style="display:flex;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)">' +
+      '<i class="fas ' + ins.icon + '" style="color:' + ins.color + ';margin-top:3px;font-size:.85rem;width:18px;text-align:center;flex-shrink:0"></i>' +
+      '<div style="font-size:.85rem;line-height:1.6">' + ins.text + '</div>' +
+    '</div>'
+  ).join('');
+}
+
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+// === 채용/회원 등 기존 로직 ===
 async function loadCareerStats() {
   try {
     const res = await fetch('/api/admin/careers?limit=5');
@@ -600,41 +897,13 @@ async function loadCareerStats() {
     if (!res.ok) return;
     const data = await res.json();
     const newCount = (data.stats || []).find(s => s.status === 'new');
-    const total = data.total || 0;
     const pending = newCount ? newCount.count : 0;
-
-    // Update sidebar badge
     const badge = document.getElementById('careerCount');
     if (badge) badge.textContent = pending > 0 ? pending : '–';
   } catch(e) { console.error('Career stats error:', e); }
 }
-loadCareerStats();
 
-// Load total page views
-async function loadViewStats() {
-  try {
-    const res = await fetch('/api/views');
-    if (!res.ok) return;
-    const data = await res.json();
-    let totalViews = 0;
-    let breakdown = [];
-    data.forEach(function(d) {
-      totalViews += (d.total_views || 0);
-      breakdown.push(d.page_type + ': ' + (d.total_views||0).toLocaleString());
-    });
-    document.getElementById('statViews').textContent = totalViews.toLocaleString();
-    const trendEl = document.getElementById('viewsTrend');
-    if (trendEl && breakdown.length > 0) {
-      trendEl.className = 'stat-trend';
-      trendEl.style.color = 'var(--purple)';
-      trendEl.style.background = 'var(--purple-bg)';
-      trendEl.innerHTML = '<i class="fas fa-chart-line"></i> ' + breakdown.join(' · ');
-    }
-  } catch(e) { console.warn('Views stats error:', e); }
-}
-loadViewStats();
-
-// === 회원 목록 로드 ===
+// 회원 로드 (API 기반 — 콕핏이 대부분 처리하므로 테이블만)
 let allMembers = [];
 async function loadMembers() {
   try {
@@ -644,30 +913,18 @@ async function loadMembers() {
     allMembers = await res.json();
     if (!Array.isArray(allMembers)) { allMembers = []; }
 
-    // 대시보드 수치 업데이트
-    document.getElementById('statMembers').textContent = allMembers.length;
+    setText('statMembers', allMembers.length);
     const memberBadge = document.getElementById('memberCount');
     if (memberBadge) memberBadge.textContent = allMembers.length || '\u2013';
 
-    // 트렌드 (최근 7일 가입자)
-    const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
-    const recentCount = allMembers.filter(m => new Date(m.createdAt) > weekAgo).length;
-    const trendEl = document.getElementById('memberTrend');
-    if (trendEl && recentCount > 0) {
-      trendEl.className = 'stat-trend up';
-      trendEl.innerHTML = '<i class="fas fa-arrow-up"></i> 이번주 +' + recentCount;
-    }
-
-    // 요약
     const emailCount = allMembers.filter(m => m.provider === 'email').length;
     const googleCount = allMembers.filter(m => m.provider === 'google').length;
     const mktCount = allMembers.filter(m => m.marketingConsent).length;
     document.getElementById('memberSummary').textContent = '이메일 ' + emailCount + '명 · Google ' + googleCount + '명 · 마케팅동의 ' + mktCount + '명';
 
-    // 테이블 렌더링
     const tbody = document.getElementById('membersTable');
     if (allMembers.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7" style="padding:40px;text-align:center;color:var(--text-muted)"><i class="fas fa-users" style="font-size:1.5rem;opacity:.4;display:block;margin-bottom:8px"></i>아직 회원가입자가 없습니다</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="padding:40px;text-align:center;color:var(--text-muted)">아직 회원가입자가 없습니다</td></tr>';
       return;
     }
     tbody.innerHTML = allMembers.map(function(m, i) {
@@ -690,7 +947,6 @@ async function loadMembers() {
     }).join('');
   } catch(e) { console.error('Members load error:', e); }
 }
-loadMembers();
 
 function scrollToMembers() {
   var el = document.getElementById('members');
@@ -703,44 +959,64 @@ function exportMembersCSV() {
   var rows = allMembers.map(function(m, i) {
     return (i+1) + ',' + (m.name||'') + ',' + (m.email||'') + ',' + (m.phone||'') + ',' + (m.provider||'email') + ',' + (m.marketingConsent ? 'Y' : 'N') + ',' + (m.createdAt ? new Date(m.createdAt).toLocaleDateString('ko-KR') : '');
   }).join('\n');
-  var bom = '\uFEFF';
-  var blob = new Blob([bom + header + rows], { type: 'text/csv;charset=utf-8;' });
+  var blob = new Blob(['\uFEFF' + header + rows], { type: 'text/csv;charset=utf-8;' });
   var link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = '\uc11c\uc6b8\ube44\ub514\uce58\uacfc_\ud68c\uc6d0\ubaa9\ub85d_' + new Date().toISOString().slice(0,10) + '.csv';
   link.click();
 }
 
-// Mobile sidebar toggle
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('sidebarOverlay').classList.toggle('open');
 }
 
-// === SEO: IndexNow ===
+// localStorage 기반 최근 콘텐츠 (보조)
+function loadRecentContent() {
+  try {
+    const cases = JSON.parse(localStorage.getItem('bd_cases') || '[]');
+    const notices = JSON.parse(localStorage.getItem('bd_notices') || '[]');
+    setText('noticeCount', notices.length || '–');
+
+    const all = [
+      ...cases.map(c => ({ ...c, _type:'case' })),
+      ...notices.map(n => ({ ...n, _type:'notice' }))
+    ].sort((a,b) => new Date(b.updatedAt||b.createdAt||0) - new Date(a.updatedAt||a.createdAt||0)).slice(0,6);
+
+    const listEl = document.getElementById('recentList');
+    if (all.length === 0) {
+      listEl.innerHTML = '<li class="recent-item"><div class="recent-info"><div class="recent-title" style="color:var(--text-muted)">등록된 콘텐츠가 없습니다</div></div></li>';
+      return;
+    }
+    listEl.innerHTML = all.map(item => {
+      const isCase = item._type === 'case';
+      const status = item.status || 'published';
+      const dateStr = new Date(item.updatedAt||item.createdAt||Date.now()).toLocaleDateString('ko-KR');
+      return '<li class="recent-item"><div class="recent-dot ' + status + '"></div><div class="recent-info"><div class="recent-title">' + (item.title || '제목 없음') + '</div><div class="recent-meta">' + dateStr + ' · ' + (isCase ? (item.doctorName||'') : '') + '</div></div><span class="recent-badge ' + (isCase ? 'case' : 'notice') + '">' + (isCase ? '케이스' : '공지') + '</span></li>';
+    }).join('');
+  } catch(e) {}
+}
+
+// === SEO Tools ===
 async function runIndexNow() {
   const btn = document.getElementById('btnIndexNow');
   const resultEl = document.getElementById('seoResult');
   btn.disabled = true;
   btn.querySelector('.seo-btn-title').textContent = '제출 중...';
   btn.querySelector('.seo-btn-icon').innerHTML = '<i class="fas fa-circle-notch spin"></i>';
-  resultEl.className = 'seo-result';
-  resultEl.style.display = 'none';
-  
+  resultEl.className = 'seo-result'; resultEl.style.display = 'none';
   try {
     const res = await fetch('/api/indexnow', { method: 'POST' });
     const data = await res.json();
-    
-    let html = `<strong>${data.submitted}개 URL 제출 완료</strong> (${new Date(data.timestamp).toLocaleTimeString('ko-KR')})<br>`;
-    data.results.forEach(r => {
+    let html = '<strong>' + data.submitted + '개 URL 제출 완료</strong><br>';
+    (data.results||[]).forEach(r => {
       const icon = r.ok ? '<i class="fas fa-check-circle ok"></i>' : '<i class="fas fa-times-circle fail"></i>';
-      html += `<div class="engine">${icon} <strong>${r.engine}</strong> — HTTP ${r.status}</div>`;
+      html += '<div class="engine">' + icon + ' <strong>' + r.engine + '</strong> — HTTP ' + r.status + '</div>';
     });
-    
     resultEl.innerHTML = html;
     resultEl.className = 'seo-result show success';
   } catch(e) {
-    resultEl.innerHTML = `<strong>오류:</strong> ${e.message}`;
+    resultEl.innerHTML = '<strong>오류:</strong> ' + e.message;
     resultEl.className = 'seo-result show error';
   } finally {
     btn.disabled = false;
@@ -748,29 +1024,24 @@ async function runIndexNow() {
     btn.querySelector('.seo-btn-icon').innerHTML = '<i class="fas fa-bolt"></i>';
   }
 }
-
-// === SEO: Google Ping ===
 async function runGooglePing() {
   const btn = document.getElementById('btnGooglePing');
   const resultEl = document.getElementById('seoResult');
   btn.disabled = true;
   btn.querySelector('.seo-btn-title').textContent = '전송 중...';
   btn.querySelector('.seo-btn-icon').innerHTML = '<i class="fas fa-circle-notch spin"></i>';
-  
   try {
     const res = await fetch('/api/google-ping', { method: 'POST' });
     const data = await res.json();
-    
-    let html = `<strong>Sitemap Ping 완료</strong> (${data.sitemap})<br>`;
-    data.results.forEach(r => {
+    let html = '<strong>Sitemap Ping 완료</strong><br>';
+    (data.results||[]).forEach(r => {
       const icon = r.ok ? '<i class="fas fa-check-circle ok"></i>' : '<i class="fas fa-times-circle fail"></i>';
-      html += `<div class="engine">${icon} <strong>${r.engine}</strong> — HTTP ${r.status}</div>`;
+      html += '<div class="engine">' + icon + ' <strong>' + r.engine + '</strong> — HTTP ' + r.status + '</div>';
     });
-    
     resultEl.innerHTML = html;
     resultEl.className = 'seo-result show success';
   } catch(e) {
-    resultEl.innerHTML = `<strong>오류:</strong> ${e.message}`;
+    resultEl.innerHTML = '<strong>오류:</strong> ' + e.message;
     resultEl.className = 'seo-result show error';
   } finally {
     btn.disabled = false;
@@ -778,6 +1049,15 @@ async function runGooglePing() {
     btn.querySelector('.seo-btn-icon').innerHTML = '<i class="fab fa-google"></i>';
   }
 }
+
+// ===== 초기화 =====
+loadCockpit();
+loadCareerStats();
+loadMembers();
+loadRecentContent();
+
+// 60초마다 자동 새로고침
+setInterval(loadCockpit, 60000);
 </script>
 
 <!-- Service Worker Registration -->
