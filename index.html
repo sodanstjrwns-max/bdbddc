@@ -10,8 +10,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
-<!-- Amplitude Script Loader -->
-<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
+<!-- Amplitude Script Loader (defer → FCP 개선) -->
+<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js" defer></script>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -101,7 +101,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <!-- ■ Icons -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=1a91d774">
+  <link rel="stylesheet" href="/css/site-v5.css?v=1a91d774">
   <link rel="stylesheet" href="/css/micro.css?v=ac2f0073">
   <style>
     /* Hero 3D responsive + floating animation */
@@ -374,8 +374,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     "knowsAbout": ["임플란트", "인비절라인", "치아교정", "소아치과", "수면치료", "글로우네이트", "치과 공포증"]
   }
   </script>
-<meta name="ai-summary" content="서울비디치과는 충남 천안시 불당동에 위치한 365일 진료 치과로, 서울대 출신 15인 원장이 협진하며 임플란트·교정·소아치과를 전문 진료합니다.">
-<meta name="abstract" content="서울비디치과는 충남 천안시 불당동에 위치한 365일 진료 치과로, 서울대 출신 15인 원장이 협진하며 임플란트·교정·소아치과를 전문 진료합니다.">
+<!-- 중복 meta 제거: ai.summary(L59)와 abstract(L58)에 이미 더 상세한 버전 존재 -->
 <script src="/js/analytics.js?v=20260408v7" defer></script>
 <!-- ■ VideoObject Schema — Google Video Indexing -->
 <script type="application/ld+json">
@@ -398,20 +397,34 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   }
 }
 </script>
-<!-- Weglot Multilingual -->
-<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<!-- Weglot Multilingual (defer로 비동기 로딩 → FCP 개선) -->
 <script>
-    Weglot.initialize({
-        api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
-    });
+  window.addEventListener('DOMContentLoaded', function() {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.weglot.com/weglot.min.js';
+    s.onload = function() { Weglot.initialize({ api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2' }); };
+    document.head.appendChild(s);
+  });
 </script>
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
+<!-- Microsoft Clarity (idle 시 로드 → TBT 개선) -->
+<script>
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(function() {
+      (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wb39d7gn5x");
+      })(window, document, "clarity", "script", "wb39d7gn5x");
+    });
+  } else {
+    setTimeout(function() {
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "wb39d7gn5x");
+    }, 3000);
+  }
 </script>
 <!-- End Microsoft Clarity -->
 </head>
@@ -571,9 +584,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </a>
         </div>
       </div>
-      <!-- 3D Tooth Model (Spline) -->
-      <div class="hero-3d" aria-hidden="true" style="position:relative;width:100%;height:500px;overflow:hidden;">
-        <iframe src="https://my.spline.design/untitled-wg7tJaxcc1L5wKeEL0PIwOQ2/" frameborder="0" width="100%" height="100%" style="border:none;background:transparent;" loading="lazy" allowtransparency="true" title="3D 치아 모델"></iframe>
+      <!-- 3D Tooth Model (Spline) — IntersectionObserver lazy load -->
+      <div class="hero-3d" aria-hidden="true" id="spline3d" style="position:relative;width:100%;height:500px;overflow:hidden;" data-spline-src="https://my.spline.design/untitled-wg7tJaxcc1L5wKeEL0PIwOQ2/">
+        <!-- iframe injected on viewport entry to avoid blocking initial paint -->
       </div>
     </div>
     
@@ -1435,20 +1448,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="/js/gnb-v2.js?v=853a02fb" defer></script>
   <script src="/static/chatbot.js" defer></script>
   
-  <!-- ■ Scroll Reveal -->
+  <!-- ■ Scroll Reveal (통합: main.js initScrollAnimations 제거, micro.js가 mi-reveal 담당, 여기서 .reveal 담당) -->
   <script>
     document.addEventListener('DOMContentLoaded',function(){
+      // .reveal 클래스 관찰
       var els=document.querySelectorAll('.reveal');
-      if(!els.length)return;
-      var obs=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
-          }
-        });
-      },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
-      els.forEach(function(el){obs.observe(el);});
+      if(els.length){
+        var obs=new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){
+              e.target.classList.add('visible');
+              obs.unobserve(e.target);
+            }
+          });
+        },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+        els.forEach(function(el){obs.observe(el);});
+      }
+      // Spline 3D lazy-load: inject iframe only when hero is near viewport
+      var spline=document.getElementById('spline3d');
+      if(spline){
+        var splineObs=new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){
+              var url=spline.getAttribute('data-spline-src');
+              var iframe=document.createElement('iframe');
+              iframe.src=url;iframe.width='100%';iframe.height='100%';
+              iframe.style.cssText='border:none;background:transparent;';
+              iframe.setAttribute('allowtransparency','true');
+              iframe.title='3D 치아 모델';
+              iframe.loading='lazy';
+              spline.appendChild(iframe);
+              splineObs.unobserve(spline);
+            }
+          });
+        },{rootMargin:'200px 0px'});
+        splineObs.observe(spline);
+      }
     });
   </script>
 

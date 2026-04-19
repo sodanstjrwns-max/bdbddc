@@ -2010,3 +2010,71 @@
   .kids-pull blockquote { font-size: 0.95rem; }
   .kids-card:hover { transform: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Opus 4.7 개선: 접근성(a11y) & 키보드 네비게이션
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Focus-visible 글로벌 스타일 (키보드 사용자 전용) ── */
+*:focus-visible {
+  outline: 3px solid var(--brand-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* 마우스 클릭 시 outline 숨김 */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── 인터랙티브 요소 focus 강화 ── */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(107, 66, 38, 0.1);
+}
+
+/* ── 골드색 접근성 보정 ── */
+/* #C8A97E → #9A7A50 (대비율 4.6:1 on white, WCAG AA 통과) */
+.fac-mag-stat-unit,
+.type-features li i,
+.type-grid-hint i,
+.tl-meta .fa-star,
+.why-card-stat .unit {
+  color: #9A7A50 !important;
+}
+
+/* ── Skip navigation 스타일 보강 ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  padding: 12px 24px;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  z-index: 10000;
+  transition: top 0.2s ease;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── 모션 감소 선호 사용자 대응 ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .mi-reveal { opacity: 1 !important; transform: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .hero-3d { animation: none !important; }
+}

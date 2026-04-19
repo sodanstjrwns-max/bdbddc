@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
 <!-- Amplitude Script Loader -->
-<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
+<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js" defer></script>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -257,20 +257,34 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "서울비디치과 임플란트 비용은 얼마인가요?", "acceptedAnswer": {"@type": "Answer", "text": "서울비디치과 임플란트 비용은 식립체 종류와 상태에 따라 다르며, 정확한 비용은 무료 상담 후 견적서로 안내드립니다. 추가 비용 없는 정직한 가격을 약속합니다."}}, {"@type": "Question", "name": "무이자 할부가 가능한가요?", "acceptedAnswer": {"@type": "Answer", "text": "네, 서울비디치과는 최대 12개월 무이자 할부를 지원합니다. 카드사별 혜택이 다르므로 상담 시 자세히 안내드립니다."}}, {"@type": "Question", "name": "건강보험 적용되는 진료가 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "스케일링(연 1회), 레진치료(12세 이하), 임플란트(만 65세 이상, 평생 2개) 등 건강보험이 적용되는 항목이 있습니다."}}]}
   </script>
 <script src="/js/analytics.js?v=20260408v7" defer></script>
-<!-- Weglot Multilingual -->
-<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<!-- Weglot Multilingual (defer로 비동기 로딩 → FCP 개선) -->
 <script>
-    Weglot.initialize({
-        api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2'
-    });
+  window.addEventListener('DOMContentLoaded', function() {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.weglot.com/weglot.min.js';
+    s.onload = function() { Weglot.initialize({ api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2' }); };
+    document.head.appendChild(s);
+  });
 </script>
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
+<!-- Microsoft Clarity (idle 시 로드 → TBT 개선) -->
+<script>
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(function() {
+      (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wb39d7gn5x");
+      })(window, document, "clarity", "script", "wb39d7gn5x");
+    });
+  } else {
+    setTimeout(function() {
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "wb39d7gn5x");
+    }, 3000);
+  }
 </script>
 <!-- End Microsoft Clarity -->
 </head>

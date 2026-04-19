@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize all components
   initHeader();
   initMobileNav();
-  initScrollAnimations();
+  // initScrollAnimations(); // 비활성화 — micro.js initScrollReveal이 통합 담당
   initFAQ();
   initSmoothScroll();
   // initFloatingCTA(); // 비활성화 - HTML의 .floating-cta 사용
