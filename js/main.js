@@ -104,8 +104,9 @@ function initScrollAnimations() {
  * FAQ Accordion
  */
 function initFAQ() {
-  // Skip if dedicated FAQ page (has its own inline accordion script with category-group support)
-  if (document.querySelector('.faq-category-group')) return;
+  // Skip if page has its own dedicated FAQ accordion script
+  // (faq.html uses .faq-category-group, faq/*.html subpages use .faq-main-section)
+  if (document.querySelector('.faq-category-group') || document.querySelector('.faq-main-section')) return;
 
   const faqItems = document.querySelectorAll('.faq-item');
   
