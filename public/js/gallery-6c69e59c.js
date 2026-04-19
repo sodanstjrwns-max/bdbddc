@@ -1,8 +1,8 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v8
+ * 서울비디치과 비포/애프터 갤러리 시스템 v9
  * - 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 카드
- * - 임플란트: 환자 병력 태그 표시 + 병력별 필터
- * - 글로우네이트: 시술 스타일 태그 표시 + 스타일별 필터
+ * - 임플란트: 환자 병력 태그 표시 + 병력별 필터 (미입력 포함)
+ * - 글로우네이트: 시술 스타일 태그 표시 + 스타일별 필터 (미지정 포함)
  */
 (function() {
   'use strict';
@@ -68,22 +68,22 @@
 
   // 스타일 라벨 맵
   var STYLE_LABELS = {
-    'white-pretty': { icon: '🤍', label: '하얗고 예쁘게' },
-    'bright-pretty': { icon: '✨', label: '밝고 예쁘게' },
-    'natural-pretty': { icon: '🌿', label: '자연스럽고 예쁘게' }
+    'white-pretty': { icon: '\uD83E\uDD0D', label: '하얗고 예쁘게' },
+    'bright-pretty': { icon: '\u2728', label: '밝고 예쁘게' },
+    'natural-pretty': { icon: '\uD83C\uDF3F', label: '자연스럽고 예쁘게' }
   };
 
   // 설명 텍스트 정리
   function cleanDesc(desc) {
     if (!desc) return '';
     var firstPara = desc.split(/\n\s*\n/)[0] || '';
-    firstPara = firstPara.replace(/[✅❌⭐🔹🔸▶►●•]/g, '').replace(/^\d+\.\s*/gm, '').trim();
+    firstPara = firstPara.replace(/[\u2705\u274C\u2B50\uD83D\uDD39\uD83D\uDD38\u25B6\u25BA\u25CF\u2022]/g, '').replace(/^\d+\.\s*/gm, '').trim();
     firstPara = firstPara.replace(/\n/g, ' ').trim();
-    if (firstPara.length > 80) firstPara = firstPara.substring(0, 80) + '…';
+    if (firstPara.length > 80) firstPara = firstPara.substring(0, 80) + '\u2026';
     return firstPara;
   }
 
-  // ─── 카드 렌더링 v8: 병력 태그 + 스타일 태그 추가 ───
+  // ─── 카드 렌더링 v9: 병력 태그 + 스타일 태그 ───
   function renderCard(c) {
     var catLabel = CATS[c.category] || c.category || '';
     var catSlugMap = { 'front-crown': 'crown' };
@@ -228,18 +228,30 @@
       });
     }
 
-    // ★ 글로우네이트 스타일 서브필터 적용
+    // ★ 글로우네이트 스타일 서브필터 적용 (미지정 포함)
     if (filter === 'glownate' && currentStyle !== 'all') {
-      filtered = filtered.filter(function(c) {
-        return c.laminateStyle === currentStyle;
-      });
+      if (currentStyle === 'unset') {
+        filtered = filtered.filter(function(c) {
+          return !c.laminateStyle || !STYLE_LABELS[c.laminateStyle];
+        });
+      } else {
+        filtered = filtered.filter(function(c) {
+          return c.laminateStyle === currentStyle;
+        });
+      }
     }
 
-    // ★ 임플란트 병력 서브필터 적용
+    // ★ 임플란트 병력 서브필터 적용 (미입력 포함)
     if (filter === 'implant' && currentMedical !== 'all') {
-      filtered = filtered.filter(function(c) {
-        return c.medicalHistory && c.medicalHistory.indexOf(currentMedical) !== -1;
-      });
+      if (currentMedical === 'unset') {
+        filtered = filtered.filter(function(c) {
+          return !c.medicalHistory || c.medicalHistory.length === 0;
+        });
+      } else {
+        filtered = filtered.filter(function(c) {
+          return c.medicalHistory && c.medicalHistory.indexOf(currentMedical) !== -1;
+        });
+      }
     }
 
     if (loading) loading.style.display = 'none';
@@ -286,27 +298,38 @@
     if (document.getElementById('statAesthetic')) document.getElementById('statAesthetic').textContent = (counts.aesthetic || 0);
   }
 
-  // ★ 글로우네이트 스타일 서브필터 동적 생성
+  // ★ 글로우네이트 스타일 서브필터 동적 생성 (미지정 포함)
   function buildGlownateSubFilter() {
     var wrap = document.querySelector('#glownateSubFilter .sub-filter-wrap');
     if (!wrap) return;
 
-    var styleCounts = { 'white-pretty': 0, 'bright-pretty': 0, 'natural-pretty': 0 };
+    var styleCounts = { 'white-pretty': 0, 'bright-pretty': 0, 'natural-pretty': 0, 'unset': 0 };
     var glownateTotal = 0;
     cases.forEach(function(c) {
       if ((filterGroupMap[c.category] || 'general') === 'glownate') {
         glownateTotal++;
-        if (c.laminateStyle && styleCounts.hasOwnProperty(c.laminateStyle)) {
+        if (c.laminateStyle && STYLE_LABELS[c.laminateStyle]) {
           styleCounts[c.laminateStyle]++;
+        } else {
+          styleCounts['unset']++;
         }
       }
     });
 
     var html = '<span class="sub-filter-label"><i class="fas fa-palette"></i> 시술 스타일</span>';
     html += '<button class="sub-chip active" data-style="all">전체 <span class="sub-count">' + glownateTotal + '</span></button>';
-    html += '<button class="sub-chip" data-style="white-pretty"><span class="sub-chip-icon">' + STYLE_LABELS['white-pretty'].icon + '</span> ' + STYLE_LABELS['white-pretty'].label + ' <span class="sub-count">' + styleCounts['white-pretty'] + '</span></button>';
-    html += '<button class="sub-chip" data-style="bright-pretty"><span class="sub-chip-icon">' + STYLE_LABELS['bright-pretty'].icon + '</span> ' + STYLE_LABELS['bright-pretty'].label + ' <span class="sub-count">' + styleCounts['bright-pretty'] + '</span></button>';
-    html += '<button class="sub-chip" data-style="natural-pretty"><span class="sub-chip-icon">' + STYLE_LABELS['natural-pretty'].icon + '</span> ' + STYLE_LABELS['natural-pretty'].label + ' <span class="sub-count">' + styleCounts['natural-pretty'] + '</span></button>';
+    if (styleCounts['white-pretty'] > 0) {
+      html += '<button class="sub-chip" data-style="white-pretty"><span class="sub-chip-icon">' + STYLE_LABELS['white-pretty'].icon + '</span> ' + STYLE_LABELS['white-pretty'].label + ' <span class="sub-count">' + styleCounts['white-pretty'] + '</span></button>';
+    }
+    if (styleCounts['bright-pretty'] > 0) {
+      html += '<button class="sub-chip" data-style="bright-pretty"><span class="sub-chip-icon">' + STYLE_LABELS['bright-pretty'].icon + '</span> ' + STYLE_LABELS['bright-pretty'].label + ' <span class="sub-count">' + styleCounts['bright-pretty'] + '</span></button>';
+    }
+    if (styleCounts['natural-pretty'] > 0) {
+      html += '<button class="sub-chip" data-style="natural-pretty"><span class="sub-chip-icon">' + STYLE_LABELS['natural-pretty'].icon + '</span> ' + STYLE_LABELS['natural-pretty'].label + ' <span class="sub-count">' + styleCounts['natural-pretty'] + '</span></button>';
+    }
+    if (styleCounts['unset'] > 0) {
+      html += '<button class="sub-chip" data-style="unset"><span class="sub-chip-icon"><i class="fas fa-tag"></i></span> 미지정 <span class="sub-count">' + styleCounts['unset'] + '</span></button>';
+    }
 
     wrap.innerHTML = html;
 
@@ -321,18 +344,25 @@
     });
   }
 
-  // ★ 임플란트 병력 서브필터 동적 생성
+  // ★ 임플란트 병력 서브필터 동적 생성 (미입력 포함)
   function buildImplantSubFilter() {
     var wrap = document.querySelector('#implantSubFilter .sub-filter-wrap');
     if (!wrap) return;
 
-    // 병력 카운트 수집
+    // 병력 카운트 수집 (미입력도 별도 카운트)
     var medCounts = {};
+    var unsetCount = 0;
+    var implantTotal = 0;
     cases.forEach(function(c) {
-      if ((filterGroupMap[c.category] || 'general') === 'implant' && c.medicalHistory && c.medicalHistory.length > 0) {
-        c.medicalHistory.forEach(function(tag) {
-          medCounts[tag] = (medCounts[tag] || 0) + 1;
-        });
+      if ((filterGroupMap[c.category] || 'general') === 'implant') {
+        implantTotal++;
+        if (c.medicalHistory && c.medicalHistory.length > 0) {
+          c.medicalHistory.forEach(function(tag) {
+            medCounts[tag] = (medCounts[tag] || 0) + 1;
+          });
+        } else {
+          unsetCount++;
+        }
       }
     });
 
@@ -341,14 +371,14 @@
     // 카운트 내림차순 정렬
     tags.sort(function(a, b) { return medCounts[b] - medCounts[a]; });
 
-    var implantTotal = cases.filter(function(c) { return (filterGroupMap[c.category] || 'general') === 'implant'; }).length;
     var html = '<span class="sub-filter-label"><i class="fas fa-notes-medical"></i> 환자 병력</span>';
     html += '<button class="sub-chip active" data-medical="all">전체 <span class="sub-count">' + implantTotal + '</span></button>';
-    if (tags.length > 0) {
-      tags.forEach(function(tag) {
-        var icon = MEDICAL_ICONS[tag] || 'fa-notes-medical';
-        html += '<button class="sub-chip" data-medical="' + tag + '"><i class="fas ' + icon + '"></i> ' + tag + ' <span class="sub-count">' + medCounts[tag] + '</span></button>';
-      });
+    tags.forEach(function(tag) {
+      var icon = MEDICAL_ICONS[tag] || 'fa-notes-medical';
+      html += '<button class="sub-chip" data-medical="' + tag + '"><i class="fas ' + icon + '"></i> ' + tag + ' <span class="sub-count">' + medCounts[tag] + '</span></button>';
+    });
+    if (unsetCount > 0) {
+      html += '<button class="sub-chip" data-medical="unset"><i class="fas fa-question-circle"></i> 미입력 <span class="sub-count">' + unsetCount + '</span></button>';
     }
 
     wrap.innerHTML = html;

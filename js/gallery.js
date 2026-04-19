@@ -1,8 +1,9 @@
 /**
- * 서울비디치과 비포/애프터 갤러리 시스템 v8
+ * 서울비디치과 비포/애프터 갤러리 시스템 v9
  * - 비포사진 + 카테고리 + 제목 + 설명 + 원장 = 하나의 카드
- * - 임플란트: 환자 병력 태그 표시 + 병력별 필터
- * - 글로우네이트: 시술 스타일 태그 표시 + 스타일별 필터
+ * - 임플란트: 환자 병력 태그 표시 + 병력별 서브필터 (필터 클릭 시 동적 생성)
+ * - 글로우네이트: 시술 스타일 태그 표시 + 스타일별 서브필터 (필터 클릭 시 동적 생성)
+ * - v9: 서브필터 강제 표시 + toggleSubFilters에서 build 호출 + 애니메이션
  */
 (function() {
   'use strict';
@@ -364,13 +365,15 @@
     });
   }
 
-  // ★ 서브필터 표시/숨기기 토글 (애니메이션 포함)
+  // ★ 서브필터 표시/숨기기 토글 — v9: build 함수 재호출 + 애니메이션
   function toggleSubFilters(filter) {
     var glownateFilter = document.getElementById('glownateSubFilter');
     var implantFilter = document.getElementById('implantSubFilter');
 
     if (glownateFilter) {
       if (filter === 'glownate') {
+        // 서브필터 칩 리빌드 (최신 데이터 반영)
+        buildGlownateSubFilter();
         glownateFilter.style.display = 'block';
         glownateFilter.style.opacity = '0';
         glownateFilter.style.transform = 'translateY(-8px)';
@@ -379,12 +382,15 @@
           glownateFilter.style.opacity = '1';
           glownateFilter.style.transform = 'translateY(0)';
         }, 10);
+        console.log('[Gallery v9] 글로우네이트 스타일 서브필터 표시');
       } else {
         glownateFilter.style.display = 'none';
       }
     }
     if (implantFilter) {
       if (filter === 'implant') {
+        // 서브필터 칩 리빌드 (최신 데이터 반영)
+        buildImplantSubFilter();
         implantFilter.style.display = 'block';
         implantFilter.style.opacity = '0';
         implantFilter.style.transform = 'translateY(-8px)';
@@ -393,28 +399,15 @@
           implantFilter.style.opacity = '1';
           implantFilter.style.transform = 'translateY(0)';
         }, 10);
+        console.log('[Gallery v9] 임플란트 병력 서브필터 표시');
       } else {
         implantFilter.style.display = 'none';
       }
     }
 
     // 필터 변경 시 서브필터 리셋
-    if (filter !== 'glownate') {
-      currentStyle = 'all';
-      var glownateWrap = document.querySelector('#glownateSubFilter .sub-filter-wrap');
-      if (glownateWrap) glownateWrap.querySelectorAll('.sub-chip').forEach(function(c) {
-        c.classList.remove('active');
-        if (c.getAttribute('data-style') === 'all') c.classList.add('active');
-      });
-    }
-    if (filter !== 'implant') {
-      currentMedical = 'all';
-      var implantWrap = document.querySelector('#implantSubFilter .sub-filter-wrap');
-      if (implantWrap) implantWrap.querySelectorAll('.sub-chip').forEach(function(c) {
-        c.classList.remove('active');
-        if (c.getAttribute('data-medical') === 'all') c.classList.add('active');
-      });
-    }
+    if (filter !== 'glownate') currentStyle = 'all';
+    if (filter !== 'implant') currentMedical = 'all';
   }
 
   async function loadCasesFromAPI() {
@@ -495,6 +488,8 @@
     buildImplantSubFilter();
     buildRegionFilter();
     renderGallery('all');
+
+    console.log('[Gallery v9] 로드 완료 — 케이스: ' + cases.length + ' | 서브필터 빌드 완료');
 
     // 메인 카테고리 필터 버튼
     document.querySelectorAll('.filter-btn').forEach(function(btn) {
