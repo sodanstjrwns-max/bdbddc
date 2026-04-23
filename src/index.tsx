@@ -33,6 +33,18 @@ app.use('*', async (c, next) => {
 })
 
 // ============================================
+// 보안 헤더 미들웨어 (API 응답에도 적용)
+// ============================================
+app.use('*', async (c, next) => {
+  await next()
+  c.header('X-Content-Type-Options', 'nosniff')
+  c.header('X-Frame-Options', 'SAMEORIGIN')
+  c.header('Referrer-Policy', 'strict-origin-when-cross-origin')
+  c.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload')
+  c.header('Permissions-Policy', 'camera=(), microphone=(), geolocation=(self)')
+})
+
+// ============================================
 // Meta Pixel + GTM + Amplitude 공통 트래킹 코드
 // ============================================
 const TRACKING_HEAD = `<!-- Google Tag Manager -->
@@ -1226,6 +1238,30 @@ app.get('/api/admin/members', async (c) => {
   // 최신순 정렬
   safe.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
   return c.json(safe)
+})
+
+// ============================================
+// 브라우저 자동 요청 fallback (favicon.ico, apple-touch-icon 등)
+// Screaming Frog Internal 4xx/5xx 이슈 해결
+// ============================================
+app.get('/favicon.ico', (c) => {
+  return c.redirect('/images/icons/favicon.svg', 301)
+})
+app.get('/apple-touch-icon.png', (c) => {
+  return c.redirect('/images/icons/favicon.svg', 301)
+})
+app.get('/apple-touch-icon-precomposed.png', (c) => {
+  return c.redirect('/images/icons/favicon.svg', 301)
+})
+
+// ============================================
+// Weglot /en/* 다국어 프록시 (hreflang Non-200 이슈 해결)
+// Weglot은 클라이언트 JS로 번역하지만, 검색엔진 크롤러는 /en/ URL을
+// 직접 접근하므로 한국어 원본으로 302 리디렉트 (크롤러가 원본 인덱싱)
+// ============================================
+app.get('/en/*', (c) => {
+  const path = c.req.path.replace(/^\/en/, '') || '/'
+  return c.redirect(path, 302)
 })
 
 // 301 Redirect: old .html URLs → clean URLs (prevent 308 chain)

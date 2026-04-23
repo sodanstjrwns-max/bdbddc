@@ -322,7 +322,7 @@ function initFloatingCTA() {
       <a href="tel:041-XXX-XXXX" class="floating-cta-btn" aria-label="전화 문의">
         <i class="fas fa-phone"></i>
       </a>
-      <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" class="floating-cta-btn kakao" aria-label="카카오톡 상담">
+      <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener noreferrer" class="floating-cta-btn kakao" aria-label="카카오톡 상담">
         <i class="fab fa-comment"></i>
       </a>
     </div>

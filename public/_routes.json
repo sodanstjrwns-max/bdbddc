@@ -1,23 +1,13 @@
 {
   "version": 1,
-  "include": ["/api/*", "/blog", "/blog/*"],
+  "include": ["/*"],
   "exclude": [
     "/css/*",
     "/js/*",
     "/images/*",
     "/static/*",
-    "/*.html",
-    "/treatments/*",
-    "/doctors/*",
-    "/column/*",
-    "/video/*",
-    "/cases/*",
-    "/notice/*",
-    "/auth/*",
-    "/area/*",
-    "/faq/*",
+    "/data/*",
     "/manifest.json",
-    "/sitemap.xml",
-    "/robots.txt"
+    "/6f74445f7ec14eccb522a4d3f253128c.txt"
   ]
 }
