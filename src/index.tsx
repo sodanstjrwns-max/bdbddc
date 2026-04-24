@@ -1706,7 +1706,40 @@ form:has(input[placeholder="Email"]) { display: none !important; }
 .BANNER { min-height: 300px !important; }
 .BANNER .w-full.max-w-6xl { padding-top: 2rem !important; padding-bottom: 2rem !important; }
 </style>`
-  html = html.replace('</head>', inblogCustomCSS + '</head>')
+  // 5) AEO 메타 태그 + 스키마 주입 (블로그 SEO/AEO 보강)
+  const blogAEOMeta = `
+  <meta name="ai-summary" content="서울비디치과 공식 블로그 — 임플란트, 인비절라인, 글로우네이트, 소아치과 등 치과 치료 정보와 구강건강 가이드를 서울대 출신 전문의가 직접 작성합니다.">
+  <meta name="abstract" content="서울비디치과 공식 블로그 — 치과 치료 정보, 구강건강 가이드, 전문의 칼럼.">
+  <meta name="subject" content="치과 블로그, 임플란트 정보, 인비절라인, 구강건강, 서울비디치과">
+  `
+  const blogSchema = `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "서울비디치과 블로그",
+  "description": "서울대 출신 15인 원장이 직접 작성하는 치과 치료 정보 블로그",
+  "url": "https://bdbddc.com/blog/",
+  "publisher": {
+    "@type": "Dentist",
+    "name": "서울비디치과",
+    "url": "https://bdbddc.com",
+    "logo": { "@type": "ImageObject", "url": "https://bdbddc.com/images/og-image-v2.jpg" }
+  },
+  "inLanguage": "ko"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://bdbddc.com" },
+    { "@type": "ListItem", "position": 2, "name": "블로그", "item": "https://bdbddc.com/blog/" }
+  ]
+}
+</script>`
+
+  html = html.replace('</head>', blogAEOMeta + blogSchema + inblogCustomCSS + '</head>')
 
   return html
 }
@@ -1943,6 +1976,27 @@ app.use('/doctors/*', async (c, next) => {
   // .html/.css/.js/.jpg 등 확장자가 있는 건 정적 서빙
   if (/\.\w+$/.test(path)) return serveStatic()(c, next)
   // 확장자 없으면 SSR 라우트로 넘김
+  return next()
+})
+
+// ============================================
+// 풀네임 슬러그 → 약칭 슬러그 301 리다이렉트 (SEO canonical 통일)
+// ============================================
+const FULLNAME_TO_SHORT_SLUG: Record<string,string> = {
+  'kimminsu':'kim','hyunjungmin':'hyun','leesungyeop':'lee',
+  'choijunghun':'choi','kangkyungmin':'kang','parksoobin':'park-sb',
+  'leebyungmin':'lee-bm','kangminji':'kang-mj','kimmingyou':'kim-mg',
+  'kimminji':'kim-mj','limjiwon':'lim','joseola':'jo',
+  'parksanghyun':'park','seoheewon':'seo',
+  // 하이픈 변형도 커버
+  'kim-minsu':'kim','hyun-jungmin':'hyun','lee-sungyeop':'lee',
+  'choi-junghun':'choi','kang-kyungmin':'kang','park-soobin':'park-sb',
+  'lee-byungmin':'lee-bm',
+}
+app.get('/doctors/:slug', async (c, next) => {
+  const slug = c.req.param('slug')
+  const shortSlug = FULLNAME_TO_SHORT_SLUG[slug]
+  if (shortSlug) return c.redirect(`/doctors/${shortSlug}`, 301)
   return next()
 })
 
@@ -2382,8 +2436,14 @@ ${TRACKING_HEAD}
 <title>${filterTitle}원장 컬럼 | 서울비디치과</title>
 <meta name="description" content="서울비디치과 원장님들의 진료 철학과 치과 이야기. ${filterTitle}컬럼을 읽어보세요.">
 <meta name="robots" content="index, follow">
+<meta name="ai-summary" content="서울비디치과 원장 컬럼 — 서울대 출신 15인 원장이 직접 쓰는 진료 철학, 치과 지식, 환자 이야기.">
+<meta name="abstract" content="서울비디치과 원장님들이 전하는 진료 철학과 치과 이야기 모음.">
+<meta name="subject" content="치과 칼럼, 원장 칼럼, 서울비디치과, 치과 이야기, 진료 철학">
 <link rel="canonical" href="https://bdbddc.com/column/${doctorFilter ? '?doctor=' + doctorFilter : ''}">
 <meta property="og:title" content="${filterTitle}원장 컬럼 | 서울비디치과">
+<meta property="og:url" content="https://bdbddc.com/column/${doctorFilter ? '?doctor=' + doctorFilter : ''}">
+<meta property="og:description" content="서울비디치과 원장님들의 진료 철학과 치과 이야기.">
+<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -2449,7 +2509,7 @@ ${ssrHeader()}
 <div class="col-page">
 <div class="col-hero">
 <span class="col-hero-badge"><i class="fas fa-pen-nib"></i> 원장 컬럼</span>
-<h1>${filterTitle}이야기</h1>
+<h1>${filterTitle ? filterTitle + '칼럼' : '서울비디치과 의료 칼럼'}</h1>
 <p>서울비디치과 원장님들이 전하는 진료 철학과 치과 이야기</p>
 </div>
 ${filterBtns}
@@ -3251,6 +3311,9 @@ ${TRACKING_HEAD}
 <meta name="twitter:title" content="${term} | 치과 백과사전 — 서울비디치과">
 <meta name="twitter:description" content="${term}이란? ${item.short}">
 <meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg">
+<meta name="subject" content="${term}, ${item.category}, 치과 용어, 서울비디치과">
+<meta name="abstract" content="${term}이란? ${item.short} — 서울비디치과 치과 백과사전.">
+<meta name="ai-summary" content="${term}이란? ${item.short} ${item.detail.slice(0, 200)}">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#6B4226">
