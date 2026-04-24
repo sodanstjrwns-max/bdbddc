@@ -2502,6 +2502,32 @@ ${TRACKING_HEAD}
   .col-list-grid{grid-template-columns:repeat(2,1fr);gap:18px}
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "서울비디치과 원장 컬럼",
+  "description": "서울대 출신 15인 원장이 직접 쓰는 진료 철학, 치과 지식, 환자 이야기",
+  "url": "https://bdbddc.com/column/",
+  "publisher": {
+    "@type": "Dentist",
+    "name": "서울비디치과",
+    "url": "https://bdbddc.com",
+    "logo": { "@type": "ImageObject", "url": "https://bdbddc.com/images/og-image-v2.jpg" }
+  },
+  "inLanguage": "ko"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "홈", "item": "https://bdbddc.com" },
+    { "@type": "ListItem", "position": 2, "name": "원장 컬럼", "item": "https://bdbddc.com/column/" }
+  ]
+}
+</script>
 </head>
 <body>
 ${ssrHeader()}
