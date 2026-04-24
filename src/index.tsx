@@ -1546,13 +1546,13 @@ function ssrHeader(): string {
 <li><a href="/treatments/root-canal">신경치료</a></li>
 <li><a href="/treatments/whitening">미백</a></li>
 </ul></div>
-<div class="mega-dropdown-section"><strong class="section-heading">잇몸/외과</strong><ul>
-<li><a href="/treatments/scaling">스케일링</a></li>
-<li><a href="/treatments/gum">잇몸치료</a></li>
-<li><a href="/treatments/periodontitis">치주염</a></li>
-<li><a href="/treatments/wisdom-tooth">사랑니 발치</a></li>
+<div class="mega-dropdown-section"><strong class="section-heading">구강내과/외과</strong><ul>
+<li><a href="/treatments/oral-medicine" style="color:#6B4226;font-weight:600;">구강내과 <span class="badge">전문의</span></a></li>
 <li><a href="/treatments/tmj">턱관절장애</a></li>
 <li><a href="/treatments/bruxism">이갈이/이악물기</a></li>
+<li><a href="/treatments/scaling">스케일링</a></li>
+<li><a href="/treatments/gum">잇몸치료</a></li>
+<li><a href="/treatments/wisdom-tooth">사랑니 발치</a></li>
 </ul></div>
 </div></div></li>
 <li class="nav-item"><a href="/doctors/">의료진</a></li>
@@ -1617,6 +1617,9 @@ function ssrMobileNav(): string {
 <li class="submenu-divider">일반 진료</li>
 <li><a href="/treatments/cavity">충치치료</a></li>
 <li><a href="/treatments/resin">레진치료</a></li>
+<li><a href="/treatments/oral-medicine" style="color:#6B4226;font-weight:600;">구강내과 <span class="badge">전문의</span></a></li>
+<li><a href="/treatments/tmj">턱관절장애</a></li>
+<li><a href="/treatments/bruxism">이갈이/이악물기</a></li>
 <li><a href="/treatments/scaling">스케일링</a></li>
 <li><a href="/treatments/gum">잇몸치료</a></li>
 </ul>
@@ -1869,7 +1872,7 @@ app.post('/api/indexnow', async (c) => {
     '/treatments/whitening', '/treatments/bridge', '/treatments/denture',
     '/treatments/scaling', '/treatments/gum', '/treatments/periodontitis',
     '/treatments/gum-surgery', '/treatments/wisdom-tooth', '/treatments/apicoectomy',
-    '/treatments/prevention', '/treatments/tmj', '/treatments/bruxism',
+    '/treatments/prevention', '/treatments/oral-medicine', '/treatments/tmj', '/treatments/bruxism',
     '/treatments/emergency', '/treatments/sedation', '/treatments/orthodontics',
     '/doctors/', '/doctors/moon', '/doctors/kim', '/doctors/hyun',
     '/doctors/choi', '/doctors/lee', '/doctors/park', '/doctors/kang',
@@ -2272,12 +2275,13 @@ app.get('/doctors/:slug', async (c) => {
       '외과진료': '/treatments/gum-surgery',
       '구강소수술': '/treatments/gum-surgery',
       // 턱관절 / 특수
+      '구강내과': '/treatments/oral-medicine',
       '턱관절장애': '/treatments/tmj',
-      '만성 구강안면통증': '/treatments/tmj',
+      '만성 구강안면통증': '/treatments/oral-medicine',
       '이갈이·이악물기': '/treatments/bruxism',
-      '코골이·수면질환': '/treatments/tmj',
-      '구강건조증': '/treatments/gum',
-      '구강점막질환': '/treatments/gum',
+      '코골이·수면질환': '/treatments/oral-medicine',
+      '구강건조증': '/treatments/oral-medicine',
+      '구강점막질환': '/treatments/oral-medicine',
       // 미백
       '미백': '/treatments/whitening',
       // 앞니 크라운
