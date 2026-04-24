@@ -49,6 +49,26 @@
   Cache-Control: public, max-age=86400
   Content-Type: text/plain; charset=utf-8
   X-Robots-Tag: noindex
+  Access-Control-Allow-Origin: *
+
+/llms-full.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+  X-Robots-Tag: noindex
+  Access-Control-Allow-Origin: *
+
+# Sitemap sub-files
+/sitemap-main.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=utf-8
+
+/sitemap-area.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=utf-8
+
+/sitemap-encyclopedia.xml
+  Cache-Control: public, max-age=3600
+  Content-Type: application/xml; charset=utf-8
 
 # YouTube cache data - short cache for fresh content
 /data/*
