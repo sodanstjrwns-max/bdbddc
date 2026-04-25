@@ -1562,6 +1562,7 @@ function ssrHeader(): string {
 <li><a href="/doctors/pediatric"><i class="fas fa-baby"></i> 소아치과 전문의</a></li>
 <li><a href="/doctors/conservative"><i class="fas fa-tooth"></i> 보존과 전문의</a></li>
 <li><a href="/doctors/oral-medicine" style="color:#2563eb;font-weight:600;"><i class="fas fa-stethoscope"></i> 구강내과 전문의</a></li>
+<li><a href="/doctors/integrated-dentistry"><i class="fas fa-user-md"></i> 통합치의학과 전문의</a></li>
 </ul></li>
 <li class="nav-item"><a href="/mission">비디미션</a></li>
 <li class="nav-item has-dropdown"><a href="/cases/gallery">콘텐츠</a>
@@ -1641,6 +1642,7 @@ function ssrMobileNav(): string {
 <li><a href="/doctors/pediatric"><i class="fas fa-baby"></i> 소아치과 전문의</a></li>
 <li><a href="/doctors/conservative"><i class="fas fa-tooth"></i> 보존과 전문의</a></li>
 <li><a href="/doctors/oral-medicine" style="color:#2563eb;font-weight:600;"><i class="fas fa-stethoscope"></i> 구강내과 전문의</a></li>
+<li><a href="/doctors/integrated-dentistry"><i class="fas fa-user-md"></i> 통합치의학과 전문의</a></li>
 </ul>
 </li>
 <li><a href="/mission"><i class="fas fa-heart"></i> 비디미션</a></li>
@@ -1897,7 +1899,7 @@ app.post('/api/indexnow', async (c) => {
     '/doctors/jo', '/doctors/seo', '/doctors/lim',
     '/doctors/kim-mg', '/doctors/kim-mj', '/doctors/kang-mj',
     '/doctors/park-sb', '/doctors/lee-bm',
-    '/doctors/oral-medicine', '/doctors/pediatric', '/doctors/conservative', '/doctors/orthodontics',
+    '/doctors/oral-medicine', '/doctors/pediatric', '/doctors/conservative', '/doctors/orthodontics', '/doctors/integrated-dentistry',
     '/blog/', '/video/', '/cases/', '/cases/gallery',
     '/encyclopedia/',
     '/mission', '/floor-guide', '/faq', '/notice/',
@@ -2000,6 +2002,7 @@ app.get('/doctors/oral-medicine', serveStatic({ path: './doctors/oral-medicine.h
 app.get('/doctors/pediatric', serveStatic({ path: './doctors/pediatric.html' }))
 app.get('/doctors/conservative', serveStatic({ path: './doctors/conservative.html' }))
 app.get('/doctors/orthodontics', serveStatic({ path: './doctors/orthodontics.html' }))
+app.get('/doctors/integrated-dentistry', serveStatic({ path: './doctors/integrated-dentistry.html' }))
 
 // 정적 자산 (CSS/JS/이미지 등 . 포함 경로)
 app.use('/doctors/*', async (c, next) => {
