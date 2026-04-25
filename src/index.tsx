@@ -1555,7 +1555,14 @@ function ssrHeader(): string {
 <li><a href="/treatments/wisdom-tooth">사랑니 발치</a></li>
 </ul></div>
 </div></div></li>
-<li class="nav-item"><a href="/doctors/">의료진</a></li>
+<li class="nav-item has-dropdown"><a href="/doctors/">의료진</a>
+<ul class="simple-dropdown">
+<li><a href="/doctors/">전체 의료진 <span class="badge">15인</span></a></li>
+<li><a href="/doctors/orthodontics"><i class="fas fa-teeth"></i> 교정과 전문의</a></li>
+<li><a href="/doctors/pediatric"><i class="fas fa-baby"></i> 소아치과 전문의</a></li>
+<li><a href="/doctors/conservative"><i class="fas fa-tooth"></i> 보존과 전문의</a></li>
+<li><a href="/doctors/oral-medicine" style="color:#2563eb;font-weight:600;"><i class="fas fa-stethoscope"></i> 구강내과 전문의</a></li>
+</ul></li>
 <li class="nav-item"><a href="/mission">비디미션</a></li>
 <li class="nav-item has-dropdown"><a href="/cases/gallery">콘텐츠</a>
 <ul class="simple-dropdown">
@@ -1624,7 +1631,18 @@ function ssrMobileNav(): string {
 <li><a href="/treatments/gum">잇몸치료</a></li>
 </ul>
 </li>
-<li><a href="/doctors/"><i class="fas fa-user-md"></i> 의료진</a></li>
+<li class="mobile-nav-item has-submenu">
+<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+<i class="fas fa-user-md"></i> 의료진 <i class="fas fa-chevron-down toggle-icon"></i></a>
+<ul class="mobile-nav-submenu">
+<li><a href="/doctors/">전체 의료진</a></li>
+<li class="submenu-divider">전문과별 소개</li>
+<li><a href="/doctors/orthodontics"><i class="fas fa-teeth"></i> 교정과 전문의</a></li>
+<li><a href="/doctors/pediatric"><i class="fas fa-baby"></i> 소아치과 전문의</a></li>
+<li><a href="/doctors/conservative"><i class="fas fa-tooth"></i> 보존과 전문의</a></li>
+<li><a href="/doctors/oral-medicine" style="color:#2563eb;font-weight:600;"><i class="fas fa-stethoscope"></i> 구강내과 전문의</a></li>
+</ul>
+</li>
 <li><a href="/mission"><i class="fas fa-heart"></i> 비디미션</a></li>
 <li class="mobile-nav-item has-submenu">
 <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
@@ -1879,6 +1897,7 @@ app.post('/api/indexnow', async (c) => {
     '/doctors/jo', '/doctors/seo', '/doctors/lim',
     '/doctors/kim-mg', '/doctors/kim-mj', '/doctors/kang-mj',
     '/doctors/park-sb', '/doctors/lee-bm',
+    '/doctors/oral-medicine', '/doctors/pediatric', '/doctors/conservative', '/doctors/orthodontics',
     '/blog/', '/video/', '/cases/', '/cases/gallery',
     '/encyclopedia/',
     '/mission', '/floor-guide', '/faq', '/notice/',
@@ -1973,6 +1992,15 @@ app.use('/treatments/*', serveStatic())
 // Doctors directory — index는 정적, 개별 페이지는 SSR
 app.get('/doctors', serveStatic({ path: './doctors/index.html' }))
 app.get('/doctors/', serveStatic({ path: './doctors/index.html' }))
+
+// ============================================
+// 전문과별 소개 페이지 (정적 서빙 — :slug 위에 먼저 등록)
+// ============================================
+app.get('/doctors/oral-medicine', serveStatic({ path: './doctors/oral-medicine.html' }))
+app.get('/doctors/pediatric', serveStatic({ path: './doctors/pediatric.html' }))
+app.get('/doctors/conservative', serveStatic({ path: './doctors/conservative.html' }))
+app.get('/doctors/orthodontics', serveStatic({ path: './doctors/orthodontics.html' }))
+
 // 정적 자산 (CSS/JS/이미지 등 . 포함 경로)
 app.use('/doctors/*', async (c, next) => {
   const path = c.req.path
