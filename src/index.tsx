@@ -1900,6 +1900,7 @@ app.post('/api/indexnow', async (c) => {
     '/doctors/kim-mg', '/doctors/kim-mj', '/doctors/kang-mj',
     '/doctors/park-sb', '/doctors/lee-bm',
     '/doctors/oral-medicine', '/doctors/pediatric', '/doctors/conservative', '/doctors/orthodontics', '/doctors/integrated-dentistry',
+    '/doctors/implant', '/doctors/general', '/doctors/representative',
     '/blog/', '/video/', '/cases/', '/cases/gallery',
     '/encyclopedia/',
     '/mission', '/floor-guide', '/faq', '/notice/',
@@ -2002,6 +2003,9 @@ app.get('/doctors/oral-medicine', serveStatic({ path: './doctors/oral-medicine.h
 app.get('/doctors/pediatric', serveStatic({ path: './doctors/pediatric.html' }))
 app.get('/doctors/conservative', serveStatic({ path: './doctors/conservative.html' }))
 app.get('/doctors/orthodontics', serveStatic({ path: './doctors/orthodontics.html' }))
+app.get('/doctors/implant', serveStatic({ path: './doctors/implant.html' }))
+app.get('/doctors/general', serveStatic({ path: './doctors/general.html' }))
+app.get('/doctors/representative', serveStatic({ path: './doctors/representative.html' }))
 app.get('/doctors/integrated-dentistry', serveStatic({ path: './doctors/integrated-dentistry.html' }))
 
 // 정적 자산 (CSS/JS/이미지 등 . 포함 경로)
