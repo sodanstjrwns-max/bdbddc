@@ -1212,20 +1212,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         });
       });
       
-      // 협진 시스템 카드 클릭 → 해당 필터 활성화 + 스크롤
-      var collabCards=document.querySelectorAll('.collab-card');
-      collabCards.forEach(function(card){
-        card.addEventListener('click',function(e){
-          e.preventDefault();
-          var dept=this.dataset.dept;
-          activateFilter(dept);
-          var section=document.getElementById('doctors-section');
-          if(section){
-            var offset=section.getBoundingClientRect().top+window.pageYOffset-80;
-            window.scrollTo({top:offset,behavior:'smooth'});
-          }
-        });
-      });
+
     });
   </script>
 
