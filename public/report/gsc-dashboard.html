@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>GSC 분석 대시보드 — bdbddc.com | 서울비디치과</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap');
+  * { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; }
+  body { background: #0f172a; color: #e2e8f0; }
+  .glass { background: rgba(30,41,59,0.7); backdrop-filter: blur(12px); border: 1px solid rgba(71,85,105,0.4); }
+  .glass-dark { background: rgba(15,23,42,0.8); backdrop-filter: blur(12px); border: 1px solid rgba(51,65,85,0.5); }
+  .metric-card { transition: all 0.3s; }
+  .metric-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+  .tab-btn { transition: all 0.2s; cursor:pointer; }
+  .tab-btn.active { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; }
+  .tab-btn:not(.active):hover { background: rgba(59,130,246,0.15); }
+  .badge-green { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .badge-yellow { background: rgba(234,179,8,0.15); color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+  .badge-red { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .badge-blue { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+  .badge-purple { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+  .glow-green { box-shadow: 0 0 20px rgba(34,197,94,0.15); }
+  .glow-blue { box-shadow: 0 0 20px rgba(59,130,246,0.15); }
+  .glow-purple { box-shadow: 0 0 20px rgba(139,92,246,0.15); }
+  .glow-yellow { box-shadow: 0 0 20px rgba(234,179,8,0.15); }
+  table { border-collapse: separate; border-spacing: 0; }
+  thead th { position: sticky; top: 0; z-index: 10; background: rgba(15,23,42,0.95); backdrop-filter: blur(8px); }
+  tbody tr { transition: background 0.15s; }
+  tbody tr:hover { background: rgba(59,130,246,0.08); }
+  .scroll-table { max-height: 500px; overflow-y: auto; }
+  .scroll-table::-webkit-scrollbar { width: 6px; }
+  .scroll-table::-webkit-scrollbar-track { background: rgba(30,41,59,0.5); border-radius: 3px; }
+  .scroll-table::-webkit-scrollbar-thumb { background: rgba(100,116,139,0.5); border-radius: 3px; }
+  .pulse-dot { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .fade-in { animation: fadeIn 0.5s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  .rank-pill-1 { background: linear-gradient(135deg, #059669, #10b981); }
+  .rank-pill-2 { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+  .rank-pill-3 { background: linear-gradient(135deg, #d97706, #f59e0b); }
+  .rank-pill-4 { background: linear-gradient(135deg, #dc2626, #ef4444); }
+  .section-title { background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Header -->
+<header class="glass-dark sticky top-0 z-50 px-4 md:px-6 py-3 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+      <i class="fas fa-chart-line text-white text-lg"></i>
+    </div>
+    <div>
+      <h1 class="text-lg font-bold text-white">GSC 분석 대시보드</h1>
+      <p class="text-xs text-slate-400">bdbddc.com · 서울비디치과 · Google Search Console 실데이터</p>
+    </div>
+  </div>
+  <div class="flex items-center gap-3">
+    <span class="text-xs text-slate-400 hidden md:inline"><i class="far fa-calendar mr-1"></i>2026-01-28 ~ 2026-04-27 (3개월)</span>
+    <span class="pulse-dot inline-block w-2 h-2 rounded-full bg-green-400"></span>
+    <span class="text-xs text-green-400">Live</span>
+  </div>
+</header>
+
+<main class="max-w-[1440px] mx-auto px-3 md:px-6 py-6 space-y-6" id="app">
+  <div class="text-center py-12"><i class="fas fa-spinner fa-spin text-4xl text-blue-400"></i><p class="mt-4 text-slate-400">881개 키워드 · 707개 페이지 데이터 로딩 중...</p></div>
+</main>
+
+<script>
+let DATA = null;
+
+async function loadData() {
+  try {
+    const res = await fetch('/static/gsc-data.json');
+    DATA = await res.json();
+    render();
+  } catch(e) {
+    document.getElementById('app').innerHTML = '<div class="text-center py-12 text-red-400"><i class="fas fa-exclamation-triangle text-3xl mb-3"></i><p>데이터를 불러올 수 없습니다.</p><p class="text-xs text-slate-500 mt-2">'+e.message+'</p></div>';
+  }
+}
+
+function n(v) { return (v||0).toLocaleString('ko-KR'); }
+function pct(v) { return (v||0).toFixed(2) + '%'; }
+function pos(v) { return (v||0).toFixed(1); }
+
+function rankBadge(p) {
+  if (p <= 3) return '<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold rank-pill-1 text-white">' + pos(p) + '위</span>';
+  if (p <= 10) return '<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold rank-pill-2 text-white">' + pos(p) + '위</span>';
+  if (p <= 20) return '<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold rank-pill-3 text-white">' + pos(p) + '위</span>';
+  return '<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold rank-pill-4 text-white">' + pos(p) + '위</span>';
+}
+
+function topicBadge(t) {
+  const colors = {'임플란트':'badge-blue','교정':'badge-purple','라미네이트/심미':'badge-green','소아치과':'badge-yellow','일반진료':'badge-blue','치과용어/백과':'badge-purple','병원찾기':'badge-green','비용/보험':'badge-yellow','기타':'badge-red'};
+  return '<span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-medium ' + (colors[t]||'badge-blue') + '">' + (t||'기타') + '</span>';
+}
+
+function growthArrow(v) {
+  if (v > 0) return '<span class="text-green-400 font-bold"><i class="fas fa-arrow-up text-xs"></i> +' + v + '%</span>';
+  if (v < 0) return '<span class="text-red-400 font-bold"><i class="fas fa-arrow-down text-xs"></i> ' + v + '%</span>';
+  return '<span class="text-slate-400">-</span>';
+}
+
+function render() {
+  const d = DATA;
+  const s = d.summary;
+  const bnb = d.brand_vs_nonbrand;
+  const nonbrandPct = ((bnb.nonbrand.clicks / Math.max(s.total_clicks,1))*100).toFixed(0);
+  const kwClickPct = (s.keywords_with_clicks/s.total_keywords*100).toFixed(1);
+  
+  document.getElementById('app').innerHTML = `
+  <!-- ===== KPI Cards ===== -->
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 fade-in">
+    <div class="glass rounded-2xl p-4 md:p-5 metric-card glow-blue">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider">총 클릭수</span>
+        <div class="w-7 h-7 rounded-lg bg-blue-500/20 flex items-center justify-center"><i class="fas fa-mouse-pointer text-blue-400 text-xs"></i></div>
+      </div>
+      <div class="text-2xl md:text-3xl font-extrabold text-white">${n(s.total_clicks)}</div>
+      <div class="mt-1.5 text-xs">${d.growth ? growthArrow(d.growth.click_growth_pct) : ''} <span class="text-slate-500 text-[10px]">vs 전월</span></div>
+    </div>
+    <div class="glass rounded-2xl p-4 md:p-5 metric-card glow-purple">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider">총 노출수</span>
+        <div class="w-7 h-7 rounded-lg bg-purple-500/20 flex items-center justify-center"><i class="fas fa-eye text-purple-400 text-xs"></i></div>
+      </div>
+      <div class="text-2xl md:text-3xl font-extrabold text-white">${n(s.total_impressions)}</div>
+      <div class="mt-1.5 text-xs">${d.growth ? growthArrow(d.growth.imp_growth_pct) : ''} <span class="text-slate-500 text-[10px]">vs 전월</span></div>
+    </div>
+    <div class="glass rounded-2xl p-4 md:p-5 metric-card glow-green">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider">평균 CTR</span>
+        <div class="w-7 h-7 rounded-lg bg-green-500/20 flex items-center justify-center"><i class="fas fa-percentage text-green-400 text-xs"></i></div>
+      </div>
+      <div class="text-2xl md:text-3xl font-extrabold ${s.avg_ctr < 3 ? 'text-red-400' : 'text-white'}">${pct(s.avg_ctr)}</div>
+      <div class="mt-1.5 text-[10px] text-slate-500">업계 평균 3-5% · <span class="${s.avg_ctr < 3 ? 'text-red-400' : 'text-green-400'}">${s.avg_ctr < 3 ? '개선 필요' : '양호'}</span></div>
+    </div>
+    <div class="glass rounded-2xl p-4 md:p-5 metric-card glow-yellow">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider">평균 순위</span>
+        <div class="w-7 h-7 rounded-lg bg-yellow-500/20 flex items-center justify-center"><i class="fas fa-sort-amount-up text-yellow-400 text-xs"></i></div>
+      </div>
+      <div class="text-2xl md:text-3xl font-extrabold text-white">${pos(s.avg_position)}</div>
+      <div class="mt-1.5 text-[10px] text-slate-500">${n(s.total_keywords)}개 키워드 · ${n(s.total_pages)}개 페이지</div>
+    </div>
+  </section>
+
+  <!-- Sub KPIs -->
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 fade-in">
+    <div class="glass rounded-xl p-3 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-slate-700/50 flex items-center justify-center text-lg">🔍</div>
+      <div><div class="text-xl font-bold text-white">${n(s.total_keywords)}</div><div class="text-[10px] text-slate-400">발견 키워드</div></div>
+    </div>
+    <div class="glass rounded-xl p-3 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-slate-700/50 flex items-center justify-center text-lg">✅</div>
+      <div><div class="text-xl font-bold text-green-400">${s.keywords_with_clicks} <span class="text-xs text-slate-500">(${kwClickPct}%)</span></div><div class="text-[10px] text-slate-400">클릭 발생 키워드</div></div>
+    </div>
+    <div class="glass rounded-xl p-3 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-slate-700/50 flex items-center justify-center text-lg">📄</div>
+      <div><div class="text-xl font-bold text-white">${n(s.total_pages)}</div><div class="text-[10px] text-slate-400">인덱스 페이지</div></div>
+    </div>
+    <div class="glass rounded-xl p-3 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-lg bg-slate-700/50 flex items-center justify-center text-lg">⚠️</div>
+      <div><div class="text-xl font-bold text-red-400">${d.dead_pages.length}</div><div class="text-[10px] text-slate-400">Dead 페이지 (노출만)</div></div>
+    </div>
+  </section>
+
+  <!-- ===== Chart Row ===== -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 fade-in">
+    <div class="glass rounded-2xl p-4 md:p-6">
+      <h3 class="text-sm font-bold text-white mb-3"><i class="fas fa-chart-area text-blue-400 mr-2"></i>일별 트래픽 추이 (90일)</h3>
+      <div style="height:220px"><canvas id="trendChart"></canvas></div>
+    </div>
+    <div class="glass rounded-2xl p-4 md:p-6">
+      <h3 class="text-sm font-bold text-white mb-3"><i class="fas fa-chart-bar text-purple-400 mr-2"></i>월별 성장 추이</h3>
+      <div style="height:220px"><canvas id="monthlyChart"></canvas></div>
+    </div>
+  </section>
+
+  <!-- ===== Rank + Brand + Device ===== -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 fade-in">
+    <div class="glass rounded-2xl p-4 md:p-6">
+      <h3 class="text-sm font-bold text-white mb-3"><i class="fas fa-layer-group text-green-400 mr-2"></i>키워드 순위 분포</h3>
+      <div style="height:180px"><canvas id="rankChart"></canvas></div>
+      <div class="mt-3 grid grid-cols-2 gap-1.5 text-[10px]">
+        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>1-3위: <b>${d.rank_distribution['1-3위']}</b>개</div>
+        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>4-10위: <b>${d.rank_distribution['4-10위']}</b>개</div>
+        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>11-20위: <b>${d.rank_distribution['11-20위']}</b>개</div>
+        <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>20위+: <b>${d.rank_distribution['20위+']}</b>개</div>
+      </div>
+    </div>
+    <div class="glass rounded-2xl p-4 md:p-6">
+      <h3 class="text-sm font-bold text-white mb-3"><i class="fas fa-building text-yellow-400 mr-2"></i>브랜드 vs 비브랜드</h3>
+      <div style="height:180px"><canvas id="brandChart"></canvas></div>
+      <div class="mt-3 space-y-1.5 text-xs">
+        <div class="flex justify-between"><span class="text-slate-400">브랜드 CTR</span><span class="text-green-400 font-bold">${pct(bnb.brand.ctr)}</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">비브랜드 CTR</span><span class="text-red-400 font-bold">${pct(bnb.nonbrand.ctr)}</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">비브랜드 클릭 비율</span><span class="text-yellow-400 font-bold">${nonbrandPct}%</span></div>
+      </div>
+    </div>
+    <div class="glass rounded-2xl p-4 md:p-6">
+      <h3 class="text-sm font-bold text-white mb-3"><i class="fas fa-mobile-alt text-purple-400 mr-2"></i>디바이스별</h3>
+      <div style="height:180px"><canvas id="deviceChart"></canvas></div>
+      <div class="mt-3 space-y-1.5 text-xs">
+        ${Object.entries(d.devices).map(([k,v]) => {
+          const icon = k==='desktop'?'fa-desktop':k==='mobile'?'fa-mobile-alt':'fa-tablet-alt';
+          const label = k==='desktop'?'데스크톱':k==='mobile'?'모바일':'태블릿';
+          return '<div class="flex justify-between"><span class="text-slate-400"><i class="fas '+icon+' mr-1"></i>'+label+'</span><span class="text-white">'+n(v.clicks)+'클릭 · '+pct(v.ctr)+'</span></div>';
+        }).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Topic + Intent + Section ===== -->
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 fade-in">
+    <div class="glass rounded-2xl p-4 md:p-6">
+      <h3 class="text-sm font-bold text-white mb-3"><i class="fas fa-tags text-blue-400 mr-2"></i>토픽별 분포</h3>
+      <div style="height:260px"><canvas id="topicChart"></canvas></div>
+    </div>
+    <div class="glass rounded-2xl p-4 md:p-6">
+      <h3 class="text-sm font-bold text-white mb-3"><i class="fas fa-compass text-green-400 mr-2"></i>검색 의도별</h3>
+      <div style="height:260px"><canvas id="intentChart"></canvas></div>
+    </div>
+    <div class="glass rounded-2xl p-4 md:p-6">
+      <h3 class="text-sm font-bold text-white mb-3"><i class="fas fa-sitemap text-purple-400 mr-2"></i>섹션별 성과</h3>
+      <div class="space-y-2 mt-2">
+        ${Object.entries(d.section_stats).sort((a,b) => b[1].impressions - a[1].impressions).map(([sec, v]) => {
+          const labels = {encyclopedia:'백과사전',blog:'블로그',area:'지역페이지',treatments:'진료과목',doctors:'의료진',faq:'FAQ',cases:'치료사례',main:'메인/기타'};
+          const ctr = (v.clicks/Math.max(v.impressions,1)*100);
+          const maxImp = Math.max(...Object.values(d.section_stats).map(x=>x.impressions));
+          const barW = Math.max(5, (v.impressions/maxImp*100));
+          return '<div class="glass-dark rounded-lg p-2.5"><div class="flex justify-between items-center mb-1"><span class="text-xs font-medium text-white">'+(labels[sec]||sec)+'</span><span class="text-[10px] text-slate-400">'+v.count+'p · '+n(v.impressions)+'노출 · '+v.clicks+'클릭</span></div><div class="h-1.5 rounded-full bg-slate-700 overflow-hidden"><div class="h-full rounded-full '+(ctr>2?'bg-green-500':ctr>1?'bg-yellow-500':'bg-red-500')+'" style="width:'+barW+'%"></div></div><div class="text-right text-[10px] mt-0.5 '+(ctr>2?'text-green-400':ctr>1?'text-yellow-400':'text-red-400')+'">CTR '+ctr.toFixed(1)+'%</div></div>';
+        }).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Data Tables with Tabs ===== -->
+  <section class="fade-in">
+    <div class="flex flex-wrap gap-1.5 md:gap-2 mb-4" id="tabButtons">
+      <button class="tab-btn active glass rounded-lg px-3 py-1.5 text-xs md:text-sm font-medium" data-tab="quickwin">
+        <i class="fas fa-rocket mr-1"></i>Quick Win <span class="hidden md:inline">(${d.quick_wins.length})</span>
+      </button>
+      <button class="tab-btn glass rounded-lg px-3 py-1.5 text-xs md:text-sm font-medium text-slate-400" data-tab="ctrlow">
+        <i class="fas fa-exclamation-triangle mr-1"></i>CTR 개선 <span class="hidden md:inline">(${d.ctr_low.length})</span>
+      </button>
+      <button class="tab-btn glass rounded-lg px-3 py-1.5 text-xs md:text-sm font-medium text-slate-400" data-tab="highpotential">
+        <i class="fas fa-gem mr-1"></i>숨은 기회
+      </button>
+      <button class="tab-btn glass rounded-lg px-3 py-1.5 text-xs md:text-sm font-medium text-slate-400" data-tab="cheonan">
+        <i class="fas fa-map-marker-alt mr-1"></i>천안 키워드
+      </button>
+      <button class="tab-btn glass rounded-lg px-3 py-1.5 text-xs md:text-sm font-medium text-slate-400" data-tab="topkw">
+        <i class="fas fa-trophy mr-1"></i>TOP 50
+      </button>
+      <button class="tab-btn glass rounded-lg px-3 py-1.5 text-xs md:text-sm font-medium text-slate-400" data-tab="toppages">
+        <i class="fas fa-file-alt mr-1"></i>인기 페이지
+      </button>
+      <button class="tab-btn glass rounded-lg px-3 py-1.5 text-xs md:text-sm font-medium text-slate-400" data-tab="deadpages">
+        <i class="fas fa-ghost mr-1"></i>Dead 페이지
+      </button>
+    </div>
+    <div id="tabContent" class="glass rounded-2xl p-3 md:p-4"></div>
+  </section>
+
+  <!-- ===== ACTION PLAN ===== -->
+  <section class="glass rounded-2xl p-4 md:p-6 fade-in">
+    <h2 class="text-base md:text-lg font-bold text-white mb-4"><i class="fas fa-bullseye text-red-400 mr-2"></i>핵심 발견 & 액션 플랜</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+      <div class="glass-dark rounded-xl p-4">
+        <h4 class="text-sm font-bold text-red-400 mb-3"><i class="fas fa-exclamation-circle mr-1"></i>🔴 문제점 진단</h4>
+        <ul class="space-y-2.5 text-sm text-slate-300">
+          <li class="flex gap-2"><span class="text-red-400 font-bold shrink-0">①</span><span>비브랜드 클릭 비율 단 <b class="text-red-400">${nonbrandPct}%</b> — 브랜드 검색 의존도 극심. "서울비디치과" 모르는 잠재 환자 유입이 거의 없음</span></li>
+          <li class="flex gap-2"><span class="text-red-400 font-bold shrink-0">②</span><span>881개 키워드 중 클릭 발생은 <b class="text-red-400">${s.keywords_with_clicks}개(${kwClickPct}%)</b>뿐 — 860개 키워드가 노출만 되고 클릭 0</span></li>
+          <li class="flex gap-2"><span class="text-red-400 font-bold shrink-0">③</span><span>비브랜드 CTR <b class="text-red-400">${pct(bnb.nonbrand.ctr)}</b> — 업계 평균(3-5%)의 1/10 수준. Title/Description 매력도 심각하게 낮음</span></li>
+          <li class="flex gap-2"><span class="text-red-400 font-bold shrink-0">④</span><span>"천안치과" 순위 1.2위인데 CTR 0.91% — 1위임에도 100명 중 1명만 클릭</span></li>
+          <li class="flex gap-2"><span class="text-red-400 font-bold shrink-0">⑤</span><span>Dead 페이지 <b class="text-red-400">${d.dead_pages.length}개</b> — 노출만 되고 클릭 없는 페이지가 전체의 ${(d.dead_pages.length/s.total_pages*100).toFixed(0)}%</span></li>
+          <li class="flex gap-2"><span class="text-red-400 font-bold shrink-0">⑥</span><span>"아산임플란트치과발치" 노출 550회 순위 58.6위 — 아산 지역 키워드 최적화 미흡</span></li>
+        </ul>
+      </div>
+      <div class="glass-dark rounded-xl p-4">
+        <h4 class="text-sm font-bold text-green-400 mb-3"><i class="fas fa-check-circle mr-1"></i>🟢 긍정 시그널</h4>
+        <ul class="space-y-2.5 text-sm text-slate-300">
+          <li class="flex gap-2"><span class="text-green-400 font-bold shrink-0">①</span><span>4월 트래픽 폭발적 성장 — 클릭 ${d.growth ? '+'+d.growth.click_growth_pct+'%' : ''}, 노출 ${d.growth ? '+'+d.growth.imp_growth_pct+'%' : ''} (전월 대비)</span></li>
+          <li class="flex gap-2"><span class="text-green-400 font-bold shrink-0">②</span><span><b class="text-green-400">881개</b> 키워드 발견 = 구글 인덱싱 상태 양호, 도메인 인식 성장 중</span></li>
+          <li class="flex gap-2"><span class="text-green-400 font-bold shrink-0">③</span><span>"천안치과" 평균 순위 <b class="text-green-400">1.2위</b>, "천안 치과 추천" <b class="text-green-400">1.6위</b> — 핵심 로컬 키워드 최상위</span></li>
+          <li class="flex gap-2"><span class="text-green-400 font-bold shrink-0">④</span><span><b class="text-green-400">707페이지</b> 인덱싱 = 콘텐츠 볼륨 경쟁사 대비 압도적</span></li>
+          <li class="flex gap-2"><span class="text-green-400 font-bold shrink-0">⑤</span><span>백과사전 ${d.section_stats.encyclopedia ? n(d.section_stats.encyclopedia.impressions) : ''}+ 노출 — 정보성 트래픽 기반 확보</span></li>
+          <li class="flex gap-2"><span class="text-green-400 font-bold shrink-0">⑥</span><span>1-3위 키워드 <b class="text-green-400">${d.rank_distribution['1-3위']}개</b>, 1페이지 내 <b class="text-green-400">${d.rank_distribution['1-3위']+d.rank_distribution['4-10위']}개</b> — 기반 탄탄</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="glass-dark rounded-xl p-4">
+      <h4 class="text-sm font-bold text-blue-400 mb-3"><i class="fas fa-tasks mr-1"></i>🎯 우선순위 액션 플랜</h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div>
+          <div class="text-xs font-bold text-red-400 uppercase tracking-wider mb-2">🔥 이번 주 (즉시 실행)</div>
+          <div class="bg-red-500/10 rounded-lg p-3 space-y-2 text-slate-300">
+            <p><b>1.</b> "천안치과" Title 개선 — "천안치과 서울비디 | 서울대출신 15인 · 365일 야간진료" → CTR 3%+ 목표</p>
+            <p><b>2.</b> Quick Win ${d.quick_wins.length}개 키워드 → 해당 페이지 H1/Title/Meta에 키워드 정확히 삽입</p>
+            <p><b>3.</b> Dead 페이지 상위 20개 → Title에 클릭 유도 문구 추가 ("후기", "비용", "전문의")</p>
+            <p><b>4.</b> 홈페이지 Description에 "365일·야간·서울대·15인" 차별화 키워드 추가</p>
+          </div>
+        </div>
+        <div>
+          <div class="text-xs font-bold text-yellow-400 uppercase tracking-wider mb-2">⚡ 이번 달 (2주 내)</div>
+          <div class="bg-yellow-500/10 rounded-lg p-3 space-y-2 text-slate-300">
+            <p><b>1.</b> "천안 임플란트 가격" "천안 임플란트 후기" 전용 랜딩페이지 생성</p>
+            <p><b>2.</b> 블로그 → 진료페이지 내부 링크 체계 구축 (백과 → 진료 CTA)</p>
+            <p><b>3.</b> 의료포털 프로필 등록 (모두닥, 닥터나우, 나만의닥터) → 백링크 확보</p>
+            <p><b>4.</b> Google Business Profile 주 2회 포스트 + 리뷰 요청 프로세스</p>
+          </div>
+        </div>
+        <div>
+          <div class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-2">📈 1-3개월 (성장 전략)</div>
+          <div class="bg-blue-500/10 rounded-lg p-3 space-y-2 text-slate-300">
+            <p><b>1.</b> 백과사전 469페이지 → 진료 전환 CTA/내부링크 일괄 삽입</p>
+            <p><b>2.</b> "치과실비" "치과 과잉진료" 등 상업성 높은 정보형 콘텐츠 강화</p>
+            <p><b>3.</b> 아산/대전/세종 지역 키워드 전용 콘텐츠 확장</p>
+            <p><b>4.</b> YouTube + 영상 SEO → VideoObject 스키마 강화</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center text-xs text-slate-600 py-6">
+    Generated on 2026-04-29 · Powered by Google Search Console Real Data<br>
+    881 Keywords · 707 Pages · 90 Days · 서울비디치과 SEO 분석
+  </footer>
+  `;
+
+  initCharts();
+  initTabs();
+}
+
+function initCharts() {
+  const d = DATA;
+  const chartDefaults = { responsive: true, maintainAspectRatio: false };
+  
+  // Trend
+  new Chart(document.getElementById('trendChart'), {
+    type: 'line',
+    data: {
+      labels: d.chart.map(c => c.date.slice(5)),
+      datasets: [
+        { label: '클릭', data: d.chart.map(c => c.clicks), borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.08)', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 2 },
+        { label: '노출÷10', data: d.chart.map(c => Math.round(c.impressions/10)), borderColor: '#a78bfa', backgroundColor: 'rgba(139,92,246,0.05)', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 1.5 }
+      ]
+    },
+    options: { ...chartDefaults, plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+      scales: { x: { ticks: { color: '#475569', font: { size: 8 }, maxTicksLimit: 12 }, grid: { color: 'rgba(51,65,85,0.2)' } },
+                y: { ticks: { color: '#475569', font: { size: 9 } }, grid: { color: 'rgba(51,65,85,0.2)' } } } }
+  });
+
+  // Monthly
+  const months = Object.keys(d.monthly);
+  new Chart(document.getElementById('monthlyChart'), {
+    type: 'bar',
+    data: {
+      labels: months,
+      datasets: [
+        { label: '클릭', data: months.map(m => d.monthly[m].clicks), backgroundColor: 'rgba(59,130,246,0.8)', borderRadius: 6 },
+        { label: '노출÷10', data: months.map(m => Math.round(d.monthly[m].impressions/10)), backgroundColor: 'rgba(139,92,246,0.6)', borderRadius: 6 }
+      ]
+    },
+    options: { ...chartDefaults, plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+      scales: { x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { display: false } },
+                y: { ticks: { color: '#475569' }, grid: { color: 'rgba(51,65,85,0.2)' } } } }
+  });
+
+  // Rank Doughnut
+  new Chart(document.getElementById('rankChart'), {
+    type: 'doughnut',
+    data: { labels: Object.keys(d.rank_distribution), datasets: [{ data: Object.values(d.rank_distribution), backgroundColor: ['#10b981','#3b82f6','#f59e0b','#ef4444'], borderWidth: 0 }] },
+    options: { ...chartDefaults, cutout: '62%', plugins: { legend: { display: false } } }
+  });
+
+  // Brand
+  new Chart(document.getElementById('brandChart'), {
+    type: 'doughnut',
+    data: { labels: ['브랜드', '비브랜드'], datasets: [{ data: [d.brand_vs_nonbrand.brand.clicks, d.brand_vs_nonbrand.nonbrand.clicks], backgroundColor: ['#3b82f6','#f59e0b'], borderWidth: 0 }] },
+    options: { ...chartDefaults, cutout: '62%', plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } } }
+  });
+
+  // Device
+  new Chart(document.getElementById('deviceChart'), {
+    type: 'doughnut',
+    data: { labels: ['데스크톱','모바일','태블릿'], datasets: [{ data: [d.devices.desktop.clicks, d.devices.mobile.clicks, d.devices.tablet.clicks], backgroundColor: ['#3b82f6','#10b981','#8b5cf6'], borderWidth: 0 }] },
+    options: { ...chartDefaults, cutout: '62%', plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } } }
+  });
+
+  // Topic
+  const topics = Object.entries(d.topic_stats).sort((a,b) => b[1].impressions - a[1].impressions);
+  const colors6 = ['#3b82f6','#10b981','#f59e0b','#8b5cf6','#ef4444','#06b6d4','#ec4899','#f97316','#6366f1'];
+  new Chart(document.getElementById('topicChart'), {
+    type: 'bar',
+    data: {
+      labels: topics.map(t => t[0]),
+      datasets: [
+        { label: '노출', data: topics.map(t => t[1].impressions), backgroundColor: colors6.map(c => c+'cc'), borderRadius: 3 },
+      ]
+    },
+    options: { indexAxis: 'y', ...chartDefaults, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: '#475569', font: { size: 8 } }, grid: { color: 'rgba(51,65,85,0.2)' } },
+                y: { ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { display: false } } } }
+  });
+
+  // Intent
+  const intents = Object.entries(d.intent_stats).sort((a,b) => b[1].count - a[1].count);
+  const intentLabels = {informational:'정보성',local:'로컬',commercial:'상업성',transactional:'거래성'};
+  const intentColors = {informational:'#3b82f699',local:'#10b98199',commercial:'#f59e0b99',transactional:'#ef444499'};
+  new Chart(document.getElementById('intentChart'), {
+    type: 'polarArea',
+    data: {
+      labels: intents.map(i => (intentLabels[i[0]]||i[0]) + ' ('+i[1].count+')'),
+      datasets: [{ data: intents.map(i => i[1].count), backgroundColor: intents.map(i => intentColors[i[0]]||'#6366f199') }]
+    },
+    options: { ...chartDefaults, plugins: { legend: { labels: { color: '#94a3b8', font: { size: 10 } } } },
+      scales: { r: { ticks: { color: '#475569', backdropColor: 'transparent' }, grid: { color: 'rgba(51,65,85,0.2)' } } } }
+  });
+}
+
+function initTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.classList.add('text-slate-400'); });
+      btn.classList.add('active'); btn.classList.remove('text-slate-400');
+      renderTab(btn.dataset.tab);
+    });
+  });
+  renderTab('quickwin');
+}
+
+function tableHeader(cols) {
+  return '<table class="w-full text-xs md:text-sm"><thead><tr class="text-[10px] md:text-xs text-slate-400">' + cols.map(c => '<th class="'+(c.align||'text-left')+' py-2 px-2 md:px-3 whitespace-nowrap">'+c.label+'</th>').join('') + '</tr></thead><tbody>';
+}
+
+function renderTab(tab) {
+  const d = DATA;
+  const el = document.getElementById('tabContent');
+  
+  const tabs = {
+    quickwin: () => {
+      return '<div class="mb-3"><h3 class="text-sm font-bold text-amber-400"><i class="fas fa-rocket mr-1"></i>Quick Win 키워드 — 순위 11~20위, 1페이지 진입 직전!</h3><p class="text-[10px] text-slate-500 mt-1">Title/Description 최적화 + 내부 링크 1~2개만 추가하면 빠르게 1페이지 진입 가능한 키워드</p></div><div class="scroll-table">' +
+        tableHeader([{label:'키워드'},{label:'노출',align:'text-right'},{label:'클릭',align:'text-right'},{label:'CTR',align:'text-right'},{label:'순위',align:'text-right'},{label:'토픽',align:'text-center'}]) +
+        d.quick_wins.map(k => '<tr class="border-t border-slate-800/50"><td class="py-1.5 px-2 md:px-3 text-white font-medium">'+k.query+'</td><td class="text-right py-1.5 px-2 md:px-3 text-purple-300">'+n(k.impressions)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+k.clicks+'</td><td class="text-right py-1.5 px-2 md:px-3 text-yellow-400">'+pct(k.ctr)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+rankBadge(k.position)+'</td><td class="text-center py-1.5 px-2 md:px-3">'+topicBadge(k.topic)+'</td></tr>').join('') +
+        '</tbody></table></div>';
+    },
+    ctrlow: () => {
+      return '<div class="mb-3"><h3 class="text-sm font-bold text-red-400"><i class="fas fa-exclamation-triangle mr-1"></i>CTR 개선 필요 — 상위 노출되지만 클릭 안됨!</h3><p class="text-[10px] text-slate-500 mt-1">순위 10위 이내, 노출 20+ 인데 CTR 5% 미만 → Title/Description이 매력적이지 않음</p></div><div class="scroll-table">' +
+        tableHeader([{label:'키워드'},{label:'노출',align:'text-right'},{label:'클릭',align:'text-right'},{label:'CTR',align:'text-right'},{label:'순위',align:'text-right'}]) +
+        d.ctr_low.map(k => '<tr class="border-t border-slate-800/50"><td class="py-1.5 px-2 md:px-3 text-white font-medium">'+k.query+'</td><td class="text-right py-1.5 px-2 md:px-3 text-purple-300">'+n(k.impressions)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+k.clicks+'</td><td class="text-right py-1.5 px-2 md:px-3 text-red-400 font-bold">'+pct(k.ctr)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+rankBadge(k.position)+'</td></tr>').join('') +
+        '</tbody></table></div>';
+    },
+    highpotential: () => {
+      return '<div class="mb-3"><h3 class="text-sm font-bold text-cyan-400"><i class="fas fa-gem mr-1"></i>숨은 기회 — 높은 노출, 순위 20위+ 키워드</h3><p class="text-[10px] text-slate-500 mt-1">전용 콘텐츠 작성으로 순위를 급상승시킬 수 있는 키워드</p></div><div class="scroll-table">' +
+        tableHeader([{label:'키워드'},{label:'노출',align:'text-right'},{label:'순위',align:'text-right'},{label:'토픽',align:'text-center'}]) +
+        d.high_potential.map(k => '<tr class="border-t border-slate-800/50"><td class="py-1.5 px-2 md:px-3 text-white font-medium">'+k.query+'</td><td class="text-right py-1.5 px-2 md:px-3 text-purple-300">'+n(k.impressions)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+rankBadge(k.position)+'</td><td class="text-center py-1.5 px-2 md:px-3">'+topicBadge(k.topic)+'</td></tr>').join('') +
+        '</tbody></table></div>';
+    },
+    cheonan: () => {
+      return '<div class="mb-3"><h3 class="text-sm font-bold text-green-400"><i class="fas fa-map-marker-alt mr-1"></i>천안 로컬 키워드 전체 현황</h3><p class="text-[10px] text-slate-500 mt-1">핵심 상업 키워드 — 이 키워드들이 매출과 직결됩니다!</p></div><div class="scroll-table">' +
+        tableHeader([{label:'키워드'},{label:'노출',align:'text-right'},{label:'클릭',align:'text-right'},{label:'CTR',align:'text-right'},{label:'순위',align:'text-right'}]) +
+        d.cheonan_keywords.map(k => '<tr class="border-t border-slate-800/50"><td class="py-1.5 px-2 md:px-3 text-white font-medium">'+k.query+'</td><td class="text-right py-1.5 px-2 md:px-3 text-purple-300">'+n(k.impressions)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+k.clicks+'</td><td class="text-right py-1.5 px-2 md:px-3 '+(k.ctr>3?'text-green-400':'text-red-400')+'">'+pct(k.ctr)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+rankBadge(k.position)+'</td></tr>').join('') +
+        '</tbody></table></div>';
+    },
+    topkw: () => {
+      return '<div class="mb-3"><h3 class="text-sm font-bold text-blue-400"><i class="fas fa-trophy mr-1"></i>TOP 50 키워드 (노출 기준)</h3></div><div class="scroll-table">' +
+        tableHeader([{label:'#'},{label:'키워드'},{label:'노출',align:'text-right'},{label:'클릭',align:'text-right'},{label:'CTR',align:'text-right'},{label:'순위',align:'text-right'}]) +
+        d.top_keywords.map((k,i) => '<tr class="border-t border-slate-800/50"><td class="py-1.5 px-2 md:px-3 text-slate-500">'+(i+1)+'</td><td class="py-1.5 px-2 md:px-3 text-white font-medium">'+k.query+'</td><td class="text-right py-1.5 px-2 md:px-3 text-purple-300">'+n(k.impressions)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+k.clicks+'</td><td class="text-right py-1.5 px-2 md:px-3">'+pct(k.ctr)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+rankBadge(k.position)+'</td></tr>').join('') +
+        '</tbody></table></div>';
+    },
+    toppages: () => {
+      return '<div class="mb-3"><h3 class="text-sm font-bold text-green-400"><i class="fas fa-file-alt mr-1"></i>인기 페이지 TOP 30 (클릭 기준)</h3></div><div class="scroll-table">' +
+        tableHeader([{label:'URL'},{label:'클릭',align:'text-right'},{label:'노출',align:'text-right'},{label:'CTR',align:'text-right'},{label:'순위',align:'text-right'}]) +
+        d.high_perf_pages.map(p => '<tr class="border-t border-slate-800/50"><td class="py-1.5 px-2 md:px-3 text-blue-300 text-[11px] truncate max-w-[250px] md:max-w-[350px]" title="'+p.url+'"><a href="https://bdbddc.com'+p.url+'" target="_blank" class="hover:underline">'+p.url+'</a></td><td class="text-right py-1.5 px-2 md:px-3 text-green-400 font-bold">'+p.clicks+'</td><td class="text-right py-1.5 px-2 md:px-3 text-purple-300">'+n(p.impressions)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+pct(p.ctr)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+rankBadge(p.position)+'</td></tr>').join('') +
+        '</tbody></table></div>';
+    },
+    deadpages: () => {
+      return '<div class="mb-3"><h3 class="text-sm font-bold text-slate-400"><i class="fas fa-ghost mr-1"></i>Dead 페이지 — 노출 20+인데 클릭 0 ('+d.dead_pages.length+'개)</h3><p class="text-[10px] text-slate-500 mt-1">Title/Description 개선, 콘텐츠 병합, 또는 내부 링크 추가 필요</p></div><div class="scroll-table">' +
+        tableHeader([{label:'URL'},{label:'노출',align:'text-right'},{label:'평균 순위',align:'text-right'}]) +
+        d.dead_pages.map(p => '<tr class="border-t border-slate-800/50"><td class="py-1.5 px-2 md:px-3 text-slate-400 text-[11px] truncate max-w-[300px] md:max-w-[450px]" title="'+p.url+'"><a href="https://bdbddc.com'+p.url+'" target="_blank" class="hover:text-blue-300">'+p.url+'</a></td><td class="text-right py-1.5 px-2 md:px-3 text-purple-300">'+n(p.impressions)+'</td><td class="text-right py-1.5 px-2 md:px-3">'+rankBadge(p.position)+'</td></tr>').join('') +
+        '</tbody></table></div>';
+    }
+  };
+  
+  el.innerHTML = (tabs[tab] || tabs.quickwin)();
+}
+
+loadData();
+</script>
+</body>
+</html>
