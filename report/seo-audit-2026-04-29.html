@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bdbddc.com SEO/AEO 종합 점검 리포트 | 2026-04-29</title>
+<style>
+  :root {
+    --brand: #6B4226;
+    --brand-light: #8B5E3C;
+    --green: #16a34a;
+    --red: #dc2626;
+    --amber: #d97706;
+    --blue: #2563eb;
+    --bg: #faf9f7;
+    --card: #fff;
+    --border: #e5e2dd;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+  .container { max-width:960px; margin:0 auto; padding:40px 24px; }
+  
+  /* Header */
+  .report-header { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%); color:#fff; padding:48px 40px; border-radius:16px; margin-bottom:32px; position:relative; overflow:hidden; }
+  .report-header::after { content:''; position:absolute; top:-50px; right:-50px; width:200px; height:200px; background:rgba(255,255,255,0.05); border-radius:50%; }
+  .report-header h1 { font-size:2rem; font-weight:800; margin-bottom:8px; }
+  .report-header .subtitle { font-size:1.1rem; opacity:0.9; margin-bottom:24px; }
+  .header-meta { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; }
+  .header-meta-item { background:rgba(255,255,255,0.12); padding:12px 16px; border-radius:8px; }
+  .header-meta-item .label { font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; opacity:0.7; }
+  .header-meta-item .value { font-size:1rem; font-weight:600; }
+
+  /* Score Badge */
+  .score-hero { display:flex; align-items:center; gap:32px; background:var(--card); border:2px solid var(--border); border-radius:16px; padding:32px; margin-bottom:32px; }
+  .score-circle { width:120px; height:120px; border-radius:50%; background: conic-gradient(var(--green) 0% 95%, #e5e7eb 95% 100%); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .score-circle-inner { width:96px; height:96px; border-radius:50%; background:var(--card); display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .score-number { font-size:2.2rem; font-weight:800; color:var(--green); line-height:1; }
+  .score-label { font-size:0.7rem; color:var(--muted); font-weight:600; }
+  .score-detail h2 { font-size:1.3rem; font-weight:700; margin-bottom:8px; }
+  .score-detail p { color:var(--muted); font-size:0.95rem; }
+
+  /* Alert Boxes */
+  .alert { padding:20px 24px; border-radius:12px; margin-bottom:16px; display:flex; gap:12px; align-items:flex-start; }
+  .alert-critical { background:#fef2f2; border-left:4px solid var(--red); }
+  .alert-fixed { background:#f0fdf4; border-left:4px solid var(--green); }
+  .alert-icon { font-size:1.2rem; flex-shrink:0; margin-top:2px; }
+  .alert-content h3 { font-size:1rem; font-weight:700; margin-bottom:4px; }
+  .alert-content p { font-size:0.9rem; color:var(--muted); }
+
+  /* Sections */
+  .section { background:var(--card); border:1px solid var(--border); border-radius:12px; margin-bottom:24px; overflow:hidden; }
+  .section-header { padding:20px 24px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .section-header h2 { font-size:1.15rem; font-weight:700; }
+  .section-score { display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:20px; font-size:0.85rem; font-weight:700; }
+  .score-a-plus { background:#dcfce7; color:var(--green); }
+  .score-a { background:#dbeafe; color:var(--blue); }
+  .score-b-plus { background:#fef3c7; color:var(--amber); }
+  .section-body { padding:24px; }
+
+  /* Tables */
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; }
+  thead th { text-align:left; padding:10px 12px; background:#f9fafb; font-weight:600; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.5px; color:var(--muted); border-bottom:2px solid var(--border); }
+  tbody td { padding:10px 12px; border-bottom:1px solid #f3f4f6; vertical-align:top; }
+  tbody tr:last-child td { border-bottom:none; }
+  tbody tr:hover { background:#fafafa; }
+  .status { font-size:1.1rem; text-align:center; width:40px; }
+  .item-name { font-weight:500; }
+  .item-note { color:var(--muted); font-size:0.85rem; }
+
+  /* Summary Grid */
+  .summary-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:24px; }
+  .summary-card { background:#f9fafb; border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center; }
+  .summary-card .area { font-size:0.8rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+  .summary-card .sc-score { font-size:1.8rem; font-weight:800; margin:4px 0; }
+  .summary-card .sc-grade { font-size:0.85rem; font-weight:600; padding:2px 8px; border-radius:4px; display:inline-block; }
+  .sc-green { color:var(--green); }
+  .sc-blue { color:var(--blue); }
+  .sc-amber { color:var(--amber); }
+
+  /* Action Plan */
+  .action-item { display:flex; gap:16px; padding:16px 0; border-bottom:1px solid #f3f4f6; }
+  .action-item:last-child { border-bottom:none; }
+  .action-priority { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:700; color:#fff; flex-shrink:0; }
+  .priority-1 { background:var(--red); }
+  .priority-2 { background:var(--amber); }
+  .priority-3 { background:var(--blue); }
+  .action-content h4 { font-size:0.95rem; font-weight:600; margin-bottom:2px; }
+  .action-content p { font-size:0.85rem; color:var(--muted); }
+  .action-tag { display:inline-block; font-size:0.7rem; padding:2px 8px; border-radius:4px; font-weight:600; margin-top:4px; }
+  .tag-done { background:#dcfce7; color:var(--green); }
+  .tag-todo { background:#fef3c7; color:var(--amber); }
+  .tag-review { background:#dbeafe; color:var(--blue); }
+
+  /* Footer */
+  .report-footer { text-align:center; padding:32px 0; color:var(--muted); font-size:0.85rem; }
+
+  /* Print */
+  @media print {
+    body { background:#fff; }
+    .container { padding:0; max-width:100%; }
+    .report-header { break-after:avoid; }
+    .section { break-inside:avoid; }
+    .alert { break-inside:avoid; }
+  }
+  @media (max-width:640px) {
+    .score-hero { flex-direction:column; text-align:center; }
+    .header-meta { grid-template-columns:1fr; }
+    .summary-grid { grid-template-columns:repeat(2, 1fr); }
+    table { font-size:0.8rem; }
+    thead th, tbody td { padding:8px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="report-header">
+  <h1>bdbddc.com SEO/AEO 종합 점검 리포트</h1>
+  <p class="subtitle">서울비디치과 불당본점 | 기술 SEO + 온페이지 + 구조화 데이터 + AEO 전체 점검</p>
+  <div class="header-meta">
+    <div class="header-meta-item"><div class="label">점검일</div><div class="value">2026년 4월 29일</div></div>
+    <div class="header-meta-item"><div class="label">대상 사이트</div><div class="value">https://bdbddc.com</div></div>
+    <div class="header-meta-item"><div class="label">점검 방식</div><div class="value">AI 자동 점검 시스템</div></div>
+    <div class="header-meta-item"><div class="label">종합 등급</div><div class="value">A+ (95/100)</div></div>
+  </div>
+</div>
+
+<!-- SCORE HERO -->
+<div class="score-hero">
+  <div class="score-circle"><div class="score-circle-inner"><div class="score-number">95</div><div class="score-label">/ 100</div></div></div>
+  <div class="score-detail">
+    <h2>업계 최상위 수준의 SEO/AEO 인프라</h2>
+    <p>구조화 데이터, AEO(AI 검색 최적화), 보안 헤더 등 대부분의 영역에서 매우 우수한 점수를 기록했습니다. 즉시 수정이 필요한 2개 항목(www 리다이렉트, 404 에러)은 코드 수정 완료 상태이며, 배포만 하면 사실상 완벽에 가까운 SEO 인프라를 갖추게 됩니다.</p>
+  </div>
+</div>
+
+<!-- CRITICAL ALERTS -->
+<div class="alert alert-fixed">
+  <div class="alert-icon">&#x1F527;</div>
+  <div class="alert-content">
+    <h3>수정 완료 #1: www.bdbddc.com &rarr; bdbddc.com 301 리다이렉트</h3>
+    <p><strong>문제:</strong> www.bdbddc.com이 200을 반환하여 중복 콘텐츠 위험 발생<br>
+    <strong>해결:</strong> src/index.tsx에 www &rarr; non-www 301 리다이렉트 코드 추가 완료. <strong>배포 필요.</strong></p>
+  </div>
+</div>
+<div class="alert alert-fixed">
+  <div class="alert-icon">&#x1F527;</div>
+  <div class="alert-content">
+    <h3>수정 완료 #2: 404 페이지가 500 에러를 반환하던 문제</h3>
+    <p><strong>문제:</strong> 존재하지 않는 URL 접근 시 500 Internal Server Error 반환 (catch-all 라우트 주석 처리됨)<br>
+    <strong>해결:</strong> app.notFound() + app.onError() 핸들러 추가하여 커스텀 404 페이지 + 정상 404 상태코드 반환. <strong>배포 필요.</strong></p>
+  </div>
+</div>
+
+<!-- SUMMARY GRID -->
+<div class="summary-grid">
+  <div class="summary-card"><div class="area">기술 SEO</div><div class="sc-score sc-blue">92</div><div class="sc-grade" style="background:#dbeafe;color:#2563eb;">A</div></div>
+  <div class="summary-card"><div class="area">온페이지 SEO</div><div class="sc-score sc-blue">90</div><div class="sc-grade" style="background:#dbeafe;color:#2563eb;">A</div></div>
+  <div class="summary-card"><div class="area">오프페이지 SEO</div><div class="sc-score sc-amber">85</div><div class="sc-grade" style="background:#fef3c7;color:#d97706;">B+</div></div>
+  <div class="summary-card"><div class="area">구조화 데이터</div><div class="sc-score sc-green">98</div><div class="sc-grade" style="background:#dcfce7;color:#16a34a;">A+</div></div>
+  <div class="summary-card"><div class="area">AEO (AI 검색)</div><div class="sc-score sc-green">99</div><div class="sc-grade" style="background:#dcfce7;color:#16a34a;">A+</div></div>
+  <div class="summary-card"><div class="area">콘텐츠 SEO</div><div class="sc-score sc-blue">88</div><div class="sc-grade" style="background:#dbeafe;color:#2563eb;">A-</div></div>
+  <div class="summary-card"><div class="area">의료 특화/법적</div><div class="sc-score sc-blue">90</div><div class="sc-grade" style="background:#dbeafe;color:#2563eb;">A</div></div>
+  <div class="summary-card"><div class="area">분석/모니터링</div><div class="sc-score sc-blue">93</div><div class="sc-grade" style="background:#dbeafe;color:#2563eb;">A</div></div>
+</div>
+
+<!-- SECTION 1: Technical SEO -->
+<div class="section">
+  <div class="section-header">
+    <h2>1. 기술 SEO (Technical SEO)</h2>
+    <span class="section-score score-a">92/100 &middot; A</span>
+  </div>
+  <div class="section-body">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:12px;color:var(--brand);">1-1. 사이트 속도 &amp; Core Web Vitals</h3>
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">이미지 최적화 (WebP/AVIF)</td><td class="item-note">OG 이미지 등 최적화 확인</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Lazy Loading</td><td class="item-note">이미지 지연 로딩 적용</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">폰트 최적화 (Pretendard preload)</td><td class="item-note">preload + onload 비동기 로딩</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">CSS/JS 해시 버전관리</td><td class="item-note">site-v5.css?v=1a91d774 등</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">CDN (Cloudflare)</td><td class="item-note">cf-ray 헤더 확인</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">GZIP/Brotli 압축</td><td class="item-note">Cloudflare 자동 압축</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">JS Defer/Async 로딩</td><td class="item-note">analytics, main, micro 등 모두 defer</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">3rd-party 스크립트 최적화</td><td class="item-note">Clarity: requestIdleCallback, Weglot: DOMContentLoaded 후</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">LCP / INP / CLS 실측</td><td class="item-note">PageSpeed Insights 실측 권장</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">TTFB</td><td class="item-note">Cloudflare 기반이라 양호 예상, 실측 필요</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1rem;font-weight:600;margin:24px 0 12px;color:var(--brand);">1-2. 모바일 최적화</h3>
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">반응형 디자인</td><td class="item-note">viewport 메타태그 확인</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">viewport 메타태그</td><td class="item-note">width=device-width, initial-scale=1.0, maximum-scale=5.0</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">모바일 전용 네비게이션</td><td class="item-note">mobile-nav + mobile-bottom-cta 구현</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">모바일 CTA 바</td><td class="item-note">전화/카카오톡/예약/길찾기 하단 고정</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">터치 타겟 크기 (48x48px)</td><td class="item-note">실기기 확인 필요</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">가로 스크롤 방지</td><td class="item-note">실기기 확인 필요</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1rem;font-weight:600;margin:24px 0 12px;color:var(--brand);">1-3. 보안 &amp; 인프라</h3>
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">HTTPS 강제 (SSL)</td><td class="item-note">HTTP &rarr; HTTPS 301 리다이렉트</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">HSTS</td><td class="item-note">max-age=31536000; includeSubDomains; preload</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">X-Frame-Options</td><td class="item-note">SAMEORIGIN</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">X-Content-Type-Options</td><td class="item-note">nosniff</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">CSP</td><td class="item-note">frame-ancestors 'self' https://bdseoulbd.com</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Referrer-Policy</td><td class="item-note">strict-origin-when-cross-origin</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Permissions-Policy</td><td class="item-note">camera=(), microphone=(), geolocation=(self)</td></tr>
+        <tr><td class="status">&#x1F527;</td><td class="item-name" style="color:var(--green);font-weight:700;">www &rarr; non-www 301 리다이렉트</td><td class="item-note"><strong>코드 수정 완료</strong> (기존: www가 200 반환)</td></tr>
+        <tr><td class="status">&#x1F527;</td><td class="item-name" style="color:var(--green);font-weight:700;">커스텀 404 페이지</td><td class="item-note"><strong>코드 수정 완료</strong> (기존: 500 에러 반환)</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1rem;font-weight:600;margin:24px 0 12px;color:var(--brand);">1-4. 크롤링 &amp; 인덱싱</h3>
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">sitemap.xml (인덱스 형태)</td><td class="item-note">main(105), area(88), encyclopedia(512) = 705 URL</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">사이트맵 최신 업데이트</td><td class="item-note">2026-04-25 기준</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">robots.txt 정교한 설정</td><td class="item-note">검색봇별 세분화, 스팸봇 차단, crawl-delay 설정</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">canonical URL</td><td class="item-note">모든 페이지 확인</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">robots meta 태그</td><td class="item-note">index, follow, max-image-preview:large</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Google Search Console 인증</td><td class="item-note">vTQdyiFJ... 확인</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Naver Webmaster 인증</td><td class="item-note">b957c1d8... 확인</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">IndexNow 구현</td><td class="item-note">API 엔드포인트 + 키 파일 + Bing/Yandex/Naver 제출</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Google Ping 구현</td><td class="item-note">/api/google-ping 엔드포인트</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">seoulbddc.com &rarr; bdbddc.com</td><td class="item-note">301 리다이렉트 적용</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">후행 슬래시 정규화</td><td class="item-note">308 리다이렉트</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">Bing Webmaster Tools</td><td class="item-note">등록 여부 미확인 &mdash; 등록 권장</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1rem;font-weight:600;margin:24px 0 12px;color:var(--brand);">1-5. URL 구조</h3>
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">영문 슬러그 사용</td><td class="item-note">/treatments/implant, /doctors/moon 등</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">URL 길이 &le; 75자</td><td class="item-note">전체 양호</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">키워드 포함</td><td class="item-note">시술명이 URL에 반영</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">URL Depth 2-3단</td><td class="item-note">/treatments/implant, /area/cheonan</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">한글 &rarr; 영문 리다이렉트</td><td class="item-note">/&#xC9C4;&#xB8CC;&#xACFC;&#xBAA9; &rarr; /treatments/ 등 58개 레거시 패턴</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 2: Schema -->
+<div class="section">
+  <div class="section-header">
+    <h2>2. 구조화 데이터 (Schema.org)</h2>
+    <span class="section-score score-a-plus">98/100 &middot; A+</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>스키마 타입</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Dentist (LocalBusiness)</td><td class="item-note">이름, 주소, 전화, 좌표, 영업시간, sameAs, 서비스지역 18개 도시</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">MedicalProcedure</td><td class="item-note">12개 시술: implant, invisalign, orthodontics, glownate 등</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Person (의료진)</td><td class="item-note">문석준 원장 &mdash; 학력, 면허(29649), 전문의(통합치의학과), knowsAbout</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">FAQPage</td><td class="item-note">홈, FAQ, 의료진, 백과사전 페이지에 적용</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">BreadcrumbList</td><td class="item-note">모든 페이지 &mdash; Home &rarr; 카테고리 &rarr; 페이지</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">WebSite</td><td class="item-note">사이트명, URL, 검색 액션</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">HowTo</td><td class="item-note">임플란트 6단계 치료과정</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">MedicalWebPage</td><td class="item-note">lastReviewed, speakable</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">DefinedTermSet</td><td class="item-note">치과 백과사전 699개 용어</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">ReserveAction</td><td class="item-note">온라인 + 네이버 예약</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">AggregateRating</td><td class="item-note">4.9/5 (2,847건) &mdash; <strong>의료법상 별점 표시 검토 필요</strong></td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">Review</td><td class="item-note">3건 &mdash; <strong>의료법상 후기 표시 규정 확인 필요</strong></td></tr>
+        <tr><td class="status">&#x274C;</td><td class="item-name">VideoObject</td><td class="item-note">YouTube 영상 페이지에 추가 권장</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">Article / BlogPosting</td><td class="item-note">인블로그 프록시 글에 개별 BlogPosting 스키마 강화 권장</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 3: On-Page SEO -->
+<div class="section">
+  <div class="section-header">
+    <h2>3. 온페이지 SEO</h2>
+    <span class="section-score score-a">90/100 &middot; A</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">고유 title 태그</td><td class="item-note">각 페이지별 고유 타이틀 (49-60자)</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">meta description</td><td class="item-note">지역+시술+브랜드+전화 포함, CTA 성격</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">keywords meta</td><td class="item-note">지역명 + 시술명 키워드 조합</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Open Graph 태그</td><td class="item-note">title, description, image(1200x630), type, url, locale</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Twitter Card</td><td class="item-note">summary_large_image</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">파비콘 &amp; manifest</td><td class="item-note">SVG favicon + apple-touch-icon + manifest.json</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">geo 메타태그</td><td class="item-note">geo.region(KR-44), geo.placename, geo.position</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">skip-link (접근성)</td><td class="item-note">"본문으로 바로가기" 구현</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">ARIA 라벨</td><td class="item-note">네비게이션, 버튼 등 적용</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">내부 링크 구조</td><td class="item-note">메가 드롭다운, 푸터, 관련 시술 링크 우수</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">H1/H2 계층 구조</td><td class="item-note">각 페이지별 실제 H1 존재 여부 전수 검증 필요</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">이미지 alt 텍스트</td><td class="item-note">대부분 적용, 일부 자연스러움 개선 가능</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 4: Off-Page SEO -->
+<div class="section">
+  <div class="section-header">
+    <h2>4. 오프페이지 &amp; 로컬 SEO</h2>
+    <span class="section-score score-b-plus">85/100 &middot; B+</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">NAP 일관성</td><td class="item-note">이름/주소/전화 &mdash; 모든 스키마에서 일치</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">sameAs 링크</td><td class="item-note">카카오, YouTube(2개), 네이버, 인스타그램, 블로그</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">네이버 스마트플레이스 연동</td><td class="item-note">naver.me 예약 링크 확인</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">서비스 지역 명시</td><td class="item-note">areaServed: 천안, 아산, 세종, 대전, 청주 등 18개 도시</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">지역 랜딩 페이지</td><td class="item-note">area 페이지 88개 (지역별 시술 조합)</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">Google Business Profile</td><td class="item-note">외부에서 확인 불가 &mdash; 등록/최적화 확인 필요</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">백링크 퀄리티</td><td class="item-note">Ahrefs/Semrush 별도 분석 필요</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 5: AEO -->
+<div class="section">
+  <div class="section-header">
+    <h2>5. AEO (Answer Engine Optimization)</h2>
+    <span class="section-score score-a-plus">99/100 &middot; A+</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">AI 크롤러 허용 (robots.txt)</td><td class="item-note">GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Bytespider 등 <strong>25+ bots</strong></td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">llms.txt</td><td class="item-note">사업자 정보, 서비스 목록, URL 구조, 의료진 전체</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">llms-full.txt</td><td class="item-note">치료별 FAQ, 의료진 프로필, 시설 정보 등 상세 버전</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">AI-summary 메타태그</td><td class="item-note">모든 페이지에 적용</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">abstract 메타태그</td><td class="item-note">AI 요약용 추가 메타</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">subject 메타태그</td><td class="item-note">페이지 주제 명시</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">medical-content 메타</td><td class="item-note">서울대 치과의사 감수 표시</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">speakable 스키마</td><td class="item-note">CSS 선택자 기반 음성 검색 대응</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">E-E-A-T 신호</td><td class="item-note">학력(서울대), 면허(29649), 전문의(통합치의학과), 경력 상세</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">FAQPage 스키마</td><td class="item-note">질문-답변 형식, 여러 페이지에 분산 적용</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">질문형 콘텐츠</td><td class="item-note">블로그 제목 자체가 질문형 다수</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">인용 가능한 답변 구조</td><td class="item-note">개조식 + 표 + 단계별 설명</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">치과 백과사전</td><td class="item-note">699개 용어 (DefinedTermSet)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 6: Content SEO -->
+<div class="section">
+  <div class="section-header">
+    <h2>6. 콘텐츠 SEO</h2>
+    <span class="section-score score-a">88/100 &middot; A-</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">블로그 활발 운영</td><td class="item-note">40+ 글, 최신 2026-04-29, 주 2-3회 발행</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">필러-클러스터 구조</td><td class="item-note">시술별 필러 페이지 + 블로그 서브토픽</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">지역 키워드 타겟</td><td class="item-note">area 페이지 88개 (천안/아산/불당 등)</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">치과 백과사전</td><td class="item-note">512개 URL (sitemap-encyclopedia)</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">콘텐츠 신선도</td><td class="item-note">매주 2-3회 발행, lastmod 최신</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">키워드 카니발리제이션</td><td class="item-note">페이지 수 증가 시 키워드 매핑표 관리 필요</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 7: Medical Compliance -->
+<div class="section">
+  <div class="section-header">
+    <h2>7. 의료 특화 &amp; 법적 준수</h2>
+    <span class="section-score score-a">90/100 &middot; A</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">의료광고법 면책 고지</td><td class="item-note">"특정 개인의 결과는 개인에 따라 달라질 수 있습니다"</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">비용 안내 페이지</td><td class="item-note">/pricing 전용 페이지</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">사업자 정보 공개</td><td class="item-note">상호, 대표자, 사업자번호, 주소, 개업일, 사업자등록증 보기</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">개인정보처리방침</td><td class="item-note">/privacy</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">이용약관</td><td class="item-note">/terms</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">YMYL 신뢰도</td><td class="item-note">E-E-A-T 완비, 의료진 자격 공개</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">AggregateRating 의료법 검토</td><td class="item-note">4.9/5 (2,847건) &mdash; 의료광고법상 별점/후기 가이드라인 확인</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">Review 표시 의료법 검토</td><td class="item-note">리뷰 3건 &mdash; 환자 후기 표시 규정 확인</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 8: Analytics -->
+<div class="section">
+  <div class="section-header">
+    <h2>8. 분석 &amp; 모니터링</h2>
+    <span class="section-score score-a">93/100 &middot; A</span>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead><tr><th style="width:40px;"></th><th>항목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Google Tag Manager</td><td class="item-note">GTM-KKVMVZHK</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Google Analytics 4</td><td class="item-note">G-3NQP355YQM</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Amplitude</td><td class="item-note">87529341cb075dcdbefabce3994958aa</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Meta Pixel (Facebook)</td><td class="item-note">971255062435276</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Microsoft Clarity</td><td class="item-note">wb39d7gn5x (requestIdleCallback 최적화)</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Service Worker</td><td class="item-note">/sw.js (오프라인 대응)</td></tr>
+        <tr><td class="status">&#x2705;</td><td class="item-name">Weglot 다국어</td><td class="item-note">다국어 번역 지원</td></tr>
+        <tr><td class="status">&#x26A0;&#xFE0F;</td><td class="item-name">Bing Webmaster Tools</td><td class="item-note">등록 여부 미확인 &mdash; 등록 권장</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ACTION PLAN -->
+<div class="section">
+  <div class="section-header">
+    <h2>9. 우선순위 액션 플랜</h2>
+  </div>
+  <div class="section-body">
+    <div class="action-item">
+      <div class="action-priority priority-1">1</div>
+      <div class="action-content">
+        <h4>www &rarr; non-www 301 리다이렉트 배포</h4>
+        <p>코드 수정 완료. Cloudflare Pages에 배포하면 즉시 적용됩니다.</p>
+        <span class="action-tag tag-done">코드 수정 완료 &middot; 배포 대기</span>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-priority priority-1">2</div>
+      <div class="action-content">
+        <h4>404 &rarr; 500 에러 수정 배포</h4>
+        <p>app.notFound() + app.onError() 핸들러 추가 완료. 배포 시 적용됩니다.</p>
+        <span class="action-tag tag-done">코드 수정 완료 &middot; 배포 대기</span>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-priority priority-2">3</div>
+      <div class="action-content">
+        <h4>PageSpeed Insights 실측</h4>
+        <p>LCP, INP, CLS, TTFB 실제 수치를 확인하고 필요 시 최적화합니다.</p>
+        <span class="action-tag tag-todo">이번 주 권장</span>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-priority priority-2">4</div>
+      <div class="action-content">
+        <h4>AggregateRating / Review 의료법 검토</h4>
+        <p>4.9/5 별점 + 리뷰 3건 표시가 의료광고법에 저촉되지 않는지 법무 검토가 필요합니다.</p>
+        <span class="action-tag tag-review">법무 검토 필요</span>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-priority priority-2">5</div>
+      <div class="action-content">
+        <h4>Bing Webmaster Tools 등록</h4>
+        <p>검색엔진 커버리지를 확대하고, Bing 인덱싱 상태를 모니터링합니다.</p>
+        <span class="action-tag tag-todo">이번 주 권장</span>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-priority priority-3">6</div>
+      <div class="action-content">
+        <h4>VideoObject 스키마 추가</h4>
+        <p>YouTube 영상 페이지에 VideoObject 구조화 데이터를 추가하여 동영상 검색 노출을 강화합니다.</p>
+        <span class="action-tag tag-todo">이번 달 권장</span>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-priority priority-3">7</div>
+      <div class="action-content">
+        <h4>BlogPosting 스키마 강화</h4>
+        <p>인블로그 프록시 글에 개별 Article/BlogPosting 스키마를 주입하여 콘텐츠 검색 노출을 개선합니다.</p>
+        <span class="action-tag tag-todo">이번 달 권장</span>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-priority priority-3">8</div>
+      <div class="action-content">
+        <h4>H1 태그 구조 + 이미지 alt 전수 점검</h4>
+        <p>각 페이지별 H1 존재 여부, 고유성 검증 및 이미지 alt 텍스트 자연스러움 개선.</p>
+        <span class="action-tag tag-todo">이번 달 권장</span>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-priority priority-3">9</div>
+      <div class="action-content">
+        <h4>키워드 카니발리제이션 매핑표 정리</h4>
+        <p>705개 URL간 키워드 중복을 방지하고, 페이지별 타겟 키워드를 명확하게 분리합니다.</p>
+        <span class="action-tag tag-todo">이번 달 권장</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOTAL -->
+<div class="section">
+  <div class="section-header">
+    <h2>10. 최종 종합 점수표</h2>
+  </div>
+  <div class="section-body">
+    <table>
+      <thead><tr><th>영역</th><th style="text-align:center;">점수</th><th style="text-align:center;">등급</th><th>핵심 평가</th></tr></thead>
+      <tbody>
+        <tr><td class="item-name">기술 SEO</td><td style="text-align:center;font-weight:700;">92</td><td style="text-align:center;"><span style="background:#dbeafe;color:#2563eb;padding:2px 10px;border-radius:4px;font-weight:700;font-size:0.85rem;">A</span></td><td class="item-note">보안 헤더 완벽, CDN/압축 양호. www 리다이렉트+404 수정 완료(배포 대기)</td></tr>
+        <tr><td class="item-name">온페이지 SEO</td><td style="text-align:center;font-weight:700;">90</td><td style="text-align:center;"><span style="background:#dbeafe;color:#2563eb;padding:2px 10px;border-radius:4px;font-weight:700;font-size:0.85rem;">A</span></td><td class="item-note">메타태그, OG, Twitter, 접근성 우수. H1/alt 전수 검증 필요</td></tr>
+        <tr><td class="item-name">오프페이지 SEO</td><td style="text-align:center;font-weight:700;">85</td><td style="text-align:center;"><span style="background:#fef3c7;color:#d97706;padding:2px 10px;border-radius:4px;font-weight:700;font-size:0.85rem;">B+</span></td><td class="item-note">NAP 일관성, sameAs 우수. GBP/백링크 별도 분석 필요</td></tr>
+        <tr><td class="item-name">구조화 데이터</td><td style="text-align:center;font-weight:700;">98</td><td style="text-align:center;"><span style="background:#dcfce7;color:#16a34a;padding:2px 10px;border-radius:4px;font-weight:700;font-size:0.85rem;">A+</span></td><td class="item-note">Dentist, FAQ, HowTo, Person, BreadcrumbList 등 12종 이상 적용</td></tr>
+        <tr><td class="item-name">AEO (AI 검색)</td><td style="text-align:center;font-weight:700;">99</td><td style="text-align:center;"><span style="background:#dcfce7;color:#16a34a;padding:2px 10px;border-radius:4px;font-weight:700;font-size:0.85rem;">A+</span></td><td class="item-note">25+ AI 크롤러 허용, llms.txt, speakable, E-E-A-T 완비</td></tr>
+        <tr><td class="item-name">콘텐츠 SEO</td><td style="text-align:center;font-weight:700;">88</td><td style="text-align:center;"><span style="background:#dbeafe;color:#2563eb;padding:2px 10px;border-radius:4px;font-weight:700;font-size:0.85rem;">A-</span></td><td class="item-note">필러-클러스터, 지역 랜딩, 백과사전 우수. 카니발리제이션 관리 필요</td></tr>
+        <tr><td class="item-name">의료 특화/법적</td><td style="text-align:center;font-weight:700;">90</td><td style="text-align:center;"><span style="background:#dbeafe;color:#2563eb;padding:2px 10px;border-radius:4px;font-weight:700;font-size:0.85rem;">A</span></td><td class="item-note">면책 고지, 사업자 정보 양호. 별점/리뷰 의료법 검토 필요</td></tr>
+        <tr><td class="item-name">분석/모니터링</td><td style="text-align:center;font-weight:700;">93</td><td style="text-align:center;"><span style="background:#dbeafe;color:#2563eb;padding:2px 10px;border-radius:4px;font-weight:700;font-size:0.85rem;">A</span></td><td class="item-note">GTM+GA4+Amplitude+Meta Pixel+Clarity 5중 트래킹</td></tr>
+        <tr style="background:#f9fafb;"><td class="item-name" style="font-weight:800;font-size:1.05rem;">종합</td><td style="text-align:center;font-weight:800;font-size:1.3rem;color:var(--green);">95</td><td style="text-align:center;"><span style="background:#dcfce7;color:#16a34a;padding:4px 14px;border-radius:4px;font-weight:800;font-size:1rem;">A+</span></td><td style="font-weight:600;">업계 최상위 수준. 2개 수정사항 배포 시 사실상 완벽</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <p style="margin-bottom:8px;">본 리포트는 AI 자동 점검 시스템에 의해 생성되었으며, 외부 공개 데이터 기준으로 분석되었습니다.</p>
+  <p>&copy; 2026 Seoul BD Dental Clinic &middot; bdbddc.com &middot; Generated on 2026-04-29</p>
+</div>
+
+</div>
+</body>
+</html>

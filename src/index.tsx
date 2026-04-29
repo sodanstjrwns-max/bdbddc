@@ -4629,24 +4629,55 @@ app.post('/api/chat', async (c) => {
 });
 
 // ============================================
-// 커스텀 404 페이지 (catch-all fallback)
-// 등록되지 않은 모든 경로 → 404.html 반환
+// Catch-all: 정적 파일 시도 → 없으면 404 반환
+// Cloudflare Pages에서 ASSETS가 빈 200을 반환하는 문제 해결
 // ============================================
-app.notFound(async (c) => {
-  try {
-    // Cloudflare Pages에서 ASSETS 바인딩으로 404.html 서빙
-    if (c.env?.ASSETS) {
+app.all('*', async (c) => {
+  // 1) ASSETS 바인딩으로 정적 파일 서빙 시도
+  if (c.env?.ASSETS) {
+    try {
+      const assetRes = await c.env.ASSETS.fetch(c.req.raw)
+      // 정적 파일이 실제로 존재하면 (본문이 있는 200) 그대로 반환
+      if (assetRes.ok) {
+        const body = await assetRes.arrayBuffer()
+        if (body.byteLength > 0) {
+          return new Response(body, {
+            status: assetRes.status,
+            headers: assetRes.headers
+          })
+        }
+      }
+    } catch (e) {
+      // ASSETS fetch 실패 → 404로 진행
+    }
+  }
+
+  // 2) 정적 파일이 없으면 → 커스텀 404.html 서빙
+  if (c.env?.ASSETS) {
+    try {
       const notFoundReq = new Request(new URL('/404.html', c.req.url).toString())
       const res = await c.env.ASSETS.fetch(notFoundReq)
       if (res.ok) {
         const html = await res.text()
-        return c.html(html, 404)
+        if (html.length > 0) {
+          return c.html(html, 404)
+        }
       }
+    } catch (e) {
+      // 404.html 로딩 실패 → 인라인 fallback
     }
-  } catch (e) {
-    // ASSETS 실패 시 기본 404 응답
   }
-  // 기본 fallback 404 응답
+
+  // 3) 인라인 fallback 404
+  return c.html(`<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>페이지를 찾을 수 없습니다 | 서울비디치과</title>
+<style>body{font-family:Pretendard,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#faf9f7;color:#333;text-align:center}.e{max-width:480px;padding:2rem}.c{font-size:6rem;font-weight:800;color:#6B4226;margin:0}h1{font-size:1.5rem;margin:1rem 0}p{color:#666;margin:1rem 0}a{display:inline-block;background:#6B4226;color:#fff;padding:12px 32px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:1rem}a:hover{background:#8B5E3C}</style></head>
+<body><div class="e"><div class="c">404</div><h1>페이지를 찾을 수 없습니다</h1><p>요청하신 페이지가 존재하지 않거나 이동되었습니다.</p><a href="/"><i class="fas fa-home"></i> 홈으로 돌아가기</a><p style="margin-top:2rem;font-size:.85rem;color:#999">☎ 041-415-2892 | 365일 진료</p></div></body></html>`, 404)
+})
+
+// notFound 핸들러 (catch-all에서 못 잡은 경우 안전장치)
+app.notFound(async (c) => {
   return c.html(`<!DOCTYPE html>
 <html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>페이지를 찾을 수 없습니다 | 서울비디치과</title>
