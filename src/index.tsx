@@ -23,7 +23,15 @@ const app = new Hono<{ Bindings: Bindings }>()
 // ============================================
 app.use('*', async (c, next) => {
   const host = new URL(c.req.url).hostname
+  // seoulbddc.com → bdbddc.com 301 리디렉트
   if (host === 'seoulbddc.com' || host === 'www.seoulbddc.com') {
+    const url = new URL(c.req.url)
+    url.hostname = 'bdbddc.com'
+    url.protocol = 'https:'
+    return c.redirect(url.toString(), 301)
+  }
+  // www.bdbddc.com → bdbddc.com 301 리디렉트 (중복 콘텐츠 방지)
+  if (host === 'www.bdbddc.com') {
     const url = new URL(c.req.url)
     url.hostname = 'bdbddc.com'
     url.protocol = 'https:'
@@ -4620,7 +4628,40 @@ app.post('/api/chat', async (c) => {
   }
 });
 
-// Catch-all fallback to index.html (SPA style, but not needed here)
-// app.get('*', serveStatic({ path: './index.html' }))
+// ============================================
+// 커스텀 404 페이지 (catch-all fallback)
+// 등록되지 않은 모든 경로 → 404.html 반환
+// ============================================
+app.notFound(async (c) => {
+  try {
+    // Cloudflare Pages에서 ASSETS 바인딩으로 404.html 서빙
+    if (c.env?.ASSETS) {
+      const notFoundReq = new Request(new URL('/404.html', c.req.url).toString())
+      const res = await c.env.ASSETS.fetch(notFoundReq)
+      if (res.ok) {
+        const html = await res.text()
+        return c.html(html, 404)
+      }
+    }
+  } catch (e) {
+    // ASSETS 실패 시 기본 404 응답
+  }
+  // 기본 fallback 404 응답
+  return c.html(`<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>페이지를 찾을 수 없습니다 | 서울비디치과</title>
+<style>body{font-family:Pretendard,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#faf9f7;color:#333;text-align:center}.e{max-width:480px;padding:2rem}.c{font-size:6rem;font-weight:800;color:#6B4226;margin:0}h1{font-size:1.5rem;margin:1rem 0}p{color:#666;margin:1rem 0}a{display:inline-block;background:#6B4226;color:#fff;padding:12px 32px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:1rem}a:hover{background:#8B5E3C}</style></head>
+<body><div class="e"><div class="c">404</div><h1>페이지를 찾을 수 없습니다</h1><p>요청하신 페이지가 존재하지 않거나 이동되었습니다.</p><a href="/"><i class="fas fa-home"></i> 홈으로 돌아가기</a><p style="margin-top:2rem;font-size:.85rem;color:#999">☎ 041-415-2892 | 365일 진료</p></div></body></html>`, 404)
+})
+
+// 글로벌 에러 핸들러 (500 에러 방지)
+app.onError((err, c) => {
+  console.error('Unhandled error:', err)
+  return c.html(`<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>오류가 발생했습니다 | 서울비디치과</title>
+<style>body{font-family:Pretendard,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#faf9f7;color:#333;text-align:center}.e{max-width:480px;padding:2rem}.c{font-size:4rem;margin:0}h1{font-size:1.5rem;margin:1rem 0}p{color:#666}a{display:inline-block;background:#6B4226;color:#fff;padding:12px 32px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:1rem}a:hover{background:#8B5E3C}</style></head>
+<body><div class="e"><div class="c">⚠️</div><h1>일시적인 오류가 발생했습니다</h1><p>잠시 후 다시 시도해주세요.</p><a href="/">홈으로 돌아가기</a><p style="margin-top:2rem;font-size:.85rem;color:#999">☎ 041-415-2892 | 365일 진료</p></div></body></html>`, 500)
+})
 
 export default app
