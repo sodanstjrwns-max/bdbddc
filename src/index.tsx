@@ -14,6 +14,7 @@ type Bindings = {
   GOOGLE_CLIENT_SECRET?: string
   GMAIL_APP_PASSWORD?: string
   NOTIFICATION_EMAIL?: string
+  TURNSTILE_SECRET_KEY?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -3852,6 +3853,90 @@ app.use('/*.html', serveStatic())
 // 채용 지원서 API
 // ============================================
 
+// ▶ 보안: SQL 인젝션 패턴 탐지
+const SQL_INJECTION_PATTERNS = [
+  /('|--|;|\\|\|\||&&)/,
+  /(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER|CREATE|EXEC|EXECUTE)\s/i,
+  /(OR|AND)\s+\d+\s*=\s*\d+/i,
+  /PG_SLEEP|WAITFOR\s+DELAY|SLEEP\s*\(/i,
+  /DBMS_PIPE|UTL_HTTP|BENCHMARK\s*\(/i,
+  /XOR\s*\(/i,
+  /SYSDATE\s*\(\)/i,
+  /RECEIVE_MESSAGE/i,
+  /0x[0-9a-fA-F]+/,
+  /CHAR\s*\(\d+\)/i,
+]
+
+function containsSQLInjection(value: string): boolean {
+  if (!value || value.length < 3) return false
+  // 2개 이상 패턴 매칭 시 차단 (오탐 최소화)
+  let matchCount = 0
+  for (const pattern of SQL_INJECTION_PATTERNS) {
+    if (pattern.test(value)) matchCount++
+    if (matchCount >= 2) return true
+  }
+  return false
+}
+
+function hasSuspiciousInput(body: Record<string, any>): string | null {
+  const fieldsToCheck = ['name', 'phone', 'email', 'position', 'experience', 'license', 'message', 'startDate']
+  for (const field of fieldsToCheck) {
+    const val = body[field]
+    if (typeof val === 'string' && containsSQLInjection(val)) {
+      return field
+    }
+  }
+  // careers 배열 내부도 검사
+  if (Array.isArray(body.careers)) {
+    for (const career of body.careers) {
+      for (const key of ['company', 'period', 'role']) {
+        if (typeof career[key] === 'string' && containsSQLInjection(career[key])) {
+          return `careers.${key}`
+        }
+      }
+    }
+  }
+  return null
+}
+
+// ▶ 보안: Rate Limiting (IP당 5분에 3건)
+const rateLimitMap = new Map<string, number[]>()
+const RATE_LIMIT_WINDOW = 5 * 60 * 1000  // 5분
+const RATE_LIMIT_MAX = 3  // 5분에 최대 3건
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const timestamps = rateLimitMap.get(ip) || []
+  // 윈도우 밖 기록 제거
+  const recent = timestamps.filter(t => now - t < RATE_LIMIT_WINDOW)
+  if (recent.length >= RATE_LIMIT_MAX) {
+    rateLimitMap.set(ip, recent)
+    return true
+  }
+  recent.push(now)
+  rateLimitMap.set(ip, recent)
+  return false
+}
+
+// ▶ 보안: Turnstile 검증
+async function verifyTurnstile(token: string, secret: string, ip?: string): Promise<boolean> {
+  try {
+    const formData = new URLSearchParams()
+    formData.append('secret', secret)
+    formData.append('response', token)
+    if (ip) formData.append('remoteip', ip)
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString()
+    })
+    const data = await res.json() as { success: boolean }
+    return data.success === true
+  } catch {
+    return false
+  }
+}
+
 // [공개] 지원서 제출
 app.post('/api/careers/apply', async (c) => {
   try {
@@ -3859,13 +3944,48 @@ app.post('/api/careers/apply', async (c) => {
     const r2 = c.env.R2
     if (!db) return c.json({ error: 'DB not available' }, 500)
 
-    const body = await c.req.json()
-    const { name, phone, email, birth, position, experience, workDays, startDate, license, message, careers, photo, appliedAt } = body
+    // ▶ 방어막 1: Rate Limiting
+    const clientIP = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || 'unknown'
+    if (isRateLimited(clientIP)) {
+      return c.json({ error: '너무 많은 요청입니다. 5분 후 다시 시도해주세요.' }, 429)
+    }
 
-    // 유효성 검사
-    if (!name || !name.trim()) return c.json({ error: '이름을 입력해주세요.' }, 400)
-    if (!phone || !phone.trim()) return c.json({ error: '연락처를 입력해주세요.' }, 400)
+    const body = await c.req.json()
+    const { name, phone, email, birth, position, experience, workDays, startDate, license, message, careers, photo, appliedAt, turnstileToken } = body
+
+    // ▶ 방어막 2: Turnstile 검증 (시크릿 키가 설정된 경우에만)
+    const turnstileSecret = c.env.TURNSTILE_SECRET_KEY
+    if (turnstileSecret) {
+      if (!turnstileToken) {
+        return c.json({ error: '보안 인증이 필요합니다. 페이지를 새로고침 후 다시 시도해주세요.' }, 400)
+      }
+      const verified = await verifyTurnstile(turnstileToken, turnstileSecret, clientIP)
+      if (!verified) {
+        return c.json({ error: '보안 인증에 실패했습니다. 페이지를 새로고침 후 다시 시도해주세요.' }, 403)
+      }
+    }
+
+    // ▶ 방어막 3: SQL 인젝션 탐지
+    const suspiciousField = hasSuspiciousInput(body)
+    if (suspiciousField) {
+      console.error(`[SECURITY] SQL injection attempt blocked from IP: ${clientIP}, field: ${suspiciousField}`)
+      return c.json({ error: '입력값에 허용되지 않는 문자가 포함되어 있습니다.' }, 400)
+    }
+
+    // ▶ 추가 유효성 검사: 이름/연락처 최소 길이
+    if (!name || !name.trim() || name.trim().length < 2) return c.json({ error: '이름을 2자 이상 입력해주세요.' }, 400)
+    if (!phone || !phone.trim() || phone.trim().length < 8) return c.json({ error: '올바른 연락처를 입력해주세요.' }, 400)
     if (!position) return c.json({ error: '지원 분야를 선택해주세요.' }, 400)
+
+    // ▶ 이름: 한글/영문/공백만 허용 (특수문자 차단)
+    if (!/^[가-힣a-zA-Z\s]+$/.test(name.trim())) {
+      return c.json({ error: '이름은 한글 또는 영문만 입력 가능합니다.' }, 400)
+    }
+
+    // ▶ 연락처: 숫자/하이픈만 허용
+    if (!/^[0-9\-]+$/.test(phone.trim())) {
+      return c.json({ error: '연락처는 숫자와 하이픈(-)만 입력 가능합니다.' }, 400)
+    }
 
     // 프로필 사진 R2 업로드 (base64 → R2)
     let photoKey = null

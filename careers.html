@@ -55,6 +55,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   <link rel="stylesheet" href="/css/site-v5.css?v=1a91d774">
   <link rel="stylesheet" href="/css/micro.css?v=ac2f0073">
+  <!-- Turnstile: 키 설정 후 아래 주석 해제 -->
+  <!-- <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> -->
   <script src="/js/analytics.js?v=20260408v7" defer></script>
 
   <!-- Weglot Multilingual -->
@@ -1201,6 +1203,16 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
             <textarea id="appMessage" placeholder="부담 없이 자유롭게 작성해주세요. 한 줄이어도 괜찮습니다 :)"></textarea>
           </div>
 
+          <!-- Cloudflare Turnstile 보안 인증 (Turnstile 키 설정 후 활성화) -->
+          <!-- 
+          <div id="turnstileWrapper" style="display:flex;justify-content:center;margin:16px 0 8px;">
+            <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-theme="light"></div>
+          </div>
+          <p id="turnstileNote" style="text-align:center;font-size:0.8rem;color:#999;margin-bottom:12px;display:none;">
+            <i class="fas fa-shield-alt" style="color:#22c55e;margin-right:4px;"></i> 보안 인증 완료
+          </p>
+          -->
+
           <button type="button" class="cr-submit-btn" id="submitBtn" onclick="submitApplication()">
             <i class="fas fa-paper-plane"></i>&nbsp; 지원서 제출하기
           </button>
@@ -1395,14 +1407,35 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   // ========================================
   // Submit Application
   // ========================================
+  // Turnstile 콜백
+  var turnstileToken = null;
+  function onTurnstileSuccess(token) {
+    turnstileToken = token;
+    var note = document.getElementById('turnstileNote');
+    if (note) note.style.display = 'block';
+  }
+  function onTurnstileExpired() {
+    turnstileToken = null;
+    var note = document.getElementById('turnstileNote');
+    if (note) note.style.display = 'none';
+  }
+
   async function submitApplication() {
     var name = document.getElementById('appName').value.trim();
     var phone = document.getElementById('appPhone').value.trim();
     var position = document.getElementById('appPosition').value;
 
-    if (!name) { alert('이름을 입력해주세요.'); return; }
-    if (!phone) { alert('연락처를 입력해주세요.'); return; }
+    if (!name || name.length < 2) { alert('이름을 2자 이상 입력해주세요.'); return; }
+    if (!phone || phone.length < 8) { alert('올바른 연락처를 입력해주세요.'); return; }
+    if (!/^[가-힣a-zA-Z\s]+$/.test(name)) { alert('이름은 한글 또는 영문만 입력 가능합니다.'); return; }
+    if (!/^[0-9\-]+$/.test(phone)) { alert('연락처는 숫자와 하이픈(-)만 입력 가능합니다.'); return; }
     if (!position) { alert('지원 분야를 선택해주세요.'); return; }
+
+    // Turnstile 검증 (위젯이 활성화된 경우에만)
+    var turnstileWidget = document.querySelector('.cf-turnstile');
+    if (turnstileWidget && !turnstileToken) {
+      alert('보안 인증을 완료해주세요.'); return;
+    }
 
     var btn = document.getElementById('submitBtn');
     btn.disabled = true;
@@ -1443,7 +1476,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       message: document.getElementById('appMessage').value.trim(),
       careers: careers,
       photo: photoData,
-      appliedAt: new Date().toISOString()
+      appliedAt: new Date().toISOString(),
+      turnstileToken: turnstileToken
     };
 
     try {
@@ -1457,6 +1491,11 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         document.getElementById('successModal').classList.add('active');
         document.getElementById('careerForm').reset();
         document.getElementById('photoPreview').innerHTML = '<i class="fas fa-user"></i>';
+        // Turnstile 리셋
+        turnstileToken = null;
+        if (window.turnstile) { turnstile.reset(); }
+        var note = document.getElementById('turnstileNote');
+        if (note) note.style.display = 'none';
         // Track event
         if (window.bdAnalytics && bdAnalytics.trackCustom) {
           bdAnalytics.trackCustom('career_apply', { position: position });
