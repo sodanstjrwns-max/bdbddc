@@ -538,33 +538,51 @@ function initQuill() {
 }
 
 // ===== IMAGE UPLOAD HANDLER (R2) =====
-// 이미지 자동 압축 (대용량 → WebP 변환, 최대 1800px, 품질 85%)
+// 이미지 자동 압축 — createImageBitmap 사용 (메모리 효율적, 대용량 안전)
 function compressImage(file, maxWidth, quality) {
   maxWidth = maxWidth || 1800;
-  quality = quality || 0.85;
-  return new Promise(function(resolve) {
-    // 2MB 이하면 압축 불필요
-    if (file.size <= 2 * 1024 * 1024) { resolve(file); return; }
-    var img = new Image();
-    img.onload = function() {
-      var canvas = document.createElement('canvas');
-      var w = img.width, h = img.height;
+  quality = quality || 0.82;
+  return new Promise(function(resolve, reject) {
+    // 3MB 이하면 압축 불필요
+    if (file.size <= 3 * 1024 * 1024) { resolve(file); return; }
+
+    // 타임아웃 15초
+    var timeout = setTimeout(function() {
+      console.warn('[이미지 압축] 타임아웃 - 원본 업로드');
+      resolve(file);
+    }, 15000);
+
+    createImageBitmap(file).then(function(bitmap) {
+      clearTimeout(timeout);
+      var w = bitmap.width, h = bitmap.height;
+      // 리사이즈 필요 여부
       if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
-      canvas.width = w; canvas.height = h;
+
+      var canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
       var ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, w, h);
+      ctx.drawImage(bitmap, 0, 0, w, h);
+      bitmap.close(); // 메모리 해제
+
+      // JPEG로 변환 (WebP보다 호환성 높음)
       canvas.toBlob(function(blob) {
+        canvas.width = 1; canvas.height = 1; // 캔버스 메모리 해제
         if (blob && blob.size < file.size) {
-          var compressed = new File([blob], file.name.replace(/\.[^.]+$/, '.webp'), { type: 'image/webp' });
-          console.log('[이미지 압축] ' + (file.size/1024/1024).toFixed(1) + 'MB → ' + (compressed.size/1024/1024).toFixed(1) + 'MB');
+          var ext = 'jpg';
+          var newName = file.name.replace(/\.[^.]+$/, '.' + ext);
+          var compressed = new File([blob], newName, { type: 'image/jpeg' });
+          console.log('[이미지 압축] ' + (file.size/1024/1024).toFixed(1) + 'MB → ' + (compressed.size/1024/1024).toFixed(1) + 'MB (' + w + 'x' + h + ')');
           resolve(compressed);
         } else {
           resolve(file);
         }
-      }, 'image/webp', quality);
-    };
-    img.onerror = function() { resolve(file); };
-    img.src = URL.createObjectURL(file);
+      }, 'image/jpeg', quality);
+    }).catch(function(err) {
+      clearTimeout(timeout);
+      console.warn('[이미지 압축] 실패, 원본 업로드:', err);
+      resolve(file); // 압축 실패해도 원본으로 시도
+    });
   });
 }
 
@@ -578,29 +596,27 @@ function imageHandler() {
     const file = input.files[0];
     if (!file) return;
 
-    // 원본 50MB까지 허용 (압축 후 업로드)
-    const MAX_ORIGINAL = 50 * 1024 * 1024;
-    if (file.size > MAX_ORIGINAL) {
-      showToast('이미지 용량이 너무 큽니다 (최대 50MB)', true);
+    // 원본 25MB까지 허용
+    if (file.size > 25 * 1024 * 1024) {
+      showToast('이미지 용량이 너무 큽니다 (최대 25MB)', true);
       return;
     }
 
     // Show uploading state
     const range = quill.getSelection(true);
-    var loadingMsg = file.size > 2 * 1024 * 1024
-      ? '  이미지 압축 & 업로드 중...'
-      : '  이미지 업로드 중...';
+    var loadingMsg = '  업로드 중...';
     quill.insertText(range.index, loadingMsg, { 'color': '#888' });
 
     try {
-      // 자동 압축 (2MB 초과 시 WebP 변환)
-      const compressed = await compressImage(file, 1800, 0.85);
+      // 자동 압축 (3MB 초과 시)
+      const compressed = await compressImage(file, 1800, 0.82);
       const formData = new FormData();
       formData.append('file', compressed);
+      formData.append('folder', 'columns');
       const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
       if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || 'Upload failed');
+        const errData = await res.json().catch(function() { return {}; });
+        throw new Error(errData.error || '서버 업로드 실패 (HTTP ' + res.status + ')');
       }
       const data = await res.json();
       const url = data.url || data.imageUrl;
@@ -623,7 +639,8 @@ function imageHandler() {
 
     } catch(e) {
       quill.deleteText(range.index, loadingMsg.length);
-      showToast('이미지 업로드 실패: ' + (e.message || ''), true);
+      showToast('업로드 실패: ' + (e.message || '알 수 없는 오류'), true);
+      console.error('[업로드 실패]', e);
     }
   };
 }
@@ -996,31 +1013,33 @@ async function deleteColumn(id) {
 async function uploadThumb(input) {
   const file = input.files[0];
   if (!file) return;
-  // 원본 50MB까지 허용 (압축 후 업로드)
-  if (file.size > 50 * 1024 * 1024) {
-    showToast('이미지 용량이 너무 큽니다 (최대 50MB)', true);
+  if (file.size > 25 * 1024 * 1024) {
+    showToast('이미지 용량이 너무 큽니다 (최대 25MB)', true);
     return;
   }
-  showToast('이미지 처리 중...');
+  showToast('이미지 압축 & 업로드 중...');
   try {
-    // 자동 압축 (OG 이미지 1200px, 품질 85%)
-    const compressed = await compressImage(file, 1200, 0.85);
+    const compressed = await compressImage(file, 1200, 0.82);
     const formData = new FormData();
     formData.append('file', compressed);
+    formData.append('folder', 'columns');
     const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
     if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      throw new Error(errData.error || 'Upload failed');
+      const errData = await res.json().catch(function() { return {}; });
+      throw new Error(errData.error || '서버 업로드 실패 (HTTP ' + res.status + ')');
     }
     const data = await res.json();
     const url = data.url || data.imageUrl;
     document.getElementById('colThumb').value = url;
     const box = document.getElementById('thumbBox');
     box.classList.add('has-image');
-    box.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="' + url + '" alt="Ce7cB7fc C378B124C77c"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>';
-    showToast('이미지 업로드 완료');
+    box.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="' + url + '" alt="대표 이미지"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>';
+    showToast('업로드 완료! (' + (compressed.size/1024/1024).toFixed(1) + 'MB)');
     updateSEO();
-  } catch(e) { showToast('이미지 업로드 실패', true); }
+  } catch(e) {
+    showToast('업로드 실패: ' + (e.message || '알 수 없는 오류'), true);
+    console.error('[썸네일 업로드 실패]', e);
+  }
 }
 
 function removeThumb() {
