@@ -1306,6 +1306,47 @@ app.get('/bdx', (c) => c.redirect('/', 301))
 app.get('/bdx/*', (c) => c.redirect('/', 301))
 app.get('/local-seo', (c) => c.redirect('/', 301))
 
+// 4) GSC 5xx 22건 해결 — 구 사이트 URL 패턴 (2026-05-03)
+// /page/sub1~10, /page/main.html → 구 사이트 서브페이지
+app.get('/page/sub1', (c) => c.redirect('/', 301))
+app.get('/page/sub2', (c) => c.redirect('/doctors/', 301))
+app.get('/page/sub3', (c) => c.redirect('/treatments/', 301))
+app.get('/page/sub4', (c) => c.redirect('/directions', 301))
+app.get('/page/sub5', (c) => c.redirect('/pricing', 301))
+app.get('/page/sub6', (c) => c.redirect('/cases/gallery', 301))
+app.get('/page/sub7', (c) => c.redirect('/reservation', 301))
+app.get('/page/sub8', (c) => c.redirect('/faq', 301))
+app.get('/page/sub10', (c) => c.redirect('/', 301))
+app.get('/page/main.html', (c) => c.redirect('/', 301))
+app.get('/page/*', (c) => c.redirect('/', 301))
+app.get('/main.html', (c) => c.redirect('/', 301))
+app.get('/main', (c) => c.redirect('/', 301))
+// /bbs/* → 구 게시판 URL
+app.get('/bbs/case', (c) => c.redirect('/cases/gallery', 301))
+app.get('/bbs/notice', (c) => c.redirect('/notice/', 301))
+app.get('/bbs/*', (c) => c.redirect('/', 301))
+// /en/* → 영문 URL 잔재
+app.get('/en/area/*', (c) => c.redirect('/area/cheonan', 301))
+app.get('/en/*', (c) => c.redirect('/', 301))
+// 쓰레기 URL → 410 Gone (구글에 "영구 삭제됨" 알림)
+app.get('/$', (c) => c.text('Gone', 410))
+app.get('/&', (c) => c.text('Gone', 410))
+// API 크롤링 차단 (404 → 명시적 응답)
+app.get('/api/auth/login', (c) => c.json({ error: 'Not a page' }, 404))
+
+// 5) GSC 404 89건 해결 — 존재하지 않는 블로그 글 (2026-05-03)
+app.get('/blog/implant-cost-guide-2026', (c) => c.redirect('/blog/', 301))
+app.get('/blog/implant-process-step-by-step-guide-2026', (c) => c.redirect('/blog/', 301))
+app.get('/blog/implant-post-surgery-care-guide-2026', (c) => c.redirect('/blog/', 301))
+app.get('/blog/molar-implant-procedure-pain-recovery-guide', (c) => c.redirect('/blog/', 301))
+app.get('/blog/scaling-procedure-guide-2026', (c) => c.redirect('/blog/', 301))
+app.get('/blog/wisdom-tooth-extraction-aftercare-guide-2026', (c) => c.redirect('/blog/', 301))
+app.get('/blog/wisdom-tooth-extraction-complete-guide', (c) => c.redirect('/blog/', 301))
+app.get('/blog/laminate-procedure-guide-sejong-2026', (c) => c.redirect('/blog/', 301))
+app.get('/blog/nerve-treatment-process-step-by-step-guide', (c) => c.redirect('/blog/', 301))
+app.get('/blog/transparent-orthodontics-treatment-process-guide', (c) => c.redirect('/blog/', 301))
+// /cdn-cgi/* → Cloudflare 내부 경로 (404 해소 불가, 무시)
+
 // ============================================
 // 치BTI 참여 통계 API
 // ============================================
