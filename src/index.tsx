@@ -2199,7 +2199,7 @@ app.get('/doctors/:slug', async (c) => {
       'choi': { videoId: 'p8TSrC5emyw', name: '서울비디치과 최종훈 원장', description: '서울비디치과 최종훈 원장 소개 영상. 서울대 출신, 보철과·임플란트·크라운 전문.' },
       'kim': { videoId: 'ER7Q9T24Z3w', name: '서울비디치과 김민수 원장', description: '서울비디치과 김민수 대표원장 소개 영상. 서울대 출신, 통합치의학과 전문의.' },
       'kim-mj': { videoId: 'YAsUupKO-6M', name: '서울비디치과 김민진 원장', description: '서울비디치과 김민진 원장 소개 영상. 서울대 출신, 소아치과 전문의.' },
-      'moon': { videoId: 'JV7JDndC3ug', name: '서울비디치과 문석준 원장', description: '서울비디치과 문석준 대표원장 소개 영상. 서울대 출신 통합치의학과 전문의, 페이션트 퍼널 창립자.' },
+      'moon': { videoId: 'JV7JDndC3ug', name: '서울비디치과 문석준 원장', description: '서울비디치과 문석준 대표원장 소개 영상. 서울대 출신, 페이션트 퍼널 창립자.' },
       'hyun': { videoId: '_4oIPlOMTEU', name: '서울비디치과 현정민 원장', description: '서울비디치과 현정민 원장 소개 영상. 서울대 출신, 보존과·근관치료 전문.' },
       'jo': { videoId: '4IZ4vAcE0QM', name: '서울비디치과 조설아 원장', description: '서울비디치과 조설아 원장 소개 영상. 서울대 출신, 교정과 전문의.' },
       'kang': { videoId: 'Ce-40X4uxjc', name: '서울비디치과 강경민 원장', description: '서울비디치과 강경민 원장 소개 영상. 서울대 출신, 보철과 전문.' },
@@ -2349,7 +2349,7 @@ app.get('/doctors/:slug', async (c) => {
 
     // ===== 다른 의료진 보기 섹션 동적 교체 (가짜 카드 제거) =====
     const DOCTOR_INFO: Record<string, { name: string; specialty: string }> = {
-      moon: { name: '문석준 원장', specialty: '대표원장 · 통합치의학과 전문의' },
+      moon: { name: '문석준 원장', specialty: '대표원장' },
       kim: { name: '김민수 원장', specialty: '대표원장 · 통합치의학과 전문의' },
       hyun: { name: '현정민 원장', specialty: '대표원장 · 통합치의학과 전문의' },
       lee: { name: '이승엽 원장', specialty: '임플란트센터' },
@@ -2423,7 +2423,7 @@ app.get('/column/', async (c) => {
   const filterTitle = doctorFilter && SLUG_TO_DOCTOR[doctorFilter] ? `${SLUG_TO_DOCTOR[doctorFilter]}의 ` : ''
   
   const COL_LIST_DOCTOR_INFO: Record<string, { specialty: string }> = {
-    moon: { specialty: '대표원장 · 통합치의학과 전문의' },
+    moon: { specialty: '대표원장' },
     kim: { specialty: '대표원장 · 통합치의학과 전문의' },
     hyun: { specialty: '대표원장 · 통합치의학과 전문의' },
     lee: { specialty: '임플란트센터' },
@@ -2628,7 +2628,7 @@ app.get('/column/:id', async (c) => {
 
   // 의사 상세 정보
   const COL_DOCTOR_INFO: Record<string, { specialty: string }> = {
-    moon: { specialty: '대표원장 · 통합치의학과 전문의' },
+    moon: { specialty: '대표원장' },
     kim: { specialty: '대표원장 · 통합치의학과 전문의' },
     hyun: { specialty: '대표원장 · 통합치의학과 전문의' },
     lee: { specialty: '임플란트센터' },
