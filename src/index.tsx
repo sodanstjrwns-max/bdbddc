@@ -1544,6 +1544,62 @@ app.get('/api/health', (c) => {
 // Google Reviews API 제거됨 (의료법 준수 — 사이트 내 환자 후기 직접 게재 불가)
 // 네이버/구글 리뷰 확인은 외부 링크로 대체
 
+// ============================================
+// RSS/Atom 피드 (GEO 체크리스트 항목 4 — 빠른 인덱싱)
+// ============================================
+app.get('/feed.xml', async (c) => {
+  const r2 = c.env.R2
+  const columns: any[] = r2 ? (await getColumns(r2)).filter((col: any) => col.status === 'published') : []
+  columns.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+  const items = columns.slice(0, 20).map((col: any) => {
+    const excerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 300)
+    const slug = DOCTOR_SLUG_MAP[col.doctorName] || ''
+    const date = new Date(col.createdAt || Date.now()).toUTCString()
+    return `    <item>
+      <title><![CDATA[${col.title || ''}]]></title>
+      <link>https://bdbddc.com/column/${col.id}</link>
+      <guid isPermaLink="true">https://bdbddc.com/column/${col.id}</guid>
+      <description><![CDATA[${excerpt}]]></description>
+      <author>${col.doctorName || '서울비디치과'}</author>
+      <category>${col.category || '진료 이야기'}</category>
+      <pubDate>${date}</pubDate>
+    </item>`
+  }).join('\n')
+  
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>서울비디치과 원장 칼럼</title>
+    <link>https://bdbddc.com/column/</link>
+    <description>서울비디치과 원장님들이 전하는 진료 철학과 치과 이야기</description>
+    <language>ko</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <atom:link href="https://bdbddc.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://bdbddc.com/images/og-image-v2.jpg</url>
+      <title>서울비디치과</title>
+      <link>https://bdbddc.com/</link>
+    </image>
+${items}
+  </channel>
+</rss>`
+  c.header('Content-Type', 'application/rss+xml; charset=utf-8')
+  c.header('Cache-Control', 'public, max-age=3600')
+  return c.text(xml)
+})
+
+// security.txt (GEO + Cloudflare 보안 권고)
+app.get('/.well-known/security.txt', (c) => {
+  c.header('Content-Type', 'text/plain; charset=utf-8')
+  return c.text(`Contact: mailto:sodanstjrwns@gmail.com
+Contact: tel:+82-41-415-2892
+Expires: 2027-05-04T00:00:00.000Z
+Preferred-Languages: ko, en
+Canonical: https://bdbddc.com/.well-known/security.txt
+Policy: https://bdbddc.com/privacy
+`)
+})
+
 // 인블로그 RSS 프록시 API (CORS 우회)
 app.get('/api/inblog-rss', async (c) => {
   try {
@@ -2735,8 +2791,11 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
     "@type":"Person",
     "@id":"https://bdbddc.com/#${doctorNameClean}",
     "name":"${col.doctorName || '서울비디치과'}",
-    "jobTitle":"치과의사",
-    "worksFor":{"@type":"Dentist","@id":"https://bdbddc.com/#dentist","name":"서울비디치과"}
+    "jobTitle":"${drInfo.specialty || '치과의사'}",
+    "url":"https://bdbddc.com/doctors/${doctorSlug}",
+    "alumniOf":{"@type":"CollegeOrUniversity","name":"서울대학교 치의학대학원"},
+    "worksFor":{"@type":"Dentist","@id":"https://bdbddc.com/#dentist","name":"서울비디치과","address":{"@type":"PostalAddress","addressLocality":"천안시","addressRegion":"충청남도","addressCountry":"KR"}},
+    "sameAs":["https://bdbddc.com/doctors/${doctorSlug}"]
   },
   "datePublished":"${isoDate}",
   ${isoUpdated !== isoDate ? `"dateModified":"${isoUpdated}",` : ''}
