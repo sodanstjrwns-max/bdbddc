@@ -2639,9 +2639,29 @@ ${TRACKING_HEAD}
 .col-empty{text-align:center;padding:60px 20px;color:#999}
 .col-empty i{font-size:3rem;color:#d4c5b3;margin-bottom:16px;display:block}
 
+/* === Medium English Articles Section === */
+.med-en-section{margin-top:48px;padding-top:40px;border-top:2px solid #f0ebe4}
+.med-en-header{text-align:center;margin-bottom:28px}
+.med-en-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#000;background:#f5f5f5;padding:5px 14px;border-radius:50px;margin-bottom:12px}
+.med-en-header h2{font-size:1.5rem;font-weight:800;color:#333;margin:0 0 8px}
+.med-en-header p{font-size:.88rem;color:#888;margin:0}
+.med-en-grid{display:grid;gap:20px;margin-bottom:20px}
+.med-en-card{display:flex;gap:20px;align-items:flex-start;background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:24px;text-decoration:none;color:inherit;transition:all .28s ease}
+.med-en-card:hover{border-color:#333;box-shadow:0 8px 30px rgba(0,0,0,.08);transform:translateY(-3px)}
+.med-en-icon{flex-shrink:0;width:52px;height:52px;border-radius:14px;background:#1a1a1a;display:flex;align-items:center;justify-content:center}
+.med-en-icon i{font-size:1.3rem;color:#fff}
+.med-en-body h3{font-size:1rem;font-weight:700;color:#222;margin:0 0 8px;line-height:1.45}
+.med-en-body p{font-size:.84rem;color:#666;line-height:1.6;margin:0 0 12px}
+.med-en-meta{font-size:.76rem;font-weight:600;color:#1a1a1a;display:inline-flex;align-items:center;gap:6px}
+.med-en-meta i.fa-external-link-alt{font-size:.65rem;opacity:.6}
+.med-en-more{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;background:#1a1a1a;color:#fff;border-radius:50px;text-decoration:none;font-size:.88rem;font-weight:600;transition:all .2s;width:fit-content;margin:0 auto}
+.med-en-more:hover{background:#333;transform:translateY(-2px)}
+
 @media(max-width:700px){
   .col-list-grid{grid-template-columns:1fr}
   .col-hero h1{font-size:1.4rem}
+  .med-en-card{flex-direction:column;gap:14px}
+  .med-en-header h2{font-size:1.2rem}
 }
 @media(min-width:701px) and (max-width:900px){
   .col-list-grid{grid-template-columns:repeat(2,1fr);gap:18px}
@@ -2687,6 +2707,29 @@ ${filterBtns}
 <div class="col-list-grid">
 ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 작성된 컬럼이 없습니다</h3><p>곧 원장님들의 이야기가 게재됩니다</p></div>'}
 </div>
+
+<!-- English Clinical Articles on Medium -->
+<section class="med-en-section">
+<div class="med-en-header">
+<span class="med-en-badge"><i class="fab fa-medium"></i> English Articles</span>
+<h2>Clinical Insights on Medium</h2>
+<p>Evidence-based dental articles by Dr. Moon — 문석준 대표원장의 영어 임상 칼럼</p>
+</div>
+<div class="med-en-grid">
+<a href="https://medium.com/@sodanstjrwns/why-i-stopped-recommending-immediate-load-implants-for-80-of-patients-ba30ac6c5f83" target="_blank" rel="noopener" class="med-en-card">
+<div class="med-en-icon"><i class="fas fa-teeth"></i></div>
+<div class="med-en-body">
+<h3>Why I Stopped Recommending Immediate-Load Implants for 80% of Patients</h3>
+<p>Evidence from 2,000+ cases: patient selection criteria, failure risk factors, and when conventional loading is the safer choice.</p>
+<span class="med-en-meta"><i class="fab fa-medium"></i> Read on Medium <i class="fas fa-external-link-alt"></i></span>
+</div>
+</a>
+</div>
+<a href="https://medium.com/@sodanstjrwns" target="_blank" rel="noopener" class="med-en-more">
+<i class="fab fa-medium"></i> View all English articles on Medium <i class="fas fa-arrow-right"></i>
+</a>
+</section>
+
 </div>
 </main>
 ${ssrMobileNav()}
@@ -3604,6 +3647,7 @@ ${nextItem ? `<a href="/encyclopedia/${encodeURIComponent(nextItem.term)}" style
 <footer class="footer" role="contentinfo">
 <div class="container">
 <div class="footer-legal">
+<p style="margin-bottom:8px;"><a href="https://medium.com/@sodanstjrwns" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.8rem;"><i class="fab fa-medium" style="margin-right:4px;"></i>English Clinical Articles by Dr. Moon on Medium</a></p>
 <p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수합니다.</p>
 <p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
 </div>
@@ -3816,6 +3860,7 @@ ${otherCats}
 <footer class="footer" role="contentinfo">
 <div class="container">
 <div class="footer-legal">
+<p style="margin-bottom:8px;"><a href="https://medium.com/@sodanstjrwns" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.8rem;"><i class="fab fa-medium" style="margin-right:4px;"></i>English Clinical Articles by Dr. Moon on Medium</a></p>
 <p class="legal-notice">*본 홈페이지의 모든 의료 정보는 의료법 및 보건복지부 의료광고 가이드라인을 준수합니다.</p>
 <p class="copyright">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
 </div>
