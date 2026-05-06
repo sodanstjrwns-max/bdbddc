@@ -2716,11 +2716,43 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 �
 <p>Evidence-based dental articles by Dr. Moon — 문석준 대표원장의 영어 임상 칼럼</p>
 </div>
 <div class="med-en-grid">
+<a href="https://medium.com/@sodanstjrwns/bone-grafting-before-implants-when-a-sinus-lift-is-overkill-b9557f1c6cac" target="_blank" rel="noopener" class="med-en-card">
+<div class="med-en-icon"><i class="fas fa-bone"></i></div>
+<div class="med-en-body">
+<h3>Bone Grafting Before Implants: When a Sinus Lift Is Overkill</h3>
+<p>A 56-year-old patient was told she needed bilateral sinus lifts. Two short implants later — no grafting, no membrane, three-year follow-up stable.</p>
+<span class="med-en-meta"><i class="fab fa-medium"></i> Read on Medium <i class="fas fa-external-link-alt"></i></span>
+</div>
+</a>
 <a href="https://medium.com/@sodanstjrwns/why-i-stopped-recommending-immediate-load-implants-for-80-of-patients-ba30ac6c5f83" target="_blank" rel="noopener" class="med-en-card">
-<div class="med-en-icon"><i class="fas fa-teeth"></i></div>
+<div class="med-en-icon"><i class="fas fa-bolt"></i></div>
 <div class="med-en-body">
 <h3>Why I Stopped Recommending Immediate-Load Implants for 80% of Patients</h3>
-<p>Evidence from 2,000+ cases: patient selection criteria, failure risk factors, and when conventional loading is the safer choice.</p>
+<p>Evidence from 2,000+ cases: patient selection criteria, the 6 disqualifying factors, and when conventional loading is the safer choice.</p>
+<span class="med-en-meta"><i class="fab fa-medium"></i> Read on Medium <i class="fas fa-external-link-alt"></i></span>
+</div>
+</a>
+<a href="https://medium.com/@sodanstjrwns/implant-or-bridge-for-a-missing-molar-in-your-40s-the-honest-decision-tree-32b75c8af66f" target="_blank" rel="noopener" class="med-en-card">
+<div class="med-en-icon"><i class="fas fa-project-diagram"></i></div>
+<div class="med-en-body">
+<h3>Implant or Bridge for a Missing Molar in Your 40s? The Honest Decision Tree</h3>
+<p>The 9-question decision framework: why the condition of neighboring teeth matters more than which option is "newer."</p>
+<span class="med-en-meta"><i class="fab fa-medium"></i> Read on Medium <i class="fas fa-external-link-alt"></i></span>
+</div>
+</a>
+<a href="https://medium.com/@sodanstjrwns/why-3-months-for-osseointegration-is-mostly-a-myth-a-clinicians-honest-take-432b2886da5d" target="_blank" rel="noopener" class="med-en-card">
+<div class="med-en-icon"><i class="fas fa-clock"></i></div>
+<div class="med-en-body">
+<h3>Why "3 Months for Osseointegration" Is Mostly a Myth — A Clinician's Honest Take</h3>
+<p>The healing timeline most clinics quote is outdated. Here's what the current evidence actually says about when implants are ready.</p>
+<span class="med-en-meta"><i class="fab fa-medium"></i> Read on Medium <i class="fas fa-external-link-alt"></i></span>
+</div>
+</a>
+<a href="https://medium.com/@sodanstjrwns/why-most-failed-dental-implants-didnt-actually-fail-and-what-really-went-wrong-89b9b5eba773" target="_blank" rel="noopener" class="med-en-card">
+<div class="med-en-icon"><i class="fas fa-search"></i></div>
+<div class="med-en-body">
+<h3>Why Most "Failed" Dental Implants Didn't Actually Fail — And What Really Went Wrong</h3>
+<p>Distinguishing true implant failure from peri-implantitis, prosthetic complications, and diagnostic misunderstanding.</p>
 <span class="med-en-meta"><i class="fab fa-medium"></i> Read on Medium <i class="fas fa-external-link-alt"></i></span>
 </div>
 </a>
