@@ -478,6 +478,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
     .map-container iframe { width: 100%; height: 300px; border: 0; }
 
+    /* ── Travel / Gourmet Cards ── */
+    .travel-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px;
+    }
+    .travel-card {
+      background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.12);
+      border-radius: 16px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .travel-card:hover { transform: translateY(-4px); border-color: rgba(201,169,110,0.35); }
+    .travel-card-img {
+      width: 100%; height: 220px; object-fit: cover; display: block;
+      border-bottom: 1px solid rgba(201,169,110,0.1);
+    }
+    .travel-card-body { padding: 20px 22px 24px; }
+    .travel-card-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;
+      font-weight: 700; letter-spacing: 0.03em; margin-bottom: 10px;
+    }
+    .travel-card-badge.food { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+    .travel-card-badge.spot { background: rgba(78,205,196,0.15); color: #4ecdc4; }
+    .travel-card-badge.souvenir { background: rgba(255,190,11,0.15); color: #ffbe0b; }
+    .travel-card-body h4 {
+      font-size: 1.05rem; font-weight: 800; color: var(--gn-white); margin-bottom: 6px;
+    }
+    .travel-card-body .travel-subtitle {
+      font-size: 0.82rem; color: var(--gn-gold); font-weight: 600; margin-bottom: 10px;
+    }
+    .travel-card-body p {
+      font-size: 0.82rem; color: var(--gn-text-muted); line-height: 1.7;
+    }
+    .travel-card-meta {
+      display: flex; align-items: center; gap: 14px; margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid rgba(201,169,110,0.08); font-size: 0.78rem; color: var(--gn-text-muted);
+    }
+    .travel-card-meta i { color: var(--gn-gold); margin-right: 4px; }
+    .travel-intro {
+      text-align: center; max-width: 640px; margin: 0 auto 8px; font-size: 0.92rem;
+      color: var(--gn-text-muted); line-height: 1.8;
+    }
+    @media (max-width: 700px) {
+      .travel-grid { grid-template-columns: 1fr; gap: 18px; }
+      .travel-card-img { height: 200px; }
+    }
+
     /* ── FAQ ── */
     .faq-item { border-bottom: 1px solid rgba(201,169,110,0.12); }
     .faq-q {
@@ -1178,7 +1222,87 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
 </section>
 
 <!-- ══════════════════════════════════════════ -->
-<!-- SECTION 8: FAQ -->
+<!-- SECTION 8: 天安美食＆旅游 -->
+<!-- ══════════════════════════════════════════ -->
+<section class="gn-section" id="cheonan-travel">
+  <div class="container">
+    <div class="gn-section-header">
+      <span class="section-label"><i class="fas fa-utensils"></i> 美食 & 旅游</span>
+      <h2>天安<em>美食与旅游</em></h2>
+      <p>格洛内特施术之余，尽享韩国天安特色景点</p>
+    </div>
+    <p class="travel-intro">
+      来韩国牙科做贴面的同时，别错过天安这座城市的顶级美食和历史名胜。<br>
+      从首尔BD牙科出发，车程10至30分钟内，即可到达连韩国人都慕名而来的名店。
+    </p>
+    <div class="travel-grid">
+
+      <!-- Card 1: 뚜쥬르 베이커리 -->
+      <div class="travel-card">
+        <img src="/images/cheonan-travel/toujours-bakery.webp" alt="天安Toujours面包店外观 - 韩国顶级烘焙名店" class="travel-card-img" width="559" height="315" loading="lazy">
+        <div class="travel-card-body">
+          <span class="travel-card-badge food">🍞 美食</span>
+          <h4>Toujours 面包店</h4>
+          <div class="travel-subtitle">韩国No.1面包店 — 全国面包爱好者朝圣地</div>
+          <p>来自韩国各地的面包爱好者都会专程到访的天安顶级烘焙名店。法式正宗可颂和法棍的品质甚至超越首尔名店。格洛内特贴面施术后，柔软的面包当天即可享用。</p>
+          <div class="travel-card-meta">
+            <span><i class="fas fa-map-marker-alt"></i> 天安市内（距医院车程15分钟）</span>
+            <span><i class="fas fa-star"></i> 韩国面包店TOP5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: 병천순대 -->
+      <div class="travel-card">
+        <img src="/images/cheonan-travel/byeongcheon-sundae.webp" alt="炳川米肠汤饭 - 韩国第一国民汤饭" class="travel-card-img" width="1024" height="768" loading="lazy">
+        <div class="travel-card-body">
+          <span class="travel-card-badge food">🍲 美食</span>
+          <h4>炳川米肠汤饭</h4>
+          <div class="travel-subtitle">韩国No.1 — 百年传统米肠国民汤饭</div>
+          <p>天安炳川是韩国米肠（韩式香肠）的发源地。浓郁的猪骨汤配上手工米肠，被韩国人公认为"全国最佳"的一碗汤饭。来韩国牙科看诊之余，一定要品尝这道正宗美味。</p>
+          <div class="travel-card-meta">
+            <span><i class="fas fa-map-marker-alt"></i> 炳川面（距医院车程20分钟）</span>
+            <span><i class="fas fa-won-sign"></i> 约8,000韩元（≈40元人民币）</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: 호두과자 -->
+      <div class="travel-card">
+        <img src="/images/cheonan-travel/walnut-cake.webp" alt="天安核桃饼 - 韩国传统小吃" class="travel-card-img" width="800" height="533" loading="lazy">
+        <div class="travel-card-body">
+          <span class="travel-card-badge souvenir">🎁 伴手礼</span>
+          <h4>天安核桃饼（호두과자）</h4>
+          <div class="travel-subtitle">天安特产 — 韩国三大传统小吃之首</div>
+          <p>起源于天安站前、拥有70多年历史的韩国传统糕点。香脆核桃壳里满满的红豆馅，一口一个刚刚好。是韩国旅行必买的经典伴手礼，来天安一定不能错过。</p>
+          <div class="travel-card-meta">
+            <span><i class="fas fa-map-marker-alt"></i> 天安站周边（距医院车程10分钟）</span>
+            <span><i class="fas fa-gift"></i> 最佳伴手礼推荐</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: 독립기념관 -->
+      <div class="travel-card">
+        <img src="/images/cheonan-travel/independence-hall.webp" alt="天安独立纪念馆 - 韩国历史景点" class="travel-card-img" width="940" height="705" loading="lazy">
+        <div class="travel-card-body">
+          <span class="travel-card-badge spot">🏛️ 景点</span>
+          <h4>独立纪念馆</h4>
+          <div class="travel-subtitle">韩国最大历史纪念馆</div>
+          <p>坐落于广阔园区内的韩国最大规模历史纪念馆，设有7座展馆。四季景色各异的庭园散步本身就值得一游，尤其秋季红叶令人叹为观止。韩国牙科格洛内特施术次日，推荐来此悠闲散步。</p>
+          <div class="travel-card-meta">
+            <span><i class="fas fa-map-marker-alt"></i> 木川（距医院车程25分钟）</span>
+            <span><i class="fas fa-ticket-alt"></i> 免费入场</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 9: FAQ -->
 <!-- ══════════════════════════════════════════ -->
 <section class="gn-section alt-bg" id="faq-section">
   <div class="container">

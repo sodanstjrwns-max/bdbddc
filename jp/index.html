@@ -469,6 +469,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .route-card { padding: 20px 16px; }
     }
 
+    /* ── Travel / Gourmet Cards ── */
+    .travel-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px;
+    }
+    .travel-card {
+      background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.12);
+      border-radius: 16px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .travel-card:hover { transform: translateY(-4px); border-color: rgba(201,169,110,0.35); }
+    .travel-card-img {
+      width: 100%; height: 220px; object-fit: cover; display: block;
+      border-bottom: 1px solid rgba(201,169,110,0.1);
+    }
+    .travel-card-body { padding: 20px 22px 24px; }
+    .travel-card-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;
+      font-weight: 700; letter-spacing: 0.03em; margin-bottom: 10px;
+    }
+    .travel-card-badge.food { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+    .travel-card-badge.spot { background: rgba(78,205,196,0.15); color: #4ecdc4; }
+    .travel-card-badge.souvenir { background: rgba(255,190,11,0.15); color: #ffbe0b; }
+    .travel-card-body h4 {
+      font-size: 1.05rem; font-weight: 800; color: var(--gn-white); margin-bottom: 6px;
+    }
+    .travel-card-body .travel-subtitle {
+      font-size: 0.82rem; color: var(--gn-gold); font-weight: 600; margin-bottom: 10px;
+    }
+    .travel-card-body p {
+      font-size: 0.82rem; color: var(--gn-text-muted); line-height: 1.7;
+    }
+    .travel-card-meta {
+      display: flex; align-items: center; gap: 14px; margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid rgba(201,169,110,0.08); font-size: 0.78rem; color: var(--gn-text-muted);
+    }
+    .travel-card-meta i { color: var(--gn-gold); margin-right: 4px; }
+    .travel-intro {
+      text-align: center; max-width: 640px; margin: 0 auto 8px; font-size: 0.92rem;
+      color: var(--gn-text-muted); line-height: 1.8;
+    }
+    @media (max-width: 700px) {
+      .travel-grid { grid-template-columns: 1fr; gap: 18px; }
+      .travel-card-img { height: 200px; }
+    }
+
     /* ── WeChat / LINE Placeholder ── */
     .qr-placeholder {
       width: 200px; height: 200px; border-radius: 16px; margin: 0 auto 16px;
@@ -1151,7 +1195,87 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
 </section>
 
 <!-- ══════════════════════════════════════════ -->
-<!-- SECTION 7: FAQ -->
+<!-- SECTION 7: 天安グルメ＆観光 -->
+<!-- ══════════════════════════════════════════ -->
+<section class="gn-section" id="cheonan-travel">
+  <div class="container">
+    <div class="gn-section-header">
+      <span class="section-label"><i class="fas fa-utensils"></i> TRAVEL & GOURMET</span>
+      <h2>天安で楽しむ<em>グルメ＆観光</em></h2>
+      <p>グロウネイト施術と一緒に楽しむ韓国・天安の名物スポット</p>
+    </div>
+    <p class="travel-intro">
+      韓国歯科での施術のために天安を訪れるなら、韓国トップクラスのグルメと歴史スポットも一緒にお楽しみください。<br>
+      ソウルBD歯科から車で10〜30分圏内に、韓国人も全国から訪れる名店が揃っています。
+    </p>
+    <div class="travel-grid">
+
+      <!-- Card 1: 뚜쥬르 베이커리 -->
+      <div class="travel-card">
+        <img src="/images/cheonan-travel/toujours-bakery.webp" alt="天安トゥジュールベーカリー外観 - 韓国トップクラスのパン屋" class="travel-card-img" width="559" height="315" loading="lazy">
+        <div class="travel-card-body">
+          <span class="travel-card-badge food">🍞 グルメ</span>
+          <h4>トゥジュール ベーカリー</h4>
+          <div class="travel-subtitle">Toujours — 韓国No.1パン屋</div>
+          <p>韓国全土からパン好きが集まる、天安が誇るトップティアベーカリー。フランス仕込みの本格的なクロワッサンやバゲットは、ソウルの有名店を凌ぐクオリティ。グロウネイトの施術後、柔らかいパンなら当日からお楽しみいただけます。</p>
+          <div class="travel-card-meta">
+            <span><i class="fas fa-map-marker-alt"></i> 天安市内（病院から車15分）</span>
+            <span><i class="fas fa-star"></i> 韓国パン屋ランキングTOP5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: 병천순대 -->
+      <div class="travel-card">
+        <img src="/images/cheonan-travel/byeongcheon-sundae.webp" alt="病川スンデクッパ - 韓国No.1国民スープ" class="travel-card-img" width="1024" height="768" loading="lazy">
+        <div class="travel-card-body">
+          <span class="travel-card-badge food">🍲 グルメ</span>
+          <h4>病川（ビョンチョン）スンデクッパ</h4>
+          <div class="travel-subtitle">韓国No.1 — 100年の伝統スンデ国民スープ</div>
+          <p>天安・病川は韓国スンデ（韓国式ソーセージ）発祥の地。濃厚な豚骨スープに手作りスンデがたっぷり入ったスンデクッパは、韓国人が「全国最高」と認める一杯。韓国歯科への訪問と合わせて、本場の味をぜひ体験してください。</p>
+          <div class="travel-card-meta">
+            <span><i class="fas fa-map-marker-alt"></i> 病川面（病院から車20分）</span>
+            <span><i class="fas fa-won-sign"></i> 約8,000ウォン（≒800円）</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: 호두과자 -->
+      <div class="travel-card">
+        <img src="/images/cheonan-travel/walnut-cake.webp" alt="天安ホドゥグァジャ（くるみ饅頭）- 韓国伝統おやつ" class="travel-card-img" width="800" height="533" loading="lazy">
+        <div class="travel-card-body">
+          <span class="travel-card-badge souvenir">🎁 お土産</span>
+          <h4>天安ホドゥグァジャ（くるみ饅頭）</h4>
+          <div class="travel-subtitle">天安名物 — 韓国3大おやつの筆頭</div>
+          <p>天安駅前から始まった70年以上の歴史を持つ韓国伝統菓子。香ばしいクルミの中にあんこがぎっしり。一口サイズで食べやすく、韓国旅行の定番お土産です。天安に来たら絶対に外せません。</p>
+          <div class="travel-card-meta">
+            <span><i class="fas fa-map-marker-alt"></i> 天安駅周辺（病院から車10分）</span>
+            <span><i class="fas fa-gift"></i> 日本へのお土産に最適</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: 독립기념관 -->
+      <div class="travel-card">
+        <img src="/images/cheonan-travel/independence-hall.webp" alt="天安独立記念館 - 韓国歴史スポット" class="travel-card-img" width="940" height="705" loading="lazy">
+        <div class="travel-card-body">
+          <span class="travel-card-badge spot">🏛️ 観光</span>
+          <h4>独立記念館</h4>
+          <div class="travel-subtitle">韓国最大の歴史記念館</div>
+          <p>広大な敷地に7つの展示館を構える韓国最大級の歴史記念館。四季折々の美しい庭園散策だけでも価値があり、特に秋の紅葉シーズンは圧巻。韓国歯科でのグロウネイト施術翌日の散策先として最適です。</p>
+          <div class="travel-card-meta">
+            <span><i class="fas fa-map-marker-alt"></i> 木川（病院から車25分）</span>
+            <span><i class="fas fa-ticket-alt"></i> 入場無料</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 8: FAQ -->
 <!-- ══════════════════════════════════════════ -->
 <section class="gn-section" id="faq-section">
   <div class="container">
