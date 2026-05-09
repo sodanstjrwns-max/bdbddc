@@ -241,6 +241,7 @@ app.use('/admin/*', async (c, next) => {
 app.get('/admin', serveStatic({ path: './admin/index.html' }))
 app.get('/admin/', serveStatic({ path: './admin/index.html' }))
 app.get('/admin/careers', serveStatic({ path: './admin/careers.html' }))
+app.get('/admin/intl-inquiries', serveStatic({ path: './admin/intl-inquiries.html' }))
 app.use('/admin/*', serveStatic())
 
 // CORS for API (must be before API routes)
@@ -1117,6 +1118,155 @@ app.delete('/api/admin/reservations/:id', async (c) => {
     return c.json({ error: '예약 삭제 실패' }, 500)
   }
 })
+
+// ===== 해외 환자 예약 API (글로우네이트 /jp, /cn 전용) =====
+app.post('/api/reservations', async (c) => {
+  try {
+    let body: any
+    try { body = await c.req.json() } catch { return c.json({ error: 'Invalid request' }, 400) }
+    const { name, contact, visit_date, teeth_count, message, language, source_page } = body
+    if (!name || !contact) return c.json({ error: 'Name and contact are required' }, 400)
+
+    const langMap: Record<string,string> = { ja: '日本語', zh: '中文', en: 'English', ko: '한국어' }
+    const reservation = {
+      id: `intl-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      name: String(name).trim(),
+      contact: String(contact).trim(),
+      visitDate: visit_date ? String(visit_date) : '',
+      teethCount: teeth_count ? String(teeth_count) : '',
+      message: message ? String(message).trim() : '',
+      language: langMap[language] || language || 'Unknown',
+      sourcePage: source_page || '',
+      createdAt: new Date().toISOString(),
+      status: 'pending'
+    }
+
+    // R2에 저장
+    try {
+      const r2 = (c.env as any).R2
+      if (r2) {
+        await r2.put(`data/intl-reservations/${reservation.id}.json`, JSON.stringify(reservation, null, 2), {
+          httpMetadata: { contentType: 'application/json' }
+        })
+      }
+    } catch (r2Err) { console.error('R2 intl-reservation save error:', r2Err) }
+
+    // 이메일 알림 (Resend)
+    try {
+      const resendKey = (c.env as any).RESEND_API_KEY
+      const notifyEmail = (c.env as any).NOTIFICATION_EMAIL || 'sodanstjrwns@gmail.com'
+      if (resendKey) {
+        const kstTime = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+        const emailHtml = `
+<div style="font-family:sans-serif;max-width:440px;margin:0 auto;background:#fff;">
+  <div style="background:#1a1a2e;padding:20px 24px;text-align:center;">
+    <div style="color:#c9a96e;font-size:20px;font-weight:900;letter-spacing:2px;">GLOWNATE</div>
+    <div style="color:rgba(255,255,255,0.7);font-size:11px;margin-top:4px;">🌏 해외 환자 문의 — ${reservation.language}</div>
+  </div>
+  <div style="padding:24px;">
+    <div style="background:#FFF8F0;border:2px solid #c9a96e;border-radius:12px;padding:20px;">
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="display:inline-block;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#c9a96e,#e8d5a8);line-height:48px;color:#1a1a2e;font-size:20px;font-weight:900;">${reservation.name.charAt(0)}</div>
+        <div style="font-size:18px;font-weight:800;color:#1a1a2e;margin-top:8px;">${reservation.name}</div>
+        <div style="font-size:13px;color:#c9a96e;font-weight:600;">글로우네이트 해외 문의 · ${reservation.language}</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">
+        <tr><td style="padding:8px;border-bottom:1px solid #f0ebe4;color:#999;font-size:11px;">📱 연락처</td></tr>
+        <tr><td style="padding:8px;border-bottom:1px solid #f0ebe4;font-weight:700;color:#1a1a2e;">${reservation.contact}</td></tr>
+        ${reservation.visitDate ? `<tr><td style="padding:8px;border-bottom:1px solid #f0ebe4;color:#999;font-size:11px;">📅 방문 예정일</td></tr><tr><td style="padding:8px;border-bottom:1px solid #f0ebe4;font-weight:700;">${reservation.visitDate}</td></tr>` : ''}
+        ${reservation.teethCount ? `<tr><td style="padding:8px;border-bottom:1px solid #f0ebe4;color:#999;font-size:11px;">🦷 시술 본수</td></tr><tr><td style="padding:8px;border-bottom:1px solid #f0ebe4;font-weight:700;">${reservation.teethCount}</td></tr>` : ''}
+        ${reservation.message ? `<tr><td style="padding:8px;border-bottom:1px solid #f0ebe4;color:#999;font-size:11px;">💬 문의 내용</td></tr><tr><td style="padding:8px;border-bottom:1px solid #f0ebe4;">${reservation.message}</td></tr>` : ''}
+        <tr><td style="padding:8px;font-size:11px;color:#999;">접수: ${kstTime} | 출처: ${reservation.sourcePage}</td></tr>
+      </table>
+    </div>
+    <div style="text-align:center;margin-top:16px;">
+      <a href="https://bdbddc.com/admin/intl-inquiries" style="display:inline-block;background:#1a1a2e;color:#c9a96e;padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:700;font-size:13px;">관리자에서 확인하기 →</a>
+    </div>
+  </div>
+</div>`
+        const sendEmail = fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from: '글로우네이트 알림 <noreply@patientview.kr>',
+            to: [notifyEmail],
+            subject: `[🌏 글로우네이트 해외문의] ${reservation.name} · ${reservation.language} · ${reservation.contact}`,
+            html: emailHtml
+          })
+        }).then(res => { if (!res.ok) res.text().then(t => console.error('Resend intl error:', t)) })
+          .catch(err => console.error('Resend intl fetch error:', err))
+        if (c.executionCtx?.waitUntil) c.executionCtx.waitUntil(sendEmail)
+      }
+    } catch (emailErr) { console.error('Intl email error:', emailErr) }
+
+    return c.json({ success: true, id: reservation.id })
+  } catch (e: any) {
+    console.error('Intl reservation error:', e?.message || e)
+    return c.json({ error: 'Server error. Please try again.' }, 500)
+  }
+})
+
+// ===== 해외 환자 예약 관리자 API =====
+app.get('/api/admin/intl-reservations', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) return c.json({ error: '인증 필요' }, 401)
+  try {
+    const r2 = (c.env as any).R2
+    if (!r2) return c.json({ error: 'R2 없음' }, 500)
+    const listed = await r2.list({ prefix: 'data/intl-reservations/' })
+    const items: any[] = []
+    for (const obj of listed.objects) {
+      if (obj.key.endsWith('.json')) {
+        try {
+          const item = await r2.get(obj.key)
+          if (item) items.push(JSON.parse(await item.text()))
+        } catch (_) {}
+      }
+    }
+    items.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    return c.json(items, 200, { 'Cache-Control': 'no-cache' })
+  } catch (e: any) { return c.json({ error: '조회 실패' }, 500) }
+})
+
+app.put('/api/admin/intl-reservations/:id', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) return c.json({ error: '인증 필요' }, 401)
+  try {
+    const r2 = (c.env as any).R2
+    if (!r2) return c.json({ error: 'R2 없음' }, 500)
+    const id = c.req.param('id')
+    const body = await c.req.json()
+    const key = `data/intl-reservations/${id}.json`
+    const existing = await r2.get(key)
+    if (!existing) return c.json({ error: '없음' }, 404)
+    const data = JSON.parse(await existing.text())
+    if (body.status) data.status = body.status
+    if (body.adminMemo !== undefined) data.adminMemo = body.adminMemo
+    data.updatedAt = new Date().toISOString()
+    await r2.put(key, JSON.stringify(data, null, 2), { httpMetadata: { contentType: 'application/json' } })
+    return c.json({ success: true, data })
+  } catch (e: any) { return c.json({ error: '업데이트 실패' }, 500) }
+})
+
+app.delete('/api/admin/intl-reservations/:id', async (c) => {
+  const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) return c.json({ error: '인증 필요' }, 401)
+  try {
+    const r2 = (c.env as any).R2
+    if (!r2) return c.json({ error: 'R2 없음' }, 500)
+    await r2.delete(`data/intl-reservations/${c.req.param('id')}.json`)
+    return c.json({ success: true })
+  } catch (e: any) { return c.json({ error: '삭제 실패' }, 500) }
+})
+
+// 301 Redirect: International landing pages (alternate URLs)
+app.get('/japan', (c) => c.redirect('/jp/', 301))
+app.get('/japan/', (c) => c.redirect('/jp/', 301))
+app.get('/china', (c) => c.redirect('/cn/', 301))
+app.get('/china/', (c) => c.redirect('/cn/', 301))
 
 // 301 Redirect: 기존 /column/columns.html 만 리다이렉트 (SEO migration)
 app.get('/column/columns.html', (c) => c.redirect('/column/', 301))

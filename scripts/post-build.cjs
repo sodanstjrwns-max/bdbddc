@@ -19,7 +19,8 @@ staticFiles.forEach(f => {
 // 2. Copy directories to dist
 const dirs = [
   'css','js','images','treatments','doctors','column','blog',
-  'video','cases','notice','auth','admin','area','faq','encyclopedia'
+  'video','cases','notice','auth','admin','area','faq','encyclopedia',
+  'jp','cn'
 ];
 dirs.forEach(d => {
   try { cp.execSync('mkdir -p dist/' + d + ' && cp -rT ' + d + ' dist/' + d); } catch(e) {}
