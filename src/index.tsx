@@ -1327,6 +1327,8 @@ app.get('/bbs/notice', (c) => c.redirect('/notice/', 301))
 app.get('/bbs/*', (c) => c.redirect('/', 301))
 // /cheonan → /area/cheonan 301 리다이렉트 (천안치과 SEO 키워드 URL)
 app.get('/cheonan', (c) => c.redirect('/area/cheonan', 301))
+// /asan → /area/asan 301 리다이렉트 (아산치과 SEO 키워드 URL)
+app.get('/asan', (c) => c.redirect('/area/asan', 301))
 // /en/* → 영문 URL 잔재
 app.get('/en/area/*', (c) => c.redirect('/area/cheonan', 301))
 app.get('/en/*', (c) => c.redirect('/', 301))
