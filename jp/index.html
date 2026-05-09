@@ -513,6 +513,107 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .travel-card-img { height: 200px; }
     }
 
+    /* ── Package Section ── */
+    .pkg-hero-msg {
+      text-align: center; max-width: 620px; margin: -8px auto 36px;
+      font-size: 1.05rem; font-weight: 700; color: var(--gn-gold); line-height: 1.8;
+      padding: 20px 28px; background: rgba(201,169,110,0.06);
+      border: 1px solid rgba(201,169,110,0.18); border-radius: 14px;
+    }
+    .pkg-includes {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px;
+    }
+    .pkg-item {
+      background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.12);
+      border-radius: 14px; padding: 22px 18px; text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .pkg-item:hover { transform: translateY(-3px); border-color: rgba(201,169,110,0.35); }
+    .pkg-item .pkg-icon {
+      width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 12px;
+      background: rgba(201,169,110,0.12); display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .pkg-item h4 { font-size: 0.92rem; font-weight: 800; color: var(--gn-white); margin-bottom: 6px; }
+    .pkg-item p { font-size: 0.78rem; color: var(--gn-text-muted); line-height: 1.6; }
+
+    /* Timeline */
+    .pkg-timeline { position: relative; max-width: 680px; margin: 0 auto; }
+    .pkg-timeline::before {
+      content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, var(--gn-gold), rgba(201,169,110,0.15));
+    }
+    .pkg-day-label {
+      position: relative; padding-left: 62px; margin-bottom: 8px; margin-top: 28px;
+    }
+    .pkg-day-label:first-child { margin-top: 0; }
+    .pkg-day-label .day-dot {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      width: 26px; height: 26px; border-radius: 50%; background: var(--gn-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 800; color: #1a1a2e; z-index: 1;
+    }
+    .pkg-day-label h3 {
+      font-size: 1rem; font-weight: 800; color: var(--gn-gold);
+      background: rgba(201,169,110,0.08); display: inline-block;
+      padding: 6px 18px; border-radius: 20px;
+    }
+    .tl-item {
+      position: relative; padding-left: 62px; padding-bottom: 20px;
+    }
+    .tl-item::before {
+      content: ''; position: absolute; left: 20px; top: 8px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(201,169,110,0.5); border: 2px solid var(--gn-gold); z-index: 1;
+    }
+    .tl-time {
+      font-size: 0.75rem; font-weight: 700; color: var(--gn-gold);
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .tl-title { font-size: 0.92rem; font-weight: 700; color: var(--gn-white); }
+    .tl-desc { font-size: 0.8rem; color: var(--gn-text-muted); margin-top: 2px; }
+
+    /* Price Compare */
+    .pkg-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      max-width: 680px; margin: 36px auto 0;
+    }
+    .pkg-compare-card {
+      padding: 28px 24px; border-radius: 16px; text-align: center;
+    }
+    .pkg-compare-card.others {
+      background: rgba(255,80,80,0.06); border: 1px solid rgba(255,80,80,0.2);
+    }
+    .pkg-compare-card.bd {
+      background: rgba(201,169,110,0.08); border: 2px solid var(--gn-gold);
+      position: relative;
+    }
+    .pkg-compare-card.bd::before {
+      content: 'BEST'; position: absolute; top: -10px; right: 20px;
+      background: var(--gn-gold); color: #1a1a2e; font-size: 0.68rem; font-weight: 800;
+      padding: 3px 12px; border-radius: 10px; letter-spacing: 0.05em;
+    }
+    .pkg-compare-card .cmp-icon { font-size: 2rem; margin-bottom: 10px; }
+    .pkg-compare-card h4 { font-size: 0.95rem; font-weight: 800; margin-bottom: 8px; }
+    .pkg-compare-card.others h4 { color: #ff6b6b; }
+    .pkg-compare-card.bd h4 { color: var(--gn-gold); }
+    .pkg-compare-card ul {
+      list-style: none; padding: 0; margin: 0; text-align: left;
+      font-size: 0.82rem; color: var(--gn-text-muted); line-height: 2;
+    }
+    .pkg-compare-card ul li::before { margin-right: 6px; }
+    .pkg-compare-card.others ul li::before { content: '✕'; color: #ff6b6b; }
+    .pkg-compare-card.bd ul li::before { content: '✓'; color: var(--gn-gold); font-weight: 700; }
+
+    @media (max-width: 700px) {
+      .pkg-includes { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .pkg-compare { grid-template-columns: 1fr; gap: 14px; }
+      .pkg-item { padding: 16px 12px; }
+    }
+    @media (max-width: 480px) {
+      .pkg-includes { grid-template-columns: 1fr; }
+    }
+
     /* ── WeChat / LINE Placeholder ── */
     .qr-placeholder {
       width: 200px; height: 200px; border-radius: 16px; margin: 0 auto 16px;
@@ -684,7 +785,137 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
 </section>
 
 <!-- ══════════════════════════════════════════ -->
-<!-- SECTION 3: DOCTOR PROFILE -->
+<!-- SECTION 3: PACKAGE -->
+<!-- ══════════════════════════════════════════ -->
+<section class="gn-section" id="package">
+  <div class="container">
+    <div class="gn-section-header">
+      <span class="section-label"><i class="fas fa-suitcase"></i> PREMIUM PACKAGE</span>
+      <h2>グロウネイト <em>1泊2日プレミアムパッケージ</em></h2>
+      <p>天安牙山駅に着いたら、あとはすべてお任せください</p>
+    </div>
+
+    <div class="pkg-hero-msg">
+      天安牙山駅に着いたら、あとはお任せください。<br>
+      仲介業者なしで、韓国人と同じ料金。
+    </div>
+
+    <!-- パッケージ内容 6カード -->
+    <div class="pkg-includes">
+      <div class="pkg-item">
+        <div class="pkg-icon">🦷</div>
+        <h4>グロウネイト 8本施術</h4>
+        <p>現ジョンミン院長が<br>直接施術いたします</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">🏨</div>
+        <h4>新羅ステイ天安 1泊</h4>
+        <p>病院が提供する<br>プレミアムホテル宿泊</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">🚄</div>
+        <h4>KTX天安牙山駅 送迎</h4>
+        <p>コーディネーターが<br>駅までお迎え・お見送り</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">🗺️</div>
+        <h4>天安ツアー同行</h4>
+        <p>病川スンデ・トゥジュール・<br>独立記念館・ホドゥグァジャ</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">🍽️</div>
+        <h4>お食事 2回提供</h4>
+        <p>昼食・夕食を<br>ご用意いたします</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">📋</div>
+        <h4>天安1日旅行ガイドPDF</h4>
+        <p>観光・グルメ情報をまとめた<br>ガイドブックを無料配布</p>
+      </div>
+    </div>
+
+    <!-- 1泊2日 タイムライン -->
+    <div class="gn-section-header" style="margin-top:20px;">
+      <span class="section-label"><i class="fas fa-clock"></i> SCHEDULE</span>
+      <h2>1泊2日 <em>タイムライン</em></h2>
+    </div>
+
+    <div class="pkg-timeline">
+      <div class="pkg-day-label">
+        <span class="day-dot">1</span>
+        <h3>📅 1日目</h3>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">午前</div>
+        <div class="tl-title">天安牙山駅ピックアップ → 来院・カウンセリング・型取り</div>
+        <div class="tl-desc">コーディネーターがKTX天安牙山駅までお迎え。現ジョンミン院長と直接カウンセリング後、グロウネイト用の精密な型取りを行います。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">昼食</div>
+        <div class="tl-title">病川スンデクッパ</div>
+        <div class="tl-desc">韓国No.1スンデ発祥の地で、100年の伝統が息づく本場のスンデクッパをお楽しみください。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">午後</div>
+        <div class="tl-title">独立記念館 → ホドゥグァジャ → トゥジュール ベーカリー</div>
+        <div class="tl-desc">韓国最大の歴史記念館を散策し、天安名物のくるみ饅頭と韓国トップクラスのパン屋を巡ります。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">夕食</div>
+        <div class="tl-title">天安グルメレストラン</div>
+        <div class="tl-desc">地元で評判の名店で、こだわりの韓国料理ディナーをご堪能いただけます。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">夜</div>
+        <div class="tl-title">新羅ステイ天安 チェックイン</div>
+        <div class="tl-desc">プレミアムホテルでゆっくりお休みください。翌日のグロウネイト装着に備えましょう。</div>
+      </div>
+
+      <div class="pkg-day-label">
+        <span class="day-dot">2</span>
+        <h3>📅 2日目</h3>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">午前</div>
+        <div class="tl-title">グロウネイト装着・完成</div>
+        <div class="tl-desc">現ジョンミン院長がプレミアムラミネートベニアを一本一本丁寧に装着。あなただけの完璧な笑顔が完成します。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">午後</div>
+        <div class="tl-title">天安牙山駅お見送り → ご帰国</div>
+        <div class="tl-desc">コーディネーターが天安牙山駅までお見送り。新しい笑顔と天安のお土産を持って、思い出いっぱいの帰国の途へ。</div>
+      </div>
+    </div>
+
+    <!-- 価格比較 -->
+    <div class="pkg-compare">
+      <div class="pkg-compare-card others">
+        <div class="cmp-icon">🏢</div>
+        <h4>一般仲介業者を通した場合</h4>
+        <ul>
+          <li>施術費 + 手数料20〜40%追加</li>
+          <li>ホテル・送迎は別途自己手配</li>
+          <li>通訳品質にばらつきあり</li>
+          <li>トラブル時の対応が不透明</li>
+        </ul>
+      </div>
+      <div class="pkg-compare-card bd">
+        <div class="cmp-icon">✨</div>
+        <h4>BD歯科に直接予約</h4>
+        <ul>
+          <li>同一施術 + 1泊2日パッケージ込み</li>
+          <li>新羅ステイ1泊 無料提供</li>
+          <li>KTX駅送迎 + 天安ツアー付き</li>
+          <li>仲介業者なし — 韓国人と同じ料金</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 4: DOCTOR PROFILE -->
 <!-- ══════════════════════════════════════════ -->
 <section class="gn-section" id="doctor">
   <div class="container">

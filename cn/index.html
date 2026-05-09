@@ -522,6 +522,107 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .travel-card-img { height: 200px; }
     }
 
+    /* ── Package Section ── */
+    .pkg-hero-msg {
+      text-align: center; max-width: 620px; margin: -8px auto 36px;
+      font-size: 1.05rem; font-weight: 700; color: var(--gn-gold); line-height: 1.8;
+      padding: 20px 28px; background: rgba(201,169,110,0.06);
+      border: 1px solid rgba(201,169,110,0.18); border-radius: 14px;
+    }
+    .pkg-includes {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px;
+    }
+    .pkg-item {
+      background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.12);
+      border-radius: 14px; padding: 22px 18px; text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .pkg-item:hover { transform: translateY(-3px); border-color: rgba(201,169,110,0.35); }
+    .pkg-item .pkg-icon {
+      width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 12px;
+      background: rgba(201,169,110,0.12); display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .pkg-item h4 { font-size: 0.92rem; font-weight: 800; color: var(--gn-white); margin-bottom: 6px; }
+    .pkg-item p { font-size: 0.78rem; color: var(--gn-text-muted); line-height: 1.6; }
+
+    /* Timeline */
+    .pkg-timeline { position: relative; max-width: 680px; margin: 0 auto; }
+    .pkg-timeline::before {
+      content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, var(--gn-gold), rgba(201,169,110,0.15));
+    }
+    .pkg-day-label {
+      position: relative; padding-left: 62px; margin-bottom: 8px; margin-top: 28px;
+    }
+    .pkg-day-label:first-child { margin-top: 0; }
+    .pkg-day-label .day-dot {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      width: 26px; height: 26px; border-radius: 50%; background: var(--gn-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 800; color: #1a1a2e; z-index: 1;
+    }
+    .pkg-day-label h3 {
+      font-size: 1rem; font-weight: 800; color: var(--gn-gold);
+      background: rgba(201,169,110,0.08); display: inline-block;
+      padding: 6px 18px; border-radius: 20px;
+    }
+    .tl-item {
+      position: relative; padding-left: 62px; padding-bottom: 20px;
+    }
+    .tl-item::before {
+      content: ''; position: absolute; left: 20px; top: 8px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(201,169,110,0.5); border: 2px solid var(--gn-gold); z-index: 1;
+    }
+    .tl-time {
+      font-size: 0.75rem; font-weight: 700; color: var(--gn-gold);
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .tl-title { font-size: 0.92rem; font-weight: 700; color: var(--gn-white); }
+    .tl-desc { font-size: 0.8rem; color: var(--gn-text-muted); margin-top: 2px; }
+
+    /* Price Compare */
+    .pkg-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      max-width: 680px; margin: 36px auto 0;
+    }
+    .pkg-compare-card {
+      padding: 28px 24px; border-radius: 16px; text-align: center;
+    }
+    .pkg-compare-card.others {
+      background: rgba(255,80,80,0.06); border: 1px solid rgba(255,80,80,0.2);
+    }
+    .pkg-compare-card.bd {
+      background: rgba(201,169,110,0.08); border: 2px solid var(--gn-gold);
+      position: relative;
+    }
+    .pkg-compare-card.bd::before {
+      content: 'BEST'; position: absolute; top: -10px; right: 20px;
+      background: var(--gn-gold); color: #1a1a2e; font-size: 0.68rem; font-weight: 800;
+      padding: 3px 12px; border-radius: 10px; letter-spacing: 0.05em;
+    }
+    .pkg-compare-card .cmp-icon { font-size: 2rem; margin-bottom: 10px; }
+    .pkg-compare-card h4 { font-size: 0.95rem; font-weight: 800; margin-bottom: 8px; }
+    .pkg-compare-card.others h4 { color: #ff6b6b; }
+    .pkg-compare-card.bd h4 { color: var(--gn-gold); }
+    .pkg-compare-card ul {
+      list-style: none; padding: 0; margin: 0; text-align: left;
+      font-size: 0.82rem; color: var(--gn-text-muted); line-height: 2;
+    }
+    .pkg-compare-card ul li::before { margin-right: 6px; }
+    .pkg-compare-card.others ul li::before { content: '✕'; color: #ff6b6b; }
+    .pkg-compare-card.bd ul li::before { content: '✓'; color: var(--gn-gold); font-weight: 700; }
+
+    @media (max-width: 700px) {
+      .pkg-includes { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .pkg-compare { grid-template-columns: 1fr; gap: 14px; }
+      .pkg-item { padding: 16px 12px; }
+    }
+    @media (max-width: 480px) {
+      .pkg-includes { grid-template-columns: 1fr; }
+    }
+
     /* ── FAQ ── */
     .faq-item { border-bottom: 1px solid rgba(201,169,110,0.12); }
     .faq-q {
@@ -686,7 +787,137 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
 </section>
 
 <!-- ══════════════════════════════════════════ -->
-<!-- SECTION 3: DOCTOR PROFILE -->
+<!-- SECTION 3: PACKAGE -->
+<!-- ══════════════════════════════════════════ -->
+<section class="gn-section" id="package">
+  <div class="container">
+    <div class="gn-section-header">
+      <span class="section-label"><i class="fas fa-suitcase"></i> 尊享套餐</span>
+      <h2>格洛内特 <em>一夜两日尊享套餐</em></h2>
+      <p>到达天安牙山站后，全程由我们安排</p>
+    </div>
+
+    <div class="pkg-hero-msg">
+      到达天安牙山站后，全程由我们安排。<br>
+      无中介费，与韩国患者相同价格。
+    </div>
+
+    <!-- 套餐内容 6卡片 -->
+    <div class="pkg-includes">
+      <div class="pkg-item">
+        <div class="pkg-icon">🦷</div>
+        <h4>格洛内特 8颗贴面</h4>
+        <p>玄正旻院长<br>亲自操刀施术</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">🏨</div>
+        <h4>新罗舒泰天安 1晚</h4>
+        <p>医院免费提供<br>高端酒店住宿</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">🚄</div>
+        <h4>KTX天安牙山站接送</h4>
+        <p>协调员全程陪同<br>车站接送服务</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">🗺️</div>
+        <h4>天安观光协调员陪同</h4>
+        <p>炳川米肠·Toujours·<br>独立纪念馆·核桃饼</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">🍽️</div>
+        <h4>提供2顿餐食</h4>
+        <p>午餐·晚餐<br>均由我们安排</p>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-icon">📋</div>
+        <h4>天安一日游指南PDF</h4>
+        <p>观光·美食信息汇总<br>免费提供旅行指南</p>
+      </div>
+    </div>
+
+    <!-- 一夜两日 时间线 -->
+    <div class="gn-section-header" style="margin-top:20px;">
+      <span class="section-label"><i class="fas fa-clock"></i> 行程安排</span>
+      <h2>一夜两日 <em>详细行程</em></h2>
+    </div>
+
+    <div class="pkg-timeline">
+      <div class="pkg-day-label">
+        <span class="day-dot">1</span>
+        <h3>📅 第一天</h3>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">上午</div>
+        <div class="tl-title">天安牙山站接站 → 到院·面诊·取模</div>
+        <div class="tl-desc">协调员在KTX天安牙山站迎接您。与玄正旻院长直接面诊后，进行格洛内特精密取模。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">午餐</div>
+        <div class="tl-title">炳川米肠汤饭</div>
+        <div class="tl-desc">前往韩国No.1米肠发源地，品尝拥有百年传统的正宗炳川米肠汤饭。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">下午</div>
+        <div class="tl-title">独立纪念馆 → 核桃饼 → Toujours面包店</div>
+        <div class="tl-desc">游览韩国最大历史纪念馆，品尝天安名产核桃饼，打卡韩国顶级烘焙名店。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">晚餐</div>
+        <div class="tl-title">天安特色餐厅</div>
+        <div class="tl-desc">在当地口碑名店，享用精心安排的韩国料理晚餐。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">晚间</div>
+        <div class="tl-title">新罗舒泰天安 入住</div>
+        <div class="tl-desc">在高端酒店安心休息，为第二天的格洛内特贴面安装做好准备。</div>
+      </div>
+
+      <div class="pkg-day-label">
+        <span class="day-dot">2</span>
+        <h3>📅 第二天</h3>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">上午</div>
+        <div class="tl-title">格洛内特贴面安装·完成</div>
+        <div class="tl-desc">玄正旻院长逐颗精心安装高端贴面。属于您的完美微笑就此诞生。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">下午</div>
+        <div class="tl-title">天安牙山站送站 → 返程回国</div>
+        <div class="tl-desc">协调员送您至天安牙山站。带着崭新的微笑和天安伴手礼，满载回忆踏上归途。</div>
+      </div>
+    </div>
+
+    <!-- 价格对比 -->
+    <div class="pkg-compare">
+      <div class="pkg-compare-card others">
+        <div class="cmp-icon">🏢</div>
+        <h4>通过一般中介机构</h4>
+        <ul>
+          <li>手术费 + 额外20~40%中介费</li>
+          <li>酒店·接送需自行安排</li>
+          <li>翻译质量参差不齐</li>
+          <li>出现问题时责任不明确</li>
+        </ul>
+      </div>
+      <div class="pkg-compare-card bd">
+        <div class="cmp-icon">✨</div>
+        <h4>直接预约BD牙科</h4>
+        <ul>
+          <li>同等施术 + 一夜两日套餐全包</li>
+          <li>新罗舒泰1晚 免费提供</li>
+          <li>KTX车站接送 + 天安观光陪同</li>
+          <li>无中介费 — 与韩国患者相同价格</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 4: DOCTOR PROFILE -->
 <!-- ══════════════════════════════════════════ -->
 <section class="gn-section" id="doctor">
   <div class="container">
