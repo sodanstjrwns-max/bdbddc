@@ -417,6 +417,65 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .access-schedule .day .label { color: var(--gn-text-muted); }
     .access-schedule .day .desc { color: var(--gn-white); font-weight: 600; }
     .map-container { margin-top: 24px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(201,169,110,0.15); }
+
+    /* ── Route Tabs (city-based access) ── */
+    .route-tabs { margin-bottom: 32px; }
+    .route-tabs-nav {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 24px;
+    }
+    .route-tab-btn {
+      padding: 10px 18px; border: 1px solid rgba(201,169,110,0.25); background: rgba(201,169,110,0.05);
+      color: var(--gn-text-muted); border-radius: 25px; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: all 0.3s ease; font-family: inherit; white-space: nowrap;
+    }
+    .route-tab-btn:hover { border-color: var(--gn-gold); color: var(--gn-white); }
+    .route-tab-btn.active {
+      background: var(--gn-gold); color: #1a1a2e; border-color: var(--gn-gold); font-weight: 700;
+    }
+    .route-tab-btn .tab-icon { margin-right: 4px; }
+    .route-panel { display: none; }
+    .route-panel.active { display: block; }
+    .route-card {
+      background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.12);
+      border-radius: 16px; padding: 28px; max-width: 680px; margin: 0 auto;
+    }
+    .route-card-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+      padding-bottom: 16px; border-bottom: 1px solid rgba(201,169,110,0.1);
+    }
+    .route-card-header .route-emoji { font-size: 1.6rem; }
+    .route-card-header h4 { font-size: 1.05rem; font-weight: 700; color: var(--gn-white); }
+    .route-card-header .route-total {
+      margin-left: auto; background: rgba(201,169,110,0.15); color: var(--gn-gold);
+      padding: 4px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
+    }
+    .route-steps { display: flex; flex-direction: column; gap: 0; }
+    .route-step {
+      display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; position: relative;
+    }
+    .route-step:not(:last-child) { border-bottom: 1px solid rgba(201,169,110,0.06); }
+    .route-step-icon {
+      width: 34px; height: 34px; border-radius: 50%; background: rgba(201,169,110,0.1);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      color: var(--gn-gold); font-size: 0.78rem;
+    }
+    .route-step-text { flex: 1; }
+    .route-step-text strong { font-size: 0.88rem; color: var(--gn-white); font-weight: 700; }
+    .route-step-text span { display: block; font-size: 0.78rem; color: var(--gn-text-muted); margin-top: 2px; }
+    .route-step-time {
+      flex-shrink: 0; font-size: 0.82rem; font-weight: 700; color: var(--gn-gold);
+      background: rgba(201,169,110,0.08); padding: 4px 10px; border-radius: 8px;
+    }
+    .route-tip {
+      margin-top: 16px; padding: 14px 18px; background: rgba(201,169,110,0.06);
+      border-left: 3px solid var(--gn-gold); border-radius: 0 8px 8px 0;
+      font-size: 0.8rem; color: var(--gn-text-muted); line-height: 1.6;
+    }
+    .route-tip strong { color: var(--gn-gold); }
+    @media (max-width: 600px) {
+      .route-tab-btn { padding: 8px 14px; font-size: 0.78rem; }
+      .route-card { padding: 20px 16px; }
+    }
     .map-container iframe { width: 100%; height: 300px; border: 0; }
 
     /* ── FAQ ── */
@@ -752,38 +811,365 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
   <div class="container">
     <div class="gn-section-header">
       <span class="section-label"><i class="fas fa-map-marker-alt"></i> 交通</span>
-      <h2>如何到达<em>天安</em></h2>
-      <p>首尔BD牙科 — KTX天安牙山站10分钟</p>
+      <h2>从中国各城市到<em>首尔BD牙科</em></h2>
+      <p>点击您所在的城市 — 查看从机场到韩国牙科首尔BD牙科的详细路线</p>
     </div>
-    <div class="access-flow">
-      <div class="access-step">
-        <div class="access-icon"><i class="fas fa-plane"></i></div>
-        <div class="access-text">
-          <h4>仁川国际机场 → 首尔站</h4>
-          <p>机场快线（A'REX直达）约43分钟 或 机场大巴</p>
+
+    <!-- ── Route Tabs ── -->
+    <div class="route-tabs">
+      <div class="route-tabs-nav">
+        <button class="route-tab-btn active" onclick="showRoute('beijing')"><span class="tab-icon">✈️</span> 北京</button>
+        <button class="route-tab-btn" onclick="showRoute('shanghai')"><span class="tab-icon">✈️</span> 上海</button>
+        <button class="route-tab-btn" onclick="showRoute('guangzhou')"><span class="tab-icon">✈️</span> 广州·深圳</button>
+        <button class="route-tab-btn" onclick="showRoute('qingdao')"><span class="tab-icon">✈️</span> 青岛·济南</button>
+        <button class="route-tab-btn" onclick="showRoute('dalian')"><span class="tab-icon">✈️</span> 大连·沈阳</button>
+        <button class="route-tab-btn" onclick="showRoute('chengdu')"><span class="tab-icon">✈️</span> 成都·重庆</button>
+        <button class="route-tab-btn" onclick="showRoute('hangzhou')"><span class="tab-icon">✈️</span> 杭州·南京</button>
+      </div>
+
+      <!-- 北京 -->
+      <div class="route-panel active" id="route-beijing">
+        <div class="route-card">
+          <div class="route-card-header">
+            <span class="route-emoji">🏛️</span>
+            <h4>北京 → 首尔BD牙科</h4>
+            <span class="route-total">全程 约3.5~4小时</span>
+          </div>
+          <div class="route-steps">
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-plane"></i></div>
+              <div class="route-step-text">
+                <strong>北京首都/大兴机场 → 仁川国际机场</strong>
+                <span>直飞航班众多（国航·大韩航空·南航·东航 等）</span>
+              </div>
+              <div class="route-step-time">约2小时</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-subway"></i></div>
+              <div class="route-step-text">
+                <strong>仁川机场 → 首尔站</strong>
+                <span>机场快线 A'REX直达列车（43分钟）或机场大巴</span>
+              </div>
+              <div class="route-step-time">约43分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-train"></i></div>
+              <div class="route-step-text">
+                <strong>首尔站 → KTX天安牙山站</strong>
+                <span>KTX高铁（韩国高速铁路）舒适快捷</span>
+              </div>
+              <div class="route-step-time">约36分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-taxi"></i></div>
+              <div class="route-step-text">
+                <strong>KTX天安牙山站 → 首尔BD牙科</strong>
+                <span>出租车即达 — 距离车站最近的大型韩国牙科</span>
+              </div>
+              <div class="route-step-time">约10分钟</div>
+            </div>
+          </div>
+          <div class="route-tip">
+            <strong>💡 提示：</strong> 北京出发航班密集，早班机当天即可完成首诊。格洛内特（高端贴面）预约确定后，我们会为您推荐最佳航班时间。无中介费直接预约韩国牙科。
+          </div>
         </div>
       </div>
-      <div class="access-step">
-        <div class="access-icon"><i class="fas fa-train"></i></div>
-        <div class="access-text">
-          <h4>首尔站 → KTX天安牙山站</h4>
-          <p>KTX高铁约36分钟 — 韩国高铁，舒适快捷</p>
+
+      <!-- 上海 -->
+      <div class="route-panel" id="route-shanghai">
+        <div class="route-card">
+          <div class="route-card-header">
+            <span class="route-emoji">🌃</span>
+            <h4>上海 → 首尔BD牙科</h4>
+            <span class="route-total">全程 约3~3.5小时</span>
+          </div>
+          <div class="route-steps">
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-plane"></i></div>
+              <div class="route-step-text">
+                <strong>上海浦东/虹桥机场 → 仁川国际机场</strong>
+                <span>直飞航班众多（东航·春秋·大韩航空·吉祥 等）</span>
+              </div>
+              <div class="route-step-time">约1h50m</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-subway"></i></div>
+              <div class="route-step-text">
+                <strong>仁川机场 → 首尔站</strong>
+                <span>机场快线 A'REX直达列车</span>
+              </div>
+              <div class="route-step-time">约43分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-train"></i></div>
+              <div class="route-step-text">
+                <strong>首尔站 → KTX天安牙山站</strong>
+                <span>KTX高铁</span>
+              </div>
+              <div class="route-step-time">约36分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-taxi"></i></div>
+              <div class="route-step-text">
+                <strong>KTX天安牙山站 → 首尔BD牙科</strong>
+                <span>出租车即达</span>
+              </div>
+              <div class="route-step-time">约10分钟</div>
+            </div>
+          </div>
+          <div class="route-tip">
+            <strong>💡 提示：</strong> 上海是离韩国最近的中国一线城市之一！廉价航空往返仅需1,000~2,000元。格洛内特（高端贴面）费用加上机票住宿，综合性价比远超上海高端口腔诊所。无中介费直接预约韩国牙科。
+          </div>
         </div>
       </div>
-      <div class="access-step">
-        <div class="access-icon"><i class="fas fa-taxi"></i></div>
-        <div class="access-text">
-          <h4>KTX天安牙山站 → 首尔BD牙科</h4>
-          <p>打车约10分钟 — 首尔BD牙科是距离KTX天安牙山站最近的大型韩国牙科</p>
+
+      <!-- 广州·深圳 -->
+      <div class="route-panel" id="route-guangzhou">
+        <div class="route-card">
+          <div class="route-card-header">
+            <span class="route-emoji">🌴</span>
+            <h4>广州·深圳 → 首尔BD牙科</h4>
+            <span class="route-total">全程 约5~5.5小时</span>
+          </div>
+          <div class="route-steps">
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-plane"></i></div>
+              <div class="route-step-text">
+                <strong>广州白云/深圳宝安机场 → 仁川国际机场</strong>
+                <span>直飞航班（南航·大韩航空·深航 等）</span>
+              </div>
+              <div class="route-step-time">约3h30m</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-subway"></i></div>
+              <div class="route-step-text">
+                <strong>仁川机场 → 首尔站</strong>
+                <span>机场快线 A'REX直达列车</span>
+              </div>
+              <div class="route-step-time">约43分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-train"></i></div>
+              <div class="route-step-text">
+                <strong>首尔站 → KTX天安牙山站</strong>
+                <span>KTX高铁</span>
+              </div>
+              <div class="route-step-time">约36分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-taxi"></i></div>
+              <div class="route-step-text">
+                <strong>KTX天安牙山站 → 首尔BD牙科</strong>
+                <span>出租车即达</span>
+              </div>
+              <div class="route-step-time">约10分钟</div>
+            </div>
+          </div>
+          <div class="route-tip">
+            <strong>💡 提示：</strong> 广深地区到韩国直飞航班充足。周五晚出发、周日返回的「周末格洛内特高端贴面之旅」方案也很受欢迎。无中介费直接预约韩国牙科，我们全程提供行程建议。
+          </div>
+        </div>
+      </div>
+
+      <!-- 青岛·济南 -->
+      <div class="route-panel" id="route-qingdao">
+        <div class="route-card">
+          <div class="route-card-header">
+            <span class="route-emoji">⛵</span>
+            <h4>青岛·济南 → 首尔BD牙科</h4>
+            <span class="route-total">全程 约2.5~3小时</span>
+          </div>
+          <div class="route-steps">
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-plane"></i></div>
+              <div class="route-step-text">
+                <strong>青岛流亭/济南遥墙机场 → 仁川国际机场</strong>
+                <span>直飞航班（山航·大韩航空·韩亚航空 等）— 山东离韩国非常近！</span>
+              </div>
+              <div class="route-step-time">约1h20m</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-subway"></i></div>
+              <div class="route-step-text">
+                <strong>仁川机场 → 首尔站</strong>
+                <span>机场快线 A'REX直达列车</span>
+              </div>
+              <div class="route-step-time">约43分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-train"></i></div>
+              <div class="route-step-text">
+                <strong>首尔站 → KTX天安牙山站</strong>
+                <span>KTX高铁</span>
+              </div>
+              <div class="route-step-time">约36分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-taxi"></i></div>
+              <div class="route-step-text">
+                <strong>KTX天安牙山站 → 首尔BD牙科</strong>
+                <span>出租车即达</span>
+              </div>
+              <div class="route-step-time">约10分钟</div>
+            </div>
+          </div>
+          <div class="route-tip">
+            <strong>💡 提示：</strong> 山东是离韩国最近的中国省份！飞行仅1小时20分钟，比国内很多城际航线还短。韩国牙科格洛内特（高端贴面）当天往返也理论可行。另外，青岛还可乘坐威海→仁川渡轮（约14小时），适合不赶时间的旅客。无中介费直接预约。
+          </div>
+        </div>
+      </div>
+
+      <!-- 大连·沈阳 -->
+      <div class="route-panel" id="route-dalian">
+        <div class="route-card">
+          <div class="route-card-header">
+            <span class="route-emoji">❄️</span>
+            <h4>大连·沈阳 → 首尔BD牙科</h4>
+            <span class="route-total">全程 约3~3.5小时</span>
+          </div>
+          <div class="route-steps">
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-plane"></i></div>
+              <div class="route-step-text">
+                <strong>大连周水子/沈阳桃仙机场 → 仁川国际机场</strong>
+                <span>直飞航班（南航·大韩航空·春秋 等）</span>
+              </div>
+              <div class="route-step-time">约1h40m</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-subway"></i></div>
+              <div class="route-step-text">
+                <strong>仁川机场 → 首尔站</strong>
+                <span>机场快线 A'REX直达列车</span>
+              </div>
+              <div class="route-step-time">约43分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-train"></i></div>
+              <div class="route-step-text">
+                <strong>首尔站 → KTX天安牙山站</strong>
+                <span>KTX高铁</span>
+              </div>
+              <div class="route-step-time">约36分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-taxi"></i></div>
+              <div class="route-step-text">
+                <strong>KTX天安牙山站 → 首尔BD牙科</strong>
+                <span>出租车即达</span>
+              </div>
+              <div class="route-step-time">约10分钟</div>
+            </div>
+          </div>
+          <div class="route-tip">
+            <strong>💡 提示：</strong> 东北地区离韩国距离非常近，且韩语文化圈影响深厚，许多东北患者已在韩国牙科有就诊经验。格洛内特（高端贴面）是首尔BD牙科独家技术，无中介费直接预约即可享受与韩国患者相同价格。大连还可乘坐渡轮前往仁川。
+          </div>
+        </div>
+      </div>
+
+      <!-- 成都·重庆 -->
+      <div class="route-panel" id="route-chengdu">
+        <div class="route-card">
+          <div class="route-card-header">
+            <span class="route-emoji">🐼</span>
+            <h4>成都·重庆 → 首尔BD牙科</h4>
+            <span class="route-total">全程 约5.5~6小时</span>
+          </div>
+          <div class="route-steps">
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-plane"></i></div>
+              <div class="route-step-text">
+                <strong>成都天府/重庆江北机场 → 仁川国际机场</strong>
+                <span>直飞航班（国航·川航·大韩航空 等）</span>
+              </div>
+              <div class="route-step-time">约3h50m</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-subway"></i></div>
+              <div class="route-step-text">
+                <strong>仁川机场 → 首尔站</strong>
+                <span>机场快线 A'REX直达列车</span>
+              </div>
+              <div class="route-step-time">约43分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-train"></i></div>
+              <div class="route-step-text">
+                <strong>首尔站 → KTX天安牙山站</strong>
+                <span>KTX高铁</span>
+              </div>
+              <div class="route-step-time">约36分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-taxi"></i></div>
+              <div class="route-step-text">
+                <strong>KTX天安牙山站 → 首尔BD牙科</strong>
+                <span>出租车即达</span>
+              </div>
+              <div class="route-step-time">约10分钟</div>
+            </div>
+          </div>
+          <div class="route-tip">
+            <strong>💡 提示：</strong> 西南地区直飞首尔航班日益增多。建议搭配2晚3天韩国旅行安排格洛内特（高端贴面）施术。无中介费直接预约韩国牙科，预约确定后我们会协助推荐航班和酒店。
+          </div>
+        </div>
+      </div>
+
+      <!-- 杭州·南京 -->
+      <div class="route-panel" id="route-hangzhou">
+        <div class="route-card">
+          <div class="route-card-header">
+            <span class="route-emoji">🏞️</span>
+            <h4>杭州·南京 → 首尔BD牙科</h4>
+            <span class="route-total">全程 约3.5~4小时</span>
+          </div>
+          <div class="route-steps">
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-plane"></i></div>
+              <div class="route-step-text">
+                <strong>杭州萧山/南京禄口机场 → 仁川国际机场</strong>
+                <span>直飞航班（春秋·吉祥·大韩航空 等）</span>
+              </div>
+              <div class="route-step-time">约2小时</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-subway"></i></div>
+              <div class="route-step-text">
+                <strong>仁川机场 → 首尔站</strong>
+                <span>机场快线 A'REX直达列车</span>
+              </div>
+              <div class="route-step-time">约43分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-train"></i></div>
+              <div class="route-step-text">
+                <strong>首尔站 → KTX天安牙山站</strong>
+                <span>KTX高铁</span>
+              </div>
+              <div class="route-step-time">约36分钟</div>
+            </div>
+            <div class="route-step">
+              <div class="route-step-icon"><i class="fas fa-taxi"></i></div>
+              <div class="route-step-text">
+                <strong>KTX天安牙山站 → 首尔BD牙科</strong>
+                <span>出租车即达</span>
+              </div>
+              <div class="route-step-time">约10分钟</div>
+            </div>
+          </div>
+          <div class="route-tip">
+            <strong>💡 提示：</strong> 长三角地区廉价航空往返韩国非常便宜，春秋航空经常有特价票。格洛内特（高端贴面）的高端贴面施术费加上旅行费用，综合性价比远超杭州、南京本地高端口腔诊所。无中介费直接预约韩国牙科首尔BD牙科。
+          </div>
         </div>
       </div>
     </div>
+
     <div class="access-schedule">
       <h4><i class="fas fa-calendar-alt"></i> 推荐行程（2晚3天）</h4>
       <div class="day"><span class="label">第1天</span><span class="desc">就诊 · 咨询 · 取模</span></div>
       <div class="day"><span class="label">第2天</span><span class="desc">格洛内特（高端贴面）装配 · 完成</span></div>
-      <div class="day"><span class="label">第3天</span><span class="desc">复查 · 回国（可结合观光）</span></div>
-      <p style="font-size:0.82rem;color:var(--gn-text-muted);margin-top:12px;">※ 建议结合2晚3天首尔旅行一起安排</p>
+      <div class="day"><span class="label">第3天</span><span class="desc">复查 · 回国（可结合首尔观光）</span></div>
+      <p style="font-size:0.82rem;color:var(--gn-text-muted);margin-top:12px;">※ 建议结合2晚3天韩国旅行安排。格洛内特（高端贴面）预约确定后，我们会提供详细行程建议。</p>
     </div>
     <div class="map-container">
       <iframe src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%EB%B9%84%EB%94%94%EC%B9%98%EA%B3%BC+%EC%B6%A9%EB%82%A8+%EC%B2%9C%EC%95%88%EC%8B%9C+%EC%84%9C%EB%B6%81%EA%B5%AC+%EB%B6%88%EB%8B%B934%EA%B8%B8+14&t=&z=17&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="首尔BD牙科位置"></iframe>
@@ -925,6 +1311,15 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
 </footer>
 
 <script>
+// Route tab switching
+function showRoute(id) {
+  document.querySelectorAll('.route-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.route-tab-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById('route-' + id);
+  if (panel) panel.classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
 // FAQ toggle
 function toggleFaq(btn) {
   const answer = btn.nextElementSibling;
