@@ -28,6 +28,8 @@ dirs.forEach(d => {
 cp.execSync('mkdir -p dist/data && cp -rT public/data dist/data');
 // Copy public/images (glownate etc.) to dist/images, merging with existing
 try { cp.execSync('cp -r public/images/* dist/images/ 2>/dev/null || true'); } catch(e) {}
+// Copy public/videos to dist/videos (compressed clinic videos)
+try { cp.execSync('mkdir -p dist/videos && cp -rT public/videos dist/videos'); } catch(e) {}
 // Copy public/report to dist/report
 try { cp.execSync('mkdir -p dist/report && cp -rT public/report dist/report'); } catch(e) {}
 
@@ -41,7 +43,7 @@ const routes = {
     '/css/*','/js/*','/images/*','/static/*','/data/*',
     '/manifest.json','/sitemap.xml','/sitemap-main.xml','/sitemap-area.xml','/sitemap-encyclopedia.xml',
     '/robots.txt','/6f74445f7ec14eccb522a4d3f253128c.txt','/bdbddc2026indexnow.txt',
-    '/llms.txt','/llms-full.txt','/sw.js','/report/*'
+    '/llms.txt','/llms-full.txt','/sw.js','/report/*','/videos/*'
   ]
 };
 fs.writeFileSync('dist/_routes.json', JSON.stringify(routes, null, 2));

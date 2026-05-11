@@ -626,19 +626,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     /* ── Magazine Spread: Inside BD Dental ── */
     .mag-spread { max-width: 960px; margin: 0 auto; }
 
-    /* Row 1: Hero building full-width */
+    /* Row 1: Hero building — portrait photo, centered, tall */
     .mag-hero {
       position: relative; border-radius: 18px; overflow: hidden;
       border: 1px solid rgba(201,169,110,0.15); margin-bottom: 14px;
+      max-width: 540px; margin-left: auto; margin-right: auto;
+      background: #0e0e1a;
     }
     .mag-hero img {
-      width: 100%; display: block; height: 420px; object-fit: cover;
-      object-position: center 35%;
+      width: 100%; display: block; height: auto;
     }
     .mag-hero-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(10,10,20,0.92) 0%, rgba(10,10,20,0.4) 50%, transparent 100%);
-      padding: 60px 32px 28px;
+      background: linear-gradient(to top, rgba(10,10,20,0.95) 0%, rgba(10,10,20,0.6) 40%, transparent 100%);
+      padding: 60px 28px 24px;
     }
     .mag-hero-tag {
       display: inline-block; border: 1px solid var(--gn-gold); color: var(--gn-gold);
@@ -745,7 +746,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     /* Responsive */
     @media (max-width: 700px) {
-      .mag-hero img { height: 260px; }
+      .mag-hero { max-width: 100%; }
       .mag-hero-title { font-size: 1.15rem; }
       .mag-pair, .mag-pair-rev { grid-template-columns: 1fr; }
       .mag-cell img { height: 240px; }
@@ -1312,7 +1313,7 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
       <!-- Row 3 ─ Video Strip (2-col with gold play buttons) -->
       <div class="mag-videos">
         <div class="mag-vid" onclick="toggleMagVid(this)">
-          <video src="https://www.genspark.ai/api/files/s/PYRqPTQg" playsinline muted loop preload="metadata" aria-label="首尔BD牙科 精密施术视频"></video>
+          <video src="/videos/clinic-surgery.mp4" playsinline muted loop preload="metadata" aria-label="首尔BD牙科 精密施术视频"></video>
           <div class="mag-vid-play"></div>
           <div class="mag-vid-overlay">
             <div class="mag-vid-tag">▶ Precision Surgery</div>
@@ -1320,7 +1321,7 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
           </div>
         </div>
         <div class="mag-vid" onclick="toggleMagVid(this)">
-          <video src="https://www.genspark.ai/api/files/s/0xWHxHHp" playsinline muted loop preload="metadata" aria-label="首尔BD牙科 数字技工室"></video>
+          <video src="/videos/digital-lab.mp4" playsinline muted loop preload="metadata" aria-label="首尔BD牙科 数字技工室"></video>
           <div class="mag-vid-play"></div>
           <div class="mag-vid-overlay">
             <div class="mag-vid-tag">▶ Digital Lab</div>
