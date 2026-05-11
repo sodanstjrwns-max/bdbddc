@@ -6,7 +6,7 @@ const staticFiles = [
   'index.html','pricing.html','reservation.html','directions.html',
   'faq.html','floor-guide.html','privacy.html','terms.html',
   '404.html','mission.html','checkup.html','manifest.json',
-  'sitemap.xml','sitemap-main.xml','sitemap-area.xml','sitemap-encyclopedia.xml',
+  'sitemap.xml','sitemap-main.xml','sitemap-area.xml','sitemap-encyclopedia.xml','sitemap-intl.xml',
   'robots.txt','6f74445f7ec14eccb522a4d3f253128c.txt','bdbddc2026indexnow.txt',
   'blueprint.html','llms.txt','llms-full.txt',
   'flight.html','games.html','run.html','careers.html','symptom-checker.html','_redirects',
@@ -20,7 +20,7 @@ staticFiles.forEach(f => {
 const dirs = [
   'css','js','images','treatments','doctors','column','blog',
   'video','cases','notice','auth','admin','area','faq','encyclopedia',
-  'jp','cn'
+  'jp','cn','en','vi','th','ru'
 ];
 dirs.forEach(d => {
   try { cp.execSync('mkdir -p dist/' + d + ' && cp -rT ' + d + ' dist/' + d); } catch(e) {}
@@ -42,8 +42,10 @@ const routes = {
   exclude: [
     '/css/*','/js/*','/images/*','/static/*','/data/*',
     '/manifest.json','/sitemap.xml','/sitemap-main.xml','/sitemap-area.xml','/sitemap-encyclopedia.xml',
+    '/sitemap-intl.xml',
     '/robots.txt','/6f74445f7ec14eccb522a4d3f253128c.txt','/bdbddc2026indexnow.txt',
-    '/llms.txt','/llms-full.txt','/sw.js','/report/*','/videos/*'
+    '/llms.txt','/llms-full.txt','/sw.js','/report/*','/videos/*',
+    '/en/*','/vi/*','/th/*','/ru/*','/jp/*','/cn/*'
   ]
 };
 fs.writeFileSync('dist/_routes.json', JSON.stringify(routes, null, 2));
