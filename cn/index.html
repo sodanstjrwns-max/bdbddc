@@ -623,6 +623,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .pkg-includes { grid-template-columns: 1fr; }
     }
 
+    /* ── Clinic Video Showcase ── */
+    .vid-showcase {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+      margin-top: 8px;
+    }
+    .vid-card {
+      position: relative; border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(201,169,110,0.18);
+      background: rgba(201,169,110,0.03);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .vid-card:hover { border-color: rgba(201,169,110,0.4); transform: translateY(-3px); }
+    .vid-card video {
+      width: 100%; display: block; aspect-ratio: 9/16;
+      object-fit: cover; background: #111;
+    }
+    .vid-card-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,10,20,0.92) 0%, rgba(10,10,20,0.5) 60%, transparent 100%);
+      padding: 40px 18px 16px; text-align: center;
+    }
+    .vid-card-tag {
+      display: inline-block; background: var(--gn-gold); color: #1a1a2e;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
+      padding: 3px 12px; border-radius: 20px; margin-bottom: 8px; text-transform: uppercase;
+    }
+    .vid-card-title {
+      font-size: 0.95rem; font-weight: 800; color: var(--gn-white); line-height: 1.5;
+    }
+    .vid-card-desc {
+      font-size: 0.75rem; color: var(--gn-text-muted); margin-top: 4px; line-height: 1.5;
+    }
+    @media (max-width: 700px) {
+      .vid-showcase { grid-template-columns: 1fr; gap: 18px; max-width: 400px; margin: 8px auto 0; }
+    }
+
     /* ── Korea's Only Declaration Banner ── */
     .only-banner {
       position: relative; margin: 56px auto 0; max-width: 760px;
@@ -1128,6 +1164,37 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
       以上均为真实患者的格洛内特（高端贴面）施术结果。<br>
       未经任何修图或美化处理。
     </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SECTION 4.5: CLINIC VIDEO SHOWCASE -->
+<!-- ══════════════════════════════════════════ -->
+<section class="gn-section" id="clinic-video">
+  <div class="container">
+    <div class="gn-section-header">
+      <span class="section-label"><i class="fas fa-video"></i> 走进BD牙科</span>
+      <h2>首尔BD牙科的<em>施术现场与技术实力</em></h2>
+      <p>6,000多名韩国牙科院长专程前来学习的韩国代表性牙科医院，请亲眼见证</p>
+    </div>
+    <div class="vid-showcase">
+      <div class="vid-card">
+        <video src="https://www.genspark.ai/api/files/s/dtDsFNTs" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()" poster="" aria-label="首尔BD牙科 夜间精密施术"></video>
+        <div class="vid-card-overlay">
+          <div class="vid-card-tag">PRECISION</div>
+          <div class="vid-card-title">精密施术现场</div>
+          <div class="vid-card-desc">400坪规模尖端设施<br>院长亲自操刀精密施术</div>
+        </div>
+      </div>
+      <div class="vid-card">
+        <video src="https://www.genspark.ai/api/files/s/HOhM6bOF" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()" poster="" aria-label="首尔BD牙科 数字技工室"></video>
+        <div class="vid-card-overlay">
+          <div class="vid-card-tag">TECHNOLOGY</div>
+          <div class="vid-card-title">院内数字技工室</div>
+          <div class="vid-card-desc">CEREC·CAD/CAM·3D打印<br>尖端数字设备精密制作</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
