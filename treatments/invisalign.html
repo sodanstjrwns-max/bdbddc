@@ -1189,9 +1189,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- ── 인비절라인 영상 ── -->
     <div class="tx-inline-vid reveal">
       <div class="container">
-        <div class="tx-inline-vid__wrap" onclick="toggleTxVid(this)">
-          <video playsinline muted loop autoplay preload="auto"><source src="/videos/invisalign.mp4" type="video/mp4"></video>
-          <div class="tx-inline-vid__play"><i class="fas fa-play"></i></div>
+        <div class="tx-inline-vid__inner">
+          <div class="tx-inline-vid__label">
+            <span class="tx-inline-vid__badge"><i class="fas fa-video"></i> 교정 센터 현장</span>
+          </div>
+          <div class="tx-inline-vid__wrap" onclick="toggleTxVid(this)">
+            <video playsinline muted loop autoplay preload="auto"><source src="/videos/invisalign.mp4" type="video/mp4"></video>
+            <div class="tx-inline-vid__overlay"></div>
+            <div class="tx-inline-vid__play"><i class="fas fa-play"></i></div>
+            <div class="tx-inline-vid__caption">
+              <div class="tx-inline-vid__caption-title">인비절라인 전용 교정센터</div>
+              <div class="tx-inline-vid__caption-sub">1F · 다이아몬드 프로바이더</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

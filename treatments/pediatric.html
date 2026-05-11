@@ -831,9 +831,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- ── 소아치과 영상 ── -->
     <div class="tx-inline-vid reveal">
       <div class="container">
-        <div class="tx-inline-vid__wrap" onclick="toggleTxVid(this)">
-          <video playsinline muted loop autoplay preload="auto"><source src="/videos/pediatric.mp4" type="video/mp4"></video>
-          <div class="tx-inline-vid__play"><i class="fas fa-play"></i></div>
+        <div class="tx-inline-vid__inner">
+          <div class="tx-inline-vid__label">
+            <span class="tx-inline-vid__badge"><i class="fas fa-video"></i> 소아치과 진료 현장</span>
+          </div>
+          <div class="tx-inline-vid__wrap" onclick="toggleTxVid(this)">
+            <video playsinline muted loop autoplay preload="auto"><source src="/videos/pediatric.mp4" type="video/mp4"></video>
+            <div class="tx-inline-vid__overlay"></div>
+            <div class="tx-inline-vid__play"><i class="fas fa-play"></i></div>
+            <div class="tx-inline-vid__caption">
+              <div class="tx-inline-vid__caption-title">아이 눈높이에 맞춘 따뜻한 진료</div>
+              <div class="tx-inline-vid__caption-sub">3F 소아치과센터 · 전문의 3인</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
