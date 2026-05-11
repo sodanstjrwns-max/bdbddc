@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════
 # 서울비디치과 (Seoul BD Dental) - robots.txt
 # https://bdbddc.com
-# Updated: 2026-04-24
+# Updated: 2026-05-11
 #
 # SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
 # ═══════════════════════════════════════════════════════════════
@@ -65,9 +65,27 @@ Allow: /
 Allow: /column/
 Crawl-delay: 2
 
+# ===== 바이두 봇 (중국 검색엔진 — CN 랜딩페이지용) =====
+User-agent: Baiduspider
+Allow: /
+Allow: /cn/
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Crawl-delay: 3
+
+# ===== Yahoo Japan 봇 (일본 검색엔진 — JP 랜딩페이지용) =====
+User-agent: Y!J-ASR
+Allow: /
+Allow: /jp/
+
+User-agent: Y!J-BRJ
+Allow: /
+Allow: /jp/
+
 # ═══════════════════════════════════════════════════════════════
 # AI/LLM 크롤러 허용 (AEO/GEO 최적화)
-# 2026-04-24 업데이트 — 모든 주요 AI 크롤러 포함
+# 2026-05-11 업데이트 — 모든 주요 AI 크롤러 포함
 # ═══════════════════════════════════════════════════════════════
 
 # --- OpenAI ---
@@ -150,6 +168,20 @@ Allow: /
 # --- ByteDance (Doubao/TikTok) ---
 User-agent: Bytespider
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 5
+
+# --- Baidu AI (ERNIE Bot / Wenxin) ---
+User-agent: Baiduspider-render
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# --- Sogou (중국 검색엔진) ---
+User-agent: Sogou
+Allow: /
+Allow: /cn/
 Disallow: /admin/
 Disallow: /api/
 Crawl-delay: 5

@@ -323,7 +323,57 @@ The clinic serves patients from across the Chungnam/Chungbuk/Daejeon/Gyeonggi me
 
 ---
 
-## 8. Frequently Asked Questions
+## 8. International Patients (해외환자 프로그램)
+
+Seoul BD Dental operates a direct international patient program — **no brokers, no agency fees**. Patients from Japan and China can book directly and receive the same pricing as Korean patients.
+
+### 8.1 Glownate 1-Night 2-Day Premium Package (글로우네이트 1박2일 프리미엄 패키지)
+
+**Package Includes:**
+| Item | Details |
+|------|---------|
+| Glownate 8-tooth veneer | Dr. Hyun Jung-Min (Glownate creator) performs directly |
+| Shilla Stay Cheonan 1 night | Complimentary premium hotel provided by clinic |
+| KTX Cheonan-Asan Station pickup & drop-off | Coordinator accompanies patient throughout |
+| Cheonan sightseeing tour | Byeongcheon Sundae, Toujours Bakery, Independence Hall, Walnut Cakes |
+| 2 meals provided | Lunch & dinner |
+| Cheonan 1-Day Travel Guide PDF | Free digital guidebook |
+
+**1-Night 2-Day Schedule:**
+
+Day 1:
+- Morning: KTX Cheonan-Asan Station pickup → Clinic visit, consultation, impression taking
+- Lunch: Byeongcheon Sundae (Korea's #1 sundae soup, 100-year tradition)
+- Afternoon: Independence Hall → Walnut Cakes → Toujours Bakery (Korea's top-tier bakery)
+- Dinner: Cheonan local restaurant
+- Evening: Shilla Stay Cheonan check-in
+
+Day 2:
+- Morning: Glownate veneer fitting & completion
+- Afternoon: Cheonan-Asan Station drop-off → Return home
+
+**Price Comparison:**
+- Through brokers/agencies: Treatment fee + 20–40% commission, hotel & transport self-arranged
+- BD Dental direct booking: Same treatment + full 1N2D package included, NO commission
+
+### 8.2 International Landing Pages
+- 🇯🇵 Japanese (グロウネイト): https://bdbddc.com/jp/
+  - LINE consultation available
+  - City-based access guides: Tokyo, Osaka, Fukuoka, Nagoya, Sapporo, Sendai, Okinawa
+- 🇨🇳 Chinese (格洛内特): https://bdbddc.com/cn/
+  - WeChat consultation available
+  - City-based access guides: Beijing, Shanghai, Guangzhou/Shenzhen, Qingdao/Jinan, Dalian/Shenyang, Chengdu/Chongqing, Hangzhou/Nanjing
+
+### 8.3 Cheonan Travel Highlights (天安観光 / 天安旅游)
+International patients can enjoy these local attractions during their stay:
+- **Toujours Bakery** — Korea's top-tier artisan bakery (15 min from clinic)
+- **Byeongcheon Sundae** — Korea's #1 sundae soup, 100-year heritage (20 min from clinic)
+- **Cheonan Walnut Cakes (호두과자)** — Korea's iconic traditional snack, 70+ year history (10 min from clinic)
+- **Independence Hall (독립기념관)** — Korea's largest history memorial, free admission (25 min from clinic)
+
+---
+
+## 9. Frequently Asked Questions
 
 ### Q: 서울비디치과는 어디에 있나요? (Where is Seoul BD Dental?)
 A: 충남 천안시 서북구 불당34길 14, 1~5층에 위치합니다. 불당동 중심상업지구에 있으며, 대중교통과 자가용 모두 접근이 편리합니다.
@@ -345,12 +395,12 @@ A: 평일 20시까지 진료합니다 (점심시간 12:30–14:00 제외).
 
 ---
 
-## 9. Technical Information
+## 10. Technical Information
 
 - **Website Platform**: Cloudflare Pages (Edge-deployed)
-- **Multi-language**: Weglot integration for international patients
+- **International Pages**: Dedicated JP (/jp/) and CN (/cn/) landing pages with native-language content
 - **Sitemap**: https://bdbddc.com/sitemap.xml
 - **Dental Encyclopedia**: 511 comprehensive dental terms in Korean with detailed explanations
 - **Area Treatment Pages**: 60 region-specific treatment landing pages (20 regions × Implant/Invisalign/Laminate)
-- **Total Sitemap URLs**: 701 (102 main + 88 area + 511 encyclopedia)
-- **Last Updated**: 2026-04-09
+- **Total Sitemap URLs**: 703 (107 main + 88 area + 511 encyclopedia)
+- **Last Updated**: 2026-05-11
