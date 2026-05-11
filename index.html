@@ -646,6 +646,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         ></iframe>
       </div>
     </div>
+
+    <!-- 자체 촬영 병원 소개 영상 -->
+    <div class="container" style="margin-top:40px;">
+      <div class="clinic-intro-vid reveal" onclick="toggleSiteVid(this)">
+        <video playsinline muted loop autoplay preload="auto">
+          <source src="/videos/clinic-intro.mp4" type="video/mp4">
+        </video>
+        <div class="clinic-intro-vid-ov">
+          <div class="clinic-intro-vid-badge">Our Clinic</div>
+          <p>직접 촬영한 서울비디치과의 하루</p>
+        </div>
+        <div class="site-vid-play"><i class="fas fa-play"></i></div>
+      </div>
+    </div>
     
     <div class="container">
       <div class="video-stats reveal">
@@ -817,6 +831,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h3>수면치료</h3>
           <p>무서움은 잠시 내려놓으세요<br>잠든 사이에 끝나는 진료</p>
         </a>
+      </div>
+
+      <!-- 진료 영상 쇼케이스 -->
+      <div class="tx-vid-showcase reveal">
+        <div class="tx-vid-row">
+          <div class="tx-vid-group">
+            <h4 class="tx-vid-label"><i class="fas fa-tooth"></i> 임플란트 수술 현장</h4>
+            <div class="tx-vid-strip">
+              <div class="tx-vid-item" onclick="toggleSiteVid(this)">
+                <video playsinline muted loop autoplay preload="auto"><source src="/videos/implant-1.mp4" type="video/mp4"></video>
+                <div class="site-vid-play"><i class="fas fa-play"></i></div>
+              </div>
+              <div class="tx-vid-item" onclick="toggleSiteVid(this)">
+                <video playsinline muted loop autoplay preload="auto"><source src="/videos/implant-2.mp4" type="video/mp4"></video>
+                <div class="site-vid-play"><i class="fas fa-play"></i></div>
+              </div>
+              <div class="tx-vid-item" onclick="toggleSiteVid(this)">
+                <video playsinline muted loop autoplay preload="auto"><source src="/videos/implant-3.mp4" type="video/mp4"></video>
+                <div class="site-vid-play"><i class="fas fa-play"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="tx-vid-group">
+            <h4 class="tx-vid-label"><i class="fas fa-teeth"></i> 인비절라인 교정</h4>
+            <div class="tx-vid-strip">
+              <div class="tx-vid-item tx-vid-wide" onclick="toggleSiteVid(this)">
+                <video playsinline muted loop autoplay preload="auto"><source src="/videos/invisalign.mp4" type="video/mp4"></video>
+                <div class="site-vid-play"><i class="fas fa-play"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       
       <div class="text-center mt-8 reveal">
@@ -1074,12 +1120,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <!-- 1/3 카드: 진료실 -->
-        <div class="fac-mag-card">
-          <picture>
-            <source srcset="/images/facility/treatment-room.webp" type="image/webp">
-            <img src="/images/facility/treatment-room.webp" loading="lazy" alt="서울비디치과 개별 진료 공간" width="400" height="500" decoding="async">
-          </picture>
+        <!-- 1/3 카드: 진료실 (VIDEO) -->
+        <div class="fac-mag-card fac-mag-vid" onclick="toggleSiteVid(this)">
+          <video playsinline muted loop autoplay preload="auto">
+            <source src="/videos/treatment-panorama.mp4" type="video/mp4">
+          </video>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">02</span>
             <div class="fac-mag-text">
@@ -1087,14 +1132,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <p>독립된 파티션으로 프라이버시를 지키며, 모니터로 실시간 진료 과정을 확인할 수 있어요.</p>
             </div>
           </div>
+          <div class="site-vid-play"><i class="fas fa-play"></i></div>
         </div>
 
-        <!-- 1/3 카드: 수술실 -->
-        <div class="fac-mag-card">
-          <picture>
-            <source srcset="/images/facility/surgery-tools.webp" type="image/webp">
-            <img src="/images/facility/surgery-tools.webp" loading="lazy" alt="서울비디치과 무균 수술실 장비" width="400" height="500" decoding="async">
-          </picture>
+        <!-- 1/3 카드: 수술실 (VIDEO) -->
+        <div class="fac-mag-card fac-mag-vid" onclick="toggleSiteVid(this)">
+          <video playsinline muted loop autoplay preload="auto">
+            <source src="/videos/treatment-room.mp4" type="video/mp4">
+          </video>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">03</span>
             <div class="fac-mag-text">
@@ -1102,6 +1147,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <p>대학병원급 무균 환경. 에어샤워 시스템으로 수술 시작 전부터 감염을 차단합니다.</p>
             </div>
           </div>
+          <div class="site-vid-play"><i class="fas fa-play"></i></div>
         </div>
 
         <!-- 1/3 카드: CT -->
@@ -1119,12 +1165,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <!-- 1/3 카드: 소아 -->
-        <div class="fac-mag-card">
-          <picture>
-            <source srcset="/images/facility/kids-playroom.webp" type="image/webp">
-            <img src="/images/facility/kids-playroom.webp" loading="lazy" alt="서울비디치과 소아치과 키즈 놀이공간" width="400" height="500" decoding="async">
-          </picture>
+        <!-- 1/3 카드: 소아 (VIDEO) -->
+        <div class="fac-mag-card fac-mag-vid" onclick="toggleSiteVid(this)">
+          <video playsinline muted loop autoplay preload="auto">
+            <source src="/videos/pediatric.mp4" type="video/mp4">
+          </video>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">05</span>
             <div class="fac-mag-text">
@@ -1132,14 +1177,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <p>쿠션 놀이방과 귀여운 인형 친구들 — 무서운 치과가 아닌, 다시 오고 싶은 곳.</p>
             </div>
           </div>
+          <div class="site-vid-play"><i class="fas fa-play"></i></div>
         </div>
 
-        <!-- 히어로 카드: 기공소 (2열 넓은 배치) -->
-        <div class="fac-mag-card fac-hero">
-          <picture>
-            <source srcset="/images/facility/dental-lab.webp" type="image/webp">
-            <img src="/images/facility/dental-lab.webp" loading="lazy" alt="서울비디치과 원내 디지털 기공소" width="800" height="500" decoding="async">
-          </picture>
+        <!-- 히어로 카드: 기공소 (2열 넓은 배치, VIDEO) -->
+        <div class="fac-mag-card fac-hero fac-mag-vid" onclick="toggleSiteVid(this)">
+          <video playsinline muted loop autoplay preload="auto">
+            <source src="/videos/dental-lab.mp4" type="video/mp4">
+          </video>
           <div class="fac-mag-overlay">
             <span class="fac-mag-num">06</span>
             <div class="fac-mag-text">
@@ -1147,6 +1192,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <p>5인의 전문 기공사가 원내에 상주 — 보철물 제작부터 수정까지 빠르고 정밀하게.</p>
             </div>
           </div>
+          <div class="site-vid-play"><i class="fas fa-play"></i></div>
         </div>
 
       </div>
@@ -1517,6 +1563,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- 구글 실시간 리뷰 로딩 제거됨 (의료법 준수) -->
 
+
+<!-- ■ Inline Video Play/Pause Toggle -->
+<script>
+function toggleSiteVid(el){
+  var v=el.querySelector('video');
+  if(!v)return;
+  if(v.paused){
+    document.querySelectorAll('.fac-mag-vid video, .clinic-intro-vid video, .tx-vid-item video').forEach(function(ov){
+      if(ov!==v){ov.pause();ov.closest('.fac-mag-vid, .clinic-intro-vid, .tx-vid-item').classList.remove('playing');}
+    });
+    v.play();el.classList.add('playing');
+  }else{
+    v.pause();el.classList.remove('playing');
+  }
+}
+</script>
 
 <!-- Service Worker Registration -->
 <script>
