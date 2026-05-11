@@ -614,6 +614,73 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .pkg-includes { grid-template-columns: 1fr; }
     }
 
+    /* ── Korea's Only Declaration Banner ── */
+    .only-banner {
+      position: relative; margin: 56px auto 0; max-width: 760px;
+      background: linear-gradient(135deg, rgba(201,169,110,0.10) 0%, rgba(26,26,46,0.95) 40%, rgba(26,26,46,0.95) 60%, rgba(201,169,110,0.10) 100%);
+      border: 2px solid var(--gn-gold); border-radius: 20px;
+      padding: 44px 36px 40px; text-align: center; overflow: hidden;
+    }
+    .only-banner::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,169,110,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .only-banner::after {
+      content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 3px; background: var(--gn-gold);
+      box-shadow: 0 0 20px rgba(201,169,110,0.6), 0 0 40px rgba(201,169,110,0.3);
+      border-radius: 0 0 4px 4px;
+    }
+    .only-badge {
+      display: inline-block; background: var(--gn-gold); color: #1a1a2e;
+      font-size: 0.72rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 6px 22px; border-radius: 30px; margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(201,169,110,0.35);
+    }
+    .only-headline {
+      font-size: 1.65rem; font-weight: 900; color: var(--gn-gold);
+      line-height: 1.5; margin-bottom: 8px; letter-spacing: -0.02em;
+    }
+    .only-headline em {
+      font-style: normal; display: block; font-size: 2.1rem;
+      background: linear-gradient(135deg, #e8d5a3 0%, #c9a96e 50%, #b8944f 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; filter: drop-shadow(0 2px 8px rgba(201,169,110,0.3));
+    }
+    .only-sub {
+      font-size: 0.95rem; color: var(--gn-text-muted); line-height: 1.8;
+      max-width: 560px; margin: 14px auto 0;
+    }
+    .only-sub strong { color: var(--gn-white); font-weight: 700; }
+    .only-divider {
+      width: 60px; height: 1px; margin: 22px auto;
+      background: linear-gradient(90deg, transparent, var(--gn-gold), transparent);
+    }
+    .only-features {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      max-width: 620px; margin: 24px auto 0;
+    }
+    .only-feat {
+      text-align: center; padding: 14px 8px;
+    }
+    .only-feat-icon {
+      font-size: 1.6rem; margin-bottom: 8px;
+    }
+    .only-feat-label {
+      font-size: 0.78rem; font-weight: 700; color: var(--gn-gold); line-height: 1.5;
+    }
+    .only-feat-desc {
+      font-size: 0.7rem; color: var(--gn-text-muted); margin-top: 4px; line-height: 1.4;
+    }
+    @media (max-width: 700px) {
+      .only-banner { padding: 32px 20px 28px; margin-top: 40px; }
+      .only-headline { font-size: 1.3rem; }
+      .only-headline em { font-size: 1.6rem; }
+      .only-features { grid-template-columns: 1fr; gap: 8px; max-width: 280px; }
+      .only-feat { padding: 10px 8px; }
+    }
+
     /* ── WeChat / LINE Placeholder ── */
     .qr-placeholder {
       width: 200px; height: 200px; border-radius: 16px; margin: 0 auto 16px;
@@ -796,8 +863,9 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
     </div>
 
     <div class="pkg-hero-msg">
-      天安牙山駅に着いたら、あとはお任せください。<br>
-      仲介業者なしで、韓国人と同じ料金。
+      天安牙山駅に着いたら、あとは<strong>すべて病院が直接</strong>お世話します。<br>
+      仲介業者なし。ブローカーなし。韓国人とまったく同じ料金。<br>
+      <span style="font-size:0.85rem;opacity:0.85;">— 韓国でこのサービスを提供できるのは、ソウルBD歯科だけです —</span>
     </div>
 
     <!-- パッケージ内容 6カード -->
@@ -908,6 +976,38 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
           <li>KTX駅送迎 + 天安ツアー付き</li>
           <li>仲介業者なし — 韓国人と同じ料金</li>
         </ul>
+      </div>
+    </div>
+
+    <!-- ★ Korea's Only Declaration Banner ★ -->
+    <div class="only-banner">
+      <div class="only-badge">🇰🇷 韓国唯一 — KOREA'S ONLY</div>
+      <div class="only-headline">
+        仲介業者ゼロ。病院がすべて直接管理。
+        <em>韓国でこれができるのは、私たちだけです。</em>
+      </div>
+      <div class="only-divider"></div>
+      <div class="only-sub">
+        韓国の歯科で外国人患者を受け入れる際、ほとんどの場合<strong>仲介業者（ブローカー）</strong>を通します。<br>
+        しかしソウルBD歯科は違います。<strong>送迎・宿泊・食事・観光・通訳</strong>すべてを<strong>病院が直接</strong>手配・管理します。<br>
+        だから、余分な手数料は一切ありません。<strong>韓国人患者とまったく同じ料金</strong>で施術を受けていただけます。
+      </div>
+      <div class="only-features">
+        <div class="only-feat">
+          <div class="only-feat-icon">🏥</div>
+          <div class="only-feat-label">病院が直接運営</div>
+          <div class="only-feat-desc">ブローカー不介入<br>全プロセス病院管理</div>
+        </div>
+        <div class="only-feat">
+          <div class="only-feat-icon">💰</div>
+          <div class="only-feat-label">韓国人同一料金</div>
+          <div class="only-feat-desc">外国人追加料金ゼロ<br>手数料の上乗せなし</div>
+        </div>
+        <div class="only-feat">
+          <div class="only-feat-icon">🛡️</div>
+          <div class="only-feat-label">ワンストップケア</div>
+          <div class="only-feat-desc">送迎・宿泊・食事・観光<br>すべて病院が一括対応</div>
+        </div>
       </div>
     </div>
 
