@@ -614,82 +614,139 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .pkg-includes { grid-template-columns: 1fr; }
     }
 
-    /* ── Clinic Video Showcase ── */
-    .vid-showcase {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-      margin-top: 8px;
+    /* ── Magazine Spread: Inside BD Dental ── */
+    .mag-spread { max-width: 960px; margin: 0 auto; }
+
+    /* Row 1: Hero building full-width */
+    .mag-hero {
+      position: relative; border-radius: 18px; overflow: hidden;
+      border: 1px solid rgba(201,169,110,0.15); margin-bottom: 14px;
     }
-    .vid-card {
-      position: relative; border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(201,169,110,0.18);
-      background: rgba(201,169,110,0.03);
-      transition: border-color 0.3s ease, transform 0.3s ease;
+    .mag-hero img {
+      width: 100%; display: block; height: 420px; object-fit: cover;
+      object-position: center 35%;
     }
-    .vid-card:hover { border-color: rgba(201,169,110,0.4); transform: translateY(-3px); }
-    .vid-card video {
-      width: 100%; display: block; aspect-ratio: 9/16;
-      object-fit: cover; background: #111;
-    }
-    .vid-card-overlay {
+    .mag-hero-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(10,10,20,0.92) 0%, rgba(10,10,20,0.5) 60%, transparent 100%);
-      padding: 40px 18px 16px; text-align: center;
+      background: linear-gradient(to top, rgba(10,10,20,0.92) 0%, rgba(10,10,20,0.4) 50%, transparent 100%);
+      padding: 60px 32px 28px;
     }
-    .vid-card-tag {
-      display: inline-block; background: var(--gn-gold); color: #1a1a2e;
-      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em;
-      padding: 3px 12px; border-radius: 20px; margin-bottom: 8px; text-transform: uppercase;
+    .mag-hero-tag {
+      display: inline-block; border: 1px solid var(--gn-gold); color: var(--gn-gold);
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 4px 16px; border-radius: 2px; margin-bottom: 12px;
     }
-    .vid-card-title {
-      font-size: 0.95rem; font-weight: 800; color: var(--gn-white); line-height: 1.5;
+    .mag-hero-title {
+      font-size: 1.6rem; font-weight: 900; color: var(--gn-white); line-height: 1.4;
     }
-    .vid-card-desc {
-      font-size: 0.75rem; color: var(--gn-text-muted); margin-top: 4px; line-height: 1.5;
-    }
-    @media (max-width: 700px) {
-      .vid-showcase { grid-template-columns: 1fr; gap: 18px; max-width: 400px; margin: 8px auto 0; }
+    .mag-hero-title em { font-style: normal; color: var(--gn-gold); }
+    .mag-hero-sub {
+      font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-top: 8px; line-height: 1.6;
     }
 
-    /* ── Clinic Photo Grid ── */
-    .clinic-photo-grid {
-      display: grid; gap: 10px; margin-top: 32px;
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: auto auto;
+    /* Row 2: Doctor pair (2-col asymmetric) */
+    .mag-pair {
+      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 14px; margin-bottom: 14px;
     }
-    .clinic-photo-grid .cp-item {
-      position: relative; border-radius: 12px; overflow: hidden;
+    .mag-cell {
+      position: relative; border-radius: 14px; overflow: hidden;
       border: 1px solid rgba(201,169,110,0.12);
-      transition: transform 0.3s ease, border-color 0.3s ease;
-      cursor: pointer;
     }
-    .clinic-photo-grid .cp-item:hover { transform: translateY(-3px); border-color: rgba(201,169,110,0.4); }
-    .clinic-photo-grid .cp-item.cp-wide {
-      grid-column: span 2; grid-row: span 2;
+    .mag-cell img {
+      width: 100%; display: block; height: 320px; object-fit: cover;
     }
-    .clinic-photo-grid .cp-item img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      min-height: 140px;
+    .mag-cell-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,10,20,0.88) 0%, transparent 100%);
+      padding: 36px 20px 16px;
     }
-    .clinic-photo-grid .cp-item.cp-wide img { min-height: 290px; }
-    .cp-label {
+    .mag-cell-num {
+      font-size: 0.55rem; font-weight: 800; color: var(--gn-gold); letter-spacing: 0.2em;
+      text-transform: uppercase; opacity: 0.8; margin-bottom: 4px;
+    }
+    .mag-cell-title {
+      font-size: 0.88rem; font-weight: 800; color: var(--gn-white); line-height: 1.4;
+    }
+    .mag-cell-desc {
+      font-size: 0.72rem; color: rgba(255,255,255,0.6); margin-top: 3px;
+    }
+
+    /* Row 3: Video strip (2-col) */
+    .mag-videos {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;
+    }
+    .mag-vid {
+      position: relative; border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(201,169,110,0.12); cursor: pointer;
+    }
+    .mag-vid video {
+      width: 100%; display: block; height: 480px; object-fit: cover; background: #0a0a14;
+    }
+    .mag-vid-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(201,169,110,0.85); display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    .mag-vid-play::after {
+      content: ''; border-style: solid; border-width: 10px 0 10px 18px;
+      border-color: transparent transparent transparent #1a1a2e;
+      margin-left: 3px;
+    }
+    .mag-vid.playing .mag-vid-play { opacity: 0; transform: translate(-50%,-50%) scale(0.8); }
+    .mag-vid-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,10,20,0.9) 0%, transparent 100%);
+      padding: 40px 18px 16px; text-align: center;
+    }
+    .mag-vid-tag {
+      display: inline-block; border: 1px solid var(--gn-gold); color: var(--gn-gold);
+      font-size: 0.55rem; font-weight: 800; letter-spacing: 0.18em;
+      padding: 3px 12px; border-radius: 2px; margin-bottom: 6px; text-transform: uppercase;
+    }
+    .mag-vid-title {
+      font-size: 0.85rem; font-weight: 800; color: var(--gn-white);
+    }
+
+    /* Row 4: 3-col material strip */
+    .mag-triple {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px;
+    }
+    .mag-sm {
+      position: relative; border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(201,169,110,0.10);
+    }
+    .mag-sm img {
+      width: 100%; display: block; height: 220px; object-fit: cover;
+    }
+    .mag-sm-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
       background: linear-gradient(to top, rgba(10,10,20,0.85) 0%, transparent 100%);
-      padding: 28px 12px 10px; text-align: center;
+      padding: 28px 14px 12px; text-align: center;
     }
-    .cp-label span {
-      font-size: 0.68rem; font-weight: 700; color: var(--gn-gold);
-      letter-spacing: 0.05em;
+    .mag-sm-title {
+      font-size: 0.72rem; font-weight: 700; color: var(--gn-gold); letter-spacing: 0.03em;
     }
+
+    /* Row 5: 2-col craft close-ups (asymmetric reversed) */
+    .mag-pair-rev {
+      display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 14px;
+    }
+
+    /* Responsive */
     @media (max-width: 700px) {
-      .clinic-photo-grid {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-      }
-      .clinic-photo-grid .cp-item.cp-wide {
-        grid-column: span 2; grid-row: span 1;
-      }
-      .clinic-photo-grid .cp-item img { min-height: 120px; }
-      .clinic-photo-grid .cp-item.cp-wide img { min-height: 180px; }
+      .mag-hero img { height: 260px; }
+      .mag-hero-title { font-size: 1.15rem; }
+      .mag-pair, .mag-pair-rev { grid-template-columns: 1fr; }
+      .mag-cell img { height: 240px; }
+      .mag-videos { grid-template-columns: 1fr; }
+      .mag-vid video { height: 400px; }
+      .mag-triple { grid-template-columns: 1fr 1fr; }
+      .mag-triple .mag-sm:last-child { grid-column: span 2; }
+      .mag-sm img { height: 180px; }
+      .mag-vid-play { width: 48px; height: 48px; }
+      .mag-vid-play::after { border-width: 8px 0 8px 14px; }
     }
 
     /* ── Korea's Only Declaration Banner ── */
@@ -1208,78 +1265,131 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
 </section>
 
 <!-- ══════════════════════════════════════════ -->
-<!-- SECTION 4.5: CLINIC VIDEO SHOWCASE -->
+<!-- SECTION 4.5: MAGAZINE SPREAD — INSIDE BD DENTAL -->
 <!-- ══════════════════════════════════════════ -->
 <section class="gn-section" id="clinic-video">
   <div class="container">
     <div class="gn-section-header">
-      <span class="section-label"><i class="fas fa-video"></i> INSIDE BD DENTAL</span>
-      <h2>ソウルBD歯科の<em>施術現場と技術力</em></h2>
-      <p>6,000名以上の韓国歯科院長が学びに来る、韓国を代表する歯科医院の内部をご覧ください</p>
-    </div>
-    <div class="vid-showcase">
-      <div class="vid-card">
-        <video src="https://www.genspark.ai/api/files/s/dtDsFNTs" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()" poster="" aria-label="ソウルBD歯科 夜間精密施術"></video>
-        <div class="vid-card-overlay">
-          <div class="vid-card-tag">PRECISION</div>
-          <div class="vid-card-title">精密施術の現場</div>
-          <div class="vid-card-desc">400坪規模の先端施設で<br>院長が直接行う精密施術</div>
-        </div>
-      </div>
-      <div class="vid-card">
-        <video src="https://www.genspark.ai/api/files/s/HOhM6bOF" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()" poster="" aria-label="ソウルBD歯科 デジタル技工室"></video>
-        <div class="vid-card-overlay">
-          <div class="vid-card-tag">TECHNOLOGY</div>
-          <div class="vid-card-title">院内デジタル技工室</div>
-          <div class="vid-card-desc">CEREC・CAD/CAM・3Dプリンター<br>最先端デジタル機器で精密製作</div>
-        </div>
-      </div>
+      <span class="section-label"><i class="fas fa-gem"></i> INSIDE BD DENTAL</span>
+      <h2>ソウルBD歯科の<em>内部を公開</em></h2>
+      <p>6,000名以上の韓国歯科院長が学びに来る、韓国を代表する歯科医院</p>
     </div>
 
-    <!-- Clinic Photo Grid -->
-    <div class="clinic-photo-grid">
-      <div class="cp-item cp-wide">
+    <div class="mag-spread">
+
+      <!-- Row 1 ─ Hero: Building Exterior (full-width cinematic) -->
+      <div class="mag-hero">
         <img src="/images/clinic/building-exterior.jpg" alt="ソウルBD歯科 外観 — 5階建て400坪の専門歯科医院" loading="lazy">
-        <div class="cp-label"><span>400坪 5階建て専門施設</span></div>
+        <div class="mag-hero-overlay">
+          <div class="mag-hero-tag">Seoul BD Dental</div>
+          <div class="mag-hero-title"><em>400坪</em> 5階建て専門施設</div>
+          <div class="mag-hero-sub">韓国トップクラスの規模を誇るグロウネイト専門歯科医院。<br>6つの独立手術室 · エアシャワー感染管理 · 全フロア専門診療</div>
+        </div>
       </div>
-      <div class="cp-item">
-        <img src="/images/clinic/doctor-surgery.jpg" alt="現ジョンミン院長 精密施術" loading="lazy">
-        <div class="cp-label"><span>院長の精密施術</span></div>
-      </div>
-      <div class="cp-item">
-        <img src="/images/clinic/doctor-consultation.jpg" alt="現ジョンミン院長 デジタルX線カウンセリング" loading="lazy">
-        <div class="cp-label"><span>デジタルカウンセリング</span></div>
-      </div>
-      <div class="cp-item">
-        <img src="/images/clinic/vita-blocks.jpg" alt="VITA BLOCS Mark II セラミックブロック" loading="lazy">
-        <div class="cp-label"><span>VITA セラミック素材</span></div>
-      </div>
-      <div class="cp-item">
-        <img src="/images/clinic/cerec-milling.jpg" alt="CEREC Primemill CNC精密切削機" loading="lazy">
-        <div class="cp-label"><span>CEREC 精密切削</span></div>
-      </div>
-      <div class="cp-item">
-        <img src="/images/clinic/ceramic-blocks.jpg" alt="IPS e.max・CELTRA プレミアムセラミックブロック" loading="lazy">
-        <div class="cp-label"><span>プレミアム素材</span></div>
-      </div>
-      <div class="cp-item">
-        <img src="/images/clinic/shade-guide.jpg" alt="VITA 3D-MASTER シェードガイド — 自然な色調マッチング" loading="lazy">
-        <div class="cp-label"><span>3Dシェードマッチング</span></div>
-      </div>
-      <div class="cp-item">
-        <img src="/images/clinic/milling-action.jpg" alt="CAD/CAM ミリング加工中" loading="lazy">
-        <div class="cp-label"><span>CAD/CAM加工</span></div>
-      </div>
-      <div class="cp-item">
-        <img src="/images/clinic/hand-finishing.jpg" alt="技工士による手作業での精密仕上げ" loading="lazy">
-        <div class="cp-label"><span>手作業での精密仕上げ</span></div>
-      </div>
-      <div class="cp-item">
-        <img src="/images/clinic/veneer-painting.jpg" alt="ラミネートベニア 手塗りカラーリング" loading="lazy">
-        <div class="cp-label"><span>手塗りカラーリング</span></div>
-      </div>
-    </div>
 
+      <!-- Row 2 ─ Doctor Pair (asymmetric 60/40) -->
+      <div class="mag-pair">
+        <div class="mag-cell">
+          <img src="/images/clinic/doctor-surgery.jpg" alt="現ジョンミン院長 ルーペ精密施術" loading="lazy">
+          <div class="mag-cell-overlay">
+            <div class="mag-cell-num">01 — Precision</div>
+            <div class="mag-cell-title">院長による精密施術</div>
+            <div class="mag-cell-desc">拡大ルーペ下で0.1mm単位の精密調整</div>
+          </div>
+        </div>
+        <div class="mag-cell">
+          <img src="/images/clinic/doctor-consultation.jpg" alt="現ジョンミン院長 デジタルX線カウンセリング" loading="lazy">
+          <div class="mag-cell-overlay">
+            <div class="mag-cell-num">02 — Consultation</div>
+            <div class="mag-cell-title">デジタルカウンセリング</div>
+            <div class="mag-cell-desc">3D口腔スキャン × AI分析でプランを設計</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 ─ Video Strip (2-col with gold play buttons) -->
+      <div class="mag-videos">
+        <div class="mag-vid" onclick="toggleMagVid(this)">
+          <video src="https://www.genspark.ai/api/files/s/PYRqPTQg" playsinline muted loop preload="metadata" aria-label="ソウルBD歯科 精密施術映像"></video>
+          <div class="mag-vid-play"></div>
+          <div class="mag-vid-overlay">
+            <div class="mag-vid-tag">▶ Precision Surgery</div>
+            <div class="mag-vid-title">精密施術の現場</div>
+          </div>
+        </div>
+        <div class="mag-vid" onclick="toggleMagVid(this)">
+          <video src="https://www.genspark.ai/api/files/s/0xWHxHHp" playsinline muted loop preload="metadata" aria-label="ソウルBD歯科 デジタル技工室"></video>
+          <div class="mag-vid-play"></div>
+          <div class="mag-vid-overlay">
+            <div class="mag-vid-tag">▶ Digital Lab</div>
+            <div class="mag-vid-title">院内デジタル技工室</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 4 ─ Material Triple (3-col) -->
+      <div class="mag-triple">
+        <div class="mag-sm">
+          <img src="/images/clinic/vita-blocks.jpg" alt="VITA BLOCS Mark II セラミックブロック" loading="lazy">
+          <div class="mag-sm-overlay">
+            <div class="mag-sm-title">VITA セラミック</div>
+          </div>
+        </div>
+        <div class="mag-sm">
+          <img src="/images/clinic/ceramic-blocks.jpg" alt="IPS e.max・CELTRA プレミアムセラミックブロック" loading="lazy">
+          <div class="mag-sm-overlay">
+            <div class="mag-sm-title">e.max · CELTRA</div>
+          </div>
+        </div>
+        <div class="mag-sm">
+          <img src="/images/clinic/shade-guide.jpg" alt="VITA 3D-MASTER シェードガイド — 自然な色調マッチング" loading="lazy">
+          <div class="mag-sm-overlay">
+            <div class="mag-sm-title">3D シェードマッチング</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 5 ─ Technology Pair (reversed asymmetric 40/60) -->
+      <div class="mag-pair-rev">
+        <div class="mag-cell">
+          <img src="/images/clinic/cerec-milling.jpg" alt="CEREC Primemill CNC精密切削機" loading="lazy">
+          <div class="mag-cell-overlay">
+            <div class="mag-cell-num">03 — CEREC</div>
+            <div class="mag-cell-title">精密CNC切削</div>
+            <div class="mag-cell-desc">CAD/CAMで1日で完成する高精度加工</div>
+          </div>
+        </div>
+        <div class="mag-cell">
+          <img src="/images/clinic/milling-action.jpg" alt="CAD/CAM ミリング加工中 — ウォータースプレー精密切削" loading="lazy">
+          <div class="mag-cell-overlay">
+            <div class="mag-cell-num">04 — Milling</div>
+            <div class="mag-cell-title">ウォーター精密加工</div>
+            <div class="mag-cell-desc">微細水流冷却で素材の変形を最小化</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 6 ─ Craftsmanship Pair (asymmetric 60/40) -->
+      <div class="mag-pair">
+        <div class="mag-cell">
+          <img src="/images/clinic/hand-finishing.jpg" alt="技工士による手作業での精密仕上げ" loading="lazy">
+          <div class="mag-cell-overlay">
+            <div class="mag-cell-num">05 — Hand Craft</div>
+            <div class="mag-cell-title">手作業の精密仕上げ</div>
+            <div class="mag-cell-desc">デジタルと職人技のハイブリッド</div>
+          </div>
+        </div>
+        <div class="mag-cell">
+          <img src="/images/clinic/veneer-painting.jpg" alt="ラミネートベニア 手塗りカラーリング" loading="lazy">
+          <div class="mag-cell-overlay">
+            <div class="mag-cell-num">06 — Artistry</div>
+            <div class="mag-cell-title">手塗りカラーリング</div>
+            <div class="mag-cell-desc">天然歯と見分けがつかない自然な仕上がり</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.mag-spread -->
   </div>
 </section>
 
@@ -1987,6 +2097,19 @@ window.addEventListener('scroll', () => {
     nav.style.background = 'rgba(15,15,26,0.95)';
   }
 });
+
+// Magazine video play/pause toggle
+function toggleMagVid(el) {
+  const v = el.querySelector('video');
+  if (!v) return;
+  if (v.paused) {
+    // Pause all other videos first
+    document.querySelectorAll('.mag-vid video').forEach(ov => { if (ov !== v) { ov.pause(); ov.closest('.mag-vid').classList.remove('playing'); } });
+    v.play(); el.classList.add('playing');
+  } else {
+    v.pause(); el.classList.remove('playing');
+  }
+}
 </script>
 
 </body>
