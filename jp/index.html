@@ -650,6 +650,48 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .vid-showcase { grid-template-columns: 1fr; gap: 18px; max-width: 400px; margin: 8px auto 0; }
     }
 
+    /* ── Clinic Photo Grid ── */
+    .clinic-photo-grid {
+      display: grid; gap: 10px; margin-top: 32px;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: auto auto;
+    }
+    .clinic-photo-grid .cp-item {
+      position: relative; border-radius: 12px; overflow: hidden;
+      border: 1px solid rgba(201,169,110,0.12);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+    }
+    .clinic-photo-grid .cp-item:hover { transform: translateY(-3px); border-color: rgba(201,169,110,0.4); }
+    .clinic-photo-grid .cp-item.cp-wide {
+      grid-column: span 2; grid-row: span 2;
+    }
+    .clinic-photo-grid .cp-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      min-height: 140px;
+    }
+    .clinic-photo-grid .cp-item.cp-wide img { min-height: 290px; }
+    .cp-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,10,20,0.85) 0%, transparent 100%);
+      padding: 28px 12px 10px; text-align: center;
+    }
+    .cp-label span {
+      font-size: 0.68rem; font-weight: 700; color: var(--gn-gold);
+      letter-spacing: 0.05em;
+    }
+    @media (max-width: 700px) {
+      .clinic-photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .clinic-photo-grid .cp-item.cp-wide {
+        grid-column: span 2; grid-row: span 1;
+      }
+      .clinic-photo-grid .cp-item img { min-height: 120px; }
+      .clinic-photo-grid .cp-item.cp-wide img { min-height: 180px; }
+    }
+
     /* ── Korea's Only Declaration Banner ── */
     .only-banner {
       position: relative; margin: 56px auto 0; max-width: 760px;
@@ -1193,6 +1235,51 @@ height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe
         </div>
       </div>
     </div>
+
+    <!-- Clinic Photo Grid -->
+    <div class="clinic-photo-grid">
+      <div class="cp-item cp-wide">
+        <img src="/images/clinic/building-exterior.jpg" alt="ソウルBD歯科 外観 — 5階建て400坪の専門歯科医院" loading="lazy">
+        <div class="cp-label"><span>400坪 5階建て専門施設</span></div>
+      </div>
+      <div class="cp-item">
+        <img src="/images/clinic/doctor-surgery.jpg" alt="現ジョンミン院長 精密施術" loading="lazy">
+        <div class="cp-label"><span>院長の精密施術</span></div>
+      </div>
+      <div class="cp-item">
+        <img src="/images/clinic/doctor-consultation.jpg" alt="現ジョンミン院長 デジタルX線カウンセリング" loading="lazy">
+        <div class="cp-label"><span>デジタルカウンセリング</span></div>
+      </div>
+      <div class="cp-item">
+        <img src="/images/clinic/vita-blocks.jpg" alt="VITA BLOCS Mark II セラミックブロック" loading="lazy">
+        <div class="cp-label"><span>VITA セラミック素材</span></div>
+      </div>
+      <div class="cp-item">
+        <img src="/images/clinic/cerec-milling.jpg" alt="CEREC Primemill CNC精密切削機" loading="lazy">
+        <div class="cp-label"><span>CEREC 精密切削</span></div>
+      </div>
+      <div class="cp-item">
+        <img src="/images/clinic/ceramic-blocks.jpg" alt="IPS e.max・CELTRA プレミアムセラミックブロック" loading="lazy">
+        <div class="cp-label"><span>プレミアム素材</span></div>
+      </div>
+      <div class="cp-item">
+        <img src="/images/clinic/shade-guide.jpg" alt="VITA 3D-MASTER シェードガイド — 自然な色調マッチング" loading="lazy">
+        <div class="cp-label"><span>3Dシェードマッチング</span></div>
+      </div>
+      <div class="cp-item">
+        <img src="/images/clinic/milling-action.jpg" alt="CAD/CAM ミリング加工中" loading="lazy">
+        <div class="cp-label"><span>CAD/CAM加工</span></div>
+      </div>
+      <div class="cp-item">
+        <img src="/images/clinic/hand-finishing.jpg" alt="技工士による手作業での精密仕上げ" loading="lazy">
+        <div class="cp-label"><span>手作業での精密仕上げ</span></div>
+      </div>
+      <div class="cp-item">
+        <img src="/images/clinic/veneer-painting.jpg" alt="ラミネートベニア 手塗りカラーリング" loading="lazy">
+        <div class="cp-label"><span>手塗りカラーリング</span></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
