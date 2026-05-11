@@ -675,7 +675,21 @@
     <priority>0.65</priority>
   </url>
 
-  <!-- ===== 8. 추가 페이지 (채용, 증상체커 등) ===== -->
+  <!-- ===== 8. 해외환자 랜딩페이지 (글로우네이트) ===== -->
+  <url>
+    <loc>https://bdbddc.com/jp/</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/cn/</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- ===== 9. 추가 페이지 (채용, 증상체커 등) ===== -->
   <url>
     <loc>https://bdbddc.com/careers</loc>
     <lastmod>2026-04-25</lastmod>
