@@ -1186,6 +1186,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
+    <!-- ── 인비절라인 영상 ── -->
+    <div class="tx-inline-vid reveal">
+      <div class="container">
+        <div class="tx-inline-vid__wrap" onclick="toggleTxVid(this)">
+          <video playsinline muted loop autoplay preload="auto"><source src="/videos/invisalign.mp4" type="video/mp4"></video>
+          <div class="tx-inline-vid__play"><i class="fas fa-play"></i></div>
+        </div>
+      </div>
+    </div>
+
     <!-- 담당 원장 소개 -->
     <section class="section" style="background:#f0f4ff;">
       <div class="container">
@@ -1717,6 +1727,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Magazine gallery scroll reveal -->
   <!-- Editorial magazine gallery scroll reveal -->
   <script>(function(){var f=document.querySelectorAll('.ed-mag .reveal');if(!f.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});f.forEach(function(c){obs.observe(c);});})();</script>
+
+<!-- ■ Treatment Inline Video Toggle -->
+<script>
+function toggleTxVid(el){
+  var v=el.querySelector('video');
+  if(!v)return;
+  if(v.paused){
+    document.querySelectorAll('.tx-inline-vid__wrap video').forEach(function(ov){
+      if(ov!==v){ov.pause();ov.closest('.tx-inline-vid__wrap').classList.remove('playing');}
+    });
+    v.play();el.classList.add('playing');
+  }else{
+    v.pause();el.classList.remove('playing');
+  }
+}
+</script>
 
 <!-- Service Worker Registration -->
 <script>
