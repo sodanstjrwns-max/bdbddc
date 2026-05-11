@@ -24,6 +24,57 @@
 @media(max-width:600px){.fac-mag-grid{grid-template-columns:1fr;grid-auto-rows:240px}.fac-mag-card.fac-hero{grid-column:span 1}.fac-mag-card.fac-hero .fac-mag-text h3{font-size:1.25rem}.fac-mag-footer{gap:20px}.fac-mag-stat-num{font-size:1.6rem}}
 
 /* ══════════════════════════════════════════════
+   VIDEO MAGAZINE — Luxury Clinic Showcase
+   ══════════════════════════════════════════════ */
+.vid-mag{background:#0e0e12;padding:80px 0 72px;overflow:hidden}
+.vid-mag .section-header .section-badge{color:rgba(255,255,255,.5)}
+.vid-mag .section-header .section-title{color:#fff}
+.vid-mag .section-header .section-title .text-gradient{background:linear-gradient(135deg,#c9a96e 0%,#e8d5a3 50%,#c9a96e 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.vid-mag .section-header .section-subtitle{color:rgba(255,255,255,.5)}
+.vid-mag-wrap{max-width:1060px;margin:0 auto}
+
+/* ─ Hero row: full-width cinematic ─ */
+.vid-mag-hero{position:relative;border-radius:20px;overflow:hidden;margin-bottom:16px}
+.vid-mag-hero video{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#000}
+.vid-mag-hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,18,.92) 0%,rgba(10,10,18,.3) 40%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:48px 36px 32px}
+.vid-mag-hero-tag{display:inline-block;border:1px solid rgba(201,169,110,.5);color:#c9a96e;font-size:.6rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:4px 16px;border-radius:2px;margin-bottom:12px;width:fit-content}
+.vid-mag-hero-title{font-size:1.7rem;font-weight:900;color:#fff;line-height:1.35;letter-spacing:-.02em}
+.vid-mag-hero-title em{font-style:normal;color:#c9a96e}
+.vid-mag-hero-sub{font-size:.85rem;color:rgba(255,255,255,.55);margin-top:8px;line-height:1.6}
+
+/* ─ 2-col asymmetric pair ─ */
+.vid-mag-pair{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-bottom:16px}
+.vid-mag-pair.rev{grid-template-columns:.8fr 1.2fr}
+
+/* ─ 3-col triple strip ─ */
+.vid-mag-triple{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+
+/* ─ Card base ─ */
+.vid-mag-card{position:relative;border-radius:16px;overflow:hidden;cursor:pointer}
+.vid-mag-card video{width:100%;display:block;height:100%;object-fit:cover;background:#0a0a10}
+.vid-mag-pair .vid-mag-card video{aspect-ratio:4/5}
+.vid-mag-triple .vid-mag-card video{aspect-ratio:9/16}
+.vid-mag-card-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,18,.88) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px 20px 18px;transition:background .3s ease}
+.vid-mag-card:hover .vid-mag-card-ov{background:linear-gradient(to top,rgba(10,10,18,.92) 0%,rgba(10,10,18,.15) 60%,transparent 100%)}
+.vid-mag-card-num{font-size:.55rem;font-weight:800;color:#c9a96e;letter-spacing:.2em;text-transform:uppercase;opacity:.7;margin-bottom:3px}
+.vid-mag-card-title{font-size:.95rem;font-weight:800;color:#fff;line-height:1.35}
+.vid-mag-card-desc{font-size:.75rem;color:rgba(255,255,255,.5);margin-top:3px;line-height:1.5;opacity:0;transform:translateY(6px);transition:all .35s ease}
+.vid-mag-card:hover .vid-mag-card-desc{opacity:1;transform:translateY(0)}
+
+/* ─ Play button ─ */
+.vid-mag-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(201,169,110,.8);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,0,0,.4);transition:opacity .3s ease,transform .3s ease;pointer-events:none}
+.vid-mag-play::after{content:'';border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #0e0e12;margin-left:2px}
+.vid-mag-card.playing .vid-mag-play,.vid-mag-hero.playing .vid-mag-play{opacity:0;transform:translate(-50%,-50%) scale(.7)}
+
+/* ─ Section footer tagline ─ */
+.vid-mag-tagline{text-align:center;margin-top:36px;font-size:.82rem;color:rgba(255,255,255,.35);letter-spacing:.08em}
+.vid-mag-tagline em{font-style:normal;color:#c9a96e;font-weight:700}
+
+/* ─ Responsive ─ */
+@media(max-width:900px){.vid-mag-pair,.vid-mag-pair.rev{grid-template-columns:1fr 1fr}.vid-mag-triple{grid-template-columns:1fr 1fr}.vid-mag-triple .vid-mag-card:last-child{grid-column:span 2}.vid-mag-hero-title{font-size:1.3rem}}
+@media(max-width:600px){.vid-mag{padding:56px 0 48px}.vid-mag-pair,.vid-mag-pair.rev{grid-template-columns:1fr}.vid-mag-triple{grid-template-columns:1fr}.vid-mag-triple .vid-mag-card:last-child{grid-column:span 1}.vid-mag-pair .vid-mag-card video{aspect-ratio:16/9}.vid-mag-triple .vid-mag-card video{aspect-ratio:4/5}.vid-mag-hero-title{font-size:1.15rem}.vid-mag-play{width:44px;height:44px}.vid-mag-play::after{border-width:7px 0 7px 13px}.vid-mag-card-desc{opacity:1;transform:none}}
+
+/* ══════════════════════════════════════════════
    FAQ Premium Design v2 — 2026.04.08
    ══════════════════════════════════════════════ */
 
