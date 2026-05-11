@@ -1495,6 +1495,12 @@ function toggleTxVid(el){
     v.pause();el.classList.remove('playing');
   }
 }
+// autoplay 시작되면 .playing 자동 부여 (플레이 버튼 숨김)
+document.querySelectorAll('.tx-inline-vid__wrap video').forEach(function(v){
+  v.addEventListener('playing',function(){v.closest('.tx-inline-vid__wrap').classList.add('playing');});
+  v.addEventListener('pause',function(){v.closest('.tx-inline-vid__wrap').classList.remove('playing');});
+  if(!v.paused) v.closest('.tx-inline-vid__wrap').classList.add('playing');
+});
 </script>
 
 <!-- Service Worker Registration -->
