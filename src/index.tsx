@@ -59,8 +59,14 @@ app.use('*', async (c, next) => {
 const TRACKING_HEAD = `<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- Amplitude Script Loader -->
-<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
+<!-- Amplitude Analytics -->
+<script src="https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz"></script>
+<script src="https://cdn.amplitude.com/libs/plugin-autocapture-browser-0.9.0-min.js.gz"></script>
+<script>
+window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+  autocapture: { elementInteractions: true, pageViews: true, sessions: true, formInteractions: true, fileDownloads: true }
+});
+</script>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
