@@ -643,6 +643,36 @@ async function saveCases(r2: R2Bucket, cases: any[]) {
   })
 }
 
+// slug 헬퍼: case 객체에서 URL용 slug 반환 (slug 없으면 id 폴백)
+function caseSlug(cs: any): string { return cs.slug || cs.id }
+// 케이스 찾기: slug OR id로 매칭
+function findCaseByParam(all: any[], param: string): any {
+  return all.find((x: any) => (x.slug === param || x.id === param) && x.status === 'published')
+}
+
+// 케이스 카테고리 → 치료 URL 매핑 (SEO 양방향 링크용)
+const CASE_CATEGORY_TREATMENT_MAP: Record<string, { href: string, label: string, icon: string }> = {
+  'implant': { href: '/treatments/implant', label: '임플란트', icon: 'fas fa-tooth' },
+  'invisalign': { href: '/treatments/invisalign', label: '인비절라인', icon: 'fas fa-teeth-open' },
+  'orthodontics': { href: '/treatments/orthodontics', label: '치아교정', icon: 'fas fa-teeth' },
+  'aesthetic': { href: '/treatments/aesthetic', label: '심미치료', icon: 'fas fa-sparkles' },
+  'front-crown': { href: '/treatments/crown', label: '앞니크라운', icon: 'fas fa-crown' },
+  'glownate': { href: '/treatments/glownate', label: '글로우네이트', icon: 'fas fa-star' },
+  'cavity': { href: '/treatments/cavity', label: '충치치료', icon: 'fas fa-tooth' },
+  'resin': { href: '/treatments/resin', label: '레진치료', icon: 'fas fa-fill-drip' },
+  'crown': { href: '/treatments/crown', label: '크라운', icon: 'fas fa-crown' },
+  'inlay': { href: '/treatments/inlay', label: '인레이/온레이', icon: 'fas fa-puzzle-piece' },
+  'root-canal': { href: '/treatments/root-canal', label: '신경치료', icon: 'fas fa-syringe' },
+  're-root-canal': { href: '/treatments/re-root-canal', label: '재신경치료', icon: 'fas fa-redo' },
+  'whitening': { href: '/treatments/whitening', label: '미백', icon: 'fas fa-sun' },
+  'bridge': { href: '/treatments/bridge', label: '브릿지', icon: 'fas fa-bridge' },
+  'scaling': { href: '/treatments/scaling', label: '스케일링', icon: 'fas fa-teeth' },
+  'gum': { href: '/treatments/gum', label: '잇몸치료', icon: 'fas fa-heart' },
+  'wisdom-tooth': { href: '/treatments/wisdom-tooth', label: '사랑니발치', icon: 'fas fa-tooth' },
+  'pediatric': { href: '/treatments/pediatric', label: '소아치과', icon: 'fas fa-child' },
+  'sedation': { href: '/treatments/implant-sedation', label: '수면치료', icon: 'fas fa-moon' },
+}
+
 // [공개] 카테고리별 케이스 조회 — 진료 페이지에서 호출
 // ★ 의료법 준수: 비로그인 시 이미지 URL 미노출
 app.get('/api/cases', async (c) => {
@@ -673,6 +703,7 @@ app.get('/api/cases', async (c) => {
     
     return {
       id: cs.id,
+      slug: cs.slug || '',
       title: cs.title,
       category: cs.category,
       doctorName: cs.doctorName,
@@ -705,14 +736,14 @@ app.get('/api/cases', async (c) => {
   return c.json(safe)
 })
 
-// [공개] 케이스 상세 — ★ 비로그인 시 after 이미지 미노출
-app.get('/api/cases/:id', async (c) => {
+// [공개] 케이스 상세 — ★ 비로그인 시 after 이미지 미노출 (slug OR id 지원)
+app.get('/api/cases/:param', async (c) => {
   const r2 = c.env.R2
   if (!r2) return c.json({ error: '스토리지 없음' }, 500)
   
-  const id = c.req.param('id')
+  const param = c.req.param('param')
   const allCases = await getCases(r2)
-  const cs = allCases.find((x: any) => x.id === id && x.status === 'published')
+  const cs = findCaseByParam(allCases, param)
   
   if (!cs) return c.json({ error: '케이스를 찾을 수 없습니다' }, 404)
   
@@ -766,7 +797,7 @@ app.post('/api/admin/cases', async (c) => {
   return c.json({ success: true, count: cases.length })
 })
 
-// [관리자] 개별 케이스 저장/수정
+// [관리자] 개별 케이스 저장/수정 (slug 검증 포함)
 app.put('/api/admin/cases/:id', async (c) => {
   const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
@@ -780,6 +811,13 @@ app.put('/api/admin/cases/:id', async (c) => {
   const id = c.req.param('id')
   const data = await c.req.json()
   const allCases = await getCases(r2)
+  
+  // slug 중복 체크 (slug가 있을 때만)
+  if (data.slug) {
+    data.slug = data.slug.toLowerCase().replace(/[^a-z0-9\-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '')
+    const dup = allCases.find((x: any) => x.slug === data.slug && x.id !== id)
+    if (dup) return c.json({ error: `slug "${data.slug}"가 이미 사용 중입니다` }, 400)
+  }
   
   const idx = allCases.findIndex((x: any) => x.id === id)
   if (idx >= 0) {
@@ -1799,6 +1837,44 @@ ${urls}
   return c.text(xml)
 })
 
+// ============================================
+// 동적 사이트맵: 케이스(Before/After) 개별 URL (R2 실시간)
+// ============================================
+app.get('/sitemap-cases.xml', async (c) => {
+  const r2 = c.env.R2
+  let cases: any[] = []
+  if (r2) {
+    const all = await getCases(r2)
+    cases = all.filter((cs: any) => cs.status === 'published')
+      .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+  }
+  const urls = cases.map((cs: any) => {
+    const lastmod = (cs.updatedAt || cs.createdAt || new Date().toISOString()).split('T')[0]
+    return `  <url>
+    <loc>https://bdbddc.com/cases/${caseSlug(cs)}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>`
+  }).join('\n')
+  // 갤러리 목록 페이지도 포함
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 서울비디치과 Before/After 동적 사이트맵 (R2 실시간) -->
+  <!-- 총 ${cases.length}개 케이스 + 갤러리 페이지 -->
+  <url>
+    <loc>https://bdbddc.com/cases/gallery</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+${urls}
+</urlset>`
+  c.header('Content-Type', 'application/xml; charset=utf-8')
+  c.header('Cache-Control', 'public, max-age=3600')
+  return c.text(xml)
+})
+
 // security.txt (GEO + Cloudflare 보안 권고)
 app.get('/.well-known/security.txt', (c) => {
   c.header('Content-Type', 'text/plain; charset=utf-8')
@@ -2396,7 +2472,7 @@ app.get('/doctors/:slug', async (c) => {
     const caseCards = doctorCases.map((cs: any) => {
       const thumb = cs.beforeImage || cs.afterImage || cs.panBeforeImage || cs.panAfterImage || ''
       const cat = CATS[cs.category] || cs.category || ''
-      return `<a href="/cases/${cs.id}" class="dr-case-card" style="text-decoration:none;color:inherit;">
+      return `<a href="/cases/${caseSlug(cs)}" class="dr-case-card" style="text-decoration:none;color:inherit;">
         <div class="dr-case-thumb">${thumb ? `<img src="${thumb}" alt="${cs.title}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">` : '<div style="width:100%;height:100%;background:#f0ebe4;display:flex;align-items:center;justify-content:center;"><i class="fas fa-tooth" style="font-size:2rem;color:#d4c5b3;"></i></div>'}</div>
         <div class="dr-case-info"><span class="dr-case-cat">${cat}</span><h4>${cs.title}</h4>${cs.treatmentPeriod ? `<span class="dr-case-period"><i class="fas fa-clock"></i> ${cs.treatmentPeriod}</span>` : ''}</div>
       </a>`
@@ -3372,19 +3448,25 @@ app.get('/cases', serveStatic({ path: './cases/gallery.html' }))
 app.get('/cases/', serveStatic({ path: './cases/gallery.html' }))
 app.get('/cases/gallery', serveStatic({ path: './cases/gallery.html' }))
 
-// 케이스 상세 페이지 (SSR, 로그인 필요)
-app.get('/cases/:id', async (c) => {
-  const id = c.req.param('id')
+// 케이스 상세 페이지 SSR (slug 우선, 기존 ID는 301 리다이렉트)
+app.get('/cases/:param', async (c) => {
+  const param = c.req.param('param')
   // gallery.html 같은 정적 파일은 통과
-  if (id.includes('.')) return c.notFound()
+  if (param.includes('.')) return c.notFound()
   
   const r2 = c.env.R2
   if (!r2) return c.redirect('/cases/gallery', 302)
   
   const allCases = await getCases(r2)
-  const cs = allCases.find((x: any) => x.id === id && x.status === 'published')
+  const cs = findCaseByParam(allCases, param)
   
   if (!cs) return c.redirect('/cases/gallery', 302)
+  
+  // 기존 ID로 접근 시 → slug URL로 301 리다이렉트 (SEO 가치 이전)
+  if (cs.slug && param !== cs.slug) {
+    return c.redirect(`/cases/${cs.slug}`, 301)
+  }
+  const id = cs.id  // 내부 로직용 (조회수 등)
   
   // 로그인 체크
   const secret = c.env.ADMIN_SESSION_SECRET || 'bd-dental-secret-2026'
@@ -3435,6 +3517,51 @@ app.get('/cases/:id', async (c) => {
   
   const lockOverlay = ''
 
+  // ===== 관련 케이스 블록 (같은 카테고리, 최대 6개) =====
+  const relatedCases = allCases
+    .filter((x: any) => x.status === 'published' && x.id !== cs.id && x.category === cs.category)
+    .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+    .slice(0, 6)
+  const relatedCasesHtml = relatedCases.length > 0 ? `
+<!-- 관련 케이스 (같은 카테고리 — SEO 내부 링크) -->
+<section style="margin-top:36px;">
+<h3 style="font-size:1.05rem;font-weight:700;color:#333;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+<i class="fas fa-images" style="color:#c9a96e;"></i> ${catLabel} 관련 다른 사례
+</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;">
+${relatedCases.map((rc: any) => {
+  const rcThumb = rc.beforeImage || rc.panBeforeImage || ''
+  return `<a href="/cases/${caseSlug(rc)}" style="text-decoration:none;color:inherit;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(107,66,38,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.06)'">
+  <div style="aspect-ratio:16/9;background:#f0ebe4;overflow:hidden;">${rcThumb ? `<img src="${rcThumb}" alt="${rc.title}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><i class="fas fa-tooth" style="font-size:1.5rem;color:#d4c5b3;"></i></div>'}</div>
+  <div style="padding:10px 12px;"><h4 style="font-size:.85rem;font-weight:600;color:#333;margin:0 0 4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${rc.title}</h4>
+  <span style="font-size:.75rem;color:#888;">${rc.doctorName || ''}</span></div>
+</a>`
+}).join('\n')}
+</div>
+</section>` : ''
+
+  // ===== 관련 치료 + 네비게이션 링크 (SEO 양방향 링크) =====
+  const caseTreatment = CASE_CATEGORY_TREATMENT_MAP[cs.category]
+  const caseDefaultLinks = [
+    { href: '/', label: '서울비디치과 홈', icon: 'fas fa-home' },
+    { href: '/doctors/', label: '의료진 소개', icon: 'fas fa-user-md' },
+    { href: '/cases/gallery', label: '전체 갤러리', icon: 'fas fa-th' },
+    { href: '/pricing', label: '비용 안내', icon: 'fas fa-won-sign' },
+    { href: '/area/cheonan', label: '천안 치과', icon: 'fas fa-map-marker-alt' },
+    { href: '/area/asan', label: '아산 치과', icon: 'fas fa-map-marker-alt' },
+  ]
+  const caseTreatLinks = caseTreatment ? [caseTreatment] : []
+  const caseRelatedTreatmentsHtml = `
+<!-- 관련 치료 + 네비게이션 내부 링크 (SEO 양방향 링크) -->
+<section style="margin-top:36px;padding:24px;background:#faf7f3;border-radius:16px;">
+<h3 style="font-size:1rem;font-weight:700;color:#333;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+<i class="fas fa-link" style="color:#c9a96e;"></i> 관련 진료 안내
+</h3>
+<div style="display:flex;flex-wrap:wrap;gap:10px;">
+${[...caseTreatLinks, ...caseDefaultLinks].map(link => `<a href="${link.href}" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-size:.85rem;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:all .2s;" onmouseover="this.style.background='#6B4226';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='#6B4226'"><i class="${link.icon}"></i> ${link.label}</a>`).join('\n')}
+</div>
+</section>`
+
   return c.html(`<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -3443,11 +3570,11 @@ ${TRACKING_HEAD}
 <title>${cs.title}${cs.region ? ' | ' + cs.region : ''} | Before/After — 서울비디치과</title>
 <meta name="description" content="${cs.title} — ${cs.doctorName || '서울비디치과'} ${catLabel} 치료 전후 사진.${cs.region ? ' ' + cs.region + '에서 내원.' : ''} ${cs.treatmentPeriod ? '치료기간 ' + cs.treatmentPeriod + '.' : ''} 서울비디치과 비포/애프터.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://bdbddc.com/cases/${id}">
+<link rel="canonical" href="https://bdbddc.com/cases/${caseSlug(cs)}">
 <meta property="og:title" content="${cs.title} | Before/After — 서울비디치과">
 <meta property="og:description" content="${catLabel} 치료 전후 사진 — ${cs.doctorName || '서울비디치과'}">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://bdbddc.com/cases/${id}">
+<meta property="og:url" content="https://bdbddc.com/cases/${caseSlug(cs)}">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -3459,13 +3586,13 @@ ${TRACKING_HEAD}
   "@type":"MedicalWebPage",
   "name":"${cs.title}",
   "description":"${catLabel} 치료 전후 — ${cs.doctorName || '서울비디치과'}",
-  "url":"https://bdbddc.com/cases/${id}",
+  "url":"https://bdbddc.com/cases/${caseSlug(cs)}",
   "datePublished":"${cs.createdAt || ''}",
   "author":{"@type":"Dentist","name":"서울비디치과","telephone":"+82-41-415-2892"${cs.region ? ',"areaServed":{"@type":"City","name":"' + cs.region + '"}' : ''}},
   "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
     {"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},
     {"@type":"ListItem","position":2,"name":"Before/After","item":"https://bdbddc.com/cases/gallery"},
-    {"@type":"ListItem","position":3,"name":"${cs.title}","item":"https://bdbddc.com/cases/${id}"}
+    {"@type":"ListItem","position":3,"name":"${cs.title}","item":"https://bdbddc.com/cases/${caseSlug(cs)}"}
   ]}
 }
 </script>
@@ -3556,8 +3683,10 @@ ${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight
 </div>
 <div style="text-align:center;margin-top:24px;">
 <a href="/cases/gallery" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 갤러리 보기</a>
-${cs.category ? `<a href="/treatments/${cs.category}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;margin-left:8px;"><i class="fas fa-tooth"></i> ${catLabel} 진료 안내</a>` : ''}
+${cs.category ? `<a href="/treatments/${catSlugMap[cs.category] || cs.category}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;margin-left:8px;"><i class="fas fa-tooth"></i> ${catLabel} 진료 안내</a>` : ''}
 </div>
+${relatedCasesHtml}
+${caseRelatedTreatmentsHtml}
 </div>
 </main>
 <div class="case-lightbox" id="caseLB" onclick="if(event.target===this)closeCaseLB()">

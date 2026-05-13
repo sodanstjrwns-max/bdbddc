@@ -498,7 +498,7 @@
             '<div style="text-align:center;color:#fff;padding:48px 24px;">' +
               '<i class="fas fa-lock" style="font-size:2rem;color:#C8A97E;margin-bottom:14px;display:block;"></i>' +
               '<p style="font-size:0.92rem;opacity:0.7;margin-bottom:18px;line-height:1.6;">애프터 사진은 로그인 후<br>확인 가능합니다</p>' +
-              '<a href="/auth/login?redirect=/cases/' + caseItem.id + '" class="lb-lock-btn"><i class="fas fa-sign-in-alt"></i> 로그인</a>' +
+              '<a href="/auth/login?redirect=/cases/' + (caseItem.slug || caseItem.id) + '" class="lb-lock-btn"><i class="fas fa-sign-in-alt"></i> 로그인</a>' +
             '</div>';
         } else {
           imageWrap.innerHTML =
@@ -557,7 +557,7 @@
 
     // ── CTA 버튼 ──
     var ctaHtml =
-      '<a href="/reservation?case=' + caseItem.id + '&category=' + (caseItem.category || '') + '" class="lb-cta-btn" onclick="event.stopPropagation()">' +
+      '<a href="/reservation?case=' + (caseItem.slug || caseItem.id) + '&category=' + (caseItem.category || '') + '" class="lb-cta-btn" onclick="event.stopPropagation()">' +
         '<i class="fas fa-calendar-check"></i> 이 케이스처럼 상담받기' +
       '</a>';
 
@@ -649,7 +649,7 @@
 
     // 로그인 redirect
     var loginBtn = document.getElementById('lbLoginBtn');
-    if (loginBtn) loginBtn.href = '/auth/login?redirect=/cases/' + caseItem.id;
+    if (loginBtn) loginBtn.href = '/auth/login?redirect=/cases/' + (caseItem.slug || caseItem.id);
 
     var lb = document.getElementById('photoLightbox');
     lb.classList.add('active');
@@ -806,7 +806,7 @@
       }
     }
 
-    return '<div class="gc-card" data-href="/cases/' + c.id + '" data-category="' + (filterGroupMap[c.category] || 'general') + '" data-region="' + (c.region || '') + '" role="link" tabindex="0">' +
+    return '<div class="gc-card" data-href="/cases/' + (c.slug || c.id) + '" data-category="' + (filterGroupMap[c.category] || 'general') + '" data-region="' + (c.region || '') + '" role="link" tabindex="0">' +
       photoHtml +
       '<div class="gc-body">' +
         // 상단 메타 라인: 카테고리 + 스타일/병력 + 기간 + 지역
@@ -908,7 +908,8 @@
     // ★ v15: 비로그인 → 로그인 모달, 로그인 → 라이트박스
     function handleCardAction(caseId, href) {
       if (!isLoggedIn) {
-        showLoginModal(href || '/cases/' + caseId);
+        var caseForSlug = cases.find(function(cx) { return cx.id === caseId; });
+        showLoginModal(href || '/cases/' + (caseForSlug && caseForSlug.slug ? caseForSlug.slug : caseId));
         return;
       }
       var caseItem = cases.find(function(c) { return c.id === caseId; });
