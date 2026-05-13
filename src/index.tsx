@@ -1291,6 +1291,13 @@ async function saveColumns(r2: R2Bucket, cols: any[]) {
   await r2.put(COLUMNS_JSON_KEY, JSON.stringify(cols), { httpMetadata: { contentType: 'application/json' } })
 }
 
+// slug 헬퍼: col 객체에서 URL용 slug 반환 (slug 없으면 id 폴백)
+function colSlug(col: any): string { return col.slug || col.id }
+// 컬럼 찾기: slug OR id로 매칭
+function findColumnByParam(all: any[], param: string): any {
+  return all.find((x: any) => (x.slug === param || x.id === param) && x.status === 'published')
+}
+
 // doctorName → slug 매핑
 const DOCTOR_SLUG_MAP: Record<string,string> = {
   '문석준 원장':'moon','김민수 원장':'kim','현정민 원장':'hyun',
@@ -1312,18 +1319,18 @@ app.get('/api/columns', async (c) => {
   published.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
   c.header('Cache-Control', 'public, max-age=60')
   return c.json(published.map((col: any) => ({
-    id: col.id, title: col.title, excerpt: (col.content || '').replace(/<[^>]*>/g, '').slice(0, 120),
+    id: col.id, slug: colSlug(col), title: col.title, excerpt: (col.content || '').replace(/<[^>]*>/g, '').slice(0, 120),
     doctorName: col.doctorName, category: col.category || '',
     thumbnailImage: col.thumbnailImage || '', createdAt: col.createdAt,
   })))
 })
 
-// [공개] 컬럼 상세 API
-app.get('/api/columns/:id', async (c) => {
+// [공개] 컬럼 상세 API (slug OR id)
+app.get('/api/columns/:param', async (c) => {
   const r2 = c.env.R2
   if (!r2) return c.json({ error: '스토리지 없음' }, 500)
   const all = await getColumns(r2)
-  const col = all.find((x: any) => x.id === c.req.param('id') && x.status === 'published')
+  const col = findColumnByParam(all, c.req.param('param'))
   if (!col) return c.json({ error: '컬럼을 찾을 수 없습니다' }, 404)
   return c.json(col)
 })
@@ -1348,6 +1355,12 @@ app.post('/api/admin/columns', async (c) => {
   const body = await c.req.json()
   const all = await getColumns(r2)
   
+  // slug 중복 체크 (slug가 있을 때만)
+  if (body.slug) {
+    body.slug = body.slug.toLowerCase().replace(/[^a-z0-9\-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '')
+    const dup = all.find((x: any) => x.slug === body.slug && x.id !== (body.id || ''))
+    if (dup) return c.json({ error: `slug "${body.slug}"가 이미 사용 중입니다` }, 400)
+  }
   if (body.id) {
     // 수정
     const idx = all.findIndex((x: any) => x.id === body.id)
@@ -1717,8 +1730,8 @@ app.get('/feed.xml', async (c) => {
     const date = new Date(col.createdAt || Date.now()).toUTCString()
     return `    <item>
       <title><![CDATA[${col.title || ''}]]></title>
-      <link>https://bdbddc.com/column/${col.id}</link>
-      <guid isPermaLink="true">https://bdbddc.com/column/${col.id}</guid>
+      <link>https://bdbddc.com/column/${colSlug(col)}</link>
+      <guid isPermaLink="true">https://bdbddc.com/column/${colSlug(col)}</guid>
       <description><![CDATA[${excerpt}]]></description>
       <author>${col.doctorName || '서울비디치과'}</author>
       <category>${col.category || '진료 이야기'}</category>
@@ -1762,7 +1775,7 @@ app.get('/sitemap-columns.xml', async (c) => {
   const urls = columns.map((col: any) => {
     const lastmod = (col.updatedAt || col.createdAt || new Date().toISOString()).split('T')[0]
     return `  <url>
-    <loc>https://bdbddc.com/column/${col.id}</loc>
+    <loc>https://bdbddc.com/column/${colSlug(col)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -2407,7 +2420,7 @@ app.get('/doctors/:slug', async (c) => {
     const colCards = doctorColumns.map((col: any) => {
       const excerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 80) + '...'
       const date = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'short', day:'numeric' })
-      return `<a href="/column/${col.id}" class="dr-col-card" style="text-decoration:none;color:inherit;">
+      return `<a href="/column/${colSlug(col)}" class="dr-col-card" style="text-decoration:none;color:inherit;">
         ${col.thumbnailImage ? `<div class="dr-col-thumb"><img src="${col.thumbnailImage}" alt="${col.title}"></div>` : ''}
         <div class="dr-col-info">
           ${col.category ? `<span class="dr-col-cat">${col.category}</span>` : ''}
@@ -2746,7 +2759,7 @@ app.get('/column/', async (c) => {
     const avatarHtml = slug 
       ? `<img src="/images/doctors/${slug}-profile.webp" alt="${col.doctorName}" class="cc-avatar-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="cc-avatar-fb" style="display:none">${(col.doctorName || '').charAt(0)}</span>`
       : `<span class="cc-avatar-fb">${(col.doctorName || '서').charAt(0)}</span>`
-    return `<a href="/column/${col.id}" class="cc-card">
+    return `<a href="/column/${colSlug(col)}" class="cc-card">
 ${thumbHtml}
 <div class="cc-body">
 <h3 class="cc-title">${col.title}</h3>
@@ -2969,17 +2982,23 @@ ${ssrMobileNav()}
 </html>`)
 })
 
-// 컬럼 상세 페이지 SSR
-app.get('/column/:id', async (c) => {
-  const id = c.req.param('id')
-  if (id.includes('.')) return c.notFound()
+// 컬럼 상세 페이지 SSR (slug 우선, col-xxx ID는 301 리다이렉트)
+app.get('/column/:param', async (c) => {
+  const param = c.req.param('param')
+  if (param.includes('.')) return c.notFound()
   
   const r2 = c.env.R2
   if (!r2) return c.redirect('/column/', 302)
   
   const all = await getColumns(r2)
-  const col = all.find((x: any) => x.id === id && x.status === 'published')
+  const col = findColumnByParam(all, param)
   if (!col) return c.redirect('/column/', 302)
+  
+  // 기존 col-xxx ID로 접근 시 → slug URL로 301 리다이렉트 (SEO 가치 이전)
+  if (col.slug && param !== col.slug) {
+    return c.redirect(`/column/${col.slug}`, 301)
+  }
+  const id = col.id
   
   const doctorSlug = DOCTOR_SLUG_MAP[col.doctorName] || ''
   const dateStr = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
@@ -3028,7 +3047,7 @@ app.get('/column/:id', async (c) => {
 ${otherCols.map((rc: any) => {
   const rcDate = new Date(rc.createdAt || Date.now()).toLocaleDateString('ko-KR', { month:'short', day:'numeric' })
   const rcExcerpt = (rc.content || '').replace(/<[^>]*>/g, '').slice(0, 60) + '...'
-  return `<a href="/column/${rc.id}" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:14px;text-decoration:none;color:inherit;border:1px solid #ede6dd;transition:all .2s;">
+  return `<a href="/column/${colSlug(rc)}" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:14px;text-decoration:none;color:inherit;border:1px solid #ede6dd;transition:all .2s;">
 ${rc.thumbnailImage ? `<img src="${rc.thumbnailImage}" alt="" style="width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;">` : `<div style="width:56px;height:56px;border-radius:10px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-pen-nib" style="color:#d4c5b3;font-size:1.2rem;"></i></div>`}
 <div style="min-width:0;flex:1;">
 <div style="font-size:.92rem;font-weight:700;color:#333;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${rc.title}</div>
@@ -3135,11 +3154,11 @@ ${TRACKING_HEAD}
 ${focusKw ? `<meta name="keywords" content="${focusKw},서울비디치과,원장컬럼,천안치과">` : ''}
 <meta name="author" content="${col.doctorName || '서울비디치과'}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-<link rel="canonical" href="https://bdbddc.com/column/${id}">
+<link rel="canonical" href="https://bdbddc.com/column/${colSlug(col)}">
 <meta property="og:title" content="${seoTitle} | 서울비디치과">
 <meta property="og:description" content="${seoDesc}">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://bdbddc.com/column/${id}">
+<meta property="og:url" content="https://bdbddc.com/column/${colSlug(col)}">
 <meta property="og:image" content="${ogImage}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -3159,7 +3178,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 <link rel="stylesheet" href="/css/site-v5.css?v=1a91d774">
 <!-- BreadcrumbList -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"원장 컬럼","item":"https://bdbddc.com/column/"},{"@type":"ListItem","position":3,"name":"${col.title}","item":"https://bdbddc.com/column/${id}"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"원장 컬럼","item":"https://bdbddc.com/column/"},{"@type":"ListItem","position":3,"name":"${col.title}","item":"https://bdbddc.com/column/${colSlug(col)}"}]}
 </script>
 <!-- Article Schema -->
 <script type="application/ld+json">
@@ -3180,8 +3199,8 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
   },
   "datePublished":"${isoDate}",
   ${isoUpdated !== isoDate ? `"dateModified":"${isoUpdated}",` : ''}
-  "url":"https://bdbddc.com/column/${id}",
-  "mainEntityOfPage":{"@type":"WebPage","@id":"https://bdbddc.com/column/${id}"},
+  "url":"https://bdbddc.com/column/${colSlug(col)}",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://bdbddc.com/column/${colSlug(col)}"},
   "image":"${ogImage}",
   "publisher":{
     "@type":"Organization",
