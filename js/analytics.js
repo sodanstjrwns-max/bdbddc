@@ -1,6 +1,6 @@
 /**
  * 서울비디치과 통합 Analytics v4
- * GTM (GTM-KKVMVZHK) → GA4 (G-3NQP355YQM) + Amplitude (87529341cb075dcdbefabce3994958aa)
+ * GTM (GTM-KKVMVZHK) → GA4 (G-3NQP355YQM) + Amplitude (c4e197a17443b1059b402ec0d16fa88f)
  * 
  * v5 변경사항 (2026-04-08):
  * - Area CTA 전용 GA4 이벤트 추적 (data-cta, data-area, data-treatment 속성 기반)
@@ -35,27 +35,43 @@
   gtag('js', new Date());
   gtag('config', 'G-3NQP355YQM', { send_page_view: false }); // GTM이 page_view 처리
 
-  // ─── Amplitude 초기화 (Script Loader 방식) ───
-  // SDK는 HTML <head>에서 cdn.amplitude.com/script/API_KEY.js 로 로드됨
-  // Script Loader는 amplitude 전역 객체를 자동 생성하고 큐잉을 지원함
-  // 중복 init 방지
-  if (!window._bdAmplitudeInitialized && typeof window.amplitude !== 'undefined') {
-    window._bdAmplitudeInitialized = true;
-    amplitude.init('87529341cb075dcdbefabce3994958aa', {
-      autocapture: {
-        attribution: true,
-        pageViews: true,
-        sessions: true,
-        formInteractions: true,
-        fileDownloads: true,
-        elementInteractions: false
-      },
-      serverZone: 'US',
-      minIdLength: 1,
-      flushIntervalMillis: 1000,
-      flushQueueSize: 30,
-      logLevel: 0 // None in production
-    });
+  // ─── Amplitude 초기화 ───
+  // SDK(analytics-browser-2.11.1) + autocapture plugin은 HTML <head>에서 로드됨
+  // <head>에서 amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {...}) 이미 호출됨
+  // → analytics.js에서 두 번째 init()을 호출하면 세션/이벤트가 꼬일 수 있으므로
+  //   이미 init된 경우 건너뜀.
+  //
+  // init 여부 감지 방법 (3가지 폴백):
+  //  1. amplitude.getSessionId() — init 후에만 유효한 세션ID 반환
+  //  2. window._bdAmplitudeInitialized — HTML <head>에서 세팅한 플래그
+  //  3. amplitude.config?.apiKey — SDK 내부 config 객체
+  //
+  // 폴백: <head> init이 누락된 극히 드문 경우만 대비
+  if (typeof window.amplitude !== 'undefined') {
+    var hasSession = false;
+    try { hasSession = !!(amplitude.getSessionId && amplitude.getSessionId()); } catch(e) {}
+    var alreadyInitialized = hasSession ||
+                              window._bdAmplitudeInitialized ||
+                              (window.amplitude._isInitialized === true);
+    if (!alreadyInitialized) {
+      window._bdAmplitudeInitialized = true;
+      amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+        autocapture: {
+          attribution: true,
+          pageViews: true,
+          sessions: true,
+          formInteractions: true,
+          fileDownloads: true,
+          elementInteractions: true
+        },
+        serverZone: 'US',
+        minIdLength: 1,
+        flushIntervalMillis: 1000,
+        flushQueueSize: 30,
+        logLevel: 0 // None in production
+      });
+    }
+    // <head>에서 init됐거나 여기서 init됐거나 — 이후 track() 정상 동작
   }
 
   // ═══════════════════════════════════════════════════════

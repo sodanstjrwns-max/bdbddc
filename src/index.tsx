@@ -65,7 +65,7 @@ const TRACKING_HEAD = `<!-- Google Tag Manager -->
 <script>
 window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
   autocapture: { elementInteractions: true, pageViews: true, sessions: true, formInteractions: true, fileDownloads: true }
-});
+});window._bdAmplitudeInitialized=true;
 </script>
 <!-- Meta Pixel Code -->
 <script>
