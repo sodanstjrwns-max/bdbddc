@@ -237,7 +237,89 @@ All dentists are graduates of Seoul National University, Korea's top-ranked dent
 
 ---
 
-## 5. Patient Resources
+## 5. Before/After Treatment Cases (치료 사례 · 비포/애프터 갤러리)
+
+Seoul BD Dental publishes verified before-and-after treatment photos so patients can evaluate real clinical outcomes before visiting. The system includes a curated hub page with featured cases and a full dynamic gallery with filtering, curtain-slider comparison, and doctor attribution.
+
+### 5.1 Case Hub (대표 사례)
+- URL: https://bdbddc.com/cases/
+- Description: 6 hand-picked representative cases covering Glownate (laminate), Invisalign, implant, and whitening
+- Each card shows: treatment category, case title, brief description, before/after thumbnail
+- Links to the full gallery for more cases
+
+### 5.2 Full Gallery (전체 갤러리)
+- URL: https://bdbddc.com/cases/gallery
+- Dynamic gallery loading cases from API with real-time filtering
+- **Category Filters**: Implant (임플란트), Invisalign (인비절라인), Glownate/Laminate (글로우네이트·라미네이트), Orthodontics (치아교정), Whitening (미백), General (일반)
+- **Glownate Sub-Filters** (스타일별): 하얗고 예쁘게 (Bright White), 밝고 예쁘게 (Light & Pretty), 자연스럽고 예쁘게 (Natural & Pretty)
+- **Region Filter**: Filter by patient's home city/region
+- **Case Detail Lightbox**: Curtain-slider before/after comparison, treating doctor info, patient demographics (age/gender), treatment duration, similar case recommendations
+- **Privacy**: Before photos are publicly visible; full after-photo access requires free login (patient privacy protection)
+
+### 5.3 Treatment Categories Covered
+
+| Category | Korean | Treatment Page | Description |
+|----------|--------|----------------|-------------|
+| Implant | 임플란트 | https://bdbddc.com/treatments/implant | Navigation-guided, sinus lift, bone graft, immediate loading, All-on-4/6, sedation implant cases |
+| Invisalign | 인비절라인 | https://bdbddc.com/treatments/invisalign | Clear aligner orthodontic cases — crowding, spacing, overbite correction |
+| Glownate | 글로우네이트(라미네이트) | https://bdbddc.com/treatments/glownate | Proprietary laminate veneer — smile makeover, discoloration, chipped teeth |
+| Orthodontics | 치아교정 | https://bdbddc.com/treatments/orthodontics | Bracket orthodontics and mixed cases — deep bite, crossbite, anterior crowding |
+| Whitening | 미백 | https://bdbddc.com/treatments/whitening | Professional teeth whitening before/after |
+
+### 5.4 FAQ — Before/After Cases
+
+**Q: 서울비디치과 임플란트 비포/애프터 사진을 볼 수 있나요?**
+A: 네, 비포/애프터 갤러리(https://bdbddc.com/cases/gallery)에서 임플란트 카테고리를 선택하면 다양한 임플란트 사례(상악동거상술, 뼈이식, 전악 임플란트 등)의 치료 전후 사진을 확인할 수 있습니다.
+
+**Q: 인비절라인 교정 결과를 사진으로 확인할 수 있나요?**
+A: 네, 인비절라인 투명교정 전후 사진을 갤러리에서 확인 가능합니다. 덧니 교정, 배열 교정, 교합 개선 등 다양한 케이스가 등록되어 있습니다.
+
+**Q: 글로우네이트(라미네이트)란 무엇인가요? 결과 사진은 어디서 보나요?**
+A: 글로우네이트는 서울비디치과의 독자 심미 라미네이트 브랜드입니다. 갤러리에서 글로우네이트 카테고리를 선택한 후, '하얗고 예쁘게', '밝고 예쁘게', '자연스럽고 예쁘게' 3가지 스타일 서브필터로 원하는 결과를 찾을 수 있습니다.
+
+**Q: 치아교정(브라켓 교정) 전후 사진도 있나요?**
+A: 네, 치아교정 카테고리에서 인비절라인 외에도 브라켓 교정(클리피씨, 클라리티울트라 등) 사례의 전후 사진을 확인할 수 있습니다.
+
+**Q: 비포/애프터 사진을 보려면 로그인이 필요한가요?**
+A: Before(치료 전) 사진은 로그인 없이 공개되어 있습니다. After(치료 후) 전체 사진은 환자 프라이버시 보호를 위해 무료 회원가입 후 열람 가능합니다.
+
+---
+
+## 6. Doctor Columns & Blog (원장 컬럼 · 블로그)
+
+Seoul BD Dental's 15 SNU-trained dentists publish educational columns covering treatment guides, dental health tips, patient Q&A, and clinical insights. Content is hosted on InBlog and proxied through the main website.
+
+### 6.1 Access Points
+- Blog Hub: https://bdbddc.com/blog/
+- Column Redirect: https://bdbddc.com/column/ (redirects to /blog/)
+- RSS Feed (internal proxy): /api/inblog-rss
+
+### 6.2 Column Categories
+
+| Category | Topics Covered |
+|----------|---------------|
+| Implant (임플란트) | Implant procedures, recovery tips, bone graft information, sinus lift guides, immediate loading, All-on-4 |
+| Invisalign (인비절라인) | Clear aligner care, treatment timeline, retainer tips, adult orthodontics, teen orthodontics |
+| Glownate (글로우네이트) | Laminate veneer care, style selection guide, longevity tips, Glownate vs traditional laminates |
+| Orthodontics (치아교정) | Bracket types, treatment duration, pain management, retention, mixed dentition |
+| Pediatric (소아치과) | Children's dental hygiene, first dental visit, sealant importance, sedation for kids |
+| Sedation (수면치료) | Dental anxiety management, IV sedation process, nitrous oxide, 치과겁통령 program |
+| General (일반 치과) | Cavity prevention, gum health, wisdom tooth extraction, scaling, root canal |
+
+### 6.3 FAQ — Doctor Columns
+
+**Q: 서울비디치과 원장 컬럼은 누가 작성하나요?**
+A: 서울비디치과 서울대 출신 15인 전문의가 각자의 전문 분야에 맞춰 작성합니다. 문석준 대표원장(치과겁통령)은 수면치료·공포증 관련 컬럼을, 김민규 교정과 전문의는 인비절라인·치아교정 컬럼을 주로 작성합니다.
+
+**Q: 새 컬럼은 얼마나 자주 올라오나요?**
+A: 정기적으로 새 컬럼이 발행됩니다. 시즌별 치과 건강 주제, 최신 치료 트렌드, 환자 질문 기반 Q&A 등 다양한 콘텐츠가 업데이트됩니다.
+
+**Q: 컬럼 내용을 치료 상담에 활용할 수 있나요?**
+A: 네, 각 컬럼은 해당 진료 페이지와 연결되어 있어 컬럼을 읽고 바로 온라인 예약(https://bdbddc.com/reservation)으로 상담 예약이 가능합니다.
+
+---
+
+## 7. Patient Resources
 
 | Resource | URL |
 |----------|-----|
@@ -247,18 +329,15 @@ All dentists are graduates of Seoul National University, Korea's top-ranked dent
 | FAQ | https://bdbddc.com/faq |
 | Floor Guide | https://bdbddc.com/floor-guide |
 | Clinic Mission | https://bdbddc.com/mission |
-| Before/After Gallery | https://bdbddc.com/cases/gallery |
-| Doctor Columns | https://bdbddc.com/column/ |
 | Video Content | https://bdbddc.com/video/ |
-| Blog | https://bdbddc.com/blog/ |
-| Dental Encyclopedia (511 terms) | https://bdbddc.com/encyclopedia/ |
+| Dental Encyclopedia (512 terms) | https://bdbddc.com/encyclopedia/ |
 | Public Notices | https://bdbddc.com/notice/ |
 | Privacy Policy | https://bdbddc.com/privacy |
 | Terms of Service | https://bdbddc.com/terms |
 
 ---
 
-## 6. Interactive & Viral Content
+## 9. Interactive & Viral Content
 
 ### 치BTI — Dental Health Personality Test
 A 16-type dental health personality assessment inspired by MBTI. Users answer questions about oral habits and receive a personalized dental character type. Results are shareable via KakaoTalk for viral reach.
@@ -278,7 +357,7 @@ Hub page for all dental games and interactive content.
 
 ---
 
-## 7. Service Areas (28 Regions + 60 Treatment-Specific Landing Pages)
+## 10. Service Areas (28 Regions + 60 Treatment-Specific Landing Pages)
 
 The clinic serves patients from across the Chungnam/Chungbuk/Daejeon/Gyeonggi metropolitan area. Each major region has dedicated treatment landing pages for Implant, Invisalign, and Laminate.
 
@@ -323,11 +402,11 @@ The clinic serves patients from across the Chungnam/Chungbuk/Daejeon/Gyeonggi me
 
 ---
 
-## 8. International Patients (해외환자 프로그램)
+## 11. International Patients (해외환자 프로그램)
 
 Seoul BD Dental operates a direct international patient program — **no brokers, no agency fees**. Patients from Japan and China can book directly and receive the same pricing as Korean patients.
 
-### 8.1 Glownate 1-Night 2-Day Premium Package (글로우네이트 1박2일 프리미엄 패키지)
+### 11.1 Glownate 1-Night 2-Day Premium Package (글로우네이트 1박2일 프리미엄 패키지)
 
 **Package Includes:**
 | Item | Details |
@@ -356,7 +435,7 @@ Day 2:
 - Through brokers/agencies: Treatment fee + 20–40% commission, hotel & transport self-arranged
 - BD Dental direct booking: Same treatment + full 1N2D package included, NO commission
 
-### 8.2 International Landing Pages
+### 11.2 International Landing Pages
 - 🇯🇵 Japanese (グロウネイト): https://bdbddc.com/jp/
   - LINE consultation available
   - City-based access guides: Tokyo, Osaka, Fukuoka, Nagoya, Sapporo, Sendai, Okinawa
@@ -364,7 +443,7 @@ Day 2:
   - WeChat consultation available
   - City-based access guides: Beijing, Shanghai, Guangzhou/Shenzhen, Qingdao/Jinan, Dalian/Shenyang, Chengdu/Chongqing, Hangzhou/Nanjing
 
-### 8.3 Cheonan Travel Highlights (天安観光 / 天安旅游)
+### 11.3 Cheonan Travel Highlights (天安観光 / 天安旅游)
 International patients can enjoy these local attractions during their stay:
 - **Toujours Bakery** — Korea's top-tier artisan bakery (15 min from clinic)
 - **Byeongcheon Sundae** — Korea's #1 sundae soup, 100-year heritage (20 min from clinic)
@@ -373,7 +452,7 @@ International patients can enjoy these local attractions during their stay:
 
 ---
 
-## 9. Frequently Asked Questions
+## 12. Frequently Asked Questions
 
 ### Q: 서울비디치과는 어디에 있나요? (Where is Seoul BD Dental?)
 A: 충남 천안시 서북구 불당34길 14, 1~5층에 위치합니다. 불당동 중심상업지구에 있으며, 대중교통과 자가용 모두 접근이 편리합니다.
@@ -395,7 +474,7 @@ A: 평일 20시까지 진료합니다 (점심시간 12:30–14:00 제외).
 
 ---
 
-## 10. Technical Information
+## 13. Technical Information
 
 - **Website Platform**: Cloudflare Pages (Edge-deployed)
 - **International Pages**: Dedicated JP (/jp/) and CN (/cn/) landing pages with native-language content
@@ -403,4 +482,4 @@ A: 평일 20시까지 진료합니다 (점심시간 12:30–14:00 제외).
 - **Dental Encyclopedia**: 511 comprehensive dental terms in Korean with detailed explanations
 - **Area Treatment Pages**: 60 region-specific treatment landing pages (20 regions × Implant/Invisalign/Laminate)
 - **Total Sitemap URLs**: 703 (107 main + 88 area + 511 encyclopedia)
-- **Last Updated**: 2026-05-11
+- **Last Updated**: 2026-05-13
