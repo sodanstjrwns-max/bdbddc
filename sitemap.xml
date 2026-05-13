@@ -26,4 +26,10 @@
     <loc>https://bdbddc.com/sitemap-intl.xml</loc>
     <lastmod>2026-05-13</lastmod>
   </sitemap>
+
+  <!-- 원장 컬럼 (동적 — R2 실시간 반영) -->
+  <sitemap>
+    <loc>https://bdbddc.com/sitemap-columns.xml</loc>
+    <lastmod>2026-05-13</lastmod>
+  </sitemap>
 </sitemapindex>

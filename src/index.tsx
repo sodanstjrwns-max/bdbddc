@@ -1748,6 +1748,44 @@ ${items}
   return c.text(xml)
 })
 
+// ============================================
+// 동적 사이트맵: 컬럼 개별 URL (R2 실시간)
+// ============================================
+app.get('/sitemap-columns.xml', async (c) => {
+  const r2 = c.env.R2
+  let columns: any[] = []
+  if (r2) {
+    const all = await getColumns(r2)
+    columns = all.filter((col: any) => col.status === 'published')
+      .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+  }
+  const urls = columns.map((col: any) => {
+    const lastmod = (col.updatedAt || col.createdAt || new Date().toISOString()).split('T')[0]
+    return `  <url>
+    <loc>https://bdbddc.com/column/${col.id}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>`
+  }).join('\n')
+  // 컬럼 목록 페이지도 포함
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 서울비디치과 원장 컬럼 동적 사이트맵 (R2 실시간) -->
+  <!-- 총 ${columns.length}개 컬럼 + 목록 페이지 -->
+  <url>
+    <loc>https://bdbddc.com/column/</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+${urls}
+</urlset>`
+  c.header('Content-Type', 'application/xml; charset=utf-8')
+  c.header('Cache-Control', 'public, max-age=3600')
+  return c.text(xml)
+})
+
 // security.txt (GEO + Cloudflare 보안 권고)
 app.get('/.well-known/security.txt', (c) => {
   c.header('Content-Type', 'text/plain; charset=utf-8')
@@ -2978,6 +3016,114 @@ app.get('/column/:id', async (c) => {
   }
   const drInfo = COL_DOCTOR_INFO[doctorSlug] || { specialty: '치과의사' }
 
+  // ===== 관련 컬럼 (같은 저자 or 전체에서 최신 5개, 자기 자신 제외) =====
+  const otherCols = all.filter((x: any) => x.id !== id && x.status === 'published')
+    .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+    .slice(0, 5)
+  const relatedColumnsHtml = otherCols.length > 0 ? `
+<!-- 관련 컬럼 내부 링크 블록 (SEO 토픽 클러스터) -->
+<section style="margin-top:40px;padding:28px 24px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:20px;border:1px solid #ede6dd;">
+<h2 style="font-size:1.1rem;font-weight:800;color:#6B4226;margin:0 0 16px;display:flex;align-items:center;gap:8px;"><i class="fas fa-pen-nib"></i> 다른 컬럼도 읽어보세요</h2>
+<div style="display:flex;flex-direction:column;gap:10px;">
+${otherCols.map((rc: any) => {
+  const rcDate = new Date(rc.createdAt || Date.now()).toLocaleDateString('ko-KR', { month:'short', day:'numeric' })
+  const rcExcerpt = (rc.content || '').replace(/<[^>]*>/g, '').slice(0, 60) + '...'
+  return `<a href="/column/${rc.id}" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:14px;text-decoration:none;color:inherit;border:1px solid #ede6dd;transition:all .2s;">
+${rc.thumbnailImage ? `<img src="${rc.thumbnailImage}" alt="" style="width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;">` : `<div style="width:56px;height:56px;border-radius:10px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-pen-nib" style="color:#d4c5b3;font-size:1.2rem;"></i></div>`}
+<div style="min-width:0;flex:1;">
+<div style="font-size:.92rem;font-weight:700;color:#333;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${rc.title}</div>
+<div style="font-size:.78rem;color:#999;margin-top:3px;">${rc.doctorName || ''} · ${rcDate}</div>
+</div>
+</a>`
+}).join('\n')}
+</div>
+</section>` : ''
+
+  // ===== 관련 치료 페이지 매핑 (키워드 기반) =====
+  const COLUMN_TREATMENT_MAP: Record<string, { href: string, label: string, icon: string }[]> = {
+    '임플란트': [
+      { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
+      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
+      { href: '/treatments/implant-immediate', label: '즉시 임플란트', icon: 'fas fa-bolt' },
+      { href: '/treatments/implant-full-mouth', label: '전악 임플란트', icon: 'fas fa-teeth' },
+      { href: '/treatments/implant-sinus-lift', label: '뼈이식·상악동거상술', icon: 'fas fa-bone' },
+      { href: '/treatments/implant-navigation', label: '네비게이션 임플란트', icon: 'fas fa-crosshairs' },
+    ],
+    '수면': [
+      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
+    ],
+    '마취': [
+      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
+    ],
+    '공포': [
+      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
+    ],
+    '뼈이식': [
+      { href: '/treatments/implant-sinus-lift', label: '뼈이식·상악동거상술', icon: 'fas fa-bone' },
+      { href: '/treatments/implant-advanced', label: '고난도 임플란트', icon: 'fas fa-medal' },
+    ],
+    '가격': [
+      { href: '/pricing', label: '비용 안내', icon: 'fas fa-won-sign' },
+      { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
+    ],
+    '통증': [
+      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
+      { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
+    ],
+    '붓기': [
+      { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
+    ],
+    '출혈': [
+      { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
+    ],
+    '교정': [
+      { href: '/treatments/invisalign', label: '인비절라인', icon: 'fas fa-teeth-open' },
+      { href: '/treatments/orthodontics', label: '치아교정', icon: 'fas fa-teeth' },
+    ],
+    '인비절라인': [
+      { href: '/treatments/invisalign', label: '인비절라인 센터', icon: 'fas fa-teeth-open' },
+    ],
+    '충치': [
+      { href: '/treatments/cavity', label: '충치치료', icon: 'fas fa-tooth' },
+    ],
+    '스케일링': [
+      { href: '/treatments/scaling', label: '스케일링', icon: 'fas fa-teeth' },
+    ],
+    '사랑니': [
+      { href: '/treatments/wisdom-tooth', label: '사랑니 발치', icon: 'fas fa-tooth' },
+    ],
+  }
+  const titleLower = (col.title || '') + ' ' + (col.focusKeyword || '') + ' ' + (col.category || '')
+  const matchedTreatments = new Map<string, { href: string, label: string, icon: string }>()
+  for (const [kw, treats] of Object.entries(COLUMN_TREATMENT_MAP)) {
+    if (titleLower.includes(kw)) {
+      for (const t of treats) {
+        if (!matchedTreatments.has(t.href)) matchedTreatments.set(t.href, t)
+      }
+    }
+  }
+  // 기본 링크: 홈, 의료진, 예약, 가격
+  const defaultLinks = [
+    { href: '/', label: '서울비디치과 홈', icon: 'fas fa-home' },
+    { href: '/doctors/', label: '의료진 소개', icon: 'fas fa-user-md' },
+    { href: '/pricing', label: '비용 안내', icon: 'fas fa-won-sign' },
+    { href: '/area/cheonan', label: '천안 치과', icon: 'fas fa-map-marker-alt' },
+    { href: '/area/asan', label: '아산 치과', icon: 'fas fa-map-marker-alt' },
+  ]
+  const treatmentLinks = [...matchedTreatments.values()].slice(0, 6)
+  const relatedTreatmentsHtml = `
+<!-- 관련 치료 + 네비게이션 내부 링크 (SEO 양방향 링크) -->
+<section style="margin-top:20px;padding:24px;background:linear-gradient(135deg,#f0f4f8 0%,#e8eef5 100%);border-radius:20px;border:1px solid #dde4ed;">
+${treatmentLinks.length > 0 ? `<h2 style="font-size:1rem;font-weight:800;color:#3b5998;margin:0 0 12px;display:flex;align-items:center;gap:8px;"><i class="fas fa-stethoscope"></i> 관련 진료 안내</h2>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+${treatmentLinks.map(t => `<a href="${t.href}" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#fff;border-radius:50px;text-decoration:none;color:#3b5998;font-size:.84rem;font-weight:600;border:1px solid #dde4ed;transition:all .2s;"><i class="${t.icon}" style="font-size:.8rem;"></i> ${t.label}</a>`).join('\n')}
+</div>` : ''}
+<h3 style="font-size:.9rem;font-weight:700;color:#666;margin:0 0 10px;display:flex;align-items:center;gap:6px;"><i class="fas fa-compass"></i> 바로가기</h3>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+${defaultLinks.map(t => `<a href="${t.href}" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:#fff;border-radius:50px;text-decoration:none;color:#666;font-size:.82rem;font-weight:500;border:1px solid #e0e0e0;transition:all .2s;"><i class="${t.icon}" style="font-size:.75rem;color:#999;"></i> ${t.label}</a>`).join('\n')}
+</div>
+</section>`
+
   return c.html(`<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -3177,6 +3323,9 @@ ${doctorSlug ? `<div class="col-author-box">
 <a href="/doctors/${doctorSlug}"><i class="fas fa-user-md"></i> 프로필 보기</a>
 </div>
 </div>` : ''}
+
+${relatedColumnsHtml}
+${relatedTreatmentsHtml}
 
 <div class="col-detail-footer">
 <a href="/column/" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-arrow-left"></i> 컬럼 목록</a>
