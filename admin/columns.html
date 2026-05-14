@@ -553,6 +553,38 @@ function initQuill() {
   quill.on('text-change', function() {
     updateSEO();
   });
+
+  // ★ Quill v2 키보드 가로채기 버그 수정
+  // Quill v2의 contenteditable이 모달 내 다른 input/textarea/select의
+  // 키보드 입력을 가로채서 타이핑이 안 되는 문제
+  // 해결: 이벤트 위임(delegation)으로 모달 전체에서 focus 감지
+  var modalEl = document.getElementById('colModal');
+
+  // 모달 내 어디든 focusin → Quill 영역 밖이면 Quill 비활성화
+  modalEl.addEventListener('focusin', function(e) {
+    if (!quill) return;
+    var target = e.target;
+    var inQuill = target.closest('.ql-container') || target.closest('.ql-toolbar');
+    if (!inQuill && quill.isEnabled()) {
+      quill.disable();
+    }
+  });
+
+  // Quill 에디터 영역 클릭 시 다시 활성화
+  quill.root.addEventListener('mousedown', function() {
+    if (quill && !quill.isEnabled()) {
+      quill.enable();
+    }
+  });
+  // 툴바 클릭 시에도 활성화
+  var toolbar = document.querySelector('.ql-toolbar');
+  if (toolbar) {
+    toolbar.addEventListener('mousedown', function() {
+      if (quill && !quill.isEnabled()) {
+        quill.enable();
+      }
+    });
+  }
 }
 
 // ===== IMAGE UPLOAD HANDLER (R2) =====
@@ -1022,6 +1054,9 @@ function openModal(col) {
   }
 
   document.getElementById('colModal').classList.add('open');
+
+  // Quill을 활성 상태로 시작
+  if (quill && !quill.isEnabled()) quill.enable();
 
   // Trigger initial SEO analysis
   setTimeout(updateSEO, 200);
