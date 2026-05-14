@@ -20,7 +20,7 @@ staticFiles.forEach(f => {
 const dirs = [
   'css','js','images','treatments','doctors','column','blog',
   'video','cases','notice','auth','admin','area','faq','encyclopedia',
-  'jp','cn','en','vi','th','ru'
+  'jp','cn','en','vi','th','ru','reservation'
 ];
 dirs.forEach(d => {
   try { cp.execSync('mkdir -p dist/' + d + ' && cp -rT ' + d + ' dist/' + d); } catch(e) {}

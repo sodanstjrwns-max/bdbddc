@@ -4406,6 +4406,7 @@ app.use('/faq/*', serveStatic())
 // ============================================
 app.get('/pricing', serveStatic({ path: './pricing.html' }))
 app.get('/reservation', serveStatic({ path: './reservation.html' }))
+app.get('/reservation/thank-you', serveStatic({ path: './reservation/thank-you.html' }))
 app.get('/directions', serveStatic({ path: './directions.html' }))
 app.get('/faq', serveStatic({ path: './faq.html' }))
 app.get('/floor-guide', serveStatic({ path: './floor-guide.html' }))

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko" prefix="og: https://ogp.me/ns#">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+<!-- Amplitude Script Loader -->
+<script src="https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz"></script>
+<script src="https://cdn.amplitude.com/libs/plugin-autocapture-browser-0.9.0-min.js.gz"></script>
+<script>window.amplitude.init("c4e197a17443b1059b402ec0d16fa88f",{autocapture:{elementInteractions:false,pageViews:false,sessions:true,formInteractions:false,fileDownloads:false}});window._bdAmplitudeInitialized=true;</script>
+<script src="/static/bd-analytics.js" defer></script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '971255062435276');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
+/ alt=""></noscript>
+<!-- End Meta Pixel Code -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>예약 완료 | 서울비디치과</title>
+<meta name="description" content="서울비디치과 예약이 완료되었습니다. 담당자가 확인 후 빠른 시간 내에 연락드리겠습니다.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://bdbddc.com/reservation/thank-you">
+<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.svg">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6B4226">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
+<link rel="stylesheet" href="/css/micro.css?v=ac2f0073">
+<script src="/js/analytics.js?v=20260408v7" defer></script>
+<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+<script>Weglot.initialize({api_key:'wg_cd7087d43782c81ecb41e27570c3bfcd2'});</script>
+
+<!-- ===== CONVERSION TRACKING SCRIPTS ===== -->
+<script>
+// ★★★ 전환 추적 — 이 페이지 로드 = 예약 완료 ★★★
+window.addEventListener('DOMContentLoaded', function() {
+  // sessionStorage에서 예약 데이터 읽기
+  var rsvData = {};
+  try { rsvData = JSON.parse(sessionStorage.getItem('bd_reservation') || '{}'); } catch(e) {}
+
+  var treatment = rsvData.treatment || '';
+  var txLabels = {
+    'checkup':'BDX 정밀검진','implant':'임플란트','orthodontics':'교정',
+    'whitening':'미백/심미','pediatric':'소아치과','gum':'잇몸치료',
+    'cavity':'충치치료','wisdom':'사랑니발치','other':'기타 상담',
+    'invisalign':'인비절라인','glownate':'글로우네이트','scaling':'스케일링',
+    'aesthetic':'심미레진'
+  };
+  var txLabel = txLabels[treatment] || treatment || '미지정';
+
+  // ── 1) Meta Pixel: Lead 전환 ──
+  if (typeof fbq === 'function') {
+    fbq('track', 'Lead', {
+      content_name: '온라인 예약 완료',
+      content_category: txLabel,
+      value: 0,
+      currency: 'KRW'
+    });
+    fbq('track', 'Schedule', {
+      content_name: txLabel + ' 예약'
+    });
+  }
+
+  // ── 2) GA4: 전환 이벤트 ──
+  if (typeof gtag === 'function') {
+    // GA4 이벤트 (GA4 대시보드에서 '전환'으로 마킹 가능)
+    gtag('event', 'reservation_complete', {
+      event_category: 'reservation',
+      event_label: txLabel,
+      treatment: treatment,
+      value: 1
+    });
+    // Google Ads 전환 (나중에 Google Ads 연동 시 send_to 값만 교체)
+    // gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXX/YYYYYYYYYYYY', value: 1.0, currency: 'KRW' });
+  }
+
+  // ── 3) Amplitude: 커스텀 이벤트 ──
+  if (typeof window.bdTrack === 'function') {
+    window.bdTrack('Reservation Complete', {
+      treatment: treatment,
+      treatment_label: txLabel,
+      reservation_id: rsvData.id || '',
+      date: rsvData.date || '',
+      time: rsvData.time || '',
+      source: 'thank_you_page'
+    });
+  }
+
+  // ── 4) 네이버 광고 전환 (네이버 SA 연동 시 주석 해제) ──
+  // if (typeof wcs !== 'undefined' && wcs.cnv) {
+  //   var _nasa = {};
+  //   _nasa["cnv"] = wcs.cnv("1", "0");
+  // }
+
+  // ── 5) 카카오 모먼트 전환 (카카오 광고 연동 시 주석 해제) ──
+  // if (typeof kakaoPixel === 'function') {
+  //   kakaoPixel('YOUR_PIXEL_ID').participation();
+  // }
+
+  // ── 6) dataLayer push (GTM에서 추가 트리거로 활용 가능) ──
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'reservation_complete',
+    reservation_treatment: treatment,
+    reservation_treatment_label: txLabel,
+    reservation_id: rsvData.id || '',
+    reservation_date: rsvData.date || '',
+    reservation_time: rsvData.time || ''
+  });
+
+  // ── UI 렌더링 ──
+  var elId = document.getElementById('rcId');
+  var elTx = document.getElementById('rcTx');
+  var elDate = document.getElementById('rcDate');
+  var elName = document.getElementById('rcName');
+
+  if (elId) elId.textContent = rsvData.id || '—';
+  if (elTx) elTx.textContent = txLabel;
+  if (elDate) elDate.textContent = (rsvData.date || '—') + ' ' + (rsvData.time || '');
+  if (elName) elName.textContent = rsvData.name || '—';
+
+  // 데이터 없으면 안내
+  if (!rsvData.treatment) {
+    document.getElementById('noDataNotice').style.display = 'block';
+  }
+
+  // sessionStorage 정리 (새로고침 시 중복 전환 방지)
+  sessionStorage.removeItem('bd_reservation');
+});
+</script>
+
+<!-- Microsoft Clarity -->
+<script>
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(function() {
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wb39d7gn5x");
+  });
+} else {
+  setTimeout(function() {
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wb39d7gn5x");
+  }, 2000);
+}
+</script>
+
+<style>
+.ty-page{min-height:100vh;display:flex;flex-direction:column}
+.ty-main{flex:1;display:flex;align-items:center;justify-content:center;padding:120px 20px 60px}
+.ty-card{max-width:520px;width:100%;text-align:center;animation:tyFadeIn .6s ease}
+@keyframes tyFadeIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* Check Icon */
+.ty-icon{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);display:inline-flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 12px 40px rgba(16,185,129,.3);animation:tyPulse 2s ease infinite}
+@keyframes tyPulse{0%,100%{box-shadow:0 12px 40px rgba(16,185,129,.3)}50%{box-shadow:0 12px 56px rgba(16,185,129,.5)}}
+.ty-icon i{font-size:44px;color:#fff}
+
+/* Title */
+.ty-title{font-size:clamp(1.4rem,4vw,1.8rem);font-weight:900;color:#1C1917;margin-bottom:8px;letter-spacing:-.02em}
+.ty-subtitle{font-size:1rem;color:#78716C;margin-bottom:32px;line-height:1.6}
+
+/* Reservation Info Card */
+.ty-info{background:#FAFAF9;border:1px solid #E8E6E3;border-radius:16px;padding:24px;margin-bottom:24px;text-align:left}
+.ty-info-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #F5F4F2;font-size:.92rem}
+.ty-info-row:last-child{border-bottom:none}
+.ty-info-row .label{color:#78716C;font-weight:500}
+.ty-info-row .value{color:#1C1917;font-weight:700}
+
+/* No data notice */
+.ty-no-data{display:none;background:#FEF3C7;border:1px solid #FCD34D;border-radius:12px;padding:14px;margin-bottom:20px;font-size:.85rem;color:#92400E;text-align:left}
+.ty-no-data i{margin-right:6px}
+
+/* Notice box */
+.ty-notice{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:18px;margin-bottom:28px;text-align:left;font-size:.88rem;color:#1E40AF;line-height:1.7}
+.ty-notice i{margin-right:6px;color:#3B82F6}
+.ty-notice strong{color:#1E3A8A}
+
+/* Prepare Section */
+.ty-prepare{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:18px;margin-bottom:28px;text-align:left}
+.ty-prepare-title{font-size:.9rem;font-weight:800;color:#166534;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.ty-prepare-list{list-style:none;padding:0;margin:0}
+.ty-prepare-list li{padding:6px 0;font-size:.85rem;color:#15803D;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.ty-prepare-list li i{color:#22C55E;margin-top:3px;flex-shrink:0}
+
+/* Action Buttons */
+.ty-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.ty-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-size:.92rem;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:all .2s;font-family:inherit}
+.ty-btn-home{background:#F3F4F6;color:#374151}
+.ty-btn-home:hover{background:#E5E7EB;transform:translateY(-1px)}
+.ty-btn-call{background:linear-gradient(135deg,#6B4226,#5A3720);color:#fff}
+.ty-btn-call:hover{box-shadow:0 4px 16px rgba(107,66,38,.3);transform:translateY(-1px)}
+.ty-btn-kakao{background:#FEE500;color:#3C1E1E}
+.ty-btn-kakao:hover{background:#FFD43B;transform:translateY(-1px)}
+
+/* Share */
+.ty-share{margin-top:16px;padding-top:20px;border-top:1px solid #E8E6E3}
+.ty-share-text{font-size:.82rem;color:#A8A29E;margin-bottom:0}
+
+/* Responsive */
+@media(max-width:480px){
+  .ty-main{padding:100px 16px 40px}
+  .ty-actions{flex-direction:column}
+  .ty-btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body class="ty-page">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden" title="GTM"></iframe></noscript>
+
+<!-- ===== HEADER (simplified) ===== -->
+<header class="gnb" role="banner">
+  <div class="container gnb-inner">
+    <a href="/" class="gnb-logo" aria-label="서울비디치과 홈">
+      <span class="logo-icon">🦷</span>
+      <span class="logo-text">서울비디치과</span>
+    </a>
+    <nav class="gnb-menu" role="navigation" aria-label="메인 메뉴">
+      <a href="/treatments/" class="gnb-link">진료</a>
+      <a href="/doctors/" class="gnb-link">의료진</a>
+      <a href="/pricing" class="gnb-link">비용</a>
+      <a href="/reservation" class="gnb-link active">예약</a>
+    </nav>
+    <div class="gnb-actions">
+      <a href="tel:041-415-2892" class="gnb-phone"><i class="fas fa-phone"></i> 041-415-2892</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="ty-main">
+  <div class="ty-card">
+    <!-- Check Icon -->
+    <div class="ty-icon"><i class="fas fa-check"></i></div>
+
+    <!-- Title -->
+    <h1 class="ty-title">예약 신청이 완료되었습니다!</h1>
+    <p class="ty-subtitle">담당자가 확인 후 <strong>빠른 시간 내에 연락</strong>드리겠습니다.</p>
+
+    <!-- No data warning (직접 URL 접속 시) -->
+    <div id="noDataNotice" class="ty-no-data">
+      <i class="fas fa-exclamation-triangle"></i>
+      예약 정보를 불러올 수 없습니다. 예약이 정상 접수되었는지 확인하려면 전화(041-415-2892)로 문의해주세요.
+    </div>
+
+    <!-- Reservation Summary -->
+    <div class="ty-info">
+      <div class="ty-info-row"><span class="label">예약번호</span><span class="value" id="rcId">—</span></div>
+      <div class="ty-info-row"><span class="label">진료항목</span><span class="value" id="rcTx">—</span></div>
+      <div class="ty-info-row"><span class="label">희망일시</span><span class="value" id="rcDate">—</span></div>
+      <div class="ty-info-row"><span class="label">예약자</span><span class="value" id="rcName">—</span></div>
+    </div>
+
+    <!-- Notice -->
+    <div class="ty-notice">
+      <i class="fas fa-info-circle"></i>
+      예약 확정 전 변경이 필요하시면 <strong>041-415-2892</strong>로 연락주세요.<br>
+      영업시간: 평일 09:00~19:00 / 토 09:00~15:00
+    </div>
+
+    <!-- 내원 전 안내 (Patient Funnel 8단계: 예약→내원 사전교육) -->
+    <div class="ty-prepare">
+      <div class="ty-prepare-title"><i class="fas fa-clipboard-check"></i> 내원 전 안내</div>
+      <ul class="ty-prepare-list">
+        <li><i class="fas fa-check-circle"></i> <strong>신분증</strong>(건강보험증)을 꼭 지참해주세요.</li>
+        <li><i class="fas fa-check-circle"></i> 복용 중인 <strong>약</strong>이 있다면 약 정보를 알려주세요.</li>
+        <li><i class="fas fa-check-circle"></i> 예약 시간 <strong>10분 전</strong>까지 도착해주시면 원활합니다.</li>
+        <li><i class="fas fa-check-circle"></i> 건물 내 <strong>전용 주차장</strong>이 있습니다.</li>
+      </ul>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="ty-actions">
+      <a href="/" class="ty-btn ty-btn-home"><i class="fas fa-home"></i> 홈으로</a>
+      <a href="tel:041-415-2892" class="ty-btn ty-btn-call"><i class="fas fa-phone"></i> 전화 문의</a>
+      <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="ty-btn ty-btn-kakao"><i class="fas fa-comment"></i> 카카오톡</a>
+    </div>
+
+    <!-- Share text -->
+    <div class="ty-share">
+      <p class="ty-share-text">서울비디치과 · 충남 천안시 서북구 불당34길 14, 1~5층 · 365일 진료</p>
+    </div>
+  </div>
+</main>
+
+<!-- ===== FOOTER (compact) ===== -->
+<footer class="footer" role="contentinfo" style="padding:24px 0;">
+  <div class="container" style="text-align:center;">
+    <p class="copyright" style="font-size:.8rem;color:rgba(255,255,255,.5);margin:0;">&copy; 2018-2026 Seoul BD Dental Clinic. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Floating CTA -->
+<div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
+  <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
+  <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
+  <a href="/reservation" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
+  <a href="/directions" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
+</div>
+
+<script src="/js/gnb-v2.js?v=853a02fb" defer></script>
+</body>
+</html>

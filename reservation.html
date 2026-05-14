@@ -950,28 +950,16 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
     });
     var result=await res.json();
     if(!res.ok||result.error){showErr(result.error||'예약 신청에 실패했습니다.');return;}
-    // ★ GA4 전환 추적: 예약 완료 이벤트 전송
-    if (typeof bdAnalytics !== 'undefined' && bdAnalytics.trackReservationComplete) {
-      bdAnalytics.trackReservationComplete({
-        treatment: data.treatment,
-        message: data.message,
-        marketing: data.marketing
-      });
-    }
-    // Show completion screen
-    var txLabels={'checkup':'BDX 정밀검진','implant':'임플란트','orthodontics':'교정','whitening':'미백/심미','pediatric':'소아치과','gum':'잇몸치료','cavity':'충치치료','wisdom':'사랑니발치','other':'기타 상담'};
-    document.getElementById('rcId').textContent=result.reservation.id||'—';
-    document.getElementById('rcTx').textContent=txLabels[data.treatment]||data.treatment;
-    document.getElementById('rcDate').textContent=data.date+' '+data.time;
-    document.getElementById('rcName').textContent=data.name;
-    // Hide form area, show complete screen
-    document.getElementById('rsvForm').style.display='none';
-    document.querySelector('.step-indicator').style.display='none';
-    document.getElementById('rsvErr').style.display='none';
-    document.getElementById('rsvSuc').style.display='none';
-    document.getElementById('rsvComplete').classList.add('show');
-    // Scroll to complete screen
-    document.getElementById('rsvComplete').scrollIntoView({behavior:'smooth',block:'center'});
+    // ★ 예약 데이터를 sessionStorage에 저장 후 Thank You 페이지로 이동
+    // 전환 추적(Meta Pixel, GA4, Amplitude)은 thank-you 페이지에서 실행
+    sessionStorage.setItem('bd_reservation', JSON.stringify({
+      id: result.reservation.id || '',
+      treatment: data.treatment,
+      date: data.date,
+      time: data.time,
+      name: data.name
+    }));
+    window.location.href = '/reservation/thank-you';
   }catch(err){
     showErr('서버 연결에 실패했습니다. 전화(041-415-2892)로 예약해주세요.');
   }finally{
