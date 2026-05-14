@@ -664,13 +664,31 @@ function imageHandler() {
 }
 
 // ===== SLUG VALIDATION =====
+// 입력 중에는 커서 위치 보존 + 허용 문자만 필터링
+// 하이픈 끝 자르기는 저장 시점(saveColumn)에서 처리
 function validateSlug() {
   const input = document.getElementById('colSlug');
   const status = document.getElementById('slugStatus');
-  const val = (input.value || '').trim().toLowerCase().replace(/[^a-z0-9\-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
-  if (val !== input.value) input.value = val;
-  if (val.length >= 3) {
-    status.textContent = '✓ bdbddc.com/column/' + val;
+
+  // 커서 위치 기억
+  var cursorPos = input.selectionStart;
+  var before = input.value;
+
+  // 소문자 변환 + 허용 문자만 (a-z, 0-9, 하이픈)
+  // 연속 하이픈만 정리, 끝 하이픈은 입력 중에 허용 (저장 시 정리)
+  var val = (before || '').toLowerCase().replace(/[^a-z0-9\-]/g, '').replace(/-{2,}/g, '-');
+
+  if (val !== before) {
+    input.value = val;
+    // 삭제된 문자 수만큼 커서 보정
+    var diff = before.length - val.length;
+    input.setSelectionRange(cursorPos - diff, cursorPos - diff);
+  }
+
+  // 표시용 (앞뒤 하이픈 제거한 버전)
+  var display = val.replace(/^-|-$/g, '');
+  if (display.length >= 3) {
+    status.textContent = '✓ bdbddc.com/column/' + display;
     status.style.color = 'var(--green)';
   } else if (val.length > 0) {
     status.textContent = '3자 이상 입력';
