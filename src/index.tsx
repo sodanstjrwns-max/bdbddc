@@ -1488,6 +1488,26 @@ app.get('/mission.html', (c) => c.redirect('/mission', 301))
 app.get('/index.html', (c) => c.redirect('/', 301))
 
 // ============================================
+// GSC "크롤링됨-미색인" 74건 해결 (2026-05-14)
+// ============================================
+// A) .html 확장자 URL → clean URL 301 리디렉션 (빈 200 응답 문제 해결)
+app.get('/cases/index.html', (c) => c.redirect('/cases/', 301))
+app.get('/cases/gallery.html', (c) => c.redirect('/cases/gallery', 301))
+app.get('/column/index.html', (c) => c.redirect('/column/', 301))
+app.get('/video/index.html', (c) => c.redirect('/video/', 301))
+app.get('/treatments/prevention.html', (c) => c.redirect('/treatments/prevention', 301))
+app.get('/treatments/gum-surgery.html', (c) => c.redirect('/treatments/gum-surgery', 301))
+app.get('/treatments/implant.html', (c) => c.redirect('/treatments/implant', 301))
+app.get('/treatments/apicoectomy.html', (c) => c.redirect('/treatments/apicoectomy', 301))
+app.get('/faq/orthodontics.html', (c) => c.redirect('/faq/orthodontics', 301))
+app.get('/area/seosan.html', (c) => c.redirect('/area/seosan', 301))
+app.get('/area/daejeon.html', (c) => c.redirect('/area/daejeon', 301))
+app.get('/area/hongseong.html', (c) => c.redirect('/area/hongseong', 301))
+app.get('/auth/register.html', (c) => c.redirect('/auth/register', 301))
+// B) 존재하지 않는 treatments 경로 → 301 리디렉트
+app.get('/treatments/front-crown', (c) => c.redirect('/treatments/crown', 301))
+
+// ============================================
 // GSC 404 에러 11건 해결 (2026-04-07)
 // ============================================
 // 1) 이전 사이트 잔재 → 301 리다이렉트
@@ -3451,7 +3471,12 @@ app.get('/cases/gallery', serveStatic({ path: './cases/gallery.html' }))
 // 케이스 상세 페이지 SSR (slug 우선, 기존 ID는 301 리다이렉트)
 app.get('/cases/:param', async (c) => {
   const param = c.req.param('param')
-  // gallery.html 같은 정적 파일은 통과
+  // .html 확장자 요청 → clean URL로 301 리디렉트 (GSC 빈 200 응답 방지)
+  if (param.endsWith('.html')) {
+    const clean = param.replace(/\.html$/, '')
+    return c.redirect(`/cases/${clean || 'gallery'}`, 301)
+  }
+  // 기타 정적 파일 (.js, .css, .png 등)은 serveStatic에 위임
   if (param.includes('.')) return c.notFound()
   
   const r2 = c.env.R2
