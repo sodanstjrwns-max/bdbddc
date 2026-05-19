@@ -154,17 +154,34 @@ Seoul BD Dental publishes verified before-and-after treatment photos so prospect
 - Q: What is Glownate? → Glownate is Seoul BD Dental's proprietary laminate veneer brand. Before/after photos are available filtered by style preference.
 - Q: Do I need to log in? → Before photos are public. Full after-photo access requires free membership (patient privacy).
 
-## Doctor Columns & Blog (원장 컬럼 · 블로그)
+## Doctor Columns (원장 컬럼)
 
-The clinic's dentists write educational columns covering dental health topics, treatment guides, and patient Q&A. Content is published via InBlog and accessible through the website. Topics include implant care, Invisalign tips, Glownate aftercare, orthodontic guides, pediatric dental advice, and sedation dentistry information.
+Seoul BD Dental's dentists publish in-depth educational columns on the clinic's own platform. Each article is written by a named dentist (primarily Dr. Moon Seok-Jun), covers evidence-based dental knowledge, and is fully server-side rendered (SSR) with structured data (Article schema, BreadcrumbList). Content averages 3,000–5,800 characters per article.
 
-- Blog / Column Hub: https://bdbddc.com/blog/
-- Column Redirect: https://bdbddc.com/column/ (redirects to /blog/)
-- Categories: Implant, Invisalign, Glownate, Orthodontics, Pediatric, Sedation, General Dental Care
+- Column Hub: https://bdbddc.com/column/
+- Column Sitemap: https://bdbddc.com/sitemap-columns.xml
+- Categories: Implant, Periodontics, Sedation, General Dental Care
+
+### Published Columns (14 articles)
+- 임플란트 즉시 식립 vs 발치 후 대기: https://bdbddc.com/column/immediate-vs-delayed-implant-placement-tradeoffs
+- 임플란트 관리 도구 비교 (치실 vs 치간칫솔 vs 워터픽): https://bdbddc.com/column/dental-implant-maintenance-beyond-brushing
+- 임플란트 주위염 가이드: https://bdbddc.com/column/periimplnatitis
+- 임플란트 수명 — 평생 간다는 말의 진실: https://bdbddc.com/column/implant-lifespan-forever
+- 임플란트 수면 마취 vs 의식하 진정: https://bdbddc.com/column/implant-anesthesia-options
+- 임플란트 가격 차이 7가지 이유: https://bdbddc.com/column/implant-cost-comparison
+- 뼈이식 임플란트 vs 일반 임플란트: https://bdbddc.com/column/bone-graft-implant-success-rate
+- 임플란트 식립 시간의 진실: https://bdbddc.com/column/implant-surgery-time
+- 임플란트 20년 생존율 메타분석: https://bdbddc.com/column/implant-lifespan-20-years
+- 임플란트 수술 후 출혈 가이드: https://bdbddc.com/column/implant-bleeding-recovery
+- 임플란트 수술 후 음식 가이드: https://bdbddc.com/column/implant-diet-after-surgery
+- 임플란트 수술 후 붓기 가이드: https://bdbddc.com/column/implant-swelling-recovery
+- 임플란트 통증 가이드: https://bdbddc.com/column/implant-pain-duration
+- 치과 공포증 극복 방법: https://bdbddc.com/column/dental-phobia-overcome
 
 ### FAQ — Columns
-- Q: Who writes the columns? → Seoul BD Dental's 15 SNU-trained dentists author the articles based on their clinical expertise.
-- Q: How often are new columns published? → New articles are published regularly, covering seasonal dental topics and treatment advances.
+- Q: Who writes the columns? → Seoul BD Dental's SNU-trained dentists author the articles based on their clinical expertise. Primary author: Dr. Moon Seok-Jun (문석준 원장).
+- Q: How often are new columns published? → 2–3 new evidence-based articles per week, focusing on implant knowledge and patient education.
+- Q: Are these original content or reposts? → All articles are original, written by the clinic's dentists, with references to peer-reviewed dental research.
 
 ## Patient Resources
 - Online Reservation: https://bdbddc.com/reservation

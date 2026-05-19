@@ -2905,7 +2905,7 @@ ${TRACKING_HEAD}
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-<link rel="stylesheet" href="/css/site-v5.css?v=1a91d774">
+<link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
 <style>
 .col-page{max-width:900px;margin:0 auto;padding:40px 20px}
 .col-hero{text-align:center;margin-bottom:36px}
@@ -3106,10 +3106,32 @@ app.get('/column/:param', async (c) => {
   const isoUpdated = col.updatedAt ? new Date(col.updatedAt).toISOString() : isoDate
   const plainExcerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 160)
   
+  // FAQ Schema용: 본문에서 h2/h3→다음텍스트 쌍 추출 (AEO 최적화)
+  const faqPairs: {q: string; a: string}[] = []
+  const contentStr = col.content || ''
+  const headingRegex = /<(h[23])[^>]*>(.*?)<\/\1>/gi
+  let hMatch
+  while ((hMatch = headingRegex.exec(contentStr)) !== null) {
+    const question = hMatch[2].replace(/<[^>]*>/g, '').trim()
+    if (!question || question.length < 5) continue
+    // 제목 뒤 텍스트를 다음 h2/h3 전까지 추출
+    const afterH = contentStr.slice(hMatch.index + hMatch[0].length)
+    const nextHIdx = afterH.search(/<h[23]/i)
+    const segment = nextHIdx > 0 ? afterH.slice(0, nextHIdx) : afterH.slice(0, 1000)
+    const answer = segment.replace(/<[^>]*>/g, '').trim().slice(0, 300)
+    if (answer.length >= 20) faqPairs.push({ q: question, a: answer })
+  }
+  const faqSchema = faqPairs.length >= 2 ? `
+<!-- FAQPage Schema (AEO) -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[${faqPairs.slice(0, 8).map(f => `{"@type":"Question","name":"${f.q.replace(/"/g, '\\"')}","acceptedAnswer":{"@type":"Answer","text":"${f.a.replace(/"/g, '\\"')}"}}`).join(',')}]}
+</script>` : ''
+  
   // SEO 메타필드 활용 (에디터에서 입력한 값 우선, 없으면 자동 생성)
   const seoTitle = col.metaTitle || col.title
   const seoDesc = col.metaDescription || plainExcerpt
-  const ogImage = col.thumbnailImage || 'https://bdbddc.com/images/og-image-v2.jpg'
+  const rawThumb = col.thumbnailImage || ''
+  const ogImage = rawThumb.startsWith('http') ? rawThumb : rawThumb ? `https://bdbddc.com${rawThumb}` : 'https://bdbddc.com/images/og-image-v2.jpg'
   const doctorNameClean = (col.doctorName || '').replace(' 원장', '')
   const focusKw = col.focusKeyword || ''
   // ai-summary: 포커스 키워드 포함 요약
@@ -3275,7 +3297,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-<link rel="stylesheet" href="/css/site-v5.css?v=1a91d774">
+<link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
 <!-- BreadcrumbList -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"원장 컬럼","item":"https://bdbddc.com/column/"},{"@type":"ListItem","position":3,"name":"${col.title}","item":"https://bdbddc.com/column/${colSlug(col)}"}]}
@@ -3325,6 +3347,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
   "sameAs":["https://pf.kakao.com/_Cxivlxb","https://www.youtube.com/@BDtube","https://www.youtube.com/@geoptongryung","https://naver.me/5yPnKmqQ"],
   "speakableSpecification":{"@type":"SpeakableSpecification","cssSelector":[".col-detail-header h1",".col-detail-body h2",".col-detail-body h3"]}
 }</script>
+${faqSchema}
 <style>
 .col-detail{max-width:760px;margin:0 auto;padding:40px 20px}
 .col-detail-header{margin-bottom:32px}
@@ -3608,7 +3631,7 @@ ${TRACKING_HEAD}
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-<link rel="stylesheet" href="/css/site-v5.css?v=1a91d774">
+<link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -4057,7 +4080,7 @@ ${TRACKING_HEAD}
 <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-<link rel="stylesheet" href="/css/site-v5.css?v=1a91d774">
+<link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"치과 백과사전","item":"https://bdbddc.com/encyclopedia/"},{"@type":"ListItem","position":3,"name":"${item.category}","item":"https://bdbddc.com/encyclopedia/category/${encodeURIComponent(item.category)}"},{"@type":"ListItem","position":4,"name":"${term}","item":"${canonicalUrl}"}]}
 </script>
@@ -4280,7 +4303,7 @@ ${TRACKING_HEAD}
 <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-<link rel="stylesheet" href="/css/site-v5.css?v=1a91d774">
+<link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"치과 백과사전","item":"https://bdbddc.com/encyclopedia/"},{"@type":"ListItem","position":3,"name":"${catName}","item":"${canonicalUrl}"}]}
 </script>
