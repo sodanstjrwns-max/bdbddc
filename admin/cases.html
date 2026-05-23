@@ -940,7 +940,7 @@ function renderCases() {
   document.getElementById('statDraft').textContent = cases.filter(c=>c.status==='draft').length;
   const thisMonth = new Date().getMonth();
   document.getElementById('statMonth').textContent = cases.filter(c=>new Date(c.createdAt).getMonth()===thisMonth).length;
-  const totalViews = cases.reduce((sum, c) => sum + (parseInt(c.views) || 0), 0);
+  const totalViews = cases.reduce((sum, c) => sum + (parseInt(viewsMap[c.id]) || 0), 0);
   document.getElementById('statViews').textContent = totalViews.toLocaleString();
 
   const tbody = document.getElementById('casesTableBody');
