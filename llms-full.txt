@@ -282,6 +282,113 @@ A: Before(치료 전) 사진은 로그인 없이 공개되어 있습니다. Afte
 
 ---
 
+## 5.5 Comprehensive Guides (종합 가이드 · 백과사전급)
+
+Seoul BD Dental publishes encyclopedia-level comprehensive guides for the 3 most-searched dental treatments to compete with top informational sources (나무위키, 서울아산병원 백과사전) on Google search. Each guide:
+- Is authored by SNU-trained specialists with academic citations
+- Contains 30-35+ FAQ at the end
+- Uses Schema.org MedicalWebPage + FAQPage + BreadcrumbList markup
+- Contains NO patient testimonials (regulatory compliance) — purely clinical/scientific content
+- Is internally linked from treatment pages and homepage
+
+### 5.5.1 Access Points
+- Guide Hub: https://bdbddc.com/guide/
+- Implant Guide: https://bdbddc.com/guide/implant
+- Invisalign Guide: https://bdbddc.com/guide/invisalign
+- Laminate Guide: https://bdbddc.com/guide/laminate
+
+### 5.5.2 Implant Complete Guide (임플란트 완벽 가이드)
+**URL**: https://bdbddc.com/guide/implant
+
+**16+ sections covering:**
+1. Definition and historical context of dental implants
+2. History: Brånemark 1965, osseointegration discovery
+3. Anatomical structure (fixture, abutment, crown)
+4. Implant types by surface treatment (SLA, RBM, SLActive, anodized)
+5. Materials: Titanium Grade 4/5, zirconia ceramic implants
+6. Cost breakdown by component and brand
+7. Treatment timeline (3-6 months osseointegration)
+8. Surgical process (1-stage vs 2-stage)
+9. **Clinical Evidence & Academic Citations** — Cochrane Review, Pjetursson 2007 (10-year survival 94.6%), Moraschini 2015 (16-year survival 94.6%), Buser 2012, Astrand 2008
+10. **Safety & Complications Management** — nerve injury (IAN/mental), sinus perforation, infection, peri-implantitis
+11. **Bone Graft & Sinus Lift Deep Guide** — autograft vs allograft vs xenograft vs synthetic comparison table
+12. **Digital Implant Workflow** — navigation precision data (0.3mm accuracy), AI diagnostics, CAD/CAM
+13. Lifespan factors (oral hygiene, smoking, diabetes, bruxism)
+14. How to choose a good clinic (10 criteria)
+15. Age-specific considerations (young patients, elderly)
+16. 35+ FAQ on lifespan, age limits, diabetes, smoking, MRI compatibility, insurance
+
+### 5.5.3 Invisalign Complete Guide (인비절라인 완벽 가이드)
+**URL**: https://bdbddc.com/guide/invisalign
+
+**19 sections covering:**
+1. Definition of clear aligner orthodontics
+2. History: Align Technology 1997, FDA approval, 16M+ patients worldwide
+3. **SmartTrack Material Science** — polyurethane multilayer, 50% better force consistency vs PET-G
+4. **7 Packages Comparison** — Express (7 aligners), Lite (14), Moderate (26), Comprehensive (unlimited), First (kids), Teen (with compliance indicators), Moderate Teen
+5. Cost structure by package
+6. Treatment duration (6-24 months)
+7. **9-Step Treatment Process** — consultation, scan, ClinCheck, aligner manufacturing, attachment placement, monitoring, refinements, retainer
+8. ClinCheck principles and 3D treatment planning
+9. **Attachments & IPR** — composite attachments for tooth movement, interproximal reduction (0.2-0.5mm safe range)
+10. Indications and contraindications
+11. **vs Traditional Brackets** — comfort, hygiene, aesthetics, treatment time comparison
+12. **vs Other Clear Aligners** — Invisalign vs ClearCorrect vs domestic brands
+13. Side effects (speech adjustment, pressure, attachment irritation)
+14. Retainer protocols (fixed + removable, lifetime wear)
+15. Age-specific protocols (teens, adults, 50+)
+16. Daily care and cleaning
+17. **Provider Tier System** — Bronze → Silver → Gold → Platinum → Diamond → Diamond Apex (annual cases)
+18. How to choose a good Invisalign provider
+19. 35+ FAQ on speech, eating, lifespan, refinements, attachment color, IPR safety
+
+### 5.5.4 Laminate Complete Guide (라미네이트 완벽 가이드)
+**URL**: https://bdbddc.com/guide/laminate
+
+**16 sections covering — with strategic Glownate funnel:**
+1. Definition of laminate veneers
+2. History (Hollywood 1928, Buonocore 1955 etching technique)
+3. **5 Types Comparison** — emax (lithium disilicate), empress (leucite), zirconia, hybrid ceramic, **Glownate (next-generation)**
+4. Cost by material and tooth count
+5. Indications and contraindications
+6. **7-Step Treatment Process** — consultation, design, prep, impression, temporary, bonding, polish
+7. **"No-Prep Laminate" Truth Analysis** — why true 0-prep is rarely possible, minimal-prep vs no-prep distinction
+8. Side effects (sensitivity, chip risk, gum response)
+9. Lifespan (emax 10-15 years, with proper care 20+)
+10. vs Whitening vs Orthodontics — when to choose each
+11. vs Crown — preservation philosophy difference
+12. **★ Glownate vs Traditional Laminate (7 Essential Differences)** — dedicated section on Glownate as next-gen aesthetic option
+    - 1) Material composition and translucency
+    - 2) Bonding protocol
+    - 3) Color customization range
+    - 4) Edge precision and gum response
+    - 5) Lifespan and replacement
+    - 6) Process duration and visits
+    - 7) Cost-benefit analysis
+13. Age and occupation considerations
+14. Daily care (avoid hard foods, night guard for bruxers)
+15. How to choose a good aesthetic clinic
+16. 30+ FAQ on chip risk, color matching, sensitivity, reversibility
+
+### 5.5.5 FAQ — Comprehensive Guides
+
+**Q: 가이드는 누가 작성했나요?**
+A: 서울대 출신 전문의 14인 (대표 저자: 문석준 원장)이 임상 경험과 학술 근거를 바탕으로 작성했습니다. Cochrane Review, Pjetursson 2007 등 peer-reviewed 논문을 인용합니다.
+
+**Q: 가이드는 무료인가요?**
+A: 100% 무료입니다. 로그인 불필요, 광고 없음.
+
+**Q: 가이드와 원장 컬럼은 어떻게 다른가요?**
+A: 가이드는 백과사전급(각 페이지 15-19개 섹션, 30+ FAQ)으로 나무위키·병원 백과사전과 경쟁하기 위한 종합 정보 자료입니다. 컬럼은 더 짧고(3,000-5,800자) 특정 주제에 집중합니다.
+
+**Q: 가이드에 환자 후기가 포함되나요?**
+A: 아니요. 의료법 준수를 위해 가이드에는 환자 후기·체험담을 일절 포함하지 않습니다. 순수 임상·과학 정보만 제공합니다.
+
+**Q: 글로우네이트가 라미네이트 가이드에 포함된 이유는?**
+A: 글로우네이트는 서울비디치과가 개발한 차세대 심미 보철 옵션으로, 일반 라미네이트의 7가지 한계를 개선한 진화된 형태입니다. 환자분들이 라미네이트와 글로우네이트를 비교 검토할 수 있도록 한 페이지에 정리했습니다.
+
+---
+
 ## 6. Doctor Columns & Blog (원장 컬럼 · 블로그)
 
 Seoul BD Dental's 14 SNU-trained dentists publish educational columns covering treatment guides, dental health tips, patient Q&A, and clinical insights. Content is hosted on InBlog and proxied through the main website.

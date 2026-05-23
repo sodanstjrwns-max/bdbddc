@@ -154,6 +154,36 @@ Seoul BD Dental publishes verified before-and-after treatment photos so prospect
 - Q: What is Glownate? → Glownate is Seoul BD Dental's proprietary laminate veneer brand. Before/after photos are available filtered by style preference.
 - Q: Do I need to log in? → Before photos are public. Full after-photo access requires free membership (patient privacy).
 
+## Comprehensive Guides (종합 가이드 · Encyclopedia-Level)
+
+Seoul BD Dental publishes encyclopedia-grade comprehensive guides for the 3 most-searched dental treatments. Each guide is authored by SNU-trained specialists, contains 30+ FAQ, cites peer-reviewed academic sources (Cochrane Review, Pjetursson 2007, Moraschini 2015, Buser 2012, Astrand 2008), and is structured with Schema.org MedicalWebPage + FAQPage + BreadcrumbList markup for AI/LLM consumption. These guides compete with top informational sources (나무위키, 서울아산병원) on Google for primary keywords.
+
+- Guide Hub: https://bdbddc.com/guide/
+
+### Implant Complete Guide (임플란트 완벽 가이드)
+- URL: https://bdbddc.com/guide/implant
+- 16+ sections covering: definition, history, types (SLA/RBM/SLActive), materials (titanium grade 4/5, zirconia), cost breakdown, treatment timeline, surgical process, clinical evidence (10-year survival 95%+), safety/complications, bone grafting (autograft/allograft/xenograft/synthetic comparison), sinus lift, digital implant workflow, AI diagnostics, navigation precision data, peri-implantitis management
+- 35+ FAQ on lifespan, age limits, diabetes, smoking, MRI compatibility, insurance
+- Academic citations: Cochrane Review, Pjetursson 2007, Moraschini 2015, Buser 2012, Astrand 2008
+
+### Invisalign Complete Guide (인비절라인 완벽 가이드)
+- URL: https://bdbddc.com/guide/invisalign
+- 19 sections covering: definition, history (Align Technology 1997), SmartTrack material science, 7 packages comparison (Express/Lite/Moderate/Comprehensive/First/Teen/Moderate Teen), cost, treatment duration, 9-step process, ClinCheck principles, attachments, IPR (interproximal reduction), indications, vs traditional brackets, vs other clear aligners, side effects, retainers, age-specific protocols, daily care, provider tier (Bronze→Diamond Apex)
+- 35+ FAQ on speech, eating, lifespan, refinements, attachment color, IPR safety
+- Seoul BD Dental is a certified Invisalign provider
+
+### Laminate Complete Guide (라미네이트 완벽 가이드)
+- URL: https://bdbddc.com/guide/laminate
+- 16 sections covering: definition, history, 5 types (emax/empress/zirconia/hybrid/Glownate), cost, indications, 7-step process, "no-prep laminate" truth analysis, side effects, lifespan (10-15 years for emax), vs whitening vs orthodontics, vs crown
+- Special focus: **Glownate vs traditional laminate (7 essential differences)** — Section 12 dedicated to Glownate as the next-generation aesthetic option
+- 30+ FAQ on chip risk, color matching, sensitivity, reversibility
+
+### FAQ — Comprehensive Guides
+- Q: Who authored these guides? → Seoul BD Dental's 14 SNU-trained specialists, primarily Dr. Moon Seok-Jun. All content is evidence-based with academic citations.
+- Q: Are these guides free? → Yes. 100% free, no login required, no ads.
+- Q: How are these different from blog columns? → Guides are encyclopedia-grade (3,000+ words each, structured with 15-19 sections) and compete with informational sources like Namuwiki and hospital encyclopedias. Columns are shorter (3,000-5,800 chars) focusing on specific topics.
+- Q: Do guides include patient reviews? → No. Per regulatory guidelines, guides contain only clinical/scientific information — no patient testimonials.
+
 ## Doctor Columns (원장 컬럼)
 
 Seoul BD Dental's dentists publish in-depth educational columns on the clinic's own platform. Each article is written by a named dentist (primarily Dr. Moon Seok-Jun), covers evidence-based dental knowledge, and is fully server-side rendered (SSR) with structured data (Article schema, BreadcrumbList). Content averages 3,000–5,800 characters per article.

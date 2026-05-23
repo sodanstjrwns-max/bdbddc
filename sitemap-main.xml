@@ -698,6 +698,32 @@
     <priority>0.75</priority>
   </url>
 
+  <!-- ===== 9.5. 종합 가이드 (SEO 핵심 콘텐츠) ===== -->
+  <url>
+    <loc>https://bdbddc.com/guide/</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/guide/implant</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/guide/invisalign</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/guide/laminate</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
   <!-- ===== 10. 법적 페이지 ===== -->
   <url>
     <loc>https://bdbddc.com/privacy</loc>
