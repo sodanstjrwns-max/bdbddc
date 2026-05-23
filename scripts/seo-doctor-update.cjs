@@ -238,33 +238,6 @@ const DOCTORS = {
       { q: '강민지 원장에게 진료 예약하려면 어떻게 하나요?', a: '온라인 예약 시 강민지 원장을 지정하시거나, 전화(041-415-2892)로 요청하시면 됩니다. 365일 진료, 평일 야간 20시까지 운영합니다.' }
     ]
   },
-  'kang': {
-    name: '강경민',
-    nameEn: 'Kang Gyeong-min',
-    gender: 'Male',
-    role: '원장',
-    jobTitle: '원장',
-    specialty: '임플란트 및 외과 진료 전문',
-    specialtyShort: '임플란트·외과진료·구강소수술',
-    license: '36098',
-    degree: '치의학 석사',
-    school: '서울대학교 치의학과',
-    gradSchool: '서울대학교 치의학대학원',
-    profileImg: 'https://bdbddc.com/images/doctors/kang-profile.webp',
-    slug: 'kang',
-    title: '강경민 원장 | 임플란트·외과 진료 전문 — 서울비디치과',
-    description: '강경민 원장 — 서울비디치과 임플란트·외과 진료 전문. 서울대 석사, 서울대 치과병원 종합진료실 출신. 천안 불당동 ☎041-415-2892',
-    ogDescription: '서울비디치과 강경민 원장 — 임플란트·외과진료·구강소수술 전문. 서울대 출신.',
-    keywords: '강경민 원장,서울비디치과 강경민,천안 임플란트,임플란트 전문,외과 진료,구강소수술,천안 치과,서울대 치과의사,불당동 치과',
-    knowsAbout: ['Dental Implants','Oral Surgery','Minor Oral Surgery','General Dentistry'],
-    memberOf: ['대한치과의사협회'],
-    schemaDescription: '서울비디치과 원장. 서울대학교 치의학과 졸업, 치의학대학원 석사. 서울대 치과병원 종합진료실 출신. 임플란트·외과진료·구강소수술 전문.',
-    hasSpecialistCert: false,
-    faqs: [
-      { q: '강경민 원장의 전문 분야는 무엇인가요?', a: '강경민 원장은 임플란트와 외과 진료를 전문으로 합니다. 서울대 치과병원 종합진료실에서 수련하였으며, 구강소수술도 능숙하게 시행합니다.' },
-      { q: '강경민 원장에게 진료 예약하려면 어떻게 하나요?', a: '온라인 예약 시 강경민 원장을 지정하시거나, 전화(041-415-2892)로 요청하시면 됩니다. 365일 진료, 평일 야간 20시까지 운영합니다.' }
-    ]
-  },
   'kim-mg': {
     name: '김민규',
     nameEn: 'Kim Min-gyu',
