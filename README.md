@@ -72,6 +72,10 @@
 | `/cases/:id` | 케이스 상세 (로그인 필요) |
 | `/treatments/*` | 진료 안내 (24개 카테고리) |
 | `/doctors/*` | 의료진 소개 (15인 원장) |
+| `/guide/` | **종합 가이드 허브** (Phase 2 SEO) |
+| `/guide/implant` | 임플란트 완전 가이드 (16섹션·35+FAQ·학술 근거) |
+| `/guide/invisalign` | 인비절라인 완전 가이드 (19섹션·35+FAQ·7패키지 비교) |
+| `/guide/laminate` | 라미네이트 완전 가이드 (16섹션·30+FAQ·글로우네이트 퍼널) |
 | `/encyclopedia/` | 치과 백과사전 (500개 용어) |
 | `/pricing` | 비용 안내 |
 | `/reservation` | 예약/상담 |

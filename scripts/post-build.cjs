@@ -18,7 +18,7 @@ staticFiles.forEach(f => {
 
 // 2. Copy directories to dist
 const dirs = [
-  'css','js','images','treatments','doctors','column','blog',
+  'css','js','images','treatments','doctors','column','blog','guide',
   'video','cases','notice','auth','admin','area','faq','encyclopedia',
   'jp','cn','en','vi','th','ru','reservation'
 ];
