@@ -278,4 +278,162 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- ========== 다국어 가이드 페이지 (12개) — 2026-05-23 추가 ========== -->
+
+  <!-- 🇯🇵 일본어 가이드 허브 -->
+  <url>
+    <loc>https://bdbddc.com/jp/guide/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 🇯🇵 일본어 임플란트 가이드 -->
+  <url>
+    <loc>https://bdbddc.com/jp/guide/implant</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/implant"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 🇯🇵 일본어 인비절라인 가이드 -->
+  <url>
+    <loc>https://bdbddc.com/jp/guide/invisalign</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/invisalign"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 🇯🇵 일본어 라미네이트 가이드 (Glownate funnel) -->
+  <url>
+    <loc>https://bdbddc.com/jp/guide/laminate</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/laminate"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 🇬🇧 영어 가이드 허브 -->
+  <url>
+    <loc>https://bdbddc.com/en/guide/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 🇬🇧 영어 임플란트 가이드 -->
+  <url>
+    <loc>https://bdbddc.com/en/guide/implant</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/implant"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 🇬🇧 영어 인비절라인 가이드 -->
+  <url>
+    <loc>https://bdbddc.com/en/guide/invisalign</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/invisalign"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 🇬🇧 영어 베니어 가이드 (Glownate funnel) -->
+  <url>
+    <loc>https://bdbddc.com/en/guide/laminate</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/laminate"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 🇨🇳 중국어 가이드 허브 -->
+  <url>
+    <loc>https://bdbddc.com/cn/guide/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 🇨🇳 중국어 종식아 가이드 -->
+  <url>
+    <loc>https://bdbddc.com/cn/guide/implant</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/implant"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/implant"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 🇨🇳 중국어 은적미(인비절라인) 가이드 -->
+  <url>
+    <loc>https://bdbddc.com/cn/guide/invisalign</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/invisalign"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/invisalign"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 🇨🇳 중국어 자첩면(라미네이트) 가이드 (Glownate funnel) -->
+  <url>
+    <loc>https://bdbddc.com/cn/guide/laminate</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://bdbddc.com/cn/guide/laminate"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/guide/laminate"/>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
 </urlset>
