@@ -16,7 +16,7 @@ function updateTreatmentsIndex() {
   );
   html = html.replace(
     /(<meta name="description" content=")([^"]*)(">)/,
-    '$1서울비디치과 진료 안내 — 천안 임플란트(6개 수술실), 인비절라인 교정(다이아몬드 프로바이더), 글로우네이트(라미네이트), 소아치과 전문의 3인. 서울대 15인 원장 협진.$3'
+    '$1서울비디치과 진료 안내 — 천안 임플란트(6개 수술실), 인비절라인 교정(다이아몬드 프로바이더), 글로우네이트(라미네이트), 소아치과 전문의 3인. 서울대 14인 원장 협진.$3'
   );
   html = html.replace(
     /(<meta name="keywords" content=")([^"]*)(">)/,
@@ -56,7 +56,7 @@ function updateImplant() {
   );
   html = html.replace(
     /(<meta name="description" content=")([^"]*)(">)/,
-    '$1천안 임플란트 전문 서울비디치과 — 6개 독립 수술실, 네비게이션 임플란트, 수면 임플란트. 서울대 15인 원장 협진으로 고난도 케이스까지 안전하게. 365일 진료 ☎041-415-2892$3'
+    '$1천안 임플란트 전문 서울비디치과 — 6개 독립 수술실, 네비게이션 임플란트, 수면 임플란트. 서울대 14인 원장 협진으로 고난도 케이스까지 안전하게. 365일 진료 ☎041-415-2892$3'
   );
   // keywords가 없으면 author 앞에 추가
   if (!html.includes('name="keywords"')) {
@@ -72,7 +72,7 @@ function updateImplant() {
   );
   html = html.replace(
     /(<meta property="og:description" content=")([^"]*)(">)/,
-    '$1천안 임플란트 전문 — 6개 독립 수술실, 네비게이션 임플란트, 수면 임플란트. 서울대 15인 원장 협진.$3'
+    '$1천안 임플란트 전문 — 6개 독립 수술실, 네비게이션 임플란트, 수면 임플란트. 서울대 14인 원장 협진.$3'
   );
   // Twitter
   if (html.includes('twitter:title')) {
@@ -82,7 +82,7 @@ function updateImplant() {
     );
     html = html.replace(
       /(<meta name="twitter:description" content=")([^"]*)(">)/,
-      '$1천안 임플란트 전문 — 6개 수술실, 네비게이션·수면 임플란트. 서울대 15인 원장 ☎041-415-2892$3'
+      '$1천안 임플란트 전문 — 6개 수술실, 네비게이션·수면 임플란트. 서울대 14인 원장 ☎041-415-2892$3'
     );
   }
 
@@ -333,7 +333,7 @@ function updateDoctors() {
   );
   html = html.replace(
     /(<meta name="description" content=")([^"]*)(">)/,
-    '$1서울비디치과 의료진 소개 — 서울대 출신 15인 원장 협진. 임플란트, 인비절라인 교정, 라미네이트(글로우네이트) 각 분야 전문의가 최적의 치료를 제공합니다.$3'
+    '$1서울비디치과 의료진 소개 — 서울대 출신 14인 원장 협진. 임플란트, 인비절라인 교정, 라미네이트(글로우네이트) 각 분야 전문의가 최적의 치료를 제공합니다.$3'
   );
   if (html.includes('name="keywords"')) {
     html = html.replace(

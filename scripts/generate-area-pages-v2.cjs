@@ -30,14 +30,14 @@ const regions = [
     publicTransport:'천안아산역(KTX) 경유 접근 가능', busInfo:'아산터미널 → 천안행 시외버스 30분, 불당동 하차',
     trainInfo:'천안아산역(KTX) 하차 → 택시 10분', navSearch:'천안스퀘어 또는 서울비디치과',
     landmark:'온양온천역, 아산시청', icName:'천안IC', icTime:'20분',
-    whyTravel:'아산에서 20분이면 도착하는 서울비디치과는 아산 환자분들이 가장 많이 찾는 대형 치과입니다. 서울대 전문의 15인 협진으로 어려운 케이스도 안심하고 맡기실 수 있습니다.',
+    whyTravel:'아산에서 20분이면 도착하는 서울비디치과는 아산 환자분들이 가장 많이 찾는 대형 치과입니다. 서울대 전문의 14인 협진으로 어려운 케이스도 안심하고 맡기실 수 있습니다.',
     patientNote:'아산 환자분들은 특히 임플란트와 인비절라인 교정을 많이 받으십니다. 임플란트 전문 수술실 6개와 네비게이션 가이드 시스템으로 정밀한 수술이 가능합니다.' },
   
   { id:'sejong', name:'세종', fullName:'세종특별자치시', province:'세종', driveTime:'35분', driveKm:'35km',
     publicTransport:'세종시 → 천안행 시외버스 약 40분', busInfo:'세종터미널 → 천안터미널 시외버스 40분, 이후 택시 10분',
     trainInfo:'세종시 → 천안아산역(KTX) 약 30분, 이후 택시 10분', navSearch:'천안스퀘어 또는 서울비디치과',
     landmark:'세종시청, 정부세종청사', icName:'천안IC', icTime:'30분',
-    whyTravel:'세종에서 35분이면 서울비디치과에 도착합니다. 세종시에서는 찾기 어려운 서울대 전문의 15인 규모의 대형 치과를 이용하실 수 있습니다.',
+    whyTravel:'세종에서 35분이면 서울비디치과에 도착합니다. 세종시에서는 찾기 어려운 서울대 전문의 14인 규모의 대형 치과를 이용하실 수 있습니다.',
     patientNote:'세종 환자분들은 주로 임플란트, 인비절라인 교정, 소아치과를 많이 이용하십니다. 특히 공무원 가족 환자분들이 많아 야간·주말 진료가 큰 장점입니다.' },
   
   { id:'daejeon', name:'대전', fullName:'대전광역시', province:'대전', driveTime:'40분', driveKm:'50km',
@@ -51,7 +51,7 @@ const regions = [
     publicTransport:'청주 → 천안 시외버스 약 1시간', busInfo:'청주터미널 → 천안터미널 시외버스 약 1시간, 이후 택시 10분',
     trainInfo:'오송역(KTX) → 천안아산역 10분, 이후 택시 10분', navSearch:'천안스퀘어 또는 서울비디치과',
     landmark:'청주시청, 수암골 벽화마을', icName:'천안IC', icTime:'50분',
-    whyTravel:'청주에서 50분이면 서울비디치과에 도착합니다. 오송역 KTX를 이용하면 더 빠릅니다. 충북에서 찾기 어려운 서울대 15인 원장 협진 치과입니다.',
+    whyTravel:'청주에서 50분이면 서울비디치과에 도착합니다. 오송역 KTX를 이용하면 더 빠릅니다. 충북에서 찾기 어려운 서울대 14인 원장 협진 치과입니다.',
     patientNote:'청주 환자분들은 임플란트, 인비절라인 교정, 글로우네이트(라미네이트)를 많이 받으십니다. 특히 어려운 케이스를 위해 먼 거리를 오시는 분들이 많습니다.' },
   
   { id:'pyeongtaek', name:'평택', fullName:'평택시', province:'경기', driveTime:'45분', driveKm:'55km',
@@ -72,7 +72,7 @@ const regions = [
     publicTransport:'충주터미널 → 천안터미널 시외버스 약 1시간 20분', busInfo:'충주터미널 → 천안터미널 시외버스 약 1시간 20분, 이후 택시 10분',
     trainInfo:'충주 → 천안 자가용 약 1시간', navSearch:'천안스퀘어 또는 서울비디치과',
     landmark:'충주시청, 수안보온천, 충주호', icName:'천안IC', icTime:'55분',
-    whyTravel:'충주에서 1시간이면 서울비디치과에 도착합니다. 충북 내에서는 찾기 어려운 서울대 15인 원장 규모의 대형 치과를 이용하실 수 있습니다.',
+    whyTravel:'충주에서 1시간이면 서울비디치과에 도착합니다. 충북 내에서는 찾기 어려운 서울대 14인 원장 규모의 대형 치과를 이용하실 수 있습니다.',
     patientNote:'충주 환자분들은 특히 임플란트 고난도 케이스와 인비절라인 교정을 위해 방문하십니다. 원내 기공소에서 당일 보철물 제작도 가능해 내원 횟수를 줄일 수 있습니다.' },
   
   { id:'dangjin', name:'당진', fullName:'당진시', province:'충남', driveTime:'50분', driveKm:'60km',
@@ -129,7 +129,7 @@ const regions = [
     publicTransport:'청양터미널 → 천안터미널 시외버스 약 1시간', busInfo:'청양터미널 → 천안터미널 시외버스 약 1시간, 이후 택시 10분',
     trainInfo:'청양 → 천안 자가용 약 50분', navSearch:'천안스퀘어 또는 서울비디치과',
     landmark:'청양군청, 칠갑산, 장곡사', icName:'청양IC', icTime:'45분',
-    whyTravel:'청양에서 50분이면 서울비디치과에 도착합니다. 청양 지역에서는 찾기 어려운 서울대 15인 원장 대형 치과를 이용하실 수 있습니다.',
+    whyTravel:'청양에서 50분이면 서울비디치과에 도착합니다. 청양 지역에서는 찾기 어려운 서울대 14인 원장 대형 치과를 이용하실 수 있습니다.',
     patientNote:'청양 환자분들은 임플란트를 가장 많이 받으십니다. 6개 독립 수술실과 네비게이션 시스템으로 안전한 시술이 가능합니다.' },
   
   { id:'osan', name:'오산', fullName:'오산시', province:'경기', driveTime:'60분', driveKm:'70km',
@@ -171,7 +171,7 @@ const regions = [
     publicTransport:'태안터미널 → 천안터미널 시외버스 약 1시간 30분', busInfo:'태안터미널 → 천안터미널 시외버스 약 1시간 30분, 이후 택시 10분',
     trainInfo:'태안 → 천안 자가용 약 1시간 10분', navSearch:'천안스퀘어 또는 서울비디치과',
     landmark:'태안군청, 안면도, 천리포수목원', icName:'서산IC → 서해안고속도로', icTime:'65분',
-    whyTravel:'태안에서 70분이면 서울비디치과에 도착합니다. 태안 지역에서는 찾기 어려운 서울대 전문의 15인 협진 대형 치과입니다.',
+    whyTravel:'태안에서 70분이면 서울비디치과에 도착합니다. 태안 지역에서는 찾기 어려운 서울대 전문의 14인 협진 대형 치과입니다.',
     patientNote:'태안 환자분들은 임플란트를 가장 많이 받으십니다. 원내 기공소에서 보철물을 빠르게 제작하여 내원 횟수를 최소화합니다.' },
   
   { id:'geumsan', name:'금산', fullName:'금산군', province:'충남', driveTime:'45분', driveKm:'50km',
@@ -208,13 +208,13 @@ const regions = [
 // ═══════════════════════════════════════════════════════════
 function generatePage(r) {
   const title = `${r.name} 임플란트 | ${r.name}에서 천안 서울비디치과 오시는 길`;
-  const desc = `${r.fullName}에서 차로 ${r.driveTime}, 서울비디치과 임플란트·인비절라인·라미네이트. 365일 진료, 서울대 15인 원장. ${r.name} 환자분들 오시는 길 안내.`;
+  const desc = `${r.fullName}에서 차로 ${r.driveTime}, 서울비디치과 임플란트·인비절라인·라미네이트. 365일 진료, 서울대 14인 원장. ${r.name} 환자분들 오시는 길 안내.`;
   const keywords = `${r.name} 치과, ${r.name} 임플란트, ${r.name} 인비절라인, ${r.name} 라미네이트, ${r.name} 치과 추천, ${r.name}에서 천안 치과, 서울비디치과`;
   
   // FAQ 5개
   const faqs = [
     { q: `${r.name}에서 서울비디치과까지 얼마나 걸리나요?`, a: `${r.fullName}에서 서울비디치과(천안시 서북구 불당동)까지 약 ${r.driveKm}이며, 차량 약 ${r.driveTime}으로 오실 수 있습니다. ${r.trainInfo}` },
-    { q: `${r.name}에서 갈 만한 임플란트 잘하는 치과 추천해주세요`, a: `서울비디치과는 ${r.name} 인근 최대 규모 치과로, 서울대 출신 15인 원장이 협진합니다. 4층 전체가 임플란트센터이며, 6개 독립 수술실과 네비게이션 가이드 시스템을 갖추고 있습니다. 뼈이식, 상악동거상술 등 고난도 수술도 전문적으로 진행합니다.` },
+    { q: `${r.name}에서 갈 만한 임플란트 잘하는 치과 추천해주세요`, a: `서울비디치과는 ${r.name} 인근 최대 규모 치과로, 서울대 출신 14인 원장이 협진합니다. 4층 전체가 임플란트센터이며, 6개 독립 수술실과 네비게이션 가이드 시스템을 갖추고 있습니다. 뼈이식, 상악동거상술 등 고난도 수술도 전문적으로 진행합니다.` },
     { q: `${r.name}에서 출발하면 주차가 가능한가요?`, a: `네, 서울비디치과는 건물 내 무료 주차장을 운영하고 있습니다(약 30대). ${r.name}에서 자가용으로 오시는 분들도 편하게 주차하실 수 있습니다. 네비게이션에 "${r.navSearch}"을 검색하세요.` },
     { q: `${r.name}에서 야간이나 주말에도 진료 가능한가요?`, a: `서울비디치과는 365일 진료합니다. 평일 09:00~20:00(야간진료), 토·일요일 09:00~17:00, 공휴일 09:00~13:00 운영하여 ${r.name}에서 주말이나 야간에도 편하게 방문하실 수 있습니다.` },
     { q: `${r.name}에서 왜 서울비디치과까지 가야 하나요?`, a: `${r.whyTravel}` }
@@ -236,7 +236,7 @@ function generatePage(r) {
     "@type": "Dentist",
     "@id": "https://bdbddc.com/#dentist",
     "name": "서울비디치과",
-    "description": `${r.name} 인근 서울대 출신 15인 원장 협진 치과. 365일 진료, 임플란트 6개 수술방, 인비절라인 교정센터, 글로우네이트(라미네이트), 소아치과 전문의 3인.`,
+    "description": `${r.name} 인근 서울대 출신 14인 원장 협진 치과. 365일 진료, 임플란트 6개 수술방, 인비절라인 교정센터, 글로우네이트(라미네이트), 소아치과 전문의 3인.`,
     "url": "https://bdbddc.com",
     "telephone": "+82-41-415-2892",
     "address": { "@type": "PostalAddress", "streetAddress": "불당34길 14, 1~5층", "addressLocality": "천안시 서북구 불당동", "addressRegion": "충청남도", "postalCode": "31156", "addressCountry": "KR" },
@@ -312,8 +312,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <script type="application/ld+json">${breadcrumbJsonLd}</script>
   <script type="application/ld+json">${faqJsonLd}</script>
   <script type="application/ld+json">${dentistJsonLd}</script>
-  <meta name="ai-summary" content="${r.fullName}에서 서울비디치과까지 약 ${r.driveKm}(차량 약 ${r.driveTime}). 서울대 출신 15인 원장 협진, 365일 진료, 임플란트·인비절라인·라미네이트 전문.">
-  <meta name="abstract" content="${r.fullName}에서 서울비디치과까지 약 ${r.driveKm}(차량 약 ${r.driveTime}). 서울대 출신 15인 원장 협진, 365일 진료, 임플란트·인비절라인·라미네이트 전문.">
+  <meta name="ai-summary" content="${r.fullName}에서 서울비디치과까지 약 ${r.driveKm}(차량 약 ${r.driveTime}). 서울대 출신 14인 원장 협진, 365일 진료, 임플란트·인비절라인·라미네이트 전문.">
+  <meta name="abstract" content="${r.fullName}에서 서울비디치과까지 약 ${r.driveKm}(차량 약 ${r.driveTime}). 서울대 출신 14인 원장 협진, 365일 진료, 임플란트·인비절라인·라미네이트 전문.">
   <script src="/js/analytics.js" defer></script>
   <!-- Weglot Multilingual -->
   <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
@@ -374,12 +374,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </h1>
         
         <p class="hero-sub reveal delay-2">
-          ${r.fullName}에서 차로 ${r.driveTime} — 서울대 출신 15인 원장이<br>
+          ${r.fullName}에서 차로 ${r.driveTime} — 서울대 출신 14인 원장이<br>
           365일 임플란트·인비절라인·라미네이트를 진료합니다.
         </p>
         
         <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
+          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 14인 협진</span>
           <span class="hero-trust-divider"></span>
           <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
           <span class="hero-trust-divider"></span>
@@ -466,8 +466,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="why-grid">
         <div class="why-card reveal delay-1">
           <div class="why-card-icon"><i class="fas fa-users-cog"></i></div>
-          <h3>15인 원장이 함께 고민</h3>
-          <p>어려운 케이스도 포기하지 않습니다. 서울대 출신 15인 원장이 모여 최적의 치료법을 찾습니다.</p>
+          <h3>14인 원장이 함께 고민</h3>
+          <p>어려운 케이스도 포기하지 않습니다. 서울대 출신 14인 원장이 모여 최적의 치료법을 찾습니다.</p>
           <div class="why-card-stat"><span class="num">15</span><span class="unit">명의 전문의 협진</span></div>
         </div>
         <div class="why-card reveal delay-2">
@@ -562,12 +562,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="features-ticker">
         <div class="feature-item"><i class="fas fa-clock"></i> 365일 진료 (일요일·공휴일 포함)</div>
         <div class="feature-item"><i class="fas fa-moon"></i> 평일 매일 야간진료 20시</div>
-        <div class="feature-item"><i class="fas fa-user-md"></i> 서울대 출신 15인 원장</div>
+        <div class="feature-item"><i class="fas fa-user-md"></i> 서울대 출신 14인 원장</div>
         <div class="feature-item"><i class="fas fa-building"></i> 1~5층 전문 의료 규모</div>
         <div class="feature-item"><i class="fas fa-car"></i> ${r.name}에서 차로 ${r.driveTime}</div>
         <div class="feature-item"><i class="fas fa-clock"></i> 365일 진료 (일요일·공휴일 포함)</div>
         <div class="feature-item"><i class="fas fa-moon"></i> 평일 매일 야간진료 20시</div>
-        <div class="feature-item"><i class="fas fa-user-md"></i> 서울대 출신 15인 원장</div>
+        <div class="feature-item"><i class="fas fa-user-md"></i> 서울대 출신 14인 원장</div>
         <div class="feature-item"><i class="fas fa-building"></i> 1~5층 전문 의료 규모</div>
         <div class="feature-item"><i class="fas fa-car"></i> ${r.name}에서 차로 ${r.driveTime}</div>
       </div>
@@ -656,7 +656,7 @@ ${faqs.map((f, i) => `        <div class="why-hero-card reveal delay-${(i % 3) +
       <div class="cta-box reveal">
         <p class="cta-badge">365일 진료 · 평일 야간진료</p>
         <h2>${r.name}에서 서울비디치과까지<br>지금 바로 상담 받아보세요</h2>
-        <p class="cta-desc">서울대 출신 15인 원장이<br>정확한 진단과 맞춤 치료 계획을 제안드립니다.</p>
+        <p class="cta-desc">서울대 출신 14인 원장이<br>정확한 진단과 맞춤 치료 계획을 제안드립니다.</p>
         <div class="cta-buttons">
           <a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" class="btn-naver"><i class="fas fa-calendar-check"></i> 네이버 예약하기</a>
           <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="btn-kakao"><i class="fas fa-comment"></i> 카카오톡 상담</a>

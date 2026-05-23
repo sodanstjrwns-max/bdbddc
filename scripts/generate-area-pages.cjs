@@ -40,7 +40,7 @@ const regions = [
     transit: '아산역에서 시외버스 또는 택시 이용',
     ktx: '천안아산역(KTX) 하차 → 택시 10분',
     landmark: '아산 온양온천, 현충사, 아산시청',
-    whyFar: '아산에서 20분이면 도착하는 서울대급 의료 시스템을 경험할 수 있습니다. 15인 원장 협진, 6개 수술실, 네비게이션 임플란트 등 차원이 다른 진료 환경입니다.',
+    whyFar: '아산에서 20분이면 도착하는 서울대급 의료 시스템을 경험할 수 있습니다. 14인 원장 협진, 6개 수술실, 네비게이션 임플란트 등 차원이 다른 진료 환경입니다.',
     implantNote: '아산에서 임플란트를 고려하신다면, 20분 거리의 서울비디치과에서 네비게이션 가이드 임플란트와 수면 임플란트를 경험해보세요.',
     reviewName: '이', reviewText: '아산에서 20분 거리라 부담 없이 다녀요. 15명의 원장님이 계시니 어떤 문제든 해결해주실 것 같은 안심감이 있어요.',
     reviewTag: '임플란트', geoRegion: 'KR-44',
@@ -52,7 +52,7 @@ const regions = [
     transit: '당진종합버스터미널 → 천안행 시외버스(약 70분) → 택시 10분',
     ktx: '천안아산역(KTX) 환승 시 택시 10분',
     landmark: '당진시청, 삽교호방조제, 합덕수리시설',
-    whyFar: '당진에서 50분 거리이지만, 서울대 출신 15인 원장이 협진하는 충남 최대 규모 치과에서 정밀한 진료를 받을 가치가 있습니다.',
+    whyFar: '당진에서 50분 거리이지만, 서울대 출신 14인 원장이 협진하는 충남 최대 규모 치과에서 정밀한 진료를 받을 가치가 있습니다.',
     implantNote: '당진에서 고난도 임플란트(뼈이식, 상악동거상술 등)를 고민하신다면, 6개 수술실과 CT 장비를 갖춘 서울비디치과를 추천드립니다.',
     reviewName: '최', reviewText: '당진에서 오는 길이 멀지 않아요. 고속도로 타면 50분이고, 이 정도 규모와 실력의 치과는 당진에서 찾기 어렵습니다.',
     reviewTag: '임플란트', geoRegion: 'KR-44',
@@ -64,7 +64,7 @@ const regions = [
     transit: '서산버스터미널 → 천안행 시외버스(약 80분) → 택시 10분',
     ktx: '천안아산역(KTX) 환승 시 택시 10분',
     landmark: '서산시청, 해미읍성, 서산 버드랜드',
-    whyFar: '서산에서 1시간 거리이지만, 서울대급 의료진 15인이 협진하는 치과를 경험하시면 충분히 올 만한 가치가 있습니다.',
+    whyFar: '서산에서 1시간 거리이지만, 서울대급 의료진 14인이 협진하는 치과를 경험하시면 충분히 올 만한 가치가 있습니다.',
     implantNote: '서산에서 임플란트 전문 치과를 찾으신다면, 네비게이션 가이드 임플란트와 6개 독립 수술실을 갖춘 서울비디치과를 추천합니다.',
     reviewName: '한', reviewText: '서산에서 1시간 운전해서 왔는데, 이 정도 시설이면 충분히 올 가치가 있어요. 과잉진료 없이 솔직하게 설명해주셔서 좋았어요.',
     reviewTag: '임플란트', geoRegion: 'KR-44',
@@ -88,7 +88,7 @@ const regions = [
     transit: '예산버스터미널 → 천안행 시외버스(약 50분) → 택시 10분',
     ktx: '예산역 → 천안아산역(KTX) 환승 후 택시 10분',
     landmark: '예산군청, 수덕사, 덕산온천',
-    whyFar: '예산에서 40분 거리로, 서울대 출신 전문의 15인이 365일 진료하는 대형 치과를 이용하실 수 있습니다.',
+    whyFar: '예산에서 40분 거리로, 서울대 출신 전문의 14인이 365일 진료하는 대형 치과를 이용하실 수 있습니다.',
     implantNote: '예산에서 임플란트를 고려하신다면, 40분 거리의 서울비디치과 4층 임플란트센터에서 정밀 진단을 받아보세요.',
     reviewName: '윤', reviewText: '예산에서 40분이면 도착해요. 동네 치과에서 어렵다던 임플란트를 여기서 깔끔하게 해결했습니다.',
     reviewTag: '임플란트', geoRegion: 'KR-44',
@@ -112,7 +112,7 @@ const regions = [
     transit: '논산버스터미널 → 천안행 시외버스(약 60분) → 택시 10분',
     ktx: '논산역 → 천안아산역(KTX) 환승 후 택시 10분',
     landmark: '논산시청, 관촉사(은진미륵), 논산딸기',
-    whyFar: '논산에서 45분이면 서울대 출신 15인 원장이 협진하는 대형 치과에서 정밀 진료를 받으실 수 있습니다.',
+    whyFar: '논산에서 45분이면 서울대 출신 14인 원장이 협진하는 대형 치과에서 정밀 진료를 받으실 수 있습니다.',
     implantNote: '논산에서 임플란트를 계획하신다면, 천안-논산고속도로로 45분 거리의 서울비디치과 임플란트센터를 추천합니다.',
     reviewName: '강', reviewText: '논산에서 고속도로 타면 금방이에요. 여기서 임플란트하고 정말 만족합니다. 과잉진료 걱정 없어요.',
     reviewTag: '임플란트', geoRegion: 'KR-44',
@@ -124,7 +124,7 @@ const regions = [
     transit: '청양버스터미널 → 천안행 시외버스(약 70분) → 택시 10분',
     ktx: '공주역(KTX) 환승 → 천안아산역(KTX) + 택시 10분',
     landmark: '청양군청, 칠갑산, 장곡사',
-    whyFar: '청양에서 50분이면 충남 최대 규모 치과에서 서울대급 진료를 받을 수 있습니다. 15인 전문의가 365일 진료합니다.',
+    whyFar: '청양에서 50분이면 충남 최대 규모 치과에서 서울대급 진료를 받을 수 있습니다. 14인 전문의가 365일 진료합니다.',
     implantNote: '청양에서 임플란트 전문 치과를 찾으신다면, 네비게이션 가이드 임플란트와 수면 임플란트를 제공하는 서울비디치과를 추천합니다.',
     reviewName: '임', reviewText: '청양에서 왔어요. 칠갑산 넘어오면 생각보다 가깝더라구요. 15명 원장님이 같이 봐주시니 안심이 됩니다.',
     reviewTag: '임플란트', geoRegion: 'KR-44',
@@ -148,7 +148,7 @@ const regions = [
     transit: '서천버스터미널 → 천안행 시외버스(약 80분) → 택시 10분',
     ktx: '논산역 환승 → 천안아산역(KTX) + 택시 10분',
     landmark: '서천군청, 국립생태원, 한산모시마을',
-    whyFar: '서천에서 1시간 거리이지만, 서울대 출신 15인 원장 협진과 365일 진료를 제공하는 치과는 충남에서 서울비디치과가 유일합니다.',
+    whyFar: '서천에서 1시간 거리이지만, 서울대 출신 14인 원장 협진과 365일 진료를 제공하는 치과는 충남에서 서울비디치과가 유일합니다.',
     implantNote: '서천에서 임플란트를 계획하신다면, 멀리 오신 분들을 위한 집중 진료 시스템으로 내원 횟수를 최소화해드립니다.',
     reviewName: '신', reviewText: '서천에서 1시간 거리인데 충분히 올 가치가 있어요. 이 규모와 시스템은 서천에서는 절대 못 찾습니다.',
     reviewTag: '임플란트', geoRegion: 'KR-44',
@@ -172,7 +172,7 @@ const regions = [
     transit: '태안버스터미널 → 천안행 시외버스(약 90분) → 택시 10분',
     ktx: '천안아산역(KTX) 환승 시 택시 10분',
     landmark: '태안군청, 안면도, 천리포수목원, 만리포해수욕장',
-    whyFar: '태안에서 70분 거리이지만, 서울대 출신 15인 원장이 협진하는 365일 치과를 경험하시면 충분히 올 만한 가치가 있습니다.',
+    whyFar: '태안에서 70분 거리이지만, 서울대 출신 14인 원장이 협진하는 365일 치과를 경험하시면 충분히 올 만한 가치가 있습니다.',
     implantNote: '태안에서 임플란트를 계획하신다면, 멀리 오신 분들을 위해 당일 상담+수술 집중 진료를 제공합니다.',
     reviewName: '장', reviewText: '태안에서 좀 멀지만 이 정도 실력의 치과는 태안 근처에 없어요. 임플란트 결과에 100% 만족합니다.',
     reviewTag: '임플란트', geoRegion: 'KR-44',
@@ -196,7 +196,7 @@ const regions = [
     transit: '계룡시 → 대전/천안행 버스(약 50분) → 택시 10분',
     ktx: '대전역(KTX) 환승 → 천안아산역(KTX) + 택시 10분',
     landmark: '계룡시청, 계룡대(국방부), 계룡산국립공원',
-    whyFar: '계룡에서 35분이면 서울대 출신 15인 원장이 365일 진료하는 대형 치과에 도착합니다.',
+    whyFar: '계룡에서 35분이면 서울대 출신 14인 원장이 365일 진료하는 대형 치과에 도착합니다.',
     implantNote: '계룡에서 임플란트를 계획하신다면, 군인 가족분들도 많이 찾는 서울비디치과 임플란트센터를 추천합니다.',
     reviewName: '류', reviewText: '계룡대에서 근무하는데 35분이면 도착해요. 군인 가족도 많이 다니더라구요. 시설이 최고입니다.',
     reviewTag: '임플란트', geoRegion: 'KR-44',
@@ -233,7 +233,7 @@ const regions = [
     transit: '대전역 → KTX(천안아산역 15분) → 택시 10분',
     ktx: '대전역(KTX) → 천안아산역(KTX) 약 15분 + 택시 10분',
     landmark: '대전역, 유성온천, 엑스포과학공원, 대전시청',
-    whyFar: '대전에서 KTX로 15분 + 택시 10분이면 도착합니다. 서울대 출신 15인 원장 협진 시스템을 경험해보세요.',
+    whyFar: '대전에서 KTX로 15분 + 택시 10분이면 도착합니다. 서울대 출신 14인 원장 협진 시스템을 경험해보세요.',
     implantNote: '대전에서 임플란트를 고려하신다면, KTX로 빠르게 접근 가능한 서울비디치과 4층 임플란트센터를 추천합니다.',
     reviewName: '서', reviewText: '대전에서 KTX 타면 15분이에요! 대전에도 치과 많지만 이 규모와 시스템은 여기뿐이에요.',
     reviewTag: '임플란트', geoRegion: 'KR-30',
@@ -258,7 +258,7 @@ const regions = [
     transit: '진천버스터미널 → 천안행 버스(약 50분) → 택시 10분',
     ktx: '오송역(KTX) 환승 → 천안아산역(KTX) + 택시 10분',
     landmark: '진천군청, 농다리, 진천종박물관',
-    whyFar: '진천에서 40분이면 서울대 출신 전문의 15인이 365일 진료하는 대형 치과에 도착합니다.',
+    whyFar: '진천에서 40분이면 서울대 출신 전문의 14인이 365일 진료하는 대형 치과에 도착합니다.',
     implantNote: '진천에서 임플란트를 계획하신다면, 40분 거리의 서울비디치과에서 네비게이션 가이드 임플란트를 경험해보세요.',
     reviewName: '안', reviewText: '진천에서 40분이면 도착해요. 진천에는 없는 대형 임플란트센터라 여기서 수술받고 정말 만족합니다.',
     reviewTag: '임플란트', geoRegion: 'KR-43',
@@ -270,7 +270,7 @@ const regions = [
     transit: '충주시외버스터미널 → 천안행 버스(약 80분) → 택시 10분',
     ktx: '충주역 → 천안아산역(KTX) 환승 + 택시 10분',
     landmark: '충주시청, 충주호, 수안보온천, 탄금대',
-    whyFar: '충주에서 1시간 거리이지만, 서울대급 의료진 15인이 협진하는 치과에서의 진료는 충분히 가치 있습니다.',
+    whyFar: '충주에서 1시간 거리이지만, 서울대급 의료진 14인이 협진하는 치과에서의 진료는 충분히 가치 있습니다.',
     implantNote: '충주에서 임플란트를 고려하신다면, 집중 진료 시스템으로 내원 횟수를 최소화해드리는 서울비디치과를 추천합니다.',
     reviewName: '유', reviewText: '충주에서 1시간 거리인데 고속도로 타면 편해요. 이런 규모의 치과는 충주에서는 찾기 어렵습니다.',
     reviewTag: '임플란트', geoRegion: 'KR-43',
@@ -282,7 +282,7 @@ const regions = [
     transit: '음성버스터미널 → 천안행 버스(약 60분) → 택시 10분',
     ktx: '오송역(KTX) 환승 → 천안아산역(KTX) + 택시 10분',
     landmark: '음성군청, 음성 꽃동네, 수정산',
-    whyFar: '음성에서 50분이면 서울대급 전문 치과에 도착합니다. 15인 원장이 365일 진료하는 시스템을 경험해보세요.',
+    whyFar: '음성에서 50분이면 서울대급 전문 치과에 도착합니다. 14인 원장이 365일 진료하는 시스템을 경험해보세요.',
     implantNote: '음성에서 임플란트를 계획하신다면, 중부고속도로로 50분 거리의 서울비디치과 임플란트센터를 추천합니다.',
     reviewName: '노', reviewText: '음성에서 고속도로 타면 50분이에요. 규모가 크고 장비도 최신식이라 안심하고 임플란트 했어요.',
     reviewTag: '임플란트', geoRegion: 'KR-43',
@@ -294,7 +294,7 @@ const regions = [
     transit: '옥천역 → 천안역(무궁화 약 50분) → 택시 10분',
     ktx: '대전역(KTX) 환승 → 천안아산역(KTX) + 택시 10분',
     landmark: '옥천군청, 정지용 생가, 금강유원지',
-    whyFar: '옥천에서 55분이면 서울대 출신 전문의 15인이 진료하는 충남 최대 규모 치과에 도착합니다.',
+    whyFar: '옥천에서 55분이면 서울대 출신 전문의 14인이 진료하는 충남 최대 규모 치과에 도착합니다.',
     implantNote: '옥천에서 임플란트를 고려하신다면, 경부고속도로로 55분 거리의 서울비디치과에서 정밀 진단을 받아보세요.',
     reviewName: '하', reviewText: '옥천에서 경부고속도로 타면 1시간 안에 도착해요. 동네 치과에서 못한 임플란트를 여기서 해결했어요.',
     reviewTag: '임플란트', geoRegion: 'KR-43',
@@ -319,7 +319,7 @@ const regions = [
     transit: '평택역 → 천안역(전철/무궁화 약 40분) → 택시 10분',
     ktx: '천안아산역(KTX) 하차 → 택시 10분',
     landmark: '평택시청, 평택항, 미군기지, 소사벌',
-    whyFar: '평택에서 45분이면 서울대 출신 15인 원장이 협진하는 충남 최대 규모 치과에 도착합니다.',
+    whyFar: '평택에서 45분이면 서울대 출신 14인 원장이 협진하는 충남 최대 규모 치과에 도착합니다.',
     implantNote: '평택에서 임플란트를 고려하신다면, 경부고속도로로 45분 거리의 서울비디치과에서 6개 수술실과 네비게이션 시스템을 갖춘 전문 진료를 받으세요.',
     reviewName: '문', reviewText: '평택에서 경부고속도로 타면 45분이에요. 서울 가는 것보다 가깝고, 서울급 치료를 받을 수 있어요.',
     reviewTag: '임플란트', geoRegion: 'KR-41',
@@ -353,11 +353,11 @@ const regions = [
 // ═══════ HTML 생성 함수 ═══════
 function generateHTML(r) {
   const title = `${r.name} 임플란트 | ${r.name}에서 천안 서울비디치과 오시는 길`;
-  const desc = `${r.fullName}에서 차로 ${r.carTime}, 서울비디치과 임플란트·인비절라인·라미네이트. 365일 진료, 서울대 15인 원장 협진. ${r.name} 환자분들 오시는 길 안내. ☎041-415-2892`;
+  const desc = `${r.fullName}에서 차로 ${r.carTime}, 서울비디치과 임플란트·인비절라인·라미네이트. 365일 진료, 서울대 14인 원장 협진. ${r.name} 환자분들 오시는 길 안내. ☎041-415-2892`;
   const keywords = `${r.name} 임플란트, ${r.name} 치과, ${r.name} 인비절라인, ${r.name} 라미네이트, ${r.name}에서 천안 치과, ${r.name} 치과 추천, 서울비디치과`;
-  const ogDesc = `${r.fullName}에서 차로 ${r.carTime}! 서울대 15인 원장 365일 진료. ${r.name} 임플란트·인비절라인·라미네이트 추천.`;
-  const twitterDesc = `${r.fullName}에서 차로 ${r.carTime}! 서울대 15인 원장 365일 진료. ${r.name} 임플란트·인비절라인·라미네이트.`;
-  const aiSummary = `${r.fullName}에서 서울비디치과까지 약 ${r.distance}(차량 약 ${r.carTime}). 서울대 출신 15인 원장 협진, 365일 진료, 임플란트·인비절라인·라미네이트 전문.`;
+  const ogDesc = `${r.fullName}에서 차로 ${r.carTime}! 서울대 14인 원장 365일 진료. ${r.name} 임플란트·인비절라인·라미네이트 추천.`;
+  const twitterDesc = `${r.fullName}에서 차로 ${r.carTime}! 서울대 14인 원장 365일 진료. ${r.name} 임플란트·인비절라인·라미네이트.`;
+  const aiSummary = `${r.fullName}에서 서울비디치과까지 약 ${r.distance}(차량 약 ${r.carTime}). 서울대 출신 14인 원장 협진, 365일 진료, 임플란트·인비절라인·라미네이트 전문.`;
 
   // Schema: BreadcrumbList
   const breadcrumbSchema = JSON.stringify({
@@ -387,7 +387,7 @@ function generateHTML(r) {
         "name": `${r.name}에서 갈 만한 임플란트 잘하는 치과 추천해주세요`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": `서울비디치과는 ${r.name} 인근 최대 규모 치과로, 서울대 출신 15인 원장이 협진합니다. ${r.implantNote} 뼈이식, 상악동거상술 등 고난도 수술도 전문적으로 진행합니다.`
+          "text": `서울비디치과는 ${r.name} 인근 최대 규모 치과로, 서울대 출신 14인 원장이 협진합니다. ${r.implantNote} 뼈이식, 상악동거상술 등 고난도 수술도 전문적으로 진행합니다.`
         }
       },
       {
@@ -427,7 +427,7 @@ function generateHTML(r) {
     "@type": ["Dentist", "MedicalBusiness"],
     "@id": "https://bdbddc.com/#dentist",
     "name": "서울비디치과",
-    "description": `${r.name} 인근 서울대 출신 15인 원장 협진 치과. 365일 진료, 임플란트 6개 수술방, 인비절라인 교정센터, 글로우네이트(라미네이트), 소아치과 전문의 3인.`,
+    "description": `${r.name} 인근 서울대 출신 14인 원장 협진 치과. 365일 진료, 임플란트 6개 수술방, 인비절라인 교정센터, 글로우네이트(라미네이트), 소아치과 전문의 3인.`,
     "url": "https://bdbddc.com",
     "telephone": "+82-41-415-2892",
     "address": {
@@ -591,12 +591,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </h1>
         
         <p class="hero-sub reveal delay-2">
-          ${r.fullName}에서 차로 ${r.carTime} — 서울대 출신 15인 원장이<br>
+          ${r.fullName}에서 차로 ${r.carTime} — 서울대 출신 14인 원장이<br>
           365일 임플란트·인비절라인·라미네이트를 진료합니다.
         </p>
         
         <div class="hero-trust-row reveal delay-3">
-          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 15인 협진</span>
+          <span class="hero-trust-item"><i class="fas fa-graduation-cap"></i> 서울대 14인 협진</span>
           <span class="hero-trust-divider"></span>
           <span class="hero-trust-item"><i class="fas fa-calendar-check"></i> 365일 진료</span>
           <span class="hero-trust-divider"></span>
@@ -684,8 +684,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="why-grid">
         <div class="why-card reveal delay-1">
           <div class="why-card-icon"><i class="fas fa-users-cog"></i></div>
-          <h3>15인 원장이 함께 고민</h3>
-          <p>어려운 케이스도 포기하지 않습니다. 서울대 출신 15인 원장이 모여 최적의 치료법을 찾습니다.</p>
+          <h3>14인 원장이 함께 고민</h3>
+          <p>어려운 케이스도 포기하지 않습니다. 서울대 출신 14인 원장이 모여 최적의 치료법을 찾습니다.</p>
           <div class="why-card-stat"><span class="num">15</span><span class="unit">명의 전문의 협진</span></div>
         </div>
         <div class="why-card reveal delay-2">
@@ -780,12 +780,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="features-ticker">
         <div class="feature-item"><i class="fas fa-clock"></i> 365일 진료 (일요일·공휴일 포함)</div>
         <div class="feature-item"><i class="fas fa-moon"></i> 평일 매일 야간진료 20시</div>
-        <div class="feature-item"><i class="fas fa-user-md"></i> 서울대 출신 15인 원장</div>
+        <div class="feature-item"><i class="fas fa-user-md"></i> 서울대 출신 14인 원장</div>
         <div class="feature-item"><i class="fas fa-building"></i> 1~5층 전문 의료 규모</div>
         <div class="feature-item"><i class="fas fa-car"></i> ${r.name}에서 차로 ${r.carTime}</div>
         <div class="feature-item"><i class="fas fa-clock"></i> 365일 진료 (일요일·공휴일 포함)</div>
         <div class="feature-item"><i class="fas fa-moon"></i> 평일 매일 야간진료 20시</div>
-        <div class="feature-item"><i class="fas fa-user-md"></i> 서울대 출신 15인 원장</div>
+        <div class="feature-item"><i class="fas fa-user-md"></i> 서울대 출신 14인 원장</div>
         <div class="feature-item"><i class="fas fa-building"></i> 1~5층 전문 의료 규모</div>
         <div class="feature-item"><i class="fas fa-car"></i> ${r.name}에서 차로 ${r.carTime}</div>
       </div>
@@ -807,7 +807,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="why-hero-card reveal delay-2" style="margin-bottom:16px;text-align:left;">
           <h3 style="font-size:1.05rem;margin-bottom:8px;"><i class="fas fa-q" style="color:var(--brand-gold);margin-right:8px;"></i>${r.name}에서 갈 만한 임플란트 잘하는 치과 추천해주세요</h3>
-          <p class="faq-answer" style="font-size:0.95rem;line-height:1.7;">서울비디치과는 ${r.name} 인근 최대 규모 치과로, 서울대 출신 15인 원장이 협진합니다. ${r.implantNote} 뼈이식, 상악동거상술 등 고난도 수술도 전문적으로 진행합니다.</p>
+          <p class="faq-answer" style="font-size:0.95rem;line-height:1.7;">서울비디치과는 ${r.name} 인근 최대 규모 치과로, 서울대 출신 14인 원장이 협진합니다. ${r.implantNote} 뼈이식, 상악동거상술 등 고난도 수술도 전문적으로 진행합니다.</p>
         </div>
         <div class="why-hero-card reveal delay-3" style="margin-bottom:16px;text-align:left;">
           <h3 style="font-size:1.05rem;margin-bottom:8px;"><i class="fas fa-q" style="color:var(--brand-gold);margin-right:8px;"></i>${r.name}에서 출발하면 주차가 가능한가요?</h3>
@@ -890,7 +890,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="cta-box reveal">
         <p class="cta-badge">365일 진료 · 평일 야간진료</p>
         <h2>${r.name}에서 서울비디치과까지<br>지금 바로 상담 받아보세요</h2>
-        <p class="cta-desc">서울대 출신 15인 원장이<br>정확한 진단과 맞춤 치료 계획을 제안드립니다.</p>
+        <p class="cta-desc">서울대 출신 14인 원장이<br>정확한 진단과 맞춤 치료 계획을 제안드립니다.</p>
         <div class="cta-buttons">
           <a href="https://naver.me/5yPnKmqQ" target="_blank" rel="noopener" class="btn-naver"><i class="fas fa-calendar-check"></i> 네이버 예약하기</a>
           <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="btn-kakao"><i class="fas fa-comment"></i> 카카오톡 상담</a>

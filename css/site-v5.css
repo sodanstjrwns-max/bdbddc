@@ -2,7 +2,7 @@
 /* ══ Facility Magazine Layout ══ */
 .fac-mag{background:var(--gray-50)}
 .fac-mag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;grid-auto-rows:320px}
-.fac-mag-card{position:relative;border-radius:var(--radius-xl);overflow:hidden;cursor:pointer}
+.fac-mag-card{position:relative;border-radius:var(--radius-xl);overflow:hidden}
 .fac-mag-card picture,.fac-mag-card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.25,.46,.45,.94)}
 .fac-mag-card:hover img{transform:scale(1.06)}
 .fac-mag-card.fac-hero{grid-column:span 2;grid-row:span 1}

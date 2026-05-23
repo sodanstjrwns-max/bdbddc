@@ -96,7 +96,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <script type="application/ld+json">${faqSchema}</script>
   <script type="application/ld+json">${procSchema}</script>
   <script type="application/ld+json">${speakable}</script>
-  <meta name="ai-summary" content="서울비디치과 ${t.title} — ${t.heroSub}. 서울대 출신 15인 전문의, 6개 수술실, 365일 진료.">
+  <meta name="ai-summary" content="서울비디치과 ${t.title} — ${t.heroSub}. 서울대 출신 14인 전문의, 6개 수술실, 365일 진료.">
   <script src="/js/analytics.js?v=20260408v6" defer></script>`;
 }
 
