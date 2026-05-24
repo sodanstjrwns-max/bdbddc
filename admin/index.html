@@ -425,6 +425,81 @@ a { color:inherit; text-decoration:none; }
       </div>
     </div>
 
+    <!-- 🤖 진짜 트래픽 (봇 제외) -->
+    <div class="card" id="realTrafficCard" style="margin-bottom:16px;border:2px solid var(--green);background:linear-gradient(135deg,rgba(34,197,94,0.04),rgba(59,130,246,0.04))">
+      <div class="card-header">
+        <div class="card-title" style="display:flex;align-items:center;gap:8px">
+          <i class="fas fa-shield-alt" style="color:var(--green)"></i>
+          <span>진짜 트래픽 (봇 제외)</span>
+          <span id="rtBadge" style="font-size:.65rem;padding:2px 8px;border-radius:10px;background:var(--orange-bg);color:var(--orange);font-weight:600">대기중</span>
+        </div>
+        <div class="card-action" id="rtSinceLabel" style="font-size:.72rem;color:var(--text-muted)">–</div>
+      </div>
+      <div class="card-body" style="padding:14px 16px">
+        <!-- 시간대별 실 사용자 -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px">
+          <div style="padding:10px;border-radius:8px;background:var(--bg);border:1px solid var(--border)">
+            <div style="font-size:.7rem;color:var(--text-muted);margin-bottom:4px">오늘</div>
+            <div style="font-size:1.5rem;font-weight:700;color:var(--green)" id="rtToday">0</div>
+            <div style="font-size:.65rem;color:var(--text-muted)">사람 <span id="rtTodayHuman">0</span> · 봇 <span id="rtTodayBot">0</span></div>
+          </div>
+          <div style="padding:10px;border-radius:8px;background:var(--bg);border:1px solid var(--border)">
+            <div style="font-size:.7rem;color:var(--text-muted);margin-bottom:4px">최근 24시간</div>
+            <div style="font-size:1.5rem;font-weight:700;color:var(--blue)" id="rt24h">0</div>
+            <div style="font-size:.65rem;color:var(--text-muted)">사람 <span id="rt24hHuman">0</span> · 봇 <span id="rt24hBot">0</span></div>
+          </div>
+          <div style="padding:10px;border-radius:8px;background:var(--bg);border:1px solid var(--border)">
+            <div style="font-size:.7rem;color:var(--text-muted);margin-bottom:4px">최근 7일</div>
+            <div style="font-size:1.5rem;font-weight:700;color:var(--purple)" id="rt7d">0</div>
+            <div style="font-size:.65rem;color:var(--text-muted)">사람 <span id="rt7dHuman">0</span> · 봇 <span id="rt7dBot">0</span></div>
+          </div>
+          <div style="padding:10px;border-radius:8px;background:var(--bg);border:1px solid var(--border)">
+            <div style="font-size:.7rem;color:var(--text-muted);margin-bottom:4px">최근 30일</div>
+            <div style="font-size:1.5rem;font-weight:700;color:var(--orange)" id="rt30d">0</div>
+            <div style="font-size:.65rem;color:var(--text-muted)">사람 <span id="rt30dHuman">0</span> · 봇 <span id="rt30dBot">0</span></div>
+          </div>
+        </div>
+
+        <!-- 브레이크다운 3컬럼 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
+          <div>
+            <div style="font-size:.72rem;font-weight:600;color:var(--text-muted);margin-bottom:6px"><i class="fas fa-robot" style="color:var(--orange)"></i> TOP 봇 (7일)</div>
+            <ul id="rtTopBots" style="list-style:none;padding:0;margin:0;font-size:.75rem">
+              <li style="color:var(--text-muted);padding:4px 0">데이터 없음</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:.72rem;font-weight:600;color:var(--text-muted);margin-bottom:6px"><i class="fas fa-link" style="color:var(--blue)"></i> 유입 경로 (사람만)</div>
+            <ul id="rtTopReferers" style="list-style:none;padding:0;margin:0;font-size:.75rem">
+              <li style="color:var(--text-muted);padding:4px 0">데이터 없음</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:.72rem;font-weight:600;color:var(--text-muted);margin-bottom:6px"><i class="fas fa-globe" style="color:var(--green)"></i> 국가별 (사람만)</div>
+            <ul id="rtCountries" style="list-style:none;padding:0;margin:0;font-size:.75rem">
+              <li style="color:var(--text-muted);padding:4px 0">데이터 없음</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 진짜 사람이 본 TOP 콘텐츠 (7일) -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <div style="font-size:.72rem;font-weight:600;color:var(--text-muted);margin-bottom:6px"><i class="fas fa-images" style="color:var(--blue)"></i> 진짜 사람이 본 B/A TOP (7일)</div>
+            <ul id="rtTopCasesHuman" style="list-style:none;padding:0;margin:0;font-size:.75rem">
+              <li style="color:var(--text-muted);padding:4px 0">데이터 없음</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:.72rem;font-weight:600;color:var(--text-muted);margin-bottom:6px"><i class="fas fa-pen-nib" style="color:var(--purple)"></i> 진짜 사람이 본 컬럼 TOP (7일)</div>
+            <ul id="rtTopColumnsHuman" style="list-style:none;padding:0;margin:0;font-size:.75rem">
+              <li style="color:var(--text-muted);padding:4px 0">데이터 없음</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 조회수 추이 차트 + TOP 콘텐츠 -->
     <div class="grid-2">
       <!-- 조회수 추이 차트 (7일) -->
@@ -742,6 +817,9 @@ async function loadCockpit() {
     // === 2. 조회수 통계 카드 ===
     renderViewsStats(data.viewStats || [], data.viewsTopCases || [], data.viewsTopColumns || []);
 
+    // === 2a. 🤖 진짜 트래픽 (봇 제외) ===
+    renderRealTraffic(data.realTraffic || {});
+
     // === 2b. 조회수 추이 차트 (7일) ===
     renderViewsTrendChart(data.viewsRecentActivity || []);
 
@@ -963,6 +1041,132 @@ function renderViewsStats(viewStats, topCases, topColumns) {
   _topCasesData = topCases;
   _topColumnsData = topColumns;
   showTopTab('case');
+}
+
+// === 🤖 진짜 트래픽 (봇 제외) 렌더링 ===
+function renderRealTraffic(rt) {
+  const badge = document.getElementById('rtBadge');
+  const sinceLabel = document.getElementById('rtSinceLabel');
+
+  if (!rt || !rt.available) {
+    if (badge) {
+      badge.textContent = '추적 대기중';
+      badge.style.background = 'var(--orange-bg)';
+      badge.style.color = 'var(--orange)';
+    }
+    if (sinceLabel) sinceLabel.textContent = '마이그레이션 적용 후 자동 활성화';
+    // 모든 값 0으로
+    ['rtToday','rt24h','rt7d','rt30d','rtTodayHuman','rtTodayBot','rt24hHuman','rt24hBot','rt7dHuman','rt7dBot','rt30dHuman','rt30dBot']
+      .forEach(id => setText(id, '0'));
+    return;
+  }
+
+  // 활성화됨
+  if (badge) {
+    badge.textContent = '추적중';
+    badge.style.background = 'var(--green-bg)';
+    badge.style.color = 'var(--green)';
+  }
+  if (sinceLabel) {
+    const since = rt.sinceTrackingStarted ? new Date(rt.sinceTrackingStarted).toLocaleString('ko-KR') : '–';
+    sinceLabel.textContent = '추적 시작: ' + since;
+  }
+
+  // 4개 시간대 카드
+  const periods = [
+    { key:'today', el:'rtToday', humanEl:'rtTodayHuman', botEl:'rtTodayBot' },
+    { key:'last24h', el:'rt24h', humanEl:'rt24hHuman', botEl:'rt24hBot' },
+    { key:'last7days', el:'rt7d', humanEl:'rt7dHuman', botEl:'rt7dBot' },
+    { key:'last30days', el:'rt30d', humanEl:'rt30dHuman', botEl:'rt30dBot' }
+  ];
+  periods.forEach(p => {
+    const d = rt[p.key] || { human:0, bot:0 };
+    setText(p.el, (d.human||0).toLocaleString());
+    setText(p.humanEl, (d.human||0).toLocaleString());
+    setText(p.botEl, (d.bot||0).toLocaleString());
+  });
+
+  // TOP 봇
+  const botList = document.getElementById('rtTopBots');
+  if (botList) {
+    const bots = rt.topBotsLast7 || [];
+    if (bots.length === 0) {
+      botList.innerHTML = '<li style="color:var(--text-muted);padding:4px 0">아직 차단된 봇 없음</li>';
+    } else {
+      botList.innerHTML = bots.slice(0,5).map(b =>
+        '<li style="padding:4px 0;display:flex;justify-content:space-between;border-bottom:1px solid var(--border)">' +
+          '<span style="color:var(--text)">' + escHtml(b.bot_name || 'unknown') + '</span>' +
+          '<span style="color:var(--orange);font-weight:600">' + (b.cnt||0).toLocaleString() + '</span>' +
+        '</li>').join('');
+    }
+  }
+
+  // TOP 유입 경로
+  const refList = document.getElementById('rtTopReferers');
+  if (refList) {
+    const refs = rt.topReferers || [];
+    if (refs.length === 0) {
+      refList.innerHTML = '<li style="color:var(--text-muted);padding:4px 0">직접 접속</li>';
+    } else {
+      refList.innerHTML = refs.slice(0,5).map(r => {
+        let host = '직접';
+        try { if (r.referer) host = new URL(r.referer).hostname; } catch(e) { host = r.referer || '직접'; }
+        return '<li style="padding:4px 0;display:flex;justify-content:space-between;border-bottom:1px solid var(--border)">' +
+          '<span style="color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:140px" title="' + escHtml(r.referer||'') + '">' + escHtml(host) + '</span>' +
+          '<span style="color:var(--blue);font-weight:600">' + (r.cnt||0).toLocaleString() + '</span>' +
+        '</li>';
+      }).join('');
+    }
+  }
+
+  // 국가별
+  const ctList = document.getElementById('rtCountries');
+  if (ctList) {
+    const cts = rt.countries || [];
+    if (cts.length === 0) {
+      ctList.innerHTML = '<li style="color:var(--text-muted);padding:4px 0">데이터 없음</li>';
+    } else {
+      ctList.innerHTML = cts.slice(0,5).map(c =>
+        '<li style="padding:4px 0;display:flex;justify-content:space-between;border-bottom:1px solid var(--border)">' +
+          '<span style="color:var(--text)">' + escHtml(c.country || 'Unknown') + '</span>' +
+          '<span style="color:var(--green);font-weight:600">' + (c.cnt||0).toLocaleString() + '</span>' +
+        '</li>').join('');
+    }
+  }
+
+  // 진짜 사람이 본 TOP B/A (7일)
+  const caseList = document.getElementById('rtTopCasesHuman');
+  if (caseList) {
+    const cs = (rt.topPagesHuman7 && rt.topPagesHuman7.cases) || [];
+    if (cs.length === 0) {
+      caseList.innerHTML = '<li style="color:var(--text-muted);padding:4px 0">아직 사람 조회 기록 없음</li>';
+    } else {
+      caseList.innerHTML = cs.slice(0,5).map((item,i) => {
+        const title = _caseTitleMap[item.page_id] || item.page_id;
+        return '<li style="padding:4px 0;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);gap:8px">' +
+          '<span style="color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1" title="' + escHtml(title) + '">' + (i+1) + '. ' + escHtml(title) + '</span>' +
+          '<span style="color:var(--blue);font-weight:600;flex-shrink:0">' + (item.cnt||0).toLocaleString() + '</span>' +
+        '</li>';
+      }).join('');
+    }
+  }
+
+  // 진짜 사람이 본 TOP 컬럼 (7일)
+  const colList = document.getElementById('rtTopColumnsHuman');
+  if (colList) {
+    const cs = (rt.topPagesHuman7 && rt.topPagesHuman7.columns) || [];
+    if (cs.length === 0) {
+      colList.innerHTML = '<li style="color:var(--text-muted);padding:4px 0">아직 사람 조회 기록 없음</li>';
+    } else {
+      colList.innerHTML = cs.slice(0,5).map((item,i) => {
+        const title = _columnTitleMap[item.page_id] || item.page_id;
+        return '<li style="padding:4px 0;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);gap:8px">' +
+          '<span style="color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1" title="' + escHtml(title) + '">' + (i+1) + '. ' + escHtml(title) + '</span>' +
+          '<span style="color:var(--purple);font-weight:600;flex-shrink:0">' + (item.cnt||0).toLocaleString() + '</span>' +
+        '</li>';
+      }).join('');
+    }
+  }
 }
 
 // TOP 조회수 탭 전환

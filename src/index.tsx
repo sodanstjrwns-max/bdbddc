@@ -4452,25 +4452,158 @@ app.get('/demo-trends', serveStatic({ path: './demo-trends.html' }))
 // 페이지 조회수 추적 API
 // ============================================
 
-// POST /api/views — 조회수 증가 (콘텐츠 페이지에서 호출)
+// ─────────────────────────────────────────────────────────────
+// 봇 탐지 (User-Agent 기반)
+// ─────────────────────────────────────────────────────────────
+// 반환: { isBot: boolean, botName: string | null }
+function detectBot(ua: string): { isBot: boolean; botName: string | null } {
+  if (!ua) return { isBot: true, botName: 'no-ua' }  // UA 없는 요청도 봇 취급
+  const u = ua.toLowerCase()
+  // 검색엔진 크롤러
+  const knownBots: Array<[RegExp, string]> = [
+    [/googlebot/, 'googlebot'],
+    [/bingbot/, 'bingbot'],
+    [/yandex(bot|images|metrika)/, 'yandexbot'],
+    [/yeti/, 'naver-yetibot'],          // Naver
+    [/daum(oa)?/, 'daumbot'],           // Daum/Kakao
+    [/baiduspider/, 'baidubot'],
+    [/duckduckbot/, 'duckduckbot'],
+    [/applebot/, 'applebot'],
+    [/facebookexternalhit|facebot/, 'facebook'],
+    [/twitterbot/, 'twitterbot'],
+    [/linkedinbot/, 'linkedinbot'],
+    [/whatsapp/, 'whatsapp'],
+    [/telegrambot/, 'telegrambot'],
+    [/slackbot/, 'slackbot'],
+    [/discordbot/, 'discordbot'],
+    [/kakaotalk-scrap/, 'kakaotalk'],
+    // AI 크롤러
+    [/gptbot/, 'gptbot'],
+    [/chatgpt-user/, 'chatgpt-user'],
+    [/oai-searchbot/, 'oai-searchbot'],
+    [/claudebot|claude-web/, 'claudebot'],
+    [/anthropic-ai/, 'anthropic'],
+    [/perplexitybot|perplexity-user/, 'perplexity'],
+    [/google-extended/, 'google-extended'],
+    [/ccbot/, 'commoncrawl'],
+    [/bytespider/, 'bytespider'],
+    [/amazonbot/, 'amazonbot'],
+    // 모니터링/SEO 도구
+    [/ahrefsbot/, 'ahrefs'],
+    [/semrushbot/, 'semrush'],
+    [/mj12bot/, 'majestic'],
+    [/dotbot/, 'dotbot'],
+    [/petalbot/, 'petalbot'],
+    [/seznambot/, 'seznam'],
+    [/uptimerobot/, 'uptimerobot'],
+    [/pingdom/, 'pingdom'],
+    [/screaming\s?frog/, 'screamingfrog'],
+    // 일반 패턴
+    [/headlesschrome|phantomjs|puppeteer|playwright|selenium/, 'headless'],
+    [/curl|wget|httpie|python-requests|axios\//, 'cli-tool'],
+    [/\bbot\b|crawler|spider|scraper|fetcher/, 'generic-bot'],
+  ]
+  for (const [re, name] of knownBots) {
+    if (re.test(u)) return { isBot: true, botName: name }
+  }
+  return { isBot: false, botName: null }
+}
+
+// SHA-256 16자 해시 (Web Crypto API - Workers 호환)
+async function shortHash(s: string): Promise<string> {
+  const enc = new TextEncoder().encode(s)
+  const hash = await crypto.subtle.digest('SHA-256', enc)
+  const arr = Array.from(new Uint8Array(hash))
+  return arr.slice(0, 8).map(b => b.toString(16).padStart(2, '0')).join('')
+}
+
+// POST /api/views — 조회수 증가 + 상세 로그 (콘텐츠 페이지에서 호출)
 app.post('/api/views', async (c) => {
   try {
     const { page_type, page_id } = await c.req.json<{ page_type: string; page_id: string }>()
     if (!page_type || !page_id) return c.json({ error: 'Missing page_type or page_id' }, 400)
-    
+
     const validTypes = ['case', 'column', 'notice']
     if (!validTypes.includes(page_type)) return c.json({ error: 'Invalid page_type' }, 400)
 
     const db = c.env.DB
     if (!db) return c.json({ error: 'DB not available' }, 500)
 
-    // UPSERT: 존재하면 view_count +1, 없으면 생성
+    // ─── 봇 + 출처 + IP 정보 수집 ───
+    const ua = c.req.header('user-agent') || ''
+    const referer = c.req.header('referer') || ''
+    const ip =
+      c.req.header('cf-connecting-ip') ||
+      c.req.header('x-forwarded-for')?.split(',')[0]?.trim() ||
+      'unknown'
+    const country = c.req.header('cf-ipcountry') || ''
+
+    const { isBot, botName } = detectBot(ua)
+    const ipHash = ip === 'unknown' ? 'unknown' : await shortHash(ip)
+
+    // ─── Referer 검증: bdbddc.com 또는 같은 호스트가 아닌 외부 직접 호출은 봇 취급 ───
+    let suspicious = false
+    if (!isBot && referer) {
+      try {
+        const refHost = new URL(referer).hostname
+        if (
+          !refHost.endsWith('bdbddc.com') &&
+          !refHost.endsWith('pages.dev') &&
+          !refHost.includes('localhost')
+        ) {
+          // 외부 도메인에서 직접 API 호출 = 의심
+          suspicious = true
+        }
+      } catch { /* invalid referer */ }
+    } else if (!isBot && !referer) {
+      // Referer 없음 + 사람 UA = 직접 API 호출이나 privacy 모드. 일단 사람으로 카운팅
+    }
+
+    const finalIsBot = isBot || suspicious
+    const finalBotName = botName || (suspicious ? 'no-referer-suspicious' : null)
+
+    // ─── 상세 로그 INSERT (모든 요청 기록 — 봇 포함, 분석용) ───
     await db.prepare(`
-      INSERT INTO page_views (page_type, page_id, view_count, last_viewed_at)
-      VALUES (?, ?, 1, datetime('now'))
-      ON CONFLICT(page_type, page_id)
-      DO UPDATE SET view_count = view_count + 1, last_viewed_at = datetime('now')
-    `).bind(page_type, page_id).run()
+      INSERT INTO page_view_logs (page_type, page_id, ip_hash, ua_short, is_bot, bot_name, referer, country)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `).bind(
+      page_type,
+      page_id,
+      ipHash,
+      ua.slice(0, 200),
+      finalIsBot ? 1 : 0,
+      finalBotName,
+      referer.slice(0, 200) || null,
+      country || null
+    ).run()
+
+    // ─── 봇이면 누적 카운터(page_views)는 증가시키지 않음 ───
+    // 그래도 success 응답은 정상으로 반환 (봇이 동작을 추론하지 못하도록)
+    if (finalIsBot) {
+      const r = await db.prepare(
+        'SELECT view_count FROM page_views WHERE page_type = ? AND page_id = ?'
+      ).bind(page_type, page_id).first<{ view_count: number }>()
+      return c.json({ success: true, views: r?.view_count || 0 })
+    }
+
+    // ─── IP 기반 중복 조회 차단: 같은 IP가 같은 페이지를 60초 이내 재조회 → 카운트 X ───
+    const dup = await db.prepare(`
+      SELECT id FROM page_view_logs
+      WHERE page_type = ? AND page_id = ? AND ip_hash = ? AND is_bot = 0
+        AND viewed_at >= datetime('now', '-60 seconds')
+        AND id != (SELECT MAX(id) FROM page_view_logs WHERE page_type = ? AND page_id = ? AND ip_hash = ?)
+      LIMIT 1
+    `).bind(page_type, page_id, ipHash, page_type, page_id, ipHash).first()
+
+    if (!dup) {
+      // 첫 조회 또는 60초 경과 → 누적 카운터 +1
+      await db.prepare(`
+        INSERT INTO page_views (page_type, page_id, view_count, last_viewed_at)
+        VALUES (?, ?, 1, datetime('now'))
+        ON CONFLICT(page_type, page_id)
+        DO UPDATE SET view_count = view_count + 1, last_viewed_at = datetime('now')
+      `).bind(page_type, page_id).run()
+    }
 
     const result = await db.prepare(
       'SELECT view_count FROM page_views WHERE page_type = ? AND page_id = ?'
@@ -5301,7 +5434,10 @@ app.get('/api/admin/dashboard-stats', async (c) => {
       ).all()
       viewsTopColumns = topCols.results || []
 
-      // 최근 7일 일별 조회 활동 (last_viewed_at 기반)
+      // ⚠️ 아래 쿼리는 last_viewed_at 기반이라 부정확함.
+      // 누적 view_count를 마지막 본 시각으로 SUM 하므로 "최근 7일 진짜 조회수" ≠ 이 값.
+      // → 호환성을 위해 응답에는 남겨두되, 대시보드 UI에서는 사용하지 말 것.
+      // → 진짜 트래픽은 아래 realTraffic 블록 참조.
       const recentViews = await db.prepare(`
         SELECT page_type, DATE(last_viewed_at) as view_date, SUM(view_count) as total
         FROM page_views
@@ -5312,6 +5448,142 @@ app.get('/api/admin/dashboard-stats', async (c) => {
       viewsRecentActivity = recentViews.results || []
     }
   } catch { }
+
+  // ─────────────────────────────────────────────────────────────
+  // 3-B. 진짜 트래픽 (page_view_logs 기반, 봇 제외)
+  // ─────────────────────────────────────────────────────────────
+  let realTraffic: any = {
+    available: false,                       // 마이그레이션 적용 전이면 false
+    sinceTrackingStarted: null,             // 추적 시작 시각
+    today:        { human: 0, bot: 0 },
+    last24h:      { human: 0, bot: 0 },
+    last7days:    { human: 0, bot: 0 },
+    last30days:   { human: 0, bot: 0 },
+    daily7:       [] as Array<{date: string; human: number; bot: number}>,
+    daily30:      [] as Array<{date: string; human: number; bot: number}>,
+    topBotsLast7: [] as Array<{bot_name: string; hits: number}>,
+    topReferers:  [] as Array<{referer: string; hits: number}>,
+    countries:    [] as Array<{country: string; hits: number}>,
+    topPagesHuman7: { cases: [] as any[], columns: [] as any[] },
+  }
+  try {
+    if (db) {
+      // 추적 시작 시점
+      const firstRow = await db.prepare(
+        `SELECT MIN(viewed_at) as first_at, COUNT(*) as total FROM page_view_logs`
+      ).first<{ first_at: string | null; total: number }>()
+
+      if (firstRow && firstRow.total > 0) {
+        realTraffic.available = true
+        realTraffic.sinceTrackingStarted = firstRow.first_at
+
+        // 기간별 사람/봇 카운트
+        const periods: Array<[string, string]> = [
+          ['today',      "datetime('now', 'start of day')"],
+          ['last24h',    "datetime('now', '-24 hours')"],
+          ['last7days',  "datetime('now', '-7 days')"],
+          ['last30days', "datetime('now', '-30 days')"],
+        ]
+        for (const [key, since] of periods) {
+          const row = await db.prepare(`
+            SELECT
+              SUM(CASE WHEN is_bot = 0 THEN 1 ELSE 0 END) as human,
+              SUM(CASE WHEN is_bot = 1 THEN 1 ELSE 0 END) as bot
+            FROM page_view_logs
+            WHERE viewed_at >= ${since}
+          `).first<{ human: number | null; bot: number | null }>()
+          realTraffic[key] = { human: row?.human || 0, bot: row?.bot || 0 }
+        }
+
+        // 최근 7일 일별 (사람/봇)
+        const d7 = await db.prepare(`
+          SELECT DATE(viewed_at) as d,
+                 SUM(CASE WHEN is_bot = 0 THEN 1 ELSE 0 END) as human,
+                 SUM(CASE WHEN is_bot = 1 THEN 1 ELSE 0 END) as bot
+          FROM page_view_logs
+          WHERE viewed_at >= datetime('now', '-7 days')
+          GROUP BY DATE(viewed_at)
+          ORDER BY d
+        `).all<{ d: string; human: number; bot: number }>()
+        realTraffic.daily7 = d7.results || []
+
+        // 최근 30일 일별
+        const d30 = await db.prepare(`
+          SELECT DATE(viewed_at) as d,
+                 SUM(CASE WHEN is_bot = 0 THEN 1 ELSE 0 END) as human,
+                 SUM(CASE WHEN is_bot = 1 THEN 1 ELSE 0 END) as bot
+          FROM page_view_logs
+          WHERE viewed_at >= datetime('now', '-30 days')
+          GROUP BY DATE(viewed_at)
+          ORDER BY d
+        `).all<{ d: string; human: number; bot: number }>()
+        realTraffic.daily30 = d30.results || []
+
+        // 최근 7일 봇 TOP10 (어떤 봇이 많이 들어오는지)
+        const botTop = await db.prepare(`
+          SELECT COALESCE(bot_name, 'unknown-bot') as bot_name, COUNT(*) as hits
+          FROM page_view_logs
+          WHERE is_bot = 1 AND viewed_at >= datetime('now', '-7 days')
+          GROUP BY bot_name
+          ORDER BY hits DESC
+          LIMIT 10
+        `).all<{ bot_name: string; hits: number }>()
+        realTraffic.topBotsLast7 = botTop.results || []
+
+        // 최근 7일 Referer TOP10 (사람만)
+        const refTop = await db.prepare(`
+          SELECT
+            CASE
+              WHEN referer IS NULL OR referer = '' THEN '(direct)'
+              ELSE referer
+            END as referer,
+            COUNT(*) as hits
+          FROM page_view_logs
+          WHERE is_bot = 0 AND viewed_at >= datetime('now', '-7 days')
+          GROUP BY referer
+          ORDER BY hits DESC
+          LIMIT 10
+        `).all<{ referer: string; hits: number }>()
+        realTraffic.topReferers = refTop.results || []
+
+        // 최근 7일 국가별 (사람만)
+        const ctTop = await db.prepare(`
+          SELECT COALESCE(NULLIF(country, ''), '?') as country, COUNT(*) as hits
+          FROM page_view_logs
+          WHERE is_bot = 0 AND viewed_at >= datetime('now', '-7 days')
+          GROUP BY country
+          ORDER BY hits DESC
+          LIMIT 10
+        `).all<{ country: string; hits: number }>()
+        realTraffic.countries = ctTop.results || []
+
+        // 최근 7일 진짜 TOP 케이스/컬럼 (봇 제외)
+        const topCaseHuman = await db.prepare(`
+          SELECT page_id, COUNT(*) as views, MAX(viewed_at) as last_viewed
+          FROM page_view_logs
+          WHERE is_bot = 0 AND page_type = 'case' AND viewed_at >= datetime('now', '-7 days')
+          GROUP BY page_id
+          ORDER BY views DESC
+          LIMIT 10
+        `).all()
+        const topColHuman = await db.prepare(`
+          SELECT page_id, COUNT(*) as views, MAX(viewed_at) as last_viewed
+          FROM page_view_logs
+          WHERE is_bot = 0 AND page_type = 'column' AND viewed_at >= datetime('now', '-7 days')
+          GROUP BY page_id
+          ORDER BY views DESC
+          LIMIT 10
+        `).all()
+        realTraffic.topPagesHuman7 = {
+          cases: topCaseHuman.results || [],
+          columns: topColHuman.results || [],
+        }
+      }
+    }
+  } catch (e) {
+    // page_view_logs 테이블이 아직 없는 경우 → available = false로 유지
+    console.error('realTraffic query failed:', (e as any)?.message)
+  }
 
   // 4. 회원 통계
   let members: any[] = []
@@ -5360,6 +5632,7 @@ app.get('/api/admin/dashboard-stats', async (c) => {
     viewsTopCases,
     viewsTopColumns,
     viewsRecentActivity,
+    realTraffic,
     recentReservations: reservations
       .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
       .slice(0, 10)
