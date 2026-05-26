@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "totalItems": 585,
+  "totalItems": 720,
   "categories": [
     "교정",
     "구강 관리",
@@ -986,14 +986,18 @@
       "chosung": "G",
       "category": "치료·시술",
       "short": "차단막을 이용한 골 재생 유도술",
-      "detail": "GBR(Guided Bone Regeneration)은 골이식재 위에 차단막을 덮어 연조직의 침투를 막고 뼈가 재생되도록 유도하는 수술 기법입니다.",
+      "detail": "<p><strong>GBR(Guided Bone Regeneration, 골유도재생술)</strong>은 부족한 치조골을 회복시키기 위해 인공뼈(이식재)와 차단막(membrane)을 사용해 뼈가 자라날 공간을 확보하는 외과 술식입니다. 임플란트를 식립할 만큼 뼈가 부족할 때 가장 흔히 사용되는 <a href=\"/encyclopedia/%EB%BC%88%EC%9D%B4%EC%8B%9D\">뼈이식</a> 방법입니다.</p><h3>왜 GBR이 필요한가?</h3><p>치아를 잃은 후 6개월 이내에 치조골 폭은 평균 25% 감소하고, 1년 후엔 40%까지 줄어듭니다. 이 상태에서 <a href=\"/encyclopedia/%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8\">임플란트</a>를 식립하면 다음 문제가 생깁니다.</p><ul><li>임플란트 픽스처가 노출(thread exposure)</li><li>골유착 부족으로 초기 실패</li><li>장기적 <a href=\"/encyclopedia/%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8%20%EC%A3%BC%EC%9C%84%EC%97%BC\">임플란트 주위염</a> 위험</li><li>심미적 잇몸 함몰</li></ul><h3>GBR의 핵심 원리</h3><ol><li><strong>공간 확보</strong>: 부족한 뼈 부위에 인공뼈를 채워 \"방\"을 만듦</li><li><strong>차단막 적용</strong>: 빠르게 자라는 연조직(잇몸 세포)이 뼈 공간으로 들어오는 것을 차단</li><li><strong>혈병 안정화</strong>: 혈관·뼈 세포가 천천히 자라 새 뼈로 성숙</li><li><strong>6개월 대기</strong>: 인공뼈가 환자 뼈로 치환되는 시간 필요</li></ol><h3>사용되는 재료</h3><table><thead><tr><th>구분</th><th>종류</th><th>특징</th></tr></thead><tbody><tr><td>이식재(뼈가루)</td><td>자가골</td><td>최고 효과, 채취 부담</td></tr><tr><td></td><td>동종골(인체)</td><td>안전성 검증, 골유도</td></tr><tr><td></td><td>이종골(소·돼지)</td><td>가장 흔히 사용, 안정적</td></tr><tr><td></td><td>합성골</td><td>알레르기 없음</td></tr><tr><td>차단막</td><td>흡수성</td><td>제거 수술 불필요</td></tr><tr><td></td><td>비흡수성(티타늄)</td><td>큰 결손에 사용, 재수술로 제거</td></tr></tbody></table><h3>GBR 시점</h3><ul><li><strong>발치 즉시 GBR</strong>: 발치와 동시에 인공뼈 충전(socket preservation)</li><li><strong>임플란트 동시 GBR</strong>: 임플란트 식립과 동시에 부족한 부위 보강</li><li><strong>단독 GBR</strong>: 임플란트 전 6개월 먼저 시행</li></ul><h3>주의사항</h3><ul><li>흡연은 성공률을 30~40% 떨어뜨림</li><li>당뇨·골다공증 환자는 사전 평가 필수</li><li>6개월간 그 부위로 강하게 씹지 않기</li><li><a href=\"/encyclopedia/%EC%B9%98%EC%8B%A4\">치실</a>·칫솔질로 감염 예방 철저히</li></ul><p>GBR은 임플란트 성공의 \"기초공사\"입니다. 뼈가 충분히 회복된 후 식립하면 장기 생존율이 95% 이상까지 올라갑니다. 자세한 절차는 <a href=\"/guide/gbr-bone-graft\">GBR 가이드</a>를 참고하세요.</p>",
       "tags": [
         "외과"
       ],
       "link": "/treatments/implant",
       "synonyms": [
-        "골유도재생술"
-      ]
+        "골유도재생술",
+        "골재생술",
+        "Guided Bone Regeneration",
+        "지비알"
+      ],
+      "guide": "/guide/gbr-bone-graft"
     },
     {
       "id": 59,
@@ -1476,16 +1480,20 @@
       "chosung": "ㄴ",
       "category": "장비·기술",
       "short": "CBCT와 구강 스캔 데이터를 바탕으로 컴퓨터로 수술 가이드를 제작해 임플란트의 위치·각도·깊이를 정밀 식립하는 디지털 임플란트.",
-      "detail": "네비게이션 임플란트는 수술 전 CBCT(콘빔 CT)와 구강 내 디지털 스캔 데이터를 컴퓨터로 합성해 가상의 임플란트 위치와 각도, 깊이를 계획한 뒤, 그 계획을 그대로 수술실에서 구현할 수 있도록 3D 프린팅으로 제작한 수술용 가이드(서지컬 가이드)나 실시간 추적 장비를 활용하는 디지털 임플란트 술식입니다. 영어로는 guided implant surgery 또는 dynamic navigation implant라고도 합니다.\n\n장점은 크게 세 가지입니다. 첫째, 잇몸뼈 내부의 신경관·상악동·인접 치아 뿌리 등 위험 해부 구조물을 피해 안전한 위치에 정확히 식립할 수 있습니다. 둘째, 보철물 디자인과 조화를 이루는 이상적 각도와 깊이를 사전에 설계할 수 있어 최종 보철의 심미성과 기능성이 향상됩니다. 셋째, 일부 케이스에서는 잇몸을 절개하지 않는 무절개(flapless) 술식과 결합해 수술 시간과 회복기를 단축할 수 있습니다.\n\n네비게이션 방식은 크게 두 가지로 나뉩니다. 1) 정적 가이드(static guide): 3D 프린팅으로 제작된 가이드를 입에 끼우고 그 슬리브를 따라 드릴링·식립하는 방식. 2) 동적 네비게이션(dynamic navigation): 광학 추적 장비로 드릴 위치를 실시간 모니터링하며 식립하는 방식. 정적 가이드가 가장 보편적입니다.\n\n네비게이션 임플란트는 모든 케이스에 필요한 것은 아니지만, 잇몸뼈가 부족한 케이스, 상악동·신경관과의 거리가 가까운 케이스, 다수 임플란트를 식립해야 하는 케이스(All-on-4 등 전악 무치악 보철), 그리고 즉시 부하가 필요한 케이스에서 안정성을 높이는 데 특히 유리합니다. 다만 가이드 제작 단계와 디지털 데이터 정합 정확도가 결과를 좌우하므로 임상 경험과 장비 정밀도가 중요합니다. 서울비디치과는 자체 디지털 워크플로우와 CBCT, 구강 스캐너, 3D 프린터를 통합 운용해 네비게이션 임플란트를 시술하고 있습니다.",
+      "detail": "<p><strong>네비게이션 임플란트(Dynamic Navigation Implant)</strong>는 자동차 내비게이션처럼, 수술 중 실시간으로 의료진이 드릴 위치를 모니터로 확인하며 식립하는 최신 임플란트 방법입니다. <a href=\"/encyclopedia/%EB%94%94%EC%A7%80%ED%84%B8%20%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8\">디지털 임플란트</a>의 가이드 방식보다 한 단계 진화한 술식입니다.</p><h3>네비게이션 vs 가이드 임플란트</h3><table><thead><tr><th>항목</th><th>가이드 임플란트</th><th>네비게이션 임플란트</th></tr></thead><tbody><tr><td>방식</td><td>물리적 가이드 장착</td><td>실시간 트래킹</td></tr><tr><td>수정 가능성</td><td>수술 중 변경 어려움</td><td>실시간 조정 가능</td></tr><tr><td>가이드 제작</td><td>필요(3D 프린팅)</td><td>불필요</td></tr><tr><td>입 벌림 제한</td><td>큼(가이드+드릴)</td><td>거의 없음</td></tr><tr><td>응급 대응</td><td>제한적</td><td>유연함</td></tr></tbody></table><h3>작동 원리</h3><ol><li><strong>마커 부착</strong>: 환자 입·치아에 광학 추적 마커</li><li><strong>CBCT 정합</strong>: 사전 촬영 CT와 실제 위치 매칭</li><li><strong>드릴 추적</strong>: 카메라가 드릴 위치를 1초당 수십 번 추적</li><li><strong>모니터 표시</strong>: 의사가 화면 보며 정확한 위치·각도 식립</li><li><strong>경고 알림</strong>: 신경·상악동에 가까워지면 알림</li></ol><h3>적용에 좋은 케이스</h3><ul><li>입을 충분히 벌리기 어려운 환자(가이드 삽입 공간 부족)</li><li>어금니 부위 임플란트(가이드보다 시야 확보 유리)</li><li>해부학적 위험 부위(신경·상악동 인접)</li><li>전신질환 등 수술 시간 단축이 필요한 환자</li></ul><h3>장점</h3><ul><li>실시간 정밀도(평균 오차 0.5mm 이내)</li><li>가이드 제작 시간·비용 절감</li><li>수술 중 유연한 대응(뼈 질감, 변수)</li><li>무절개·최소절개 가능</li><li>환자 회복 빠름</li></ul><h3>한계</h3><ul><li>장비 비용 큼 → 비급여 가격대 높음</li><li>의료진의 추가 교육 필요</li><li>매우 다발성 식립엔 가이드가 더 효율적인 경우도 있음</li></ul><p>네비게이션 임플란트는 \"수술 중 실시간 GPS\"라고 비유할 수 있습니다. 해부학적으로 까다로운 케이스에서 진가를 발휘하는 술식입니다.</p>",
       "tags": [
         "장비"
       ],
-      "link": "/treatments/implant-navigation",
+      "link": "/treatments/digital-implant",
       "synonyms": [
         "가이드 임플란트",
-        "디지털 임플란트"
+        "디지털 임플란트",
+        "내비게이션 임플란트",
+        "navigation implant",
+        "다이나믹 네비게이션",
+        "실시간 가이드 임플란트"
       ],
-      "guide": "/guide/implant"
+      "guide": "/guide/navigation-implant"
     },
     {
       "id": 89,
@@ -1926,15 +1934,19 @@
       "chosung": "ㅇ",
       "category": "임플란트",
       "short": "픽스처와 보철을 연결하는 연결 기둥",
-      "detail": "어버트먼트(Abutment)는 뼈 속 픽스처와 위쪽 인공 치아(크라운)를 연결하는 중간 기둥입니다. 티타늄, 지르코니아 등으로 제작됩니다.",
+      "detail": "<p><strong>임플란트 어버트먼트(Abutment, 지대주)</strong>는 잇몸 속 <a href=\"/encyclopedia/%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8%20%ED%94%BD%EC%8A%A4%EC%B2%98\">픽스처(인공치근)</a>와 잇몸 위 보철(크라운) 사이를 연결하는 \"기둥\" 부품입니다. 임플란트 3대 구성요소(픽스처-어버트먼트-크라운) 중 가운데에 위치합니다.</p><h3>어버트먼트의 역할</h3><ul><li>픽스처와 크라운을 물리적으로 연결</li><li>잇몸선 위로 적절한 높이 형성</li><li>크라운의 형태·각도를 결정</li><li>잇몸 모양을 자연스럽게 형성</li></ul><h3>재료별 분류</h3><table><thead><tr><th>재료</th><th>특징</th><th>주 적용</th></tr></thead><tbody><tr><td>티타늄</td><td>강도 최고, 가장 보편</td><td>어금니, 비심미 부위</td></tr><tr><td>지르코니아</td><td>흰색, 잇몸 비침 없음</td><td>앞니·심미 부위</td></tr><tr><td>골드</td><td>강도·생체친화성</td><td>특수 케이스</td></tr><tr><td>티타늄+지르코니아 하이브리드</td><td>강도+심미</td><td>앞니 어금니 다용도</td></tr></tbody></table><h3>제작 방식</h3><ul><li><strong>기성 어버트먼트(Stock)</strong>: 미리 만들어진 표준 사이즈. 저렴, 빠름. 일부 케이스 부적합.</li><li><strong>맞춤 어버트먼트(Custom/CAD/CAM)</strong>: 환자 잇몸·치아에 맞춰 디자인. 비싸나 결과 우수.</li></ul><h3>맞춤 어버트먼트가 필요한 경우</h3><ul><li>앞니 등 심미가 중요한 부위</li><li>잇몸 두께·높이가 비대칭</li><li>임플란트 식립 각도가 이상적이지 않음</li><li>인접 치아 위치에 맞춰 크라운 형태 보정 필요</li></ul><h3>어버트먼트 합병증</h3><ul><li><strong>스크류 풀림</strong>: 어버트먼트 나사가 헐거워짐 → 재조임 필요</li><li><strong>나사 파절</strong>: 과한 힘으로 끊김 → 부러진 나사 제거 필요</li><li><strong>잇몸 비침</strong>: 티타늄 어버트먼트가 얇은 잇몸 통해 회색으로 보임 → 지르코니아 교체</li><li><strong>마진 부적합</strong>: 음식물·플라크 축적 → <a href=\"/encyclopedia/%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8%20%EC%A3%BC%EC%9C%84%EC%97%BC\">임플란트 주위염</a> 위험</li></ul><h3>관리 포인트</h3><ul><li>씹을 때 \"딸깍\" 소리·이물감 나면 즉시 검진</li><li>잇몸 출혈·붓기 지속 시 어버트먼트 점검</li><li>6개월 정기 검진에서 어버트먼트 토크 확인</li></ul><p>어버트먼트는 임플란트의 \"숨은 주인공\"입니다. 환자 눈엔 안 보이지만, 임플란트 성공의 절반은 어버트먼트 선택과 적합도에 달려 있습니다.</p>",
       "tags": [
         "치료"
       ],
       "link": "/treatments/implant",
       "synonyms": [
         "Abutment",
-        "지대주"
-      ]
+        "지대주",
+        "어버트먼트",
+        "abutment",
+        "임플란트 지대주"
+      ],
+      "guide": "/guide/implant-prosthesis"
     },
     {
       "id": 117,
@@ -3168,12 +3180,19 @@
       "chosung": "ㅊ",
       "category": "치과 질환",
       "short": "외상으로 치아가 원래 위치에서 벗어난 상태",
-      "detail": "치아 탈구는 불완전 탈구(치아가 흔들리거나 위치 변동)와 완전 탈구(치아가 완전히 빠짐)로 나뉩니다. 응급 상황으로 즉시 치과 방문이 필요합니다.",
+      "detail": "<p><strong>치아 탈구(Tooth Avulsion)</strong>는 외상으로 치아가 잇몸에서 완전히 빠져나온 상태입니다. <a href=\"/encyclopedia/%EC%B9%98%EC%95%84%20%EC%A0%95%EC%B6%9C\">정출</a>(부분 탈구)과 달리, 치아가 입 밖으로 완전히 떨어진 가장 심각한 외상입니다. 시간이 가장 중요한 치과 응급 1순위 케이스입니다.</p><h3>골든타임: 30분 이내</h3><table><thead><tr><th>내원 시간</th><th>재식 성공률(추정)</th></tr></thead><tbody><tr><td>5분 이내</td><td>95% 이상</td></tr><tr><td>30분 이내</td><td>80~90%</td></tr><tr><td>1시간</td><td>50~70%</td></tr><tr><td>2시간</td><td>20~30%</td></tr><tr><td>2시간 초과</td><td>매우 낮음</td></tr></tbody></table><h3>응급 처치 (꼭 기억하세요)</h3><ol><li><strong>치아를 찾는다</strong>: 흙·먼지 묻어도 OK</li><li><strong>치관(보이는 부분)만 잡는다</strong>: 치근은 절대 만지지 않기</li><li><strong>흐르는 물·식염수에 10초 헹군다</strong>: 문지르지 않기</li><li><strong>가능하면 즉시 원위치로 끼워 넣는다</strong>: 부모·환자 본인이 가능</li><li><strong>안 되면 보관액에 담근다</strong>: 우선순위 ① 차가운 우유 ② 식염수 ③ 입 안(볼 안쪽) ④ 물(최후의 수단)</li><li><strong>30분 이내 치과 도착</strong>: 응급실 아닌 치과로!</li></ol><h3>절대 하지 말아야 할 것</h3><ul><li>치근을 손으로 만지거나 닦지 않기</li><li>마른 휴지로 싸서 가져오지 않기(치근막 사망)</li><li>알코올·소독제에 담그지 않기</li><li>물에 오래 담그지 않기(저장액 부족 시만 최후)</li><li>주머니에 그냥 넣지 않기</li></ul><h3>병원에서의 치료</h3><ol><li><strong>치아 검사</strong>: 파절·오염 평가</li><li><strong>방사선 촬영</strong>: 치조골 골절 여부</li><li><strong>재식</strong>: 원래 위치로 끼움</li><li><strong>고정(스플린트)</strong>: 인접 치아와 1~2주 묶기</li><li><strong>신경치료</strong>: 7~14일 후 시작(성숙 치근의 경우)</li><li><strong>약물</strong>: 항생제, 통증 관리, 파상풍 예방</li></ol><h3>유치 탈구의 경우</h3><p><strong>유치는 재식하지 않습니다.</strong> 영구치 치배 손상 위험이 있어 재식보다 자연 치유를 기다립니다. 영구치가 나올 시기까지 <a href=\"/encyclopedia/%EA%B3%B5%EA%B0%84%20%EC%9C%A0%EC%A7%80%20%EC%9E%A5%EC%B9%98\">공간 유지 장치</a>를 고려합니다.</p><h3>장기 합병증 (정기 추적 필수)</h3><ul><li><strong>치수 괴사</strong>: 신경 죽음 (성숙 치근 75~96%)</li><li><strong>치근 흡수</strong>: 외부·내부 흡수 (가장 흔한 실패 원인)</li><li><strong>골유착(ankylosis)</strong>: 치아가 뼈와 직접 붙어 변화 안 됨</li><li><strong>치근단 병변</strong>: 만성 농양</li><li><strong>변색</strong>: 회색·갈색</li></ul><h3>예방</h3><ul><li>스포츠 시 마우스가드 착용</li><li>자전거·인라인 시 헬멧 + 마우스가드</li><li>어린이 놀이기구 안전 점검</li><li>가정·차량에 응급 보관액(우유) 즉시 활용</li></ul><p>치아 탈구는 \"속도 = 결과\"입니다. 1분이라도 빠르면 평생 치아를 구할 수 있고, 늦으면 임플란트로 가야 합니다. 응급 처치를 미리 알아두는 것이 가장 중요합니다.</p>",
       "tags": [
         "질환",
         "외과"
       ],
-      "synonyms": []
+      "synonyms": [
+        "치아탈구",
+        "이가 빠짐",
+        "tooth avulsion",
+        "완전 탈구"
+      ],
+      "link": "/treatments/trauma",
+      "guide": "/guide/tooth-avulsion"
     },
     {
       "id": 204,
@@ -3586,13 +3605,19 @@
       "chosung": "P",
       "category": "치료·시술",
       "short": "자가 혈액에서 추출한 재생 촉진제",
-      "detail": "PRF(Platelet Rich Fibrin)는 환자 본인의 혈액을 원심분리하여 얻는 혈소판 농축액입니다. 골이식, 발치 후 치유, 임플란트 수술 시 조직 재생을 촉진합니다.",
+      "detail": "<p><strong>PRF(Platelet Rich Fibrin, 혈소판농축섬유소)</strong>는 환자 본인의 혈액을 채취해 원심분리한 후 얻는 자가 혈소판·섬유소 농축물입니다. 성장인자가 풍부해 골재생·연조직 치유를 촉진하며, 임플란트·뼈이식·발치 후 회복에 널리 사용됩니다.</p><h3>PRF의 작동 원리</h3><p>혈액에는 다음 성장인자가 들어 있습니다.</p><ul><li><strong>PDGF</strong>(혈소판 유래 성장인자): 세포 증식 촉진</li><li><strong>TGF-β</strong>: 콜라겐 합성·골 재생</li><li><strong>VEGF</strong>: 혈관 신생</li><li><strong>IGF</strong>: 골세포 분화</li></ul><p>PRF는 이 성장인자들을 농축한 \"천연 치유 가속제\"입니다. 약물이 아닌 자기 혈액이므로 알레르기·거부반응이 없습니다.</p><h3>PRF 제조 과정</h3><ol><li>환자 팔에서 10~20mL 채혈</li><li>전용 원심분리기에서 약 10~12분 회전(2700rpm 등)</li><li>3개 층 분리: 적혈구(하층) / PRF 겔(중층) / 무세포 혈장(상층)</li><li>중층 PRF 겔을 채취해 즉시 사용</li></ol><h3>치과에서의 활용</h3><table><thead><tr><th>적용 분야</th><th>효과</th></tr></thead><tbody><tr><td><a href=\"/encyclopedia/GBR\">GBR</a>·뼈이식</td><td>이식재와 혼합 → 신생골 속도↑</td></tr><tr><td><a href=\"/encyclopedia/%EC%83%81%EC%95%85%EB%8F%99%20%EA%B1%B0%EC%83%81%EC%88%A0\">상악동 거상술</a></td><td>막 천공 시 보강, 회복 가속</td></tr><tr><td>발치 후 소켓</td><td>치유 단축, 건조성치조염 예방</td></tr><tr><td>치주 재생</td><td>잇몸·치주인대 재생 보조</td></tr><tr><td>임플란트 식립</td><td>골유착 촉진</td></tr></tbody></table><h3>장점</h3><ul><li>자가 혈액 → 면역거부·알레르기 없음</li><li>약물·동물성 재료 사용 안 함</li><li>회복 기간 단축(보통 30~50% 빠른 치유)</li><li>통증·붓기 감소</li><li>감염 위험 감소</li></ul><h3>주의사항</h3><ul><li>혈액 응고제(아스피린·와파린) 복용 환자는 사전 상담 필요</li><li>채혈 후 잠시 어지러움 가능(공복 채혈 피하기)</li><li>당일 사용이 원칙(저장·재사용 불가)</li><li>모든 케이스에 필수는 아니며, 의사 판단 적용</li></ul><p>PRF는 \"내 몸이 내 몸을 빠르게 고치게 만드는\" 술식입니다. 큰 수술 시 추가 비용이 들어도 회복 속도와 결과 안정성을 위해 권장되는 경우가 많습니다.</p>",
       "tags": [
         "외과"
       ],
       "synonyms": [
-        "혈소판 농축액"
-      ]
+        "혈소판 농축액",
+        "혈소판농축섬유소",
+        "Platelet Rich Fibrin",
+        "자가혈 치료",
+        "피알에프"
+      ],
+      "link": "/treatments/implant",
+      "guide": "/guide/prf-treatment"
     },
     {
       "id": 235,
@@ -3703,14 +3728,19 @@
       "chosung": "ㅁ",
       "category": "치료·시술",
       "short": "잇몸을 절개하지 않고 식립하는 임플란트",
-      "detail": "무절개(Flapless) 임플란트는 가이드를 이용해 잇몸에 작은 구멍만 뚫어 식립하는 방법입니다. 출혈·부종이 적고 회복이 빠르지만, 뼈 상태가 양호해야 합니다.",
+      "detail": "<p><strong>무절개 임플란트(Flapless Implant)</strong>는 잇몸을 절개·박리하지 않고, 잇몸에 작은 구멍만 뚫어 임플란트를 식립하는 최소 침습 술식입니다. 봉합이 필요 없거나 최소화되어 환자의 통증·붓기·회복 시간이 크게 줄어듭니다.</p><h3>전통 임플란트와의 비교</h3><table><thead><tr><th>항목</th><th>전통 절개</th><th>무절개</th></tr></thead><tbody><tr><td>잇몸 절개</td><td>큰 절개·박리</td><td>작은 펀치(또는 없음)</td></tr><tr><td>봉합</td><td>여러 바늘</td><td>없음 또는 1바늘</td></tr><tr><td>수술 시간</td><td>30~60분</td><td>10~20분</td></tr><tr><td>통증·붓기</td><td>중등도</td><td>경미</td></tr><tr><td>회복 기간</td><td>1~2주</td><td>2~3일</td></tr><tr><td>심미</td><td>잇몸 라인 변화 가능</td><td>잇몸 보존</td></tr></tbody></table><h3>가능한 조건</h3><p>무절개는 \"누구나\" 가능한 것이 아니라, 다음 조건을 만족해야 합니다.</p><ul><li>충분한 치조골 폭·높이 (3D CT로 확인)</li><li>각화 잇몸이 충분히 있음</li><li>해부학적 위험(신경·상악동) 거리 확보</li><li><a href=\"/encyclopedia/%EB%94%94%EC%A7%80%ED%84%B8%20%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8\">디지털 임플란트</a> 시뮬레이션 완료</li></ul><h3>장점</h3><ul><li>통증·붓기 최소화</li><li>잇몸 혈류 보존 → 골유착 안정</li><li>심미적으로 잇몸 라인 유지</li><li>당일 보철과 조합 시 \"원데이 임플란트\" 가능</li><li>식사·일상 복귀 빠름</li></ul><h3>한계</h3><ul><li>뼈 부족 환자엔 부적합(<a href=\"/encyclopedia/GBR\">GBR</a> 동시 시행 어려움)</li><li>시야가 제한적 → 정확한 사전 계획 필수</li><li>경험 많은 의료진과 디지털 장비 필요</li><li>일부 케이스는 절개가 더 안전</li></ul><h3>회복 가이드</h3><ul><li>당일: 가벼운 식사 가능(반대편 위주)</li><li>1~2일: 정상 식사 가능(부드러운 음식)</li><li>1주: 일반 식사 복귀</li><li>3~6개월: 골유착 완료 후 보철</li></ul><p>무절개 임플란트는 \"수술이 작아질수록 환자가 편하다\"는 현대 치과의 흐름을 대표하는 술식입니다. 단, 안전한 적용을 위해선 반드시 3D 진단 후 결정해야 합니다.</p>",
       "tags": [
         "치료"
       ],
       "synonyms": [
-        "Flapless"
+        "Flapless",
+        "무절개 식립",
+        "flapless implant",
+        "minimal invasive implant",
+        "절개 없는 임플란트"
       ],
-      "link": "/treatments/implant"
+      "link": "/treatments/implant",
+      "guide": "/guide/flapless-implant"
     },
     {
       "id": 244,
@@ -4798,12 +4828,17 @@
       "chosung": "ㄷ",
       "category": "임플란트",
       "short": "3D 디지털 기술을 활용한 정밀 임플란트",
-      "detail": "디지털 임플란트는 CT+구강 스캔으로 가상 수술을 미리 설계하고, 3D 프린팅 가이드를 이용해 계획된 위치에 정확히 식립하는 최첨단 방식입니다.",
+      "detail": "<p><strong>디지털 임플란트</strong>는 <a href=\"/encyclopedia/CT%20(CBCT)\">CBCT</a>와 <a href=\"/encyclopedia/%EA%B5%AC%EA%B0%95%20%EC%8A%A4%EC%BA%90%EB%84%88\">구강 스캐너</a>로 환자의 3D 데이터를 얻어, 컴퓨터로 임플란트 식립 위치·각도·깊이를 미리 시뮬레이션한 뒤, 가이드(surgical guide)를 통해 수술하는 정밀 임플란트 방법입니다.</p><h3>전통 임플란트와의 차이</h3><table><thead><tr><th>항목</th><th>전통 방식</th><th>디지털 방식</th></tr></thead><tbody><tr><td>계획</td><td>2D X-ray + 의사 경험</td><td>3D CT 시뮬레이션</td></tr><tr><td>식립 정확도</td><td>1~2mm 오차 가능</td><td>0.3~0.5mm 정밀</td></tr><tr><td>절개</td><td>잇몸 절개 + 봉합</td><td>최소절개 또는 무절개 가능</td></tr><tr><td>수술 시간</td><td>30~60분/개</td><td>10~20분/개</td></tr><tr><td>회복</td><td>통증·붓기 큼</td><td>통증·붓기 적음</td></tr><tr><td>당일 보철</td><td>어려움</td><td>가능(이미 설계 완료)</td></tr></tbody></table><h3>디지털 임플란트의 흐름</h3><ol><li><strong>CBCT 촬영</strong>: 3D 뼈·신경·혈관 위치 파악</li><li><strong>구강 스캔</strong>: 잇몸·치아 표면 디지털화</li><li><strong>시뮬레이션</strong>: 컴퓨터에서 최적 식립 위치 설계 (신경·상악동 회피)</li><li><strong>가이드 제작</strong>: 3D 프린터로 환자 맞춤 수술 가이드 제작</li><li><strong>수술</strong>: 가이드를 입에 끼우고 정해진 위치·각도로 식립</li><li><strong>당일 보철(선택)</strong>: 미리 만든 임시치아 즉시 장착 가능</li></ol><h3>장점</h3><ul><li><strong>안전성</strong>: 하치조신경·상악동 손상 위험 최소화</li><li><strong>정밀도</strong>: 보철 위치·각도가 이상적</li><li><strong>최소 침습</strong>: <a href=\"/encyclopedia/%EB%AC%B4%EC%A0%88%EA%B0%9C%20%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8\">무절개 임플란트</a> 가능 케이스 증가</li><li><strong>환자 시각화</strong>: 수술 전 결과 미리 보기</li><li><strong>다발성 식립 효율</strong>: 풀마우스 임플란트에 특히 강점</li></ul><h3>적용이 어려운 경우</h3><ul><li>입을 충분히 벌리기 어려운 환자(가이드 삽입 공간 필요)</li><li>심한 골소실로 추가 GBR이 필수인 경우</li><li>경제적 부담 큰 케이스(기본 임플란트보다 추가 비용)</li></ul><p>서울비디치과는 디지털 시뮬레이션을 통해 \"정확한 위치, 짧은 시간, 작은 통증\"을 추구합니다. 자세한 절차는 <a href=\"/guide/digital-implant\">디지털 임플란트 가이드</a>에서 확인하세요.</p>",
       "tags": [
         "치료"
       ],
-      "link": "/treatments/implant",
-      "synonyms": []
+      "link": "/treatments/digital-implant",
+      "synonyms": [
+        "디지털 임플란트 수술",
+        "digital implant",
+        "컴퓨터 가이드 임플란트"
+      ],
+      "guide": "/guide/digital-implant"
     },
     {
       "id": 326,
@@ -7764,7 +7799,7 @@
       "chosung": "ㅊ",
       "category": "치주 질환",
       "short": "잇몸이 내려가 치아 뿌리가 노출되는 상태",
-      "detail": "치은 퇴축(Gingival Recession)은 잇몸이 뿌리 쪽으로 내려가 치아 뿌리가 드러나는 상태입니다. 과도한 칫솔질, 치주염, 교합 외상, 노화가 원인이며, 시린이·충치·심미 문제를 유발합니다. 경미한 경우 칫솔질 교정으로, 심한 경우 결합조직 이식(잇몸 이식)으로 치료합니다.",
+      "detail": "<p><strong>치은 퇴축(Gingival Recession)</strong>은 잇몸이 본래 위치보다 아래로 내려가 치아의 뿌리(<a href=\"/encyclopedia/%EC%B9%98%EA%B7%BC\">치근</a>)가 드러나는 상태입니다. \"이가 길어 보인다\", \"잇몸이 내려앉았다\"는 표현이 이에 해당합니다. 30대 이후 흔히 발생하며, 시리고 심미적으로도 신경 쓰입니다.</p><h3>증상</h3><ul><li>치아가 길어 보임</li><li>찬물·바람에 시림(노출된 상아질)</li><li>치근 색이 누렇게 보임</li><li>치아 사이 검은 삼각형 공간(black triangle)</li><li>칫솔질 시 통증·출혈</li><li>치근 우식 위험 증가</li></ul><h3>원인</h3><table><thead><tr><th>원인</th><th>설명</th></tr></thead><tbody><tr><td>잘못된 칫솔질</td><td>가로 솔질·강한 압력·뻣뻣한 칫솔모</td></tr><tr><td><a href=\"/encyclopedia/%EC%B9%98%EC%A3%BC%EC%97%BC\">치주염</a></td><td>잇몸뼈 흡수 → 잇몸 따라 내려감</td></tr><tr><td>이갈이·이악물기</td><td>치아에 가해지는 측방력</td></tr><tr><td>교합 외상</td><td>특정 치아에 과한 힘</td></tr><tr><td>얇은 잇몸 표현형</td><td>유전적으로 잇몸이 얇은 경우</td></tr><tr><td>교정 치료</td><td>치아 이동 중 잇몸이 따라가지 못함</td></tr><tr><td>피어싱·구강 습관</td><td>입술·혀 피어싱 마찰</td></tr></tbody></table><h3>Miller 분류 (치료 예후)</h3><ul><li><strong>Class I</strong>: 치근 노출이 잇몸 경계까지. 100% 회복 가능</li><li><strong>Class II</strong>: 잇몸 경계 넘었으나 인접면 잇몸 정상. 100% 회복 가능</li><li><strong>Class III</strong>: 인접면 잇몸도 일부 손실. 부분 회복</li><li><strong>Class IV</strong>: 인접면 잇몸 심한 손실. 회복 한계</li></ul><h3>치료 옵션</h3><ol><li><strong>원인 제거</strong>: 칫솔질 교정, 이갈이 관리, 치주염 치료</li><li><strong>지각과민 처치</strong>: 시린 증상 완화(불소·지각과민 차단제)</li><li><strong>레진 충전</strong>: 노출 치근에 얇게 충전</li><li><strong><a href=\"/encyclopedia/%EC%B9%98%EC%9D%80%20%EC%9D%B4%EC%8B%9D%EC%88%A0\">치은 이식술</a></strong>: 다른 부위 잇몸 채취해 이식</li><li><strong>측방 활주 피판술</strong>: 옆 잇몸을 옮겨 덮기</li><li><strong>핀홀 기법</strong>: 작은 구멍으로 잇몸 끌어내림(최소 침습)</li></ol><h3>예방 수칙</h3><ul><li>부드러운 칫솔모(soft) 사용</li><li>Bass 법: 잇몸 쪽으로 45° 진동 솔질</li><li>전동 칫솔도 \"누르지 않고 가볍게\"</li><li>이갈이·이악물기 관리</li><li>정기 검진에서 잇몸 라인 모니터링</li></ul><p>치은 퇴축은 \"한 번 진행되면 되돌리기 어렵다\"는 점이 가장 큰 특징입니다. 초기에 칫솔질 습관만 바꿔도 진행을 멈출 수 있으니, 시린 증상이 시작되면 진료를 받아보세요.</p>",
       "tags": [
         "잇몸",
         "심미",
@@ -7772,8 +7807,13 @@
       ],
       "synonyms": [
         "gingival recession",
-        "잇몸 내려감"
-      ]
+        "잇몸 내려감",
+        "잇몸 퇴축",
+        "잇몸 내려앉음",
+        "치근 노출"
+      ],
+      "link": "/treatments/gum-recession",
+      "guide": "/guide/gum-recession"
     },
     {
       "id": 529,
@@ -7885,7 +7925,7 @@
       "chosung": "ㅊ",
       "category": "치주 질환",
       "short": "파괴된 치주 조직(잇몸·뼈·인대)을 재생시키는 수술적 치료",
-      "detail": "치주 재생술(Periodontal Regeneration)은 골이식재, 차폐막(GTR), 에나멜기질유도체(EMD)를 이용하여 파괴된 치조골·치주인대·백악질을 재생시키는 수술입니다. 수직 골흡수·골내낭에서 효과적이며, 환자의 구강위생·전신상태가 성공률에 큰 영향을 미칩니다.",
+      "detail": "<p><strong>치주 재생술(Periodontal Regeneration)</strong>은 <a href=\"/encyclopedia/%EC%B9%98%EC%A3%BC%EC%97%BC\">치주염</a>으로 손실된 잇몸뼈·치주인대·시멘트질을 다시 자라게 하는 외과 술식입니다. 단순히 치석 제거나 잇몸 봉합이 아닌, \"잃어버린 조직 자체를 복원\"하는 치료입니다.</p><h3>치주 재생술 vs 일반 치주 수술</h3><table><thead><tr><th>항목</th><th>일반 치주 수술</th><th>치주 재생술</th></tr></thead><tbody><tr><td>목표</td><td>포켓 제거·청소</td><td>잇몸뼈·인대 재생</td></tr><tr><td>적용</td><td>대부분 치주염</td><td>특정 형태의 골결손</td></tr><tr><td>재료</td><td>최소</td><td>이식재 + 차단막 + 성장인자</td></tr><tr><td>회복 기간</td><td>1~2주</td><td>3~6개월</td></tr><tr><td>비용</td><td>일부 급여</td><td>대부분 비급여</td></tr></tbody></table><h3>적용 가능한 골결손 형태</h3><ul><li><strong>3벽성 결손</strong>: 가장 좋은 예후. 결손 주위 3면이 골로 둘러쌈</li><li><strong>2벽성 결손</strong>: 보통 예후</li><li><strong>1벽성 결손</strong>: 예후 제한적</li><li><strong>치근 분지부 병변</strong>: Class II는 가능, Class III는 어려움</li></ul><h3>사용되는 재료</h3><table><thead><tr><th>재료</th><th>역할</th></tr></thead><tbody><tr><td>이식골 (자가·동종·이종·합성)</td><td>새 뼈의 \"발판\"</td></tr><tr><td>차단막 (GTR membrane)</td><td>잇몸 세포 침입 차단</td></tr><tr><td>법랑 기질 단백(Emdogain)</td><td>치주인대 재생 자극</td></tr><tr><td><a href=\"/encyclopedia/PRF\">PRF</a></td><td>성장인자 공급, 치유 가속</td></tr><tr><td>BMP·rhPDGF</td><td>골 재생 단백 (선택적)</td></tr></tbody></table><h3>치료 흐름</h3><ol><li><strong>초기 치주 치료</strong>: 스케일링 + 치근 활택술 (필수 선행)</li><li><strong>재평가</strong>: 4~6주 후 잔존 포켓 평가</li><li><strong>수술 계획</strong>: <a href=\"/encyclopedia/CT%20(CBCT)\">CBCT</a>로 골결손 3D 분석</li><li><strong>수술</strong>: 잇몸 박리 → 청소 → 재생 재료 적용 → 봉합</li><li><strong>회복 관리</strong>: 6~8주 부드러운 식사, 부위 자극 금지</li><li><strong>장기 재평가</strong>: 6개월·1년 추적</li></ol><h3>성공률을 좌우하는 요인</h3><ul><li>흡연 (성공률 50% 이하로 떨어짐)</li><li>당뇨 조절 상태</li><li>골결손 형태</li><li>환자의 구강 위생</li><li>이갈이 등 교합 외상 조절</li><li>의료진 술기 숙련도</li></ul><h3>한계</h3><ul><li>모든 치주염에 적용되지 않음(결손 형태 제한)</li><li>완전 회복보다는 \"부분 회복\"이 현실적</li><li>심한 흔들림 치아는 발치가 합리적일 수 있음</li><li>흡연자·당뇨 미조절자는 효과 제한</li></ul><p>치주 재생술은 \"치아 보존의 마지막 카드\"입니다. 발치 직전 단계에서 시도할 가치가 있으며, 성공 시 임플란트 비용·시간을 크게 절감합니다.</p>",
       "tags": [
         "수술",
         "골이식",
@@ -7893,8 +7933,12 @@
       ],
       "synonyms": [
         "periodontal regeneration",
-        "GTR"
-      ]
+        "GTR",
+        "치주조직 재생술",
+        "잇몸뼈 재생술"
+      ],
+      "link": "/treatments/periodontics",
+      "guide": "/guide/periodontal-regeneration"
     },
     {
       "id": 536,
@@ -10733,6 +10777,404 @@
         "치근단 방사선"
       ],
       "id": 724
+    },
+    {
+      "id": "725",
+      "term": "임플란트 보철",
+      "chosung": "ㅇ",
+      "category": "임플란트",
+      "short": "임플란트 보철은 잇몸 속 임플란트 픽스처 위에 올리는 \"치아 부분\"입니다. 픽스처(인공치근) → 어버트먼트(연결부) → 보철(크라운)의 3단 구조로 이루어집니다.임플란트 보철의 종류 (재료별)재료심미강도특징지르코니아★★★★★★★★★가장 흔히 사용, 색상 자연PFM...",
+      "detail": "<p><strong>임플란트 보철</strong>은 잇몸 속 임플란트 픽스처 위에 올리는 \"치아 부분\"입니다. <a href=\"/encyclopedia/%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8%20%ED%94%BD%EC%8A%A4%EC%B2%98\">픽스처(인공치근)</a> → <a href=\"/encyclopedia/%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8%20%EC%96%B4%EB%B2%84%ED%8A%B8%EB%A8%BC%ED%8A%B8\">어버트먼트(연결부)</a> → 보철(크라운)의 3단 구조로 이루어집니다.</p><h3>임플란트 보철의 종류 (재료별)</h3><table><thead><tr><th>재료</th><th>심미</th><th>강도</th><th>특징</th></tr></thead><tbody><tr><td><a href=\"/encyclopedia/%EC%A7%80%EB%A5%B4%EC%BD%94%EB%8B%88%EC%95%84\">지르코니아</a></td><td>★★★★</td><td>★★★★★</td><td>가장 흔히 사용, 색상 자연</td></tr><tr><td><a href=\"/encyclopedia/PFM\">PFM</a></td><td>★★★</td><td>★★★★</td><td>금속 비침 가능</td></tr><tr><td>골드</td><td>×</td><td>★★★★★</td><td>최고 강도, 마모 적음</td></tr><tr><td><a href=\"/encyclopedia/e.max\">e.max</a></td><td>★★★★★</td><td>★★★</td><td>앞니 위주(어금니 부적합)</td></tr></tbody></table><h3>고정 방식 (시멘트 vs 스크류)</h3><ul><li><strong>시멘트 유지형</strong>: 접착제로 어버트먼트에 고정. 자연스럽고 강함. 잔여 시멘트 관리 필요.</li><li><strong>스크류 유지형</strong>: 나사로 고정. 분리·청소·재제작 용이. 작은 구멍을 레진으로 메움.</li></ul><h3>제작 과정</h3><ol><li><strong>임플란트 식립 후 골유착 대기</strong>: 3~6개월</li><li><strong>2차 수술(또는 힐링 어버트먼트)</strong>: 잇몸 모양 형성</li><li><strong>본뜨기 또는 구강 스캔</strong>: 보철 제작용 데이터</li><li><strong>임시치아(선택)</strong>: 잇몸 라인 형성 시</li><li><strong>최종 보철 제작</strong>: 기공소 1~2주</li><li><strong>시적·연마·장착</strong>: 교합·인접 접촉 확인</li><li><strong>3개월 후 재점검</strong></li></ol><h3>임플란트 보철 vs 자연치 크라운 차이</h3><ul><li>임플란트엔 치주인대가 없음 → 압력 감지 약함, 과한 힘 위험</li><li>인접면 접촉이 시간에 따라 살짝 벌어질 수 있음(open contact) → 정기 점검 필요</li><li>치아 시림이 없음(신경 없음)</li><li>충치는 없지만 <a href=\"/encyclopedia/%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8%20%EC%A3%BC%EC%9C%84%EC%97%BC\">임플란트 주위염</a> 위험</li></ul><h3>관리법</h3><ul><li>일반 칫솔 + 임플란트 전용 치실·치간칫솔</li><li>워터픽으로 마진 부위 세척</li><li>6개월 정기 검진(보철 헐거움·교합 점검)</li><li>이갈이가 있다면 야간 가드 필수</li></ul><p>임플란트 보철은 자연치와 다르게 \"감각이 둔하므로 더 세심한 관리\"가 필요합니다. 좋은 보철도 관리 안 하면 5년도 못 갑니다.</p>",
+      "tags": [
+        "임플란트"
+      ],
+      "synonyms": [
+        "임플란트 크라운",
+        "임플란트 상부",
+        "implant prosthesis",
+        "임플란트 상부 보철"
+      ],
+      "link": "/treatments/implant",
+      "guide": "/guide/implant-prosthesis"
+    },
+    {
+      "id": "726",
+      "term": "임플란트 임시치아",
+      "chosung": "ㅇ",
+      "category": "임플란트",
+      "short": "임플란트 임시치아(Provisional)는 임플란트 식립 후 최종 보철이 완성되기 전까지, 잇몸 형태 형성과 심미·기능 유지를 위해 장착하는 임시 보철입니다. 단순한 \"가짜 이\"가 아니라, 최종 보철의 결과를 좌우하는 중요한 단계입니다.임시치아의 역할잇몸 라인 형...",
+      "detail": "<p><strong>임플란트 임시치아(Provisional)</strong>는 임플란트 식립 후 최종 보철이 완성되기 전까지, 잇몸 형태 형성과 심미·기능 유지를 위해 장착하는 임시 보철입니다. 단순한 \"가짜 이\"가 아니라, 최종 보철의 결과를 좌우하는 중요한 단계입니다.</p><h3>임시치아의 역할</h3><ul><li><strong>잇몸 라인 형성</strong>: 자연스러운 잇몸 윤곽 만들기</li><li><strong>심미 유지</strong>: 앞니의 경우 일상생활 가능</li><li><strong>저작 기능</strong>: 약한 음식 씹기 가능</li><li><strong>인접 치아 이동 방지</strong>: 공간 유지</li><li><strong>발음 보조</strong>: 앞니 공간 메움</li><li><strong>최종 보철 시뮬레이션</strong>: 환자 피드백 반영 가능</li></ul><h3>장착 시점</h3><table><thead><tr><th>유형</th><th>시점</th><th>적용</th></tr></thead><tbody><tr><td>즉시 임시치아</td><td>식립 당일</td><td>앞니, 충분한 초기 고정력 시</td></tr><tr><td>조기 임시치아</td><td>식립 후 2~6주</td><td>일반적 케이스</td></tr><tr><td>일반 임시치아</td><td>2차 수술 후</td><td>2차 수술이 필요한 경우</td></tr><tr><td>임시 없음</td><td>-</td><td>안 보이는 어금니, 골유착 보장 필요</td></tr></tbody></table><h3>주의 사항 (가장 중요)</h3><p>임플란트 임시치아는 \"심미·잇몸 형성용\"이지 \"강한 저작용\"이 아닙니다. 다음 사항을 꼭 지켜주세요.</p><ul><li><strong>해당 부위로 강하게 씹지 않기</strong>: 골유착 방해</li><li><strong>딱딱·끈적한 음식 피하기</strong>: 깨짐·탈락 위험</li><li><strong>치실은 살살, 옆으로 빼기</strong>(아래로 누르지 않기)</li><li><strong>이상 증상 즉시 내원</strong>: 흔들림, 빠짐, 잇몸 부음</li></ul><h3>재료</h3><ul><li><strong>PMMA</strong>(아크릴 레진): 가장 흔함, 저렴, 색조 한계</li><li><strong>복합 레진</strong>: 심미 우수, 강도 보통</li><li><strong>PEEK</strong>: 가볍고 강도 좋음, 비싸다</li></ul><h3>임시치아 vs 최종 보철</h3><ul><li>강도: 최종 보철이 훨씬 강함</li><li>심미: 최종 보철의 색·투명도가 더 자연스러움</li><li>적합도: 최종 보철은 정밀 마진, 임시는 약간 헐거움</li><li>수명: 임시 1~6개월, 최종 10~20년 이상</li></ul><p>임시치아 시기는 \"잇몸이 자리잡고 환자가 디자인을 확인\"하는 골든타임입니다. 이때 불편한 점은 적극적으로 의료진과 공유하셔서, 최종 보철에 반영하시기 바랍니다.</p>",
+      "tags": [
+        "임플란트"
+      ],
+      "synonyms": [
+        "임플란트 임시 보철",
+        "임플란트 즉시 보철",
+        "임시 크라운(임플란트)",
+        "프로비저널 임플란트"
+      ],
+      "link": "/treatments/implant",
+      "guide": "/guide/implant-temporary"
+    },
+    {
+      "id": "727",
+      "term": "치주 포켓",
+      "chosung": "ㅊ",
+      "category": "치주 질환",
+      "short": "치주 포켓(Periodontal Pocket)은 잇몸이 치아에서 떨어져 생긴 비정상적으로 깊어진 \"잇몸 주머니\"입니다. 건강한 잇몸의 잇몸골과 치아 사이 깊이는 1~3mm이지만, 치주염이 진행되면 4mm 이상으로 깊어지며 세균이 안에서 번식합니다.포켓 깊이로 보는...",
+      "detail": "<p><strong>치주 포켓(Periodontal Pocket)</strong>은 잇몸이 치아에서 떨어져 생긴 비정상적으로 깊어진 \"잇몸 주머니\"입니다. 건강한 잇몸의 잇몸골과 치아 사이 깊이는 1~3mm이지만, <a href=\"/encyclopedia/%EC%B9%98%EC%A3%BC%EC%97%BC\">치주염</a>이 진행되면 4mm 이상으로 깊어지며 세균이 안에서 번식합니다.</p><h3>포켓 깊이로 보는 잇몸 건강</h3><table><thead><tr><th>깊이</th><th>상태</th><th>치료</th></tr></thead><tbody><tr><td>1~3mm</td><td>건강한 잇몸</td><td>예방·정기검진</td></tr><tr><td>4~5mm</td><td>경증 치주염</td><td>스케일링 + <a href=\"/encyclopedia/%EC%B9%98%EA%B7%BC%20%ED%99%9C%ED%83%9D%EC%88%A0\">치근 활택술</a></td></tr><tr><td>6~7mm</td><td>중등도 치주염</td><td>치주 수술 고려</td></tr><tr><td>8mm 이상</td><td>중증 치주염</td><td>치주 재생술·발치 고려</td></tr></tbody></table><h3>왜 포켓이 위험한가?</h3><ul><li>칫솔이 닿지 않는 깊이 → 세균 번식 가속</li><li>혐기성 세균 우세 → 독성 강해짐</li><li>잇몸뼈 흡수 진행 → 치아 흔들림</li><li>전신질환과 연관(당뇨·심혈관·임신)</li><li>구취 원인 1순위</li></ul><h3>측정 방법</h3><p>치주 탐침(probe)이라는 작은 자로 잇몸과 치아 사이를 측정합니다. 한 치아당 6곳(근심·중앙·원심 × 협측·설측)을 측정해 평균 깊이와 출혈 여부(BOP)를 기록합니다. 이를 \"치주 차트\"라고 하며, 잇몸 건강의 정밀 지표입니다.</p><h3>치료 단계</h3><ol><li><strong>1단계 비수술 치료</strong>: <a href=\"/encyclopedia/%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81\">스케일링</a> + 치근 활택술 + 항생제(필요시)</li><li><strong>재평가</strong>: 4~6주 후 포켓 재측정</li><li><strong>2단계 수술 치료</strong>: 6mm 이상 잔존 시 → <a href=\"/encyclopedia/%EC%9E%87%EB%AA%B8%20%EC%88%98%EC%88%A0\">잇몸 수술</a></li><li><strong>3단계 재생 치료</strong>: 골 결손 시 → <a href=\"/encyclopedia/%EC%B9%98%EC%A3%BC%20%EC%9E%AC%EC%83%9D%EC%88%A0\">치주 재생술</a></li><li><strong>유지관리</strong>: 3~6개월 간격 정기 케어</li></ol><h3>가정에서 할 수 있는 것</h3><ul><li>모든 치아 면을 빠짐없이 닦기(특히 안쪽)</li><li><a href=\"/encyclopedia/%EC%B9%98%EC%8B%A4\">치실</a>·치간칫솔로 사이사이</li><li>잇몸 마사지 칫솔질(Bass 법)</li><li>금연(흡연은 잇몸 회복 50% 감소)</li><li>혈당 관리(당뇨 환자)</li></ul><p>치주 포켓은 \"잇몸의 상처\"입니다. 작을 때 발견하면 회복 가능하지만, 깊어지면 평생 관리 대상이 됩니다. 정기 검진에서 꼭 측정받으시기 바랍니다.</p>",
+      "tags": [
+        "치주 질환"
+      ],
+      "synonyms": [
+        "치주낭(deep)",
+        "periodontal pocket",
+        "잇몸 주머니",
+        "치주 포켓 깊이"
+      ],
+      "link": "/treatments/periodontics",
+      "guide": "/guide/periodontal-pocket"
+    },
+    {
+      "id": "728",
+      "term": "치아 흔들림",
+      "chosung": "ㅊ",
+      "category": "치주 질환",
+      "short": "치아 흔들림(Tooth Mobility)은 치아가 정상 범위를 넘어 움직이는 상태입니다. 건강한 치아도 미세하게 움직이지만(생리적 동요, 0.1~0.2mm), 눈에 보이거나 손으로 느낄 정도라면 병적 동요로 진단됩니다.동요도(Miller) 분류등급움직임의미0급0....",
+      "detail": "<p><strong>치아 흔들림(Tooth Mobility)</strong>은 치아가 정상 범위를 넘어 움직이는 상태입니다. 건강한 치아도 미세하게 움직이지만(생리적 동요, 0.1~0.2mm), 눈에 보이거나 손으로 느낄 정도라면 병적 동요로 진단됩니다.</p><h3>동요도(Miller) 분류</h3><table><thead><tr><th>등급</th><th>움직임</th><th>의미</th></tr></thead><tbody><tr><td>0급</td><td>0.1~0.2mm</td><td>정상</td></tr><tr><td>1급</td><td>1mm 미만</td><td>경증, 회복 가능</td></tr><tr><td>2급</td><td>1mm 이상 (수평)</td><td>중등도, 적극 치료</td></tr><tr><td>3급</td><td>수직 움직임까지</td><td>중증, 발치 검토</td></tr></tbody></table><h3>흔들림의 원인</h3><ul><li><strong><a href=\"/encyclopedia/%EC%B9%98%EC%A3%BC%EC%97%BC\">치주염</a></strong>: 가장 흔한 원인, 잇몸뼈 흡수</li><li><strong>외상</strong>: 부딪힘으로 인한 <a href=\"/encyclopedia/%EC%B9%98%EC%95%84%20%EC%A0%95%EC%B6%9C\">치아 정출</a>·<a href=\"/encyclopedia/%EC%B9%98%EC%95%84%20%ED%83%88%EA%B5%AC\">탈구</a></li><li><strong>교합 외상</strong>: 부정교합·이갈이로 특정 치아 과부하</li><li><strong>치근 흡수·치근 파절</strong></li><li><strong>임플란트 골유착 실패</strong></li><li><strong>치근단 농양</strong>: 신경 죽음으로 인한 염증</li><li><strong>유치 자연 탈락 직전</strong>(소아)</li></ul><h3>흔들림 평가</h3><p>치과에서는 두 개의 기구 끝(또는 손가락+거울)으로 치아를 양옆에서 밀어 움직임을 측정합니다. <a href=\"/encyclopedia/%EC%B9%98%EA%B7%BC%EB%8B%A8%20%EB%B0%A9%EC%82%AC%EC%84%A0\">치근단 방사선</a>·치주 차트와 함께 종합 판단합니다.</p><h3>치료 옵션</h3><ol><li><strong>원인 제거</strong>: 치주 치료, 교합 조정, 외상 치료</li><li><strong>스플린트 고정</strong>: 인접 치아와 와이어·레진으로 묶기(2~4주~수개월)</li><li><strong>야간 마우스가드</strong>: 이갈이 환자</li><li><strong>치주 재생술</strong>: 골 결손이 있는 경우</li><li><strong>발치+임플란트</strong>: 보존 불가 시</li></ol><h3>흔들리는 치아 자체 관리</h3><ul><li>흔들리는 쪽으로 강하게 씹지 않기</li><li>딱딱한 음식·껌·캐러멜 피하기</li><li>이쑤시개로 자극 금지(잇몸 손상)</li><li>혀로 자꾸 흔들지 않기(악화)</li><li>2~3일 이상 흔들리면 즉시 치과 내원</li></ul><h3>외상으로 갑자기 흔들릴 때 응급 처치</h3><ol><li>흔들리는 치아를 만지거나 빼지 않기</li><li>출혈 시 거즈 압박 10~15분</li><li>차가운 음식 자제, 따뜻한 음식도 자극 피하기</li><li>1~2시간 이내 치과 내원(골든타임)</li></ol><p>치아 흔들림은 \"갑자기 시작\"보다 \"서서히 진행\"되는 경우가 많아 환자가 놓치기 쉽습니다. 정기 검진에서 동요도 측정을 받아 미리 발견하시기 바랍니다.</p>",
+      "tags": [
+        "치주 질환"
+      ],
+      "synonyms": [
+        "치아 동요",
+        "치아 흔들거림",
+        "tooth mobility",
+        "이가 흔들림"
+      ],
+      "link": "/treatments/periodontics",
+      "guide": "/guide/loose-tooth"
+    },
+    {
+      "id": "729",
+      "term": "잇몸 이식",
+      "chosung": "ㅇ",
+      "category": "치료·시술",
+      "short": "잇몸 이식(Gingival Graft)은 자신의 다른 부위 잇몸(주로 입천장)을 채취해 잇몸이 부족한 부위로 옮겨 붙이는 외과 술식입니다. 치은 퇴축·각화 잇몸 부족·심미적 결손을 회복하기 위해 사용합니다.이식이 필요한 경우치근 노출로 시리고 길어 보이는 치아잇몸...",
+      "detail": "<p><strong>잇몸 이식(Gingival Graft)</strong>은 자신의 다른 부위 잇몸(주로 입천장)을 채취해 잇몸이 부족한 부위로 옮겨 붙이는 외과 술식입니다. <a href=\"/encyclopedia/%EC%B9%98%EC%9D%80%20%ED%87%B4%EC%B6%95\">치은 퇴축</a>·각화 잇몸 부족·심미적 결손을 회복하기 위해 사용합니다.</p><h3>이식이 필요한 경우</h3><ul><li>치근 노출로 시리고 길어 보이는 치아</li><li>잇몸이 매우 얇아 칫솔질만 해도 잇몸이 내려감</li><li>각화 잇몸(움직이지 않는 잇몸)이 1~2mm 미만</li><li>치아·임플란트 주변 잇몸이 부족해 청결 관리 어려움</li><li>심미적 잇몸 비대칭(예: 한쪽이 더 내려옴)</li><li>교정 치료 전 잇몸 보강</li></ul><h3>이식술의 종류</h3><table><thead><tr><th>방법</th><th>특징</th><th>적용</th></tr></thead><tbody><tr><td>유리치은이식술(FGG)</td><td>구개에서 표층 채취</td><td>각화 잇몸 폭 확보</td></tr><tr><td>결합조직이식술(CTG)</td><td>구개에서 결합조직만 채취</td><td>치근 피개·심미</td></tr><tr><td>측방활주피판술</td><td>옆 잇몸을 이동</td><td>1개 치아 결손</td></tr><tr><td>관상 이동 피판술</td><td>잇몸을 위로 끌어올림</td><td>다수 치아 동시</td></tr><tr><td>핀홀 기법(PST)</td><td>작은 구멍으로 잇몸 풀어 덮기</td><td>최소 침습 회복</td></tr><tr><td>인공 잇몸(AlloDerm 등)</td><td>채취 부위 없음</td><td>광범위 결손</td></tr></tbody></table><h3>수술 과정 (CTG 예시)</h3><ol><li><strong>마취</strong>: 수용부 + 채취부(입천장)</li><li><strong>채취</strong>: 입천장 점막 아래 결합조직만 1~2g 채취</li><li><strong>수용부 준비</strong>: 잇몸을 부분적으로 박리해 공간 만듦</li><li><strong>이식</strong>: 채취한 조직을 수용부에 넣고 봉합</li><li><strong>채취부 봉합</strong>: 보호 스텐트 장착(필요시)</li><li><strong>회복</strong>: 봉합사 제거 1~2주</li></ol><h3>회복 가이드</h3><ul><li><strong>1주</strong>: 부드러운 음식, 수술 부위 양치 금지(클로르헥시딘 가글)</li><li><strong>2주</strong>: 봉합사 제거, 부드러운 칫솔질 재개</li><li><strong>1개월</strong>: 정상 식사, 잇몸 안정화</li><li><strong>3~6개월</strong>: 최종 결과 평가, 색·형태 안정</li></ul><h3>주의사항·합병증</h3><ul><li>채취부 통증·불편(2주 정도)</li><li>이식부 색이 처음엔 약간 다를 수 있음(시간 지나며 비슷해짐)</li><li>흡연자는 성공률 30~50% 감소</li><li>이식 후 1~3주가 가장 중요(혈류 정착)</li><li>수술 부위로 강하게 씹지 않기</li></ul><p>잇몸 이식은 \"잇몸을 만들어 치아를 지키는\" 술식입니다. 시린 증상·심미적 불편이 있다면 이식으로 자연스럽고 건강한 잇몸 라인을 되찾을 수 있습니다.</p>",
+      "tags": [
+        "치료·시술"
+      ],
+      "synonyms": [
+        "치은 이식",
+        "잇몸이식술",
+        "gingival graft",
+        "잇몸 이식술"
+      ],
+      "link": "/treatments/gum-graft",
+      "guide": "/guide/gum-graft"
+    },
+    {
+      "id": "730",
+      "term": "턱관절 디스크",
+      "chosung": "ㅌ",
+      "category": "턱관절·구강외과",
+      "short": "턱관절 디스크(Articular Disc)는 위턱뼈와 아래턱뼈 사이에 있는 작은 섬유연골 원반으로, 턱관절의 \"쿠션\" 역할을 합니다. 입을 벌리고 닫을 때 디스크가 함께 움직여 부드러운 운동을 가능하게 하는데, 이 디스크가 제 위치를 벗어나면 다양한 턱관절 장애가...",
+      "detail": "<p><strong>턱관절 디스크(Articular Disc)</strong>는 위턱뼈와 아래턱뼈 사이에 있는 작은 섬유연골 원반으로, 턱관절의 \"쿠션\" 역할을 합니다. 입을 벌리고 닫을 때 디스크가 함께 움직여 부드러운 운동을 가능하게 하는데, 이 디스크가 제 위치를 벗어나면 다양한 <a href=\"/encyclopedia/%ED%84%B1%EA%B4%80%EC%A0%88%20%EC%9E%A5%EC%95%A0\">턱관절 장애</a>가 생깁니다.</p><h3>디스크의 기능</h3><ul><li>위턱뼈와 아래턱뼈의 직접 마찰 방지</li><li>저작 시 충격 흡수</li><li>턱 운동의 매끄러운 활주</li><li>관절 영양 공급(관절액 순환)</li></ul><h3>디스크 변위(Disc Displacement)</h3><table><thead><tr><th>유형</th><th>증상</th></tr></thead><tbody><tr><td>정복성 변위(DDR)</td><td>입 벌릴 때 \"딸깍\" 소리, 닫을 때 또 소리</td></tr><tr><td>비정복성 변위(DDwoR)</td><td>입이 갑자기 안 벌어짐(개구 제한)</td></tr><tr><td>전방 변위</td><td>디스크가 앞으로 빠짐(가장 흔함)</td></tr><tr><td>측방·후방 변위</td><td>드물지만 가능</td></tr></tbody></table><h3>변위의 원인</h3><ul><li><a href=\"/encyclopedia/%EC%9D%B4%EA%B0%88%EC%9D%B4\">이갈이</a>·이악물기로 인한 만성 부하</li><li>외상(턱 부딪힘, 교통사고)</li><li>장시간 입 벌리기(치과 치료, 발치)</li><li><a href=\"/encyclopedia/%EB%B6%80%EC%A0%95%EA%B5%90%ED%95%A9\">부정교합</a></li><li>스트레스·근육 긴장</li><li>한쪽으로만 씹는 습관</li><li>관절 자체의 퇴행성 변화</li></ul><h3>진단</h3><ul><li>병력 청취 + 임상 검사</li><li>개구량 측정(정상 35~45mm)</li><li>관절 소리 청취</li><li>MRI(디스크 형태·위치 정확히 확인)</li><li>CBCT(관절뼈 평가)</li></ul><h3>치료 단계</h3><ol><li><strong>보존 치료(1차)</strong>: <a href=\"/encyclopedia/%EA%B5%90%ED%95%A9%20%EC%95%88%EC%A0%95%EC%9E%A5%EC%B9%98\">교합 안정장치</a>, 물리치료, 약물, 행동 교정</li><li><strong>가역적 치료</strong>: 마사지, 온냉찜질, 스트레칭</li><li><strong>관절강내 주사</strong>: 관절 세척, 히알루론산 주입</li><li><strong>관절경 수술</strong>: 비정복성 변위 지속 시</li><li><strong>관절 수술</strong>: 디스크 재위치·제거 (드물게)</li></ol><h3>디스크 보호 수칙</h3><ul><li>이악물기 인식: \"입술 닫고 치아는 살짝 떨어뜨리기\"</li><li>큰 음식 한입에 베어 물지 말기</li><li>껌·오징어 등 오래 씹는 음식 피하기</li><li>한쪽으로 씹는 습관 교정</li><li>스트레스 관리·충분한 수면</li><li>야간 마우스가드</li></ul><p>턱관절 디스크 변위는 \"갑자기 입이 안 벌어지면\" 응급으로 인식되지만, 사실 오랜 습관이 누적된 결과입니다. 평소 습관 개선이 가장 좋은 치료입니다.</p>",
+      "tags": [
+        "턱관절·구강외과"
+      ],
+      "synonyms": [
+        "TMJ 디스크",
+        "악관절 원판",
+        "디스크 변위",
+        "관절원판"
+      ],
+      "link": "/treatments/tmj",
+      "guide": "/guide/tmj-disc"
+    },
+    {
+      "id": "731",
+      "term": "턱에서 소리",
+      "chosung": "ㅌ",
+      "category": "턱관절·구강외과",
+      "short": "턱에서 소리는 입을 벌리거나 닫을 때 턱관절 부위에서 \"딸깍\", \"우두둑\", \"사각사각\" 등의 소리가 나는 증상입니다. 통증 없이 소리만 있는 경우가 많아 방치되기 쉽지만, 턱관절 디스크의 이상을 알리는 첫 신호입니다.소리의 종류와 의미소리원인위험도딸깍(click...",
+      "detail": "<p><strong>턱에서 소리</strong>는 입을 벌리거나 닫을 때 턱관절 부위에서 \"딸깍\", \"우두둑\", \"사각사각\" 등의 소리가 나는 증상입니다. 통증 없이 소리만 있는 경우가 많아 방치되기 쉽지만, <a href=\"/encyclopedia/%ED%84%B1%EA%B4%80%EC%A0%88%20%EB%94%94%EC%8A%A4%ED%81%AC\">턱관절 디스크</a>의 이상을 알리는 첫 신호입니다.</p><h3>소리의 종류와 의미</h3><table><thead><tr><th>소리</th><th>원인</th><th>위험도</th></tr></thead><tbody><tr><td>딸깍(click)</td><td>디스크가 제자리로 돌아가며 부딪힘</td><td>중간 (진행 가능)</td></tr><tr><td>퍽(pop)</td><td>크게 한 번 빠지며 나는 소리</td><td>중간~높음</td></tr><tr><td>우두둑(crepitus)</td><td>관절면이 거칠어져 마찰</td><td>높음 (퇴행성 변화)</td></tr><tr><td>사각사각</td><td>관절 윤활 부족</td><td>중간</td></tr><tr><td>잠금(lock)</td><td>입이 갑자기 안 벌어짐</td><td>매우 높음, 즉시 치료</td></tr></tbody></table><h3>소리만 있는 경우 (통증 X)</h3><p>전체 인구의 약 30%는 일생에 한 번은 턱에서 소리를 경험합니다. 통증·기능 제한이 없다면 즉각 치료 대상은 아니지만, 다음을 추적해야 합니다.</p><ul><li>소리가 점점 커지는지</li><li>한쪽에서 양쪽으로 번지는지</li><li>입 벌릴 때 통증이 추가되는지</li><li>개구량이 줄어드는지</li><li>잠금 현상이 생기는지</li></ul><h3>치료 필요 신호</h3><ol><li>통증 동반</li><li>개구 제한(35mm 미만)</li><li>한 달 이상 지속되는 소리 변화</li><li>잠금 현상 발생</li><li>두통·귀통증 동반</li></ol><h3>치료 옵션</h3><ul><li><strong>1차 보존 치료</strong>: <a href=\"/encyclopedia/%EA%B5%90%ED%95%A9%20%EC%95%88%EC%A0%95%EC%9E%A5%EC%B9%98\">교합 안정장치</a> 야간 착용</li><li><strong>물리치료</strong>: 턱 근육 스트레칭·마사지</li><li><strong>약물</strong>: 진통소염제·근이완제(단기)</li><li><strong>인지 행동 치료</strong>: 이악물기 자각·교정</li><li><strong>관절강내 주사</strong>: 만성 통증 시</li><li><strong>수술</strong>: 극히 일부 케이스</li></ul><h3>가정에서 할 일</h3><ul><li>딱딱한 음식·껌 피하기</li><li>큰 입 벌리기(하품·치과 치료 시 의식적 작게)</li><li>이악물기 자각: \"입술은 닫고 치아는 떨어뜨리기\"</li><li>한쪽으로만 씹지 않기</li><li>스트레스·수면 관리</li><li>턱 마사지: 귀 앞 부위 원형으로 3~5분</li></ul><h3>병원에 가야 할 시점</h3><ul><li>통증이 1주 이상 지속</li><li>입이 갑자기 안 벌어짐</li><li>씹기 어려운 정도</li><li>두통·귀 통증·어지러움 동반</li></ul><p>턱 소리는 \"무시해도 되는 작은 신호\"가 아닙니다. 통증이 없을 때 관리하면 치료가 간단하지만, 진행되면 평생 관리 대상이 됩니다.</p>",
+      "tags": [
+        "턱관절·구강외과"
+      ],
+      "synonyms": [
+        "턱관절 소리",
+        "딸깍 소리",
+        "TMJ click",
+        "악관절 잡음"
+      ],
+      "link": "/treatments/tmj",
+      "guide": "/guide/tmj-sound"
+    },
+    {
+      "id": "732",
+      "term": "안면 비대칭",
+      "chosung": "ㅇ",
+      "category": "턱관절·구강외과",
+      "short": "안면 비대칭은 얼굴 좌우가 거울에 비춘 듯 대칭이지 않고 어긋나 있는 상태입니다. 모든 사람의 얼굴은 약간씩 비대칭이지만(\"기능적 비대칭\"), 눈에 띄게 차이가 나거나 기능 문제가 동반되면 치료 대상입니다.안면 비대칭의 분류분류설명골격성 비대칭턱뼈·광대뼈 자체의 ...",
+      "detail": "<p><strong>안면 비대칭</strong>은 얼굴 좌우가 거울에 비춘 듯 대칭이지 않고 어긋나 있는 상태입니다. 모든 사람의 얼굴은 약간씩 비대칭이지만(\"기능적 비대칭\"), 눈에 띄게 차이가 나거나 기능 문제가 동반되면 치료 대상입니다.</p><h3>안면 비대칭의 분류</h3><table><thead><tr><th>분류</th><th>설명</th></tr></thead><tbody><tr><td>골격성 비대칭</td><td>턱뼈·광대뼈 자체의 비대칭</td></tr><tr><td>치성 비대칭</td><td>치아 위치·맞물림 비대칭</td></tr><tr><td>기능성 비대칭</td><td>씹기·습관에 의한 비대칭(가역적)</td></tr><tr><td>연조직성 비대칭</td><td>근육·지방 분포 비대칭</td></tr><tr><td>증후군성 비대칭</td><td>편측 비대증·기형 등(드물다)</td></tr></tbody></table><h3>원인</h3><ul><li><strong>편측 저작 습관</strong>: 한쪽으로만 씹기 → 근육·뼈 발달 차이</li><li><strong>잘못된 자세</strong>: 한쪽 턱 괴기, 옆으로 누워 자기</li><li><strong>외상</strong>: 턱뼈 골절·성장기 부상</li><li><strong>턱관절 장애</strong>: 한쪽 관절 기능 저하</li><li><strong>치아 결손</strong>: 한쪽 어금니 상실로 반대편 과부하</li><li><strong>유전적 골격 차이</strong></li><li><strong>이갈이·이악물기</strong>: 한쪽 근육 과발달</li></ul><h3>증상</h3><ul><li>입꼬리 좌우 높이 차이</li><li>턱끝이 한쪽으로 치우침</li><li>코·입의 중심선이 틀어짐</li><li>한쪽 광대가 더 도드라짐</li><li>치아 맞물림이 한쪽으로 어긋남</li><li>씹을 때 한쪽이 더 강함</li><li>턱관절 통증·소리</li></ul><h3>진단</h3><ul><li>정면·측면 사진, 두부 방사선(cephalo)</li><li><a href=\"/encyclopedia/CT%20(CBCT)\">CBCT</a> 3D 분석</li><li>안면 스캐너로 좌우 거울상 비교</li><li>치아 모형 분석</li><li>턱관절 평가(MRI 필요 시)</li></ul><h3>치료 옵션 (원인·정도별)</h3><ol><li><strong>습관 교정</strong>: 양쪽 씹기 훈련, 자세 교정</li><li><strong>턱관절 치료</strong>: <a href=\"/encyclopedia/%EA%B5%90%ED%95%A9%20%EC%95%88%EC%A0%95%EC%9E%A5%EC%B9%98\">교합 안정장치</a></li><li><strong>치아 교정</strong>: 치성 비대칭</li><li><strong>보툴리눔 톡신</strong>: 근육 비대 완화(예: 한쪽 교근)</li><li><strong>보철·임플란트</strong>: 결손치 회복으로 양측 균형</li><li><strong><a href=\"/encyclopedia/%EC%95%85%EA%B5%90%EC%A0%95%20%EC%88%98%EC%88%A0\">악교정 수술</a></strong>: 골격성 중증 비대칭</li><li><strong>안면 윤곽 수술</strong>: 골격·연조직 종합 (전문 영역)</li></ol><h3>예방·관리</h3><ul><li>양쪽으로 균형 있게 씹기</li><li>턱 괴기·옆으로 자기 줄이기</li><li>한쪽 결손치는 빨리 회복</li><li>이갈이 관리</li><li>거울 자주 보며 자세 체크</li></ul><p>안면 비대칭은 \"미용 문제\"로만 인식되기 쉽지만, 실제로는 기능적 부조화의 신호입니다. 정확한 진단과 적절한 치료로 기능과 심미를 함께 개선할 수 있습니다.</p>",
+      "tags": [
+        "턱관절·구강외과"
+      ],
+      "synonyms": [
+        "얼굴 비대칭",
+        "facial asymmetry",
+        "턱 비대칭",
+        "안면 비대칭"
+      ],
+      "link": "/treatments/asymmetry",
+      "guide": "/guide/facial-asymmetry"
+    },
+    {
+      "id": "733",
+      "term": "보툴리눔",
+      "chosung": "ㅂ",
+      "category": "치료·시술",
+      "short": "보툴리눔(보톡스, Botulinum Toxin)은 신경독소 단백질로, 의료용으로 정제해 근육의 과활동을 일시적으로 억제하는 약제입니다. 치과·구강악안면 영역에서는 이갈이·턱관절 통증·교근 비대·거미스마일 등에 광범위하게 사용됩니다.치과 영역의 주요 적응증적응증주입...",
+      "detail": "<p><strong>보툴리눔(보톡스, Botulinum Toxin)</strong>은 신경독소 단백질로, 의료용으로 정제해 근육의 과활동을 일시적으로 억제하는 약제입니다. 치과·구강악안면 영역에서는 <a href=\"/encyclopedia/%EC%9D%B4%EA%B0%88%EC%9D%B4\">이갈이</a>·턱관절 통증·교근 비대·거미스마일 등에 광범위하게 사용됩니다.</p><h3>치과 영역의 주요 적응증</h3><table><thead><tr><th>적응증</th><th>주입 부위</th><th>효과</th></tr></thead><tbody><tr><td>이갈이·이악물기</td><td>교근(masseter)</td><td>근활동 감소, 치아 마모 보호</td></tr><tr><td>턱관절 통증</td><td>교근·측두근</td><td>근긴장성 통증 완화</td></tr><tr><td>교근 비대(사각턱)</td><td>교근</td><td>턱선 부드러워짐</td></tr><tr><td>거미스마일</td><td>윗입술 거상근</td><td>잇몸 노출 감소</td></tr><tr><td>비대칭 미소</td><td>한쪽 입꼬리 근육</td><td>좌우 균형</td></tr><tr><td>구강 안면 통증</td><td>해당 근육</td><td>만성 통증 완화</td></tr></tbody></table><h3>작동 원리</h3><p>보툴리눔 톡신은 신경 말단에서 \"아세틸콜린\"이라는 신경전달물질의 분비를 차단합니다. 그 결과 신호를 받지 못한 근육은 수축하지 못하고 일시적으로 이완됩니다. 신경 자체를 죽이는 것이 아니므로, 약효가 끝나면 근육은 원래 기능을 되찾습니다.</p><h3>효과 지속 기간</h3><ul><li>효과 시작: 주사 후 3~7일</li><li>최대 효과: 2~3주</li><li>지속 기간: 3~6개월 (평균 4개월)</li><li>반복 시술 시: 효과 시간 약간 길어짐</li></ul><h3>이갈이 치료에서의 역할</h3><p>이갈이 환자의 교근(턱 옆 씹는 근육)에 보툴리눔을 주사하면 다음 효과가 있습니다.</p><ul><li>이갈이 강도 50~70% 감소</li><li>치아 마모·균열 진행 늦춤</li><li>아침 턱 뻐근함 해소</li><li>턱관절 부하 감소</li><li>두통 빈도 감소</li></ul><p>단, 보툴리눔은 \"근본 치료\"가 아니라 \"증상 관리\"입니다. <a href=\"/encyclopedia/%EA%B5%90%ED%95%A9%20%EC%95%88%EC%A0%95%EC%9E%A5%EC%B9%98\">교합 안정장치</a>·행동 치료와 병행해야 장기 효과를 봅니다.</p><h3>부작용·주의사항</h3><ul><li>주사 부위 통증·멍 (1~2일)</li><li>일시적 씹는 힘 감소 (2~4주)</li><li>드물게 표정 비대칭 (3~6개월 회복)</li><li>임신·수유 중 금기</li><li>중증 근무력증·신경근 질환 환자 금기</li><li>일부 항생제와 상호작용</li></ul><h3>주사 후 관리</h3><ul><li>4시간 동안 눕지 않기, 머리 숙이지 않기</li><li>당일 음주·격렬한 운동 자제</li><li>주사 부위 마사지 금지(24시간)</li><li>딱딱한 음식 자제 (2주)</li><li>사우나·찜질방 24시간 피하기</li></ul><p>치과 보툴리눔은 \"미용용\"이 아닌 \"기능 치료\"의 도구입니다. 이갈이로 인한 치아 손상을 막고, 턱관절 통증을 완화하는 효과적인 보조 치료법입니다.</p>",
+      "tags": [
+        "치료·시술"
+      ],
+      "synonyms": [
+        "보톡스",
+        "보톡스 턱",
+        "Botox",
+        "보툴리눔 톡신"
+      ],
+      "link": "/treatments/botulinum",
+      "guide": "/guide/botulinum-dental"
+    },
+    {
+      "id": "734",
+      "term": "교합 안정장치",
+      "chosung": "ㄱ",
+      "category": "턱관절·구강외과",
+      "short": "교합 안정장치(Occlusal Splint)는 위 또는 아래 치아에 끼우는 투명한 장치로, 치아끼리 직접 부딪히지 않게 막아 이갈이·이악물기·턱관절 장애로부터 치아와 관절을 보호합니다. 일명 \"마우스가드\", \"나이트 가드\"로 불립니다.주요 적응증이갈이로 치아·보철...",
+      "detail": "<p><strong>교합 안정장치(Occlusal Splint)</strong>는 위 또는 아래 치아에 끼우는 투명한 장치로, 치아끼리 직접 부딪히지 않게 막아 <a href=\"/encyclopedia/%EC%9D%B4%EA%B0%88%EC%9D%B4\">이갈이</a>·이악물기·<a href=\"/encyclopedia/%ED%84%B1%EA%B4%80%EC%A0%88%20%EC%9E%A5%EC%95%A0\">턱관절 장애</a>로부터 치아와 관절을 보호합니다. 일명 \"마우스가드\", \"나이트 가드\"로 불립니다.</p><h3>주요 적응증</h3><ul><li>이갈이로 치아·보철 마모</li><li>이악물기로 인한 두통·턱 통증</li><li>턱관절 통증·소리·잠금</li><li>치아 균열 증후군 진행 예방</li><li>임플란트·보철 보호</li><li>두통(긴장성·편두통 일부)</li><li>수면 무호흡 일부(특수 장치)</li></ul><h3>교합 안정장치 vs 시판 마우스가드</h3><table><thead><tr><th>항목</th><th>치과 맞춤 장치</th><th>시판 마우스가드</th></tr></thead><tbody><tr><td>제작</td><td>본뜨기+기공소</td><td>끓는 물에 변형</td></tr><tr><td>적합도</td><td>완벽</td><td>헐거움</td></tr><tr><td>두께</td><td>1~3mm 균일</td><td>두꺼움(불편)</td></tr><tr><td>교합 조정</td><td>가능</td><td>불가</td></tr><tr><td>수명</td><td>3~7년</td><td>3~6개월</td></tr><tr><td>가격</td><td>30~60만 원</td><td>1~3만 원</td></tr><tr><td>효과</td><td>임상 입증</td><td>제한적</td></tr></tbody></table><h3>장치 종류</h3><ul><li><strong>안정형 스플린트(Stabilization)</strong>: 가장 흔히 사용. 모든 치아 균등 접촉.</li><li><strong>전방 재위치 스플린트</strong>: 디스크 변위 환자, 아래턱을 살짝 앞으로</li><li><strong>NTI(앞니만 덮는 작은 장치)</strong>: 단기 사용, 두통·이악물기</li><li><strong>소프트 가드</strong>: 어린이·임시용. 장기 사용은 비추</li><li><strong>하드 가드</strong>: 성인 표준. 단단한 아크릴 레진</li></ul><h3>제작 과정</h3><ol><li>본뜨기 또는 구강 스캔</li><li>기공소에서 1~2주 제작</li><li>장착 시 교합 조정(이때 시간 30~60분)</li><li>1~2주 후 재조정(필요 시)</li><li>3~6개월마다 점검</li></ol><h3>사용 가이드</h3><ul><li>일반적으로 <strong>야간 취침 중에만 착용</strong></li><li>아침에 빼서 칫솔로 부드럽게 세척</li><li>주 1회 세정제 침지(틀니용 세정제 가능)</li><li>뜨거운 물·식기세척기 금지(변형)</li><li>전용 케이스에 건조 보관</li><li>이상 증상(맞물림 어긋남, 두통)은 즉시 점검</li></ul><h3>효과</h3><ul><li>아침 턱 뻐근함 60~80% 개선</li><li>치아 마모 진행 정지</li><li>턱관절 통증 70% 감소</li><li>두통 빈도 50% 감소(일부 환자)</li><li>임플란트·크라운 수명 연장</li></ul><h3>한계</h3><ul><li>이갈이 자체를 \"없애는\" 것이 아니라 \"보호\"</li><li>맞춤 장치도 부적합 시 통증·교합 변화 가능 → 정기 조정 필수</li><li>일부 환자에게 침 흘림·답답함</li></ul><p>교합 안정장치는 \"치아·관절 보험\"입니다. 이갈이가 있다면 치아 한두 개 보철 비용보다 저렴한 가격으로 평생 구강 건강을 지킬 수 있습니다.</p>",
+      "tags": [
+        "턱관절·구강외과"
+      ],
+      "synonyms": [
+        "교합안정장치",
+        "스플린트",
+        "occlusal splint",
+        "마우스피스",
+        "야간 가드"
+      ],
+      "link": "/treatments/tmj",
+      "guide": "/guide/occlusal-splint"
+    },
+    {
+      "id": "735",
+      "term": "치과 응급",
+      "chosung": "ㅊ",
+      "category": "치료·시술",
+      "short": "치과 응급(Dental Emergency)은 즉각 처치가 필요한 구강·치아의 급성 문제 상황입니다. 일반 진료와 달리 \"몇 시간 안\"의 대응이 결과를 좌우하는 케이스가 많아, 어떤 상황이 응급인지 미리 아는 것이 중요합니다.응급 상황 분류 (시간 순)긴급도증상대응...",
+      "detail": "<p><strong>치과 응급(Dental Emergency)</strong>은 즉각 처치가 필요한 구강·치아의 급성 문제 상황입니다. 일반 진료와 달리 \"몇 시간 안\"의 대응이 결과를 좌우하는 케이스가 많아, 어떤 상황이 응급인지 미리 아는 것이 중요합니다.</p><h3>응급 상황 분류 (시간 순)</h3><table><thead><tr><th>긴급도</th><th>증상</th><th>대응</th></tr></thead><tbody><tr><td>즉시(30분 이내)</td><td><a href=\"/encyclopedia/%EC%B9%98%EC%95%84%20%ED%83%88%EA%B5%AC\">치아 탈구</a>(완전 빠짐)</td><td>치아 보존 후 즉시 치과</td></tr><tr><td>1~2시간 이내</td><td><a href=\"/encyclopedia/%EC%B9%98%EC%95%84%20%EC%A0%95%EC%B6%9C\">치아 정출</a>, 심한 출혈</td><td>치과 또는 응급실</td></tr><tr><td>당일</td><td>심한 통증, 부종, 발열</td><td>치과 당일 진료</td></tr><tr><td>1~2일</td><td>둔한 통증, 빠진 보철</td><td>예약 진료</td></tr><tr><td>주중</td><td>경미한 시림, 작은 결손</td><td>일반 예약</td></tr></tbody></table><h3>대표적 치과 응급</h3><ul><li><strong>치아 외상</strong>: 탈구·정출·파절·변위 (시간 = 결과)</li><li><strong>급성 치수염</strong>: 자다가 깰 정도의 욱신거림</li><li><strong>치근단 농양</strong>: 잇몸 부어 고름 차오름</li><li><strong>얼굴 부종</strong>: 눈·뺨·목까지 번지면 위험(공간 감염)</li><li><strong>치성 봉와직염</strong>: 발열·삼킴 곤란 → 즉시 응급실</li><li><strong>심한 출혈</strong>: 발치 후 멈추지 않는 출혈</li><li><strong>턱뼈 골절</strong>: 외상 후 입이 안 다물어짐</li><li><strong>심한 약물 알레르기</strong>: 호흡 곤란 → 119</li><li><strong>임플란트 식립 후 이상</strong>: 심한 부종·고름</li></ul><h3>응급 중에도 \"진짜 응급\"</h3><p>다음은 치과보다 응급실(119)을 먼저 가야 합니다.</p><ul><li>얼굴 전체로 번진 부종 + 발열 38.5°C 이상</li><li>혀·목까지 부어 호흡 곤란</li><li>입을 벌릴 수 없을 정도의 부종</li><li>의식 저하·심한 두통 동반</li><li>외상 후 정신을 잃었던 경우</li><li>출혈이 30분 압박해도 안 멈춤</li></ul><h3>임시 응급 처치 (집에서)</h3><table><thead><tr><th>증상</th><th>응급 처치</th></tr></thead><tbody><tr><td>치통</td><td>이부프로펜·아세트아미노펜, 따뜻한 소금물 가글</td></tr><tr><td>외상 후 출혈</td><td>거즈 강하게 압박 10~15분</td></tr><tr><td>부종</td><td>찬 수건으로 얼굴 외부 냉찜질(15분씩)</td></tr><tr><td>크라운 빠짐</td><td>잘 보관 후 치과로(직접 끼우지 않기)</td></tr><tr><td>임시 보철 빠짐</td><td>틀니 부착제로 임시 고정 가능</td></tr><tr><td>파절</td><td>날카로운 부위 왁스로 덮기</td></tr></tbody></table><h3>해선 안 되는 응급 처치</h3><ul><li>치통에 아스피린을 잇몸에 직접 대지 않기(화상)</li><li>발치 부위 침 자주 뱉지 않기(혈병 빠짐)</li><li>뜨거운 찜질 금지(부종 악화)</li><li>술·담배(혈관·치유 방해)</li><li>스스로 치아 뽑기 시도 금지</li><li>이상한 약 인터넷 구매</li></ul><h3>서울비디치과의 응급 대응</h3><ul><li>외상 환자 당일 우선 진료</li><li>3D CBCT 즉시 촬영 가능</li><li>구강악안면외과 협진</li><li>야간·주말 응급 안내(전화 상담)</li></ul><p>치과 응급은 \"미리 알아두면 1초도 헛되지 않는\" 분야입니다. 가족 모두 응급 연락처를 저장하고, 외상 시 행동 요령을 알아두시기 바랍니다.</p>",
+      "tags": [
+        "치료·시술"
+      ],
+      "synonyms": [
+        "치과 응급실",
+        "치과 응급 상황",
+        "dental emergency",
+        "응급 치과"
+      ],
+      "link": "/treatments/emergency",
+      "guide": "/guide/dental-emergency"
+    },
+    {
+      "id": "736",
+      "term": "치아 재식술 후 관리",
+      "chosung": "ㅊ",
+      "category": "치료·시술",
+      "short": "치아 재식술 후 관리는 탈구된 치아를 원위치로 끼워 넣은 후의 회복·합병증 예방 단계입니다. 재식 자체가 성공해도 사후 관리에 따라 5년·10년 후 결과가 완전히 달라집니다.재식 후 단계별 관리시기핵심 관리즉시~24시간출혈 관리, 통증 조절, 항생제 시작1~2주스...",
+      "detail": "<p><strong>치아 재식술 후 관리</strong>는 <a href=\"/encyclopedia/%EC%B9%98%EC%95%84%20%ED%83%88%EA%B5%AC\">탈구</a>된 치아를 원위치로 끼워 넣은 후의 회복·합병증 예방 단계입니다. 재식 자체가 성공해도 사후 관리에 따라 5년·10년 후 결과가 완전히 달라집니다.</p><h3>재식 후 단계별 관리</h3><table><thead><tr><th>시기</th><th>핵심 관리</th></tr></thead><tbody><tr><td>즉시~24시간</td><td>출혈 관리, 통증 조절, 항생제 시작</td></tr><tr><td>1~2주</td><td>스플린트 유지, 부드러운 식사</td></tr><tr><td>7~14일</td><td>신경치료 시작(성숙 치근)</td></tr><tr><td>2~4주</td><td>스플린트 제거, 일반 식사 복귀</td></tr><tr><td>1·3·6개월</td><td>정기 추적, 치수 검사, 방사선</td></tr><tr><td>1년 이후</td><td>매년 1회 장기 추적(최소 5년)</td></tr></tbody></table><h3>꼭 지켜야 할 수칙</h3><ul><li><strong>부드러운 음식</strong> 1~2주(죽·요거트·연두부)</li><li><strong>재식 치아로 씹지 않기</strong>: 반대편 위주</li><li><strong>찬·뜨거운 자극 피하기</strong>: 미지근하게</li><li><strong>흡연 금지</strong>: 치유 50% 이상 지연</li><li><strong>술·매운 음식</strong> 1주 자제</li><li><strong>스플린트 깨끗이</strong>: 부드러운 칫솔로 가볍게</li><li><strong>0.12% 클로르헥시딘 가글</strong>: 1주 2회/일</li><li><strong>치실 살살</strong>: 옆으로 빼기</li></ul><h3>약물 관리</h3><ul><li><strong>항생제</strong>: 아목시실린 5~7일</li><li><strong>진통제</strong>: 이부프로펜 또는 아세트아미노펜</li><li><strong>파상풍 예방</strong>: 외상 부위 오염 시</li><li><strong>가글</strong>: 클로르헥시딘 1~2주</li></ul><h3>합병증 조기 발견 사인</h3><ol><li><strong>잇몸 부종·통증 재발</strong>: 감염 의심 → 즉시 내원</li><li><strong>치아 변색(분홍·회색·갈색)</strong>: 치수 변화</li><li><strong>치아가 다시 흔들림</strong>: 스플린트 점검</li><li><strong>치아가 다른 치아보다 길어 보임/짧아 보임</strong>: 정출·골유착</li><li><strong>잇몸에서 고름</strong>: 치근단 농양</li><li><strong>차가운 자극에 무반응</strong>: <a href=\"/encyclopedia/%EC%B9%98%EC%88%98%20%EA%B4%B4%EC%82%AC\">치수 괴사</a></li></ol><h3>장기 합병증과 대응</h3><table><thead><tr><th>합병증</th><th>발생률</th><th>대응</th></tr></thead><tbody><tr><td>치수 괴사</td><td>75~96%(성숙치근)</td><td>신경치료</td></tr><tr><td>외부 치근 흡수</td><td>30~50%</td><td>조기 신경치료로 늦춤</td></tr><tr><td>내부 치근 흡수</td><td>드물지만 위험</td><td>신경치료 필요</td></tr><tr><td>치근 골유착</td><td>10~30%</td><td>관찰, 추후 발치+임플란트</td></tr><tr><td>치근단 병변</td><td>20~40%</td><td>재신경치료</td></tr><tr><td>치아 변색</td><td>흔함</td><td>내부 미백·라미네이트</td></tr></tbody></table><h3>스포츠·일상 복귀</h3><ul><li>가벼운 운동: 2주 후</li><li>접촉 스포츠: 3개월 후 + 마우스가드 필수</li><li>관악기 연주: 1개월 후</li><li>치과 치료(다른 부위): 2주 후 가능</li></ul><h3>예방을 위한 평생 수칙</h3><ul><li>스포츠 시 마우스가드 항시</li><li>3~6개월 정기 검진</li><li>이갈이 관리</li><li>딱딱한 음식 그 치아로 피하기</li><li>치아 변색·통증 즉시 진료</li></ul><p>재식 치아는 \"기적적으로 살린 치아\"입니다. 정기 추적을 통해 작은 변화를 조기에 잡으면 10년·20년도 사용 가능합니다.</p>",
+      "tags": [
+        "치료·시술"
+      ],
+      "synonyms": [
+        "재식 후 관리",
+        "치아 재식 후 관리",
+        "tooth replantation aftercare"
+      ],
+      "link": "/treatments/trauma",
+      "guide": "/guide/replantation-aftercare"
+    },
+    {
+      "id": "737",
+      "term": "치아 변위",
+      "chosung": "ㅊ",
+      "category": "치과 질환",
+      "short": "치아 변위(Luxation)는 외상으로 치아가 정상 위치를 벗어났지만 잇몸에서 완전히 빠지지는 않은 상태입니다. 탈구가 \"완전히 빠진 것\"이라면, 변위는 \"비뚤어진 것\"입니다.변위의 5가지 유형유형설명중증도진탕(Concussion)위치 변화 없으나 부딪힘경증아탈구...",
+      "detail": "<p><strong>치아 변위(Luxation)</strong>는 외상으로 치아가 정상 위치를 벗어났지만 잇몸에서 완전히 빠지지는 않은 상태입니다. <a href=\"/encyclopedia/%EC%B9%98%EC%95%84%20%ED%83%88%EA%B5%AC\">탈구</a>가 \"완전히 빠진 것\"이라면, 변위는 \"비뚤어진 것\"입니다.</p><h3>변위의 5가지 유형</h3><table><thead><tr><th>유형</th><th>설명</th><th>중증도</th></tr></thead><tbody><tr><td>진탕(Concussion)</td><td>위치 변화 없으나 부딪힘</td><td>경증</td></tr><tr><td>아탈구(Subluxation)</td><td>흔들리지만 위치 정상</td><td>경증</td></tr><tr><td>측방 변위(Lateral)</td><td>치아가 옆이나 안으로 기움</td><td>중등도</td></tr><tr><td><a href=\"/encyclopedia/%EC%B9%98%EC%95%84%20%EC%A0%95%EC%B6%9C\">정출(Extrusion)</a></td><td>치아가 길어 보임</td><td>중등도</td></tr><tr><td><a href=\"/encyclopedia/%EC%B9%98%EC%95%84%20%ED%95%A8%EC%9E%85\">함입(Intrusion)</a></td><td>치아가 잇몸 속으로 박힘</td><td>중증</td></tr></tbody></table><h3>증상</h3><ul><li>치아 위치 변화(맞물림 어긋남)</li><li>씹기 어려움</li><li>치아 흔들림</li><li>잇몸 출혈</li><li>입술·잇몸 상처 동반 가능</li><li>찬·뜨거운 자극에 통증</li></ul><h3>진단</h3><ol><li>임상 검사: 치아 위치·동요도</li><li>방사선: <a href=\"/encyclopedia/%EC%B9%98%EA%B7%BC%EB%8B%A8%20%EB%B0%A9%EC%82%AC%EC%84%A0\">치근단</a> + <a href=\"/encyclopedia/%ED%8C%8C%EB%85%B8%EB%9D%BC%EB%A7%88\">파노라마</a></li><li>치수 검사: 전기·온도 자극(즉각은 안 함, 추적 위주)</li><li>치주 평가: 잇몸·골 상태</li><li><a href=\"/encyclopedia/CT%20(CBCT)\">CBCT</a>: 측방·복합 변위 시</li></ol><h3>치료 (유형별)</h3><ul><li><strong>진탕·아탈구</strong>: 부드러운 식사 1~2주, 추적 관찰</li><li><strong>측방 변위</strong>: 정복(원위치) + 스플린트 4주</li><li><strong>정출</strong>: 정복 + 스플린트 2~3주, 치수 추적</li><li><strong>함입</strong>: 경도는 자연 재맹출, 중증은 교정·외과적 재정출</li></ul><h3>치수 추적이 가장 중요</h3><p>변위 후 치수가 살아남을지 죽을지는 시간이 결정합니다.</p><table><thead><tr><th>변위 유형</th><th>치수 괴사 위험</th></tr></thead><tbody><tr><td>진탕</td><td>5% 이하</td></tr><tr><td>아탈구</td><td>10~20%</td></tr><tr><td>측방 변위</td><td>20~50%</td></tr><tr><td>정출</td><td>50~80%(성숙 치근)</td></tr><tr><td>함입</td><td>70~96%(성숙 치근)</td></tr></tbody></table><h3>추적 일정</h3><ul><li>4주: 임상·방사선·치수 검사</li><li>3개월</li><li>6개월</li><li>1년</li><li>매년 1회 (최소 5년)</li></ul><h3>합병증</h3><ul><li>치수 괴사 → 신경치료 필요</li><li>치근 흡수 → 외부·내부</li><li>치아 변색</li><li>치근막 손상으로 인한 골유착</li><li>맞물림 부조화</li></ul><h3>응급 처치 (외상 직후)</h3><ol><li>치아를 손가락으로 살짝 원위치로 밀어보기(가능 시)</li><li>안 되면 그대로 두고 치과로</li><li>출혈은 거즈 압박</li><li>해당 치아로 씹지 않기</li><li>1~2시간 이내 치과 내원</li></ol><p>치아 변위는 \"눈에 띄게 비뚤어지지 않으면 괜찮겠지\" 하고 방치하면 수개월 후 치수 괴사로 이어집니다. 외상이 있었다면 증상이 없어도 추적이 필수입니다.</p>",
+      "tags": [
+        "치과 질환"
+      ],
+      "synonyms": [
+        "치아변위",
+        "치아 위치 변화",
+        "tooth displacement",
+        "luxation"
+      ],
+      "link": "/treatments/trauma",
+      "guide": "/guide/tooth-luxation"
+    },
+    {
+      "id": "738",
+      "term": "소아 진정치료",
+      "chosung": "ㅅ",
+      "category": "소아 치과",
+      "short": "소아 진정치료(Pediatric Sedation)는 어린이가 치과 치료에 협조하기 어려울 때, 안전한 약물로 의식을 부분적으로 가라앉혀 치료를 진행하는 방법입니다. \"수면치과\"라고도 불리지만, 완전한 마취는 아닙니다.진정 단계 분류단계의식 상태적용최소 진정완전히 ...",
+      "detail": "<p><strong>소아 진정치료(Pediatric Sedation)</strong>는 어린이가 치과 치료에 협조하기 어려울 때, 안전한 약물로 의식을 부분적으로 가라앉혀 치료를 진행하는 방법입니다. \"수면치과\"라고도 불리지만, 완전한 마취는 아닙니다.</p><h3>진정 단계 분류</h3><table><thead><tr><th>단계</th><th>의식 상태</th><th>적용</th></tr></thead><tbody><tr><td>최소 진정</td><td>완전히 깨어있음, 긴장 완화</td><td>가벼운 불안</td></tr><tr><td>중등도 진정</td><td>졸리지만 부르면 반응</td><td>일반 협조 어려움</td></tr><tr><td>깊은 진정</td><td>강한 자극에만 반응</td><td>광범위 치료</td></tr><tr><td>전신마취</td><td>의식 완전 소실</td><td>광범위·전신질환·자폐 등</td></tr></tbody></table><h3>적응증</h3><ul><li>심한 치과 공포 어린이</li><li>3~5세 어린이의 광범위 치료</li><li>발달장애·자폐 등 협조 어려운 아동</li><li>여러 번 치료가 필요한 다발성 우식</li><li>외상·응급 시 침착한 치료 필요</li><li>구역질 반사가 매우 강한 아동</li></ul><h3>사용되는 약물</h3><table><thead><tr><th>약물</th><th>투여</th><th>특징</th></tr></thead><tbody><tr><td>아산화질소(N2O)</td><td>마스크 흡입</td><td>가장 약함, 빠른 회복</td></tr><tr><td>미다졸람</td><td>경구·정맥</td><td>중등도 진정</td></tr><tr><td>케타민</td><td>근육·정맥</td><td>깊은 진정, 응급 적용</td></tr><tr><td>프로포폴</td><td>정맥</td><td>전신마취 영역</td></tr></tbody></table><h3>전신마취가 필요한 경우</h3><ul><li>3세 미만의 광범위 치료</li><li>심한 발달장애</li><li>장시간(2시간 이상) 치료</li><li>일반 진정으로 협조 불가</li><li>구강악안면 수술</li></ul><h3>치료 전 준비</h3><ol><li><strong>금식</strong>: 진정 8시간, 음료 2시간 전까지</li><li><strong>의료력 평가</strong>: 알레르기, 천식, 심장 질환</li><li><strong>최근 감기·발열 확인</strong>: 7일 이내 호흡기 감염 시 연기</li><li><strong>보호자 동의서</strong>: 위험·이익 설명</li><li><strong>편한 옷·인형</strong>: 안정감 제공</li></ol><h3>치료 중 안전 관리</h3><ul><li>심전도·산소포화도·혈압 모니터링</li><li>전담 의료진 1명이 진정 모니터링</li><li>응급 약물·산소 즉시 가능</li><li>회복실에서 완전 각성까지 관찰</li></ul><h3>치료 후 관리</h3><ul><li>회복까지 30분~2시간</li><li>당일은 어지러움·메스꺼움 가능</li><li>당일 보호자가 항상 동행</li><li>물부터 시작해 천천히 식사</li><li>당일 학교·어린이집 가지 않기</li><li>24시간 차량·자전거 등 위험 활동 금지</li></ul><h3>안전성과 위험</h3><ul><li>적절히 시행하면 매우 안전</li><li>드물게 호흡 억제, 알레르기</li><li>최근 감기·천식 시 위험 증가</li><li>전문 교육 받은 의료진 + 응급 장비 필수</li></ul><p>소아 진정치료는 \"두려움을 강요하지 않고 안전하게 치료\"하는 방법입니다. 단, 한 번에 너무 많은 치료를 몰아서 하지 않고, 점차 친숙해지는 단계도 함께 가는 것이 이상적입니다.</p>",
+      "tags": [
+        "소아 치과"
+      ],
+      "synonyms": [
+        "소아 진정요법",
+        "어린이 수면치과",
+        "pediatric sedation",
+        "어린이 진정치료"
+      ],
+      "link": "/treatments/pediatric",
+      "guide": "/guide/pediatric-sedation"
+    },
+    {
+      "id": "739",
+      "term": "행동조절",
+      "chosung": "ㅎ",
+      "category": "소아 치과",
+      "short": "행동조절(Behavior Management)은 어린이가 치과 치료를 협조적으로 받을 수 있도록 심리적·행동적 접근으로 유도하는 기법입니다. 약물(진정)이 아닌 \"심리적 기술\"로 어린이의 공포를 줄이는 것이 핵심입니다.대표 기법 8가지Tell-Show-Do: 설명...",
+      "detail": "<p><strong>행동조절(Behavior Management)</strong>은 어린이가 치과 치료를 협조적으로 받을 수 있도록 심리적·행동적 접근으로 유도하는 기법입니다. 약물(진정)이 아닌 \"심리적 기술\"로 어린이의 공포를 줄이는 것이 핵심입니다.</p><h3>대표 기법 8가지</h3><ul><li><strong>Tell-Show-Do</strong>: 설명 → 보여줌 → 실행 (가장 기본)</li><li><strong>음성 조절(Voice Control)</strong>: 부드럽게 또는 단호하게</li><li><strong>긍정 강화</strong>: 칭찬, 스티커, 작은 선물</li><li><strong>모델링</strong>: 다른 아이의 치료를 영상·실시간으로 보여줌</li><li><strong>주의 분산</strong>: 천장 모니터 영상, 음악, 대화</li><li><strong>점진적 노출</strong>: 첫 방문은 검진만, 점차 치료 단계</li><li><strong>존재감 통제</strong>: 부모 동석 또는 분리(연령·상황별)</li><li><strong>적극적 자제</strong>(보호적 안정): 안전이 필요할 때 부드러운 보호</li></ul><h3>연령별 특징과 접근</h3><table><thead><tr><th>연령</th><th>특징</th><th>전략</th></tr></thead><tbody><tr><td>0~2세</td><td>분리 불안, 언어 한계</td><td>부모 무릎, 짧고 빠르게</td></tr><tr><td>3~5세</td><td>상상력·공포 큼</td><td>Tell-Show-Do, 친근한 단어</td></tr><tr><td>6~9세</td><td>이해·자존감 발달</td><td>설명+선택지, 칭찬</td></tr><tr><td>10~12세</td><td>또래 의식</td><td>존중·동의 구하기</td></tr><tr><td>청소년</td><td>독립성 추구</td><td>성인처럼 대우, 정보 공유</td></tr></tbody></table><h3>치과에서 사용하는 단어 바꾸기</h3><table><thead><tr><th>일반 단어</th><th>아이에게 쓰는 단어</th></tr></thead><tbody><tr><td>주사</td><td>마취약 바르기, 잠들이는 약</td></tr><tr><td>드릴</td><td>이 칫솔, 바람칫솔</td></tr><tr><td>흡인기</td><td>물 청소기</td></tr><tr><td>피</td><td>주스, 빨간색</td></tr><tr><td>아프다</td><td>간지럽다, 시원하다</td></tr></tbody></table><h3>부모의 역할</h3><ul><li><strong>이전 부정 경험 공유 자제</strong>: \"엄마도 아팠어\" 금지</li><li><strong>겁주지 않기</strong>: \"말 안 들으면 주사 맞아\" 금지</li><li><strong>거짓말 안 하기</strong>: \"하나도 안 아파\"보다 \"조금 따끔할 수 있어\"</li><li><strong>긍정 표현</strong>: \"용감한 친구\", \"멋진 협조\"</li><li><strong>치료 후 즉시 보상</strong>: 작은 칭찬·간식</li><li><strong>치과 놀이</strong>: 인형으로 치과 놀이로 친숙해지기</li></ul><h3>첫 방문 추천 시기</h3><p>대한소아치과학회는 \"첫 치아 맹출 또는 첫 돌 이전\" 첫 방문을 권합니다. 통증 없을 때 친숙해지는 것이 평생 치과 공포를 결정합니다.</p><h3>행동조절로 안 되는 경우</h3><ul><li>3~6세 + 극심한 공포: <a href=\"/encyclopedia/%EC%86%8C%EC%95%84%20%EC%A7%84%EC%A0%95%EC%B9%98%EB%A3%8C\">진정치료</a> 고려</li><li>발달장애: 전문 진정 또는 전신마취</li><li>응급 외상: 신속한 처치 우선</li><li>광범위 치료가 시급한 경우</li></ul><h3>서울비디치과의 어린이 친화 환경</h3><ul><li>전용 어린이 진료실</li><li>천장 모니터·키즈존 대기실</li><li>친근한 의료진 단어 사용 교육</li><li>첫 방문 \"검진 + 친해지기\" 무리 없이 진행</li></ul><p>행동조절은 \"치아 치료\"가 아닌 \"평생 치과 경험\"을 만드는 일입니다. 어릴 때 좋은 첫 경험이 평생의 치과 협조를 결정합니다.</p>",
+      "tags": [
+        "소아 치과"
+      ],
+      "synonyms": [
+        "소아 행동조절",
+        "어린이 행동관리",
+        "behavior management"
+      ],
+      "link": "/treatments/pediatric",
+      "guide": "/guide/child-behavior"
+    },
+    {
+      "id": "740",
+      "term": "우식 위험도 평가",
+      "chosung": "ㅇ",
+      "category": "구강 관리",
+      "short": "우식 위험도 평가(Caries Risk Assessment)는 환자의 충치 발생 위험을 다각도로 분석해 맞춤형 예방 전략을 세우는 진단법입니다. 단순히 \"충치가 있나 없나\"를 보는 것이 아니라, \"앞으로 충치가 생길 가능성이 얼마인가\"를 평가합니다.왜 필요한가?같...",
+      "detail": "<p><strong>우식 위험도 평가(Caries Risk Assessment)</strong>는 환자의 충치 발생 위험을 다각도로 분석해 맞춤형 예방 전략을 세우는 진단법입니다. 단순히 \"충치가 있나 없나\"를 보는 것이 아니라, \"앞으로 충치가 생길 가능성이 얼마인가\"를 평가합니다.</p><h3>왜 필요한가?</h3><p>같은 어금니 우식 환자라도 어떤 사람은 평생 충치가 없고, 어떤 사람은 6개월마다 새 충치가 생깁니다. 차이는 \"위험 요인의 누적\"입니다. 위험도를 알아야 예방 강도를 정할 수 있습니다.</p><h3>주요 평가 항목 (CAMBRA 기준)</h3><table><thead><tr><th>위험 요인</th><th>설명</th></tr></thead><tbody><tr><td>병력</td><td>최근 3년간 충치 개수, 신규 충치</td></tr><tr><td>방사선</td><td>인접면 우식, 초기 우식 흔적</td></tr><tr><td>구강 환경</td><td>플라크 양, 잇몸 출혈, 침 분비량</td></tr><tr><td>식이 습관</td><td>당 함유 음료·간식 빈도</td></tr><tr><td>위생 습관</td><td>칫솔질 횟수, 치실 사용</td></tr><tr><td>불소 노출</td><td>불소치약, 불소 도포</td></tr><tr><td>의학적 상태</td><td>구강건조증, 당뇨, 약물</td></tr><tr><td>사회·행동</td><td>스트레스, 흡연, 야식</td></tr></tbody></table><h3>위험도 분류</h3><ul><li><strong>저위험</strong>: 최근 충치 없음, 위생 좋음, 불소 사용</li><li><strong>중위험</strong>: 한 가지 위험 요인 존재</li><li><strong>고위험</strong>: 여러 위험 요인, 최근 신규 충치</li><li><strong>매우 고위험</strong>: 잦은 충치, 침 분비 적음, 노출 우식</li></ul><h3>위험도별 맞춤 예방</h3><table><thead><tr><th>위험도</th><th>검진 주기</th><th>예방 처치</th></tr></thead><tbody><tr><td>저위험</td><td>12개월</td><td>불소치약, <a href=\"/encyclopedia/%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81\">스케일링</a></td></tr><tr><td>중위험</td><td>6개월</td><td>불소 도포 6개월, <a href=\"/encyclopedia/%EC%8B%A4%EB%9E%80%ED%8A%B8\">실란트</a></td></tr><tr><td>고위험</td><td>3~4개월</td><td>고농도 불소, 식이 상담</td></tr><tr><td>매우 고위험</td><td>2~3개월</td><td>처방 불소(5000ppm), 자일리톨, 침 자극제</td></tr></tbody></table><h3>침 검사의 가치</h3><p>일부 치과에서는 침 분비량·산도(pH)·완충능·세균 수 검사를 시행합니다. 침이 적거나 산성이면 우식 위험이 크게 올라갑니다.</p><ul><li><strong>침 분비량</strong>: 자극 시 분당 1~3mL 정상</li><li><strong>침 pH</strong>: 6.8~7.4 정상</li><li><strong>완충능</strong>: 산을 중화하는 능력</li><li><strong>Streptococcus mutans 수</strong>: 우식 세균</li><li><strong>Lactobacillus 수</strong>: 진행성 우식 지표</li></ul><h3>고위험군의 대표 사례</h3><ul><li>구강건조증(노인·항암 환자·약물 복용)</li><li>당뇨 환자</li><li>임산부(호르몬·구역질)</li><li>잦은 야식·단 음료 습관</li><li>이전에 신경치료를 여러 번 받은 환자</li><li>치아 교정 중인 환자</li></ul><h3>가정에서 자가 평가</h3><ol><li>최근 3년간 새 충치가 있었는가?</li><li>탄산음료·주스를 매일 마시는가?</li><li>잇몸에서 자주 피가 나는가?</li><li>입이 자주 마르는가?</li><li>당 함유 간식을 매일 먹는가?</li></ol><p>2개 이상 \"예\"면 치과 검진 후 위험도 평가를 받아보세요.</p><p>우식 위험도 평가는 \"치료 중심\"에서 \"예방 중심\"으로 패러다임을 전환합니다. 위험 요인을 알면 평생 충치 0개도 가능합니다.</p>",
+      "tags": [
+        "구강 관리"
+      ],
+      "synonyms": [
+        "충치 위험도 평가",
+        "CAMBRA",
+        "caries risk assessment",
+        "우식 위험 진단"
+      ],
+      "link": "/treatments/prevention",
+      "guide": "/guide/caries-risk"
+    },
+    {
+      "id": "741",
+      "term": "핏 앤 피셔 실란트",
+      "chosung": "ㅍ",
+      "category": "소아 치과",
+      "short": "핏 앤 피셔 실란트(Pit and Fissure Sealant)는 어금니 씹는 면의 깊은 홈(pit and fissure)에 흐름성 좋은 레진을 채워, 음식물·세균이 끼지 않게 막아주는 예방 치료입니다. 실란트의 대표적 형태로, 특히 어린이·청소년의 어금니 충치 ...",
+      "detail": "<p><strong>핏 앤 피셔 실란트(Pit and Fissure Sealant)</strong>는 어금니 씹는 면의 깊은 홈(pit and fissure)에 흐름성 좋은 레진을 채워, 음식물·세균이 끼지 않게 막아주는 예방 치료입니다. <a href=\"/encyclopedia/%EC%8B%A4%EB%9E%80%ED%8A%B8\">실란트</a>의 대표적 형태로, 특히 어린이·청소년의 어금니 충치 예방에 매우 효과적입니다.</p><h3>왜 어금니 홈에 충치가 잘 생기나?</h3><ul><li>어금니 씹는 면엔 깊고 좁은 홈이 있음</li><li>홈 폭이 칫솔모(0.2mm)보다 좁음 → 칫솔질로 청소 불가능</li><li>음식물·플라크가 깊이 끼어 머무름</li><li>특히 영구치 맹출 직후 1~3년이 가장 취약</li><li>어린이 충치의 80%가 어금니 홈에서 시작</li></ul><h3>실란트의 효과</h3><table><thead><tr><th>기간</th><th>충치 예방 효과</th></tr></thead><tbody><tr><td>1년</td><td>약 80% 감소</td></tr><tr><td>3년</td><td>약 60% 감소</td></tr><tr><td>5년</td><td>약 50% 감소</td></tr><tr><td>9년</td><td>약 30% 감소</td></tr></tbody></table><h3>적용 대상</h3><ul><li>맹출 직후 영구치 어금니(만 6~14세 권장)</li><li>유치 어금니 중 홈이 깊은 경우</li><li>홈에 초기 우식이 의심되나 시술 가능</li><li>성인도 깊은 홈이 있으면 적용 가능</li></ul><h3>건강보험 적용</h3><ul><li><strong>대상</strong>: 만 18세 이하</li><li><strong>적용 치아</strong>: 제1·제2 영구치 대구치(어금니)</li><li><strong>본인부담</strong>: 약 1~2만 원/치아</li><li><strong>재시행</strong>: 동일 치아 2년 후 가능</li></ul><h3>시술 과정</h3><ol><li><strong>치아 세척</strong>: 플라크·이물질 제거</li><li><strong>방습</strong>: 침이 닿지 않게 격리</li><li><strong>에칭</strong>: 약산으로 법랑질 미세 거칠게 (15초)</li><li><strong>세척·건조</strong>: 침 닿지 않게 주의</li><li><strong>실란트 도포</strong>: 흐름성 레진 홈에 채움</li><li><strong>광중합</strong>: 파란 LED 빛으로 굳힘 (20초)</li><li><strong>교합 확인</strong>: 씹기 방해 안 되게 조정</li></ol><p>총 시술 시간: 치아당 5~10분. 통증·마취 없이 가능합니다.</p><h3>실란트의 한계</h3><ul><li>접착력 약화로 시간 지나면 일부 탈락 가능</li><li>탈락 부위에 충치 생길 수 있음 → 정기 점검 필수</li><li>이미 진행된 충치는 실란트로 막을 수 없음</li><li>홈이 없는 매끈한 어금니엔 효과 적음</li></ul><h3>실란트 후 관리</h3><ul><li>당일 끈적한 음식·껌 피하기</li><li>일반 칫솔질 가능</li><li>6개월 정기 검진에서 실란트 점검</li><li>일부 탈락 시 보수 또는 재시행</li><li>실란트가 있다고 칫솔질 소홀히 하지 않기</li></ul><h3>실란트 vs 불소 도포</h3><table><thead><tr><th>구분</th><th>실란트</th><th><a href=\"/encyclopedia/%EB%B6%88%EC%86%8C%20%EB%8F%84%ED%8F%AC\">불소 도포</a></th></tr></thead><tbody><tr><td>적용 부위</td><td>어금니 홈</td><td>전체 치아 표면</td></tr><tr><td>예방 충치</td><td>홈 충치</td><td>매끈한 면 충치</td></tr><tr><td>지속</td><td>3~9년</td><td>3~6개월</td></tr><tr><td>비용</td><td>중간</td><td>저렴</td></tr><tr><td>병행</td><td colspan=\"2\">함께 하면 시너지</td></tr></tbody></table><p>핏 앤 피셔 실란트는 \"가장 비용 효율적인 충치 예방\"입니다. 어금니가 막 나온 우리 아이라면 꼭 받으시기를 권합니다.</p>",
+      "tags": [
+        "소아 치과"
+      ],
+      "synonyms": [
+        "피트앤피셔 실란트",
+        "pit and fissure sealant",
+        "치아홈메우기",
+        "어금니 홈 메우기"
+      ],
+      "link": "/treatments/prevention",
+      "guide": "/guide/sealant"
+    },
+    {
+      "id": "742",
+      "term": "정기검진",
+      "chosung": "ㅈ",
+      "category": "구강 관리",
+      "short": "정기검진은 증상이 없을 때도 일정한 간격으로 치과를 방문해 구강 상태를 점검하는 예방 진료입니다. \"아플 때만 가는 치과\"가 아니라 \"아프지 않게 다니는 치과\"의 핵심입니다.왜 정기검진이 중요한가?대부분의 충치·치주염은 \"증상이 늦게 나타남\"증상이 있으면 이미 5...",
+      "detail": "<p><strong>정기검진</strong>은 증상이 없을 때도 일정한 간격으로 치과를 방문해 구강 상태를 점검하는 예방 진료입니다. \"아플 때만 가는 치과\"가 아니라 \"아프지 않게 다니는 치과\"의 핵심입니다.</p><h3>왜 정기검진이 중요한가?</h3><ul><li>대부분의 충치·치주염은 \"증상이 늦게 나타남\"</li><li>증상이 있으면 이미 50% 이상 진행된 상태</li><li>초기 발견 시 치료비 1/5~1/10 수준</li><li>증상이 진행되면 치료 강도·시간 급증</li><li>구강암 등 전신질환 조기 발견 가능</li></ul><h3>권장 검진 주기</h3><table><thead><tr><th>대상</th><th>권장 주기</th></tr></thead><tbody><tr><td>건강한 성인</td><td>6개월</td></tr><tr><td>임플란트·교정 환자</td><td>3~6개월</td></tr><tr><td>치주염 병력 환자</td><td>3개월</td></tr><tr><td>고위험 우식 환자</td><td>3~4개월</td></tr><tr><td>당뇨·임산부</td><td>3~6개월</td></tr><tr><td>어린이</td><td>3~6개월</td></tr><tr><td>흡연자</td><td>6개월</td></tr></tbody></table><h3>정기검진 시 점검 항목</h3><ol><li><strong>병력·약물·증상 청취</strong></li><li><strong>구외 검사</strong>: 얼굴·턱·림프절·턱관절</li><li><strong>구내 연조직 검사</strong>: 혀·뺨·입천장·구강암 스크리닝</li><li><strong>치주 평가</strong>: 잇몸 출혈, <a href=\"/encyclopedia/%EC%B9%98%EC%A3%BC%20%ED%8F%AC%EC%BC%93\">치주 포켓</a> 측정</li><li><strong>치아 검사</strong>: 충치, 마모, 균열</li><li><strong>방사선</strong>: <a href=\"/encyclopedia/%ED%8C%8C%EB%85%B8%EB%9D%BC%EB%A7%88\">파노라마</a> 1~2년, 치근단 필요 시</li><li><strong>교합 점검</strong>: 이갈이·마모</li><li><strong>기존 보철·임플란트 점검</strong></li><li><strong><a href=\"/encyclopedia/%EC%9A%B0%EC%8B%9D%20%EC%9C%84%ED%97%98%EB%8F%84%20%ED%8F%89%EA%B0%80\">우식 위험도 평가</a></strong></li><li><strong>예방 처치</strong>: <a href=\"/encyclopedia/%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81\">스케일링</a>, 불소 도포</li></ol><h3>건강보험 적용 (성인)</h3><ul><li><strong>스케일링</strong>: 연 1회 보험 적용 (만 19세 이상)</li><li><strong>국가건강검진</strong>: 만 20세 이상 2년마다 구강검진 포함</li><li><strong>임산부</strong>: 임산부 구강 검진 1회 추가</li></ul><h3>정기검진으로 잡을 수 있는 것</h3><ul><li>초기 충치 (증상 전)</li><li>잇몸 출혈 → 치은염 단계</li><li>치주 포켓 형성 → 치주염 초기</li><li>치아 균열 → 진행 전</li><li>구강암·전암 병변</li><li>아말감·보철의 마모·탈락</li><li>이갈이·교합 외상</li><li>턱관절 이상</li></ul><h3>검진 받기 전 준비</h3><ol><li>최근 복용 약물 목록</li><li>전신질환·알레르기 정보</li><li>증상 있다면 발생 시기·강도</li><li>가족 치과 병력</li><li>검진 전 일반 칫솔질만 (당일 강한 가글 피하기)</li></ol><h3>정기검진의 경제성</h3><table><thead><tr><th>단계</th><th>치료 비용 예시</th></tr></thead><tbody><tr><td>초기 우식 (불소)</td><td>1~3만 원</td></tr><tr><td>중기 우식 (레진)</td><td>5~15만 원</td></tr><tr><td>심한 우식 (인레이)</td><td>30~70만 원</td></tr><tr><td>치수염 (신경치료+크라운)</td><td>50~100만 원</td></tr><tr><td>발치+임플란트</td><td>100~300만 원</td></tr></tbody></table><p>같은 치아 한 개를 6개월 일찍 발견하면 비용이 1/100까지 줄어들 수 있습니다.</p><p>정기검진은 \"치아를 가장 싸게, 가장 오래 쓰는 방법\"입니다. 약속 시간을 미리 잡아두면 잊지 않고 다닐 수 있습니다.</p>",
+      "tags": [
+        "구강 관리"
+      ],
+      "synonyms": [
+        "치과 정기검진",
+        "치과 검진",
+        "dental check-up",
+        "정기 점검"
+      ],
+      "link": "/treatments/checkup",
+      "guide": "/guide/regular-checkup"
+    },
+    {
+      "id": "743",
+      "term": "구강검진",
+      "chosung": "ㄱ",
+      "category": "구강 관리",
+      "short": "구강검진(국가건강검진)은 국민건강보험공단이 무료(또는 저비용)로 제공하는 공식 구강 건강 점검 제도입니다. 일반 건강검진과 함께 또는 별도로 받을 수 있으며, 비용 부담 없이 기본 구강 상태를 점검할 수 있습니다.국가 구강검진의 대상대상검진 주기비용영유아(생후 1...",
+      "detail": "<p><strong>구강검진(국가건강검진)</strong>은 국민건강보험공단이 무료(또는 저비용)로 제공하는 공식 구강 건강 점검 제도입니다. 일반 건강검진과 함께 또는 별도로 받을 수 있으며, 비용 부담 없이 기본 구강 상태를 점검할 수 있습니다.</p><h3>국가 구강검진의 대상</h3><table><thead><tr><th>대상</th><th>검진 주기</th><th>비용</th></tr></thead><tbody><tr><td>영유아(생후 18~71개월)</td><td>4회</td><td>무료</td></tr><tr><td>학생(초·중·고)</td><td>매년 1회</td><td>학교 검진</td></tr><tr><td>만 20세 이상 직장 가입자</td><td>2년 1회</td><td>무료</td></tr><tr><td>지역 가입자(세대주·만 20세 이상)</td><td>2년 1회</td><td>무료</td></tr><tr><td>임산부</td><td>1회 추가</td><td>무료</td></tr></tbody></table><h3>국가 구강검진 항목</h3><ol><li><strong>문진</strong>: 흡연·음주·식습관·증상</li><li><strong>구강 검사</strong>: 충치·치주염·결손치</li><li><strong>구강위생 상태</strong>: 플라크·치석</li><li><strong>치아 마모·균열</strong></li><li><strong>구강 점막</strong>: 혀·잇몸·구개 이상</li><li><strong><a href=\"/encyclopedia/%ED%8C%8C%EB%85%B8%EB%9D%BC%EB%A7%88\">파노라마</a></strong> (선택, 일부 연령)</li><li><strong>예방 교육</strong>: 칫솔질·식이 상담</li></ol><h3>일반 정기검진과의 차이</h3><table><thead><tr><th>항목</th><th>국가 구강검진</th><th>일반 정기검진</th></tr></thead><tbody><tr><td>비용</td><td>무료</td><td>본인부담</td></tr><tr><td>주기</td><td>2년</td><td>6개월 권장</td></tr><tr><td>범위</td><td>기본 점검</td><td>심층 점검·치료</td></tr><tr><td>치료</td><td>안 함(검진만)</td><td>당일 가능</td></tr><tr><td>위험도 평가</td><td>제한적</td><td>상세 분석</td></tr></tbody></table><h3>검진 받는 방법</h3><ol><li>건강보험공단 통지서 또는 \"건강iN\" 앱 확인</li><li>국가검진 지정 치과 선택</li><li>방문 시 신분증 + 검진표 제출</li><li>약 20~30분 소요</li><li>결과 통보(평균 2주 이내)</li></ol><h3>영유아 구강검진 (특히 중요)</h3><p>영유아 구강검진은 다음 4시기에 무료로 받을 수 있습니다.</p><ul><li>1차: 생후 18~29개월</li><li>2차: 생후 42~53개월</li><li>3차: 생후 54~65개월</li><li>4차: 생후 66~71개월</li></ul><p>이 시기는 유치 우식·교정 조기 발견·구강 습관 형성에 결정적입니다.</p><h3>임산부 구강검진</h3><p>임신 중에는 호르몬 변화로 잇몸염·우식이 잘 생깁니다. 임산부 추가 구강검진은 임신 16주 이후 가능하며, 모자보건수첩 발급 후 받을 수 있습니다.</p><h3>구강검진을 알차게 활용하는 팁</h3><ul><li>검진 결과는 \"치료 안내가 아니라 출발점\"</li><li>이상 소견이 있으면 일반 진료로 이어 가기</li><li>검진 결과를 본인 휴대폰에 저장(앱)</li><li>2년 주기지만, 증상 있으면 즉시 일반 진료</li><li>다른 가족도 받을 수 있도록 알리기</li></ul><h3>한계</h3><ul><li>치료가 아닌 \"검진\"만 제공</li><li>방사선 촬영 제한적</li><li>상세 위험도 평가 없음</li><li>이상 소견이 있으면 일반 진료로 가야 함</li></ul><p>국가 구강검진은 \"국가가 주는 무료 점검 기회\"입니다. 매번 빠짐없이 받으시고, 일반 정기검진과 병행하시면 비용 부담 없이 구강 건강을 지킬 수 있습니다.</p>",
+      "tags": [
+        "구강 관리"
+      ],
+      "synonyms": [
+        "국가구강검진",
+        "국가 구강 검진",
+        "구강 건강검진",
+        "공단 구강검진"
+      ],
+      "link": "/treatments/checkup",
+      "guide": "/guide/national-checkup"
+    },
+    {
+      "id": "744",
+      "term": "구강위생관리",
+      "chosung": "ㄱ",
+      "category": "구강 관리",
+      "short": "구강위생관리(Oral Hygiene)는 입속의 플라크·세균·음식물 잔사를 효과적으로 제거해 충치·잇몸 질환을 예방하는 일상 관리입니다. 치과 치료보다 더 중요한 \"평생의 기본기\"입니다.구강위생의 5대 도구도구역할빈도칫솔치면 플라크 제거하루 2~3회치실치아 사이 청...",
+      "detail": "<p><strong>구강위생관리(Oral Hygiene)</strong>는 입속의 플라크·세균·음식물 잔사를 효과적으로 제거해 충치·잇몸 질환을 예방하는 일상 관리입니다. 치과 치료보다 더 중요한 \"평생의 기본기\"입니다.</p><h3>구강위생의 5대 도구</h3><table><thead><tr><th>도구</th><th>역할</th><th>빈도</th></tr></thead><tbody><tr><td>칫솔</td><td>치면 플라크 제거</td><td>하루 2~3회</td></tr><tr><td><a href=\"/encyclopedia/%EC%B9%98%EC%8B%A4\">치실</a></td><td>치아 사이 청소</td><td>하루 1회</td></tr><tr><td>치간칫솔</td><td>넓은 사이·임플란트</td><td>필요 시</td></tr><tr><td>혀 클리너</td><td>설태 제거</td><td>하루 1회</td></tr><tr><td><a href=\"/encyclopedia/%EA%B5%AC%EA%B0%95%20%EC%84%B8%EC%A0%95%EC%A0%9C\">구강 세정제</a></td><td>보조 항균</td><td>필요 시</td></tr></tbody></table><h3>올바른 칫솔질 (Bass 법)</h3><ol><li><strong>칫솔모 각도</strong>: 잇몸 쪽으로 45°</li><li><strong>동작</strong>: 짧고 작은 진동(2~3mm)</li><li><strong>구역별</strong>: 2~3개 치아씩 천천히</li><li><strong>시간</strong>: 2분 이상(타이머 권장)</li><li><strong>안쪽 면도 빠짐없이</strong>: 가장 놓치는 부위</li><li><strong>혀도 닦기</strong>: 끝에서 안쪽으로 부드럽게</li></ol><h3>치실 사용법</h3><ol><li>40cm 길이 잘라 양 가운데 손가락에 감기</li><li>치아 사이로 톱질하지 말고 부드럽게 통과</li><li>한쪽 치아 면에 C자로 감싸 위아래 닦기</li><li>잇몸 속 1~2mm까지 살짝</li><li>반대편 치아 면도 동일하게</li><li>다음 치아엔 깨끗한 부분으로</li></ol><h3>구강위생 자가 체크리스트</h3><ul><li>칫솔질 후에도 입에 음식 냄새가 나는가?</li><li>아침에 입안이 텁텁하고 끈적한가?</li><li>잇몸에서 자주 피가 나는가?</li><li>혀가 하얗게 끼어 있는가?</li><li>치실을 하면 냄새가 나는가?</li><li>치아 사이에 음식이 자주 끼는가?</li></ul><p>2개 이상 \"예\"면 구강위생관리 개선이 필요합니다.</p><h3>특수 상황 관리</h3><table><thead><tr><th>상황</th><th>추천 관리</th></tr></thead><tbody><tr><td>임플란트</td><td>치간칫솔·워터픽·전용 치실</td></tr><tr><td>교정 중</td><td>교정용 칫솔, 치간칫솔, 항균 가글</td></tr><tr><td>임산부</td><td>부드러운 솔, 가벼운 가글, 정기 스케일링</td></tr><tr><td>당뇨 환자</td><td>혈당 관리 + 항균 가글</td></tr><tr><td>틀니 사용자</td><td>틀니 전용 세정제, 잇몸 마사지</td></tr><tr><td>구강건조증</td><td>인공 침, 자일리톨, 자주 물 섭취</td></tr></tbody></table><h3>잘못된 위생 습관</h3><ul><li>가로로 강하게 닦기 → <a href=\"/encyclopedia/%EC%B9%98%EC%9D%80%20%ED%87%B4%EC%B6%95\">치은 퇴축</a> 유발</li><li>너무 뻣뻣한 칫솔 → 잇몸·법랑질 손상</li><li>식후 즉시 양치(산성 음식 후) → 법랑질 마모</li><li>치실 안 하기 → 인접면 우식</li><li>한 칫솔을 3개월 이상 사용</li><li>구강세정제만 의존(칫솔질 대체 불가)</li></ul><h3>칫솔 관리</h3><ul><li>3개월마다 또는 칫솔모가 벌어지면 교체</li><li>사용 후 흐르는 물에 잘 헹구기</li><li>세워서 자연 건조(통풍 잘 되게)</li><li>가족 칫솔과 닿지 않게 분리</li><li>여행 후엔 새 칫솔로 교체 권장</li></ul><h3>구강위생관리의 효과</h3><ul><li>충치 발생 50~80% 감소</li><li>잇몸 질환 70% 예방</li><li>구취 90% 개선</li><li>전신 건강 개선(당뇨·심혈관)</li><li>임플란트 수명 연장</li></ul><p>구강위생관리는 \"가장 비용 효율적인 건강 투자\"입니다. 매일 5분 투자로 평생 치아·치료비를 아낄 수 있습니다.</p>",
+      "tags": [
+        "구강 관리"
+      ],
+      "synonyms": [
+        "구강 위생",
+        "구강 관리",
+        "oral hygiene",
+        "구강 위생 관리"
+      ],
+      "link": "/treatments/hygiene",
+      "guide": "/guide/oral-hygiene"
+    },
+    {
+      "id": "745",
+      "term": "타액검사",
+      "chosung": "ㅌ",
+      "category": "구강 관리",
+      "short": "타액검사(Saliva Test)는 환자의 침을 채취해 구강 환경의 \"숨겨진 위험\"을 정밀 진단하는 검사입니다. 충치·잇몸 질환의 발생 위험을 수치로 보여주어, 맞춤형 예방 전략 수립에 사용됩니다.타액의 중요성침은 단순한 \"입속 물\"이 아닙니다. 다음 기능을 합니다...",
+      "detail": "<p><strong>타액검사(Saliva Test)</strong>는 환자의 침을 채취해 구강 환경의 \"숨겨진 위험\"을 정밀 진단하는 검사입니다. 충치·잇몸 질환의 발생 위험을 수치로 보여주어, 맞춤형 예방 전략 수립에 사용됩니다.</p><h3>타액의 중요성</h3><p>침은 단순한 \"입속 물\"이 아닙니다. 다음 기능을 합니다.</p><ul><li>음식물 세척·소화 효소 분비</li><li>산을 중화하는 완충 작용</li><li>법랑질 재석회화(칼슘·인 공급)</li><li>항균 단백질(IgA, 라이소자임)</li><li>점막 보호</li><li>맛 인지(미뢰 자극)</li></ul><p>침이 부족하거나 산성이면 모든 보호 기능이 떨어져 충치·잇몸 질환이 폭발적으로 증가합니다.</p><h3>주요 검사 항목</h3><table><thead><tr><th>항목</th><th>정상</th><th>의미</th></tr></thead><tbody><tr><td>분비량(비자극)</td><td>0.3~0.4mL/분</td><td>구강건조증 여부</td></tr><tr><td>분비량(자극)</td><td>1~3mL/분</td><td>침 분비 능력</td></tr><tr><td>pH(산도)</td><td>6.8~7.4</td><td>산성 시 우식 위험</td></tr><tr><td>완충능</td><td>높음</td><td>산 중화 능력</td></tr><tr><td>점도</td><td>적절</td><td>너무 끈적하면 위험</td></tr><tr><td>S. mutans</td><td>10^5 미만</td><td>충치 세균</td></tr><tr><td>Lactobacillus</td><td>낮음</td><td>진행성 우식 지표</td></tr><tr><td>잠혈</td><td>없음</td><td>잇몸 출혈 여부</td></tr><tr><td>암모니아</td><td>낮음</td><td>구취·치주염</td></tr></tbody></table><h3>검사 방법 (5~10분)</h3><ol><li>검사 1시간 전 음식·양치 금지</li><li>10초간 입을 헹군 후 침을 모음</li><li>자극 침: 파라핀 왁스를 5분 씹어 침 채취</li><li>비자극 침: 가만히 5분 모음</li><li>전용 키트로 pH·완충능·세균 확인</li><li>일부 항목은 배양 24~48시간 후 판독</li></ol><h3>적용이 도움이 되는 환자</h3><ul><li>잦은 충치 환자(원인 미상)</li><li>구강건조감을 호소하는 환자</li><li>입냄새가 만성인 경우</li><li>방사선 치료·항암 치료 후</li><li>당뇨·자가면역질환 환자</li><li>임플란트·보철 전 위험도 평가</li><li>교정 치료 시작 전 우식 예방</li><li>노인 환자의 구강건강 평가</li></ul><h3>검사 결과 활용 (예시)</h3><table><thead><tr><th>결과 패턴</th><th>해석</th><th>처방</th></tr></thead><tbody><tr><td>S. mutans 높음 + pH 낮음</td><td>충치 매우 고위험</td><td>처방 불소(5000ppm), 자일리톨</td></tr><tr><td>침 분비량 부족</td><td>구강건조증</td><td>인공 침, 수분, 무설탕 껌</td></tr><tr><td>잠혈 양성</td><td>잇몸 출혈·치주염</td><td>스케일링·치주치료</td></tr><tr><td>완충능 낮음</td><td>산성 손상 위험</td><td>식이 상담, 불소 강화</td></tr></tbody></table><h3>침 분비를 늘리는 방법</h3><ul><li><strong>수분 섭취</strong>: 하루 1.5~2L</li><li><strong>자일리톨 껌·캔디</strong>: 자극성 침 분비 촉진</li><li><strong>침샘 마사지</strong>: 귀밑·턱밑 부드럽게</li><li><strong>구강체조</strong>: 혀·뺨 운동</li><li><strong>이비인후과·내과 협진</strong>: 약물 부작용·전신질환</li><li><strong>인공 침 스프레이</strong>: 일시 보조</li></ul><h3>한계</h3><ul><li>모든 치과에서 시행하지 않음</li><li>비급여 (3~10만 원 정도)</li><li>일회성 검사로는 결정 어려움 → 추적 비교 필요</li><li>검사 1시간 전 음식·양치 제한 필요</li></ul><p>타액검사는 \"왜 자꾸 충치가 생기는지\"의 답을 찾는 도구입니다. 원인을 모르고 치료만 반복하기보다, 한 번의 정밀 진단이 평생의 충치를 예방할 수 있습니다.</p>",
+      "tags": [
+        "구강 관리"
+      ],
+      "synonyms": [
+        "침 검사",
+        "saliva test",
+        "구강 타액 검사",
+        "치과 타액 검사"
+      ],
+      "link": "/treatments/prevention",
+      "guide": "/guide/saliva-test"
     }
   ]
 }
