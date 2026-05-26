@@ -3976,14 +3976,32 @@ app.get('/encyclopedia/:term', (c) => {
   const synonymsText = item.synonyms && item.synonyms.length ? item.synonyms.join(', ') : ''
   const tagsHtml = (item.tags || []).map(t => `<span style="display:inline-block;font-size:0.8rem;padding:4px 12px;border-radius:50px;background:#f5f0eb;color:#6B4226;margin:0 4px 4px 0;">#${t}</span>`).join('')
   
-  // 진료 페이지 연결 링크
+  // 진료 페이지 연결 링크 (상담 단계)
   const treatmentLinkHtml = item.link ? `
-<div style="background:#fff;border:2px solid #c9a96e;border-radius:16px;padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+<div style="background:#fff;border:2px solid #c9a96e;border-radius:16px;padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
 <div>
-<p style="font-size:0.85rem;color:#888;margin:0 0 4px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:4px;"></i> 관련 진료과목</p>
+<p style="font-size:0.85rem;color:#888;margin:0 0 4px;"><i class="fas fa-stethoscope" style="color:#c9a96e;margin-right:4px;"></i> 관련 진료과목 · 상담 받기</p>
 <p style="font-size:1.05rem;font-weight:700;color:#333;margin:0;">${term} 진료 상세 보기</p>
 </div>
 <a href="${item.link}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.9rem;white-space:nowrap;"><i class="fas fa-arrow-right"></i> 진료 안내 바로가기</a>
+</div>` : ''
+
+  // 가이드 페이지 연결 링크 (더 자세한 정보 단계)
+  // item.guide 필드가 있으면 우선 사용, 없으면 link로부터 자동 추론
+  const guidePath = (item as any).guide || (() => {
+    if (!item.link) return null
+    if (item.link.includes('implant')) return '/guide/implant'
+    if (item.link.includes('invisalign') || item.link.includes('orthodontic') || item.link.includes('ortho')) return '/guide/invisalign'
+    if (item.link.includes('laminate') || item.link.includes('glownate') || item.link.includes('aesthetic')) return '/guide/laminate'
+    return null
+  })()
+  const guideLinkHtml = guidePath ? `
+<div style="background:#faf7f3;border:2px solid #e8d9c1;border-radius:16px;padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+<div>
+<p style="font-size:0.85rem;color:#888;margin:0 0 4px;"><i class="fas fa-book-open" style="color:#c9a96e;margin-right:4px;"></i> 심층 가이드 · 더 자세한 정보</p>
+<p style="font-size:1.05rem;font-weight:700;color:#333;margin:0;">${term} 완벽 가이드 — 비용·과정·후기까지</p>
+</div>
+<a href="${guidePath}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#fff;color:#6B4226;border:2px solid #6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.9rem;white-space:nowrap;"><i class="fas fa-book-open"></i> 가이드 읽기</a>
 </div>` : ''
 
   // 이전/다음 용어 네비게이션
@@ -4140,6 +4158,7 @@ ${synonymsText ? `<p style="font-size:0.9rem;color:#888;margin-bottom:8px;"><i c
 ${tagsHtml ? `<div style="margin-bottom:32px;">${tagsHtml}</div>` : ''}
 
 ${treatmentLinkHtml}
+${guideLinkHtml}
 
 <div style="margin-bottom:32px;">
 <h2 style="font-size:1.2rem;font-weight:700;color:#333;margin-bottom:16px;"><i class="fas fa-question-circle" style="color:#c9a96e;margin-right:6px;"></i> ${term} 자주 묻는 질문</h2>
@@ -4147,10 +4166,13 @@ ${faqHtml}
 </div>
 
 <div style="background:linear-gradient(135deg, #6B4226, #8B5E3C);border-radius:16px;padding:28px 24px;text-align:center;color:#fff;margin-bottom:40px;">
-<p style="font-size:1.1rem;font-weight:600;margin-bottom:16px;">${term}에 대해 더 궁금하신가요?</p>
-<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-<a href="/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem;"><i class="fas fa-calendar-check"></i> 무료 상담 예약</a>
-<a href="tel:041-415-2892" style="display:inline-flex;align-items:center;gap:6px;padding:12px 24px;background:rgba(255,255,255,0.15);color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;border:1px solid rgba(255,255,255,0.3);"><i class="fas fa-phone"></i> 041-415-2892</a>
+<p style="font-size:1.1rem;font-weight:600;margin-bottom:8px;">${term}에 대해 더 궁금하신가요?</p>
+<p style="font-size:0.85rem;color:rgba(255,255,255,0.85);margin-bottom:18px;">서울비디치과 전문의가 직접 상담해 드립니다</p>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+<a href="/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:12px 22px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem;"><i class="fas fa-calendar-check"></i> 예약하기</a>
+${item.link ? `<a href="${item.link}" style="display:inline-flex;align-items:center;gap:6px;padding:12px 22px;background:rgba(255,255,255,0.15);color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;border:1px solid rgba(255,255,255,0.4);"><i class="fas fa-stethoscope"></i> 진료 안내</a>` : ''}
+${guidePath ? `<a href="${guidePath}" style="display:inline-flex;align-items:center;gap:6px;padding:12px 22px;background:rgba(255,255,255,0.15);color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;border:1px solid rgba(255,255,255,0.4);"><i class="fas fa-book-open"></i> 가이드 읽기</a>` : ''}
+<a href="tel:041-415-2892" style="display:inline-flex;align-items:center;gap:6px;padding:12px 22px;background:rgba(255,255,255,0.15);color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;border:1px solid rgba(255,255,255,0.4);"><i class="fas fa-phone"></i> 041-415-2892</a>
 </div>
 </div>
 
@@ -4445,6 +4467,20 @@ app.get('/games', serveStatic({ path: './games.html' }))
 
 // 디자인 트렌드 데모
 app.get('/demo-trends', serveStatic({ path: './demo-trends.html' }))
+
+// ============================================
+// 가이드 페이지 (백과사전 토픽 클러스터의 "더 자세한 정보" 스포크)
+// ============================================
+app.get('/guide', serveStatic({ path: './guide/index.html' }))
+app.get('/guide/', serveStatic({ path: './guide/index.html' }))
+app.get('/guide/implant', serveStatic({ path: './guide/implant.html' }))
+app.get('/guide/invisalign', serveStatic({ path: './guide/invisalign.html' }))
+app.get('/guide/laminate', serveStatic({ path: './guide/laminate.html' }))
+// .html 확장자 접근은 301로 클린 URL로 강제
+app.get('/guide/index.html', (c) => c.redirect('/guide/', 301))
+app.get('/guide/implant.html', (c) => c.redirect('/guide/implant', 301))
+app.get('/guide/invisalign.html', (c) => c.redirect('/guide/invisalign', 301))
+app.get('/guide/laminate.html', (c) => c.redirect('/guide/laminate', 301))
 
 // Root level HTML files with .html extension → handled by 301 redirects above
 
