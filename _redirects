@@ -73,10 +73,32 @@
 /index.php        /               301
 /index.asp        /               301
 /default.asp      /               301
+/index.html       /               301
 /home             /               301
 /home/*           /               301
 /main             /               301
 /main/*           /               301
+
+# 추가: 한국 치과 사이트 이전 URL 자주 발생 패턴 (GSC 색인 정리용)
+/sub              /               301
+/sub/*            /               301
+/sub1             /               301
+/sub2             /               301
+/sub3             /               301
+/sub4             /               301
+/intro            /mission        301
+/intro/*          /mission        301
+/greeting         /mission        301
+/location         /directions     301
+/map              /directions     301
+/equipment        /floor-guide    301
+/facility         /floor-guide    301
+/event            /notice/        301
+/event/*          /notice/        301
+/news             /notice/        301
+/news/*           /notice/        301
+/m/*              /               301
+/mobile/*         /               301
 
 # =============================================
 # .html 확장자 → clean URL 301 (Cloudflare 기본 308 → 명시적 301로 통일)

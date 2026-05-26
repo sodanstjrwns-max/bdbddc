@@ -4476,11 +4476,23 @@ app.get('/guide/', serveStatic({ path: './guide/index.html' }))
 app.get('/guide/implant', serveStatic({ path: './guide/implant.html' }))
 app.get('/guide/invisalign', serveStatic({ path: './guide/invisalign.html' }))
 app.get('/guide/laminate', serveStatic({ path: './guide/laminate.html' }))
+app.get('/guide/scaling', serveStatic({ path: './guide/scaling.html' }))
+app.get('/guide/whitening', serveStatic({ path: './guide/whitening.html' }))
+app.get('/guide/wisdom-tooth', serveStatic({ path: './guide/wisdom-tooth.html' }))
+app.get('/guide/denture', serveStatic({ path: './guide/denture.html' }))
+app.get('/guide/root-canal', serveStatic({ path: './guide/root-canal.html' }))
+app.get('/guide/orthodontics', serveStatic({ path: './guide/orthodontics.html' }))
 // .html 확장자 접근은 301로 클린 URL로 강제
 app.get('/guide/index.html', (c) => c.redirect('/guide/', 301))
 app.get('/guide/implant.html', (c) => c.redirect('/guide/implant', 301))
 app.get('/guide/invisalign.html', (c) => c.redirect('/guide/invisalign', 301))
 app.get('/guide/laminate.html', (c) => c.redirect('/guide/laminate', 301))
+app.get('/guide/scaling.html', (c) => c.redirect('/guide/scaling', 301))
+app.get('/guide/whitening.html', (c) => c.redirect('/guide/whitening', 301))
+app.get('/guide/wisdom-tooth.html', (c) => c.redirect('/guide/wisdom-tooth', 301))
+app.get('/guide/denture.html', (c) => c.redirect('/guide/denture', 301))
+app.get('/guide/root-canal.html', (c) => c.redirect('/guide/root-canal', 301))
+app.get('/guide/orthodontics.html', (c) => c.redirect('/guide/orthodontics', 301))
 
 // Root level HTML files with .html extension → handled by 301 redirects above
 
