@@ -77,3 +77,33 @@
 /home/*           /               301
 /main             /               301
 /main/*           /               301
+
+# =============================================
+# .html 확장자 → clean URL 301 (Cloudflare 기본 308 → 명시적 301로 통일)
+# GSC "크롤링됨 - 색인 안 됨" 30건 해결용
+# =============================================
+/doctors/:slug.html        /doctors/:slug         301
+/treatments/:slug.html     /treatments/:slug      301
+/area/:slug.html           /area/:slug            301
+/faq/:slug.html            /faq/:slug             301
+/notice/index.html         /notice/               301
+/cases/index.html          /cases/gallery         301
+/video/index.html          /video/                301
+/floor-guide.html          /floor-guide           301
+/mission.html              /mission               301
+/reservation.html          /reservation           301
+/checkup.html              /checkup               301
+/faq.html                  /faq                   301
+/pricing.html              /pricing               301
+/blueprint.html            /blueprint             301
+/careers.html              /careers               301
+/directions.html           /directions            301
+/privacy.html              /privacy               301
+/terms.html                /terms                 301
+/flight.html               /flight                301
+/run.html                  /run                   301
+/games.html                /games                 301
+/symptom-checker.html      /symptom-checker       301
+/auth/login.html           /auth/login            301
+/auth/register.html        /auth/register         301
+/auth/mypage.html          /auth/mypage           301

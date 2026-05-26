@@ -24,6 +24,11 @@ Disallow: /sw.js
 Disallow: /offline.html
 Disallow: /*.json$
 Disallow: /manifest.json
+# 쿼리스트링 URL 차단 (canonical로 통합되지만 크롤 예산 절약 목적)
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 
 # ===== Google 봇 (메인 + 이미지 + 비디오) =====
 User-agent: Googlebot
