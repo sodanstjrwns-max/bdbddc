@@ -1,41 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 서울비디치과 사이트맵 인덱스 -->
-  <!-- 마지막 업데이트: 2026-05-13 -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- 서울비디치과 사이트맵 인덱스 (https://bdbddc.com)              -->
+  <!-- 마지막 업데이트: 2026-05-27                                      -->
+  <!--                                                              -->
+  <!-- 통계:                                                         -->
+  <!--   - sitemap-main:          119 URLs (메인+진료+의료진) -->
+  <!--   - sitemap-area:           88 URLs (지역 SEO)         -->
+  <!--   - sitemap-encyclopedia:  862 URLs (백과사전)        -->
+  <!--   - sitemap-intl:           34 URLs (다국어)          -->
+  <!--   - sitemap-columns:    동적 (Hono 핸들러 /src/index.tsx)    -->
+  <!--   - sitemap-cases:      동적 (Hono 핸들러 /src/index.tsx)    -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
 
-  <!-- 메인 페이지 + 진료 + 의료진 + 병원안내 + 콘텐츠 -->
+  <!-- 메인 페이지 + 진료 + 의료진 + 병원 안내 + 콘텐츠 허브 -->
   <sitemap>
     <loc>https://bdbddc.com/sitemap-main.xml</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-27</lastmod>
   </sitemap>
 
   <!-- 지역 SEO 페이지 (28개 기본 + 60개 진료 특화 = 88개) -->
   <sitemap>
     <loc>https://bdbddc.com/sitemap-area.xml</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-27</lastmod>
   </sitemap>
 
-  <!-- 치과 백과사전 (512개 항목) -->
+  <!-- 치과 백과사전 (862개 URL: 카테고리 + 항목) -->
   <sitemap>
     <loc>https://bdbddc.com/sitemap-encyclopedia.xml</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-27</lastmod>
   </sitemap>
 
-  <!-- 다국어 SEO 페이지 (EN/VI/JP/CN/TH/RU — 16개 페이지) -->
+  <!-- 다국어 SEO 페이지 (EN/VI/JP/CN/TH/RU — 34개) -->
   <sitemap>
     <loc>https://bdbddc.com/sitemap-intl.xml</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-27</lastmod>
   </sitemap>
 
-  <!-- 원장 컬럼 (동적 — R2 실시간 반영) -->
+  <!-- 원장 컬럼 (동적 — R2/D1 실시간 반영) -->
   <sitemap>
     <loc>https://bdbddc.com/sitemap-columns.xml</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-27</lastmod>
   </sitemap>
 
   <!-- Before/After 케이스 (동적 — R2 실시간 반영) -->
   <sitemap>
     <loc>https://bdbddc.com/sitemap-cases.xml</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-27</lastmod>
   </sitemap>
 </sitemapindex>
