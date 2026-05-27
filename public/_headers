@@ -72,3 +72,11 @@
 /6f74445f7ec14eccb522a4d3f253128c.txt
   Cache-Control: public, max-age=86400
   Content-Type: text/plain; charset=utf-8
+
+# Service Worker - NEVER cache (must always fetch fresh to update)
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  Content-Type: application/javascript; charset=utf-8
+
+/manifest.json
+  Cache-Control: public, max-age=3600

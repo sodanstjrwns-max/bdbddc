@@ -1,11 +1,14 @@
-// Seoul BD Dental - Service Worker v1.0.0
+// Seoul BD Dental - Service Worker v1.1.0
 // Strategy: Conservative caching for reliability
 // - HTML: Network-first (always get latest content)
 // - CSS/JS: Stale-while-revalidate (fast + fresh)
 // - Images: Cache-first (long-lived assets)
 // - Fonts: Cache-first (rarely change)
+//
+// 2026-05-27: Bumped to v1.1.0 to force cache invalidation
+// after nav menu structure correction (whitening ↔ aesthetic positioning)
 
-const CACHE_VERSION = 'seoul-bd-v1.0.0';
+const CACHE_VERSION = 'seoul-bd-v1.1.0';
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const IMAGE_CACHE = `images-${CACHE_VERSION}`;
 const FONT_CACHE = `fonts-${CACHE_VERSION}`;
