@@ -1953,15 +1953,15 @@ function ssrHeader(): string {
 <li><a href="/treatments/invisalign">인비절라인 <span class="badge">다이아몬드</span></a></li>
 <li><a href="/treatments/orthodontics">치아교정 <span class="badge">장치교정</span></a></li>
 <li><a href="/treatments/pediatric">소아치과 <span class="badge">전문의 3인</span></a></li>
-<li><a href="/treatments/aesthetic">심미레진</a></li>
+<li><a href="/treatments/whitening" style="color:#0369a1;font-weight:600;">치아미백 <span class="badge">전문센터</span></a></li>
 </ul></div>
 <div class="mega-dropdown-section"><strong class="section-heading">일반/보존 진료</strong><ul>
 <li><a href="/treatments/cavity">충치치료</a></li>
 <li><a href="/treatments/resin">레진치료</a></li>
+<li><a href="/treatments/aesthetic">심미레진</a></li>
 <li><a href="/treatments/crown">크라운</a></li>
 <li><a href="/treatments/inlay">인레이/온레이</a></li>
 <li><a href="/treatments/root-canal">신경치료</a></li>
-<li><a href="/treatments/whitening">미백</a></li>
 </ul></div>
 <div class="mega-dropdown-section"><strong class="section-heading">구강내과/외과</strong><ul>
 <li><a href="/treatments/oral-medicine" style="color:#6B4226;font-weight:600;">구강내과 <span class="badge">전문의</span></a></li>
@@ -2038,10 +2038,11 @@ function ssrMobileNav(): string {
 <li><a href="/treatments/invisalign">인비절라인</a></li>
 <li><a href="/treatments/orthodontics">치아교정</a></li>
 <li><a href="/treatments/pediatric">소아치과</a></li>
-<li><a href="/treatments/aesthetic">심미레진</a></li>
+<li><a href="/treatments/whitening" style="color:#0369a1;font-weight:600;">치아미백 전문센터</a></li>
 <li class="submenu-divider">일반 진료</li>
 <li><a href="/treatments/cavity">충치치료</a></li>
 <li><a href="/treatments/resin">레진치료</a></li>
+<li><a href="/treatments/aesthetic">심미레진</a></li>
 <li><a href="/treatments/oral-medicine" style="color:#6B4226;font-weight:600;">구강내과 <span class="badge">전문의</span></a></li>
 <li><a href="/treatments/tmj">턱관절장애</a></li>
 <li><a href="/treatments/bruxism">이갈이/이악물기</a></li>
