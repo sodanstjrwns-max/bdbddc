@@ -517,33 +517,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="../treatments/implant.html" class="treatment-card featured reveal delay-1">
           <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
           <div class="treatment-card-icon"><i class="fas fa-tooth"></i></div>
-          <h3>임플란트</h3>
+          <h3>${r.name} 임플란트</h3>
           <p>6개 수술방 · 네비게이션 가이드<br>수면임플란트 · 고난도 전문 · 4F</p>
           <span class="treatment-tag hot">BEST</span>
         </a>
         <a href="../treatments/invisalign.html" class="treatment-card reveal delay-1">
           <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
           <div class="treatment-card-icon"><i class="fas fa-teeth"></i></div>
-          <h3>인비절라인</h3>
+          <h3>${r.name} 인비절라인</h3>
           <p>서울대 교정 전문의 2인<br>대규모 센터 · 1F</p>
         </a>
         <a href="../treatments/glownate.html" class="treatment-card reveal delay-2">
           <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
           <div class="treatment-card-icon"><i class="fas fa-sparkles"></i></div>
-          <h3>글로우네이트(라미네이트)</h3>
+          <h3>${r.name} 라미네이트 (글로우네이트)</h3>
           <p>최소삭제 포세린 라미네이트<br>프리미엄 심미 치료</p>
           <span class="treatment-tag hot">HOT</span>
         </a>
         <a href="../treatments/pediatric.html" class="treatment-card reveal delay-1">
           <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
           <div class="treatment-card-icon"><i class="fas fa-child"></i></div>
-          <h3>소아치과</h3>
+          <h3>${r.name} 소아치과</h3>
           <p>소아전문의 3인 진료<br>웃음가스 · 수면치료 · 3F</p>
         </a>
         <a href="../treatments/aesthetic.html" class="treatment-card reveal delay-2">
           <span class="treatment-card-arrow"><i class="fas fa-arrow-right"></i></span>
           <div class="treatment-card-icon"><i class="fas fa-smile-beam"></i></div>
-          <h3>심미치료</h3>
+          <h3>${r.name} 심미치료</h3>
           <p>라미네이트 · 미백<br>자연스러운 아름다움 · 5F</p>
         </a>
       </div>

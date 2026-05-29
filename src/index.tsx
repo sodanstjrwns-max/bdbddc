@@ -1525,7 +1525,23 @@ app.get('/tables/*', (c) => c.redirect('/pricing', 301))
 // 2) 존재하지 않는 경로 → 301 리디렉트 (404 해소)
 app.get('/treatments/laminate', (c) => c.redirect('/treatments/glownate', 301))  // 라미네이트 → 글로우네이트(BD 자체 진료과)
 app.get('/treatments/checkup', (c) => c.redirect('/checkup', 301))               // 검진은 root /checkup으로
-app.get('/area/cheonan-implant', (c) => c.redirect('/area/cheonan', 301))         // 천안-임플란트 → 천안 지역 페이지
+
+// ============================================
+// 천안 진료 특화 URL → /area/cheonan 통합 (2026-05-29 복구)
+// ============================================
+// 사이트 전체 주제가 천안 치과이므로 천안 진료 특화 페이지를 별도로 두지 않음.
+// 모든 천안+진료 키워드는 /area/cheonan 메인 페이지(이미 임플란트·인비절라인·라미네이트 H2 포함)로 통합.
+// 이전 1528줄 잘못된 301이 구글에서 천안 임플란트 키워드 증발을 일으켰으므로,
+// 메인 페이지(/area/cheonan) 자체를 강력한 천안 허브로 유지하는 것이 최선.
+//
+// ❌ 슬래시 형식 (빈 200 응답이었던 URL들) → /area/cheonan으로 301
+app.get('/area/cheonan/implant', (c) => c.redirect('/area/cheonan', 301))
+app.get('/area/cheonan/laminate', (c) => c.redirect('/area/cheonan', 301))
+app.get('/area/cheonan/invisalign', (c) => c.redirect('/area/cheonan', 301))
+// ❌ 하이픈 형식은 /area/cheonan으로 자연스럽게 301 (의도는 같지만 메인 페이지가 핵심 허브)
+app.get('/area/cheonan-implant', (c) => c.redirect('/area/cheonan', 301))
+app.get('/area/cheonan-laminate', (c) => c.redirect('/area/cheonan', 301))
+app.get('/area/cheonan-invisalign', (c) => c.redirect('/area/cheonan', 301))
 
 // 3) 삭제된 페이지 → 301 리디렉트 (GSC 4xx 오류 해결)
 app.get('/bdx/', (c) => c.redirect('/', 301))
@@ -1554,10 +1570,6 @@ app.get('/bbs/notice', (c) => c.redirect('/notice/', 301))
 app.get('/bbs/*', (c) => c.redirect('/', 301))
 // /cheonan → /area/cheonan 301 리다이렉트 (천안치과 SEO 키워드 URL)
 app.get('/cheonan', (c) => c.redirect('/area/cheonan', 301))
-// /asan → /area/asan 301 리다이렉트 (아산치과 SEO 키워드 URL)
-app.get('/asan', (c) => c.redirect('/area/asan', 301))
-// /asan → /area/asan 301 리다이렉트 (아산치과 SEO 키워드 URL)
-app.get('/asan', (c) => c.redirect('/area/asan', 301))
 // /asan → /area/asan 301 리다이렉트 (아산치과 SEO 키워드 URL)
 app.get('/asan', (c) => c.redirect('/area/asan', 301))
 // /en/* → 영문 URL 잔재
