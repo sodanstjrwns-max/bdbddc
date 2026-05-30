@@ -1868,9 +1868,11 @@ app.get('/sitemap-columns.xml', async (c) => {
   </url>
 ${urls}
 </urlset>`
-  c.header('Content-Type', 'application/xml; charset=utf-8')
-  c.header('Cache-Control', 'public, max-age=3600')
-  return c.text(xml)
+  // c.text()는 Content-Type을 text/plain으로 강제 덮어쓰므로 c.body() 사용
+  return c.body(xml, 200, {
+    'Content-Type': 'application/xml; charset=utf-8',
+    'Cache-Control': 'public, max-age=3600'
+  })
 })
 
 // ============================================
@@ -1906,9 +1908,11 @@ app.get('/sitemap-cases.xml', async (c) => {
   </url>
 ${urls}
 </urlset>`
-  c.header('Content-Type', 'application/xml; charset=utf-8')
-  c.header('Cache-Control', 'public, max-age=3600')
-  return c.text(xml)
+  // c.text()는 Content-Type을 text/plain으로 강제 덮어쓰므로 c.body() 사용
+  return c.body(xml, 200, {
+    'Content-Type': 'application/xml; charset=utf-8',
+    'Cache-Control': 'public, max-age=3600'
+  })
 })
 
 // security.txt (GEO + Cloudflare 보안 권고)
