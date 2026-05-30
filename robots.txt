@@ -36,7 +36,7 @@ Allow: /
 Allow: /column/
 Allow: /cases/
 Allow: /encyclopedia/
-Crawl-delay: 1
+# Crawl-delay 미지정 — Google은 Crawl-delay를 무시하며, 명시 시 크롤 예산 오해 가능
 
 User-agent: Googlebot-Image
 Allow: /images/

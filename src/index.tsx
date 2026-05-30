@@ -2288,12 +2288,53 @@ app.use('/js/*', serveStatic())
 app.use('/images/*', serveStatic())
 app.use('/static/*', serveStatic())
 
+// ============================================
+// 동적 사이트맵 인덱스 — 동적 사이트맵(columns/cases)의 lastmod를 항상 당일로 반영
+// 정적 사이트맵(main/area/encyclopedia/intl)은 빌드 시점 날짜 유지
+// ============================================
+app.get('/sitemap.xml', (c) => {
+  const today = new Date().toISOString().split('T')[0]
+  const STATIC_LASTMOD = '2026-05-30' // 정적 사이트맵 최종 갱신일 (배포 시 갱신)
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 서울비디치과 사이트맵 인덱스 (https://bdbddc.com) — 동적 생성 -->
+  <sitemap>
+    <loc>https://bdbddc.com/sitemap-main.xml</loc>
+    <lastmod>${STATIC_LASTMOD}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://bdbddc.com/sitemap-area.xml</loc>
+    <lastmod>${STATIC_LASTMOD}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://bdbddc.com/sitemap-encyclopedia.xml</loc>
+    <lastmod>${STATIC_LASTMOD}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://bdbddc.com/sitemap-intl.xml</loc>
+    <lastmod>${STATIC_LASTMOD}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://bdbddc.com/sitemap-columns.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://bdbddc.com/sitemap-cases.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+</sitemapindex>`
+  return c.body(xml, 200, {
+    'Content-Type': 'application/xml; charset=utf-8',
+    'Cache-Control': 'public, max-age=3600'
+  })
+})
+
 // Other static files
 app.use('/manifest.json', serveStatic())
-app.use('/sitemap.xml', serveStatic())
 app.use('/sitemap-main.xml', serveStatic())
 app.use('/sitemap-area.xml', serveStatic())
 app.use('/sitemap-encyclopedia.xml', serveStatic())
+app.use('/sitemap-intl.xml', serveStatic())
 app.use('/robots.txt', serveStatic())
 app.use('/llms.txt', serveStatic())
 app.use('/llms-full.txt', serveStatic())
