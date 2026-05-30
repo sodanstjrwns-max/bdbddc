@@ -32,8 +32,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>예약 완료 | 서울비디치과</title>
-<meta name="description" content="서울비디치과 예약이 완료되었습니다. 담당자가 확인 후 빠른 시간 내에 연락드리겠습니다.">
+<title>예약 신청 접수 | 서울비디치과</title>
+<meta name="description" content="예약 신청이 접수되었습니다. 진료시간 내 신청은 1시간 이내, 진료 종료 후 신청은 다음 날 오전 가장 먼저 전화드립니다.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://bdbddc.com/reservation/thank-you">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
@@ -143,6 +143,51 @@ window.addEventListener('DOMContentLoaded', function() {
     document.getElementById('noDataNotice').style.display = 'block';
   }
 
+  // ★★★ 전화 약속 자동 판별 (Patient Funnel: 신청→전화대기 단계) ★★★
+  // 진료시간: 평일(월~금) 09:00~20:00 (점심 12:30~14:00) / 일요일 09:00~17:00 / 공휴일 09:00~13:00 / 365일 진료
+  // 신청한 "지금 시각"을 보고 환자에게 정확한 전화 약속을 함 (거짓 약속 방지 = 신뢰 유지)
+  (function renderCallPromise() {
+    var promiseEl = document.getElementById('callPromise');
+    if (!promiseEl) return;
+
+    var now = new Date();
+    var day = now.getDay();        // 0=일, 1~5=월~금, 6=토
+    var hour = now.getHours();
+    var min = now.getMinutes();
+    var t = hour * 60 + min;       // 분 단위
+
+    // 요일별 진료 시간대(분) 정의 — 토요일은 평일군에 준해 운영
+    var schedule;
+    if (day >= 1 && day <= 6) {          // 월~토
+      schedule = { open: 9 * 60, close: 20 * 60, lunchStart: 12 * 60 + 30, lunchEnd: 14 * 60 };
+    } else {                              // 일요일
+      schedule = { open: 9 * 60, close: 17 * 60, lunchStart: 12 * 60 + 30, lunchEnd: 14 * 60 };
+    }
+
+    var headline, sub, state;
+
+    if (t >= schedule.lunchStart && t < schedule.lunchEnd) {
+      // 점심시간 중 신청
+      state = 'lunch';
+      headline = '점심진료 후 <strong>1시간 이내</strong>에 전화드릴게요';
+      sub = '오후 2시 진료가 시작되면 가장 먼저 연락드리겠습니다.';
+    } else if (t >= schedule.open && t < schedule.close) {
+      // 진료시간 중 신청
+      state = 'open';
+      headline = '<strong>1시간 이내</strong>에 전화드릴게요';
+      sub = '지금 바로 담당자가 확인하고 있습니다. 잠시만 기다려 주세요.';
+    } else {
+      // 진료 종료 후 / 진료 시작 전 신청
+      state = 'closed';
+      headline = '내일 오전 진료가 시작되면<br><strong>가장 먼저</strong> 전화드릴게요';
+      sub = '편히 쉬고 계세요. 진료가 열리는 대로 1순위로 연락드리겠습니다.';
+    }
+
+    promiseEl.querySelector('.cp-headline').innerHTML = headline;
+    promiseEl.querySelector('.cp-sub').textContent = sub;
+    promiseEl.setAttribute('data-state', state);
+  })();
+
   // sessionStorage 정리 (새로고침 시 중복 전환 방지)
   sessionStorage.removeItem('bd_reservation');
 });
@@ -175,14 +220,26 @@ if ('requestIdleCallback' in window) {
 .ty-card{max-width:520px;width:100%;text-align:center;animation:tyFadeIn .6s ease}
 @keyframes tyFadeIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-/* Check Icon */
-.ty-icon{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);display:inline-flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 12px 40px rgba(16,185,129,.3);animation:tyPulse 2s ease infinite}
-@keyframes tyPulse{0%,100%{box-shadow:0 12px 40px rgba(16,185,129,.3)}50%{box-shadow:0 12px 56px rgba(16,185,129,.5)}}
-.ty-icon i{font-size:44px;color:#fff}
+/* Phone Icon (전화 대기 — 우리가 건다) */
+.ty-icon{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5A2B);display:inline-flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 12px 40px rgba(107,66,38,.32);animation:tyRing 2.2s ease infinite}
+@keyframes tyRing{0%,100%{box-shadow:0 12px 40px rgba(107,66,38,.3);transform:rotate(0)}10%{transform:rotate(-12deg)}20%{transform:rotate(10deg)}30%{transform:rotate(-8deg)}40%{transform:rotate(6deg)}50%{box-shadow:0 12px 56px rgba(107,66,38,.5);transform:rotate(0)}}
+.ty-icon i{font-size:42px;color:#fff}
 
 /* Title */
-.ty-title{font-size:clamp(1.4rem,4vw,1.8rem);font-weight:900;color:#1C1917;margin-bottom:8px;letter-spacing:-.02em}
-.ty-subtitle{font-size:1rem;color:#78716C;margin-bottom:32px;line-height:1.6}
+.ty-title{font-size:clamp(1.5rem,4.5vw,2rem);font-weight:900;color:#1C1917;margin-bottom:10px;letter-spacing:-.02em;line-height:1.3}
+.ty-title em{font-style:normal;color:#6B4226}
+.ty-subtitle{font-size:1rem;color:#78716C;margin-bottom:28px;line-height:1.6}
+.ty-subtitle strong{color:#1C1917}
+
+/* ★ Call Promise (핵심 약속) */
+.ty-promise{background:linear-gradient(135deg,#FFF7ED,#FFFBF5);border:1.5px solid #FBBF7E;border-radius:18px;padding:24px 22px;margin-bottom:24px;text-align:center;position:relative;overflow:hidden}
+.ty-promise[data-state="closed"]{background:linear-gradient(135deg,#F5F3FF,#FAFAFF);border-color:#C4B5FD}
+.cp-badge{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:800;color:#B45309;background:#FEF3C7;padding:5px 12px;border-radius:999px;margin-bottom:12px;letter-spacing:.01em}
+.ty-promise[data-state="closed"] .cp-badge{color:#6D28D9;background:#EDE9FE}
+.cp-headline{font-size:clamp(1.15rem,3.5vw,1.4rem);font-weight:800;color:#1C1917;line-height:1.4;margin-bottom:6px}
+.cp-headline strong{color:#B45309}
+.ty-promise[data-state="closed"] .cp-headline strong{color:#6D28D9}
+.cp-sub{font-size:.88rem;color:#78716C;line-height:1.5}
 
 /* Reservation Info Card */
 .ty-info{background:#FAFAF9;border:1px solid #E8E6E3;border-radius:16px;padding:24px;margin-bottom:24px;text-align:left}
@@ -200,12 +257,27 @@ if ('requestIdleCallback' in window) {
 .ty-notice i{margin-right:6px;color:#3B82F6}
 .ty-notice strong{color:#1E3A8A}
 
-/* Prepare Section */
-.ty-prepare{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:12px;padding:18px;margin-bottom:28px;text-align:left}
-.ty-prepare-title{font-size:.9rem;font-weight:800;color:#166534;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.ty-prepare-list{list-style:none;padding:0;margin:0}
-.ty-prepare-list li{padding:6px 0;font-size:.85rem;color:#15803D;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
-.ty-prepare-list li i{color:#22C55E;margin-top:3px;flex-shrink:0}
+/* Reassure Section (전화 받을 마음 준비 — 부담 제거) */
+.ty-reassure{background:#FFF1F2;border:1px solid #FECDD3;border-radius:12px;padding:18px;margin-bottom:16px;text-align:left}
+.ty-reassure-title{font-size:.9rem;font-weight:800;color:#9F1239;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.ty-reassure-title i{color:#F43F5E}
+.ty-reassure-list{list-style:none;padding:0;margin:0}
+.ty-reassure-list li{padding:6px 0;font-size:.85rem;color:#9F1239;display:flex;align-items:flex-start;gap:8px;line-height:1.55}
+.ty-reassure-list li i{color:#FB7185;margin-top:3px;flex-shrink:0}
+.ty-reassure-list strong{color:#881337}
+
+/* Hours Section (진료시간 — 실측값) */
+.ty-hours{background:#FAFAF9;border:1px solid #E8E6E3;border-radius:12px;padding:18px;margin-bottom:28px;text-align:left}
+.ty-hours-title{font-size:.9rem;font-weight:800;color:#44403C;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ty-hours-title i{color:#6B4226}
+.ty-hours-tag{font-size:.7rem;font-weight:800;color:#fff;background:linear-gradient(135deg,#6B4226,#8B5A2B);padding:3px 9px;border-radius:999px}
+.ty-hours-rows{display:flex;flex-direction:column;gap:7px}
+.ty-hours-row{display:flex;justify-content:space-between;font-size:.86rem;color:#57534E}
+.ty-hours-row strong{color:#1C1917;font-weight:700}
+.ty-hours-note{font-size:.78rem;color:#A8A29E;margin-top:6px;padding-top:8px;border-top:1px dashed #E8E6E3}
+
+/* Wide button */
+.ty-btn-wide{width:100%;justify-content:center}
 
 /* Action Buttons */
 .ty-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
@@ -214,8 +286,6 @@ if ('requestIdleCallback' in window) {
 .ty-btn-home:hover{background:#E5E7EB;transform:translateY(-1px)}
 .ty-btn-call{background:linear-gradient(135deg,#6B4226,#5A3720);color:#fff}
 .ty-btn-call:hover{box-shadow:0 4px 16px rgba(107,66,38,.3);transform:translateY(-1px)}
-.ty-btn-kakao{background:#FEE500;color:#3C1E1E}
-.ty-btn-kakao:hover{background:#FFD43B;transform:translateY(-1px)}
 
 /* Share */
 .ty-share{margin-top:16px;padding-top:20px;border-top:1px solid #E8E6E3}
@@ -256,50 +326,61 @@ if ('requestIdleCallback' in window) {
 <!-- ===== MAIN ===== -->
 <main class="ty-main">
   <div class="ty-card">
-    <!-- Check Icon -->
-    <div class="ty-icon"><i class="fas fa-check"></i></div>
+    <!-- Phone Icon (전화 대기 = 우리가 건다) -->
+    <div class="ty-icon"><i class="fas fa-phone-volume"></i></div>
 
-    <!-- Title -->
-    <h1 class="ty-title">예약 신청이 완료되었습니다!</h1>
-    <p class="ty-subtitle">담당자가 확인 후 <strong>빠른 시간 내에 연락</strong>드리겠습니다.</p>
+    <!-- Title : '완료'가 아니라 '접수 + 우리가 전화드린다' -->
+    <h1 class="ty-title">접수됐어요.<br>곧 <em>전화</em>드릴게요 📞</h1>
+    <p class="ty-subtitle">예약은 <strong>담당자와 통화 후 확정</strong>됩니다.<br>지금부터는 편히 기다려 주세요.</p>
 
     <!-- No data warning (직접 URL 접속 시) -->
     <div id="noDataNotice" class="ty-no-data">
       <i class="fas fa-exclamation-triangle"></i>
-      예약 정보를 불러올 수 없습니다. 예약이 정상 접수되었는지 확인하려면 전화(041-415-2892)로 문의해주세요.
+      신청 정보를 불러올 수 없습니다. 정상 접수되었는지 확인하려면 전화(041-415-2892)로 문의해주세요.
+    </div>
+
+    <!-- ★ 전화 약속 (자동 판별) — 이 페이지의 핵심 ★ -->
+    <div id="callPromise" class="ty-promise" data-state="open">
+      <div class="cp-badge"><i class="fas fa-headset"></i> 곧 연락드립니다</div>
+      <div class="cp-headline"><strong>1시간 이내</strong>에 전화드릴게요</div>
+      <div class="cp-sub">지금 바로 담당자가 확인하고 있습니다.</div>
     </div>
 
     <!-- Reservation Summary -->
     <div class="ty-info">
-      <div class="ty-info-row"><span class="label">예약번호</span><span class="value" id="rcId">—</span></div>
-      <div class="ty-info-row"><span class="label">진료항목</span><span class="value" id="rcTx">—</span></div>
+      <div class="ty-info-row"><span class="label">접수번호</span><span class="value" id="rcId">—</span></div>
+      <div class="ty-info-row"><span class="label">상담항목</span><span class="value" id="rcTx">—</span></div>
       <div class="ty-info-row"><span class="label">희망일시</span><span class="value" id="rcDate">—</span></div>
-      <div class="ty-info-row"><span class="label">예약자</span><span class="value" id="rcName">—</span></div>
+      <div class="ty-info-row"><span class="label">신청자</span><span class="value" id="rcName">—</span></div>
     </div>
 
-    <!-- Notice -->
-    <div class="ty-notice">
-      <i class="fas fa-info-circle"></i>
-      예약 확정 전 변경이 필요하시면 <strong>041-415-2892</strong>로 연락주세요.<br>
-      영업시간: 평일 09:00~19:00 / 토 09:00~15:00
-    </div>
-
-    <!-- 내원 전 안내 (Patient Funnel 8단계: 예약→내원 사전교육) -->
-    <div class="ty-prepare">
-      <div class="ty-prepare-title"><i class="fas fa-clipboard-check"></i> 내원 전 안내</div>
-      <ul class="ty-prepare-list">
-        <li><i class="fas fa-check-circle"></i> <strong>신분증</strong>(건강보험증)을 꼭 지참해주세요.</li>
-        <li><i class="fas fa-check-circle"></i> 복용 중인 <strong>약</strong>이 있다면 약 정보를 알려주세요.</li>
-        <li><i class="fas fa-check-circle"></i> 예약 시간 <strong>10분 전</strong>까지 도착해주시면 원활합니다.</li>
-        <li><i class="fas fa-check-circle"></i> 건물 내 <strong>전용 주차장</strong>이 있습니다.</li>
+    <!-- 전화 받을 마음의 준비 (부담 제거 = 통화 거부율 ↓) -->
+    <div class="ty-reassure">
+      <div class="ty-reassure-title"><i class="fas fa-heart"></i> 전화, 부담 갖지 마세요</div>
+      <ul class="ty-reassure-list">
+        <li><i class="fas fa-check-circle"></i> <strong>상담은 무료</strong>예요. 통화만으로 비용이 들지 않습니다.</li>
+        <li><i class="fas fa-check-circle"></i> 비용은 <strong>정확한 진단 후</strong> 정직하게 안내드려요. 강요 없습니다.</li>
+        <li><i class="fas fa-check-circle"></i> 궁금한 점·증상을 <strong>편하게 말씀</strong>해 주세요. 친절히 답해드릴게요.</li>
       </ul>
     </div>
 
-    <!-- Action Buttons -->
+    <!-- 진료시간 안내 (실측값으로 정정) -->
+    <div class="ty-hours">
+      <div class="ty-hours-title"><i class="fas fa-clock"></i> 진료시간 <span class="ty-hours-tag">365일 진료</span></div>
+      <div class="ty-hours-rows">
+        <div class="ty-hours-row"><span>평일 (월~토)</span><strong>09:00 ~ 20:00</strong></div>
+        <div class="ty-hours-row"><span>일요일</span><strong>09:00 ~ 17:00</strong></div>
+        <div class="ty-hours-row"><span>공휴일</span><strong>09:00 ~ 13:00</strong></div>
+        <div class="ty-hours-note">점심시간 12:30 ~ 14:00 · 평일 야간진료 20시까지</div>
+      </div>
+    </div>
+
+    <!-- Action : 전화 일원화 (카카오톡 제거) -->
+    <div class="ty-actions">
+      <a href="tel:041-415-2892" class="ty-btn ty-btn-call ty-btn-wide"><i class="fas fa-phone"></i> 급하시면 지금 바로 전화 (041-415-2892)</a>
+    </div>
     <div class="ty-actions">
       <a href="/" class="ty-btn ty-btn-home"><i class="fas fa-home"></i> 홈으로</a>
-      <a href="tel:041-415-2892" class="ty-btn ty-btn-call"><i class="fas fa-phone"></i> 전화 문의</a>
-      <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="ty-btn ty-btn-kakao"><i class="fas fa-comment"></i> 카카오톡</a>
     </div>
 
     <!-- Share text -->
@@ -316,11 +397,9 @@ if ('requestIdleCallback' in window) {
   </div>
 </footer>
 
-<!-- Floating CTA -->
+<!-- Floating CTA : 전화 대기 단계 — 전화 일원화 -->
 <div class="mobile-bottom-cta mobile-only" aria-label="빠른 연락">
-  <a href="tel:041-415-2892" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>
-  <a href="https://pf.kakao.com/_Cxivlxb" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>
-  <a href="/reservation" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>
+  <a href="tel:041-415-2892" class="mobile-cta-btn phone primary"><i class="fas fa-phone-alt"></i><span>지금 전화</span></a>
   <a href="/directions" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
 </div>
 
