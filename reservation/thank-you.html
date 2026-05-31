@@ -144,7 +144,7 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   // ★★★ 전화 약속 자동 판별 (Patient Funnel: 신청→전화대기 단계) ★★★
-  // 진료시간: 평일(월~금) 09:00~20:00 (점심 12:30~14:00) / 일요일 09:00~17:00 / 공휴일 09:00~13:00 / 365일 진료
+  // 진료시간: 평일(월~금) 09:00~20:00 (점심 12:30~14:00) / 토·일·공휴일 09:00~13:00 / 365일 진료
   // 신청한 "지금 시각"을 보고 환자에게 정확한 전화 약속을 함 (거짓 약속 방지 = 신뢰 유지)
   (function renderCallPromise() {
     var promiseEl = document.getElementById('callPromise');
@@ -156,12 +156,12 @@ window.addEventListener('DOMContentLoaded', function() {
     var min = now.getMinutes();
     var t = hour * 60 + min;       // 분 단위
 
-    // 요일별 진료 시간대(분) 정의 — 토요일은 평일군에 준해 운영
+    // 요일별 진료 시간대(분) 정의 — 평일(월~금)만 야간 20:00, 토·일·공휴일은 13:00
     var schedule;
-    if (day >= 1 && day <= 6) {          // 월~토
+    if (day >= 1 && day <= 5) {          // 월~금
       schedule = { open: 9 * 60, close: 20 * 60, lunchStart: 12 * 60 + 30, lunchEnd: 14 * 60 };
-    } else {                              // 일요일
-      schedule = { open: 9 * 60, close: 17 * 60, lunchStart: 12 * 60 + 30, lunchEnd: 14 * 60 };
+    } else {                              // 토요일·일요일 (공휴일 포함, 09:00~13:00 / 점심 없음)
+      schedule = { open: 9 * 60, close: 13 * 60, lunchStart: -1, lunchEnd: -1 };
     }
 
     var headline, sub, state;
@@ -367,10 +367,9 @@ if ('requestIdleCallback' in window) {
     <div class="ty-hours">
       <div class="ty-hours-title"><i class="fas fa-clock"></i> 진료시간 <span class="ty-hours-tag">365일 진료</span></div>
       <div class="ty-hours-rows">
-        <div class="ty-hours-row"><span>평일 (월~토)</span><strong>09:00 ~ 20:00</strong></div>
-        <div class="ty-hours-row"><span>일요일</span><strong>09:00 ~ 17:00</strong></div>
-        <div class="ty-hours-row"><span>공휴일</span><strong>09:00 ~ 13:00</strong></div>
-        <div class="ty-hours-note">점심시간 12:30 ~ 14:00 · 평일 야간진료 20시까지</div>
+        <div class="ty-hours-row"><span>평일 (월~금)</span><strong>09:00 ~ 20:00</strong></div>
+        <div class="ty-hours-row"><span>토·일·공휴일</span><strong>09:00 ~ 13:00</strong></div>
+        <div class="ty-hours-note">점심시간 12:30 ~ 14:00 · 평일 야간진료 20시까지 · 365일 진료</div>
       </div>
     </div>
 
