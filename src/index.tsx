@@ -2198,6 +2198,41 @@ form:has(input[placeholder="Email"]) { display: none !important; }
 
   html = html.replace('</head>', blogAEOMeta + blogSchema + inblogCustomCSS + '</head>')
 
+  // 6) [C] 치료 페이지 권위 회수 — 블로그 본문에 등장하는 치료 키워드를
+  //    해당 /treatments/ 페이지로 연결하는 "관련 진료" 박스를 본문 끝에 1회 주입.
+  //    (인블로그가 빨아먹던 키워드 권위를 치료 페이지로 PageRank 전달)
+  //    안전: 기존 본문 텍스트는 변경하지 않고, 등장한 키워드에 대해서만 박스를 추가.
+  const treatmentKeywordMap: Array<{ kw: string; href: string; label: string }> = [
+    { kw: '인비절라인', href: '/treatments/invisalign', label: '인비절라인(투명교정)' },
+    { kw: '치아교정', href: '/treatments/orthodontics', label: '치아교정' },
+    { kw: '라미네이트', href: '/treatments/glownate', label: '라미네이트(글로우네이트)' },
+    { kw: '임플란트', href: '/treatments/implant', label: '임플란트' },
+  ]
+  // 본문(스크립트/스타일 제외)에 키워드가 등장하는지 검사용으로 태그를 거칠게 제거한 텍스트
+  const bodyText = html
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+  const matched = treatmentKeywordMap.filter(t => bodyText.includes(t.kw))
+  if (matched.length > 0) {
+    const linksHtml = matched.map(t =>
+      `<a href="${t.href}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:#fff;border:1px solid #c9a96e;border-radius:50px;text-decoration:none;color:#6B4226;font-weight:600;font-size:0.9rem;"><i class="fas fa-stethoscope" style="font-size:0.8rem;"></i> ${t.label} 진료 보기</a>`
+    ).join('')
+    const relatedTreatmentBox = `
+<aside data-bd-related-treatment style="max-width:768px;margin:32px auto;padding:24px;background:#faf7f3;border:1px solid #e8d9c1;border-radius:16px;">
+<p style="font-size:0.9rem;color:#888;margin:0 0 12px;"><i class="fas fa-link" style="color:#c9a96e;margin-right:6px;"></i> 이 글에서 다룬 치료 — 서울비디치과 진료 안내</p>
+<div style="display:flex;flex-wrap:wrap;gap:10px;">${linksHtml}</div>
+</aside>`
+    // 본문 끝(</article> 우선, 없으면 <footer> 앞, 그것도 없으면 </body> 앞)에 1회 삽입
+    if (/<\/article>/i.test(html)) {
+      html = html.replace(/<\/article>/i, relatedTreatmentBox + '</article>')
+    } else if (/<footer/i.test(html)) {
+      html = html.replace(/<footer/i, relatedTreatmentBox + '<footer')
+    } else {
+      html = html.replace('</body>', relatedTreatmentBox + '</body>')
+    }
+  }
+
   return html
 }
 
