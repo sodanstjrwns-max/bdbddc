@@ -505,7 +505,7 @@ a { color:inherit; text-decoration:none; }
       <!-- 조회수 추이 차트 (7일) -->
       <div class="card">
         <div class="card-header">
-          <div class="card-title"><i class="fas fa-chart-area" style="color:var(--green)"></i> 조회수 추이 (최근 7일)</div>
+          <div class="card-title"><i class="fas fa-chart-area" style="color:var(--green)"></i> 조회수 추이 (최근 7일) <span style="font-size:.62rem;font-weight:500;color:var(--text-muted)">· 실제 방문, 봇 제외</span></div>
           <div class="card-action" id="viewsTrendSummary" style="font-size:.72rem;color:var(--text-muted)">로딩중...</div>
         </div>
         <div class="card-body" style="padding:12px 16px">
@@ -1301,12 +1301,17 @@ function renderViewsTrendChart(activity) {
     }
   });
 
-  // 요약
+  // 요약 (page_view_logs 기반 = 최근 7일 실제 발생 조회, 봇 제외)
   const sum = document.getElementById('viewsTrendSummary');
   if (sum) {
     const totalCase = caseValues.reduce((s,v) => s+v, 0);
     const totalCol = colValues.reduce((s,v) => s+v, 0);
-    sum.textContent = '7일간 B/A ' + totalCase + ' + 컬럼 ' + totalCol + ' = 총 ' + (totalCase+totalCol) + '회';
+    const grand = totalCase + totalCol;
+    if (grand === 0) {
+      sum.textContent = '최근 7일 발생 조회 없음 (추적 데이터 누적 중)';
+    } else {
+      sum.textContent = '최근 7일 발생: B/A ' + totalCase + ' + 컬럼 ' + totalCol + ' = 총 ' + grand + '회';
+    }
   }
 }
 

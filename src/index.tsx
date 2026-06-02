@@ -5575,18 +5575,26 @@ app.get('/api/admin/dashboard-stats', async (c) => {
       ).all()
       viewsTopColumns = topCols.results || []
 
-      // ⚠️ 아래 쿼리는 last_viewed_at 기반이라 부정확함.
-      // 누적 view_count를 마지막 본 시각으로 SUM 하므로 "최근 7일 진짜 조회수" ≠ 이 값.
-      // → 호환성을 위해 응답에는 남겨두되, 대시보드 UI에서는 사용하지 말 것.
-      // → 진짜 트래픽은 아래 realTraffic 블록 참조.
-      const recentViews = await db.prepare(`
-        SELECT page_type, DATE(last_viewed_at) as view_date, SUM(view_count) as total
-        FROM page_views
-        WHERE last_viewed_at >= datetime('now', '-7 days')
-        GROUP BY page_type, DATE(last_viewed_at)
-        ORDER BY view_date
-      `).all()
-      viewsRecentActivity = recentViews.results || []
+      // ✅ 진짜 "최근 7일 발생 조회수": page_view_logs의 실제 로그를 날짜별로 COUNT.
+      //    - is_bot = 0 (봇/크롤러 제외, 진짜 사람 트래픽만)
+      //    - viewed_at = 실제 조회가 발생한 시각 (조회 1건 = 1행)
+      //    - DATE(viewed_at)별 COUNT(*) = 그날 실제로 발생한 조회수
+      //    → 누적 view_count 합산이 아니라 "그 주에 진짜 일어난 조회"를 센다.
+      try {
+        const recentViews = await db.prepare(`
+          SELECT page_type, DATE(viewed_at) as view_date, COUNT(*) as total
+          FROM page_view_logs
+          WHERE is_bot = 0
+            AND viewed_at >= datetime('now', '-7 days')
+            AND page_type IN ('case', 'column')
+          GROUP BY page_type, DATE(viewed_at)
+          ORDER BY view_date
+        `).all()
+        viewsRecentActivity = recentViews.results || []
+      } catch {
+        // page_view_logs 마이그레이션 미적용 환경 대비: 빈 배열로 폴백
+        viewsRecentActivity = []
+      }
     }
   } catch { }
 
