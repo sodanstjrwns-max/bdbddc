@@ -5558,22 +5558,51 @@ app.get('/api/admin/dashboard-stats', async (c) => {
   let viewsRecentActivity: any[] = []
   try {
     if (db) {
+      // 전체 조회수 통계: 누적(page_views, 봇포함·역사전체) + 봇제외 실측(page_view_logs) 둘 다 제공
       const { results } = await db.prepare(
         `SELECT page_type, SUM(view_count) as total_views, COUNT(*) as page_count FROM page_views GROUP BY page_type`
       ).all()
       viewStats = results || []
+      // 봇 제외 실측 조회수(로그 추적 시작 이후)를 viewStats에 병합
+      try {
+        const human = await db.prepare(
+          `SELECT page_type, COUNT(*) as human_views FROM page_view_logs WHERE is_bot = 0 GROUP BY page_type`
+        ).all()
+        const humanMap: Record<string, number> = {}
+        for (const h of (human.results || []) as any[]) humanMap[h.page_type] = h.human_views
+        viewStats = (viewStats as any[]).map(v => ({ ...v, human_views: humanMap[v.page_type] ?? null }))
+      } catch { }
 
-      // TOP 10 B/A 조회수
-      const topCases = await db.prepare(
-        `SELECT page_id, view_count, last_viewed_at FROM page_views WHERE page_type = 'case' ORDER BY view_count DESC LIMIT 10`
-      ).all()
-      viewsTopCases = topCases.results || []
+      // TOP 10 B/A: 봇 제외 실제 사람 조회수 기준 (page_view_logs).
+      //   누적(page_views)은 봇이 포함돼 순위가 왜곡되므로 사용하지 않음.
+      //   조회수 컬럼명은 프론트 호환을 위해 view_count로 alias.
+      try {
+        const topCases = await db.prepare(`
+          SELECT page_id, COUNT(*) as view_count, MAX(viewed_at) as last_viewed_at
+          FROM page_view_logs
+          WHERE page_type = 'case' AND is_bot = 0
+          GROUP BY page_id ORDER BY view_count DESC LIMIT 10
+        `).all()
+        viewsTopCases = topCases.results || []
 
-      // TOP 10 컬럼 조회수
-      const topCols = await db.prepare(
-        `SELECT page_id, view_count, last_viewed_at FROM page_views WHERE page_type = 'column' ORDER BY view_count DESC LIMIT 10`
-      ).all()
-      viewsTopColumns = topCols.results || []
+        const topCols = await db.prepare(`
+          SELECT page_id, COUNT(*) as view_count, MAX(viewed_at) as last_viewed_at
+          FROM page_view_logs
+          WHERE page_type = 'column' AND is_bot = 0
+          GROUP BY page_id ORDER BY view_count DESC LIMIT 10
+        `).all()
+        viewsTopColumns = topCols.results || []
+      } catch {
+        // page_view_logs 미적용 환경: 누적 기준으로 폴백
+        const topCases = await db.prepare(
+          `SELECT page_id, view_count, last_viewed_at FROM page_views WHERE page_type = 'case' ORDER BY view_count DESC LIMIT 10`
+        ).all()
+        viewsTopCases = topCases.results || []
+        const topCols = await db.prepare(
+          `SELECT page_id, view_count, last_viewed_at FROM page_views WHERE page_type = 'column' ORDER BY view_count DESC LIMIT 10`
+        ).all()
+        viewsTopColumns = topCols.results || []
+      }
 
       // ✅ 진짜 "최근 7일 발생 조회수": page_view_logs의 실제 로그를 날짜별로 COUNT.
       //    - is_bot = 0 (봇/크롤러 제외, 진짜 사람 트래픽만)

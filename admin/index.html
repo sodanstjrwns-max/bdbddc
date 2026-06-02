@@ -516,7 +516,7 @@ a { color:inherit; text-decoration:none; }
       <!-- TOP 콘텐츠 -->
       <div class="card">
         <div class="card-header">
-          <div class="card-title"><i class="fas fa-trophy" style="color:var(--orange)"></i> 조회수 TOP 5</div>
+          <div class="card-title"><i class="fas fa-trophy" style="color:var(--orange)"></i> 조회수 TOP 5 <span style="font-size:.62rem;font-weight:500;color:var(--text-muted)">· 봇 제외 실측</span></div>
           <div style="display:flex;gap:8px">
             <button id="btnTopCases" onclick="showTopTab('case')" style="padding:4px 12px;border-radius:6px;font-size:.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--blue-bg);color:var(--blue);font-family:inherit">B/A</button>
             <button id="btnTopColumns" onclick="showTopTab('column')" style="padding:4px 12px;border-radius:6px;font-size:.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:inherit">컬럼</button>
@@ -1025,12 +1025,22 @@ function renderViewsStats(viewStats, topCases, topColumns) {
   setText('vsTotalViews', totalViews.toLocaleString());
   setText('vsAvgViews', avgViews.toLocaleString());
 
+  // 봇 제외 실측(page_view_logs 기반, 추적 시작 이후) 병기용 헬퍼
+  const humanCase = caseStats.human_views;
+  const humanCol  = colStats.human_views;
+  const humanTotal = (humanCase != null || humanCol != null)
+    ? (humanCase||0) + (humanCol||0) + (noticeStats.human_views||0)
+    : null;
+  const humanTag = (n) => (n != null)
+    ? ' <span style="color:var(--green)">· 봇제외 ' + n.toLocaleString() + '</span>'
+    : '';
+
   const cs = document.getElementById('vsCaseSub');
-  if (cs) cs.innerHTML = '<i class="fas fa-file-image"></i> ' + (caseStats.page_count||0) + '개 페이지';
+  if (cs) cs.innerHTML = '<i class="fas fa-file-image"></i> ' + (caseStats.page_count||0) + '개 페이지' + humanTag(humanCase);
   const cls = document.getElementById('vsColumnSub');
-  if (cls) cls.innerHTML = '<i class="fas fa-pen-nib"></i> ' + (colStats.page_count||0) + '개 컬럼';
+  if (cls) cls.innerHTML = '<i class="fas fa-pen-nib"></i> ' + (colStats.page_count||0) + '개 컬럼' + humanTag(humanCol);
   const ts = document.getElementById('vsTotalSub');
-  if (ts) ts.innerHTML = '<i class="fas fa-chart-bar"></i> 총 ' + totalPages + '개 콘텐츠';
+  if (ts) ts.innerHTML = '<i class="fas fa-chart-bar"></i> 총 ' + totalPages + '개 콘텐츠' + humanTag(humanTotal);
   const as = document.getElementById('vsAvgSub');
   if (as) {
     const topItem = topCases[0];
