@@ -295,9 +295,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 {
   "@context": "https://schema.org",
   "@type": "MedicalWebPage",
+  "@id": "https://bdbddc.com/treatments/implant#medicalwebpage",
+  "url": "https://bdbddc.com/treatments/implant",
   "name": "서울비디치과 임플란트",
   "about": {
     "@type": "MedicalProcedure",
+    "@id": "https://bdbddc.com/treatments/implant#procedure",
     "name": "임플란트",
     "alternateName": "Dental Implant",
     "procedureType": "http://schema.org/SurgicalProcedure",
@@ -341,14 +344,23 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
+  "@type": "MedicalWebPage",
+  "@id": "https://bdbddc.com/treatments/implant#webpage",
+  "url": "https://bdbddc.com/treatments/implant",
+  "name": "천안 임플란트 | 서울비디치과",
+  "about": { "@id": "https://bdbddc.com/treatments/implant#procedure" },
   "speakable": {
     "@type": "SpeakableSpecification",
     "cssSelector": [
       "h1",
+      ".hero-desc",
       ".section-subtitle",
-      ".hero-desc"
+      ".faq-answer"
     ]
+  },
+  "mainContentOfPage": {
+    "@type": "WebPageElement",
+    "cssSelector": "main"
   }
 }
 </script>

@@ -295,9 +295,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 {
   "@context": "https://schema.org",
   "@type": "MedicalWebPage",
+  "@id": "https://bdbddc.com/treatments/invisalign#medicalwebpage",
+  "url": "https://bdbddc.com/treatments/invisalign",
   "name": "서울비디치과 인비절라인 치아교정",
   "about": {
     "@type": "MedicalProcedure",
+    "@id": "https://bdbddc.com/treatments/invisalign#procedure",
     "name": "인비절라인 치아교정",
     "alternateName": "Invisalign Clear Aligner",
     "procedureType": "http://schema.org/TherapeuticProcedure",
@@ -341,14 +344,24 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
+  "@type": "MedicalWebPage",
+  "@id": "https://bdbddc.com/treatments/invisalign#webpage",
+  "url": "https://bdbddc.com/treatments/invisalign",
+  "name": "천안 인비절라인 | 서울비디치과",
+  "about": { "@id": "https://bdbddc.com/treatments/invisalign#procedure" },
   "speakable": {
     "@type": "SpeakableSpecification",
     "cssSelector": [
       "h1",
+      ".hero-desc",
       ".section-subtitle",
-      ".hero-desc"
+      ".type-price",
+      ".faq-answer"
     ]
+  },
+  "mainContentOfPage": {
+    "@type": "WebPageElement",
+    "cssSelector": "main"
   }
 }
 </script>
