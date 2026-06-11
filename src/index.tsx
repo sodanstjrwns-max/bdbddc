@@ -4063,6 +4063,50 @@ function interlinkText(text: string, currentTerm: string, allItems: typeof encIt
   return result
 }
 
+// ============================================
+// 제로클릭 거인 키워드 — CTR 최적화 타이틀/메타 오버라이드
+// (GSC 2026.3~6 데이터 기반: 노출 수천 회인데 클릭이 거의 없는 용어들)
+// 원칙: 용어를 타이틀 맨 앞에 유지(순위 보존) + 답변·숫자·가치 추가(클릭 유발)
+// ============================================
+const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
+  '치아 번호': {
+    title: '치아 번호 읽는 법 — 11~48번 FDI 치식 한눈에 정리 (사랑니=8번) | 서울비디치과',
+    desc: '치아 번호(치식)는 FDI 2자리 체계: 첫째 자리는 상하좌우 사분면(1~4), 둘째 자리는 앞니부터 1~8번. 예) #26=왼쪽 위 첫 큰어금니, #48=오른쪽 아래 사랑니. 유치는 51~85번. 진료기록·견적서 읽는 법을 서울대 출신 전문의가 쉽게 정리했습니다.'
+  },
+  '치아 번호 체계': {
+    title: '치아 번호 체계 총정리 — FDI vs 유니버설 표기법 차이, 치식 읽기 | 서울비디치과',
+    desc: '치아 번호 체계는 한국 표준 FDI(2자리)와 미국식 유니버설(1~32번)이 있습니다. #11은 오른쪽 위 앞니, #36은 왼쪽 아래 첫 큰어금니. 내 진료기록의 숫자가 어떤 치아인지 바로 확인하세요.'
+  },
+  '틀니': {
+    title: '틀니 영어로 Denture(덴처) — 완전·부분틀니 차이, 65세 건강보험 적용 | 서울비디치과',
+    desc: '틀니는 영어로 Denture(덴처)입니다. 완전틀니·부분틀니 차이, 만 65세 이상 건강보험 적용(본인부담 30%), 적응 기간과 관리법까지 한 페이지에 정리. 천안 서울비디치과 보철 전문의 감수.'
+  },
+  '석션': {
+    title: '석션(Suction) 뜻 — 치과에서 침 빨아들이는 기구, 원리·종류 | 서울비디치과',
+    desc: '치과 석션은 진료 중 물과 타액을 흡입하는 장비입니다. 치료 중 입에 넣는 이유, 일반 석션과 고압 석션의 차이, 감염관리와의 관계까지 쉽게 설명해 드립니다.'
+  },
+  '소구치': {
+    title: '소구치(작은어금니) 위치 — 4번·5번 치아, 교정 발치와의 관계 | 서울비디치과',
+    desc: '소구치는 송곳니 뒤 4번·5번 치아(작은어금니)로 위아래 총 8개입니다. 음식을 부수는 역할을 하며 교정 시 발치 대상으로 자주 언급됩니다. 대구치와의 차이, 위치 그림으로 정리.'
+  },
+  '대구치': {
+    title: '대구치(큰어금니) 위치 — 6번·7번 치아, 사랑니(8번)와의 차이 | 서울비디치과',
+    desc: '대구치는 치열 맨 뒤 6번·7번 치아(큰어금니)로 음식을 분쇄하는 핵심 치아입니다. 제1대구치는 만 6세에 나오는 평생 치아 — 충치가 가장 잘 생기는 위치와 관리법까지 정리.'
+  },
+  '법랑질': {
+    title: '법랑질(에나멜)이란? 몸에서 가장 단단하지만 재생 안 되는 조직 | 서울비디치과',
+    desc: '법랑질은 치아 겉면을 덮는 인체에서 가장 단단한 조직이지만, 한번 손상되면 재생되지 않습니다. 시린 증상과의 관계, 법랑질을 지키는 양치법, 손상 시 치료까지 전문의가 정리했습니다.'
+  },
+  '치관': {
+    title: '치관이란? 잇몸 위로 보이는 치아 머리 — 크라운 치료와의 관계 | 서울비디치과',
+    desc: '치관은 잇몸 위로 드러난 치아의 머리 부분입니다. 치관이 크게 손상되면 크라운(씌우기)으로 보호합니다. 치근(뿌리)과의 구분, 치관 파절 시 대처법까지 쉽게 설명합니다.'
+  },
+  '치근': {
+    title: '치근(치아 뿌리)이란? 잇몸 아래 숨은 부분 — 치근 노출·흡수 증상 | 서울비디치과',
+    desc: '치근은 잇몸뼈 속에 박혀 치아를 지탱하는 뿌리입니다. 잇몸이 내려가 치근이 노출되면 시림이 시작됩니다. 치근 흡수·치근단 염증 등 관련 질환과 치료법까지 정리했습니다.'
+  },
+}
+
 app.get('/encyclopedia/:term', (c) => {
   const termParam = decodeURIComponent(c.req.param('term'))
   
@@ -4090,7 +4134,14 @@ app.get('/encyclopedia/:term', (c) => {
 <p style="font-size:1.05rem;font-weight:700;color:#333;margin:0;">${term} 진료 상세 보기</p>
 </div>
 <a href="${item.link}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.9rem;white-space:nowrap;"><i class="fas fa-arrow-right"></i> 진료 안내 바로가기</a>
-</div>` : ''
+</div>` : `
+<div style="background:#fff;border:2px solid #c9a96e;border-radius:16px;padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+<div>
+<p style="font-size:0.85rem;color:#888;margin:0 0 4px;"><i class="fas fa-clipboard-check" style="color:#c9a96e;margin-right:4px;"></i> 내 증상이 궁금하다면</p>
+<p style="font-size:1.05rem;font-weight:700;color:#333;margin:0;">증상 선택하면 맞춤 치료와 실제 케이스를 보여드립니다</p>
+</div>
+<a href="/symptom-checker" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.9rem;white-space:nowrap;"><i class="fas fa-stethoscope"></i> 증상 체커 해보기</a>
+</div>`
 
   // 가이드 페이지 연결 링크 (더 자세한 정보 단계)
   // item.guide 필드가 있으면 우선 사용, 없으면 link로부터 자동 추론
@@ -4143,6 +4194,11 @@ app.get('/encyclopedia/:term', (c) => {
   // === 본문 인터링킹 ===
   const linkedDetail = interlinkText(item.detail, term, encItems)
 
+  // === CTR 최적화 타이틀/메타 (제로클릭 거인 키워드 오버라이드) ===
+  const seoOverride = ENC_SEO_OVERRIDES[term]
+  const pageTitle = seoOverride ? seoOverride.title : `${term} | 치과 백과사전 — 서울비디치과`
+  const pageDesc = seoOverride ? seoOverride.desc : `${term}이란? ${item.short} — 서울비디치과 치과 백과사전. 서울대 출신 전문의가 감수한 정확한 치과 정보.`
+
   // === 같은 카테고리 관련 용어 (최대 8개) ===
   const relatedItems = encItems.filter(i => i.category === item!.category && i.id !== item!.id).slice(0, 8)
   const relatedHtml = relatedItems.map(r => {
@@ -4174,22 +4230,22 @@ app.get('/encyclopedia/:term', (c) => {
 ${TRACKING_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>${term} | 치과 백과사전 — 서울비디치과</title>
-<meta name="description" content="${term}이란? ${item.short} — 서울비디치과 치과 백과사전. 서울대 출신 전문의가 감수한 정확한 치과 정보.">
+<title>${pageTitle}</title>
+<meta name="description" content="${pageDesc}">
 <meta name="keywords" content="${term}, ${item.category}, 치과 용어, 서울비디치과, ${(item.synonyms || []).join(', ')}">
 <meta name="author" content="서울비디치과">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="${canonicalUrl}">
-<meta property="og:title" content="${term} | 치과 백과사전 — 서울비디치과">
-<meta property="og:description" content="${term}이란? ${item.short}">
+<meta property="og:title" content="${pageTitle}">
+<meta property="og:description" content="${pageDesc}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="${canonicalUrl}">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="서울비디치과">
 <meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${term} | 치과 백과사전 — 서울비디치과">
-<meta name="twitter:description" content="${term}이란? ${item.short}">
+<meta name="twitter:title" content="${pageTitle}">
+<meta name="twitter:description" content="${pageDesc}">
 <meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg">
 <meta name="subject" content="${term}, ${item.category}, 치과 용어, 서울비디치과">
 <meta name="abstract" content="${term}이란? ${item.short} — 서울비디치과 치과 백과사전.">
