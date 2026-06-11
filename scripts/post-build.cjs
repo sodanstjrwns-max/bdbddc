@@ -1,41 +1,50 @@
 const fs = require('fs');
+const path = require('path');
 const cp = require('child_process');
 
-// 1. Copy static files to dist
-const staticFiles = [
-  'index.html','pricing.html','reservation.html','directions.html',
-  'faq.html','floor-guide.html','privacy.html','terms.html',
-  '404.html','mission.html','checkup.html','manifest.json',
-  'sitemap.xml','sitemap-main.xml','sitemap-area.xml','sitemap-encyclopedia.xml','sitemap-intl.xml',
-  'robots.txt','6f74445f7ec14eccb522a4d3f253128c.txt','bdbddc2026indexnow.txt',
-  'blueprint.html','llms.txt','llms-full.txt',
-  'flight.html','games.html','run.html','careers.html','symptom-checker.html','_redirects',
-  'sw.js','_headers'
-];
-staticFiles.forEach(f => {
-  try { fs.copyFileSync(f, 'dist/' + f); } catch(e) {}
-});
+// ============================================================
+// 자동 탐색 방식 post-build
+// - 루트의 배포 대상 파일/디렉토리를 자동으로 찾아 dist로 복사
+// - "새 파일 만들었는데 목록에 안 넣어서 배포 누락" 사고 원천 차단
+// ============================================================
 
-// 2. Copy directories to dist
-const dirs = [
-  'css','js','images','treatments','doctors','column','blog','guide',
-  'video','cases','notice','auth','admin','area','faq','encyclopedia',
-  'jp','cn','en','vi','th','ru','reservation'
-];
-dirs.forEach(d => {
-  try { cp.execSync('mkdir -p dist/' + d + ' && cp -rT ' + d + ' dist/' + d); } catch(e) {}
-});
-cp.execSync('mkdir -p dist/data && cp -rT public/data dist/data');
-// Copy public/images (glownate etc.) to dist/images, merging with existing
-try { cp.execSync('cp -r public/images/* dist/images/ 2>/dev/null || true'); } catch(e) {}
-// Copy public/videos to dist/videos (compressed clinic videos)
-try { cp.execSync('mkdir -p dist/videos && cp -rT public/videos dist/videos'); } catch(e) {}
-// Copy public/report to dist/report
-try { cp.execSync('mkdir -p dist/report && cp -rT public/report dist/report'); } catch(e) {}
+// 배포에서 제외할 루트 항목 (이외는 전부 자동 복사)
+const EXCLUDE = new Set([
+  'node_modules', 'dist', 'src', 'scripts', 'migrations', 'docs', 'public',
+  '.git', '.wrangler', '.dev.vars', '.gitignore', '.cloudflare-token',
+  'package.json', 'package-lock.json', 'tsconfig.json', 'vite.config.ts',
+  'wrangler.jsonc', 'ecosystem.config.cjs', 'README.md',
+]);
 
-// 3. Patch _routes.json
-// Include /* to ensure ALL requests go through Worker (needed for seoulbddc.com → bdbddc.com redirect)
-// Static assets for bdbddc.com are excluded so they're served directly without Worker overhead
+// 배포 대상 파일 확장자 (루트 파일 중)
+const FILE_ALLOW = /\.(html|txt|xml|json|js)$|^_redirects$|^_headers$/;
+
+let copiedFiles = 0, copiedDirs = 0;
+for (const entry of fs.readdirSync('.', { withFileTypes: true })) {
+  const name = entry.name;
+  if (EXCLUDE.has(name) || name.startsWith('.')) continue;
+
+  if (entry.isFile()) {
+    if (!FILE_ALLOW.test(name)) continue;
+    fs.copyFileSync(name, path.join('dist', name));
+    copiedFiles++;
+  } else if (entry.isDirectory()) {
+    cp.execSync(`mkdir -p dist/${name} && cp -rT ${name} dist/${name}`);
+    copiedDirs++;
+  }
+}
+
+// public/ 하위는 dist 루트로 병합 (vite publicDir 미사용 항목 포함 안전망)
+for (const sub of ['data', 'images', 'videos', 'report', 'js', 'static']) {
+  const src = path.join('public', sub);
+  if (fs.existsSync(src)) {
+    cp.execSync(`mkdir -p dist/${sub} && cp -r ${src}/. dist/${sub}/`);
+  }
+}
+
+// _routes.json 패치
+// include /* : 모든 요청이 Worker 경유 (seoulbddc.com → bdbddc.com 리디렉트 필요)
+// 정적 자산은 exclude로 Worker 오버헤드 없이 직접 서빙
 const routes = {
   version: 1,
   include: ['/*'],
@@ -50,12 +59,10 @@ const routes = {
 };
 fs.writeFileSync('dist/_routes.json', JSON.stringify(routes, null, 2));
 
-// 4. Create static redirect pages for GSC 404 fix
+// GSC 404 수정용 정적 리다이렉트 페이지
 cp.execSync('mkdir -p dist/tables/treatments/treatments');
-
 const redirectHtml = (url) => `<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${url}"><link rel="canonical" href="https://bdbddc.com${url}"></head><body>Redirecting...</body></html>`;
-
 fs.writeFileSync('dist/tables/treatments/treatments/gum.html', redirectHtml('/pricing'));
 fs.writeFileSync('dist/tables/treatments/implant.html', redirectHtml('/pricing'));
 
-console.log('Static files synced to dist + _routes.json patched');
+console.log(`post-build done: ${copiedFiles} files + ${copiedDirs} dirs auto-copied, _routes.json patched`);
