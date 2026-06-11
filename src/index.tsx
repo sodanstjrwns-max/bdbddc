@@ -4644,6 +4644,7 @@ app.get('/guide/wisdom-tooth', serveStatic({ path: './guide/wisdom-tooth.html' }
 app.get('/guide/denture', serveStatic({ path: './guide/denture.html' }))
 app.get('/guide/root-canal', serveStatic({ path: './guide/root-canal.html' }))
 app.get('/guide/orthodontics', serveStatic({ path: './guide/orthodontics.html' }))
+app.get('/guide/insurance', serveStatic({ path: './guide/insurance.html' }))
 // .html 확장자 접근은 301로 클린 URL로 강제
 app.get('/guide/index.html', (c) => c.redirect('/guide/', 301))
 app.get('/guide/implant.html', (c) => c.redirect('/guide/implant', 301))
@@ -4655,6 +4656,7 @@ app.get('/guide/wisdom-tooth.html', (c) => c.redirect('/guide/wisdom-tooth', 301
 app.get('/guide/denture.html', (c) => c.redirect('/guide/denture', 301))
 app.get('/guide/root-canal.html', (c) => c.redirect('/guide/root-canal', 301))
 app.get('/guide/orthodontics.html', (c) => c.redirect('/guide/orthodontics', 301))
+app.get('/guide/insurance.html', (c) => c.redirect('/guide/insurance', 301))
 
 // Root level HTML files with .html extension → handled by 301 redirects above
 
