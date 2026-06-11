@@ -12,7 +12,7 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.2
+## Current Version: v5.3
 
 ### Completed Features
 
@@ -147,3 +147,23 @@ curl http://localhost:3000/api/health
 - [ ] 예약 시스템 연동
 - [ ] Lighthouse 성능/접근성 점수 측정
 - [ ] 일반 치료 페이지 재설계 (cavity, crown 등)
+
+## v5.3 (2026-06-11)
+### Hero 벡터 리디자인
+- Spline 3D iframe 제거 → 인라인 SVG 치아 일러스트 (~6KB, 외부 의존 0)
+  - 웃는 어금니 + 14인 협진 궤도 도트(40s 공전) + 체크 배지 + "환자분들의 좋은 경험에 집중합니다" 라벨
+  - 치아 외곽 드로잉 → 도트 순차 등장 → 배지 팝 시퀀스, prefers-reduced-motion 대응
+- 헤드라인 "안하셔도 됩니다"에 손글씨 밑줄 SVG 애니메이션 (2겹 스트로크, 순수 CSS)
+
+### 보안 강화
+- 관리자 비밀번호/세션 시크릿 하드코딩 fallback 전면 제거 (fail-closed)
+  - 프로덕션: wrangler pages secret (ADMIN_PASSWORD, ADMIN_SESSION_SECRET)
+  - 로컬: .dev.vars
+- Rate limiting을 in-memory Map → D1 기반으로 교체 (Workers isolate 간 공유 카운터)
+  - 챗봇: 1분 10건 + 1시간 60건 / 채용 지원: 5분 3건
+  - migrations/0007_rate_limits.sql
+
+### 빌드/정리
+- post-build.cjs: 수동 목록 → 자동 탐색 방식 (신규 파일 배포 누락 방지)
+- 미사용 의존성 제거 (playwright, docx), 중복 gallery JS/백업 JSON 정리
+- wrangler.jsonc name을 seoul-bd-dental로 통일
