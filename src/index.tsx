@@ -4648,6 +4648,13 @@ app.get('/guide/root-canal', serveStatic({ path: './guide/root-canal.html' }))
 app.get('/guide/orthodontics', serveStatic({ path: './guide/orthodontics.html' }))
 app.get('/guide/insurance', serveStatic({ path: './guide/insurance.html' }))
 app.get('/guide/regret', serveStatic({ path: './guide/regret.html' }))
+// 후회 백서 진료별 세부 페이지 (SEO/AEO 스포크: "<진료명> 후회", "<진료명> 부작용")
+const REGRET_SLUGS = ['implant', 'orthodontics', 'invisalign', 'laminate', 'whitening', 'wisdom-tooth', 'root-canal', 'crown', 'denture', 'scaling', 'cavity', 'gum']
+for (const slug of REGRET_SLUGS) {
+  app.get(`/guide/regret/${slug}`, serveStatic({ path: `./guide/regret/${slug}.html` }))
+  app.get(`/guide/regret/${slug}.html`, (c) => c.redirect(`/guide/regret/${slug}`, 301))
+}
+app.get('/guide/regret/', (c) => c.redirect('/guide/regret', 301))
 // .html 확장자 접근은 301로 클린 URL로 강제
 app.get('/guide/index.html', (c) => c.redirect('/guide/', 301))
 app.get('/guide/implant.html', (c) => c.redirect('/guide/implant', 301))
