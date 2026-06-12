@@ -128,6 +128,7 @@
             '<li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>' +
             '<li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>' +
             '<li><a href="/column/"><i class="fas fa-pen-nib"></i> 원장 컬럼</a></li>' +
+            '<li><a href="/guide/regret"><i class="fas fa-heart-crack"></i> 후회 백서</a></li>' +
             '</ul></li>' +
             // 안내
             '<li class="nav-item has-dropdown"><a href="/directions">안내</a>' +
@@ -188,6 +189,7 @@
             '<li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>' +
             '<li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>' +
             '<li><a href="/column/"><i class="fas fa-pen-nib"></i> 원장 컬럼</a></li>' +
+            '<li><a href="/guide/regret"><i class="fas fa-heart-crack"></i> 후회 백서</a></li>' +
             '</ul></li>' +
             // 안내
             '<li class="mobile-nav-item has-submenu">' +
