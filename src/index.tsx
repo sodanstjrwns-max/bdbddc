@@ -2019,6 +2019,7 @@ function ssrHeader(): string {
 <li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>
 <li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>
 <li><a href="/column/"><i class="fas fa-pen-nib"></i> 원장 컬럼</a></li>
+<li><a href="/guide/regret"><i class="fas fa-heart-crack"></i> 후회 백서</a></li>
 </ul></li>
 <li class="nav-item has-dropdown"><a href="/directions">안내</a>
 <ul class="simple-dropdown">
@@ -2103,6 +2104,7 @@ function ssrMobileNav(): string {
 <li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>
 <li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 치과 백과사전</a></li>
 <li><a href="/column/"><i class="fas fa-pen-nib"></i> 원장 컬럼</a></li>
+<li><a href="/guide/regret"><i class="fas fa-heart-crack"></i> 후회 백서</a></li>
 </ul>
 </li>
 <li class="mobile-nav-item has-submenu">
@@ -4645,6 +4647,7 @@ app.get('/guide/denture', serveStatic({ path: './guide/denture.html' }))
 app.get('/guide/root-canal', serveStatic({ path: './guide/root-canal.html' }))
 app.get('/guide/orthodontics', serveStatic({ path: './guide/orthodontics.html' }))
 app.get('/guide/insurance', serveStatic({ path: './guide/insurance.html' }))
+app.get('/guide/regret', serveStatic({ path: './guide/regret.html' }))
 // .html 확장자 접근은 301로 클린 URL로 강제
 app.get('/guide/index.html', (c) => c.redirect('/guide/', 301))
 app.get('/guide/implant.html', (c) => c.redirect('/guide/implant', 301))
@@ -4657,6 +4660,7 @@ app.get('/guide/denture.html', (c) => c.redirect('/guide/denture', 301))
 app.get('/guide/root-canal.html', (c) => c.redirect('/guide/root-canal', 301))
 app.get('/guide/orthodontics.html', (c) => c.redirect('/guide/orthodontics', 301))
 app.get('/guide/insurance.html', (c) => c.redirect('/guide/insurance', 301))
+app.get('/guide/regret.html', (c) => c.redirect('/guide/regret', 301))
 
 // Root level HTML files with .html extension → handled by 301 redirects above
 
