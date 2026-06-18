@@ -90,7 +90,7 @@ const TRACKING_BODY = `<!-- Google Tag Manager (noscript) -->
 // 관리자 인증 시스템 (비밀번호 + 쿠키 세션)
 // ============================================
 const ADMIN_SESSION_COOKIE = 'bd_admin_session'
-const SESSION_MAX_AGE = 60 * 60 * 24 // 24시간
+const SESSION_MAX_AGE = 60 * 60 * 24 * 7 // 7일 (컬럼 장시간 작성 중 세션 만료 방지)
 
 // ▶ 보안: 시크릿은 반드시 환경변수에서만 가져온다 (하드코딩 fallback 금지)
 // 미설정 시 빈 문자열 반환 → 모든 인증이 거부됨 (fail-closed)

@@ -1061,12 +1061,95 @@ function openModal(col) {
   // Quill을 활성 상태로 시작
   if (quill && !quill.isEnabled()) quill.enable();
 
+  // 미저장 백업 복구 제안 (새 글 작성 시에만 — 수정 모드에선 건너뜀)
+  if (!col) {
+    var backup = getLocalBackup();
+    if (backup && backup.savedAt) {
+      var mins = Math.round((Date.now() - backup.savedAt) / 60000);
+      var when = mins < 1 ? '방금 전' : (mins + '분 전');
+      if (confirm('저장되지 않은 작성 내용이 있습니다 (' + when + ' 백업).\n복구하시겠습니까?\n\n[확인] 복구  /  [취소] 새 글로 시작')) {
+        applyBackup(backup);
+      } else {
+        clearLocalBackup();
+      }
+    }
+  }
+
+  // 입력 자동 백업 연결
+  ['colTitle','colSlug','colDoctor','colCategory','colThumb','metaTitle','metaDesc','focusKeyword'].forEach(function(idn){
+    var el = document.getElementById(idn);
+    if (el && !el._backupBound) { el.addEventListener('input', scheduleLocalBackup); el.addEventListener('change', scheduleLocalBackup); el._backupBound = true; }
+  });
+  if (quill && !quill._backupBound) { quill.on('text-change', scheduleLocalBackup); quill._backupBound = true; }
+
   // Trigger initial SEO analysis
   setTimeout(updateSEO, 200);
 }
 
 function closeModal() {
   document.getElementById('colModal').classList.remove('open');
+}
+
+// ===== 로컬 자동 백업 (세션 만료/에러로 작성 내용 날아가는 사고 방지) =====
+var LOCAL_BACKUP_KEY = 'bd_column_draft_backup';
+var _backupTimer = null;
+
+function saveLocalBackup() {
+  try {
+    if (!document.getElementById('colModal').classList.contains('open')) return;
+    var data = {
+      id: document.getElementById('colId').value,
+      slug: document.getElementById('colSlug').value,
+      title: document.getElementById('colTitle').value,
+      doctorName: document.getElementById('colDoctor').value,
+      category: document.getElementById('colCategory').value,
+      content: quill ? quill.root.innerHTML : '',
+      thumbnailImage: document.getElementById('colThumb').value,
+      metaTitle: document.getElementById('metaTitle').value,
+      metaDescription: document.getElementById('metaDesc').value,
+      focusKeyword: document.getElementById('focusKeyword').value,
+      savedAt: Date.now()
+    };
+    // 빈 내용은 백업하지 않음
+    if (!data.title && (!data.content || data.content === '<p><br></p>')) return;
+    localStorage.setItem(LOCAL_BACKUP_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+function scheduleLocalBackup() {
+  if (_backupTimer) clearTimeout(_backupTimer);
+  _backupTimer = setTimeout(saveLocalBackup, 1500);
+}
+
+function clearLocalBackup() {
+  try { localStorage.removeItem(LOCAL_BACKUP_KEY); } catch(e) {}
+}
+
+function getLocalBackup() {
+  try {
+    var raw = localStorage.getItem(LOCAL_BACKUP_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+function applyBackup(b) {
+  document.getElementById('colId').value = b.id || '';
+  document.getElementById('colSlug').value = b.slug || '';
+  document.getElementById('colTitle').value = b.title || '';
+  document.getElementById('colDoctor').value = b.doctorName || '';
+  document.getElementById('colCategory').value = b.category || '';
+  document.getElementById('colThumb').value = b.thumbnailImage || '';
+  document.getElementById('metaTitle').value = b.metaTitle || '';
+  document.getElementById('metaDesc').value = b.metaDescription || '';
+  document.getElementById('focusKeyword').value = b.focusKeyword || '';
+  if (quill) quill.root.innerHTML = b.content || '';
+  if (b.thumbnailImage) {
+    var tb = document.getElementById('thumbBox');
+    tb.classList.add('has-image');
+    tb.innerHTML = '<input type="file" id="thumbFile" accept="image/*" onchange="uploadThumb(this)"><img src="' + b.thumbnailImage + '" alt="대표 이미지"><button type="button" class="remove-btn" onclick="event.stopPropagation();removeThumb()"><i class="fas fa-times"></i></button>';
+  }
+  validateSlug();
+  setTimeout(updateSEO, 200);
 }
 
 function editColumn(id) {
@@ -1097,13 +1180,31 @@ async function saveColumn(statusOverride) {
   };
   if (id) body.id = id;
 
+  const saveBtn = document.getElementById('saveBtn');
+  const draftBtn = document.getElementById('draftBtn');
+  if (saveBtn) saveBtn.disabled = true;
+  if (draftBtn) draftBtn.disabled = true;
   try {
     const res = await fetch('/api/admin/columns', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) });
-    if (!res.ok) throw new Error('저장 실패');
+    if (res.status === 401) {
+      showToast('로그인이 만료되었습니다. 새 탭에서 다시 로그인 후 저장해주세요 (작성 내용은 유지됩니다)', true);
+      return;
+    }
+    if (!res.ok) {
+      const errData = await res.json().catch(function() { return {}; });
+      throw new Error(errData.error || ('저장 실패 (HTTP ' + res.status + ')'));
+    }
     showToast(status === 'draft' ? '임시저장 완료' : (id ? '컬럼이 수정되었습니다' : '새 컬럼이 게시되었습니다'));
+    clearLocalBackup();
     closeModal();
     await loadColumns();
-  } catch(e) { showToast('저장 중 오류가 발생했습니다', true); }
+  } catch(e) {
+    showToast('저장 실패: ' + (e.message || '알 수 없는 오류'), true);
+    console.error('[컬럼 저장 실패]', e);
+  } finally {
+    if (saveBtn) saveBtn.disabled = false;
+    if (draftBtn) draftBtn.disabled = false;
+  }
 }
 
 async function deleteColumn(id) {
