@@ -3183,7 +3183,7 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 �
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js" defer></script>
+<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
 </body>
 </html>`)
 })
@@ -3583,7 +3583,7 @@ ${relatedTreatmentsHtml}
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js" defer></script>
+<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
 <script>
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'column',page_id:'${id}'})}).catch(function(){});
 </script>
@@ -3856,7 +3856,7 @@ ${caseRelatedTreatmentsHtml}
 </div>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js" defer></script>
+<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
 <script>
 // 조회수 기록
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'case',page_id:'${id}'})}).catch(function(){});
@@ -4393,7 +4393,7 @@ ${nextItem ? `<a href="/encyclopedia/${encodeURIComponent(nextItem.term)}" style
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js" defer></script>
+<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
 </body>
 </html>`
 
@@ -4606,7 +4606,7 @@ ${otherCats}
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js" defer></script>
+<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
 </body>
 </html>`
 
@@ -5331,8 +5331,8 @@ const BD_SYSTEM_PROMPT = `당신은 서울비디치과의 AI 상담사 "비디"�
 
 ## 진료시간
 - 평일 (월~금): 09:00 ~ 20:00 (야간진료)
-- 토요일: 09:00 ~ 17:00
-- 일요일: 09:00 ~ 17:00
+- 토요일: 09:00 ~ 13:00
+- 일요일: 09:00 ~ 13:00
 - 공휴일: 09:00 ~ 13:00
 - 점심시간 (평일): 12:30 ~ 14:00
 - ⭐ 365일 진료 (일요일, 공휴일 포함)

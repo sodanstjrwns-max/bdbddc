@@ -23,10 +23,9 @@
         let statusText = '';
         let closeTime = '';
 
-        // 진료시간 체크
-        // 평일: 09:00-20:00 (점심 12:30-14:00)
-        // 토/일: 09:00-17:00 (점심시간 없음)
-        // 공휴일: 09:00-13:00 (점심시간 없음)
+        // 진료시간 체크 (2026 개정)
+        // 평일(월~금): 09:00-20:00 (점심 12:30-14:00)
+        // 토/일/공휴일: 09:00-13:00 (점심시간 없음)
 
         const openTime = 9 * 60; // 09:00
         
@@ -51,20 +50,22 @@
             } else {
                 isOpen = false;
                 statusText = '진료종료';
+                // 금요일 저녁 종료 시 → 토요일 09:00
                 closeTime = '내일 09:00';
             }
         } else {
-            // 주말 (점심시간 없음)
-            const closeTimeMin = 17 * 60; // 17:00
+            // 주말/공휴일 (점심시간 없음, 09:00-13:00)
+            const closeTimeMin = 13 * 60; // 13:00
             
             if (currentTime >= openTime && currentTime < closeTimeMin) {
                 isOpen = true;
                 statusText = '진료중';
-                closeTime = '17:00까지';
+                closeTime = '13:00까지';
             } else {
                 isOpen = false;
                 statusText = '진료종료';
-                closeTime = day === 0 ? '내일 09:00' : '월요일 09:00';
+                // 토요일 종료 → 내일(일) 09:00 / 일요일 종료 → 월요일 09:00
+                closeTime = day === 6 ? '내일 09:00' : '월요일 09:00';
             }
         }
 
