@@ -4126,6 +4126,19 @@ app.get('/encyclopedia/:term', (c) => {
   const encodedTerm = encodeURIComponent(term)
   const canonicalUrl = `https://bdbddc.com/encyclopedia/${encodedTerm}`
   const synonymsText = item.synonyms && item.synonyms.length ? item.synonyms.join(', ') : ''
+
+  // ★ 정보성 vs 진료성 항목 분기: 정보검색러(치아번호·치식 등)는 부드러운 브릿지 CTA로 전환
+  //   AI 인용 폭발 키워드(치아번호 102회)는 순수 정보성이라 "무료상담" 직격은 비약 → 검진으로 자연 연결
+  const infoOnlyCategories = ['치아 구조', '전문 용어', '구강 해부', '발음·교합']
+  const isInfoTerm = infoOnlyCategories.includes(item.category)
+  const ctaHeadline = isInfoTerm
+    ? `${term}, 이제 아셨죠? 그럼 내 치아는 어떤 상태일까요?`
+    : '이 글이 도움이 되셨나요?'
+  const ctaSubtext = isInfoTerm
+    ? `용어를 아는 것보다 중요한 건 <strong style="color:#6B4226;">내 치아의 실제 상태</strong>입니다.<br>서울대 출신 전문의가 <strong style="color:#6B4226;">무료 정밀 검진</strong>으로 직접 확인해드립니다.`
+    : `${term}, 검색만으로는 내 경우가 맞는지 알기 어렵습니다.<br>서울대 출신 전문의가 <strong style="color:#6B4226;">무료로</strong> 내 상태를 직접 봐드립니다.`
+  const ctaButtonLabel = isInfoTerm ? '내 치아 무료 검진받기' : '무료 상담받기'
+  const ctaEventLabel = isInfoTerm ? 'encyclopedia_info_bridge' : 'encyclopedia_helpful'
   const tagsHtml = (item.tags || []).map(t => `<span style="display:inline-block;font-size:0.8rem;padding:4px 12px;border-radius:50px;background:#f5f0eb;color:#6B4226;margin:0 4px 4px 0;">#${t}</span>`).join('')
   
   // 진료 페이지 연결 링크 (상담 단계)
@@ -4322,13 +4335,13 @@ ${synonymsText ? `<p style="font-size:0.9rem;color:#888;margin-bottom:8px;"><i c
 ${tagsHtml ? `<div style="margin-bottom:32px;">${tagsHtml}</div>` : ''}
 
 <!-- ★ 정보검색러 → 환자 전환 길목: 글을 막 읽은 가장 뜨거운 순간 -->
-<div class="enc-helpful-cta" data-term="${term}" style="background:linear-gradient(135deg,#fdf9f4,#f7efe4);border:1px solid #e8d9c1;border-radius:18px;padding:26px 24px;margin:8px 0 28px;text-align:center;">
-<div style="font-size:1.5rem;margin-bottom:6px;">🦷</div>
-<p style="font-size:1.12rem;font-weight:700;color:#3a2d22;margin:0 0 6px;">이 글이 도움이 되셨나요?</p>
-<p style="font-size:0.92rem;color:#7a6a58;line-height:1.7;margin:0 0 18px;">${term}, 검색만으로는 내 경우가 맞는지 알기 어렵습니다.<br>서울대 출신 전문의가 <strong style="color:#6B4226;">무료로</strong> 내 상태를 직접 봐드립니다.</p>
+<div class="enc-helpful-cta" data-term="${term}" data-cta-type="${isInfoTerm ? 'info-bridge' : 'helpful'}" style="background:linear-gradient(135deg,#fdf9f4,#f7efe4);border:1px solid #e8d9c1;border-radius:18px;padding:26px 24px;margin:8px 0 28px;text-align:center;">
+<div style="font-size:1.5rem;margin-bottom:6px;">${isInfoTerm ? '🔍' : '🦷'}</div>
+<p style="font-size:1.12rem;font-weight:700;color:#3a2d22;margin:0 0 6px;">${ctaHeadline}</p>
+<p style="font-size:0.92rem;color:#7a6a58;line-height:1.7;margin:0 0 18px;">${ctaSubtext}</p>
 <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-<a href="/reservation" onclick="if(window.bdAnalytics)bdAnalytics.trackReservation('encyclopedia_helpful')" style="display:inline-flex;align-items:center;gap:7px;padding:13px 26px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.97rem;box-shadow:0 4px 14px rgba(107,66,38,0.28);"><i class="fas fa-comments"></i> 무료 상담받기</a>
-<a href="tel:041-415-2892" onclick="if(window.bdAnalytics)bdAnalytics.trackPhoneCall('encyclopedia_helpful')" style="display:inline-flex;align-items:center;gap:7px;padding:13px 24px;background:#fff;color:#6B4226;border:2px solid #6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;"><i class="fas fa-phone"></i> 전화 문의</a>
+<a href="/reservation" onclick="if(window.bdAnalytics)bdAnalytics.trackReservation('${ctaEventLabel}')" style="display:inline-flex;align-items:center;gap:7px;padding:13px 26px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.97rem;box-shadow:0 4px 14px rgba(107,66,38,0.28);"><i class="fas fa-${isInfoTerm ? 'tooth' : 'comments'}"></i> ${ctaButtonLabel}</a>
+<a href="tel:041-415-2892" onclick="if(window.bdAnalytics)bdAnalytics.trackPhoneCall('${ctaEventLabel}')" style="display:inline-flex;align-items:center;gap:7px;padding:13px 24px;background:#fff;color:#6B4226;border:2px solid #6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;"><i class="fas fa-phone"></i> 전화 문의</a>
 </div>
 <p style="font-size:0.78rem;color:#a8997f;margin:16px 0 0;"><i class="fas fa-clock" style="margin-right:4px;"></i> 365일 진료 · 당일 상담 가능</p>
 </div>
