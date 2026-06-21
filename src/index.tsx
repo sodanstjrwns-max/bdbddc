@@ -4321,6 +4321,18 @@ ${synonymsText ? `<p style="font-size:0.9rem;color:#888;margin-bottom:8px;"><i c
 
 ${tagsHtml ? `<div style="margin-bottom:32px;">${tagsHtml}</div>` : ''}
 
+<!-- ★ 정보검색러 → 환자 전환 길목: 글을 막 읽은 가장 뜨거운 순간 -->
+<div class="enc-helpful-cta" data-term="${term}" style="background:linear-gradient(135deg,#fdf9f4,#f7efe4);border:1px solid #e8d9c1;border-radius:18px;padding:26px 24px;margin:8px 0 28px;text-align:center;">
+<div style="font-size:1.5rem;margin-bottom:6px;">🦷</div>
+<p style="font-size:1.12rem;font-weight:700;color:#3a2d22;margin:0 0 6px;">이 글이 도움이 되셨나요?</p>
+<p style="font-size:0.92rem;color:#7a6a58;line-height:1.7;margin:0 0 18px;">${term}, 검색만으로는 내 경우가 맞는지 알기 어렵습니다.<br>서울대 출신 전문의가 <strong style="color:#6B4226;">무료로</strong> 내 상태를 직접 봐드립니다.</p>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+<a href="/reservation" onclick="if(window.bdAnalytics)bdAnalytics.trackReservation('encyclopedia_helpful')" style="display:inline-flex;align-items:center;gap:7px;padding:13px 26px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.97rem;box-shadow:0 4px 14px rgba(107,66,38,0.28);"><i class="fas fa-comments"></i> 무료 상담받기</a>
+<a href="tel:041-415-2892" onclick="if(window.bdAnalytics)bdAnalytics.trackPhoneCall('encyclopedia_helpful')" style="display:inline-flex;align-items:center;gap:7px;padding:13px 24px;background:#fff;color:#6B4226;border:2px solid #6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;"><i class="fas fa-phone"></i> 전화 문의</a>
+</div>
+<p style="font-size:0.78rem;color:#a8997f;margin:16px 0 0;"><i class="fas fa-clock" style="margin-right:4px;"></i> 365일 진료 · 당일 상담 가능</p>
+</div>
+
 ${treatmentLinkHtml}
 ${guideLinkHtml}
 

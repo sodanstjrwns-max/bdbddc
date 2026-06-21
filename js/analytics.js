@@ -256,6 +256,7 @@
   else if (path.startsWith('/faq')) pageType = 'faq';
   else if (path.startsWith('/blog') || path.startsWith('/column') || path.startsWith('/video') || path.startsWith('/cases')) pageType = 'content';
   else if (path.startsWith('/encyclopedia')) pageType = 'encyclopedia';
+  else if (path.startsWith('/guide')) pageType = 'guide';
   else if (path.includes('reservation')) pageType = 'reservation';
   else if (path.includes('pricing')) pageType = 'pricing';
   else if (path.includes('directions')) pageType = 'directions';
@@ -583,6 +584,33 @@
       amplitude.track('Scroll Depth', { depth: depth, page_type: pageType, page_path: path });
       // 최대 스크롤 기록
       window._bdMaxScroll = Math.max(window._bdMaxScroll || 0, depth);
+
+      // ★ 마이크로 전환: 정보 콘텐츠(백과사전/가이드/블로그)를 75% 이상 읽음
+      //   = "정보검색러가 끝까지 읽은 환자 후보" → 어느 글이 진짜 리드를 만드는지 측정
+      var isContentPage = (pageType === 'encyclopedia' || pageType === 'guide' || pageType === 'content');
+      if (depth >= 75 && isContentPage && !window._bdReadComplete) {
+        window._bdReadComplete = true;
+        if (typeof gtag === 'function') {
+          gtag('event', 'content_read_complete', {
+            event_category: 'micro_conversion',
+            page_type: pageType,
+            content_title: (document.title || '').split('|')[0].trim(),
+            page_path: path,
+            treatment_name: treatmentName || ''
+          });
+        }
+        amplitude.track('Content Read Complete', {
+          page_type: pageType,
+          content_title: (document.title || '').split('|')[0].trim(),
+          page_path: path,
+          channel: refInfo.channel
+        });
+        safeIdentify(function(uid) {
+          uid.add('content_reads_complete', 1);
+          uid.set('last_content_read', path);
+          uid.set('is_engaged_reader', true);
+        });
+      }
     },
 
     // 지도/길찾기 클릭
