@@ -29,6 +29,54 @@
     return map[ch] || ch;
   }
 
+  // ===== HTML 새니타이저 =====
+  // 백과사전 detail/short에는 의도된 서식(h3, ul, table, a, strong 등)이 들어있다.
+  // 신뢰된 자체 데이터이지만, 안전을 위해 위험 요소(script/iframe/on* 이벤트/javascript:)만 제거하고
+  // 허용 태그는 그대로 렌더링한다.
+  function sanitizeHtml(html) {
+    if (!html) return '';
+    if (html.indexOf('<') === -1) return html; // 평문이면 그대로
+    const tpl = document.createElement('template');
+    tpl.innerHTML = html;
+    const walker = document.createTreeWalker(tpl.content, NodeFilter.SHOW_ELEMENT, null);
+    const toRemove = [];
+    let node = walker.nextNode();
+    while (node) {
+      const tag = node.tagName.toLowerCase();
+      // 위험 태그 통째로 제거
+      if (tag === 'script' || tag === 'iframe' || tag === 'object' ||
+          tag === 'embed' || tag === 'style' || tag === 'link' || tag === 'meta') {
+        toRemove.push(node);
+      } else {
+        // 위험 속성 제거 (on* 핸들러, javascript: URL)
+        Array.prototype.slice.call(node.attributes).forEach(function (attr) {
+          const an = attr.name.toLowerCase();
+          const av = (attr.value || '').toLowerCase().replace(/\s/g, '');
+          if (an.indexOf('on') === 0 ||
+              ((an === 'href' || an === 'src') && av.indexOf('javascript:') === 0)) {
+            node.removeAttribute(attr.name);
+          }
+        });
+        // 외부 링크는 새 탭 안전 처리
+        if (tag === 'a' && node.getAttribute('href') && /^https?:\/\//i.test(node.getAttribute('href'))) {
+          node.setAttribute('rel', 'noopener noreferrer');
+        }
+      }
+      node = walker.nextNode();
+    }
+    toRemove.forEach(function (n) { n.parentNode && n.parentNode.removeChild(n); });
+    return tpl.innerHTML;
+  }
+
+  // 카드 미리보기용: 태그 제거 후 평문만 (검색 하이라이트 안전성 위해)
+  function stripTags(html) {
+    if (!html) return '';
+    if (html.indexOf('<') === -1) return html;
+    const tpl = document.createElement('template');
+    tpl.innerHTML = html;
+    return (tpl.content.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
   // ===== 필터링 =====
   function getFilteredItems() {
     return allItems.filter(item => {
@@ -86,7 +134,7 @@
           </div>
         </div>
         <span class="enc-card-category">${item.category}</span>
-        <div class="enc-card-short">${highlightMatch(item.short)}</div>
+        <div class="enc-card-short">${highlightMatch(stripTags(item.short))}</div>
         <span class="enc-card-arrow"><i class="fas fa-chevron-right"></i></span>
       </article>
     `).join('');
@@ -200,8 +248,8 @@
     document.getElementById('modalSynonyms').textContent =
       item.synonyms && item.synonyms.length ? `동의어: ${item.synonyms.join(', ')}` : '';
     document.getElementById('modalCategory').textContent = item.category;
-    document.getElementById('modalShort').textContent = item.short;
-    document.getElementById('modalDetail').textContent = item.detail;
+    document.getElementById('modalShort').innerHTML = sanitizeHtml(item.short);
+    document.getElementById('modalDetail').innerHTML = sanitizeHtml(item.detail);
 
     const tagsEl = document.getElementById('modalTags');
     tagsEl.innerHTML = (item.tags || []).map(t => `<span class="enc-modal-tag">#${t}</span>`).join('');
@@ -241,7 +289,7 @@
       'name': `${item.term}이란 무엇인가요?`,
       'acceptedAnswer': {
         '@type': 'Answer',
-        'text': `${item.short} ${item.detail}`
+        'text': `${stripTags(item.short)} ${stripTags(item.detail)}`.slice(0, 1000)
       }
     }));
 
