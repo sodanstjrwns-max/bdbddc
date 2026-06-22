@@ -4181,6 +4181,12 @@ app.get('/encyclopedia/:term', (c) => {
   const prevItem = currentIdx > 0 ? encItems[currentIdx - 1] : null
   const nextItem = currentIdx < encItems.length - 1 ? encItems[currentIdx + 1] : null
 
+  // === JSON-LD/메타용 텍스트 정제: HTML 태그 제거 + 공백 정리 (구조화 데이터 파싱 오류 방지) ===
+  const plainText = (s: string) => String(s || '')
+    .replace(/<[^>]+>/g, '')        // <strong> 등 HTML 태그 제거
+    .replace(/\s+/g, ' ')            // 줄바꿈·연속 공백 → 단일 공백
+    .trim()
+
   // === 카테고리별 맞춤 FAQ 생성 ===
   const faqGenerator = categoryFaqTemplates[item.category] || categoryFaqTemplates['전문 용어']
   const dynamicFaqs = faqGenerator(term, item.short, item.detail)
@@ -4204,7 +4210,7 @@ app.get('/encyclopedia/:term', (c) => {
 </div>
 </div>`).join('')
 
-  const faqSchemaEntities = allFaqs.map(faq => `{"@type":"Question","name":${JSON.stringify(faq.q)},"acceptedAnswer":{"@type":"Answer","text":${JSON.stringify(faq.a)}}}`).join(',')
+  const faqSchemaEntities = allFaqs.map(faq => `{"@type":"Question","name":${JSON.stringify(plainText(faq.q))},"acceptedAnswer":{"@type":"Answer","text":${JSON.stringify(plainText(faq.a))}}}`).join(',')
 
   // === 본문 인터링킹 ===
   const linkedDetail = interlinkText(item.detail, term, encItems)
@@ -4264,7 +4270,7 @@ ${TRACKING_HEAD}
 <meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg">
 <meta name="subject" content="${term}, ${item.category}, 치과 용어, 서울비디치과">
 <meta name="abstract" content="${term}이란? ${item.short} — 서울비디치과 치과 백과사전.">
-<meta name="ai-summary" content="${term}이란? ${item.short} ${item.detail.slice(0, 200)}">
+<meta name="ai-summary" content="${term}이란? ${plainText(item.short + ' ' + item.detail).slice(0, 200)}">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#6B4226">
@@ -4278,7 +4284,7 @@ ${TRACKING_HEAD}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"치과 백과사전","item":"https://bdbddc.com/encyclopedia/"},{"@type":"ListItem","position":3,"name":"${item.category}","item":"https://bdbddc.com/encyclopedia/category/${encodeURIComponent(item.category)}"},{"@type":"ListItem","position":4,"name":"${term}","item":"${canonicalUrl}"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"DefinedTerm","name":"${term}","description":"${item.short} ${item.detail}","inDefinedTermSet":{"@type":"DefinedTermSet","name":"서울비디치과 치과 백과사전","url":"https://bdbddc.com/encyclopedia/"},"url":"${canonicalUrl}"}
+{"@context":"https://schema.org","@type":"DefinedTerm","name":${JSON.stringify(plainText(term))},"description":${JSON.stringify(plainText(item.short + ' ' + item.detail))},"inDefinedTermSet":{"@type":"DefinedTermSet","name":"서울비디치과 치과 백과사전","url":"https://bdbddc.com/encyclopedia/"},"url":"${canonicalUrl}"}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[${faqSchemaEntities}]}
