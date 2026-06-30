@@ -4110,7 +4110,14 @@ const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
 }
 
 app.get('/encyclopedia/:term', (c) => {
-  const termParam = decodeURIComponent(c.req.param('term'))
+  // ▶ 방어: 잘리거나 깨진 퍼센트 인코딩(예: %ED%84%B1%EA%B4%8)이 들어오면
+  //   decodeURIComponent가 URIError를 던져 500(5xx)이 된다 → try-catch로 흡수해 백과 메인으로 보냄
+  let termParam: string
+  try {
+    termParam = decodeURIComponent(c.req.param('term'))
+  } catch {
+    return c.redirect('/encyclopedia/', 301)
+  }
   
   // 용어 찾기 (정확 매치 → 동의어 매치)
   let item = encItems.find(i => i.term === termParam)
@@ -4633,6 +4640,12 @@ ${ssrMobileNav()}
   return c.html(catHtml)
 })
 
+// ▶ 슬래시 포함 옛 백과 URL(예: /encyclopedia/CAD/CAM, /방사선 투과상/불투과상,
+//   /근심면/원심면, /협측/설측)은 대응 콘텐츠가 없고 5xx/404를 유발.
+//   category 라우트보다 뒤에 두어 충돌을 피하고, 나머지 2-depth는 백과 메인으로 301.
+app.get('/encyclopedia/:term/:sub', (c) => c.redirect('/encyclopedia/', 301))
+app.get('/encyclopedia/:term/:sub/*', (c) => c.redirect('/encyclopedia/', 301))
+
 // Area directory (지역 페이지)
 app.use('/area/*', serveStatic())
 
@@ -4699,6 +4712,54 @@ app.get('/guide/root-canal.html', (c) => c.redirect('/guide/root-canal', 301))
 app.get('/guide/orthodontics.html', (c) => c.redirect('/guide/orthodontics', 301))
 app.get('/guide/insurance.html', (c) => c.redirect('/guide/insurance', 301))
 app.get('/guide/regret.html', (c) => c.redirect('/guide/regret', 301))
+
+// ============================================
+// /guide/* 스마트 catch-all 301 (GSC 404 해결)
+// ── 백과사전 자동 인터링킹이 가리키던 미존재 가이드 경로(약 98종)를
+//    가장 관련 있는 "실제 존재하는" 가이드/진료 페이지로 영구 이전한다.
+//    실제 존재하는 /guide/* 정적 라우트는 위에서 이미 처리되므로
+//    여기까지 도달하는 건 "정의되지 않은" 경로뿐이다.
+// ============================================
+const EXISTING_GUIDES = new Set([
+  'implant', 'invisalign', 'laminate', 'scaling', 'whitening',
+  'wisdom-tooth', 'denture', 'root-canal', 'orthodontics', 'insurance', 'regret',
+])
+
+function mapDeadGuideSlug(slug: string): string {
+  const s = decodeURIComponent(slug).toLowerCase().replace(/\/$/, '')
+  // 이미 존재하는 가이드면 그대로 (안전망)
+  if (EXISTING_GUIDES.has(s)) return `/guide/${s}`
+
+  // 키워드 기반 매핑 (구체적 → 일반 순서)
+  const has = (...kw: string[]) => kw.some((k) => s.includes(k))
+
+  if (has('implant', 'gbr', 'bone-graft', 'sinus', 'digital-implant', 'all-on')) return '/guide/implant'
+  if (has('ortho', 'aligner', 'invisalign', 'elastics', 'orthognathic', 'midline', 'spacing', 'diastema')) return '/guide/invisalign'
+  if (has('laminate', 'glownate', 'veneer', 'aesthetic', 'smile', 'gummy')) return '/guide/laminate'
+  if (has('whiten', 'bleach')) return '/guide/whitening'
+  if (has('scaling', 'periodontal', 'gum', 'gingiv', 'pocket', 'root-coverage', 'srp', 'maintenance')) return '/guide/scaling'
+  if (has('wisdom', 'extraction', 'extrusion', 'intrusion', 'luxation', 'trauma', 'replantation', 'surgical')) return '/guide/wisdom-tooth'
+  if (has('denture', 'prosthet', 'crown', 'pfm', 'zirconia', 'bridge')) return '/guide/denture'
+  if (has('root-canal', 'endo', 'pulp', 'perforation', 'file-separation', 'microscope', 'apico')) return '/guide/root-canal'
+  if (has('tmj', 'disc', 'headache', 'botox', 'masseter')) return '/guide/regret'
+  if (has('insurance', 'cost', 'checkup', 'national', 'caries-risk', 'saliva')) return '/guide/insurance'
+  if (has('pediatric', 'child', 'baby', 'primary-tooth', 'sealant', 'sedation', 'thumb')) return '/treatments/pediatric'
+  if (has('cancer', 'leukoplakia', 'erythroplakia', 'selfexam', 'oral-medicine')) return '/treatments/oral-medicine'
+  if (has('cavity', 'tooth-anatomy', 'infection-control', 'hygiene', 'regular', 'preventive', 'prevention')) return '/treatments/prevention'
+
+  // 매칭 실패 → 가이드 허브
+  return '/guide/'
+}
+
+app.get('/guide/:slug', (c) => {
+  const slug = c.req.param('slug')
+  return c.redirect(mapDeadGuideSlug(slug), 301)
+})
+// 슬래시로 끝나거나 한 단계 더 깊은 죽은 경로도 흡수
+app.get('/guide/:slug/*', (c) => {
+  const slug = c.req.param('slug')
+  return c.redirect(mapDeadGuideSlug(slug), 301)
+})
 
 // Root level HTML files with .html extension → handled by 301 redirects above
 
