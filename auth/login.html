@@ -224,7 +224,7 @@ body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;backgr
             <span class="remember-box"><i class="fas fa-check"></i></span>
             <span>로그인 유지</span>
           </label>
-          <a href="javascript:void(0)" class="forgot-link" onclick="showForgot()">비밀번호 찾기</a>
+          <a href="/auth/reset-password" class="forgot-link">비밀번호 찾기</a>
         </div>
 
         <button type="submit" class="btn btn-brand" id="loginBtn">
@@ -286,10 +286,13 @@ function togglePw(){
   }catch(e){}
 })();
 
-// 비밀번호 찾기
-function showForgot(){
-  alert('비밀번호 찾기 기능은 준비 중입니다.\n병원으로 문의해주세요.\n\n전화: 041-415-2892');
-}
+// 비밀번호 재설정 완료 후 복귀 안내
+(function(){
+  if(new URLSearchParams(location.search).get('reset')==='success'){
+    var msg=document.getElementById('successMsg')||document.querySelector('.msg');
+    if(msg){msg.textContent='비밀번호가 변경되었습니다. 새 비밀번호로 로그인해주세요.';msg.className='msg success';}
+  }
+})();
 
 // 로그인 처리
 document.getElementById('loginForm').addEventListener('submit',async function(e){

@@ -12,7 +12,7 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.3
+## Current Version: v5.4
 
 ### Completed Features
 
@@ -30,9 +30,14 @@
   - 필수: 이메일, 비밀번호(8자+, 영문+숫자), 이름, 전화번호, 개인정보 동의
   - 선택: 마케팅 동의
   - 가입 완료 시 자동 로그인 → 마이페이지 리다이렉트
-- **로그인** (`/auth/login`): 이메일+비밀번호, `?redirect=` 파라미터 지원
+- **로그인** (`/auth/login`): 이메일+비밀번호, `?redirect=` 파라미터 지원, 무차별대입 방어(IP당 15분 20회)
+- **Google 소셜 로그인** (`/api/auth/google`): OAuth 2.0, 자동 가입 + 기존 이메일 계정 자동 연동, CSRF state 검증
+- **비밀번호 찾기** (`/auth/reset-password`, v5.4): 이메일 재설정 링크(Resend) → 새 비밀번호 설정
+  - 토큰 SHA-256 해시만 DB 저장, 1시간 유효, 1회용(재사용 차단), 계정 존재 유출 방지 동일응답, IP당 15분 5회 제한
 - **마이페이지** (`/auth/mypage`): 사용자 정보 표시, 로그아웃
 - **세션 관리**: HMAC 기반 쿠키 세션 (httpOnly, 30일 유효), PBKDF2 비밀번호 해싱
+- **회원 저장소 D1 이관** (v5.4): R2 JSON → D1 `members` 테이블 (UNIQUE 이메일, race condition 해소)
+  - 기존 R2 `data/members.json`은 최초 요청 시 자동 1회 이관(lazy migration) 후 백업으로 보존
 - **GNB 전역 로그인 동기화** (v5.2): 모든 페이지에서 로그인 시 헤더에 사용자이름+로그아웃 표시
 
 #### Before/After 갤러리 (v5.1)
@@ -89,6 +94,11 @@
 | POST | `/api/auth/login` | 로그인 |
 | POST | `/api/auth/logout` | 로그아웃 |
 | GET | `/api/auth/me` | 로그인 상태 확인 |
+| GET | `/api/auth/google` | Google OAuth 로그인 시작 |
+| GET | `/api/auth/google/callback` | Google OAuth 콜백 |
+| POST | `/api/auth/forgot-password` | 비밀번호 재설정 링크 발송 |
+| POST | `/api/auth/reset-password` | 토큰 검증 + 새 비밀번호 설정 |
+| POST | `/api/reservation` | 예약 접수 (이메일 알림) |
 | GET | `/api/cases` | 공개 케이스 목록 |
 | GET | `/api/cases/:id` | 케이스 상세 (인증 필요) |
 | POST | `/api/admin/upload` | 이미지 업로드 (관리자) |
@@ -98,7 +108,8 @@
 | GET | `/api/health` | 헬스체크 |
 
 ### Data Architecture
-- **R2 Storage**: 케이스 데이터 (`data/cases.json`), 회원 데이터 (`data/members.json`), 이미지 파일
+- **D1 Database**: 회원(`members`), 게임 점수(chbti/flight/run), 페이지뷰, 채용 지원, rate limits (migrations 0001~0008)
+- **R2 Storage**: 케이스 데이터 (`data/cases.json`), 이미지 파일, 구(舊) 회원 JSON 백업
 - **Static HTML**: 빌드 시 dist/ 복사
 - **Structured Data**: JSON-LD (BreadcrumbList, FAQPage, MedicalProcedure, DefinedTerm, Dentist)
 
@@ -106,7 +117,8 @@
 - Hono v4 + TypeScript (백엔드)
 - Vite v6 (빌드)
 - Wrangler v4 (개발 서버 + 배포)
-- Cloudflare R2 (스토리지)
+- Cloudflare D1 (회원·게임·통계) + R2 (케이스·이미지)
+- Resend (트랜잭션 이메일: 예약 알림·비밀번호 재설정)
 - Pretendard (폰트)
 - FontAwesome 6.4 (아이콘)
 - site-v5.css (통합 디자인 시스템)
@@ -132,7 +144,8 @@ curl http://localhost:3000/api/health
 - **Platform**: Cloudflare Pages
 - **Project Name**: seoul-bd-dental
 - **Status**: Active
-- **Last Updated**: 2026-03-28
+- **Last Updated**: 2026-07-02
+- **필수 Secrets**: `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `OPENAI_API_KEY`, `RESEND_API_KEY`(비밀번호 찾기·예약알림), `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`(소셜로그인)
 
 ## User Flow
 1. 갤러리에서 케이스 카드 클릭
@@ -142,11 +155,28 @@ curl http://localhost:3000/api/health
 
 ## Remaining Work
 - [ ] 실제 환자 Before/After 사진 업로드
-- [ ] 비밀번호 찾기 기능
-- [ ] 소셜 로그인 (Google)
-- [ ] 예약 시스템 연동
 - [ ] Lighthouse 성능/접근성 점수 측정
 - [ ] 일반 치료 페이지 재설계 (cavity, crown 등)
+- [ ] 분석 태그 GTM 통합 (GA4/Pixel 중복 로드 정리)
+- [ ] `src/index.tsx` 모듈 분리 (auth/admin/api/pages — 현재 7,000줄 단일 파일)
+- [x] ~~비밀번호 찾기 기능~~ (v5.4 완료)
+- [x] ~~소셜 로그인 (Google)~~ (완료)
+- [x] ~~예약 시스템 연동~~ (완료 — /api/reservation + 이메일 알림)
+
+## v5.4 (2026-07-02)
+### 회원 시스템 D1 이관 + 비밀번호 찾기
+- 회원 저장소 R2 JSON → D1 `members` 테이블 (migrations/0008_members.sql)
+  - R2 JSON은 동시 가입 시 race condition(마지막 쓰기 승리)으로 데이터 유실 위험 → UNIQUE 제약 + 트랜잭션으로 해소
+  - 기존 회원 lazy migration (최초 요청 시 자동 1회, R2 플래그로 중복 방지)
+  - 로그인 rate limit 추가 (IP당 15분 20회)
+- 비밀번호 찾기 전체 플로우 (`/auth/reset-password`)
+  - 이메일 입력 → Resend로 재설정 링크 발송 → 새 비밀번호 설정 → 로그인 복귀
+  - 보안: 토큰 SHA-256 해시 저장·1시간 유효·1회용, 계정 존재 유출 방지, rate limit(15분 5회)
+  - login.html "비밀번호 찾기" alert → 실제 페이지 링크로 교체
+### 이미지 최적화
+- OG 이미지 14장: 확장자만 jpg인 PNG(장당 1.2~1.5MB) → 진짜 JPEG 1200×630 (합계 18.4MB → 0.9MB, −95%)
+  - 카카오톡/페이스북 공유 썬네일 크롤링 안정화
+- floor-illustration 2종 PNG8 변환(−70%), 사업자등록증 895KB→133KB, 호두과자 webp 재압축 962KB→109KB
 
 ## v5.3 (2026-06-11)
 ### Hero 벡터 리디자인

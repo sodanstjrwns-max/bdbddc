@@ -307,18 +307,90 @@ async function verifySiteSession(token: string, secret: string): Promise<string|
   } catch { return null }
 }
 
-// 회원 데이터 읽기/쓰기
-async function getMembers(r2: R2Bucket): Promise<any[]> {
-  try { const obj = await r2.get(MEMBERS_JSON_KEY); if (!obj) return []; const d = await obj.json() as any; return Array.isArray(d) ? d : [] } catch { return [] }
+// ============================================
+// 회원 데이터 저장소: D1 (v5.4에서 R2 JSON → D1 이관)
+// R2 JSON은 동시 가입 시 race condition(마지막 쓰기 승리)으로 데이터 유실 위험
+// 기존 R2 data/members.json은 최초 1회 lazy migration 후 백업으로 보존
+// ============================================
+
+// D1 row(snake_case) → member 객체(camelCase)
+function memberFromRow(r: any): any {
+  if (!r) return null
+  return {
+    id: r.id,
+    email: r.email,
+    name: r.name,
+    phone: r.phone || '',
+    passwordHash: r.password_hash || '',
+    passwordSalt: r.password_salt || '',
+    googleId: r.google_id || '',
+    profileImage: r.profile_image || '',
+    provider: r.provider || 'email',
+    privacyConsent: !!r.privacy_consent,
+    marketingConsent: !!r.marketing_consent,
+    marketingConsentUpdatedAt: r.marketing_consent_updated_at || '',
+    createdAt: r.created_at || '',
+  }
 }
-async function saveMembers(r2: R2Bucket, members: any[]) {
-  await r2.put(MEMBERS_JSON_KEY, JSON.stringify(members), { httpMetadata: { contentType: 'application/json' } })
+
+async function insertMemberD1(db: D1Database, m: any) {
+  await db.prepare(`INSERT OR IGNORE INTO members
+    (id, email, name, phone, password_hash, password_salt, google_id, profile_image, provider, privacy_consent, marketing_consent, marketing_consent_updated_at, created_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+    .bind(
+      m.id, (m.email || '').toLowerCase().trim(), m.name || '', m.phone || '',
+      m.passwordHash || '', m.passwordSalt || '', m.googleId || '', m.profileImage || '',
+      m.provider || 'email', m.privacyConsent ? 1 : 0, m.marketingConsent ? 1 : 0,
+      m.marketingConsentUpdatedAt || '', m.createdAt || new Date().toISOString()
+    ).run()
+}
+
+// R2 members.json → D1 최초 1회 자동 이관 (isolate 캐시 + R2 플래그로 중복 방지)
+let membersMigrationChecked = false
+async function ensureMembersMigrated(db: D1Database, r2?: R2Bucket) {
+  if (membersMigrationChecked || !r2) { membersMigrationChecked = true; return }
+  try {
+    const flag = await r2.head('data/members-migrated.flag')
+    if (!flag) {
+      const obj = await r2.get(MEMBERS_JSON_KEY)
+      if (obj) {
+        const arr = await obj.json() as any
+        if (Array.isArray(arr)) {
+          for (const m of arr) {
+            if (m && m.id && m.email) await insertMemberD1(db, m)
+          }
+          console.log(`✅ members migration: R2 → D1 ${arr.length}건 이관 완료`)
+        }
+      }
+      await r2.put('data/members-migrated.flag', new Date().toISOString(), { httpMetadata: { contentType: 'text/plain' } })
+    }
+    membersMigrationChecked = true
+  } catch (e) {
+    console.error('members migration check failed:', e)
+    // 실패 시 다음 요청에서 재시도 (membersMigrationChecked 유지 안 함)
+  }
+}
+
+async function findMemberByEmail(db: D1Database, email: string): Promise<any|null> {
+  const row = await db.prepare('SELECT * FROM members WHERE email = ?').bind(email.toLowerCase().trim()).first()
+  return memberFromRow(row)
+}
+async function findMemberById(db: D1Database, id: string): Promise<any|null> {
+  const row = await db.prepare('SELECT * FROM members WHERE id = ?').bind(id).first()
+  return memberFromRow(row)
+}
+
+// 비밀번호 재설정 토큰: SHA-256 해시만 DB 저장 (원문 노출 방지)
+async function sha256Hex(s: string): Promise<string> {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s))
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('')
 }
 
 // [공개] 회원가입
 app.post('/api/auth/register', async (c) => {
-  const r2 = c.env.R2
-  if (!r2) return c.json({ error: '서버 오류' }, 500)
+  const db = c.env.DB
+  if (!db) return c.json({ error: '서버 오류' }, 500)
+  await ensureMembersMigrated(db, c.env.R2)
 
   const { email, password, name, phone, privacyConsent, marketingConsent } = await c.req.json()
 
@@ -329,8 +401,7 @@ app.post('/api/auth/register', async (c) => {
   if (password.length < 6) return c.json({ error: '비밀번호는 6자 이상이어야 합니다.' }, 400)
   if (!/^01[0-9]-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g,''))) return c.json({ error: '올바른 휴대폰 번호를 입력해주세요.' }, 400)
 
-  const members = await getMembers(r2)
-  if (members.find((m: any) => m.email === email)) return c.json({ error: '이미 가입된 이메일입니다.' }, 409)
+  if (await findMemberByEmail(db, email)) return c.json({ error: '이미 가입된 이메일입니다.' }, 409)
 
   const { hash, salt } = await hashPassword(password)
   const member = {
@@ -340,12 +411,20 @@ app.post('/api/auth/register', async (c) => {
     phone: phone.replace(/\s/g,'').trim(),
     passwordHash: hash,
     passwordSalt: salt,
+    provider: 'email',
     privacyConsent: true,
     marketingConsent: !!marketingConsent,
     createdAt: new Date().toISOString(),
   }
-  members.push(member)
-  await saveMembers(r2, members)
+  try {
+    await db.prepare(`INSERT INTO members
+      (id, email, name, phone, password_hash, password_salt, provider, privacy_consent, marketing_consent, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, 'email', 1, ?, ?)`)
+      .bind(member.id, member.email, member.name, member.phone, hash, salt, member.marketingConsent ? 1 : 0, member.createdAt).run()
+  } catch (e: any) {
+    if (String(e?.message || e).includes('UNIQUE')) return c.json({ error: '이미 가입된 이메일입니다.' }, 409)
+    throw e
+  }
 
   // 자동 로그인 (세션 발급)
   const secret = getSessionSecret(c.env)
@@ -358,15 +437,21 @@ app.post('/api/auth/register', async (c) => {
 
 // [공개] 로그인
 app.post('/api/auth/login', async (c) => {
-  const r2 = c.env.R2
-  if (!r2) return c.json({ error: '서버 오류' }, 500)
+  const db = c.env.DB
+  if (!db) return c.json({ error: '서버 오류' }, 500)
+  await ensureMembersMigrated(db, c.env.R2)
 
   const { email, password } = await c.req.json()
   if (!email || !password) return c.json({ error: '이메일과 비밀번호를 입력해주세요.' }, 400)
 
-  const members = await getMembers(r2)
-  const member = members.find((m: any) => m.email === email.toLowerCase().trim())
-  if (!member) return c.json({ error: '이메일 또는 비밀번호가 올바르지 않습니다.' }, 401)
+  // 무차별 대입 방어: 15분 20회
+  const ip = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || 'unknown'
+  if (await isRateLimitedD1(db, 'login', ip, 15 * 60 * 1000, 20)) {
+    return c.json({ error: '로그인 시도가 너무 많습니다. 잠시 후 다시 시도해주세요.' }, 429)
+  }
+
+  const member = await findMemberByEmail(db, email)
+  if (!member || !member.passwordHash) return c.json({ error: '이메일 또는 비밀번호가 올바르지 않습니다.' }, 401)
 
   const { hash } = await hashPassword(password, member.passwordSalt)
   if (hash !== member.passwordHash) return c.json({ error: '이메일 또는 비밀번호가 올바르지 않습니다.' }, 401)
@@ -387,23 +472,23 @@ app.post('/api/auth/logout', (c) => {
 
 // [공개] 현재 로그인 상태 확인
 app.get('/api/auth/me', async (c) => {
-  const r2 = c.env.R2
-  if (!r2) return c.json({ loggedIn: false })
+  const db = c.env.DB
+  if (!db) return c.json({ loggedIn: false })
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, SITE_SESSION_COOKIE)
   if (!token) return c.json({ loggedIn: false })
   const userId = await verifySiteSession(token, secret)
   if (!userId) return c.json({ loggedIn: false })
-  const members = await getMembers(r2)
-  const m = members.find((x: any) => x.id === userId)
+  await ensureMembersMigrated(db, c.env.R2)
+  const m = await findMemberById(db, userId)
   if (!m) return c.json({ loggedIn: false })
   return c.json({ loggedIn: true, user: { id: m.id, email: m.email, name: m.name, phone: m.phone, marketingConsent: !!m.marketingConsent, createdAt: m.createdAt || '' } })
 })
 
 // [인증] 마케팅 수신 동의 변경
 app.put('/api/auth/marketing', async (c) => {
-  const r2 = c.env.R2
-  if (!r2) return c.json({ error: '서버 오류' }, 500)
+  const db = c.env.DB
+  if (!db) return c.json({ error: '서버 오류' }, 500)
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, SITE_SESSION_COOKIE)
   if (!token) return c.json({ error: '로그인이 필요합니다' }, 401)
@@ -411,15 +496,104 @@ app.put('/api/auth/marketing', async (c) => {
   if (!userId) return c.json({ error: '로그인이 필요합니다' }, 401)
 
   const { marketingConsent } = await c.req.json()
-  const members = await getMembers(r2)
-  const idx = members.findIndex((x: any) => x.id === userId)
-  if (idx === -1) return c.json({ error: '회원 정보를 찾을 수 없습니다' }, 404)
-
-  members[idx].marketingConsent = !!marketingConsent
-  members[idx].marketingConsentUpdatedAt = new Date().toISOString()
-  await saveMembers(r2, members)
+  const res = await db.prepare('UPDATE members SET marketing_consent = ?, marketing_consent_updated_at = ? WHERE id = ?')
+    .bind(marketingConsent ? 1 : 0, new Date().toISOString(), userId).run()
+  if (!res.meta.changes) return c.json({ error: '회원 정보를 찾을 수 없습니다' }, 404)
 
   return c.json({ success: true, marketingConsent: !!marketingConsent })
+})
+
+// ============================================
+// 비밀번호 찾기 (재설정 링크 이메일 발송)
+// ============================================
+
+// [공개] 비밀번호 재설정 요청 → 이메일로 링크 발송
+app.post('/api/auth/forgot-password', async (c) => {
+  const db = c.env.DB
+  if (!db) return c.json({ error: '서버 오류' }, 500)
+  await ensureMembersMigrated(db, c.env.R2)
+
+  const { email } = await c.req.json()
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return c.json({ error: '올바른 이메일을 입력해주세요.' }, 400)
+
+  // 남용 방지: IP당 15분 5회
+  const ip = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || 'unknown'
+  if (await isRateLimitedD1(db, 'pwreset', ip, 15 * 60 * 1000, 5)) {
+    return c.json({ error: '요청이 너무 많습니다. 잠시 후 다시 시도해주세요.' }, 429)
+  }
+
+  // 이메일 존재 여부와 무관하게 동일 응답 (계정 존재 유출 방지)
+  const okMsg = { success: true, message: '가입된 이메일이라면 재설정 링크가 발송됩니다. 메일함(스팸함 포함)을 확인해주세요.' }
+
+  const member = await findMemberByEmail(db, email)
+  if (!member) return c.json(okMsg)
+  // 구글 전용 계정(비밀번호 미설정)도 재설정 허용 → 이메일 로그인 겸용 가능
+
+  // 토큰 생성: 원문은 이메일로만, DB에는 SHA-256 해시 저장 (1시간 유효)
+  const rawToken = crypto.randomUUID().replace(/-/g, '') + crypto.randomUUID().replace(/-/g, '')
+  const tokenHash = await sha256Hex(rawToken)
+  const expires = Date.now() + 60 * 60 * 1000
+  await db.prepare('UPDATE members SET reset_token_hash = ?, reset_token_expires = ? WHERE id = ?')
+    .bind(tokenHash, expires, member.id).run()
+
+  const resendKey = (c.env as any).RESEND_API_KEY
+  if (!resendKey) {
+    console.error('RESEND_API_KEY 미설정 — 비밀번호 재설정 메일 발송 불가')
+    return c.json({ error: '메일 발송 설정이 완료되지 않았습니다. 병원(041-415-2892)으로 문의해주세요.' }, 500)
+  }
+
+  const origin = new URL(c.req.url).origin
+  const resetUrl = `${origin}/auth/reset-password?token=${rawToken}`
+  const emailHtml = `<div style="max-width:480px;margin:0 auto;font-family:'Apple SD Gothic Neo',sans-serif;border:1px solid #eee;border-radius:12px;overflow:hidden;">
+  <div style="background:#6B4226;color:#fff;padding:20px 24px;font-size:18px;font-weight:700;">🦷 서울비디치과</div>
+  <div style="padding:24px;">
+    <p style="font-size:15px;color:#333;">안녕하세요, <strong>${member.name}</strong>님.</p>
+    <p style="font-size:14px;color:#555;line-height:1.7;">비밀번호 재설정 요청을 받았습니다.<br>아래 버튼을 눌러 새 비밀번호를 설정해주세요. <strong>링크는 1시간 동안만 유효</strong>합니다.</p>
+    <div style="text-align:center;margin:28px 0;">
+      <a href="${resetUrl}" style="display:inline-block;background:#6B4226;color:#fff;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;">비밀번호 재설정하기</a>
+    </div>
+    <p style="font-size:12px;color:#999;line-height:1.6;">본인이 요청하지 않았다면 이 메일을 무시하셔도 됩니다. 비밀번호는 변경되지 않습니다.</p>
+  </div>
+  <div style="padding:12px;text-align:center;font-size:10px;color:#ccc;background:#fafafa;">서울비디치과 | 천안시 서북구 불당34길 14 | 041-415-2892</div>
+</div>`
+
+  const sendEmail = fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      from: '서울비디치과 <noreply@patientview.kr>',
+      to: [member.email],
+      subject: '[서울비디치과] 비밀번호 재설정 안내',
+      html: emailHtml
+    })
+  }).then(res => {
+    if (!res.ok) res.text().then(t => console.error('Resend pwreset error:', t))
+  }).catch(err => console.error('Resend pwreset fetch error:', err))
+  if (c.executionCtx?.waitUntil) c.executionCtx.waitUntil(sendEmail)
+  else await sendEmail
+
+  return c.json(okMsg)
+})
+
+// [공개] 재설정 토큰 검증 + 새 비밀번호 설정
+app.post('/api/auth/reset-password', async (c) => {
+  const db = c.env.DB
+  if (!db) return c.json({ error: '서버 오류' }, 500)
+
+  const { token, password } = await c.req.json()
+  if (!token || typeof token !== 'string' || token.length < 32) return c.json({ error: '유효하지 않은 요청입니다.' }, 400)
+  if (!password || password.length < 6) return c.json({ error: '비밀번호는 6자 이상이어야 합니다.' }, 400)
+
+  const tokenHash = await sha256Hex(token)
+  const row = await db.prepare('SELECT * FROM members WHERE reset_token_hash = ? AND reset_token_expires > ?')
+    .bind(tokenHash, Date.now()).first()
+  if (!row) return c.json({ error: '링크가 만료되었거나 유효하지 않습니다. 다시 요청해주세요.' }, 400)
+
+  const { hash, salt } = await hashPassword(password)
+  await db.prepare(`UPDATE members SET password_hash = ?, password_salt = ?, reset_token_hash = '', reset_token_expires = 0 WHERE id = ?`)
+    .bind(hash, salt, (row as any).id).run()
+
+  return c.json({ success: true, message: '비밀번호가 변경되었습니다. 새 비밀번호로 로그인해주세요.' })
 })
 
 // ============================================
@@ -459,8 +633,8 @@ app.get('/api/auth/google', (c) => {
 
 // [공개] Google OAuth 콜백 → 토큰 교환 → 회원 자동가입/로그인
 app.get('/api/auth/google/callback', async (c) => {
-  const r2 = c.env.R2
-  if (!r2) return c.text('서버 오류', 500)
+  const db = c.env.DB
+  if (!db) return c.text('서버 오류', 500)
 
   const clientId = c.env.GOOGLE_CLIENT_ID
   const clientSecret = c.env.GOOGLE_CLIENT_SECRET
@@ -507,9 +681,9 @@ app.get('/api/auth/google/callback', async (c) => {
 
     if (!email) return c.redirect('/auth/login?error=google_no_email')
 
-    // 3. 기존 회원 확인 또는 자동 가입
-    const members = await getMembers(r2)
-    let member = members.find((m: any) => m.email === email)
+    // 3. 기존 회원 확인 또는 자동 가입 (D1)
+    await ensureMembersMigrated(db, c.env.R2)
+    let member = await findMemberByEmail(db, email)
 
     if (!member) {
       // 신규 회원 자동 가입 (Google 계정)
@@ -527,14 +701,12 @@ app.get('/api/auth/google/callback', async (c) => {
         marketingConsent: false,
         createdAt: new Date().toISOString(),
       }
-      members.push(member)
-      await saveMembers(r2, members)
+      await insertMemberD1(db, member)
     } else if (!member.googleId) {
       // 기존 이메일 회원 → Google 연동
-      member.googleId = googleUser.id
-      member.profileImage = member.profileImage || googleUser.picture || ''
-      member.provider = member.provider ? `${member.provider},google` : 'google'
-      await saveMembers(r2, members)
+      const newProvider = member.provider ? `${member.provider},google` : 'google'
+      await db.prepare('UPDATE members SET google_id = ?, profile_image = ?, provider = ? WHERE id = ?')
+        .bind(googleUser.id, member.profileImage || googleUser.picture || '', newProvider, member.id).run()
     }
 
     // 4. 세션 발급
@@ -1445,27 +1617,27 @@ app.delete('/api/admin/columns/:id', async (c) => {
   return c.json({ success: true })
 })
 
-// ===== 관리자 회원 목록 API =====
+// ===== 관리자 회원 목록 API (D1) =====
 app.get('/api/admin/members', async (c) => {
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
   if (!token || !(await verifySessionToken(token, secret))) return c.json({ error: '인증이 필요합니다' }, 401)
-  const r2 = c.env.R2
-  if (!r2) return c.json({ error: 'R2 없음' }, 500)
-  const members = await getMembers(r2)
-  // 비밀번호 해시 제거 후 반환
-  const safe = members.map((m: any) => ({
+  const db = c.env.DB
+  if (!db) return c.json({ error: 'DB 없음' }, 500)
+  await ensureMembersMigrated(db, c.env.R2)
+  const { results } = await db.prepare(
+    'SELECT id, email, name, phone, provider, privacy_consent, marketing_consent, created_at FROM members ORDER BY created_at DESC'
+  ).all()
+  const safe = (results || []).map((m: any) => ({
     id: m.id,
     email: m.email,
     name: m.name,
     phone: m.phone || '',
     provider: m.provider || 'email',
-    privacyConsent: m.privacyConsent,
-    marketingConsent: m.marketingConsent,
-    createdAt: m.createdAt,
+    privacyConsent: !!m.privacy_consent,
+    marketingConsent: !!m.marketing_consent,
+    createdAt: m.created_at,
   }))
-  // 최신순 정렬
-  safe.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
   return c.json(safe)
 })
 
@@ -3911,6 +4083,7 @@ app.use('/notice/*', serveStatic())
 app.get('/auth/login', serveStatic({ path: './auth/login.html' }))
 app.get('/auth/register', serveStatic({ path: './auth/register.html' }))
 app.get('/auth/mypage', serveStatic({ path: './auth/mypage.html' }))
+app.get('/auth/reset-password', serveStatic({ path: './auth/reset-password.html' }))
 app.use('/auth/*', serveStatic())
 
 // Admin directory — 인증은 상단 미들웨어에서 처리, 여기는 정적 파일만
