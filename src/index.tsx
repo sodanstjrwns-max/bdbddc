@@ -2548,7 +2548,7 @@ app.post('/api/indexnow', async (c) => {
   // 색인할 전체 URL 목록
   const urlList: string[] = [
     '/',
-    '/reservation', '/pricing', '/directions',
+    '/reservation', '/pricing', '/pricing/implant-guide', '/pricing/ortho-guide', '/directions',
     '/treatments/', '/treatments/implant', '/treatments/invisalign',
     '/treatments/pediatric', '/treatments/aesthetic', '/treatments/glownate',
     '/treatments/cavity', '/treatments/resin', '/treatments/crown',
@@ -4841,6 +4841,9 @@ app.use('/faq/*', strictStatic())
 // Root level HTML pages (without .html extension)
 // ============================================
 app.get('/pricing', serveStatic({ path: './pricing.html' }))
+app.get('/pricing/', (c) => c.redirect('/pricing', 301))
+app.get('/pricing/implant-guide', serveStatic({ path: './pricing/implant-guide.html' }))
+app.get('/pricing/ortho-guide', serveStatic({ path: './pricing/ortho-guide.html' }))
 app.get('/reservation', serveStatic({ path: './reservation.html' }))
 app.get('/reservation/thank-you', serveStatic({ path: './reservation/thank-you.html' }))
 app.get('/directions', serveStatic({ path: './directions.html' }))
