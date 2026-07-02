@@ -41,7 +41,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
-<script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>
+<script src="/static/bd-tag-loader.js" defer></script>
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?

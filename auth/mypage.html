@@ -10,10 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
-<!-- Amplitude Script Loader -->
-<script src="https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz"></script>
-<script src="https://cdn.amplitude.com/libs/plugin-autocapture-browser-0.9.0-min.js.gz"></script>
-<script>window.amplitude.init("c4e197a17443b1059b402ec0d16fa88f",{autocapture:{elementInteractions:false,pageViews:false,sessions:true,formInteractions:false,fileDownloads:false}});window._bdAmplitudeInitialized=true;</script>
+<script src="/static/bd-tag-loader.js" defer></script>
 <script src="/static/bd-analytics.js" defer></script>
 <!-- Meta Pixel Code -->
 <script>
@@ -847,11 +844,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h2 class="card-title"><i class="fas fa-exclamation-triangle"></i> 계정 관리</h2>
           </div>
           <div class="info-list">
-            <div class="info-item">
+            <div class="info-item" style="flex-wrap:wrap;">
               <span class="info-label">비밀번호 변경</span>
-              <button class="btn btn-secondary" onclick="handlePasswordReset()" style="padding:8px 16px;font-size:0.8rem;">
-                <i class="fas fa-key"></i> 재설정
+              <button class="btn btn-secondary" id="pwChangeToggle" onclick="togglePwChange()" style="padding:8px 16px;font-size:0.8rem;">
+                <i class="fas fa-key"></i> 변경하기
               </button>
+              <form id="pwChangeForm" onsubmit="handlePasswordChange(event)" style="display:none;width:100%;margin-top:14px;padding-top:14px;border-top:1px dashed var(--gray-200);">
+                <div class="form-group" id="currentPwGroup">
+                  <label class="form-label">현재 비밀번호</label>
+                  <input type="password" class="form-input" id="currentPassword" autocomplete="current-password" placeholder="현재 비밀번호">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">새 비밀번호</label>
+                  <input type="password" class="form-input" id="newPassword" autocomplete="new-password" placeholder="6자 이상" minlength="6" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">새 비밀번호 확인</label>
+                  <input type="password" class="form-input" id="confirmNewPassword" autocomplete="new-password" placeholder="다시 입력" required>
+                </div>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-secondary" onclick="togglePwChange()">취소</button>
+                  <button type="submit" class="btn btn-primary" id="pwChangeBtn"><i class="fas fa-key"></i> 변경</button>
+                </div>
+              </form>
             </div>
             <div class="info-item">
               <span class="info-label">회원 탈퇴</span>
@@ -957,7 +972,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   
   function handleProfileUpdate(e) { e.preventDefault(); alert('프로필 수정 기능은 준비 중입니다.'); }
-  function handlePasswordReset() { alert('비밀번호 재설정 기능은 준비 중입니다.\n병원으로 문의해주세요: 041-415-2892'); }
+  function togglePwChange() {
+    var form = document.getElementById('pwChangeForm');
+    var toggle = document.getElementById('pwChangeToggle');
+    var open = form.style.display === 'none';
+    form.style.display = open ? 'block' : 'none';
+    toggle.style.display = open ? 'none' : '';
+    if (!open) { form.reset(); }
+  }
+  async function handlePasswordChange(e) {
+    e.preventDefault();
+    var cur = document.getElementById('currentPassword').value;
+    var nw = document.getElementById('newPassword').value;
+    var cf = document.getElementById('confirmNewPassword').value;
+    if (nw.length < 6) { showToast('새 비밀번호는 6자 이상이어야 합니다.', true); return; }
+    if (nw !== cf) { showToast('새 비밀번호가 일치하지 않습니다.', true); return; }
+    var btn = document.getElementById('pwChangeBtn');
+    btn.disabled = true;
+    try {
+      var res = await fetch('/api/auth/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword: cur, newPassword: nw })
+      });
+      var data = await res.json();
+      if (res.ok && data.success) {
+        showToast('비밀번호가 변경되었습니다.');
+        togglePwChange();
+      } else {
+        showToast(data.error || '변경에 실패했습니다.', true);
+      }
+    } catch(err) {
+      showToast('네트워크 오류가 발생했습니다.', true);
+    } finally {
+      btn.disabled = false;
+    }
+  }
   function handleDeleteAccount() { 
     if(confirm('정말 탈퇴하시겠습니까? 모든 데이터가 삭제됩니다.')) {
       alert('회원 탈퇴 기능은 준비 중입니다.\n병원으로 문의해주세요: 041-415-2892'); 

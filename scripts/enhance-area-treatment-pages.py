@@ -311,7 +311,7 @@ def remove_wrong_analytics_block(content):
     # Remove old inline Amplitude snippet (long block)
     content = re.sub(
         r'  <!-- Amplitude -->\n  <script>!function\(\)\{.*?</script>\n  <script>amplitude\.init\(\'[^\']+\'.*?</script>\n',
-        '  <!-- Amplitude -->\n  <script src="https://cdn.amplitude.com/script/87529341cb075dcdbefabce3994958aa.js"></script>\n',
+        '  <!-- Amplitude (지연 로더) -->\n  <script src="/static/bd-tag-loader.js" defer></script>\n',
         content,
         flags=re.DOTALL
     )

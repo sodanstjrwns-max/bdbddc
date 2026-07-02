@@ -197,3 +197,9 @@ curl http://localhost:3000/api/health
 - post-build.cjs: 수동 목록 → 자동 탐색 방식 (신규 파일 배포 누락 방지)
 - 미사용 의존성 제거 (playwright, docx), 중복 gallery JS/백업 JSON 정리
 - wrangler.jsonc name을 seoul-bd-dental로 통일
+
+## v5.5 (2026-07-02)
+- **마이페이지 비밀번호 변경**: `/api/auth/change-password` (현재 비밀번호 검증 + 레이트리밋 10회/15분, Google 전용 계정은 최초 설정 허용) + mypage 인라인 폼
+- **LCP 개선 — Amplitude 지연 로더**: 동기 SDK 2종(~80KB 렌더 블로킹) → `/static/bd-tag-loader.js` (requestIdleCallback + 인터랙션 트리거). 215개 HTML + SSR TRACKING_HEAD + 빌더 스크립트 6종 일괄 전환, `cdn.amplitude.com` 동기 로드 0건
+- **모듈 분리 1단계**: GSC 대시보드 → `src/routes/gsc-report-dash.ts`, 공통 타입 → `src/types.ts`, 죽은 중복 GSC 블록 362줄 제거 (index.tsx 7,030→6,357줄, 워커 번들 1,983→1,949KB)
+- 남은 과제: lib(layout/auth/security) 분리, encyclopedia.json(1.7MB) 런타임 로드 전환
