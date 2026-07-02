@@ -66,13 +66,19 @@ const strictStatic = () => {
     const assets = c.env?.ASSETS
     if (!assets) return next()
     try {
-      const res: Response = await assets.fetch(c.req.raw)
+      // v5.8.1 fix: HEAD 응답은 본문이 원래 0바이트 → soft-404로 오폭되던 버그 수정.
+      // HEAD는 GET으로 자산을 조회해 본문 존재를 검증하고, 응답은 본문 없이 반환.
+      const isHead = c.req.method === 'HEAD'
+      const req: Request = isHead
+        ? new Request(c.req.raw.url, { method: 'GET', headers: c.req.raw.headers })
+        : c.req.raw
+      const res: Response = await assets.fetch(req)
       // 리디렉트(.html→clean URL 301 등)와 304(캐시 재검증)는 그대로 통과
       if ((res.status >= 301 && res.status <= 308) || res.status === 304) return res
       if (res.ok) {
         const buf = await res.arrayBuffer()
         if (buf.byteLength > 0) {
-          return new Response(buf, { status: res.status, headers: res.headers })
+          return new Response(isHead ? null : buf, { status: res.status, headers: res.headers })
         }
       }
       // 빈 200 / 404 / 기타 → 다음 핸들러로 (최종 catch-all이 404.html 처리)
