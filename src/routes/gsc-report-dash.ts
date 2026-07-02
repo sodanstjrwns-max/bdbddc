@@ -1,10 +1,14 @@
 import { Hono } from 'hono'
 import type { Bindings } from '../types'
+import gscData from '../data/gsc-data.json'
 
 // ============================================
 // GSC 분석 대시보드 (index.tsx에서 모듈 분리 — 2026-07-02)
 // ============================================
 export function registerGscReport(app: Hono<{ Bindings: Bindings }>) {
+// GSC 데이터 API — 어드민 인증 미들웨어(/gsc-report/*) 뒤에서만 접근 가능
+// (기존 /static/gsc-data.json 공개 경로는 제거됨 — 경쟁사 노출 방지)
+app.get('/gsc-report/data', (c) => c.json(gscData))
 // ============================================
 // GSC 분석 대시보드
 // ============================================
@@ -77,7 +81,7 @@ app.get('/gsc-report', (c) => {
 </main>
 <script>
 let DATA=null;
-async function loadData(){const res=await fetch('/static/gsc-data.json');DATA=await res.json();render()}
+async function loadData(){const res=await fetch('/gsc-report/data');DATA=await res.json();render()}
 function n(v){return v.toLocaleString('ko-KR')}
 function pct(v){return v.toFixed(2)+'%'}
 function pos(v){return v.toFixed(1)}

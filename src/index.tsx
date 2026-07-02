@@ -238,6 +238,19 @@ app.use('/admin/*', async (c, next) => {
   return next()
 })
 
+// === /gsc-report 인증 미들웨어 (어드민 세션 공유) ===
+// GSC 검색 성과·전략 데이터가 외부(경쟁 병원 등)에 노출되지 않도록 보호
+const gscReportGuard = async (c: any, next: any) => {
+  const secret = getSessionSecret(c.env)
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifySessionToken(token, secret))) {
+    return c.redirect('/admin/login', 302)
+  }
+  return next()
+}
+app.use('/gsc-report', gscReportGuard)
+app.use('/gsc-report/*', gscReportGuard)
+
 // === 인증 통과 후 admin 정적 파일 서빙 ===
 app.get('/admin', serveStatic({ path: './admin/index.html' }))
 app.get('/admin/', serveStatic({ path: './admin/index.html' }))
