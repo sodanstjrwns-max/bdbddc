@@ -4,6 +4,9 @@ import { cors } from 'hono/cors'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Bindings } from './types'
 import { registerGscReport } from './routes/gsc-report-dash'
+import { TRACKING_HEAD } from './lib/layout'
+import { ADMIN_SESSION_COOKIE, SESSION_MAX_AGE, getSessionSecret, createSessionToken, verifySessionToken, isRateLimitedD1 } from './lib/security'
+import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSession, verifySiteSession, ensureMembersMigrated, findMemberByEmail, findMemberById, insertMemberD1, sha256Hex } from './lib/auth'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -42,83 +45,11 @@ app.use('*', async (c, next) => {
 })
 
 // ============================================
-// Meta Pixel + GTM + Amplitude 공통 트래킹 코드
+// 공통 트래킹/레이아웃 → src/lib/layout.ts
+// 관리자 세션 + Rate Limit → src/lib/security.ts
+// 회원 인증 헬퍼 → src/lib/auth.ts
+// (v5.7 모듈 분리 2단계)
 // ============================================
-const TRACKING_HEAD = `<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
-<!-- End Google Tag Manager -->
-<!-- Amplitude Analytics (지연 로더 — LCP 개선) -->
-<script src="/static/bd-tag-loader.js" defer></script>
-<script src="/static/bd-analytics.js" defer></script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '971255062435276');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->`
-
-const TRACKING_BODY = `<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->`
-
-// ============================================
-// 관리자 인증 시스템 (비밀번호 + 쿠키 세션)
-// ============================================
-const ADMIN_SESSION_COOKIE = 'bd_admin_session'
-const SESSION_MAX_AGE = 60 * 60 * 24 * 7 // 7일 (컬럼 장시간 작성 중 세션 만료 방지)
-
-// ▶ 보안: 시크릿은 반드시 환경변수에서만 가져온다 (하드코딩 fallback 금지)
-// 미설정 시 빈 문자열 반환 → 모든 인증이 거부됨 (fail-closed)
-function getSessionSecret(env: Bindings): string {
-  return env.ADMIN_SESSION_SECRET || ''
-}
-
-// HMAC 기반 세션 토큰 생성
-async function createSessionToken(secret: string): Promise<string> {
-  const timestamp = Date.now().toString()
-  const encoder = new TextEncoder()
-  const key = await crypto.subtle.importKey(
-    'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
-  )
-  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(timestamp))
-  const sigHex = Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, '0')).join('')
-  return `${timestamp}.${sigHex}`
-}
-
-// 세션 토큰 검증
-async function verifySessionToken(token: string, secret: string): Promise<boolean> {
-  if (!secret) return false // 시크릿 미설정 시 모든 세션 거부 (fail-closed)
-  try {
-    const [timestamp, sigHex] = token.split('.')
-    if (!timestamp || !sigHex) return false
-    
-    // 만료 확인 (24시간)
-    const age = Date.now() - parseInt(timestamp)
-    if (age > SESSION_MAX_AGE * 1000) return false
-    
-    // 서명 검증
-    const encoder = new TextEncoder()
-    const key = await crypto.subtle.importKey(
-      'raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
-    )
-    const expectedSig = await crypto.subtle.sign('HMAC', key, encoder.encode(timestamp))
-    const expectedHex = Array.from(new Uint8Array(expectedSig)).map(b => b.toString(16).padStart(2, '0')).join('')
-    return sigHex === expectedHex
-  } catch {
-    return false
-  }
-}
 
 // 관리자 로그인 페이지 HTML
 function adminLoginPage(error?: string): string {
@@ -262,128 +193,8 @@ app.use('/admin/*', serveStatic())
 app.use('/api/*', cors())
 
 // ============================================
-// 회원 인증 시스템 (이메일 + 비밀번호, R2 저장)
+// 회원 인증 시스템 — 헬퍼 함수는 src/lib/auth.ts 참조
 // ============================================
-const MEMBERS_JSON_KEY = 'data/members.json'
-const SITE_SESSION_COOKIE = 'bd_session'
-const SITE_SESSION_MAX_AGE = 60 * 60 * 24 * 30 // 30일
-
-// 비밀번호 해싱 (PBKDF2)
-async function hashPassword(password: string, salt?: string): Promise<{hash: string; salt: string}> {
-  const encoder = new TextEncoder()
-  const s = salt || Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b => b.toString(16).padStart(2,'0')).join('')
-  const key = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits'])
-  const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt: encoder.encode(s), iterations: 100000, hash:'SHA-256'}, key, 256)
-  const hash = Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2,'0')).join('')
-  return { hash, salt: s }
-}
-
-// 사이트 세션 토큰 생성
-async function createSiteSession(userId: string, secret: string): Promise<string> {
-  const payload = `${userId}:${Date.now()}`
-  const encoder = new TextEncoder()
-  const key = await crypto.subtle.importKey('raw', encoder.encode(secret), {name:'HMAC',hash:'SHA-256'}, false, ['sign'])
-  const sig = await crypto.subtle.sign('HMAC', key, encoder.encode(payload))
-  const sigHex = Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2,'0')).join('')
-  return `${btoa(payload)}.${sigHex}`
-}
-
-// 사이트 세션 검증 → userId 반환
-async function verifySiteSession(token: string, secret: string): Promise<string|null> {
-  if (!secret) return null // 시크릿 미설정 시 모든 세션 거부 (fail-closed)
-  try {
-    const [payloadB64, sigHex] = token.split('.')
-    if (!payloadB64 || !sigHex) return null
-    const payload = atob(payloadB64)
-    const [userId, ts] = payload.split(':')
-    if (!userId || !ts) return null
-    if (Date.now() - parseInt(ts) > SITE_SESSION_MAX_AGE * 1000) return null
-    const encoder = new TextEncoder()
-    const key = await crypto.subtle.importKey('raw', encoder.encode(secret), {name:'HMAC',hash:'SHA-256'}, false, ['sign'])
-    const expected = await crypto.subtle.sign('HMAC', key, encoder.encode(payload))
-    const expectedHex = Array.from(new Uint8Array(expected)).map(b => b.toString(16).padStart(2,'0')).join('')
-    return sigHex === expectedHex ? userId : null
-  } catch { return null }
-}
-
-// ============================================
-// 회원 데이터 저장소: D1 (v5.4에서 R2 JSON → D1 이관)
-// R2 JSON은 동시 가입 시 race condition(마지막 쓰기 승리)으로 데이터 유실 위험
-// 기존 R2 data/members.json은 최초 1회 lazy migration 후 백업으로 보존
-// ============================================
-
-// D1 row(snake_case) → member 객체(camelCase)
-function memberFromRow(r: any): any {
-  if (!r) return null
-  return {
-    id: r.id,
-    email: r.email,
-    name: r.name,
-    phone: r.phone || '',
-    passwordHash: r.password_hash || '',
-    passwordSalt: r.password_salt || '',
-    googleId: r.google_id || '',
-    profileImage: r.profile_image || '',
-    provider: r.provider || 'email',
-    privacyConsent: !!r.privacy_consent,
-    marketingConsent: !!r.marketing_consent,
-    marketingConsentUpdatedAt: r.marketing_consent_updated_at || '',
-    createdAt: r.created_at || '',
-  }
-}
-
-async function insertMemberD1(db: D1Database, m: any) {
-  await db.prepare(`INSERT OR IGNORE INTO members
-    (id, email, name, phone, password_hash, password_salt, google_id, profile_image, provider, privacy_consent, marketing_consent, marketing_consent_updated_at, created_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-    .bind(
-      m.id, (m.email || '').toLowerCase().trim(), m.name || '', m.phone || '',
-      m.passwordHash || '', m.passwordSalt || '', m.googleId || '', m.profileImage || '',
-      m.provider || 'email', m.privacyConsent ? 1 : 0, m.marketingConsent ? 1 : 0,
-      m.marketingConsentUpdatedAt || '', m.createdAt || new Date().toISOString()
-    ).run()
-}
-
-// R2 members.json → D1 최초 1회 자동 이관 (isolate 캐시 + R2 플래그로 중복 방지)
-let membersMigrationChecked = false
-async function ensureMembersMigrated(db: D1Database, r2?: R2Bucket) {
-  if (membersMigrationChecked || !r2) { membersMigrationChecked = true; return }
-  try {
-    const flag = await r2.head('data/members-migrated.flag')
-    if (!flag) {
-      const obj = await r2.get(MEMBERS_JSON_KEY)
-      if (obj) {
-        const arr = await obj.json() as any
-        if (Array.isArray(arr)) {
-          for (const m of arr) {
-            if (m && m.id && m.email) await insertMemberD1(db, m)
-          }
-          console.log(`✅ members migration: R2 → D1 ${arr.length}건 이관 완료`)
-        }
-      }
-      await r2.put('data/members-migrated.flag', new Date().toISOString(), { httpMetadata: { contentType: 'text/plain' } })
-    }
-    membersMigrationChecked = true
-  } catch (e) {
-    console.error('members migration check failed:', e)
-    // 실패 시 다음 요청에서 재시도 (membersMigrationChecked 유지 안 함)
-  }
-}
-
-async function findMemberByEmail(db: D1Database, email: string): Promise<any|null> {
-  const row = await db.prepare('SELECT * FROM members WHERE email = ?').bind(email.toLowerCase().trim()).first()
-  return memberFromRow(row)
-}
-async function findMemberById(db: D1Database, id: string): Promise<any|null> {
-  const row = await db.prepare('SELECT * FROM members WHERE id = ?').bind(id).first()
-  return memberFromRow(row)
-}
-
-// 비밀번호 재설정 토큰: SHA-256 해시만 DB 저장 (원문 노출 방지)
-async function sha256Hex(s: string): Promise<string> {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s))
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('')
-}
 
 // [공개] 회원가입
 app.post('/api/auth/register', async (c) => {
@@ -3866,7 +3677,7 @@ app.get('/cases/:param', async (c) => {
   
   // 백과사전 자동 링크: 설명 텍스트에서 백과사전 용어를 찾아 링크로 변환
   let descText = (cs.description || '').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>')
-  const encTermsForLink = encItems
+  const encTermsForLink = (await getEncItems(c))
     .filter(item => item.term.length >= 2) // 2글자 이상
     .sort((a, b) => b.term.length - a.term.length) // 긴 용어 우선 매칭
   const linkedTerms = new Set<string>()
@@ -4132,9 +3943,44 @@ app.get('/encyclopedia/', serveStatic({ path: './encyclopedia/index.html' }))
 // 백과사전 개별 용어 페이지 (SSR - SEO 500개 URL)
 // /encyclopedia/:term → 각 용어별 전용 페이지
 // ============================================
-import encyclopediaData from '../public/data/encyclopedia.json'
+// ⚡ 번들 감량: 1.7MB JSON을 워커에 임베드하지 않고 런타임에 정적 자산(/data/encyclopedia.json)에서 로드
+// 워커 인스턴스(isolate)당 1회만 fetch 후 모듈 캐시 — 이후 요청은 메모리에서 즉시 응답
+type EncItem = {id:number; term:string; chosung?:string; category:string; short:string; detail:string; tags?:string[]; synonyms?:string[]; link?:string}
 
-const encItems: Array<{id:number; term:string; chosung?:string; category:string; short:string; detail:string; tags?:string[]; synonyms?:string[]; link?:string}> = (encyclopediaData as any).items || []
+let _encCache: EncItem[] | null = null
+let _encLoading: Promise<EncItem[]> | null = null
+
+async function getEncItems(c: { env?: { ASSETS?: { fetch: (req: Request) => Promise<Response> } }; req: { url: string } }): Promise<EncItem[]> {
+  if (_encCache) return _encCache
+  // 동시 요청 시 중복 fetch 방지 (single-flight)
+  if (_encLoading) return _encLoading
+  _encLoading = (async () => {
+    try {
+      const url = new URL('/data/encyclopedia.json', c.req.url).toString()
+      let resp: Response | null = null
+      // 1) ASSETS 바인딩 우선 (Cloudflare Pages 내부 정적 자산 — 네트워크 비용 없음)
+      if (c.env?.ASSETS) {
+        try { resp = await c.env.ASSETS.fetch(new Request(url)) } catch { resp = null }
+      }
+      // 2) 폴백: 일반 fetch (_routes.json이 /data/*를 워커 제외하므로 재귀 없음)
+      if (!resp || !resp.ok) {
+        try { resp = await fetch(url) } catch { resp = null }
+      }
+      if (resp && resp.ok) {
+        const data = await resp.json() as { items?: EncItem[] }
+        const items = Array.isArray(data.items) ? data.items : []
+        if (items.length > 0) _encCache = items // 성공 시에만 캐시 (실패 시 다음 요청에서 재시도)
+        return items
+      }
+      return []
+    } catch {
+      return []
+    } finally {
+      _encLoading = null
+    }
+  })()
+  return _encLoading
+}
 
 // ============================================
 // 카테고리별 맞춤 FAQ 템플릿 (3~5개씩)
@@ -4239,7 +4085,7 @@ const categoryFaqTemplates: Record<string, (term: string, short: string, detail:
 // ============================================
 // 본문 내 다른 용어 자동 인터링킹 함수
 // ============================================
-function interlinkText(text: string, currentTerm: string, allItems: typeof encItems): string {
+function interlinkText(text: string, currentTerm: string, allItems: EncItem[]): string {
   // 용어를 길이 순 내림차순 정렬 (긴 용어 우선 매칭 → 부분 매칭 방지)
   const sortedTerms = allItems
     .filter(i => i.term !== currentTerm && i.term.length >= 2)
@@ -4317,7 +4163,7 @@ const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
   },
 }
 
-app.get('/encyclopedia/:term', (c) => {
+app.get('/encyclopedia/:term', async (c) => {
   // ▶ 방어: 잘리거나 깨진 퍼센트 인코딩(예: %ED%84%B1%EA%B4%8)이 들어오면
   //   decodeURIComponent가 URIError를 던져 500(5xx)이 된다 → try-catch로 흡수해 백과 메인으로 보냄
   let termParam: string
@@ -4326,7 +4172,10 @@ app.get('/encyclopedia/:term', (c) => {
   } catch {
     return c.redirect('/encyclopedia/', 301)
   }
-  
+
+  const encItems = await getEncItems(c)
+  if (encItems.length === 0) return c.redirect('/encyclopedia/', 302)
+
   // 용어 찾기 (정확 매치 → 동의어 매치)
   let item = encItems.find(i => i.term === termParam)
   if (!item) {
@@ -4639,8 +4488,6 @@ ${ssrMobileNav()}
 // 백과사전 카테고리별 페이지 (SSR - 15개 카테고리 URL)
 // /encyclopedia/category/:name → 카테고리별 용어 목록
 // ============================================
-const encCategories = [...new Set(encItems.map(i => i.category))]
-
 // 카테고리별 소개문 및 아이콘
 const categoryMeta: Record<string, {icon: string; intro: string; keywords: string[]}> = {
   '치아 구조': { icon: 'fa-tooth', intro: '치아의 구조와 기능을 이해하면 구강 건강 관리가 쉬워집니다. 법랑질부터 치근까지, 치아를 구성하는 각 부위의 역할과 특징을 알아보세요.', keywords: ['치아 구조', '치아 해부학', '법랑질', '상아질', '치수', '치근'] },
@@ -4660,9 +4507,12 @@ const categoryMeta: Record<string, {icon: string; intro: string; keywords: strin
   '임플란트': { icon: 'fa-screwdriver-wrench', intro: '임플란트 수술 과정, 종류, 재료, 관리법, 비용 등 임플란트에 대한 모든 전문 용어를 정리했습니다.', keywords: ['임플란트', '임플란트 수술', '인공 치아', '임플란트 비용', '뼈이식'] },
 }
 
-app.get('/encyclopedia/category/:name', (c) => {
+app.get('/encyclopedia/category/:name', async (c) => {
   const catName = decodeURIComponent(c.req.param('name'))
-  
+
+  const encItems = await getEncItems(c)
+  const encCategories = [...new Set(encItems.map(i => i.category))]
+
   if (!encCategories.includes(catName)) {
     return c.redirect('/encyclopedia/', 302)
   }
@@ -5240,35 +5090,7 @@ function hasSuspiciousInput(body: Record<string, any>): string | null {
   return null
 }
 
-// ▶ 보안: Rate Limiting (D1 기반 — Workers는 isolate 간 메모리 비공유라 in-memory Map은 무력)
-// scope별 정책: careers(5분 3건), chat(1분 10건 + 1시간 60건)
-async function isRateLimitedD1(
-  db: D1Database | undefined,
-  scope: string,
-  ip: string,
-  windowMs: number,
-  maxCount: number
-): Promise<boolean> {
-  if (!db) return false // DB 미연결 시 차단하지 않음 (서비스 우선)
-  const key = `${scope}:${ip}`
-  const now = Date.now()
-  const windowStart = now - windowMs
-  try {
-    const row = await db.prepare(
-      'SELECT COUNT(*) AS cnt FROM rate_limits WHERE key = ? AND ts > ?'
-    ).bind(key, windowStart).first<{ cnt: number }>()
-    if ((row?.cnt || 0) >= maxCount) return true
-    // 기록 추가 + 오래된 기록 정리 (확률적: 10%만 청소해 쓰기 부하 절감)
-    await db.prepare('INSERT INTO rate_limits (key, ts) VALUES (?, ?)').bind(key, now).run()
-    if (Math.random() < 0.1) {
-      await db.prepare('DELETE FROM rate_limits WHERE ts < ?').bind(now - 60 * 60 * 1000).run()
-    }
-    return false
-  } catch (e) {
-    console.error('rate limit check failed:', e)
-    return false // 오류 시 서비스 우선 (fail-open)
-  }
-}
+// ▶ Rate Limiting → src/lib/security.ts의 isRateLimitedD1 참조
 
 // ▶ 보안: Turnstile 검증
 async function verifyTurnstile(token: string, secret: string, ip?: string): Promise<boolean> {
