@@ -12,7 +12,7 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.6
+## Current Version: v5.7
 
 ### Completed Features
 
@@ -224,3 +224,25 @@ curl http://localhost:3000/api/health
 - TypeScript 검사 체계 복구: typescript 설치 + @cloudflare/workers-types 등록 → tsc 에러 81→0
 - compatibility_date 2025-12-20→2025-12-17 정정 (런타임 fallback 경고 제거)
 - wrangler 4.106 업그레이드는 Node 22 요구로 보류 (샌드박스 Node 20)
+
+## v5.7 (2026-07-02) — 성능 리팩터링: 워커 번들 82% 감량 + 모듈 분리 2단계
+
+### 1) encyclopedia.json 런타임 로드 전환 (워커 번들 감량)
+- **문제**: 1.7MB `encyclopedia.json`을 정적 import로 워커 번들에 임베드 → `_worker.js` 1,982.56 kB
+- **해결**: `getEncItems()` — ASSETS 바인딩 fetch(내부 정적 자산, 네트워크 비용 없음) + 일반 fetch 폴백 + 모듈 캐시(isolate당 1회, single-flight 중복 방지)
+- **결과**: `_worker.js` **1,982.56 kB → 352.13 kB (-82%)**, 콜드스타트·배포 속도 개선
+- `/encyclopedia/:term`, `/encyclopedia/category/:name` 라우트 async 전환, 로드 실패 시 백과 메인 302 (fail-safe)
+
+### 2) index.tsx 모듈 분리 2단계 (6,357줄 → 6,206줄)
+- `src/lib/layout.ts` — TRACKING_HEAD/BODY (GTM + Amplitude 지연로더 + Meta Pixel)
+- `src/lib/security.ts` — 관리자 HMAC 세션 (createSessionToken/verifySessionToken/getSessionSecret) + D1 Rate Limiting (isRateLimitedD1)
+- `src/lib/auth.ts` — 회원 인증 헬퍼 (PBKDF2 hashPassword, 사이트 세션, D1 회원 CRUD, R2→D1 lazy migration, sha256Hex)
+
+### 3) wrangler 3.78 → 4.106 업그레이드
+- Node 22.14.0 확보 (`/usr/local/bin`, 샌드박스 기본 v20과 병행)
+- `ecosystem.config.cjs` PM2 env에 PATH 주입으로 Node 22 우선 사용
+
+### 회귀 테스트 (로컬 + 프로덕션 bdbddc.com 전부 통과)
+- 백과 용어/동의어/카테고리 SSR 200, 없는 용어 302
+- /admin 가드 302, /gsc-report 가드 302, /api/health 200
+- 회원 로그인 API 401(미존재 계정), 케이스 갤러리 200, sitemap 200
