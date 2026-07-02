@@ -348,6 +348,15 @@
           updateChosungBar();
           renderCards(getFilteredItems());
         }, 200));
+
+        // SearchAction (?q=검색어) 지원 — 구조화 데이터 사이트링크 검색창 진입 시 자동 필터
+        const qParam = new URLSearchParams(window.location.search).get('q');
+        if (qParam) {
+          searchInput.value = qParam;
+          searchQuery = qParam.trim();
+          updateChosungBar();
+          renderCards(getFilteredItems());
+        }
       }
 
       // URL 해시 체크

@@ -51,6 +51,38 @@ app.use('*', async (c, next) => {
 // (v5.7 모듈 분리 2단계)
 // ============================================
 
+// ============================================
+// strictStatic — 빈 200(soft-404) 방지 정적 서빙 (v5.8 / GSC 색인 개선)
+// ─────────────────────────────────────────────
+// 문제: hono/cloudflare-pages serveStatic()은 ASSETS.fetch 결과를 그대로 반환.
+//       Pages 자산 서버가 존재하지 않는 경로에 "빈 200"을 돌려주는 케이스가 있어
+//       /treatments/잇몸치료 같은 없는 URL이 0바이트 200 (soft-404)로 응답됨.
+//       → GSC "크롤링됨 - 색인 안 됨" 225건의 핵심 원인.
+// 해결: 응답 검증 후 (a) 본문 있는 2xx → 반환, (b) 3xx/304 → 그대로 반환(pretty URL 301 보존),
+//       (c) 그 외(빈 200/404) → next()로 넘겨 최종 catch-all이 진짜 404.html 반환.
+// ============================================
+const strictStatic = () => {
+  return async (c: any, next: any) => {
+    const assets = c.env?.ASSETS
+    if (!assets) return next()
+    try {
+      const res: Response = await assets.fetch(c.req.raw)
+      // 리디렉트(.html→clean URL 301 등)와 304(캐시 재검증)는 그대로 통과
+      if ((res.status >= 301 && res.status <= 308) || res.status === 304) return res
+      if (res.ok) {
+        const buf = await res.arrayBuffer()
+        if (buf.byteLength > 0) {
+          return new Response(buf, { status: res.status, headers: res.headers })
+        }
+      }
+      // 빈 200 / 404 / 기타 → 다음 핸들러로 (최종 catch-all이 404.html 처리)
+      return next()
+    } catch {
+      return next()
+    }
+  }
+}
+
 // 관리자 로그인 페이지 HTML
 function adminLoginPage(error?: string): string {
   return `<!DOCTYPE html>
@@ -187,7 +219,7 @@ app.get('/admin', serveStatic({ path: './admin/index.html' }))
 app.get('/admin/', serveStatic({ path: './admin/index.html' }))
 app.get('/admin/careers', serveStatic({ path: './admin/careers.html' }))
 app.get('/admin/intl-inquiries', serveStatic({ path: './admin/intl-inquiries.html' }))
-app.use('/admin/*', serveStatic())
+app.use('/admin/*', strictStatic())
 
 // CORS for API (must be before API routes)
 app.use('/api/*', cors())
@@ -1557,6 +1589,42 @@ app.get('/tables/*', (c) => c.redirect('/pricing', 301))
 app.get('/treatments/laminate', (c) => c.redirect('/treatments/glownate', 301))  // 라미네이트 → 글로우네이트(BD 자체 진료과)
 app.get('/treatments/checkup', (c) => c.redirect('/checkup', 301))               // 검진은 root /checkup으로
 
+// 2-1) GSC '크롤링됨-미색인'에서 확인된 존재하지 않는 treatments 슬러그 → 유사 진료 페이지 301 (v5.8)
+//      기존에는 빈 200(soft-404)으로 응답되던 URL들. strictStatic 도입으로 404가 되지만,
+//      크롤 시그널을 살리기 위해 의미가 통하는 실제 페이지로 301 통합.
+const TREATMENT_SLUG_301: Record<string, string> = {
+  'anterior': '/treatments/aesthetic',            // 앞니 심미
+  'cost': '/pricing',                             // 비용 → 가격 안내
+  'non-insurance': '/pricing',                    // 비급여 → 가격 안내
+  'cracked-tooth': '/treatments/root-canal',      // 치아 균열 → 신경치료
+  'botulinum': '/treatments/bruxism',             // 보톡스 → 이갈이
+  'restoration': '/treatments/resin',             // 수복 → 레진
+  'asymmetry': '/treatments/orthodontics',        // 비대칭 → 교정
+  'bone-graft': '/treatments/implant-advanced',   // 뼈이식 → 고난도 임플란트
+  'children-treatment': '/treatments/pediatric',  // 어린이 진료 → 소아치과
+  'periodontics': '/treatments/periodontitis',    // 치주과 → 치주염
+  'endodontics': '/treatments/root-canal',        // 보존과 → 신경치료
+  'zirconia': '/treatments/crown',                // 지르코니아 → 크라운
+  'oral-cancer': '/treatments/oral-medicine',     // 구강암 → 구강내과
+  'hygiene': '/treatments/prevention',            // 위생 → 예방치과
+  'preventive': '/treatments/prevention',         // 예방 → 예방치과
+  'digital-dentistry': '/treatments/implant-navigation', // 디지털 → 네비게이션 임플란트
+  'dentures': '/treatments/denture',              // 복수형 → 단수형
+  'sealant': '/treatments/prevention',            // 실란트 → 예방치과
+  '잇몸치료': '/treatments/gum',
+  '교정': '/treatments/orthodontics',
+  '소아치과': '/treatments/pediatric',
+  '임플란트': '/treatments/implant',
+  '구강인사': '/treatments/oral-medicine',        // 구강내과 오타 크롤
+}
+app.get('/treatments/:slug', async (c, next) => {
+  let slug = ''
+  try { slug = decodeURIComponent(c.req.param('slug')) } catch { return next() }
+  const target = TREATMENT_SLUG_301[slug]
+  if (target) return c.redirect(target, 301)
+  return next()
+})
+
 // ============================================
 // 천안 진료 특화 URL → /area/cheonan 통합 (2026-05-29 복구)
 // ============================================
@@ -1599,6 +1667,53 @@ app.get('/main', (c) => c.redirect('/', 301))
 app.get('/bbs/case', (c) => c.redirect('/cases/gallery', 301))
 app.get('/bbs/notice', (c) => c.redirect('/notice/', 301))
 app.get('/bbs/*', (c) => c.redirect('/', 301))
+
+// v5.8: dist/_redirects 파일이 프로덕션(advanced mode _worker.js)에서 동작하지 않음이 확인되어
+// 레거시 리다이렉트 규칙을 워커 라우트로 이식 (GSC 404 165건 중 구 사이트 URL 해소)
+app.get('/about', (c) => c.redirect('/mission', 301))
+app.get('/about/*', (c) => c.redirect('/mission', 301))
+app.get('/intro', (c) => c.redirect('/mission', 301))
+app.get('/intro/*', (c) => c.redirect('/mission', 301))
+app.get('/greeting', (c) => c.redirect('/mission', 301))
+app.get('/home', (c) => c.redirect('/', 301))
+app.get('/home/*', (c) => c.redirect('/', 301))
+app.get('/sub', (c) => c.redirect('/', 301))
+app.get('/sub/*', (c) => c.redirect('/', 301))
+app.get('/sub1', (c) => c.redirect('/', 301))
+app.get('/sub2', (c) => c.redirect('/', 301))
+app.get('/sub3', (c) => c.redirect('/', 301))
+app.get('/sub4', (c) => c.redirect('/', 301))
+app.get('/treatment', (c) => c.redirect('/treatments/', 301))
+app.get('/treatment/*', (c) => c.redirect('/treatments/', 301))
+app.get('/doctor', (c) => c.redirect('/doctors/', 301))
+app.get('/doctor/*', (c) => c.redirect('/doctors/', 301))
+app.get('/staff', (c) => c.redirect('/doctors/', 301))
+app.get('/staff/*', (c) => c.redirect('/doctors/', 301))
+app.get('/contact', (c) => c.redirect('/reservation', 301))
+app.get('/contact/*', (c) => c.redirect('/reservation', 301))
+app.get('/consulting', (c) => c.redirect('/reservation', 301))
+app.get('/consult', (c) => c.redirect('/reservation', 301))
+app.get('/info', (c) => c.redirect('/', 301))
+app.get('/info/*', (c) => c.redirect('/', 301))
+app.get('/board', (c) => c.redirect('/notice/', 301))
+app.get('/board/*', (c) => c.redirect('/notice/', 301))
+app.get('/gallery', (c) => c.redirect('/cases/gallery', 301))
+app.get('/gallery/*', (c) => c.redirect('/cases/gallery', 301))
+app.get('/view', (c) => c.redirect('/', 301))
+app.get('/view/*', (c) => c.redirect('/', 301))
+app.get('/location', (c) => c.redirect('/directions', 301))
+app.get('/map', (c) => c.redirect('/directions', 301))
+app.get('/equipment', (c) => c.redirect('/floor-guide', 301))
+app.get('/facility', (c) => c.redirect('/floor-guide', 301))
+app.get('/event', (c) => c.redirect('/notice/', 301))
+app.get('/event/*', (c) => c.redirect('/notice/', 301))
+app.get('/news', (c) => c.redirect('/notice/', 301))
+app.get('/news/*', (c) => c.redirect('/notice/', 301))
+app.get('/m/*', (c) => c.redirect('/', 301))
+app.get('/mobile/*', (c) => c.redirect('/', 301))
+app.get('/index.php', (c) => c.redirect('/', 301))
+app.get('/index.asp', (c) => c.redirect('/', 301))
+app.get('/default.asp', (c) => c.redirect('/', 301))
 // /cheonan → /area/cheonan 301 리다이렉트 (천안치과 SEO 키워드 URL)
 app.get('/cheonan', (c) => c.redirect('/area/cheonan', 301))
 // /asan → /area/asan 301 리다이렉트 (아산치과 SEO 키워드 URL)
@@ -1976,7 +2091,7 @@ app.get('/api/inblog-rss', async (c) => {
 
 // 유튜브 영상 캐시 JSON 제공 (빌드 시 생성됨)
 // 정적 파일: /data/youtube-cache.json (public/data/youtube-cache.json)
-app.use('/data/*', serveStatic())
+app.use('/data/*', strictStatic())
 
 // ============================================
 // GPT 챗봇 API — 통합 핸들러는 아래 BD_SYSTEM_PROMPT 블록에서 처리
@@ -2533,7 +2648,7 @@ app.post('/api/google-ping', async (c) => {
 // Treatments directory
 app.get('/treatments', serveStatic({ path: './treatments/index.html' }))
 app.get('/treatments/', serveStatic({ path: './treatments/index.html' }))
-app.use('/treatments/*', serveStatic())
+app.use('/treatments/*', strictStatic())
 
 // Doctors directory — index는 정적, 개별 페이지는 SSR
 app.get('/doctors', serveStatic({ path: './doctors/index.html' }))
@@ -2555,7 +2670,7 @@ app.get('/doctors/integrated-dentistry', serveStatic({ path: './doctors/integrat
 app.use('/doctors/*', async (c, next) => {
   const path = c.req.path
   // .html/.css/.js/.jpg 등 확장자가 있는 건 정적 서빙
-  if (/\.\w+$/.test(path)) return serveStatic()(c, next)
+  if (/\.\w+$/.test(path)) return strictStatic()(c, next)
   // 확장자 없으면 SSR 라우트로 넘김
   return next()
 })
@@ -3612,7 +3727,7 @@ fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'},
 // Video directory
 app.get('/video', serveStatic({ path: './video/index.html' }))
 app.get('/video/', serveStatic({ path: './video/index.html' }))
-app.use('/video/*', serveStatic())
+app.use('/video/*', strictStatic())
 
 // Cases directory
 app.get('/cases', serveStatic({ path: './cases/gallery.html' }))
@@ -3918,19 +4033,19 @@ document.addEventListener('keydown',function(e){
 </html>`)
 })
 
-app.use('/cases/*', serveStatic())
+app.use('/cases/*', strictStatic())
 
 // Notice directory
 app.get('/notice', serveStatic({ path: './notice/index.html' }))
 app.get('/notice/', serveStatic({ path: './notice/index.html' }))
-app.use('/notice/*', serveStatic())
+app.use('/notice/*', strictStatic())
 
 // Auth directory
 app.get('/auth/login', serveStatic({ path: './auth/login.html' }))
 app.get('/auth/register', serveStatic({ path: './auth/register.html' }))
 app.get('/auth/mypage', serveStatic({ path: './auth/mypage.html' }))
 app.get('/auth/reset-password', serveStatic({ path: './auth/reset-password.html' }))
-app.use('/auth/*', serveStatic())
+app.use('/auth/*', strictStatic())
 
 // Admin directory — 인증은 상단 미들웨어에서 처리, 여기는 정적 파일만
 // (미들웨어가 이미 /admin/* 보호하므로, 인증 통과 후에만 서빙됨)
@@ -4179,9 +4294,15 @@ app.get('/encyclopedia/:term', async (c) => {
   // 용어 찾기 (정확 매치 → 동의어 매치)
   let item = encItems.find(i => i.term === termParam)
   if (!item) {
-    item = encItems.find(i => (i.synonyms || []).includes(termParam))
+    // ★ v5.8 GSC 색인 개선: 동의어 URL은 200 렌더 대신 대표어로 301
+    //   (동의어마다 canonical만 걸어둔 200 페이지가 '대체 페이지' 1,057건의 원인 →
+    //    크롤 예산 낭비 없이 대표어 1개 URL로 시그널 통합)
+    const synItem = encItems.find(i => (i.synonyms || []).includes(termParam))
+    if (synItem) {
+      return c.redirect(`/encyclopedia/${encodeURIComponent(synItem.term)}`, 301)
+    }
   }
-  
+
   if (!item) {
     return c.redirect('/encyclopedia/', 302)
   }
@@ -4705,10 +4826,10 @@ app.get('/encyclopedia/:term/:sub', (c) => c.redirect('/encyclopedia/', 301))
 app.get('/encyclopedia/:term/:sub/*', (c) => c.redirect('/encyclopedia/', 301))
 
 // Area directory (지역 페이지)
-app.use('/area/*', serveStatic())
+app.use('/area/*', strictStatic())
 
 // FAQ directory
-app.use('/faq/*', serveStatic())
+app.use('/faq/*', strictStatic())
 
 // ============================================
 // Root level HTML pages (without .html extension)
@@ -5038,7 +5159,7 @@ app.get('/careers', serveStatic({ path: './careers.html' }))
 app.get('/', serveStatic({ path: './index.html' }))
 
 // Fallback for any .html file
-app.use('/*.html', serveStatic())
+app.use('/*.html', strictStatic())
 
 // ============================================
 // 채용 지원서 API
