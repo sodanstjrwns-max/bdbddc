@@ -1,4 +1,4 @@
-// Seoul BD Dental - Service Worker v1.1.0
+// Seoul BD Dental - Service Worker v1.2.0
 // Strategy: Conservative caching for reliability
 // - HTML: Network-first (always get latest content)
 // - CSS/JS: Stale-while-revalidate (fast + fresh)
@@ -7,8 +7,10 @@
 //
 // 2026-05-27: Bumped to v1.1.0 to force cache invalidation
 // after nav menu structure correction (whitening ↔ aesthetic positioning)
+// 2026-07-02: v1.2.0 — analytics.js 전환추적 복구(v5.6) 반영 캐시 청소 +
+// /gsc-report 캐시 제외(민감 데이터)
 
-const CACHE_VERSION = 'seoul-bd-v1.1.0';
+const CACHE_VERSION = 'seoul-bd-v1.2.0';
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const IMAGE_CACHE = `images-${CACHE_VERSION}`;
 const FONT_CACHE = `fonts-${CACHE_VERSION}`;
@@ -82,10 +84,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Skip caching for API routes, admin, auth
+  // Skip caching for API routes, admin, auth, gsc-report (민감 데이터 캐시 방지)
   if (url.pathname.startsWith('/api/') || 
       url.pathname.startsWith('/admin/') || 
-      url.pathname.startsWith('/auth/')) {
+      url.pathname.startsWith('/auth/') ||
+      url.pathname.startsWith('/gsc-report')) {
     return;
   }
 
