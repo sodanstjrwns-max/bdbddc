@@ -12,7 +12,7 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.10
+## Current Version: v5.11
 
 ### Completed Features
 
@@ -246,6 +246,18 @@ curl http://localhost:3000/api/health
 - 백과 용어/동의어/카테고리 SSR 200, 없는 용어 302
 - /admin 가드 302, /gsc-report 가드 302, /api/health 200
 - 회원 로그인 API 401(미존재 계정), 케이스 갤러리 200, sitemap 200
+
+## v5.11 (2026-07-02) — 라미네이트 후회 CTR 구출
+
+### GSC 근거
+- "라미네이트 후회" 노출 565 / 클릭 9 = CTR 1.6% (시리즈 벤치마크 "치아미백 후회" 15.7% 대비 1/10)
+- 원인 진단: 경고형 타이틀("비가역적 치료, 시작 전 필독")이 검색자 회피 유발 — 벤치마크는 공감·안내형
+
+### 변경 사항 (guide/regret/laminate.html)
+- title/og:title/twitter:title: "— 비가역적 치료, 시작 전 필독" → "— 미리 알면 피할 수 있습니다" (공감·해결형)
+- meta/og/twitter description: 후회 유형 5가지 나열형으로 재작성 + "이미 시술 후 불편할 때 해결법" 커버리지 추가
+- hero lead 문단 톤 조정 (겁주기 → 차분한 안내), Article 스키마 headline/description 동기화, dateModified 2026-07-02
+- sitemap-main.xml lastmod 갱신, IndexNow 핑 완료 (Yandex 202, Naver 200)
 
 ## v5.10 (2026-07-02) — AEO 가격 2차: llms.txt·내부링크·심층 가이드
 
