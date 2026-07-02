@@ -5877,7 +5877,7 @@ app.get('/api/admin/dashboard-stats', async (c) => {
   }
 
   const r2 = (c.env as any).R2
-  const db = (c.env as any).DB
+  const db = c.env.DB
   const now = new Date()
   const today = now.toISOString().slice(0, 10)
   const thisMonth = now.toISOString().slice(0, 7)
@@ -6147,7 +6147,8 @@ app.get('/api/admin/dashboard-stats', async (c) => {
   let members: any[] = []
   try {
     if (db) {
-      const { results } = await db.prepare('SELECT * FROM users ORDER BY created_at DESC').all()
+      // v5.4에서 회원이 users → members 테이블로 이관됨 (기존 users 조회는 항상 실패해 회원수 0 표시 버그)
+      const { results } = await db.prepare('SELECT id, created_at FROM members ORDER BY created_at DESC').all()
       members = results || []
     }
   } catch { }
