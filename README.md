@@ -12,7 +12,7 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.9
+## Current Version: v5.10
 
 ### Completed Features
 
@@ -246,6 +246,23 @@ curl http://localhost:3000/api/health
 - 백과 용어/동의어/카테고리 SSR 200, 없는 용어 302
 - /admin 가드 302, /gsc-report 가드 302, /api/health 200
 - 회원 로그인 API 401(미존재 계정), 케이스 갤러리 200, sitemap 200
+
+## v5.10 (2026-07-02) — AEO 가격 2차: llms.txt·내부링크·심층 가이드
+
+### 1) llms.txt Pricing 섹션 신설
+- 시술별 실가격(임플란트 80~160만원 등) KRW 병기 + 가격 앵커 URL 12개 — AI가 크롤링 없이 가격 인용 가능
+
+### 2) 내부 링크 그물망
+- faq.html: 가격 Q&A 2개 신규(임플란트·교정 실가격), 기존 답변 4곳 /pricing 앵커 링크, FAQPage 스키마 18→20
+- index.html: #home-pricing-entry 섹션 — 가격 칩 8개(/pricing 앵커 직행) + 수가표 CTA
+
+### 3) 가격 심층 가이드 2종 (질문형 제목·점잖은 톤)
+- **/pricing/implant-guide** — "임플란트 80만원과 160만원, 뭐가 다른가요?": 픽스처 3종(CA/SOI/BLX) 비교표, 추가비용 해부, "저렴한 걸 골라도 괜찮지 않나요?" Q&A, 65세 보험 실계산, FAQPage 5문항+Article 스키마
+- **/pricing/ortho-guide** — "교정 비용 300 vs 700만원 차이": 인비절라인 4종+브라켓 2종 가격표, 부분교정 판별 기준, 계약 전 확인 항목
+- 라우트 serveStatic 2건 + /pricing/ 301, sitemap-main 2건, IndexNow 목록, pricing.html↔가이드 상호링크
+
+### 검증 (로컬+프로덕션)
+- 가이드 2종 200·타이틀 확인, JSON-LD 전부 파싱 통과, /pricing/없는경로 404 회귀 유지
 
 ## v5.9 (2026-07-02) — AEO 가격 검색어 정합 대개편
 
