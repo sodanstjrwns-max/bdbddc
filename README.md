@@ -12,7 +12,7 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.7
+## Current Version: v5.8.1
 
 ### Completed Features
 
@@ -246,3 +246,23 @@ curl http://localhost:3000/api/health
 - 백과 용어/동의어/카테고리 SSR 200, 없는 용어 302
 - /admin 가드 302, /gsc-report 가드 302, /api/health 200
 - 회원 로그인 API 401(미존재 계정), 케이스 갤러리 200, sitemap 200
+
+## v5.8 (2026-07-02) — GSC 색인 개선
+
+### 1) strictStatic — soft-404 (빈 200) 제거
+- **문제**: `hono/cloudflare-pages`의 `serveStatic()`이 ASSETS.fetch 결과를 그대로 반환 → 존재하지 않는 경로(`/treatments/잇몸치료` 등)가 0바이트 200으로 응답. GSC "크롤링됨 - 색인 안 됨" 225건의 핵심 원인
+- **해결**: `strictStatic()` 미들웨어 — 본문 있는 2xx만 반환, 3xx/304 통과, 빈 200/404는 next()로 넘겨 최종 catch-all이 진짜 404.html(status 404) 반환
+- 적용 경로: `/admin/*`, `/data/*`, `/treatments/*`, `/doctors/*`(확장자 있는 정적)
+
+### 2) 존재하지 않는 treatments 슬러그 → 유사 진료 301 (23개)
+- GSC 미색인 목록에서 확인된 슬러그를 의미가 통하는 실제 페이지로 301 통합
+- 예: `cost`→`/pricing`, `bone-graft`→`/treatments/implant-advanced`, `잇몸치료`→`/treatments/gum`, `dentures`→`denture`
+
+### 3) 레거시 리다이렉트 워커 이식 (GSC 404 165건 대응)
+- `dist/_redirects` 파일이 advanced mode(_worker.js)에서 동작하지 않음 확인 → 워커 라우트로 이식
+- `/about`·`/intro`→`/mission`, `/contact`·`/consult`→`/reservation`, `/board`·`/news`·`/event`→`/notice/`, `/gallery`→`/cases/gallery`, `/location`·`/map`→`/directions`, `/index.php` 등 40여 규칙
+
+### v5.8.1 핫픽스 — strictStatic HEAD 요청 오폭
+- **문제**: HEAD 응답은 본문이 원래 0바이트 → strictStatic이 soft-404로 오판, 모든 strictStatic 경로가 HEAD에 404 응답 (크롤러 HEAD 프로빙 시 정상 페이지가 404로 보임)
+- **해결**: HEAD는 GET으로 자산 존재를 검증 후 본문 없이(status/headers만) 반환
+- 검증: `HEAD /treatments/implant` 200, `GET /treatments/nonexistent-xyz` 404(24KB 404.html), 301 리다이렉트 전부 정상
