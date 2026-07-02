@@ -12,7 +12,7 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.8.1
+## Current Version: v5.9
 
 ### Completed Features
 
@@ -144,7 +144,7 @@ curl http://localhost:3000/api/health
 - **Platform**: Cloudflare Pages
 - **Project Name**: seoul-bd-dental
 - **Status**: Active
-- **Last Updated**: 2026-07-02
+- **Last Updated**: 2026-07-02 (v5.9)
 - **필수 Secrets**: `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `OPENAI_API_KEY`, `RESEND_API_KEY`(비밀번호 찾기·예약알림), `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`(소셜로그인)
 
 ## User Flow
@@ -246,6 +246,31 @@ curl http://localhost:3000/api/health
 - 백과 용어/동의어/카테고리 SSR 200, 없는 용어 302
 - /admin 가드 302, /gsc-report 가드 302, /api/health 200
 - 회원 로그인 API 401(미존재 계정), 케이스 갤러리 200, sitemap 200
+
+## v5.9 (2026-07-02) — AEO 가격 검색어 정합 대개편
+
+### 배경
+Patient Signal AEO 진단: 비브랜드 가격 질문("천안 임플란트 가격 얼마야?")에서 AI 답변 언급률 5%, Gemini 격차 -48.3%p. 색인 문제 아님(site: 1위, AI 크롤러 전부 200) — 어휘 불일치·항목 누락·가격 스키마 부재가 원인으로 진단
+
+### 1) P0-A. /pricing 검색어 정합 리라이트
+- title/H1/meta/og → "천안 치과 비급여 수가표·가격 안내" (기존 '비용' 단일 어휘 → 가격/수가표/얼마 증량)
+- meta description·ai-summary에 실제 가격 명시 (임플란트 80~160만원, 인비절라인 300~700만원 등)
+- 심평원 표준 항목명 병기: "치과임플란트(1치당) — 오스템 SOI 100만원 (1,000,000원)" 형식, 원화 병기 `.price-won` 스타일
+- "스켈링" 오타 → "비보험 스케일링 (치석제거)" + 보험 적용가(연 1회 약 1.5~2만원) 안내 추가
+
+### 2) P0-C. 시술별 가격 앵커 Q&A + 스키마 확장
+- `#price-faq` 섹션 신설: `#implant-price` `#ortho-price` `#scaling-price` 등 13개 앵커, 질문형 H3("천안 임플란트 가격은 얼마인가요?") + 200~400자 답변(가격 범위 + 달라지는 조건)
+- FAQPage 스키마 3→16개 질문 (전멸 쿼리 문구 그대로 사용)
+- Dentist 스키마(`#dentist-pricing`) 추가: priceRange + Offer 12건 (MedicalProcedure + PriceSpecification, KRW)
+
+### 3) P1. treatments 16개 페이지 가격 섹션 이식
+- `scripts/insert-price-sections.py` (마커 기반 멱등 실행) — cta-section 직전에 시술별 가격표 + /pricing 링크 + 예약 CTA 삽입
+- 대상: orthodontics, invisalign, gum, scaling, wisdom-tooth, resin, cavity, crown, denture, whitening, glownate, periodontitis, implant, root-canal, bridge, pediatric
+- 효과: '만원' 언급 0회였던 orthodontics/gum 등에 가격 매칭 콘텐츠 확보 → "천안 교정 비용" 류 질문에 매칭 URL 생성
+
+### 검증 (로컬 + 프로덕션 bdbddc.com 통과)
+- /pricing title·price-qna 18블록·FAQ Question 16개 확인, treatments 4종 treatment-price 섹션 렌더 확인
+- 회귀: GET 없는경로 404, HEAD /pricing 200 (v5.8.1 핫픽스 유지)
 
 ## v5.8 (2026-07-02) — GSC 색인 개선
 
