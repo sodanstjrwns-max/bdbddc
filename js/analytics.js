@@ -49,13 +49,13 @@
   // 폴백: <head> init이 누락된 극히 드문 경우만 대비
   if (typeof window.amplitude !== 'undefined') {
     var hasSession = false;
-    try { hasSession = !!(amplitude.getSessionId && amplitude.getSessionId()); } catch(e) {}
+    try { hasSession = !!(window.amplitude.getSessionId && window.amplitude.getSessionId()); } catch(e) {}
     var alreadyInitialized = hasSession ||
                               window._bdAmplitudeInitialized ||
                               (window.amplitude._isInitialized === true);
     if (!alreadyInitialized) {
       window._bdAmplitudeInitialized = true;
-      amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
         autocapture: {
           attribution: true,
           pageViews: true,
@@ -73,6 +73,40 @@
     }
     // <head>에서 init됐거나 여기서 init됐거나 — 이후 track() 정상 동작
   }
+
+  // ─── Amplitude 지연 로더 폴백 ───
+  // bd-tag-loader.js가 <head>에 없는 페이지(구형 area 페이지 등)에서도
+  // SDK가 반드시 로드되도록 로더 스크립트를 동적 주입
+  if (!window._bdAmpLoaderRan && typeof window.amplitude === 'undefined') {
+    var _ldr = document.createElement('script');
+    _ldr.src = '/static/bd-tag-loader.js';
+    _ldr.async = true;
+    document.head.appendChild(_ldr);
+  }
+
+  // ─── ampTrack: SDK 준비 전 이벤트 큐잉 래퍼 ───
+  // v5.5 지연 로더 도입으로 SDK가 페이지 로드 후 ~3초 뒤에 도착함.
+  // 가드 없는 amplitude.track() 직접 호출은 ReferenceError로 스크립트 전체를
+  // 죽이므로(전환 추적 유실!) 반드시 이 래퍼를 통해서만 track한다.
+  var _ampQueue = [];
+  function ampTrack(name, props) {
+    if (window.amplitude && typeof window.amplitude.track === 'function') {
+      try { window.amplitude.track(name, props || {}); } catch (e) { /* silent */ }
+    } else {
+      _ampQueue.push([name, props || {}]);
+    }
+  }
+  // SDK 도착 시 큐 플러시 (최대 15초 대기)
+  (function flushAmpQueue(retries) {
+    if (window.amplitude && typeof window.amplitude.track === 'function') {
+      while (_ampQueue.length) {
+        var ev = _ampQueue.shift();
+        try { window.amplitude.track(ev[0], ev[1]); } catch (e) { /* silent */ }
+      }
+    } else if ((retries || 0) < 75) {
+      setTimeout(function () { flushAmpQueue((retries || 0) + 1); }, 200);
+    }
+  })(0);
 
   // ═══════════════════════════════════════════════════════
   // 1. 유틸리티 함수들
@@ -193,17 +227,19 @@
         fn(id);
         amplitude.identify(id);
       }
-    } catch(e) {
-      // Amplitude SDK 아직 로드 중 — 200ms 후 재시도 (최대 1회)
-      if (!safeIdentify._retried) {
-        safeIdentify._retried = true;
-        setTimeout(function() { safeIdentify(fn); }, 200);
-      }
+    } catch(e) { /* silent */ }
+  }
+  // 지연 로더(v5.5) 대응: SDK 도착까지 폴링 후 identify 실행 (최대 15초)
+  function deferredIdentify(fn, retries) {
+    if (typeof window.amplitude !== 'undefined' && window.amplitude.Identify) {
+      safeIdentify(fn);
+    } else if ((retries || 0) < 75) {
+      setTimeout(function() { deferredIdentify(fn, (retries || 0) + 1); }, 200);
     }
   }
 
   // 기본 유저 프로퍼티 세팅
-  safeIdentify(function(identify) {
+  deferredIdentify(function(identify) {
     // 디바이스/브라우저 (매번 갱신)
     identify.set('device_type', deviceType);
     identify.set('browser', browser);
@@ -319,7 +355,7 @@
   }
 
   // Amplitude 페이지뷰 상세
-  amplitude.track('Page View', {
+  ampTrack('Page View', {
     page_type: pageType,
     page_path: path,
     page_title: pageName,
@@ -341,7 +377,7 @@
   });
 
   // 페이지 타입별 유저 프로퍼티 누적
-  safeIdentify(function(pid) {
+  deferredIdentify(function(pid) {
     if (pageType === 'treatment') {
       pid.add('treatments_viewed', 1);
       pid.append('viewed_treatments', treatmentName);
@@ -374,7 +410,7 @@
     var engagementSec = Math.round((Date.now() - sessionStart) / 1000);
     if (engagementSec < 1 || engagementSec > 1800) return; // 1초 미만이거나 30분 초과는 무시
 
-    amplitude.track('Page Engagement', {
+    ampTrack('Page Engagement', {
       page_type: pageType,
       page_path: path,
       engagement_seconds: engagementSec,
@@ -416,8 +452,8 @@
           treatment_name: treatmentName
         });
       }
-      amplitude.track('Reservation Click', data);
-      safeIdentify(function(rid) {
+      ampTrack('Reservation Click', data);
+      deferredIdentify(function(rid) {
         rid.add('reservation_clicks', 1);
         rid.set('last_reservation_source', pageType);
         if (treatmentName) rid.set('last_reservation_treatment', treatmentName);
@@ -451,12 +487,12 @@
           marketing_agreed: !!(reservationData.marketing)
         });
       }
-      amplitude.track('Reservation Complete', data);
+      ampTrack('Reservation Complete', data);
       // Meta Pixel: Lead 이벤트
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', { content_name: reservationData.treatment || 'general' });
       }
-      safeIdentify(function(rid) {
+      deferredIdentify(function(rid) {
         rid.add('reservations_completed', 1);
         rid.set('last_reservation_treatment', reservationData.treatment || '');
         rid.set('is_lead', true);
@@ -480,7 +516,7 @@
           page_type: pageType
         });
       }
-      amplitude.track('Phone Call Click', {
+      ampTrack('Phone Call Click', {
         source: source || pageType,
         page_type: pageType,
         page_path: path,
@@ -491,7 +527,7 @@
       if (typeof fbq === 'function') {
         fbq('track', 'Contact', { content_name: 'phone_call' });
       }
-      safeIdentify(function(pid) { pid.add('phone_clicks', 1); });
+      deferredIdentify(function(pid) { pid.add('phone_clicks', 1); });
     },
 
     // 카카오 상담 클릭
@@ -509,7 +545,7 @@
           event_label: source || pageType
         });
       }
-      amplitude.track('Kakao Click', {
+      ampTrack('Kakao Click', {
         source: source || pageType,
         page_type: pageType,
         page_path: path,
@@ -519,7 +555,7 @@
       if (typeof fbq === 'function') {
         fbq('track', 'Contact', { content_name: 'kakao_talk' });
       }
-      safeIdentify(function(kid) { kid.add('kakao_clicks', 1); });
+      deferredIdentify(function(kid) { kid.add('kakao_clicks', 1); });
     },
 
     // ── 참여 이벤트 (Engagement) ──
@@ -532,7 +568,7 @@
           treatment_name: name || treatmentName
         });
       }
-      amplitude.track('Treatment View', {
+      ampTrack('Treatment View', {
         treatment_name: name || treatmentName,
         page_path: path,
         channel: refInfo.channel,
@@ -548,7 +584,7 @@
           doctor_name: name || doctorName
         });
       }
-      amplitude.track('Doctor View', {
+      ampTrack('Doctor View', {
         doctor_name: name || doctorName,
         page_path: path,
         device_type: deviceType
@@ -560,7 +596,7 @@
       if (typeof gtag === 'function') {
         gtag('event', 'pricing_view', { event_category: 'engagement' });
       }
-      amplitude.track('Pricing View', {
+      ampTrack('Pricing View', {
         page_path: path,
         referrer: document.referrer,
         channel: refInfo.channel,
@@ -573,7 +609,7 @@
       if (typeof gtag === 'function') {
         gtag('event', 'faq_click', { event_category: 'engagement', event_label: question });
       }
-      amplitude.track('FAQ Click', { question: question, page_path: path });
+      ampTrack('FAQ Click', { question: question, page_path: path });
     },
 
     // 스크롤 깊이
@@ -581,7 +617,7 @@
       if (typeof gtag === 'function') {
         gtag('event', 'scroll_depth', { event_category: 'engagement', value: depth, page_type: pageType });
       }
-      amplitude.track('Scroll Depth', { depth: depth, page_type: pageType, page_path: path });
+      ampTrack('Scroll Depth', { depth: depth, page_type: pageType, page_path: path });
       // 최대 스크롤 기록
       window._bdMaxScroll = Math.max(window._bdMaxScroll || 0, depth);
 
@@ -599,13 +635,13 @@
             treatment_name: treatmentName || ''
           });
         }
-        amplitude.track('Content Read Complete', {
+        ampTrack('Content Read Complete', {
           page_type: pageType,
           content_title: (document.title || '').split('|')[0].trim(),
           page_path: path,
           channel: refInfo.channel
         });
-        safeIdentify(function(uid) {
+        deferredIdentify(function(uid) {
           uid.add('content_reads_complete', 1);
           uid.set('last_content_read', path);
           uid.set('is_engaged_reader', true);
@@ -623,8 +659,8 @@
           method: mapType
         });
       }
-      amplitude.track('Map Click', { map_type: mapType, page_path: path, device_type: deviceType });
-      safeIdentify(function(mid) { mid.add('map_clicks', 1); });
+      ampTrack('Map Click', { map_type: mapType, page_path: path, device_type: deviceType });
+      deferredIdentify(function(mid) { mid.add('map_clicks', 1); });
     },
 
     // 길찾기 클릭 (네이버지도/카카오맵/구글맵 길찾기 버튼)
@@ -636,7 +672,7 @@
           method: mapType || 'unknown'
         });
       }
-      amplitude.track('Directions Click', {
+      ampTrack('Directions Click', {
         map_type: mapType || 'unknown',
         page_type: pageType,
         page_path: path,
@@ -652,7 +688,7 @@
           method: method || 'email'
         });
       }
-      amplitude.track('Sign Up', {
+      ampTrack('Sign Up', {
         method: method || 'email',
         page_path: path,
         device_type: deviceType
@@ -660,7 +696,7 @@
       if (typeof fbq === 'function') {
         fbq('track', 'CompleteRegistration', { content_name: method || 'email' });
       }
-      safeIdentify(function(sid) {
+      deferredIdentify(function(sid) {
         sid.set('is_registered', true);
         sid.set('signup_method', method || 'email');
         sid.setOnce('signup_date', new Date().toISOString().split('T')[0]);
@@ -675,12 +711,12 @@
           method: method || 'email'
         });
       }
-      amplitude.track('Login', {
+      ampTrack('Login', {
         method: method || 'email',
         page_path: path,
         device_type: deviceType
       });
-      safeIdentify(function(lid) { lid.add('login_count', 1); });
+      deferredIdentify(function(lid) { lid.add('login_count', 1); });
     },
 
     // CTA 클릭 (범용)
@@ -688,7 +724,7 @@
       if (typeof gtag === 'function') {
         gtag('event', 'cta_click', { event_category: 'conversion', event_label: ctaName, cta_location: ctaLocation });
       }
-      amplitude.track('CTA Click', {
+      ampTrack('CTA Click', {
         cta_name: ctaName,
         cta_location: ctaLocation,
         page_type: pageType,
@@ -699,7 +735,7 @@
 
     // 외부 링크 클릭
     trackOutboundClick: function(url, label) {
-      amplitude.track('Outbound Click', {
+      ampTrack('Outbound Click', {
         url: url,
         label: label || '',
         page_type: pageType,
@@ -715,8 +751,8 @@
       if (typeof gtag === 'function') {
         gtag('event', 'game_start', { event_category: 'game', event_label: g, game_name: g });
       }
-      amplitude.track('Game Start', data);
-      safeIdentify(function(gid) {
+      ampTrack('Game Start', data);
+      deferredIdentify(function(gid) {
         gid.add('games_played', 1);
         gid.append('played_games', g);
       });
@@ -742,7 +778,7 @@
           playtime_seconds: playtimeSeconds || 0
         });
       }
-      amplitude.track('Game Over', data);
+      ampTrack('Game Over', data);
     },
 
     trackGameShare: function(game, method, extra) {
@@ -760,8 +796,8 @@
           share_method: method || 'unknown'
         });
       }
-      amplitude.track('Game Share', data);
-      safeIdentify(function(sid) { sid.add('game_shares', 1); });
+      ampTrack('Game Share', data);
+      deferredIdentify(function(sid) { sid.add('game_shares', 1); });
     },
 
     trackGameResult: function(game, resultType, extra) {
@@ -778,7 +814,7 @@
           result_type: resultType || ''
         });
       }
-      amplitude.track('Game Result', data);
+      ampTrack('Game Result', data);
     },
 
     trackGameSelect: function(game, source) {
@@ -789,7 +825,7 @@
           source: source || 'game_hub'
         });
       }
-      amplitude.track('Game Select', {
+      ampTrack('Game Select', {
         game_name: game,
         source: source || 'game_hub',
         page_path: path
@@ -803,7 +839,7 @@
         item_name: itemName || '',
         page_path: path
       }, extra || {});
-      amplitude.track('Game Item', data);
+      ampTrack('Game Item', data);
     },
 
     trackGameRestart: function(game, lastScore) {
@@ -811,7 +847,7 @@
       if (typeof gtag === 'function') {
         gtag('event', 'game_restart', { event_category: 'game', event_label: g, last_score: lastScore || 0 });
       }
-      amplitude.track('Game Restart', { game_name: g, last_score: lastScore || 0, page_path: path });
+      ampTrack('Game Restart', { game_name: g, last_score: lastScore || 0, page_path: path });
     }
   };
 
@@ -936,7 +972,7 @@
           });
         }
         // Amplitude 이벤트
-        amplitude.track('Area CTA Click', {
+        ampTrack('Area CTA Click', {
           cta_type: ctaType,
           area_name: ctaArea,
           treatment_type: ctaTreatment,
@@ -983,7 +1019,7 @@
           device_type: deviceType
         });
       }
-      amplitude.track('Area Page View', {
+      ampTrack('Area Page View', {
         area_name: areaName,
         treatment_type: areaTreatment || 'general',
         page_path: path,
@@ -992,7 +1028,7 @@
         device_type: deviceType
       });
       // 지역 SEO 페이지 방문 유저 프로퍼티 누적
-      safeIdentify(function(aid) {
+      deferredIdentify(function(aid) {
         aid.add('area_pages_viewed', 1);
         aid.append('viewed_areas', areaName);
         if (areaTreatment) aid.append('viewed_area_treatments', areaTreatment);
