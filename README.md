@@ -12,7 +12,7 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.4
+## Current Version: v5.6
 
 ### Completed Features
 
@@ -203,3 +203,24 @@ curl http://localhost:3000/api/health
 - **LCP 개선 — Amplitude 지연 로더**: 동기 SDK 2종(~80KB 렌더 블로킹) → `/static/bd-tag-loader.js` (requestIdleCallback + 인터랙션 트리거). 215개 HTML + SSR TRACKING_HEAD + 빌더 스크립트 6종 일괄 전환, `cdn.amplitude.com` 동기 로드 0건
 - **모듈 분리 1단계**: GSC 대시보드 → `src/routes/gsc-report-dash.ts`, 공통 타입 → `src/types.ts`, 죽은 중복 GSC 블록 362줄 제거 (index.tsx 7,030→6,357줄, 워커 번들 1,983→1,949KB)
 - 남은 과제: lib(layout/auth/security) 분리, encyclopedia.json(1.7MB) 런타임 로드 전환
+
+## v5.6 (2026-07-02) — 전체 점검·디버그 및 보안 강화
+### 🔴 치명 버그 복구: Amplitude 전환추적 전체 사망
+- v5.5 지연 로더 도입 후 analytics.js의 가드 없는 `amplitude.track()` 직접 호출이 ReferenceError로 스크립트 전체를 죽여 **전환 이벤트 31종이 전 페이지에서 유실**되던 문제 복구
+- `ampTrack()` 큐잉 래퍼 (SDK 도착 전 이벤트 큐 적재 → 도착 시 플러시), `deferredIdentify()` 폴링, 로더 미탑재 페이지 폴백 주입
+- 캐시버스팅 `v=20260702v8` 일괄 갱신 (207개 HTML)
+
+### 잠복 버그 수정
+- **어드민 대시보드 회원수 0 표시**: 폐기된 `users` 테이블 조회 → `members`로 교체 (v5.4 이관 누락분)
+- **area 27페이지**: 존재하지 않는 `../js/gnb.js` 참조(404+MIME 차단) → `gnb-v2.js` 교체, 상대경로→절대경로 통일, 구버전 CSS 캐시버스터 통일
+- **임플란트 12페이지**: 죽은 `../js/site-v5.js` 참조 제거
+
+### 보안 강화
+- **`/gsc-report` 어드민 인증 보호**: 대시보드 + 데이터 전부 어드민 세션 뒤로 이동 (미인증 → `/admin/login` 302)
+- 공개돼 있던 `/static/gsc-data.json` 제거 → 워커 번들 임베드, 인증 후 `/gsc-report/data` API로만 제공 (SEO 전략 데이터 경쟁사 노출 차단)
+- CDN 캐시(s-maxage 7일) 잔존분은 플레이스홀더 배포로 즉시 무효화
+
+### 인프라/품질
+- TypeScript 검사 체계 복구: typescript 설치 + @cloudflare/workers-types 등록 → tsc 에러 81→0
+- compatibility_date 2025-12-20→2025-12-17 정정 (런타임 fallback 경고 제거)
+- wrangler 4.106 업그레이드는 Node 22 요구로 보류 (샌드박스 Node 20)
