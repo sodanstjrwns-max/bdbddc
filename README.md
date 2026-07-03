@@ -106,9 +106,19 @@
 | GET | `/api/google-reviews` | 구글 리뷰 프록시 |
 | POST | `/api/chat` | AI 챗봇 |
 | GET | `/api/health` | 헬스체크 |
+| POST | `/api/cavity-defense/score` | 충치 디펜스 점수 등록 (닉네임+점수, 상위% 반환) |
+| GET | `/api/cavity-defense/leaderboard` | 충치 디펜스 주간 랭킹 TOP 100 (월요일 리셋) |
 
 ### Data Architecture
-- **D1 Database**: 회원(`members`), 게임 점수(chbti/flight/run), 페이지뷰, 채용 지원, rate limits (migrations 0001~0008)
+- **D1 Database**: 회원(`members`), 게임 점수(chbti/flight/run/cavity_defense), 페이지뷰, 채용 지원, rate limits (migrations 0001~0009)
+
+### 게임존 (플레이)
+| 게임 | URL | 설명 |
+|---|---|---|
+| **충치 디펜스** | `/game/cavity-defense` | PixiJS v8 타워 디펜스. 타워 5종×3단계, 적 7종+보스 3종, 스테이지 3종(20웨이브), 궁극기 '양치 타임', D1 주간 랭킹, 게임오버→검진 예약 깔때기. 소스: `js/cavity-defense/` (data/art/game/app 4모듈) |
+| 치석 플라이트 | `/flight` | 드래곤 플라이트 스타일 |
+| TOOTH RUN | `/run` | 무한 러너 |
+| 치BTI | `/checkup` | 16유형 성격테스트 |
 - **R2 Storage**: 케이스 데이터 (`data/cases.json`), 이미지 파일, 구(舊) 회원 JSON 백업
 - **Static HTML**: 빌드 시 dist/ 복사
 - **Structured Data**: JSON-LD (BreadcrumbList, FAQPage, MedicalProcedure, DefinedTerm, Dentist)
