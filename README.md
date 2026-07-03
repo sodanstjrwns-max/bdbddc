@@ -263,6 +263,14 @@ curl http://localhost:3000/api/health
 - 프로덕션 5장 샘플 curl 200 + 신규 파일 사이즈 일치, og:image 메타태그 ?v=sq1 반영 확인
 - 배포: d789f6d5.seoul-bd-dental.pages.dev
 
+### 추가 (2026-07-03) — 구글 검색 파비콘 미갱신 근본 해결
+- 원인: SVG 파비콘만 제공 (구글봇은 ICO/PNG 선호, SVG-only는 갱신 무시 잦음) + /favicon.ico가 SVG로 301 리디렉트 + 캐시버스팅 부재
+- 조치: cairosvg로 SVG→PNG 7종(16~512) 생성, 멀티사이즈 favicon.ico(16+32+48) 루트 배치, apple-touch-icon.png 실파일화
+- HTML 222개 파일: SVG-only 링크 → ICO+PNG96+SVG 3종 링크(?v=2), manifest.json에 PNG 192/512 아이콘 우선 추가
+- src/index.tsx: favicon.ico→SVG 301 리디렉트 제거 (실파일 정적 서빙), post-build FILE_ALLOW에 ico/png 확장자 추가, _routes.json exclude에 /favicon.ico·/apple-touch-icon.png
+- 배포: babb46a8.seoul-bd-dental.pages.dev — 프로덕션 전 자산 200 확인 (구 /favicon.ico 301은 엣지캐시 max-age 4h 후 자동 소멸)
+- 후속: GSC에서 홈(https://bdbddc.com/) 색인 재요청 권장 — 구글 파비콘 갱신은 재크롤 후 수일~수주 소요
+
 ### 추가 (2026-07-03) — 메인 og-image-v2.jpg도 재생성
 - 기존 좌측 정렬 텍스트를 중앙 630×630 세이프존 안으로 재배치 (배경: 병원 로비 인테리어 유지)
 - 630×630 크롭 시뮬레이션 통과 (타이틀·서브카피·하단 정보줄 전부 생존)
