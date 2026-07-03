@@ -1975,7 +1975,7 @@ app.get('/feed.xml', async (c) => {
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="https://bdbddc.com/feed.xml" rel="self" type="application/rss+xml"/>
     <image>
-      <url>https://bdbddc.com/images/og-image-v2.jpg</url>
+      <url>https://bdbddc.com/images/og-image-v2.jpg?v=sq1</url>
       <title>서울비디치과</title>
       <link>https://bdbddc.com/</link>
     </image>
@@ -2334,7 +2334,7 @@ form:has(input[placeholder="Email"]) { display: none !important; }
     "@type": "Dentist",
     "name": "서울비디치과",
     "url": "https://bdbddc.com",
-    "logo": { "@type": "ImageObject", "url": "https://bdbddc.com/images/og-image-v2.jpg" }
+    "logo": { "@type": "ImageObject", "url": "https://bdbddc.com/images/og-image-v2.jpg?v=sq1" }
   },
   "inLanguage": "ko"
 }
@@ -3144,7 +3144,7 @@ ${TRACKING_HEAD}
 <meta property="og:title" content="${filterTitle}원장 컬럼 | 서울비디치과">
 <meta property="og:url" content="https://bdbddc.com/column/${doctorFilter ? '?doctor=' + doctorFilter : ''}">
 <meta property="og:description" content="서울비디치과 원장님들의 진료 철학과 치과 이야기.">
-<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg">
+<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -3234,7 +3234,7 @@ ${TRACKING_HEAD}
     "@type": "Dentist",
     "name": "서울비디치과",
     "url": "https://bdbddc.com",
-    "logo": { "@type": "ImageObject", "url": "https://bdbddc.com/images/og-image-v2.jpg" }
+    "logo": { "@type": "ImageObject", "url": "https://bdbddc.com/images/og-image-v2.jpg?v=sq1" }
   },
   "inLanguage": "ko"
 }
@@ -3376,7 +3376,7 @@ app.get('/column/:param', async (c) => {
   const seoTitle = col.metaTitle || col.title
   const seoDesc = col.metaDescription || plainExcerpt
   const rawThumb = col.thumbnailImage || ''
-  const ogImage = rawThumb.startsWith('http') ? rawThumb : rawThumb ? `https://bdbddc.com${rawThumb}` : 'https://bdbddc.com/images/og-image-v2.jpg'
+  const ogImage = rawThumb.startsWith('http') ? rawThumb : rawThumb ? `https://bdbddc.com${rawThumb}` : 'https://bdbddc.com/images/og-image-v2.jpg?v=sq1'
   const doctorNameClean = (col.doctorName || '').replace(' 원장', '')
   const focusKw = col.focusKeyword || ''
   // ai-summary: 포커스 키워드 포함 요약
@@ -3574,7 +3574,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
     "@id":"https://bdbddc.com/#org",
     "name":"서울비디치과",
     "url":"https://bdbddc.com",
-    "logo":{"@type":"ImageObject","url":"https://bdbddc.com/images/og-image-v2.jpg"}
+    "logo":{"@type":"ImageObject","url":"https://bdbddc.com/images/og-image-v2.jpg?v=sq1"}
   },
   "inLanguage":"ko",
   ${focusKw ? `"keywords":"${focusKw}",` : ''}
@@ -4454,11 +4454,11 @@ ${TRACKING_HEAD}
 <meta property="og:url" content="${canonicalUrl}">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="서울비디치과">
-<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg">
+<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${pageTitle}">
 <meta name="twitter:description" content="${pageDesc}">
-<meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg">
+<meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
 <meta name="subject" content="${term}, ${item.category}, 치과 용어, 서울비디치과">
 <meta name="abstract" content="${term}이란? ${item.short} — 서울비디치과 치과 백과사전.">
 <meta name="ai-summary" content="${term}이란? ${plainText(item.short + ' ' + item.detail).slice(0, 200)}">
@@ -4697,11 +4697,11 @@ ${TRACKING_HEAD}
 <meta property="og:url" content="${canonicalUrl}">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="서울비디치과">
-<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg">
+<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${catName} 치과 용어 ${catItems.length}개 | 서울비디치과 백과사전">
 <meta name="twitter:description" content="${meta.intro.slice(0, 120)}">
-<meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg">
+<meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
 <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#6B4226">
