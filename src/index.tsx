@@ -99,7 +99,7 @@ ${TRACKING_HEAD}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>관리자 로그인 | 서울비디치과</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Pretendard',-apple-system,sans-serif;background:#f5f0eb;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
@@ -1529,14 +1529,10 @@ app.get('/api/admin/members', async (c) => {
 // 브라우저 자동 요청 fallback (favicon.ico, apple-touch-icon 등)
 // Screaming Frog Internal 4xx/5xx 이슈 해결
 // ============================================
-app.get('/favicon.ico', (c) => {
-  return c.redirect('/images/icons/favicon.svg', 301)
-})
-app.get('/apple-touch-icon.png', (c) => {
-  return c.redirect('/images/icons/favicon.svg', 301)
-})
+// favicon.ico / apple-touch-icon.png는 이제 실제 파일이 dist 루트에 존재
+// (_routes.json exclude로 정적 서빙 — Worker 미경유)
 app.get('/apple-touch-icon-precomposed.png', (c) => {
-  return c.redirect('/images/icons/favicon.svg', 301)
+  return c.redirect('/apple-touch-icon.png', 301)
 })
 
 // ============================================
@@ -3146,7 +3142,7 @@ ${TRACKING_HEAD}
 <meta property="og:description" content="서울비디치과 원장님들의 진료 철학과 치과 이야기.">
 <meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
 <meta property="og:type" content="website">
-<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
@@ -3538,7 +3534,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 <meta name="twitter:title" content="${seoTitle} | 서울비디치과">
 <meta name="twitter:description" content="${seoDesc}">
 <meta name="twitter:image" content="${ogImage}">
-<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
@@ -3872,7 +3868,7 @@ ${TRACKING_HEAD}
 <meta property="og:description" content="${catLabel} 치료 전후 사진 — ${cs.doctorName || '서울비디치과'}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://bdbddc.com/cases/${caseSlug(cs)}">
-<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
@@ -4462,7 +4458,7 @@ ${TRACKING_HEAD}
 <meta name="subject" content="${term}, ${item.category}, 치과 용어, 서울비디치과">
 <meta name="abstract" content="${term}이란? ${item.short} — 서울비디치과 치과 백과사전.">
 <meta name="ai-summary" content="${term}이란? ${plainText(item.short + ' ' + item.detail).slice(0, 200)}">
-<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#6B4226">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -4702,7 +4698,7 @@ ${TRACKING_HEAD}
 <meta name="twitter:title" content="${catName} 치과 용어 ${catItems.length}개 | 서울비디치과 백과사전">
 <meta name="twitter:description" content="${meta.intro.slice(0, 120)}">
 <meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
-<link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#6B4226">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>

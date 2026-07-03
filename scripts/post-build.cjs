@@ -17,7 +17,7 @@ const EXCLUDE = new Set([
 ]);
 
 // 배포 대상 파일 확장자 (루트 파일 중)
-const FILE_ALLOW = /\.(html|txt|xml|json|js)$|^_redirects$|^_headers$/;
+const FILE_ALLOW = /\.(html|txt|xml|json|js|ico|png|svg|webmanifest)$|^_redirects$|^_headers$/;
 
 let copiedFiles = 0, copiedDirs = 0;
 for (const entry of fs.readdirSync('.', { withFileTypes: true })) {
@@ -52,6 +52,7 @@ const routes = {
     '/css/*','/js/*','/images/*','/static/*','/data/*',
     '/manifest.json','/sitemap.xml','/sitemap-main.xml','/sitemap-area.xml','/sitemap-encyclopedia.xml',
     '/sitemap-intl.xml',
+    '/favicon.ico','/apple-touch-icon.png',
     '/robots.txt','/6f74445f7ec14eccb522a4d3f253128c.txt','/bdbddc2026indexnow.txt',
     '/llms.txt','/llms-full.txt','/sw.js','/report/*','/videos/*',
     '/en/*','/vi/*','/th/*','/ru/*','/jp/*','/cn/*'
