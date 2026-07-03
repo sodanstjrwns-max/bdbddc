@@ -263,6 +263,12 @@ curl http://localhost:3000/api/health
 - 프로덕션 5장 샘플 curl 200 + 신규 파일 사이즈 일치, og:image 메타태그 ?v=sq1 반영 확인
 - 배포: d789f6d5.seoul-bd-dental.pages.dev
 
+### 추가 (2026-07-03) — 메인 og-image-v2.jpg도 재생성
+- 기존 좌측 정렬 텍스트를 중앙 630×630 세이프존 안으로 재배치 (배경: 병원 로비 인테리어 유지)
+- 630×630 크롭 시뮬레이션 통과 (타이틀·서브카피·하단 정보줄 전부 생존)
+- HTML/tsx 참조 101곳 `?v=sq1` 캐시버스팅, src/index.tsx 폴백 URL 포함
+- 배포: 1ebed1fb.seoul-bd-dental.pages.dev, 프로덕션 검증 완료 (200, 151KB)
+
 ## v5.11 (2026-07-02) — 라미네이트 후회 CTR 구출
 
 ### GSC 근거
