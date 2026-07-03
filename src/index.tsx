@@ -1926,6 +1926,75 @@ app.get('/api/run/stats', async (c) => {
   }
 })
 
+// ============================================
+// CAVITY DEFENSE — 충치 디펜스 리더보드 API
+// ============================================
+function cdWeekKey(): string {
+  // ISO 주간 키 (월요일 리셋): YYYY-WW
+  const d = new Date()
+  const target = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()))
+  const dayNum = (target.getUTCDay() + 6) % 7
+  target.setUTCDate(target.getUTCDate() - dayNum + 3)
+  const firstThursday = new Date(Date.UTC(target.getUTCFullYear(), 0, 4))
+  const week = 1 + Math.round(((target.getTime() - firstThursday.getTime()) / 86400000 - 3 + ((firstThursday.getUTCDay() + 6) % 7)) / 7)
+  return `${target.getUTCFullYear()}-${String(week).padStart(2, '0')}`
+}
+
+// POST /api/cavity-defense/score — 점수 등록 + 상위 % 반환
+app.post('/api/cavity-defense/score', async (c) => {
+  try {
+    const db = c.env.DB
+    if (!db) return c.json({ error: 'DB not available' }, 500)
+
+    const body = await c.req.json<{ nickname: string; score: number; stage: number; wave: number; cleared: boolean; rank_name: string }>()
+    const nickname = String(body.nickname || '익명의 수호자').slice(0, 10).replace(/[<>"'&]/g, '')
+    const score = Math.max(0, Math.min(999999, Math.floor(Number(body.score) || 0)))
+    const stage = Math.max(1, Math.min(3, Math.floor(Number(body.stage) || 1)))
+    const wave = Math.max(0, Math.min(20, Math.floor(Number(body.wave) || 0)))
+    const cleared = body.cleared ? 1 : 0
+    const rankName = String(body.rank_name || '').slice(0, 20)
+    const weekKey = cdWeekKey()
+
+    const result = await db.prepare(
+      'INSERT INTO cavity_defense_scores (nickname, score, stage, wave, cleared, rank_name, week_key) VALUES (?, ?, ?, ?, ?, ?, ?)'
+    ).bind(nickname, score, stage, wave, cleared, rankName, weekKey).run()
+
+    const totalResult = await db.prepare('SELECT COUNT(*) as total FROM cavity_defense_scores').first<{ total: number }>()
+    const betterResult = await db.prepare('SELECT COUNT(*) as better FROM cavity_defense_scores WHERE score > ?').bind(score).first<{ better: number }>()
+    const total = totalResult?.total || 1
+    const rank = (betterResult?.better || 0) + 1
+    const topPercent = Math.min(100, Math.max(1, Math.ceil(((rank - 1) / total) * 100) || 1))
+
+    return c.json({
+      success: true,
+      id: result.meta.last_row_id,
+      rank, total_players: total, top_percent: topPercent, week: weekKey
+    })
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+// GET /api/cavity-defense/leaderboard — 주간 TOP 100
+app.get('/api/cavity-defense/leaderboard', async (c) => {
+  try {
+    const db = c.env.DB
+    if (!db) return c.json({ error: 'DB not available' }, 500)
+    const weekKey = cdWeekKey()
+    const scores = await db.prepare(
+      'SELECT id, nickname, score, stage, wave, cleared, rank_name, created_at FROM cavity_defense_scores WHERE week_key = ? ORDER BY score DESC LIMIT 100'
+    ).bind(weekKey).all<{ id: number; nickname: string; score: number; stage: number; wave: number; cleared: number; rank_name: string; created_at: string }>()
+    const totalResult = await db.prepare('SELECT COUNT(*) as total FROM cavity_defense_scores WHERE week_key = ?').bind(weekKey).first<{ total: number }>()
+    return c.json({
+      week: weekKey,
+      total_players: totalResult?.total || 0,
+      scores: scores?.results || []
+    })
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
 // API health check
 app.get('/api/health', (c) => {
   return c.json({ 
@@ -4856,6 +4925,8 @@ app.get('/checkup', serveStatic({ path: './checkup.html' }))
 app.get('/symptom-checker', serveStatic({ path: './symptom-checker.html' }))
 app.get('/run', serveStatic({ path: './run.html' }))
 app.get('/games', serveStatic({ path: './games.html' }))
+app.get('/game/cavity-defense', serveStatic({ path: './game/cavity-defense.html' }))
+app.get('/game/cavity-defense/', serveStatic({ path: './game/cavity-defense.html' }))
 
 // 디자인 트렌드 데모
 app.get('/demo-trends', serveStatic({ path: './demo-trends.html' }))
