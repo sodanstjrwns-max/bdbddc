@@ -12,7 +12,7 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.11
+## Current Version: v5.12
 
 ### Completed Features
 
@@ -246,6 +246,22 @@ curl http://localhost:3000/api/health
 - 백과 용어/동의어/카테고리 SSR 200, 없는 용어 302
 - /admin 가드 302, /gsc-report 가드 302, /api/health 200
 - 회원 로그인 API 401(미존재 계정), 케이스 갤러리 200, sitemap 200
+
+## v5.12 (2026-07-03) — OG 이미지 14장 네이버 세이프존 재제작
+
+### 문제 진단
+- 네이버 통합검색 OG 썸네일 = 중앙 기준 1:1 크롭 → 기존 서브페이지 OG 14장(좌아이콘+우텍스트 가로배치)은 텍스트 절단 ("심미치", "임플란" 등) — PIL 크롭 시뮬레이션으로 확인
+- 설계 규칙: 캔버스 1200×630 유지 + 핵심 요소(로고·병원명·카피)는 중앙 630×630 세이프존 안, 좌우 285px는 배경 확장 영역
+
+### 변경 사항
+- images/og/*.jpg 14장 전체 교체 (nano-banana-pro 재생성 → 1200×630 정규화, 전장 630×630 크롭 검증 통과): aesthetic, area-seo, blog, conservative, directions, doctors, encyclopedia(838개 용어로 갱신), faq, implant, orthodontics, pediatric, pricing, reservation, sedation
+- 카톡/네이버 URL 단위 OG 캐시 대응: HTML 내 images/og/ 참조 전체에 `?v=sq1` 캐시버스팅 일괄 적용 (176개 파일)
+- 버그 수정: blueprint.html og:image 리터럴 플레이스홀더 `{1200x630 이미지}` → 실제 URL(og-image-v2.jpg) / guide/{implant,invisalign,laminate}.html의 존재하지 않는 *-guide.jpg(404) → 실재 파일로 교체
+- 메인 og-image-v2.jpg는 이미 세이프존 준수 확인되어 유지
+
+### 검증
+- 프로덕션 5장 샘플 curl 200 + 신규 파일 사이즈 일치, og:image 메타태그 ?v=sq1 반영 확인
+- 배포: d789f6d5.seoul-bd-dental.pages.dev
 
 ## v5.11 (2026-07-02) — 라미네이트 후회 CTR 구출
 
