@@ -120,9 +120,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .howto-btn { margin-top:16px; padding:11px 26px; font-size:.9rem; border-radius:999px; background:rgba(255,255,255,.08); color:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.2); font-weight:700; }
 
     /* ===== 게임 화면 ===== */
-    #gameScreen { z-index:10; display:none; flex-direction:column; }
-    #gameScreen.active { display:flex; }
-    #gameMount { flex:1; position:relative; overflow:hidden; background:var(--night); }
+    #gameScreen { z-index:10; display:none; flex-direction:column; overflow:hidden; }
+    #gameScreen.active { display:flex; align-items:stretch; justify-content:flex-start; }
+    #gameMount { flex:1; width:100%; align-self:stretch; position:relative; overflow:hidden; background:var(--night); }
     #gameMount canvas { display:block; }
 
     /* HUD 상단 */
@@ -472,9 +472,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/pixi.js@8.6.6/dist/pixi.min.js"></script>
-  <script src="/js/cavity-defense/cd-data.js"></script>
-  <script src="/js/cavity-defense/cd-art.js"></script>
-  <script src="/js/cavity-defense/cd-game.js"></script>
-  <script src="/js/cavity-defense/cd-app.js"></script>
+  <script src="/js/cavity-defense/cd-data.js?v=2"></script>
+  <script src="/js/cavity-defense/cd-art.js?v=2"></script>
+  <script src="/js/cavity-defense/cd-game.js?v=2"></script>
+  <script src="/js/cavity-defense/cd-app.js?v=2"></script>
 </body>
 </html>

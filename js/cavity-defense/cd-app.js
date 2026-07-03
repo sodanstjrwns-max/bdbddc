@@ -148,6 +148,11 @@
     closeMenus();
     if (game) { game.destroy(); game = null; }
     $('gameMount').innerHTML = '';
+    // 화면 전환 후 레이아웃이 확정된 다음 프레임에 캔버스 생성 (0-size 방지)
+    requestAnimationFrame(() => requestAnimationFrame(() => createGame(stageId)));
+  }
+
+  function createGame(stageId) {
     game = new window.CavityDefense({
       mount: $('gameMount'),
       stage: stageId,
@@ -494,6 +499,8 @@
         startGame(1);
         setTimeout(() => {
           try {
+            const cv = document.querySelector('#gameMount canvas');
+            console.log('[CD_TEST] canvas=' + (cv ? cv.width + 'x' + cv.height + ' css=' + cv.clientWidth + 'x' + cv.clientHeight : 'MISSING'));
             game.startWave();
             console.log('[CD_TEST] wave started, state=' + game.getState());
           } catch (e) { console.log('[CD_TEST] wave ERROR: ' + e.message); }

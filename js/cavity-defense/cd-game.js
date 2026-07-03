@@ -19,7 +19,10 @@
 
     // ---------- 논리 해상도 (세로 모바일 퍼스트) ----------
     const mountEl = opts.mount;
-    const mw = mountEl.clientWidth, mh = mountEl.clientHeight;
+    let mw = mountEl.clientWidth, mh = mountEl.clientHeight;
+    // 안전장치 — 마운트가 아직 레이아웃 전이거나 0 크기면 뷰포트 기준으로
+    if (!mw || mw < 50) mw = window.innerWidth;
+    if (!mh || mh < 50) mh = window.innerHeight - 150;
     const LW = 420;
     const LH = Math.max(640, Math.min(920, LW * (mh / Math.max(1, mw))));
 
@@ -53,10 +56,19 @@
       backgroundAlpha: 0,
       antialias: true,
       resolution: Math.min(2, window.devicePixelRatio || 1),
-      autoDensity: true
+      autoDensity: true,
+      preference: 'webgl'
     }).then(() => {
       mountEl.appendChild(app.canvas);
       setup();
+    }).catch((err) => {
+      // WebGL 미지원/초기화 실패 — 사용자에게 안내
+      mountEl.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:30px;text-align:center;color:#fff">' +
+        '<div style="font-size:50px">🦷💦</div>' +
+        '<p style="margin-top:14px;font-weight:800">이 브라우저에서는 게임을 실행할 수 없습니다.</p>' +
+        '<p style="margin-top:8px;font-size:.85rem;opacity:.6">최신 Chrome / Safari에서 다시 시도해주세요.</p></div>';
+      console.error('[CavityDefense] init failed:', err);
+      throw err;
     });
 
     const world = new PIXI.Container();
