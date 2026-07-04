@@ -12,9 +12,22 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.13
+## Current Version: v5.14
 
 ### Completed Features
+
+#### 다국어 페이지 슈퍼 업그레이드 (v5.14) — 6개 언어 32페이지 전면 재구축
+- **Python 페이지 생성 시스템**: `scripts/intl_gen/` — engine.py(렌더러) + content_XX.py(언어별 데이터) + generate.py(러너) + gen_sitemap.py(사이트맵 자동생성). 가격/시간/전화번호가 모든 언어에서 단일 소스로 일관성 보장
+- **신규 디자인 시스템**: `css/intl-v2.css` (iv2-* 클래스) — 스티키 내비, 히어로+통계, 가격표(그룹/배지/하이라이트), 스텝, FAQ(details), CTA 채널, 비교표, 배너
+- **페이지 구성 (총 32개 생성)**:
+  - 🇺🇸 EN 7개: index/implant/invisalign/laminate 리라이트 + pricing/directions/reservation 신규 (Camp Humphreys·주한미군 타겟)
+  - 🇯🇵 JP 5개: dental/implant/invisalign 리라이트 + pricing/travel-guide 신규 (의료관광, 엔화 환산, 2박3일 코스) — jp/index.html(Glownate 랜딩) 유지
+  - 🇨🇳 CN 5개: dental/implant/invisalign 리라이트 + pricing/travel-guide 신규 (재한 중국인+관광) — cn/index.html 유지
+  - 🇻🇳 VI 7개: index/implant/invisalign/laminate 리라이트 + pricing/directions/faq 신규 (재한 베트남 근로자·유학생, NHIS 안내)
+  - 🇹🇭 TH 4개: index 리라이트 + implant/pricing/directions 신규 (아산·탕정 공단 근로자 타겟)
+  - 🇷🇺 RU 4개: index 리라이트 + implant/pricing/directions 신규 (러시아어권·CIS 근로자 타겟)
+- **SEO**: 페이지별 canonical + hreflang 상호참조, JSON-LD (Dentist/FAQPage/BreadcrumbList), geo 메타, sitemap-intl.xml 자동 재생성 (54 URLs, hreflang과 100% 일치)
+- **가격 정합성**: 전 언어 동일 수가 — 임플란트 80만~160만, 인비절라인 300만~700만, 글로우네이트 60만/80만 등 (pricing.html 기준)
 
 #### 다국어 시스템 개편 (v5.13) — Weglot 제거 + 자체 언어 전환 버튼
 - **Weglot 완전 제거**: 15개 한국어 페이지에서 위글롯 스크립트 삭제 (JS 오버레이 기계번역 → SEO 색인 불가 문제 해소, 구독료 절감, 페이지 속도 개선)
