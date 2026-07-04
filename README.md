@@ -12,9 +12,22 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.14
+## Current Version: v5.15
 
 ### Completed Features
+
+#### 다국어 페이지 콘텐츠 볼륨 확장 (v5.15) — 32페이지 전체 추가 섹션 삽입
+- **content_extra.py 시스템**: `scripts/intl_gen/content_extra.py` — canonical path 키(32개) → 추가 섹션 리스트. generate.py가 렌더링 시 각 페이지의 CTA 직전에 자동 삽입 (원본 content_XX.py는 무수정, 순수 additive 구조)
+- **추가된 콘텐츠 유형** (언어별 현지화):
+  - 층별 안내 카드 6종 (1F 인비절라인 교정센터 / 2F 디지털기공·위생센터 / 3F BDX검진·소아센터, 소아전문의 3인 / 4F 임플란트센터 6수술실+2회복실 에어샤워 / 5F 종합진료센터 / 감염관리)
+  - 픽스처 비교표 (Straumann BLX vs Osstem SOI vs CA — JP은 엔화, CN은 위안화 환산 포함)
+  - 임플란트 고급 옵션 카드 6종 (내비게이션·즉시부하·전악수복·재수술·수면·휴일수술) + 사후관리 스텝
+  - 인비절라인 vs 브라켓 비교표 + 성공 수칙 4계명
+  - 가격 근거 카드 (원내 기공소·규모의 경제·무중개) + 절약 팁 FAQ (NHIS 건강보험 활용 등)
+  - 도착 후 안내 스텝 + 택시 랜드마크 / 온천·독립기념관 등 관광 카드 (JP/CN travel-guide)
+  - 가족 진료 카드 (소아·수면·사랑니·시니어 틀니)
+- **볼륨 증가**: 32페이지 전부 +1.1KB~+6.4KB (평균 +3.3KB, 예: th/implant 20.6→27.1KB, jp/pricing 13.3→18.0KB)
+- **검증**: 34개 URL 전체 200 OK, JSON-LD 32파일 0 에러, Playwright 콘솔 에러 0, jp/·cn/ 프리미엄 랜딩 무변경 확인
 
 #### 다국어 페이지 슈퍼 업그레이드 (v5.14) — 6개 언어 32페이지 전면 재구축
 - **Python 페이지 생성 시스템**: `scripts/intl_gen/` — engine.py(렌더러) + content_XX.py(언어별 데이터) + generate.py(러너) + gen_sitemap.py(사이트맵 자동생성). 가격/시간/전화번호가 모든 언어에서 단일 소스로 일관성 보장
