@@ -12,9 +12,17 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.12
+## Current Version: v5.13
 
 ### Completed Features
+
+#### 다국어 시스템 개편 (v5.13) — Weglot 제거 + 자체 언어 전환 버튼
+- **Weglot 완전 제거**: 15개 한국어 페이지에서 위글롯 스크립트 삭제 (JS 오버레이 기계번역 → SEO 색인 불가 문제 해소, 구독료 절감, 페이지 속도 개선)
+- **자체 언어 전환 버튼** (`/js/lang-switcher.js`): 좌하단 플로팅 버튼 (우하단 챗봇/퀵액션과 충돌 방지)
+  - 7개 언어 지원: 한국어/English/日本語/中文/Tiếng Việt/ไทย/Русский
+  - 페이지 `<head>`의 hreflang 태그를 읽어 **같은 페이지의 번역본으로 직접 이동**, 번역본이 없으면 언어별 허브(`/en/`, `/jp/dental` 등)로 폴백
+  - 적용 범위: 한국어 주요 페이지 16개 + 외국어 페이지 30개 (en 8, jp 8, cn 8, vi 4, th 1, ru 1)
+- **SEO 구조 유지**: 언어별 고유 URL + hreflang 상호 연결 + `sitemap-intl.xml` — 구글이 각 언어 페이지를 개별 색인
 
 #### Core System
 - 전면 라이트 테마 디자인 (site-v5.css)

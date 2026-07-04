@@ -243,15 +243,6 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       .games-header { padding: 80px 20px 40px; }
     }
   </style>
-<!-- Weglot Multilingual (defer로 비동기 로딩 → FCP 개선) -->
-<script>
-  window.addEventListener('DOMContentLoaded', function() {
-    var s = document.createElement('script');
-    s.src = 'https://cdn.weglot.com/weglot.min.js';
-    s.onload = function() { Weglot.initialize({ api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2' }); };
-    document.head.appendChild(s);
-  });
-</script>
 <!-- Microsoft Clarity (idle 시 로드 → TBT 개선) -->
 <script>
   if ('requestIdleCallback' in window) {
@@ -607,5 +598,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
 </script>
+<script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>

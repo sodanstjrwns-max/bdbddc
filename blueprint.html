@@ -1186,78 +1186,54 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
 <h1>8. 다국어 지원</h1>
 
-<h2>8.1 Weglot 자동 번역</h2>
+<h2>8.1 전용 다국어 페이지 (Dedicated Multilingual Pages)</h2>
 
 <table>
 <thead><tr><th>항목</th><th>설정</th></tr></thead>
 <tbody>
-<tr><td><strong>서비스</strong></td><td>Weglot (weglot.com)</td></tr>
-<tr><td><strong>구현</strong></td><td>JS 1줄 (<code><head></code> 내 삽입)</td></tr>
-<script src="/static/bd-tag-loader.js" defer></script>
-<script src="/static/bd-analytics.js" defer></script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '971255062435276');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/ alt=""></noscript>
-<!-- End Meta Pixel Code -->
-<tr><td><strong>URL 구조</strong></td><td>서브디렉토리 (예: <code>/en/</code>, <code>/vi/</code>, <code>/zh/</code>)</td></tr>
-<tr><td><strong>언어 선택기</strong></td><td>자동 생성 (우측 하단)</td></tr>
-<tr><td><strong>번역 편집</strong></td><td>Weglot Visual Editor</td></tr>
-<tr><td><strong>용어집</strong></td><td>병원명, 브랜드명 등 원어 유지</td></tr>
+<tr><td><strong>방식</strong></td><td>언어별 전용 정적 페이지 (기계번역 오버레이 아님)</td></tr>
+<tr><td><strong>URL 구조</strong></td><td>서브디렉토리 — <code>/en/</code>, <code>/jp/</code>, <code>/cn/</code>, <code>/vi/</code>, <code>/th/</code>, <code>/ru/</code></td></tr>
+<tr><td><strong>SEO</strong></td><td>언어별 고유 URL + hreflang 상호 연결 + <code>sitemap-intl.xml</code> → 구글 개별 색인</td></tr>
+<tr><td><strong>언어 선택기</strong></td><td>자체 제작 플로팅 버튼 (<code>/js/lang-switcher.js</code>, 좌하단)</td></tr>
+<tr><td><strong>전환 로직</strong></td><td>hreflang 태그 기반 — 같은 페이지의 번역본으로 직접 이동, 없으면 언어 허브로 폴백</td></tr>
+<tr><td><strong>비용</strong></td><td>무료 (외부 번역 SaaS 구독 불필요)</td></tr>
 </tbody>
 </table>
-<h3>추천 언어 (5개 기준)</h3>
+<h3>지원 언어 (7개)</h3>
 
 <table>
-<thead><tr><th>순서</th><th>언어</th><th>대상</th><th>Pro 플랜</th></tr></thead>
+<thead><tr><th>순서</th><th>언어</th><th>대상</th><th>허브 URL</th></tr></thead>
 <tbody>
-<tr><td>1</td><td><strong>영어</strong></td><td>미군, 국제</td><td>✅</td></tr>
-<tr><td>2</td><td><strong>베트남어</strong></td><td>외국인 근로자 1위</td><td>✅</td></tr>
-<tr><td>3</td><td><strong>중국어(간체)</strong></td><td>근로자, 유학생</td><td>✅</td></tr>
-<tr><td>4</td><td><strong>러시아어</strong></td><td>CIS 전체 커버</td><td>✅</td></tr>
-<tr><td>5</td><td><strong>일본어</strong></td><td>의료관광, 고객단가</td><td>✅</td></tr>
-</tbody>
-</table>
-<h3>용어집 필수 등록 항목</h3>
-
-<table>
-<thead><tr><th>원어 (한국어)</th><th>번역 유지/지정</th></tr></thead>
-<tbody>
-<tr><td>{병원명}</td><td>{영문 병원명}</td></tr>
-<tr><td>{자체 브랜드 치료}</td><td>{영문 브랜드명}</td></tr>
-<tr><td>인비절라인</td><td>Invisalign</td></tr>
-<tr><td>전화번호</td><td>그대로 유지</td></tr>
-<tr><td>주소</td><td>로마자 + 한국 지명</td></tr>
+<tr><td>1</td><td><strong>영어</strong></td><td>미군(캠프 험프리스), 국제</td><td><code>/en/</code></td></tr>
+<tr><td>2</td><td><strong>일본어</strong></td><td>의료관광, 고객단가</td><td><code>/jp/dental</code></td></tr>
+<tr><td>3</td><td><strong>중국어(간체)</strong></td><td>근로자, 유학생</td><td><code>/cn/dental</code></td></tr>
+<tr><td>4</td><td><strong>베트남어</strong></td><td>외국인 근로자 1위</td><td><code>/vi/</code></td></tr>
+<tr><td>5</td><td><strong>태국어</strong></td><td>외국인 근로자</td><td><code>/th/</code></td></tr>
+<tr><td>6</td><td><strong>러시아어</strong></td><td>CIS 전체 커버</td><td><code>/ru/</code></td></tr>
+<tr><td>7</td><td><strong>한국어</strong></td><td>기본</td><td><code>/</code></td></tr>
 </tbody>
 </table>
 <h2>8.2 구현 코드</h2>
 
-<pre><code class="language-html">&lt;!-- Weglot 스크립트 (모든 HTML 파일의 &lt;/head&gt; 직전) --&gt;
-<p>&lt;script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"&gt;&lt;/script&gt;</p>
-<p>&lt;script&gt;Weglot.initialize({api_key: 'wg_{API_KEY}'});&lt;/script&gt;</p>
+<pre><code class="language-html">&lt;!-- 언어 전환 버튼 (모든 페이지 &lt;/body&gt; 직전) --&gt;
+&lt;script src="/js/lang-switcher.js" defer&gt;&lt;/script&gt;
+
+&lt;!-- hreflang (모든 페이지 &lt;head&gt; 내) --&gt;
+&lt;link rel="alternate" hreflang="ko" href="https://bdbddc.com/"&gt;
+&lt;link rel="alternate" hreflang="en" href="https://bdbddc.com/en/"&gt;
+&lt;link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/"&gt;
 </code></pre>
 
-<h2>8.3 비용</h2>
+<h2>8.3 이전 방식 대비 (Weglot 제거 사유)</h2>
 
 <table>
-<thead><tr><th>플랜</th><th>언어 수</th><th>단어 수</th><th>월 비용</th></tr></thead>
+<thead><tr><th>항목</th><th>Weglot (이전)</th><th>전용 페이지 (현재)</th></tr></thead>
 <tbody>
-<tr><td>Starter</td><td>1</td><td>10,000</td><td>EUR 15</td></tr>
-<tr><td>Business</td><td>3</td><td>50,000</td><td>EUR 29</td></tr>
-<tr><td><strong>Pro</strong></td><td><strong>5</strong></td><td><strong>200,000</strong></td><td><strong>EUR 79</strong></td></tr>
-<tr><td>Advanced</td><td>10</td><td>1,000,000</td><td>EUR 299</td></tr>
+<tr><td>번역 URL</td><td>없음 (JS 오버레이)</td><td>언어별 고유 URL</td></tr>
+<tr><td>구글 색인</td><td>불가</td><td>개별 색인 가능</td></tr>
+<tr><td>번역 품질</td><td>기계 번역</td><td>타겟팅된 전문 카피</td></tr>
+<tr><td>월 비용</td><td>EUR 79 (Pro)</td><td>무료</td></tr>
+<tr><td>페이지 속도</td><td>외부 JS 로드</td><td>영향 없음</td></tr>
 </tbody>
 </table>
 <hr>
@@ -1877,5 +1853,6 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <script>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
 </script>
+<script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>

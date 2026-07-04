@@ -83,5 +83,6 @@ window.addEventListener('scroll', () => { const nav = document.querySelector('.g
 }); // Magazine video play/pause toggle
 function toggleMagVid(el) { const v = el.querySelector('video'); if (!v) return; if (v.paused) { // Pause all other videos first document.querySelectorAll('.mag-vid video').forEach(ov => { if (ov !== v) { ov.pause(); ov.closest('.mag-vid').classList.remove('playing'); } }); v.play(); el.classList.add('playing'); } else { v.pause(); el.classList.remove('playing'); }
 }
-</script> </body>
+</script> <script src="/js/lang-switcher.js" defer></script>
+</body>
 </html>
