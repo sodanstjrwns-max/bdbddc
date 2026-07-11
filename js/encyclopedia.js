@@ -124,8 +124,10 @@
     empty.style.display = 'none';
     grid.style.display = 'grid';
 
+    // v5.17 SEO: 카드를 실제 <a href> 링크로 렌더 → 838개 SSR 용어 페이지로 내부링크 형성
+    // (크롤러는 href를 따라가고, 사용자는 JS가 preventDefault 후 모달로 빠른 열람)
     grid.innerHTML = items.map(item => `
-      <article class="enc-card" data-id="${item.id}" tabindex="0" role="button" aria-label="${item.term} 상세 보기">
+      <a class="enc-card" href="/encyclopedia/${encodeURIComponent(item.term)}" data-id="${item.id}" aria-label="${item.term} 상세 보기" style="text-decoration:none;color:inherit;">
         <div class="enc-card-header">
           <span class="enc-card-chosung">${item.chosung}</span>
           <div>
@@ -136,14 +138,15 @@
         <span class="enc-card-category">${item.category}</span>
         <div class="enc-card-short">${highlightMatch(stripTags(item.short))}</div>
         <span class="enc-card-arrow"><i class="fas fa-chevron-right"></i></span>
-      </article>
+      </a>
     `).join('');
 
-    // 카드 클릭 이벤트
+    // 카드 클릭 이벤트 — 기본 이동 대신 모달 (Ctrl/Cmd/중간클릭은 새 탭 정상 동작)
     grid.querySelectorAll('.enc-card').forEach(card => {
-      card.addEventListener('click', () => openModal(parseInt(card.dataset.id)));
-      card.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(parseInt(card.dataset.id)); }
+      card.addEventListener('click', e => {
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+        e.preventDefault();
+        openModal(parseInt(card.dataset.id));
       });
     });
   }
@@ -258,14 +261,21 @@
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    // URL 해시 (선택사항)
-    history.replaceState(null, '', `#${encodeURIComponent(item.term)}`);
+    // v5.17: 해시 대신 실제 경로 URL로 표기 (새로고침/공유 시 SSR 용어 페이지로 연결 → 색인 가능)
+    history.replaceState(null, '', `/encyclopedia/${encodeURIComponent(item.term)}`);
+
+    // 모달 하단에 전용 페이지 링크 노출
+    var footEl = document.getElementById('modalPermalink');
+    if (footEl) {
+      footEl.href = `/encyclopedia/${encodeURIComponent(item.term)}`;
+      footEl.style.display = '';
+    }
   }
 
   function closeModal() {
     document.getElementById('encModal').classList.remove('active');
     document.body.style.overflow = '';
-    history.replaceState(null, '', window.location.pathname);
+    history.replaceState(null, '', '/encyclopedia/');
   }
 
   function initModal() {
@@ -312,12 +322,18 @@
     };
   }
 
-  // ===== URL 해시 → 자동 모달 열기 =====
+  // ===== URL 해시 → 자동 모달 열기 (구버전 #용어 공유 링크 하위호환) =====
   function checkHashOnLoad() {
-    const hash = decodeURIComponent(window.location.hash.slice(1));
+    let hash = '';
+    try { hash = decodeURIComponent(window.location.hash.slice(1)); } catch (e) { return; }
     if (!hash) return;
-    const item = allItems.find(i => i.term === hash);
-    if (item) setTimeout(() => openModal(item.id), 300);
+    const item = allItems.find(i => i.term === hash) ||
+      allItems.find(i => (i.synonyms || []).includes(hash));
+    if (item) {
+      setTimeout(() => openModal(item.id), 300); // openModal이 경로 URL로 정규화
+    } else {
+      history.replaceState(null, '', '/encyclopedia/'); // 깨진 해시 정리
+    }
   }
 
   // ===== 초기화 =====

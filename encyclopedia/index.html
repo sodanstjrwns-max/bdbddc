@@ -215,6 +215,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       background: var(--white); border: 1px solid var(--border-color);
       border-radius: var(--radius-lg); padding: 20px 24px;
       transition: all 0.25s; position: relative;
+      display: block; text-decoration: none; color: inherit; cursor: pointer;
     }
     .enc-card:hover {
       border-color: var(--brand-gold-light);
@@ -772,6 +773,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         <div class="enc-modal-short" id="modalShort"></div>
         <div class="enc-modal-detail" id="modalDetail"></div>
         <div class="enc-modal-tags" id="modalTags"></div>
+        <p style="margin:12px 0 0;text-align:right;"><a id="modalPermalink" href="#" style="display:none;font-size:0.85rem;color:#6B4226;text-decoration:underline;text-decoration-style:dotted;"><i class="fas fa-link"></i> 이 용어 전용 페이지 보기</a></p>
         <div class="enc-modal-cta">
           <a href="/reservation" class="btn-modal-primary"><i class="fas fa-calendar-check"></i> 상담 예약</a>
           <a href="tel:041-415-2892" class="btn-modal-secondary"><i class="fas fa-phone"></i> 전화 문의</a>
@@ -802,7 +804,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <script src="/js/micro.js?v=fc744130" defer></script>
   <script src="/static/chatbot.js" defer></script>
   <script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
-  <script src="/js/encyclopedia.js?v=20260622a" defer></script>
+  <script src="/js/encyclopedia.js?v=20260711" defer></script>
 
 <!-- Service Worker Registration -->
 <script>

@@ -52,7 +52,9 @@ def load_terms():
     for item in items:
         term = item['term']
         short = item['short']
-        url = f"/encyclopedia/#{term}"
+        # v5.17: 해시(#) URL은 구글이 색인하지 못함 → SSR 용어 페이지 경로 URL 사용
+        from urllib.parse import quote
+        url = f"/encyclopedia/{quote(term)}"
         
         # 메인 용어
         if len(term) >= MIN_TERM_LENGTH:
