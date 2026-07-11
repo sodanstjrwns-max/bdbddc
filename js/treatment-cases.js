@@ -28,6 +28,40 @@
   const catName = CATS[slug];
   if (!catName) return; // 매핑 안 되면 무시
 
+  // ═══ v5.18d: 중간 배치 (Clarity 스크롤맵 분석 — B/A·예약 CTA 하단 도달률 거의 0 → 중간으로 이동) ═══
+  function getMidAnchor() {
+    var sections = document.querySelectorAll('section');
+    if (sections.length >= 4) return sections[2];      // 히어로 + 본문 2개 섹션 뒤 = 페이지 중상단
+    if (sections.length >= 2) return sections[sections.length - 2];
+    return null;
+  }
+
+  function insertMidCta() {
+    var anchor = getMidAnchor();
+    if (!anchor || document.getElementById('midReserveCta')) return null;
+    var wrap = document.createElement('section');
+    wrap.id = 'midReserveCta';
+    wrap.setAttribute('aria-label', catName + ' 상담 예약');
+    wrap.style.cssText = 'padding:0;';
+    wrap.innerHTML = '<div class="container" style="max-width:1100px;margin:0 auto;padding:36px 20px;">' +
+      '<div style="background:linear-gradient(135deg,#6B4226,#8B5E3C);border-radius:20px;padding:32px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;box-shadow:0 8px 32px rgba(107,66,38,.25);">' +
+        '<div>' +
+          '<p style="font-size:1.15rem;font-weight:800;color:#fff;margin:0 0 4px;">' + catName + ', 내 경우엔 어떨까요?</p>' +
+          '<p style="font-size:.88rem;color:rgba(255,255,255,.85);margin:0;">서울대 출신 전문의가 직접 확인해드립니다 · 과잉진료 없는 정직한 상담</p>' +
+        '</div>' +
+        '<div style="display:flex;gap:10px;flex-wrap:wrap;">' +
+          '<a href="/reservation?ref_category=' + encodeURIComponent(catName) + '" style="display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;font-size:.95rem;white-space:nowrap;"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>' +
+          '<a href="tel:041-415-2892" style="display:inline-flex;align-items:center;gap:8px;padding:13px 22px;background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:50px;text-decoration:none;font-weight:600;font-size:.95rem;white-space:nowrap;"><i class="fas fa-phone"></i> 041-415-2892</a>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+    anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
+    return wrap;
+  }
+
+  // 케이스 유무와 무관하게 중간 CTA 먼저 삽입 (B/A는 로드되면 CTA 바로 위에 붙음)
+  insertMidCta();
+
   // API에서 해당 카테고리 케이스 가져오기
   fetch('/api/cases?category=' + encodeURIComponent(slug))
     .then(function(res) { return res.json(); })
@@ -38,10 +72,14 @@
     .catch(function(e) { console.warn('케이스 로드 실패:', e); });
 
   function insertCaseSection(cases, catName, slug) {
-    // CTA 섹션 앞에 삽입
-    var ctaSection = document.querySelector('.cta-section');
+    // v5.18d: 중간 예약 CTA 바로 앞에 삽입 (B/A를 보고 → 바로 예약하는 흐름)
+    var ctaSection = document.getElementById('midReserveCta');
     if (!ctaSection) {
-      // 대안: 마지막 section 앞
+      // 폴백 1: 기존 하단 CTA 섹션 앞
+      ctaSection = document.querySelector('.cta-section');
+    }
+    if (!ctaSection) {
+      // 폴백 2: 마지막 section 앞
       var allSections = document.querySelectorAll('main > section');
       if (allSections.length > 1) {
         ctaSection = allSections[allSections.length - 3]; // CTA 앞
