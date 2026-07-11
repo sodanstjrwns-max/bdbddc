@@ -78,7 +78,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="css/site-v5.css?v=24d559d1">
+  <link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
   <link rel="stylesheet" href="/css/micro.css?v=ac2f0073">
   
   <!-- Prefetch -->
@@ -523,17 +523,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="container">
       <div class="section-header reveal">
         <span class="section-badge"><i class="fas fa-calculator"></i> 예상 비용</span>
-        <h2 class="section-title">치료별 <span class="text-gradient">비급여 수가표·가격표</span></h2>
-        <p class="section-subtitle">임플란트부터 교정·라미네이트·스케일링까지 — 가격이 얼마인지 전 항목 공개합니다. 아래 수가는 참고용이며, 정확한 비용은 진단 후 서면 견적서로 안내드립니다</p>
+        <h2 class="section-title">치료별 <span class="text-gradient">가격·비용 안내</span> (비급여 수가표)</h2>
+        <p class="section-subtitle">임플란트 가격부터 교정·라미네이트·스케일링 비용까지 — 얼마인지 전 항목 공개합니다. 아래 수가는 참고용이며, 정확한 비용은 진단 후 서면 견적서로 안내드립니다</p>
       </div>
       
-      <div class="pricing-tabs reveal">
-        <button class="pricing-tab active" data-tab="implant"><i class="fas fa-tooth"></i> 임플란트</button>
-        <button class="pricing-tab" data-tab="prosthetic"><i class="fas fa-crown"></i> 보철/레진</button>
-        <button class="pricing-tab" data-tab="denture"><i class="fas fa-teeth-open"></i> 틀니/기타</button>
-        <button class="pricing-tab" data-tab="ortho"><i class="fas fa-teeth"></i> 교정</button>
-        <button class="pricing-tab" data-tab="pediatric"><i class="fas fa-child"></i> 소아</button>
-      </div>
+      <nav class="pricing-tabs reveal" aria-label="치료별 가격 카테고리">
+        <a class="pricing-tab active" data-tab="implant" href="/pricing/implant"><i class="fas fa-tooth"></i> 임플란트 가격</a>
+        <a class="pricing-tab" data-tab="prosthetic" href="/pricing/prosthetic"><i class="fas fa-crown"></i> 크라운·레진 가격</a>
+        <a class="pricing-tab" data-tab="denture" href="/pricing/denture"><i class="fas fa-teeth-open"></i> 틀니 비용</a>
+        <a class="pricing-tab" data-tab="ortho" href="/pricing/ortho"><i class="fas fa-teeth"></i> 교정·인비절라인 가격</a>
+        <a class="pricing-tab" data-tab="pediatric" href="/pricing/pediatric"><i class="fas fa-child"></i> 소아치과 비용</a>
+      </nav>
       
       <!-- 임플란트 / 골이식 / 마취 -->
       <div class="pricing-content active" id="implant">
@@ -1014,26 +1014,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
   <!-- Scripts -->
-  <script src="js/main.js?v=202604190433" defer></script>
+  <script src="/js/main.js?v=202604190433" defer></script>
   <script src="/js/micro.js?v=fc744130" defer></script>
   <script src="/static/chatbot.js" defer></script>
-  <script src="js/gnb-v2.js?v=e0c7aede" defer></script>
+  <script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
   <script>
-    // Pricing Tab Switching
+    // Pricing Tab Switching (v5.18e: 탭별 고유 URL — 크롤러는 <a href>를 따라가고, JS는 즉시 전환 + pushState)
     document.addEventListener('DOMContentLoaded', function() {
       var tabs = document.querySelectorAll('.pricing-tab');
       var contents = document.querySelectorAll('.pricing-content');
       tabs.forEach(function(tab) {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function(e) {
+          // 새 탭/창 열기(Ctrl·Cmd·Shift·휠클릭)는 브라우저 기본 동작(실제 URL 이동) 허용
+          if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) return;
+          e.preventDefault();
           tabs.forEach(function(t) { t.classList.remove('active'); });
           contents.forEach(function(c) { c.classList.remove('active'); });
           tab.classList.add('active');
           var target = document.getElementById(tab.dataset.tab);
           if (target) target.classList.add('active');
+          if (tab.href) history.pushState(null, '', tab.getAttribute('href'));
         });
       });
     });

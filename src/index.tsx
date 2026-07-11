@@ -2614,6 +2614,7 @@ app.post('/api/indexnow', async (c) => {
   const urlList: string[] = [
     '/',
     '/reservation', '/pricing', '/pricing/implant-guide', '/pricing/ortho-guide', '/directions',
+    '/pricing/implant', '/pricing/prosthetic', '/pricing/denture', '/pricing/ortho', '/pricing/pediatric',
     '/treatments/', '/treatments/implant', '/treatments/invisalign',
     '/treatments/pediatric', '/treatments/aesthetic', '/treatments/glownate',
     '/treatments/cavity', '/treatments/resin', '/treatments/crown',
@@ -4909,6 +4910,126 @@ app.get('/pricing', serveStatic({ path: './pricing.html' }))
 app.get('/pricing/', (c) => c.redirect('/pricing', 301))
 app.get('/pricing/implant-guide', serveStatic({ path: './pricing/implant-guide.html' }))
 app.get('/pricing/ortho-guide', serveStatic({ path: './pricing/ortho-guide.html' }))
+
+// ============================================
+// v5.18e: 가격 탭별 고유 URL (SSR) — "임플란트 가격", "인비절라인 비용" 등
+// 가격·비용 키워드 상위노출 전략 (컨설턴트 제안: 탭은 URL 없으면 색인 불가)
+// pricing.html을 ASSETS에서 읽어 탭별로 title/desc/canonical/활성탭을 치환해 서빙
+// ============================================
+const PRICING_TABS: Record<string, {
+  title: string; desc: string; ogTitle: string; ogDesc: string;
+  h1: string; quickAnswer: string; crumb: string;
+}> = {
+  'implant': {
+    title: '천안 임플란트 가격·비용 | 1개 80~160만원 수가표 전체 공개 — 서울비디치과',
+    desc: '천안 임플란트 가격 1개(1치당) 80만원~160만원 — 오스템 CA 80만원, 오스템 SOI 100만원, 스트라우만 BLX 160만원. 골이식·수면마취·네비게이션 비용까지 전 항목 공개. 만 65세 이상 건강보험 적용 ☎041-415-2892',
+    ogTitle: '천안 임플란트 가격 80~160만원 | 비용 전체 공개 — 서울비디치과',
+    ogDesc: '오스템 80만원부터 스트라우만 160만원까지 — 임플란트 가격·골이식 비용 숨김없이 공개. 서면 견적서 제공.',
+    h1: '천안 임플란트 <span class="text-gradient">가격·비용 안내</span>',
+    quickAnswer: '서울비디치과 <strong>임플란트 가격은 1개(1치당) 80만원~160만원</strong>입니다. 국산 오스템 CA 80만원 · 오스템 SOI 100만원 · 스위스 스트라우만 BLX 160만원이며, 골이식은 30~100만원, 수면마취는 20만원입니다. 만 65세 이상은 건강보험 적용(본인부담 30%, 평생 2개)이 가능합니다.',
+    crumb: '임플란트 가격',
+  },
+  'prosthetic': {
+    title: '천안 크라운·레진·라미네이트 가격 | 지르코니아 55만원·인레이 35만원 — 서울비디치과',
+    desc: '천안 지르코니아 크라운 55만원, 세라믹 인레이 35만원, 라미네이트(글로우네이트) 60~80만원, 충치 레진 5~25만원 — 보철·심미 치료 비용 전 항목 공개. 서면 견적서 제공 ☎041-415-2892',
+    ogTitle: '천안 크라운·레진·라미네이트 가격 — 서울비디치과',
+    ogDesc: '지르코니아 크라운 55만원 · 인레이 35만원 · 라미네이트 60~80만원 · 레진 5~25만원 — 비용 전체 공개.',
+    h1: '천안 크라운·레진·라미네이트 <span class="text-gradient">가격·비용 안내</span>',
+    quickAnswer: '서울비디치과 보철·심미 치료 비용은 <strong>지르코니아 크라운 55만원, 세라믹 인레이 35만원, 라미네이트(글로우네이트) 60~80만원, 충치 레진 5~25만원</strong>입니다. 치아 상태와 부위에 따라 달라질 수 있으며, 진단 후 서면 견적서로 정확히 안내드립니다.',
+    crumb: '크라운·레진 가격',
+  },
+  'denture': {
+    title: '천안 틀니 가격·비용 | 부분·전체틀니 150만원, 임플란트 틀니 200만원 — 서울비디치과',
+    desc: '천안 틀니 가격 — 부분틀니·전체틀니 150만원, 임플란트 틀니 200만원, 임시 틀니 30만원. 만 65세 이상 틀니 건강보험 적용 가능. 비용 전 항목 공개 ☎041-415-2892',
+    ogTitle: '천안 틀니 가격 150만원~ | 비용 전체 공개 — 서울비디치과',
+    ogDesc: '부분·전체틀니 150만원 · 임플란트 틀니 200만원 — 틀니 비용 숨김없이 공개. 65세 이상 건강보험 적용.',
+    h1: '천안 틀니 <span class="text-gradient">가격·비용 안내</span>',
+    quickAnswer: '서울비디치과 <strong>틀니 가격은 부분틀니·전체틀니 각 150만원, 임플란트 틀니 200만원</strong>입니다. 임시 틀니는 30만원이며, 만 65세 이상은 틀니 건강보험 적용(본인부담 30%, 7년 주기)이 가능합니다.',
+    crumb: '틀니 가격',
+  },
+  'ortho': {
+    title: '천안 인비절라인·치아교정 가격 | 300~700만원 수가표 공개 — 서울비디치과',
+    desc: '천안 인비절라인 가격 300만원(익스프레스)~700만원(컴프리헨시브), 클리피씨 500만원, 클라리티 울트라 550만원 — 교정 비용 전 항목 공개. 다이아몬드 프로바이더 · 분할 납부 가능 ☎041-415-2892',
+    ogTitle: '천안 인비절라인·교정 가격 300~700만원 — 서울비디치과',
+    ogDesc: '인비절라인 300~700만원 · 클리피씨 500만원 · 클라리티 550만원 — 교정 비용 전체 공개. 분할 납부 가능.',
+    h1: '천안 인비절라인·치아교정 <span class="text-gradient">가격·비용 안내</span>',
+    quickAnswer: '서울비디치과 <strong>인비절라인 가격은 300만원(익스프레스)~700만원(컴프리헨시브)</strong>이며, 장치교정은 클리피씨 500만원, 클라리티 울트라 550만원입니다. 치료 기간에 맞춘 분할 납부가 가능하며, 인비절라인 다이아몬드 프로바이더 인증 센터입니다.',
+    crumb: '교정·인비절라인 가격',
+  },
+  'pediatric': {
+    title: '천안 소아치과 비용 | 유치 레진 6만원~·수면치료 10만원 — 서울비디치과',
+    desc: '천안 소아치과 비용 — 유치 레진 6~10만원, 불소 3만원, 웃음가스 1만원, 수면마취 10만원, SS크라운 11만원. 소아전문의 3인 진료 · 비용 전 항목 공개 ☎041-415-2892',
+    ogTitle: '천안 소아치과 비용 | 레진 6만원~ · 수면치료 10만원 — 서울비디치과',
+    ogDesc: '유치 레진 6~10만원 · 웃음가스 1만원 · 수면마취 10만원 — 소아치과 비용 전체 공개. 소아전문의 3인.',
+    h1: '천안 소아치과 <span class="text-gradient">비용 안내</span>',
+    quickAnswer: '서울비디치과 <strong>소아치과 비용은 유치 레진 6~10만원, 불소 도포 3만원, 웃음가스 1만원, 수면마취 10만원</strong>입니다. 소아치과 전문의 3인이 진료하며, 아이 상태에 따라 웃음가스·수면치료를 선택할 수 있습니다.',
+    crumb: '소아치과 비용',
+  },
+}
+
+app.get('/pricing/:tab{(implant|prosthetic|denture|ortho|pediatric)}', async (c) => {
+  const tab = c.req.param('tab')
+  const meta = PRICING_TABS[tab]
+  if (!meta) return c.redirect('/pricing', 302)
+
+  // pricing.html 원본 로드 (ASSETS binding 또는 로컬 self-fetch)
+  let html = ''
+  try {
+    const env = c.env as any
+    if (env.ASSETS) {
+      const resp = await env.ASSETS.fetch(new Request(new URL('/pricing.html', c.req.url).toString()))
+      if (!resp.ok) return c.redirect('/pricing', 302)
+      html = await resp.text()
+    } else {
+      const resp = await fetch(new URL('/pricing.html', c.req.url).toString())
+      if (!resp.ok) return c.redirect('/pricing', 302)
+      html = await resp.text()
+    }
+  } catch {
+    return c.redirect('/pricing', 302)
+  }
+
+  const pageUrl = `https://bdbddc.com/pricing/${tab}`
+
+  // 1) title / meta description / canonical / og 치환
+  html = html.replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>`)
+  html = html.replace(/(<meta name="description" content=")[^"]*(")/, `$1${meta.desc}$2`)
+  html = html.replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${pageUrl}$2`)
+  html = html.replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${meta.ogTitle}$2`)
+  html = html.replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${meta.ogDesc}$2`)
+  html = html.replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${pageUrl}$2`)
+  html = html.replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${meta.ogTitle}$2`)
+
+  // 2) H1 치환 (가격·비용 키워드 전면 배치)
+  html = html.replace(
+    /천안 치과 <span class="text-gradient">비급여 수가표·가격 안내<\/span>/,
+    meta.h1
+  )
+
+  // 3) 활성 탭·패널 전환 (기본 implant → 요청 탭)
+  if (tab !== 'implant') {
+    html = html.replace('class="pricing-tab active" data-tab="implant"', 'class="pricing-tab" data-tab="implant"')
+    html = html.replace(`class="pricing-tab" data-tab="${tab}"`, `class="pricing-tab active" data-tab="${tab}"`)
+    html = html.replace('<div class="pricing-content active" id="implant">', '<div class="pricing-content" id="implant">')
+    html = html.replace(`<div class="pricing-content" id="${tab}">`, `<div class="pricing-content active" id="${tab}">`)
+  }
+
+  // 4) AEO 퀵앤서 박스 주입 (탭 네비 바로 앞 — 페이지별 고유 콘텐츠로 중복 문서 방지)
+  const qaBox = `<div id="quick-answer" style="max-width:820px;margin:0 auto 28px;background:linear-gradient(135deg,#fdf6f0 0%,#f5e8d8 100%);border-left:4px solid #6B4226;border-radius:12px;padding:20px 24px;">
+<p style="font-size:0.8rem;font-weight:700;color:#8B6344;margin:0 0 6px;"><i class="fas fa-bolt" style="margin-right:4px;"></i>핵심 요약</p>
+<p style="font-size:0.95rem;color:#333;line-height:1.7;margin:0;">${meta.quickAnswer}</p>
+</div>
+      <nav class="pricing-tabs reveal"`
+  html = html.replace('<nav class="pricing-tabs reveal"', qaBox)
+
+  // 5) BreadcrumbList 3단계로 확장 (홈 > 비용 안내 > 탭)
+  html = html.replace(
+    /("itemListElement":\[\{"@type":"ListItem","position":1,"name":"홈","item":"https:\/\/bdbddc\.com\/"\},\{"@type":"ListItem","position":2,"name":")[^"]*("[^\]]*)\]/,
+    `$1비용 안내","item":"https://bdbddc.com/pricing"},{"@type":"ListItem","position":3,"name":"${meta.crumb}","item":"${pageUrl}"}]`
+  )
+
+  return c.html(html)
+})
 app.get('/reservation', serveStatic({ path: './reservation.html' }))
 app.get('/reservation/thank-you', serveStatic({ path: './reservation/thank-you.html' }))
 app.get('/directions', serveStatic({ path: './directions.html' }))
