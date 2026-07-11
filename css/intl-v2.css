@@ -142,3 +142,11 @@ table.iv2-price{width:100%;border-collapse:collapse;min-width:520px}
   .iv2-stat{min-width:88px;padding:10px 14px}
   .iv2-cta{padding:34px 18px}
 }
+
+/* ── v5.16 AEO Quick Answer ── */
+.iv2-section--qa{padding:34px 20px 6px}
+.iv2-answer{max-width:820px;margin:0 auto;background:linear-gradient(135deg,rgba(201,160,66,.08),rgba(201,160,66,.16));border-left:4px solid var(--gold,#C9A042);border-radius:12px;padding:24px 28px}
+.iv2-answer__q{font-size:1.15rem;font-weight:800;margin:0 0 10px;color:var(--ink,#1a1a1a)}
+.iv2-answer__q i{color:var(--gold-dark,#a8842f);margin-right:8px}
+.iv2-answer__a{margin:0;font-size:1rem;line-height:1.85;color:#333}
+.iv2-answer__a b{color:var(--gold-dark,#a8842f)}

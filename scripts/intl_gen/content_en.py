@@ -324,7 +324,7 @@ PAGES.append({
   'cards':[
    {'icon':'fas fa-car','t':'🎖️ From Camp Humphreys','d':'~30 min by car (26 km). Exit through the main gate → Route 45 south → follow signs to Cheonan/Buldang. GPS: "서울비디치과" or "14 Buldang 34-gil". Free parking in our basement — enter from the building side road.'},
    {'icon':'fas fa-train','t':'🚄 From Seoul','d':'KTX from Seoul Station to Cheonan-Asan Station: ~40 min (trains every 15–30 min). Then a 10-min taxi (~₩8,000) — show the driver: 천안 불당동 서울비디치과.'},
-   {'icon':'fas fa-plane','t':'✈️ From Incheon Airport','d':'Option A: AREX/subway to Seoul Station → KTX to Cheonan-Asan (total ~2 hrs). Option B: Airport limousine bus directly to Cheonan Terminal (~2.5 hrs), then 15-min taxi.'},
+   {'icon':'fas fa-plane','t':'✈️ Just Arrived in Korea? (PCS / New Assignment)','d':'Newly stationed at Camp Humphreys or relocating to the Cheonan–Asan area? From Incheon Airport: AREX to Seoul Station → KTX to Cheonan-Asan (~2 hrs), or airport limousine bus to Cheonan Terminal (~2.5 hrs). Book your first dental check-up as part of settling in — we keep English records for your PCM/insurance.'},
    {'icon':'fas fa-bus','t':'🚌 Local buses','d':'Stop "Buldang Jugong 5-danji" (불당주공5단지) is a 1-minute walk from our door. Multiple city lines from Cheonan Station and Terminal.'},
    {'icon':'fas fa-train-subway','t':'🚉 Subway Line 1','d':'Seoul Subway Line 1 runs to Cheonan Station (slower but cheapest from southern Seoul/Pyeongtaek). From Cheonan Station: 15 min by taxi.'},
    {'icon':'fas fa-square-parking','t':'🅿️ Parking','d':'Free underground parking in our building. Height limit 2.1m. Street parking also available nearby.'},

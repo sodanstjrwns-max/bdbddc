@@ -662,3 +662,139 @@ EXTRA['/ru/directions'] = [
    {'k':'Из промзоны Асан / Танчжон','v':'15–25 минут на машине — удобно заехать после смены или в выходные'},
  ]},
 ]
+
+# ═══════════════════════════ AEO Quick Answers (v5.16) ═══════════════════════════
+# 질문형 H2 + 첫 문장 즉답 — AI 검색엔진(ChatGPT/Perplexity/Google AI) 인용 최적화
+# 히어로 직후 #quick-answer 박스로 렌더링, speakable 스키마가 이 박스를 지정
+
+QA = {}
+
+# ── EN (국내 거주: 주한미군·주재원) ──
+QA['/en/'] = {'q':'Is there an English-speaking dentist near Camp Humphreys and Cheonan?',
+ 'a':'Yes — <b>Seoul BD Dental</b> in Cheonan (25 min from Camp Humphreys, 10 min from KTX Cheonan-Asan) has <b>15 Seoul National University-trained dentists</b>, English-speaking coordinators, and is open <b>365 days a year</b>. Foreigners pay exactly the same published prices as Korean patients — no "foreigner markup," no broker fees.'}
+QA['/en/implant'] = {'q':'How much does a dental implant cost in Korea?',
+ 'a':'At Seoul BD Dental in Cheonan, a dental implant costs <b>₩800,000–1,600,000 per tooth</b> (about $600–1,200): Osstem CA ₩800K, Osstem SOI ₩1.0M, Straumann BLX ₩1.6M — fixture, abutment and zirconia-line crown included in the quoted plan. Bone graft, if needed, adds ₩300–500K. That is roughly <b>60–75% less than typical US prices</b> ($3,000–5,000).'}
+QA['/en/invisalign'] = {'q':'How much is Invisalign in Korea?',
+ 'a':'Invisalign at Seoul BD Dental starts at <b>₩3,000,000 (Express)</b> and runs to <b>₩7,000,000 (Comprehensive)</b> — roughly half typical US pricing. Treatment is led by SNU-trained orthodontists with 3D ClinCheck simulation, and remote monitoring cuts in-person visits to every 6–10 weeks.'}
+QA['/en/laminate'] = {'q':'How much do porcelain veneers cost in Korea?',
+ 'a':'Porcelain veneers at Seoul BD Dental cost <b>₩600,000–800,000 per tooth</b> (Glownate Light/Premium) — vs $1,500–2,500 in the US. Thanks to the in-house digital lab, a full smile makeover is completed in <b>2–3 visits over 2–3 days</b>, fitting a normal leave schedule.'}
+QA['/en/pricing'] = {'q':'How much does dental treatment cost in Korea for foreigners?',
+ 'a':'Foreigners pay the <b>same published prices as Koreans</b> at Seoul BD Dental: implants ₩800K–1.6M, Invisalign ₩3–7M, veneers ₩600–800K, zirconia crown ₩550K, fillings ₩50–250K, scaling ₩60K (or ~₩15–20K once a year with Korean NHIS). Every plan is itemized in English before treatment starts — no hidden fees.'}
+QA['/en/directions'] = {'q':'How do I get to Seoul BD Dental from Camp Humphreys or Seoul?',
+ 'a':'From <b>Camp Humphreys: about 25–30 min by car</b> (navigate to "서울비디치과" or 14 Buldang 34-gil, Cheonan). From Seoul: <b>KTX to Cheonan-Asan (~35 min)</b>, then a 10-min taxi. Free underground parking on site; the clinic is open 365 days a year.'}
+QA['/en/reservation'] = {'q':'How do I book a dental appointment in English in Korea?',
+ 'a':'Call <b>+82-41-415-2892</b> and say "English please," or send an Instagram DM to <b>@seoul_bddc</b> — an English-speaking coordinator will confirm your appointment. Walk-ins are accepted 365 days a year, but booking ahead means little to no waiting.'}
+
+# ── JP (해외 거주: 의료관광) ──
+QA['/jp/dental'] = {'q':'韓国の歯科は日本よりどのくらい安いですか?',
+ 'a':'ソウルBD歯科(天安)では、インプラント1本<b>80万〜160万₩(約8.7万〜17.4万円)</b>、ジルコニアクラウン55万₩(約6万円)、セラミックベニア60万〜80万₩ — 日本の自由診療の<b>3分の1〜半額程度</b>です。ソウル大出身の歯科医15名、365日診療、日本人価格の上乗せは一切ありません。ソウル駅からKTXで約35分+タクシー10分です。'}
+QA['/jp/implant'] = {'q':'韓国でインプラントを受けるといくらかかりますか?',
+ 'a':'ソウルBD歯科のインプラントは1本<b>80万₩(約8.7万円)〜160万₩(約17.4万円)</b> — オステムCA 80万₩、オステムSOI 100万₩、ストローマンBLX 160万₩。日本の相場(1本40〜60万円)の<b>約3分の1</b>です。手術は独立手術室6室・エアシャワー完備の4Fインプラントセンターで行い、最短2回の訪韓で完了するプランもあります。'}
+QA['/jp/invisalign'] = {'q':'韓国でインビザライン矯正は安いですか?',
+ 'a':'はい。ソウルBD歯科のインビザラインは<b>300万₩(約33万円)〜700万₩(約76万円)</b> — 日本の相場(80〜120万円)より大幅に抑えられます。ソウル大出身の矯正医が3D ClinCheckで治療計画を立て、遠隔モニタリング併用なら来韓は数ヶ月に1回で済みます。'}
+QA['/jp/pricing'] = {'q':'韓国の歯科治療費はなぜ安いのですか?',
+ 'a':'理由は3つ:①院内デジタル技工所(外注マージンゼロ)、②年間120億₩規模のスケールメリット、③医療ツーリズム仲介業者を通さない直接予約(仲介手数料20〜30%カット)。品質はソウル大出身の歯科医15名+大学病院レベルの感染管理で担保 — <b>安かろう悪かろうではありません</b>。'}
+QA['/jp/travel-guide'] = {'q':'日本から韓国の歯科に通院するにはどうすればいいですか?',
+ 'a':'成田・羽田・関空から仁川空港へ(約2〜2.5時間、往復2〜5万円)、仁川からKTXで<b>天安牙山駅まで約1時間</b>、タクシー10分で当院到着。インプラントなら<b>2泊3日×2回</b>、ベニアなら2泊3日×1回が標準プランです。LINE・メールで事前に日本語見積もり→来韓日程を確定できます。'}
+
+# ── CN (해외 거주 + 재한 중국인) ──
+QA['/cn/dental'] = {'q':'韩国看牙比中国便宜吗?质量怎么样?',
+ 'a':'首尔BD牙科(天安)种植牙<b>80万–160万₩(约4,200–8,300元)</b>,全锆冠55万₩(约2,900元) — 与国内一线城市私立诊所相比约省30–50%,且全部由<b>15名首尔大学出身的牙医</b>诊疗,感染管理达大学医院级别。365天开诊,外国人与韩国人同价,无中介加价。'}
+QA['/cn/implant'] = {'q':'在韩国种一颗牙多少钱?',
+ 'a':'首尔BD牙科种植牙每颗<b>80万₩(约4,200元)–160万₩(约8,300元)</b>:奥齿泰CA 80万₩、奥齿泰SOI 100万₩、士卓曼BLX 160万₩。手术在4楼种植中心(6间独立手术室+风淋感染管理)进行,符合条件可<b>即拔即种当天戴牙</b>,最短2次访韩完成全程。'}
+QA['/cn/invisalign'] = {'q':'韩国隐适美多少钱?比国内便宜吗?',
+ 'a':'首尔BD牙科隐适美<b>300万₩(约1.6万元)–700万₩(约3.6万元)</b>,由首尔大学出身正畸医师全程负责,3D ClinCheck方案先看效果再开始。支持远程监控+一次领取多副牙套,在中国也能继续矫正,几个月来韩一次即可。'}
+QA['/cn/pricing'] = {'q':'韩国牙科为什么能这么便宜?',
+ 'a':'三个原因:①2楼自有数字技工所(零外包加价);②年营收120亿₩的规模效应(材料批量采购);③直接预约不经医疗中介(省下20–30%佣金)。质量由15名首尔大学牙医+大学医院级感染管理保证 — <b>便宜不等于将就</b>。支持微信/支付宝付款。'}
+QA['/cn/travel-guide'] = {'q':'从中国来韩国看牙怎么安排行程?',
+ 'a':'北京/上海/广州直飞仁川(2–3.5小时),仁川乘KTX约1小时到<b>天安牙山站</b>,打车10分钟到院。种植牙标准安排:<b>2次访韩,每次2晚3天</b>;贴面/全瓷冠一次3天即可完成。来韩前通过微信发X光片即可收到中文报价,确定后再订机票。'}
+
+# ── VI (국내 거주 근로자·유학생) ──
+QA['/vi/'] = {'q':'Ở Cheonan có nha khoa nào tốt cho người Việt không?',
+ 'a':'Có — <b>Seoul BD Dental</b> ở Buldang-dong, Cheonan (15–25 phút từ KCN Asan/Tangjeong) có <b>15 bác sĩ tốt nghiệp ĐH Quốc gia Seoul</b>, mở cửa <b>365 ngày kể cả cuối tuần</b> — phù hợp người làm ca. Người Việt trả đúng giá niêm yết như người Hàn, dùng được bảo hiểm NHIS, hỗ trợ app phiên dịch.'}
+QA['/vi/implant'] = {'q':'Trồng răng implant ở Hàn Quốc giá bao nhiêu?',
+ 'a':'Tại Seoul BD Dental, implant giá <b>800.000₩–1.600.000₩/răng</b>: Osstem CA 800.000₩, Osstem SOI 1 triệu₩, Straumann BLX 1,6 triệu₩ — đã gồm trụ, khớp nối và kế hoạch mão răng. Ghép xương (nếu cần) thêm 300.000–500.000₩. Có lịch mổ <b>thứ 7, chủ nhật, ngày lễ</b> — không cần xin nghỉ làm.'}
+QA['/vi/invisalign'] = {'q':'Niềng răng trong suốt Invisalign ở Hàn Quốc bao nhiêu tiền?',
+ 'a':'Invisalign tại Seoul BD Dental từ <b>3 triệu₩ (Express) đến 7 triệu₩ (Comprehensive)</b>, do bác sĩ chỉnh nha tốt nghiệp SNU phụ trách với mô phỏng 3D ClinCheck. Theo dõi từ xa qua ảnh điện thoại — chỉ cần đến viện 6–10 tuần/lần, hợp với người đi làm ca.'}
+QA['/vi/laminate'] = {'q':'Dán sứ veneer ở Hàn Quốc giá bao nhiêu?',
+ 'a':'Mặt dán sứ Glownate tại Seoul BD Dental giá <b>600.000–800.000₩/răng</b>, hoàn thành trong <b>2–3 lần hẹn (2–3 ngày)</b> nhờ labo kỹ thuật số ngay trong viện. Mài răng tối thiểu 0,3–0,5mm, bảo hành rõ ràng, giá niêm yết không phát sinh.'}
+QA['/vi/pricing'] = {'q':'Chi phí làm răng ở Hàn Quốc cho người nước ngoài là bao nhiêu?',
+ 'a':'Người nước ngoài trả <b>đúng giá niêm yết như người Hàn</b>: implant 800.000₩–1,6 triệu₩, niềng Invisalign 3–7 triệu₩, dán sứ 600–800.000₩, mão zirconia 550.000₩, trám răng 50.000–250.000₩. Có <b>NHIS</b>: lấy cao răng chỉ ~15.000–20.000₩/năm, nhổ răng và điều trị nha chu cũng được giá bảo hiểm.'}
+QA['/vi/directions'] = {'q':'Đường đi đến Seoul BD Dental Cheonan như thế nào?',
+ 'a':'Địa chỉ: <b>14 Buldang 34-gil, Seobuk-gu, Cheonan</b> (tìm "서울비디치과" trên Naver Map/Kakao Map). Từ ga KTX Cheonan-Asan: taxi 10 phút. Từ KCN Asan/Tangjeong: lái xe 15–25 phút. Trạm buýt "불당주공5단지" cách 1 phút đi bộ. Đỗ xe ngầm miễn phí.'}
+QA['/vi/faq'] = {'q':'Người Việt đi khám răng ở Hàn Quốc cần biết gì?',
+ 'a':'3 điều quan trọng: ① Mang <b>thẻ đăng ký người nước ngoài</b> — có NHIS thì lấy cao răng, nhổ răng, nha chu đều được giá bảo hiểm; ② Viện mở <b>365 ngày</b> (cuối tuần 09:00–13:00) nên không cần xin nghỉ; ③ Giá niêm yết công khai, báo giá chi tiết trước khi điều trị — không lo bị "chém" vì là người nước ngoài.'}
+
+# ── TH (국내 거주 근로자) ──
+QA['/th/'] = {'q':'ที่ชอนันมีคลินิกทำฟันที่เหมาะกับคนไทยไหม?',
+ 'a':'มี — <b>Seoul BD Dental</b> ที่พุลดัง-ดง ชอนัน (15–25 นาทีจากนิคมอาซาน/ทังจอง) มี<b>ทันตแพทย์จบมหาวิทยาลัยแห่งชาติโซล 15 คน</b> เปิด <b>365 วันรวมเสาร์-อาทิตย์</b> เหมาะกับคนทำงานกะ คนไทยจ่ายราคาเดียวกับคนเกาหลีตามป้ายราคา ใช้ประกัน NHIS ได้ มีแอปแปลภาษาช่วย'}
+QA['/th/implant'] = {'q':'รากฟันเทียมที่เกาหลีราคาเท่าไหร่?',
+ 'a':'ที่ Seoul BD Dental รากฟันเทียมซี่ละ <b>800,000₩–1,600,000₩</b>: Osstem CA 800,000₩, Osstem SOI 1 ล้าน₩, Straumann BLX 1.6 ล้าน₩ — รวมรากเทียม ข้อต่อ และแผนครอบฟันแล้ว ปลูกกระดูก (ถ้าจำเป็น) เพิ่ม 300,000–500,000₩ มีคิวผ่าตัด<b>เสาร์ อาทิตย์ วันหยุด</b> — ไม่ต้องลางาน'}
+QA['/th/pricing'] = {'q':'ทำฟันที่เกาหลีแพงไหมสำหรับคนต่างชาติ?',
+ 'a':'ไม่แพงกว่าคนเกาหลี — คนต่างชาติจ่าย<b>ราคาเดียวกับคนเกาหลีตามป้ายราคา</b>: รากฟันเทียม 800,000₩–1.6 ล้าน₩, จัดฟันใส 3–7 ล้าน₩, วีเนียร์ 600,000–800,000₩, ครอบเซอร์โคเนีย 550,000₩, อุดฟัน 50,000–250,000₩ มี <b>NHIS</b>: ขูดหินปูนปีละครั้งแค่ ~15,000–20,000₩'}
+QA['/th/directions'] = {'q':'ไป Seoul BD Dental ชอนันยังไง?',
+ 'a':'ที่อยู่: <b>14 Buldang 34-gil, Seobuk-gu, Cheonan</b> (ค้นหา "서울비디치과" ใน Naver Map/Kakao Map) จากสถานี KTX ชอนัน-อาซาน: แท็กซี่ 10 นาที จากนิคมอาซาน/ทังจอง: ขับรถ 15–25 นาที ป้ายรถเมล์ "불당주공5단지" เดิน 1 นาที มีที่จอดรถใต้ดินฟรี'}
+
+# ── RU (국내 거주 근로자·CIS) ──
+QA['/ru/'] = {'q':'Есть ли в Чхонане стоматология для русскоязычных?',
+ 'a':'Да — <b>Seoul BD Dental</b> в районе Пульдан-дон, Чхонан (15–25 минут от промзоны Асан/Танчжон) с <b>15 врачами из Сеульского национального университета</b>, открыта <b>365 дней в году, включая выходные</b> — удобно для сменной работы. Иностранцы платят по тому же прейскуранту, что и корейцы, принимается страховка NHIS, помогает приложение-переводчик.'}
+QA['/ru/implant'] = {'q':'Сколько стоит имплант зуба в Корее?',
+ 'a':'В Seoul BD Dental имплантация стоит <b>800 000–1 600 000₩ за зуб</b>: Osstem CA 800 000₩, Osstem SOI 1 млн₩, Straumann BLX 1,6 млн₩ — включая имплантат, абатмент и план коронки. Костная пластика (при необходимости) +300 000–500 000₩. Операции проводятся и <b>в субботу, воскресенье, праздники</b> — не нужно отпрашиваться с работы.'}
+QA['/ru/pricing'] = {'q':'Дорого ли лечить зубы в Корее иностранцу?',
+ 'a':'Не дороже, чем корейцам — иностранцы платят <b>по единому опубликованному прейскуранту</b>: импланты 800 000₩–1,6 млн₩, Invisalign 3–7 млн₩, виниры 600 000–800 000₩, циркониевая коронка 550 000₩, пломбы 50 000–250 000₩. Со страховкой <b>NHIS</b> чистка камня раз в год — всего ~15 000–20 000₩.'}
+QA['/ru/directions'] = {'q':'Как добраться до Seoul BD Dental в Чхонане?',
+ 'a':'Адрес: <b>14 Buldang 34-gil, Seobuk-gu, Cheonan</b> (ищите "서울비디치과" в Naver Map / Kakao Map). От вокзала KTX Чхонан-Асан: 10 минут на такси. От промзоны Асан/Танчжон: 15–25 минут на машине. Остановка «Пульдан Чжугон 5-данчжи» — 1 минута пешком. Бесплатная подземная парковка.'}
+
+# ═══════════════════════════════════════════════════════════════════
+# v5.16 — JP/CN travel-guide 의료관광 확장 (A그룹 해외 거주 외국인 전용)
+# ═══════════════════════════════════════════════════════════════════
+
+EXTRA['/jp/travel-guide'] += [
+ {'type':'steps','alt':True,'label':'モデルプラン','h2':'インプラント治療 2泊3日×2回 モデルプラン',
+  'desc':'日本からの患者様に最も多い「インプラント2回訪韓プラン」の実際の流れです。ベニア・ジルコニアクラウンなら2泊3日×1回で完了します。',
+  'steps':[
+   {'t':'【1回目】1日目:来韓・精密検査','time':'Day 1','d':'午前便で仁川着 → KTXで天安牙山駅へ(約1時間) → 午後に3D CT撮影・精密診断・治療計画確定・日本語での費用最終見積もり。ホテルチェックイン後は不当洞グルメ街で夕食。'},
+   {'t':'【1回目】2日目:インプラント埋入手術','time':'Day 2','d':'4Fインプラントセンター(独立手術室・エアシャワー完備)で埋入手術。静脈内鎮静(20万₩)選択可 — 眠っている間に終わります。術後はホテルで安静に。'},
+   {'t':'【1回目】3日目:術後チェック・帰国','time':'Day 3','d':'午前に消毒・経過確認 → 英文診断書・処置記録をお渡し → 午後便で帰国。抜糸は日本のかかりつけ医でも、写真での遠隔確認でもOK。'},
+   {'t':'〜骨結合期間(日本で待機)〜','time':'2〜4ヶ月','d':'日本で通常どおり生活。経過はLINE・メールで写真を送るだけの遠隔フォロー。'},
+   {'t':'【2回目】1〜3日目:型取り・上部構造装着','time':'Day 1–3','d':'2回目の訪韓で型取り → 院内技工所が最短翌日にクラウン製作 → 装着・咬合調整して完了。保証書と英文治療記録をお持ち帰りいただきます。'},
+  ]},
+ {'type':'cards','label':'アクセス詳細','h2':'日本からのアクセス — 飛行機・KTX 完全ガイド',
+  'cards':[
+   {'icon':'fas fa-plane-departure','t':'日本 → 仁川空港','d':'成田・羽田・関空・中部・福岡から直行便多数(約1.5〜2.5時間)。LCC利用なら往復2〜4万円台。金浦空港着ならソウル駅経由のKTXが便利です。'},
+   {'icon':'fas fa-train','t':'仁川空港 → 天安牙山駅','d':'空港からAREXでソウル駅(約50分)→ KTX乗換で天安牙山駅まで約35分。合計約1.5〜2時間、KTX料金は約14,000₩(約1,500円)。'},
+   {'icon':'fas fa-taxi','t':'天安牙山駅 → 当院','d':'タクシーで約10分(約8,000₩)。「ソウルBDチカ(서울비디치과)」または「プルダン住公5団地」とお伝えください。'},
+   {'icon':'fas fa-mobile-screen','t':'来韓前の準備','d':'LINE/メールでパノラマX線か口腔内写真を送付 → 日本語で概算見積もり → 日程確定後に航空券予約、が最も無駄のない順番です。'},
+  ]},
+ {'type':'info','alt':True,'label':'宿泊案内','h2':'天安での宿泊 — 当院周辺のおすすめ','rows':[
+   {'k':'不当洞エリア','v':'当院徒歩圏のビジネスホテル多数(1泊5万〜9万₩) — 通院に最も便利','gold':True},
+   {'k':'天安牙山駅周辺','v':'新世界百貨店直結エリア。KTX利用・ショッピング重視の方に'},
+   {'k':'温陽温泉(牙山)','v':'温泉ホテルで湯治滞在も可能(手術直後の入浴は要相談) — タクシー20分'},
+   {'k':'予約のコツ','v':'手術日はホテルを当院から近い順で。ご希望あればスタッフが宿泊エリアをご案内します'},
+ ]},
+]
+
+EXTRA['/cn/travel-guide'] += [
+ {'type':'steps','alt':True,'label':'行程模板','h2':'种植牙 2次访韩·每次2晚3天 标准行程',
+  'desc':'中国患者最常见的"种植牙两次访韩方案"实际流程。贴面/全瓷冠只需1次3天即可完成。',
+  'steps':[
+   {'t':'【第1次】第1天:抵韩·精密检查','time':'Day 1','d':'上午航班抵仁川 → KTX到天安牙山站(约1小时) → 下午3D CT拍摄、精密诊断、确定治疗方案、出具中文最终报价。入住酒店后可在佛堂洞美食街用餐。'},
+   {'t':'【第1次】第2天:种植体植入手术','time':'Day 2','d':'4楼种植中心(独立手术室+风淋感染管理)进行植入手术。可选静脉镇静(20万₩) — 睡一觉手术就结束了。术后回酒店静养。'},
+   {'t':'【第1次】第3天:术后复查·回国','time':'Day 3','d':'上午消毒·确认恢复情况 → 领取英文诊断书·手术记录 → 下午航班回国。拆线可在国内牙科完成,或微信发照片远程确认。'},
+   {'t':'〜骨结合期(在国内等待)〜','time':'2–4个月','d':'在国内正常生活工作,恢复情况通过微信发照片远程跟进即可。'},
+   {'t':'【第2次】第1–3天:取模·戴牙冠','time':'Day 1–3','d':'第2次访韩取模 → 院内技工所最快次日完成牙冠制作 → 戴牙·调咬合,治疗完成。质保卡与英文病历一并带回。'},
+  ]},
+ {'type':'cards','label':'交通攻略','h2':'从中国出发 — 航班·KTX 完整交通攻略',
+  'cards':[
+   {'icon':'fas fa-plane-departure','t':'中国 → 仁川机场','d':'北京、上海、广州、青岛、沈阳、香港等直飞仁川(2–3.5小时),提前订票往返常见1,500–3,500元。威海、青岛出发航程最短。'},
+   {'icon':'fas fa-train','t':'仁川机场 → 天安牙山站','d':'机场乘AREX到首尔站(约50分钟)→ 换乘KTX约35分钟到天安牙山站。全程约1.5–2小时,KTX票价约14,000₩(约73元)。'},
+   {'icon':'fas fa-taxi','t':'天安牙山站 → 医院','d':'打车约10分钟(约8,000₩)。给司机看"서울비디치과"或"불당주공5단지"即可。'},
+   {'icon':'fas fa-mobile-screen','t':'来韩前的准备','d':'微信发送全景X光片或口腔照片 → 收到中文预估报价 → 确定日程后再订机票,这是最省钱省时的顺序。'},
+  ]},
+ {'type':'info','alt':True,'label':'住宿指南','h2':'天安住宿 — 医院周边推荐','rows':[
+   {'k':'佛堂洞一带','v':'医院步行圈内多家商务酒店(每晚5万–9万₩) — 就诊最方便','gold':True},
+   {'k':'天安牙山站周边','v':'新世界百货直连区域,适合重视KTX出行和购物的患者'},
+   {'k':'温阳温泉(牙山)','v':'可入住温泉酒店边疗养边治疗(术后即刻泡温泉请先咨询医师) — 打车20分钟'},
+   {'k':'预订建议','v':'手术日请优先选离医院近的酒店,如有需要工作人员可协助推荐住宿区域'},
+ ]},
+]

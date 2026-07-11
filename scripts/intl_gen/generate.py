@@ -15,19 +15,24 @@ MODULES = [
 ]
 
 def merge_extra(page):
-    """content_extra.EXTRA의 추가 섹션을 CTA 직전에 삽입한 사본 반환"""
-    extra = content_extra.EXTRA.get(page.get('canonical'), [])
-    if not extra:
+    """content_extra.EXTRA 섹션을 CTA 직전에 삽입 + QA(즉답 박스) 주입한 사본 반환"""
+    canon = page.get('canonical')
+    extra = content_extra.EXTRA.get(canon, [])
+    qa = getattr(content_extra, 'QA', {}).get(canon)
+    if not extra and not qa:
         return page
     merged = dict(page)
-    sections = list(page['sections'])
-    cta_idx = next((i for i in range(len(sections) - 1, -1, -1)
-                    if sections[i].get('type') == 'cta'), None)
-    if cta_idx is None:
-        sections.extend(extra)
-    else:
-        sections[cta_idx:cta_idx] = extra
-    merged['sections'] = sections
+    if extra:
+        sections = list(page['sections'])
+        cta_idx = next((i for i in range(len(sections) - 1, -1, -1)
+                        if sections[i].get('type') == 'cta'), None)
+        if cta_idx is None:
+            sections.extend(extra)
+        else:
+            sections[cta_idx:cta_idx] = extra
+        merged['sections'] = sections
+    if qa:
+        merged['qa'] = qa
     return merged
 
 def main():

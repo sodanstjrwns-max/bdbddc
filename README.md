@@ -12,9 +12,24 @@
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
 
-## Current Version: v5.15
+## Current Version: v5.16
 
 ### Completed Features
+
+#### 외국 SEO/AEO 슈퍼 업그레이드 (v5.16) — 즐답 박스 + 스키마 강화 + 타겟 세분화
+- **AEO 즐답 박스 (Quick Answer)**: 32페이지 전체 히어로 직후 `#quick-answer` 섹션 — 질문형 H2 + 첫 문장 즐답 (가격·접근·NHIS 핵심 팩트 굵은글씨 하이라이트). content_extra.py의 QA 딕터러리(32키)로 관리, generate.py merge_extra()가 자동 주입
+- **스키마 강화 (페이지당 JSON-LD 3~4블록, 총 124블록 0에러)**:
+  - Dentist → `["Dentist","MedicalClinic"]` 복합 타입 + @id + foundingDate + paymentAccepted(WeChat Pay/Alipay/UnionPay 포함) + sameAs(인스타·유튜브·네이버블로그) + medicalSpecialty
+  - 신규 WebPage 스키마: `SpeakableSpecification`(cssSelector: #quick-answer, 히어로 h1) + inLanguage + dateModified — 음성검색·AI 검색엔진 대응
+- **타겟 세분화 (사용자 지시 반영)**: 관광 콘텐츠는 A그룹(JP/CN 해외거주 의료관광)만 — travel-guide 2페이지 확인 완료. B그룹(EN/VI/TH/RU 국내거주)은 로컬·실용 콘텐츠만
+- **JP/CN travel-guide 의료관광 확장** (A그룹 전용, 각 +3섹션):
+  - 임플란트 2박3일×2회 모델플랜 스텝 5단계 (정밀검사→수술→귀국→골결합대기→보철장착)
+  - 항공·KTX 완전 액세스 가이드 (일본 LCC 2~4만엔 / 중국 직항 1,500~3,500위안, 인천→천안아산 KTX 약 14,000₩)
+  - 숙박 가이드 (불당동 도보권 비즈니스호텔 5~9만₩/박, 온양온천 요양체류 옵션)
+- **B그룹 로컬 강화**: en/directions 공항 카드를 "Just Arrived in Korea? (PCS / New Assignment)" 프레임으로 재구성 (관광→신규 부임자 정착 맥락). QA 박스에 Camp Humphreys/KCN Asan/นิคมอาซาน/промзона Асан 로컬 키워드 내장
+- **llms.txt 갱신**: 국제 섹션 32페이지 전체 인벤토리(구 .html 경로 정리) + "Quick Answers for International Patients" 팩트 블록 추가 (가격·NHIS·접근·의료관광 플랜) + 치과의사 수 15인으로 수정
+- **CSS**: `.iv2-answer` 골드 그라데이션 즐답 박스 스타일 + 캠시버스트 `?v=20260711`
+- **검증**: 35 URL 전부 200 OK, JSON-LD 124블록 0에러, #quick-answer 32/32 렌더링, Playwright 콘솔 에러 0, jp/·cn/ Glownate 랜딩 무변경
 
 #### 다국어 페이지 콘텐츠 볼륨 확장 (v5.15) — 32페이지 전체 추가 섹션 삽입
 - **content_extra.py 시스템**: `scripts/intl_gen/content_extra.py` — canonical path 키(32개) → 추가 섹션 리스트. generate.py가 렌더링 시 각 페이지의 CTA 직전에 자동 삽입 (원본 content_XX.py는 무수정, 순수 additive 구조)

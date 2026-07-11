@@ -25,9 +25,18 @@ def _hreflang_links(hreflang):
 
 def _jsonld_dentist(page):
     d = {
-        "@context":"https://schema.org","@type":"Dentist",
-        "name":"Seoul BD Dental","url":BASE+page['canonical'],
+        "@context":"https://schema.org","@type":["Dentist","MedicalClinic"],
+        "@id":BASE+"/#dentist",
+        "name":"Seoul BD Dental","alternateName":"서울비디치과",
+        "url":BASE+page['canonical'],
         "telephone":PHONE_INTL,"priceRange":"₩₩",
+        "image":BASE+"/images/og-glownate.jpg",
+        "foundingDate":"2021-05-24",
+        "currenciesAccepted":"KRW",
+        "paymentAccepted":"Cash, Credit Card, VISA, MasterCard, JCB, AMEX, UnionPay, WeChat Pay, Alipay",
+        "hasMap":"https://maps.google.com/?q="+str(GEO[0])+","+str(GEO[1]),
+        "sameAs":[INSTA,"https://www.youtube.com/@BDtube","https://blog.naver.com/dentbusik"],
+        "medicalSpecialty":["Dentistry","Orthodontic","OralSurgery","PediatricDentistry"],
         "address":{"@type":"PostalAddress","streetAddress":"14, Buldang 34-gil, Seobuk-gu",
                    "addressLocality":"Cheonan-si","addressRegion":"Chungcheongnam-do",
                    "postalCode":"31120","addressCountry":"KR"},
@@ -36,6 +45,22 @@ def _jsonld_dentist(page):
         "openingHoursSpecification":[
             {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"20:00"},
             {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"09:00","closes":"13:00"}]
+    }
+    return f'<script type="application/ld+json">{json.dumps(d, ensure_ascii=False)}</script>'
+
+def _jsonld_webpage(page):
+    """WebPage + speakable — AEO: 음성비서/AI 엔진이 즉답 박스와 h1을 인용하도록"""
+    d = {
+        "@context":"https://schema.org","@type":"WebPage",
+        "@id":BASE+page['canonical']+"#webpage",
+        "url":BASE+page['canonical'],
+        "name":page['title'],
+        "description":page['desc'],
+        "inLanguage":HREFLANG_CODE.get(page['lang'], page['lang']),
+        "isPartOf":{"@type":"WebSite","@id":BASE+"/#website","url":BASE,"name":"Seoul BD Dental"},
+        "about":{"@id":BASE+"/#dentist"},
+        "speakable":{"@type":"SpeakableSpecification","cssSelector":["#quick-answer",".iv2-hero h1"]},
+        "dateModified":"2026-07-11"
     }
     return f'<script type="application/ld+json">{json.dumps(d, ensure_ascii=False)}</script>'
 
@@ -159,6 +184,15 @@ def render_page(page, lang_cfg):
     hero_html = (f'<header class="iv2-hero"><span class="iv2-hero__badge">{hero["badge"]}</span>'
                  f'<h1>{hero["h1"]}</h1><p class="iv2-hero__sub">{hero["sub"]}</p>{ctas}{stats}</header>')
 
+    # AEO Quick Answer — 히어로 직후, 질문형 H2 + 첫 문장 즉답 (AI 엔진 인용 최적화)
+    qa_html = ''
+    if page.get('qa'):
+        qa = page['qa']
+        qa_html = (f'<section class="iv2-section iv2-section--qa"><div class="iv2-container">'
+                   f'<div class="iv2-answer" id="quick-answer">'
+                   f'<h2 class="iv2-answer__q"><i class="fas fa-bolt"></i> {qa["q"]}</h2>'
+                   f'<p class="iv2-answer__a">{qa["a"]}</p></div></div></section>')
+
     nav_links = ''.join(
         f'<a href="{u}"{" class=active" if u == page["canonical"] or u == page["canonical"]+"/" else ""}>{t}</a>'
         for t,u in lang_cfg['nav'])
@@ -179,7 +213,7 @@ def render_page(page, lang_cfg):
                    f'<p>☎ <a href="tel:{PHONE_INTL}">{PHONE_INTL}</a> · <a href="{BASE}">bdbddc.com</a></p>'
                    f'<p style="margin-top:8px">© 2026 Seoul BD Dental. All rights reserved.</p></footer>')
 
-    jsonld = [_jsonld_dentist(page)]
+    jsonld = [_jsonld_dentist(page), _jsonld_webpage(page)]
     if page.get('breadcrumb'): jsonld.append(_jsonld_breadcrumb(page['breadcrumb']))
     faq_secs = [s for s in page['sections'] if s['type'] == 'faq']
     if faq_secs: jsonld.append(_jsonld_faq(faq_secs[0]['faqs']))
@@ -216,13 +250,14 @@ def render_page(page, lang_cfg):
 <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-<link rel="stylesheet" href="/css/intl-v2.css?v=20260704">
+<link rel="stylesheet" href="/css/intl-v2.css?v=20260711">
 {"".join(jsonld)}
 </head>
 <body>
 {nav_html}
 {hero_html}
 <main>
+{qa_html}
 {body_sections}
 </main>
 {footer_html}
