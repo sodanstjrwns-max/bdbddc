@@ -220,11 +220,12 @@ def add_links_to_html(html_content, term_map, sorted_terms, filename=""):
                     # 툴팁에서 HTML 특수문자 이스케이프
                     tooltip_text = info['short'][:50].replace('"', '&quot;').replace('<', '&lt;').replace('>', '&gt;')
                     
+                    # v5.18c: 클릭 이동 없는 툴팁 전용 <span> (진료→백과 이탈 방지, 컨설턴트 제안)
                     link_html = (
-                        f'<a href="{info["url"]}" class="enc-inline-link" '
+                        f'<span class="enc-inline-link" '
                         f'title="{tooltip_text}" '
                         f'data-enc-term="{canonical}">'
-                        f'{search_term}</a>'
+                        f'{search_term}</span>'
                     )
                     
                     # 첫 번째 출현만 치환

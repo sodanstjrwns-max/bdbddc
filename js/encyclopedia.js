@@ -270,6 +270,20 @@
       footEl.href = `/encyclopedia/${encodeURIComponent(item.term)}`;
       footEl.style.display = '';
     }
+
+    // v5.18: 관련 진료 CTA (item.link 있으면 진료 안내로 연결 — 백과 → 진료 퍼널 브릿지)
+    var tlBox = document.getElementById('modalTreatmentLink');
+    if (tlBox) {
+      if (item.link) {
+        var tlLabel = document.getElementById('modalTreatmentLabel');
+        var tlBtn = document.getElementById('modalTreatmentBtn');
+        if (tlLabel) tlLabel.textContent = item.term + ' 관련 진료 상세 안내';
+        if (tlBtn) tlBtn.href = item.link;
+        tlBox.style.display = 'flex';
+      } else {
+        tlBox.style.display = 'none';
+      }
+    }
   }
 
   function closeModal() {
