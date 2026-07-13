@@ -4592,7 +4592,7 @@ ${synonymsText ? `<p style="font-size:0.9rem;color:#888;margin-bottom:8px;"><i c
 
 <div style="font-size:1rem;color:#555;line-height:1.9;margin-bottom:24px;">
 <h2 style="font-size:1.2rem;font-weight:700;color:#333;margin-bottom:12px;"><i class="fas fa-info-circle" style="color:#c9a96e;margin-right:6px;"></i> 상세 설명</h2>
-<p>${linkedDetail}</p>
+${/<(p|h3|ul|ol|table)[\s>]/.test(linkedDetail) ? linkedDetail : `<p>${linkedDetail}</p>`}
 </div>
 
 ${tagsHtml ? `<div style="margin-bottom:32px;">${tagsHtml}</div>` : ''}
