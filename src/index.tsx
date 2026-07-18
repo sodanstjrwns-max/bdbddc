@@ -10,6 +10,35 @@ import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSess
 
 const app = new Hono<{ Bindings: Bindings }>()
 
+// ★ SEO: 존재하지 않는 콘텐츠는 302 리다이렉트(소프트 404) 대신 진짜 404를 반환
+//   크롤러에 명확한 신호 → 크롤 버짓 절약 + '발견됨-색인 안 됨' 오염 방지
+function notFoundPage(c: any, title: string, message: string, backHref: string, backLabel: string) {
+  return c.html(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>${title} — 서울비디치과</title>
+<style>body{font-family:'Pretendard',-apple-system,sans-serif;background:#faf7f3;margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.box{text-align:center;max-width:480px}
+h1{font-size:1.4rem;color:#3E2B1F;margin-bottom:12px}
+p{color:#6b5d52;line-height:1.7;margin-bottom:24px}
+a{display:inline-block;padding:12px 28px;background:#6B4226;color:#fff;border-radius:10px;text-decoration:none;font-weight:700;margin:4px}
+a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
+</head>
+<body>
+<div class="box">
+<div style="font-size:3rem;margin-bottom:16px;">🔍</div>
+<h1>${title}</h1>
+<p>${message}</p>
+<a href="${backHref}">${backLabel}</a>
+<a href="/" class="outline">홈으로</a>
+</div>
+</body>
+</html>`, 404)
+}
+
 // ============================================
 // seoulbddc.com → bdbddc.com 301 리디렉트
 // ============================================
@@ -1536,13 +1565,13 @@ app.get('/apple-touch-icon-precomposed.png', (c) => {
 })
 
 // ============================================
-// Weglot /en/* 다국어 프록시 (hreflang Non-200 이슈 해결)
-// Weglot은 클라이언트 JS로 번역하지만, 검색엔진 크롤러는 /en/ URL을
-// 직접 접근하므로 한국어 원본으로 302 리디렉트 (크롤러가 원본 인덱싱)
+// 레거시 /en/* URL 정리 (구 Weglot 시절 인덱싱된 URL)
+// 실존하는 /en/ 정적 페이지는 Pages가 우선 서빙하므로 여기 도달 X.
+// 존재하지 않는 레거시 /en/경로는 한국어 원본으로 301 영구 통합.
 // ============================================
 app.get('/en/*', (c) => {
   const path = c.req.path.replace(/^\/en/, '') || '/'
-  return c.redirect(path, 302)
+  return c.redirect(path, 301)
 })
 
 // 301 Redirect: old .html URLs → clean URLs (prevent 308 chain)
@@ -1720,9 +1749,6 @@ app.get('/default.asp', (c) => c.redirect('/', 301))
 app.get('/cheonan', (c) => c.redirect('/area/cheonan', 301))
 // /asan → /area/asan 301 리다이렉트 (아산치과 SEO 키워드 URL)
 app.get('/asan', (c) => c.redirect('/area/asan', 301))
-// /en/* → 영문 URL 잔재
-app.get('/en/area/*', (c) => c.redirect('/area/cheonan', 301))
-app.get('/en/*', (c) => c.redirect('/', 301))
 // 쓰레기 URL → 410 Gone (구글에 "영구 삭제됨" 알림)
 app.get('/$', (c) => c.text('Gone', 410))
 app.get('/&', (c) => c.text('Gone', 410))
@@ -3403,7 +3429,7 @@ app.get('/column/:param', async (c) => {
   
   const all = await getColumns(r2)
   const col = findColumnByParam(all, param)
-  if (!col) return c.redirect('/column/', 302)
+  if (!col) return notFoundPage(c, '칼럼을 찾을 수 없습니다', '요청하신 칼럼이 존재하지 않거나 삭제되었습니다.', '/column/', '칼럼 목록 보기')
   
   // 기존 col-xxx ID로 접근 시 → slug URL로 301 리다이렉트 (SEO 가치 이전)
   if (col.slug && param !== col.slug) {
@@ -3823,7 +3849,7 @@ app.get('/cases/:param', async (c) => {
   const allCases = await getCases(r2)
   const cs = findCaseByParam(allCases, param)
   
-  if (!cs) return c.redirect('/cases/gallery', 302)
+  if (!cs) return notFoundPage(c, '치료 사례를 찾을 수 없습니다', '요청하신 치료 사례가 존재하지 않거나 삭제되었습니다.', '/cases/gallery', '치료 사례 갤러리 보기')
   
   // 기존 ID로 접근 시 → slug URL로 301 리다이렉트 (SEO 가치 이전)
   if (cs.slug && param !== cs.slug) {
@@ -4376,7 +4402,33 @@ app.get('/encyclopedia/:term', async (c) => {
   }
 
   if (!item) {
-    return c.redirect('/encyclopedia/', 302)
+    // ★ SEO 컨설팅: 존재하지 않는 용어는 302(소프트 404) 대신 진짜 404 반환
+    //   크롤러에 명확한 "없음" 신호 → 크롤 버짓 절약, 색인 오염 방지
+    return c.html(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>용어를 찾을 수 없습니다 | 치과 백과사전 — 서울비디치과</title>
+<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" defer></script>
+<style>body{font-family:'Pretendard',-apple-system,sans-serif;background:#faf7f3;margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+.box{text-align:center;max-width:480px}
+h1{font-size:1.5rem;color:#3E2B1F;margin-bottom:12px}
+p{color:#6b5d52;line-height:1.7;margin-bottom:24px}
+a{display:inline-block;padding:12px 28px;background:#6B4226;color:#fff;border-radius:10px;text-decoration:none;font-weight:700;margin:4px}
+a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
+</head>
+<body>
+<div class="box">
+<div style="font-size:3rem;margin-bottom:16px;">🔍</div>
+<h1>"${termParam.replace(/</g,'&lt;').slice(0,50)}" 용어를 찾을 수 없습니다</h1>
+<p>치과 백과사전에 등록되지 않은 용어입니다.<br>838개 치과 용어를 백과사전에서 검색해 보세요.</p>
+<a href="/encyclopedia/">백과사전에서 검색하기</a>
+<a href="/" class="outline">홈으로</a>
+</div>
+</body>
+</html>`, 404)
   }
 
   const term = item.term
@@ -4546,8 +4598,6 @@ ${TRACKING_HEAD}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[${faqSchemaEntities}]}
 </script>
-<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>Weglot.initialize({ api_key: 'wg_60caborb1mso4g2k2c8qe1' });</script>
 <style>
 .faq-open > div:last-child { max-height: 500px !important; }
 .faq-chevron.rotated { transform: rotate(180deg); }
@@ -4582,7 +4632,6 @@ ${ssrHeader()}
 <span style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:#f5f0eb;color:#6B4226;font-weight:800;font-size:1.3rem;border-radius:12px;">${item.chosung || ''}</span>
 <h1 itemprop="name" style="font-size:2rem;font-weight:800;color:#333;margin:0;">${term}</h1>
 </div>
-${synonymsText ? `<p style="font-size:0.9rem;color:#888;margin-bottom:8px;"><i class="fas fa-exchange-alt" style="margin-right:4px;"></i>동의어: ${item.synonyms!.map(s => `<a href="/encyclopedia/${encodeURIComponent(s)}" style="color:#6B4226;text-decoration:none;">${s}</a>`).join(', ')}</p>` : ''}
 <a href="/encyclopedia/category/${encodeURIComponent(item.category)}" style="display:inline-block;font-size:0.8rem;font-weight:600;padding:4px 14px;border-radius:50px;background:#f5f0eb;color:#6B4226;text-decoration:none;">${item.category}</a>
 </header>
 
@@ -4707,7 +4756,7 @@ app.get('/encyclopedia/category/:name', async (c) => {
   const encCategories = [...new Set(encItems.map(i => i.category))]
 
   if (!encCategories.includes(catName)) {
-    return c.redirect('/encyclopedia/', 302)
+    return notFoundPage(c, '카테고리를 찾을 수 없습니다', '존재하지 않는 백과사전 카테고리입니다.', '/encyclopedia/', '백과사전 메인 보기')
   }
   
   const catItems = encItems.filter(i => i.category === catName)
@@ -4789,8 +4838,6 @@ ${TRACKING_HEAD}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[${catFaqSchemaEntries}]}
 </script>
-<script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
-<script>Weglot.initialize({ api_key: 'wg_60caborb1mso4g2k2c8qe1' });</script>
 <style>
 .cat-faq-open > div:last-child { max-height: 500px !important; }
 .cat-faq-chevron.rotated { transform: rotate(180deg); }

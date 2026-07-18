@@ -256,15 +256,6 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 }
 </script>
 <script src="/js/analytics.js?v=20260702v8" defer></script>
-<!-- Weglot Multilingual (defer로 비동기 로딩 → FCP 개선) -->
-<script>
-  window.addEventListener('DOMContentLoaded', function() {
-    var s = document.createElement('script');
-    s.src = 'https://cdn.weglot.com/weglot.min.js';
-    s.onload = function() { Weglot.initialize({ api_key: 'wg_cd7087d43782c81ecb41e27570c3bfcd2' }); };
-    document.head.appendChild(s);
-  });
-</script>
 <!-- Microsoft Clarity (idle 시 로드 → TBT 개선) -->
 <script>
   if ('requestIdleCallback' in window) {

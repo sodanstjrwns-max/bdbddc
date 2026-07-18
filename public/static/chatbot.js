@@ -205,11 +205,11 @@
 
   // ─── 다국어 감지 ───
   function detectLang() {
-    // 1. Weglot 현재 언어 감지
-    if (window.Weglot && typeof Weglot.getCurrentLang === 'function') {
-      var wl = Weglot.getCurrentLang();
-      if (wl && wl !== 'ko') return wl; // en, zh, ja, vi 등
-    }
+    // 1. URL 경로 기반 언어 감지 (/en/, /jp/, /cn/ 전용 페이지)
+    var p = window.location.pathname;
+    if (p.indexOf('/en/') === 0) return 'en';
+    if (p.indexOf('/jp/') === 0) return 'ja';
+    if (p.indexOf('/cn/') === 0) return 'zh';
     // 2. URL 파라미터 (?lang=en)
     var urlLang = new URLSearchParams(window.location.search).get('lang');
     if (urlLang) return urlLang;

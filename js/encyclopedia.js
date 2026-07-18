@@ -132,7 +132,7 @@
           <span class="enc-card-chosung">${item.chosung}</span>
           <div>
             <div class="enc-card-term">${highlightMatch(item.term)}</div>
-            ${item.synonyms && item.synonyms.length ? `<div class="enc-card-synonyms">${item.synonyms.join(', ')}</div>` : ''}
+
           </div>
         </div>
         <span class="enc-card-category">${item.category}</span>
@@ -248,8 +248,8 @@
     if (!item) return;
 
     document.getElementById('modalTitle').textContent = item.term;
-    document.getElementById('modalSynonyms').textContent =
-      item.synonyms && item.synonyms.length ? `동의어: ${item.synonyms.join(', ')}` : '';
+    // 동의어 표시 제거 (SEO 컨설팅: 동의어 리스트업 금지 — 검색·301용 데이터로만 사용)
+    document.getElementById('modalSynonyms').textContent = '';
     document.getElementById('modalCategory').textContent = item.category;
     document.getElementById('modalShort').innerHTML = sanitizeHtml(item.short);
     document.getElementById('modalDetail').innerHTML = sanitizeHtml(item.detail);
