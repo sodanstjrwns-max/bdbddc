@@ -3687,7 +3687,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
   "name":"서울비디치과",
   "telephone":"+82-41-415-2892",
   "address":{"@type":"PostalAddress","streetAddress":"불당34길 14, 1~5층","addressLocality":"천안시 서북구 불당동","addressRegion":"충청남도","addressCountry":"KR"},
-  "sameAs":["https://www.instagram.com/seoul_bddc","https://pf.kakao.com/_Cxivlxb","https://www.youtube.com/@BDtube","https://www.youtube.com/@geoptongryung","https://naver.me/5yPnKmqQ"],
+  "sameAs":["https://www.instagram.com/seoul_bddc","https://pf.kakao.com/_Cxivlxb","https://www.youtube.com/@BDtube","https://naver.me/5yPnKmqQ"],
   "speakableSpecification":{"@type":"SpeakableSpecification","cssSelector":[".col-detail-header h1",".col-detail-body h2",".col-detail-body h3"]}
 }</script>
 ${faqSchema}
