@@ -2962,7 +2962,8 @@ app.get('/doctors/:slug', async (c) => {
     
     const videoInfo = DOCTOR_VIDEO_MAP[slug]
     let videoObjectSchema = ''
-    if (videoInfo) {
+    // 정적 HTML에 이미 VideoObject 스키마가 있으면 중복 주입하지 않음 (정적 버전이 duration·정확한 uploadDate 포함)
+    if (videoInfo && !html.includes('"VideoObject"')) {
       videoObjectSchema = `
 <script type="application/ld+json">
 {
