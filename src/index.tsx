@@ -4605,6 +4605,9 @@ ${TRACKING_HEAD}
 {"@context":"https://schema.org","@type":"DefinedTerm","name":${JSON.stringify(plainText(term))},"description":${JSON.stringify(plainText(item.short + ' ' + item.detail))},"inDefinedTermSet":{"@type":"DefinedTermSet","name":"서울비디치과 치과 백과사전","url":"https://bdbddc.com/encyclopedia/"},"url":"${canonicalUrl}"}
 </script>
 <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MedicalWebPage","name":${JSON.stringify(plainText(term) + ' — 치과 백과사전')},"url":"${canonicalUrl}","description":${JSON.stringify(plainText(item.short))},"inLanguage":"ko-KR","about":{"@type":"MedicalEntity","name":${JSON.stringify(plainText(term))}},"medicalAudience":{"@type":"MedicalAudience","audienceType":"Patient"},"reviewedBy":{"@type":"Person","name":"문석준","jobTitle":"통합치의학과 전문의 · 대표원장","url":"https://bdbddc.com/doctors/moon","affiliation":{"@type":"Dentist","@id":"https://bdbddc.com/#dentist","name":"서울비디치과"}},"publisher":{"@id":"https://bdbddc.com/#dentist"},"isPartOf":{"@type":"WebSite","name":"서울비디치과","url":"https://bdbddc.com"}}
+</script>
+<script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[${faqSchemaEntities}]}
 </script>
 <style>
