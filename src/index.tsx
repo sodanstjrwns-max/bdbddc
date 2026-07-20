@@ -4074,7 +4074,7 @@ ${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight
 <div class="case-cta">
 <p style="font-size:1.05rem;font-weight:600;margin-bottom:14px;">나도 이런 결과를 원한다면?</p>
 <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-<a href="/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;"><i class="fas fa-calendar-check"></i> 무료 상담 예약</a>
+<a href="/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;"><i class="fas fa-calendar-check"></i> 상담 예약</a>
 <a href="tel:041-415-2892" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:rgba(255,255,255,.15);color:#fff;border-radius:50px;text-decoration:none;font-weight:600;border:1px solid rgba(255,255,255,.3);"><i class="fas fa-phone"></i> 041-415-2892</a>
 </div>
 </div>
@@ -4211,7 +4211,7 @@ const categoryFaqTemplates: Record<string, (term: string, short: string, detail:
   '치아 구조': (t, s, d) => [
     { q: `${t}은(는) 어디에 위치하나요?`, a: `${s} ${d} 치과 검진 시 치과의사가 ${t}의 상태를 확인하고 설명해 드립니다.` },
     { q: `${t}이(가) 손상되면 어떤 증상이 나타나나요?`, a: `${t}이(가) 손상되면 통증, 시림, 변색 등의 증상이 나타날 수 있습니다. 증상이 있다면 빠른 진료가 중요합니다. 서울비디치과에서는 정밀 검사를 통해 정확한 진단을 제공합니다.` },
-    { q: `${t} 관련 치료 비용은 어떻게 되나요?`, a: `${t} 관련 치료 비용은 손상 정도와 치료 방법에 따라 달라집니다. 서울비디치과에서는 무료 상담을 통해 정확한 비용을 안내해 드립니다. 전화 041-415-2892로 예약하세요.` },
+    { q: `${t} 관련 치료 비용은 어떻게 되나요?`, a: `${t} 관련 치료 비용은 손상 정도와 치료 방법에 따라 달라집니다. 서울비디치과에서는 상담을 통해 정확한 비용을 안내해 드립니다. 전화 041-415-2892로 예약하세요.` },
     { q: `${t}을(를) 건강하게 유지하려면 어떻게 해야 하나요?`, a: `올바른 칫솔질, 치실 사용, 정기적인 스케일링(6개월~1년 주기)이 ${t} 건강 유지의 핵심입니다. 서울비디치과에서 정기 검진을 받으시면 ${t} 상태를 체계적으로 관리할 수 있습니다.` },
   ],
   '치과 질환': (t, s, d) => [
@@ -4233,7 +4233,7 @@ const categoryFaqTemplates: Record<string, (term: string, short: string, detail:
     { q: `${t}은(는) 완치가 가능한가요?`, a: `초기 치은염은 전문 스케일링과 올바른 구강 관리로 완치가 가능합니다. 진행된 치주염은 완전 회복이 어렵지만, 적극적인 치료로 진행을 멈추고 유지할 수 있습니다.` },
     { q: `${t}이(가) 전신 건강에 영향을 주나요?`, a: `네, 치주 질환은 심혈관 질환, 당뇨, 조산 등 전신 건강과 밀접한 관련이 있습니다. 구강 건강이 전신 건강의 시작입니다. 서울비디치과에서는 통합적 관점의 치주 관리를 제공합니다.` },
     { q: `${t} 예방을 위해 어떻게 관리해야 하나요?`, a: `올바른 칫솔질(변형 바스법), 치실·치간칫솔 사용, 3~6개월마다 정기 스케일링이 치주 질환 예방의 핵심입니다. 서울비디치과에서 맞춤 구강 관리 교육을 받아보세요.` },
-    { q: `${t} 치료 비용과 보험이 적용되나요?`, a: `스케일링은 연 1회 건강보험 적용됩니다. 치주 수술도 일부 보험 적용이 가능합니다. 서울비디치과 무료 상담(041-415-2892)을 통해 정확한 비용을 확인하세요.` },
+    { q: `${t} 치료 비용과 보험이 적용되나요?`, a: `스케일링은 연 1회 건강보험 적용됩니다. 치주 수술도 일부 보험 적용이 가능합니다. 서울비디치과 상담(041-415-2892)을 통해 정확한 비용을 확인하세요.` },
   ],
   '치수·치아 질환': (t, s, d) => [
     { q: `${t}이(가) 생기면 어떤 증상이 나타나나요?`, a: `${s} 치수·치아 질환은 자발통(가만히 있어도 아픔), 온도 민감성, 씹을 때 통증, 잇몸 부종 등으로 나타납니다. 밤에 통증이 심해지는 것이 특징입니다.` },
@@ -4253,7 +4253,7 @@ const categoryFaqTemplates: Record<string, (term: string, short: string, detail:
   '치료·시술': (t, s, d) => [
     { q: `${t} 시술 과정은 어떻게 되나요?`, a: `${s} 서울비디치과에서는 정밀 검사 → 치료 계획 수립 → 시술 → 경과 관찰 순서로 진행합니다. 서울대 출신 전문의가 직접 진료합니다.` },
     { q: `${t} 시술 시간은 얼마나 걸리나요?`, a: `${t} 시술 시간은 환자 상태와 난이도에 따라 다르지만, 일반적으로 30분~2시간 정도 소요됩니다. 정확한 시간은 진료 상담 시 안내해 드립니다.` },
-    { q: `${t} 비용과 보험 적용 여부가 궁금합니다.`, a: `${t} 비용은 시술 범위에 따라 달라집니다. 건강보험 적용 가능한 항목도 있으니, 서울비디치과 무료 상담(041-415-2892)을 통해 정확한 비용과 보험 적용 여부를 확인하세요.` },
+    { q: `${t} 비용과 보험 적용 여부가 궁금합니다.`, a: `${t} 비용은 시술 범위에 따라 달라집니다. 건강보험 적용 가능한 항목도 있으니, 서울비디치과 상담(041-415-2892)을 통해 정확한 비용과 보험 적용 여부를 확인하세요.` },
     { q: `${t} 시술 후 일상생활이 바로 가능한가요?`, a: `대부분 시술 후 당일 또는 1~2일 내 일상생활이 가능합니다. 다만 시술 종류에 따라 주의사항이 다르므로, 담당 의사의 안내를 따라주세요.` },
     { q: `${t}은(는) 누구에게 적합한가요?`, a: `${t}의 적응증과 금기증은 환자 개인의 구강 상태에 따라 다릅니다. 서울비디치과에서는 CT, X-ray 등 정밀 검사를 통해 최적의 치료 방법을 제안합니다.` },
   ],
@@ -4453,9 +4453,9 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
     ? `${term}, 이제 아셨죠? 그럼 내 치아는 어떤 상태일까요?`
     : '이 글이 도움이 되셨나요?'
   const ctaSubtext = isInfoTerm
-    ? `용어를 아는 것보다 중요한 건 <strong style="color:#6B4226;">내 치아의 실제 상태</strong>입니다.<br>서울대 출신 전문의가 <strong style="color:#6B4226;">무료 정밀 검진</strong>으로 직접 확인해드립니다.`
-    : `${term}, 검색만으로는 내 경우가 맞는지 알기 어렵습니다.<br>서울대 출신 전문의가 <strong style="color:#6B4226;">무료로</strong> 내 상태를 직접 봐드립니다.`
-  const ctaButtonLabel = isInfoTerm ? '내 치아 무료 검진받기' : '무료 상담받기'
+    ? `용어를 아는 것보다 중요한 건 <strong style="color:#6B4226;">내 치아의 실제 상태</strong>입니다.<br>서울대 출신 전문의가 <strong style="color:#6B4226;">정밀 검진</strong>으로 직접 확인해드립니다.`
+    : `${term}, 검색만으로는 내 경우가 맞는지 알기 어렵습니다.<br>서울대 출신 전문의가 <strong style="color:#6B4226;">직접</strong> 내 상태를 봐드립니다.`
+  const ctaButtonLabel = isInfoTerm ? '내 치아 검진 예약하기' : '상담 예약하기'
   const ctaEventLabel = isInfoTerm ? 'encyclopedia_info_bridge' : 'encyclopedia_helpful'
   const tagsHtml = (item.tags || []).map(t => `<span style="display:inline-block;font-size:0.8rem;padding:4px 12px;border-radius:50px;background:#f5f0eb;color:#6B4226;margin:0 4px 4px 0;">#${t}</span>`).join('')
   
@@ -4512,7 +4512,7 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
   const allFaqs = [
     { q: `${term}이란 무엇인가요?`, a: `${item.short} ${item.detail}` },
     ...dynamicFaqs,
-    { q: `${term} 관련 상담은 어디서 받을 수 있나요?`, a: `서울비디치과는 서울대 출신 14인 전문의 협진 시스템으로 ${item.category} 분야를 포함한 종합 치과 진료를 제공합니다. 365일 진료, 전화 041-415-2892 또는 온라인 예약(bdbddc.com/reservation)으로 무료 상담을 받으실 수 있습니다.` },
+    { q: `${term} 관련 상담은 어디서 받을 수 있나요?`, a: `서울비디치과는 서울대 출신 14인 전문의 협진 시스템으로 ${item.category} 분야를 포함한 종합 치과 진료를 제공합니다. 365일 진료, 전화 041-415-2892 또는 온라인 예약(bdbddc.com/reservation)으로 상담을 받으실 수 있습니다.` },
   ]
 
   const faqHtml = allFaqs.map((faq, idx) => `
@@ -4911,7 +4911,7 @@ ${catFaqs.map(faq => `
 <div style="background:linear-gradient(135deg, #6B4226, #8B5E3C);border-radius:16px;padding:24px;text-align:center;color:#fff;margin-bottom:32px;">
 <p style="font-size:1rem;font-weight:600;margin-bottom:12px;">${catName} 관련 상담이 필요하신가요?</p>
 <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-<a href="/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.9rem;"><i class="fas fa-calendar-check"></i> 무료 상담 예약</a>
+<a href="/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.9rem;"><i class="fas fa-calendar-check"></i> 상담 예약</a>
 <a href="tel:041-415-2892" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:rgba(255,255,255,0.15);color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.9rem;border:1px solid rgba(255,255,255,0.3);"><i class="fas fa-phone"></i> 041-415-2892</a>
 </div>
 </div>
