@@ -4507,10 +4507,10 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
 
   // === 카테고리별 맞춤 FAQ 생성 ===
   const faqGenerator = categoryFaqTemplates[item.category] || categoryFaqTemplates['전문 용어']
-  const dynamicFaqs = faqGenerator(term, item.short, item.detail)
+  const dynamicFaqs = faqGenerator(term, item.short, plainText(item.detail).slice(0, 300) + (plainText(item.detail).length > 300 ? '…' : ''))
   // 기본 2개 + 카테고리별 3~5개 = 총 5~7개 FAQ
   const allFaqs = [
-    { q: `${term}이란 무엇인가요?`, a: `${item.short} ${item.detail}` },
+    { q: `${term}이란 무엇인가요?`, a: `${item.short} ${plainText(item.detail).slice(0, 400)}${plainText(item.detail).length > 400 ? '…' : ''}` },
     ...dynamicFaqs,
     { q: `${term} 관련 상담은 어디서 받을 수 있나요?`, a: `서울비디치과는 서울대 출신 14인 전문의 협진 시스템으로 ${item.category} 분야를 포함한 종합 치과 진료를 제공합니다. 365일 진료, 전화 041-415-2892 또는 온라인 예약(bdbddc.com/reservation)으로 상담을 받으실 수 있습니다.` },
   ]
@@ -4602,7 +4602,7 @@ ${TRACKING_HEAD}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"치과 백과사전","item":"https://bdbddc.com/encyclopedia/"},{"@type":"ListItem","position":3,"name":"${item.category}","item":"https://bdbddc.com/encyclopedia/category/${encodeURIComponent(item.category)}"},{"@type":"ListItem","position":4,"name":"${term}","item":"${canonicalUrl}"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"DefinedTerm","name":${JSON.stringify(plainText(term))},"description":${JSON.stringify(plainText(item.short + ' ' + item.detail))},"inDefinedTermSet":{"@type":"DefinedTermSet","name":"서울비디치과 치과 백과사전","url":"https://bdbddc.com/encyclopedia/"},"url":"${canonicalUrl}"}
+{"@context":"https://schema.org","@type":"DefinedTerm","name":${JSON.stringify(plainText(term))},"description":${JSON.stringify(plainText(item.short + ' ' + item.detail).slice(0, 500))},"inDefinedTermSet":{"@type":"DefinedTermSet","name":"서울비디치과 치과 백과사전","url":"https://bdbddc.com/encyclopedia/"},"url":"${canonicalUrl}"}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalWebPage","name":${JSON.stringify(plainText(term) + ' — 치과 백과사전')},"url":"${canonicalUrl}","description":${JSON.stringify(plainText(item.short))},"inLanguage":"ko-KR","about":{"@type":"MedicalEntity","name":${JSON.stringify(plainText(term))}},"medicalAudience":{"@type":"MedicalAudience","audienceType":"Patient"},"reviewedBy":{"@type":"Person","name":"문석준","jobTitle":"통합치의학과 전문의 · 대표원장","url":"https://bdbddc.com/doctors/moon","affiliation":{"@type":"Dentist","@id":"https://bdbddc.com/#dentist","name":"서울비디치과"}},"publisher":{"@id":"https://bdbddc.com/#dentist"},"isPartOf":{"@type":"WebSite","name":"서울비디치과","url":"https://bdbddc.com"}}
