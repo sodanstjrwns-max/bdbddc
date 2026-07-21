@@ -87,6 +87,13 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .video-meta { display: flex; gap: 12px; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; }
     .video-meta i { margin-right: 4px; color: var(--brand-gold); }
     .video-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    /* 영상 챕터 (AI 분석 타임라인) */
+    .video-chapters { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #e8e0d8; }
+    .video-chapters-title { font-size: 0.72rem; font-weight: 700; color: #c9a96e; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+    .video-chapter-item { display: flex; align-items: baseline; gap: 8px; padding: 3px 0; text-decoration: none; border-radius: 6px; }
+    .video-chapter-item:hover .vc-label { color: #6B4226; text-decoration: underline; }
+    .vc-time { font-size: 0.72rem; font-weight: 700; color: #6B4226; background: #f5f0eb; padding: 1px 7px; border-radius: 10px; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+    .vc-label { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     @media (max-width: 768px) { .videos-grid { grid-template-columns: 1fr; } }
 
     /* 채널 탭 스타일 */
@@ -437,6 +444,445 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   }
 </script>
 <!-- End Microsoft Clarity -->
+<!-- Structured Data: VideoObject Clip chapters (AI 분석) -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ItemList",
+ "name": "서울비디치과 영상 챕터 타임라인",
+ "description": "서울비디치과 유튜브 영상의 주제별 챕터 구간 정보",
+ "numberOfItems": 6,
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "item": {
+    "@type": "VideoObject",
+    "name": "치과 마취, 안 아프게 하는 방법이 있다? | 치과 마취, 많이 묻는 Q&A",
+    "description": "치과 가기 전, 치료보다 '마취 주사'가 더 무서워서 미루고 계시나요? 😰\n\n이번 영상에서는 치과 진료시 듣게 되는\n‘치과 마취’에 대해 많이 묻는 질문들을 정리했습니다.\n\n✔ 치과 마취가 더 아픈 이유\n✔ 마��가 잘 안되는 사람들의 특징\n✔ 마취 후 주의사항\n\n치과 마취에 대해 궁금",
+    "thumbnailUrl": "https://i2.ytimg.com/vi/MgRZ-3MBL4A/hqdefault.jpg",
+    "uploadDate": "2026-06-18T03:19:25+00:00",
+    "duration": "PT2M53S",
+    "contentUrl": "https://www.youtube.com/watch?v=MgRZ-3MBL4A",
+    "embedUrl": "https://www.youtube.com/embed/MgRZ-3MBL4A",
+    "publisher": {
+     "@type": "Organization",
+     "name": "서울비디치과",
+     "url": "https://bdbddc.com"
+    },
+    "hasPart": [
+     {
+      "@type": "Clip",
+      "name": "치과 마취 주사가 무서우신가요?",
+      "startOffset": 0,
+      "endOffset": 10,
+      "url": "https://www.youtube.com/watch?v=MgRZ-3MBL4A&t=0s"
+     },
+     {
+      "@type": "Clip",
+      "name": "마취 주사가 더 아프게 느껴지는 이유",
+      "startOffset": 10,
+      "endOffset": 35,
+      "url": "https://www.youtube.com/watch?v=MgRZ-3MBL4A&t=10s"
+     },
+     {
+      "@type": "Clip",
+      "name": "유독 마취가 잘 안되는 사람들의 특징",
+      "startOffset": 35,
+      "endOffset": 57,
+      "url": "https://www.youtube.com/watch?v=MgRZ-3MBL4A&t=35s"
+     },
+     {
+      "@type": "Clip",
+      "name": "마취 주사를 덜 아프게 하는 방법",
+      "startOffset": 57,
+      "endOffset": 128,
+      "url": "https://www.youtube.com/watch?v=MgRZ-3MBL4A&t=57s"
+     },
+     {
+      "@type": "Clip",
+      "name": "치과에서 가장 아픈 마취는?",
+      "startOffset": 128,
+      "endOffset": 149,
+      "url": "https://www.youtube.com/watch?v=MgRZ-3MBL4A&t=128s"
+     },
+     {
+      "@type": "Clip",
+      "name": "마취 후에 지켜야 할 주의사항",
+      "startOffset": 149,
+      "endOffset": 173,
+      "url": "https://www.youtube.com/watch?v=MgRZ-3MBL4A&t=149s"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "item": {
+    "@type": "VideoObject",
+    "name": "양치할 때 피가 난다면? | 치주염 증상부터 치료, 예방법까지!",
+    "description": "&quot;잇몸에서 피가 나고 붓는다면?&quot;\n\n한 번 녹아내리면 되돌리기 어려운 잇몸뼈,\n소리 없이 찾아와 치아를 흔들리게 만드는 치주염의 진실을 알려드립니다.\n\n✔ 치은염과 치주염의 차이\n✔ 치주염의 증상\n✔ 치주염 예방을 위한 관리법\n\n치주염에 대해 궁금하신 점은 언제든 댓글",
+    "thumbnailUrl": "https://i2.ytimg.com/vi/Mhtq_0JxMLo/hqdefault.jpg",
+    "uploadDate": "2026-05-21T08:41:10+00:00",
+    "duration": "PT4M28S",
+    "contentUrl": "https://www.youtube.com/watch?v=Mhtq_0JxMLo",
+    "embedUrl": "https://www.youtube.com/embed/Mhtq_0JxMLo",
+    "publisher": {
+     "@type": "Organization",
+     "name": "서울비디치과",
+     "url": "https://bdbddc.com"
+    },
+    "hasPart": [
+     {
+      "@type": "Clip",
+      "name": "치주염의 정의와 특징",
+      "startOffset": 0,
+      "endOffset": 41,
+      "url": "https://www.youtube.com/watch?v=Mhtq_0JxMLo&t=0s"
+     },
+     {
+      "@type": "Clip",
+      "name": "치주염의 대표적인 증상",
+      "startOffset": 41,
+      "endOffset": 72,
+      "url": "https://www.youtube.com/watch?v=Mhtq_0JxMLo&t=41s"
+     },
+     {
+      "@type": "Clip",
+      "name": "치주염의 통증 정도",
+      "startOffset": 72,
+      "endOffset": 105,
+      "url": "https://www.youtube.com/watch?v=Mhtq_0JxMLo&t=72s"
+     },
+     {
+      "@type": "Clip",
+      "name": "잇몸뼈가 녹을 경우 결과",
+      "startOffset": 105,
+      "endOffset": 145,
+      "url": "https://www.youtube.com/watch?v=Mhtq_0JxMLo&t=105s"
+     },
+     {
+      "@type": "Clip",
+      "name": "치주염 치료 및 예방 방법",
+      "startOffset": 145,
+      "endOffset": 193,
+      "url": "https://www.youtube.com/watch?v=Mhtq_0JxMLo&t=145s"
+     },
+     {
+      "@type": "Clip",
+      "name": "집에서 하는 치주염 예방법",
+      "startOffset": 193,
+      "endOffset": 253,
+      "url": "https://www.youtube.com/watch?v=Mhtq_0JxMLo&t=193s"
+     },
+     {
+      "@type": "Clip",
+      "name": "마무리 및 추가 안내",
+      "startOffset": 253,
+      "endOffset": 268,
+      "url": "https://www.youtube.com/watch?v=Mhtq_0JxMLo&t=253s"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "item": {
+    "@type": "VideoObject",
+    "name": "무삭제 라미네이트… 정말 안 깎아도 될까요? | 무삭제 라미네이트에 대한 오해와 진실!",
+    "description": "“무삭제 라미네이트”\n요즘 정말 많이 들어보셨을 텐데요.\n\n한 번 손대면 되돌리기 어려운 치아 시술,\n광고 문구 속에 가려진 무삭제 라미네이트의 진실을 알려드립니다.\n\n✔ 무삭제 라미네이트에 대한 오해\n✔ 라미네이트 후 충치\n✔ 라미네이트의 부작용\n\n무삭제 라미네이트에 대해 궁금하신 점",
+    "thumbnailUrl": "https://i2.ytimg.com/vi/-2vBN2jVClM/hqdefault.jpg",
+    "uploadDate": "2026-05-14T08:21:47+00:00",
+    "duration": "PT6M23S",
+    "contentUrl": "https://www.youtube.com/watch?v=-2vBN2jVClM",
+    "embedUrl": "https://www.youtube.com/embed/-2vBN2jVClM",
+    "publisher": {
+     "@type": "Organization",
+     "name": "서울비디치과",
+     "url": "https://bdbddc.com"
+    },
+    "hasPart": [
+     {
+      "@type": "Clip",
+      "name": "무삭제 라미네이트 가능 여부",
+      "startOffset": 0,
+      "endOffset": 35,
+      "url": "https://www.youtube.com/watch?v=-2vBN2jVClM&t=0s"
+     },
+     {
+      "@type": "Clip",
+      "name": "불가 시 치료 방법과 삭제 범위",
+      "startOffset": 35,
+      "endOffset": 69,
+      "url": "https://www.youtube.com/watch?v=-2vBN2jVClM&t=35s"
+     },
+     {
+      "@type": "Clip",
+      "name": "치아 씹는 면 삭제 이유와 효과",
+      "startOffset": 69,
+      "endOffset": 107,
+      "url": "https://www.youtube.com/watch?v=-2vBN2jVClM&t=69s"
+     },
+     {
+      "@type": "Clip",
+      "name": "무삭제와 최소 삭제의 차이점",
+      "startOffset": 107,
+      "endOffset": 162,
+      "url": "https://www.youtube.com/watch?v=-2vBN2jVClM&t=107s"
+     },
+     {
+      "@type": "Clip",
+      "name": "라미네이트 후 2차 충치 가능성",
+      "startOffset": 162,
+      "endOffset": 227,
+      "url": "https://www.youtube.com/watch?v=-2vBN2jVClM&t=162s"
+     },
+     {
+      "@type": "Clip",
+      "name": "2차 충치 치료와 장점 비교",
+      "startOffset": 227,
+      "endOffset": 334,
+      "url": "https://www.youtube.com/watch?v=-2vBN2jVClM&t=227s"
+     },
+     {
+      "@type": "Clip",
+      "name": "라미네이트 부작용 및 주의사항",
+      "startOffset": 334,
+      "endOffset": 369,
+      "url": "https://www.youtube.com/watch?v=-2vBN2jVClM&t=334s"
+     },
+     {
+      "@type": "Clip",
+      "name": "마무리 및 추가 안내",
+      "startOffset": 369,
+      "endOffset": 383,
+      "url": "https://www.youtube.com/watch?v=-2vBN2jVClM&t=369s"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "ListItem",
+   "position": 4,
+   "item": {
+    "@type": "VideoObject",
+    "name": "내 아가리에서 똥내가? 셀프 입냄새 테스트 지금 바로 해보십시오 | 쓸모없는 치과 지식",
+    "description": "내 입에서 똥내가 나는지 지금 바로 테스트해볼 수 있습니다.\n\n본인 입냄새를 본인이 모르는 경우가 대부분입니다.\n코가 적응해버리기 때문입니다.\n회의할 때 맞은편 사람이 슬쩍 고개를 돌리는데\n본인만 모르고 있는 거예요.\n\n이 영상에서는 지금 바로 해볼 수 있는\n셀프 입냄새 테스트 5가지를",
+    "thumbnailUrl": "https://i2.ytimg.com/vi/9zuIYlLN_hk/hqdefault.jpg",
+    "uploadDate": "2026-04-03T03:43:11+00:00",
+    "duration": "PT5M2S",
+    "contentUrl": "https://www.youtube.com/watch?v=9zuIYlLN_hk",
+    "embedUrl": "https://www.youtube.com/embed/9zuIYlLN_hk",
+    "publisher": {
+     "@type": "Organization",
+     "name": "서울비디치과",
+     "url": "https://bdbddc.com"
+    },
+    "hasPart": [
+     {
+      "@type": "Clip",
+      "name": "셀프 입냄새 테스트 방법",
+      "startOffset": 0,
+      "endOffset": 41,
+      "url": "https://www.youtube.com/watch?v=9zuIYlLN_hk&t=0s"
+     },
+     {
+      "@type": "Clip",
+      "name": "손등을 핥아서 확인하기",
+      "startOffset": 41,
+      "endOffset": 73,
+      "url": "https://www.youtube.com/watch?v=9zuIYlLN_hk&t=41s"
+     },
+     {
+      "@type": "Clip",
+      "name": "숟가락으로 혀 긁어보기",
+      "startOffset": 73,
+      "endOffset": 121,
+      "url": "https://www.youtube.com/watch?v=9zuIYlLN_hk&t=73s"
+     },
+     {
+      "@type": "Clip",
+      "name": "마스크 쓰고 구호흡하기",
+      "startOffset": 121,
+      "endOffset": 147,
+      "url": "https://www.youtube.com/watch?v=9zuIYlLN_hk&t=121s"
+     },
+     {
+      "@type": "Clip",
+      "name": "손으로 입 가리고 확인하기",
+      "startOffset": 147,
+      "endOffset": 171,
+      "url": "https://www.youtube.com/watch?v=9zuIYlLN_hk&t=147s"
+     },
+     {
+      "@type": "Clip",
+      "name": "주변 사람들에게 물어보기",
+      "startOffset": 171,
+      "endOffset": 223,
+      "url": "https://www.youtube.com/watch?v=9zuIYlLN_hk&t=171s"
+     },
+     {
+      "@type": "Clip",
+      "name": "입냄새 관리 및 해결 방법",
+      "startOffset": 223,
+      "endOffset": 294,
+      "url": "https://www.youtube.com/watch?v=9zuIYlLN_hk&t=223s"
+     },
+     {
+      "@type": "Clip",
+      "name": "마무리",
+      "startOffset": 294,
+      "endOffset": 302,
+      "url": "https://www.youtube.com/watch?v=9zuIYlLN_hk&t=294s"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "ListItem",
+   "position": 5,
+   "item": {
+    "@type": "VideoObject",
+    "name": "옛날에는 치과 치료를 어떻게 했을까? 마취도 없는데?? | 정말로 쓸모없는 치과 지식 5가지",
+    "description": "옛날에는 치과 치료를 어떻게 했을까요?\n마취도 없고 드릴도 없고 엑스레이도 없는데.\n이가 아프면 어떻게 했을까요.\n\n중세 시대에 이를 뽑아준 사람은 치과의사가 아니라 이발사였습니다.\n이발소 간판의 빨간색이 사실은 피를 상징한다는 거 아셨나요?\n\n고대 이집트에서는 충치 원인을 벌레라고 믿",
+    "thumbnailUrl": "https://i4.ytimg.com/vi/wAcYszo9UM4/hqdefault.jpg",
+    "uploadDate": "2026-03-29T13:44:17+00:00",
+    "duration": "PT5M58S",
+    "contentUrl": "https://www.youtube.com/watch?v=wAcYszo9UM4",
+    "embedUrl": "https://www.youtube.com/embed/wAcYszo9UM4",
+    "publisher": {
+     "@type": "Organization",
+     "name": "서울비디치과",
+     "url": "https://bdbddc.com"
+    },
+    "hasPart": [
+     {
+      "@type": "Clip",
+      "name": "과거의 치과 치료와 비명소리",
+      "startOffset": 0,
+      "endOffset": 54,
+      "url": "https://www.youtube.com/watch?v=wAcYszo9UM4&t=0s"
+     },
+     {
+      "@type": "Clip",
+      "name": "중세 시대의 이발사 치과 의사",
+      "startOffset": 54,
+      "endOffset": 98,
+      "url": "https://www.youtube.com/watch?v=wAcYszo9UM4&t=54s"
+     },
+     {
+      "@type": "Clip",
+      "name": "충치의 원인을 벌레로 믿던 시절",
+      "startOffset": 98,
+      "endOffset": 154,
+      "url": "https://www.youtube.com/watch?v=wAcYszo9UM4&t=98s"
+     },
+     {
+      "@type": "Clip",
+      "name": "마취 없이 술을 이용한 발치",
+      "startOffset": 154,
+      "endOffset": 202,
+      "url": "https://www.youtube.com/watch?v=wAcYszo9UM4&t=154s"
+     },
+     {
+      "@type": "Clip",
+      "name": "에테르 마취의 발견",
+      "startOffset": 202,
+      "endOffset": 222,
+      "url": "https://www.youtube.com/watch?v=wAcYszo9UM4&t=202s"
+     },
+     {
+      "@type": "Clip",
+      "name": "조지 워싱턴의 특별한 틀니",
+      "startOffset": 222,
+      "endOffset": 279,
+      "url": "https://www.youtube.com/watch?v=wAcYszo9UM4&t=222s"
+     },
+     {
+      "@type": "Clip",
+      "name": "현대 치의학의 아버지 피에르 포샤르",
+      "startOffset": 279,
+      "endOffset": 326,
+      "url": "https://www.youtube.com/watch?v=wAcYszo9UM4&t=279s"
+     },
+     {
+      "@type": "Clip",
+      "name": "현대 치과 치료와 마취의 발전",
+      "startOffset": 326,
+      "endOffset": 358,
+      "url": "https://www.youtube.com/watch?v=wAcYszo9UM4&t=326s"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "ListItem",
+   "position": 6,
+   "item": {
+    "@type": "VideoObject",
+    "name": "사랑니가 왜 사랑니인지 아세요? | 쓸모없는 치과 지식 5",
+    "description": "사랑니에 대해서 알아두면 좋을 쓸모없는 지식 5가지.\n\n진짜 쓸모없어요. 미리 말씀드림.\n\n사랑니라는 이름의 유래부터\n사랑니가 원래는 꼭 필요한 이였다는 사실,\n사랑니가 꼭 4개가 아니라는 것,\n사랑니 빼면 얼굴 작아진다는 말의 진실,\n그리고 사랑니 빼고 빨대 쓰면 안 되는 진짜 이유까",
+    "thumbnailUrl": "https://i4.ytimg.com/vi/wJrbcl9SNCE/hqdefault.jpg",
+    "uploadDate": "2026-03-25T13:59:03+00:00",
+    "duration": "PT5M29S",
+    "contentUrl": "https://www.youtube.com/watch?v=wJrbcl9SNCE",
+    "embedUrl": "https://www.youtube.com/embed/wJrbcl9SNCE",
+    "publisher": {
+     "@type": "Organization",
+     "name": "서울비디치과",
+     "url": "https://bdbddc.com"
+    },
+    "hasPart": [
+     {
+      "@type": "Clip",
+      "name": "사랑니 이름의 유래",
+      "startOffset": 0,
+      "endOffset": 55,
+      "url": "https://www.youtube.com/watch?v=wJrbcl9SNCE&t=0s"
+     },
+     {
+      "@type": "Clip",
+      "name": "사랑니는 원래 필요했다?",
+      "startOffset": 55,
+      "endOffset": 102,
+      "url": "https://www.youtube.com/watch?v=wJrbcl9SNCE&t=55s"
+     },
+     {
+      "@type": "Clip",
+      "name": "사람마다 다른 사랑니 개수 (0~8개)",
+      "startOffset": 102,
+      "endOffset": 162,
+      "url": "https://www.youtube.com/watch?v=wJrbcl9SNCE&t=102s"
+     },
+     {
+      "@type": "Clip",
+      "name": "사랑니 뽑으면 얼굴이 작아진다?",
+      "startOffset": 162,
+      "endOffset": 211,
+      "url": "https://www.youtube.com/watch?v=wJrbcl9SNCE&t=162s"
+     },
+     {
+      "@type": "Clip",
+      "name": "발치 후 주의사항: 빨대·담배 금지",
+      "startOffset": 211,
+      "endOffset": 285,
+      "url": "https://www.youtube.com/watch?v=wJrbcl9SNCE&t=211s"
+     },
+     {
+      "@type": "Clip",
+      "name": "마무리 및 다음 편 예고",
+      "startOffset": 285,
+      "endOffset": 329,
+      "url": "https://www.youtube.com/watch?v=wJrbcl9SNCE&t=285s"
+     }
+    ]
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -859,7 +1305,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.addEventListener('DOMContentLoaded',function(){var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});});
   </script>
 
-  <script src="../js/video.js?v=20260323" defer></script>
+  <script src="../js/video.js?v=20260721c" defer></script>
 
 <!-- Service Worker Registration -->
 <script>

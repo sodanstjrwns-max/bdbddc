@@ -18,6 +18,8 @@
   // 캐시 데이터 (전체 JSON)
   var youtubeData = null;
   var currentChannel = 'bdtube';
+  // 챕터 데이터 (AI 분석 기반, /data/youtube-chapters.json)
+  var chaptersData = {};
 
   function formatDate(dateStr) {
     try {
@@ -72,7 +74,22 @@
         ? 'https://www.youtube.com/shorts/' + item.videoId
         : 'https://www.youtube.com/watch?v=' + item.videoId;
 
-      html += '<a href="' + watchUrl + '" target="_blank" rel="noopener" class="video-card">'
+      // 챕터 HTML (있는 영상만)
+      var chInfo = chaptersData[item.videoId];
+      var chapterHtml = '';
+      if (chInfo && chInfo.chapters && chInfo.chapters.length >= 2) {
+        chapterHtml = '<div class="video-chapters">'
+          + '<div class="video-chapters-title"><i class="fas fa-list-ol"></i> 챕터</div>';
+        chInfo.chapters.forEach(function (ch) {
+          chapterHtml += '<a href="https://www.youtube.com/watch?v=' + item.videoId + '&t=' + ch.start + 's" target="_blank" rel="noopener" class="video-chapter-item" onclick="event.stopPropagation();">'
+            + '<span class="vc-time">' + ch.t + '</span>'
+            + '<span class="vc-label">' + escapeHtml(ch.title) + '</span>'
+            + '</a>';
+        });
+        chapterHtml += '</div>';
+      }
+
+      html += '<a href="' + watchUrl + '" target="_blank" rel="noopener" class="video-card' + (chapterHtml ? ' has-chapters' : '') + '">'
         + '<div class="video-thumb">'
         + '<img src="' + escapeHtml(item.thumbnail) + '" alt="' + escapeHtml(title) + '" loading="lazy" onerror="this.src=\'https://i.ytimg.com/vi/' + item.videoId + '/mqdefault.jpg\'">'
         + '<div class="video-play"><i class="fas fa-play"></i></div>'
@@ -85,6 +102,7 @@
         + (viewStr ? '<span><i class="fas fa-eye"></i> ' + viewStr + '</span>' : '')
         + '</div>'
         + (desc ? '<p class="video-desc">' + escapeHtml(desc) + '</p>' : '')
+        + chapterHtml
         + '</div>'
         + '</a>';
     });
@@ -112,13 +130,21 @@
     if (emptyEl) emptyEl.style.display = 'none';
     gridEl.style.display = 'none';
 
-    fetch('/data/youtube-cache.json?v=' + Date.now())
-      .then(function (res) {
+    // 챕터 데이터 병렬 로드 (실패해도 영상 목록은 정상 표시)
+    var chaptersPromise = fetch('/data/youtube-chapters.json')
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .catch(function () { return {}; });
+
+    Promise.all([
+      fetch('/data/youtube-cache.json?v=' + Date.now()).then(function (res) {
         if (!res.ok) throw new Error('Cache fetch failed: ' + res.status);
         return res.json();
-      })
-      .then(function (data) {
-        youtubeData = data;
+      }),
+      chaptersPromise
+    ])
+      .then(function (results) {
+        youtubeData = results[0];
+        chaptersData = results[1] || {};
         showChannel(currentChannel);
       })
       .catch(function (err) {
