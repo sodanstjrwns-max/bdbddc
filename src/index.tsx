@@ -5,6 +5,7 @@ import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Bindings } from './types'
 import { registerGscReport } from './routes/gsc-report-dash'
 import { registerToothNumberingWidget, renderToothNumberingPage } from './routes/tooth-numbering'
+import { ENC_SUPER } from './routes/enc-super'
 import { TRACKING_HEAD } from './lib/layout'
 import { ADMIN_SESSION_COOKIE, SESSION_MAX_AGE, getSessionSecret, createSessionToken, verifySessionToken, isRateLimitedD1 } from './lib/security'
 import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSession, verifySiteSession, ensureMembersMigrated, findMemberByEmail, findMemberById, insertMemberD1, sha256Hex } from './lib/auth'
@@ -4351,6 +4352,22 @@ function interlinkText(text: string, currentTerm: string, allItems: EncItem[]): 
 // 원칙: 용어를 타이틀 맨 앞에 유지(순위 보존) + 답변·숫자·가치 추가(클릭 유발)
 // ============================================
 const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
+  '레진': {
+    title: '레진 치료 총정리 — 가격 5~25만원·수명 5~10년·인레이 차이까지 한 번에 | 서울비디치과',
+    desc: '치과 레진은 충치 부위를 치아색 복합레진으로 당일 메우는 치료입니다. 부위별 비용 5~25만원, 수명 5~10년, 레진 vs 인레이 vs 크라운 선택 기준, 12세 이하 보험 적용, 5단계 치료 과정까지 표로 정리했습니다.'
+  },
+  '치석': {
+    title: '치석 완전 가이드 — 생기는 원리·스케일링 보험 연 1회 1.5만원·예방법 | 서울비디치과',
+    desc: '치석은 플라그가 침 속 미네랄과 굳은 돌덩이로, 칫솔로는 제거 불가 — 스케일링이 유일한 답입니다. 치석→치은염→치주염 4단계 진행 표, 건강보험 연 1회 약 1.5만원 기준, 예방 4원칙까지 정리.'
+  },
+  '인레이': {
+    title: '인레이 총정리 — 세라믹 35만원·레진과 차이·온레이·크라운 선택 기준 | 서울비디치과',
+    desc: '인레이는 본뜬 맞춤 충전물을 어금니에 접착하는 중간 크기 충치 치료입니다. 인레이 vs 온레이 vs 크라운 비교표, 세라믹 인레이 35만원, 재료별 장단점, 2회 내원 과정과 임시충전 주의사항까지.'
+  },
+  '치아 균열': {
+    title: '치아 크랙(균열) 증상 자가체크 — 씹을 때 찌릿하면 의심, 5단계 치료 | 서울비디치과',
+    desc: '씹을 때 순간 찌릿한 통증은 치아 크랙의 대표 증상입니다. X-ray에 안 보이는 이유, 크랙 5단계별 치료(3단계 크라운이 골든타임), 자가체크 5항목, 방치 시 발치까지 가는 과정을 정리했습니다.'
+  },
   '치아 번호': {
     title: '치아 번호 읽는 법 — 11~48번 FDI 치식 한눈에 정리 (사랑니=8번) | 서울비디치과',
     desc: '치아 번호(치식)는 FDI 2자리 체계: 첫째 자리는 상하좌우 사분면(1~4), 둘째 자리는 앞니부터 1~8번. 예) #26=왼쪽 위 첫 큰어금니, #48=오른쪽 아래 사랑니. 유치는 51~85번. 진료기록·견적서 읽는 법을 서울대 출신 전문의가 쉽게 정리했습니다.'
@@ -4516,11 +4533,17 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
     .replace(/\s+/g, ' ')            // 줄바꿈·연속 공백 → 단일 공백
     .trim()
 
+  // === 슈퍼 콘텐츠 오버라이드 (v5.31: GSC 노출 상위 용어 가이드급 본문) ===
+  const superC = ENC_SUPER[term]
+
   // === 카테고리별 맞춤 FAQ 생성 ===
   const faqGenerator = categoryFaqTemplates[item.category] || categoryFaqTemplates['전문 용어']
   const dynamicFaqs = faqGenerator(term, item.short, plainText(item.detail).slice(0, 300) + (plainText(item.detail).length > 300 ? '…' : ''))
-  // 기본 2개 + 카테고리별 3~5개 = 총 5~7개 FAQ
-  const allFaqs = [
+  // 기본 2개 + 카테고리별 3~5개 = 총 5~7개 FAQ (슈퍼 콘텐츠는 전용 FAQ + 상담 FAQ)
+  const allFaqs = superC ? [
+    ...superC.faqs,
+    { q: `${term} 관련 상담은 어디서 받을 수 있나요?`, a: `서울비디치과는 서울대 출신 14인 전문의 협진 시스템으로 ${item.category} 분야를 포함한 종합 치과 진료를 제공합니다. 365일 진료, 전화 041-415-2892 또는 온라인 예약(bdbddc.com/reservation)으로 상담을 받으실 수 있습니다.` },
+  ] : [
     { q: `${term}이란 무엇인가요?`, a: `${item.short} ${plainText(item.detail).slice(0, 400)}${plainText(item.detail).length > 400 ? '…' : ''}` },
     ...dynamicFaqs,
     { q: `${term} 관련 상담은 어디서 받을 수 있나요?`, a: `서울비디치과는 서울대 출신 14인 전문의 협진 시스템으로 ${item.category} 분야를 포함한 종합 치과 진료를 제공합니다. 365일 진료, 전화 041-415-2892 또는 온라인 예약(bdbddc.com/reservation)으로 상담을 받으실 수 있습니다.` },
@@ -4541,8 +4564,8 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
 
   const faqSchemaEntities = allFaqs.map(faq => `{"@type":"Question","name":${JSON.stringify(plainText(faq.q))},"acceptedAnswer":{"@type":"Answer","text":${JSON.stringify(plainText(faq.a))}}}`).join(',')
 
-  // === 본문 인터링킹 ===
-  const linkedDetail = interlinkText(item.detail, term, encItems)
+  // === 본문 인터링킹 (슈퍼 콘텐츠는 수동 링크 완비 → interlinkText 스킵) ===
+  const linkedDetail = superC ? superC.detail : interlinkText(item.detail, term, encItems)
 
   // === CTR 최적화 타이틀/메타 (제로클릭 거인 키워드 오버라이드) ===
   const seoOverride = ENC_SEO_OVERRIDES[term]

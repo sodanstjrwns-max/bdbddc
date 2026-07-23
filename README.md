@@ -203,7 +203,8 @@ curl http://localhost:3000/api/health
 - **Platform**: Cloudflare Pages
 - **Project Name**: seoul-bd-dental
 - **Status**: Active
-- **Last Updated**: 2026-07-02 (v5.9)
+- **Last Updated**: 2026-07-23 (v5.31)
+- **v5.31 백과사전 슈퍼 콘텐츠**: GSC 노출 상위 6개 용어(레진·인레이·틀니·치석·법랑질·치아 균열)를 "가이드급 본문 + 맞춤 FAQ + FAQPage 스키마 + 내부링크"로 오버라이드 (`src/routes/enc-super.ts`). v5.30 '치아 번호' 성공 공식(제목에 답 예고 + 표 구조 + 검색의도 100% 해소) 복제. 4소스(HTML/JSON-LD/챗봇KB/llms) 팩트 정합 유지
 - **필수 Secrets**: `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `OPENAI_API_KEY`, `RESEND_API_KEY`(비밀번호 찾기·예약알림), `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`(소셜로그인)
 
 ## User Flow
