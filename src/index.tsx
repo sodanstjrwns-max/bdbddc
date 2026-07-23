@@ -4,6 +4,7 @@ import { cors } from 'hono/cors'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Bindings } from './types'
 import { registerGscReport } from './routes/gsc-report-dash'
+import { registerToothNumberingWidget, renderToothNumberingPage } from './routes/tooth-numbering'
 import { TRACKING_HEAD } from './lib/layout'
 import { ADMIN_SESSION_COOKIE, SESSION_MAX_AGE, getSessionSecret, createSessionToken, verifySessionToken, isRateLimitedD1 } from './lib/security'
 import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSession, verifySiteSession, ensureMembersMigrated, findMemberByEmail, findMemberById, insertMemberD1, sha256Hex } from './lib/auth'
@@ -67,7 +68,10 @@ app.use('*', async (c, next) => {
 app.use('*', async (c, next) => {
   await next()
   c.header('X-Content-Type-Options', 'nosniff')
-  c.header('X-Frame-Options', 'SAMEORIGIN')
+  // /widgets/* 는 외부 사이트 iframe 임베드 허용 (백링크 수확 위젯) → X-Frame-Options 제외
+  if (!new URL(c.req.url).pathname.startsWith('/widgets/')) {
+    c.header('X-Frame-Options', 'SAMEORIGIN')
+  }
   c.header('Referrer-Policy', 'strict-origin-when-cross-origin')
   c.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload')
   c.header('Permissions-Policy', 'camera=(), microphone=(), geolocation=(self)')
@@ -4440,6 +4444,13 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
 </html>`, 404)
   }
 
+  // ★ v5.30 역대급 전용 페이지 분기: '치아 번호' (GSC 노출 1,531 최강 자산)
+  //   기존 URL 그대로 유지하되 인터랙티브 조회기 + 임베드 위젯 + 변환표 전용 템플릿으로 렌더
+  if (item.term === '치아 번호') {
+    c.header('Cache-Control', 'public, max-age=3600, s-maxage=86400')
+    return c.html(renderToothNumberingPage({ trackingHead: TRACKING_HEAD, header: ssrHeader(), mobileNav: ssrMobileNav() }))
+  }
+
   const term = item.term
   const encodedTerm = encodeURIComponent(term)
   const canonicalUrl = `https://bdbddc.com/encyclopedia/${encodedTerm}`
@@ -6536,6 +6547,7 @@ app.post('/api/chat', async (c) => {
 });
 
 registerGscReport(app)
+registerToothNumberingWidget(app)
 
 
 // ============================================
