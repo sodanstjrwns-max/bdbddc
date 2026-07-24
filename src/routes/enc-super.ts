@@ -184,6 +184,117 @@ rng.oninput=function(){render(parseInt(rng.value));};render(0);
 <p style="margin:0;font-size:0.88rem;line-height:1.8;">⚠️ <strong>드라이소켓(발치와 건조증) 주의</strong>: 발치 후 3~5일에 통증이 오히려 더 심해지고 빈 구멍이 하얗게 보이면 피떡이 빠진 드라이소켓일 수 있습니다. 심한 통증이 지속되면 참지 말고 내원하세요(서울비디치과 041-415-2892). 흡연·빨대·강한 헹굼이 가장 큰 원인입니다.</p>
 </div>`
 
+/* ── #11 유치→영구치 교체 시기 계산기 (영구치 맹출 순서) ── */
+const WIDGET_TEETH_TIMELINE = `
+<div style="${WBOX}" id="teethTL">
+<p style="${WTITLE}">🦷 우리 아이 이갈이(치아 교체) 시기 계산기</p>
+<p style="${WSUB}">아이의 만 나이를 선택하면 지금 빠지고 나는 치아와 체크 포인트를 알려드립니다.</p>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+<span style="font-size:0.85rem;color:#6B4226;font-weight:700;">만 나이</span>
+<select id="tt-age" style="border:1px solid #d4b896;border-radius:10px;padding:9px 12px;font-size:0.9rem;color:#6B4226;background:#fff;">
+<option value="5">5세 이하</option><option value="6" selected>6세</option><option value="7">7세</option><option value="8">8세</option><option value="9">9세</option><option value="10">10세</option><option value="11">11세</option><option value="12">12세 이상</option>
+</select>
+</div>
+<div id="tt-panel" style="background:#fff;border:1px solid #ece2d3;border-radius:12px;padding:16px 18px;font-size:0.88rem;line-height:1.75;color:#444;"></div>
+</div>
+<script>(function(){
+var M={
+5:{t:'유치 완성기 (교체 전)',c:'#27ae60',d:'아직 유치 20개가 모두 자리한 시기입니다. 곧 아래 앞니부터 흔들리기 시작해요.',p:'유치 충치를 방치하면 영구치 자리와 건강에 영향을 줍니다. 불소 도포·정기 검진 시작 시기.'},
+6:{t:'첫 영구치 등장 (아래 앞니 + 6세 구치)',c:'#6B4226',d:'아래 앞니가 빠지고 영구치가 올라오며, 유치 맨 뒤에 ‖6세 구치(첫째 큰어금니)’가 소리 없이 납니다.',p:'6세 구치는 유치가 아니라 평생 쓰는 어금니! 씹는 면 홈이 깊어 충치가 잘 생기니 실란트(홈 메우기)를 강력 권장합니다.'},
+7:{t:'앞니 교체기',c:'#6B4226',d:'위·아래 가운데 앞니가 영구치로 바뀝니다. 새 앞니가 커 보이고 삐뚤게 나도 대부분 정상입니다.',p:'영구치가 유치 뒤로 이중으로 나면(상어이빨) 유치 발치가 필요할 수 있어요. 좌우 비대칭이 심하면 검진.'},
+8:{t:'옆 앞니 교체기',c:'#6B4226',d:'가운데 옆 앞니(측절치)가 교체됩니다. 이후 잠시 교체가 뜸해지는 휴지기가 옵니다.',p:'앞니 배열이 눈에 띄게 틀어지거나 덧니 조짐이 보이면 소아 교정 상담(1차 검진) 시기입니다.'},
+9:{t:'혼합 치열 휴지기',c:'#d68910',d:'앞니는 영구치, 뒤는 아직 유치인 ‘혼합 치열’ 시기. 송곳니·작은어금니 교체를 준비 중입니다.',p:'이 시기 파노라마 X-ray로 영구치 개수·매복 여부를 확인하면 교정 계획에 큰 도움이 됩니다.'},
+10:{t:'송곳니·작은어금니 교체 시작',c:'#6B4226',d:'유치 어금니가 빠지고 작은어금니(소구치), 송곳니가 순서대로 올라옵니다.',p:'송곳니가 나올 공간이 부족하면 덧니로 이어지기 쉬운 결정적 시기. 공간 관리·교정 타이밍 상담 권장.'},
+11:{t:'후반 교체기',c:'#6B4226',d:'남은 유치 어금니가 대부분 영구치로 바뀝니다. 곧 교체가 마무리됩니다.',p:'교체가 거의 끝나가는 시점이라 본격 교정을 시작하기 좋은 구간입니다.'},
+12:{t:'영구치열 완성기 + 12세 구치',c:'#27ae60',d:'유치 교체가 대부분 끝나고, 맨 뒤에 ‘12세 구치(둘째 큰어금니)’가 납니다. 사랑니 제외 28개 완성.',p:'교체가 늦거나 안 빠진 유치가 남아 있다면 검진하세요. 사랑니(제3대구치)는 이후 별도로 확인.'}
+};
+var box=document.getElementById('teethTL');if(!box)return;
+var sel=box.querySelector('#tt-age'),panel=box.querySelector('#tt-panel');
+function render(){var m=M[sel.value];panel.innerHTML='<div style="font-weight:800;color:'+m.c+';font-size:1rem;margin-bottom:8px;">'+m.t+'</div><div style="margin-bottom:10px;">'+m.d+'</div><div style="background:#faf7f3;border-left:3px solid '+m.c+';border-radius:8px;padding:10px 12px;font-size:0.85rem;color:#555;">💡 <strong>체크 포인트</strong> — '+m.p+'</div><div style="margin-top:10px;font-size:0.76rem;color:#aaa;">※ 교체 시기는 아이마다 6개월~1년 이상 개인차가 있습니다. 평균 기준 참고용입니다.</div>';}
+sel.onchange=render;render();
+})();</script>`
+
+/* ── #12 교정 장치 비교기 (인비절라인) ── */
+const WIDGET_ORTHO_COMPARE = `
+<div style="${WBOX}" id="orthoCmp">
+<p style="${WTITLE}">📐 교정 장치 비교기 — 나에게 맞는 방식은?</p>
+<p style="${WSUB}">방식을 눌러 심미성·비용·관리 난이도·적합한 케이스를 한눈에 비교하세요.</p>
+<div id="oc-tabs" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;"></div>
+<div id="oc-panel" style="background:#fff;border:1px solid #ece2d3;border-radius:12px;padding:16px 18px;"></div>
+</div>
+<script>(function(){
+var D=[
+{k:'투명교정(인비절라인)',emoji:'🫥',rows:[['심미성','★★★★★ 거의 안 보임'],['탈부착','가능 (식사·양치 편함)'],['비용','높음 (전악 500만~900만원선)'],['관리','하루 20~22시간 착용 자율성 필요'],['적합','가벼운~중등도 부정교합, 성인·직장인 선호']]},
+{k:'세라믹(투명) 브라켓',emoji:'⚪',rows:[['심미성','★★★★ 치아색과 유사'],['탈부착','불가 (고정식)'],['비용','중상 (메탈보다 높음)'],['관리','고정식이라 자율성 부담 적음'],['적합','심한 케이스도 가능하면서 심미성 원할 때']]},
+{k:'메탈 브라켓',emoji:'🔩',rows:[['심미성','★★ 잘 보임'],['탈부착','불가 (고정식)'],['비용','상대적으로 낮음'],['관리','고정식, 음식 낌 관리 필요'],['적합','복잡·고난도 케이스, 비용 부담 낮추고 싶을 때']]},
+{k:'설측(치아 안쪽)',emoji:'🙈',rows:[['심미성','★★★★★ 밖에서 안 보임'],['탈부착','불가 (고정식)'],['비용','가장 높음'],['관리','초기 발음·혀 적응 기간 필요'],['적합','전혀 안 보이길 원하는 강한 심미 니즈']]}
+];
+var box=document.getElementById('orthoCmp');if(!box)return;
+var tabs=box.querySelector('#oc-tabs'),panel=box.querySelector('#oc-panel');
+function draw(i){
+tabs.querySelectorAll('button').forEach(function(b,j){b.style.background=j===i?'#6B4226':'#fff';b.style.color=j===i?'#fff':'#6B4226';});
+var d=D[i];var h='<div style="font-weight:800;color:#6B4226;font-size:1.02rem;margin-bottom:12px;">'+d.emoji+' '+d.k+'</div><div style="display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:0.87rem;">';
+d.rows.forEach(function(r){h+='<span style="color:#8a7a66;font-weight:700;white-space:nowrap;">'+r[0]+'</span><span style="color:#444;">'+r[1]+'</span>';});
+h+='</div>';panel.innerHTML=h;}
+D.forEach(function(d,i){var b=document.createElement('button');b.style.cssText='${WBTN}';b.textContent=d.emoji+' '+d.k;b.onclick=function(){draw(i);};tabs.appendChild(b);});
+draw(0);
+})();</script>`
+
+/* ── #13 미백 방식 비교기 (치아 미백) ── */
+const WIDGET_WHITENING_COMPARE = `
+<div style="${WBOX}" id="whCmp">
+<p style="${WTITLE}">✨ 치아 미백 방식 비교기</p>
+<p style="${WSUB}">방식을 눌러 효과·속도·유지력·비용을 비교하고 나에게 맞는 방법을 찾아보세요.</p>
+<div id="wh-tabs" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;"></div>
+<div id="wh-panel" style="background:#fff;border:1px solid #ece2d3;border-radius:12px;padding:16px 18px;"></div>
+</div>
+<script>(function(){
+var D=[
+{k:'전문가 미백(오피스)',emoji:'🏥',rows:[['방법','병원에서 고농도 약제+광조사, 1~3회'],['효과','★★★★★ 즉각적·강력'],['속도','1회 1시간 내외, 바로 밝아짐'],['유지','1~2년 (관리·식습관에 좌우)'],['비용','중상 (회당/코스별 상이)'],['주의','시술 후 며칠 시림 가능, 색소 음식 절제']]},
+{k:'자가 미백(홈)',emoji:'🏠',rows:[['방법','맞춤 트레이+저농도 약제, 집에서 2~4주'],['효과','★★★★ 서서히 자연스럽게'],['속도','수 주 소요'],['유지','꾸준히 하면 안정적'],['비용','중 (트레이 제작 포함)'],['주의','착용 시간 지키기, 잇몸 자극 주의']]},
+{k:'병행(오피스+홈)',emoji:'🔗',rows:[['방법','병원 시술로 빠르게 + 집에서 유지'],['효과','★★★★★ 가장 확실'],['속도','초기 빠르고 유지력 좋음'],['유지','가장 오래 (권장 조합)'],['비용','상'],['주의','치과 지시대로 병행']]},
+{k:'내부 미백(실활치)',emoji:'🦷',rows:[['방법','신경치료로 변색된 죽은 치아 내부에 약제'],['효과','★★★★ 변색치 전용'],['속도','1~수 회 내원'],['유지','케이스별 상이'],['비용','중'],['주의','신경치료 받은 치아만 해당, 일반 미백과 다름']]},
+{k:'미백 치약·스트립',emoji:'🪥',rows:[['방법','시중 제품 자가 사용'],['효과','★★ 착색 제거 위주, 한계 큼'],['속도','매우 느림'],['유지','짧음'],['비용','저'],['주의','과도한 사용은 시림·마모 유발, 근본 미백 아님']]}
+];
+var box=document.getElementById('whCmp');if(!box)return;
+var tabs=box.querySelector('#wh-tabs'),panel=box.querySelector('#wh-panel');
+function draw(i){
+tabs.querySelectorAll('button').forEach(function(b,j){b.style.background=j===i?'#6B4226':'#fff';b.style.color=j===i?'#fff':'#6B4226';});
+var d=D[i];var h='<div style="font-weight:800;color:#6B4226;font-size:1.02rem;margin-bottom:12px;">'+d.emoji+' '+d.k+'</div><div style="display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:0.87rem;">';
+d.rows.forEach(function(r){h+='<span style="color:#8a7a66;font-weight:700;white-space:nowrap;">'+r[0]+'</span><span style="color:#444;">'+r[1]+'</span>';});
+h+='</div>';panel.innerHTML=h;}
+D.forEach(function(d,i){var b=document.createElement('button');b.style.cssText='${WBTN}';b.textContent=d.emoji+' '+d.k;b.onclick=function(){draw(i);};tabs.appendChild(b);});
+draw(0);
+})();</script>`
+
+/* ── #14 스케일링 건강보험 체크 (스케일링 건강보험) ── */
+const WIDGET_SCALING_INSURANCE = `
+<div style="${WBOX}" id="scIns">
+<p style="${WTITLE}">💳 스케일링 건강보험 적용 체크</p>
+<p style="${WSUB}">몇 가지만 선택하면 올해 스케일링 보험 적용 여부와 예상 부담을 알려드립니다.</p>
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+<label style="font-size:0.85rem;color:#6B4226;font-weight:700;">만 나이<select id="sc-age" style="width:100%;margin-top:5px;border:1px solid #d4b896;border-radius:10px;padding:9px 12px;font-size:0.9rem;color:#6B4226;background:#fff;"><option value="adult">만 19세 이상</option><option value="minor">만 19세 미만</option></select></label>
+<label style="font-size:0.85rem;color:#6B4226;font-weight:700;">올해(1/1~12/31) 이미 보험 스케일링을 받았나요?<select id="sc-used" style="width:100%;margin-top:5px;border:1px solid #d4b896;border-radius:10px;padding:9px 12px;font-size:0.9rem;color:#6B4226;background:#fff;"><option value="no">아직 안 받음</option><option value="yes">이미 받음</option></select></label>
+<label style="font-size:0.85rem;color:#6B4226;font-weight:700;">치주 치료 목적인가요?<select id="sc-perio" style="width:100%;margin-top:5px;border:1px solid #d4b896;border-radius:10px;padding:9px 12px;font-size:0.9rem;color:#6B4226;background:#fff;"><option value="no">단순 예방 스케일링</option><option value="yes">잇몸병(치주) 치료 목적</option></select></label>
+</div>
+<button id="sc-go" style="${WBTN}width:100%;background:#6B4226;color:#fff;border-color:#6B4226;">결과 확인</button>
+<div id="sc-res" style="display:none;margin-top:14px;background:#fff;border:1px solid #ece2d3;border-radius:12px;padding:16px 18px;font-size:0.88rem;line-height:1.75;color:#444;"></div>
+</div>
+<script>(function(){
+var box=document.getElementById('scIns');if(!box)return;
+box.querySelector('#sc-go').onclick=function(){
+var age=box.querySelector('#sc-age').value,used=box.querySelector('#sc-used').value,perio=box.querySelector('#sc-perio').value;
+var r=box.querySelector('#sc-res'),title,color,msg;
+if(perio==='yes'){title='✅ 치주 치료 스케일링 — 연 1회 제한과 별개로 보험 적용';color='#27ae60';msg='잇몸병(치주염) 치료 목적의 스케일링은 예방 목적 ‘연 1회’ 한도와 별도로 건강보험이 적용됩니다. 잇몸 상태에 따라 치료 계획이 달라지니 검진 후 정확히 안내받으세요.';}
+else if(age==='minor'){title='ℹ️ 만 19세 미만 — 예방 스케일링 연 1회 혜택 대상 아님';color='#d68910';msg='국가 지원 ‘연 1회 예방 스케일링’은 만 19세 이상이 대상입니다. 다만 잇몸 치료가 필요하거나 교정 전 처치 등은 별도 기준으로 보험이 적용될 수 있으니 상담받으세요.';}
+else if(used==='yes'){title='⚠️ 올해 보험 혜택은 이미 사용 — 추가는 비보험';color='#c0392b';msg='예방 스케일링 보험 혜택은 매년 1/1~12/31 기준 ‘1회’입니다. 올해 이미 받으셨다면 추가 스케일링은 비보험(자비)입니다. 혜택은 매년 1월 1일 초기화되니 내년 초를 노려보세요. (치주 치료 목적이면 별도 적용)';}
+else{title='✅ 보험 적용 가능! (연 1회 예방 스케일링)';color='#27ae60';msg='만 19세 이상이고 올해 아직 안 받으셨다면 건강보험 예방 스케일링 ‘연 1회’가 적용됩니다. 본인부담금은 보통 1만~2만원 안팎(치과·상태에 따라 상이). 잊기 쉬우니 올해가 가기 전에 챙기세요! 서울비디치과 041-415-2892.';}
+r.style.display='block';r.style.borderLeft='4px solid '+color;
+r.innerHTML='<div style="font-weight:800;color:'+color+';margin-bottom:6px;">'+title+'</div><div style="color:#555;">'+msg+'</div><div style="margin-top:10px;font-size:0.76rem;color:#aaa;">※ 보험 기준은 정책·개인 상태에 따라 달라질 수 있으며, 정확한 적용 여부는 내원 후 확인이 필요합니다.</div>';
+r.scrollIntoView({behavior:'smooth',block:'nearest'});
+};
+})();</script>`
+
 export const ENC_SUPER: Record<string, SuperContent> = {}
 
 /* ============================================================
@@ -641,5 +752,105 @@ ${WIDGET_EXTRACTION_TIMELINE}
     { q: '발치는 많이 아픈 시술인가요?', a: '국소 마취로 진행되어 뽑는 동안 통증은 거의 없고, 미는 듯한 압박감 정도만 느껴집니다. 매복 사랑니처럼 난이도가 높은 경우 시간이 더 걸리고 발치 후 붓기가 클 수 있으나, 처방약으로 조절 가능합니다.' },
     { q: '발치한 자리는 그냥 둬도 되나요?', a: '앞니처럼 심미 문제만 있는 경우가 아니라면, 특히 어금니는 방치하면 양옆 치아가 기울고 맞물리는 치아가 솟아 교합이 무너집니다. 결국 여러 치아 문제로 번지므로 임플란트·브릿지·틀니로 회복하는 것이 좋습니다. 잇몸이 아무는 발치 약 1개월 후부터 상담을 시작할 수 있습니다.' },
     { q: '발치 후 언제부터 식사할 수 있나요?', a: '마취가 풀린 뒤(약 2~3시간)부터 부드럽고 미지근한 음식을 반대쪽으로 씹어 드세요. 뜨겁거나 딱딱·질긴 음식은 며칠간 피하고, 빨대는 사용하지 마세요. 1주일쯤 지나 통증이 없어지면 점차 정상 식사로 복귀할 수 있습니다.' },
+  ],
+}
+
+ENC_SUPER['영구치 맹출 순서'] = {
+  detail: `
+<h3>유치는 언제 빠지고, 영구치는 언제 날까? (이갈이 시기)</h3>
+<p>아이 입에서 첫 유치가 흔들리기 시작하면 부모님은 반갑기도, 불안하기도 합니다. <strong>유치(젖니) 20개</strong>는 만 6세 무렵부터 <strong>영구치(간니) 28개</strong>(사랑니 제외)로 순서대로 교체됩니다. 이 과정을 흔히 '이갈이'라고 부르죠. 아래 계산기로 우리 아이 나이에 맞는 교체 상황과 체크 포인트를 확인하세요.</p>
+${WIDGET_TEETH_TIMELINE}
+
+<h3>영구치가 나는 순서 — 큰 흐름만 기억하세요</h3>
+<p>개인차는 있지만 대체로 <strong>아래 앞니 → 6세 구치(첫 영구 어금니) → 위·아래 앞니 → 옆 앞니 → 작은어금니·송곳니 → 12세 구치</strong> 순으로 진행됩니다. 특히 <strong>6세 구치</strong>는 유치가 빠지는 것 없이 유치 맨 뒤에 '조용히' 나기 때문에 어금니로 오해하기 쉽지만, <strong>평생 쓰는 첫 번째 영구 어금니</strong>입니다.</p>
+
+<h3>부모가 꼭 알아야 할 이갈이 주의사항</h3>
+<ul>
+<li><strong>6세 구치 실란트</strong>: 씹는 면 홈이 깊어 충치가 가장 잘 생기는 치아입니다. 나오자마자 ${A('실란트', '실란트(홈 메우기)')}로 예방하세요.</li>
+<li><strong>상어이빨(이중치열)</strong>: 유치가 안 빠졌는데 영구치가 뒤로 올라오는 경우. 대부분 유치 ${A('유치 발치', '발치')}가 필요하니 검진받으세요.</li>
+<li><strong>교체가 너무 늦을 때</strong>: 또래보다 1년 이상 늦으면 영구치 결손·매복 가능성이 있으니 파노라마 X-ray로 확인하는 것이 좋습니다.</li>
+<li><strong>교정 타이밍</strong>: 덧니·부정교합 조짐이 보이면 ${A('소아 교정')} 1차 상담(보통 만 7~9세)이 권장됩니다.</li>
+</ul>`,
+  faqs: [
+    { q: '아이 이갈이(치아 교체)는 몇 살에 시작하나요?', a: '보통 만 6세 무렵 아래 앞니부터 흔들리며 시작해, 만 12세 전후에 대부분 마무리됩니다. 다만 아이마다 6개월~1년 이상 개인차가 있어 조금 빠르거나 늦어도 대부분 정상입니다.' },
+    { q: '6세 구치가 무엇인가요? 유치인가요?', a: '만 6세 무렵 유치 맨 뒤에 새로 나는 첫 번째 영구 어금니로, 유치가 빠지는 것 없이 조용히 올라옵니다. 유치로 오해해 관리를 소홀히 하기 쉽지만 평생 쓰는 치아이며, 씹는 면 홈이 깊어 충치가 잘 생기므로 실란트(홈 메우기) 예방을 권장합니다.' },
+    { q: '유치가 안 빠졌는데 영구치가 뒤에서 났어요(상어이빨). 괜찮나요?', a: '영구치가 유치 안쪽/뒤쪽으로 이중으로 나는 \'상어이빨(이중치열)\'은 비교적 흔합니다. 유치가 저절로 빠지면 영구치가 제자리를 찾기도 하지만, 그렇지 않으면 유치 발치가 필요합니다. 배열이 틀어질 수 있으니 치과 검진을 권합니다.' },
+    { q: '이갈이 순서가 아이마다 다른데 정상인가요?', a: '네, 나는 순서와 시기는 아이마다 차이가 큽니다. 큰 흐름(앞니→어금니 방향)만 크게 벗어나지 않으면 대부분 정상입니다. 다만 좌우 비대칭이 심하거나 또래보다 1년 이상 늦으면 X-ray 확인이 도움이 됩니다.' },
+    { q: '영구치는 총 몇 개인가요?', a: '사랑니(제3대구치)를 제외하면 영구치는 28개입니다. 사랑니 4개까지 모두 나면 최대 32개가 되지만, 사랑니는 없거나 매복되는 경우도 많습니다. 유치는 20개입니다.' },
+    { q: '교정은 이갈이가 끝난 뒤에 해야 하나요?', a: '꼭 그렇지는 않습니다. 부정교합 유형에 따라 유치·혼합 치열 시기에 시작하는 1차 교정이 유리한 경우가 있습니다. 보통 만 7~9세에 1차 교정 상담을 받아 아이에게 맞는 타이밍을 정하는 것을 권장합니다.' },
+  ],
+}
+
+ENC_SUPER['인비절라인'] = {
+  detail: `
+<h3>인비절라인(투명교정)이란?</h3>
+<p><strong>인비절라인(Invisalign)</strong>은 브라켓·와이어를 붙이지 않고, 투명한 플라스틱 <strong>교정 장치(얼라이너)</strong>를 단계별로 갈아 끼우며 치아를 조금씩 이동시키는 투명교정의 대표 브랜드입니다. 눈에 잘 띄지 않고 <strong>식사·양치 때 빼낼 수 있다</strong>는 점 때문에 성인·직장인에게 특히 인기가 높습니다.</p>
+
+<h3>인비절라인 vs 다른 교정 장치 — 뭐가 다를까? (비교기)</h3>
+<p>교정은 '무조건 안 보이는 게 최고'가 아니라 <strong>내 케이스의 난이도·심미 니즈·비용·생활 패턴</strong>에 맞춰 골라야 합니다. 아래 비교기로 대표 장치들을 나란히 놓고 확인하세요.</p>
+${WIDGET_ORTHO_COMPARE}
+
+<h3>인비절라인의 최대 변수 — '착용 시간'</h3>
+<p>투명교정은 편하지만, 성공의 열쇠는 <strong>스스로 하루 20~22시간 착용</strong>하는 것입니다. 빼놓는 시간이 길어지면 치아가 계획대로 움직이지 않아 기간이 늘고 결과가 나빠집니다. 자율성이 필요한 장치라, 착용 습관을 못 지킬 것 같다면 고정식(브라켓)이 더 나을 수 있습니다.</p>
+
+<h3>어떤 케이스에 적합할까?</h3>
+<p>가벼운~중등도의 부정교합, 치아 사이 공간, 경미한 덧니 등에는 투명교정이 잘 맞습니다. 반면 <strong>골격성 부정교합이나 발치가 필요한 복잡한 케이스</strong>는 ${A('메탈 브라켓', '고정식 브라켓')}이 더 유리할 수 있습니다. 정확한 판단은 X-ray·모형 분석 후 가능하니 상담받으세요.</p>`,
+  faqs: [
+    { q: '인비절라인(투명교정)은 정말 안 보이나요?', a: '투명한 얼라이너를 치아에 씌우는 방식이라 가까이서 유심히 보지 않으면 잘 티가 나지 않습니다. 다만 치아 이동을 돕는 작은 부착물(어태치먼트)이 붙는 경우가 있어 완전히 100% 안 보이는 것은 아닙니다.' },
+    { q: '인비절라인과 일반 철사 교정, 뭐가 더 좋나요?', a: '우열이 아니라 케이스에 따라 다릅니다. 가벼운~중등도 부정교합·심미가 중요한 성인에겐 투명교정이, 복잡·고난도 케이스나 비용을 낮추고 싶을 때는 고정식 브라켓이 유리합니다. 위 비교기와 상담으로 맞는 방식을 정하세요.' },
+    { q: '투명교정은 하루에 얼마나 착용해야 하나요?', a: '하루 20~22시간 이상 착용이 원칙입니다. 식사·양치 때만 빼고 거의 종일 착용해야 계획대로 치아가 움직입니다. 착용 시간을 지키지 못하면 기간이 늘고 결과가 나빠질 수 있어, 자기 관리가 성공의 핵심입니다.' },
+    { q: '투명교정으로 모든 부정교합을 해결할 수 있나요?', a: '아닙니다. 가벼운~중등도 케이스에는 잘 맞지만, 골격성 문제나 발치가 필요한 복잡한 케이스는 고정식 교정이 더 적합할 수 있습니다. X-ray·모형 분석 후 적응증을 판단해야 합니다.' },
+    { q: '교정 비용은 얼마인가요?', a: '장치 종류·난이도·기간에 따라 편차가 큽니다. 일반적으로 투명교정(인비절라인)이 메탈 브라켓보다 높은 편이고, 설측(안쪽) 교정이 가장 높습니다. 정확한 비용은 진단 후 개인별로 안내되며, 서울비디치과 041-415-2892로 상담 가능합니다.' },
+    { q: '교정 후에도 유지장치를 껴야 하나요?', a: '네. 교정으로 옮긴 치아는 원래 위치로 돌아가려는 성질이 있어, 교정이 끝난 뒤 유지장치(리테이너)를 반드시 착용해야 합니다. 초기에는 오래, 이후 점차 착용 시간을 줄이며 관리합니다. 유지 관리를 소홀히 하면 재발할 수 있습니다.' },
+  ],
+}
+
+ENC_SUPER['치아 미백'] = {
+  detail: `
+<h3>치아 미백이란? — 착색과 변색을 밝게</h3>
+<p><strong>치아 미백</strong>은 커피·와인·흡연·노화 등으로 누렇게 변한 치아를 과산화수소·과산화요소 계열 약제로 밝게 만드는 시술입니다. 치아를 깎지 않고 색만 개선하는 <strong>비교적 보존적인 심미 치료</strong>지만, 방식마다 효과·속도·유지력·비용이 크게 다릅니다.</p>
+
+<h3>미백 방식, 어떤 게 나에게 맞을까? (비교기)</h3>
+<p>'미백'이라고 다 같은 게 아닙니다. 병원에서 한 번에 밝히는 방식부터 집에서 서서히, 신경치료 받은 죽은 치아 전용 방식까지 다양합니다. 아래 비교기로 확인하세요.</p>
+${WIDGET_WHITENING_COMPARE}
+
+<h3>미백이 잘 안 되는 경우도 있어요</h3>
+<p>미백은 만능이 아닙니다. <strong>테트라사이클린 착색(회색·띠 모양)</strong>이나 심한 <strong>불소증</strong>, ${A('레진')}·크라운 같은 <strong>보철물</strong>은 미백 약제로 색이 바뀌지 않습니다. 이런 경우는 ${A('라미네이트')}나 크라운 등 다른 심미 치료가 필요할 수 있으니 상담으로 원인을 먼저 확인하세요.</p>
+
+<h3>미백 후 시림과 관리</h3>
+<p>미백 후 며칠간 <strong>이가 시린 증상</strong>은 흔하며 대부분 자연히 가라앉습니다. 밝아진 색을 오래 유지하려면 <strong>커피·홍차·와인·카레 등 색소 강한 음식</strong>을 시술 직후 며칠간 절제하고, 금연이 큰 도움이 됩니다. 정기적인 ${A('스케일링')}으로 착색을 관리하는 것도 좋습니다.</p>`,
+  faqs: [
+    { q: '치아 미백은 치아를 상하게 하지 않나요?', a: '적정 농도로 올바르게 시행하면 치아 구조 자체를 손상시키지 않는 보존적 시술입니다. 시술 후 일시적으로 시릴 수 있지만 대부분 며칠 내 회복됩니다. 다만 시중 제품을 과도하게 남용하면 시림·잇몸 자극·마모가 생길 수 있어 전문가 관리가 안전합니다.' },
+    { q: '전문가 미백(오피스)과 자가 미백(홈), 뭐가 더 좋나요?', a: '오피스 미백은 고농도 약제로 병원에서 빠르고 강력하게, 자가 미백은 맞춤 트레이로 집에서 서서히 밝힙니다. 가장 확실한 것은 둘을 병행하는 방식입니다. 급하면 오피스, 자연스럽고 경제적으로는 홈, 유지력까지 원하면 병행을 고려하세요.' },
+    { q: '미백 효과는 얼마나 오래가나요?', a: '보통 1~2년가량 유지되지만 식습관·흡연 여부에 따라 크게 달라집니다. 커피·와인·흡연이 잦으면 더 빨리 착색됩니다. 유지 관리를 위해 색소 음식 절제, 금연, 정기 스케일링, 필요시 홈 미백 보충을 권장합니다.' },
+    { q: '신경치료 받은 변색된 치아도 미백되나요?', a: '일반 미백으로는 잘 안 됩니다. 신경치료로 죽어 어둡게 변한 치아는 치아 \'내부\'에 약제를 넣는 내부 미백(실활치 미백)이라는 별도 방식으로 밝힙니다. 케이스에 따라 크라운·라미네이트가 더 나을 수도 있어 상담이 필요합니다.' },
+    { q: '레진이나 크라운도 같이 미백되나요?', a: '아니요. 미백 약제는 자연치아에만 작용하고 레진·크라운·라미네이트 같은 보철물의 색은 바꾸지 못합니다. 그래서 앞니에 보철물이 있는 경우, 미백으로 자연치를 밝힌 뒤 색을 맞춰 보철물을 새로 하는 순서로 진행하기도 합니다.' },
+    { q: '미백 치약이나 스트립도 효과가 있나요?', a: '표면 착색 제거에는 어느 정도 도움이 되지만, 치아 자체를 밝히는 효과는 전문가·자가 미백에 비해 제한적입니다. 과도하게 사용하면 시림과 마모를 유발할 수 있으니 근본적인 미백을 원한다면 치과 상담을 권합니다.' },
+  ],
+}
+
+ENC_SUPER['스케일링 건강보험'] = {
+  detail: `
+<h3>스케일링, 건강보험 되나요? — 한 줄 요약</h3>
+<p>네! <strong>만 19세 이상</strong>이면 <strong>연 1회(매년 1월 1일~12월 31일 기준)</strong> 예방 목적 스케일링에 건강보험이 적용됩니다. 본인부담금은 보통 <strong>1만~2만원 안팎</strong>(치과·상태에 따라 상이)이죠. 아래 체크로 올해 내 적용 여부를 바로 확인하세요.</p>
+${WIDGET_SCALING_INSURANCE}
+
+<h3>스케일링 보험, 이것만은 알아두세요</h3>
+<ul>
+<li><strong>기준일은 '연도'</strong>: 보험 혜택은 매년 1월 1일에 초기화됩니다. 작년 12월에 받았어도 올해 1월이면 다시 받을 수 있어요. (마지막 시술로부터 1년이 아님!)</li>
+<li><strong>연 1회 초과분은 비보험</strong>: 예방 목적으로 올해 이미 받았다면 추가 스케일링은 자비입니다.</li>
+<li><strong>치주 치료는 별도</strong>: 잇몸병(${A('치주염')}) 치료 목적의 스케일링·치석 제거는 예방 연 1회 한도와 별개로 보험이 적용됩니다.</li>
+<li><strong>만 19세 미만</strong>: 국가 지원 '연 1회 예방 스케일링' 대상은 아니지만, 치료 목적 등은 별도 기준으로 적용될 수 있습니다.</li>
+</ul>
+
+<h3>왜 매년 챙겨야 할까?</h3>
+<p>스케일링은 칫솔로 절대 안 떨어지는 ${A('치석')}을 제거하는 유일한 방법입니다. 치석을 방치하면 잇몸병으로 이어지고, 결국 잇몸뼈가 녹아 ${A('발치')}·${A('임플란트')}로 커질 수 있습니다. <strong>연 1회 보험 스케일링은 가장 저렴하게 큰 병을 막는 투자</strong>인 셈이니, 올해가 가기 전에 꼭 챙기세요.</p>`,
+  faqs: [
+    { q: '스케일링 건강보험은 얼마나 자주 받을 수 있나요?', a: '만 19세 이상이면 매년 1회(1월 1일~12월 31일 기준) 예방 스케일링에 건강보험이 적용됩니다. 본인부담금은 보통 1만~2만원 안팎입니다. 잇몸병 치료 목적의 스케일링은 이 연 1회 한도와 별개로 적용됩니다.' },
+    { q: '작년 12월에 받았는데 지금 또 보험이 되나요?', a: '네. 보험 혜택 기준은 \'마지막 시술로부터 1년\'이 아니라 \'연도(1/1~12/31)\'입니다. 작년 12월에 받았어도 해가 바뀌어 1월이 되면 새로 연 1회 혜택이 생깁니다.' },
+    { q: '스케일링 보험 본인부담금은 얼마인가요?', a: '치과와 상태에 따라 다르지만 보통 1만~2만원 안팎입니다. 비보험(추가·비적용) 스케일링은 이보다 비쌀 수 있습니다. 정확한 금액은 내원 치과에서 안내받으세요.' },
+    { q: '올해 이미 스케일링을 받았는데 또 받고 싶어요.', a: '예방 목적 보험 혜택은 연 1회이므로, 올해 이미 받았다면 추가 스케일링은 비보험(자비)입니다. 다만 잇몸병 치료가 필요한 경우엔 치주 치료 기준으로 별도 적용될 수 있으니 검진 후 확인하세요. 예방 혜택은 내년 1월 1일에 다시 생깁니다.' },
+    { q: '만 19세 미만 자녀도 스케일링 보험이 되나요?', a: '국가 지원 \'연 1회 예방 스케일링\'은 만 19세 이상이 대상이라 그대로는 적용되지 않습니다. 다만 잇몸 치료가 필요하거나 교정 전 처치 등 치료 목적일 경우 별도 기준으로 보험이 적용될 수 있으니 상담받으세요.' },
+    { q: '스케일링을 꼭 매년 받아야 하나요?', a: '권장합니다. 스케일링은 칫솔로 제거되지 않는 치석을 없애는 유일한 방법이며, 치석을 방치하면 잇몸병→잇몸뼈 소실→발치로 이어질 수 있습니다. 연 1회 보험 스케일링은 큰 병을 저렴하게 예방하는 좋은 투자입니다.' },
   ],
 }
