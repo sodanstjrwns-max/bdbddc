@@ -203,7 +203,8 @@ curl http://localhost:3000/api/health
 - **Platform**: Cloudflare Pages
 - **Project Name**: seoul-bd-dental
 - **Status**: Active
-- **Last Updated**: 2026-07-23 (v5.31)
+- **Last Updated**: 2026-07-24 (v5.32)
+- **v5.32 백과사전 인터랙티브 위젯 (Tier 2)**: 5개 슈퍼 콘텐츠 페이지에 자기완결형 바닐라JS 위젯 추가 (`src/routes/enc-super.ts`) — ①인레이 재료 비교기(골드/세라믹/지르코니아 탭) ②치아 크랙 증상 체커(증상 가중치→단계 판정) ③임플란트 3단 해부도(픽스처·어버트먼트·크라운 클릭) ④신경치료 단계 진행바(1~4회차) ⑤발치 후 회복 타임라인(당일~1개월 슬라이더+드라이소켓 경고). 신규 ENC_SUPER 엔트리 3종(임플란트·신경치료·발치) + SEO 오버라이드 3종 추가. WebApplication/FAQPage 스키마·내부링크·4소스 팩트 정합 유지
 - **v5.31 백과사전 슈퍼 콘텐츠**: GSC 노출 상위 6개 용어(레진·인레이·틀니·치석·법랑질·치아 균열)를 "가이드급 본문 + 맞춤 FAQ + FAQPage 스키마 + 내부링크"로 오버라이드 (`src/routes/enc-super.ts`). v5.30 '치아 번호' 성공 공식(제목에 답 예고 + 표 구조 + 검색의도 100% 해소) 복제. 4소스(HTML/JSON-LD/챗봇KB/llms) 팩트 정합 유지
 - **필수 Secrets**: `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`, `OPENAI_API_KEY`, `RESEND_API_KEY`(비밀번호 찾기·예약알림), `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`(소셜로그인)
 
