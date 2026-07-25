@@ -6,6 +6,7 @@ import type { Bindings } from './types'
 import { registerGscReport } from './routes/gsc-report-dash'
 import { registerToothNumberingWidget, renderToothNumberingPage } from './routes/tooth-numbering'
 import { ENC_SUPER } from './routes/enc-super'
+import { ENC_SUPER_V534 } from './routes/enc-super-v534'
 import { TRACKING_HEAD } from './lib/layout'
 import { ADMIN_SESSION_COOKIE, SESSION_MAX_AGE, getSessionSecret, createSessionToken, verifySessionToken, isRateLimitedD1 } from './lib/security'
 import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSession, verifySiteSession, ensureMembersMigrated, findMemberByEmail, findMemberById, insertMemberD1, sha256Hex } from './lib/auth'
@@ -4352,6 +4353,39 @@ function interlinkText(text: string, currentTerm: string, allItems: EncItem[]): 
 // 원칙: 용어를 타이틀 맨 앞에 유지(순위 보존) + 답변·숫자·가치 추가(클릭 유발)
 // ============================================
 const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
+  // ── v5.34: 제로클릭 거인 회수 (노출 높고 클릭 0인 용어 — 제목에 답 예고) ──
+  '정출': {
+    title: '정출이란? — 사고로 튀어나온 이 vs 교정 정출 vs 과맹출, 3가지 완전 구분 | 서울비디치과',
+    desc: '정출(Extrusion)은 치아가 잇몸 밖으로 솟아 나온 상태입니다. 사고로 인한 외상성(당일 치과 필수), 치아를 살리는 교정적 정출, 반대편 이가 없어 자라는 과맹출 — 3가지를 판별기로 구분하고 유형별 응급도·치료·비용까지 정리했습니다.'
+  },
+  '소구치': {
+    title: '소구치란? — 작은어금니 8개, 치식 14·15번 위치와 교정 발치 이유 | 서울비디치과',
+    desc: '소구치(작은어금니)는 송곳니와 큰어금니 사이 총 8개, FDI 치식 14·15·24·25·34·35·44·45번입니다. 대구치와의 차이, 만 10~12세 나는 시기, 교정할 때 제1소구치를 뽑는 이유, 충치 치료비까지 탐색기로 정리했습니다.'
+  },
+  '치식': {
+    title: '치식 읽는 법 — 46번은 어느 이? FDI 두 자리로 5초 만에 찾기 | 서울비디치과',
+    desc: '치식은 치아마다 붙은 번호입니다. 앞자리=사분면(1~4), 뒷자리=앞니부터 1~8번. 46번은 아래 오른쪽 첫 큰어금니, 사랑니는 항상 8번. 유치 51~85번, FDI·Universal·Palmer 표기 비교까지 탐색기로 정리했습니다.'
+  },
+  '대구치': {
+    title: '대구치란? — 큰어금니 8개, 6세 구치가 가장 중요한 이유·치식 16·46번 | 서울비디치과',
+    desc: '대구치(큰어금니)는 사랑니 제외 총 8개로 씹는 힘의 핵심입니다. 제1대구치(6세 구치)는 유치가 안 빠지고 나와 놓치기 쉬운 평생 치아, 소구치와의 차이, 어금니 상실 시 연쇄 반응, 임플란트 80~160만원까지 정리했습니다.'
+  },
+  '견치': {
+    title: '견치(송곳니)란? — 가장 오래 버티는 치아, 견치유도·매복·덧니 총정리 | 서울비디치과',
+    desc: '견치는 송곳니의 정식 명칭으로 치식 13·23·33·43번 총 4개입니다. 뿌리가 가장 길어 마지막까지 남는 치아, 턱을 옆으로 움직일 때 다른 치아를 보호하는 견치유도, 매복 송곳니 교정 견인, 덧니 관리까지 정리했습니다.'
+  },
+  '턱에서 소리': {
+    title: '턱에서 딱 소리, 병원 가야 하나요? — 딸깍 vs 사각사각 자가 체커 | 서울비디치과',
+    desc: '통증 없이 소리만 난다면 당장 치료가 필요하지 않은 경우가 많습니다. 딸깍(디스크)과 사각사각(관절 마모)의 차이, 지금 병원에 가야 할 4가지 신호, 오늘부터 할 수 있는 턱 관리법을 체커로 확인하세요.'
+  },
+  '정중선': {
+    title: '치아 정중선 안 맞아요 — 몇 mm부터 문제? 자가 체크와 교정 가능 범위 | 서울비디치과',
+    desc: '정중선이 완벽히 맞는 사람은 오히려 드뭅니다. 1~2mm는 대개 문제되지 않고 3mm 이상이면 원인 확인 필요. 치아 상실·공간 부족·골격 비대칭 등 원인별 해결 방향과 교정으로 어디까지 맞출 수 있는지 정리했습니다.'
+  },
+  '실비보험': {
+    title: '치과 실비보험 되나요? — 임플란트는 왜 안 될까, 항목별 보장 체커 | 서울비디치과',
+    desc: '치과 치료라고 다 되는 것도 안 되는 것도 아닙니다. 치료 이유(질병·상해·심미)와 항목별 일반적 보장 경향을 체커로 확인하세요. 임플란트가 제외되는 이유, 실비보다 먼저 챙길 건강보험 항목, 청구 서류까지 정리했습니다.'
+  },
   '레진': {
     title: '레진 치료 총정리 — 가격 5~25만원·수명 5~10년·인레이 차이까지 한 번에 | 서울비디치과',
     desc: '치과 레진은 충치 부위를 치아색 복합레진으로 당일 메우는 치료입니다. 부위별 비용 5~25만원, 수명 5~10년, 레진 vs 인레이 vs 크라운 선택 기준, 12세 이하 보험 적용, 5단계 치료 과정까지 표로 정리했습니다.'
@@ -4411,14 +4445,6 @@ const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
   '석션': {
     title: '석션(Suction) 뜻 — 치과에서 침 빨아들이는 기구, 원리·종류 | 서울비디치과',
     desc: '치과 석션은 진료 중 물과 타액을 흡입하는 장비입니다. 치료 중 입에 넣는 이유, 일반 석션과 고압 석션의 차이, 감염관리와의 관계까지 쉽게 설명해 드립니다.'
-  },
-  '소구치': {
-    title: '소구치(작은어금니) 위치 — 4번·5번 치아, 교정 발치와의 관계 | 서울비디치과',
-    desc: '소구치는 송곳니 뒤 4번·5번 치아(작은어금니)로 위아래 총 8개입니다. 음식을 부수는 역할을 하며 교정 시 발치 대상으로 자주 언급됩니다. 대구치와의 차이, 위치 그림으로 정리.'
-  },
-  '대구치': {
-    title: '대구치(큰어금니) 위치 — 6번·7번 치아, 사랑니(8번)와의 차이 | 서울비디치과',
-    desc: '대구치는 치열 맨 뒤 6번·7번 치아(큰어금니)로 음식을 분쇄하는 핵심 치아입니다. 제1대구치는 만 6세에 나오는 평생 치아 — 충치가 가장 잘 생기는 위치와 관리법까지 정리.'
   },
   '법랑질': {
     title: '법랑질(에나멜)이란? 몸에서 가장 단단하지만 재생 안 되는 조직 | 서울비디치과',
@@ -4562,7 +4588,7 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
     .trim()
 
   // === 슈퍼 콘텐츠 오버라이드 (v5.31: GSC 노출 상위 용어 가이드급 본문) ===
-  const superC = ENC_SUPER[term]
+  const superC = ENC_SUPER[term] || ENC_SUPER_V534[term]
 
   // === 카테고리별 맞춤 FAQ 생성 ===
   const faqGenerator = categoryFaqTemplates[item.category] || categoryFaqTemplates['전문 용어']
