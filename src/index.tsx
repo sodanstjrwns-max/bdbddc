@@ -1576,11 +1576,35 @@ app.get('/apple-touch-icon-precomposed.png', (c) => {
 
 // ============================================
 // 레거시 /en/* URL 정리 (구 Weglot 시절 인덱싱된 URL)
-// 실존하는 /en/ 정적 페이지는 Pages가 우선 서빙하므로 여기 도달 X.
-// 존재하지 않는 레거시 /en/경로는 한국어 원본으로 301 영구 통합.
+// ⚠️ v5.39 버그 수정: 기존 주석은 "실존 /en/ 정적 페이지는 Pages가 우선
+//    서빙하므로 여기 도달 X"라고 가정했으나, _routes.json의 include가 "/*"이고
+//    exclude에 /en/* 가 없었기 때문에 Worker가 정적 파일보다 먼저 가로채
+//    영문 페이지 11개 전체가 301로 한글로 튕기고 있었다.
+//    (동시에 sitemap-intl.xml은 hreflang="en"으로 /en/를 광고 → 색인 0)
+//    → public/_routes.json에 실존 정적 경로를 exclude로 명시하여 해결.
+//    이 catch-all은 "실존하지 않는 레거시 경로"만 담당하도록 화이트리스트로 축소.
 // ============================================
-app.get('/en/*', (c) => {
-  const path = c.req.path.replace(/^\/en/, '') || '/'
+
+// v5.39: 살아 있어야 하는 /en/ 경로 (정적 파일 or Worker 라우트)
+// _routes.json exclude가 1차 방어선이고, 아래는 2차 안전망이다.
+const EN_LIVE_PREFIXES = [
+  '/en/dictionary',   // v5.39 신설 — 영문 치과 사전 (Worker SSR)
+]
+const EN_LIVE_EXACT = new Set([
+  '/en', '/en/', '/en/index.html',
+  '/en/implant.html', '/en/invisalign.html', '/en/laminate.html',
+  '/en/pricing.html', '/en/directions.html', '/en/reservation.html',
+  '/en/guide', '/en/guide/', '/en/guide/index.html',
+  '/en/guide/implant.html', '/en/guide/invisalign.html', '/en/guide/laminate.html',
+])
+
+app.get('/en/*', async (c, next) => {
+  const p = c.req.path
+  // 살려야 하는 경로는 다음 핸들러(또는 정적 서빙)로 통과
+  if (EN_LIVE_EXACT.has(p)) return next()
+  if (EN_LIVE_PREFIXES.some(pre => p === pre || p.startsWith(pre + '/'))) return next()
+  // 그 외 레거시 경로만 한국어 원본으로 301 통합
+  const path = p.replace(/^\/en/, '') || '/'
   return c.redirect(path, 301)
 })
 

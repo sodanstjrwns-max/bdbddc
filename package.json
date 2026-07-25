@@ -5,6 +5,7 @@
     "dev": "vite",
     "dev:sandbox": "wrangler pages dev dist --ip 0.0.0.0 --port 3000",
     "build": "node scripts/fetch-youtube.cjs && vite build && node scripts/post-build.cjs",
+    "build:fast": "vite build && node scripts/post-build.cjs",
     "preview": "wrangler pages dev dist",
     "deploy": "npm run build && wrangler pages deploy dist",
     "deploy:prod": "npm run build && wrangler pages deploy dist --project-name seoul-bd-dental",
