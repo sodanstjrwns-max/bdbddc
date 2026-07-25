@@ -11,9 +11,9 @@
 - **Canonical Domain**: https://bdbddc.com
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
-- **위젯 갤러리 (v5.35 신설)**: https://bdbddc.com/widgets — 치과 인터랙티브 위젯 15종 무료 임베드 허브 (프리셋 변형 3종 포함 라우트 17종). 개별 위젯은 `/widgets/:slug` (tooth-numbering, inlay-compare, crack-check, implant-anatomy, root-canal-steps, extraction-timeline, teeth-timeline, ortho-compare, whitening-compare, scaling-insurance, tooth-explorer, extrusion-type, tmj-sound, insurance-check, midline-check)
+- **위젯 갤러리 (v5.35 신설 / v5.38 확장)**: https://bdbddc.com/widgets — 치과 인터랙티브 위젯 21종 무료 임베드 허브 (프리셋 변형 5종 포함 라우트 26종). 개별 위젯은 `/widgets/:slug` (tooth-numbering, inlay-compare, crack-check, implant-anatomy, root-canal-steps, extraction-timeline, teeth-timeline, ortho-compare, whitening-compare, scaling-insurance, tooth-explorer, extrusion-type, tmj-sound, insurance-check, midline-check, tooth-surface, incisor-ratio, tongue-triage, opposing-chain, pulp-triage, powerchain-care)
 
-## Current Version: v5.37
+## Current Version: v5.38
 
 ### Completed Features
 
@@ -204,7 +204,8 @@ curl http://localhost:3000/api/health
 - **Platform**: Cloudflare Pages
 - **Project Name**: seoul-bd-dental
 - **Status**: Active
-- **Last Updated**: 2026-07-25 (v5.37)
+- **Last Updated**: 2026-07-25 (v5.38)
+- **v5.38 제로클릭 2차 회수 8종 (슈퍼 콘텐츠 확산)**: GSC `ctr_low` 잔여분 — 순위는 좋은데 클릭이 0~1인 "제목이 병목"인 용어 8종을 슈퍼 콘텐츠화 (`src/routes/enc-super-v538.ts` 신설, 972줄). 대상: 측절치(65노출/0클릭·4.6위)·지도설(56/0·9.2위)·교두(47/0·7.2위)·대합치(46/1·3.5위)·치수강(45/1·4.1위)·중절치(45/0·6.0위)·설면(42/0·3.2위)·파워체인(36/0·7.2위) = **합계 382노출/2클릭(CTR 0.5%) 회수 타깃**. ①**제목 답 예고형 재작성 8종**(`ENC_SEO_OVERRIDES`) — 예: 「측절치란? — 앞니 옆 "2번 치아" 위치와 왜소치·결손 치료법 총정리」 ②**본문 전량 2,000자 이상 증량** — 측절치 707→2,163 / 중절치 684→2,227 / 교두 802→2,117 / 설면 648→2,338 / 대합치 784→2,264 / 치수강 895→2,262 / 지도설 735→2,256 / 파워체인 759→2,529자 ③**신규 인터랙티브 위젯 6종** — 치아 5면 탐색기(설면·교두 2개 페이지 재사용) / 앞니 황금비율 계산기(중절치 75~80%, 왜소치 판정, 측절치·중절치 재사용) / 혀 상태 트리아지(지도설 vs 칸디다증 감별) / 대합치 상실 연쇄 시뮬레이터(발치 직후~3년 이상) / 치수 통증 트리아지(가역 vs 비가역 5단계) / 파워체인 관리 Q&A(교체 주기·변색·끊어짐·통증·양치) ④**전용 FAQ 56개**(8×7) + FAQPage 스키마 자동 반영 ⑤위젯 갤러리 15종 → **21종**(공용 위젯 2종은 `galleryHidden` 프리셋 변형으로 중복 카드 방지, 라우트는 26종). 내부 링크 55종 전량 사전 유효 검증(`브리지`→`브릿지` 표기 오류 수정). 의료광고법 안전 표현 적용(지도설 "진단이 아닌 자가 참고용" + 병원 방문 기준 5가지 명시). 라미네이트 80만원·임플란트 80/100/160만원·유지장치 양악 25/편악 15만원·인비절라인 300~700만원 등 `pricing.html` 공식 수가와 4소스 정합 유지. 슈퍼 콘텐츠 총 **29종**
 - **v5.37 매핑 누락 보수 + 얇은 슈퍼 콘텐츠 4종 보강**: ①**퍼가기 박스 매핑 누락 보수** — `WidgetDef`에 `galleryHidden?: boolean` 플래그 신설. 치아 탐색기 프리셋 변형 3종(`tooth-explorer-premolar`/`-molar`/`-canine`)을 추가해 소구치·대구치·견치 백과사전 페이지도 임베드 백링크 박스를 보유하도록 연결. 갤러리 그리드에서는 중복 카드를 숨겨 15종 유지(라우트는 17종). ②**v5.33 그룹 4종 본문 2배 이상 증량** — 치아 미백 820→1,969자(소프트 블리칭 4.9만원/하드 블리칭 8만원 비용표 + 미백 전 체크 3가지 + 48시간 관리 시기표 + 오해 3가지) / 인비절라인 837→2,338자(익스프레스 300·퍼스트 400·라이트 450·모더레이트 550·컴프리헨시브 700만원 패키지표 + 치료 5단계 + 얼라이너 관리 5원칙 + 유지장치 양악 25/편악 15만원) / 영구치 맹출 순서 978→1,862자(치아별 상하악 맹출 시기표 8행 + 부모 오해 3가지 + 혼합치열기 양치 가이드) / 스케일링 건강보험 900→1,803자(보험 vs 비보험 4항목 비교표 + 오해 3가지 + 연초 방문 권장 + 치주치료 별도 적용). FAQ 4종 추가로 총 36개. 전 항목 `pricing.html` 공식 수가와 4소스 정합 유지
 - **v5.36 index.tsx 라우트 분할 1차 (기술 부채 상환)**: 동작 변경 없는 순수 이동으로 모놀리식 진입점 축소 — `src/routes/game-api.ts`(치BTI·치아비행·러닝·충치디펜스 8개 라우트, 253줄) / `src/routes/career-api.ts`(채용 지원 4개 라우트 + Gmail 알림 함수, 292줄) 분리. index.tsx 6,702 → 6,164줄(-538줄, -8.0%). **라우트 등록 순서를 원위치에 유지**해 Hono 매칭 우선순위 불변, 분할 전후 라우트 총수 315개 동일 검증. `app.delete('/api/admin/careers/:id')` 내 지역변수 `app` → `row` 개명(파라미터 섀도잉 제거). 의존 함수는 `Deps` 주입 패턴으로 전달
 - **v5.35 위젯 임베드 허브 — 백링크 수확 구조 15종 확산**: v5.30 `/widgets/tooth-numbering` 단일 임베드 패턴을 전체 위젯으로 확장 (`src/routes/widget-embed.ts` 신설). ①`/widgets` 갤러리 허브 신설(카드 15종·원클릭 퍼가기 코드 복사·CollectionPage + WebApplication 스키마·sitemap-main 등재) ②`/widgets/:slug` 임베드 라우트 14종 신설(noindex,follow + `Content-Security-Policy: frame-ancestors *` + s-maxage 24h, canonical은 원본 백과사전으로) ③백과사전 14개 용어 본문에 "이 위젯 퍼가기" 블록 SSR 자동 삽입(`WIDGET_BY_TERM` 매핑). 모든 임베드 스니펫에 원본 백과사전 do-follow 백링크 포함 → 외부 블로그 임베드가 곧 도메인 권위로 환원되는 구조. enc-super/enc-super-v534 위젯 상수 export 전환

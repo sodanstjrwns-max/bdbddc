@@ -1,6 +1,6 @@
 // ============================================================
 // 위젯 임베드 허브 (Widget Embed Hub) — v5.35
-// 백링크 수확 구조 확장: /widgets/tooth-numbering 패턴을 14종 위젯 전체로 확산
+// 백링크 수확 구조 확장: /widgets/tooth-numbering 패턴을 21종 위젯 전체로 확산
 // - /widgets/:slug        : iframe 임베드용 자체완결 위젯 (noindex, frame 허용)
 // - /widgets              : 위젯 갤러리 (index 허용, 내부 허브 페이지)
 // - 각 위젯 하단 → 원본 백과사전 페이지로 do-follow 백링크
@@ -15,6 +15,10 @@ import {
   WIDGET_TOOTH_EXPLORER, WIDGET_EXTRUSION_TYPE, WIDGET_TMJ_SOUND,
   WIDGET_INSURANCE_CHECK, WIDGET_MIDLINE_CHECK,
 } from './enc-super-v534'
+import {
+  WIDGET_TOOTH_SURFACE, WIDGET_INCISOR_RATIO, WIDGET_TONGUE_TRIAGE,
+  WIDGET_OPPOSING_CHAIN, WIDGET_PULP_TRIAGE, WIDGET_POWERCHAIN_CARE,
+} from './enc-super-v538'
 
 const ORIGIN = 'https://bdbddc.com'
 
@@ -154,6 +158,63 @@ export const WIDGETS: WidgetDef[] = [
     term: '견치', linkLabel: '견치(송곳니) 위치와 치식 번호 — 서울비디치과 치과 백과사전',
     height: 620, html: WIDGET_TOOTH_EXPLORER('gc', 'cn'), galleryHidden: true,
   },
+  // ── v5.38: 제로클릭 2차 회수 8종 위젯 ──
+  {
+    slug: 'tooth-surface', emoji: '🧭',
+    title: '치아 5면 탐색기',
+    desc: '설면·협면·교합면·근심면·원심면을 눌러 정식 명칭·영문 용어·관리 포인트를 확인하는 위젯입니다.',
+    term: '설면', linkLabel: '설면(치아 혀 쪽 면)이란? — 서울비디치과 치과 백과사전',
+    height: 620, html: WIDGET_TOOTH_SURFACE('sm', 'li'),
+  },
+  {
+    slug: 'tooth-surface-cusp', emoji: '🧭',
+    title: '치아 5면 탐색기 (교합면)',
+    desc: '교합면(씹는 면)을 기본 선택한 치아 5면 탐색기입니다.',
+    term: '교두', linkLabel: '교두(어금니 씹는 면의 돌출부)란? — 서울비디치과 치과 백과사전',
+    height: 620, html: WIDGET_TOOTH_SURFACE('cusp', 'oc'), galleryHidden: true,
+  },
+  {
+    slug: 'incisor-ratio', emoji: '📐',
+    title: '앞니 황금비율 계산기',
+    desc: '앞니 가로·세로를 입력하면 황금비율(75~80%) 범위인지, 왜소치 가능성이 있는지 알려주는 계산기입니다.',
+    term: '측절치', linkLabel: '측절치(앞니 옆 2번 치아)란? — 서울비디치과 치과 백과사전',
+    height: 640, html: WIDGET_INCISOR_RATIO,
+  },
+  {
+    slug: 'incisor-ratio-central', emoji: '📐',
+    title: '앞니 황금비율 계산기 (중절치)',
+    desc: '중절치(1번 치아) 기준 앞니 황금비율 계산기입니다.',
+    term: '중절치', linkLabel: '중절치(가장 앞 1번 치아)란? — 서울비디치과 치과 백과사전',
+    height: 640, html: WIDGET_INCISOR_RATIO, galleryHidden: true,
+  },
+  {
+    slug: 'tongue-triage', emoji: '👅',
+    title: '혀 병변 자가 체크',
+    desc: '혀의 무늬가 이동하는지 고정인지, 동반 증상이 있는지 체크해 참고 정보를 제공합니다. 진단이 아닌 자가 참고용입니다.',
+    term: '지도설', linkLabel: '지도설(혀 지도 모양 반점)이란? — 서울비디치과 치과 백과사전',
+    height: 720, html: WIDGET_TONGUE_TRIAGE,
+  },
+  {
+    slug: 'opposing-chain', emoji: '⛓️',
+    title: '대합치 연쇄 반응 시뮬레이터',
+    desc: '어금니를 뽑고 방치하면 시간대별로 어떤 변화가 일어나는지 단계별로 보여주는 위젯입니다.',
+    term: '대합치', linkLabel: '대합치(위아래 맞물리는 짝 치아)란? — 서울비디치과 치과 백과사전',
+    height: 640, html: WIDGET_OPPOSING_CHAIN,
+  },
+  {
+    slug: 'pulp-triage', emoji: '🩺',
+    title: '치아 통증 단계 자가 체크',
+    desc: '통증 양상과 동반 증상을 선택하면 가역적·비가역적 치수염 참고 단계를 알려줍니다. 진단이 아닌 자가 참고용입니다.',
+    term: '치수강', linkLabel: '치수강(치아 속 신경이 있는 공간)이란? — 서울비디치과 치과 백과사전',
+    height: 720, html: WIDGET_PULP_TRIAGE,
+  },
+  {
+    slug: 'powerchain-care', emoji: '🔗',
+    title: '파워체인 관리 Q&A',
+    desc: '교체 주기·변색·끊어짐·통증·양치 등 파워체인 착용 중 가장 많이 묻는 5가지를 정리한 위젯입니다.',
+    term: '파워체인', linkLabel: '파워체인(교정용 고무 사슬)이란? — 서울비디치과 치과 백과사전',
+    height: 640, html: WIDGET_POWERCHAIN_CARE,
+  },
 ]
 
 const canonicalOf = (term: string) => `${ORIGIN}/encyclopedia/${encodeURIComponent(term)}`
@@ -227,11 +288,11 @@ function renderGallery(): string {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>치과 위젯 모음 15종 — 블로그에 무료로 퍼가세요 | 서울비디치과</title>
-<meta name="description" content="치아 번호 조회기, 임플란트 해부도, 스케일링 보험 체커 등 치과 인터랙티브 위젯 15종. 블로그·홈페이지에 iframe 한 줄로 무료 임베드할 수 있습니다.">
+<title>치과 위젯 모음 21종 — 블로그에 무료로 퍼가세요 | 서울비디치과</title>
+<meta name="description" content="치아 번호 조회기, 임플란트 해부도, 스케일링 보험 체커 등 치과 인터랙티브 위젯 21종. 블로그·홈페이지에 iframe 한 줄로 무료 임베드할 수 있습니다.">
 <link rel="canonical" href="${ORIGIN}/widgets">
-<meta property="og:title" content="치과 위젯 모음 15종 — 블로그에 무료로 퍼가세요">
-<meta property="og:description" content="치과 인터랙티브 위젯 15종을 iframe 한 줄로 무료 임베드하세요. 서울비디치과 치과 백과사전 제공.">
+<meta property="og:title" content="치과 위젯 모음 21종 — 블로그에 무료로 퍼가세요">
+<meta property="og:description" content="치과 인터랙티브 위젯 21종을 iframe 한 줄로 무료 임베드하세요. 서울비디치과 치과 백과사전 제공.">
 <meta property="og:url" content="${ORIGIN}/widgets">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -240,7 +301,7 @@ function renderGallery(): string {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: '치과 위젯 모음 — 서울비디치과',
-  description: '치과 인터랙티브 위젯 15종. 블로그·홈페이지에 무료 임베드 가능.',
+  description: '치과 인터랙티브 위젯 21종. 블로그·홈페이지에 무료 임베드 가능.',
   url: `${ORIGIN}/widgets`,
   isPartOf: { '@type': 'WebSite', name: '서울비디치과', url: ORIGIN },
   hasPart: all.map(w => ({ '@type': 'WebApplication', name: w.title, description: w.desc, url: `${ORIGIN}/widgets/${w.slug}`, applicationCategory: 'HealthApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' } })),
@@ -263,7 +324,7 @@ body{font-family:'Pretendard',-apple-system,sans-serif;margin:0;background:#faf7
 <body>
 <div class="page">
 <header class="hero">
-<h1>🧩 치과 위젯 모음 15종<br>블로그에 무료로 퍼가세요</h1>
+<h1>🧩 치과 위젯 모음 21종<br>블로그에 무료로 퍼가세요</h1>
 <p>서울비디치과 치과 백과사전이 만든 인터랙티브 위젯입니다. iframe 한 줄이면 어떤 블로그·홈페이지에도 붙습니다. 상업적 이용 포함 <b>무료</b>이며, 출처 링크만 함께 남겨 주시면 됩니다.</p>
 </header>
 <main class="grid">${cards}</main>
@@ -321,7 +382,7 @@ export function embedBoxHtml(w: WidgetDef): string {
 <div style="display:flex;gap:8px;flex-wrap:wrap;">
 <button type="button" id="${id}-btn" style="cursor:pointer;border:none;background:#6B4226;color:#fff;border-radius:10px;padding:10px 18px;font-size:0.84rem;font-weight:700;font-family:inherit;">📋 코드 복사</button>
 <a href="/widgets/${w.slug}" target="_blank" rel="noopener" style="border:1px solid #d4b896;background:#fff;color:#6B4226;border-radius:10px;padding:10px 18px;font-size:0.84rem;font-weight:700;text-decoration:none;">위젯 단독 보기</a>
-<a href="/widgets" style="border:1px solid #d4b896;background:#fff;color:#6B4226;border-radius:10px;padding:10px 18px;font-size:0.84rem;font-weight:700;text-decoration:none;">위젯 15종 전체</a>
+<a href="/widgets" style="border:1px solid #d4b896;background:#fff;color:#6B4226;border-radius:10px;padding:10px 18px;font-size:0.84rem;font-weight:700;text-decoration:none;">위젯 21종 전체</a>
 </div>
 </section>
 <script>(function(){

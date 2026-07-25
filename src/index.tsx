@@ -10,6 +10,7 @@ import { registerGameApis } from './routes/game-api'
 import { registerCareerApis } from './routes/career-api'
 import { ENC_SUPER } from './routes/enc-super'
 import { ENC_SUPER_V534 } from './routes/enc-super-v534'
+import { ENC_SUPER_V538 } from './routes/enc-super-v538'
 import { TRACKING_HEAD } from './lib/layout'
 import { ADMIN_SESSION_COOKIE, SESSION_MAX_AGE, getSessionSecret, createSessionToken, verifySessionToken, isRateLimitedD1 } from './lib/security'
 import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSession, verifySiteSession, ensureMembersMigrated, findMemberByEmail, findMemberById, insertMemberD1, sha256Hex } from './lib/auth'
@@ -4106,6 +4107,39 @@ function interlinkText(text: string, currentTerm: string, allItems: EncItem[]): 
 // 원칙: 용어를 타이틀 맨 앞에 유지(순위 보존) + 답변·숫자·가치 추가(클릭 유발)
 // ============================================
 const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
+  // ── v5.38: 제로클릭 2차 회수 8종 (382노출/2클릭 — 순위는 좋은데 제목이 병목) ──
+  '측절치': {
+    title: '측절치란? — 앞니 옆 "2번 치아" 위치와 왜소치·결손 치료법 총정리 | 서울비디치과',
+    desc: '측절치(lateral incisor)는 가운데 앞니 옆의 2번 치아로 치식 12·22·32·42번 총 4개입니다. 영구치 중 왜소치와 선천적 결손이 가장 흔한 치아이며, 앞니 황금비율 계산기로 내 앞니가 정상 크기인지 확인하고 라미네이트(1본 80만원)·교정·임플란트 옵션까지 비교했습니다.'
+  },
+  '중절치': {
+    title: '중절치란? — 가장 앞 "1번 치아", 앞니 황금비율 75~80%와 외상 응급 대처 | 서울비디치과',
+    desc: '중절치(central incisor)는 입 정중앙의 가장 앞 치아로 치식 11·21·31·41번 총 4개입니다. 앞니 황금비율 계산기, 아이가 앞니를 다쳤을 때 30분 골든타임 응급 대처, 외상 후 변색 원인, 라미네이트 "한 개만"이 어려운 이유, 정중이개까지 정리했습니다.'
+  },
+  '교두': {
+    title: '교두란? — 어금니 씹는 면 "산", 치아별 개수(하악 제1대구치 5개)와 마모 4단계 | 서울비디치과',
+    desc: '교두(cusp)는 어금니 씹는 면의 뾰족한 돌출부입니다. 송곳니 1개·소구치 2개·상악 제1대구치 4개(+카라벨리)·하악 제1대구치 5개 등 치아별 개수, 기능교두와 비기능교두의 차이, 마모 4단계 자가 확인, 깨졌을 때 레진→온레이→크라운→임플란트 치료 계단까지 5면 탐색기로 정리했습니다.'
+  },
+  '설면': {
+    title: '설면이란? — 치아 혀 쪽 면(위턱은 구개면), 아래 앞니 치석이 가장 빨리 쌓이는 이유 | 서울비디치과',
+    desc: '설면(lingual surface)은 치아의 혀 쪽 안쪽 면이며 위턱에서는 구개면(palatal)이라 부릅니다. 치아 5면 한글·영문 대조표, 아래 앞니 안쪽에 치석이 가장 많이 생기는 3가지 이유, 칫솔을 세로로 세우는 양치법, 차트의 L·P·B·O·MOD 표기 읽는 법까지 5면 탐색기로 정리했습니다.'
+  },
+  '대합치': {
+    title: '대합치란? — 위아래 맞물리는 짝 치아, 하나 잃으면 시작되는 5단계 연쇄 반응 | 서울비디치과',
+    desc: '대합치(opposing tooth)는 위아래로 마주 물리는 반대편 치아입니다(16번↔46번). 발치 후 방치하면 정출·인접치 경사·씹는 힘 과부하·잇몸 문제·임플란트 공간 소실이 순차적으로 진행됩니다. 시간대별 시뮬레이터로 확인하고 정출 정도별 치료(교합면 조정~미니스크류 압하)까지 정리했습니다.'
+  },
+  '치수강': {
+    title: '치수강이란? — 치아 속 신경이 사는 "방", 치근관과의 차이와 통증 단계 감별 | 서울비디치과',
+    desc: '치수강(pulp chamber)은 치아 머리 안쪽의 빈 공간으로 신경과 혈관이 들어 있습니다. 치근관과의 차이를 표로 구분하고, 통증 자가 체크로 가역적·비가역적 치수염을 감별하며, 나이에 따른 협착·석회화, 신경치료 후 크라운이 필요한 이유까지 정리했습니다.'
+  },
+  '지도설': {
+    title: '지도설이란? — 혀 지도 무늬, 암이 아닌 양성 상태 판별 기준과 병원 갈 시점 | 서울비디치과',
+    desc: '지도설(geographic tongue)은 혀에 붉은 지역과 흰 테두리가 지도처럼 나타나는 양성 상태입니다. 암이 아니고 전염되지 않으며 무늬가 며칠 단위로 이동하는 것이 핵심 단서입니다. 구강 칸디다증·백반증과의 구별표, 자가 체크, 3주 이상 고정 시 진료가 필요한 기준까지 정리했습니다.'
+  },
+  '파워체인': {
+    title: '파워체인이란? — 교정 고무 사슬, 4~6주 교체 주기와 변색·끊어짐 대처법 | 서울비디치과',
+    desc: '파워체인(power chain)은 여러 치아를 묶어 끌어당겨 틈을 닫는 교정용 고무 사슬입니다. Closed·Short·Open 3종 비교, 첫 24시간에 힘이 빠지는 이유와 4~6주 교체 주기, 변색·끊어짐·통증 상황별 대처, 착용 중 양치법, 유지장치(양악 25만원)까지 Q&A 위젯으로 정리했습니다.'
+  },
   // ── v5.34: 제로클릭 거인 회수 (노출 높고 클릭 0인 용어 — 제목에 답 예고) ──
   '정출': {
     title: '정출이란? — 사고로 튀어나온 이 vs 교정 정출 vs 과맹출, 3가지 완전 구분 | 서울비디치과',
@@ -4341,7 +4375,7 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
     .trim()
 
   // === 슈퍼 콘텐츠 오버라이드 (v5.31: GSC 노출 상위 용어 가이드급 본문) ===
-  const superC = ENC_SUPER[term] || ENC_SUPER_V534[term]
+  const superC = ENC_SUPER[term] || ENC_SUPER_V534[term] || ENC_SUPER_V538[term]
 
   // === 카테고리별 맞춤 FAQ 생성 ===
   const faqGenerator = categoryFaqTemplates[item.category] || categoryFaqTemplates['전문 용어']
