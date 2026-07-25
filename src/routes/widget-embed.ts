@@ -27,6 +27,8 @@ export type WidgetDef = {
   height: number       // iframe 권장 높이
   emoji: string
   html: string         // 자체완결 위젯 HTML (style+script 포함)
+  /** 같은 위젯의 프리셋 변형 → 갤러리 카드에서는 숨기고 라우트·퍼가기 박스만 제공 */
+  galleryHidden?: boolean
 }
 
 export const WIDGETS: WidgetDef[] = [
@@ -129,6 +131,29 @@ export const WIDGETS: WidgetDef[] = [
     term: '정중선', linkLabel: '치아 정중선 안 맞을 때 — 서울비디치과 치과 백과사전',
     height: 680, html: WIDGET_MIDLINE_CHECK,
   },
+  // ── v5.37: 치아 탐색기 프리셋 변형 (갤러리 카드 중복 방지 → galleryHidden) ──
+  // 소구치·대구치·견치 페이지도 '퍼가기' 백링크 박스를 갖도록 매핑 누락분 보수
+  {
+    slug: 'tooth-explorer-premolar', emoji: '🦷',
+    title: '치아 이름·번호 탐색기 (소구치)',
+    desc: '소구치(작은어금니)를 기본 선택한 치아 이름·치식 번호 탐색기입니다.',
+    term: '소구치', linkLabel: '소구치(작은어금니) 위치와 치식 번호 — 서울비디치과 치과 백과사전',
+    height: 620, html: WIDGET_TOOTH_EXPLORER('sg', 'p1'), galleryHidden: true,
+  },
+  {
+    slug: 'tooth-explorer-molar', emoji: '🦷',
+    title: '치아 이름·번호 탐색기 (대구치)',
+    desc: '대구치(큰어금니)를 기본 선택한 치아 이름·치식 번호 탐색기입니다.',
+    term: '대구치', linkLabel: '대구치(큰어금니) 위치와 치식 번호 — 서울비디치과 치과 백과사전',
+    height: 620, html: WIDGET_TOOTH_EXPLORER('dg', 'm1'), galleryHidden: true,
+  },
+  {
+    slug: 'tooth-explorer-canine', emoji: '🦷',
+    title: '치아 이름·번호 탐색기 (견치)',
+    desc: '견치(송곳니)를 기본 선택한 치아 이름·치식 번호 탐색기입니다.',
+    term: '견치', linkLabel: '견치(송곳니) 위치와 치식 번호 — 서울비디치과 치과 백과사전',
+    height: 620, html: WIDGET_TOOTH_EXPLORER('gc', 'cn'), galleryHidden: true,
+  },
 ]
 
 const canonicalOf = (term: string) => `${ORIGIN}/encyclopedia/${encodeURIComponent(term)}`
@@ -184,7 +209,7 @@ ${w.html}
 function renderGallery(): string {
   const all = [
     { slug: 'tooth-numbering', emoji: '🦷', title: '치아 번호 조회기', desc: 'FDI 치식 번호를 입력하면 어느 치아인지 즉시 알려주는 대표 위젯입니다.', term: '치아 번호', height: 760, linkLabel: '치아 번호 읽는 법 — 서울비디치과 치과 백과사전' },
-    ...WIDGETS.map(w => ({ slug: w.slug, emoji: w.emoji, title: w.title, desc: w.desc, term: w.term, height: w.height, linkLabel: w.linkLabel })),
+    ...WIDGETS.filter(w => !w.galleryHidden).map(w => ({ slug: w.slug, emoji: w.emoji, title: w.title, desc: w.desc, term: w.term, height: w.height, linkLabel: w.linkLabel })),
   ]
   const cards = all.map(w => `
 <article style="border:1px solid #e8e0d8;border-radius:16px;padding:20px;background:#fff;display:flex;flex-direction:column;gap:10px;">
