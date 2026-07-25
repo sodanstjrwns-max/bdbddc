@@ -11,8 +11,9 @@
 - **Canonical Domain**: https://bdbddc.com
 - **Sandbox Preview**: https://3000-ij595eoqjfhonf0rq8pba-18e660f9.sandbox.novita.ai
 - **GitHub**: https://github.com/sodanstjrwns-max/bdbddc
+- **위젯 갤러리 (v5.35 신설)**: https://bdbddc.com/widgets — 치과 인터랙티브 위젯 15종 무료 임베드 허브. 개별 위젯은 `/widgets/:slug` (tooth-numbering, inlay-compare, crack-check, implant-anatomy, root-canal-steps, extraction-timeline, teeth-timeline, ortho-compare, whitening-compare, scaling-insurance, tooth-explorer, extrusion-type, tmj-sound, insurance-check, midline-check)
 
-## Current Version: v5.16
+## Current Version: v5.36
 
 ### Completed Features
 
@@ -203,7 +204,10 @@ curl http://localhost:3000/api/health
 - **Platform**: Cloudflare Pages
 - **Project Name**: seoul-bd-dental
 - **Status**: Active
-- **Last Updated**: 2026-07-24 (v5.33)
+- **Last Updated**: 2026-07-25 (v5.36)
+- **v5.36 index.tsx 라우트 분할 1차 (기술 부채 상환)**: 동작 변경 없는 순수 이동으로 모놀리식 진입점 축소 — `src/routes/game-api.ts`(치BTI·치아비행·러닝·충치디펜스 8개 라우트, 253줄) / `src/routes/career-api.ts`(채용 지원 4개 라우트 + Gmail 알림 함수, 292줄) 분리. index.tsx 6,702 → 6,164줄(-538줄, -8.0%). **라우트 등록 순서를 원위치에 유지**해 Hono 매칭 우선순위 불변, 분할 전후 라우트 총수 315개 동일 검증. `app.delete('/api/admin/careers/:id')` 내 지역변수 `app` → `row` 개명(파라미터 섀도잉 제거). 의존 함수는 `Deps` 주입 패턴으로 전달
+- **v5.35 위젯 임베드 허브 — 백링크 수확 구조 15종 확산**: v5.30 `/widgets/tooth-numbering` 단일 임베드 패턴을 전체 위젯으로 확장 (`src/routes/widget-embed.ts` 신설). ①`/widgets` 갤러리 허브 신설(카드 15종·원클릭 퍼가기 코드 복사·CollectionPage + WebApplication 스키마·sitemap-main 등재) ②`/widgets/:slug` 임베드 라우트 14종 신설(noindex,follow + `Content-Security-Policy: frame-ancestors *` + s-maxage 24h, canonical은 원본 백과사전으로) ③백과사전 14개 용어 본문에 "이 위젯 퍼가기" 블록 SSR 자동 삽입(`WIDGET_BY_TERM` 매핑). 모든 임베드 스니펫에 원본 백과사전 do-follow 백링크 포함 → 외부 블로그 임베드가 곧 도메인 권위로 환원되는 구조. enc-super/enc-super-v534 위젯 상수 export 전환
+- **v5.34 제로클릭 거인 8종 회수 (슈퍼 콘텐츠 확산)**: GSC `ctr_low` 분석 기반 — 순위는 좋은데 클릭이 0인 "제목이 병목"인 키워드를 타깃 (`src/routes/enc-super-v534.ts` 신설, 655줄). 대상 8종: 정출·소구치·치식·대구치·견치·턱에서 소리(순위 1.0/노출 55/클릭 0)·정중선·실비보험. 신규 인터랙티브 위젯 5종 — 치아 이름·번호 탐색기(3개 페이지 재사용) / 정출 3유형 판별기 / 턱 소리 트리아지(딸깍 vs 사각사각) / 실비보험 보장 체커 / 정중선 자가 체크. 8×6=48개 전용 FAQ + FAQPage 스키마 자동 반영. **`ENC_SEO_OVERRIDES` 중복 키(소구치·대구치) 제거** — JS 객체 리터럴은 나중 키가 이기므로 신규 타이틀이 구버전에 가려지던 버그 수정. 의료광고법 안전 표현(실비보험 "최종 판단은 본인 보험사" / 턱관절 "진단이 아닌 자가 참고용") 적용
 - **v5.33 백과사전 인터랙티브 위젯 (Tier 3)**: 4개 슈퍼 콘텐츠 페이지에 자기완결형 바닐라JS 위젯 추가 (`src/routes/enc-super.ts`) — ⑪영구치 맹출 순서: 아이 이갈이 시기 계산기(만 나이 선택→교체 치아·체크포인트) ⑫인비절라인: 교정 장치 비교기(투명/세라믹/메탈/설측 탭) ⑬치아 미백: 방식 비교기(오피스/자가/병행/내부/제품) ⑭스케일링 건강보험: 연 1회 적용 체커(나이·사용여부·치주목적 판정). 신규 ENC_SUPER 엔트리 4종 + SEO 오버라이드 4종. 위젯 내부 작은따옴표는 한글 인용부호(‘’)로 처리해 렌더링 안전성 확보. WebApplication/FAQPage 스키마·내부링크·4소스 팩트 정합 유지
 - **v5.32 백과사전 인터랙티브 위젯 (Tier 2)**: 5개 슈퍼 콘텐츠 페이지에 자기완결형 바닐라JS 위젯 추가 (`src/routes/enc-super.ts`) — ①인레이 재료 비교기(골드/세라믹/지르코니아 탭) ②치아 크랙 증상 체커(증상 가중치→단계 판정) ③임플란트 3단 해부도(픽스처·어버트먼트·크라운 클릭) ④신경치료 단계 진행바(1~4회차) ⑤발치 후 회복 타임라인(당일~1개월 슬라이더+드라이소켓 경고). 신규 ENC_SUPER 엔트리 3종(임플란트·신경치료·발치) + SEO 오버라이드 3종 추가. WebApplication/FAQPage 스키마·내부링크·4소스 팩트 정합 유지
 - **v5.31 백과사전 슈퍼 콘텐츠**: GSC 노출 상위 6개 용어(레진·인레이·틀니·치석·법랑질·치아 균열)를 "가이드급 본문 + 맞춤 FAQ + FAQPage 스키마 + 내부링크"로 오버라이드 (`src/routes/enc-super.ts`). v5.30 '치아 번호' 성공 공식(제목에 답 예고 + 표 구조 + 검색의도 100% 해소) 복제. 4소스(HTML/JSON-LD/챗봇KB/llms) 팩트 정합 유지
