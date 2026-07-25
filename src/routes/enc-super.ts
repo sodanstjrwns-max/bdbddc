@@ -27,7 +27,7 @@ const WSUB = 'font-size:0.82rem;color:#8a7a66;margin:0 0 16px;'
 const WBTN = 'cursor:pointer;border:1px solid #d4b896;background:#fff;color:#6B4226;border-radius:10px;padding:10px 14px;font-size:0.88rem;font-weight:600;transition:all .18s;'
 
 /* ── #6 인레이 재료 비교기 (골드/세라믹/지르코니아) ── */
-const WIDGET_INLAY_COMPARE = `
+export const WIDGET_INLAY_COMPARE = `
 <div style="${WBOX}" id="inlayCmp">
 <p style="${WTITLE}">🔬 인레이 재료 비교기</p>
 <p style="${WSUB}">재료를 눌러 장단점·가격·추천 대상을 한눈에 비교하세요 (서울비디치과 수가 기준)</p>
@@ -60,7 +60,7 @@ render('ceramic');
 })();</script>`
 
 /* ── #7 치아 크랙(균열) 증상 자가체커 ── */
-const WIDGET_CRACK_CHECK = `
+export const WIDGET_CRACK_CHECK = `
 <div style="${WBOX}" id="crackChk">
 <p style="${WTITLE}">🩺 치아 크랙 증상 자가 체크</p>
 <p style="${WSUB}">해당하는 증상을 모두 선택하세요. 결과는 참고용이며 정확한 진단은 치과 검진이 필요합니다.</p>
@@ -97,7 +97,7 @@ r.scrollIntoView({behavior:'smooth',block:'nearest'});
 })();</script>`
 
 /* ── #8 임플란트 3단 해부도 (픽스처·어버트먼트·크라운 클릭) ── */
-const WIDGET_IMPLANT_ANATOMY = `
+export const WIDGET_IMPLANT_ANATOMY = `
 <div style="${WBOX}" id="impAna">
 <p style="${WTITLE}">🦷 임플란트 3단 구조 해부도</p>
 <p style="${WSUB}">각 부위를 눌러 역할·재료·체크포인트를 확인하세요. 임플란트는 "인공 치근+연결부+치아" 3단으로 이뤄집니다.</p>
@@ -131,7 +131,7 @@ render('crown');
 })();</script>`
 
 /* ── #9 신경치료 단계 진행바 (1~4회차 인터랙티브) ── */
-const WIDGET_RCT_STEPS = `
+export const WIDGET_RCT_STEPS = `
 <div style="${WBOX}" id="rctStep">
 <p style="${WTITLE}">📊 신경치료 단계 진행바</p>
 <p style="${WSUB}">회차를 눌러 각 단계에서 무엇을 하는지 확인하세요. 치아 상태에 따라 회차는 가감될 수 있습니다.</p>
@@ -154,7 +154,7 @@ sel(0);
 })();</script>`
 
 /* ── #10 발치 후 회복 타임라인 슬라이더 (1일~2주) ── */
-const WIDGET_EXTRACTION_TIMELINE = `
+export const WIDGET_EXTRACTION_TIMELINE = `
 <div style="${WBOX}" id="extTL">
 <p style="${WTITLE}">🗓️ 발치 후 회복 타임라인</p>
 <p style="${WSUB}">슬라이더를 움직여 발치 후 시점별 정상 반응과 주의사항을 확인하세요.</p>
@@ -185,7 +185,7 @@ rng.oninput=function(){render(parseInt(rng.value));};render(0);
 </div>`
 
 /* ── #11 유치→영구치 교체 시기 계산기 (영구치 맹출 순서) ── */
-const WIDGET_TEETH_TIMELINE = `
+export const WIDGET_TEETH_TIMELINE = `
 <div style="${WBOX}" id="teethTL">
 <p style="${WTITLE}">🦷 우리 아이 이갈이(치아 교체) 시기 계산기</p>
 <p style="${WSUB}">아이의 만 나이를 선택하면 지금 빠지고 나는 치아와 체크 포인트를 알려드립니다.</p>
@@ -215,7 +215,7 @@ sel.onchange=render;render();
 })();</script>`
 
 /* ── #12 교정 장치 비교기 (인비절라인) ── */
-const WIDGET_ORTHO_COMPARE = `
+export const WIDGET_ORTHO_COMPARE = `
 <div style="${WBOX}" id="orthoCmp">
 <p style="${WTITLE}">📐 교정 장치 비교기 — 나에게 맞는 방식은?</p>
 <p style="${WSUB}">방식을 눌러 심미성·비용·관리 난이도·적합한 케이스를 한눈에 비교하세요.</p>
@@ -241,7 +241,7 @@ draw(0);
 })();</script>`
 
 /* ── #13 미백 방식 비교기 (치아 미백) ── */
-const WIDGET_WHITENING_COMPARE = `
+export const WIDGET_WHITENING_COMPARE = `
 <div style="${WBOX}" id="whCmp">
 <p style="${WTITLE}">✨ 치아 미백 방식 비교기</p>
 <p style="${WSUB}">방식을 눌러 효과·속도·유지력·비용을 비교하고 나에게 맞는 방법을 찾아보세요.</p>
@@ -268,7 +268,7 @@ draw(0);
 })();</script>`
 
 /* ── #14 스케일링 건강보험 체크 (스케일링 건강보험) ── */
-const WIDGET_SCALING_INSURANCE = `
+export const WIDGET_SCALING_INSURANCE = `
 <div style="${WBOX}" id="scIns">
 <p style="${WTITLE}">💳 스케일링 건강보험 적용 체크</p>
 <p style="${WSUB}">몇 가지만 선택하면 올해 스케일링 보험 적용 여부와 예상 부담을 알려드립니다.</p>

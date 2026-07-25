@@ -26,7 +26,7 @@ const WBTN = 'cursor:pointer;border:1px solid #d4b896;background:#fff;color:#6B4
  * 위젯 A — 치아 이름 탐색기 (소구치·대구치·견치·치식 공용)
  *   defaultKey로 각 페이지의 주인공 치아가 먼저 열리게 함
  * ============================================================ */
-const WIDGET_TOOTH_EXPLORER = (uid: string, defaultKey: string) => `
+export const WIDGET_TOOTH_EXPLORER = (uid: string, defaultKey: string) => `
 <div style="${WBOX}" id="tx-${uid}">
 <p style="${WTITLE}">🦷 치아 이름·번호 탐색기</p>
 <p style="${WSUB}">치아를 누르면 정식 명칭·FDI 치식 번호·개수·나는 시기·역할을 한눈에 보여드립니다</p>
@@ -70,7 +70,7 @@ render('${defaultKey}');
 /* ============================================================
  * 위젯 B — 정출 유형 판별기
  * ============================================================ */
-const WIDGET_EXTRUSION_TYPE = `
+export const WIDGET_EXTRUSION_TYPE = `
 <div style="${WBOX}" id="exType">
 <p style="${WTITLE}">🔎 정출 유형 판별기</p>
 <p style="${WSUB}">같은 &ldquo;정출&rdquo;이라도 원인에 따라 응급도와 치료가 완전히 다릅니다. 상황을 골라보세요</p>
@@ -116,7 +116,7 @@ tabs[0].style.background='#6B4226';tabs[0].style.color='#fff';render('tr');
 /* ============================================================
  * 위젯 C — 턱관절 소리 유형 체커 (GSC 1위 · 클릭 0 회수용)
  * ============================================================ */
-const WIDGET_TMJ_SOUND = `
+export const WIDGET_TMJ_SOUND = `
 <div style="${WBOX}" id="tmjSnd">
 <p style="${WTITLE}">👂 턱에서 나는 소리, 어떤 유형인가요?</p>
 <p style="${WSUB}">소리의 종류와 동반 증상을 고르면 지금 병원에 가야 할 상황인지 알려드립니다</p>
@@ -178,7 +178,7 @@ render();
 /* ============================================================
  * 위젯 D — 실비보험 치과 보장 체커
  * ============================================================ */
-const WIDGET_INSURANCE_CHECK = `
+export const WIDGET_INSURANCE_CHECK = `
 <div style="${WBOX}" id="insChk">
 <p style="${WTITLE}">💳 내 치과 치료, 실비보험 될까?</p>
 <p style="${WSUB}">치료를 받게 된 &ldquo;이유&rdquo;와 &ldquo;항목&rdquo;을 고르면 일반적인 처리 방향을 안내합니다</p>
@@ -239,7 +239,7 @@ render();
 /* ============================================================
  * 위젯 E — 정중선 편위 자가 체크
  * ============================================================ */
-const WIDGET_MIDLINE_CHECK = `
+export const WIDGET_MIDLINE_CHECK = `
 <div style="${WBOX}" id="mlChk">
 <p style="${WTITLE}">📐 내 치아 정중선, 얼마나 틀어졌을까?</p>
 <p style="${WSUB}">거울을 보며 확인한 내용을 고르면 일반적인 판단 기준을 안내합니다</p>

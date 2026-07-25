@@ -5,6 +5,7 @@ import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Bindings } from './types'
 import { registerGscReport } from './routes/gsc-report-dash'
 import { registerToothNumberingWidget, renderToothNumberingPage } from './routes/tooth-numbering'
+import { registerWidgetEmbeds, WIDGET_BY_TERM, embedBoxHtml } from './routes/widget-embed'
 import { ENC_SUPER } from './routes/enc-super'
 import { ENC_SUPER_V534 } from './routes/enc-super-v534'
 import { TRACKING_HEAD } from './lib/layout'
@@ -4619,7 +4620,10 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
   const faqSchemaEntities = allFaqs.map(faq => `{"@type":"Question","name":${JSON.stringify(plainText(faq.q))},"acceptedAnswer":{"@type":"Answer","text":${JSON.stringify(plainText(faq.a))}}}`).join(',')
 
   // === 본문 인터링킹 (슈퍼 콘텐츠는 수동 링크 완비 → interlinkText 스킵) ===
-  const linkedDetail = superC ? superC.detail : interlinkText(item.detail, term, encItems)
+  const baseDetail = superC ? superC.detail : interlinkText(item.detail, term, encItems)
+  // === v5.35: 위젯 보유 용어에 '퍼가기' 블록 자동 삽입 (외부 백링크 수확) ===
+  const embedW = WIDGET_BY_TERM[term]
+  const linkedDetail = embedW ? baseDetail + embedBoxHtml(embedW) : baseDetail
 
   // === CTR 최적화 타이틀/메타 (제로클릭 거인 키워드 오버라이드) ===
   const seoOverride = ENC_SEO_OVERRIDES[term]
@@ -6625,6 +6629,7 @@ app.post('/api/chat', async (c) => {
 
 registerGscReport(app)
 registerToothNumberingWidget(app)
+registerWidgetEmbeds(app)
 
 
 // ============================================
