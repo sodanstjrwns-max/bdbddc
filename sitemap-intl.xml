@@ -718,4 +718,315 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- v5.39: /en/dictionary — 영문 치과 사전 허브 1 + 용어 30 (한국어 백과사전과 양방향 hreflang) -->
+  <url>
+    <loc>https://bdbddc.com/en/dictionary</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/gingivitis</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%9D%80%EC%97%BC"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/gingivitis"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/gingivitis"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/periodontitis</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%A3%BC%EC%97%BC"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/periodontitis"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/periodontitis"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/chronic-periodontitis</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EB%A7%8C%EC%84%B1%20%EC%B9%98%EC%A3%BC%EC%97%BC"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/chronic-periodontitis"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/chronic-periodontitis"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/dental-calculus</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%84%9D"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/dental-calculus"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/dental-calculus"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/pregnancy-gingivitis</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%9E%84%EC%8B%A0%EC%84%B1%20%EC%B9%98%EC%9D%80%EC%97%BC"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/pregnancy-gingivitis"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/pregnancy-gingivitis"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/dental-caries</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B6%A9%EC%B9%98"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/dental-caries"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/dental-caries"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/pulpitis</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%88%98%EC%97%BC"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/pulpitis"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/pulpitis"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/periapical-lesion</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EA%B7%BC%EB%8B%A8%20%EB%B3%91%EC%86%8C"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/periapical-lesion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/periapical-lesion"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/dental-pulp</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%88%98"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/dental-pulp"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/dental-pulp"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/tooth-discoloration</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%95%84%20%EB%B3%80%EC%83%89"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/tooth-discoloration"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/tooth-discoloration"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/cracked-tooth-syndrome</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%95%84%20%EA%B7%A0%EC%97%B4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/cracked-tooth-syndrome"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/cracked-tooth-syndrome"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/tooth-fracture</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%95%84%20%ED%8C%8C%EC%A0%88"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/tooth-fracture"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/tooth-fracture"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/wisdom-tooth</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%82%AC%EB%9E%91%EB%8B%88"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/wisdom-tooth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/wisdom-tooth"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/impacted-tooth</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EB%A7%A4%EB%B3%B5%EC%B9%98"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/impacted-tooth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/impacted-tooth"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/supernumerary-tooth</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EA%B3%BC%EC%9E%89%EC%B9%98"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/supernumerary-tooth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/supernumerary-tooth"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/primary-teeth</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%9C%A0%EC%B9%98"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/primary-teeth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/primary-teeth"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/malocclusion</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EB%B6%80%EC%A0%95%EA%B5%90%ED%95%A9"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/malocclusion"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/malocclusion"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/bruxism</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%9D%B4%EA%B0%88%EC%9D%B4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/bruxism"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/bruxism"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/tmj-disorder</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%ED%84%B1%EA%B4%80%EC%A0%88%20%EC%9E%A5%EC%95%A0"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/tmj-disorder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/tmj-disorder"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/tmj-clicking</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%ED%84%B1%EC%97%90%EC%84%9C%20%EC%86%8C%EB%A6%AC"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/tmj-clicking"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/tmj-clicking"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/halitosis</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EA%B5%AC%EC%B7%A8"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/halitosis"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/halitosis"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/stomatitis</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EA%B5%AC%EB%82%B4%EC%97%BC"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/stomatitis"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/stomatitis"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/geographic-tongue</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%A7%80%EB%8F%84%EC%84%A4"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/geographic-tongue"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/geographic-tongue"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/oral-thrush</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EA%B5%AC%EA%B0%95%20%EC%B9%B8%EB%94%94%EB%8B%A4%EC%A6%9D"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/oral-thrush"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/oral-thrush"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/leukoplakia</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EB%B0%B1%EB%B0%98%EC%A6%9D"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/leukoplakia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/leukoplakia"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/oral-cancer</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EA%B5%AC%EA%B0%95%EC%95%94"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/oral-cancer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/oral-cancer"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/enamel</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EB%B2%95%EB%9E%91%EC%A7%88"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/enamel"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/enamel"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/dentin</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%83%81%EC%95%84%EC%A7%88"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/dentin"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/dentin"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/alveolar-bone</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%A1%B0%EA%B3%A8"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/alveolar-bone"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/alveolar-bone"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://bdbddc.com/en/dictionary/periodontal-ligament</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/encyclopedia/%EC%B9%98%EC%A3%BC%EC%9D%B8%EB%8C%80"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/periodontal-ligament"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/dictionary/periodontal-ligament"/>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

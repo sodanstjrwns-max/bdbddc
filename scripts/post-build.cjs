@@ -55,7 +55,15 @@ const routes = {
     '/favicon.ico','/apple-touch-icon.png',
     '/robots.txt','/6f74445f7ec14eccb522a4d3f253128c.txt','/bdbddc2026indexnow.txt',
     '/llms.txt','/llms-full.txt','/sw.js','/report/*','/videos/*',
-    '/en/*','/vi/*','/th/*','/ru/*','/jp/*','/cn/*'
+    // ⚠️ v5.39: '/en/*' 와일드카드 금지!
+    // /en/dictionary/* 는 Worker SSR 라우트이므로 exclude 되면 404 가 된다.
+    // 정적 파일이 실제로 존재하는 /en/ 경로만 개별 열거한다.
+    // (public/_routes.json 과 동일하게 유지할 것)
+    '/en','/en/','/en/index.html',
+    '/en/implant.html','/en/invisalign.html','/en/laminate.html',
+    '/en/pricing.html','/en/directions.html','/en/reservation.html',
+    '/en/guide','/en/guide/*',
+    '/vi/*','/th/*','/ru/*','/jp/*','/cn/*'
   ]
 };
 fs.writeFileSync('dist/_routes.json', JSON.stringify(routes, null, 2));

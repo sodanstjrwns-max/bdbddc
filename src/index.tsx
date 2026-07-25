@@ -11,6 +11,43 @@ import { registerCareerApis } from './routes/career-api'
 import { ENC_SUPER } from './routes/enc-super'
 import { ENC_SUPER_V534 } from './routes/enc-super-v534'
 import { ENC_SUPER_V538 } from './routes/enc-super-v538'
+import { registerEnDictionary } from './routes/en-dictionary'
+
+// v5.39: 한국어 백과사전 ↔ 영문 사전 역방향 hreflang 매핑 (30쌍)
+//  영문 페이지는 이미 hreflang="ko"로 한글을 가리키므로, 여기서 반대 방향을
+//  선언해 양방향 클러스터를 완성한다. (단방향이면 구글이 무시함)
+const EN_DICT_BY_KO: Record<string, string> = {
+  "치은염": "gingivitis",
+  "치주염": "periodontitis",
+  "만성 치주염": "chronic-periodontitis",
+  "치석": "dental-calculus",
+  "임신성 치은염": "pregnancy-gingivitis",
+  "충치": "dental-caries",
+  "치수염": "pulpitis",
+  "치근단 병소": "periapical-lesion",
+  "치수": "dental-pulp",
+  "치아 변색": "tooth-discoloration",
+  "치아 균열": "cracked-tooth-syndrome",
+  "치아 파절": "tooth-fracture",
+  "사랑니": "wisdom-tooth",
+  "매복치": "impacted-tooth",
+  "과잉치": "supernumerary-tooth",
+  "유치": "primary-teeth",
+  "부정교합": "malocclusion",
+  "이갈이": "bruxism",
+  "턱관절 장애": "tmj-disorder",
+  "턱에서 소리": "tmj-clicking",
+  "구취": "halitosis",
+  "구내염": "stomatitis",
+  "지도설": "geographic-tongue",
+  "구강 칸디다증": "oral-thrush",
+  "백반증": "leukoplakia",
+  "구강암": "oral-cancer",
+  "법랑질": "enamel",
+  "상아질": "dentin",
+  "치조골": "alveolar-bone",
+  "치주인대": "periodontal-ligament"
+}
 import { TRACKING_HEAD } from './lib/layout'
 import { ADMIN_SESSION_COOKIE, SESSION_MAX_AGE, getSessionSecret, createSessionToken, verifySessionToken, isRateLimitedD1 } from './lib/security'
 import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSession, verifySiteSession, ensureMembersMigrated, findMemberByEmail, findMemberById, insertMemberD1, sha256Hex } from './lib/auth'
@@ -1585,6 +1622,13 @@ app.get('/apple-touch-icon-precomposed.png', (c) => {
 //    이 catch-all은 "실존하지 않는 레거시 경로"만 담당하도록 화이트리스트로 축소.
 // ============================================
 
+// ============================================
+// v5.39: /en/dictionary — 영문 치과 사전 30종 (Worker SSR)
+// ⚠️ 반드시 아래 /en/* catch-all 보다 먼저 등록해야 한다.
+//    (Hono는 등록 순서대로 매칭 — catch-all이 먼저면 301로 튕긴다)
+// ============================================
+registerEnDictionary(app)
+
 // v5.39: 살아 있어야 하는 /en/ 경로 (정적 파일 or Worker 라우트)
 // _routes.json exclude가 1차 방어선이고, 아래는 2차 안전망이다.
 const EN_LIVE_PREFIXES = [
@@ -1596,6 +1640,13 @@ const EN_LIVE_EXACT = new Set([
   '/en/pricing.html', '/en/directions.html', '/en/reservation.html',
   '/en/guide', '/en/guide/', '/en/guide/index.html',
   '/en/guide/implant.html', '/en/guide/invisalign.html', '/en/guide/laminate.html',
+  // v5.39: sitemap-intl.xml이 광고하는 확장자 없는 클린 URL도 반드시 통과시킨다.
+  // 프로덕션 Pages는 자산 정규화 후 exclude를 적용해 200을 주지만
+  // wrangler pages dev(로컬)는 Worker로 먼저 넘기므로 여기서 next() 해야 한다.
+  // → 환경 간 동작 차이를 없애기 위해 양쪽 형태를 모두 화이트리스트.
+  '/en/implant', '/en/invisalign', '/en/laminate',
+  '/en/pricing', '/en/directions', '/en/reservation',
+  '/en/guide/implant', '/en/guide/invisalign', '/en/guide/laminate',
 ])
 
 app.get('/en/*', async (c, next) => {
@@ -4476,7 +4527,10 @@ ${TRACKING_HEAD}
 <meta name="keywords" content="${term}, ${item.category}, 치과 용어, 서울비디치과, ${(item.synonyms || []).join(', ')}">
 <meta name="author" content="서울비디치과">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-<link rel="canonical" href="${canonicalUrl}">
+<link rel="canonical" href="${canonicalUrl}">${EN_DICT_BY_KO[term] ? `
+<link rel="alternate" hreflang="ko" href="${canonicalUrl}">
+<link rel="alternate" hreflang="en" href="https://bdbddc.com/en/dictionary/${EN_DICT_BY_KO[term]}">
+<link rel="alternate" hreflang="x-default" href="${canonicalUrl}">` : ''}
 <meta property="og:title" content="${pageTitle}">
 <meta property="og:description" content="${pageDesc}">
 <meta property="og:type" content="article">
