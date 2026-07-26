@@ -4322,6 +4322,30 @@ const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
   },
 }
 
+// ============================================
+// v5.40: 백과사전 → 전용 가이드 301 통합 맵
+// ------------------------------------------------------------------
+// 같은 검색 의도를 여러 백과 항목이 나눠 갖는 카니발라이제이션을 끊는다.
+// 원칙: 해당 주제 전용 랜딩이 이미 있고 그쪽이 더 깊은 경우에만 통합한다.
+//   - '실비보험'(216노출·13위)은 v5.34 슈퍼 콘텐츠라 백과에 그대로 존치 →
+//     대신 본문 상단에 /guide/insurance 대형 유도 배너를 붙여 권위를 흘려보낸다.
+//   - 나머지 3개는 실질 중복이므로 가이드로 영구 통합.
+// ============================================
+const ENC_TO_GUIDE_301: Record<string, string> = {
+  '실비보험 치과 적용': '/guide/insurance',
+  '실손 보험 치과': '/guide/insurance',
+  '실비보험 청구': '/guide/insurance',
+}
+
+// v5.40: 존치하는 대표 백과 항목 → 전용 가이드 유도 배너 (301 대신 2️⃣ 방식)
+const ENC_GUIDE_NUDGE: Record<string, { href: string; title: string; desc: string }> = {
+  '실비보험': {
+    href: '/guide/insurance',
+    title: '치과 실비보험 청구 가능 항목 총정리',
+    desc: '사랑니 발치·신경치료는 되는데 임플란트·레진은 왜 안 될까? 항목별 보장 여부와 청구 서류, 세대별 자기부담률까지 한 페이지에 정리했습니다.',
+  },
+}
+
 app.get('/encyclopedia/:term', async (c) => {
   // ▶ 방어: 잘리거나 깨진 퍼센트 인코딩(예: %ED%84%B1%EA%B4%8)이 들어오면
   //   decodeURIComponent가 URIError를 던져 500(5xx)이 된다 → try-catch로 흡수해 백과 메인으로 보냄
@@ -4335,6 +4359,17 @@ app.get('/encyclopedia/:term', async (c) => {
   const encItems = await getEncItems(c)
   if (encItems.length === 0) return c.redirect('/encyclopedia/', 302)
 
+  // ★ v5.40 실비 클러스터 카니발라이제이션 해소 (3️⃣ 절충안)
+  //   GSC 실측: /encyclopedia/실비보험 216노출 13.1위 클릭 0
+  //             /encyclopedia/실비보험 치과 적용 169노출 18.9위 클릭 0
+  //   실비 관련 백과 항목이 4개로 흩어져 서로 순위를 나눠 갖는 동시에,
+  //   정작 이 주제 전용 랜딩인 /guide/insurance(40KB)의 권위까지 희석시키고 있었다.
+  //   → 대표 1개(실비보험, v5.34 슈퍼 콘텐츠)만 남기고 중복 3개는 가이드로 301 통합.
+  //   (동의어 301과 동일한 v5.8 시그널 통합 패턴의 확장)
+  if (ENC_TO_GUIDE_301[termParam]) {
+    return c.redirect(ENC_TO_GUIDE_301[termParam], 301)
+  }
+
   // 용어 찾기 (정확 매치 → 동의어 매치)
   let item = encItems.find(i => i.term === termParam)
   if (!item) {
@@ -4343,6 +4378,12 @@ app.get('/encyclopedia/:term', async (c) => {
     //    크롤 예산 낭비 없이 대표어 1개 URL로 시그널 통합)
     const synItem = encItems.find(i => (i.synonyms || []).includes(termParam))
     if (synItem) {
+      // ★ v5.40: 대표어가 가이드로 통합된 항목이면 리다이렉트 체인을 만들지 않고
+      //   한 번에 최종 목적지로 보낸다.
+      //   (예: '실손보험 치과' → '실비보험 치과 적용' → /guide/insurance 는 2단계 체인 →
+      //    크롤 예산 낭비 + 권위 전달 손실. 곧바로 /guide/insurance 로 301)
+      const finalGuide = ENC_TO_GUIDE_301[synItem.term]
+      if (finalGuide) return c.redirect(finalGuide, 301)
       return c.redirect(`/encyclopedia/${encodeURIComponent(synItem.term)}`, 301)
     }
   }
@@ -4484,7 +4525,20 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
   const baseDetail = superC ? superC.detail : interlinkText(item.detail, term, encItems)
   // === v5.35: 위젯 보유 용어에 '퍼가기' 블록 자동 삽입 (외부 백링크 수확) ===
   const embedW = WIDGET_BY_TERM[term]
-  const linkedDetail = embedW ? baseDetail + embedBoxHtml(embedW) : baseDetail
+  const withEmbed = embedW ? baseDetail + embedBoxHtml(embedW) : baseDetail
+
+  // === v5.40: 전용 가이드 유도 배너 (카니발라이제이션 완화 2️⃣) ===
+  //   백과 항목을 존치하되 본문 최상단에서 더 깊은 전용 랜딩으로 흘려보낸다.
+  //   중복 3개는 301 통합(ENC_TO_GUIDE_301)했고, 대표 항목만 이 배너를 받는다.
+  const guideNudge = ENC_GUIDE_NUDGE[term]
+  const linkedDetail = guideNudge
+    ? `<a href="${guideNudge.href}" style="display:block;background:linear-gradient(135deg,#6B4226,#8a5c37);color:#fff;border-radius:16px;padding:20px 22px;margin:0 0 22px;text-decoration:none;">
+<div style="font-size:0.75rem;letter-spacing:0.06em;color:#E9C46A;font-weight:800;margin-bottom:6px;">📘 전체 가이드</div>
+<div style="font-size:1.08rem;font-weight:900;line-height:1.45;margin-bottom:6px;">${guideNudge.title}</div>
+<div style="font-size:0.88rem;opacity:0.92;line-height:1.6;">${guideNudge.desc}</div>
+<div style="margin-top:12px;font-size:0.85rem;font-weight:800;color:#E9C46A;">가이드 전문 보기 →</div>
+</a>` + withEmbed
+    : withEmbed
 
   // === CTR 최적화 타이틀/메타 (제로클릭 거인 키워드 오버라이드) ===
   const seoOverride = ENC_SEO_OVERRIDES[term]
@@ -5084,6 +5138,8 @@ app.get('/guide/denture', serveStatic({ path: './guide/denture.html' }))
 app.get('/guide/root-canal', serveStatic({ path: './guide/root-canal.html' }))
 app.get('/guide/orthodontics', serveStatic({ path: './guide/orthodontics.html' }))
 app.get('/guide/insurance', serveStatic({ path: './guide/insurance.html' }))
+// v5.40: 과잉진료 판별 가이드 (「치과 과잉진료」 29노출 10.6위 · 「치과 과잉진료 신고 후기」 7노출 13.0위)
+app.get('/guide/overtreatment', serveStatic({ path: './guide/overtreatment.html' }))
 app.get('/guide/regret', serveStatic({ path: './guide/regret.html' }))
 // 후회 백서 진료별 세부 페이지 (SEO/AEO 스포크: "<진료명> 후회", "<진료명> 부작용")
 const REGRET_SLUGS = ['implant', 'orthodontics', 'invisalign', 'laminate', 'whitening', 'wisdom-tooth', 'root-canal', 'crown', 'denture', 'scaling', 'cavity', 'gum']
@@ -5104,6 +5160,7 @@ app.get('/guide/denture.html', (c) => c.redirect('/guide/denture', 301))
 app.get('/guide/root-canal.html', (c) => c.redirect('/guide/root-canal', 301))
 app.get('/guide/orthodontics.html', (c) => c.redirect('/guide/orthodontics', 301))
 app.get('/guide/insurance.html', (c) => c.redirect('/guide/insurance', 301))
+app.get('/guide/overtreatment.html', (c) => c.redirect('/guide/overtreatment', 301))
 app.get('/guide/regret.html', (c) => c.redirect('/guide/regret', 301))
 
 // ============================================
@@ -5116,6 +5173,7 @@ app.get('/guide/regret.html', (c) => c.redirect('/guide/regret', 301))
 const EXISTING_GUIDES = new Set([
   'implant', 'invisalign', 'laminate', 'scaling', 'whitening',
   'wisdom-tooth', 'denture', 'root-canal', 'orthodontics', 'insurance', 'regret',
+  'overtreatment',
 ])
 
 function mapDeadGuideSlug(slug: string): string {
@@ -5135,6 +5193,7 @@ function mapDeadGuideSlug(slug: string): string {
   if (has('denture', 'prosthet', 'crown', 'pfm', 'zirconia', 'bridge')) return '/guide/denture'
   if (has('root-canal', 'endo', 'pulp', 'perforation', 'file-separation', 'microscope', 'apico')) return '/guide/root-canal'
   if (has('tmj', 'disc', 'headache', 'botox', 'masseter')) return '/guide/regret'
+  if (has('overtreat', 'second-opinion', 'informed-consent', 'treatment-plan', 'estimate', 'itemized')) return '/guide/overtreatment'
   if (has('insurance', 'cost', 'checkup', 'national', 'caries-risk', 'saliva')) return '/guide/insurance'
   if (has('pediatric', 'child', 'baby', 'primary-tooth', 'sealant', 'sedation', 'thumb')) return '/treatments/pediatric'
   if (has('cancer', 'leukoplakia', 'erythroplakia', 'selfexam', 'oral-medicine')) return '/treatments/oral-medicine'
