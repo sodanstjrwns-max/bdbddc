@@ -4197,6 +4197,225 @@ function interlinkText(text: string, currentTerm: string, allItems: EncItem[]): 
   return result
 }
 
+// ════════════════════════════════════════════════════════════════════
+// v5.43 — 백과사전 자동 제목/설명 빌더 (수동 오버라이드 미보유 796종)
+//
+// 배경: 「단어 정의」 인텐트 CTR 0.35% vs 「후회·판단」 인텐트 5.54%(16배).
+//       원인은 순위가 아니라 제목이 답을 예고하지 않는 것.
+//       기존 자동 제목 `○○ | 치과 백과사전 — 서울비디치과` 는 정보량 0.
+//
+// 방식: v5.42에서 본문을 두껍게 만들어 둔 덕에, 각 항목이 어떤 정보를
+//       품고 있는지를 h3 소제목 구조에서 기계적으로 읽어낼 수 있다.
+//       그 신호(증상·원인·치료·주의·장단점·적응증·과정·보험)와
+//       카테고리 성격을 조합해 "무엇을 알게 되는지"를 제목에 예고한다.
+//
+// 안전장치:
+//   1) 중대질환(암·종양·괴사·골수염 등)은 최우선 게이트로 분리해
+//      불안을 자극하거나 치료를 유도하는 훅을 배제하고 정보 전달형만 사용
+//   2) 최상급·보장·비교우위 표현 없음 (의료광고법)
+//   3) term 해시로 문구를 분산해 동일 제목 반복 방지
+//   4) 수동 오버라이드(ENC_SEO_OVERRIDES)가 있으면 항상 그쪽이 우선
+// ════════════════════════════════════════════════════════════════════
+
+/** 한글 받침 유무 판정 — 괄호 주석은 제거하고 본체 끝 글자로 판단 */
+function encHasJong(word: string): boolean {
+  const w = word.replace(/[（(].*$/, '').trim().replace(/[^가-힣A-Za-z0-9]/g, '')
+  if (!w) return true
+  const c = w[w.length - 1]
+  const code = c.charCodeAt(0)
+  if (code >= 0xac00 && code <= 0xd7a3) return (code - 0xac00) % 28 !== 0
+  if (/[0-9]/.test(c)) return '0136780'.includes(c)
+  return 'lmnr'.includes(c.toLowerCase())
+}
+const encIran = (t: string) => t + (encHasJong(t) ? '이란' : '란')
+
+/** 본문 h3 구조 + 평문에서 콘텐츠 신호 추출 */
+function encSignals(item: { detail?: string }): Set<string> {
+  const det = item.detail || ''
+  const hs = (det.match(/<h3[^>]*>([\s\S]*?)<\/h3>/g) || []).join(' ').replace(/<[^>]+>/g, '')
+  const pl = det.replace(/<[^>]+>/g, '')
+  const s = new Set<string>()
+  const inH = (...w: string[]) => w.some(x => hs.includes(x))
+  const inP = (...w: string[]) => w.some(x => pl.includes(x))
+  if (inH('증상', '진단')) s.add('증상')
+  if (inH('원인')) s.add('원인')
+  if (inH('치료', '관리', '대처')) s.add('치료')
+  if (inH('주의')) s.add('주의')
+  if (inH('장점', '단점', '한계', '비교', '장단점')) s.add('장단점')
+  if (inH('적응증', '금기')) s.add('적응증')
+  if (inH('과정', '절차', '단계')) s.add('과정')
+  if (inP('건강보험', '급여', '본인부담', '보험 적용')) s.add('보험')
+  return s
+}
+
+/** 카테고리 → 성격 그룹 (제목 어조를 카테고리에 맞추기 위함) */
+const ENC_CAT_GROUP: Record<string, string> = {
+  '치아 구조': '해부', '전문 용어': '용어',
+  '치과 질환': '질환', '치주 질환': '질환', '구강내과 질환': '질환',
+  '치수·치아 질환': '질환', '구강 점막 질환': '질환', '턱관절·구강외과': '질환',
+  '치료·시술': '시술', '임플란트': '시술', '교정': '시술', '보철': '시술',
+  '신경치료': '시술', '심미 치과': '시술', '마취·진정': '시술',
+  '치과 재료': '재료', '장비·기술': '재료', '디지털 치과': '재료',
+  '보험·비용': '비용', '소아 치과': '소아', '구강 관리': '관리',
+  '전신 건강': '관리', '여성·임산부 치과': '관리',
+}
+
+/** 🚨 중대질환 게이트 — 자극·유도형 훅 금지, 정보 전달형만 사용 */
+const ENC_CRITICAL = /암|종양|악성|괴사|BRONJ|백반|편평태선|골수염|전암|육종/
+const ENC_CRIT_HOOKS = [
+  '어떤 질환이고 무엇을 살펴야 하나',
+  '알아두어야 할 특징과 경과',
+  '어떤 상태를 가리키는 말인가',
+  '무엇을 뜻하고 어떻게 진단하나',
+]
+
+/** term 문자열 해시로 후보 중 하나를 고정 선택 (같은 용어는 항상 같은 문구) */
+function encPick(cands: string[], key: string): string {
+  let h = 0
+  for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0
+  return cands[h % cands.length]
+}
+
+function encHook(item: { term: string; category: string; detail?: string }): string {
+  const t = item.term
+  if (ENC_CRITICAL.test(t)) return encPick(ENC_CRIT_HOOKS, t)   // 최우선 게이트
+  const s = encSignals(item)
+  const g = ENC_CAT_GROUP[item.category] || '용어'
+  const P = (c: string[]) => encPick(c, t)
+
+  if (g === '해부') {
+    if (s.has('증상') || s.has('원인')) return P(['어디를 말하고 무슨 문제가 생기나', '위치와 역할, 생길 수 있는 문제'])
+    return P(['어디에 있고 무슨 일을 하나', '위치와 역할을 쉽게', '어느 부위를 가리키는 말인가'])
+  }
+  if (g === '용어') {
+    if (s.has('보험')) return '무슨 뜻인가, 건강보험과 어떤 관계인가'
+    return P(['진료실에서 이 말이 나오면 무슨 뜻인가', '차트에 적힌 이 말의 뜻', '무슨 뜻이고 언제 쓰는 말인가'])
+  }
+  if (g === '질환') {
+    if (s.has('원인') && s.has('증상') && s.has('치료')) return P(['왜 생기고 어떻게 치료하나', '원인·증상과 치료 방법', '증상부터 치료까지 한 번에'])
+    if (s.has('증상') && s.has('치료')) return P(['어떤 증상이면 치료가 필요한가', '증상과 치료 시점'])
+    if (s.has('원인')) return P(['왜 생기나, 무엇을 조심하나', '원인과 예방법'])
+    if (s.has('증상')) return P(['어떤 증상으로 나타나나', '놓치기 쉬운 증상'])
+    if (s.has('치료')) return P(['어떻게 치료하고 관리하나', '치료 방법과 관리 요령'])
+    return P(['무엇이고 왜 문제가 되나', '알아둬야 할 점'])
+  }
+  if (g === '시술') {
+    if (s.has('보험')) return '건강보험 되나요, 비용은 어떻게 되나'
+    if (s.has('적응증') && s.has('장단점')) return P(['어떤 경우에 하고 장단점은 무엇인가', '대상과 장단점'])
+    if (s.has('적응증')) return P(['어떤 경우에 하고 어떤 경우엔 안 하나', '누구에게 필요한 치료인가'])
+    if (s.has('과정') && s.has('주의')) return P(['어떤 순서로 진행되고 무엇을 주의하나', '진행 과정과 회복 중 주의점'])
+    if (s.has('과정')) return P(['어떤 순서로 진행되나', '치료 과정 한눈에'])
+    if (s.has('장단점')) return P(['장점과 한계를 함께 보면', '어떤 점이 좋고 어떤 점이 아쉬운가'])
+    if (s.has('주의')) return P(['미리 알아두면 좋은 점', '받기 전에 확인할 것'])
+    return P(['어떤 치료이고 누구에게 필요한가', '무엇을 어떻게 하는 치료인가'])
+  }
+  if (g === '재료') {
+    if (s.has('장단점')) return P(['어떤 점이 좋고 어떤 점이 아쉬운가', '장단점과 선택 기준'])
+    return P(['어디에 쓰이고 무엇이 다른가', '어떤 때 쓰는 것인가'])
+  }
+  if (g === '비용') return P(['건강보험 되나요, 얼마나 내나', '무엇이 보험이고 무엇이 비급여인가', '비용 구조 이해하기'])
+  if (g === '소아') {
+    if (s.has('치료')) return P(['우리 아이, 언제 어떻게 해야 하나', '아이에게 필요한 시기와 방법'])
+    return P(['우리 아이에게 무슨 뜻인가', '부모가 알아두면 좋은 것'])
+  }
+  if (g === '관리') return P(['왜 중요하고 어떻게 관리하나', '집에서 할 수 있는 관리법', '관리 요령과 흔한 실수'])
+  return '뜻과 알아둘 점'
+}
+
+/** 자동 제목 — `○○이란? — <답 예고> | 서울비디치과` */
+function buildEncTitle(item: { term: string; category: string; detail?: string }): string {
+  return `${encIran(item.term)}? — ${encHook(item)} | 서울비디치과`
+}
+
+/**
+ * 훅(제목용 의문구)을 설명문 안에 넣을 수 있는 형태로 변환한다.
+ *   "무엇을 뜻하고 어떻게 진단하나" → "무엇을 뜻하고 어떻게 진단하는지"
+ *   "어느 부위를 가리키는 말인가"   → "어느 부위를 가리키는 말인지"
+ *   "치료 과정 한눈에"             → "치료 과정을"           (부사구는 명시 치환)
+ *   "원인과 예방법"                → "원인과 예방법을"        (일반 명사구는 조사 부착)
+ * 의문형 훅에 을/를 을 붙이면("…진단하나를 정리했습니다") 문법은 맞아도 읽기 나쁘다.
+ */
+const ENC_HOOK_STMT_MAP: Record<string, string> = {
+  '위치와 역할을 쉽게': '위치와 역할을',
+  '증상부터 치료까지 한 번에': '증상부터 치료까지',
+  '치료 과정 한눈에': '치료 과정을',
+  '장점과 한계를 함께 보면': '장점과 한계를 함께',
+  '비용 구조 이해하기': '비용 구조를',
+}
+function encHookStmt(hook: string): string {
+  const mapped = ENC_HOOK_STMT_MAP[hook]
+  if (mapped) return mapped
+
+  const clauses = hook.split(',').map(c => c.trim())
+  let changed = false
+  const out = clauses.map(c => {
+    if (/하나$/.test(c)) { changed = true; return c.slice(0, -1) + '는지' }
+    if (/나요$/.test(c)) { changed = true; return c.slice(0, -2) + '는지' }
+    if (/나$/.test(c)) { changed = true; return c.slice(0, -1) + '는지' }
+    if (/가$/.test(c) && c.length >= 2) {
+      const prev = c.charCodeAt(c.length - 2)
+      // 앞 글자 받침이 ㄴ 인 경우만(인가/한가/른가/운가…) → 지
+      if (prev >= 0xac00 && prev <= 0xd7a3 && (prev - 0xac00) % 28 === 4) {
+        changed = true
+        return c.slice(0, -1) + '지'
+      }
+    }
+    return c
+  })
+  if (changed) return out.join(', ')
+  return hook + (encHasJong(hook) ? '을' : '를')
+}
+
+/**
+ * 자동 설명 — 기존 상투구("서울대 출신 전문의가 감수한 정확한 치과 정보")를
+ * 본문 요약으로 대체해 796개 전부 동일하던 뒷부분을 제거한다.
+ *
+ * 주의점 3가지:
+ *   1) short 와 본문 첫 문장이 거의 같은 항목이 많다 → 중복 시 본문 쪽을 건너뛴다
+ *   2) 훅 뒤에 붙는 조사는 받침에 따라 을/를 이 달라진다
+ *   3) 구글 표시 한계(약 160자)를 넘기지 않도록 총량을 자른다
+ */
+function buildEncDesc(item: { term: string; category: string; short: string; detail?: string }): string {
+  const norm = (s: string) => s.replace(/[^가-힣A-Za-z0-9]/g, '')
+  const lead = (item.detail || '')
+    .replace(/<h3[^>]*>[\s\S]*?<\/h3>/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&[a-z]+;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  const short = (item.short || '').trim()
+  // 본문 첫 문장이 short 와 사실상 같으면 그 문장은 버리고 다음 문장부터 쓴다
+  const sents = lead.split(/(?<=[.!?])\s+/)
+  let rest = lead
+  if (sents.length && short) {
+    const a = norm(sents[0]), b = norm(short)
+    if (a.includes(b) || b.includes(a)) rest = sents.slice(1).join(' ').trim()
+  }
+
+  const hook = encHook(item)
+  const tailTxt = ` — ${encHookStmt(hook)} 정리했습니다. 서울비디치과 치과 백과사전.`
+
+  // head(용어? + short) 자체가 긴 항목이 있다 → 문장 경계에서 먼저 줄인다
+  let head = `${encIran(item.term)}? ${short}`.trim()
+  const headCap = 155 - tailTxt.length
+  if (head.length > headCap) {
+    const cut = head.slice(0, headCap)
+    const lastSent = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('! '), cut.lastIndexOf('? '))
+    head = lastSent > 40
+      ? cut.slice(0, lastSent + 1)
+      : cut.replace(/\s+\S*$/, '') + '…'
+  }
+
+  const budget = 155 - head.length - tailTxt.length
+  let body = ''
+  if (budget > 20 && rest) {
+    body = ' ' + rest.slice(0, budget).replace(/\s+\S*$/, '')
+    if (rest.length > budget) body += '…'
+  }
+  return `${head}${body}${tailTxt}`
+}
+
 // ============================================
 // 제로클릭 거인 키워드 — CTR 최적화 타이틀/메타 오버라이드
 // (GSC 2026.3~6 데이터 기반: 노출 수천 회인데 클릭이 거의 없는 용어들)
@@ -4689,8 +4908,13 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
 
   // === CTR 최적화 타이틀/메타 (제로클릭 거인 키워드 오버라이드) ===
   const seoOverride = ENC_SEO_OVERRIDES[term]
-  const pageTitle = seoOverride ? seoOverride.title : `${term} | 치과 백과사전 — 서울비디치과`
-  const pageDesc = seoOverride ? seoOverride.desc : `${term}이란? ${item.short} — 서울비디치과 치과 백과사전. 서울대 출신 전문의가 감수한 정확한 치과 정보.`
+  // v5.43: 수동 오버라이드가 없으면 buildEncTitle/Desc 로 답 예고형 제목 자동 생성
+  const pageTitleRaw = seoOverride ? seoOverride.title : buildEncTitle(item)
+  const pageDescRaw = seoOverride ? seoOverride.desc : buildEncDesc(item)
+  // v5.43: 큰따옴표가 섞인 short/detail 때문에 meta content 속성이 조기 종료되던 버그 수정
+  const metaEsc = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  const pageTitle = metaEsc(pageTitleRaw)
+  const pageDesc = metaEsc(pageDescRaw)
 
   // === 같은 카테고리 관련 용어 (최대 8개) ===
   const relatedItems = encItems.filter(i => i.category === item!.category && i.id !== item!.id).slice(0, 8)
@@ -4743,9 +4967,9 @@ ${TRACKING_HEAD}
 <meta name="twitter:title" content="${pageTitle}">
 <meta name="twitter:description" content="${pageDesc}">
 <meta name="twitter:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
-<meta name="subject" content="${term}, ${item.category}, 치과 용어, 서울비디치과">
-<meta name="abstract" content="${term}이란? ${item.short} — 서울비디치과 치과 백과사전.">
-<meta name="ai-summary" content="${term}이란? ${plainText(item.short + ' ' + item.detail).slice(0, 200)}">
+<meta name="subject" content="${metaEsc(term + ', ' + item.category + ', 치과 용어, 서울비디치과')}">
+<meta name="abstract" content="${metaEsc(term + '이란? ' + item.short + ' — 서울비디치과 치과 백과사전.')}">
+<meta name="ai-summary" content="${metaEsc(term + '이란? ' + plainText(item.short + ' ' + item.detail).slice(0, 200))}">
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#6B4226">
