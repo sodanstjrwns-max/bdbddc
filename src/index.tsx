@@ -8,6 +8,7 @@ import { registerToothNumberingWidget, renderToothNumberingPage } from './routes
 import { registerWidgetEmbeds, WIDGET_BY_TERM, embedBoxHtml } from './routes/widget-embed'
 import { registerGameApis } from './routes/game-api'
 import { registerCareerApis } from './routes/career-api'
+import { getBlogEnrichment } from './routes/blog-enrich'
 import { ENC_SUPER } from './routes/enc-super'
 import { ENC_SUPER_V534 } from './routes/enc-super-v534'
 import { ENC_SUPER_V538 } from './routes/enc-super-v538'
@@ -2214,7 +2215,7 @@ function ssrMobileNav(): string {
 // ============================================
 // 인블로그 프록시 HTML 정리 함수
 // ============================================
-function cleanInblogHtml(html: string): string {
+function cleanInblogHtml(html: string, reqPath?: string): string {
   // 1) 인블로그 내부 링크를 /blog로 변환
   html = html.replace(/href="\/(?!blog)/g, 'href="/blog/')
   html = html.replace(/href="https:\/\/bdbddc\.inblog\.ai\//g, 'href="/blog/')
@@ -2318,6 +2319,26 @@ form:has(input[placeholder="Email"]) { display: none !important; }
     }
   }
 
+  // 7) [v5.41] 슬러그별 심화 블록 주입 (카니발라이제이션 해소)
+  //    /blog/* 는 외부 서비스(inblog) 프록시라 원본 본문을 편집할 수 없다.
+  //    대신 여기서 자체 제작한 심화 콘텐츠 + JSON-LD 를 동일 URL 에 이식해
+  //    기존 노출 이력을 지키면서 콘텐츠 깊이만 끌어올린다.
+  if (reqPath) {
+    const enrich = getBlogEnrichment(reqPath)
+    if (enrich) {
+      // 본문 끝(</article> 우선)에 심화 블록 삽입 — 관련진료 박스보다 뒤
+      if (/<\/article>/i.test(html)) {
+        html = html.replace(/<\/article>/i, enrich.html + '</article>')
+      } else if (/<footer/i.test(html)) {
+        html = html.replace(/<footer/i, enrich.html + '<footer')
+      } else {
+        html = html.replace('</body>', enrich.html + '</body>')
+      }
+      // HowTo / FAQPage 구조화 데이터를 head 에 주입
+      html = html.replace('</head>', enrich.jsonld + '</head>')
+    }
+  }
+
   return html
 }
 
@@ -2354,7 +2375,7 @@ app.all('/blog/*', async (c) => {
     
     if (contentType.includes('text/html')) {
       let html = await response.text()
-      html = cleanInblogHtml(html)
+      html = cleanInblogHtml(html, c.req.path)
       
       return new Response(html, {
         status: response.status,
@@ -4182,6 +4203,45 @@ function interlinkText(text: string, currentTerm: string, allItems: EncItem[]): 
 // 원칙: 용어를 타이틀 맨 앞에 유지(순위 보존) + 답변·숫자·가치 추가(클릭 유발)
 // ============================================
 const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
+  // ══════════════════════════════════════════════════════════════
+  // v5.41 — 고노출·저CTR 회수 12종
+  //   GSC 2026-04-26~07-25 근거. 「단어 정의」 인텐트 CTR 0.35% vs
+  //   「후회·판단」 인텐트 5.54%(16배). 자동생성 제목("○○ | 치과 백과사전")을
+  //   검색자가 실제로 알고 싶은 질문형으로 교체해 CTR 을 회수한다.
+  // ══════════════════════════════════════════════════════════════
+  '치태': {
+    title: '치태(플라크)란? — 양치로 지워지는 것 vs 스케일링해야 하는 것 구별법 | 서울비디치과',
+    desc: '치태(플라크)는 세균과 침 성분이 뭉친 무색·끈적한 막으로, 칫솔질로 제거됩니다. 문제는 48시간 안에 제거하지 않으면 침 속 칼슘과 굳어 치석이 되고, 그때부터는 스케일링으로만 떨어진다는 점입니다. 치태와 치석의 차이, 잘 쌓이는 부위 3곳, 자가 확인법(착색제)까지 정리했습니다.'
+  },
+  '치과 본인부담금': {
+    title: '치과 본인부담금이란? — 30%만 내는 진료 vs 전액 내는 진료 구분법 | 서울비디치과',
+    desc: '본인부담금은 건강보험이 적용되는 진료에서 환자가 직접 부담하는 몫(치과 외래 통상 30~40%)입니다. 스케일링·발치·신경치료는 여기 해당하지만, 임플란트·레진·교정 같은 비급여는 전액 본인 부담이라 성격이 다릅니다. 실비보험 청구 대상이 되는 쪽이 어디인지까지 구분해 드립니다.'
+  },
+  '리테이너': {
+    title: '리테이너(유지장치) 언제까지 껴야 하나요? — 안 끼면 정말 되돌아갈까 | 서울비디치과',
+    desc: '교정이 끝나도 치아는 원래 자리로 돌아가려는 성질이 있어 유지장치가 필요합니다. 가철식·고정식 차이, 착용 시간이 줄어드는 일반적인 단계, 며칠 빼먹었을 때 대처, 분실·파손 시 대응, 재교정으로 이어지는 흔한 패턴까지 정리했습니다.'
+  },
+  '적응증': {
+    title: '적응증이란? — 의사가 "적응증이 안 됩니다"라고 할 때의 뜻 | 서울비디치과',
+    desc: '적응증(indication)은 특정 치료가 의학적으로 적합한 조건을 뜻합니다. "임플란트 적응증이 안 된다", "라미네이트 적응증이 아니다" 같은 말은 그 치료가 이 상태에 맞지 않는다는 의미입니다. 반대말인 금기증과의 차이, 치과에서 자주 쓰이는 상황을 예로 설명합니다.'
+  },
+  '하악': {
+    title: '하악이란? — 아래턱을 가리키는 말, 상악과의 차이와 하악 치아 번호 | 서울비디치과',
+    desc: '하악(下顎)은 아래턱뼈를, 상악(上顎)은 위턱뼈를 가리킵니다. 진단서나 치료 계획서에 "하악 좌측 제1대구치"처럼 쓰이는데, 이는 아래턱 왼쪽 첫 번째 큰어금니(치식 36번)를 뜻합니다. 상하악 구조 차이, 하악 치아 번호 읽는 법, 하악골 관련 용어를 함께 정리했습니다.'
+  },
+  'CBCT': {
+    title: '치과 콘빔CT란? — 일반 X-ray와 뭐가 다른가, 방사선량은 안전한가 | 서울비디치과',
+    desc: '콘빔CT(CBCT)는 치아·턱뼈를 3차원으로 촬영하는 치과 전용 CT입니다. 평면인 파노라마와 달리 신경관 위치·뼈 두께·매복치 방향을 입체로 확인할 수 있어 임플란트와 사랑니 발치 계획에 쓰입니다. 의과용 CT보다 방사선량이 크게 낮으며, 실제 노출량을 일상 수치와 비교해 설명합니다.'
+  },
+  'GBR': {
+    title: 'GBR(골이식)이란? — 임플란트 전에 뼈를 만드는 수술, 왜 필요한가 | 서울비디치과',
+    desc: 'GBR(골유도재생술)은 임플란트를 심을 자리의 뼈가 부족할 때 뼈를 보강하는 수술입니다. 치아를 뽑고 오래 방치하면 뼈가 흡수돼 GBR이 필요해지는 경우가 많습니다. 왜 필요한지, 사용하는 뼈 이식재 종류, 회복 기간, 임플란트와 동시에 할 수 있는 경우를 정리했습니다.'
+  },
+  '치주낭': {
+    title: '치주낭이란? — 잇몸 검사 때 부르는 숫자(3mm·5mm)의 의미 | 서울비디치과',
+    desc: '치주낭은 잇몸과 치아 사이가 벌어져 생긴 틈입니다. 잇몸 검사에서 "3, 4, 3…" 하고 부르는 숫자가 이 깊이(mm)이며, 일반적으로 3mm 이하는 건강, 4mm 이상은 관리가 필요한 상태로 봅니다. 깊이별 의미, 스케일링과 잇몸치료의 갈림길, 되돌릴 수 있는 단계를 설명합니다.'
+  },
+
   // ── v5.38: 제로클릭 2차 회수 8종 (382노출/2클릭 — 순위는 좋은데 제목이 병목) ──
   '측절치': {
     title: '측절치란? — 앞니 옆 "2번 치아" 위치와 왜소치·결손 치료법 총정리 | 서울비디치과',
@@ -4344,6 +4404,93 @@ const ENC_GUIDE_NUDGE: Record<string, { href: string; title: string; desc: strin
     title: '치과 실비보험 청구 가능 항목 총정리',
     desc: '사랑니 발치·신경치료는 되는데 임플란트·레진은 왜 안 될까? 항목별 보장 여부와 청구 서류, 세대별 자기부담률까지 한 페이지에 정리했습니다.',
   },
+
+  // ══════════════════════════════════════════════════════════════
+  // v5.41 — 고노출 백과사전 항목 → 심층 콘텐츠 유도 넛지 16종
+  //   근거: 백과사전 CTR 0.79% / 후회 백서 3.85% / 후회 인텐트 쿼리 5.54%.
+  //   단어 정의만 읽고 이탈하는 트래픽을, 같은 주제의 "판단·후회·비용" 콘텐츠로
+  //   연결해 체류와 전환을 만든다. (노출 자체를 버리지 않고 재활용하는 방식)
+  // ══════════════════════════════════════════════════════════════
+  '치아 미백': {
+    href: '/guide/regret/whitening',
+    title: '치아 미백, 하기 전에 후회 사례부터 보세요',
+    desc: '시린 증상은 얼마나 가는지, 색은 언제 되돌아오는지, 어떤 경우에 효과가 적은지 — 실제로 후회하는 지점만 모아 정리했습니다.',
+  },
+  '라미네이트': {
+    href: '/guide/regret/laminate',
+    title: '라미네이트 후회 포인트 총정리',
+    desc: '삭제한 치아는 되돌릴 수 없습니다. 색·모양이 마음에 안 들 때, 깨졌을 때, 잇몸이 내려갔을 때 어떻게 되는지 먼저 확인하세요.',
+  },
+  '임플란트': {
+    href: '/guide/regret/implant',
+    title: '임플란트 후회·부작용 사례로 먼저 점검하기',
+    desc: '수명은 정말 반영구인지, 어떤 경우에 재수술로 가는지, 뼈이식이 왜 필요해지는지 — 결정 전에 알아야 할 것들.',
+  },
+  '교정': {
+    href: '/guide/regret/orthodontics',
+    title: '교정 "하지 마라"는 말, 어떤 경우에 나오나',
+    desc: '잇몸 내려감, 뿌리 흡수, 재발, 발치 후회 — 교정을 후회하게 되는 실제 지점과 미리 확인할 수 있는 기준을 정리했습니다.',
+  },
+  '인비절라인': {
+    href: '/guide/regret/invisalign',
+    title: '인비절라인 후회 사례 — 투명교정의 한계',
+    desc: '착용 시간을 못 지키면 어떻게 되는지, 어떤 부정교합에는 잘 안 맞는지, 중간에 장치를 바꾸게 되는 경우까지.',
+  },
+  '신경치료': {
+    href: '/guide/regret/root-canal',
+    title: '신경치료 "하면 안 되는 이유"가 있을까?',
+    desc: '치아가 약해진다는 말은 사실인지, 크라운이 꼭 필요한지, 재신경치료로 가는 경우는 언제인지 정리했습니다.',
+  },
+  '틀니': {
+    href: '/guide/denture',
+    title: '틀니 완전 가이드 — 종류·비용·적응 기간',
+    desc: '완전틀니와 부분틀니의 차이, 만 65세 이상 건강보험 적용 조건, 처음 적응할 때 겪는 불편과 대처법까지.',
+  },
+  '스케일링': {
+    href: '/guide/regret/scaling',
+    title: '스케일링 후 시리고 이가 벌어진 느낌, 정상인가요?',
+    desc: '연 1회 건강보험 적용 조건, 스케일링 후 흔한 증상과 그 이유, 잇몸치료로 넘어가는 기준을 설명합니다.',
+  },
+  '사랑니': {
+    href: '/guide/wisdom-tooth',
+    title: '사랑니, 꼭 빼야 하나 — 판단 기준부터',
+    desc: '뽑아야 하는 경우와 두고 봐도 되는 경우, 매복 정도에 따른 난이도, 발치 후 회복 과정을 정리했습니다.',
+  },
+  '치석': {
+    href: '/guide/regret/gum',
+    title: '치석을 방치하면 잇몸은 어떻게 되나',
+    desc: '치석 → 잇몸 염증 → 치조골 소실로 이어지는 과정과, 어느 단계까지 되돌릴 수 있는지 설명합니다.',
+  },
+  '충치': {
+    href: '/guide/regret/cavity',
+    title: '충치 치료, 미루면 얼마나 커지나',
+    desc: '레진으로 끝날 수 있는 단계와 신경치료·크라운으로 넘어가는 갈림길. "충치 치료하면 안 된다"는 말의 진위까지.',
+  },
+  '크라운': {
+    href: '/guide/regret/crown',
+    title: '크라운 씌우고 나서 아픈 경우, 왜 그럴까',
+    desc: '재료별 차이, 수명, 다시 씌우게 되는 경우, 크라운 밑에서 충치가 생기는 이유를 정리했습니다.',
+  },
+  '치주염': {
+    href: '/guide/regret/gum',
+    title: '잇몸치료의 단점과 한계 — 어디까지 회복되나',
+    desc: '치료 후 이가 시리고 길어 보이는 이유, 되돌릴 수 있는 단계와 그렇지 않은 단계를 구분해 설명합니다.',
+  },
+  '치은염': {
+    href: '/guide/regret/gum',
+    title: '치은염과 치주염, 어디서 갈리나',
+    desc: '아직 되돌릴 수 있는 단계인지 확인하는 기준과, 방치했을 때의 진행 경로를 정리했습니다.',
+  },
+  '비급여 항목': {
+    href: '/pricing',
+    title: '비급여 진료비, 병원마다 다른 이유',
+    desc: '서울비디치과 비급여 수가표 전체 공개. 같은 항목명이라도 무엇이 포함되는지 비교하는 법까지 안내합니다.',
+  },
+  '치과 진료비 영수증': {
+    href: '/blog/dental-over-treatment-guide',
+    title: '세부내역서 읽는 법 · 2차 소견 받는 법',
+    desc: '항목명·급여구분·수량·단가 네 열을 어떻게 확인하는지, 다른 치과에서 2차 소견을 제대로 받는 3단계까지 정리했습니다.',
+  },
 }
 
 app.get('/encyclopedia/:term', async (c) => {
@@ -4410,7 +4557,7 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
 <div class="box">
 <div style="font-size:3rem;margin-bottom:16px;">🔍</div>
 <h1>"${termParam.replace(/</g,'&lt;').slice(0,50)}" 용어를 찾을 수 없습니다</h1>
-<p>치과 백과사전에 등록되지 않은 용어입니다.<br>838개 치과 용어를 백과사전에서 검색해 보세요.</p>
+<p>치과 백과사전에 등록되지 않은 용어입니다.<br>837개 치과 용어를 백과사전에서 검색해 보세요.</p>
 <a href="/encyclopedia/">백과사전에서 검색하기</a>
 <a href="/" class="outline">홈으로</a>
 </div>
@@ -5139,7 +5286,12 @@ app.get('/guide/root-canal', serveStatic({ path: './guide/root-canal.html' }))
 app.get('/guide/orthodontics', serveStatic({ path: './guide/orthodontics.html' }))
 app.get('/guide/insurance', serveStatic({ path: './guide/insurance.html' }))
 // v5.40: 과잉진료 판별 가이드 (「치과 과잉진료」 29노출 10.6위 · 「치과 과잉진료 신고 후기」 7노출 13.0위)
-app.get('/guide/overtreatment', serveStatic({ path: './guide/overtreatment.html' }))
+// [v5.41] 과잉진료 카니발라이제이션 해소
+//   /guide/overtreatment 는 v5.40 에서 신설했으나, 동일 인텐트의
+//   /blog/dental-over-treatment-guide (45클릭/8,151노출) 가 이미 존재했다.
+//   신규 가이드의 심화 콘텐츠는 src/routes/blog-enrich.ts 로 이식해
+//   기존 URL 에 주입했고, 이 경로는 노출 이력이 있는 쪽으로 301 통합한다.
+app.get('/guide/overtreatment', (c) => c.redirect('/blog/dental-over-treatment-guide', 301))
 app.get('/guide/regret', serveStatic({ path: './guide/regret.html' }))
 // 후회 백서 진료별 세부 페이지 (SEO/AEO 스포크: "<진료명> 후회", "<진료명> 부작용")
 const REGRET_SLUGS = ['implant', 'orthodontics', 'invisalign', 'laminate', 'whitening', 'wisdom-tooth', 'root-canal', 'crown', 'denture', 'scaling', 'cavity', 'gum']
@@ -5160,7 +5312,7 @@ app.get('/guide/denture.html', (c) => c.redirect('/guide/denture', 301))
 app.get('/guide/root-canal.html', (c) => c.redirect('/guide/root-canal', 301))
 app.get('/guide/orthodontics.html', (c) => c.redirect('/guide/orthodontics', 301))
 app.get('/guide/insurance.html', (c) => c.redirect('/guide/insurance', 301))
-app.get('/guide/overtreatment.html', (c) => c.redirect('/guide/overtreatment', 301))
+app.get('/guide/overtreatment.html', (c) => c.redirect('/blog/dental-over-treatment-guide', 301))
 app.get('/guide/regret.html', (c) => c.redirect('/guide/regret', 301))
 
 // ============================================
@@ -5193,7 +5345,8 @@ function mapDeadGuideSlug(slug: string): string {
   if (has('denture', 'prosthet', 'crown', 'pfm', 'zirconia', 'bridge')) return '/guide/denture'
   if (has('root-canal', 'endo', 'pulp', 'perforation', 'file-separation', 'microscope', 'apico')) return '/guide/root-canal'
   if (has('tmj', 'disc', 'headache', 'botox', 'masseter')) return '/guide/regret'
-  if (has('overtreat', 'second-opinion', 'informed-consent', 'treatment-plan', 'estimate', 'itemized')) return '/guide/overtreatment'
+  // 체인 제거: /guide/overtreatment 는 그 자체가 301 이므로 최종 목적지로 직접 보낸다
+  if (has('overtreat', 'second-opinion', 'informed-consent', 'treatment-plan', 'estimate', 'itemized')) return '/blog/dental-over-treatment-guide'
   if (has('insurance', 'cost', 'checkup', 'national', 'caries-risk', 'saliva')) return '/guide/insurance'
   if (has('pediatric', 'child', 'baby', 'primary-tooth', 'sealant', 'sedation', 'thumb')) return '/treatments/pediatric'
   if (has('cancer', 'leukoplakia', 'erythroplakia', 'selfexam', 'oral-medicine')) return '/treatments/oral-medicine'
