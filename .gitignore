@@ -35,3 +35,4 @@ core
 __pycache__/
 convert-*.py
 .cloudflare-token
+public/data/.enc-backup-*.json
