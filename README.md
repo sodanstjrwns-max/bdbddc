@@ -17,7 +17,76 @@
 
 - **영문 치과 사전 (v5.39 신설)**: https://bdbddc.com/en/dictionary — 영어권 환자용 증상·질환·해부 용어 30종 (개별 URL `/en/dictionary/<slug>`, 한국어 백과사전과 양방향 hreflang, 용어당 FAQ 6개). 분류: Gum & Periodontal 5 / Tooth Decay & Pulp 5 / Cracks & Trauma 2 / Wisdom & Eruption 4 / Bite & Jaw 4 / Mouth & Tongue 6 / Tooth Anatomy 4
 
-## Current Version: v5.43
+## Current Version: v5.44
+
+### v5.44 — /treatments/* 20p 제목·설명 CTR 개편 (2026-07-29)
+
+**배경.** GSC 실측(2026-04-26~07-25, 상위 500페이지 9,048클릭/509,894노출, 사이트 평균 CTR 1.77%)에서 섹션별 CTR을 산출한 결과 `/treatments/*` 가 **26p / 207클릭 / 38,642노출 / 0.54%** 로 전 섹션 최하위였다. 같은 기간 `/column/*` 3.19%, `/guide/regret/*` 3.85%.
+
+**원인.** 2026-02-12 투입된 제목 16개가 `{시술명} | 천안{시술명} | 서울비디치과` 형태였다. 키워드를 두 번 반복할 뿐 검색자에게 클릭할 이유를 제공하지 않는다. 90일 실측 CTR 0.24~1.20%.
+
+**패턴 선정 근거 — 후회 훅을 쓰지 않은 이유.** 사이트 최고 성적 패턴은 `{주제} 후회 N가지와 부작용 총정리` (4.6~6.4%)이지만, `/guide/regret/*` 12p가 이미 cavity·crown·denture·gum·implant·invisalign·laminate·orthodontics·root-canal·scaling·whitening·wisdom-tooth 전 주제를 점유하고 있어 `/treatments/*` 에 동일 훅을 적용하면 **자기 잠식(cannibalization)** 이 발생한다. 대신 같은 `/treatments/` 폴더 내 검증된 승자 패턴을 채택:
+
+| 기존 승자 | CTR | 구조 |
+|---|---|---|
+| `/treatments/invisalign-best` | 3.67% | 천안 인비절라인 컴프리헨시브 \| **무제한 장치교체 5년 보장** — 서울비디치과 |
+| `/treatments/orthodontic-clarity-ultra` | 2.66% | 천안 클라리티울트라 교정 \| **3M 프리미엄 세라믹 브라켓** — 서울비디치과 |
+| `/treatments/fixture-straumann-roxolid` | 1.94% | 스트라우만 록솔리드 SLActive \| **스위스 프리미엄 임플란트** — 서울비디치과 |
+
+⇒ 채택 패턴: `{천안 시술명} | {서울비디치과 고유의 구체적 사실} — 서울비디치과`
+⇒ 설명문: 실측 검색어를 첫 문장에 흡수(`…이 궁금하신가요?`) + 구체 사실 3개 + 전화번호
+
+**3층 역할 분리 확정.**
+
+| 층 | 인텐트 | 제목 형태 | 실측 CTR |
+|---|---|---|---|
+| `/guide/regret/*` | 공포·후회 | 후회 N가지와 부작용 총정리 | 3.85% |
+| `/guide/*` | 정보 완전판 | 완전 가이드 2026 \| 비용·기간·과정 | 1.90% |
+| `/treatments/*` | **예약 직전 · 차별점** | 천안 {시술} \| {고유 사실} | 0.54% → 개편 대상 |
+
+**대상 20p** (모두 정적 HTML, `treatments/*.html` 직접 편집 · `ENC_SEO_OVERRIDES` 무관)
+
+2026-02-12 코호트 16p: `inlay`(0.24%) `tmj`(0.33%) `root-canal`(0.48%) `cavity`(0.51%) `scaling`(0.64%) `wisdom-tooth`(0.75%) `bruxism`(1.00%) `resin`(1.20%) `crown` `bridge` `denture` `gum` `periodontitis` `prevention` `emergency` `whitening`(1.50%)
+실측 부진 4p: `invisalign`(0.54%) `glownate`(0.74%) `implant`(0.72%) `fixture-osstem-ca`(0.55%)
+
+**검색어 → 제목 반영 예** (GSC 실측)
+
+| 페이지 | 최상위 실측 검색어 | 제목 반영 |
+|---|---|---|
+| `root-canal` | 신경치료 비용 26클릭/1,301노출 · 하면 안되는 이유 13/359 | 비용·과정 안내 · 발치 대신 살리는 |
+| `wisdom-tooth` | 사랑니 발치 후 통증 75/2,742 | 발치 후 통증·붓기 관리 · 수면 발치 |
+| `inlay` | 인레이 9/552 · 인레이 마취 5/82 (6.10%) | 원내 기공소 정밀 제작 |
+| `cavity` | 충치 치료하면 안되는 이유 5/420 · 인접면 충치 과잉진료 6/52 | 지금 치료할 충치·기다릴 충치 구분 |
+| `denture` | 틀니 가격 10/1,030 · 임플란트 틀니 가격 9/283 | 부분·완전·임플란트 틀니 비용 비교 |
+| `crown` | 크라운 빠졌을 때 보관 11/48 (22.9%) | 지르코니아·골드 재질 비교 |
+
+**교체 필드 — 페이지당 7개 (총 140개).** `<title>` · `meta[name=description]` · `og:title` · `og:description` · `twitter:title` · `twitter:description` · `og:image:alt`
+
+> `og:image:alt` 은 1차 적용에서 누락됐다가 「본문 잔존 옛 제목」 검사에서 20/20 적발 후 추가 처리. 자동 검증 항목을 6→7필드로 확장.
+
+**제약 준수.** 제목 35~55자(≤60) · 설명 107~122자(≤160) · 의료광고법 금지어 0건(최고/최상/1위/유일/완벽/보장합니다/100%/부작용 없/절대) · 사이트 전체 제목 중복 0건 신규 발생 · 후회 훅 침범 0건
+
+**사실 관계 검증.** 서울대 **14인** (사이트 474곳 통일, 15인 표기 0건) · 6개 독립 수술실 · 원내 기공소 · 3D CT · 글로우네이트 10년 보증 · 미백 소프트 4.9만원/하드 8만원(부가세 별도) · 365일·야간 20시
+
+**제외 대상과 근거.**
+
+| 제외 | 개수 | 근거 |
+|---|---|---|
+| 7/28 재작성 페이지 (`/treatments/pediatric` `/guide/insurance` `/area/daejeon-laminate` `/guide/laminate` `/guide/implant` `/doctors/pediatric` `/pricing`) | 7p | **측정창(04-26~07-25) 종료 후 제목 교체 → 측정창 내 노출 0일.** 현재 수치는 옛 제목의 성적이며, 지금 손대면 신규 제목 효과를 영구 측정 불가 + 이미 작동 중일 제목을 덮어쓸 위험 |
+| `/guide/regret/*` | 12p | 이미 3.85% 승자 |
+| `/area/asan` `/area/osan` | 2p | 상위 500 검색어에 '아산'·'오산' 쿼리 **0건** → 데이터 없이 제목 작성 불가, 별건 진단 필요 |
+
+> ⚠️ 이전 보고서의 「`/treatments/pediatric` 단독 +516」 은 **실행 불가**로 정정. A안 실제 규모는 +2,899 → **52p / 약 +1,532**.
+
+**검증 결과.** 7필드 정합성 140/140 · 옛 제목 잔존 0 · JSON-LD 파싱 실패 0 · 속성 깨짐 문자 0 · 신규 제목 중복 0 · dist 반영 20/20 · 로컬 HTTP 200 + 제목 일치 **20/20**
+
+**작업 스크립트** (`/home/user/gsc-work/`, 리포지토리 외부)
+`queries.tsv`(500행) · `pages.tsv`(500행) · `analyze.py`(섹션 통계·손실 랭킹) · `deep.py`(노출 구간 층화 — Simpson's paradox 검증) · `newmeta.py`(20p 제목·설명 정의 + 길이·금지어 검사) · `apply.py`(7필드 일괄 교체, `--apply` 없으면 dry-run)
+
+**후속 과제.**
+1. **v5.43(백과사전 838p, 7/28 투입) + v5.44(20p, 7/29 투입) 재채점** — 2026-08-28 이후 GSC 데이터 필요. v5.43 오버라이드 35종 중 **29종(83%)이 측정창 내 노출 ≤2일**이라 현재 0.53% 수치는 옛 제목 성적임
+2. `gsc-data.json` 갱신 — 붙여넣은 데이터에 `position`·기기·국가·일별 컬럼이 없어 `rank_distribution`/`devices`/`chart`/`monthly`/`growth` 재현 불가. GSC UI에서 「평균 게재순위」 열 활성화 + 기기/국가 탭 내보내기 필요 (미갱신 시 `gsc-report-dash.ts` 차트 4종 파손)
+3. `/area/asan`(1,615노출/3클릭) `/area/osan`(705노출/4클릭) 별건 진단
 
 ### v5.43 — 백과사전 796개 제목 CTR 전면 개편 (2026-07-28)
 
