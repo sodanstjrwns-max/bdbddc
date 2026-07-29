@@ -5666,9 +5666,23 @@ app.get('/guide/insurance', serveStatic({ path: './guide/insurance.html' }))
 //   신규 가이드의 심화 콘텐츠는 src/routes/blog-enrich.ts 로 이식해
 //   기존 URL 에 주입했고, 이 경로는 노출 이력이 있는 쪽으로 301 통합한다.
 app.get('/guide/overtreatment', (c) => c.redirect('/blog/dental-over-treatment-guide', 301))
+// [v5.45] 「천안 치과 추천」 전용 랜딩 (실측 「천안 치과 추천」계 1,034노출 / CTR 1.93%)
+//   기존 /area/cheonan (1.10%) 은 진료 안내 인텐트라 "추천/고르는 법" 정보 인텐트를 받지 못한다.
+//   의료법 제56조에 따라 병원 순위·목록은 넣지 않고, 판단 기준만 제공하는 정보 페이지로 구성.
+app.get('/guide/cheonan-dentist-choice', serveStatic({ path: './guide/cheonan-dentist-choice.html' }))
+app.get('/guide/cheonan-dentist-choice.html', (c) => c.redirect('/guide/cheonan-dentist-choice', 301))
 app.get('/guide/regret', serveStatic({ path: './guide/regret.html' }))
 // 후회 백서 진료별 세부 페이지 (SEO/AEO 스포크: "<진료명> 후회", "<진료명> 부작용")
-const REGRET_SLUGS = ['implant', 'orthodontics', 'invisalign', 'laminate', 'whitening', 'wisdom-tooth', 'root-canal', 'crown', 'denture', 'scaling', 'cavity', 'gum']
+// [v5.45] 12종 -> 24종 확장. 기존 12p 실측 1,093클릭/28,424노출/3.85% 의 검증된 패턴을
+//   상업·증상 인텐트 상위 12개 주제로 복제한다(GSC 2026-04-26~07-25 노출 기준 선정).
+const REGRET_SLUGS = [
+  // v5.40 최초 12종
+  'implant', 'orthodontics', 'invisalign', 'laminate', 'whitening', 'wisdom-tooth',
+  'root-canal', 'crown', 'denture', 'scaling', 'cavity', 'gum',
+  // v5.45 신규 12종
+  'periodontitis', 'bone-graft', 'inlay', 'resin', 'bridge', 'implant-denture',
+  'malocclusion', 'retainer', 'front-teeth', 'tooth-crack', 'bruxism', 'sedation',
+]
 for (const slug of REGRET_SLUGS) {
   app.get(`/guide/regret/${slug}`, serveStatic({ path: `./guide/regret/${slug}.html` }))
   app.get(`/guide/regret/${slug}.html`, (c) => c.redirect(`/guide/regret/${slug}`, 301))
@@ -5700,6 +5714,8 @@ const EXISTING_GUIDES = new Set([
   'implant', 'invisalign', 'laminate', 'scaling', 'whitening',
   'wisdom-tooth', 'denture', 'root-canal', 'orthodontics', 'insurance', 'regret',
   'overtreatment',
+  // [v5.45] 신규 랜딩 — catch-all 301 에 삼켜지지 않도록 안전망에 등록
+  'cheonan-dentist-choice',
 ])
 
 function mapDeadGuideSlug(slug: string): string {
