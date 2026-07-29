@@ -17,7 +17,85 @@
 
 - **영문 치과 사전 (v5.39 신설)**: https://bdbddc.com/en/dictionary — 영어권 환자용 증상·질환·해부 용어 30종 (개별 URL `/en/dictionary/<slug>`, 한국어 백과사전과 양방향 hreflang, 용어당 FAQ 6개). 분류: Gum & Periodontal 5 / Tooth Decay & Pulp 5 / Cracks & Trauma 2 / Wisdom & Eruption 4 / Bite & Jaw 4 / Mouth & Tongue 6 / Tooth Anatomy 4
 
-## Current Version: v5.44
+## Current Version: v5.45
+
+### v5.45 — 후회 백서 12→24종 확장 + 「천안 치과 추천」 전용 랜딩 (2026-07-29)
+
+두 작업을 동시 투입했다. 공통 근거는 GSC 실측(2026-04-26~07-25)이며, 둘 다 **신규 페이지 생성**이라 기존 페이지 성적에 영향이 없다.
+
+#### Task B — `/guide/regret/*` 12p → 24p
+
+**근거.** 기존 12p = **1,093클릭 / 28,424노출 / 3.85%** 로 전 섹션 최고 CTR(사이트 평균 1.77%의 2.2배). 이미 검증된 패턴을 노출은 있으나 전용 페이지가 없던 주제로 복제하는 것이 가장 확실한 확장이다.
+
+패턴: 제목 `{주제} 후회 N가지와 부작용 총정리 — {구체 경고}` / 설명 `{키워드} 후회, {키워드} 부작용이 궁금하신가요? {4항목} — {약속}을 치과의사가 솔직하게 정리했습니다.`
+
+| slug | 주제 | 실측 노출 | CTR |
+|---|---|---|---|
+| `bone-graft` | 임플란트 뼈이식 | 3,167 | 1.67% |
+| `inlay` | 인레이 | 1,950 | 2.77% |
+| `periodontitis` | 치주염 | 1,437 | 1.04% |
+| `malocclusion` | 부정교합 교정 | 1,392 | 3.02% |
+| `sedation` | 치과 수면마취 | 965 | 4.04% |
+| `implant-denture` | 임플란트 틀니 | 845 | 3.20% |
+| `resin` | 레진 | 729 | 8.64% |
+| `bruxism` | 이갈이 | 679 | 1.91% |
+| `front-teeth` | 앞니 치료 | 381 | 7.35% |
+| `tooth-crack` | 치아 크랙 | 139 | 9.35% |
+| `bridge` | 브릿지 | 42 | 9.52% |
+| `retainer` | 유지장치 | — | 교정 클러스터 보완 |
+
+**주제 선정 시 배제한 것.** 「과잉진료」는 노출 규모가 컸으나 **v5.41에서 이미 `/blog/dental-over-treatment-guide`(45클릭/8,151노출)로 301 통합**한 주제다. 신규 페이지를 만들면 v5.41 작업을 되돌리는 자기 잠식이 된다. 대신 `retainer`(유지장치)로 대체해 교정 클러스터(`orthodontics`·`invisalign`·`malocclusion`)를 완성했다.
+
+**페이지 구성**(각 29KB): 30초 요약 / 후회 5가지 3열 그리드(후회·왜 생기나·예방책) / 부작용 빈도표 6행 / 비적응증 5항목 / 치료 전 체크리스트 7항목 / FAQ 6문 + `Article`·`BreadcrumbList`·`FAQPage` JSON-LD 3종.
+
+**내부링크 전략.** `sibling-strip`을 **기존 12p까지 포함해 전 24p에서 24종 상호연결**로 확장했다. 실측 1,093클릭이 이미 흐르는 페이지에서 신규 페이지로 링크를 보내 인덱싱을 가속하는 것이 목적이다. 허브 `/guide/regret`은 `ItemList` JSON-LD 12→24, `deep-card` +12, H2·안내문단 수치 갱신.
+
+#### Task A — `/guide/cheonan-dentist-choice` 신설
+
+**근거.** 「천안 치과 추천」계 실측 합계 **1,034노출 / 20클릭 / 1.93%**.
+
+| 검색어 | 클릭 | 노출 | CTR |
+|---|---|---|---|
+| 천안 치과 추천 | 5 | 588 | 0.85% |
+| 천안 치과 잘하는 병원 | 2 | 137 | 1.46% |
+| 천안 임플란트 잘하는 곳 | 3 | 110 | 2.73% |
+| 천안치과 추천 | 3 | 105 | 2.86% |
+| 천안 치과 추천 디시 | 7 | 94 | 7.45% |
+
+**왜 기존 페이지로 안 되는가.** `/area/cheonan`(634노출/7클릭/**1.10%**)은 「천안 임플란트·교정·라미네이트 진료 안내」 인텐트다. 「추천·고르는 법」은 *병원을 아직 못 정한 사람*의 정보 인텐트로, 진료 안내 페이지가 흡수하지 못한다. 인텐트가 다르면 페이지를 나누는 것이 정석이다.
+
+**의료법 제56조 준수 설계**(사용자 승인 방침 — 자기홍보 0%)
+- 병원 순위·추천 목록 **0건**. 상단에 *"이 페이지에는 병원 순위나 추천 목록이 없습니다"* 고지 배치
+- **본문 01~05 전 섹션에 자기 병원 언급 0건** (구역별 감사 완료: HEAD 6건=메타 스키마 필수 / CTA 1건=승인된 하단 CTA / FOOTER 3건=전 사이트 공통)
+- CTA 버튼 **1개만** (다른 후회 백서는 2개)
+- 「1위」·「최고」 등장 2건은 모두 *"의료광고는 심의 대상이라 병원이 스스로 「1위」나 「최고」를 말할 수 없습니다"* 라는 **부정문 인용** — 오히려 준법 안내
+
+**구성**(29KB): 판단 기준 6가지(전문성·진단 근거·서면 총비용·보증 문서화·결제 압박 여부·병원 지속성) / 진료과목별 확인표 7행 / 추천 정보 오해 5가지 / 상담 질문 7가지 / FAQ 6문 + `Article`·`BreadcrumbList`·`HowTo`·`FAQPage` JSON-LD 4종.
+
+#### 라우팅 — 🚨 `/guide/:slug` catch-all 함정
+
+`src/index.tsx`의 `mapDeadGuideSlug()`는 미등록 `/guide/*` 슬러그를 전부 301로 흡수한다. 신규 슬러그를 `EXISTING_GUIDES`에 넣지 않으면 **파일이 존재해도 `/guide/`로 삼켜진다.** 3중 조치:
+
+```typescript
+app.get('/guide/cheonan-dentist-choice', serveStatic({ path: './guide/cheonan-dentist-choice.html' }))
+app.get('/guide/cheonan-dentist-choice.html', (c) => c.redirect('/guide/cheonan-dentist-choice', 301))
+const EXISTING_GUIDES = new Set([ /* … */ 'cheonan-dentist-choice' ])   // ← catch-all 안전망
+const REGRET_SLUGS = [ /* 기존 12 */ , 'periodontitis','bone-graft','inlay','resin','bridge',
+  'implant-denture','malocclusion','retainer','front-teeth','tooth-crack','bruxism','sedation' ]
+```
+
+`sitemap-main.xml` +13 URL (143→155) · `/guide/` 허브 카드 +1 · `/guide/regret` 허브에서 Task A 상호링크.
+
+**검증 결과.** 프로덕션 신규 13p **전건 HTTP 200** · `.html`→301 정상 · JSON-LD 파싱 실패 0 · 마크다운 잔여 0 · 플레이스홀더 0 · 기존 12p 회귀 없음(chips 12→24 반영) · 사이트맵 5종 XML 유효 · **180p 제목 중복 0종** · 의료법 금지어 감사 통과.
+
+**작업 스크립트** (`/home/user/gsc-work/`, 리포지토리 외부)
+`skel.py`(implant.html을 4파트로 분해 → `skel/`) · `rdata1~3.py`(12주제 콘텐츠 데이터, 주제당 22키) · `gen.py`(12p 생성 + 조사 자동 선택 + `**bold**`→`<strong>` 변환) · `hub.py`(허브 ItemList·카드·사이트맵) · `sib.py`(기존 12p sibling 24종 확장) · `adata.py`+`genA.py`(Task A)
+
+**후속 과제.**
+1. **v5.45 재채점** — 2026-08-29 이후 GSC 데이터 필요. 신규 13p는 인덱싱에 2~4주 소요
+2. **홈페이지 제목 개편(미착수)** — 631 브랜드 클릭 @46.71%. 리스크가 높아 3개 문안을 제시하고 사용자 선택을 받은 뒤 진행 예정
+3. **`AggregateRating`/`Review` 스키마(보류)** — 의료법 제56조 검토 필요. 법률 확인 전 착수 금지
+4. v5.43·v5.44 재채점 (아래 v5.44 항목 참조)
 
 ### v5.44 — /treatments/* 20p 제목·설명 CTR 개편 (2026-07-29)
 
@@ -391,7 +469,7 @@ curl http://localhost:3000/api/health
 - **v5.41 🅒 백과사전 → 가이드 유도 배너 16종 확대**: 백과사전 114개 페이지가 **127,886노출을 만들고도 CTR 0.79%**에 그치는 구조(정의만 읽고 이탈)를 개선. 노출 상위 용어 본문에 전용 가이드 유도 배너(`ENC_GUIDE_NUDGE`)를 SSR 삽입해 **정보 단계 트래픽을 전환 페이지로 흘려보냄**. 신규 16종 — 치아 미백·라미네이트·임플란트·교정·인비절라인·신경치료·스케일링·크라운·충치 → 대응 `/guide/regret/*`, 틀니 → `/guide/denture`, 사랑니 → `/guide/wisdom-tooth`, 치석·치주염·치은염 → `/guide/regret/gum`, 비급여 항목 → `/pricing`, 치과 진료비 영수증 → 과잉진료 블로그. ①**용어 키를 데이터로 검증한 것이 실수 3건을 막음** — `본인부담금`·`콘빔CT`·`치아교정`·`비급여`·`진료비 세부내역서`는 `encyclopedia.json`에 **존재하지 않는 키**였고(무음 실패), 실제 표기(`치과 본인부담금`·`CBCT`·`교정`·`비급여 항목`·`치과 진료비 영수증`)로 교정 ②검증 17/17 전량 의도한 목적지 연결(마커 `📘 전체 가이드`)
 - **v5.41 🅓 일본어 클러스터 재제목 6종 (의료관광 인텐트)**: `/jp` 계열은 **CTR 6.0%로 사이트 최고 성과 구간**임에도 제목이 「費用」「料金」 같은 실제 검색어를 담지 못하던 문제 해소. `scripts/retitle-jp.cjs` 신설, 6/6 반영. ①`jp/guide/implant` → 「韓国インプラント 費用・オールオン4 料金ガイド 2026 \| 日本との比較・期間・保証」로 **オールオン4 검색어 흡수** ②`jp/guide/laminate` → 「1本いくら? 日本との費用比較・寿命・Glownate」 ③`jp/guide/invisalign` → 「何回渡韓が必要? パッケージ比較」로 **일본 환자의 실제 최대 관심사(도한 횟수)를 제목화** ④`jp/pricing` → 「韓国 歯科 料金表 2026」 ⑤`jp/travel-guide` → 「何泊必要? 空港からのアクセス・ホテル・通訳」 ⑥`jp/guide/index` → 「日本との比較」 축 명시
 - **v5.41 하우스키핑**: `encyclopedia/index.html`이 실제 목록 837개를 담고도 「838개」로 표기하던 불일치 12곳 + `src/index.tsx` 1곳 수정
-- **v5.40 🅐 과잉진료 신뢰 콘텐츠 신설 (`/guide/overtreatment`)** ⚠️ **v5.41에서 폐지 — 이 URL은 현재 `/blog/dental-over-treatment-guide`로 301되며, 아래 콘텐츠는 `src/routes/blog-enrich.ts`를 통해 해당 블로그 페이지에 주입됨. 사유: 동일 인텐트의 기존 페이지(45클릭/8,151노출)를 사전 확인하지 않고 신설해 자기잠식이 발생함.** GSC 실측 기준 콘텐츠가 아예 없던 채로 순위만 잡고 있던 구간을 정면으로 채움 — 「치과 과잉진료」 29노출 10.6위, 「치과 과잉진료 신고 후기」 7노출 13.0위, 합계 36노출·전용 페이지 0. `guide/overtreatment.html`(64KB) 신설. ①**의료광고법 안전 프레이밍이 설계의 출발점** — 이 주제는 조금만 어긋나도 타 의료기관 비방으로 읽히므로, 페이지 최상단과 최하단에 "특정 병원·의료진을 지목·평가하지 않으며, 같은 상태에서도 의학적으로 타당한 서로 다른 계획이 존재한다"는 고지를 배치하고 전 본문을 **일반 판단 기준** 서술로만 구성 ②**「치료가 많다 = 과잉」 전제를 먼저 해체** — 검사 범위·치료 시점 기준·계획의 시간 지평 3가지 차이로 계획이 갈리는 구조를 설명하고, 판별의 축을 "치료의 양"이 아닌 **"설명의 질"**로 이동 ③**환자가 실제로 쓸 수 있는 도구 중심 구성** — 판단 기준 7가지(각 항목마다 진료실에서 그대로 읽을 질문문 포함) / 진료비 세부내역서 4개 열 읽는 법 + 4단계 대조 절차 / 2차 소견 3단계(자료 확보 → **앞선 견적을 먼저 말하지 않고 백지 상태로 질문** → 두 계획 5축 비교) / 그대로 캡처해 쓰는 질문 목록 7개 ④**자가 체크 위젯 10문항**(바닐라JS, 저장·전송 없음) — 4구간 판정과 다음 단계 앵커 링크 제공 ⑤**공적 창구 5곳 안내**(심평원 진료비 확인 요청 / 의료분쟁조정중재원 / 소비자원 1372 / 보건소·복지부 129 / 국민신문고) + 공개 게시판 실명 게시의 역위험 경고 ⑥**반대편 함정도 명시** — 실제로 더 흔한 손실은 과잉 의심으로 시기를 놓치는 쪽이라는 점을 §07로 별도 배치해 균형 유지 ⑦**본문 가격 표기 0건** — 비급여는 기관 자율 책정이라는 원리만 설명하고 금액은 `/pricing` 링크로 위임 ⑧JSON-LD 4블록(`Article` / `BreadcrumbList` / **`HowTo`**(2차 소견 3단계) / `FAQPage` 10문항) ⑨**「라미네이트 부작용」류 의도는 흡수하지 않고 `/guide/regret/laminate`로 유도** — 기존 후회 백서 12개 하위 페이지와의 자기잠식 방지 ⑩라우트 등록(`/guide/overtreatment` + `.html` 301), `EXISTING_GUIDES`·`mapDeadGuideSlug` 키워드 매핑(`overtreat`/`second-opinion`/`itemized` 등) 추가, `sitemap-main.xml` 등재(143 URL), 가이드 허브 카드 신설, 후회 백서·실비 가이드 관련 링크 + 가이드 계열 21개 파일 푸터 링크 추가
+- **v5.40 🅐 과잉진료 신뢰 콘텐츠 신설 (`/guide/overtreatment`)** ⚠️ **v5.41에서 폐지 — 이 URL은 현재 `/blog/dental-over-treatment-guide`로 301되며, 아래 콘텐츠는 `src/routes/blog-enrich.ts`를 통해 해당 블로그 페이지에 주입됨. 사유: 동일 인텐트의 기존 페이지(45클릭/8,151노출)를 사전 확인하지 않고 신설해 자기잠식이 발생함.** GSC 실측 기준 콘텐츠가 아예 없던 채로 순위만 잡고 있던 구간을 정면으로 채움 — 「치과 과잉진료」 29노출 10.6위, 「치과 과잉진료 신고 후기」 7노출 13.0위, 합계 36노출·전용 페이지 0. `guide/overtreatment.html`(64KB) 신설. ①**의료광고법 안전 프레이밍이 설계의 출발점** — 이 주제는 조금만 어긋나도 타 의료기관 비방으로 읽히므로, 페이지 최상단과 최하단에 "특정 병원·의료진을 지목·평가하지 않으며, 같은 상태에서도 의학적으로 타당한 서로 다른 계획이 존재한다"는 고지를 배치하고 전 본문을 **일반 판단 기준** 서술로만 구성 ②**「치료가 많다 = 과잉」 전제를 먼저 해체** — 검사 범위·치료 시점 기준·계획의 시간 지평 3가지 차이로 계획이 갈리는 구조를 설명하고, 판별의 축을 "치료의 양"이 아닌 **"설명의 질"**로 이동 ③**환자가 실제로 쓸 수 있는 도구 중심 구성** — 판단 기준 7가지(각 항목마다 진료실에서 그대로 읽을 질문문 포함) / 진료비 세부내역서 4개 열 읽는 법 + 4단계 대조 절차 / 2차 소견 3단계(자료 확보 → **앞선 견적을 먼저 말하지 않고 백지 상태로 질문** → 두 계획 5축 비교) / 그대로 캡처해 쓰는 질문 목록 7개 ④**자가 체크 위젯 10문항**(바닐라JS, 저장·전송 없음) — 4구간 판정과 다음 단계 앵커 링크 제공 ⑤**공적 창구 5곳 안내**(심평원 진료비 확인 요청 / 의료분쟁조정중재원 / 소비자원 1372 / 보건소·복지부 129 / 국민신문고) + 공개 게시판 실명 게시의 역위험 경고 ⑥**반대편 함정도 명시** — 실제로 더 흔한 손실은 과잉 의심으로 시기를 놓치는 쪽이라는 점을 §07로 별도 배치해 균형 유지 ⑦**본문 가격 표기 0건** — 비급여는 기관 자율 책정이라는 원리만 설명하고 금액은 `/pricing` 링크로 위임 ⑧JSON-LD 4블록(`Article` / `BreadcrumbList` / **`HowTo`**(2차 소견 3단계) / `FAQPage` 10문항) ⑨**「라미네이트 부작용」류 의도는 흡수하지 않고 `/guide/regret/laminate`로 유도** — 기존 후회 백서 24개 하위 페이지와의 자기잠식 방지 ⑩라우트 등록(`/guide/overtreatment` + `.html` 301), `EXISTING_GUIDES`·`mapDeadGuideSlug` 키워드 매핑(`overtreat`/`second-opinion`/`itemized` 등) 추가, `sitemap-main.xml` 등재(143 URL), 가이드 허브 카드 신설, 후회 백서·실비 가이드 관련 링크 + 가이드 계열 21개 파일 푸터 링크 추가
 - **v5.40 🅑 실비 클러스터 카니발라이제이션 해소 (2️⃣+3️⃣ 병행)**: 「치과 실비」 검색 의도를 백과사전 4개 항목이 나눠 가지며 **385노출/0클릭**을 기록하고, 정작 40KB 전용 랜딩 `/guide/insurance`의 권위까지 희석하던 구조를 정리. ①**전용 랜딩 실존 확인이 진단을 바꿈** — 최초 계획은 "실비 통합 랜딩 신설"이었으나 조사 결과 `/guide/insurance`가 이미 라이브였고, 진짜 문제는 콘텐츠 부재가 아니라 **카니발라이제이션**이었음. 계획을 "생성"에서 "트래픽 정리"로 전면 수정 ②`ENC_TO_GUIDE_301` 신설 — 실질 중복 3종(「실비보험 치과 적용」169노출 18.9위 / 「실손 보험 치과」/「실비보험 청구」)을 `/guide/insurance`로 **영구 301 통합** ③「실비보험」(216노출 13.1위, v5.34 슈퍼 콘텐츠)은 **존치** — 대신 `ENC_GUIDE_NUDGE`로 본문 최상단에 전용 가이드 대형 유도 배너를 SSR 삽입해 권위를 흘려보냄 ④**리다이렉트 체인 제거** — 동의어(`실손보험 치과`·`실비 치과`·`실손 치과 보장`)가 대표어를 경유해 2홉이 되던 것을 동의어 분기에 최종 목적지 룩어헤드를 추가해 **전량 1홉**으로 해소(크롤 예산·권위 전달 손실 방지). 검증: 8종 전부 `hops=1` ⑤**알려진 리다이렉트 링크를 남기지 않도록 사후 정리** — 301된 3개 용어를 `sitemap-encyclopedia.xml`(862 → 859 URL)과 `encyclopedia/index.html` 색인 목록(840 → 837개 항목)에서 제거
 - **v5.39-hotfix 🚨 `/en/*` 영문 페이지 11종 301 사망 복구**: 영문 랜딩 11개가 전부 한글 페이지로 301 튕기며 색인 0이던 치명적 버그 수정. **원인 2중 규명** — ①`scripts/post-build.cjs`가 매 빌드마다 `dist/_routes.json`을 덮어쓰는데 그 exclude 목록에 `/en/` 경로가 없었고, `include:["/*"]`이므로 Worker가 정적 파일보다 먼저 요청을 가로챔 ②`src/index.tsx`의 레거시 `/en/*` catch-all이 "실존 정적 페이지는 여기 도달 안 함"이라는 잘못된 가정으로 무조건 `/en` 접두어를 떼고 301. 동시에 `sitemap-intl.xml`은 `hreflang="en"`으로 `/en/`을 광고 중 → 구글에 "여기 있다"고 알리면서 오는 봇을 전부 되돌려보내던 상태. **수정** — `public/_routes.json`에 실존 `/en/` 정적 경로를 **개별 열거**(`/en/*` 와일드카드는 `/en/dictionary/*` Worker 라우트를 막으므로 금지)하고, catch-all을 `EN_LIVE_EXACT`(24경로) + `EN_LIVE_PREFIXES` **화이트리스트 통과 방식**으로 축소. 확장자 있는 형태와 사이트맵이 광고하는 클린 URL 양쪽 모두 등록해 프로덕션 Pages와 로컬 `wrangler pages dev`의 자산 정규화 순서 차이까지 흡수. **재발 방지**로 `npm run build:fast`(`vite build && post-build.cjs`) 스크립트를 신설 — `vite build` 단독 실행이 이 사고의 근인이었음
 - **v5.39 영문 치과 사전 30종 신설 (`/en/dictionary`)**: 영어권 환자(Camp Humphreys 미군기지·주재원·유학생)의 **증상·질환 인지 단계** 검색을 잡는 퍼널 최상단 유입구 신설 (`src/routes/en-dictionary.ts`, 2,211줄). ①**자기잠식 회피 설계** — 시술·비용 키워드(implant/invisalign/veneer/whitening/scaling/crown/root canal)는 기존 `/en/implant`·`/en/invisalign`·`/en/laminate`·`/en/pricing` 랜딩이 이미 점유하므로 **의도적으로 배제**하고 증상·질환·해부 용어만 선정(슬러그 중복 0 검증). 사전은 정보 단계에서 랜딩으로 흘려보내는 역할만 담당 ②**번역이 아닌 영문 네이티브 원고** — 한국 치과를 처음 겪는 영어권 환자 맥락(NHIS 미적용 vs SOFA·방문자 신분, PCS 이동 시 영문 차트·방사선 인수, 기지에서 차로 30분) 반영 ③**가격은 본문에 일절 표기하지 않고 `/en/pricing` 링크만** — 정규식 전량 검증(`₩`/`만원`/`KRW`/`$` 0건)으로 단일 소스 원칙 유지 ④7분류 30종 — Gum & Periodontal 5(gingivitis·periodontitis·chronic-periodontitis·dental-calculus·pregnancy-gingivitis) / Tooth Decay & Pulp 5(dental-caries·pulpitis·periapical-lesion·dental-pulp·tooth-discoloration) / Cracks & Trauma 2 / Wisdom & Eruption 4 / Bite & Jaw 4(malocclusion·bruxism·tmj-disorder·tmj-clicking) / Mouth & Tongue 6(halitosis·stomatitis·geographic-tongue·oral-thrush·leukoplakia·oral-cancer) / Tooth Anatomy 4(enamel·dentin·alveolar-bone·periodontal-ligament) ⑤**전용 FAQ 180개**(30×6) + 페이지당 JSON-LD 4블록(`WebPage`+`MedicalWebPage` / `DefinedTerm`+`DefinedTermSet` / `BreadcrumbList` / `FAQPage`), 허브는 `CollectionPage`+`ItemList` ⑥**한국어 백과사전과 양방향 hreflang** — 영문 30페이지가 `hreflang="ko"`로 `/encyclopedia/<term>`을 가리키고, 한국어 30페이지도 `EN_DICT_BY_KO` 매핑으로 `hreflang="en"` 역방향 선언(단방향은 구글이 무시). 30/30 양방향 검증, 무관 백과사전 페이지 오염 0 ⑦동의어 → canonical 301(예: `/en/dictionary/tartar` → `dental-calculus`), `.html` 접미·대문자 정규화 301, 미존재 슬러그 302 ⑧`sitemap-intl.xml` 54 → **85 URL**(허브 1 + 용어 30, 전량 hreflang alternate 세트 포함) ⑨내부 링크 `D()` 30개 참조 전량 사전 유효 검증 + 마크업 오타 2건(`</textarea></table>`, 불일치 `</p></div>`) 빌드 전 차단. 의료광고법 안전 표현 적용(tmj-disorder·oral-cancer·leukoplakia 등 YMYL 항목에 "general information, not a diagnosis" 명시)
