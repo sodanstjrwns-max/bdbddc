@@ -21,6 +21,11 @@
 
 ### v5.47 — 라미네이트 계열 정리: 「글로우네이트」 → 「라미네이트」 (2026-07-30)
 
+- 커밋 `8164cf23` (215 files) · 배포 `da505fe0.seoul-bd-dental.pages.dev`
+- 프로덕션 검증: `lv.py` 32/32 (pages.dev + bdbddc.com 양쪽) · 계열 18타깃 18/18 · `reg.py` 26타깃 실패 0건
+- glownate 실측: JSON-LD 9블록/10노드 · FAQPage 1개 19문항 · 가시 미노출 문항 0건 · gzip 전송 38,386B · TTFB 0.15s
+- 백업: https://www.genspark.ai/api/files/s/paEm6fQo (238,185,517 B)
+
 메인 진료(라미네이트)가 GSC 카테고리 **노출 4위(31,436)인데 CTR 꼴찌권(0.55%)** 인 원인을
 전수 진단하고 교정했다. 근본 원인은 **앵커 텍스트**였다.
 
