@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/ alt=""></noscript>
+     alt="" /></noscript>
 <!-- End Meta Pixel Code -->
 
   <meta charset="UTF-8">
@@ -99,9 +99,16 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
+  "@type": [
+    "Person",
+    "Physician"
+  ],
   "@id": "https://bdbddc.com/#현정민",
   "name": "현정민",
+  "medicalSpecialty": [
+    "Dentistry",
+    "심미치과(라미네이트)"
+  ],
   "alternateName": "Hyun Jeong-min",
   "jobTitle": "대표원장",
   "gender": "Male",
@@ -169,9 +176,25 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   "sameAs": [
     "https://www.instagram.com/dr_hjm/"
   ],
-  "image": "https://bdbddc.com/images/doctors/hyun-profile.webp"
+  "image": "https://bdbddc.com/images/doctors/hyun-profile.webp",
+  "url": "https://bdbddc.com/doctors/hyun",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "불당34길 14, 1~5층",
+    "addressLocality": "천안시 서북구",
+    "addressRegion": "충청남도",
+    "postalCode": "31166",
+    "addressCountry": "KR"
+  },
+  "telephone": "+82-41-415-2892",
+  "availableService": {
+    "@type": "MedicalProcedure",
+    "name": "심미치과(라미네이트)",
+    "procedureType": "https://schema.org/NoninvasiveProcedure"
+  },
+  "isAcceptingNewPatients": true
 }
-</script>
+  </script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

@@ -17,7 +17,128 @@
 
 - **영문 치과 사전 (v5.39 신설)**: https://bdbddc.com/en/dictionary — 영어권 환자용 증상·질환·해부 용어 30종 (개별 URL `/en/dictionary/<slug>`, 한국어 백과사전과 양방향 hreflang, 용어당 FAQ 6개). 분류: Gum & Periodontal 5 / Tooth Decay & Pulp 5 / Cracks & Trauma 2 / Wisdom & Eruption 4 / Bite & Jaw 4 / Mouth & Tongue 6 / Tooth Anatomy 4
 
-## Current Version: v5.45
+## Current Version: v5.46
+
+### v5.46 — 구글 공식문서 18종 기준 전면 정합화 (2026-07-30)
+
+「구글_공식문서_마스터가이드」(공식문서 18종 + 부록 A~D)를 우리 사이트에 대입해 전수 감사하고,
+검출된 위반을 **한 번에 전부** 교정했다. 감사 자체를 `scripts/audit.py`로 상설화해
+부록 B「월간 15분 점검 루틴」을 자동화했다.
+
+#### 감사 결과 요약 (색인대상 292p)
+
+| 항목 | 근거 문서 | 전 | 후 |
+|---|---|---|---|
+| 원장 수 표기 불일치 (15인/15位/15人/15 คน) | ④ ⑬ 의료법 §56 | **64곳** | **0곳** |
+| title 중복 | ⑱ | 1건 | **0건** |
+| title 키워드 남용 | ③ | 2건 | **0건** |
+| title 모바일 절단 초과 | ⑱ | 210p | **140p** |
+| title↔H1 불일치 | ⑱ | 203p | **64p** |
+| description 중복 | ⑱ | 1건 | **0건** |
+| author 메타 누락 | ④ E-E-A-T | 73p | **0p** |
+| canonical 누락 | ⑫ | 11p(오진) | **0p** — 전부 이미 `noindex` |
+| `Physician` 구조화 데이터 | ⑨ 병원 핵심 3종 | **0개** | **14개** |
+| JSON-LD 파싱 실패 | ⑨ | 0건 | **0건** |
+| 이미지 alt 누락 | ⑯ | 0/383 | **0/383** |
+| `<img>` self-closing 마크업 오류 | — | 105곳 | **0곳** |
+| `encyclopedia/index.html` 용량 | ⑰ CWV | 263.1KB | **227.4KB (−13.6%)** |
+| robots.txt AI 크롤러 차단 | ⑪ | 없음 | **없음 (전면 허용 유지)** |
+| sitemap↔noindex 충돌 | ⑤ | 0건 | **0건** |
+| **치명 이슈 합계** | — | 78건 | **0건** |
+
+#### P0 — 원장 수 「14인」 단일화 (7개 언어 / 64곳)
+
+`doctors/` 실측 = 개별 원장 페이지 14개 + 허브 9개. `doctors/index.html` H1도 "서울대 출신 14인 원장 협진".
+반면 다국어 7p가 `15`를 말하고 있었다. 한국어 178p·1,435회는 이미 14인이므로 **다국어가 틀린 것**.
+YMYL(⑬)·의료광고(의료법 §56) 영역에서 자사 인력 수 불일치는 신뢰(④ Trust) 직격이라 최우선 처리했다.
+
+`en/index` 12곳 · `jp/dental` 10 · `ru/index` 10 · `vi/index` 10 · `cn/dental` 9 · `th/index` 10 ·
+`jp/pricing` 1 · `cn/pricing` 1 · `doctors/index` 주석 1. title·description·og·twitter·JSON-LD·H1·본문·통계박스 전 계층.
+
+#### P1a — 다국어 title 단축 (26p)
+
+라틴/키릴은 데스크톱 SERP 폭이 ~65자. `en/index` 110자, `vi/implant` 106자 등이 **뒤 40%가 통째로 비노출**이었다.
+일본어·중국어는 이미 43~58자로 적정이어서 제외. 26p 전부 46~62자로 재작성하고 og:title·twitter:title 동기화.
+
+#### P1b — `area/*` 88p 자기잠식 해소 ★
+
+가장 큰 발견. 허브 `{지역}.html`과 `{지역}-implant.html`이 **title 앞머리·H1이 완전 동일**한 쌍이 19개.
+같은 검색어로 자사 페이지끼리 경쟁하고 있었다 (area 전체 CTR 0.55%의 유력 원인).
+
+- **허브 20p** → title `{지역} 치과 | 서울비디치과 오시는 길·진료과목`, H1 `{지역}에서 가까운 서울대 14인 원장 치과`로 분화
+- **시술 랜딩 60p** → title `{지역} {시술} 잘하는 치과 | 서울비디치과` (기존 H1과 완전 정합)
+- **단독 허브 7p + 천안 1p** → 임플란트 의도 유지
+- title 내 지역명 반복 **평균 2.97회 → 1.00회** (③ 키워드 남용 회피)
+- title 평균 **34.1자 → 24.5자**, 32자 초과 **0p**, 중복 **0건**
+- description 꼬리 `{지역} 치아미백 할인` → `치아미백 할인` (87p), `asan`/`cheonan` 지역명 나열 6회 → 1~2회
+
+#### P2 — `Physician` 구조화 데이터 신설 (14p)
+
+문서 ⑨의 병원 핵심 3종 중 `Dentist`(221개)·`FAQPage`(269개)는 있었으나 `Physician`이 **0개**였다.
+기존 `Person` 스키마가 이미 면허번호·학력·학회까지 갖춘 우량 자산이라 **파괴 없이 타입만 승격**:
+
+- `"@type": "Person"` → `["Person", "Physician"]`
+- `medicalSpecialty` 추가 — `hasCredential`의 전문의 항목에서 자동 추출 (치과보존과/치과교정과/소아치과/구강내과/통합치의학과)
+- `url`(canonical) · `address` · `telephone` · `availableService` · `isAcceptingNewPatients` 추가
+
+#### P3 — E-E-A-T·CWV 정비
+
+- **author 68p 추가** (④) — 언어별 표기: 한국어 `서울비디치과` / `Seoul BD Dental` / `ソウルBD歯科` / `首尔BD牙科`. noindex 7p는 대상 제외
+- **canonical은 수정 불필요로 판명** — 누락 18p 전부 이미 `noindex`. noindex+canonical 병기는 상충 신호이므로 현 상태가 정답
+- **`encyclopedia/index.html` −35.8KB** — 링크 835개가 각각 동일한 60바이트 인라인 `style`을 물고 있었다. CSS 클래스 1개로 치환(`!important`로 렌더링 동일성 보장). 링크 838개 무결
+- **`<img>` 마크업 오류 105곳 교정** — Facebook 픽셀의 `"/ alt=""` → `" alt="" />`
+- `doctors/oral-medicine` ↔ `treatments/oral-medicine` title 중복 해소, `lee-bm`과의 description 중복도 해소
+
+#### P4 — 고노출 페이지 title 32자 최적화 (15p)
+
+GSC 내부 증거가 결정적이었다. **35~38자 `guide/regret/*`는 CTR 2.72~6.37%**,
+**47~64자 페이지는 0.03~1.60%.** 짧은 제목이 압승이다. 노출 상위 15p에 이 패턴을 이식했다.
+
+| 페이지 | 노출 | 기존 CTR | 자수 |
+|---|---|---|---|
+| `treatments/pediatric` | 17,379 | **0.03%** | 55→30 |
+| `guide/wisdom-tooth` | 11,046 | 1.38% | 50→29 |
+| `guide/root-canal` | 10,845 | 1.60% | 50→24 |
+| `guide/insurance` | 9,478 | 0.75% | 58→23 |
+| `guide/denture` | 7,365 | 1.55% | 50→28 |
+| `guide/invisalign` | 7,044 | 1.28% | 62→23 |
+| `guide/orthodontics` | 6,425 | 1.17% | 49→25 |
+| `guide/implant` | 5,891 | **0.49%** | 50→23 |
+| `guide/laminate` | 5,658 | **0.23%** | 62→27 |
+| `doctors/pediatric` | 4,567 | **0.13%** | 50→24 |
+| `pricing` | 4,367 | 0.87% | 56→24 |
+| `encyclopedia` | 4,203 | 0.45% | 37→26 |
+| `guide/whitening` | 4,202 | 1.12% | 48→22 |
+| `treatments/invisalign` | 2,977 | 0.54% | 55→28 |
+| `pricing/ortho-guide` | 2,826 | 1.27% | 64→30 |
+
+GSC 최대 비용 쿼리 「신경치료 비용」(1,301노출)·「틀니 가격」(1,030)·「치아교정 비용」(693)·
+「라미네이트 가격」(605)을 제목 앞머리로 끌어올렸다.
+**홈페이지 `index.html`(47자)은 사용자 결정에 따라 유지.**
+
+#### 상설화 — `scripts/audit.py`
+
+```bash
+python3 scripts/audit.py              # 요약 리포트
+python3 scripts/audit.py -v           # 위반 파일 목록까지
+python3 scripts/audit.py --json a.json
+```
+
+문서 ③④⑤⑨⑩⑪⑫⑯⑰⑱을 자동 검사하고, ⑦⑧⑭ 등 사람이 해야 하는 항목은
+부록 B 체크리스트로 출력한다. 치명 이슈가 있으면 **exit code 1**을 반환해 CI에 물릴 수 있다.
+
+한글 형태소 특성을 감안해 title↔H1 정합은 **문자 2-gram 자카드 유사도**로 측정하며,
+1×1 추적 픽셀·`display:none` 이미지는 alt 집계에서 제외한다(`alt=""`가 정답인 케이스).
+
+#### 남은 ⚠️ (위반 아님 — 최적화 여지)
+
+- title 절단 초과 **140p** — 잔여 대부분은 GSC 노출 0인 롱테일. 노출 발생 시 순차 처리
+- title↔H1 불일치 **64p** — 검색 의도(title)와 페이지 내 메시지(H1)를 의도적으로 분리한 케이스 포함
+- description 80자 초과 **258p** — 꼬리가 모바일 비노출. 앞 80자에 핵심은 이미 배치됨
+- 인라인 style 경량화 여지 **995KB** (사이트 전체) — 300p 시각 회귀 위험이 있어 별도 QA 세션 필요
+- `AggregateRating`/`Review` 스키마 — **의료법 제56조 검토 전까지 착수 금지**
+
+---
 
 ### v5.45 — 후회 백서 12→24종 확장 + 「천안 치과 추천」 전용 랜딩 (2026-07-29)
 

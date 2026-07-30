@@ -27,7 +27,7 @@ fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-/ alt=""></noscript>
+     alt="" /></noscript>
 <!-- End Meta Pixel Code -->
 
   <meta charset="UTF-8">
@@ -78,9 +78,16 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
+  "@type": [
+    "Person",
+    "Physician"
+  ],
   "@id": "https://bdbddc.com/#박상현",
   "name": "박상현",
+  "medicalSpecialty": [
+    "Dentistry",
+    "소아치과"
+  ],
   "alternateName": "Park Sang-hyun",
   "jobTitle": "원장",
   "gender": "Male",
@@ -160,9 +167,25 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       "name": "대한소아치과학회"
     }
   ],
-  "image": "https://bdbddc.com/images/doctors/park-profile.webp"
+  "image": "https://bdbddc.com/images/doctors/park-profile.webp",
+  "url": "https://bdbddc.com/doctors/park",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "불당34길 14, 1~5층",
+    "addressLocality": "천안시 서북구",
+    "addressRegion": "충청남도",
+    "postalCode": "31166",
+    "addressCountry": "KR"
+  },
+  "telephone": "+82-41-415-2892",
+  "availableService": {
+    "@type": "MedicalProcedure",
+    "name": "소아치과",
+    "procedureType": "https://schema.org/NoninvasiveProcedure"
+  },
+  "isAcceptingNewPatients": true
 }
-</script>
+  </script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
