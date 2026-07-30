@@ -17,9 +17,80 @@
 
 - **영문 치과 사전 (v5.39 신설)**: https://bdbddc.com/en/dictionary — 영어권 환자용 증상·질환·해부 용어 30종 (개별 URL `/en/dictionary/<slug>`, 한국어 백과사전과 양방향 hreflang, 용어당 FAQ 6개). 분류: Gum & Periodontal 5 / Tooth Decay & Pulp 5 / Cracks & Trauma 2 / Wisdom & Eruption 4 / Bite & Jaw 4 / Mouth & Tongue 6 / Tooth Anatomy 4
 
-## Current Version: v5.46
+## Current Version: v5.47
+
+### v5.47 — 라미네이트 계열 정리: 「글로우네이트」 → 「라미네이트」 (2026-07-30)
+
+메인 진료(라미네이트)가 GSC 카테고리 **노출 4위(31,436)인데 CTR 꼴찌권(0.55%)** 인 원인을
+전수 진단하고 교정했다. 근본 원인은 **앵커 텍스트**였다.
+
+#### 진단 — 카테고리 규모 vs CTR (2026-04-26~07-25)
+
+| 노출 | 클릭 | CTR | 카테고리 |
+|---|---|---|---|
+| 44,970 | 1,281 | 2.85% | 사랑니 |
+| 41,921 | 1,028 | 2.45% | 임플란트 |
+| 37,959 | 718 | 1.89% | 교정/인비절라인 |
+| **31,436** | **172** | **0.55%** | **라미네이트/심미** ← 최고 객단가(1본 80만원 × 4~10본) |
+| 13,804 | 481 | 3.48% | 미백 (노출 1/2.3인데 클릭 2.8배) |
+
+**핵심 발견**: `/treatments/glownate` 로 들어오는 내부링크 **481개 중 「라미네이트」를 포함한 앵커는 9개(1.9%)**.
+178p「✨ 글로우네이트」 · 131p「글로우네이트」 · 78p「심미레진」(오표기) · 61p「글로우네이트 안내」 · 20p「글로우네이트 자세히 보기」.
+즉 구글에게 481번 “이 페이지는 글로우네이트 페이지”라고 말해온 셈이고,
+**「글로우네이트」 브랜드 검색어는 GSC 상위 500개 중 0건**이었다.
+
+#### 🅐 계열 정리 — 노출을 메인으로 몰아주기
+
+| | 내용 | 결과 |
+|---|---|---|
+| A1 | 앵커 텍스트 키워드화 (nav/footer/chip/버튼 5패턴) | **646곳 / 228 files** — 「라미네이트」 앵커 **9 → 456/461 (98.9%)** |
+| A2 | 역할 분리 + 상호링크 (`guide/laminate`=정보, `treatments/glownate`=진료, `guide/regret/laminate`=후회) | 3페이지 완전 연결 + `pricing/prosthetic` |
+| A3 | `area/daejeon-laminate` (6,197노출 / **0.10%** — 계열 최대 노출·최악 CTR) 인텐트 정직화 | title 23→**28자**, 거리 선노출 |
+
+- footer 「심미레진」 78곳은 `/treatments/glownate` 를 가리키는 **오표기**였다 → 「라미네이트」로 통일 (UX 수정 + 키워드 확보)
+- `guide/laminate`(5,658노출·25,431자)는 본문에서 진료 페이지로 가는 링크가 **0개**였다 → 인텐트 라벨 CTA 박스 신설
+- `guide/regret/laminate`(1,940노출)는 형제 페이지로부터 **인바운드 0** 고아였다 → 양방향 연결
+- `area/*-laminate` 20p 스팸 의혹은 **무혐의**: 6-gram 자카드 평균 22.1% (문서 ③ 기준 통과)
+
+#### 🅑 title/H1 탈브랜드화 — `treatments/glownate`
+
+```
+title  천안 라미네이트 글로우네이트 | 최소 삭제 포세린 · 10년 보증 — 서울비디치과  (43자, 모바일 절단)
+   →   천안 라미네이트 80만원 | 0.3mm 최소삭제·10년보증                     (32자 ✅)
+H1     라미네이트의 새로운 기준, 글로우네이트
+   →   천안 라미네이트, 0.3mm 최소삭제·10년 보증           (title↔H1 2-gram 자카드 0.947)
+```
+브랜드명과 백과사전 인라인 링크는 `hero-desc`로 이관해 **브랜딩 손실 0**.
+`area/daejeon-laminate`: title `대전 라미네이트 | 차로 40분·0.3mm 최소삭제`(28자) / H1 `대전에서 차로 40분, 0.3mm 최소삭제 라미네이트`(자카드 0.810) — **거리를 숨기지 않고 앞세워** 오인 노출을 걸러내고 메인 페이지와의 일반 키워드 경쟁을 해소.
+
+#### 🅒 구조화 데이터 정리 — `treatments/glownate`
+
+| 항목 | 전 | 후 |
+|---|---|---|
+| JSON-LD 블록 | 11개 | **9개** |
+| `FAQPage` | **2개** (문서 ⑨ 위반) | **1개 / 19문항** |
+| 가시 HTML에 없는 FAQ 문항 | **6건** (구글 정책 위반) | **0건** |
+| `VideoObject` | 5개 (`-2vBN2jVClM` 중복) | **4개 (전부 유니크)** |
+
+- 삭제한 `FAQPage`의 6문항 중 **실질 신규 4개는 가시 FAQ 아코디언(faq-21~24)으로 신설** 후 병합
+  (부작용 / 무삭제 라미네이트 / 실제 임상 사례 / 아산·세종·대전 거리)
+- 「사례」 문항은 **의료법 §56 준수** — 후기·비포애프터 표현 대신 「본인 인증 후 열람」(기존 로그인 게이트 설계와 일치)
+- `MedicalProcedure.performer` 의 `Dentist` 는 `@id` 참조이므로 **중복 아님** → 유지
+
+#### 검증
+
+- `scripts/audit.py` **치명 이슈 0건** · JSON-LD 파싱 실패 0건 · title 중복/남용 0건
+- title 모바일 절단 초과 140p → **139p** · 로컬 `lv.py` **32/32** + 계열 18타깃 **18/18**
+
+#### 미채택 (사용자 판단)
+
+- 🅓 「후회·부작용」 블록 신설 / 🅔 `cases/*` 증설 — 이미 존재하여 제외
+- 홈페이지 `<title>`(47자) — 유지 결정
+- `AggregateRating`/`Review` — 의료법 §56 검토 전까지 보류
 
 ### v5.46 — 구글 공식문서 18종 기준 전면 정합화 (2026-07-30)
+
+### v5.46 상세 — 구글 공식문서 18종 기준 전면 정합화
 
 - 커밋 `bdd315da` (215 files, +2638/-1776) · 배포 `33f885a5.seoul-bd-dental.pages.dev`
 - 프로덕션 검증: `lv.py` 32/32 통과 (pages.dev + bdbddc.com 양쪽) · `reg.py` 26타깃 실패 0건
@@ -584,7 +655,7 @@ curl http://localhost:3000/api/health
 - **Platform**: Cloudflare Pages
 - **Project Name**: seoul-bd-dental
 - **Status**: Active
-- **Last Updated**: 2026-07-30 (v5.46)
+- **Last Updated**: 2026-07-30 (v5.47)
 - **v5.42 백과사전 최빈약 34항목 본문 심화 (127,886노출 / CTR 0.79% 구간 정면 타격)**: v5.41에서 배너(`ENC_GUIDE_NUDGE`)로 트래픽을 흘려보내는 처치만 했을 뿐 **본문 자체는 손대지 않았던** 구간을 채움. 진단 근거 — 백과사전 838항목이 사이트 최대 노출원(127,886)이면서 CTR 0.79%였고, 그 원인은 순위가 아니라 **"검색 결과를 눌러 들어와도 정의 한 줄뿐이라 바로 되돌아 나가는" 얇은 본문**. ①**빈약 순으로 34항목 선별 후 심화 원고 작성** — `<600자` 구간 7개를 포함한 최하위군. 전 항목 **의료광고법 안전 기준**으로 집필(최상급·1위·유일 배제, 효과 보장 표현 배제, 타 기관 비방 배제, 금액은 기존 공개 범위 내에서만 언급하고 "정확한 금액은 진단 후 안내"로 위임, 서술은 "~로 알려져 있습니다"·"~인 경우가 많습니다" 헤지 표현) ②**🚨 기존 적용 스크립트가 데이터 롤백 지뢰임을 사전 발견** — `scripts/apply-encyclopedia-updates.cjs`는 `sorted(glob(batch*.json))`으로 **모든 배치를 문자열 정렬 순 재적용**하는 구조라 `batch5`가 `batch46`보다 뒤에 정렬됨. 실행 시 **374항목이 구버전으로 퇴행**(법랑질 1,631자 → 828자, 총 1,535,595자 → 1,064,915자, -470,680자). 사용 거부 후 해당 스크립트를 `--i-know-this-overwrites-everything` 플래그 뒤로 하드 가드하고 헤더에 회귀 실측치를 문서화 ③**적용 도구를 `scripts/apply-enc-batch.cjs`로 일원화** — 배치명 명시 방식, 자동 백업(`public/data/.enc-backup-<ts>.json`), **detail 축소 시 거부**, 미존재 용어 무적용 보고, `--dry-run` 지원. `synonyms`는 Set 합집합 병합, `link`/`guide`는 키가 있을 때만 설정 ④**정본 파일 판별** — `data/encyclopedia.json`과 `public/data/encyclopedia.json`이 md5·크기가 다른 별개 사본이며, 런타임(`src/index.tsx` L4037 `new URL('/data/encyclopedia.json')`)과 전 스크립트가 읽는 **정본은 `public/data/` 쪽**. 다른 쪽을 고쳤다면 무음 실패였음 ⑤결과 — `batch47~50` 총 34항목 적용. **`<600자` 항목 7개 → 0개**, 총 본문 1,571,908자, **중앙값 1,804자**, 분포 `600-999: 12 / 1000-1499: 129 / 1500+: 697`
 - **v5.42 백과사전 죽은 내부 링크 29건 수리 (`scripts/fix-enc-dead-links.cjs` 신설)**: 심화 작업 중 부수적으로 발견한 별건 버그. 백과사전 항목의 `item.link` 값 **117종을 전수 curl 테스트**한 결과 **18종이 404**였고 29개 항목이 이를 참조 중 — **링크 권위가 존재하지 않는 URL로 새고 있던 상태**. 죽은 경로: `/treatments/onlay`·`composite`·`fracture`·`extraction`·`fluoride`·`diagnosis`·`insurance`·`digital-implant`·`orthognathic`·`periodontal`·`gum-graft`·`gummy-smile`·`gum-recession`·`gum-depigmentation`·`replantation`·`trauma` + **URL 인코딩된 한글 경로 2종**(`/treatments/%EC%84%B8%EB%9D%BC%EB%AF%B9`, `/encyclopedia/%EC%88%98%EB%A9%B4-%EC%A7%84%EC%A0%95`). 각각 실존하는 최근접 페이지로 매핑(예: `onlay → /treatments/inlay`, `periodontal`·`gum-graft`·`gummy-smile` → `/treatments/gum-surgery`, `trauma`·`replantation` → `/treatments/emergency`, `insurance` → `/pricing`). **⚠️ 방법론 교훈 — 정적 분석은 거짓양성을 냄**: 파일시스템 존재 + `_redirects`/`index.tsx` grep 방식의 1차 스캔은 85종을 "죽은 것 같다"고 보고했으나, 실제 curl 결과 `/treatments/preventive`·`zirconia`·`/guide/dry-socket/`·`/about/patient-funnel` 등 다수가 **301로 정상 처리**되고 있었음. 301 체인과 catch-all 라우트 때문에 **curl 실측만이 유일한 판정 기준**. 스크립트는 멱등·자동백업·`--dry-run` 지원. 결과: `link` 값 117 → **101종 전량 정상**
 - **v5.42a 슈퍼 콘텐츠 마스킹 3건 적발 → 유효 심화분 보전 (`batch51` 「불소 도포」 추가)**: v5.42에서 심화한 34항목 중 **3항목(레진·소구치·견치)이 실제로는 화면에 노출되지 않고 있었음**을 사후 렌더링 실측으로 적발. 원인 — `src/index.tsx` L4641 `const superC = ENC_SUPER[term] || ENC_SUPER_V534[term] || ENC_SUPER_V538[term]`, L4672 `const baseDetail = superC ? superC.detail : interlinkText(item.detail, ...)`. 즉 **`ENC_SUPER*` 29종에 등재된 용어는 JSON의 `detail`이 통째로 무시되고 슈퍼 콘텐츠로 대체**됨. 이 3항목에 쓴 원고는 파일에는 저장됐지만 **사용자에게는 단 한 글자도 도달하지 않는 상태**였음. ①**판정 방법론 교정** — 1차 프로브(고유 문장 1개 검색)는 `견치`를 "정상 노출"로 오판했음. 원인은 `interlinkText()`가 본문 중간에 `<a>` 태그를 삽입해 원문 문자열이 끊기기 때문. **태그 제거 + 공백 정규화 후 본문을 10등분해 9개 청크를 대조하는 방식**으로 교체하자 견치도 마스킹으로 확정(3/9). ②**대응 판단** — 슈퍼 콘텐츠 쪽이 더 우수(`ENC_SUPER_V534['소구치']` 3,213자 + `WIDGET_TOOTH_EXPLORER` 인터랙티브 위젯 + 비교표, `견치` 1,892자 + 동일 위젯)하므로 **슈퍼 콘텐츠를 유지하고 JSON 원고를 버리는 쪽**을 택함. 다만 그만큼 실효 심화 수가 줄어드므로 **슈퍼 29종과 기 작업 33종을 모두 제외한 잔여 최빈약 항목**에서 보충 — 후보 `치주 농양 902 / 불소 도포 912 / 프로바이오틱스 932 / 의도적 재식술 956` 중 **검색 수요와 보험 문의가 많은 「불소 도포」**(912자 → 2,798자, `guide: /treatments/pediatric`) 선정. 재광화 원리 / 바니시·겔·용액 3형태 / 도포 후 주의 4가지 / 권장 대상 / **실란트와의 혼동 교정** / 건강보험 기준은 시점·제품별 상이함을 명시하고 사전 확인 위임 ③**교훈 — 백과사전 데이터 수정 전에는 반드시 슈퍼 용어 29종과 대조할 것**: `grep -ohE "ENC_SUPER[A-Z0-9_]*\['[^']+'\]" src/routes/enc-super*.ts | sed "s/.*\['//;s/'\]//" | sort -u`
