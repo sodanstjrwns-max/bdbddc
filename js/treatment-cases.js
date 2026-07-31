@@ -30,6 +30,9 @@
 
   // ═══ v5.18d: 중간 배치 (Clarity 스크롤맵 분석 — B/A·예약 CTA 하단 도달률 거의 0 → 중간으로 이동) ═══
   function getMidAnchor() {
+    // v5.48: 정적 케이스 섹션이 있으면 그 직후(케이스 → 예약) 흐름으로 배치
+    var st = document.getElementById('gn-static-cases');
+    if (st) return st;
     var sections = document.querySelectorAll('section');
     if (sections.length >= 4) return sections[2];      // 히어로 + 본문 2개 섹션 뒤 = 페이지 중상단
     if (sections.length >= 2) return sections[sections.length - 2];
@@ -67,6 +70,8 @@
     .then(function(res) { return res.json(); })
     .then(function(cases) {
       if (!cases || !cases.length) return;
+      // v5.48: 정적 SSR 케이스 섹션이 있는 페이지는 동적 삽입 생략 (중복 방지)
+      if (document.getElementById('gn-static-cases')) return;
       insertCaseSection(cases, catName, slug);
     })
     .catch(function(e) { console.warn('케이스 로드 실패:', e); });
