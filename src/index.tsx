@@ -1479,8 +1479,86 @@ async function saveColumns(r2: R2Bucket, cols: any[]) {
   await r2.put(COLUMNS_JSON_KEY, JSON.stringify(cols), { httpMetadata: { contentType: 'application/json' } })
 }
 
+// ── v5.49: 이스케이프 헬퍼 ─────────────────────────────────
+// 컬럼 본문/제목에 큰따옴표(")가 있으면 HTML 속성이 조기 종료되고
+// JSON-LD가 파싱 실패해 구글이 블록 전체를 버림. 전 구간에서 반드시 경유할 것.
+function attrEsc(s: any): string {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\s+/g, ' ').trim()
+}
+// JSON 문자열 리터럴 내부용 (따옴표·역슬래시·개행·제어문자 전부 처리)
+function jEsc(s: any): string {
+  return JSON.stringify(String(s ?? '').replace(/\s+/g, ' ').trim()).slice(1, -1)
+}
+// v5.49: 썸네일 WebP 짝 경로. /images/column/*.jpg 에만 .webp 짝이 존재한다.
+// 그 외 경로(R2 /api/images 등)는 빈 문자열 → <picture> 미적용 (안전 폴백).
+function webpOf(u: any): string {
+  const s = String(u ?? '')
+  return /^\/images\/column\/[^?#]+\.jpe?g$/i.test(s) ? s.replace(/\.jpe?g$/i, '.webp') : ''
+}
+// <picture> 래핑: WebP 우선 + 원본 JPEG 폴백. 짝이 없으면 <img> 단독.
+function picture(src: any, alt: any, attrs = '', pstyle = ''): string {
+  const s = attrEsc(src), w = webpOf(src)
+  const img = `<img src="${s}" alt="${attrEsc(alt)}" loading="lazy" decoding="async" ${attrs}>`
+  if (!w) return img
+  return `<picture${pstyle ? ` style="${pstyle}"` : ''}><source srcset="${attrEsc(w)}" type="image/webp">${img}</picture>`
+}
+// HTML → 순수 텍스트 (태그 제거 + 엔티티 디코드)
+function htmlText(s: any): string {
+  return String(s ?? '')
+    .replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/&ldquo;|&rdquo;/g, '"').replace(/&lsquo;|&rsquo;/g, "'")
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
+    .replace(/\s+/g, ' ').trim()
+}
+
 // slug 헬퍼: col 객체에서 URL용 slug 반환 (slug 없으면 id 폴백)
 function colSlug(col: any): string { return col.slug || col.id }
+
+// ── v5.49: 관련 컬럼 토픽 유사도 ────────────────────────────
+// 기존 "최신 5개 고정" → 69개 컬럼이 인링크 0인 고아 상태였음.
+// 슬러그 영단어 토큰 + 한글 제목 2-gram 자카드로 실제 주제가 가까운 글을 연결한다.
+const COL_STOPWORDS = new Set(['the','a','an','and','or','of','to','in','for','is','it','you','your','do','does','not','when','what','why','how','vs','are','be','can','my','on','with','after','before','more','than','real','really'])
+function colTokens(col: any): Set<string> {
+  const slugWords = String(col.slug || '').split('-').filter(w => w.length > 2 && !COL_STOPWORDS.has(w))
+  const ko = String((col.title || '') + ' ' + (col.metaTitle || '') + ' ' + (col.focusKeyword || '')).replace(/[^가-힣0-9]/g, '')
+  const grams: string[] = []
+  for (let i = 0; i < ko.length - 1; i++) grams.push(ko.slice(i, i + 2))
+  return new Set([...slugWords, ...grams])
+}
+function colSimilarity(a: Set<string>, b: Set<string>): number {
+  if (!a.size || !b.size) return 0
+  let inter = 0
+  for (const t of a) if (b.has(t)) inter++
+  return inter / (a.size + b.size - inter)
+}
+function relatedColumns(all: any[], col: any, limit = 6): any[] {
+  const pool = all.filter((x: any) => x.id !== col.id && x.status === 'published')
+  const mine = colTokens(col)
+  const scored = pool.map((x: any) => {
+    let s = colSimilarity(mine, colTokens(x)) * 10
+    if (x.category && col.category && x.category === col.category) s += 0.4
+    if (x.doctorName && col.doctorName && x.doctorName === col.doctorName) s += 0.15
+    return { col: x, s }
+  })
+  scored.sort((p, q) => q.s - p.s || new Date(q.col.createdAt || 0).getTime() - new Date(p.col.createdAt || 0).getTime())
+  const picked = scored.filter(x => x.s > 0.3).slice(0, limit).map(x => x.col)
+  // 유사 글이 모자라면 "아직 인링크가 적은 글"로 채워 고아 컬럼을 살린다 (오래된 순)
+  if (picked.length < limit) {
+    const have = new Set(picked.map((p: any) => p.id))
+    const filler = pool.filter((x: any) => !have.has(x.id))
+      .sort((p, q) => new Date(p.createdAt || 0).getTime() - new Date(q.createdAt || 0).getTime())
+    for (const f of filler) {
+      if (picked.length >= limit) break
+      picked.push(f)
+    }
+  }
+  return picked
+}
 // 컬럼 찾기: slug OR id로 매칭
 function findColumnByParam(all: any[], param: string): any {
   return all.find((x: any) => (x.slug === param || x.id === param) && x.status === 'published')
@@ -1507,7 +1585,7 @@ app.get('/api/columns', async (c) => {
   published.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
   c.header('Cache-Control', 'public, max-age=60')
   return c.json(published.map((col: any) => ({
-    id: col.id, slug: colSlug(col), title: col.title, excerpt: (col.content || '').replace(/<[^>]*>/g, '').slice(0, 120),
+    id: col.id, slug: colSlug(col), title: col.title, excerpt: htmlText(col.content).slice(0, 120),
     doctorName: col.doctorName, category: col.category || '',
     thumbnailImage: col.thumbnailImage || '', createdAt: col.createdAt,
   })))
@@ -1878,7 +1956,7 @@ app.get('/feed.xml', async (c) => {
   const columns: any[] = r2 ? (await getColumns(r2)).filter((col: any) => col.status === 'published') : []
   columns.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
   const items = columns.slice(0, 20).map((col: any) => {
-    const excerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 300)
+    const excerpt = htmlText(col.content).slice(0, 300)
     const slug = DOCTOR_SLUG_MAP[col.doctorName] || ''
     const date = new Date(col.createdAt || Date.now()).toUTCString()
     return `    <item>
@@ -1886,8 +1964,8 @@ app.get('/feed.xml', async (c) => {
       <link>https://bdbddc.com/column/${colSlug(col)}</link>
       <guid isPermaLink="true">https://bdbddc.com/column/${colSlug(col)}</guid>
       <description><![CDATA[${excerpt}]]></description>
-      <author>${col.doctorName || '서울비디치과'}</author>
-      <category>${col.category || '진료 이야기'}</category>
+      <author>${attrEsc(col.doctorName || '서울비디치과')}</author>
+      <category>${attrEsc(col.category || '진료 이야기')}</category>
       <pubDate>${date}</pubDate>
     </item>`
   }).join('\n')
@@ -2718,10 +2796,10 @@ app.get('/doctors/:slug', async (c) => {
   let columnsSection = ''
   if (doctorColumns.length > 0) {
     const colCards = doctorColumns.map((col: any) => {
-      const excerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 80) + '...'
+      const excerpt = htmlText(col.content).slice(0, 80) + '...'
       const date = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'short', day:'numeric' })
       return `<a href="/column/${colSlug(col)}" class="dr-col-card" style="text-decoration:none;color:inherit;">
-        ${col.thumbnailImage ? `<div class="dr-col-thumb"><img src="${col.thumbnailImage}" alt="${col.title}"></div>` : ''}
+        ${col.thumbnailImage ? `<div class="dr-col-thumb">${picture(col.thumbnailImage, col.title)}</div>` : ''}
         <div class="dr-col-info">
           ${col.category ? `<span class="dr-col-cat">${col.category}</span>` : ''}
           <h4>${col.title}</h4>
@@ -3048,12 +3126,12 @@ app.get('/column/', async (c) => {
   }
 
   const colCards = columns.map((col: any) => {
-    const excerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 120) + '...'
+    const excerpt = htmlText(col.content).slice(0, 120) + '...'
     const date = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'short', day:'numeric' })
     const slug = DOCTOR_SLUG_MAP[col.doctorName] || ''
     const drSpec = COL_LIST_DOCTOR_INFO[slug]?.specialty || '치과의사'
     const thumbHtml = col.thumbnailImage 
-      ? `<div class="cc-thumb"><img src="${col.thumbnailImage}" alt="${col.title}" loading="lazy">${col.category ? `<span class="cc-cat">${col.category}</span>` : ''}</div>`
+      ? `<div class="cc-thumb">${picture(col.thumbnailImage, col.title, 'width="688" height="384"')}${col.category ? `<span class="cc-cat">${attrEsc(col.category)}</span>` : ''}</div>`
       : `<div class="cc-thumb cc-thumb-empty"><div class="cc-thumb-placeholder"><i class="fas fa-pen-nib"></i></div>${col.category ? `<span class="cc-cat">${col.category}</span>` : ''}</div>`
     const avatarHtml = slug 
       ? `<img src="/images/doctors/${slug}-profile.webp" alt="${col.doctorName}" class="cc-avatar-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="cc-avatar-fb" style="display:none">${(col.doctorName || '').charAt(0)}</span>`
@@ -3304,7 +3382,7 @@ app.get('/column/:param', async (c) => {
   const dateStr = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
   const isoDate = col.createdAt ? new Date(col.createdAt).toISOString() : ''
   const isoUpdated = col.updatedAt ? new Date(col.updatedAt).toISOString() : isoDate
-  const plainExcerpt = (col.content || '').replace(/<[^>]*>/g, '').slice(0, 160)
+  const plainExcerpt = htmlText(col.content).slice(0, 160)
   
   // FAQ Schema용: 본문에서 h2/h3→다음텍스트 쌍 추출 (AEO 최적화)
   const faqPairs: {q: string; a: string}[] = []
@@ -3312,24 +3390,34 @@ app.get('/column/:param', async (c) => {
   const headingRegex = /<(h[23])[^>]*>(.*?)<\/\1>/gi
   let hMatch
   while ((hMatch = headingRegex.exec(contentStr)) !== null) {
-    const question = hMatch[2].replace(/<[^>]*>/g, '').trim()
+    const question = htmlText(hMatch[2])
     if (!question || question.length < 5) continue
     // 제목 뒤 텍스트를 다음 h2/h3 전까지 추출
     const afterH = contentStr.slice(hMatch.index + hMatch[0].length)
     const nextHIdx = afterH.search(/<h[23]/i)
     const segment = nextHIdx > 0 ? afterH.slice(0, nextHIdx) : afterH.slice(0, 1000)
-    const answer = segment.replace(/<[^>]*>/g, '').trim().slice(0, 300)
+    const answer = htmlText(segment).slice(0, 300)
     if (answer.length >= 20) faqPairs.push({ q: question, a: answer })
   }
+  // v5.49: 문자열 수동 조립 → JSON.stringify 로 교체 (따옴표/개행 파싱 실패 6건 원인 제거)
   const faqSchema = faqPairs.length >= 2 ? `
 <!-- FAQPage Schema (AEO) -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[${faqPairs.slice(0, 8).map(f => `{"@type":"Question","name":"${f.q.replace(/"/g, '\\"')}","acceptedAnswer":{"@type":"Answer","text":"${f.a.replace(/"/g, '\\"')}"}}`).join(',')}]}
+${JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqPairs.slice(0, 8).map(f => ({
+    '@type': 'Question',
+    name: f.q.replace(/\s+/g, ' ').trim(),
+    acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/\s+/g, ' ').trim() },
+  })),
+}).replace(/</g, '\\u003c')}
 </script>` : ''
   
   // SEO 메타필드 활용 (에디터에서 입력한 값 우선, 없으면 자동 생성)
-  const seoTitle = col.metaTitle || col.title
-  const seoDesc = col.metaDescription || plainExcerpt
+  const seoTitle = String(col.metaTitle || col.title || '').replace(/\s+/g, ' ').trim()
+  // v5.49: metaDescription 자체가 「"…」로 시작하면 속성 조기 종료 → attrEsc 로 방어. 빈 값이면 title 폴백까지.
+  const seoDesc = String(col.metaDescription || plainExcerpt || `${col.title || ''} — 서울비디치과 ${col.doctorName || '원장'} 컬럼`).replace(/\s+/g, ' ').trim()
   const rawThumb = col.thumbnailImage || ''
   const ogImage = rawThumb.startsWith('http') ? rawThumb : rawThumb ? `https://bdbddc.com${rawThumb}` : 'https://bdbddc.com/images/og-image-v2.jpg?v=sq1'
   const doctorNameClean = (col.doctorName || '').replace(' 원장', '')
@@ -3358,9 +3446,8 @@ app.get('/column/:param', async (c) => {
   const drInfo = COL_DOCTOR_INFO[doctorSlug] || { specialty: '치과의사' }
 
   // ===== 관련 컬럼 (같은 저자 or 전체에서 최신 5개, 자기 자신 제외) =====
-  const otherCols = all.filter((x: any) => x.id !== id && x.status === 'published')
-    .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
-    .slice(0, 5)
+  // v5.49: 최신순 고정 → 토픽 유사도 기반 (링크 고아 69건 해소)
+  const otherCols = relatedColumns(all, col, 6)
   const relatedColumnsHtml = otherCols.length > 0 ? `
 <!-- 관련 컬럼 내부 링크 블록 (SEO 토픽 클러스터) -->
 <section style="margin-top:40px;padding:28px 24px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:20px;border:1px solid #ede6dd;">
@@ -3368,9 +3455,9 @@ app.get('/column/:param', async (c) => {
 <div style="display:flex;flex-direction:column;gap:10px;">
 ${otherCols.map((rc: any) => {
   const rcDate = new Date(rc.createdAt || Date.now()).toLocaleDateString('ko-KR', { month:'short', day:'numeric' })
-  const rcExcerpt = (rc.content || '').replace(/<[^>]*>/g, '').slice(0, 60) + '...'
-  return `<a href="/column/${colSlug(rc)}" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:14px;text-decoration:none;color:inherit;border:1px solid #ede6dd;transition:all .2s;">
-${rc.thumbnailImage ? `<img src="${rc.thumbnailImage}" alt="" style="width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;">` : `<div style="width:56px;height:56px;border-radius:10px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-pen-nib" style="color:#d4c5b3;font-size:1.2rem;"></i></div>`}
+  const rcExcerpt = htmlText(rc.content).slice(0, 60) + '...'
+  return `<a href="/column/${colSlug(rc)}" title="${attrEsc(rc.title)}" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:14px;text-decoration:none;color:inherit;border:1px solid #ede6dd;transition:all .2s;">
+${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="56" style="width:56px;height:56px;border-radius:10px;object-fit:cover;"', 'flex-shrink:0;display:block;width:56px;height:56px;') : `<div style="width:56px;height:56px;border-radius:10px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-pen-nib" style="color:#d4c5b3;font-size:1.2rem;"></i></div>`}
 <div style="min-width:0;flex:1;">
 <div style="font-size:.92rem;font-weight:700;color:#333;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${rc.title}</div>
 <div style="font-size:.78rem;color:#999;margin-top:3px;">${rc.doctorName || ''} · ${rcDate}</div>
@@ -3381,60 +3468,161 @@ ${rc.thumbnailImage ? `<img src="${rc.thumbnailImage}" alt="" style="width:56px;
 </section>` : ''
 
   // ===== 관련 치료 페이지 매핑 (키워드 기반) =====
+  // v5.49: 임플란트 편중 해소 — 74건 컬럼의 12개 토픽 클러스터 전부 커버
   const COLUMN_TREATMENT_MAP: Record<string, { href: string, label: string, icon: string }[]> = {
+    // ── 임플란트 ──
     '임플란트': [
       { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
-      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
-      { href: '/treatments/implant-immediate', label: '즉시 임플란트', icon: 'fas fa-bolt' },
-      { href: '/treatments/implant-full-mouth', label: '전악 임플란트', icon: 'fas fa-teeth' },
-      { href: '/treatments/implant-sinus-lift', label: '뼈이식·상악동거상술', icon: 'fas fa-bone' },
-      { href: '/treatments/implant-navigation', label: '네비게이션 임플란트', icon: 'fas fa-crosshairs' },
+      { href: '/guide/implant', label: '임플란트 가이드', icon: 'fas fa-book-open' },
+      { href: '/guide/regret/implant', label: '임플란트 후회 사례', icon: 'fas fa-triangle-exclamation' },
     ],
-    '수면': [
-      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
-    ],
-    '마취': [
-      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
-    ],
-    '공포': [
-      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
-    ],
+    'implant': [ { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' } ],
+    '수면': [ { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' } ],
+    '마취': [ { href: '/treatments/sedation', label: '수면·의식하진정', icon: 'fas fa-moon' } ],
+    '공포': [ { href: '/treatments/sedation', label: '수면·의식하진정', icon: 'fas fa-moon' } ],
     '뼈이식': [
       { href: '/treatments/implant-sinus-lift', label: '뼈이식·상악동거상술', icon: 'fas fa-bone' },
-      { href: '/treatments/implant-advanced', label: '고난도 임플란트', icon: 'fas fa-medal' },
+      { href: '/guide/regret/bone-graft', label: '뼈이식 후회 사례', icon: 'fas fa-triangle-exclamation' },
     ],
-    '가격': [
-      { href: '/pricing', label: '비용 안내', icon: 'fas fa-won-sign' },
-      { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
+    '전악': [ { href: '/treatments/implant-full-mouth', label: '전악 임플란트', icon: 'fas fa-teeth' } ],
+    '즉시': [ { href: '/treatments/implant-immediate', label: '즉시 임플란트', icon: 'fas fa-bolt' } ],
+    '재수술': [ { href: '/treatments/implant-revision', label: '임플란트 재수술', icon: 'fas fa-rotate-left' } ],
+    // ── 사랑니 ──
+    '사랑니': [
+      { href: '/treatments/wisdom-tooth', label: '사랑니 발치', icon: 'fas fa-tooth' },
+      { href: '/guide/wisdom-tooth', label: '사랑니 가이드', icon: 'fas fa-book-open' },
+      { href: '/guide/regret/wisdom-tooth', label: '사랑니 후회 사례', icon: 'fas fa-triangle-exclamation' },
     ],
-    '통증': [
-      { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' },
-      { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
+    '발치': [ { href: '/treatments/wisdom-tooth', label: '사랑니 발치', icon: 'fas fa-tooth' } ],
+    // ── 잇몸 · 치주 ──
+    '잇몸': [
+      { href: '/treatments/gum', label: '잇몸치료', icon: 'fas fa-teeth' },
+      { href: '/treatments/periodontitis', label: '치주염 치료', icon: 'fas fa-notes-medical' },
+      { href: '/guide/regret/gum', label: '잇몸치료 후회 사례', icon: 'fas fa-triangle-exclamation' },
     ],
-    '붓기': [
-      { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
-    ],
-    '출혈': [
-      { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
-    ],
-    '교정': [
-      { href: '/treatments/invisalign', label: '인비절라인', icon: 'fas fa-teeth-open' },
-      { href: '/treatments/orthodontics', label: '치아교정', icon: 'fas fa-teeth' },
-    ],
-    '인비절라인': [
-      { href: '/treatments/invisalign', label: '인비절라인 센터', icon: 'fas fa-teeth-open' },
-    ],
-    '충치': [
-      { href: '/treatments/cavity', label: '충치치료', icon: 'fas fa-tooth' },
+    '치주': [
+      { href: '/treatments/periodontitis', label: '치주염 치료', icon: 'fas fa-notes-medical' },
+      { href: '/treatments/gum-surgery', label: '잇몸수술', icon: 'fas fa-scissors' },
     ],
     '스케일링': [
       { href: '/treatments/scaling', label: '스케일링', icon: 'fas fa-teeth' },
+      { href: '/guide/scaling', label: '스케일링 가이드', icon: 'fas fa-book-open' },
     ],
-    '사랑니': [
-      { href: '/treatments/wisdom-tooth', label: '사랑니 발치', icon: 'fas fa-tooth' },
+    '치석': [ { href: '/treatments/scaling', label: '스케일링', icon: 'fas fa-teeth' } ],
+    // ── 신경치료 ──
+    '신경치료': [
+      { href: '/treatments/root-canal', label: '신경치료', icon: 'fas fa-tooth' },
+      { href: '/guide/root-canal', label: '신경치료 가이드', icon: 'fas fa-book-open' },
+      { href: '/guide/regret/root-canal', label: '신경치료 후회 사례', icon: 'fas fa-triangle-exclamation' },
     ],
+    '근관': [ { href: '/treatments/root-canal', label: '신경치료', icon: 'fas fa-tooth' } ],
+    '재신경': [ { href: '/treatments/re-root-canal', label: '재신경치료', icon: 'fas fa-rotate-left' } ],
+    '치근단': [ { href: '/treatments/apicoectomy', label: '치근단 수술', icon: 'fas fa-scissors' } ],
+    // ── 미백 · 심미 ──
+    '미백': [
+      { href: '/treatments/whitening', label: '치아미백', icon: 'fas fa-star' },
+      { href: '/guide/whitening', label: '미백 가이드', icon: 'fas fa-book-open' },
+      { href: '/guide/regret/whitening', label: '미백 후회 사례', icon: 'fas fa-triangle-exclamation' },
+    ],
+    '변색': [
+      { href: '/treatments/whitening', label: '치아미백', icon: 'fas fa-star' },
+      { href: '/treatments/glownate', label: '글로우네이트 라미네이트', icon: 'fas fa-gem' },
+    ],
+    '라미네이트': [
+      { href: '/treatments/glownate', label: '글로우네이트 라미네이트', icon: 'fas fa-gem' },
+      { href: '/guide/laminate', label: '라미네이트 가이드', icon: 'fas fa-book-open' },
+    ],
+    '앞니': [
+      { href: '/treatments/glownate', label: '글로우네이트 라미네이트', icon: 'fas fa-gem' },
+      { href: '/guide/regret/front-teeth', label: '앞니 치료 후회 사례', icon: 'fas fa-triangle-exclamation' },
+    ],
+    '심미': [ { href: '/treatments/aesthetic', label: '심미치료', icon: 'fas fa-gem' } ],
+    // ── 예방 · 구강위생 ──
+    '충치': [
+      { href: '/treatments/cavity', label: '충치치료', icon: 'fas fa-tooth' },
+      { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' },
+    ],
+    '양치': [ { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' } ],
+    '치실': [ { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' } ],
+    '예방': [ { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' } ],
+    '구취': [ { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' } ],
+    '레진': [
+      { href: '/treatments/resin', label: '레진치료', icon: 'fas fa-tooth' },
+      { href: '/guide/regret/resin', label: '레진 후회 사례', icon: 'fas fa-triangle-exclamation' },
+    ],
+    // ── 소아 ──
+    '유치': [ { href: '/treatments/pediatric', label: '소아치과', icon: 'fas fa-child' } ],
+    '아이': [ { href: '/treatments/pediatric', label: '소아치과', icon: 'fas fa-child' } ],
+    '어린이': [ { href: '/treatments/pediatric', label: '소아치과', icon: 'fas fa-child' } ],
+    '소아': [ { href: '/treatments/pediatric', label: '소아치과', icon: 'fas fa-child' } ],
+    '불소': [ { href: '/treatments/pediatric', label: '소아치과', icon: 'fas fa-child' } ],
+    '실런트': [ { href: '/treatments/pediatric', label: '소아치과', icon: 'fas fa-child' } ],
+    '손가락': [ { href: '/treatments/pediatric', label: '소아치과', icon: 'fas fa-child' } ],
+    // ── 교정 ──
+    '교정': [
+      { href: '/treatments/orthodontics', label: '치아교정', icon: 'fas fa-teeth-open' },
+      { href: '/guide/orthodontics', label: '교정 가이드', icon: 'fas fa-book-open' },
+      { href: '/guide/regret/orthodontics', label: '교정 후회 사례', icon: 'fas fa-triangle-exclamation' },
+    ],
+    '인비절라인': [
+      { href: '/treatments/invisalign', label: '인비절라인 센터', icon: 'fas fa-teeth-open' },
+      { href: '/guide/invisalign', label: '인비절라인 가이드', icon: 'fas fa-book-open' },
+    ],
+    '투명교정': [ { href: '/treatments/invisalign', label: '인비절라인 센터', icon: 'fas fa-teeth-open' } ],
+    '유지장치': [ { href: '/guide/regret/retainer', label: '유지장치 후회 사례', icon: 'fas fa-triangle-exclamation' } ],
+    '부정교합': [ { href: '/guide/regret/malocclusion', label: '부정교합 후회 사례', icon: 'fas fa-triangle-exclamation' } ],
+    // ── 턱관절 · 이갈이 ──
+    '턱관절': [
+      { href: '/treatments/tmj', label: '턱관절 치료', icon: 'fas fa-head-side-mask' },
+      { href: '/treatments/oral-medicine', label: '구강내과', icon: 'fas fa-notes-medical' },
+    ],
+    '이갈이': [
+      { href: '/treatments/bruxism', label: '이갈이·교합안정장치', icon: 'fas fa-teeth' },
+      { href: '/guide/regret/bruxism', label: '이갈이 후회 사례', icon: 'fas fa-triangle-exclamation' },
+    ],
+    '악물': [ { href: '/treatments/bruxism', label: '이갈이·교합안정장치', icon: 'fas fa-teeth' } ],
+    // ── 외상 · 응급 ──
+    '외상': [ { href: '/treatments/emergency', label: '치과 응급', icon: 'fas fa-kit-medical' } ],
+    '응급': [ { href: '/treatments/emergency', label: '치과 응급', icon: 'fas fa-kit-medical' } ],
+    '깨진': [
+      { href: '/treatments/emergency', label: '치과 응급', icon: 'fas fa-kit-medical' },
+      { href: '/guide/regret/tooth-crack', label: '치아 파절 후회 사례', icon: 'fas fa-triangle-exclamation' },
+    ],
+    '부러': [ { href: '/treatments/emergency', label: '치과 응급', icon: 'fas fa-kit-medical' } ],
+    '마우스가드': [ { href: '/treatments/bruxism', label: '이갈이·교합안정장치', icon: 'fas fa-teeth' } ],
+    // ── 보철 ──
+    '크라운': [
+      { href: '/treatments/crown', label: '크라운', icon: 'fas fa-crown' },
+      { href: '/guide/regret/crown', label: '크라운 후회 사례', icon: 'fas fa-triangle-exclamation' },
+    ],
+    '브릿지': [
+      { href: '/treatments/bridge', label: '브릿지', icon: 'fas fa-bridge' },
+      { href: '/guide/regret/bridge', label: '브릿지 후회 사례', icon: 'fas fa-triangle-exclamation' },
+    ],
+    '틀니': [
+      { href: '/treatments/denture', label: '틀니', icon: 'fas fa-teeth' },
+      { href: '/treatments/implant-overdenture', label: '임플란트 오버덴처', icon: 'fas fa-teeth' },
+      { href: '/guide/denture', label: '틀니 가이드', icon: 'fas fa-book-open' },
+    ],
+    '인레이': [
+      { href: '/treatments/inlay', label: '인레이·온레이', icon: 'fas fa-tooth' },
+      { href: '/guide/regret/inlay', label: '인레이 후회 사례', icon: 'fas fa-triangle-exclamation' },
+    ],
+    '지르코니아': [ { href: '/treatments/crown', label: '크라운', icon: 'fas fa-crown' } ],
+    '보철': [ { href: '/treatments/crown', label: '크라운', icon: 'fas fa-crown' } ],
+    // ── 공통 ──
+    '가격': [
+      { href: '/pricing', label: '비용 안내', icon: 'fas fa-won-sign' },
+      { href: '/guide/insurance', label: '건강보험 적용 가이드', icon: 'fas fa-file-invoice' },
+    ],
+    '비용': [ { href: '/pricing', label: '비용 안내', icon: 'fas fa-won-sign' } ],
+    '보험': [ { href: '/guide/insurance', label: '건강보험 적용 가이드', icon: 'fas fa-file-invoice' } ],
+    '통증': [ { href: '/treatments/sedation', label: '수면·의식하진정', icon: 'fas fa-moon' } ],
+    '시린': [ { href: '/treatments/cavity', label: '충치치료', icon: 'fas fa-tooth' } ],
+    '병원 선택': [ { href: '/guide/cheonan-dentist-choice', label: '천안 치과 고르는 법', icon: 'fas fa-magnifying-glass' } ],
   }
-  const titleLower = (col.title || '') + ' ' + (col.focusKeyword || '') + ' ' + (col.category || '')
+  // v5.49: 매칭 소스 확대 (metaTitle · slug · 본문 앞부분까지)
+  const titleLower = [col.title, col.metaTitle, col.focusKeyword, col.category, col.slug, htmlText(col.content).slice(0, 400)].filter(Boolean).join(' ')
   const matchedTreatments = new Map<string, { href: string, label: string, icon: string }>()
   for (const [kw, treats] of Object.entries(COLUMN_TREATMENT_MAP)) {
     if (titleLower.includes(kw)) {
@@ -3470,15 +3658,15 @@ ${defaultLinks.map(t => `<a href="${t.href}" style="display:inline-flex;align-it
 <head>
 ${TRACKING_HEAD}
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${seoTitle} | 원장 컬럼 — 서울비디치과</title>
-<meta name="description" content="${seoDesc}">
-<meta name="ai-summary" content="${aiSummary}">
-${focusKw ? `<meta name="keywords" content="${focusKw},서울비디치과,원장컬럼,천안치과">` : ''}
-<meta name="author" content="${col.doctorName || '서울비디치과'}">
+<title>${attrEsc(seoTitle)} | 원장 컬럼 — 서울비디치과</title>
+<meta name="description" content="${attrEsc(seoDesc)}">
+<meta name="ai-summary" content="${attrEsc(aiSummary)}">
+${focusKw ? `<meta name="keywords" content="${attrEsc(focusKw)},서울비디치과,원장컬럼,천안치과">` : ''}
+<meta name="author" content="${attrEsc(col.doctorName || '서울비디치과')}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://bdbddc.com/column/${colSlug(col)}">
-<meta property="og:title" content="${seoTitle} | 서울비디치과">
-<meta property="og:description" content="${seoDesc}">
+<meta property="og:title" content="${attrEsc(seoTitle)} | 서울비디치과">
+<meta property="og:description" content="${attrEsc(seoDesc)}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://bdbddc.com/column/${colSlug(col)}">
 <meta property="og:image" content="${ogImage}">
@@ -3490,8 +3678,8 @@ ${focusKw ? `<meta name="keywords" content="${focusKw},서울비디치과,원장
 <meta property="article:published_time" content="${isoDate}">
 ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${isoUpdated}">` : ''}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${seoTitle} | 서울비디치과">
-<meta name="twitter:description" content="${seoDesc}">
+<meta name="twitter:title" content="${attrEsc(seoTitle)} | 서울비디치과">
+<meta name="twitter:description" content="${attrEsc(seoDesc)}">
 <meta name="twitter:image" content="${ogImage}">
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -3500,20 +3688,20 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 <link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
 <!-- BreadcrumbList -->
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"원장 컬럼","item":"https://bdbddc.com/column/"},{"@type":"ListItem","position":3,"name":"${col.title}","item":"https://bdbddc.com/column/${colSlug(col)}"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"원장 컬럼","item":"https://bdbddc.com/column/"},{"@type":"ListItem","position":3,"name":"${jEsc(col.title)}","item":"https://bdbddc.com/column/${colSlug(col)}"}]}
 </script>
 <!-- Article Schema -->
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
   "@type":"Article",
-  "headline":"${seoTitle}",
-  "description":"${seoDesc}",
+  "headline":"${jEsc(seoTitle)}",
+  "description":"${jEsc(seoDesc)}",
   "author":{
     "@type":"Person",
-    "@id":"https://bdbddc.com/#${doctorNameClean}",
-    "name":"${col.doctorName || '서울비디치과'}",
-    "jobTitle":"${drInfo.specialty || '치과의사'}",
+    "@id":"https://bdbddc.com/#${encodeURIComponent(doctorNameClean)}",
+    "name":"${jEsc(col.doctorName || '서울비디치과')}",
+    "jobTitle":"${jEsc(drInfo.specialty || '치과의사')}",
     "url":"https://bdbddc.com/doctors/${doctorSlug}",
     "alumniOf":{"@type":"CollegeOrUniversity","name":"서울대학교 치의학대학원"},
     "worksFor":{"@type":"Dentist","@id":"https://bdbddc.com/#dentist","name":"서울비디치과","address":{"@type":"PostalAddress","addressLocality":"천안시","addressRegion":"충청남도","addressCountry":"KR"}},
@@ -3532,7 +3720,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
     "logo":{"@type":"ImageObject","url":"https://bdbddc.com/images/og-image-v2.jpg?v=sq1"}
   },
   "inLanguage":"ko",
-  ${focusKw ? `"keywords":"${focusKw}",` : ''}
+  ${focusKw ? `"keywords":"${jEsc(focusKw)}",` : ''}
   "isPartOf":{"@type":"Blog","name":"서울비디치과 원장 컬럼","url":"https://bdbddc.com/column/"}
 }
 </script>
@@ -3644,7 +3832,7 @@ ${doctorSlug ? `<a href="/doctors/${doctorSlug}" class="col-author-card">
 </div>
 </div>`}
 
-${col.thumbnailImage ? `<div class="col-detail-hero-img"><img src="${col.thumbnailImage}" alt="${col.title}"></div>` : ''}
+${col.thumbnailImage ? `<div class="col-detail-hero-img">${picture(col.thumbnailImage, col.title, 'width="1376" height="768"')}</div>` : ''}
 <div class="col-detail-body">${col.content || ''}</div>
 
 <!-- Author Box (Bottom) -->
