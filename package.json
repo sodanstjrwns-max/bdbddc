@@ -10,7 +10,13 @@
     "deploy": "npm run build && wrangler pages deploy dist",
     "deploy:prod": "npm run build && wrangler pages deploy dist --project-name seoul-bd-dental",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
-    "clean-port": "fuser -k 3000/tcp 2>/dev/null || true"
+    "clean-port": "fuser -k 3000/tcp 2>/dev/null || true",
+    "queue:build": "python3 scripts/column-queue.py",
+    "queue:seed": "python3 scripts/seed-queue.py",
+    "queue:seed:local": "wrangler d1 execute bdbddc-production --local --file=/home/user/gsc-work/seed-column-queue.sql",
+    "queue:seed:prod": "wrangler d1 execute bdbddc-production --remote --file=/home/user/gsc-work/seed-column-queue.sql",
+    "gate:parity": "esbuild src/column-gate.ts --bundle --format=esm --outfile=/tmp/gate.mjs --log-level=error && node scripts/gate-parity.mjs",
+    "cron:deploy": "wrangler deploy -c scripts/cron-worker/wrangler.jsonc"
   },
   "dependencies": {
     "hono": "^4.11.1"

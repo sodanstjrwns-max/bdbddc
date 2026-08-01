@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "bdbddc-column-cron",
+  "main": "index.ts",
+  "compatibility_date": "2025-12-17",
+  // 매일 00:00 UTC = 09:00 KST — 원장님이 지정한 발행 시각
+  "triggers": {
+    "crons": ["0 0 * * *"]
+  },
+  "vars": {
+    "TARGET_URL": "https://bdbddc.com"
+  }
+  // CRON_SECRET 은 vars 가 아니라 시크릿으로 넣는다:
+  //   npx wrangler secret put CRON_SECRET -c scripts/cron-worker/wrangler.jsonc
+}

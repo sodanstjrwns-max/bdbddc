@@ -10,6 +10,7 @@ import { registerGameApis } from './routes/game-api'
 import { registerCareerApis } from './routes/career-api'
 import { getBlogEnrichment } from './routes/blog-enrich'
 import { ENC_SUPER } from './routes/enc-super'
+import { registerColumnAutoApi } from './routes/column-auto-api'
 import { ENC_SUPER_V534 } from './routes/enc-super-v534'
 import { ENC_SUPER_V538 } from './routes/enc-super-v538'
 import { registerEnDictionary } from './routes/en-dictionary'
@@ -1934,6 +1935,8 @@ app.get('/blog/transparent-orthodontics-treatment-process-guide', (c) => c.redir
 
 // 게임/인터랙션 통계 API → src/routes/game-api.ts (v5.36 분할)
 registerGameApis(app)
+// v5.50 컬럼 자동발행 API — 캐치올보다 먼저 등록해야 매칭된다(Hono 는 등록 순서 우선)
+registerColumnAutoApi(app)
 
 // API health check
 app.get('/api/health', (c) => {
