@@ -33,8 +33,9 @@ rows = json.load(open(f'{W}/column-queue.json', encoding='utf-8'))
 new = [r for r in rows if r.get('task') == 'new-column']
 new.sort(key=lambda r: -r['score'])
 
-lines = ['-- 자동 생성: scripts/seed-queue.py — 직접 편집하지 마세요',
-         'BEGIN TRANSACTION;']
+# ⚠️ BEGIN TRANSACTION/COMMIT 를 넣지 않는다.
+# D1 원격(HTTP API)은 명시적 트랜잭션 구문을 거부한다(로컬만 허용). 배치 실행으로 충분하다.
+lines = ['-- 자동 생성: scripts/seed-queue.py — 직접 편집하지 마세요']
 matched = 0
 for r in new:
     p = pos.get(r['query'])
@@ -45,7 +46,7 @@ for r in new:
         '(query,impressions,clicks,ctr,position,coverage,nearest,score) VALUES ('
         f'{q(r["query"])},{r["impressions"]},{r["clicks"]},{r["ctr"]},'
         f'{"NULL" if p is None else p},{r["coverage"]},{q(r["nearest"])},{r["score"]});')
-lines.append('COMMIT;')
+
 open(OUT, 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
 
 print(f'{OUT}')
