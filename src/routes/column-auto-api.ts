@@ -14,6 +14,12 @@
 import type { Hono } from 'hono'
 import { runAutoPublish, type AutoEnv } from '../column-auto'
 
+/** 기존 74장 썸네일의 톤(3D 클레이 / 민트+피치 / 텍스트 없음)을 재현하는 고정 프롬프트 */
+export const THUMB_STYLE = (subject: string) =>
+  `3D clay render illustration, soft matte clay texture, pastel mint green and peach coral ` +
+  `color palette, ${subject}, soft studio lighting, rounded friendly shapes, ` +
+  `cream beige background, minimal composition, centered, no text, no letters, no words, no numbers`
+
 function authed(c: any): boolean {
   const want = c.env?.CRON_SECRET
   const got = c.req.header('X-Cron-Secret') || ''
@@ -30,6 +36,24 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
     try {
       const r = await runAutoPublish(c.env as AutoEnv, { dryRun: dry })
       return c.json({ ok: r.verdict === 'pass', dryRun: dry, ...r })
+    } catch (e: any) {
+      return c.json({ ok: false, error: String(e?.message || e) }, 500)
+    }
+  })
+
+  // 썸네일 생성 검증용 (v5.50). Workers AI 가용성과 스타일을 실제로 확인한다.
+  app.post('/api/cron/thumb-test', async (c) => {
+    if (!authed(c)) return c.json({ ok: false, error: 'unauthorized' }, 401)
+    const prompt = c.req.query('p') || THUMB_STYLE('a single stylized molar tooth')
+    try {
+      if (!c.env.AI) return c.json({ ok: false, error: 'AI 바인딩 없음' }, 500)
+      const out: any = await c.env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt })
+      const b64 = out?.image
+      if (!b64) return c.json({ ok: false, error: 'AI 응답에 image 없음', keys: Object.keys(out || {}) }, 500)
+      const bin = Uint8Array.from(atob(b64), ch => ch.charCodeAt(0))
+      const key = `column-thumbs/test-${Date.now()}.jpg`
+      await c.env.R2.put(key, bin, { httpMetadata: { contentType: 'image/jpeg' } })
+      return c.json({ ok: true, url: `/api/images/${key}`, bytes: bin.length, prompt })
     } catch (e: any) {
       return c.json({ ok: false, error: String(e?.message || e) }, 500)
     }

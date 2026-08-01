@@ -6,6 +6,10 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  // v5.50 컬럼 썸네일 런타임 생성 (Workers AI). 크레딧 대신 계정 무료 할당 사용.
+  "ai": {
+    "binding": "AI"
+  },
   "r2_buckets": [
     {
       "binding": "R2",
