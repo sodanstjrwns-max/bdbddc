@@ -10,20 +10,24 @@
  *   ② LLM 으로 초안 생성 (모델: gpt-5)
  *   ③ 품질 게이트 (구조/DOI실재/의료법§56/누출/이스케이프/메타/반복/코퍼스중복)
  *   ④ 탈락 시 탈락사유를 프롬프트에 되먹여 재생성 (최대 3회)
- *   ⑤ 통과 시 R2 data/columns.json 에 append + 썸네일 뱅크에서 1장 배정
+ *   ⑤ 통과 시 R2 data/columns.json 에 append + 썸네일 런타임 생성(Workers AI)
  *   ⑥ 모든 판정을 column_auto_runs 에 기록
  *
  * 배포가 필요 없는 구조인 이유
  *   · 컬럼 본문은 R2(런타임 로드) → 새 컬럼 추가에 배포 불필요
- *   · 썸네일은 미리 배포해 둔 정적 파일 풀에서 배정 → 런타임 파일 생성 불필요
- *     (/images/* 는 _routes.json exclude 라 워커를 우회하는 CDN 자산이므로
- *      런타임에 새 파일을 만들어 넣을 수 없다. 그래서 '뱅크' 방식이다.)
+ *   · 썸네일은 Workers AI(flux-1-schnell)로 그려 R2 에 넣고 GET /api/images/* 로 서빙
+ *     (/images/* 는 _routes.json exclude 라 워커를 우회하는 CDN 자산 → 런타임 생성 불가.
+ *      반면 /api/images/* 는 워커가 R2 를 직접 읽어 주는 공개 경로이고
+ *      Cache-Control: immutable 이 붙으므로 정적 자산과 성능이 같다.)
+ *   · Workers AI 는 계정 무료 할당을 쓰므로 이미지 생성 크레딧이 들지 않고 개수 제한이 없다.
+ *     주제별 전용 썸네일이 나오므로 유한한 '뱅크'보다 결과물이 좋다. 뱅크는 폴백으로만 남긴다.
  */
 import { gateColumn, type ColumnDraft, type GateResult } from './column-gate'
 
 export interface AutoEnv {
   DB: D1Database
   R2: R2Bucket
+  AI?: { run: (model: string, input: any) => Promise<any> }
   OPENAI_API_KEY?: string
   OPENAI_BASE_URL?: string
   AUTO_MODEL?: string
@@ -150,8 +154,62 @@ async function loadColumns(env: AutoEnv): Promise<any[]> {
   return await obj.json()
 }
 
-/** 썸네일 뱅크에서 미사용 1장 배정. 뱅크가 비면 null(썸네일 없이 발행 — 렌더러가 처리) */
-async function takeThumb(env: AutoEnv, slug: string): Promise<string | null> {
+/* ────────────────────────── 썸네일 (Workers AI 런타임 생성) ──────────────────────────
+   기존 74편 썸네일의 톤을 재현하는 고정 스타일 프롬프트.
+   3D 클레이 / 파스텔 민트+피치 / 크림 배경 / 글자 없음.
+   flux-1-schnell 은 1024x1024 고정 출력이다. 카드(.cc-thumb)와 목록(.dr-col-thumb)은
+   aspect-ratio:16/9 + object-fit:cover 라 그대로 써도 되지만, 상세 히어로는
+   1376x768 을 선언하고 있어 CLS 가 생긴다 → 렌더러에서 /api/images/* 는 별도 처리. */
+export const THUMB_STYLE = (subject: string) =>
+  `3D clay render illustration, soft matte clay texture, pastel mint green and peach coral ` +
+  `color palette, ${subject}, soft studio lighting, rounded friendly shapes, ` +
+  `cream beige background, minimal composition, centered, no text, no letters, no words, no numbers`
+
+/** 주제 → 영어 모티프. 검색어·키워드·카테고리를 붙인 문자열로 매칭한다. */
+const MOTIF: [RegExp, string][] = [
+  [/사랑니|매복|발치|뽑/, 'a single wisdom tooth gently held by rounded clay forceps'],
+  [/임플란트|식립|뼈이식|골이식/, 'a clay dental implant screw standing beside a molar tooth'],
+  [/교정|투명|브라켓|덧니|돌출입|정중선/, 'a clay tooth wearing a clear aligner tray'],
+  [/라미네이트|심미|미백|화이트닝|베니어|글로우네이트/, 'a bright clay front tooth with a glossy thin veneer shell floating beside it'],
+  [/충치|레진|우식|때우/, 'a clay molar with a small dark cavity spot and a tiny clay filling piece'],
+  [/신경치료|근관|크라운|보철|인레이|씌우/, 'a clay molar with a golden crown cap floating above it'],
+  [/잇몸|치주|스케일링|풍치|치석|출혈/, 'clay gums cradling three teeth next to a soft rounded toothbrush'],
+  [/틀니|의치/, 'a clay denture arch resting on a rounded pedestal'],
+  [/소아|어린이|아이|유치|젖니/, 'a small smiling clay milk tooth character'],
+  [/비용|가격|보험|실비|급여|할부|견적/, 'a clay tooth beside a small stack of clay coins and a tiny calculator'],
+  [/턱|악관절|교합|이갈이|턱관절/, 'a clay lower jaw model with a soft glowing highlight at the joint'],
+  [/구취|입냄새|구강건조|침/, 'a clay tooth with soft mint leaves and a gentle air swirl'],
+  [/칫솔|양치|치실|가글|관리|예방/, 'a rounded clay toothbrush and dental floss spool beside a clean tooth'],
+  [/사진|엑스레이|ct|파노라마|검진/i, 'a clay tooth next to a rounded clay magnifying glass'],
+  [/치아|이빨|구강|치과|어금니|앞니/, 'a single stylized molar tooth'],
+]
+function motifOf(hint: string): string {
+  for (const [re, m] of MOTIF) if (re.test(hint)) return m
+  return 'a single stylized molar tooth beside a small rounded clay magnifying glass'
+}
+
+/** Workers AI 로 썸네일 1장 생성 → R2 저장 → 공개 경로 반환. 실패하면 null. */
+async function genThumb(env: AutoEnv, slug: string, hint: string): Promise<string | null> {
+  if (!env.AI) return null
+  try {
+    const prompt = THUMB_STYLE(motifOf(hint))
+    const out: any = await env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt })
+    const b64 = out?.image
+    if (typeof b64 !== 'string' || b64.length < 5000) return null
+    const bin = Uint8Array.from(atob(b64), ch => ch.charCodeAt(0))
+    if (bin.length < 8000) return null            // 깨진 응답 방어
+    const key = `column-thumbs/${slug}.jpg`
+    await env.R2.put(key, bin, {
+      httpMetadata: { contentType: 'image/jpeg', cacheControl: 'public, max-age=31536000, immutable' },
+    })
+    return `/api/images/${key}`
+  } catch {
+    return null   // 썸네일 실패가 발행을 막지는 않는다
+  }
+}
+
+/** 폴백: 미리 만들어 둔 정적 썸네일 뱅크에서 미사용 1장 배정 */
+async function takeBankThumb(env: AutoEnv, slug: string): Promise<string | null> {
   try {
     const row: any = await env.DB.prepare(
       `SELECT id, path FROM column_thumb_bank WHERE used = 0 ORDER BY id LIMIT 1`).first()
@@ -163,6 +221,11 @@ async function takeThumb(env: AutoEnv, slug: string): Promise<string | null> {
   } catch {
     return null   // 뱅크 테이블이 없어도 파이프라인은 멈추지 않는다
   }
+}
+
+/** 썸네일 확보: Workers AI 우선 → 뱅크 폴백 → 없으면 null(렌더러가 플레이스홀더 처리) */
+async function takeThumb(env: AutoEnv, slug: string, hint: string): Promise<string | null> {
+  return (await genThumb(env, slug, hint)) || (await takeBankThumb(env, slug))
 }
 
 export interface RunResult {
@@ -233,7 +296,8 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean } = 
 
   // ⑤ 발행
   const now = new Date().toISOString()
-  const thumb = opts.dryRun ? null : await takeThumb(env, draft!.slug!)
+  const thumbHint = [cand.query, draft!.focusKeyword || '', draft!.category || '', draft!.title || ''].join(' ')
+  const thumb = opts.dryRun ? null : await takeThumb(env, draft!.slug!, thumbHint)
   const record: any = {
     ...draft,
     author: '문석준',
@@ -261,7 +325,7 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean } = 
 
   return {
     picked: cand.query, slug: draft!.slug, verdict: 'pass', attempts: 1,
-    warns: last.warns, metrics: { ...last.metrics, thumbnail: thumb || '(뱅크 소진)' },
+    warns: last.warns, metrics: { ...last.metrics, thumbnail: thumb || '(썸네일 없음)' },
     ms: Date.now() - t0,
   }
 }

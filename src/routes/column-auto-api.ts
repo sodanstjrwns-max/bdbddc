@@ -12,13 +12,9 @@
  *   (관리자 세션 쿠키를 쓰지 않는 이유 = 무인 스케줄러가 호출하기 때문)
  */
 import type { Hono } from 'hono'
-import { runAutoPublish, type AutoEnv } from '../column-auto'
-
-/** 기존 74장 썸네일의 톤(3D 클레이 / 민트+피치 / 텍스트 없음)을 재현하는 고정 프롬프트 */
-export const THUMB_STYLE = (subject: string) =>
-  `3D clay render illustration, soft matte clay texture, pastel mint green and peach coral ` +
-  `color palette, ${subject}, soft studio lighting, rounded friendly shapes, ` +
-  `cream beige background, minimal composition, centered, no text, no letters, no words, no numbers`
+// THUMB_STYLE 은 실제 발행 경로(column-auto)와 동일해야 하므로 거기서 가져온다.
+// 검증 엔드포인트가 다른 프롬프트를 쓰면 검증의 의미가 없다.
+import { runAutoPublish, THUMB_STYLE, type AutoEnv } from '../column-auto'
 
 function authed(c: any): boolean {
   const want = c.env?.CRON_SECRET

@@ -3765,6 +3765,11 @@ ${faqSchema}
 
 .col-detail-hero-img{width:100%;border-radius:16px;overflow:hidden;margin-bottom:28px}
 .col-detail-hero-img img{width:100%;height:auto;display:block}
+/* v5.50 자동생성 썸네일(/api/images/*)은 1024x1024 정방형이다.
+   기존 컬럼(1376x768)과 시각적으로 같아 보이도록 컨테이너에서 16:9 로 크롭한다.
+   컨테이너에 aspect-ratio 를 주므로 이미지 로드 전에도 높이가 확보되어 CLS 가 0 이다. */
+.col-hero-sq{aspect-ratio:16/9;background:#f5f0eb}
+.col-hero-sq img{width:100%;height:100%;object-fit:cover}
 .col-detail-body{font-size:1.05rem;color:#444;line-height:1.9;word-break:keep-all}
 .col-detail-body h2{font-size:1.3rem;font-weight:700;color:#333;margin:32px 0 12px}
 .col-detail-body h3{font-size:1.1rem;font-weight:700;color:#333;margin:24px 0 10px}
@@ -3835,7 +3840,7 @@ ${doctorSlug ? `<a href="/doctors/${doctorSlug}" class="col-author-card">
 </div>
 </div>`}
 
-${col.thumbnailImage ? `<div class="col-detail-hero-img">${picture(col.thumbnailImage, col.title, 'width="1376" height="768"')}</div>` : ''}
+${col.thumbnailImage ? `<div class="col-detail-hero-img${/^\/api\/images\//.test(String(col.thumbnailImage)) ? ' col-hero-sq' : ''}">${picture(col.thumbnailImage, col.title, /^\/api\/images\//.test(String(col.thumbnailImage)) ? 'width="1024" height="1024"' : 'width="1376" height="768"')}</div>` : ''}
 <div class="col-detail-body">${col.content || ''}</div>
 
 <!-- Author Box (Bottom) -->
