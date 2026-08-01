@@ -936,3 +936,47 @@ Patient Signal AEO 진단: 비브랜드 가격 질문("천안 임플란트 가�
 - **문제**: HEAD 응답은 본문이 원래 0바이트 → strictStatic이 soft-404로 오판, 모든 strictStatic 경로가 HEAD에 404 응답 (크롤러 HEAD 프로빙 시 정상 페이지가 404로 보임)
 - **해결**: HEAD는 GET으로 자산 존재를 검증 후 본문 없이(status/headers만) 반환
 - 검증: `HEAD /treatments/implant` 200, `GET /treatments/nonexistent-xyz` 404(24KB 404.html), 301 리다이렉트 전부 정상
+
+---
+
+## v5.49 — 원장 컬럼 전면 수정 (2026-08-01 배포)
+
+**배포**: https://87c5f240.seoul-bd-dental.pages.dev → https://bdbddc.com
+**커밋**: `05399139` (v5.48 글로우네이트 12막 리뉴얼 동반 배포)
+
+### 감사 배경
+`/column/` 는 CTR **3.19%** 로 사이트 전 섹션 1위(43 URL / 1,791클릭 / 56,062노출).
+컬럼 1건당 41.6클릭 = treatments(8.0)의 5.2배. 그런데 기술적 결함이 성과를 갉아먹고 있었음.
+
+### 수정 내역
+
+| 구분 | 문제 | 조치 | 결과 |
+|---|---|---|---|
+| P0 | JSON-LD 파싱 실패 **6페이지** (Article 5 + BreadcrumbList 1 소실) | FAQ 스키마 문자열 수동조립 → `JSON.stringify`, `attrEsc`/`jEsc`/`htmlText` 헬퍼로 전 구간 방어 | 실패 **6 → 0건** |
+| P0 | description **2건 소실** (`"` 로 시작하는 metaDescription 이 HTML 속성 조기 종료) | `attrEsc` + 3단 폴백 (`metaDescription \|\| plainExcerpt \|\| title`) | 74/74 정상 |
+| P0 | category 빈값 2건 | `CATEGORY_FIX` | 0건 |
+| B | 컬럼 **69/74 인링크 0** (관련 컬럼이 최신 5개 고정) | `relatedColumns()` — 슬러그 토큰 + 한글 2-gram 자카드 ×10 + 카테고리 +0.4 + 저자 +0.15, 부족분은 오래된 순 filler | 고아 0, 5→6개 노출 |
+| B | 정적 페이지 → 개별 컬럼 딥링크 **7개**(전부 임플란트) | 205개 정적 HTML `</main>` 직전 딥링크 블록 주입, 슬러그 부스트 40키 + 회전 오프셋 분산 | **609 링크 / 205-205 커버 / 고아 74→0 / 최대 29회** |
+| B | `COLUMN_TREATMENT_MAP` 임플란트 편중(15키) | 12개 토픽 클러스터 60+키로 확장, 매칭 소스에 metaTitle·slug·본문 400자 추가 | 2,313 → 8,991자 |
+| C | Claude 프롬프트 지시문 본문 노출 (`여기서 인용 가능한 한 줄을 드리겠습니다.`×50 등 15계열) | 계열별 변형 회전 치환 (deterministic) | **348회 / 72개 컬럼**, 잔존 0, 최다 변형 10건 이하 |
+| D | 썸네일 **44.5MB** (avg 630KB, max 5.7MB), R2 `/api/images` 경유 → Worker 호출 | JPEG q82 + WebP q78 (≤1376px) → `images/column/` 정적 CDN 이관, `webpOf`/`picture()` 로 4개 렌더 지점 `<picture>` 전환 | **JPEG 2.2MB(-95%) / WebP 0.8MB(-98%)**, PSNR 47.3/45.1dB, Worker 우회 |
+| 기타 | 딥링크 블록 인라인 style 244KB | `css/site-v5.css` `.col-deeplinks` 이관 + 492파일 캐시버스팅(`?v=0e95e6eb`) | 인라인 994.7KB 원복 |
+| 기타 | RSS 발견 경로가 HTML `rel=alternate` 뿐 | `robots.txt` 에 `RSS:` 선언 | — |
+
+### 프로덕션 검증
+- JSON-LD 파싱 실패 **0건** (기존 실패 6페이지 전수 재검)
+- description 6/6 정상 · `<picture>` WebP 6/6 서빙
+- 썸네일 `.jpg` 108KB / `.webp` 54KB (기존 5.7MB → -98%)
+- `treatments/glownate` 딥링크 4개 · `area/asan-implant` 3개
+- `scripts/audit.py` 치명 이슈 **0건**
+
+### 데이터 파이프라인
+컬럼 본문·메타는 R2 `bdbddc-images/data/columns.json` (74건 전부 `published`).
+세탁된 페이로드는 `npx wrangler r2 object put ... --remote` 로 업로드.
+수정 72건의 `updatedAt` 갱신 → `sitemap-columns.xml` lastmod 변경으로 재크롤 유도.
+
+### 남은 과제
+- GSC 미노출 33건 (소아 6/6 전멸, 예방 3, 턱관절 3, 외상 3, 보철 7) — IndexNow ping 또는 sitemap 재제출
+- 컬럼 title 접미사 17자 축약 (62건이 32자 진입 가능하나 CTR 3.19% 성과 중 → 신중)
+- 컬럼 H2 부재 17건 (H1→H3 점프), 작성자 편중 (문석준 73 / 현정민 1)
+- 본문 내 인라인 링크 0/74, 본문 이미지 0/74
