@@ -980,3 +980,101 @@ Patient Signal AEO 진단: 비브랜드 가격 질문("천안 임플란트 가�
 - 컬럼 title 접미사 17자 축약 (62건이 32자 진입 가능하나 CTR 3.19% 성과 중 → 신중)
 - 컬럼 H2 부재 17건 (H1→H3 점프), 작성자 편중 (문석준 73 / 현정민 1)
 - 본문 내 인라인 링크 0/74, 본문 이미지 0/74
+
+## v5.50 — 원장 컬럼 매일 자동발행 파이프라인 (2026-08-01 가동)
+
+원장님 요구: **「컬럼 발행 매일 하나씩 자동화」 / 「내가 지금까지 한 퀄리티를 유지할 수 있으면 자동발행」
+/ 「주제는 그냥 매일 다양하게 → GSC 미노출 키워드를 평생 잡아가는 것」 / 「썸네일도 지금 느낌으로 자동생성」**
+
+승인 단계(사람)를 두지 않고 **기계 게이트가 문을 지킨다.** 게이트를 통과하지 못한 초안은 발행되지 않는다.
+
+### 파이프라인
+```
+매일 09:00 KST  bdbddc-column-cron (별도 Worker, Cron Trigger)
+      └─ POST https://bdbddc.com/api/cron/publish-column   (X-Cron-Secret)
+            ⓞ 30분 초과 processing 행 회수 (좌초 방지)
+            ① D1 column_queue 에서 기회점수 최고 1건 선점 → status='processing'
+            ② LLM(gpt-5) 초안 생성  — 병원 확정사실 주입 + 의료법 §56 금지문 주입
+            ③ 품질 게이트 8종 (src/column-gate.ts)
+            ④ 탈락 시 탈락사유를 프롬프트에 되먹여 재생성 (최대 3회, 3회 실패 → draft 격리)
+            ⑤ 통과 시 Workers AI 로 썸네일 생성 → R2 → data/columns.json append
+            ⑥ 판정 전량을 column_auto_runs 에 기록
+```
+Cloudflare Pages 는 Cron Trigger 를 지원하지 않아 스케줄러만 별도 Worker 로 분리했다.
+소스는 `scripts/cron-worker/` 에 둔다 — 루트에 두면 `post-build.cjs` 가 통째로 dist 에 복사해 **소스가 공개된다.**
+
+### 주제 큐 (A+C 전략)
+`scripts/column-queue.py` — GSC 실측에서 **우리가 아직 답을 안 만든 검색어**를 뽑는다.
+커버리지 판정을 **두 코퍼스로 분리**한 것이 핵심이다.
+- 코퍼스① 컬럼형: 컬럼 74 + 정적 205 → 컬럼으로 답할 검색어
+- 코퍼스② 용어형: 백과사전 838 (`public/data/encyclopedia.json`) → 백과사전이 이미 답한 검색어
+
+⚠️ 한 코퍼스로 합치면 안 된다(실측): `사랑니 안 뽑으면`↔`사랑니` 0.333, `라미네이트 후회`↔`라미네이트` 0.667
+→ 전부 커버로 오판되어 컬럼 큐가 0건이 된다.
+⚠️ 동의어를 한 줄로 이어붙여 2-gram 을 뽑으면 경계 gram 이 생겨 정확 일치가 희석된다
+(`치아 번호` 0.333 → 별칭별 분리 후 1.000).
+
+결과: **new-column 177건 / 미회수 노출 23,973회 = 177일치**. 소진되면 큐 재빌드로 계속 이어간다.
+
+### 품질 게이트 8종 (`src/column-gate.ts`)
+① 구조(본문 2,800~7,000자 / h3 ≥5 / 표 ≥1 / 목록 ≥6) ② **DOI 실재 검증**(doi.org HEAD, 404면 차단)
+③ 의료법 §56(효과보장·최상급·경험담·연예인·가격유인 — 부정문 인식) ④ 프롬프트 지시문 누출
+⑤ 속성 이스케이프(desc 큰따옴표=차단) ⑥ 메타 길이 ⑦ 문장 반복 ⑧ 기존 74편과 12-gram 중복
+
+파이썬 원본(`scripts/column-gate.py`)과 판정 동등성 검증: `npm run gate:parity`
+→ 기존 74편 중 탈락 10건, 사유 분포까지 완전 일치.
+
+### 썸네일 — Workers AI 런타임 생성 (크레딧 0)
+`@cf/black-forest-labs/flux-1-schnell` → R2 `column-thumbs/<slug>.jpg` → **`GET /api/images/*`** 로 서빙.
+`/images/*` 는 `_routes.json` exclude(워커 우회 CDN)라 런타임 생성이 불가하지만,
+`/api/images/*` 는 워커가 R2 를 직접 읽어 주는 공개 경로이고 `Cache-Control: immutable` 이라 성능이 같다.
+
+- 검색어·키워드·카테고리를 MOTIF 15종에 매칭해 **주제별 전용 그림**을 뽑는다.
+- 스타일 고정 실측 교훈: 색을 형용사로만 주면 민트가 빠진다 → **민트를 '받침 원반' 구조물로 못 박고**
+  `subject fills most of the frame` 를 명시해야 16:9 크롭에서 빈약해지지 않는다.
+- 출력은 1024×1024. 상세 히어로는 `.col-hero-sq`(컨테이너 `aspect-ratio:16/9` + `object-fit:cover`)로
+  기존 1376×768 컬럼과 같아 보이게 크롭하고, 컨테이너가 높이를 미리 잡아 **CLS 0**.
+- 개별 재생성: `POST /api/cron/thumb?slug=<슬러그>&hint=<주제>` (발행 경로와 동일 코드)
+
+### 엔드포인트 (전부 `X-Cron-Secret` 필요)
+| 메서드 | 경로 | 용도 |
+|---|---|---|
+| POST | `/api/cron/publish-column` | 1건 생성→게이트→발행 |
+| POST | `/api/cron/publish-column?dry=1` | 발행 없이 게이트 판정만 (리허설) |
+| POST | `/api/cron/thumb?slug=&hint=` | 썸네일 개별 재생성 |
+| POST | `/api/cron/thumb-test?p=` | 프롬프트 실험 (임시 키) |
+| GET | `/api/cron/status` | 큐 잔량 / 다음 5건 / 최근 판정 10건 |
+
+⚠️ Hono 는 등록 순서 우선이다. 이 라우트는 `registerGameApis(app)` **직후**에 등록해야 한다
+(파일 끝에 등록하면 캐치올이 먹어 홈페이지 HTML 이 돌아온다 — 실측).
+
+### 실측 성능·주의
+- 1건 왕복 **85~120초** (LLM 3,400~5,200자 + DOI 실재 검증).
+- ⚠️ `ctx.waitUntil()` 로 응답 먼저 보내면 연장 수명이 약 30초로 끊겨 작업이 중단되고
+  큐 행이 `processing` 에 갇힌다(실측 2회). → 크론 워커는 `await trigger(env)` 로 끝까지 기다린다.
+  Workers 가 제한하는 것은 CPU 시간이고 이 작업은 거의 전부 fetch 대기라 안전하다.
+- 그래도 실패는 가능하므로 `runAutoPublish` 진입 시 **30분 초과 processing 행을 자동 회수**한다(다음 날 재시도).
+
+### 가동 검증 (2026-08-01)
+| 항목 | 결과 |
+|---|---|
+| 리허설 `?dry=1` | ✅ pass, 1회차 통과 (3,197자 / h3 9 / 표 2 / 목록 30 / DOI 1) |
+| 1차 발행 (엔드포인트 직접) | ✅ `사랑니 안 뽑으면` → `/column/if-you-dont-remove-wisdom-teeth`, 84초 |
+| 2차 발행 (크론 워커 경로) | ✅ `정중선` → `/column/jeongjungseon-dental-midline`, 95초 |
+| 썸네일 | ✅ 1024×1024, 185~264KB, 주제별 상이, 기존 톤 일치 |
+| 사이트맵·목록 등재 | ✅ 자동 (컬럼은 R2 기반 SSR → **새 컬럼에 배포 불필요**) |
+| 미인증 접근 | ✅ 401 |
+| 소스 유출 | ✅ `dist/scripts` 부재 확인 |
+
+### 운영 명령
+```bash
+npm run queue:build          # GSC csv → 주제 큐 재빌드
+npm run queue:seed:prod      # 큐를 원격 D1 에 적재
+npm run gate:parity          # 게이트 동등성 회귀 테스트
+npm run cron:deploy          # 스케줄러 워커 배포
+```
+
+### 남은 일
+- 큐 빌더에 `게재 순위` 반영 (현재 `seed-queue.py` 만 병합)
+- 큐 소진(177일 후) 시 재빌드 자동화
+- 기존 컬럼 10편 게이트 미달 보강 (DOI 0건 7편 등)
