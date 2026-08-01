@@ -160,17 +160,22 @@ async function loadColumns(env: AutoEnv): Promise<any[]> {
    flux-1-schnell 은 1024x1024 고정 출력이다. 카드(.cc-thumb)와 목록(.dr-col-thumb)은
    aspect-ratio:16/9 + object-fit:cover 라 그대로 써도 되지만, 상세 히어로는
    1376x768 을 선언하고 있어 CLS 가 생긴다 → 렌더러에서 /api/images/* 는 별도 처리. */
+/* v5.50a 실측 교훈: 색상을 형용사로만 주면(“pastel mint green and peach coral palette”)
+   민트가 아예 빠진 결과가 나온다. 그리고 피사체가 작게 나오면 16:9 크롭에서 더 빈약해진다.
+   → 민트를 '받침 원반'이라는 구조물로 못 박고, 피사체 크기를 명시한다. */
 export const THUMB_STYLE = (subject: string) =>
-  `3D clay render illustration, soft matte clay texture, pastel mint green and peach coral ` +
-  `color palette, ${subject}, soft studio lighting, rounded friendly shapes, ` +
-  `cream beige background, minimal composition, centered, no text, no letters, no words, no numbers`
+  `3D clay render illustration, soft matte clay texture, ${subject}, ` +
+  `resting on a pastel mint green rounded clay disc, peach coral clay subject, ` +
+  `soft studio lighting, rounded friendly shapes, cream beige background, ` +
+  `centered composition, subject fills most of the frame, ` +
+  `no text, no letters, no words, no numbers`
 
 /** 주제 → 영어 모티프. 검색어·키워드·카테고리를 붙인 문자열로 매칭한다. */
 const MOTIF: [RegExp, string][] = [
   [/사랑니|매복|발치|뽑/, 'a single wisdom tooth gently held by rounded clay forceps'],
   [/임플란트|식립|뼈이식|골이식/, 'a clay dental implant screw standing beside a molar tooth'],
-  [/교정|투명|브라켓|덧니|돌출입|정중선/, 'a clay tooth wearing a clear aligner tray'],
-  [/라미네이트|심미|미백|화이트닝|베니어|글로우네이트/, 'a bright clay front tooth with a glossy thin veneer shell floating beside it'],
+  [/교정|투명|브라켓|덧니|돌출입|정중선/, 'a single clay tooth with a tiny clay orthodontic bracket and wire on its front'],
+  [/라미네이트|심미|미백|화이트닝|베니어|글로우네이트/, 'a bright glossy clay front tooth with a soft sparkle'],
   [/충치|레진|우식|때우/, 'a clay molar with a small dark cavity spot and a tiny clay filling piece'],
   [/신경치료|근관|크라운|보철|인레이|씌우/, 'a clay molar with a golden crown cap floating above it'],
   [/잇몸|치주|스케일링|풍치|치석|출혈/, 'clay gums cradling three teeth next to a soft rounded toothbrush'],
@@ -189,7 +194,7 @@ function motifOf(hint: string): string {
 }
 
 /** Workers AI 로 썸네일 1장 생성 → R2 저장 → 공개 경로 반환. 실패하면 null. */
-async function genThumb(env: AutoEnv, slug: string, hint: string): Promise<string | null> {
+export async function genThumb(env: AutoEnv, slug: string, hint: string): Promise<string | null> {
   if (!env.AI) return null
   try {
     const prompt = THUMB_STYLE(motifOf(hint))

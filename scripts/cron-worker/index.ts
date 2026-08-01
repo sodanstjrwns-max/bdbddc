@@ -38,19 +38,25 @@ async function trigger(env: Env): Promise<string> {
   }
 }
 
+/* ⚠️ 실측 주의 (2026-08-01)
+   한 건 생성은 LLM 3,400~5,200자 + DOI 실재 검증 때문에 왕복 85~120초가 걸린다.
+   ctx.waitUntil() 로 응답 먼저 보내고 뒤에서 돌리면, 응답 후 연장 수명이 약 30초로
+   끊겨 작업이 중단되고 큐 행이 'processing' 에 갇혔다(실측 2회).
+   → 두 핸들러 모두 promise 를 반환/await 해서 요청 수명 안에서 끝내야 한다.
+   Workers 가 과금·제한하는 것은 CPU 시간이고 이 작업은 거의 전부 fetch 대기라 안전하다.
+   그래도 실패는 가능하므로, 본 사이트 쪽 runAutoPublish 가 30분 초과 processing 행을
+   자동 회수한다(다음 날 재시도). */
 export default {
-  async scheduled(_event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
-    ctx.waitUntil(trigger(env))
+  async scheduled(_event: ScheduledEvent, env: Env, _ctx: ExecutionContext) {
+    await trigger(env)          // waitUntil 아님 — 끝까지 기다린다
   },
   // 수동 점검용. 시크릿을 헤더로 다시 요구한다(공개 URL 이므로).
-  // ⚠️ await 로 기다리면 클라이언트가 연결을 끊는 순간 워커 요청이 취소되고
-  //    대상 엔드포인트의 작업도 중단되어 큐 행이 'processing' 에 갇힌다.
-  //    그래서 응답은 즉시 돌려주고 실제 작업은 waitUntil 에 맡긴다(scheduled 와 동일 경로).
-  async fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+  // 호출자는 2~3분 연결을 유지해야 한다 (curl -m 280).
+  async fetch(req: Request, env: Env): Promise<Response> {
     if (req.headers.get('X-Cron-Secret') !== env.CRON_SECRET) {
       return new Response('cron worker: scheduled only', { status: 401 })
     }
-    ctx.waitUntil(trigger(env))
-    return new Response('triggered (async) — 결과는 /api/cron/status 로 확인\n', { status: 202 })
+    const s = await trigger(env)
+    return new Response(`triggered: ${s}\n`, { status: 200 })
   },
 }

@@ -14,7 +14,7 @@
 import type { Hono } from 'hono'
 // THUMB_STYLE 은 실제 발행 경로(column-auto)와 동일해야 하므로 거기서 가져온다.
 // 검증 엔드포인트가 다른 프롬프트를 쓰면 검증의 의미가 없다.
-import { runAutoPublish, THUMB_STYLE, type AutoEnv } from '../column-auto'
+import { runAutoPublish, genThumb, THUMB_STYLE, type AutoEnv } from '../column-auto'
 
 function authed(c: any): boolean {
   const want = c.env?.CRON_SECRET
@@ -37,7 +37,21 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
     }
   })
 
-  // 썸네일 생성 검증용 (v5.50). Workers AI 가용성과 스타일을 실제로 확인한다.
+  // 썸네일 재생성 도구 (v5.50a). 발행 경로와 완전히 같은 코드(genThumb)를 쓴다.
+  //   POST /api/cron/thumb?slug=<슬러그>&hint=<주제 힌트>  → column-thumbs/<slug>.jpg 덮어쓰기
+  // 스타일이 마음에 안 드는 컬럼만 골라 다시 뽑을 수 있다.
+  app.post('/api/cron/thumb', async (c) => {
+    if (!authed(c)) return c.json({ ok: false, error: 'unauthorized' }, 401)
+    const slug = (c.req.query('slug') || '').trim()
+    if (!/^[a-z0-9-]{4,90}$/.test(slug)) return c.json({ ok: false, error: 'slug 형식 오류' }, 400)
+    const hint = c.req.query('hint') || slug
+    const url = await genThumb(c.env as AutoEnv, slug, hint)
+    return url
+      ? c.json({ ok: true, url, hint })
+      : c.json({ ok: false, error: '생성 실패 (AI 바인딩/응답 확인)' }, 500)
+  })
+
+  // 프롬프트 실험용 (임의 프롬프트 → 임시 키). 스타일 튜닝할 때만 쓴다.
   app.post('/api/cron/thumb-test', async (c) => {
     if (!authed(c)) return c.json({ ok: false, error: 'unauthorized' }, 401)
     const prompt = c.req.query('p') || THUMB_STYLE('a single stylized molar tooth')
