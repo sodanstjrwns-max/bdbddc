@@ -244,6 +244,18 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean } = 
   const t0 = Date.now()
   const model = env.AUTO_MODEL || DEFAULT_MODEL
 
+  // ⓞ 좌초 행 회수 — 30분 넘게 'processing' 인 행은 실패로 보고 큐로 되돌린다.
+  //   워커 요청이 중간에 취소되면(클라이언트 연결 끊김 등) 행이 processing 에 갇혀
+  //   그 검색어가 영구히 발행되지 않는다. 무인 운영에서는 이게 조용한 유실이 된다.
+  await env.DB.prepare(
+    `UPDATE column_queue
+     SET status = CASE WHEN attempts + 1 >= ? THEN 'draft' ELSE 'pending' END,
+         attempts = attempts + 1,
+         last_error = COALESCE(last_error, '') || ' | 좌초(processing 30분 초과) 회수',
+         updated_at = CURRENT_TIMESTAMP
+     WHERE status = 'processing'
+       AND updated_at < datetime('now', '-30 minutes')`).bind(MAX_ATTEMPTS).run()
+
   // ① 큐 선점 — 동시 실행되어도 한 건만 잡히도록 status 조건을 UPDATE 에 건다
   const cand: any = await env.DB.prepare(
     `SELECT * FROM column_queue WHERE status = 'pending' ORDER BY score DESC LIMIT 1`).first()

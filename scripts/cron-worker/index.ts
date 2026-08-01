@@ -43,11 +43,14 @@ export default {
     ctx.waitUntil(trigger(env))
   },
   // 수동 점검용. 시크릿을 헤더로 다시 요구한다(공개 URL 이므로).
-  async fetch(req: Request, env: Env): Promise<Response> {
+  // ⚠️ await 로 기다리면 클라이언트가 연결을 끊는 순간 워커 요청이 취소되고
+  //    대상 엔드포인트의 작업도 중단되어 큐 행이 'processing' 에 갇힌다.
+  //    그래서 응답은 즉시 돌려주고 실제 작업은 waitUntil 에 맡긴다(scheduled 와 동일 경로).
+  async fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     if (req.headers.get('X-Cron-Secret') !== env.CRON_SECRET) {
       return new Response('cron worker: scheduled only', { status: 401 })
     }
-    const s = await trigger(env)
-    return new Response(`triggered: ${s}`, { status: 200 })
+    ctx.waitUntil(trigger(env))
+    return new Response('triggered (async) — 결과는 /api/cron/status 로 확인\n', { status: 202 })
   },
 }
