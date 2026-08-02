@@ -5,6 +5,7 @@
 // - /widgets/tooth-numbering : iframe 임베드용 자체완결 위젯 (noindex, frame 허용)
 // ============================================================
 import type { Hono } from 'hono'
+import { renderToothSVG, TOOTH_SVG_STYLE } from './tooth-svg'
 
 // ---------- SSR용 치아 데이터 (public/js/tooth-chart.js와 동일 소스) ----------
 type ToothRow = { fdi: number; ko: string; en: string; uni: string; palmer: string; eru: string; shed?: string }
@@ -187,6 +188,7 @@ ${deps.trackingHead}
 .tn-quick-btn:hover { background:#6B4226; color:#fff; }
 @media (max-width:640px){ .tn-seg button{padding:8px 13px;font-size:0.82rem;} }
 </style>
+${TOOTH_SVG_STYLE}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -264,7 +266,7 @@ ${deps.header}
 </div>
 
 <!-- 차트 -->
-<div id="tn-chart" style="max-width:640px;margin:0 auto;"></div>
+<div id="tn-chart" style="max-width:640px;margin:0 auto;">${renderToothSVG()}</div>
 
 <!-- 사분면 범례 -->
 <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:6px 0 14px;font-size:0.78rem;color:#6b5d52;">
@@ -486,6 +488,7 @@ body{font-family:'Pretendard',-apple-system,sans-serif;margin:0;background:#fff;
 .ft a{color:#6B4226;font-weight:700;text-decoration:none;}
 .ft a:hover{text-decoration:underline;}
 </style>
+${TOOTH_SVG_STYLE}
 </head>
 <body>
 <div class="wrap">
@@ -500,7 +503,7 @@ body{font-family:'Pretendard',-apple-system,sans-serif;margin:0;background:#fff;
 <input id="w-search" type="text" inputmode="numeric" placeholder="번호 입력 (예: 26, 48, 55)" onkeydown="if(event.key==='Enter')wSearch()">
 <button onclick="wSearch()"><i class="fas fa-search"></i> 조회</button>
 </div>
-<div id="w-chart"></div>
+<div id="w-chart">${renderToothSVG()}</div>
 <div id="w-info"><p style="margin:0;color:#a8997f;font-size:0.85rem;text-align:center;padding:20px 0;"><i class="fas fa-hand-pointer" style="margin-right:5px;"></i>궁금한 치아를 클릭해 보세요</p></div>
 <div class="ft">
 <span>FDI 국제 표준 · 좌우는 환자 본인 기준</span>

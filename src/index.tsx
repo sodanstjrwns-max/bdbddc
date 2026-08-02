@@ -1634,7 +1634,7 @@ ${r.journal ? `<em class="ref-journal">${r.journal}</em>` : ''}
 
 /* ── v5.53 컬럼 SEO 강화 렌더러 ─────────────────────────────────────
    구글이 롱폼 의료 콘텐츠에서 실제로 보는 세 가지를 렌더 시점에 채운다.
-     A. 본문 문맥 내부링크 (백과사전 838개 + 진료 페이지)  ← 기존 77편 전부 0개였음
+     A. 본문 문맥 내부링크 (백과사전 820개 + 진료 페이지)  ← 기존 77편 전부 0개였음
      B. 목차 + 제목 앵커 ID (SERP jump-to sitelinks 후보)
      E. h2 없는 글의 h3 → h2 승격 (h1→h3 계층 점프 교정, 실측 17편)
    R2 원문은 건드리지 않으므로 전편에 동시 적용되고 신규 발행분에도 자동 적용된다. */
@@ -1657,6 +1657,47 @@ const COL_TREATMENT_LINKS: [string, string][] = [
   ['브릿지', '/treatments/bridge'],
   ['인레이', '/treatments/inlay'],
   ['충치', '/treatments/cavity'],
+  // v5.54 가이드 허브 추가 — GSC 실측 /guide/ 24편 111,990노출 CTR 1.89%,
+  //   특히 /guide/regret/* 는 CTR 5%대인데 컬럼에서 들어오는 내부링크가 0개였다.
+  //   진료 단어보다 긴 구(句)라 같은 티어 내 길이 내림차순 정렬에서 먼저 잡힌다.
+  ['사랑니 발치 비용', '/guide/wisdom-tooth'],
+  ['인비절라인 비용', '/guide/invisalign'],
+  ['인비절라인 후회', '/guide/regret/invisalign'],
+  ['라미네이트 비용', '/guide/laminate'],
+  ['라미네이트 후회', '/guide/regret/laminate'],
+  ['임플란트 비용', '/guide/implant'],
+  ['임플란트 후회', '/guide/regret/implant'],
+  ['임플란트 틀니', '/guide/regret/implant-denture'],
+  ['신경치료 비용', '/guide/root-canal'],
+  ['신경치료 후회', '/guide/regret/root-canal'],
+  ['스케일링 비용', '/guide/scaling'],
+  ['스케일링 후회', '/guide/regret/scaling'],
+  ['사랑니 후회', '/guide/regret/wisdom-tooth'],
+  ['크라운 후회', '/guide/regret/crown'],
+  ['인레이 후회', '/guide/regret/inlay'],
+  ['브릿지 후회', '/guide/regret/bridge'],
+  ['틀니 비용', '/guide/denture'],
+  ['틀니 후회', '/guide/regret/denture'],
+  ['교정 비용', '/guide/orthodontics'],
+  ['교정 후회', '/guide/regret/orthodontics'],
+  ['미백 비용', '/guide/whitening'],
+  ['미백 후회', '/guide/regret/whitening'],
+  ['레진 후회', '/guide/regret/resin'],
+  ['앞니 교정', '/guide/regret/front-teeth'],
+  ['잇몸 수술', '/guide/regret/gum'],
+  ['치아 크랙', '/guide/regret/tooth-crack'],
+  ['치아 균열', '/guide/regret/tooth-crack'],
+  ['치과 실비', '/guide/insurance'],
+  ['실비보험', '/guide/insurance'],
+  ['실손보험', '/guide/insurance'],
+  ['천안 치과', '/guide/cheonan-dentist-choice'],
+  ['부정교합', '/guide/regret/malocclusion'],
+  ['유지장치', '/guide/regret/retainer'],
+  ['수면치료', '/guide/regret/sedation'],
+  ['치주염', '/guide/regret/periodontitis'],
+  ['이갈이', '/guide/regret/bruxism'],
+  ['뼈이식', '/guide/regret/bone-graft'],
+  ['골이식', '/guide/regret/bone-graft'],
 ]
 // 너무 흔해서 링크로 걸면 오히려 노이즈가 되는 용어
 const COL_LINK_STOP = new Set(['치과', '치료', '수술', '진료', '환자', '치과의사', '서울대', '치아'])
@@ -1701,7 +1742,7 @@ export function renderColToc(toc: { id: string; text: string; lv: number }[]): s
 export function autolinkColumnBody(
   html: string,
   encTerms: { term: string }[],
-  max = 8,
+  max = 11,
 ): string {
   if (!html) return ''
   const cands: { term: string; href: string; money: boolean }[] = []
@@ -1816,6 +1857,13 @@ function relatedColumns(all: any[], col: any, limit = 6): any[] {
   return picked
 }
 // 컬럼 찾기: slug OR id로 매칭
+// ★ v5.54 컬럼 슬러그 오타 교정 301
+//   자동발행 당시의 오탈자가 그대로 URL이 되어 색인된 건들.
+//   R2의 slug는 정타로 바꾸고, 옛 URL은 여기서 한 번에 넘긴다(GSC 8클릭 보존).
+const COL_SLUG_301: Record<string, string> = {
+  'periimplnatitis': 'peri-implantitis',
+}
+
 function findColumnByParam(all: any[], param: string): any {
   return all.find((x: any) => (x.slug === param || x.id === param) && x.status === 'published')
 }
@@ -3630,6 +3678,14 @@ app.get('/column/:param', async (c) => {
   if (!r2) return c.redirect('/column/', 302)
   
   const all = await getColumns(r2)
+
+  // ★ v5.54 오타 슬러그 교정 301 — 목적지가 실제로 발행돼 있을 때만 넘긴다.
+  //   (R2 데이터 반영 전에 코드만 먼저 배포돼도 기존 URL이 죽지 않도록 하는 안전장치)
+  const fixedSlug = COL_SLUG_301[param]
+  if (fixedSlug && all.some((x: any) => x.slug === fixedSlug && x.status === 'published')) {
+    return c.redirect(`/column/${fixedSlug}`, 301)
+  }
+
   const col = findColumnByParam(all, param)
   if (!col) return notFoundPage(c, '칼럼을 찾을 수 없습니다', '요청하신 칼럼이 존재하지 않거나 삭제되었습니다.', '/column/', '칼럼 목록 보기')
   
@@ -5233,10 +5289,6 @@ const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
     title: '소구치란? — 작은어금니 8개, 치식 14·15번 위치와 교정 발치 이유 | 서울비디치과',
     desc: '소구치(작은어금니)는 송곳니와 큰어금니 사이 총 8개, FDI 치식 14·15·24·25·34·35·44·45번입니다. 대구치와의 차이, 만 10~12세 나는 시기, 교정할 때 제1소구치를 뽑는 이유, 충치 치료비까지 탐색기로 정리했습니다.'
   },
-  '치식': {
-    title: '치식 읽는 법 — 46번은 어느 이? FDI 두 자리로 5초 만에 찾기 | 서울비디치과',
-    desc: '치식은 치아마다 붙은 번호입니다. 앞자리=사분면(1~4), 뒷자리=앞니부터 1~8번. 46번은 아래 오른쪽 첫 큰어금니, 사랑니는 항상 8번. 유치 51~85번, FDI·Universal·Palmer 표기 비교까지 탐색기로 정리했습니다.'
-  },
   '대구치': {
     title: '대구치란? — 큰어금니 8개, 6세 구치가 가장 중요한 이유·치식 16·46번 | 서울비디치과',
     desc: '대구치(큰어금니)는 사랑니 제외 총 8개로 씹는 힘의 핵심입니다. 제1대구치(6세 구치)는 유치가 안 빠지고 나와 놓치기 쉬운 평생 치아, 소구치와의 차이, 어금니 상실 시 연쇄 반응, 임플란트 80~160만원까지 정리했습니다.'
@@ -5305,10 +5357,6 @@ const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
     title: '치아 번호 읽는 법 — 11~48번 FDI 치식 한눈에 정리 (사랑니=8번) | 서울비디치과',
     desc: '치아 번호(치식)는 FDI 2자리 체계: 첫째 자리는 상하좌우 사분면(1~4), 둘째 자리는 앞니부터 1~8번. 예) #26=왼쪽 위 첫 큰어금니, #48=오른쪽 아래 사랑니. 유치는 51~85번. 진료기록·견적서 읽는 법을 서울대 출신 전문의가 쉽게 정리했습니다.'
   },
-  '치아 번호 체계': {
-    title: '치아 번호 체계 총정리 — FDI vs 유니버설 표기법 차이, 치식 읽기 | 서울비디치과',
-    desc: '치아 번호 체계는 한국 표준 FDI(2자리)와 미국식 유니버설(1~32번)이 있습니다. #11은 오른쪽 위 앞니, #36은 왼쪽 아래 첫 큰어금니. 내 진료기록의 숫자가 어떤 치아인지 바로 확인하세요.'
-  },
   '틀니': {
     title: '틀니 영어로 Denture(덴처) — 완전·부분틀니 차이, 65세 건강보험 적용 | 서울비디치과',
     desc: '틀니는 영어로 Denture(덴처)입니다. 완전틀니·부분틀니 차이, 만 65세 이상 건강보험 적용(본인부담 30%), 적응 기간과 관리법까지 한 페이지에 정리. 천안 서울비디치과 보철 전문의 감수.'
@@ -5340,6 +5388,32 @@ const ENC_SEO_OVERRIDES: Record<string, { title: string; desc: string }> = {
 //     대신 본문 상단에 /guide/insurance 대형 유도 배너를 붙여 권위를 흘려보낸다.
 //   - 나머지 3개는 실질 중복이므로 가이드로 영구 통합.
 // ============================================
+// ★ v5.54 백과사전 중복 항목 통합 301 (카니발라이제이션 해소)
+//   GSC 실측: '치아 번호'(38클릭/6,296노출) · '치아 번호 체계'(13/4,410) · '치식'(4/1,061)
+//   → 같은 질의에 세 URL이 서로 순위를 나눠 갖고 합산 CTR 0.47%로 주저앉아 있었다.
+//   대표 1개로 301 통합하고, 은퇴 용어는 대표 항목의 synonyms로 흡수(사이트 내 검색 유지).
+//   의미 중복 7쌍 + 띄어쓰기 변형 9쌍 = 18개 URL 정리 (백과 838 → 820항목)
+const ENC_MERGE_301: Record<string, string> = {
+  '치아 번호 체계': '치아 번호',
+  '치식': '치아 번호',
+  'GBR (골유도재생술)': 'GBR',
+  '골유도 재생술(GBR)': 'GBR',
+  'e.max (이맥스)': 'e.max',
+  '복합 레진': '복합레진',
+  '글라스 아이오노머': '글래스 아이오노머',
+  'PRF (혈소판 풍부 섬유소)': 'PRF',
+  '치주낭': '치주 포켓',
+  '에어 샤워': '에어샤워',
+  '정기 검진': '정기검진',
+  '노인 구강 관리': '노인 구강관리',
+  '전달 마취': '전달마취',
+  '침윤 마취': '침윤마취',
+  '소아 진정치료': '소아 진정 치료',
+  '점액낭종': '점액 낭종',
+  '치주 판막 수술': '치주판막수술',
+  '행동 조절': '행동조절',
+}
+
 const ENC_TO_GUIDE_301: Record<string, string> = {
   '실비보험 치과 적용': '/guide/insurance',
   '실손 보험 치과': '/guide/insurance',
@@ -5466,6 +5540,11 @@ app.get('/encyclopedia/:term', async (c) => {
     return c.redirect(ENC_TO_GUIDE_301[termParam], 301)
   }
 
+  // ★ v5.54 백과사전 중복 통합: 은퇴 용어 → 대표 용어로 301
+  if (ENC_MERGE_301[termParam]) {
+    return c.redirect(`/encyclopedia/${encodeURIComponent(ENC_MERGE_301[termParam])}`, 301)
+  }
+
   // 용어 찾기 (정확 매치 → 동의어 매치)
   let item = encItems.find(i => i.term === termParam)
   if (!item) {
@@ -5506,7 +5585,7 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
 <div class="box">
 <div style="font-size:3rem;margin-bottom:16px;">🔍</div>
 <h1>"${termParam.replace(/</g,'&lt;').slice(0,50)}" 용어를 찾을 수 없습니다</h1>
-<p>치과 백과사전에 등록되지 않은 용어입니다.<br>837개 치과 용어를 백과사전에서 검색해 보세요.</p>
+<p>치과 백과사전에 등록되지 않은 용어입니다.<br>820개 치과 용어를 백과사전에서 검색해 보세요.</p>
 <a href="/encyclopedia/">백과사전에서 검색하기</a>
 <a href="/" class="outline">홈으로</a>
 </div>
