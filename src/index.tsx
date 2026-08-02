@@ -1609,6 +1609,9 @@ export function enrichCitations(html: string): { body: string; refs: ColRef[] } 
   return { body: out, refs }
 }
 
+/* 배지 문구는 「참고 논문 N편」으로 고정한다.
+   ‘동료심사’는 사실이더라도 개별 검증 없이 자동으로 붙는 라벨이라 위험하고,
+   환자분께는 어려운 용어다. 세는 것(DOI 개수)만 말한다. */
 export function renderRefs(refs: ColRef[]): string {
   if (!refs.length) return ''
   const items = refs.map(r => `<li class="ref-item" id="ref-${r.n}">
@@ -1621,7 +1624,7 @@ ${r.journal ? `<em class="ref-journal">${r.journal}</em>` : ''}
 </div></li>`).join('\n')
   return `<section class="col-refs" aria-labelledby="col-refs-h">
 <div class="col-refs-head">
-<span class="col-refs-badge"><i class="fas fa-flask"></i> 동료심사 논문 ${refs.length}편</span>
+<span class="col-refs-badge"><i class="fas fa-flask"></i> 참고 논문 ${refs.length}편</span>
 <h2 id="col-refs-h">참고문헌</h2>
 <p class="col-refs-sub">이 글의 의학적 주장은 아래 논문에 근거합니다. DOI를 누르면 원문으로 이동합니다.</p>
 </div>
