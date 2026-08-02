@@ -981,6 +981,77 @@ Patient Signal AEO 진단: 비브랜드 가격 질문("천안 임플란트 가�
 - 컬럼 H2 부재 17건 (H1→H3 점프), 작성자 편중 (문석준 73 / 현정민 1)
 - 본문 내 인라인 링크 0/74, 본문 이미지 0/74
 
+## v5.54 — 중복 URL 통합 · 치아차트 SSR · 가이드 문맥링크 · pediatric 응급수정 (2026-08-02)
+
+배포: https://a6d302c1.seoul-bd-dental.pages.dev (라이브 https://bdbddc.com)
+
+### 1. 백과사전 중복 URL 18개 → 301 통합 (838 → 820항목)
+같은 개념이 여러 URL로 흩어져 서로 순위를 나눠 갖고 있었다. GSC 실측으로 확인된 대표 사례:
+
+| URL | 클릭 | 노출 | CTR |
+|---|---|---|---|
+| /encyclopedia/치아 번호 | 38 | 6,296 | 0.60% |
+| /encyclopedia/치아 번호 체계 | 13 | 4,410 | 0.29% |
+| /encyclopedia/치식 | 4 | 1,061 | 0.38% |
+| **합계** | **55** | **11,767** | **0.47%** |
+
+`ENC_MERGE_301` (src/index.tsx) 로 은퇴 용어 → 대표 용어 301. 은퇴 용어는 대표 항목의
+`synonyms` 로 흡수해 사이트 내 검색·동의어 301 경로를 유지한다.
+
+- 의미 중복 7쌍: 치아 번호(←치아 번호 체계·치식) / GBR(←GBR (골유도재생술)·골유도 재생술(GBR)) /
+  e.max(←e.max (이맥스)) / 복합레진(←복합 레진) / 글래스 아이오노머(←글라스 아이오노머) /
+  PRF(←PRF (혈소판 풍부 섬유소)) / 치주 포켓(←치주낭)
+- 띄어쓰기 변형 9쌍: 에어샤워·정기검진·노인 구강관리·전달마취·침윤마취·소아 진정 치료·점액 낭종·치주판막수술·행동조절
+- **본문 승계 규칙**: 은퇴 항목의 detail 이 대표의 1.3배 이상이면 대표가 그 본문을 물려받는다.
+  → GBR 1,845자 → 3,091자 / e.max 1,167자 → 1,779자 (콘텐츠 손실 없이 URL만 통합)
+- `sitemap-encyclopedia.xml` 재생성 844 URL (용어 820 + 카테고리 23 + 인덱스 1)
+- ENC_SEO_OVERRIDES 의 죽은 항목('치식','치아 번호 체계') 제거, 카운트 문구 837/838 → 820
+
+### 2. 치아 번호 차트 SVG를 SSR로 (src/routes/tooth-svg.ts 신규)
+기존에는 `<div id="tn-chart"></div>` 가 빈 채로 나가고 브라우저 JS가 채웠다.
+→ **GPTBot·PerplexityBot·ClaudeBot 등 JS를 실행하지 않는 크롤러에게 이 페이지의 핵심 자산이 통째로 안 보였다.**
+
+- `renderToothSVG(mode, notation, selected)` 를 서버에서 실행해 초기 SVG를 HTML에 굽는다.
+- 클라이언트 `BDToothChart.render()` 는 그대로 하이드레이션 담당 (인터랙션·모드 전환).
+- ⚠️ **좌표 계산식·toFixed 자릿수를 건드리지 말 것.** 클라이언트가 마운트 직후 innerHTML을
+  덮어쓰므로 출력이 다르면 화면이 튄다. 회귀 테스트로 `renderSVG` 와 **18/18 조합 바이트 일치** 검증.
+- `TOOTH_SVG_STYLE` 을 `<head>` 에 선주입 — 클라이언트는 `id="bdtc-style"` 중복을 자동 회피.
+- 라이브 결과: 페이지·위젯 모두 `<svg>` 1개 / 치아 `<g>` 32개 / `aria-label="FDI NN번 …"` 32개.
+
+### 3. 컬럼 문맥 내부링크에 /guide/* 38종 추가
+GSC 실측 `/guide/` 24편 = 111,990노출 CTR 1.89%, `/guide/regret/*` 는 CTR 5%대인데
+컬럼에서 들어오는 내부링크가 **0개**였다.
+
+- `COL_TREATMENT_LINKS` 에 가이드 항목 추가 (money 티어 동일 → 같은 티어 내 **길이 내림차순**이라
+  '라미네이트 후회' 같은 긴 구가 '라미네이트' 보다 먼저 잡힌다. 진료 페이지 링크를 뺏지 않는다.)
+- 링크 상한 8 → 11
+- 회귀 테스트(77편): 총 437 → **465개** / guide 52 · treatments 140 · encyclopedia 273 / **중첩 `<a>` 0**
+
+### 4. /treatments/pediatric title·desc 응급 수정
+GSC 실측 **17,434노출 / 5클릭 / CTR 0.03%** — 사이트 최대 낭비 지점.
+
+- title 29자: `천안 소아치과 | 전문의 3인 · 주말·공휴일도 진료`
+- desc 79자: `서울대 출신 소아치과 전문의 3인. 웃음가스·수면치료, 실란트·불소도포, 영유아검진, 주말·공휴일 진료. 천안 불당동 ☎041-415-2892`
+- og/twitter title·description, ai-summary 동기화
+- ⚠️ CTR 0.03%는 제목만의 문제가 아닐 가능성이 크다(평균 순위가 낮으면 제목을 고쳐도 한계).
+  4주 후 GSC에서 **CTR과 평균 게재순위를 분리해서** 확인할 것.
+
+### 5. 컬럼 오타 슬러그 교정
+`/column/periimplnatitis` → `/column/peri-implantitis` 301 (`COL_SLUG_301`).
+R2 의 slug 를 정타로 바꾸고, **목적지가 실제로 published 상태일 때만** 리다이렉트하도록 방어했다
+(코드만 먼저 배포돼도 기존 URL이 죽지 않는다).
+
+### 검증 (라이브)
+```
+백과 301 12/12 통과 · 대표 페이지 7/7 200
+치아 번호 페이지 119,652B | <svg>1 | 치아<g>32 | aria-label 32 | bdtc-style 선주입 O | 변환표 2
+위젯 28,472B | <svg>1 | 치아<g>32
+pediatric title 29자 / desc 79자 / og 동기화 O
+periimplnatitis 301 → peri-implantitis 200
+sitemap-encyclopedia 844 URL · 은퇴 용어 잔존 0
+/data/encyclopedia.json 라이브 820항목 · /encyclopedia/ 200
+```
+
 ## v5.53 — 컬럼 SEO 실측 감사 + A~F 개선 (2026-08-02)
 
 ### 감사 방법
