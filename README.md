@@ -981,6 +981,47 @@ Patient Signal AEO 진단: 비브랜드 가격 질문("천안 임플란트 가�
 - 컬럼 H2 부재 17건 (H1→H3 점프), 작성자 편중 (문석준 73 / 현정민 1)
 - 본문 내 인라인 링크 0/74, 본문 이미지 0/74
 
+## v5.53 — 컬럼 SEO 실측 감사 + A~F 개선 (2026-08-02)
+
+### 감사 방법
+라이브 페이지(`/column/implant-pain-duration`)를 curl로 긁어 실측 + R2 `data/columns.json` 77편 코퍼스 통계.
+
+### 실측 결과 — 이미 갖춘 것
+canonical 자기참조 · `robots: max-snippet:-1, max-image-preview:large` · JSON-LD 4블록 전부 파싱 성공
+(Article/BreadcrumbList/FAQPage(Q7)/Dentist) · author Person + url + sameAs + jobTitle · datePublished/dateModified
+· citation ScholarlyArticle · OG/Twitter summary_large_image · sitemap 인덱스 → `sitemap-columns.xml` 78 URL
+lastmod 100% · img alt 9/10, WebP 9, lazy 7 · 68KB / TTFB 0.289s
+
+### 실측 결과 — 빠져 있던 것 (전부 이번에 처리)
+| # | 문제 | 실측 | 조치 |
+|---|---|---|---|
+| A | **본문 문맥 내부링크 0개** | 77편 전부 0 | 렌더 시점 자동 링커 → **총 437개(평균 5.7)** |
+| B | 목차·앵커 없음 | TOC 0 | h2/h3 `id="sec-N"` 자동 + 목차 카드 → **앵커 658개, 미생성 0편** |
+| C | `@type: Article` (의료 타입 아님) | — | `["Article","MedicalWebPage"]` + reviewedBy/lastReviewed/wordCount/about/specialty/audience |
+| D | 최종 수정일 화면 미노출 | 0회 | `최종 수정 …` + `… 감수` 배지 |
+| E | h2 없는 글 (h1→h3 점프) | **17편** | h3→h2 자동 승격 → **17편 교정** |
+| F | sitemap lastmod 전부 동일 | 72편이 `2026-08-01` | updatedAt을 실제 발행일로 복원 → **고유 날짜 69개** |
+| + | `/rss.xml` 404 | 404 | `/feed.xml` 301 |
+
+### 자동 링커 규칙 (`autolinkColumnBody`)
+- 대상: 진료 페이지 16종(수익 페이지 우선) → 백과사전 838개(3자 이상)
+- 텍스트 노드만 치환. `<a>` / `<h1~h6>` / `<sup>`(인용 위첨자) 내부는 depth 카운터로 제외
+- 긴 용어 우선 정렬 + 플레이스홀더 치환 → **중첩 `<a>` 0건** (77편 전수 검증)
+- 용어당 1회, 글당 최대 8개. 초일반 용어 8개는 스톱리스트
+
+### 파이프라인 순서 (바꾸면 깨짐)
+`enrichCitations` → `promoteHeadings`(E) → `autolinkColumnBody`(A) → `buildToc`(B)
+링크를 먼저 심으면 제목 정규식이 `<a>`를 물고, 앵커 ID를 먼저 달면 링커가 제목을 못 거른다.
+
+### 보류
+- desc 80자 초과 75편은 재작성하지 않음 — 구글 desc 재작성률이 높아 회수 대비 품이 큼. 신규 발행분만 프롬프트에서 조임.
+- `AggregateRating`/`Review` — 의료법 §56 법률 검토 필요.
+
+### 배포
+https://bf518ddb.seoul-bd-dental.pages.dev → https://bdbddc.com
+
+---
+
 ## v5.52 — 논문 인용 학술지 형식 승격 (2026-08-02)
 
 렌더 시점 변환(`enrichCitations` / `renderRefs`, src/index.tsx)이라 **R2 원문은 건드리지 않고

@@ -1632,6 +1632,147 @@ ${r.journal ? `<em class="ref-journal">${r.journal}</em>` : ''}
 </section>`
 }
 
+/* ── v5.53 컬럼 SEO 강화 렌더러 ─────────────────────────────────────
+   구글이 롱폼 의료 콘텐츠에서 실제로 보는 세 가지를 렌더 시점에 채운다.
+     A. 본문 문맥 내부링크 (백과사전 838개 + 진료 페이지)  ← 기존 77편 전부 0개였음
+     B. 목차 + 제목 앵커 ID (SERP jump-to sitelinks 후보)
+     E. h2 없는 글의 h3 → h2 승격 (h1→h3 계층 점프 교정, 실측 17편)
+   R2 원문은 건드리지 않으므로 전편에 동시 적용되고 신규 발행분에도 자동 적용된다. */
+
+// 진료 페이지(수익 페이지) 우선 링크. 백과사전보다 먼저 매칭한다.
+const COL_TREATMENT_LINKS: [string, string][] = [
+  ['수면임플란트', '/treatments/implant-sedation'],
+  ['인비절라인', '/treatments/invisalign'],
+  ['라미네이트', '/treatments/glownate'],
+  ['재신경치료', '/treatments/re-root-canal'],
+  ['치아교정', '/treatments/orthodontics'],
+  ['신경치료', '/treatments/root-canal'],
+  ['잇몸치료', '/treatments/gum'],
+  ['치아미백', '/treatments/whitening'],
+  ['소아치과', '/treatments/pediatric'],
+  ['스케일링', '/treatments/scaling'],
+  ['임플란트', '/treatments/implant'],
+  ['사랑니', '/treatments/wisdom-tooth'],
+  ['크라운', '/treatments/crown'],
+  ['브릿지', '/treatments/bridge'],
+  ['인레이', '/treatments/inlay'],
+  ['충치', '/treatments/cavity'],
+]
+// 너무 흔해서 링크로 걸면 오히려 노이즈가 되는 용어
+const COL_LINK_STOP = new Set(['치과', '치료', '수술', '진료', '환자', '치과의사', '서울대', '치아'])
+
+/** E. h2가 하나도 없고 h3만 있는 글은 h3를 h2로 올린다(제목 계층 점프 교정). */
+export function promoteHeadings(html: string): string {
+  if (!html) return ''
+  const h2 = (html.match(/<h2[\s>]/gi) || []).length
+  const h3 = (html.match(/<h3[\s>]/gi) || []).length
+  if (h2 > 0 || h3 < 2) return html
+  return html.replace(/<(\/?)h3(\s|>)/gi, '<$1h2$2')
+}
+
+/** B. h2/h3에 앵커 id를 부여하고 목차 데이터를 뽑는다. */
+export function buildToc(html: string): { body: string; toc: { id: string; text: string; lv: number }[] } {
+  if (!html) return { body: '', toc: [] }
+  const toc: { id: string; text: string; lv: number }[] = []
+  let n = 0
+  const body = html.replace(/<(h[23])([^>]*)>([\s\S]*?)<\/\1>/gi, (m, tag, attrs, inner) => {
+    const text = String(inner).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim()
+    if (!text) return m
+    if (/\bid\s*=/.test(attrs)) return m
+    n++
+    const id = `sec-${n}`
+    toc.push({ id, text, lv: String(tag).toLowerCase() === 'h2' ? 2 : 3 })
+    return `<${tag}${attrs} id="${id}">${inner}</${tag}>`
+  })
+  return { body, toc }
+}
+
+export function renderColToc(toc: { id: string; text: string; lv: number }[]): string {
+  if (toc.length < 3) return ''
+  const items = toc.map(t =>
+    `<li class="toc-lv${t.lv}"><a href="#${t.id}">${t.text.replace(/</g, '&lt;')}</a></li>`).join('')
+  return `<nav class="col-toc" aria-label="이 글의 목차">
+<span class="col-toc-h"><i class="fas fa-list-ul"></i> 이 글의 목차</span>
+<ol class="col-toc-list">${items}</ol>
+</nav>`
+}
+
+/** A. 본문 텍스트 노드에만 문맥 링크를 심는다. 제목·기존 링크·인용 위첨자 안은 건너뛴다. */
+export function autolinkColumnBody(
+  html: string,
+  encTerms: { term: string }[],
+  max = 8,
+): string {
+  if (!html) return ''
+  const cands: { term: string; href: string; money: boolean }[] = []
+  for (const [t, href] of COL_TREATMENT_LINKS) cands.push({ term: t, href, money: true })
+  const seenT = new Set(cands.map(c => c.term))
+  for (const it of encTerms) {
+    const t = it && it.term
+    if (!t || t.length < 3 || COL_LINK_STOP.has(t) || seenT.has(t)) continue
+    seenT.add(t)
+    cands.push({ term: t, href: `/encyclopedia/${encodeURIComponent(t)}`, money: false })
+  }
+  // 진료 페이지 우선 → 긴 용어 우선(부분 매칭 방지)
+  cands.sort((a, b) => (a.money === b.money ? b.term.length - a.term.length : (a.money ? -1 : 1)))
+
+  const parts = html.split(/(<[^>]+>)/)
+  const store: string[] = []
+  const used = new Set<string>()
+  let count = 0
+  let dA = 0, dH = 0, dSup = 0
+  for (let i = 0; i < parts.length; i++) {
+    const p = parts[i]
+    if (!p) continue
+    if (p.charAt(0) === '<') {
+      const m = /^<(\/?)([a-zA-Z0-9]+)/.exec(p)
+      if (m) {
+        const close = m[1] === '/'
+        const tag = m[2].toLowerCase()
+        const d = close ? -1 : 1
+        if (tag === 'a') dA = Math.max(0, dA + d)
+        else if (/^h[1-6]$/.test(tag)) dH = Math.max(0, dH + d)
+        else if (tag === 'sup') dSup = Math.max(0, dSup + d)
+      }
+      continue
+    }
+    if (dA > 0 || dH > 0 || dSup > 0 || count >= max) continue
+    let seg = p
+    for (const c of cands) {
+      if (count >= max) break
+      if (used.has(c.term)) continue
+      const idx = seg.indexOf(c.term)
+      if (idx === -1) continue
+      const k = store.length
+      store.push(`<a class="col-inline-link" href="${c.href}">${c.term}</a>`)
+      seg = seg.slice(0, idx) + '\u0000' + k + '\u0000' + seg.slice(idx + c.term.length)
+      used.add(c.term)
+      count++
+    }
+    parts[i] = seg
+  }
+  return parts.join('').replace(/\u0000(\d+)\u0000/g, (_m, k) => store[Number(k)])
+}
+
+/** C. 글 주제를 의료 엔티티로 분류한다(MedicalProcedure vs MedicalCondition). */
+export function medicalAbout(title: string, kw?: string): { type: string; name: string } {
+  const t = `${title || ''} ${kw || ''}`
+  const proc: [RegExp, string][] = [
+    [/임플란트/, '치과 임플란트'], [/교정|인비절라인|투명교정/, '치아교정'],
+    [/라미네이트|올세라믹|심미보철/, '심미보철'], [/신경치료|근관/, '근관치료'],
+    [/발치|사랑니/, '발치'], [/미백/, '치아미백'], [/틀니|의치/, '의치'],
+    [/크라운|인레이|브릿지|보철/, '치과보철'], [/스케일링|잇몸치료|치주치료/, '치주치료'],
+    [/충치치료|레진/, '충치치료'],
+  ]
+  for (const [re, name] of proc) if (re.test(t)) return { type: 'MedicalProcedure', name }
+  const cond: [RegExp, string][] = [
+    [/충치|우식/, '치아우식증'], [/잇몸|치주|풍치/, '치주질환'], [/시린|지각과민/, '상아질지각과민증'],
+    [/턱관절/, '턱관절장애'], [/구취|입냄새/, '구취'], [/치아파절|깨진/, '치아파절'],
+  ]
+  for (const [re, name] of cond) if (re.test(t)) return { type: 'MedicalCondition', name }
+  return { type: 'MedicalEntity', name: '치과 진료' }
+}
+
 function colSlug(col: any): string { return col.slug || col.id }
 
 // ── v5.49: 관련 컬럼 토픽 유사도 ────────────────────────────
@@ -2068,6 +2209,9 @@ app.get('/api/health', (c) => {
 // ============================================
 // RSS/Atom 피드 (GEO 체크리스트 항목 4 — 빠른 인덱싱)
 // ============================================
+// v5.53: /rss.xml 404 제거 — 관행적 경로를 정식 피드로 301
+app.get('/rss.xml', (c) => c.redirect('/feed.xml', 301))
+
 app.get('/feed.xml', async (c) => {
   const r2 = c.env.R2
   const columns: any[] = r2 ? (await getColumns(r2)).filter((col: any) => col.status === 'published') : []
@@ -3500,8 +3644,16 @@ app.get('/column/:param', async (c) => {
   const isoDate = col.createdAt ? new Date(col.createdAt).toISOString() : ''
   const isoUpdated = col.updatedAt ? new Date(col.updatedAt).toISOString() : isoDate
   // v5.52 인용 승격: 본문의 DOI 인용을 위첨자 번호로 바꾸고 참고문헌 블록을 만든다.
-  const { body: colBody, refs: colRefs } = enrichCitations(col.content || '')
+  const { body: colCited, refs: colRefs } = enrichCitations(col.content || '')
   const colRefsHtml = renderRefs(colRefs)
+  // v5.53 순서 중요: 인용 승격 → 제목 승격(E) → 문맥 링크(A) → 앵커 ID·목차(B)
+  //   링크를 먼저 심으면 제목 정규식이 <a>를 물고, 앵커 ID를 먼저 달면 링커가 제목을 못 거른다.
+  const colEncItems = await getEncItems(c).catch(() => [] as any[])
+  const colLinked = autolinkColumnBody(promoteHeadings(colCited), colEncItems as any[])
+  const { body: colBody, toc: colToc } = buildToc(colLinked)
+  const colTocHtml = renderColToc(colToc)
+  const colAbout = medicalAbout(col.title || '', (col as any).focusKeyword || '')
+  const colWordCount = htmlText(colBody).replace(/\s+/g, '').length
   const citationLd = colRefs.length
     ? `"citation":[${colRefs.map(r => `{"@type":"ScholarlyArticle","name":"${jEsc(r.journal || r.label)}","identifier":"https://doi.org/${r.doi}","url":"https://doi.org/${r.doi}"}`).join(',')}],`
     : ''
@@ -3820,7 +3972,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
-  "@type":"Article",
+  "@type":["Article","MedicalWebPage"],
   "headline":"${jEsc(seoTitle)}",
   "description":"${jEsc(seoDesc)}",
   "author":{
@@ -3834,7 +3986,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
     "sameAs":["https://bdbddc.com/doctors/${doctorSlug}"]
   },
   "datePublished":"${isoDate}",
-  ${isoUpdated !== isoDate ? `"dateModified":"${isoUpdated}",` : ''}
+  "dateModified":"${isoUpdated || isoDate}",
   "url":"https://bdbddc.com/column/${colSlug(col)}",
   "mainEntityOfPage":{"@type":"WebPage","@id":"https://bdbddc.com/column/${colSlug(col)}"},
   "image":"${ogImage}",
@@ -3846,6 +3998,12 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
     "logo":{"@type":"ImageObject","url":"https://bdbddc.com/images/og-image-v2.jpg?v=sq1"}
   },
   ${citationLd}
+  "reviewedBy":{"@type":"Person","name":"${jEsc(col.doctorName || '문석준 원장')}","jobTitle":"${jEsc(drInfo.specialty || '치과의사')}","url":"https://bdbddc.com/doctors/${doctorSlug}"},
+  "lastReviewed":"${(isoUpdated || isoDate).split('T')[0]}",
+  "wordCount":${colWordCount},
+  "about":{"@type":"${colAbout.type}","name":"${jEsc(colAbout.name)}"},
+  "specialty":"Dentistry",
+  "audience":{"@type":"MedicalAudience","audienceType":"Patient"},
   "inLanguage":"ko",
   ${focusKw ? `"keywords":"${jEsc(focusKw)}",` : ''}
   "isPartOf":{"@type":"Blog","name":"서울비디치과 원장 컬럼","url":"https://bdbddc.com/column/"}
@@ -3948,6 +4106,24 @@ ${faqSchema}
 
 /* ── v5.52 논문 인용 ─────────────────────────────────────────
    본문 안: 위첨자 골드 번호. 글 끝: 참고문헌 카드. */
+/* v5.53 목차 */
+.col-toc{max-width:760px;margin:0 auto 34px;padding:18px 22px;background:linear-gradient(180deg,#fbf8f3,#fff);border:1px solid #ece2d2;border-radius:16px}
+.col-toc-h{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:800;color:#7a5f34;margin-bottom:10px}
+.col-toc-list{list-style:none;margin:0;padding:0;counter-reset:tocn}
+.col-toc-list li{counter-increment:tocn;margin:0;line-height:1.6}
+.col-toc-list li a{display:block;padding:7px 0 7px 26px;position:relative;color:#4a443d;font-size:.94rem;text-decoration:none;border-bottom:1px dashed #f0e8dc;word-break:keep-all}
+.col-toc-list li a::before{content:counter(tocn);position:absolute;left:0;top:8px;font-size:.72rem;font-weight:800;color:#b99a63}
+.col-toc-list li a:hover{color:#8a6d3b}
+.col-toc-list li:last-child a{border-bottom:0}
+.col-toc-list li.toc-lv3 a{padding-left:44px;font-size:.89rem;color:#6b625a}
+.col-toc-list li.toc-lv3 a::before{left:20px}
+.col-detail-body h2,.col-detail-body h3{scroll-margin-top:88px}
+/* v5.53 본문 문맥 내부링크 */
+.col-detail-body a.col-inline-link{color:#6B4226;font-weight:600;text-decoration:none;background-image:linear-gradient(#c9a96e,#c9a96e);background-size:100% 1px;background-repeat:no-repeat;background-position:0 1.08em;padding-bottom:1px;transition:background-color .15s}
+.col-detail-body a.col-inline-link:hover{background-color:#f7f0e2;color:#8a5a2b}
+.col-meta-badge.upd{background:#eef6f2;color:#2f6a55}
+.col-meta-badge.rev{background:#f3eee6;color:#7a5f34}
+@media(max-width:640px){.col-toc{padding:15px 16px;border-radius:14px}.col-toc-list li a{font-size:.9rem}}
 .col-detail-body sup.cite{font-size:.62em;line-height:0;vertical-align:super;margin:0 1px 0 2px}
 .col-detail-body sup.cite a{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#f1e7d4;color:#8a6d3b;font-weight:800;text-decoration:none;transition:background .15s}
 .col-detail-body sup.cite a:hover{background:#c9a96e;color:#fff}
@@ -4019,6 +4195,8 @@ ${ssrHeader()}
 <div class="col-meta-badges">
 ${col.category ? `<span class="col-meta-badge cat"><i class="fas fa-tag"></i> ${col.category}</span>` : ''}
 <span class="col-meta-badge date"><i class="far fa-calendar"></i> ${dateStr}</span>
+${isoUpdated && isoUpdated !== isoDate ? `<span class="col-meta-badge upd"><i class="fas fa-rotate"></i> 최종 수정 ${new Date(isoUpdated).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })}</span>` : ''}
+<span class="col-meta-badge rev"><i class="fas fa-user-doctor"></i> ${col.doctorName || '문석준 원장'} 감수</span>
 </div>
 </div>
 
@@ -4045,6 +4223,7 @@ ${doctorSlug ? `<a href="/doctors/${doctorSlug}" class="col-author-card">
 </div>`}
 
 ${col.thumbnailImage ? `<div class="col-detail-hero-img${/^\/api\/images\//.test(String(col.thumbnailImage)) ? ' col-hero-sq' : ''}">${picture(col.thumbnailImage, col.title, /^\/api\/images\//.test(String(col.thumbnailImage)) ? 'width="1024" height="1024"' : 'width="1376" height="768"')}</div>` : ''}
+${colTocHtml}
 <div class="col-detail-body">${colBody}</div>
 ${colRefsHtml}
 
