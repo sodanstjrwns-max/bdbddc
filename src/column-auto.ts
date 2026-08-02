@@ -93,7 +93,15 @@ ${FORBIDDEN_PHRASES.map(p => `- 「${p}」`).join('\n')}
 - DOI 는 발행 전 doi.org 로 실재 여부를 자동 검증합니다. 존재하지 않는 DOI 를 쓰면 차단됩니다.
 - 확실히 아는 DOI 만 쓰십시오. Cochrane 리뷰(10.1002/14651858.*), JADA, J Clin Periodontol,
   Int J Oral Maxillofac Surg 등 널리 인용되는 논문이 안전합니다.
-- 인용 시 저자·연도·저널명·DOI 가 서로 일치해야 합니다.`
+- 인용 시 저자·연도·저널명·DOI 가 서로 일치해야 합니다.
+- 인용 표기는 반드시 아래 형식을 **대괄호로** 정확히 지키십시오(렌더러가 이 형식을 읽어
+  위첨자 번호와 글 끝 「참고문헌」 카드로 자동 승격시킵니다. 형식이 어긋나면 승격되지 않습니다):
+    [저자 표기, 연도, 저널 정식명칭, DOI: 10.xxxx/yyyy]
+  예) [Al-Khabbaz AK et al., 2007, Journal of Periodontology, DOI: 10.1902/jop.2007.060032]
+- 저널명은 **약어를 쓰지 말고 정식명칭**으로 씁니다. (JOMS ✗ → Journal of Oral and
+  Maxillofacial Surgery ✓ / Cochrane ✗ → Cochrane Database of Systematic Reviews ✓)
+- 저자는 「성 이니셜 et al.」 또는 단체명. 한글 「등」 대신 「et al.」 을 쓰십시오.
+- 본문 안에 doi.org 링크(<a> 태그)를 직접 넣지 마십시오. 렌더러가 만듭니다.`
 }
 
 function userPrompt(query: string, meta: { impressions: number; ctr: number; position: number | null },

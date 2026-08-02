@@ -1518,6 +1518,117 @@ function htmlText(s: any): string {
 }
 
 // slug 헬퍼: col 객체에서 URL용 slug 반환 (slug 없으면 id 폴백)
+
+/* ── v5.52 논문 인용 렌더러 ───────────────────────────────────────────
+   본문에 흩어져 있던 인용을 학술지 형식으로 승격시킨다.
+   기존 74편은 `[저자, 연도, <em>저널</em>, DOI: 10.x/y]` 대괄호 형식,
+   v5.51 자동발행분은 `(저자 연도, 저널; DOI: 10.x/y)` 괄호 형식을 쓴다. 둘 다 받는다.
+   본문 안에서는 위첨자 번호로 압축하고, 글 끝에 「참고문헌」 블록을 자동 생성한다.
+   → 렌더 시점 변환이므로 컬럼 원문(R2)은 건드리지 않고 전편에 동시 적용된다. */
+export interface ColRef { n: number; doi: string; label: string; authors: string; year: string; journal: string }
+
+function parseCite(raw: string): { authors: string; year: string; journal: string } {
+  // raw 예) "Al-Khabbaz AK et al., 2007, Journal of Periodontology"  /  "Bui 2003, JOMS"
+  const txt = raw.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/[\s,;·]+$/, '').trim()
+  const ym = txt.match(/\b(1[89]\d{2}|20\d{2})\b/)
+  const year = ym ? ym[1] : ''
+  let authors = txt, journal = ''
+  if (ym) {
+    authors = txt.slice(0, ym.index).replace(/[\s,;([]+$/, '').trim()
+    journal = txt.slice((ym.index || 0) + year.length).replace(/^[\s,;.)\]]+/, '').replace(/[\s,;.]+$/, '').trim()
+  }
+  return { authors, year, journal }
+}
+
+export function enrichCitations(html: string): { body: string; refs: ColRef[] } {
+  if (!html || !/10\.\d{4,9}\//.test(html)) return { body: html || '', refs: [] }
+  const refs: ColRef[] = []
+  const seen = new Map<string, number>()
+
+  const take = (inner: string, doiRaw: string): string => {
+    const doi = doiRaw.replace(/[.,;)\]】]+$/, '')
+    let n = seen.get(doi.toLowerCase())
+    if (!n) {
+      const { authors, year, journal } = parseCite(inner)
+      n = refs.length + 1
+      seen.set(doi.toLowerCase(), n)
+      const label = [authors, year].filter(Boolean).join(' ') || journal || doi
+      refs.push({ n, doi, label, authors, year, journal })
+    }
+    return `<sup class="cite"><a href="#ref-${n}" id="cite-${n}-${Math.random().toString(36).slice(2, 6)}" aria-label="참고문헌 ${n}번">${n}</a></sup>`
+  }
+
+  let out = html
+  // ⓪ 이미 doi.org 링크가 박혀 있는 경우(실측 1편) — 링크를 풀어 평문 DOI 로 되돌린다.
+  //    그대로 두면 <a> 안에 위첨자 <a> 가 중첩된다.
+  out = out.replace(/<a\s[^>]*href="https?:\/\/(?:dx\.)?doi\.org\/([^"]+)"[^>]*>.*?<\/a>/gi,
+    (_m, d) => `DOI: ${String(d).replace(/[.,;)\]]+$/, '')}`)
+  // ① 대괄호 / 괄호로 감싼 완전한 인용
+  out = out.replace(/\[([^\[\]]{0,700}?)DOI\s*[:：]?\s*(10\.\d{4,9}\/[^\s<\]]+)\s*\]/gi, (_m, a, d) => take(a, d))
+  out = out.replace(/[(（]([^()（）]{0,320}?)DOI\s*[:：]?\s*(10\.\d{4,9}\/[^\s<)）]+)\s*[)）]/gi, (_m, a, d) => take(a, d))
+  // ② 괄호로 감싸지 않은 DOI — 앞 문맥에서 서지를 역추적한다.
+  //    실측: "Littlewood 등, 2016, Cochrane Database of Systematic Reviews, DOI: 10.…"
+  //    한글 문장 꼬리를 자르기 위해, 연도를 뒤에 두는 가장 앞선 대문자 토큰부터 취한다.
+  out = out.replace(/(?:^|(?<=[\s>;,]))DOI\s*[:：]?\s*(10\.\d{4,9}\/[^\s<)\]]+)/gi, (m, d, off: number) => {
+    const win = (out.slice(Math.max(0, off - 260), off) as string).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ')
+    let bib = ''
+    for (let i = 0; i < win.length; i++) {
+      if (win[i] >= 'A' && win[i] <= 'Z') {
+        const tail = win.slice(i)
+        if (/\b(1[89]\d{2}|20\d{2})\b/.test(tail) && tail.length <= 220) { bib = tail; break }
+      }
+    }
+    return take(bib, d)
+  })
+  // ③ 'DOI:' 접두어 없이 괄호 안에 DOI 만 적은 변형
+  //    실측: "(Emami et al., 2009, Clin Oral Implants Res, 10.1111/j.1600-0501.2008.01703.x)"
+  out = out.replace(/\[([^\[\]]{0,700}?),\s*(10\.\d{4,9}\/[^\s<\],]+)\s*\]/g, (_m, a, d) => take(a, d))
+  out = out.replace(/[(（]([^()（）]{0,320}?),\s*(10\.\d{4,9}\/[^\s<)）,]+)\s*[)）]/g, (_m, a, d) => take(a, d))
+
+  // ④ 괄호도 접두어도 없이 떠 있는 DOI — 앞 문맥에서 서지를 역추적
+  out = out.replace(/(?<![\/\w.])(10\.\d{4,9}\/[A-Za-z0-9._;()\/:-]+[A-Za-z0-9)])/g, (m, d, off: number) => {
+    const win = (out.slice(Math.max(0, off - 260), off) as string).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ')
+    let bib = ''
+    for (let i = 0; i < win.length; i++) {
+      if (win[i] >= 'A' && win[i] <= 'Z') {
+        const tail = win.slice(i)
+        if (/\b(1[89]\d{2}|20\d{2})\b/.test(tail) && tail.length <= 220) { bib = tail; break }
+      }
+    }
+    return take(bib, d)
+  })
+
+  // ⑤ 인용을 걷어내고 남은 빈 괄호·구두점 잔해 정리
+  out = out.replace(/[(（[]\s*(<\/?[a-z][^>]*>\s*)*[)）\]]/gi, '')
+  out = out.replace(/\s+([.,·])/g, '$1').replace(/\s{2,}/g, ' ')
+  // ⑥ 「근거: A / B」 식 꼬리 문단은 참고문헌 카드가 대체하므로 지운다.
+  out = out.replace(/<p[^>]*>(?:(?!<\/p>).)*?<\/p>/gi, (blk) => {
+    const t = blk.replace(/<sup class="cite">.*?<\/sup>/g, '').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim()
+    return /^근거\s*[:：]/.test(t) && t.length < 320 ? '' : blk
+  })
+  return { body: out, refs }
+}
+
+export function renderRefs(refs: ColRef[]): string {
+  if (!refs.length) return ''
+  const items = refs.map(r => `<li class="ref-item" id="ref-${r.n}">
+<span class="ref-no">${r.n}</span>
+<div class="ref-body">
+<span class="ref-meta">${r.authors ? `<b>${r.authors}</b>` : ''}${r.year ? `<span class="ref-year">${r.year}</span>` : ''}</span>
+${r.journal ? `<em class="ref-journal">${r.journal}</em>` : ''}
+<a class="ref-doi" href="https://doi.org/${encodeURI(r.doi)}" target="_blank" rel="noopener nofollow">
+<i class="fas fa-up-right-from-square"></i><span>DOI: ${r.doi}</span></a>
+</div></li>`).join('\n')
+  return `<section class="col-refs" aria-labelledby="col-refs-h">
+<div class="col-refs-head">
+<span class="col-refs-badge"><i class="fas fa-flask"></i> 동료심사 논문 ${refs.length}편</span>
+<h2 id="col-refs-h">참고문헌</h2>
+<p class="col-refs-sub">이 글의 의학적 주장은 아래 논문에 근거합니다. DOI를 누르면 원문으로 이동합니다.</p>
+</div>
+<ol class="col-refs-list">${items}</ol>
+</section>`
+}
+
 function colSlug(col: any): string { return col.slug || col.id }
 
 // ── v5.49: 관련 컬럼 토픽 유사도 ────────────────────────────
@@ -3385,11 +3496,20 @@ app.get('/column/:param', async (c) => {
   const dateStr = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
   const isoDate = col.createdAt ? new Date(col.createdAt).toISOString() : ''
   const isoUpdated = col.updatedAt ? new Date(col.updatedAt).toISOString() : isoDate
-  const plainExcerpt = htmlText(col.content).slice(0, 160)
-  
+  // v5.52 인용 승격: 본문의 DOI 인용을 위첨자 번호로 바꾸고 참고문헌 블록을 만든다.
+  const { body: colBody, refs: colRefs } = enrichCitations(col.content || '')
+  const colRefsHtml = renderRefs(colRefs)
+  const citationLd = colRefs.length
+    ? `"citation":[${colRefs.map(r => `{"@type":"ScholarlyArticle","name":"${jEsc(r.journal || r.label)}","identifier":"https://doi.org/${r.doi}","url":"https://doi.org/${r.doi}"}`).join(',')}],`
+    : ''
+
+  // v5.52: 인용 승격 후 본문(colBody)을 쓴다. 원문을 쓰면 발췌·FAQ 스키마에
+  //         "[Al-Khabbaz AK et al., 2007, …, DOI: 10.1902/…]" 서지 덩어리가 그대로 섞였다.
+  const plainExcerpt = htmlText(colBody).slice(0, 160)
+
   // FAQ Schema용: 본문에서 h2/h3→다음텍스트 쌍 추출 (AEO 최적화)
   const faqPairs: {q: string; a: string}[] = []
-  const contentStr = col.content || ''
+  const contentStr = colBody
   const headingRegex = /<(h[23])[^>]*>(.*?)<\/\1>/gi
   let hMatch
   while ((hMatch = headingRegex.exec(contentStr)) !== null) {
@@ -3722,6 +3842,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
     "url":"https://bdbddc.com",
     "logo":{"@type":"ImageObject","url":"https://bdbddc.com/images/og-image-v2.jpg?v=sq1"}
   },
+  ${citationLd}
   "inLanguage":"ko",
   ${focusKw ? `"keywords":"${jEsc(focusKw)}",` : ''}
   "isPartOf":{"@type":"Blog","name":"서울비디치과 원장 컬럼","url":"https://bdbddc.com/column/"}
@@ -3822,6 +3943,34 @@ ${faqSchema}
 /* 첫 문단(리드) — 도입부를 살짝 키워 읽기 시작을 쉽게 */
 .col-detail-body>p:first-of-type{font-size:1.13rem;color:#38332e;line-height:1.9}
 
+/* ── v5.52 논문 인용 ─────────────────────────────────────────
+   본문 안: 위첨자 골드 번호. 글 끝: 참고문헌 카드. */
+.col-detail-body sup.cite{font-size:.62em;line-height:0;vertical-align:super;margin:0 1px 0 2px}
+.col-detail-body sup.cite a{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#f1e7d4;color:#8a6d3b;font-weight:800;text-decoration:none;transition:background .15s}
+.col-detail-body sup.cite a:hover{background:#c9a96e;color:#fff}
+.col-refs{max-width:760px;margin:44px auto 0;padding:26px 24px;background:linear-gradient(180deg,#fbf8f3,#fff);border:1px solid #ece2d2;border-radius:18px}
+.col-refs-head{margin-bottom:18px}
+.col-refs-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:#7a5f34;background:#f3e8d3;border:1px solid #e6d6b8;padding:5px 11px;border-radius:999px;letter-spacing:-.01em}
+.col-refs h2{font-size:1.16rem;font-weight:800;color:#2b2724;margin:12px 0 6px;letter-spacing:-.02em}
+.col-refs-sub{font-size:.88rem;color:#8a8177;line-height:1.65;margin:0;word-break:keep-all}
+.col-refs-list{list-style:none;margin:0;padding:0;counter-reset:none}
+.ref-item{display:flex;gap:12px;padding:14px 0;border-top:1px solid #f0e8dc}
+.ref-item:first-child{border-top:none;padding-top:4px}
+.ref-no{flex:0 0 24px;width:24px;height:24px;border-radius:50%;background:#c9a96e;color:#fff;font-size:.76rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.ref-body{min-width:0;flex:1}
+.ref-meta{display:block;font-size:.94rem;color:#3f3a35;line-height:1.5}
+.ref-meta b{font-weight:700}
+.ref-year{display:inline-block;margin-left:7px;font-size:.78rem;font-weight:700;color:#8a6d3b;background:#f6efe2;padding:2px 7px;border-radius:6px}
+.ref-journal{display:block;font-size:.9rem;color:#6b625a;font-style:italic;margin-top:3px;line-height:1.5}
+.ref-doi{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:.79rem;font-weight:700;color:#6b7f9e;text-decoration:none;background:#f2f5f9;border:1px solid #e0e8f1;padding:5px 10px;border-radius:8px;word-break:break-all;transition:.15s}
+.ref-doi:hover{background:#e6edf6;color:#41577a}
+.ref-doi i{font-size:.72rem;flex:0 0 auto}
+@media(max-width:640px){
+  .col-refs{padding:20px 16px;margin-top:34px;border-radius:14px}
+  .ref-meta{font-size:.9rem}
+  .ref-doi{font-size:.74rem}
+}
+
 @media(max-width:640px){
   .col-detail-body{font-size:1.02rem;line-height:1.88}
   .col-detail-body h2{font-size:1.28rem;margin:38px 0 14px}
@@ -3893,7 +4042,8 @@ ${doctorSlug ? `<a href="/doctors/${doctorSlug}" class="col-author-card">
 </div>`}
 
 ${col.thumbnailImage ? `<div class="col-detail-hero-img${/^\/api\/images\//.test(String(col.thumbnailImage)) ? ' col-hero-sq' : ''}">${picture(col.thumbnailImage, col.title, /^\/api\/images\//.test(String(col.thumbnailImage)) ? 'width="1024" height="1024"' : 'width="1376" height="768"')}</div>` : ''}
-<div class="col-detail-body">${col.content || ''}</div>
+<div class="col-detail-body">${colBody}</div>
+${colRefsHtml}
 
 <!-- Author Box (Bottom) -->
 ${doctorSlug ? `<div class="col-author-box">
