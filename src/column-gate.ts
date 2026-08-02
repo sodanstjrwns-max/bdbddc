@@ -43,6 +43,7 @@ export interface GateResult {
 const MIN_LEN = 2800, MAX_LEN = 7000
 const MIN_H3 = 5, MIN_TABLE = 1, MIN_LI = 6, MIN_DOI = 1
 const MAX_REPEAT_RATIO = 0.06
+const MIN_MARK = 3, MAX_MARK = 12          // v5.51 형광펜(<mark>) — layout 모드에서만 적용
 const MIN_TITLE = 10, MAX_TITLE = 60
 const MIN_DESC = 60, MAX_DESC = 160
 const MAX_CORPUS_OVERLAP = 0.28
@@ -140,10 +141,13 @@ function grams12(s: string): Set<string> {
  */
 export async function gateColumn(
   col: ColumnDraft,
-  opts: { online?: boolean; corpus?: ColumnDraft[] } = {},
+  opts: { online?: boolean; corpus?: ColumnDraft[]; layout?: boolean } = {},
 ): Promise<GateResult> {
   const online = opts.online !== false
   const corpus = opts.corpus
+  // v5.51 레이아웃 규격 검사. 기존 74편은 이 규격 이전에 쓰였으므로 기본은 꺼 둔다.
+  // 자동발행 초안(runAutoPublish)만 layout:true 로 호출해 새 규격을 강제한다.
+  const layout = opts.layout === true
   const B: string[] = [], W: string[] = []
   const body = col.content || ''
   const x = stripTags(body)
@@ -160,6 +164,19 @@ export async function gateColumn(
   if (tb < MIN_TABLE) B.push(`표 ${tb}개 (최소 ${MIN_TABLE})`)
   const li = (body.match(/<li/g) || []).length
   if (li < MIN_LI) B.push(`목록항목 ${li}개 (최소 ${MIN_LI})`)
+
+  // ①-b v5.51 레이아웃 규격 (자동발행 전용)
+  const marks = (body.match(/<mark[\s>]/g) || []).length
+  const callouts = (body.match(/class="callout/g) || []).length
+  const h2 = (body.match(/<h2/g) || []).length
+  if (layout) {
+    if (marks < MIN_MARK) B.push(`형광펜 ${marks}개 (최소 ${MIN_MARK})`)
+    if (marks > MAX_MARK) B.push(`형광펜 ${marks}개 (최대 ${MAX_MARK} — 과다 강조)`)
+    if (h2 < 1) B.push('h2 도입 제목 없음')
+    if (callouts < 1) W.push('강조 박스(callout) 없음')
+    if (callouts < 2) W.push('callout 1개 — 요약/한계 박스 2개 권장')
+    if (!/<thead/.test(body) && tb) W.push('표에 thead 없음')
+  }
 
   // ② 근거 — DOI 실재 검증
   const dois = extractDois(body)
@@ -234,7 +251,7 @@ export async function gateColumn(
     blocks: B,
     warns: W,
     metrics: {
-      chars: x.length, h3, tables: tb, listItems: li, dois: dois.length,
+      chars: x.length, h2, h3, tables: tb, listItems: li, marks, callouts, dois: dois.length,
       titleLen: title.length, descLen: desc.length, slug: col.slug || '',
     },
   }

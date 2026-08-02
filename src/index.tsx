@@ -3770,12 +3770,64 @@ ${faqSchema}
    컨테이너에 aspect-ratio 를 주므로 이미지 로드 전에도 높이가 확보되어 CLS 가 0 이다. */
 .col-hero-sq{aspect-ratio:16/9;background:#f5f0eb}
 .col-hero-sq img{width:100%;height:100%;object-fit:cover}
-.col-detail-body{font-size:1.05rem;color:#444;line-height:1.9;word-break:keep-all}
-.col-detail-body h2{font-size:1.3rem;font-weight:700;color:#333;margin:32px 0 12px}
-.col-detail-body h3{font-size:1.1rem;font-weight:700;color:#333;margin:24px 0 10px}
-.col-detail-body p{margin-bottom:16px}
-.col-detail-body img{max-width:100%;border-radius:12px;margin:16px 0}
-.col-detail-body blockquote{border-left:4px solid #c9a96e;padding:12px 20px;background:#faf7f3;border-radius:0 12px 12px 0;margin:20px 0;color:#555;font-style:italic}
+/* ── v5.51 본문 타이포그래피 전면 개편 ──────────────────────────────────
+   기존에는 h2/h3/p/img/blockquote 만 정의돼 있었다. ul·ol·li·table 규칙이 아예
+   없어서 전역 리셋(list-style:none)이 그대로 먹혀 목록이 '그냥 줄바꿈된 문장'으로
+   보였다(실측: 사랑니 컬럼). 표도 테두리 없이 글자만 흘렀다.
+   컬럼 77편 전체에 동시에 적용된다. */
+.col-detail-body{font-size:1.07rem;color:#3f3a35;line-height:1.95;word-break:keep-all;letter-spacing:-.01em}
+.col-detail-body h2{font-size:1.45rem;font-weight:800;color:#2b2724;margin:48px 0 18px;padding-left:16px;border-left:5px solid #c9a96e;line-height:1.45}
+.col-detail-body h2:first-child{margin-top:8px}
+.col-detail-body h3{font-size:1.18rem;font-weight:800;color:#2b2724;margin:38px 0 14px;line-height:1.5;position:relative;padding-bottom:10px}
+.col-detail-body h3::after{content:'';position:absolute;left:0;bottom:0;width:34px;height:3px;border-radius:2px;background:linear-gradient(90deg,#c9a96e,#e8d9bd)}
+.col-detail-body h4{font-size:1.05rem;font-weight:700;color:#4a443d;margin:24px 0 10px}
+.col-detail-body p{margin:0 0 18px}
+.col-detail-body strong{font-weight:700;color:#241f1b}
+.col-detail-body img{max-width:100%;height:auto;border-radius:14px;margin:22px 0;display:block}
+
+/* 형광펜 밑줄 — 글자 아래 60% 지점부터 칠해 손으로 그은 느낌을 낸다.
+   .hl(기본 노랑) / .hl-mint(민트) / .hl-peach(피치) 세 가지. */
+.col-detail-body mark,.col-detail-body .hl{background:linear-gradient(transparent 58%,#ffe9a1 58%,#ffe07a 92%,transparent 92%);color:inherit;padding:0 .1em;border-radius:2px;font-weight:600}
+.col-detail-body .hl-mint{background:linear-gradient(transparent 58%,#bfe9d8 58%,#a5e0c9 92%,transparent 92%)}
+.col-detail-body .hl-peach{background:linear-gradient(transparent 58%,#ffd9c8 58%,#ffc7ae 92%,transparent 92%)}
+
+/* 목록 — 전역 리셋을 덮는다 */
+.col-detail-body ul,.col-detail-body ol{margin:0 0 22px;padding:0 0 0 4px;list-style:none}
+.col-detail-body ul>li{position:relative;padding:0 0 0 24px;margin:0 0 11px;line-height:1.85}
+.col-detail-body ul>li::before{content:'';position:absolute;left:6px;top:.72em;width:7px;height:7px;border-radius:50%;background:#c9a96e}
+.col-detail-body ol{counter-reset:cbi}
+.col-detail-body ol>li{position:relative;padding:0 0 0 34px;margin:0 0 13px;line-height:1.85;counter-increment:cbi}
+.col-detail-body ol>li::before{content:counter(cbi);position:absolute;left:0;top:.2em;width:23px;height:23px;border-radius:50%;background:#f3ece1;color:#8a6d3b;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.col-detail-body li>ul,.col-detail-body li>ol{margin:10px 0 0}
+.col-detail-body li>ul>li::before{background:#dbc9a6}
+
+/* 표 — 좁은 화면에서는 가로 스크롤 */
+.col-detail-body table{width:100%;border-collapse:separate;border-spacing:0;margin:24px 0;font-size:.97rem;line-height:1.7;border:1px solid #ece5da;border-radius:14px;overflow:hidden;display:table}
+.col-detail-body .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:24px 0}
+.col-detail-body .table-scroll table{margin:0;min-width:520px}
+.col-detail-body thead th,.col-detail-body tr:first-child th{background:#f7f2ea;color:#4a3f30;font-weight:800;text-align:left}
+.col-detail-body th,.col-detail-body td{padding:12px 14px;border-bottom:1px solid #f0eae0;vertical-align:top}
+.col-detail-body tbody tr:last-child td{border-bottom:none}
+.col-detail-body tbody tr:nth-child(even) td{background:#fdfbf8}
+
+/* 인용·강조 박스 */
+.col-detail-body blockquote{border-left:4px solid #c9a96e;padding:14px 20px;background:#faf7f3;border-radius:0 12px 12px 0;margin:24px 0;color:#55504a;font-style:normal}
+.col-detail-body blockquote p:last-child{margin-bottom:0}
+.col-detail-body .callout{background:#f7fbf9;border:1px solid #d8ece4;border-left:5px solid #6fbfa0;border-radius:0 14px 14px 0;padding:18px 20px;margin:26px 0}
+.col-detail-body .callout-warn{background:#fdf8f3;border-color:#f0dcc6;border-left-color:#dda15e}
+.col-detail-body .callout>p:last-child,.col-detail-body .callout>ul:last-child{margin-bottom:0}
+.col-detail-body .callout-title{display:block;font-weight:800;color:#2f6a55;margin-bottom:8px;font-size:1rem}
+.col-detail-body .callout-warn .callout-title{color:#a26b31}
+
+/* 첫 문단(리드) — 도입부를 살짝 키워 읽기 시작을 쉽게 */
+.col-detail-body>p:first-of-type{font-size:1.13rem;color:#38332e;line-height:1.9}
+
+@media(max-width:640px){
+  .col-detail-body{font-size:1.02rem;line-height:1.88}
+  .col-detail-body h2{font-size:1.28rem;margin:38px 0 14px}
+  .col-detail-body h3{font-size:1.11rem;margin:30px 0 12px}
+  .col-detail-body th,.col-detail-body td{padding:10px 11px;font-size:.93rem}
+}
 
 /* ===== BOTTOM AUTHOR BOX ===== */
 .col-author-box{margin-top:40px;padding:28px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:20px;border:1px solid #ede6dd;display:flex;align-items:center;gap:20px}
