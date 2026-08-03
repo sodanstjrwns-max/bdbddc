@@ -1099,6 +1099,52 @@ Cloudflare 엣지 응답 상한(~100초) 초과 → 524 로 강제 종료
 3. 크론 안의 `fetch()` 도 엣지 상한을 받는다. `scheduled()` 의 15분은 워커 자신의 수명일 뿐.
 4. 무거운 파이프라인은 **처음부터 짧은 단계로 쪼개서** 설계한다.
 
+## v5.55 — 크론 자동발행 근본수정 · 라미네이트 클러스터 정비 (2026-08-03)
+
+### 1. 자동발행 크론 — 8/1·8/3 미발행 원인 규명 및 수정
+Cloudflare Analytics(GraphQL `workersInvocationsAdaptive`) 실측:
+
+| 실행시각(UTC) | 상태 | duration | 실제 발행 |
+|---|---|---|---|
+| 2026-08-03 00:00:02 | success | 125초 | ❌ 0건 |
+| 2026-08-02 00:00:02 | success | 121초 | ❌ 0건 |
+
+크론은 **매일 정상 실행**되고 있었다. 문제는 소요시간이었다.
+크론 워커 → `https://bdbddc.com` 호출은 Cloudflare **엣지를 통과**하므로
+HTTP 트리거 요청 상한 **약 100초**에 걸린다. 한 건 생성은 85~120초라
+100초를 넘긴 날은 엣지가 **524로 끊고 생성물을 버렸다**. 워커 로그에는
+`success` 로 남아 겉보기엔 정상이라 8/1·8/3 손실을 놓쳤다.
+
+**수정**: `scheduled()` 는 엣지 상한을 받지 않으므로 최대 **3회 재시도**.
+매 재시도 전 `/api/columns` 로 **오늘(KST) 발행분 존재를 확인**해 중복 발행을 막는다
+(524로 끊겨도 origin 은 끝까지 돌아 발행에 성공하는 경우가 있음).
+- 파일: `scripts/cron-worker/index.ts` (`trigger` → `attempt` + `alreadyPublishedToday` + 재시도 루프)
+- 배포: `bdbddc-column-cron` Version `5150b68f`, schedule `0 0 * * *` 유지
+- 8/3 누락분 2편 수동 보충 → 총 **79편**
+
+### 2. 라미네이트 클러스터 정비 (GSC 노출 25,000+ / CTR 0.1~1.3%)
+13개 페이지가 같은 질의를 나눠 갖고 있었다. `/blog/*` 4편은 inblog.ai 외부 CMS
+프록시(`app.all('/blog/*')`)라 리포에서 수정 불가 → **우리 소유 4개**에 집중.
+
+| 페이지 | 노출 | 기존 CTR | 조치 |
+|---|---|---|---|
+| `/area/daejeon-laminate` | 6,197 | 0.10% | title 28자·desc 123→71자, 클러스터 인바운드 0→3 |
+| `/guide/laminate` | 5,658 | 0.23% | title 27자·desc 127→66자 (가격 앵커 전진배치) |
+| `/guide/regret/laminate` | 1,940 | 1.34% | title 39→29자(절단 해소)·desc 126→61자 |
+| `/treatments/glownate` | 1,891 | 0.74% | desc 132→70자 |
+
+- **desc 4건 모두 80자 초과 → SERP 절단 중이었다.** 전부 61~71자로 재작성
+- og:title / twitter:title 자동 동기화
+- **상호링크 4×4 매트릭스 전 칸 채움** — `/area/daejeon-laminate` 는 클러스터 내
+  인바운드가 **0개인 고아**였다
+- 🔴 **지역 링크 오배선 7건 발견·교정**: `treatments/glownate.html` 의 앵커 텍스트는
+  "대전/아산/세종/청주/당진/공주/평택 **라미네이트**" 인데 링크는 일반 지역 페이지
+  (`/area/daejeon`)로 가고 있었다. 라미네이트 전용 페이지(`/area/{city}-laminate`,
+  20개 존재)가 있는데도 링크주스가 엉뚱한 곳으로 샜다. 전역 스캔 후 잔여 0건 확인
+
+**라이브 검증**: 4/4 HTTP 200 · title 27~32자 · desc 61~71자 · og 동기 4/4 ·
+클러스터 내부링크 8/7/5/10개 · 오배선 잔여 0
+
 ## v5.54 — 중복 URL 통합 · 치아차트 SSR · 가이드 문맥링크 · pediatric 응급수정 (2026-08-02)
 
 배포: https://a6d302c1.seoul-bd-dental.pages.dev (라이브 https://bdbddc.com)
