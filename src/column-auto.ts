@@ -277,10 +277,21 @@ export interface RunResult {
   warns?: string[]
   metrics?: Record<string, any>
   ms: number
+  /** ★ v5.55 2단계 발행: 썸네일 단계에 넘길 프롬프트 힌트 */
+  thumbHint?: string
 }
 
 /** 하루 1회 실행되는 본체 */
-export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean } = {}): Promise<RunResult> {
+/* ★ v5.55 실측 사고 (2026-08-03)
+   한 건 발행이 125.1초가 걸려 Cloudflare 엣지의 응답 상한을 넘겼다(HTTP 524).
+   크론 워커의 wallTime 도 125.086초로 정확히 일치 → 8/2·8/3 발행이 조용히 유실.
+   내역: 본문 생성+게이트 64.3초 / 썸네일 생성+R2 커밋 60.8초.
+   → skipThumb 로 썸네일을 떼어내 두 번의 짧은 요청으로 쪼갠다.
+     ① POST /api/cron/publish-column?nothumb=1   (약 70초)
+     ② POST /api/cron/thumb?slug=…&hint=…&patch=1 (약 55초)
+   두 호출 모두 절벽 아래로 내려간다. 크론 워커의 scheduled() 는 엣지 상한이
+   적용되지 않으므로(최대 15분) 순차로 두 번 부르면 된다. */
+export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; skipThumb?: boolean } = {}): Promise<RunResult> {
   const t0 = Date.now()
   const model = env.AUTO_MODEL || DEFAULT_MODEL
 
@@ -349,7 +360,7 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean } = 
   // ⑤ 발행
   const now = new Date().toISOString()
   const thumbHint = [cand.query, draft!.focusKeyword || '', draft!.category || '', draft!.title || ''].join(' ')
-  const thumb = opts.dryRun ? null : await takeThumb(env, draft!.slug!, thumbHint)
+  const thumb = (opts.dryRun || opts.skipThumb) ? null : await takeThumb(env, draft!.slug!, thumbHint)
   // ⚠️ 필드 정합 (v5.51 실측 사고)
   //   사이트 전체가 createdAt 기준으로 정렬한다(목록·관련글·사이트맵·RSS 등 13곳).
   //   createdAt 이 없으면 new Date(0) = 1970년으로 계산돼 새 글이 목록 맨 뒤로 밀린다.
@@ -388,6 +399,7 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean } = 
   return {
     picked: cand.query, slug: draft!.slug, verdict: 'pass', attempts: 1,
     warns: last.warns, metrics: { ...last.metrics, thumbnail: thumb || '(썸네일 없음)' },
+    thumbHint,
     ms: Date.now() - t0,
   }
 }

@@ -29,9 +29,13 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
   app.post('/api/cron/publish-column', async (c) => {
     if (!authed(c)) return c.json({ ok: false, error: 'unauthorized' }, 401)
     const dry = c.req.query('dry') === '1'
+    // ★ v5.55 nothumb=1 → 썸네일을 떼고 본문만 발행한다(약 70초).
+    //   썸네일까지 한 요청에 넣으면 125초가 되어 엣지 응답 상한을 넘겨 524 로 죽는다.
+    //   (2026-08-03 실측: 크론 wallTime 125.086초 = 수동 curl 524 시각 125.096초)
+    const nothumb = c.req.query('nothumb') === '1'
     try {
-      const r = await runAutoPublish(c.env as AutoEnv, { dryRun: dry })
-      return c.json({ ok: r.verdict === 'pass', dryRun: dry, ...r })
+      const r = await runAutoPublish(c.env as AutoEnv, { dryRun: dry, skipThumb: nothumb })
+      return c.json({ ok: r.verdict === 'pass', dryRun: dry, skipThumb: nothumb, ...r })
     } catch (e: any) {
       return c.json({ ok: false, error: String(e?.message || e) }, 500)
     }
@@ -46,9 +50,28 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
     if (!/^[a-z0-9-]{4,90}$/.test(slug)) return c.json({ ok: false, error: 'slug 형식 오류' }, 400)
     const hint = c.req.query('hint') || slug
     const url = await genThumb(c.env as AutoEnv, slug, hint)
-    return url
-      ? c.json({ ok: true, url, hint })
-      : c.json({ ok: false, error: '생성 실패 (AI 바인딩/응답 확인)' }, 500)
+    if (!url) return c.json({ ok: false, error: '생성 실패 (AI 바인딩/응답 확인)' }, 500)
+
+    // ★ v5.55 patch=1 → columns.json 의 해당 컬럼에 thumbnailImage 를 박아준다.
+    //   2단계 발행(nothumb=1 → thumb) 에서 2단계가 이 일을 대신 해야 하기 때문이다.
+    //   patch 없이 부르면 R2 이미지만 갱신하는 기존 동작(수동 재생성 도구)을 유지한다.
+    let patched = false
+    if (c.req.query('patch') === '1') {
+      const obj = await c.env.R2.get('data/columns.json')
+      if (obj) {
+        const cols: any[] = await obj.json()
+        const i = cols.findIndex((x: any) => x && x.slug === slug)
+        if (i >= 0) {
+          cols[i].thumbnailImage = url
+          cols[i].updatedAt = new Date().toISOString()
+          await c.env.R2.put('data/columns.json', JSON.stringify(cols), {
+            httpMetadata: { contentType: 'application/json' },
+          })
+          patched = true
+        }
+      }
+    }
+    return c.json({ ok: true, url, hint, patched })
   })
 
   // 프롬프트 실험용 (임의 프롬프트 → 임시 키). 스타일 튜닝할 때만 쓴다.
