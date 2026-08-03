@@ -981,6 +981,67 @@ Patient Signal AEO 진단: 비브랜드 가격 질문("천안 임플란트 가�
 - 컬럼 H2 부재 17건 (H1→H3 점프), 작성자 편중 (문석준 73 / 현정민 1)
 - 본문 내 인라인 링크 0/74, 본문 이미지 0/74
 
+## v5.56 — 라미네이트 클러스터 정리 (2026-08-03)
+
+### GSC 실측 (2026-05-01~07-31)
+라미네이트 관련 페이지가 **13개**, 노출 25,717 · 클릭 146 → 합산 CTR **0.57%**.
+노출은 사이트 최상위권인데 클릭이 안 나오는 최악의 구간이었다.
+
+| 페이지 | 클릭 | 노출 | CTR |
+|---|---|---|---|
+| /area/daejeon-laminate | 6 | 6,197 | **0.10%** |
+| /guide/laminate | 13 | 5,658 | **0.23%** |
+| /cn/guide/laminate | 3 | 2,638 | 0.11% |
+| /treatments/glownate | 14 | 1,891 | 0.74% |
+| /guide/regret/laminate | 26 | 1,940 | 1.34% |
+| /blog/* (inblog.ai 프록시, 5개) | 66 | 7,393 | 0.89% |
+
+### 진단
+1. **설명문이 전부 길었다** — 123~132자. SERP 실측 절단선 80자를 40~50자씩 초과.
+   잘린 자리에 정작 중요한 숫자(80만원·10년 보증)가 있었다.
+2. **`/area/daejeon-laminate` 가 클러스터의 고아였다** — 인바운드 내부링크 **0개**.
+   노출 6,197로 클러스터 1위인데 사이트 어디에서도 이 페이지로 가는 길이 없었다.
+3. **앵커-링크 오배선 7건** — `treatments/glownate` 의 지역 칩이 "대전 라미네이트"라고
+   써놓고 링크는 `/area/daejeon`(일반 지역 페이지)으로 갔다. 라미네이트 전용
+   `/area/daejeon-laminate` 가 멀쩡히 있는데도. 대전·아산·세종·청주·당진·공주·평택 7개 전부.
+
+### 조치
+**① 메타 재작성 (4페이지)**
+| 페이지 | title | desc |
+|---|---|---|
+| /guide/laminate | 27자 유지 | 127 → **66자** |
+| /area/daejeon-laminate | 28자 유지 | 123 → **71자** |
+| /guide/regret/laminate | 39 → **29자** | 126 → **61자** |
+| /treatments/glownate | 32자 유지 | 132 → **70자** |
+
+og:title / twitter:title 자동 동기화. 잘려 나가던 숫자를 전부 앞으로 당겼다.
+
+**② 역할 분리 + 상호링크 (4×4 매트릭스 전면 연결)**
+```
+          →  guide  daejeon  regret  glownate
+guide         —       1        2        3
+daejeon       1       —        1        5
+regret        2       1        —        2
+glownate      3       1        2        —
+```
+`daejeon` 인바운드 0 → **3**. 고아 해소.
+- `/guide/laminate` = 정보(가격·종류·수명) · `/guide/regret/laminate` = 불안(후회·부작용)
+- `/area/daejeon-laminate` = 지역·접근성 · `/treatments/glownate` = 전환(진료·예약)
+
+**③ 앵커 오배선 7건 교정 + 천안 칩 자기참조 제거**
+`/treatments/glownate` 자체가 천안 라미네이트 본진이라 `<a>` → `<span>` 강조로 전환.
+전역 재스캔 결과 **잔여 오배선 0건**.
+
+### 손대지 않은 것
+- `/blog/*` 5개 (노출 7,393) — **inblog.ai 외부 CMS 프록시**라 리포에서 수정 불가.
+  `src/index.tsx:2741 app.all('/blog/*')` 가 `bdbddc.inblog.ai` 를 그대로 중계한다.
+  고치려면 inblog 관리자에서 직접 작업해야 한다. → 원장님께 별도 보고.
+- `/cn/guide/laminate` (노출 2,638) — 중국어 페이지. 중문 카피는 별도 검토 필요.
+
+### 배포
+`ac45885e.seoul-bd-dental.pages.dev` → https://bdbddc.com
+라이브 검증: 4페이지 HTTP 200 / title·desc 전부 절단선 이내 / 오배선 0 / 지역-라미 링크 7건 정상.
+
 ## v5.55 — 자동발행 "조용한 유실" 근본 해결 (2026-08-03)
 
 ### 증상
