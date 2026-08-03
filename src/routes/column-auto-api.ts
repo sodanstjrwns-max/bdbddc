@@ -25,6 +25,26 @@ function authed(c: any): boolean {
   return diff === 0
 }
 
+/** 오늘(KST) 이미 발행된 컬럼이 있으면 그 컬럼을 돌려준다. 없으면 null. */
+async function publishedTodayKST(env: any): Promise<{ slug: string; createdAt: string } | null> {
+  try {
+    const obj = await env.R2?.get('data/columns.json')
+    if (!obj) return null
+    const cols: any[] = await obj.json()
+    const dayKST = (t: string) =>
+      new Date(new Date(t).getTime() + 9 * 3600 * 1000).toISOString().slice(0, 10)
+    const today = dayKST(new Date().toISOString())
+    for (const x of cols) {
+      if (x?.status !== 'published' || !x?.createdAt) continue
+      if (dayKST(x.createdAt) === today) return { slug: x.slug, createdAt: x.createdAt }
+    }
+    return null
+  } catch {
+    // R2 를 못 읽으면 잠그지 않는다(발행 자체가 멈추는 쪽이 더 나쁘다).
+    return null
+  }
+}
+
 export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
   app.post('/api/cron/publish-column', async (c) => {
     if (!authed(c)) return c.json({ ok: false, error: 'unauthorized' }, 401)
@@ -33,6 +53,22 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
     //   썸네일까지 한 요청에 넣으면 125초가 되어 엣지 응답 상한을 넘겨 524 로 죽는다.
     //   (2026-08-03 실측: 크론 wallTime 125.086초 = 수동 curl 524 시각 125.096초)
     const nothumb = c.req.query('nothumb') === '1'
+    // ★ v5.57 하루 1건 잠금 (서버측 최종 방어선)
+    //   2026-08-03 사고: 크론 재시도 + 사람이 누른 수동 발행이 겹쳐 하루 2편이 올라갔다.
+    //   호출자(크론 워커)가 중복 확인을 하긴 하지만, 사람이 curl 로 직접 때리면
+    //   그 확인을 건너뛴다. 그래서 발행 직전 여기서 한 번 더 막는다.
+    //   - dry=1 리허설은 발행이 없으므로 통과시킨다.
+    //   - 의도적 추가 발행(누락분 보충 등)은 force=1 로 명시해야 한다.
+    const force = c.req.query('force') === '1'
+    if (!dry && !force) {
+      const dup = await publishedTodayKST(c.env)
+      if (dup) {
+        return c.json(
+          { ok: true, skipped: 'already-published-today', slug: dup.slug, createdAt: dup.createdAt },
+          200,
+        )
+      }
+    }
     try {
       const r = await runAutoPublish(c.env as AutoEnv, { dryRun: dry, skipThumb: nothumb })
       return c.json({ ok: r.verdict === 'pass', dryRun: dry, skipThumb: nothumb, ...r })
