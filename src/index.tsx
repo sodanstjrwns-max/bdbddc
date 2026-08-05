@@ -1833,17 +1833,59 @@ function colSimilarity(a: Set<string>, b: Set<string>): number {
   for (const t of a) if (b.has(t)) inter++
   return inter / (a.size + b.size - inter)
 }
+// ★ v5.60 진료 도메인 태그 (2026-08-06)
+//   실측 사고: 라미네이트 글의 유사도 최고값이 0.233 인데 임계값이 0.3 이라
+//   단 한 편도 통과하지 못하고 6편 전부 「오래된 순 채우기」로 채워졌다.
+//   그래서 심미 글이 교정·소아·턱관절 글로 링크되고 있었다.
+//   2-gram 자카드는 80편 규모에서 중앙값이 0.000 이다(대부분 아예 안 겹친다).
+//   → 문자열 유사도에만 의존하지 말고, 슬러그·제목에서 진료 도메인을 직접 읽는다.
+const COL_DOMAINS: Record<string, string[]> = {
+  '심미': ['laminate','veneer','whiten','bleach','esthetic','resin','discolor','stain','microdont','라미네이트','미백','심미','착색','변색','왜소치'],
+  '임플란트': ['implant','bone-graft','osseo','sinus','임플란트','뼈이식','골이식'],
+  '교정': ['orthodont','aligner','brace','invisalign','midline','crowd','교정','치열','덧니','투명교정'],
+  '사랑니': ['wisdom-tooth','third-molar','impacted','사랑니','매복'],
+  '신경치료': ['root-canal','endodont','pulp','신경치료','근관'],
+  '보철': ['crown','bridge','inlay','denture','prosthe','크라운','브릿지','인레이','틀니','보철'],
+  '잇몸': ['periodont','gum','gingiv','scaling','잇몸','치주','스케일링','치석'],
+  '충치': ['cavit','caries','decay','filling','충치','우식'],
+  '소아': ['child','pediatric','primary-tooth','baby-tooth','소아','어린이','유치'],
+  '턱관절': ['tmj','temporomandib','bruxism','clench','턱관절','이갈이','이악물'],
+  '구강관리': ['brush','floss','halitosis','bad-breath','dry-mouth','mouthwash','가글','칫솔','양치','치실','구취','건조'],
+  '외상': ['trauma','injury','knocked-out','luxation','mouthguard','avuls','displaced','외상','마우스가드','부딪','빠진'],
+  '습관': ['thumb-sucking','pacifier','habit','손가락','공갈','습관'],
+  '통증응급': ['pain','ache','swell','emergency','trauma','fracture','broken','sensitiv','통증','부기','응급','파손','시린','시림'],
+}
+/** 컬럼의 진료 도메인 집합을 뽑는다. 슬러그(영문)와 제목(한글)을 함께 본다. */
+function colDomains(col: any): Set<string> {
+  const hay = (String(col.slug || '') + ' ' + String(col.title || '') + ' ' +
+    String(col.metaTitle || '') + ' ' + String(col.focusKeyword || '')).toLowerCase()
+  const out = new Set<string>()
+  for (const [dom, kws] of Object.entries(COL_DOMAINS)) {
+    if (kws.some(k => hay.includes(k))) out.add(dom)
+  }
+  return out
+}
+
 function relatedColumns(all: any[], col: any, limit = 6): any[] {
   const pool = all.filter((x: any) => x.id !== col.id && x.status === 'published')
   const mine = colTokens(col)
+  const myDom = colDomains(col)
   const scored = pool.map((x: any) => {
     let s = colSimilarity(mine, colTokens(x)) * 10
-    if (x.category && col.category && x.category === col.category) s += 0.4
+    // ★ v5.60 같은 진료 도메인이면 강하게 끌어올린다(교집합 1개당 +1.2).
+    //   문자열이 안 겹쳐도 「라미네이트 ↔ 미백」처럼 환자 머릿속에서 이어지는 글을 묶는다.
+    const xDom = colDomains(x)
+    let shared = 0
+    for (const d of myDom) if (xDom.has(d)) shared++
+    s += shared * 1.2
+    // 카테고리는 현재 전 컬럼이 '진료 이야기' 단일값이라 신호가 0이다 → 가산 제거.
     if (x.doctorName && col.doctorName && x.doctorName === col.doctorName) s += 0.15
-    return { col: x, s }
+    return { col: x, s, shared }
   })
   scored.sort((p, q) => q.s - p.s || new Date(q.col.createdAt || 0).getTime() - new Date(p.col.createdAt || 0).getTime())
-  const picked = scored.filter(x => x.s > 0.3).slice(0, limit).map(x => x.col)
+  // ★ v5.60 임계값 0.3 → 0.18. 실측 중앙값이 0.000, 상위권도 0.2 대라 0.3 은 사실상
+  //   전부 탈락시키는 값이었다. 도메인 교집합이 있으면 유사도와 무관하게 통과시킨다.
+  const picked = scored.filter(x => x.shared > 0 || x.s > 0.18).slice(0, limit).map(x => x.col)
   // 유사 글이 모자라면 "아직 인링크가 적은 글"로 채워 고아 컬럼을 살린다 (오래된 순)
   if (picked.length < limit) {
     const have = new Set(picked.map((p: any) => p.id))
