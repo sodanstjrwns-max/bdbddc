@@ -35,6 +35,10 @@ export interface AutoEnv {
 }
 
 const COLUMNS_KEY = 'data/columns.json'
+
+/** v5.59 비용·금액성 검색어 판별 (큐에서 제외). 제목/본문에 금액이 들어갈 수밖에 없는 주제들. */
+const COST_WORDS = ['비용','가격','값','얼마','금액','수가','만원','실비','보험','할인','저렴','싼','견적','청구','환급','본인부담']
+const COST_LIKE_SQL = COST_WORDS.map(w => `query LIKE '%${w}%'`).join(' OR ')
 const DEFAULT_MODEL = 'gpt-5'
 const DEFAULT_BASE = 'https://www.genspark.ai/api/llm_proxy/v1'
 const MAX_ATTEMPTS = 3
@@ -101,7 +105,21 @@ ${FORBIDDEN_PHRASES.map(p => `- 「${p}」`).join('\n')}
 - 저널명은 **약어를 쓰지 말고 정식명칭**으로 씁니다. (JOMS ✗ → Journal of Oral and
   Maxillofacial Surgery ✓ / Cochrane ✗ → Cochrane Database of Systematic Reviews ✓)
 - 저자는 「성 이니셜 et al.」 또는 단체명. 한글 「등」 대신 「et al.」 을 쓰십시오.
-- 본문 안에 doi.org 링크(<a> 태그)를 직접 넣지 마십시오. 렌더러가 만듭니다.`
+- 본문 안에 doi.org 링크(<a> 태그)를 직접 넣지 마십시오. 렌더러가 만듭니다.
+
+[비용·금액 서술 금지 — v5.59 (2026-08-06 원장 지시)]
+- 이 컬럼은 **논문 근거 기반 의학 정보 글**입니다. 논문은 진료 효과·예후를 뒷받침할 수 있지만
+  한국의 진료비를 뒷받침할 수는 없습니다. 논문을 인용한 글에 금액을 적으면 논문이 가격의
+  근거처럼 읽혀 글 전체의 신뢰가 무너집니다.
+- 구체적 금액을 절대 쓰지 마십시오. 「80만원」 「50~100만원」 「1본 30만원대」 「약 100만원」
+  「10만원 내외」 등 숫자+원 형태의 진료비 표기 일체 금지. 범위·대략치도 금지입니다.
+- 「비급여」 「급여」 「보험 적용 여부」 같은 제도 용어를 금액과 함께 단정하지 마십시오.
+  제도는 자주 바뀌므로 「시점에 따라 달라집니다」 수준으로만 언급합니다.
+- 비용이 판단에 영향을 주는 주제라면, 금액이 아니라 **비용을 좌우하는 의학적 변수**를 쓰십시오.
+  (예: 재료의 종류, 남은 치아 뿌리의 상태, 뼈 이식 필요 여부, 치료 회차, 유지관리 주기)
+- 환자분이 비용을 물으실 상황이라면 「정확한 금액은 구강 상태를 직접 보고 말씀드려야 합니다.
+  전화(041-415-2892)로 문의해 주시면 안내해 드립니다」 처럼 상담으로 넘기십시오.
+- 제목에도 「비용」 「가격」 「얼마」 「만원」 을 넣지 마십시오.`
 }
 
 function userPrompt(query: string, meta: { impressions: number; ctr: number; position: number | null },
@@ -308,6 +326,19 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; ski
        AND updated_at < datetime('now', '-30 minutes')`).bind(MAX_ATTEMPTS).run()
 
   // ① 큐 선점 — 동시 실행되어도 한 건만 잡히도록 status 조건을 UPDATE 에 건다
+  // ★ v5.59 비용·금액성 주제 제외 (2026-08-06 원장 지시)
+  //   이 컬럼은 논문 DOI 를 붙이는 의학 정보 글이다. 논문은 진료 효과를 뒷받침하지만
+  //   한국의 진료비를 뒷받침하지 못한다. 「틀니 비용」 같은 검색어를 논문 인용 글로 쓰면
+  //   논문이 가격표의 근거처럼 읽혀 글 전체의 신뢰가 무너진다. 게다가 금액은 반년이면
+  //   틀린 정보가 되어 SEO 자산이 부채로 바뀐다. → 큐 단계에서 아예 뽑지 않는다.
+  //   (해당 검색어는 큐에 남겨두되 status='skipped_cost' 로 빼서 기록을 보존한다)
+  await env.DB.prepare(
+    `UPDATE column_queue
+     SET status='skipped_cost',
+         last_error='v5.59 비용·금액성 주제 제외 (논문 근거 글에 부적합)',
+         updated_at=CURRENT_TIMESTAMP
+     WHERE status='pending' AND (${COST_LIKE_SQL})`).run()
+
   const cand: any = await env.DB.prepare(
     `SELECT * FROM column_queue WHERE status = 'pending' ORDER BY score DESC LIMIT 1`).first()
   if (!cand) return { verdict: 'empty', attempts: 0, ms: Date.now() - t0 }

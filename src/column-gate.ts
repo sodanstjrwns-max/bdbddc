@@ -218,6 +218,29 @@ export async function gateColumn(
   if (!(desc.length >= MIN_DESC && desc.length <= MAX_DESC)) B.push(`metaDescription ${desc.length}자 (허용 ${MIN_DESC}~${MAX_DESC})`)
   if (!/^[a-z0-9-]{8,90}$/.test(col.slug || '')) B.push(`slug 형식 위반: ${col.slug}`)
 
+  // ⑥-b ★ v5.59 금액 서술 차단 (2026-08-06 원장 지시)
+  //   논문 DOI 를 붙인 글에 진료비를 적으면 논문이 가격의 근거처럼 읽혀 신뢰가 무너진다.
+  //   또한 금액은 반년이면 틀린 정보가 되어 SEO 자산이 부채로 바뀐다.
+  //   큐 필터(column-auto.ts)와 프롬프트에서 이미 막지만, 여기가 마지막 방어선이다.
+  //   ※ 대표번호 041-415-2892 나 「10년 보증」 같은 비(非)금액 숫자는 걸리지 않도록
+  //     반드시 '원/만원' 화폐 단위가 붙은 경우만 잡는다.
+  const MONEY_PATTERNS: [RegExp, string][] = [
+    [/\d[\d,.]*\s*만\s*원/, '금액(만원)'],
+    [/\d[\d,.]*\s*천\s*원/, '금액(천원)'],
+    [/\d{4,}\s*원(?![가-힣])/, '금액(원)'],
+    [/\d[\d,.]*\s*만\s*원?\s*[~\-–]\s*\d/, '금액 범위'],
+    [/\d[\d,.]*\s*(?:원|만원)\s*(?:대|선|내외|정도|안팎)/, '금액 대략치'],
+  ]
+  for (const [pat, label] of MONEY_PATTERNS) {
+    const m = x.match(pat)
+    if (m) { B.push(`${label} 서술 발견 — 논문 근거 글에 진료비 금지: 「${m[0].slice(0, 24)}」`); break }
+  }
+  // 제목/메타에는 비용 단어 자체를 금지 (검색의도가 가격이면 글의 정체성이 흔들린다)
+  for (const [fld, v] of [['title', title], ['metaTitle', mt], ['metaDescription', desc]] as [string, string][]) {
+    const hit = ['비용', '가격', '얼마', '만원', '금액', '수가'].find(w => v.includes(w))
+    if (hit) B.push(`${fld} 에 비용 표현 「${hit}」 — 가격 글은 발행하지 않습니다`)
+  }
+
   // ⑦ 내부 문장 반복
   const sents = x.split(/(?<=[.?!])\s+/).map(s => s.trim()).filter(s => s.length > 18)
   if (sents.length) {
