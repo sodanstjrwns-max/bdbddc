@@ -383,8 +383,26 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; ski
   }
 
   if (!opts.dryRun) {
-    existing.push(record)
-    await env.R2.put(COLUMNS_KEY, JSON.stringify(existing), {
+    // ★ v5.58 R2 덮어쓰기 경합 방지 (2026-08-05 실측 사고)
+    //   existing 은 작업 시작 시점(약 75초 전)에 읽은 스냅샷이다. 그 스냅샷에
+    //   push 해서 통째로 put 하면, 그 사이에 추가된 컬럼이 조용히 사라진다.
+    //   실제로 8/5 실행에서 verdict=pass 인데도 컬럼 수가 79편에서 늘지 않았다.
+    //   → 쓰기 직전에 R2 를 다시 읽어 최신 배열에 append 한다.
+    const fresh = await loadColumns(env)
+    // 같은 slug 가 이미 있으면(중복 발행) 덧붙이지 않는다.
+    if (fresh.some((x: any) => x?.slug === record.slug)) {
+      await env.DB.prepare(
+        `UPDATE column_queue SET status='published', slug=?, published_at=CURRENT_TIMESTAMP,
+         last_error='중복 slug — 기존 발행 유지', updated_at=CURRENT_TIMESTAMP WHERE id=?`)
+        .bind(draft!.slug, cand.id).run()
+      return {
+        picked: cand.query, slug: draft!.slug, verdict: 'pass', attempts: 1,
+        warns: [...(last.warns || []), '이미 같은 slug 가 발행돼 있어 덧붙이지 않았습니다'],
+        metrics: last.metrics, thumbHint, ms: Date.now() - t0,
+      }
+    }
+    fresh.push(record)
+    await env.R2.put(COLUMNS_KEY, JSON.stringify(fresh), {
       httpMetadata: { contentType: 'application/json' },
     })
     await env.DB.prepare(
