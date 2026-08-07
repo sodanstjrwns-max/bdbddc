@@ -325,29 +325,62 @@ export async function genThumb(env: AutoEnv, slug: string, hint: string): Promis
    중간 이탈이 생기고, 이미지 검색 유입 경로도 통째로 비어 있었다.
    ⚠️ 크론 본문 생성이 이미 110초/125초를 쓰고 있으므로 삽화는 '별도 요청'에서 만든다.
    히어로 썸네일과 구도를 달리해(측면·수평) 같은 그림이 두 번 나오지 않게 한다. */
+/** ★ v5.64 본문 삽화 전면 교체 (2026-08-07)
+ *  ⚠️ 원장 판단: AI는 임필란트 스후·근관 단면·잔법 구조를 거의 다 틀리게 그린다.
+ *  치사 컴럼에 틀린 구조도가 박혀 있으면 삽화가 아니라 사고다.
+ *  → 구조물·진료장면을 전부 버리고, 「환자가 걱정하는 상황」을 귀엽게 그린다.
+ *  치아·장비·기구는 프롬프트 단계에서 명시적으로 제외한다.
+ *  ❗ 하이로 쓸네일(THUMB_STYLE)은 건드리지 않는다 — 원장 확정 지식. */
 const FIG_STYLE = (subject: string) =>
-  `3D clay render editorial illustration, soft matte clay texture, ${subject}, ` +
-  `arranged left to right on a pastel mint green clay platform, peach coral clay accents, ` +
-  `soft diffused studio lighting, rounded friendly shapes, cream beige background, ` +
-  `wide horizontal composition, side view, subject fills the frame, tight crop, ` +
-  `no text, no letters, no words, no numbers`
+  `cute 3D clay render illustration, soft matte clay texture, kawaii style, ` +
+  `${subject}, ` +
+  `chubby rounded simple shapes, tiny dot eyes and a simple curved mouth, ` +
+  `pastel mint green and peach coral clay accents, cream beige background, ` +
+  `soft diffused studio lighting, gentle warm mood, wide horizontal composition, ` +
+  `centered, subject fills the frame, ` +
+  `no text, no letters, no words, no numbers, ` +
+  `no teeth, no tooth shapes, no gums, no jaw, no dental anatomy, ` +
+  `no syringe, no drill, no dental instruments, no medical devices, ` +
+  `no blood, no wounds, no realistic human faces`
 
-/** 본문 삽화용 모티프 — 히어로와 겹치지 않게 '과정/비교' 구도를 쓴다. */
+/** 모티프 — 전부 「감정·상황」이다. 해부 구조는 한 개도 없다. */
 const FIG_MOTIF: [RegExp, string][] = [
-  [/사랑니|매복|발치|뽑/, 'three clay teeth in a row showing an upright tooth, a tilted tooth and a fully buried tooth'],
-  [/임플란트|식립|뼈이식|골이식/, 'three clay stages side by side: an empty gum socket, an implant screw placed, and a finished crown'],
-  [/교정|투명|브라켓|덧니|돌출입|정중선/, 'two clay dental arches side by side, one crowded and one aligned, with a clear clay aligner tray between them'],
-  [/라미네이트|심미|미백|화이트닝|베니어|글로우네이트/, 'a row of four clay teeth in a gradient from dull beige to bright white'],
-  [/충치|레진|우식|때우/, 'three clay molars in a row showing a white surface, a small dark spot, and a deep cavity'],
-  [/신경치료|근관|크라운|보철|인레이|씌우/, 'a clay molar cut in half showing the inner canal, next to a golden clay crown cap'],
-  [/잇몸|치주|스케일링|풍치|치석|출혈/, 'two clay gum models side by side, one healthy and pink, one swollen with calculus specks'],
-  [/틀니|의치/, 'a clay denture arch beside a clay cleaning brush and a small soaking cup'],
-  [/소아|어린이|아이|유치|젖니/, 'a row of small clay milk teeth beside one larger permanent tooth'],
-  [/턱|악관절|교합|이갈이|턱관절/, 'a clay jaw model shown in three positions: closed, slightly open, wide open'],
-  [/구취|입냄새|구강건조|침/, 'a clay tongue cleaner, a water glass and mint leaves arranged in a row'],
-  [/칫솔|양치|치실|가글|관리|예방/, 'a clay toothbrush, dental floss spool and interdental brush lined up in a row'],
-  [/통증|부기|시린|아프|응급/, 'three clay teeth in a row with soft glowing halos increasing in intensity'],
-  [/치아|이빨|구강|치과|어금니|앞니/, 'four clay teeth of different shapes lined up on a platform'],
+  // ── 공포·긴장 ──
+  [/공포|무섭|긴장|부담|뜻부|떨린|트라우마|수면진정/,
+   'a small round pastel clay character taking a deep calm breath, eyes gently closed, a tiny heart floating above, a soft folded blanket beside it'],
+  // ── 통증·부기 ──
+  [/통증|부기|봇기|심한|아파|쓰린|지읃|진통제/,
+   'a small round pastel clay character resting one hand on its cheek with a worried expression, a light blue clay ice pack and a mug of warm water beside it'],
+  // ── 음식·식사 ──
+  [/음식|식사|식단|맑|죽|묹|샘백|커피|음주|담배|금연/,
+   'a warm clay bowl of soft porridge with a small spoon, a cup of water and a soft banana, arranged in a row, a tiny happy clay character sitting beside them'],
+  // ── 기간·경과·회복 ──
+  [/며칠|기간|기다|회복|경과|날|주일|달|언제|시기|유지|수명|후얰상/,
+   'a soft clay wall calendar with three small check marks and a tiny alarm clock, a small round clay character waving happily beside it'],
+  // ── 밤·수면·이갈이 ──
+  [/밤|자는|수면|이갈이|코골이|장치|퇴퇴|턱관절|이생통/,
+   'a small round pastel clay character sleeping peacefully on a fluffy pillow, a crescent moon and two tiny stars floating above'],
+  // ── 아이·소아 ──
+  [/소아|어린이|아이|유치|젬니|도드라|어머니|부모|첨방|진정/,
+   'a tiny round clay child character holding hands with a slightly larger clay parent character, a small clay teddy bear beside them'],
+  // ── 상담·설명·결정 ──
+  [/상담|설명|상담실|질문|궁금|선택|결정|반대|변화|차이|버하/,
+   'two small round clay characters sitting across a low clay table talking, a small clay speech bubble and a clipboard between them'],
+  // ── 관리·윈생·생할 ──
+  [/양치|칫솔|치실|가글|관리|생할|윈생|스토리|예방|검진|정기/,
+   'a soft clay bathroom shelf with a rounded cup, a folded towel and a small potted plant, a tiny cheerful clay character standing in front of it'],
+  // ── 미소·자슰감·사진 ──
+  [/미소|웃|사진|증명사진|자슰|생기는|인상|면접|결혼|예뻐|심미|하얀/,
+   'a small round pastel clay character smiling brightly in front of a rounded clay mirror, three tiny sparkles floating around'],
+  // ── 보장·사후처리·보험 ──
+  [/보장|재치료|사후|A\/S|보험|생응|실패|다시|재수술/,
+   'a soft clay shield badge with a small ribbon and a folded certificate, a tiny reassured clay character giving a thumbs up beside them'],
+  // ── 비용 외 — 수치·자료 ──
+  [/연구|논문|통계|자료|기준|학회|데이터|근거/,
+   'a small round clay character holding a rounded clay book, a soft stack of papers and a magnifying glass beside it'],
+  // ── 기본 (매칭 안 될 때) ──
+  [/./,
+   'a small round pastel clay character sitting on a soft clay cushion with a calm gentle smile, a mug of warm water and a tiny potted plant beside it'],
 ]
 function figMotifOf(hint: string): string {
   for (const [re, m] of FIG_MOTIF) if (re.test(hint)) return m

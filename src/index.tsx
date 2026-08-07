@@ -1750,7 +1750,7 @@ export function insertBodyFigure(html: string, src: string, alt: string): string
   if (!html || !src) return html || ''
   const fig = `<figure class="col-fig">` +
     `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" width="1024" height="1024" loading="lazy" decoding="async">` +
-    `<figcaption>서울비디치과 원장 컬럼 · 이해를 돕기 위한 도해 (실제 진료 사진이 아닙니다)</figcaption>` +
+    `<figcaption>서울비디치과 원장 컬럼 · 내용 이해를 돕기 위한 일러스트입니다</figcaption>` +
     `</figure>`
   const idxs: number[] = []
   // ★ v5.63 ③-b 실측 교훈: promoteHeadings 가 h3 를 h2 로 승격시키기 때문에
