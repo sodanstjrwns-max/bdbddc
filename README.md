@@ -1,5 +1,66 @@
 # 서울비디치과 (bdbddc.com)
 
+## v5.67 — 트래킹 태그 공통 파셜화 (2026-08-07)
+
+### 문제
+GA4 · GTM · Clarity · Meta Pixel · Amplitude 태그가 페이지마다 수동 복붙 상태여서,
+템플릿이 다른 페이지마다 서로 다른 구멍이 생겼다. 하드코딩으로 때우면 구멍은 다시 생긴다.
+
+구멍은 하나가 아니고 **다섯 곳**이었다:
+
+| 구멍 | 대상 | 원인 |
+|---|---|---|
+| 1 | `TRACKING_HEAD` 자체 | GTM·Pixel·Amplitude만 있고 **gtag·Clarity 가 없었음** |
+| 2 | 정적 다국어/블로그 47개 | 레포 루트의 정적 HTML — `layout.ts` 를 안 거침 |
+| 3 | `/en/dictionary/*` 31개 | SSR 이지만 `TRACKING_HEAD` 미사용 — 태그 **0개** |
+| 4 | 루트 정적 17개 | `blueprint.html` 등 일부 태그 누락 |
+| 5 | `/blog/*` 전체 | **인블로그 프록시** — 우리 빌드 산출물이 서빙되지 않음 |
+
+⚠️ 요청서가 "0 누락 ✅" 으로 판정했던 `/column/` `/encyclopedia/` 도
+실제로는 gtag · Clarity 가 없었다(GTM 경유만). 구멍 1 이 원인이었고,
+그 수정으로 해당 926편도 함께 해결됐다.
+
+### 해법 — 단일 소스 + 빌드 시 자동 주입
+
+`scripts/tracking-head.html` **하나만 고치면 전 페이지에 반영된다.**
+
+```
+scripts/tracking-head.html   ← 태그 정의는 오직 이 파셜 하나
+   ├─ src/lib/layout.ts        → Worker SSR 전체 (컬럼/백과사전/치료/지역 …)
+   ├─ scripts/post-build.cjs   → 정적 HTML 64개 (빌드 시 dist 에 주입)
+   └─ cleanInblogHtml()        → /blog/* 프록시 응답
+```
+
+**빌드 시 자동 주입 (post-build.cjs)**
+- 파셜을 `BD-BLOCK <이름> <지문>` 경계로 나눠 **블록 단위로** 유무를 판단한다.
+  → GTM 은 있고 Clarity·Pixel 은 없던 파일(`jp/index.html`)도 빠진 것만 정확히 채운다.
+  (처음에 파일 단위 스킵으로 만들어 이 반쪽 상태를 놓치는 버그를 내가 만들었다)
+- 지문 유무로 판단하므로 재빌드해도 중복 주입이 없다(멱등).
+- **원본 소스 파일은 건드리지 않는다** — `dist` 만 가공.
+- 앞으로 새 정적 페이지를 추가해도 자동으로 태그가 붙는다.
+
+빌드 로그:
+```
+tracking inject: scanned 64 / injected 48 / complete 16 / noHead 0 /
+  blocks {"gtm":45,"gtag":45,"clarity":47,"pixel":47,"amplitude":12}
+```
+
+### 검수 결과
+- 정적 HTML **64개 / 누락 0 / 중복 0**
+- 라이브 전 섹션 **52 URL 샘플 — GA4 태그 52/52 있음, 없음 0**
+- `/blog/` 및 개별 글 6개 — gtag·GTM·Clarity·Pixel·Amplitude 각 1개씩
+- 부수 수정: `blueprint.html` 원본이 `<table>` 사이에 태그 블록을
+  **중복**으로 갖고 있었다(과거 일괄 삽입 사고). 두 번째 블록을 삭제함.
+
+### ⚠️ 보존 사항 (제거 금지)
+- `G-3NQP355YQM` → `G-LM9VKJSB9F` **2개 속성 동시 전송은 의도된 구성.** 중복 아님.
+- Amplitude 로더는 **사람 제스처에서만** SDK 를 불러오는 방어 장치다.
+  자동 로드로 되돌리면 크롤러 유입으로 월 $1,000 단위 초과요금이 다시 발생한다.
+
+### 배포
+- `0c8b7b8d` — 정적 HTML + SSR + /en/dictionary
+- `a7f23e8b` — /blog/* 프록시 주입 (현재 라이브)
+
 ## v5.66 — 삽화 전수 백필 (2026-08-07)
 
 원장님 지시 「이 느낌으로 전새 고고」 → v5.64 감정·상황 모티프로 발행 전편에 본문 삽화를 채운다.

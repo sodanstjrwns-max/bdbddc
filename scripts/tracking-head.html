@@ -1,0 +1,58 @@
+<!--
+  전 페이지 공통 <head> 트래킹 파셜 (단일 소스)
+  ─────────────────────────────────────────────────────────
+  이 파일 하나만 고치면 아래 전부에 반영된다:
+    · Worker SSR 페이지      → src/lib/layout.ts 의 TRACKING_HEAD
+    · 정적 다국어/블로그 HTML → scripts/post-build.cjs 가 빌드 때 dist 에 주입
+  개별 페이지에 태그를 복붙하지 말 것. 누락이 반복된다.
+
+  블록 규칙:
+    아래 "BD-BLOCK  이름  지문" 주석 줄을 경계로 블록을 나눈다.
+    "지문" 문자열이 대상 HTML 에 이미 있으면 그 블록만 건너뛴다.
+    → 이미 GTM 만 있는 파일에도 Clarity/Pixel 만 골라 넣을 수 있다.
+    ※ 이 설명 주석은 경계로 잡히지 않도록 BD-BLOCK 표기를 쓰지 않았다.
+-->
+<!--BD-BLOCK gtm GTM-KKVMVZHK-->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<!-- End Google Tag Manager -->
+<!--BD-BLOCK gtag gtag/js?id=-->
+<!-- Google 태그 (GA4 2개 속성 대상: G-3NQP355YQM 뉴비디치과 / G-LM9VKJSB9F bdbddc)
+     ⚠ 두 속성 전송은 의도된 구성이다. 중복 아님. 제거 금지. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-3NQP355YQM');
+gtag('config', 'G-LM9VKJSB9F');
+</script>
+<!--BD-BLOCK clarity wb39d7gn5x-->
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wb39d7gn5x");
+</script>
+<!--BD-BLOCK pixel 971255062435276-->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '971255062435276');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!--BD-BLOCK amplitude src="/static/bd-tag-loader.js"-->
+<!-- Amplitude 지연 로더 — 사람 제스처(pointerdown/keydown/touchstart/click)에서만 SDK 를 로드한다.
+     크롤러 유입으로 MTU 가 폭증해 초과요금이 발생한 사고(2026-08-02) 이후의 방어 장치.
+     자동 로드로 되돌리지 말 것. 자세한 내용은 로더 파일 상단 주석 참고. -->
+<script src="/static/bd-tag-loader.js" defer></script>
+<script src="/static/bd-analytics.js" defer></script>

@@ -1103,25 +1103,6 @@ strong { color: #1a1a2e; }
 <thead><tr><th>도구</th><th>용도</th><th>구현 방법</th><th>우선순위</th></tr></thead>
 <tbody>
 <tr><td><strong>Google Tag Manager</strong></td><td>태그 통합 관리</td><td><code><head></code> + <code><body></code> 스니펫</td><td>★★★★★</td></tr>
-<script src="/static/bd-tag-loader.js" defer></script>
-<script src="/static/bd-analytics.js" defer></script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '971255062435276');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
-     alt="" /></noscript>
-<!-- End Meta Pixel Code -->
 <tr><td><strong>Google Analytics 4</strong></td><td>트래픽 분석</td><td>GTM으로 관리</td><td>★★★★★</td></tr>
 <tr><td><strong>Amplitude</strong></td><td>사용자 행동 분석</td><td>JS SDK</td><td>★★★★☆</td></tr>
 <tr><td><strong>Google Search Console</strong></td><td>검색 성능</td><td>인증 메타태그</td><td>★★★★★</td></tr>

@@ -2851,7 +2851,16 @@ form:has(input[placeholder="Email"]) { display: none !important; }
 }
 </script>`
 
-  html = html.replace('</head>', blogAEOMeta + blogSchema + inblogCustomCSS + '</head>')
+  // ★ v5.67 트래킹 태그 주입 (2026-08-07)
+  //   /blog/* 는 인블로그(bdbddc.inblog.ai) 프록시라서 우리 빌드 산출물이 서빙되지 않는다.
+  //   그래서 GA4 · GTM · Clarity · Meta Pixel · Amplitude 가 전부 빠져 있었다.
+  //   (GSC/GA4 "태그되지 않음" 판정의 남은 절반)
+  //   → 프록시 응답을 가공하는 이 지점에서 공통 파셜을 넣는다.
+  //     태그 정의는 src/lib/layout.ts 의 TRACKING_HEAD 하나뿐이므로 개별 관리 안 함.
+  //   멱등: 인블로그가 나중에 같은 태그를 심어도 중복되지 않도록 GTM ID 유무로 판별.
+  const blogTracking = html.includes('GTM-KKVMVZHK') ? '' : TRACKING_HEAD
+
+  html = html.replace('</head>', blogTracking + blogAEOMeta + blogSchema + inblogCustomCSS + '</head>')
 
   // 언어 변경 버튼 (사이트 공통)
   if (!html.includes('lang-switcher.js')) {
