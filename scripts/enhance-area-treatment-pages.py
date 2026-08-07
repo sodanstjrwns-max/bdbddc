@@ -278,12 +278,64 @@ TREATMENT_DATA = {
 # ═══════════════════════════════════════════
 # 올바른 트래킹 ID
 # ═══════════════════════════════════════════
-CORRECT_GTM = "GTM-KKVMVZHK"
+#
+# [2026-08-07 / v5.69] 하드코딩 키 제거 — 단일 소스 참조로 전환
+#
+#   사고 경위: 이 파일은 2026-02-13 최초 설치 당시의 Amplitude 키
+#   (87529341cb... = rawism.kr 프로젝트 키)를 CORRECT_AMP_KEY 로 박아두었다.
+#   2026-05-12 (4eb968d3) / 05-13 (79f900b3) 에 218개 페이지와
+#   js/analytics.py 의 키는 c4e197a174... 로 교체됐으나, 이 스크립트만
+#   누락되어 3개월간 "잘못된 키를 정답으로 아는" 상태로 남아 있었다.
+#   재실행 시 60개 area 페이지가 rawism 키로 재감염되는 경로였다.
+#
+#   재발 방지: ID 를 이 파일에 박지 않고 scripts/tracking-head.html
+#   (v5.67 이후 전 페이지 트래킹 태그의 단일 소스) 에서 읽어온다.
+#   태그가 바뀌면 파셜 한 곳만 고치면 되고, 이 파일은 자동으로 따라온다.
+#
+import pathlib as _pl
+
+_ROOT = _pl.Path(__file__).parent.parent
+_PARTIAL = _ROOT / 'scripts' / 'tracking-head.html'      # GTM / GA4 의 단일 소스
+_LOADER = _ROOT / 'public' / 'static' / 'bd-tag-loader.js'  # Amplitude 키의 단일 소스
+
+
+def _read_ids_from_source():
+    """트래킹 ID 를 실제 소유 파일에서 읽어온다.
+
+    GTM/GA4 → scripts/tracking-head.html
+    Amplitude → public/static/bd-tag-loader.js 의 amplitude.init() 인자
+
+    주의: GA4 는 프로퍼티가 2개다 (G-3NQP355YQM 뉴비디치과 /
+    G-LM9VKJSB9F bdbddc). Google 태그 하나가 두 프로퍼티에 의도적으로
+    보내는 구조이므로, 여기서는 area 페이지가 예전부터 쓰던
+    G-3NQP355YQM 을 명시적으로 고정한다 (정규식 첫 매치에 의존하면
+    파셜 순서가 바뀔 때 조용히 엉뚱한 값을 집는다).
+    """
+    head = _PARTIAL.read_text(encoding='utf-8')
+    gtm_m = re.search(r'GTM-[A-Z0-9]+', head)
+    gtm = gtm_m.group(0) if gtm_m else None
+
+    ga4 = 'G-3NQP355YQM' if 'G-3NQP355YQM' in head else None
+
+    amp = None
+    if _LOADER.exists():
+        m = re.search(r'amplitude\.init\(\s*[\'"]([0-9a-f]{32})[\'"]',
+                      _LOADER.read_text(encoding='utf-8'))
+        if m:
+            amp = m.group(1)
+
+    return gtm, ga4, amp
+
+
+CORRECT_GTM, CORRECT_GA4, CORRECT_AMP_KEY = _read_ids_from_source()
+
+# 과거 오설치된 ID (교체 대상) — 이 값들은 사용 중지된 것이므로 상수로 남겨도 안전
 WRONG_GTM = "GTM-PJFW5VHL"
-CORRECT_GA4 = "G-3NQP355YQM"
 WRONG_GA4 = "G-WBHDS3LFCM"
-CORRECT_AMP_KEY = "87529341cb075dcdbefabce3994958aa"
-WRONG_AMP_KEY = "edbed1f10a9e0142bd0e5e81d1a664cc"
+WRONG_AMP_KEYS = [
+    "edbed1f10a9e0142bd0e5e81d1a664cc",  # 최초 오설치
+    "87529341cb075dcdbefabce3994958aa",  # rawism.kr 키 (2026-02~05 오사용)
+]
 
 # ═══════════════════════════════════════════
 # 처리 함수들
@@ -295,9 +347,13 @@ def fix_postposition_bug(content):
 
 def fix_tracking_ids(content):
     """잘못된 GTM/GA4/Amplitude ID를 올바른 것으로 교체"""
-    content = content.replace(WRONG_GTM, CORRECT_GTM)
-    content = content.replace(WRONG_GA4, CORRECT_GA4)
-    content = content.replace(WRONG_AMP_KEY, CORRECT_AMP_KEY)
+    if CORRECT_GTM:
+        content = content.replace(WRONG_GTM, CORRECT_GTM)
+    if CORRECT_GA4:
+        content = content.replace(WRONG_GA4, CORRECT_GA4)
+    if CORRECT_AMP_KEY:
+        for _wrong in WRONG_AMP_KEYS:
+            content = content.replace(_wrong, CORRECT_AMP_KEY)
     return content
 
 def remove_wrong_analytics_block(content):
@@ -518,4 +574,35 @@ def main():
         print(f"  {k}: {v}개")
 
 if __name__ == "__main__":
+    # ─────────────────────────────────────────────────────────────
+    # [2026-08-07 / v5.69] 재실행 차단 가드
+    #
+    #   이 스크립트는 2026-04-08 (c787e188) 에 60개 area 페이지를 대상으로
+    #   1회 실행되어 목적을 달성한 일회성 마이그레이션 도구다.
+    #   package.json 및 리포 어디에서도 참조되지 않는다.
+    #
+    #   실수로 재실행되면 60개 페이지의 현재 상태(v5.67 트래킹 파셜 주입
+    #   결과 포함)를 2026년 4월 기준 로직으로 덮어써 회귀를 일으킨다.
+    #   따라서 명시적 --i-know-what-im-doing 플래그 없이는 동작을 거부한다.
+    # ─────────────────────────────────────────────────────────────
+    if '--i-know-what-im-doing' not in sys.argv:
+        print(__doc__)
+        print("=" * 62)
+        print("  실행 거부: 이 스크립트는 완료된 일회성 마이그레이션입니다.")
+        print("  최종 실행: 2026-04-08 (커밋 c787e188, area 60페이지)")
+        print()
+        print("  재실행하면 area/ 60개 파일의 현재 상태를 2026-04 기준")
+        print("  로직으로 덮어써 v5.67 트래킹 주입 결과가 사라집니다.")
+        print()
+        print("  정말 필요하면: --i-know-what-im-doing 플래그를 주십시오.")
+        print("=" * 62)
+        sys.exit(1)
+
+    # 단일 소스에서 ID 를 못 읽었으면 잘못된 키로 덮어쓰는 사고를 막는다
+    if not (CORRECT_GTM and CORRECT_GA4 and CORRECT_AMP_KEY):
+        print("실행 중단: 트래킹 ID 를 단일 소스에서 읽지 못했습니다.")
+        print("  GTM=%r  GA4=%r  AMP=%r" % (CORRECT_GTM, CORRECT_GA4, CORRECT_AMP_KEY))
+        print("  확인: scripts/tracking-head.html, public/static/bd-tag-loader.js")
+        sys.exit(2)
+
     main()
