@@ -65,19 +65,55 @@ const FORBIDDEN_PHRASES = [
   '환자분 통념 하나', '여기서 한 가지 안심시켜 드리고 싶습니다.',
 ]
 
-function systemPrompt(): string {
+// ★ v5.63 ① 도입부 5유형 순환 (2026-08-07)
+//   실측: 81편 중 66편(81%)이 「환자가 등장하는 장면」으로 시작, 47편이 「지난주 진료실」.
+//   같은 틀이 반복되면 사람에게는 템플릿처럼 읽히고, AI 검색에는 서로 구별되지 않는다.
+//   → 발행마다 도입 유형을 강제로 돌린다.
+const INTRO_MODES: string[] = [
+  `[도입 유형 A — 진료실 장면]
+- 첫 <p>는 진료실에서 실제로 있었던 장면입니다. 환자분이 하신 말을 큰따옴표로 인용하세요.
+  단 「지난주」 「며칠 전」 같은 시점 표현으로 시작하지 마십시오(이미 47편이 그렇게 시작했습니다).
+  나이대와 상황부터 바로 들어가세요. 예: 40대 초반 환자분이 자리에 앉자마자 물으셨습니다. "이거 꼭 빼야 하나요?"`,
+  `[도입 유형 B — 통념 반박]
+- 첫 <p>는 이 주제에 널리 퍼진 오해 한 줄로 시작합니다. 인용부호 없이 통념을 그대로 적고,
+  다음 문장에서 바로 사실로 정정하십시오. 환자·진료실 장면 묘사로 시작하지 마십시오.
+  예: 「신경치료를 하면 치아가 죽으니 씌우지 않아도 된다」는 말이 아직 흔합니다. 사실은 반대입니다.`,
+  `[도입 유형 C — 숫자·연구 제시]
+- 첫 <p>는 이 주제의 핵심 수치 한 줄로 시작합니다(기간·비율·성공률 등, 뒤에서 인용할 논문과 일치할 것).
+  환자·진료실 장면 묘사로 시작하지 마십시오.
+  예: 임플란트 10년 생존율은 여러 장기 추적 연구에서 90%대 초반으로 보고됩니다. 문제는 나머지 몇 %가 왜 실패하는가입니다.`,
+  `[도입 유형 D — 상황 분기]
+- 첫 <p>는 이 글을 찾은 독자가 놓인 두세 가지 상황을 나눠 제시하며 시작합니다.
+  환자·진료실 장면 묘사로 시작하지 마십시오.
+  예: 이 글을 찾으신 분은 대개 둘 중 하나입니다. 아직 치료를 시작하지 않았거나, 이미 시작했는데 예상과 다르거나.`,
+  `[도입 유형 E — 시간축]
+- 첫 <p>는 시간 경과에 따른 변화를 축으로 시작합니다(당일 / 3일 / 2주 / 3개월 등).
+  환자·진료실 장면 묘사로 시작하지 마십시오.
+  예: 발치 후 첫 24시간, 3일째, 2주째에 몸에서 벌어지는 일은 서로 완전히 다릅니다.`,
+]
+
+function systemPrompt(variant = 0): string {
+  const intro = INTRO_MODES[((variant % INTRO_MODES.length) + INTRO_MODES.length) % INTRO_MODES.length]
   return `당신은 서울비디치과 대표원장 문석준입니다. 통합치의학과 전문의이며,
 진료실에서 환자분 눈을 보고 설명하듯 쓰되 근거는 반드시 논문으로 붙이는 사람입니다.
 
+${intro}
+
 [말투 — 이게 이 글의 정체성입니다]
-- 진료실에서 실제로 있었던 장면으로 시작합니다. 환자분이 하신 말을 큰따옴표로 인용하세요.
-  예: 40대 초반 환자분이 자리에 앉자마자 물으셨습니다. "원장님, 이거 꼭 빼야 하나요?"
 - 겁을 주지 않습니다. 불안을 먼저 인정하고, 그 다음에 사실로 안심시킵니다.
   "그 걱정, 충분히 이해됩니다." / "결론부터 말씀드리면 …" / "여기서 안심하셔도 되는 부분이 있습니다."
 - 전문용어는 쓰는 즉시 괄호로 풉니다. 예: 치주낭(잇몸과 치아 사이가 벌어진 틈)
 - 명령형 금지. "하세요"보다 "권해 드립니다 / 이렇게 하시면 편합니다".
 - 한 문장은 짧게. 두 줄 넘어가면 끊으세요.
-- 단정할 수 없는 것은 "케이스마다 편차가 큽니다"라고 정직하게 씁니다. 이게 신뢰를 만듭니다.
+- ★ v5.63 ⑥ **한 문장 100자 이내, 한 <p> 문단 300자 이내**를 지키십시오.
+  (실측: 100자 넘는 문장 301개, 300자 넘는 문단 62개. 모바일에서 벽처럼 보여 이탈합니다.)
+  100자가 넘을 것 같으면 접속사에서 끊어 두 문장으로 만드고, 문단이 길어지면 <p>를 새로 여십시오.
+- 단정할 수 없는 것은 정직하게 「단정하기 어렵다」고 씁니다. 이게 신뢰를 만듭니다.
+- ★ v5.63 ⑧ 다만 「케이스마다 편차가 큽니다」라는 **정확한 문구는 글 전체에서 최대 1회**입니다.
+  (실측: 한 편에 4~5회 반복한 글이 7편 있었습니다. 반복되면 성의 없는 회피처럼 읽힙니다.)
+  두 번째부터는 **왜 편차가 생기는지 변수를 직접 적으십시오.**
+  예: 남은 치아 뿌리 길이와 잇몸뼈 높이에 따라 결과가 갈립니다 / 흡연 여부가 여기서 가장 큰 변수입니다
+  / 나이보다 뼈의 밀도가 더 크게 작용합니다.
 - 환자를 가르치지 말고, 함께 판단하는 사람으로 대하세요.
 - ★ v5.61 「환자분」은 한 편에 15회를 넘기지 마십시오. (실측: 39회 쓴 글이 있어 읽는 리듬이
   단조로워졌습니다.) 문맥상 생략해도 되는 자리는 과감히 빼고, 「그런 경우」 「이때」
@@ -146,10 +182,23 @@ function userPrompt(query: string, meta: { impressions: number; ctr: number; pos
 3. 핵심 요약 박스 — 반드시 아래 형식 그대로:
    <div class="callout"><span class="callout-title">3줄 요약</span><ul><li>…</li><li>…</li><li>…</li></ul></div>
 4. <h3> 소제목 5~8개로 본론. 각 섹션은 <p> 2~3개 분량.
+   ★ v5.63 ⑤ 소제목 중 **최소 절반은 환자가 실제로 검색하는 질문형**으로 쓰십시오.
+     (실측: 기존 소제목 73개 중 질문형이 13개(17%)뿐. 질문형 소제목은 렌더러가 FAQ 구조화
+      데이터로 승격시켜 구글·AI 검색의 답변 자리에 직접 노출됩니다.)
+     좋은 예: 며칠이면 붓기가 빠지나요? / 뼈이식을 꼭 해야 하나요? / 실패했다는 신호는 무엇인가요?
+     나쁜 예: 붓기의 경과 / 뼈이식의 적응증 (명사형 나열은 검색어와 겹치지 않습니다)
+     질문형 소제목 바로 다음 <p>의 **첫 문장이 그 질문에 대한 완결된 한 문장 답**이어야 합니다.
 5. 한계·부작용 섹션을 반드시 하나 넣고, 그 안에는 다음 박스를 씁니다:
    <div class="callout callout-warn"><span class="callout-title">솔직하게 말씀드릴 점</span><p>…</p></div>
 6. 마지막 <h3> 는 「서울비디치과에서는 이렇게 봅니다」. 내원 안내 1~2문장으로 담백하게 닫습니다.
    과장·유인 금지.
+   ★ v5.63 ⑨ 이 마지막 섹션에는 **지역명과 연락처를 반드시 한 번 자연스럽게** 넣으십시오.
+     (실측: 81편 중 75편에 「천안」도 전화번호도 없었습니다. 지역 검색에서 우리 병원으로
+      연결되지 않습니다.)
+     형식 예: 천안 불당동에서 진료하고 있습니다. 판단이 어려우시면 전화(041-415-2892)로
+     문의해 주시면 상태를 먼저 확인한 뒤 안내해 드립니다.
+     주변 지역을 언급해도 좋습니다(아산 15~25분, 세종 30분, 대전 40분). 단 광고 문구처럼
+     들리지 않게 한 문장 안에서 담백하게 처리하십시오. 할인·이벤트 유인은 절대 금지.
 
 [레이아웃 요소 — 글이 '읽히게' 만드는 장치입니다]
 - 형광펜: 각 섹션에서 가장 중요한 한 구절만 <mark>…</mark> 로 감쌉니다.
@@ -271,6 +320,60 @@ export async function genThumb(env: AutoEnv, slug: string, hint: string): Promis
   }
 }
 
+/* ────────────────────────── ★ v5.63 ③ 본문 삽화 (2026-08-07) ──────────────────────────
+   실측: 81편 전부 본문 이미지 0장. 4,000자 넘는 글이 텍스트 벽으로만 이어져
+   중간 이탈이 생기고, 이미지 검색 유입 경로도 통째로 비어 있었다.
+   ⚠️ 크론 본문 생성이 이미 110초/125초를 쓰고 있으므로 삽화는 '별도 요청'에서 만든다.
+   히어로 썸네일과 구도를 달리해(측면·수평) 같은 그림이 두 번 나오지 않게 한다. */
+const FIG_STYLE = (subject: string) =>
+  `3D clay render editorial illustration, soft matte clay texture, ${subject}, ` +
+  `arranged left to right on a pastel mint green clay platform, peach coral clay accents, ` +
+  `soft diffused studio lighting, rounded friendly shapes, cream beige background, ` +
+  `wide horizontal composition, side view, subject fills the frame, tight crop, ` +
+  `no text, no letters, no words, no numbers`
+
+/** 본문 삽화용 모티프 — 히어로와 겹치지 않게 '과정/비교' 구도를 쓴다. */
+const FIG_MOTIF: [RegExp, string][] = [
+  [/사랑니|매복|발치|뽑/, 'three clay teeth in a row showing an upright tooth, a tilted tooth and a fully buried tooth'],
+  [/임플란트|식립|뼈이식|골이식/, 'three clay stages side by side: an empty gum socket, an implant screw placed, and a finished crown'],
+  [/교정|투명|브라켓|덧니|돌출입|정중선/, 'two clay dental arches side by side, one crowded and one aligned, with a clear clay aligner tray between them'],
+  [/라미네이트|심미|미백|화이트닝|베니어|글로우네이트/, 'a row of four clay teeth in a gradient from dull beige to bright white'],
+  [/충치|레진|우식|때우/, 'three clay molars in a row showing a white surface, a small dark spot, and a deep cavity'],
+  [/신경치료|근관|크라운|보철|인레이|씌우/, 'a clay molar cut in half showing the inner canal, next to a golden clay crown cap'],
+  [/잇몸|치주|스케일링|풍치|치석|출혈/, 'two clay gum models side by side, one healthy and pink, one swollen with calculus specks'],
+  [/틀니|의치/, 'a clay denture arch beside a clay cleaning brush and a small soaking cup'],
+  [/소아|어린이|아이|유치|젖니/, 'a row of small clay milk teeth beside one larger permanent tooth'],
+  [/턱|악관절|교합|이갈이|턱관절/, 'a clay jaw model shown in three positions: closed, slightly open, wide open'],
+  [/구취|입냄새|구강건조|침/, 'a clay tongue cleaner, a water glass and mint leaves arranged in a row'],
+  [/칫솔|양치|치실|가글|관리|예방/, 'a clay toothbrush, dental floss spool and interdental brush lined up in a row'],
+  [/통증|부기|시린|아프|응급/, 'three clay teeth in a row with soft glowing halos increasing in intensity'],
+  [/치아|이빨|구강|치과|어금니|앞니/, 'four clay teeth of different shapes lined up on a platform'],
+]
+function figMotifOf(hint: string): string {
+  for (const [re, m] of FIG_MOTIF) if (re.test(hint)) return m
+  return 'four clay teeth of different shapes lined up on a clay platform'
+}
+
+/** 본문 삽화 1장 생성 → R2 저장 → 공개 경로 반환. 실패하면 null. */
+export async function genFigure(env: AutoEnv, slug: string, hint: string): Promise<string | null> {
+  if (!env.AI) return null
+  try {
+    const prompt = FIG_STYLE(figMotifOf(hint))
+    const out: any = await env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt })
+    const b64 = out?.image
+    if (typeof b64 !== 'string' || b64.length < 5000) return null
+    const bin = Uint8Array.from(atob(b64), ch => ch.charCodeAt(0))
+    if (bin.length < 8000) return null
+    const key = `column-figures/${slug}.jpg`
+    await env.R2.put(key, bin, {
+      httpMetadata: { contentType: 'image/jpeg', cacheControl: 'public, max-age=31536000, immutable' },
+    })
+    return `/api/images/${key}`
+  } catch {
+    return null
+  }
+}
+
 /** 폴백: 미리 만들어 둔 정적 썸네일 뱅크에서 미사용 1장 배정 */
 async function takeBankThumb(env: AutoEnv, slug: string): Promise<string | null> {
   try {
@@ -373,6 +476,9 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; ski
       ? String(cand.last_error).split(' | ').map((x: string) => x.trim()).filter(Boolean).slice(0, 8)
       : undefined
   let last: GateResult | null = null
+  // ★ v5.63 ① 도입 유형 순환 — 지금까지 발행된 컬럼 수를 기준으로 5유형을 돌린다.
+  //   같은 요청 안에서 재시도해도 유형은 유지된다(게이트 지적만 고치게 한다).
+  const introVariant = titles.length % 5
   let draft: ColumnDraft | null = null
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -380,7 +486,7 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; ski
     if (attempt > 1 && Date.now() - t0 + llmEstMs > budgetMs) break
     try {
       const raw = await callLLM(env, [
-        { role: 'system', content: systemPrompt() },
+        { role: 'system', content: systemPrompt(introVariant) },
         { role: 'user', content: userPrompt(cand.query, meta, titles, feedback) },
       ], model)
       draft = parseDraft(raw)

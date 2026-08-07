@@ -1739,15 +1739,77 @@ export function renderColToc(toc: { id: string; text: string; lv: number }[]): s
 }
 
 /** A. 본문 텍스트 노드에만 문맥 링크를 심는다. 제목·기존 링크·인용 위첨자 안은 건너뛴다. */
+/** ★ v5.63 ③ 본문 삽화를 글 중간에 끼운다 (2026-08-07)
+ *  실측: 81편 전부 본문 이미지 0장 → 4,000자 텍스트 벽. 중간 이탈과
+ *  이미지 검색 유입 공백을 함께 만든다.
+ *  삽입 위치: 세 번째 h3 바로 앞(글의 40% 지점 부근). h3 가 부족하면 마지막 h3 앞,
+ *  그것도 없으면 넣지 않는다(억지로 끼우면 결론 뒤에 붙는다).
+ *  ⚠️ 반드시 앵커 ID·목차(buildToc) 보다 먼저 호출해야 한다. 그래야 삽화가
+ *  섹션 번호 계산을 흔들지 않는다. */
+export function insertBodyFigure(html: string, src: string, alt: string): string {
+  if (!html || !src) return html || ''
+  const fig = `<figure class="col-fig">` +
+    `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" width="1024" height="1024" loading="lazy" decoding="async">` +
+    `<figcaption>서울비디치과 원장 컬럼 · 이해를 돕기 위한 도해 (실제 진료 사진이 아닙니다)</figcaption>` +
+    `</figure>`
+  const idxs: number[] = []
+  // ★ v5.63 ③-b 실측 교훈: promoteHeadings 가 h3 를 h2 로 승격시키기 때문에
+  //   기존 컬럼은 h3 가 0개다(실측: h2 7개 / h3 0개). h3 만 찾으면 삽화가 절대 안 들어간다.
+  const re = /<h[23][\s>]/gi
+  let m: RegExpExecArray | null
+  while ((m = re.exec(html))) idxs.push(m.index)
+  if (!idxs.length) return html
+  const at = idxs.length >= 3 ? idxs[2] : idxs[idxs.length - 1]
+  return html.slice(0, at) + fig + html.slice(at)
+}
+
 export function autolinkColumnBody(
   html: string,
   encTerms: { term: string }[],
-  max = 11,
+  max = 14,
+  siblings?: { slug: string; title: string; focusKeyword?: string; overlap?: number }[],
+  selfSlug?: string,
+  selfTopic = '',
 ): string {
   if (!html) return ''
-  const cands: { term: string; href: string; money: boolean }[] = []
+  const cands: { term: string; href: string; money: boolean; col?: boolean }[] = []
   for (const [t, href] of COL_TREATMENT_LINKS) cands.push({ term: t, href, money: true })
   const seenT = new Set(cands.map(c => c.term))
+  // ★ v5.63 ② 컬럼 → 컬럼 문맥 링크 (2026-08-07)
+  //   실측: 본문 인라인 링크가 진료·백과뿐이고 컬럼끼리는 하단 위젯에서만 연결됐다.
+  //   본문 안에서 서로를 부르면 체류·색인 깊이가 같이 올라간다.
+  //   후보 어구는 다른 컬럼의 focusKeyword 를 쓴다(제목은 너무 길어 본문에 안 나온다).
+  if (siblings && siblings.length) {
+    // ★ v5.63 ②-b 실측 교훈 (배포 후 0건이 나와서 고쳤다):
+    //   focusKeyword 가 「임플란트 수술 후 붓기」처럼 4어절 구절이라 본문에 그대로
+    //   등장하지 않는다. 그래서 ⓐ 전체 구절 ⓑ 마지막 어절(붓기·출혈·수명·주위염 …)
+    //   두 가지를 후보로 만든다. 마지막 어절은 그 컬럼의 실제 주제어라서 링크가 정확하다.
+    //   단 「차이」 「비교」 처럼 어느 글에나 나오는 말은 배제한다(오배선 방지).
+    const TAIL_STOP = new Set(['차이', '비교', '선택', '방법', '관리', '치료', '수술', '기간', '시간',
+      '가격', '비용', '효과', '종류', '과정', '주의', '정리', '가이드', '단계', '이유', '원인', '증상'])
+    for (const sib of siblings) {
+      if (!sib || !sib.slug || sib.slug === selfSlug) continue
+      const kw = String(sib.focusKeyword || '').trim()
+      if (!kw || /\d|비용|가격|얼마|만원/.test(kw)) continue
+      const variants: string[] = []
+      if (kw.length >= 4 && kw.length <= 22) variants.push(kw)
+      const toks = kw.split(/\s+/).filter(Boolean)
+      // ★ v5.63 ②-c 오배선 방지 (실측: 교정 통증 글에서 「통증」이 임플란트 통증 글로 갔다)
+      //   단일 어절은 문맥을 잃는다. 그래서 그 형제 키워드의 **첫 어절(주제어)** 이
+      //   지금 이 글의 주제에도 등장할 때만 허용한다.
+      //   예) 이 글이 「임플란트 …」 이고 형제가 「임플란트 수술 후 붓기」 → 「붓기」 허용 ✅
+      //       이 글이 「교정 통증 …」 이고 형제가 「임플란트 수술 통증」 → 「통증」 배제 ✅
+      if (toks.length > 1 && selfTopic.includes(toks[0])) {
+        const tail = toks[toks.length - 1]
+        if (tail.length >= 2 && tail.length <= 8 && !TAIL_STOP.has(tail)) variants.push(tail)
+      }
+      for (const t of variants) {
+        if (COL_LINK_STOP.has(t) || seenT.has(t)) continue
+        seenT.add(t)
+        cands.push({ term: t, href: `/column/${sib.slug}`, money: false, col: true })
+      }
+    }
+  }
   for (const it of encTerms) {
     const t = it && it.term
     if (!t || t.length < 3 || COL_LINK_STOP.has(t) || seenT.has(t)) continue
@@ -1785,7 +1847,7 @@ export function autolinkColumnBody(
       const idx = seg.indexOf(c.term)
       if (idx === -1) continue
       const k = store.length
-      store.push(`<a class="col-inline-link" href="${c.href}">${c.term}</a>`)
+      store.push(`<a class="col-inline-link${c.col ? ' is-col' : ''}" href="${c.href}">${c.term}</a>`)
       seg = seg.slice(0, idx) + '\u0000' + k + '\u0000' + seg.slice(idx + c.term.length)
       used.add(c.term)
       count++
@@ -3794,6 +3856,151 @@ ${ssrMobileNav()}
 </html>`)
 })
 
+// ★ v5.63 ⑩ 근거 논문 색인 페이지 (2026-08-07)
+//   실측: 81편에 흩어진 고유 DOI 104개. 어떤 논문을 근거로 쓰는 병원인지 한 화면에
+//   보여주는 자리가 없었다. E-E-A-T 신호이자 AI 검색이 인용할 수 있는 집계 페이지다.
+//   ⚠️ 반드시 '/column/:param' 라우트보다 먼저 등록해야 한다(파라미터가 삼켜버린다).
+app.get('/column/references', async (c) => {
+  const r2 = c.env.R2
+  const all = r2 ? await getColumns(r2) : []
+  const pub = (all as any[]).filter(x => x.status === 'published')
+
+  type RefAgg = { doi: string; label: string; journal: string; year: string; cols: { slug: string; title: string }[] }
+  const map = new Map<string, RefAgg>()
+  for (const col of pub) {
+    const { refs } = enrichCitations(col.content || '')
+    for (const r of refs) {
+      const key = r.doi.toLowerCase()
+      let e = map.get(key)
+      if (!e) { e = { doi: r.doi, label: r.label || '', journal: r.journal || '', year: r.year || '', cols: [] }; map.set(key, e) }
+      if (!e.journal && r.journal) e.journal = r.journal
+      if (!e.year && r.year) e.year = r.year
+      if (!e.label && r.label) e.label = r.label
+      const sl = colSlug(col)
+      if (!e.cols.some(x => x.slug === sl)) e.cols.push({ slug: sl, title: col.title || sl })
+    }
+  }
+  const refs = [...map.values()].sort((a, b) =>
+    (b.cols.length - a.cols.length) || (Number(b.year || 0) - Number(a.year || 0)) || a.doi.localeCompare(b.doi))
+
+  // 저널별 묶음(상위) — 어떤 학술지를 주로 읽는지 보여준다.
+  const jc = new Map<string, number>()
+  for (const r of refs) { const j = r.journal || '기타'; jc.set(j, (jc.get(j) || 0) + 1) }
+  const topJ = [...jc.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
+
+  const rows = refs.map((r, i) => `<li class="cref-item" id="doi-${i + 1}">
+<div class="cref-main">
+<span class="cref-n">${i + 1}</span>
+<div class="cref-txt">
+<p class="cref-cite">${r.label ? `<strong>${attrEsc(r.label)}</strong>` : ''}${r.journal ? `<span class="cref-j">${attrEsc(r.journal)}</span>` : ''}</p>
+<a class="cref-doi" href="https://doi.org/${attrEsc(r.doi)}" target="_blank" rel="noopener nofollow"><i class="fas fa-arrow-up-right-from-square"></i> DOI: ${attrEsc(r.doi)}</a>
+</div>
+</div>
+<div class="cref-cols"><span class="cref-cols-h">인용한 컬럼 ${r.cols.length}편</span>${r.cols.map(cc => `<a href="/column/${attrEsc(cc.slug)}">${attrEsc(cc.title)}</a>`).join('')}</div>
+</li>`).join('\n')
+
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: '서울비디치과 원장 컬럼 근거 논문 목록',
+    description: `서울비디치과 원장 컬럼 ${pub.length}편이 근거로 인용한 학술 논문 ${refs.length}편의 전체 목록입니다.`,
+    url: 'https://bdbddc.com/column/references',
+    isPartOf: { '@type': 'Blog', name: '서울비디치과 원장 컬럼', url: 'https://bdbddc.com/column/' },
+    citation: refs.slice(0, 120).map(r => ({
+      '@type': 'ScholarlyArticle',
+      name: r.journal || r.label || r.doi,
+      identifier: `https://doi.org/${r.doi}`,
+      url: `https://doi.org/${r.doi}`,
+    })),
+  }
+
+  return c.html(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+${TRACKING_HEAD}
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>근거 논문 ${refs.length}편 목록 | 원장 컬럼</title>
+<meta name="description" content="서울비디치과 원장 컬럼 ${pub.length}편이 인용한 학술 논문 ${refs.length}편 전체 목록입니다. Cochrane 리뷰를 포함한 각 논문의 DOI와, 그 논문을 근거로 쓴 컬럼을 함께 확인하실 수 있습니다.">
+<meta name="robots" content="index, follow">
+<meta name="ai-summary" content="서울비디치과 원장 컬럼이 근거로 인용한 학술 논문 ${refs.length}편의 DOI 색인. 컬럼 ${pub.length}편과 상호 연결.">
+<link rel="canonical" href="https://bdbddc.com/column/references">
+<meta property="og:title" content="근거 논문 ${refs.length}편 목록 | 서울비디치과 원장 컬럼">
+<meta property="og:url" content="https://bdbddc.com/column/references">
+<meta property="og:description" content="원장 컬럼이 인용한 학술 논문 ${refs.length}편의 전체 DOI 목록.">
+<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
+<meta property="og:type" content="website">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
+<style>
+.cref-page{max-width:900px;margin:0 auto;padding:40px 20px}
+.cref-hero{text-align:center;margin-bottom:30px}
+.cref-hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#6B4226;background:#f5f0eb;padding:5px 14px;border-radius:50px;margin-bottom:12px}
+.cref-hero h1{font-size:1.75rem;font-weight:800;color:#333;margin-bottom:10px;line-height:1.35}
+.cref-hero p{font-size:.95rem;color:#888;line-height:1.7}
+.cref-stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:22px 0 8px}
+.cref-stat{background:#fff;border:1px solid rgba(107,66,38,.1);border-radius:14px;padding:14px 20px;min-width:120px}
+.cref-stat b{display:block;font-size:1.5rem;font-weight:800;color:#6B4226}
+.cref-stat span{font-size:.78rem;color:#999}
+.cref-journals{background:#fbf8f5;border-radius:16px;padding:18px 20px;margin:26px 0}
+.cref-journals h2{font-size:.95rem;font-weight:700;color:#6B4226;margin:0 0 12px}
+.cref-jlist{display:flex;flex-wrap:wrap;gap:8px}
+.cref-jtag{font-size:.78rem;color:#6B4226;background:#fff;border:1px solid rgba(107,66,38,.14);border-radius:50px;padding:5px 13px}
+.cref-jtag b{font-weight:700}
+.cref-note{font-size:.82rem;color:#999;line-height:1.7;background:#fff;border-left:3px solid #d9c9b6;padding:12px 16px;border-radius:0 10px 10px 0;margin:24px 0}
+.cref-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.cref-item{background:#fff;border:1px solid rgba(107,66,38,.08);border-radius:16px;padding:16px 18px}
+.cref-main{display:flex;gap:12px}
+.cref-n{flex:0 0 28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#f5f0eb;color:#6B4226;font-size:.78rem;font-weight:700}
+.cref-txt{flex:1;min-width:0}
+.cref-cite{margin:0 0 6px;font-size:.9rem;color:#444;line-height:1.55}
+.cref-j{display:block;font-size:.82rem;color:#888;font-style:italic;margin-top:2px}
+.cref-doi{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:#6B4226;text-decoration:none;word-break:break-all}
+.cref-doi:hover{text-decoration:underline}
+.cref-cols{margin-top:12px;padding-top:11px;border-top:1px dashed rgba(107,66,38,.13);display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.cref-cols-h{font-size:.72rem;font-weight:700;color:#b09880;margin-right:2px}
+.cref-cols a{font-size:.78rem;color:#6B4226;background:#f5f0eb;border-radius:50px;padding:4px 11px;text-decoration:none}
+.cref-cols a:hover{background:#6B4226;color:#fff}
+.cref-back{display:inline-flex;align-items:center;gap:7px;margin-top:30px;font-size:.86rem;font-weight:600;color:#6B4226;text-decoration:none}
+@media(max-width:700px){.cref-hero h1{font-size:1.35rem}.cref-page{padding:28px 16px}}
+</style>
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+</head>
+<body>
+${ssrHeader()}
+<main>
+<div class="cref-page">
+<header class="cref-hero">
+<span class="cref-hero-badge"><i class="fas fa-book-open"></i> 근거 색인</span>
+<h1>원장 컬럼이 인용한 논문 ${refs.length}편</h1>
+<p>서울비디치과 원장 컬럼은 의견이 아니라 근거로 씁니다.<br>컬럼 ${pub.length}편에서 인용한 학술 논문 전체를 여기에 공개합니다.</p>
+<div class="cref-stats">
+<div class="cref-stat"><b>${refs.length}</b><span>인용 논문</span></div>
+<div class="cref-stat"><b>${pub.length}</b><span>원장 컬럼</span></div>
+<div class="cref-stat"><b>${topJ.length ? jc.size : 0}</b><span>학술지</span></div>
+</div>
+</header>
+${topJ.length ? `<section class="cref-journals">
+<h2>주로 읽는 학술지</h2>
+<div class="cref-jlist">${topJ.map(([j, n]) => `<span class="cref-jtag">${attrEsc(j)} <b>${n}</b></span>`).join('')}</div>
+</section>` : ''}
+<p class="cref-note">각 논문의 DOI 링크는 원문(doi.org)으로 연결됩니다. 논문은 진료의 <strong>효과와 예후</strong>를 뒷받침하는 근거이며, 개별 환자의 진단·치료 결정을 대체하지 않습니다. 진료비는 논문으로 뒷받침되는 항목이 아니므로 컬럼에 금액을 적지 않습니다.</p>
+<ol class="cref-list">
+${rows || '<li class="cref-item"><div class="cref-main"><div class="cref-txt"><p class="cref-cite">아직 집계된 인용이 없습니다.</p></div></div></li>'}
+</ol>
+<a class="cref-back" href="/column/"><i class="fas fa-arrow-left"></i> 원장 컬럼 전체 보기</a>
+</div>
+</main>
+${ssrMobileNav()}
+<script src="/js/main.js" defer></script>
+<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
+<script src="/js/lang-switcher.js" defer></script>
+</body>
+</html>`)
+})
+
 // 컬럼 상세 페이지 SSR (slug 우선, col-xxx ID는 301 리다이렉트)
 app.get('/column/:param', async (c) => {
   const param = c.req.param('param')
@@ -3824,6 +4031,14 @@ app.get('/column/:param', async (c) => {
   const dateStr = new Date(col.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
   const isoDate = col.createdAt ? new Date(col.createdAt).toISOString() : ''
   const isoUpdated = col.updatedAt ? new Date(col.updatedAt).toISOString() : isoDate
+  // ★ v5.63 ⑦ 재검토 이력 (2026-08-07)
+  //   실측: 81편 중 79편이 한 번도 갱신 기록이 없고, 90일 넘은 글이 6편이었다.
+  //   ⚠️ 내용을 고치지 않고 dateModified 만 올리는 건 구글이 걸러내는 날짜 조작이다.
+  //   그래서 '수정'이 아니라 '의학적 재검토(lastReviewed)' 로 정직하게 표기한다.
+  const isoReviewed = (col as any).reviewedAt ? new Date((col as any).reviewedAt).toISOString() : ''
+  const revDateStr = isoReviewed
+    ? new Date(isoReviewed).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
+    : ''
   // v5.52 인용 승격: 본문의 DOI 인용을 위첨자 번호로 바꾸고 참고문헌 블록을 만든다.
   const { body: colCited, refs: colRefs } = enrichCitations(col.content || '')
   const colRefsHtml = renderRefs(colRefs)
@@ -3832,8 +4047,22 @@ app.get('/column/:param', async (c) => {
   const colEncItems = await getEncItems(c).catch(() => [] as any[])
   // ★ v5.61 ⑦ 에디터 잔재 style 을 파이프라인 맨 앞에서 걷어낸다.
   //   (링크·앵커를 심은 뒤에 걷어내면 우리가 넣은 style 까지 지워진다.)
-  const colLinked = autolinkColumnBody(promoteHeadings(stripEditorStyles(colCited)), colEncItems as any[])
-  const { body: colBody, toc: colToc } = buildToc(colLinked)
+  // ★ v5.63 ② 같은 진료 도메인의 다른 컬럼을 본문 문맥 링크 후보로 넘긴다.
+  const colSelfDom = colDomains(col)
+  const colSibs = all
+    .filter((x: any) => x.status === 'published' && colSlug(x) !== colSlug(col) && (x as any).focusKeyword)
+    .map((x: any) => ({ x, ov: [...colDomains(x)].filter(d => colSelfDom.has(d)).length }))
+    .filter(o => o.ov > 0)
+    .sort((a, b) => b.ov - a.ov)
+    .slice(0, 24)
+    .map(o => ({ slug: colSlug(o.x), title: o.x.title, focusKeyword: (o.x as any).focusKeyword, overlap: o.ov }))
+  const colLinked = autolinkColumnBody(promoteHeadings(stripEditorStyles(colCited)), colEncItems as any[], 14, colSibs, colSlug(col),
+    `${col.title || ''} ${(col as any).focusKeyword || ''} ${col.category || ''}`)
+  // ★ v5.63 ③ 삽화는 목차 계산 전에 넣는다(섹션 번호를 흔들지 않도록).
+  const colFigured = (col as any).bodyFigure
+    ? insertBodyFigure(colLinked, String((col as any).bodyFigure), String(col.title || '치과 진료 도해'))
+    : colLinked
+  const { body: colBody, toc: colToc } = buildToc(colFigured)
   const colTocHtml = renderColToc(colToc)
   // ★ v5.61 ④ AI 검색이 인용할 「이 글의 결론」 요약
   const colSummaryHtml = renderColSummary(colBody, colToc)
@@ -4194,7 +4423,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
   },
   ${citationLd}
   "reviewedBy":{"@type":"Person","name":"${jEsc(col.doctorName || '문석준 원장')}","jobTitle":"${jEsc(drInfo.specialty || '치과의사')}","url":"https://bdbddc.com/doctors/${doctorSlug}"},
-  "lastReviewed":"${(isoUpdated || isoDate).split('T')[0]}",
+  "lastReviewed":"${(isoReviewed || isoUpdated || isoDate).split('T')[0]}",
   "wordCount":${colWordCount},
   "about":{"@type":"${colAbout.type}","name":"${jEsc(colAbout.name)}"},
   "specialty":"Dentistry",
@@ -4302,6 +4531,11 @@ ${faqSchema}
 /* ── v5.52 논문 인용 ─────────────────────────────────────────
    본문 안: 위첨자 골드 번호. 글 끝: 참고문헌 카드. */
 /* ★ v5.61 ④ 이 글의 결론 요약 (AI 검색 인용 대상) */
+/* ★ v5.63 ③ 본문 삽화 */
+.col-fig{margin:30px auto;max-width:720px;text-align:center}
+.col-fig img{width:100%;height:auto;border-radius:16px;border:1px solid rgba(107,66,38,.09);background:#f7f3ee;display:block}
+.col-fig figcaption{margin-top:9px;font-size:.76rem;color:#a99b8b;line-height:1.55;word-break:keep-all}
+@media(max-width:600px){.col-fig{margin:22px auto}.col-fig img{border-radius:12px}}
 .col-summary{max-width:760px;margin:0 auto 22px;padding:20px 24px;background:linear-gradient(180deg,#f2f8f5,#fff);border:1px solid #cfe4d9;border-left:4px solid #2f6a55;border-radius:14px}
 .col-summary-h{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:800;color:#2f6a55;margin-bottom:12px}
 .col-summary-list{margin:0;padding:0 0 0 20px;list-style:none}
@@ -4401,7 +4635,7 @@ ${ssrHeader()}
 ${col.category ? `<span class="col-meta-badge cat"><i class="fas fa-tag"></i> ${col.category}</span>` : ''}
 <span class="col-meta-badge date"><i class="far fa-calendar"></i> ${dateStr}</span>
 ${isoUpdated && isoUpdated !== isoDate ? `<span class="col-meta-badge upd"><i class="fas fa-rotate"></i> 최종 수정 ${new Date(isoUpdated).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })}</span>` : ''}
-<span class="col-meta-badge rev"><i class="fas fa-user-doctor"></i> ${col.doctorName || '문석준 원장'} 감수</span>
+<span class="col-meta-badge rev"><i class="fas fa-user-doctor"></i> ${col.doctorName || '문석준 원장'} 감수</span>${revDateStr ? `<span class="col-meta-badge rev"><i class="fas fa-clipboard-check"></i> ${revDateStr} 재검토</span>` : ''}
 </div>
 </div>
 

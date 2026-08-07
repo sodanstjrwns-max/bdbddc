@@ -251,6 +251,21 @@ export async function gateColumn(
     if (n > 1 && n / sents.length > MAX_REPEAT_RATIO) B.push(`동일 문장 ${n}회 반복: 「${top.slice(0, 40)}」`)
   }
 
+  // ⑦-b ★ v5.63 상투구 남용 차단 (2026-08-07)
+  //   실측: 「케이스마다 편차가 큽니다」를 한 편에 4~5회 쓴 글이 7편(총 30회).
+  //   ⑦의 '동일 문장 비율' 검사는 문장 단위라 이런 구절 반복을 잡지 못했다.
+  const CLICHES: [string, number][] = [
+    ['케이스마다 편차가 큽니다', 1],
+    ['결론부터 말씀드리면', 2],
+    ['지난주 진료실', 1],
+    ['오셨습니다', 3],
+    ['물으셨습니다', 2],
+  ]
+  for (const [ph, lim] of CLICHES) {
+    const n = x.split(ph).length - 1
+    if (n > lim) B.push(`상투구 「${ph}」 ${n}회 — 최대 ${lim}회. 왜 그런지 구체적인 변수로 바꿔 쓰십시오`)
+  }
+
   // ⑧ 기존 코퍼스 중복 (표절/자기복제)
   if (corpus && corpus.length) {
     const mine = grams12(x)

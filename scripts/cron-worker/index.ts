@@ -79,15 +79,31 @@ async function trigger(env: Env): Promise<string> {
 
   // ── ② 썸네일 생성 + columns.json 패치 ─────────────────────────
   const qs = `slug=${encodeURIComponent(slug)}&hint=${encodeURIComponent(hint.slice(0, 300))}&patch=1`
+  let thumbOk = false
   try {
     const step2 = await post(env, `/api/cron/thumb?${qs}`)
     console.log(`[cron] 2단계 ${step2.status} ${step2.body.slice(0, 300)}`)
-    // 썸네일이 실패해도 본문은 이미 발행됐다. 실패를 상태에 남기고 끝낸다.
-    return step2.status === 200 ? `ok(${slug})` : `published-nothumb(${slug},${step2.status})`
+    thumbOk = step2.status === 200
   } catch (e: any) {
     console.error(`[cron] 2단계 fetch 실패: ${e?.message || e}`)
-    return `published-nothumb(${slug},fetch-error)`
   }
+
+  // ── ③ 본문 삽화 ★ v5.63 (2026-08-07) ──────────────────────────
+  //   실측: 컬럼 81편 전부 본문 이미지 0장이었다.
+  //   반드시 '별도 요청'이다. 본문 생성이 이미 110초/125초를 쓰고 있고,
+  //   scheduled() 수명은 15분이므로 요청을 쪼개면 안전하다.
+  //   ⓐ 오늘 발행분 1장  ⓑ 과거 미보유분 1장 → 하루 2장씩 81편 backfill.
+  let figs = 0
+  for (const path of [`/api/cron/figure?${qs}`, '/api/cron/figure?patch=1']) {
+    try {
+      const st = await post(env, path)
+      console.log(`[cron] 3단계 ${st.status} ${st.body.slice(0, 200)}`)
+      if (st.status === 200) figs++
+    } catch (e: any) {
+      console.error(`[cron] 3단계 fetch 실패: ${e?.message || e}`)
+    }
+  }
+  return `${thumbOk ? 'ok' : 'published-nothumb'}(${slug},fig${figs})`
 }
 
 export default {

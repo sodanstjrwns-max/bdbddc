@@ -14,7 +14,7 @@
 import type { Hono } from 'hono'
 // THUMB_STYLE 은 실제 발행 경로(column-auto)와 동일해야 하므로 거기서 가져온다.
 // 검증 엔드포인트가 다른 프롬프트를 쓰면 검증의 의미가 없다.
-import { runAutoPublish, genThumb, THUMB_STYLE, type AutoEnv } from '../column-auto'
+import { runAutoPublish, genThumb, genFigure, THUMB_STYLE, type AutoEnv } from '../column-auto'
 
 function authed(c: any): boolean {
   const want = c.env?.CRON_SECRET
@@ -111,6 +111,54 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
       }
     }
     return c.json({ ok: true, url, hint, patched })
+  })
+
+  // ★ v5.63 ③ 본문 삽화 생성 (2026-08-07)
+  //   POST /api/cron/figure?slug=<슬러그>&hint=<힌트>&patch=1
+  //   → column-figures/<slug>.jpg 저장 + columns.json 의 bodyFigure 필드에 박는다.
+  //   렌더러가 bodyFigure 를 읽어 본문 중간(두 번째 h3 앞)에 삽입한다.
+  //   ⚠️ 본문 발행과 반드시 '다른 요청'이어야 한다(125초 엣지 상한).
+  //   ?next=1 → 슬러그를 주지 않으면 삽화가 없는 가장 오래된 컬럼 1편을 자동 선택.
+  app.post('/api/cron/figure', async (c) => {
+    if (!authed(c)) return c.json({ ok: false, error: 'unauthorized' }, 401)
+    let slug = (c.req.query('slug') || '').trim()
+    const r2 = c.env.R2
+    let cols: any[] = []
+    if (r2) {
+      const obj = await r2.get('data/columns.json')
+      if (obj) cols = await obj.json()
+    }
+    if (!slug) {
+      // 삽화 없는 발행분 중 오래된 순으로 1편
+      const cand = cols
+        .filter((x: any) => x && x.status === 'published' && x.slug && !x.bodyFigure)
+        .sort((a: any, b: any) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime())[0]
+      if (!cand) return c.json({ ok: true, done: true, note: '삽화가 없는 컬럼이 없습니다' })
+      slug = cand.slug
+    }
+    if (!/^[a-z0-9-]{4,90}$/.test(slug)) return c.json({ ok: false, error: 'slug 형식 오류' }, 400)
+    const row = cols.find((x: any) => x && x.slug === slug)
+    const hint = c.req.query('hint') || [row?.title, row?.focusKeyword, row?.category].filter(Boolean).join(' ') || slug
+    const url = await genFigure(c.env as AutoEnv, slug, hint)
+    if (!url) return c.json({ ok: false, error: '삽화 생성 실패 (AI 바인딩/응답 확인)', slug }, 500)
+
+    let patched = false
+    if (c.req.query('patch') === '1' && r2) {
+      // ⚠️ 경합 방어: put 직전에 다시 읽는다(v5.58/v5.62 교훈).
+      const obj2 = await r2.get('data/columns.json')
+      if (obj2) {
+        const fresh: any[] = await obj2.json()
+        const i = fresh.findIndex((x: any) => x && x.slug === slug)
+        if (i >= 0) {
+          fresh[i].bodyFigure = url
+          await r2.put('data/columns.json', JSON.stringify(fresh), {
+            httpMetadata: { contentType: 'application/json' },
+          })
+          patched = true
+        }
+      }
+    }
+    return c.json({ ok: true, slug, url, hint, patched })
   })
 
   // 프롬프트 실험용 (임의 프롬프트 → 임시 키). 스타일 튜닝할 때만 쓴다.
