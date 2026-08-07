@@ -2789,6 +2789,74 @@ function ssrMobileNav(): string {
 // ============================================
 // 인블로그 프록시 HTML 정리 함수
 // ============================================
+// ============================================
+// ★ v5.68 블로그 글 목록 — 단일 소스 (2026-08-07)
+//   /blog/* 는 인블로그 프록시라 우리 레포에 글 목록이 없다.
+//   그래서 사이트맵에도 없고, 인덱스 HTML 에도 글 링크가 0개였다(크롤러가 글을 못 찾음).
+//   → 인블로그 sitemap.xml 하나를 원본으로 삼아 두 곳이 같은 데이터를 쓰게 한다.
+//     ① /sitemap-blog.xml       ② /blog/ 인덱스의 크롤 가능한 링크 목록
+//   글이 늘어도 자동 반영된다. 슬러그를 코드에 박지 않는다.
+// ============================================
+type BlogPost = { slug: string; loc: string; lastmod: string }
+
+async function fetchBlogPosts(): Promise<BlogPost[]> {
+  const today = new Date().toISOString().split('T')[0]
+  const out: BlogPost[] = []
+  try {
+    const res = await fetch('https://bdbddc.inblog.ai/sitemap.xml', {
+      headers: { 'Host': 'bdbddc.inblog.ai' }
+    })
+    if (!res.ok) return out
+    const xml = await res.text()
+    const re = /<url>\s*<loc>([^<]+)<\/loc>\s*(?:<lastmod>([^<]+)<\/lastmod>)?/g
+    const seen = new Set<string>()
+    let m: RegExpExecArray | null
+    while ((m = re.exec(xml)) !== null) {
+      let loc = m[1].trim().replace('https://bdbddc.inblog.ai', 'https://bdbddc.com')
+      const lastmod = (m[2] || today).trim().slice(0, 10)
+      if (!loc.startsWith('https://bdbddc.com/blog')) continue
+      // 색인 대상 아닌 경로 (우리가 301 로 죽인 것들)
+      if (loc.includes('/blog/category/') || loc.includes('/blog/author/')) continue
+      // 인블로그가 뱉는 깨진 퍼센트 인코딩 쓰레기 URL
+      if (loc.includes('%25%25') || loc.includes('%25%2')) continue
+      const slug = loc.slice('https://bdbddc.com/blog'.length).replace(/^\/+|\/+$/g, '')
+      if (!slug) continue          // 인덱스 자신
+      if (seen.has(slug)) continue
+      seen.add(slug)
+      out.push({ slug, loc: `https://bdbddc.com/blog/${slug}`, lastmod })
+    }
+  } catch {
+    // 인블로그 장애 시 빈 배열 — 호출부가 빈 목록을 감안해서 처리한다
+  }
+  return out
+}
+
+// /blog/ 인덱스에 크롤 가능한 글 링크 목록을 주입한다.
+//   인블로그 인덱스는 클라이언트 렌더링이라 HTML 에 글 링크가 0개다 → 크롤러가 글을 못 찾는다.
+//   화면상 중복 노출을 피하려고 <nav> 를 시각적으로 감추되, DOM 에는 실재하게 둔다.
+//   (display:none 이 아니라 clip 방식 — 구글은 display:none 링크의 가중치를 낮춘다)
+async function injectBlogIndexLinks(html: string): Promise<string> {
+  if (html.includes('bd-blog-archive')) return html
+  const posts = await fetchBlogPosts()
+  if (posts.length === 0) return html
+
+  const items = posts.map(p => {
+    let label = p.slug
+    try { label = decodeURIComponent(p.slug) } catch {}
+    label = label.replace(/-/g, ' ').replace(/\s+/g, ' ').trim()
+    return `<li><a href="/blog/${p.slug}">${label}</a></li>`
+  }).join('')
+
+  const nav = `<nav id="bd-blog-archive" aria-label="블로그 전체 글 목록"
+ style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">
+<h2>서울비디치과 블로그 전체 글 (${posts.length})</h2>
+<ul>${items}</ul>
+</nav>`
+
+  if (/<\/body>/i.test(html)) return html.replace(/<\/body>/i, nav + '</body>')
+  return html + nav
+}
+
 function cleanInblogHtml(html: string, reqPath?: string): string {
   // 1) 인블로그 내부 링크를 /blog로 변환
   html = html.replace(/href="\/(?!blog)/g, 'href="/blog/')
@@ -2959,6 +3027,10 @@ app.all('/blog/*', async (c) => {
     if (contentType.includes('text/html')) {
       let html = await response.text()
       html = cleanInblogHtml(html, c.req.path)
+      // v5.68 인덱스(/blog/)에만 글 링크 목록 주입 — 개별 글 페이지에는 불필요
+      if (c.req.path === '/blog/' || c.req.path === '/blog') {
+        html = await injectBlogIndexLinks(html)
+      }
       
       return new Response(html, {
         status: response.status,
@@ -2993,6 +3065,7 @@ app.get('/blog', async (c) => {
     
     let html = await response.text()
     html = cleanInblogHtml(html)
+    html = await injectBlogIndexLinks(html)   // v5.68 크롤 가능한 글 링크 목록
     
     return new Response(html, {
       status: response.status,
@@ -3011,6 +3084,41 @@ app.use('/css/*', serveStatic())
 app.use('/js/*', serveStatic())
 app.use('/images/*', serveStatic())
 app.use('/static/*', serveStatic())
+
+// ============================================
+// ★ v5.68 블로그 사이트맵 (2026-08-07)
+//   /blog/* 는 인블로그 프록시라 우리 사이트맵에 한 건도 없었다 → 색인 누락.
+//   fetchBlogPosts() 가 인블로그 sitemap.xml 을 정제해 주므로 그걸 그대로 쓴다.
+//   (같은 함수를 /blog/ 인덱스 링크 목록에도 쓴다 = 단일 소스)
+// ============================================
+app.get('/sitemap-blog.xml', async (c) => {
+  const today = new Date().toISOString().split('T')[0]
+  const posts = await fetchBlogPosts()
+
+  // 인덱스는 항상 첫 항목으로 (인블로그는 /blog 로 내므로 /blog/ 로 통일)
+  const entries: Array<{ loc: string; lastmod: string; pri: string }> = [
+    { loc: 'https://bdbddc.com/blog/', lastmod: today, pri: '0.9' },
+    ...posts.map(p => ({ loc: p.loc, lastmod: p.lastmod, pri: '0.7' }))
+  ]
+
+  const body = entries.map(e => `  <url>
+    <loc>${e.loc}</loc>
+    <lastmod>${e.lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>${e.pri}</priority>
+  </url>`).join('\n')
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<!-- 서울비디치과 블로그 사이트맵 — 인블로그 원본에서 동적 생성 (${entries.length}건) -->
+${body}
+</urlset>`
+
+  return c.body(xml, 200, {
+    'Content-Type': 'application/xml; charset=utf-8',
+    'Cache-Control': 'public, max-age=3600'
+  })
+})
 
 // ============================================
 // 동적 사이트맵 인덱스 — 동적 사이트맵(columns/cases)의 lastmod를 항상 당일로 반영
@@ -3044,6 +3152,10 @@ app.get('/sitemap.xml', (c) => {
   </sitemap>
   <sitemap>
     <loc>https://bdbddc.com/sitemap-cases.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://bdbddc.com/sitemap-blog.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
 </sitemapindex>`
