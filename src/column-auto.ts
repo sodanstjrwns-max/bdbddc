@@ -401,7 +401,10 @@ export async function genFigure(env: AutoEnv, slug: string, hint: string): Promi
     await env.R2.put(key, bin, {
       httpMetadata: { contentType: 'image/jpeg', cacheControl: 'public, max-age=31536000, immutable' },
     })
-    return `/api/images/${key}`
+    // ★ v5.65 캐시 밀림 방지 (2026-08-07)
+    //   같은 키에 덮어쓰는데 immutable 을 걸어놓으니 브라우저가 1년 동안 옛 그림을 보여줬다.
+    //   → 삽화만 URL 에 버전을 붙인다. 썸네일(genThumb)은 원장님 지시대로 건드리지 않는다.
+    return `/api/images/${key}?v=${Date.now().toString(36)}`
   } catch {
     return null
   }
