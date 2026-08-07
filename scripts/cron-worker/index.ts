@@ -43,34 +43,39 @@ async function post(env: Env, path: string): Promise<{ status: number; body: str
 }
 
 async function trigger(env: Env): Promise<string> {
-  // ── ① 본문 발행 (썸네일 제외) ──────────────────────────────────
-  let step1: { status: number; body: string }
-  try {
-    step1 = await post(env, '/api/cron/publish-column?nothumb=1')
-  } catch (e: any) {
-    console.error(`[cron] 1단계 fetch 실패: ${e?.message || e}`)
-    return 'step1-error'
-  }
-  console.log(`[cron] 1단계 ${step1.status} ${step1.body.slice(0, 500)}`)
-
-  // 524/500 등은 여기서 끝낸다. 좌초 행은 사이트 쪽에서 30분 후 자동 회수된다.
-  if (step1.status !== 200) return `step1-${step1.status}`
-
+  // ── ① 본문 발행 (썸네일 제외, LLM 1회 = 약 70초) ──────────────
+  //   ★ v5.62 (2026-08-07) 게이트 탈락 시 같은 요청 안에서 LLM 을 다시 부르면
+  //     125초 엣지 응답 상한을 넘겨 응답이 잘리고 조용한 유실이 된다.
+  //     실측: 8/6 125,074ms · 8/7 125,076ms (status 는 success 로 거짓 보고)
+  //     → 재시도를 '새 요청'으로 돌린다. scheduled() 수명 15분이므로 3회 여유.
   let slug = ''
   let hint = ''
   let verdict = ''
-  try {
-    const j: any = JSON.parse(step1.body)
-    slug = String(j?.slug || '')
-    hint = String(j?.thumbHint || j?.picked || slug)
-    verdict = String(j?.verdict || '')
-  } catch {
-    console.error('[cron] 1단계 응답 JSON 파싱 실패')
-    return 'step1-badjson'
+  for (let round = 1; round <= 3; round++) {
+    let step1: { status: number; body: string }
+    try {
+      step1 = await post(env, '/api/cron/publish-column?nothumb=1&maxattempts=1')
+    } catch (e: any) {
+      console.error(`[cron] 1단계 ${round}회차 fetch 실패: ${e?.message || e}`)
+      return `step1-error(r${round})`
+    }
+    console.log(`[cron] 1단계 ${round}회차 ${step1.status} ${step1.body.slice(0, 400)}`)
+    if (step1.status !== 200) return `step1-${step1.status}(r${round})`
+    try {
+      const j: any = JSON.parse(step1.body)
+      slug = String(j?.slug || '')
+      hint = String(j?.thumbHint || j?.picked || slug)
+      verdict = String(j?.verdict || (j?.skipped ? 'skipped' : ''))
+    } catch {
+      console.error('[cron] 1단계 응답 JSON 파싱 실패')
+      return `step1-badjson(r${round})`
+    }
+    if (verdict === 'pass') break
+    // block 이면 다음 회차에서 다시 뽑는다.
+    // (게이트 지적은 D1 last_error 에 남아 다음 프롬프트로 되돌아간다 — v5.62)
+    if (verdict !== 'block') return `no-publish(${verdict || 'noslug'})`
   }
-
-  // 발행이 안 된 경우(block/error/empty)는 썸네일을 만들 이유가 없다.
-  if (verdict !== 'pass' || !slug) return `no-publish(${verdict || 'noslug'})`
+  if (verdict !== 'pass' || !slug) return 'no-publish(block-x3)'
 
   // ── ② 썸네일 생성 + columns.json 패치 ─────────────────────────
   const qs = `slug=${encodeURIComponent(slug)}&hint=${encodeURIComponent(hint.slice(0, 300))}&patch=1`

@@ -79,6 +79,11 @@ function systemPrompt(): string {
 - 한 문장은 짧게. 두 줄 넘어가면 끊으세요.
 - 단정할 수 없는 것은 "케이스마다 편차가 큽니다"라고 정직하게 씁니다. 이게 신뢰를 만듭니다.
 - 환자를 가르치지 말고, 함께 판단하는 사람으로 대하세요.
+- ★ v5.61 「환자분」은 한 편에 15회를 넘기지 마십시오. (실측: 39회 쓴 글이 있어 읽는 리듬이
+  단조로워졌습니다.) 문맥상 생략해도 되는 자리는 과감히 빼고, 「그런 경우」 「이때」
+  「많은 분들이」 「대부분」 처럼 바꿔 쓰십시오. 존중은 호칭 횟수가 아니라 내용에서 나옵니다.
+- ★ v5.61 첫 h2 앞 도입부에 「결론부터 말씀드리면 …」 문장을 반드시 한 번 넣으십시오.
+  (렌더러가 이 문장을 글 맨 위 「이 글의 결론」 요약 박스로 승격시켜 AI 검색이 인용합니다.)
 
 ${CLINIC_FACTS}
 
@@ -309,8 +314,18 @@ export interface RunResult {
      ② POST /api/cron/thumb?slug=…&hint=…&patch=1 (약 55초)
    두 호출 모두 절벽 아래로 내려간다. 크론 워커의 scheduled() 는 엣지 상한이
    적용되지 않으므로(최대 15분) 순차로 두 번 부르면 된다. */
-export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; skipThumb?: boolean } = {}): Promise<RunResult> {
+export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; skipThumb?: boolean; maxAttempts?: number } = {}): Promise<RunResult> {
   const t0 = Date.now()
+  // ★ v5.62 시간 예산 (2026-08-07)
+  //   실측 사고: 8/6·8/7 크론 wallTime 125,074ms / 125,076ms → 엣지 응답 상한에서 잘려
+  //   이틀 연속 조용한 유실(컬럼 80편 정체). 원인은 썸네일이 아니라
+  //   「게이트 탈락 시 같은 요청 안에서 LLM 재호출」이었다.
+  //   본문 생성 1회 실측 = 64s → 79s → 109s (프롬프트가 커지며 계속 늘었다).
+  //   2회 호출하면 무조건 125초를 넘는다. → 요청 1개당 LLM 1회로 제한하고
+  //   재시도는 크론 워커가 '새 요청'으로 돌린다(scheduled 수명은 15분).
+  const budgetMs = 95_000        // 엣지 상한 125초 − 안전여유 30초
+  const llmEstMs = 62_000        // 본문 생성 1회 실측 상한
+  const maxAttempts = Math.max(1, Math.min(MAX_ATTEMPTS, opts.maxAttempts ?? MAX_ATTEMPTS))
   const model = env.AUTO_MODEL || DEFAULT_MODEL
 
   // ⓞ 좌초 행 회수 — 30분 넘게 'processing' 인 행은 실패로 보고 큐로 되돌린다.
@@ -351,11 +366,18 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; ski
   const titles = existing.map((c: any) => c.title).filter(Boolean)
   const meta = { impressions: cand.impressions, ctr: cand.ctr, position: cand.position }
 
-  let feedback: string[] | undefined
+  // ★ v5.62 이전 요청의 게이트 지적을 D1 last_error 에서 복원한다.
+  //   요청을 쪼개면 in-process feedback 이 사라져 LLM 이 같은 실수를 반복한다.
+  let feedback: string[] | undefined =
+    (Number(cand.attempts || 0) > 0 && cand.last_error)
+      ? String(cand.last_error).split(' | ').map((x: string) => x.trim()).filter(Boolean).slice(0, 8)
+      : undefined
   let last: GateResult | null = null
   let draft: ColumnDraft | null = null
 
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    // ★ v5.62 예산 초과 → 재호출하지 않고 넘긴다(응답이 잘리는 편이 훨씬 나쁘다).
+    if (attempt > 1 && Date.now() - t0 + llmEstMs > budgetMs) break
     try {
       const raw = await callLLM(env, [
         { role: 'system', content: systemPrompt() },

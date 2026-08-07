@@ -1866,6 +1866,89 @@ function colDomains(col: any): Set<string> {
   return out
 }
 
+/** ★ v5.61 ⑥ 진료 도메인 → 대표 진료 페이지. 컬럼을 다 읽은 환자의 다음 걸음을 만든다. */
+const DOMAIN_TREATMENT: Record<string, { href: string; label: string }[]> = {
+  '심미': [{ href: '/treatments/glownate', label: '라미네이트(글로우네이트)' }, { href: '/treatments/whitening', label: '치아 미백' }, { href: '/treatments/resin', label: '심미 레진' }],
+  '임플란트': [{ href: '/treatments/implant', label: '임플란트' }],
+  '교정': [{ href: '/treatments/orthodontics', label: '치아교정' }, { href: '/treatments/invisalign', label: '투명교정' }],
+  '사랑니': [{ href: '/treatments/wisdom-tooth', label: '사랑니 발치' }],
+  '신경치료': [{ href: '/treatments/root-canal', label: '신경치료' }],
+  '보철': [{ href: '/treatments/crown', label: '크라운' }, { href: '/treatments/inlay', label: '인레이' }],
+  '잇몸': [{ href: '/treatments/gum', label: '잇몸 치료' }, { href: '/treatments/scaling', label: '스케일링' }],
+  '충치': [{ href: '/treatments/cavity', label: '충치 치료' }, { href: '/treatments/inlay', label: '인레이' }],
+  '소아': [{ href: '/treatments/pediatric', label: '소아치과' }],
+  '턱관절': [{ href: '/treatments/tmj', label: '턱관절 치료' }, { href: '/treatments/bruxism', label: '이갈이·night guard' }],
+  '구강관리': [{ href: '/treatments/scaling', label: '스케일링' }],
+  '통증응급': [{ href: '/treatments/sedation', label: '수면·무통 진료' }],
+  '외상': [{ href: '/treatments/crown', label: '크라운' }, { href: '/treatments/resin', label: '심미 레진' }],
+  '습관': [{ href: '/treatments/pediatric', label: '소아치과' }],
+}
+
+/** ★ v5.61 ④ 「이 글의 결론」 요약 박스.
+ *  ChatGPT·Perplexity 같은 AI 검색이 인용할 문장을 글 맨 앞에 명시적으로 둔다.
+ *  진료실 장면 도입부는 그대로 두고 그 위에 얹는다(도입부가 이 컬럼의 정체성이므로).
+ *  본문 h2 를 질문으로 보고, 첫 h2 이전의 도입 문단에서 결론 문장을 추출한다. */
+export function renderColSummary(html: string, toc: { text: string; lv: number }[]): string {
+  if (!html) return ''
+  // ★ v5.62 ④ 문장 선별 개선 (2026-08-07)
+  //   v5.61 은 도입부 700자에서 앞 문장을 그냥 집었더니 「지난주 진료실에서 60대
+  //   환자분이 …」 같은 장면 묘사가 결론 자리에 올라왔다. 이 박스는 AI 검색이
+  //   인용하는 자리이므로 ⓐ 장면·인물 묘사를 배제하고 ⓑ 판단을 담은 문장만 고른다.
+  const NARR = /지난\s?(주|달|해|번)|며칠 전|어제|진료실에|오셨|왔습니다|앉으|드셨|얼굴|표정|여쭤|물으셨|말씀하셨|보호자분이|환자분이|하셨다 합니다/
+  const CUE = /권(해|합니다|장)|하셔야|해야 합니다|필요합니다|중요합니다|아닙니다|아니라|달라집니다|편차|원칙|기준은|대부분|일반적으로|연구|논문|보고되|안전합니다|충분합니다|피하십시오|피해야|결론적으로/
+  const sentences = (raw: string) =>
+    String(raw).replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&[a-z]+;/g, ' ')
+      .replace(/\s+/g, ' ').trim().split(/(?<=[.!?])\s+/).map((x) => x.trim())
+      .filter((x) => x.length >= 26 && x.length <= 165 && !/^["'\u201C]/.test(x))
+
+  const picks: string[] = []
+  const push = (t: string) => { if (t && !picks.includes(t)) picks.push(t) }
+
+  const all = sentences(html)
+  // ⓐ 「결론부터 말씀드리면 …」 은 프롬프트가 강제하는 문장이므로 최우선.
+  const concl = all.find((x) => /결론부터/.test(x))
+  if (concl) push(concl)
+  // ⓑ 판단 문장 (장면 묘사 배제)
+  for (const x of all) {
+    if (picks.length >= 3) break
+    if (NARR.test(x) || !CUE.test(x)) continue
+    push(x)
+  }
+  // ⓒ 그래도 부족하면 각 h2 섹션의 첫 문장 (장면 묘사만 배제)
+  if (picks.length < 2) {
+    for (const seg of String(html).split(/<h2[^>]*>/i).slice(1)) {
+      if (picks.length >= 3) break
+      const first = sentences(seg.replace(/^[\s\S]*?<\/h2>/i, ''))[0]
+      if (first && !NARR.test(first)) push(first)
+    }
+  }
+  if (picks.length < 2) return ''
+  const qs = toc.filter((t) => t.lv === 2).slice(0, 3).map((t) => t.text).filter(Boolean)
+  return `<aside class="col-summary" aria-label="이 글의 결론 요약">
+<span class="col-summary-h"><i class="fas fa-circle-check"></i> 이 글의 결론</span>
+<ul class="col-summary-list">${picks.slice(0, 3).map((t) => `<li>${t.replace(/</g, '&lt;')}</li>`).join('')}</ul>
+${qs.length ? `<p class="col-summary-q">이 글이 답하는 질문 · ${qs.map((q) => q.replace(/</g, '&lt;')).join(' / ')}</p>` : ''}
+</aside>`
+}
+/** ★ v5.61 ⑦ 에디터 잔재 인라인 style 정리.
+ *  71편에 color:rgb(0,0,0) 이 강제로 박혀 있어 다크모드·접근성이 막히고 HTML 이 무거워진다.
+ *  R2 원본은 건드리지 않고 렌더 시점에만 걷어낸다(되돌리기가 안전하다).
+ *  표·정렬처럼 의미 있는 style 은 남긴다. 색상/폰트 지정만 제거한다. */
+export function stripEditorStyles(html: string): string {
+  if (!html) return ''
+  return String(html)
+    .replace(/\s*style="([^"]*)"/gi, (m, css: string) => {
+      const kept = String(css).split(';').map(d => d.trim()).filter(d => {
+        if (!d) return false
+        const prop = d.split(':')[0].trim().toLowerCase()
+        return !['color', 'background-color', 'background', 'font-family', 'font-size', 'line-height'].includes(prop)
+      })
+      return kept.length ? ` style="${kept.join('; ')}"` : ''
+    })
+    // 색상만 지정하던 <span> 이 빈 껍데기로 남으면 벗긴다.
+    .replace(/<span>\s*([\s\S]*?)<\/span>/gi, '$1')
+}
+
 function relatedColumns(all: any[], col: any, limit = 6): any[] {
   const pool = all.filter((x: any) => x.id !== col.id && x.status === 'published')
   const mine = colTokens(col)
@@ -3747,9 +3830,13 @@ app.get('/column/:param', async (c) => {
   // v5.53 순서 중요: 인용 승격 → 제목 승격(E) → 문맥 링크(A) → 앵커 ID·목차(B)
   //   링크를 먼저 심으면 제목 정규식이 <a>를 물고, 앵커 ID를 먼저 달면 링커가 제목을 못 거른다.
   const colEncItems = await getEncItems(c).catch(() => [] as any[])
-  const colLinked = autolinkColumnBody(promoteHeadings(colCited), colEncItems as any[])
+  // ★ v5.61 ⑦ 에디터 잔재 style 을 파이프라인 맨 앞에서 걷어낸다.
+  //   (링크·앵커를 심은 뒤에 걷어내면 우리가 넣은 style 까지 지워진다.)
+  const colLinked = autolinkColumnBody(promoteHeadings(stripEditorStyles(colCited)), colEncItems as any[])
   const { body: colBody, toc: colToc } = buildToc(colLinked)
   const colTocHtml = renderColToc(colToc)
+  // ★ v5.61 ④ AI 검색이 인용할 「이 글의 결론」 요약
+  const colSummaryHtml = renderColSummary(colBody, colToc)
   const colAbout = medicalAbout(col.title || '', (col as any).focusKeyword || '')
   const colWordCount = htmlText(colBody).replace(/\s+/g, '').length
   const citationLd = colRefs.length
@@ -4015,7 +4102,17 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
     { href: '/area/cheonan', label: '천안 치과', icon: 'fas fa-map-marker-alt' },
     { href: '/area/asan', label: '아산 치과', icon: 'fas fa-map-marker-alt' },
   ]
-  const treatmentLinks = [...matchedTreatments.values()].slice(0, 6)
+  // ★ v5.61 ⑥ 진료 도메인(v5.60 태그) 기반 우선 배치.
+  //   기존 키워드 매칭만 쓰면 임플란트 글에도 18개 진료과가 뭉뚱그려 나왔다.
+  //   환자가 방금 읽은 주제의 진료 페이지를 맨 앞에 둔다 — 읽기에서 예약으로 넘기는 구간.
+  const domTreat: { href: string; label: string; icon: string }[] = []
+  for (const d of colDomains(col)) {
+    for (const t of (DOMAIN_TREATMENT[d] || [])) {
+      if (!domTreat.some(x => x.href === t.href)) domTreat.push({ ...t, icon: 'fas fa-tooth' })
+    }
+  }
+  const treatmentLinks = [...domTreat, ...[...matchedTreatments.values()]
+    .filter(t => !domTreat.some(x => x.href === t.href))].slice(0, 5)
   const relatedTreatmentsHtml = `
 <!-- 관련 치료 + 네비게이션 내부 링크 (SEO 양방향 링크) -->
 <section style="margin-top:20px;padding:24px;background:linear-gradient(135deg,#f0f4f8 0%,#e8eef5 100%);border-radius:20px;border:1px solid #dde4ed;">
@@ -4204,6 +4301,16 @@ ${faqSchema}
 
 /* ── v5.52 논문 인용 ─────────────────────────────────────────
    본문 안: 위첨자 골드 번호. 글 끝: 참고문헌 카드. */
+/* ★ v5.61 ④ 이 글의 결론 요약 (AI 검색 인용 대상) */
+.col-summary{max-width:760px;margin:0 auto 22px;padding:20px 24px;background:linear-gradient(180deg,#f2f8f5,#fff);border:1px solid #cfe4d9;border-left:4px solid #2f6a55;border-radius:14px}
+.col-summary-h{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:800;color:#2f6a55;margin-bottom:12px}
+.col-summary-list{margin:0;padding:0 0 0 20px;list-style:none}
+.col-summary-list li{position:relative;margin:0 0 9px;padding-left:4px;line-height:1.68;font-size:.95rem;color:#33403a;word-break:keep-all}
+.col-summary-list li::before{content:'';position:absolute;left:-16px;top:9px;width:6px;height:6px;border-radius:50%;background:#4e9c7f}
+.col-summary-list li:last-child{margin-bottom:0}
+.col-summary-q{margin:13px 0 0;padding-top:11px;border-top:1px dashed #d5e6dd;font-size:.8rem;color:#6b7f76;line-height:1.5;word-break:keep-all}
+@media(max-width:600px){.col-summary{padding:16px 18px;border-radius:12px}.col-summary-list li{font-size:.9rem}}
+
 /* v5.53 목차 */
 .col-toc{max-width:760px;margin:0 auto 34px;padding:18px 22px;background:linear-gradient(180deg,#fbf8f3,#fff);border:1px solid #ece2d2;border-radius:16px}
 .col-toc-h{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:800;color:#7a5f34;margin-bottom:10px}
@@ -4321,6 +4428,7 @@ ${doctorSlug ? `<a href="/doctors/${doctorSlug}" class="col-author-card">
 </div>`}
 
 ${col.thumbnailImage ? `<div class="col-detail-hero-img${/^\/api\/images\//.test(String(col.thumbnailImage)) ? ' col-hero-sq' : ''}">${picture(col.thumbnailImage, col.title, /^\/api\/images\//.test(String(col.thumbnailImage)) ? 'width="1024" height="1024"' : 'width="1376" height="768"')}</div>` : ''}
+${colSummaryHtml}
 ${colTocHtml}
 <div class="col-detail-body">${colBody}</div>
 ${colRefsHtml}
@@ -5774,6 +5882,42 @@ a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
     return `<a href="/encyclopedia/${encodeURIComponent(r.term)}" style="display:block;padding:12px 16px;background:#fff;border:1px solid #e8e0d8;border-radius:12px;text-decoration:none;color:#333;transition:all 0.2s;"><strong style="color:#6B4226;">${r.term}</strong>${hasLink}<br><span style="font-size:0.85rem;color:#888;">${r.short.slice(0, 40)}...</span></a>`
   }).join('')
 
+  // ★ v5.61 ⑨ 백과사전 → 원장 컬럼 역방향 링크
+  //   지금까지는 컬럼 → 백과사전 단방향이었다. 백과 820개 페이지가 컬럼에 링크를
+  //   보내주면 컬럼의 권위가 올라가고, 용어만 찾아온 방문자를 깊은 글로 넘길 수 있다.
+  //   v5.60 진료 도메인 태그를 재사용해 주제가 실제로 맞는 컬럼만 고른다.
+  let encColumnsHtml = ''
+  try {
+    const r2enc = (c.env as any).R2
+    if (r2enc) {
+      const allCols = (await getColumns(r2enc)).filter((x: any) => x.status === 'published')
+      const pseudo = { slug: '', title: term + ' ' + (item!.category || ''), metaTitle: item!.short || '', focusKeyword: term }
+      const encDom = colDomains(pseudo)
+      const scored = allCols.map((x: any) => {
+        let sc = 0
+        const hay = String(x.title || '') + ' ' + String(x.slug || '') + ' ' + String(x.focusKeyword || '')
+        if (hay.includes(term)) sc += 3                       // 용어가 제목에 그대로 있으면 최우선
+        const xd = colDomains(x)
+        for (const d of encDom) if (xd.has(d)) sc += 1.5       // 같은 진료 도메인
+        for (const t of (item!.tags || [])) if (hay.includes(t)) sc += 0.6
+        return { col: x, sc }
+      }).filter(v => v.sc > 0).sort((a, b) => b.sc - a.sc).slice(0, 4)
+      if (scored.length) {
+        encColumnsHtml = `
+<section style="margin:28px 0;padding:24px;background:linear-gradient(135deg,#fbf8f3 0%,#f6efe4 100%);border:1px solid #ece2d2;border-radius:18px;">
+<h2 style="font-size:1rem;font-weight:800;color:#7a5f34;margin:0 0 6px;display:flex;align-items:center;gap:8px;"><i class="fas fa-pen-fancy"></i> 「${term}」 관련 원장 컬럼</h2>
+<p style="font-size:.82rem;color:#8a7a63;margin:0 0 14px;">논문 근거와 진료실 사례로 더 깊이 설명한 글입니다.</p>
+<div style="display:grid;gap:10px;">
+${scored.map(v => `<a href="/column/${v.col.slug}" style="display:block;padding:13px 16px;background:#fff;border:1px solid #ece2d2;border-radius:12px;text-decoration:none;">
+<strong style="color:#6B4226;font-size:.93rem;line-height:1.5;display:block;word-break:keep-all;">${attrEsc(v.col.title)}</strong>
+${v.col.excerpt ? `<span style="font-size:.8rem;color:#8a7a63;line-height:1.55;display:block;margin-top:5px;word-break:keep-all;">${attrEsc(String(v.col.excerpt).slice(0, 76))}…</span>` : ''}
+</a>`).join('')}
+</div>
+</section>`
+      }
+    }
+  } catch { /* 컬럼을 못 읽어도 백과 페이지 자체는 정상 렌더한다 */ }
+
   // === 크로스 카테고리 추천 (다른 카테고리에서 관련성 높은 용어) ===
   const currentTags = new Set(item.tags || [])
   const crossCatItems = encItems
@@ -5920,6 +6064,8 @@ ${guidePath ? `<a href="${guidePath}" style="display:inline-flex;align-items:cen
 <a href="tel:041-415-2892" style="display:inline-flex;align-items:center;gap:6px;padding:12px 22px;background:rgba(255,255,255,0.15);color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;border:1px solid rgba(255,255,255,0.4);"><i class="fas fa-phone"></i> 041-415-2892</a>
 </div>
 </div>
+
+${encColumnsHtml}
 
 ${crossCatHtml ? `
 <div style="margin-bottom:32px;">

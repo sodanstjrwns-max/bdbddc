@@ -53,6 +53,9 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
     //   썸네일까지 한 요청에 넣으면 125초가 되어 엣지 응답 상한을 넘겨 524 로 죽는다.
     //   (2026-08-03 실측: 크론 wallTime 125.086초 = 수동 curl 524 시각 125.096초)
     const nothumb = c.req.query('nothumb') === '1'
+    // ★ v5.62 요청 1개당 LLM 호출 상한. 크론 워커가 maxattempts=1 로 부르고
+    //   게이트 탈락 시 '새 요청'으로 재시도한다(125초 엣지 상한 회피).
+    const maxAttempts = Math.max(1, Math.min(3, Number(c.req.query('maxattempts') || 0) || 3))
     // ★ v5.57 하루 1건 잠금 (서버측 최종 방어선)
     //   2026-08-03 사고: 크론 재시도 + 사람이 누른 수동 발행이 겹쳐 하루 2편이 올라갔다.
     //   호출자(크론 워커)가 중복 확인을 하긴 하지만, 사람이 curl 로 직접 때리면
@@ -70,7 +73,7 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
       }
     }
     try {
-      const r = await runAutoPublish(c.env as AutoEnv, { dryRun: dry, skipThumb: nothumb })
+      const r = await runAutoPublish(c.env as AutoEnv, { dryRun: dry, skipThumb: nothumb, maxAttempts })
       return c.json({ ok: r.verdict === 'pass', dryRun: dry, skipThumb: nothumb, ...r })
     } catch (e: any) {
       return c.json({ ok: false, error: String(e?.message || e) }, 500)
