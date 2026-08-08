@@ -1010,7 +1010,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     /* ── v5.73 스크롤 스크럽 히어로 (힉스필드 실사 67프레임) ── */
-    .gn-hero.gn-scrub { display: block; min-height: 0; align-items: initial; padding-top: 0; }
+    .gn-hero.gn-scrub { display: block; min-height: 0; align-items: initial; padding-top: 0; overflow: visible; margin-top: calc(var(--header-height, 72px) * -1); }
     .gn-scrub-space { height: 100vh; position: relative; }
     .gn-scrub.scrub-on .gn-scrub-space { height: 560vh; }
     .gn-scrub-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
