@@ -1,5 +1,36 @@
 # 서울비디치과 (bdbddc.com)
 
+## v5.70 — GA4 메인 속성(G-LM9VKJSB9F) 전 페이지 수집 복구 (2026-08-08)
+
+### 문제 (원장님 지시로 전수 점검하여 발견)
+- **G-LM9VKJSB9F(bdbddc, 메인 속성)** 의 `gtag('config')` 호출이
+  다국어+blueprint **45개(15%) 페이지에만** 존재했다.
+- 홈 포함 223개 페이지는 gtag **로더만 있고 config 미호출** —
+  `js/analytics.js` 가 3NQP(백업 속성)만 config 하고 있었기 때문.
+- 원인: v5.67 빌드 주입기가 지문 `gtag/js?id=` 만 보고
+  "로더 있음 = gtag 블록 완성" 으로 오판 → 반쪽 파일을 건너뜀.
+
+### 조치
+| 파일 | 내용 |
+|---|---|
+| `js/analytics.js` (v9) | `gtag('config','G-LM9VKJSB9F')` 추가 + `_bdGtagDone` 중복 실행 가드 |
+| `scripts/tracking-head.html` | gtag 블록을 **로더 / config 두 블록으로 분리** (지문: `gtag/js?id=` / `G-LM9VKJSB9F`) → 반쪽 파일에 config만 정확히 주입 |
+| `src/lib/layout.ts` | SSR TRACKING_HEAD 동일 반영. 3NQP는 `send_page_view:false` 통일 (GTM page_view와 이중 집계 방지) |
+| `scripts/post-build.cjs` | 주입 대상을 다국어+루트 → **dist 전체**로 확대. 제외: admin/report/auth/tables (내부·유틸·리다이렉트 스텁) |
+| 캐시버스팅 | `analytics.js?v=20260808v9` 207개 파일 일괄 갱신 |
+
+### 검증 (라이브 curl 전수)
+- dist 310개 중 **294개 (공개 페이지 100%)** 에 LM9V·3NQP config 각 1개, 중복 0
+- 라이브 확인: 홈 / area / guide / doctors / game / faq / en / cn / jp / column / treatments / encyclopedia(SSR) / reservation — **전부 LM9V config 1개** ✓
+- 제외 16개는 admin·report·auth·tables (의도된 제외)
+
+### ⚠️ 속성 역할 정리 (2026-08-08 확정)
+- **G-LM9VKJSB9F = 메인** (bdbddc, page_view 포함 전송)
+- **G-3NQP355YQM = 백업** (뉴비디, send_page_view:false — page_view는 GTM이 전송)
+- 두 속성 동시 전송은 의도된 구성. 제거 금지.
+
+---
+
 ## v5.68 — 블로그 색인 경로 개설 + 리라이닝 404 해소 (2026-08-07)
 
 분석 도구 수정 요청서(개정판) 작업 4를 처리했다.
