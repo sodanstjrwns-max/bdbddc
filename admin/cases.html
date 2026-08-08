@@ -281,7 +281,7 @@ tbody tr:last-child td{border-bottom:none}
     </div>
     <div class="nav-section"><div class="nav-section-label">Links</div>
       <a href="/" target="_blank" rel="noopener" class="nav-item"><i class="fas fa-external-link-alt"></i> 사이트 보기</a>
-      <a href="/cases/gallery" target="_blank" rel="noopener" class="nav-item"><i class="fas fa-eye"></i> 갤러리 보기</a>
+      <a href="/cases/" target="_blank" rel="noopener" class="nav-item"><i class="fas fa-eye"></i> 갤러리 보기</a>
     </div>
   </nav>
   <div class="sidebar-footer"><a href="/admin/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i> 로그아웃</a></div>
@@ -1140,7 +1140,7 @@ async function saveCase() {
   // 자동 IndexNow: 케이스 저장 시 검색엔진에 알림 (해당 진료 페이지 포함)
   const catSlug = data.category;
   const extraPaths = catSlug ? ['/treatments/' + catSlug] : [];
-  submitIndexNow(['/cases/', '/cases/gallery', '/cases/' + (data.slug || ''), ...extraPaths]);
+  submitIndexNow(['/cases/', '/cases/' + (data.slug || ''), ...extraPaths]);
 }
 
 // === 자동 IndexNow 제출 ===

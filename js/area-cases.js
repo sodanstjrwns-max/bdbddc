@@ -141,7 +141,7 @@
         '<p style="font-size:.9rem;color:#888;margin-top:6px;">' + sub + '</p>' +
       '</div>' +
       '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px;">' + cardHtml + '</div>' +
-      '<div style="text-align:center;"><a href="/cases/gallery" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 케이스 갤러리 보기</a></div>' +
+      '<div style="text-align:center;"><a href="/cases/" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 케이스 갤러리 보기</a></div>' +
     '</div>';
 
     anchor.parentNode.insertBefore(section, anchor);

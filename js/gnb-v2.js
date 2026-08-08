@@ -121,9 +121,9 @@
             // 비디미션
             '<li class="nav-item"><a href="/mission">비디미션</a></li>' +
             // 콘텐츠
-            '<li class="nav-item has-dropdown"><a href="/cases/gallery">콘텐츠</a>' +
+            '<li class="nav-item has-dropdown"><a href="/cases/">콘텐츠</a>' +
             '<ul class="simple-dropdown">' +
-            '<li><a href="/cases/gallery" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>' +
+            '<li><a href="/cases/" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>' +
             '<li><a href="/symptom-checker" style="color:#EC4899;font-weight:600;">🩺 AI 증상체커</a></li>' +
             '<li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li>' +
             '<li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>' +
@@ -184,7 +184,7 @@
             '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
             '<i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i></a>' +
             '<ul class="mobile-nav-submenu">' +
-            '<li><a href="/cases/gallery" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>' +
+            '<li><a href="/cases/" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>' +
             '<li><a href="/symptom-checker" style="color:#EC4899;font-weight:600;">🩺 AI 증상체커</a></li>' +
             '<li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li>' +
             '<li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>' +

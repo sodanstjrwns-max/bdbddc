@@ -136,7 +136,7 @@
       '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px;">' +
         cardHtml +
       '</div>' +
-      (cases.length > maxShow ? '<div style="text-align:center;"><a href="/cases/gallery" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 ' + cases.length + '건 보기</a></div>' : '') +
+      (cases.length > maxShow ? '<div style="text-align:center;"><a href="/cases/" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 ' + cases.length + '건 보기</a></div>' : '') +
 
     '</div>';
 

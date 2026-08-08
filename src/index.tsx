@@ -2245,7 +2245,7 @@ app.get('/index.html', (c) => c.redirect('/', 301))
 // ============================================
 // A) .html 확장자 URL → clean URL 301 리디렉션 (빈 200 응답 문제 해결)
 app.get('/cases/index.html', (c) => c.redirect('/cases/', 301))
-app.get('/cases/gallery.html', (c) => c.redirect('/cases/gallery', 301))
+app.get('/cases/gallery.html', (c) => c.redirect('/cases/', 301))
 app.get('/column/index.html', (c) => c.redirect('/column/', 301))
 app.get('/video/index.html', (c) => c.redirect('/video/', 301))
 app.get('/treatments/prevention.html', (c) => c.redirect('/treatments/prevention', 301))
@@ -2341,7 +2341,7 @@ app.get('/page/sub2', (c) => c.redirect('/doctors/', 301))
 app.get('/page/sub3', (c) => c.redirect('/treatments/', 301))
 app.get('/page/sub4', (c) => c.redirect('/directions', 301))
 app.get('/page/sub5', (c) => c.redirect('/pricing', 301))
-app.get('/page/sub6', (c) => c.redirect('/cases/gallery', 301))
+app.get('/page/sub6', (c) => c.redirect('/cases/', 301))
 app.get('/page/sub7', (c) => c.redirect('/reservation', 301))
 app.get('/page/sub8', (c) => c.redirect('/faq', 301))
 app.get('/page/sub10', (c) => c.redirect('/', 301))
@@ -2350,7 +2350,7 @@ app.get('/page/*', (c) => c.redirect('/', 301))
 app.get('/main.html', (c) => c.redirect('/', 301))
 app.get('/main', (c) => c.redirect('/', 301))
 // /bbs/* → 구 게시판 URL
-app.get('/bbs/case', (c) => c.redirect('/cases/gallery', 301))
+app.get('/bbs/case', (c) => c.redirect('/cases/', 301))
 app.get('/bbs/notice', (c) => c.redirect('/notice/', 301))
 app.get('/bbs/*', (c) => c.redirect('/', 301))
 
@@ -2383,8 +2383,8 @@ app.get('/info', (c) => c.redirect('/', 301))
 app.get('/info/*', (c) => c.redirect('/', 301))
 app.get('/board', (c) => c.redirect('/notice/', 301))
 app.get('/board/*', (c) => c.redirect('/notice/', 301))
-app.get('/gallery', (c) => c.redirect('/cases/gallery', 301))
-app.get('/gallery/*', (c) => c.redirect('/cases/gallery', 301))
+app.get('/gallery', (c) => c.redirect('/cases/', 301))
+app.get('/gallery/*', (c) => c.redirect('/cases/', 301))
 app.get('/view', (c) => c.redirect('/', 301))
 app.get('/view/*', (c) => c.redirect('/', 301))
 app.get('/location', (c) => c.redirect('/directions', 301))
@@ -2554,7 +2554,7 @@ app.get('/sitemap-cases.xml', async (c) => {
   <!-- 서울비디치과 Before/After 동적 사이트맵 (R2 실시간) -->
   <!-- 총 ${cases.length}개 케이스 + 갤러리 페이지 -->
   <url>
-    <loc>https://bdbddc.com/cases/gallery</loc>
+    <loc>https://bdbddc.com/cases/</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
@@ -2651,9 +2651,9 @@ function ssrHeader(): string {
 <li><a href="/doctors/integrated-dentistry"><i class="fas fa-user-md"></i> 통합치의학과 전문의</a></li>
 </ul></li>
 <li class="nav-item"><a href="/mission">비디미션</a></li>
-<li class="nav-item has-dropdown"><a href="/cases/gallery">콘텐츠</a>
+<li class="nav-item has-dropdown"><a href="/cases/">콘텐츠</a>
 <ul class="simple-dropdown">
-<li><a href="/cases/gallery" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>
+<li><a href="/cases/" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>
 <li><a href="/symptom-checker" style="color:#EC4899;font-weight:600;">🩺 AI 증상체커</a></li>
 <li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li>
 <li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>
@@ -2738,7 +2738,7 @@ function ssrMobileNav(): string {
 <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
 <i class="fas fa-newspaper"></i> 콘텐츠 <i class="fas fa-chevron-down toggle-icon"></i></a>
 <ul class="mobile-nav-submenu">
-<li><a href="/cases/gallery" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>
+<li><a href="/cases/" style="color:#6B4226;font-weight:600;">🔥 비포/애프터</a></li>
 <li><a href="/symptom-checker" style="color:#EC4899;font-weight:600;">🩺 AI 증상체커</a></li>
 <li><a href="/blog/"><i class="fas fa-blog"></i> 블로그</a></li>
 <li><a href="/video/"><i class="fab fa-youtube"></i> 영상</a></li>
@@ -3213,7 +3213,7 @@ app.post('/api/indexnow', async (c) => {
     '/doctors/park-sb', '/doctors/lee-bm',
     '/doctors/oral-medicine', '/doctors/pediatric', '/doctors/conservative', '/doctors/orthodontics', '/doctors/integrated-dentistry',
     '/doctors/implant', '/doctors/general', '/doctors/representative',
-    '/blog/', '/video/', '/cases/', '/cases/gallery',
+    '/blog/', '/video/', '/cases/',
     '/encyclopedia/',
     '/mission', '/floor-guide', '/faq', '/notice/',
     '/faq/implant', '/faq/orthodontics',
@@ -3405,7 +3405,7 @@ app.get('/doctors/:slug', async (c) => {
         <p class="dr-section-sub">실제 환자분의 치료 전후를 확인해보세요</p>
       </div>
       <div class="dr-cases-grid">${caseCards}</div>
-      <div style="text-align:center;margin-top:20px;"><a href="/cases/gallery" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-th"></i> 전체 갤러리 보기</a></div>
+      <div style="text-align:center;margin-top:20px;"><a href="/cases/" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-th"></i> 전체 갤러리 보기</a></div>
     </section>`
   }
   
@@ -3971,7 +3971,7 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 �
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
+<script src="/js/gnb-v2.js?v=20260808v1" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -4116,7 +4116,7 @@ ${rows || '<li class="cref-item"><div class="cref-main"><div class="cref-txt"><p
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
+<script src="/js/gnb-v2.js?v=20260808v1" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -4818,7 +4818,7 @@ ${relatedTreatmentsHtml}
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
+<script src="/js/gnb-v2.js?v=20260808v1" defer></script>
 <script>
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'column',page_id:'${id}'})}).catch(function(){});
 </script>
@@ -4833,9 +4833,12 @@ app.get('/video/', serveStatic({ path: './video/index.html' }))
 app.use('/video/*', strictStatic())
 
 // Cases directory
-app.get('/cases', serveStatic({ path: './cases/gallery.html' }))
-app.get('/cases/', serveStatic({ path: './cases/gallery.html' }))
-app.get('/cases/gallery', serveStatic({ path: './cases/gallery.html' }))
+// v5.72: 갤러리를 /cases/ 캐니쉬로 승격 (URL 구조 단순화 — 컸설턴트 권고)
+// 과거 정적 index.html(수기 6케이스)은 폐기, gallery.html 콘텐츠가 index.html로 복사됨
+// /cases/gallery 는 301로 영구 이전 (외부 백링크·색인 보존)
+app.get('/cases', serveStatic({ path: './cases/index.html' }))
+app.get('/cases/', serveStatic({ path: './cases/index.html' }))
+app.get('/cases/gallery', (c) => c.redirect('/cases/', 301))
 
 // 케이스 상세 페이지 SSR (slug 우선, 기존 ID는 301 리다이렉트)
 app.get('/cases/:param', async (c) => {
@@ -4849,12 +4852,12 @@ app.get('/cases/:param', async (c) => {
   if (param.includes('.')) return c.notFound()
   
   const r2 = c.env.R2
-  if (!r2) return c.redirect('/cases/gallery', 302)
+  if (!r2) return c.redirect('/cases/', 302)
   
   const allCases = await getCases(r2)
   const cs = findCaseByParam(allCases, param)
   
-  if (!cs) return notFoundPage(c, '치료 사례를 찾을 수 없습니다', '요청하신 치료 사례가 존재하지 않거나 삭제되었습니다.', '/cases/gallery', '치료 사례 갤러리 보기')
+  if (!cs) return notFoundPage(c, '치료 사례를 찾을 수 없습니다', '요청하신 치료 사례가 존재하지 않거나 삭제되었습니다.', '/cases/', '치료 사례 갤러리 보기')
   
   // 기존 ID로 접근 시 → slug URL로 301 리다이렉트 (SEO 가치 이전)
   if (cs.slug && param !== cs.slug) {
@@ -4939,7 +4942,7 @@ ${relatedCases.map((rc: any) => {
   const caseDefaultLinks = [
     { href: '/', label: '서울비디치과 홈', icon: 'fas fa-home' },
     { href: '/doctors/', label: '의료진 소개', icon: 'fas fa-user-md' },
-    { href: '/cases/gallery', label: '전체 갤러리', icon: 'fas fa-th' },
+    { href: '/cases/', label: '전체 갤러리', icon: 'fas fa-th' },
     { href: '/pricing', label: '비용 안내', icon: 'fas fa-won-sign' },
     { href: '/area/cheonan', label: '천안 치과', icon: 'fas fa-map-marker-alt' },
     { href: '/area/asan', label: '아산 치과', icon: 'fas fa-map-marker-alt' },
@@ -4985,7 +4988,7 @@ ${TRACKING_HEAD}
   "author":{"@type":"Dentist","name":"서울비디치과","telephone":"+82-41-415-2892"${cs.region ? ',"areaServed":{"@type":"City","name":"' + cs.region + '"}' : ''}},
   "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
     {"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},
-    {"@type":"ListItem","position":2,"name":"Before/After","item":"https://bdbddc.com/cases/gallery"},
+    {"@type":"ListItem","position":2,"name":"Before/After","item":"https://bdbddc.com/cases/"},
     {"@type":"ListItem","position":3,"name":"${cs.title}","item":"https://bdbddc.com/cases/${caseSlug(cs)}"}
   ]}
 }
@@ -5037,7 +5040,7 @@ ${ssrHeader()}
 <div class="case-detail">
 <nav style="font-size:.85rem;color:#888;margin-bottom:20px;">
 <a href="/" style="color:#6B4226;text-decoration:none;">홈</a> &gt;
-<a href="/cases/gallery" style="color:#6B4226;text-decoration:none;">Before/After</a> &gt;
+<a href="/cases/" style="color:#6B4226;text-decoration:none;">Before/After</a> &gt;
 <span>${cs.title}</span>
 </nav>
 <div class="case-header">
@@ -5076,7 +5079,7 @@ ${cs.description ? `<div class="case-desc"><h3 style="font-size:1rem;font-weight
 </div>
 </div>
 <div style="text-align:center;margin-top:24px;">
-<a href="/cases/gallery" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 갤러리 보기</a>
+<a href="/cases/" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 갤러리 보기</a>
 ${cs.category ? `<a href="/treatments/${catSlugMap[cs.category] || cs.category}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;margin-left:8px;"><i class="fas fa-tooth"></i> ${catLabel} 진료 안내</a>` : ''}
 </div>
 ${relatedCasesHtml}
@@ -5092,7 +5095,7 @@ ${caseRelatedTreatmentsHtml}
 </div>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
+<script src="/js/gnb-v2.js?v=20260808v1" defer></script>
 <script>
 // 조회수 기록
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'case',page_id:'${id}'})}).catch(function(){});
@@ -6355,7 +6358,7 @@ ${ssrHeader()}
 <nav class="content-tabs">
 <a href="/blog/" class="tab-btn"><i class="fas fa-blog"></i> 블로그</a>
 <a href="/video/" class="tab-btn"><i class="fab fa-youtube"></i> 영상</a>
-<a href="/cases/gallery" class="tab-btn"><i class="fas fa-images"></i> 비포/애프터</a>
+<a href="/cases/" class="tab-btn"><i class="fas fa-images"></i> 비포/애프터</a>
 <a href="/encyclopedia/" class="tab-btn active"><i class="fas fa-book-medical"></i> 백과사전</a>
 </nav>
 
@@ -6463,7 +6466,7 @@ ${nextItem ? `<a href="/encyclopedia/${encodeURIComponent(nextItem.term)}" style
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
+<script src="/js/gnb-v2.js?v=20260808v1" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`
@@ -6598,7 +6601,7 @@ ${ssrHeader()}
 <nav class="content-tabs">
 <a href="/blog/" class="tab-btn"><i class="fas fa-blog"></i> 블로그</a>
 <a href="/video/" class="tab-btn"><i class="fab fa-youtube"></i> 영상</a>
-<a href="/cases/gallery" class="tab-btn"><i class="fas fa-images"></i> 비포/애프터</a>
+<a href="/cases/" class="tab-btn"><i class="fas fa-images"></i> 비포/애프터</a>
 <a href="/encyclopedia/" class="tab-btn active"><i class="fas fa-book-medical"></i> 백과사전</a>
 </nav>
 
@@ -6676,7 +6679,7 @@ ${otherCats}
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
+<script src="/js/gnb-v2.js?v=20260808v1" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`

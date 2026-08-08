@@ -199,7 +199,7 @@ ${deps.header}
 <nav class="content-tabs">
 <a href="/blog/" class="tab-btn"><i class="fas fa-blog"></i> 블로그</a>
 <a href="/video/" class="tab-btn"><i class="fab fa-youtube"></i> 영상</a>
-<a href="/cases/gallery" class="tab-btn"><i class="fas fa-images"></i> 비포/애프터</a>
+<a href="/cases/" class="tab-btn"><i class="fas fa-images"></i> 비포/애프터</a>
 <a href="/encyclopedia/" class="tab-btn active"><i class="fas fa-book-medical"></i> 백과사전</a>
 </nav>
 
@@ -451,7 +451,7 @@ function tnCopyEmbed(){
 }
 </script>
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=e0c7aede" defer></script>
+<script src="/js/gnb-v2.js?v=20260808v1" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`

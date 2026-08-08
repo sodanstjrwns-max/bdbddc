@@ -59,8 +59,8 @@
 /page/*           /               301
 /view             /               301
 /view/*           /               301
-/gallery          /cases/gallery  301
-/gallery/*        /cases/gallery  301
+/gallery          /cases/         301
+/gallery/*        /cases/         301
 
 # 한글 경로 패턴
 /진료과목         /treatments/    301
@@ -109,7 +109,7 @@
 /area/:slug.html           /area/:slug            301
 /faq/:slug.html            /faq/:slug             301
 /notice/index.html         /notice/               301
-/cases/index.html          /cases/gallery         301
+/cases/index.html          /cases/                301
 /video/index.html          /video/                301
 /floor-guide.html          /floor-guide           301
 /guide/index.html          /guide/                301
