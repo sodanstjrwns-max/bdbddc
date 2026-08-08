@@ -1,5 +1,23 @@
 # 서울비디치과 (bdbddc.com)
 
+## v5.72 — /cases URL 통합: 갤러리를 /cases/로 승격 (2026-08-08)
+
+**배경**: 컨설턴트 진단 — `/cases/`(구 정적 6케이스)와 `/cases/gallery`(동적 98케이스) 콘텐츠 중복. URL 구성상 갤러리를 상위 경로 `/cases/`로 덮어쓰는 것이 베스트.
+
+**변경**:
+- `cases/gallery.html` 내용을 `cases/index.html`로 승격 (canonical/og:url → `https://bdbddc.com/cases/`)
+- Worker: `/cases`, `/cases/` → 갤러리 서빙 / `/cases/gallery`, `/cases/gallery.html` → `/cases/` **301** (백링크·색인 보존)
+- 레거시 301 목적지 체인 제거: `/gallery`, `/gallery/*`, `/bbs/case`, `/page/sub6` 등 → `/cases/` 직행 (2-hop 체인 방지)
+- 내부 링크 전수 교체: 정적 HTML 216개 + SSR nav/breadcrumb/JSON-LD/버튼 + `gnb-v2.js`·`treatment-cases.js`·`area-cases.js` (캐시버스팅 `v=20260808v1`)
+- `_redirects` 3건, `sitemap-main.xml`, 동적 sitemap loc 갱신
+- `cases/gallery.html` 파일 삭제 (Worker 301이 대체)
+
+**안전성 검증 (케이스 무손실)**:
+- 개별 케이스 98건은 R2 + `/cases/:slug` SSR — 라우트 무변경, 라이브 200 확인 (`/cases/compositeresin01` 등)
+- `/api/cases` → 98건 정상
+- `/cases/gallery` → 301 → `/cases/` 200 (체인 없음)
+- 배포: https://d6fad985.seoul-bd-dental.pages.dev / 커밋 268b7443
+
 ## v5.70 — GA4 메인 속성(G-LM9VKJSB9F) 전 페이지 수집 복구 (2026-08-08)
 
 ### 문제 (원장님 지시로 전수 점검하여 발견)
