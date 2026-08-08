@@ -1020,12 +1020,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       background: linear-gradient(to top, rgba(10,8,6,.62) 0%, transparent 36%),
                   linear-gradient(to bottom, rgba(10,8,6,.55) 0%, transparent 30%);
     }
-    /* 도입 텍스트 (기존 히어로 콘텐츠 재사용) — 스크롤 시 페이드아웃 */
+    /* 몰입 도입 텍스트 — 중앙 정렬, 스크롤 시 페이드아웃 */
     .gn-scrub-head {
       position: absolute; inset: 0; z-index: 5;
-      display: flex; align-items: center;
+      display: flex; align-items: center; justify-content: center;
       padding-top: var(--header-height, 72px);
-      background: linear-gradient(90deg, #0a0806 0%, rgba(10,8,6,.92) 34%, rgba(10,8,6,.55) 52%, transparent 72%);
+      background: radial-gradient(ellipse at center, rgba(10,8,6,.55) 0%, rgba(10,8,6,.28) 55%, rgba(10,8,6,.05) 100%);
+    }
+    .gn-scrub-eyebrow {
+      font-size: .72rem; font-weight: 700; letter-spacing: .3em;
+      color: #C8A97E; margin-bottom: 18px;
+    }
+    .gn-scrub-title {
+      font-size: clamp(1.9rem, 4.6vw, 3.6rem); font-weight: 900; color: #fff;
+      letter-spacing: -.04em; line-height: 1.25;
+      text-shadow: 0 6px 50px rgba(0,0,0,.6);
+    }
+    .gn-scrub-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #C8A97E 0%, #E8D5B7 50%, #C8A97E 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .gn-scrub-sub {
+      margin-top: 18px; font-size: .92rem; color: rgba(255,255,255,.72);
+      letter-spacing: .02em; text-shadow: 0 1px 14px rgba(0,0,0,.5);
     }
     /* BEFORE/AFTER 라벨 */
     .gn-state-label {
@@ -1067,7 +1085,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
     .gn-scrub-finale .gn-hero-cta { justify-content: center; pointer-events: auto; }
     @media (max-width: 768px) {
-      .gn-scrub-head { background: linear-gradient(to top, #0a0806 0%, rgba(10,8,6,.88) 46%, rgba(10,8,6,.4) 68%, transparent 88%); align-items: flex-end; padding-bottom: 10vh; }
+      .gn-scrub-head { background: radial-gradient(ellipse at center, rgba(10,8,6,.6) 0%, rgba(10,8,6,.32) 55%, rgba(10,8,6,.08) 100%); padding-left: 24px; padding-right: 24px; }
+      .gn-scrub-sub { font-size: .84rem; }
       .gn-scrub-chapter { left: 6vw; right: 6vw; max-width: none; bottom: 6vh; }
       .gn-scrub.scrub-on .gn-scrub-space { height: 480vh; }
     }
@@ -1619,6 +1638,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="scroll-line"></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══ 본 히어로 · 모델 슬라이드쇼 (원본 유지) ═══ -->
+  <section class="gn-hero" aria-label="글로우네이트">
+    <!-- 풀스크린 슬라이드쇼 배경 -->
+    <div class="gn-hero-slideshow">
+      <div class="gn-hero-slide active"><img src="/images/glownate-model-1.webp" alt="글로우네이트 라미네이트로 완성한 환한 미소" width="1024" height="683" loading="eager" fetchpriority="high"></div>
+      <div class="gn-hero-slide"><img src="/images/glownate-model-3.webp" alt="글로우네이트 — 자신감 있는 환한 미소" width="1024" height="683" loading="eager"></div>
+      <div class="gn-hero-slide"><img src="/images/glownate-model-4.webp" alt="글로우네이트 — 자연스럽고 아름다운 스마일" width="1024" height="683" loading="eager"></div>
+    </div>
+    <div class="gn-hero-overlay"></div>
+    <div class="gn-hero-content">
+      <div class="gn-hero-inner">
+        <div class="breadcrumb"><a href="../">홈</a><span class="sep">/</span><a href="/treatments/">진료</a><span class="sep">/</span><span>글로우네이트</span></div>
+        <div class="gn-slide-dots">
+          <button class="active" data-slide="0" aria-label="슬라이드 1"></button>
+          <button data-slide="1" aria-label="슬라이드 2"></button>
+          <button data-slide="2" aria-label="슬라이드 3"></button>
+        </div>
+        <div class="page-badge"><i class="fas fa-sparkles"></i> 천안 <span class="enc-inline-link" title="앞니 표면에 얇은 도자기를 붙이는 심미 시술" data-enc-term="라미네이트">라미네이트</span> 전문</div>
+        <h1>천안 라미네이트,<br><span class="text-gradient">0.3mm 최소삭제·10년 보증</span></h1>
+        <p class="hero-desc">치아를 얼마나 깎는지가 라미네이트 수명을 결정합니다. 서울비디치과 <span class="enc-inline-link" title="서울비디치과 독자 심미 치료 프로그램" data-enc-term="글로우네이트">글로우네이트</span>는 0.3~0.5mm 최소삭제 원칙과 원내 기공소 제작으로 자연치아를 보존합니다.</p>
+        <div class="gn-hero-stats">
+          <div class="stat-item"><span class="stat-value">80만원</span><span class="stat-label">프리미엄 1본</span></div>
+          <div class="stat-item"><span class="stat-value">0.3~0.5mm</span><span class="stat-label">삭제량</span></div>
+          <div class="stat-item"><span class="stat-value">10년</span><span class="stat-label">색조·접착 보증서</span></div>
+        </div>
+        <div class="gn-hero-cta">
+          <a href="/reservation" class="btn-hero-primary"><i class="fas fa-calendar-check"></i> 글로우네이트 상담 예약</a>
+          <a href="tel:041-415-2892" class="btn-hero-secondary"><i class="fas fa-phone"></i> 041-415-2892</a>
+          <a href="#gn-story" class="btn-hero-secondary"><i class="fas fa-arrow-down"></i> 자세히 읽어보기</a>
+        </div>
+      </div>
+    </div>
+    <div class="gn-scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
@@ -3449,6 +3506,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         });
         window.addEventListener('scroll', onScroll, { passive: true });
         applyOverlay(0);
+      })();
+
+      // ── 히어로 슬라이드쇼 (원본 유지) ──
+      (function(){
+        var slides = document.querySelectorAll('.gn-hero-slide');
+        var dots = document.querySelectorAll('.gn-slide-dots button');
+        if (slides.length < 2) return;
+        var current = 0;
+        var total = slides.length;
+        var interval = 5000; // 5초 간격
+        var timer;
+
+        function goTo(idx) {
+          slides[current].classList.remove('active');
+          dots[current].classList.remove('active');
+          current = idx % total;
+          slides[current].classList.add('active');
+          dots[current].classList.add('active');
+        }
+
+        function autoPlay() {
+          timer = setInterval(function(){ goTo(current + 1); }, interval);
+        }
+
+        dots.forEach(function(dot, i) {
+          dot.addEventListener('click', function() {
+            clearInterval(timer);
+            goTo(i);
+            autoPlay();
+          });
+        });
+
+        autoPlay();
+
+        // 페이지 비활성 시 멈추고 활성 시 재시작
+        document.addEventListener('visibilitychange', function() {
+          if (document.hidden) { clearInterval(timer); }
+          else { autoPlay(); }
+        });
       })();
     });
   </script>
