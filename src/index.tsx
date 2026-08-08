@@ -6974,6 +6974,20 @@ function detectBot(ua: string): { isBot: boolean; botName: string | null } {
   // 검색엔진 크롤러
   const knownBots: Array<[RegExp, string]> = [
     [/googlebot/, 'googlebot'],
+    // v5.69: GoogleOther 계열 누락 보강 — 2026-08 로그에서 33건이 사람으로 오분류됨.
+    // UA 에 'GoogleOther' 가 명시돼 있는데 googlebot 패턴에 안 걸려 빠져나갔다.
+    // (robots.txt 에서는 GoogleOther/Google-Extended 를 명시 허용 중 — 차단이 아니라
+    //  집계 분류만 바로잡는 것이므로 크롤링 정책에는 영향이 없다.)
+    [/googleother/, 'google-other'],
+    [/google-inspectiontool/, 'google-inspectiontool'],
+    [/storebot-google/, 'storebot-google'],
+    [/google-read-aloud/, 'google-read-aloud'],
+    [/google-site-verification|googleproducer|google\s?favicon/, 'google-misc'],
+    [/chrome-lighthouse|lighthouse|pagespeed/, 'lighthouse'],
+    [/bingpreview|adidxbot/, 'bing-misc'],
+    [/naver\.me|naverbot/, 'naverbot'],
+    [/meta-external(agent|fetcher)/, 'meta-external'],
+    [/skypeuripreview|bitlybot|embedly|quora\s?link/, 'link-preview'],
     [/bingbot/, 'bingbot'],
     [/yandex(bot|images|metrika)/, 'yandexbot'],
     [/yeti/, 'naver-yetibot'],          // Naver
