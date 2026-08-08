@@ -1,5 +1,17 @@
 # 서울비디치과 (bdbddc.com)
 
+## v5.73 — 글로우네이트 스크롤 스크럽 몰입 섹션 (2026-08-08)
+
+**구조**: `/treatments/glownate` 최상단에 애플 제품페이지 방식 스크롤 스크럽 몰입 섹션 추가. 기존 모델 슬라이드쇼 히어로(H1 포함)는 그 아래 100% 원본 유지. `[몰입 섹션] → [모델 히어로] → [3초 요약] → 본문` 순.
+
+- **프레임**: 힉스필드 실사 67프레임 (`/laminate/frames/frame_0001~0067.webp`, 3.3MB) — Worker 우회 정적 서빙 (`_routes.json` exclude)
+- **엔진**: 외부 의존성 0, 바닐라 rAF + sticky stage. canvas contain fit(크롭 금지), pass1(5프레임 간격)/pass2 프로그레시브 로딩, 근접 프레임 폴백 — GENSPARK 지침 불가침 항목 준수
+- **매핑**: 영상은 스크롤 8%~86% 선형 매핑. BEFORE(1–4) → 변신(5–62) → AFTER(63–67). 러닝타임 560vh(모바일 480vh), 프레임 로딩 완료 후에만 확장(`scrub-on`)
+- **오버레이**: 도입 장식 헤드라인(H1 중복 방지) → BEFORE 라벨 → 챕터 01/02 → AFTER 라벨(골드) → 챕터 03 → 피날레 CTA
+- **접근성**: prefers-reduced-motion 시 첫 프레임 정지 + 스크럽 비활성
+- **버그픽스**: ① `.reveal` 0개 페이지에서 early-return이 후속 IIFE 차단 → if블록화 ② 부모 `.gn-hero`의 `overflow:hidden`이 sticky 차단 → `overflow:visible`
+- **리다이렉트**: `/laminate`(±슬래시) → `/treatments/glownate` 301
+
 ## v5.72 — /cases URL 통합: 갤러리를 /cases/로 승격 (2026-08-08)
 
 **배경**: 컨설턴트 진단 — `/cases/`(구 정적 6케이스)와 `/cases/gallery`(동적 98케이스) 콘텐츠 중복. URL 구성상 갤러리를 상위 경로 `/cases/`로 덮어쓰는 것이 베스트.
