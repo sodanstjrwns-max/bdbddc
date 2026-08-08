@@ -7187,6 +7187,10 @@ app.get('/api/views/:type/:id', async (c) => {
   }
 })
 
+// 라미네이트 스크롤 스크럽 히어로 (시안 — 힉스필드 실사 프레임 67장)
+app.get('/laminate', serveStatic({ path: './laminate/index.html' }))
+app.get('/laminate/', serveStatic({ path: './laminate/index.html' }))
+
 // 채용 페이지
 app.get('/careers', serveStatic({ path: './careers.html' }))
 

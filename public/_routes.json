@@ -1,12 +1,15 @@
 {
   "version": 1,
-  "include": ["/*"],
+  "include": [
+    "/*"
+  ],
   "exclude": [
     "/css/*",
     "/js/*",
     "/images/*",
     "/static/*",
     "/data/*",
+    "/laminate/frames/*",
     "/manifest.json",
     "/6f74445f7ec14eccb522a4d3f253128c.txt",
     "/en",

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>라미네이트 — 0.3mm로 바뀌는 미소 | 서울비디치과</title>
+<meta name="robots" content="noindex"><!-- 시안 단계: 배포 확정 시 제거 -->
+<meta name="description" content="변색·깨짐·틈, 0.3mm 세라믹 쉘로 한 번에. 서울비디치과 라미네이트(글로우네이트) 스크롤 체험 페이지.">
+<style>
+  /* ============================================================
+     비디치과 라미네이트 스크롤 스크럽 히어로 — 힉스필드 실사 프레임 버전
+     시퀀스 구성 (67프레임):
+       frame 01–04  : BEFORE 정지 (변색·틈·깨짐)
+       frame 05–62  : 라미네이트 쉘 부착 → 변신 (실프레임 12fps)
+       frame 63–67  : AFTER 유지
+  ============================================================ */
+  :root{--ink:#101113;--paper:#F4F5F2;--cure:#4D6BFF;--gray:#9A9CA0}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--ink);color:#fff;
+    font-family:"Apple SD Gothic Neo","Pretendard","Noto Sans KR",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .mono{font-family:ui-monospace,"SF Mono",monospace;letter-spacing:.02em}
+
+  nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;
+    align-items:center;padding:22px 4vw}
+  nav .logo{font-weight:900;font-size:17px;letter-spacing:-.02em;color:#fff;
+    text-shadow:0 1px 12px rgba(0,0,0,.4)}
+  nav .cta{font-size:13px;font-weight:700;text-decoration:none;color:#fff;
+    border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:9px 18px;
+    backdrop-filter:blur(6px);transition:.25s}
+  nav .cta:hover{background:#fff;color:var(--ink)}
+
+  .scroll-space{height:620vh;position:relative}
+  .stage{position:sticky;top:0;height:100vh;overflow:hidden}
+  canvas#seq{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .vignette{position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(to top,rgba(16,17,19,.55) 0%,rgba(16,17,19,0) 34%),
+               linear-gradient(to bottom,rgba(16,17,19,.38) 0%,rgba(16,17,19,0) 24%)}
+
+  .loader{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;gap:14px;
+    align-items:center;justify-content:center;background:var(--ink);transition:opacity .5s}
+  .loader.done{opacity:0;pointer-events:none}
+  .loader .pct{font-size:clamp(40px,8vw,90px);font-weight:900;letter-spacing:-.04em}
+  .loader .bar{width:min(320px,60vw);height:2px;background:rgba(255,255,255,.15)}
+  .loader .bar i{display:block;height:100%;width:0%;background:#fff;transition:width .2s}
+  .loader .tip{font-size:12px;color:var(--gray)}
+
+  .overlay{position:absolute;inset:0;z-index:10;pointer-events:none}
+  .headline{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center}
+  .headline .eyebrow{font-size:13px;font-weight:700;color:rgba(255,255,255,.75);
+    margin-bottom:2vh;text-transform:uppercase}
+  .headline h1{font-size:clamp(48px,10vw,140px);font-weight:900;line-height:.98;
+    letter-spacing:-.045em;text-shadow:0 6px 50px rgba(0,0,0,.55)}
+  .headline h1 .thin{font-weight:200}
+  .headline .sub{margin-top:2.6vh;font-size:clamp(14px,1.4vw,18px);color:rgba(255,255,255,.8);
+    text-shadow:0 2px 20px rgba(0,0,0,.5)}
+  .scroll-hint{position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);font-size:12px;
+    color:rgba(255,255,255,.75);display:flex;flex-direction:column;align-items:center;gap:8px}
+  .scroll-hint::after{content:"";width:1px;height:38px;background:#fff;
+    animation:drop 1.6s ease-in-out infinite;transform-origin:top}
+  @keyframes drop{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
+
+  .chapter{position:absolute;left:4vw;bottom:7vh;max-width:370px;opacity:0}
+  .chapter .num{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:10px}
+  .chapter h3{font-size:clamp(20px,2.3vw,28px);font-weight:800;letter-spacing:-.03em;line-height:1.25;
+    text-shadow:0 2px 26px rgba(0,0,0,.6)}
+  .chapter p{margin-top:10px;font-size:14px;color:rgba(255,255,255,.8);line-height:1.65;
+    text-shadow:0 1px 14px rgba(0,0,0,.5)}
+
+  .state-label{position:absolute;top:11vh;left:50%;transform:translateX(-50%);
+    font-size:12px;font-weight:800;letter-spacing:.24em;padding:8px 18px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.65);backdrop-filter:blur(8px);opacity:0}
+  #labelAfter{border-color:var(--cure);
+    box-shadow:0 0 26px rgba(77,107,255,.55);background:rgba(77,107,255,.2)}
+
+  .finale{position:absolute;inset:auto 0 10vh 0;text-align:center;opacity:0}
+  .finale h2{font-size:clamp(30px,4.6vw,60px);font-weight:900;letter-spacing:-.04em;
+    text-shadow:0 6px 50px rgba(0,0,0,.55)}
+  .finale a{display:inline-block;margin-top:2.6vh;text-decoration:none;background:#fff;
+    color:var(--ink);font-weight:700;font-size:15px;padding:15px 34px;border-radius:999px;
+    pointer-events:auto;transition:transform .25s}
+  .finale a:hover{transform:translateY(-2px)}
+
+  main.light{background:var(--paper);color:#1A1C1E}
+  section.band{padding:14vh 4vw;border-top:1px solid rgba(26,28,30,.12)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw;max-width:1200px;margin:0 auto}
+  .stat .num{font-size:clamp(44px,6vw,84px);font-weight:900;letter-spacing:-.04em;line-height:1}
+  .stat .num em{font-style:normal;font-size:.42em;font-weight:700;color:var(--gray);margin-left:4px}
+  .stat .label{margin-top:12px;font-size:14px;color:var(--gray)}
+  .process{max-width:1200px;margin:0 auto}
+  .process h2{font-size:clamp(28px,3.6vw,48px);font-weight:900;letter-spacing:-.04em;margin-bottom:7vh}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(26,28,30,.12);
+    border:1px solid rgba(26,28,30,.12)}
+  .step{background:var(--paper);padding:32px 26px;min-height:220px;display:flex;
+    flex-direction:column;justify-content:space-between;transition:background .3s}
+  .step:hover{background:#fff}
+  .step .idx{font-size:12px;color:var(--gray)}
+  .step h4{font-size:18px;font-weight:800;letter-spacing:-.02em;margin-top:auto}
+  .step p{font-size:13px;color:var(--gray);margin-top:8px;line-height:1.6}
+  footer{background:var(--paper);color:var(--gray);padding:8vh 4vw;text-align:center;font-size:13px;
+    border-top:1px solid rgba(26,28,30,.12)}
+
+  @media(max-width:768px){
+    .chapter{left:6vw;right:6vw;max-width:none;bottom:5vh}
+    .stats{grid-template-columns:1fr;gap:7vh;text-align:center}
+    .steps{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/" style="text-decoration:none;color:#fff;">서울비디치과</a>
+  <a class="cta" href="/reservation">상담 예약</a>
+</nav>
+
+<div class="scroll-space" id="scrollSpace">
+  <div class="stage">
+    <canvas id="seq"></canvas>
+    <div class="vignette"></div>
+
+    <div class="loader" id="loader">
+      <div class="pct mono" id="loaderPct">00</div>
+      <div class="bar"><i id="loaderBar"></i></div>
+      <div class="tip">잠시만요, 미소를 준비하고 있습니다</div>
+    </div>
+
+    <div class="overlay">
+      <div class="headline" id="headline">
+        <div class="eyebrow mono">BD Dental · Laminate</div>
+        <h1><span class="thin">0.3mm</span>로<br>바뀌는 미소</h1>
+        <div class="sub">스크롤하면, 변화가 시작됩니다</div>
+      </div>
+      <div class="scroll-hint mono" id="scrollHint">SCROLL</div>
+
+      <div class="state-label mono" id="labelBefore">BEFORE</div>
+      <div class="state-label mono" id="labelAfter">AFTER</div>
+
+      <div class="chapter" id="ch1">
+        <div class="num mono">01 / 지금의 미소</div>
+        <h3>웃을 때마다<br>손으로 가리게 되는 이유들</h3>
+        <p>변색, 깨진 모서리, 벌어진 틈. 문제는 하나가 아니라 셋이 겹쳐 있다는 것.</p>
+      </div>
+      <div class="chapter" id="ch2">
+        <div class="num mono">02 / 변화</div>
+        <h3>0.3mm 세라믹 쉘이<br>자리를 잡습니다</h3>
+        <p>깨진 모서리는 채워지고, 변색은 덮이고, 틈은 사라집니다. 한 번에.</p>
+      </div>
+      <div class="chapter" id="ch3">
+        <div class="num mono">03 / 완성</div>
+        <h3>밝게, 그리고<br>가지런하게</h3>
+        <p>원래 내 치아였던 것처럼 자연스럽게.</p>
+      </div>
+
+      <div class="finale" id="finale">
+        <h2>이제, 마음껏 웃으세요</h2>
+        <a href="/reservation">라미네이트 상담 예약</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="light">
+  <section class="band">
+    <div class="stats">
+      <div class="stat"><div class="num">0.3<em>mm</em></div><div class="label">세라믹 쉘 두께</div></div>
+      <div class="stat"><div class="num">2<em>회 내원</em></div><div class="label">평균 시술 완료</div></div>
+      <div class="stat"><div class="num">3<em>가지</em></div><div class="label">변색·깨짐·틈, 한 번에 개선</div></div>
+    </div>
+  </section>
+  <section class="band">
+    <div class="process">
+      <h2>시술은 이렇게 진행됩니다</h2>
+      <div class="steps">
+        <div class="step"><div class="idx mono">STEP 01</div><div><h4>정밀 진단·스캔</h4><p>디지털 스캐너로 치아 형태와 교합을 기록합니다.</p></div></div>
+        <div class="step"><div class="idx mono">STEP 02</div><div><h4>스마일 디자인</h4><p>얼굴 비율에 맞는 치아 형태를 시뮬레이션으로 확인합니다.</p></div></div>
+        <div class="step"><div class="idx mono">STEP 03</div><div><h4>맞춤 제작</h4><p>개인별 색상·투명도에 맞춰 세라믹 쉘을 제작합니다.</p></div></div>
+        <div class="step"><div class="idx mono">STEP 04</div><div><h4>부착·광중합</h4><p>접착 후 빛으로 경화해 자연치와 결합합니다.</p></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer id="consult">
+  서울비디치과 · 천안 불당동 · <a href="/treatments/glownate" style="color:inherit;">글로우네이트 자세히 보기</a> · <a href="/cases/?category=glownate" style="color:inherit;">실제 치료 사례</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* frames/ 폴더의 webp를 상대경로로 로드 (EMBED 제거됨) */
+const CONFIG = {
+  frameCount: 67,
+  path: i => (typeof EMBED!=="undefined" && EMBED)
+        ? EMBED[i-1]
+        : `frames/frame_${String(i).padStart(4,"0")}.webp`,
+};
+
+const canvas=document.getElementById("seq"),ctx=canvas.getContext("2d");
+const frames=new Array(CONFIG.frameCount).fill(null);
+let loadedCount=0,currentIndex=-1;
+
+function resize(){
+  const dpr=Math.min(devicePixelRatio||1,2);
+  canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr;
+  render(Math.max(0,currentIndex),true);
+}
+addEventListener("resize",resize);
+
+function drawCover(img){
+  /* contain fit: 프레임 전체가 항상 보이도록 (크롭 없음) */
+  const cw=canvas.width,ch=canvas.height,iw=img.naturalWidth,ih=img.naturalHeight;
+  ctx.fillStyle="#101113";ctx.fillRect(0,0,cw,ch);
+  const s=Math.min(cw/iw,ch/ih),w=iw*s,h=ih*s;
+  ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h);
+}
+function render(idx,force){
+  idx=Math.max(0,Math.min(CONFIG.frameCount-1,idx));
+  if(idx===currentIndex&&!force)return;
+  currentIndex=idx;
+  let img=frames[idx];
+  if(!img){for(let d=1;d<CONFIG.frameCount&&!img;d++){img=frames[idx-d]||frames[idx+d]}}
+  if(img)drawCover(img);
+}
+
+const loader=document.getElementById("loader"),
+      loaderPct=document.getElementById("loaderPct"),
+      loaderBar=document.getElementById("loaderBar");
+function updateLoader(){
+  const p=Math.round(loadedCount/CONFIG.frameCount*100);
+  loaderPct.textContent=String(p).padStart(2,"0");
+  loaderBar.style.width=p+"%";
+}
+function loadFrame(i){
+  return new Promise(res=>{
+    const img=new Image();
+    img.onload=()=>{frames[i]=img;loadedCount++;updateLoader();res(true)};
+    img.onerror=()=>res(false);
+    img.src=CONFIG.path(i+1);
+  });
+}
+async function boot(){
+  await loadFrame(0);render(0,true);
+  const pass1=[],pass2=[];
+  for(let i=1;i<CONFIG.frameCount;i++)(i%5===0?pass1:pass2).push(i);
+  await Promise.all(pass1.map(loadFrame));
+  loader.classList.add("done");
+  Promise.all(pass2.map(loadFrame)).then(()=>render(currentIndex,true));
+}
+resize();boot();
+
+/* ============================================================
+   스크롤 매핑 — 실측 시퀀스 기준
+   영상: 스크롤 8%~86% 구간에 매핑
+   frame 01–09 (before 정지) → 스크롤 ~8–18%
+   frame 10–58 (변신)        → 스크롤 ~18–74%
+   frame 59–68 (after 유지)  → 스크롤 ~74–86%
+============================================================ */
+ScrollTrigger.create({
+  trigger:"#scrollSpace",start:"top top",end:"bottom bottom",scrub:true,
+  onUpdate(self){
+    const p=self.progress;
+    const vidP=Math.max(0,Math.min(1,(p-0.08)/(0.86-0.08)));
+    render(Math.round(vidP*(CONFIG.frameCount-1)));
+  }
+});
+
+const tl=gsap.timeline({
+  scrollTrigger:{trigger:"#scrollSpace",start:"top top",end:"bottom bottom",scrub:.5}
+});
+tl
+.to("#headline",{opacity:0,yPercent:-14,duration:.07},0)
+.to("#scrollHint",{opacity:0,duration:.05},0)
+.to("#labelBefore",{opacity:1,duration:.04},.07)      /* BEFORE 정지컷 구간 */
+.to("#ch1",{opacity:1,duration:.05},.09)
+.to("#ch1",{opacity:0,duration:.04},.21)
+.to("#ch2",{opacity:1,duration:.05},.25)              /* 변신 진행 구간 */
+.to("#ch2",{opacity:0,duration:.04},.58)
+.to("#labelBefore",{opacity:0,duration:.04},.60)
+.to("#labelAfter",{opacity:1,duration:.05},.63)       /* 변신 완료 직전 스왑 */
+.to("#ch3",{opacity:1,duration:.05},.66)
+.to("#ch3",{opacity:0,duration:.04},.83)
+.to("#labelAfter",{opacity:0,duration:.04},.85)
+.to("#finale",{opacity:1,duration:.07},.88);
+</script>
+</body>
+</html>
