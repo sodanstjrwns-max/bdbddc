@@ -1565,31 +1565,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       .gn-stop-card { padding: 22px 20px; }
     }
   </style>
-  <section class="gn-hero gn-scrub" id="gnScrubHero" aria-label="글로우네이트">
+  <!-- ═══ v5.73 몰입 섹션 · 실사 변신 시퀀스 (기존 히어로 위 별도 섹션) ═══ -->
+  <section class="gn-hero gn-scrub" id="gnScrubHero" aria-label="글로우네이트 몰입 미리보기">
     <div class="gn-scrub-space" id="gnScrubSpace">
       <div class="gn-scrub-stage">
         <!-- 실사 변신 시퀀스 (힉스필드 67프레임) — 스크롤로 재생 -->
         <canvas id="gnSeq" aria-hidden="true"></canvas>
         <div class="gn-scrub-vignette"></div>
 
-        <!-- 도입 텍스트 = 기존 히어로 콘텐츠 (SEO/카피 그대로) -->
+        <!-- 몰입 도입 텍스트 (H1은 아래 본 히어로에 있으므로 장식 헤드라인만) -->
         <div class="gn-scrub-head" id="gnScrubHead">
           <div class="gn-hero-content">
-            <div class="gn-hero-inner">
-              <div class="breadcrumb"><a href="../">홈</a><span class="sep">/</span><a href="/treatments/">진료</a><span class="sep">/</span><span>글로우네이트</span></div>
-              <div class="page-badge"><i class="fas fa-sparkles"></i> 천안 <span class="enc-inline-link" title="앞니 표면에 얇은 도자기를 붙이는 심미 시술" data-enc-term="라미네이트">라미네이트</span> 전문</div>
-              <h1>천안 라미네이트,<br><span class="text-gradient">0.3mm 최소삭제·10년 보증</span></h1>
-              <p class="hero-desc">치아를 얼마나 깎는지가 라미네이트 수명을 결정합니다. 서울비디치과 <span class="enc-inline-link" title="서울비디치과 독자 심미 치료 프로그램" data-enc-term="글로우네이트">글로우네이트</span>는 0.3~0.5mm 최소삭제 원칙과 원내 기공소 제작으로 자연치아를 보존합니다.</p>
-              <div class="gn-hero-stats">
-                <div class="stat-item"><span class="stat-value">80만원</span><span class="stat-label">프리미엄 1본</span></div>
-                <div class="stat-item"><span class="stat-value">0.3~0.5mm</span><span class="stat-label">삭제량</span></div>
-                <div class="stat-item"><span class="stat-value">10년</span><span class="stat-label">색조·접착 보증서</span></div>
-              </div>
-              <div class="gn-hero-cta">
-                <a href="/reservation" class="btn-hero-primary"><i class="fas fa-calendar-check"></i> 글로우네이트 상담 예약</a>
-                <a href="tel:041-415-2892" class="btn-hero-secondary"><i class="fas fa-phone"></i> 041-415-2892</a>
-                <a href="#gn-story" class="btn-hero-secondary"><i class="fas fa-arrow-down"></i> 자세히 읽어보기</a>
-              </div>
+            <div class="gn-hero-inner" style="text-align:center; max-width:760px; margin:0 auto;">
+              <div class="gn-scrub-eyebrow">GLOWNATE — SEOUL BD DENTAL</div>
+              <p class="gn-scrub-title">한 사람의 미소가<br><em>다시 태어나는 순간</em></p>
+              <p class="gn-scrub-sub">스크롤을 내리면, 글로우네이트의 변화가 시작됩니다</p>
             </div>
           </div>
         </div>
@@ -3352,7 +3342,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         });
       });
       // Reveal animation
-      var els=document.querySelectorAll('.reveal');if(!els.length)return;var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});
+      var els=document.querySelectorAll('.reveal');if(els.length){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});els.forEach(function(el){obs.observe(el);});}
 
       // ── v5.73 스크롤 스크럽 히어로 (힉스필드 실사 67프레임, 의존성 없음) ──
       (function(){
