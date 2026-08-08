@@ -29,11 +29,22 @@
   // ─── GA4 gtag 초기화 (GTM과 병행) ───
   // GTM은 dataLayer만 생성하고 gtag() 전역 함수를 만들지 않음
   // analytics.js에서 gtag()를 직접 호출하므로 여기서 정의 필요
+  //
+  // ★ v9 (2026-08-08): G-LM9VKJSB9F(bdbddc, 메인 속성) 추가.
+  //   기존엔 <head> 인라인 블록이 있는 45개 페이지에서만 LM9V가 수집됐고
+  //   나머지 223개(홈 포함)는 3NQP만 config 되어 메인 속성이 85% 실명 상태였다.
+  //   두 속성 전송은 의도된 구성이다. 제거 금지.
+  // ★ 중복 방지: tracking-head 인라인 블록이 먼저 실행됐으면(_bdGtagDone)
+  //   여기서 다시 config 하지 않는다 (page_view 이중 집계 방지).
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
-  window.gtag = gtag; // 전역에서도 접근 가능하게
-  gtag('js', new Date());
-  gtag('config', 'G-3NQP355YQM', { send_page_view: false }); // GTM이 page_view 처리
+  window.gtag = window.gtag || gtag; // 전역에서도 접근 가능하게
+  if (!window._bdGtagDone) {
+    window._bdGtagDone = 1;
+    gtag('js', new Date());
+    gtag('config', 'G-3NQP355YQM', { send_page_view: false }); // GTM이 page_view 처리 (기존 동작 유지)
+    gtag('config', 'G-LM9VKJSB9F'); // 메인 속성 — 인라인 블록 부재 시 page_view 포함 전송
+  }
 
   // ─── Amplitude 초기화 ───
   // SDK(analytics-browser-2.11.1) + autocapture plugin은 HTML <head>에서 로드됨

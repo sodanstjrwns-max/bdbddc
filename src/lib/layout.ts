@@ -14,8 +14,9 @@ export const TRACKING_HEAD = `<!-- Google Tag Manager -->
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+window._bdGtagDone = 1;
 gtag('js', new Date());
-gtag('config', 'G-3NQP355YQM');
+gtag('config', 'G-3NQP355YQM', { send_page_view: false });
 gtag('config', 'G-LM9VKJSB9F');
 </script>
 <!-- Microsoft Clarity -->

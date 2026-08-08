@@ -16,15 +16,23 @@
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!--BD-BLOCK gtag gtag/js?id=-->
-<!-- Google 태그 (GA4 2개 속성 대상: G-3NQP355YQM 뉴비디치과 / G-LM9VKJSB9F bdbddc)
-     ⚠ 두 속성 전송은 의도된 구성이다. 중복 아님. 제거 금지. -->
+<!--BD-BLOCK gtag-loader gtag/js?id=-->
+<!-- Google 태그 로더 (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+<!--BD-BLOCK gtag-config G-LM9VKJSB9F-->
+<!-- GA4 config (2개 속성: G-3NQP355YQM 뉴비디치과=백업 / G-LM9VKJSB9F bdbddc=메인)
+     ⚠ 두 속성 전송은 의도된 구성이다. 중복 아님. 제거 금지.
+     · 로더/config 블록 분리 (v5.70): "로더만 있고 config 가 없는" 반쪽 파일에
+       config 만 정확히 채우기 위함. 합쳐두면 지문(gtag/js?id=)만 보고 건너뛴다.
+     · 3NQP 는 send_page_view:false — GTM 이 page_view 를 이미 전송하므로 이중집계 방지.
+     · LM9V 는 page_view 포함 — 메인 속성, GTM 미연동.
+     · _bdGtagDone: js/analytics.js 의 config 중복 실행 방지 플래그. -->
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+window._bdGtagDone = 1;
 gtag('js', new Date());
-gtag('config', 'G-3NQP355YQM');
+gtag('config', 'G-3NQP355YQM', { send_page_view: false });
 gtag('config', 'G-LM9VKJSB9F');
 </script>
 <!--BD-BLOCK clarity wb39d7gn5x-->

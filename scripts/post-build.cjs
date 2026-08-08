@@ -121,13 +121,23 @@ function injectTracking(dir, stats, recurse) {
   }
 }
 
-const INJECT_DIRS = ['en', 'jp', 'cn', 'vi', 'th', 'ru', 'blog'];
+// ★ v5.70: 주입 대상을 dist 전체로 확대 (기존: 다국어+blog+루트만)
+//   → area/guide/game/treatments 등 "gtag 로더만 있고 config 없는" 반쪽
+//     파일 223개가 사각지대였다. 블록 지문도 로더/config 로 분리했으므로
+//     빠진 config 만 정확히 채워진다.
+//   제외 목록: 방문자 분석 대상이 아닌 내부/유틸 페이지.
+//     admin/report — 내부 운영 페이지 (트래킹 노이즈)
+//     auth         — 비번 재설정 등 유틸
+//     tables       — GSC 404 수정용 리다이렉트 스텁 (즉시 이동)
+const INJECT_SKIP = new Set(['admin', 'report', 'auth', 'tables']);
 const trkStats = { scanned: 0, injected: 0, complete: 0, noHead: 0, blocks: {} };
-for (const d of INJECT_DIRS) injectTracking(path.join('dist', d), trkStats);
+for (const e of fs.readdirSync('dist', { withFileTypes: true })) {
+  if (!e.isDirectory() || INJECT_SKIP.has(e.name)) continue;
+  injectTracking(path.join('dist', e.name), trkStats);
+}
 // 루트 정적 HTML(index / pricing / blueprint / symptom-checker 등)도 대상.
-// 하위 디렉토리는 재귀하지 않는다(recurse=false) — 위에서 이미 처리했고,
-// encyclopedia 같은 대용량 섹션은 Worker SSR 이라 정적 파일이 없다.
 injectTracking('dist', trkStats, false);
+console.log('[tracking-inject]', JSON.stringify(trkStats));
 
 // _routes.json 패치
 // include /* : 모든 요청이 Worker 경유 (seoulbddc.com → bdbddc.com 리디렉트 필요)
