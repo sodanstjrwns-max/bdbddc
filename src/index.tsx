@@ -7187,9 +7187,10 @@ app.get('/api/views/:type/:id', async (c) => {
   }
 })
 
-// 라미네이트 스크롤 스크럽 히어로 (시안 — 힉스필드 실사 프레임 67장)
-app.get('/laminate', serveStatic({ path: './laminate/index.html' }))
-app.get('/laminate/', serveStatic({ path: './laminate/index.html' }))
+// 라미네이트 프레임 자산은 /laminate/frames/* (정적, _routes.json exclude)
+// 단독 /laminate 랜딩은 글로우네이트 도입부로 통합됨 (v5.73)
+app.get('/laminate', (c) => c.redirect('/treatments/glownate', 301))
+app.get('/laminate/', (c) => c.redirect('/treatments/glownate', 301))
 
 // 채용 페이지
 app.get('/careers', serveStatic({ path: './careers.html' }))
