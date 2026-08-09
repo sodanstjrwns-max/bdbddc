@@ -4840,8 +4840,86 @@ app.use('/video/*', strictStatic())
 // v5.72: 갤러리를 /cases/ 캐니쉬로 승격 (URL 구조 단순화 — 컸설턴트 권고)
 // 과거 정적 index.html(수기 6케이스)은 폐기, gallery.html 콘텐츠가 index.html로 복사됨
 // /cases/gallery 는 301로 영구 이전 (외부 백링크·색인 보존)
-app.get('/cases', serveStatic({ path: './cases/index.html' }))
-app.get('/cases/', serveStatic({ path: './cases/index.html' }))
+// v5.76: SEO — 갤러리는 JS(data-href)로만 카드를 그려 크롤러에 케이스 링크 0개였음.
+//        서버에서 R2 케이스 목록을 읽어 진짜 <a href> 링크 섹션을 </main> 앞에 주입.
+//        → 98개 상세 페이지가 사이트맵 + 내부 링크 양쪽에서 발견되도록 (고아 페이지 해소)
+const casesGalleryCatLabels: Record<string, string> = {
+  implant:'임플란트', invisalign:'인비절라인', orthodontics:'치아교정', pediatric:'소아치과',
+  'front-crown':'앞니크라운', aesthetic:'심미레진', glownate:'글로우네이트', cavity:'충치치료',
+  resin:'레진치료', crown:'크라운', inlay:'인레이/온레이', 'root-canal':'신경치료',
+  're-root-canal':'재신경치료', whitening:'미백', bridge:'브릿지', denture:'틀니',
+  scaling:'스케일링', gum:'잇몸치료', periodontitis:'치주염', 'gum-surgery':'잇몸수술',
+  'wisdom-tooth':'사랑니발치', apicoectomy:'치근단절제술', sedation:'수면치료',
+  prevention:'예방치료', tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
+}
+async function serveCasesGallery(c: any) {
+  // 정적 갤러리 HTML 로드
+  let html = ''
+  try {
+    const env = c.env as any
+    if (env.ASSETS) {
+      const resp = await env.ASSETS.fetch(new Request(new URL('/cases/index.html', c.req.url).toString()))
+      if (resp.ok) html = await resp.text()
+    } else {
+      const resp = await fetch(new URL('/cases/index.html', c.req.url).toString())
+      if (resp.ok) html = await resp.text()
+    }
+  } catch {}
+  if (!html) return c.notFound()
+
+  // R2에서 공개 케이스 목록 → 카테고리별 실링크 섹션 생성
+  try {
+    const r2 = c.env.R2
+    if (r2) {
+      const all = await getCases(r2)
+      const published = all.filter((cs: any) => cs.status === 'published')
+        .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+      if (published.length > 0) {
+        // 카테고리별 그룹핑
+        const byCat: Record<string, any[]> = {}
+        for (const cs of published) {
+          const cat = cs.category || 'general'
+          if (!byCat[cat]) byCat[cat] = []
+          byCat[cat].push(cs)
+        }
+        const groups = Object.entries(byCat)
+          .sort((a, b) => b[1].length - a[1].length)
+          .map(([cat, list]) => {
+            const label = casesGalleryCatLabels[cat] || cat
+            const links = list.map((cs: any) =>
+              `<li><a href="/cases/${caseSlug(cs)}">${(cs.title || '').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</a></li>`
+            ).join('')
+            return `<div class="case-index-group"><h3>${label} <span class="cig-count">${list.length}</span></h3><ul>${links}</ul></div>`
+          }).join('')
+        const seoSection = `
+<!-- v5.76 SEO: 전체 치료 사례 목록 (서버 렌더링 — 크롤러 내부 링크 + 사용자 텍스트 탐색) -->
+<section id="case-index" aria-label="전체 치료 사례 목록" style="max-width:1200px;margin:24px auto 48px;padding:0 20px;">
+<details class="case-index-details">
+<summary style="cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#faf7f3;border:1px solid #e8ddd3;border-radius:50px;font-size:.92rem;font-weight:700;color:#6B4226;">
+<i class="fas fa-list"></i> 전체 치료 사례 목록 보기 (${published.length}건)
+</summary>
+<div style="margin-top:20px;padding:24px;background:#fff;border:1px solid #eee;border-radius:16px;">
+<style>
+.case-index-group{margin-bottom:20px}
+.case-index-group h3{font-size:.95rem;font-weight:800;color:#6B4226;margin:0 0 8px;display:flex;align-items:center;gap:6px}
+.case-index-group .cig-count{font-size:.72rem;font-weight:700;background:#f0e8dd;color:#8B6344;border-radius:50px;padding:2px 8px}
+.case-index-group ul{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0;padding:0;list-style:none}
+.case-index-group li a{font-size:.83rem;color:#57534E;text-decoration:none;border-bottom:1px dotted #d6c9b8;line-height:1.9}
+.case-index-group li a:hover{color:#6B4226;border-bottom-color:#6B4226}
+</style>
+${groups}
+</div>
+</details>
+</section>`
+        html = html.replace('</main>', seoSection + '\n</main>')
+      }
+    }
+  } catch {}
+
+  return c.html(html, 200, { 'Cache-Control': 'public, max-age=300' })
+}
+app.get('/cases', serveCasesGallery)
+app.get('/cases/', serveCasesGallery)
 app.get('/cases/gallery', (c) => c.redirect('/cases/', 301))
 
 // 케이스 상세 페이지 SSR (slug 우선, 기존 ID는 301 리다이렉트)
