@@ -1602,8 +1602,12 @@ export function enrichCitations(html: string): { body: string; refs: ColRef[] } 
   out = out.replace(/[(（[]\s*(<\/?[a-z][^>]*>\s*)*[)）\]]/gi, '')
   out = out.replace(/\s+([.,·])/g, '$1').replace(/\s{2,}/g, ' ')
   // ⑥ 「근거: A / B」 식 꼬리 문단은 참고문헌 카드가 대체하므로 지운다.
+  //    ★ v5.74 (2026-08-09) 위첨자만 남은 고아 문단도 함께 지운다.
+  //    실측: 8/9 발행분 — GPT 가 글 끝에 [저자, 연도, DOI…] 를 문단 3개로 달았고,
+  //    ①이 위첨자로 치환하면서 <p><sup>1</sup></p> 꼴 '의미 없는 1,2,3'이 남았다.
   out = out.replace(/<p[^>]*>(?:(?!<\/p>).)*?<\/p>/gi, (blk) => {
     const t = blk.replace(/<sup class="cite">.*?<\/sup>/g, '').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim()
+    if (t === '') return ''                                   // 위첨자·공백만 남은 고아 문단
     return /^근거\s*[:：]/.test(t) && t.length < 320 ? '' : blk
   })
   return { body: out, refs }
