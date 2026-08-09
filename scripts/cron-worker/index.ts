@@ -42,40 +42,67 @@ async function post(env: Env, path: string): Promise<{ status: number; body: str
   return { status: r.status, body: await r.text() }
 }
 
+/** ★ v5.74 최종 실패 시 원장님께 메일 알림. 실패해도 크론 자체는 죽이지 않는다. */
+async function notifyFail(env: Env, detail: string): Promise<void> {
+  try {
+    const base = (env.TARGET_URL || 'https://bdbddc.com').replace(/\/+$/, '')
+    await fetch(`${base}/api/cron/notify`, {
+      method: 'POST',
+      headers: { 'X-Cron-Secret': env.CRON_SECRET || '', 'Content-Type': 'application/json', 'User-Agent': UA },
+      body: JSON.stringify({ text: `${new Date().toISOString()}\n${detail}` }),
+    })
+  } catch (e: any) {
+    console.error(`[cron] notify 실패: ${e?.message || e}`)
+  }
+}
+
 async function trigger(env: Env): Promise<string> {
   // ── ① 본문 발행 (썸네일 제외, LLM 1회 = 약 70초) ──────────────
   //   ★ v5.62 (2026-08-07) 게이트 탈락 시 같은 요청 안에서 LLM 을 다시 부르면
   //     125초 엣지 응답 상한을 넘겨 응답이 잘리고 조용한 유실이 된다.
   //     실측: 8/6 125,074ms · 8/7 125,076ms (status 는 success 로 거짓 보고)
-  //     → 재시도를 '새 요청'으로 돌린다. scheduled() 수명 15분이므로 3회 여유.
+  //     → 재시도를 '새 요청'으로 돌린다. scheduled() 수명 15분.
+  //   ★ v5.74 (2026-08-09) 라운드 3→5회 확대 + fetch 오류도 return 하지 않고
+  //     다음 라운드로 계속 (8/9 새벽: 1회 block 후 그대로 끝나 발행 유실).
+  //     5회 × ~85초 ≈ 7분 < 15분 수명. 최종 실패 시 notifyFail 로 메일.
   let slug = ''
   let hint = ''
   let verdict = ''
-  for (let round = 1; round <= 3; round++) {
+  let lastErr = ''
+  for (let round = 1; round <= 5; round++) {
     let step1: { status: number; body: string }
     try {
       step1 = await post(env, '/api/cron/publish-column?nothumb=1&maxattempts=1')
     } catch (e: any) {
-      console.error(`[cron] 1단계 ${round}회차 fetch 실패: ${e?.message || e}`)
-      return `step1-error(r${round})`
+      lastErr = `1단계 ${round}회차 fetch 실패: ${e?.message || e}`
+      console.error(`[cron] ${lastErr}`)
+      continue // ★ v5.74 일시 오류는 다음 라운드에서 재시도
     }
     console.log(`[cron] 1단계 ${round}회차 ${step1.status} ${step1.body.slice(0, 400)}`)
-    if (step1.status !== 200) return `step1-${step1.status}(r${round})`
+    if (step1.status !== 200) {
+      lastErr = `1단계 ${round}회차 HTTP ${step1.status}: ${step1.body.slice(0, 200)}`
+      continue // ★ v5.74 524 등 일시 오류도 재시도
+    }
     try {
       const j: any = JSON.parse(step1.body)
       slug = String(j?.slug || '')
       hint = String(j?.thumbHint || j?.picked || slug)
       verdict = String(j?.verdict || (j?.skipped ? 'skipped' : ''))
     } catch {
-      console.error('[cron] 1단계 응답 JSON 파싱 실패')
-      return `step1-badjson(r${round})`
+      lastErr = `1단계 ${round}회차 응답 JSON 파싱 실패: ${step1.body.slice(0, 200)}`
+      console.error(`[cron] ${lastErr}`)
+      continue
     }
     if (verdict === 'pass') break
+    if (verdict === 'skipped') return 'no-publish(already-published-today)' // 정상 — 알림 불필요
     // block 이면 다음 회차에서 다시 뽑는다.
     // (게이트 지적은 D1 last_error 에 남아 다음 프롬프트로 되돌아간다 — v5.62)
-    if (verdict !== 'block') return `no-publish(${verdict || 'noslug'})`
+    lastErr = `게이트 판정 ${verdict || 'unknown'}: ${slug || '(slug 없음)'}`
   }
-  if (verdict !== 'pass' || !slug) return 'no-publish(block-x3)'
+  if (verdict !== 'pass' || !slug) {
+    await notifyFail(env, `5회 시도 후 최종 실패.\n마지막 오류: ${lastErr}`)
+    return 'no-publish(failed-x5,notified)'
+  }
 
   // ── ② 썸네일 생성 + columns.json 패치 ─────────────────────────
   const qs = `slug=${encodeURIComponent(slug)}&hint=${encodeURIComponent(hint.slice(0, 300))}&patch=1`

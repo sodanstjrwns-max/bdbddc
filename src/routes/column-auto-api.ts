@@ -80,6 +80,35 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
     }
   })
 
+  // ★ v5.74 발행 실패 알림 (2026-08-09 "내일부터 절대 안 올라가는 일 없도록")
+  //   크론 워커가 최종 실패를 확정하면 이 엔드포인트를 불러 원장님께 메일을 쏜다.
+  //   사이트에 이미 있는 RESEND_API_KEY / NOTIFICATION_EMAIL 시크릿을 재사용한다.
+  app.post('/api/cron/notify', async (c) => {
+    if (!authed(c)) return c.json({ ok: false, error: 'unauthorized' }, 401)
+    const key = (c.env as any).RESEND_API_KEY
+    const to = (c.env as any).NOTIFICATION_EMAIL
+    if (!key || !to) return c.json({ ok: false, error: 'RESEND_API_KEY/NOTIFICATION_EMAIL 미설정' })
+    let subject = '[서울비디치과] 원장 칼럼 자동발행 실패'
+    let text = ''
+    try {
+      const b: any = await c.req.json()
+      if (b?.subject) subject = String(b.subject).slice(0, 200)
+      text = String(b?.text || '').slice(0, 4000)
+    } catch { /* body 없이도 동작 */ }
+    const html = `<div style="font-family:sans-serif;max-width:560px;">
+      <h2 style="color:#c0392b;">⚠️ 원장 칼럼 자동발행 실패</h2>
+      <p>오늘 자동발행이 끝내 실패했습니다. 아래 상태를 확인해 주세요.</p>
+      <pre style="background:#f7f7f7;padding:12px;border-radius:8px;white-space:pre-wrap;">${text.replace(/</g, '&lt;')}</pre>
+      <p style="font-size:13px;color:#666;">수동 발행: 어시스턴트에게 "오늘 칼럼 발행해줘"라고 요청하시면 됩니다.</p>
+    </div>`
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: '서울비디치과 <noreply@patientview.kr>', to: [to], subject, html }),
+    })
+    return c.json({ ok: r.ok, status: r.status })
+  })
+
   // 썸네일 재생성 도구 (v5.50a). 발행 경로와 완전히 같은 코드(genThumb)를 쓴다.
   //   POST /api/cron/thumb?slug=<슬러그>&hint=<주제 힌트>  → column-thumbs/<slug>.jpg 덮어쓰기
   // 스타일이 마음에 안 드는 컬럼만 골라 다시 뽑을 수 있다.

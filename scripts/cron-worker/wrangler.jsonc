@@ -3,9 +3,13 @@
   "name": "bdbddc-column-cron",
   "main": "index.ts",
   "compatibility_date": "2025-12-17",
-  // 매일 00:00 UTC = 09:00 KST — 원장님이 지정한 발행 시각
+  // ★ v5.74 2중 스케줄 (2026-08-09 "내일부터 절대 안 올라가는 일 없도록")
+  //   ① 00:00 UTC = 09:00 KST — 원장님이 지정한 발행 시각 (본 발행)
+  //   ② 03:00 UTC = 12:00 KST — 보험 크론. 아침 발행이 성공했으면
+  //      publishedTodayKST 서버측 잠금이 skipped 로 돌려보내므로 중복 발행은
+  //      구조적으로 불가능하다. 아침이 실패한 날만 실제로 발행된다.
   "triggers": {
-    "crons": ["0 0 * * *"]
+    "crons": ["0 0 * * *", "0 3 * * *"]
   },
   "vars": {
     "TARGET_URL": "https://bdbddc.com"
