@@ -73,7 +73,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   <link rel="stylesheet" href="../css/site-v5.css?v=0e95e6eb">
   <link rel="stylesheet" href="/css/micro.css?v=ac2f0073">
-  <link rel="preload" href="/implant/frames/frame_0001.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="preload" href="/implant/frames/frame_0001.webp?v=575" as="image" type="image/webp" fetchpriority="high">
   <link rel="prefetch" href="/reservation" as="document">
   <script type="application/ld+json">
 {
@@ -2262,7 +2262,7 @@ document.querySelectorAll('.tx-inline-vid__wrap video').forEach(function(v){
   var ctx = canvas.getContext('2d');
 
   var FRAME_COUNT = 67; // 지침: 변경 금지
-  var framePath = function(i){ return '/implant/frames/frame_' + String(i).padStart(4,'0') + '.webp'; };
+  var framePath = function(i){ return '/implant/frames/frame_' + String(i).padStart(4,'0') + '.webp?v=575'; };
   var frames = new Array(FRAME_COUNT).fill(null);
   var currentIndex = -1;
 
