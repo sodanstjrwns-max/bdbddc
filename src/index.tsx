@@ -3200,6 +3200,7 @@ app.post('/api/indexnow', async (c) => {
   const urlList: string[] = [
     '/',
     '/reservation', '/pricing', '/pricing/implant-guide', '/pricing/ortho-guide', '/directions',
+    '/implant/estimate-check',
     '/pricing/implant', '/pricing/prosthetic', '/pricing/denture', '/pricing/ortho', '/pricing/pediatric',
     '/treatments/', '/treatments/implant', '/treatments/invisalign',
     '/treatments/pediatric', '/treatments/aesthetic', '/treatments/glownate',
@@ -6789,6 +6790,7 @@ app.get('/pricing', serveStatic({ path: './pricing.html' }))
 app.get('/pricing/', (c) => c.redirect('/pricing', 301))
 app.get('/pricing/implant-guide', serveStatic({ path: './pricing/implant-guide.html' }))
 app.get('/pricing/ortho-guide', serveStatic({ path: './pricing/ortho-guide.html' }))
+app.get('/implant/estimate-check', serveStatic({ path: './implant/estimate-check.html' }))
 
 // ============================================
 // v5.18e: 가격 탭별 고유 URL (SSR) — "임플란트 가격", "인비절라인 비용" 등
