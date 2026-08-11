@@ -237,19 +237,49 @@ ${feedback.map(f => `- ${f}`).join('\n')}` : ''}
 
 async function callLLM(env: AutoEnv, messages: any[], model: string): Promise<string> {
   const base = (env.OPENAI_BASE_URL || DEFAULT_BASE).replace(/\/+$/, '')
+  // ★ v5.80 stream:true — LLM 게이트웨이의 125초 절벽 제거 (2026-08-11 실측 사고)
+  //   비스트리밍 호출은 게이트웨이(Cloudflare 프록시)가 '첫 바이트 없는 응답'을
+  //   125초에 524 로 자른다. 본문 생성이 64s→120.5s 로 계속 늘어 오늘 그 선을 넘었고
+  //   아침 크론 5라운드가 전부 `LLM 524` 로 전멸했다(dry=1 재현: ms=126,126 / 524).
+  //   스트리밍은 토큰이 도착하는 즉시 바이트가 흐르므로 생성이 3분 걸려도 안 잘린다.
   const r = await fetch(`${base}/chat/completions`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${env.OPENAI_API_KEY || ''}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ model, messages, response_format: { type: 'json_object' } }),
+    body: JSON.stringify({ model, messages, response_format: { type: 'json_object' }, stream: true }),
   })
   if (!r.ok) throw new Error(`LLM ${r.status} ${(await r.text()).slice(0, 200)}`)
-  const j: any = await r.json()
-  const c = j?.choices?.[0]?.message?.content
-  if (!c) throw new Error('LLM 응답에 content 없음')
-  return c
+  if (!r.body) throw new Error('LLM 응답에 body 없음')
+  // SSE 파싱: data: {json}\n\n 청크에서 choices[0].delta.content 를 이어붙인다.
+  const reader = r.body.getReader()
+  const dec = new TextDecoder()
+  let buf = ''
+  let out = ''
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    buf += dec.decode(value, { stream: true })
+    let nl: number
+    while ((nl = buf.indexOf('\n')) >= 0) {
+      const line = buf.slice(0, nl).trim()
+      buf = buf.slice(nl + 1)
+      if (!line.startsWith('data:')) continue
+      const payload = line.slice(5).trim()
+      if (!payload || payload === '[DONE]') continue
+      try {
+        const j: any = JSON.parse(payload)
+        const d = j?.choices?.[0]?.delta?.content
+        if (typeof d === 'string') out += d
+        // 일부 게이트웨이는 마지막 청크를 message.content 로 통째로 준다.
+        const m = j?.choices?.[0]?.message?.content
+        if (!d && typeof m === 'string') out += m
+      } catch { /* keep-alive 주석 등은 무시 */ }
+    }
+  }
+  if (!out) throw new Error('LLM 스트림에서 content 를 못 받음')
+  return out
 }
 
 function parseDraft(raw: string): ColumnDraft {
