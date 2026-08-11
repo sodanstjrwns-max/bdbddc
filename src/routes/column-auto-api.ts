@@ -72,12 +72,37 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
         )
       }
     }
-    try {
-      const r = await runAutoPublish(c.env as AutoEnv, { dryRun: dry, skipThumb: nothumb, maxAttempts })
-      return c.json({ ok: r.verdict === 'pass', dryRun: dry, skipThumb: nothumb, ...r })
-    } catch (e: any) {
-      return c.json({ ok: false, error: String(e?.message || e) }, 500)
-    }
+    // ★ v5.80 하트비트 스트리밍 — 125초 엣지 절벽 제거 (2026-08-11 실측 사고)
+    //   8/11 아침 크론 5라운드 전부 유실. processing 좌초 5건의 타임스탬프가
+    //   00:00:38 → 00:02:43 → 00:04:48 → 00:06:53 → 00:08:58 (정확히 125초 간격).
+    //   본문 생성이 64s(8/2)→79s→109s→120.5s(8/11 수동 실측)로 계속 늘어
+    //   LLM '1회'조차 125초 엣지 응답 상한에 닿기 시작했다. v5.62 의 요청 쪼개기로는
+    //   더 버틸 수 없다. → 응답을 스트리밍으로 바꾸고 15초마다 공백 1바이트를 흘린다.
+    //   첫 바이트가 나가는 순간 엣지 상한이 풀리므로 LLM 이 3분을 걸려도 안 죽는다.
+    //   하트비트는 개행 문자라 마지막에 붙는 JSON 을 JSON.parse 가 그대로 읽는다.
+    //   ⚠️ 스트리밍은 HTTP 상태를 200 으로 먼저 보내므로 오류도 200 + {ok:false,error}
+    //   로 내려간다. 크론 워커는 verdict==='pass' 만 성공으로 보므로 동작이 안전하다.
+    const enc = new TextEncoder()
+    const stream = new ReadableStream({
+      async start(controller) {
+        const hb = setInterval(() => {
+          try { controller.enqueue(enc.encode('\n')) } catch { /* 이미 닫힘 */ }
+        }, 15_000)
+        try {
+          const r = await runAutoPublish(c.env as AutoEnv, { dryRun: dry, skipThumb: nothumb, maxAttempts })
+          controller.enqueue(enc.encode(JSON.stringify({ ok: r.verdict === 'pass', dryRun: dry, skipThumb: nothumb, ...r })))
+        } catch (e: any) {
+          controller.enqueue(enc.encode(JSON.stringify({ ok: false, error: String(e?.message || e) })))
+        } finally {
+          clearInterval(hb)
+          try { controller.close() } catch { /* noop */ }
+        }
+      },
+    })
+    return new Response(stream, {
+      status: 200,
+      headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' },
+    })
   })
 
   // ★ v5.74 발행 실패 알림 (2026-08-09 "내일부터 절대 안 올라가는 일 없도록")
