@@ -46,6 +46,17 @@ for (const b of batch) {
   if (r.status !== 0) console.error(`[FAIL] ${b.src}`)
 }
 
+// 2.5) 잔재 픽스 자동 2차 패스 (전체 대상 — clean이면 스킵됨)
+console.log('\n===== RESIDUAL FIX PASS =====')
+const okOuts = results.filter(r => r.status !== 'fail').map(r => path.join(ROOT, r.out))
+for (let i = 0; i < okOuts.length; i += 8) {
+  const chunk = okOuts.slice(i, i + 8)
+  const r = spawnSync('node', [path.join(__dirname, 'residual-fix.mjs'), ...chunk], {
+    cwd: ROOT, stdio: 'inherit', env: process.env, timeout: 900000,
+  })
+  if (r.status !== 0) console.error('[residual-fix chunk failed]')
+}
+
 // 3) QA 게이트
 console.log('\n===== QA GATE =====')
 const BAN = [/Glownate\s*Light/i, /ライト（?60万/, /ホワイトニング[^。]{0,20}30万/, /600,000.{0,8}800,000/]
