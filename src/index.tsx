@@ -1543,7 +1543,7 @@ function parseCite(raw: string): { authors: string; year: string; journal: strin
   return { authors, year, journal }
 }
 
-export function enrichCitations(html: string): { body: string; refs: ColRef[] } {
+export function enrichCitations(html: string, lang: 'ko' | 'ja' = 'ko'): { body: string; refs: ColRef[] } {
   if (!html || !/10\.\d{4,9}\//.test(html)) return { body: html || '', refs: [] }
   const refs: ColRef[] = []
   const seen = new Map<string, number>()
@@ -1558,7 +1558,8 @@ export function enrichCitations(html: string): { body: string; refs: ColRef[] } 
       const label = [authors, year].filter(Boolean).join(' ') || journal || doi
       refs.push({ n, doi, label, authors, year, journal })
     }
-    return `<sup class="cite"><a href="#ref-${n}" id="cite-${n}-${Math.random().toString(36).slice(2, 6)}" aria-label="참고문헌 ${n}번">${n}</a></sup>`
+    const aria = lang === 'ja' ? `参考文献 ${n}` : `참고문헌 ${n}번`
+    return `<sup class="cite"><a href="#ref-${n}" id="cite-${n}-${Math.random().toString(36).slice(2, 6)}" aria-label="${aria}">${n}</a></sup>`
   }
 
   let out = html
@@ -1619,8 +1620,11 @@ export function enrichCitations(html: string): { body: string; refs: ColRef[] } 
 /* 배지 문구는 「참고 논문 N편」으로 고정한다.
    ‘동료심사’는 사실이더라도 개별 검증 없이 자동으로 붙는 라벨이라 위험하고,
    환자분께는 어려운 용어다. 세는 것(DOI 개수)만 말한다. */
-export function renderRefs(refs: ColRef[]): string {
+export function renderRefs(refs: ColRef[], lang: 'ko' | 'ja' = 'ko'): string {
   if (!refs.length) return ''
+  const L = lang === 'ja'
+    ? { badge: `参考論文 ${refs.length}本`, h: '参考文献', sub: 'この記事の医学的主張は以下の論文に基づいています。DOIをクリックすると原文に移動します。' }
+    : { badge: `참고 논문 ${refs.length}편`, h: '참고문헌', sub: '이 글의 의학적 주장은 아래 논문에 근거합니다. DOI를 누르면 원문으로 이동합니다.' }
   const items = refs.map(r => `<li class="ref-item" id="ref-${r.n}">
 <span class="ref-no">${r.n}</span>
 <div class="ref-body">
@@ -1631,9 +1635,9 @@ ${r.journal ? `<em class="ref-journal">${r.journal}</em>` : ''}
 </div></li>`).join('\n')
   return `<section class="col-refs" aria-labelledby="col-refs-h">
 <div class="col-refs-head">
-<span class="col-refs-badge"><i class="fas fa-flask"></i> 참고 논문 ${refs.length}편</span>
-<h2 id="col-refs-h">참고문헌</h2>
-<p class="col-refs-sub">이 글의 의학적 주장은 아래 논문에 근거합니다. DOI를 누르면 원문으로 이동합니다.</p>
+<span class="col-refs-badge"><i class="fas fa-flask"></i> ${L.badge}</span>
+<h2 id="col-refs-h">${L.h}</h2>
+<p class="col-refs-sub">${L.sub}</p>
 </div>
 <ol class="col-refs-list">${items}</ol>
 </section>`
@@ -1735,12 +1739,12 @@ export function buildToc(html: string): { body: string; toc: { id: string; text:
   return { body, toc }
 }
 
-export function renderColToc(toc: { id: string; text: string; lv: number }[]): string {
+export function renderColToc(toc: { id: string; text: string; lv: number }[], label = '이 글의 목차'): string {
   if (toc.length < 3) return ''
   const items = toc.map(t =>
     `<li class="toc-lv${t.lv}"><a href="#${t.id}">${t.text.replace(/</g, '&lt;')}</a></li>`).join('')
-  return `<nav class="col-toc" aria-label="이 글의 목차">
-<span class="col-toc-h"><i class="fas fa-list-ul"></i> 이 글의 목차</span>
+  return `<nav class="col-toc" aria-label="${label}">
+<span class="col-toc-h"><i class="fas fa-list-ul"></i> ${label}</span>
 <ol class="col-toc-list">${items}</ol>
 </nav>`
 }
@@ -1753,11 +1757,11 @@ export function renderColToc(toc: { id: string; text: string; lv: number }[]): s
  *  그것도 없으면 넣지 않는다(억지로 끼우면 결론 뒤에 붙는다).
  *  ⚠️ 반드시 앵커 ID·목차(buildToc) 보다 먼저 호출해야 한다. 그래야 삽화가
  *  섹션 번호 계산을 흔들지 않는다. */
-export function insertBodyFigure(html: string, src: string, alt: string): string {
+export function insertBodyFigure(html: string, src: string, alt: string, caption = '서울비디치과 원장 컬럼 · 내용 이해를 돕기 위한 일러스트입니다'): string {
   if (!html || !src) return html || ''
   const fig = `<figure class="col-fig">` +
     `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" width="1024" height="1024" loading="lazy" decoding="async">` +
-    `<figcaption>서울비디치과 원장 컬럼 · 내용 이해를 돕기 위한 일러스트입니다</figcaption>` +
+    `<figcaption>${caption}</figcaption>` +
     `</figure>`
   const idxs: number[] = []
   // ★ v5.63 ③-b 실측 교훈: promoteHeadings 가 h3 를 h2 로 승격시키기 때문에
@@ -2054,6 +2058,256 @@ function relatedColumns(all: any[], col: any, limit = 6): any[] {
 // ★ v5.54 컬럼 슬러그 오타 교정 301
 //   자동발행 당시의 오탈자가 그대로 URL이 되어 색인된 건들.
 //   R2의 slug는 정타로 바꾸고, 옛 URL은 여기서 한 번에 넘긴다(GSC 8클릭 보존).
+
+// ★ 컬럼 상세 공용 CSS — 국문/일어 SSR이 함께 쓴다 (2026-08-12 jp 컬럼 백필 때 추출)
+const COL_DETAIL_CSS = `.col-detail{max-width:760px;margin:0 auto;padding:40px 20px}
+.col-detail-header{margin-bottom:32px}
+.col-detail-header h1{font-size:1.6rem;font-weight:800;color:#333;margin-bottom:16px;line-height:1.4}
+.col-detail-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:#888;align-items:center;margin-bottom:20px}
+.col-detail-meta a{color:#6B4226;text-decoration:none;font-weight:600}
+.col-detail-meta a:hover{text-decoration:underline}
+
+/* ===== AUTHOR CARD ===== */
+.col-author-card{display:flex;align-items:center;gap:16px;padding:16px 20px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:16px;border:1px solid #ede6dd;margin-bottom:28px;text-decoration:none;color:inherit;transition:all .25s ease}
+.col-author-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,66,38,.1);border-color:#d4c5b3}
+.col-author-avatar{width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2.5px solid #fff;box-shadow:0 2px 12px rgba(107,66,38,.12)}
+.col-author-avatar img{width:100%;height:100%;object-fit:cover}
+.col-author-avatar .avatar-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:1.2rem;font-weight:700}
+.col-author-info{flex:1;min-width:0}
+.col-author-name{font-size:.95rem;font-weight:700;color:#333;display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.col-author-name .verified{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;background:#6B4226;border-radius:50%;font-size:.55rem;color:#fff}
+.col-author-specialty{font-size:.78rem;color:#8B5E3C;font-weight:500;margin-bottom:2px}
+.col-author-org{font-size:.72rem;color:#aaa}
+.col-meta-badges{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.col-meta-badge{display:inline-flex;align-items:center;gap:5px;font-size:.76rem;padding:4px 12px;border-radius:50px;font-weight:500}
+.col-meta-badge.cat{background:#dbeafe;color:#3b82f6}
+.col-meta-badge.date{background:#f3f4f6;color:#6b7280}
+
+.col-detail-hero-img{width:100%;border-radius:16px;overflow:hidden;margin-bottom:28px}
+.col-detail-hero-img img{width:100%;height:auto;display:block}
+/* v5.50 자동생성 썸네일(/api/images/*)은 1024x1024 정방형이다.
+   기존 컬럼(1376x768)과 시각적으로 같아 보이도록 컨테이너에서 16:9 로 크롭한다.
+   컨테이너에 aspect-ratio 를 주므로 이미지 로드 전에도 높이가 확보되어 CLS 가 0 이다. */
+.col-hero-sq{aspect-ratio:16/9;background:#f5f0eb}
+.col-hero-sq img{width:100%;height:100%;object-fit:cover}
+/* ── v5.51 본문 타이포그래피 전면 개편 ──────────────────────────────────
+   기존에는 h2/h3/p/img/blockquote 만 정의돼 있었다. ul·ol·li·table 규칙이 아예
+   없어서 전역 리셋(list-style:none)이 그대로 먹혀 목록이 '그냥 줄바꿈된 문장'으로
+   보였다(실측: 사랑니 컬럼). 표도 테두리 없이 글자만 흘렀다.
+   컬럼 77편 전체에 동시에 적용된다. */
+.col-detail-body{font-size:1.07rem;color:#3f3a35;line-height:1.95;word-break:keep-all;letter-spacing:-.01em}
+.col-detail-body h2{font-size:1.45rem;font-weight:800;color:#2b2724;margin:48px 0 18px;padding-left:16px;border-left:5px solid #c9a96e;line-height:1.45}
+.col-detail-body h2:first-child{margin-top:8px}
+.col-detail-body h3{font-size:1.18rem;font-weight:800;color:#2b2724;margin:38px 0 14px;line-height:1.5;position:relative;padding-bottom:10px}
+.col-detail-body h3::after{content:'';position:absolute;left:0;bottom:0;width:34px;height:3px;border-radius:2px;background:linear-gradient(90deg,#c9a96e,#e8d9bd)}
+.col-detail-body h4{font-size:1.05rem;font-weight:700;color:#4a443d;margin:24px 0 10px}
+.col-detail-body p{margin:0 0 18px}
+.col-detail-body strong{font-weight:700;color:#241f1b}
+.col-detail-body img{max-width:100%;height:auto;border-radius:14px;margin:22px 0;display:block}
+
+/* 형광펜 밑줄 — 글자 아래 60% 지점부터 칠해 손으로 그은 느낌을 낸다.
+   .hl(기본 노랑) / .hl-mint(민트) / .hl-peach(피치) 세 가지. */
+.col-detail-body mark,.col-detail-body .hl{background:linear-gradient(transparent 58%,#ffe9a1 58%,#ffe07a 92%,transparent 92%);color:inherit;padding:0 .1em;border-radius:2px;font-weight:600}
+.col-detail-body .hl-mint{background:linear-gradient(transparent 58%,#bfe9d8 58%,#a5e0c9 92%,transparent 92%)}
+.col-detail-body .hl-peach{background:linear-gradient(transparent 58%,#ffd9c8 58%,#ffc7ae 92%,transparent 92%)}
+
+/* 목록 — 전역 리셋을 덮는다 */
+.col-detail-body ul,.col-detail-body ol{margin:0 0 22px;padding:0 0 0 4px;list-style:none}
+.col-detail-body ul>li{position:relative;padding:0 0 0 24px;margin:0 0 11px;line-height:1.85}
+.col-detail-body ul>li::before{content:'';position:absolute;left:6px;top:.72em;width:7px;height:7px;border-radius:50%;background:#c9a96e}
+.col-detail-body ol{counter-reset:cbi}
+.col-detail-body ol>li{position:relative;padding:0 0 0 34px;margin:0 0 13px;line-height:1.85;counter-increment:cbi}
+.col-detail-body ol>li::before{content:counter(cbi);position:absolute;left:0;top:.2em;width:23px;height:23px;border-radius:50%;background:#f3ece1;color:#8a6d3b;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.col-detail-body li>ul,.col-detail-body li>ol{margin:10px 0 0}
+.col-detail-body li>ul>li::before{background:#dbc9a6}
+
+/* 표 — 좁은 화면에서는 가로 스크롤 */
+.col-detail-body table{width:100%;border-collapse:separate;border-spacing:0;margin:24px 0;font-size:.97rem;line-height:1.7;border:1px solid #ece5da;border-radius:14px;overflow:hidden;display:table}
+.col-detail-body .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:24px 0}
+.col-detail-body .table-scroll table{margin:0;min-width:520px}
+.col-detail-body thead th,.col-detail-body tr:first-child th{background:#f7f2ea;color:#4a3f30;font-weight:800;text-align:left}
+.col-detail-body th,.col-detail-body td{padding:12px 14px;border-bottom:1px solid #f0eae0;vertical-align:top}
+.col-detail-body tbody tr:last-child td{border-bottom:none}
+.col-detail-body tbody tr:nth-child(even) td{background:#fdfbf8}
+
+/* 인용·강조 박스 */
+.col-detail-body blockquote{border-left:4px solid #c9a96e;padding:14px 20px;background:#faf7f3;border-radius:0 12px 12px 0;margin:24px 0;color:#55504a;font-style:normal}
+.col-detail-body blockquote p:last-child{margin-bottom:0}
+.col-detail-body .callout{background:#f7fbf9;border:1px solid #d8ece4;border-left:5px solid #6fbfa0;border-radius:0 14px 14px 0;padding:18px 20px;margin:26px 0}
+.col-detail-body .callout-warn{background:#fdf8f3;border-color:#f0dcc6;border-left-color:#dda15e}
+.col-detail-body .callout>p:last-child,.col-detail-body .callout>ul:last-child{margin-bottom:0}
+.col-detail-body .callout-title{display:block;font-weight:800;color:#2f6a55;margin-bottom:8px;font-size:1rem}
+.col-detail-body .callout-warn .callout-title{color:#a26b31}
+
+/* 첫 문단(리드) — 도입부를 살짝 키워 읽기 시작을 쉽게 */
+.col-detail-body>p:first-of-type{font-size:1.13rem;color:#38332e;line-height:1.9}
+
+/* ── v5.52 논문 인용 ─────────────────────────────────────────
+   본문 안: 위첨자 골드 번호. 글 끝: 참고문헌 카드. */
+/* ★ v5.61 ④ 이 글의 결론 요약 (AI 검색 인용 대상) */
+/* ★ v5.63 ③ 본문 삽화 */
+.col-fig{margin:30px auto;max-width:720px;text-align:center}
+.col-fig img{width:100%;height:auto;border-radius:16px;border:1px solid rgba(107,66,38,.09);background:#f7f3ee;display:block}
+.col-fig figcaption{margin-top:9px;font-size:.76rem;color:#a99b8b;line-height:1.55;word-break:keep-all}
+@media(max-width:600px){.col-fig{margin:22px auto}.col-fig img{border-radius:12px}}
+.col-summary{max-width:760px;margin:0 auto 22px;padding:20px 24px;background:linear-gradient(180deg,#f2f8f5,#fff);border:1px solid #cfe4d9;border-left:4px solid #2f6a55;border-radius:14px}
+.col-summary-h{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:800;color:#2f6a55;margin-bottom:12px}
+.col-summary-list{margin:0;padding:0 0 0 20px;list-style:none}
+.col-summary-list li{position:relative;margin:0 0 9px;padding-left:4px;line-height:1.68;font-size:.95rem;color:#33403a;word-break:keep-all}
+.col-summary-list li::before{content:'';position:absolute;left:-16px;top:9px;width:6px;height:6px;border-radius:50%;background:#4e9c7f}
+.col-summary-list li:last-child{margin-bottom:0}
+.col-summary-q{margin:13px 0 0;padding-top:11px;border-top:1px dashed #d5e6dd;font-size:.8rem;color:#6b7f76;line-height:1.5;word-break:keep-all}
+@media(max-width:600px){.col-summary{padding:16px 18px;border-radius:12px}.col-summary-list li{font-size:.9rem}}
+
+/* v5.53 목차 */
+.col-toc{max-width:760px;margin:0 auto 34px;padding:18px 22px;background:linear-gradient(180deg,#fbf8f3,#fff);border:1px solid #ece2d2;border-radius:16px}
+.col-toc-h{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:800;color:#7a5f34;margin-bottom:10px}
+.col-toc-list{list-style:none;margin:0;padding:0;counter-reset:tocn}
+.col-toc-list li{counter-increment:tocn;margin:0;line-height:1.6}
+.col-toc-list li a{display:block;padding:7px 0 7px 26px;position:relative;color:#4a443d;font-size:.94rem;text-decoration:none;border-bottom:1px dashed #f0e8dc;word-break:keep-all}
+.col-toc-list li a::before{content:counter(tocn);position:absolute;left:0;top:8px;font-size:.72rem;font-weight:800;color:#b99a63}
+.col-toc-list li a:hover{color:#8a6d3b}
+.col-toc-list li:last-child a{border-bottom:0}
+.col-toc-list li.toc-lv3 a{padding-left:44px;font-size:.89rem;color:#6b625a}
+.col-toc-list li.toc-lv3 a::before{left:20px}
+.col-detail-body h2,.col-detail-body h3{scroll-margin-top:88px}
+/* v5.53 본문 문맥 내부링크 */
+.col-detail-body a.col-inline-link{color:#6B4226;font-weight:600;text-decoration:none;background-image:linear-gradient(#c9a96e,#c9a96e);background-size:100% 1px;background-repeat:no-repeat;background-position:0 1.08em;padding-bottom:1px;transition:background-color .15s}
+.col-detail-body a.col-inline-link:hover{background-color:#f7f0e2;color:#8a5a2b}
+.col-meta-badge.upd{background:#eef6f2;color:#2f6a55}
+.col-meta-badge.rev{background:#f3eee6;color:#7a5f34}
+@media(max-width:640px){.col-toc{padding:15px 16px;border-radius:14px}.col-toc-list li a{font-size:.9rem}}
+.col-detail-body sup.cite{font-size:.62em;line-height:0;vertical-align:super;margin:0 1px 0 2px}
+.col-detail-body sup.cite a{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#f1e7d4;color:#8a6d3b;font-weight:800;text-decoration:none;transition:background .15s}
+.col-detail-body sup.cite a:hover{background:#c9a96e;color:#fff}
+.col-refs{max-width:760px;margin:44px auto 0;padding:26px 24px;background:linear-gradient(180deg,#fbf8f3,#fff);border:1px solid #ece2d2;border-radius:18px}
+.col-refs-head{margin-bottom:18px}
+.col-refs-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:#7a5f34;background:#f3e8d3;border:1px solid #e6d6b8;padding:5px 11px;border-radius:999px;letter-spacing:-.01em}
+.col-refs h2{font-size:1.16rem;font-weight:800;color:#2b2724;margin:12px 0 6px;letter-spacing:-.02em}
+.col-refs-sub{font-size:.88rem;color:#8a8177;line-height:1.65;margin:0;word-break:keep-all}
+.col-refs-list{list-style:none;margin:0;padding:0;counter-reset:none}
+.ref-item{display:flex;gap:12px;padding:14px 0;border-top:1px solid #f0e8dc}
+.ref-item:first-child{border-top:none;padding-top:4px}
+.ref-no{flex:0 0 24px;width:24px;height:24px;border-radius:50%;background:#c9a96e;color:#fff;font-size:.76rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.ref-body{min-width:0;flex:1}
+.ref-meta{display:block;font-size:.94rem;color:#3f3a35;line-height:1.5}
+.ref-meta b{font-weight:700}
+.ref-year{display:inline-block;margin-left:7px;font-size:.78rem;font-weight:700;color:#8a6d3b;background:#f6efe2;padding:2px 7px;border-radius:6px}
+.ref-journal{display:block;font-size:.9rem;color:#6b625a;font-style:italic;margin-top:3px;line-height:1.5}
+.ref-doi{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:.79rem;font-weight:700;color:#6b7f9e;text-decoration:none;background:#f2f5f9;border:1px solid #e0e8f1;padding:5px 10px;border-radius:8px;word-break:break-all;transition:.15s}
+.ref-doi:hover{background:#e6edf6;color:#41577a}
+.ref-doi i{font-size:.72rem;flex:0 0 auto}
+@media(max-width:640px){
+  .col-refs{padding:20px 16px;margin-top:34px;border-radius:14px}
+  .ref-meta{font-size:.9rem}
+  .ref-doi{font-size:.74rem}
+}
+
+@media(max-width:640px){
+  .col-detail-body{font-size:1.02rem;line-height:1.88}
+  .col-detail-body h2{font-size:1.28rem;margin:38px 0 14px}
+  .col-detail-body h3{font-size:1.11rem;margin:30px 0 12px}
+  .col-detail-body th,.col-detail-body td{padding:10px 11px;font-size:.93rem}
+}
+
+/* ===== BOTTOM AUTHOR BOX ===== */
+.col-author-box{margin-top:40px;padding:28px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:20px;border:1px solid #ede6dd;display:flex;align-items:center;gap:20px}
+.col-author-box-avatar{width:72px;height:72px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #fff;box-shadow:0 4px 16px rgba(107,66,38,.12)}
+.col-author-box-avatar img{width:100%;height:100%;object-fit:cover}
+.col-author-box-avatar .avatar-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:1.5rem;font-weight:700}
+.col-author-box-info{flex:1}
+.col-author-box-info .author-label{font-size:.7rem;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.col-author-box-info .author-name-line{font-size:1.05rem;font-weight:700;color:#333;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.col-author-box-info .author-name-line .verified{width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;background:#6B4226;border-radius:50%;font-size:.6rem;color:#fff}
+.col-author-box-info .author-spec{font-size:.82rem;color:#8B5E3C;font-weight:500;margin-bottom:2px}
+.col-author-box-info .author-org{font-size:.78rem;color:#999}
+.col-author-box-link{flex-shrink:0}
+.col-author-box-link a{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#6B4226;color:#fff;border-radius:50px;font-size:.8rem;font-weight:600;text-decoration:none;transition:all .2s}
+.col-author-box-link a:hover{background:#8B5E3C;transform:translateY(-1px)}
+
+.col-detail-footer{margin-top:24px;padding-top:24px;border-top:1px solid #eee;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+@media(max-width:600px){
+  .col-detail-header h1{font-size:1.3rem}
+  .col-author-box{flex-direction:column;text-align:center;gap:14px}
+  .col-author-box-link{width:100%}
+  .col-author-box-link a{width:100%;justify-content:center}
+}
+`
+
+
+// ★ 컬럼 목록 공용 CSS — 국문/일어 목록 SSR 공유 (2026-08-12)
+const COL_LIST_CSS = `.col-page{max-width:900px;margin:0 auto;padding:40px 20px}
+.col-hero{text-align:center;margin-bottom:36px}
+.col-hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#6B4226;background:#f5f0eb;padding:5px 14px;border-radius:50px;margin-bottom:12px}
+.col-hero h1{font-size:1.8rem;font-weight:800;color:#333;margin-bottom:8px}
+.col-hero p{font-size:.95rem;color:#888}
+.col-filter-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
+.col-filter-btn{padding:6px 18px;border-radius:50px;font-size:.82rem;font-weight:600;color:#888;background:#f5f0eb;text-decoration:none;transition:all .2s}
+.col-filter-btn.active,.col-filter-btn:hover{background:#6B4226;color:#fff}
+
+/* ===== COLUMN CARD GRID ===== */
+.col-list-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+
+/* Card */
+.cc-card{display:flex;flex-direction:column;background:#fff;border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 16px rgba(107,66,38,.06);transition:transform .28s ease,box-shadow .28s ease;border:1px solid rgba(107,66,38,.06)}
+.cc-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(107,66,38,.13)}
+
+/* Thumbnail */
+.cc-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#f5f0eb}
+.cc-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.cc-card:hover .cc-thumb img{transform:scale(1.05)}
+.cc-thumb-empty{display:flex;align-items:center;justify-content:center}
+.cc-thumb-placeholder{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#f5f0eb 0%,#ede6dd 100%)}
+.cc-thumb-placeholder i{font-size:2.5rem;color:#d4c5b3}
+.cc-cat{position:absolute;top:12px;left:12px;font-size:.7rem;font-weight:700;color:#fff;background:rgba(107,66,38,.85);backdrop-filter:blur(8px);padding:4px 12px;border-radius:50px;letter-spacing:.3px}
+
+/* Body */
+.cc-body{padding:20px 22px 18px;display:flex;flex-direction:column;flex:1}
+.cc-title{font-size:1.05rem;font-weight:700;color:#222;margin:0 0 8px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cc-excerpt{font-size:.84rem;color:#888;line-height:1.6;margin:0 0 16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+
+/* Footer / Author */
+.cc-footer{border-top:1px solid #f0ebe4;padding-top:14px;margin-top:auto}
+.cc-author{display:flex;align-items:center;gap:10px}
+.cc-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #f5f0eb}
+.cc-avatar-img{width:100%;height:100%;object-fit:cover}
+.cc-avatar-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:.8rem;font-weight:700;border-radius:50%}
+.cc-author-info{display:flex;flex-direction:column;min-width:0}
+.cc-author-name{font-size:.82rem;font-weight:700;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc-author-meta{font-size:.7rem;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.col-empty{text-align:center;padding:60px 20px;color:#999}
+.col-empty i{font-size:3rem;color:#d4c5b3;margin-bottom:16px;display:block}
+
+/* === Medium English Articles Section === */
+.med-en-section{margin-top:48px;padding-top:40px;border-top:2px solid #f0ebe4}
+.med-en-header{text-align:center;margin-bottom:28px}
+.med-en-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#000;background:#f5f5f5;padding:5px 14px;border-radius:50px;margin-bottom:12px}
+.med-en-header h2{font-size:1.5rem;font-weight:800;color:#333;margin:0 0 8px}
+.med-en-header p{font-size:.88rem;color:#888;margin:0}
+.med-en-grid{display:grid;gap:20px;margin-bottom:20px}
+.med-en-card{display:flex;gap:20px;align-items:flex-start;background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:24px;text-decoration:none;color:inherit;transition:all .28s ease}
+.med-en-card:hover{border-color:#333;box-shadow:0 8px 30px rgba(0,0,0,.08);transform:translateY(-3px)}
+.med-en-icon{flex-shrink:0;width:52px;height:52px;border-radius:14px;background:#1a1a1a;display:flex;align-items:center;justify-content:center}
+.med-en-icon i{font-size:1.3rem;color:#fff}
+.med-en-body h3{font-size:1rem;font-weight:700;color:#222;margin:0 0 8px;line-height:1.45}
+.med-en-body p{font-size:.84rem;color:#666;line-height:1.6;margin:0 0 12px}
+.med-en-meta{font-size:.76rem;font-weight:600;color:#1a1a1a;display:inline-flex;align-items:center;gap:6px}
+.med-en-meta i.fa-external-link-alt{font-size:.65rem;opacity:.6}
+.med-en-more{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;background:#1a1a1a;color:#fff;border-radius:50px;text-decoration:none;font-size:.88rem;font-weight:600;transition:all .2s;width:fit-content;margin:0 auto}
+.med-en-more:hover{background:#333;transform:translateY(-2px)}
+
+@media(max-width:700px){
+  .col-list-grid{grid-template-columns:1fr}
+  .col-hero h1{font-size:1.4rem}
+  .med-en-card{flex-direction:column;gap:14px}
+  .med-en-header h2{font-size:1.2rem}
+}
+@media(min-width:701px) and (max-width:900px){
+  .col-list-grid{grid-template-columns:repeat(2,1fr);gap:18px}
+}
+`
+
 const COL_SLUG_301: Record<string, string> = {
   'periimplnatitis': 'peri-implantitis',
 }
@@ -2501,30 +2755,58 @@ ${items}
 app.get('/sitemap-columns.xml', async (c) => {
   const r2 = c.env.R2
   let columns: any[] = []
+  let jpSlugs = new Set<string>()
   if (r2) {
     const all = await getColumns(r2)
     columns = all.filter((col: any) => col.status === 'published')
       .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+    jpSlugs = await getJpColSlugs(r2)
   }
+  // hreflang 페어 (일어판 존재 시 국문·일어 양쪽 URL에 부착)
+  const hreflang = (slug: string) => `
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/column/${slug}"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/${slug}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/${slug}"/>`
   const urls = columns.map((col: any) => {
     const lastmod = (col.updatedAt || col.createdAt || new Date().toISOString()).split('T')[0]
+    const slug = colSlug(col)
+    const hasJp = !!col.slug && jpSlugs.has(col.slug)
     return `  <url>
-    <loc>https://bdbddc.com/column/${colSlug(col)}</loc>
+    <loc>https://bdbddc.com/column/${slug}</loc>${hasJp ? hreflang(slug) : ''}
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
-  </url>`
+  </url>${hasJp ? `
+  <url>
+    <loc>https://bdbddc.com/jp/column/${slug}</loc>${hreflang(slug)}
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>` : ''}`
   }).join('\n')
-  // 컬럼 목록 페이지도 포함
+  const jpCount = columns.filter((col: any) => col.slug && jpSlugs.has(col.slug)).length
+  // 컬럼 목록 페이지도 포함 (국문 + 일어)
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- 서울비디치과 원장 컬럼 동적 사이트맵 (R2 실시간) -->
-  <!-- 총 ${columns.length}개 컬럼 + 목록 페이지 -->
+  <!-- 총 ${columns.length}개 컬럼 (일어판 ${jpCount}편) + 목록 페이지 -->
   <url>
     <loc>https://bdbddc.com/column/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/column/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/"/>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bdbddc.com/jp/column/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/column/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/"/>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.75</priority>
   </url>
 ${urls}
 </urlset>`
@@ -3798,6 +4080,9 @@ ${TRACKING_HEAD}
 <meta name="abstract" content="서울비디치과 원장님들이 전하는 진료 철학과 치과 이야기 모음.">
 <meta name="subject" content="치과 칼럼, 원장 칼럼, 서울비디치과, 치과 이야기, 진료 철학">
 <link rel="canonical" href="https://bdbddc.com/column/${doctorFilter ? '?doctor=' + doctorFilter : ''}">
+${doctorFilter ? '' : `<link rel="alternate" hreflang="ko" href="https://bdbddc.com/column/">
+<link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/">
+<link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/">`}
 <meta property="og:title" content="${filterTitle}원장 컬럼 | 서울비디치과">
 <meta property="og:url" content="https://bdbddc.com/column/${doctorFilter ? '?doctor=' + doctorFilter : ''}">
 <meta property="og:description" content="서울비디치과 원장님들의 진료 철학과 치과 이야기.">
@@ -3808,78 +4093,7 @@ ${TRACKING_HEAD}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 <link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
-<style>
-.col-page{max-width:900px;margin:0 auto;padding:40px 20px}
-.col-hero{text-align:center;margin-bottom:36px}
-.col-hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#6B4226;background:#f5f0eb;padding:5px 14px;border-radius:50px;margin-bottom:12px}
-.col-hero h1{font-size:1.8rem;font-weight:800;color:#333;margin-bottom:8px}
-.col-hero p{font-size:.95rem;color:#888}
-.col-filter-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
-.col-filter-btn{padding:6px 18px;border-radius:50px;font-size:.82rem;font-weight:600;color:#888;background:#f5f0eb;text-decoration:none;transition:all .2s}
-.col-filter-btn.active,.col-filter-btn:hover{background:#6B4226;color:#fff}
-
-/* ===== COLUMN CARD GRID ===== */
-.col-list-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-
-/* Card */
-.cc-card{display:flex;flex-direction:column;background:#fff;border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 16px rgba(107,66,38,.06);transition:transform .28s ease,box-shadow .28s ease;border:1px solid rgba(107,66,38,.06)}
-.cc-card:hover{transform:translateY(-5px);box-shadow:0 12px 40px rgba(107,66,38,.13)}
-
-/* Thumbnail */
-.cc-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:#f5f0eb}
-.cc-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-.cc-card:hover .cc-thumb img{transform:scale(1.05)}
-.cc-thumb-empty{display:flex;align-items:center;justify-content:center}
-.cc-thumb-placeholder{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#f5f0eb 0%,#ede6dd 100%)}
-.cc-thumb-placeholder i{font-size:2.5rem;color:#d4c5b3}
-.cc-cat{position:absolute;top:12px;left:12px;font-size:.7rem;font-weight:700;color:#fff;background:rgba(107,66,38,.85);backdrop-filter:blur(8px);padding:4px 12px;border-radius:50px;letter-spacing:.3px}
-
-/* Body */
-.cc-body{padding:20px 22px 18px;display:flex;flex-direction:column;flex:1}
-.cc-title{font-size:1.05rem;font-weight:700;color:#222;margin:0 0 8px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.cc-excerpt{font-size:.84rem;color:#888;line-height:1.6;margin:0 0 16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
-
-/* Footer / Author */
-.cc-footer{border-top:1px solid #f0ebe4;padding-top:14px;margin-top:auto}
-.cc-author{display:flex;align-items:center;gap:10px}
-.cc-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #f5f0eb}
-.cc-avatar-img{width:100%;height:100%;object-fit:cover}
-.cc-avatar-fb{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:.8rem;font-weight:700;border-radius:50%}
-.cc-author-info{display:flex;flex-direction:column;min-width:0}
-.cc-author-name{font-size:.82rem;font-weight:700;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cc-author-meta{font-size:.7rem;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-.col-empty{text-align:center;padding:60px 20px;color:#999}
-.col-empty i{font-size:3rem;color:#d4c5b3;margin-bottom:16px;display:block}
-
-/* === Medium English Articles Section === */
-.med-en-section{margin-top:48px;padding-top:40px;border-top:2px solid #f0ebe4}
-.med-en-header{text-align:center;margin-bottom:28px}
-.med-en-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;color:#000;background:#f5f5f5;padding:5px 14px;border-radius:50px;margin-bottom:12px}
-.med-en-header h2{font-size:1.5rem;font-weight:800;color:#333;margin:0 0 8px}
-.med-en-header p{font-size:.88rem;color:#888;margin:0}
-.med-en-grid{display:grid;gap:20px;margin-bottom:20px}
-.med-en-card{display:flex;gap:20px;align-items:flex-start;background:#fff;border:1px solid #e8e8e8;border-radius:16px;padding:24px;text-decoration:none;color:inherit;transition:all .28s ease}
-.med-en-card:hover{border-color:#333;box-shadow:0 8px 30px rgba(0,0,0,.08);transform:translateY(-3px)}
-.med-en-icon{flex-shrink:0;width:52px;height:52px;border-radius:14px;background:#1a1a1a;display:flex;align-items:center;justify-content:center}
-.med-en-icon i{font-size:1.3rem;color:#fff}
-.med-en-body h3{font-size:1rem;font-weight:700;color:#222;margin:0 0 8px;line-height:1.45}
-.med-en-body p{font-size:.84rem;color:#666;line-height:1.6;margin:0 0 12px}
-.med-en-meta{font-size:.76rem;font-weight:600;color:#1a1a1a;display:inline-flex;align-items:center;gap:6px}
-.med-en-meta i.fa-external-link-alt{font-size:.65rem;opacity:.6}
-.med-en-more{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;background:#1a1a1a;color:#fff;border-radius:50px;text-decoration:none;font-size:.88rem;font-weight:600;transition:all .2s;width:fit-content;margin:0 auto}
-.med-en-more:hover{background:#333;transform:translateY(-2px)}
-
-@media(max-width:700px){
-  .col-list-grid{grid-template-columns:1fr}
-  .col-hero h1{font-size:1.4rem}
-  .med-en-card{flex-direction:column;gap:14px}
-  .med-en-header h2{font-size:1.2rem}
-}
-@media(min-width:701px) and (max-width:900px){
-  .col-list-grid{grid-template-columns:repeat(2,1fr);gap:18px}
-}
-</style>
+<style>${COL_LIST_CSS}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -4165,6 +4379,9 @@ app.get('/column/:param', async (c) => {
   //   ⚠️ 내용을 고치지 않고 dateModified 만 올리는 건 구글이 걸러내는 날짜 조작이다.
   //   그래서 '수정'이 아니라 '의학적 재검토(lastReviewed)' 로 정직하게 표기한다.
   const isoReviewed = (col as any).reviewedAt ? new Date((col as any).reviewedAt).toISOString() : ''
+  // 일어판 존재 시 hreflang ja 쌍 출력 (slug 목록만 가볍게 조회)
+  const jpSlugs = await getJpColSlugs(r2)
+  const hasJp = !!col.slug && jpSlugs.has(col.slug)
   const revDateStr = isoReviewed
     ? new Date(isoReviewed).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
     : ''
@@ -4496,6 +4713,9 @@ ${focusKw ? `<meta name="keywords" content="${attrEsc(focusKw)},서울비디치�
 <meta name="author" content="${attrEsc(col.doctorName || '서울비디치과')}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://bdbddc.com/column/${colSlug(col)}">
+${hasJp ? `<link rel="alternate" hreflang="ko" href="https://bdbddc.com/column/${col.slug}">
+<link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/${col.slug}">
+<link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/${col.slug}">` : ''}
 <meta property="og:title" content="${attrEsc(seoTitle)} | 서울비디치과">
 <meta property="og:description" content="${attrEsc(seoDesc)}">
 <meta property="og:type" content="article">
@@ -4575,179 +4795,7 @@ ${isoUpdated !== isoDate ? `<meta property="article:modified_time" content="${is
 }</script>
 ${faqSchema}
 <style>
-.col-detail{max-width:760px;margin:0 auto;padding:40px 20px}
-.col-detail-header{margin-bottom:32px}
-.col-detail-header h1{font-size:1.6rem;font-weight:800;color:#333;margin-bottom:16px;line-height:1.4}
-.col-detail-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:#888;align-items:center;margin-bottom:20px}
-.col-detail-meta a{color:#6B4226;text-decoration:none;font-weight:600}
-.col-detail-meta a:hover{text-decoration:underline}
-
-/* ===== AUTHOR CARD ===== */
-.col-author-card{display:flex;align-items:center;gap:16px;padding:16px 20px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:16px;border:1px solid #ede6dd;margin-bottom:28px;text-decoration:none;color:inherit;transition:all .25s ease}
-.col-author-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,66,38,.1);border-color:#d4c5b3}
-.col-author-avatar{width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2.5px solid #fff;box-shadow:0 2px 12px rgba(107,66,38,.12)}
-.col-author-avatar img{width:100%;height:100%;object-fit:cover}
-.col-author-avatar .avatar-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:1.2rem;font-weight:700}
-.col-author-info{flex:1;min-width:0}
-.col-author-name{font-size:.95rem;font-weight:700;color:#333;display:flex;align-items:center;gap:6px;margin-bottom:3px}
-.col-author-name .verified{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;background:#6B4226;border-radius:50%;font-size:.55rem;color:#fff}
-.col-author-specialty{font-size:.78rem;color:#8B5E3C;font-weight:500;margin-bottom:2px}
-.col-author-org{font-size:.72rem;color:#aaa}
-.col-meta-badges{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.col-meta-badge{display:inline-flex;align-items:center;gap:5px;font-size:.76rem;padding:4px 12px;border-radius:50px;font-weight:500}
-.col-meta-badge.cat{background:#dbeafe;color:#3b82f6}
-.col-meta-badge.date{background:#f3f4f6;color:#6b7280}
-
-.col-detail-hero-img{width:100%;border-radius:16px;overflow:hidden;margin-bottom:28px}
-.col-detail-hero-img img{width:100%;height:auto;display:block}
-/* v5.50 자동생성 썸네일(/api/images/*)은 1024x1024 정방형이다.
-   기존 컬럼(1376x768)과 시각적으로 같아 보이도록 컨테이너에서 16:9 로 크롭한다.
-   컨테이너에 aspect-ratio 를 주므로 이미지 로드 전에도 높이가 확보되어 CLS 가 0 이다. */
-.col-hero-sq{aspect-ratio:16/9;background:#f5f0eb}
-.col-hero-sq img{width:100%;height:100%;object-fit:cover}
-/* ── v5.51 본문 타이포그래피 전면 개편 ──────────────────────────────────
-   기존에는 h2/h3/p/img/blockquote 만 정의돼 있었다. ul·ol·li·table 규칙이 아예
-   없어서 전역 리셋(list-style:none)이 그대로 먹혀 목록이 '그냥 줄바꿈된 문장'으로
-   보였다(실측: 사랑니 컬럼). 표도 테두리 없이 글자만 흘렀다.
-   컬럼 77편 전체에 동시에 적용된다. */
-.col-detail-body{font-size:1.07rem;color:#3f3a35;line-height:1.95;word-break:keep-all;letter-spacing:-.01em}
-.col-detail-body h2{font-size:1.45rem;font-weight:800;color:#2b2724;margin:48px 0 18px;padding-left:16px;border-left:5px solid #c9a96e;line-height:1.45}
-.col-detail-body h2:first-child{margin-top:8px}
-.col-detail-body h3{font-size:1.18rem;font-weight:800;color:#2b2724;margin:38px 0 14px;line-height:1.5;position:relative;padding-bottom:10px}
-.col-detail-body h3::after{content:'';position:absolute;left:0;bottom:0;width:34px;height:3px;border-radius:2px;background:linear-gradient(90deg,#c9a96e,#e8d9bd)}
-.col-detail-body h4{font-size:1.05rem;font-weight:700;color:#4a443d;margin:24px 0 10px}
-.col-detail-body p{margin:0 0 18px}
-.col-detail-body strong{font-weight:700;color:#241f1b}
-.col-detail-body img{max-width:100%;height:auto;border-radius:14px;margin:22px 0;display:block}
-
-/* 형광펜 밑줄 — 글자 아래 60% 지점부터 칠해 손으로 그은 느낌을 낸다.
-   .hl(기본 노랑) / .hl-mint(민트) / .hl-peach(피치) 세 가지. */
-.col-detail-body mark,.col-detail-body .hl{background:linear-gradient(transparent 58%,#ffe9a1 58%,#ffe07a 92%,transparent 92%);color:inherit;padding:0 .1em;border-radius:2px;font-weight:600}
-.col-detail-body .hl-mint{background:linear-gradient(transparent 58%,#bfe9d8 58%,#a5e0c9 92%,transparent 92%)}
-.col-detail-body .hl-peach{background:linear-gradient(transparent 58%,#ffd9c8 58%,#ffc7ae 92%,transparent 92%)}
-
-/* 목록 — 전역 리셋을 덮는다 */
-.col-detail-body ul,.col-detail-body ol{margin:0 0 22px;padding:0 0 0 4px;list-style:none}
-.col-detail-body ul>li{position:relative;padding:0 0 0 24px;margin:0 0 11px;line-height:1.85}
-.col-detail-body ul>li::before{content:'';position:absolute;left:6px;top:.72em;width:7px;height:7px;border-radius:50%;background:#c9a96e}
-.col-detail-body ol{counter-reset:cbi}
-.col-detail-body ol>li{position:relative;padding:0 0 0 34px;margin:0 0 13px;line-height:1.85;counter-increment:cbi}
-.col-detail-body ol>li::before{content:counter(cbi);position:absolute;left:0;top:.2em;width:23px;height:23px;border-radius:50%;background:#f3ece1;color:#8a6d3b;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center}
-.col-detail-body li>ul,.col-detail-body li>ol{margin:10px 0 0}
-.col-detail-body li>ul>li::before{background:#dbc9a6}
-
-/* 표 — 좁은 화면에서는 가로 스크롤 */
-.col-detail-body table{width:100%;border-collapse:separate;border-spacing:0;margin:24px 0;font-size:.97rem;line-height:1.7;border:1px solid #ece5da;border-radius:14px;overflow:hidden;display:table}
-.col-detail-body .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:24px 0}
-.col-detail-body .table-scroll table{margin:0;min-width:520px}
-.col-detail-body thead th,.col-detail-body tr:first-child th{background:#f7f2ea;color:#4a3f30;font-weight:800;text-align:left}
-.col-detail-body th,.col-detail-body td{padding:12px 14px;border-bottom:1px solid #f0eae0;vertical-align:top}
-.col-detail-body tbody tr:last-child td{border-bottom:none}
-.col-detail-body tbody tr:nth-child(even) td{background:#fdfbf8}
-
-/* 인용·강조 박스 */
-.col-detail-body blockquote{border-left:4px solid #c9a96e;padding:14px 20px;background:#faf7f3;border-radius:0 12px 12px 0;margin:24px 0;color:#55504a;font-style:normal}
-.col-detail-body blockquote p:last-child{margin-bottom:0}
-.col-detail-body .callout{background:#f7fbf9;border:1px solid #d8ece4;border-left:5px solid #6fbfa0;border-radius:0 14px 14px 0;padding:18px 20px;margin:26px 0}
-.col-detail-body .callout-warn{background:#fdf8f3;border-color:#f0dcc6;border-left-color:#dda15e}
-.col-detail-body .callout>p:last-child,.col-detail-body .callout>ul:last-child{margin-bottom:0}
-.col-detail-body .callout-title{display:block;font-weight:800;color:#2f6a55;margin-bottom:8px;font-size:1rem}
-.col-detail-body .callout-warn .callout-title{color:#a26b31}
-
-/* 첫 문단(리드) — 도입부를 살짝 키워 읽기 시작을 쉽게 */
-.col-detail-body>p:first-of-type{font-size:1.13rem;color:#38332e;line-height:1.9}
-
-/* ── v5.52 논문 인용 ─────────────────────────────────────────
-   본문 안: 위첨자 골드 번호. 글 끝: 참고문헌 카드. */
-/* ★ v5.61 ④ 이 글의 결론 요약 (AI 검색 인용 대상) */
-/* ★ v5.63 ③ 본문 삽화 */
-.col-fig{margin:30px auto;max-width:720px;text-align:center}
-.col-fig img{width:100%;height:auto;border-radius:16px;border:1px solid rgba(107,66,38,.09);background:#f7f3ee;display:block}
-.col-fig figcaption{margin-top:9px;font-size:.76rem;color:#a99b8b;line-height:1.55;word-break:keep-all}
-@media(max-width:600px){.col-fig{margin:22px auto}.col-fig img{border-radius:12px}}
-.col-summary{max-width:760px;margin:0 auto 22px;padding:20px 24px;background:linear-gradient(180deg,#f2f8f5,#fff);border:1px solid #cfe4d9;border-left:4px solid #2f6a55;border-radius:14px}
-.col-summary-h{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:800;color:#2f6a55;margin-bottom:12px}
-.col-summary-list{margin:0;padding:0 0 0 20px;list-style:none}
-.col-summary-list li{position:relative;margin:0 0 9px;padding-left:4px;line-height:1.68;font-size:.95rem;color:#33403a;word-break:keep-all}
-.col-summary-list li::before{content:'';position:absolute;left:-16px;top:9px;width:6px;height:6px;border-radius:50%;background:#4e9c7f}
-.col-summary-list li:last-child{margin-bottom:0}
-.col-summary-q{margin:13px 0 0;padding-top:11px;border-top:1px dashed #d5e6dd;font-size:.8rem;color:#6b7f76;line-height:1.5;word-break:keep-all}
-@media(max-width:600px){.col-summary{padding:16px 18px;border-radius:12px}.col-summary-list li{font-size:.9rem}}
-
-/* v5.53 목차 */
-.col-toc{max-width:760px;margin:0 auto 34px;padding:18px 22px;background:linear-gradient(180deg,#fbf8f3,#fff);border:1px solid #ece2d2;border-radius:16px}
-.col-toc-h{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:800;color:#7a5f34;margin-bottom:10px}
-.col-toc-list{list-style:none;margin:0;padding:0;counter-reset:tocn}
-.col-toc-list li{counter-increment:tocn;margin:0;line-height:1.6}
-.col-toc-list li a{display:block;padding:7px 0 7px 26px;position:relative;color:#4a443d;font-size:.94rem;text-decoration:none;border-bottom:1px dashed #f0e8dc;word-break:keep-all}
-.col-toc-list li a::before{content:counter(tocn);position:absolute;left:0;top:8px;font-size:.72rem;font-weight:800;color:#b99a63}
-.col-toc-list li a:hover{color:#8a6d3b}
-.col-toc-list li:last-child a{border-bottom:0}
-.col-toc-list li.toc-lv3 a{padding-left:44px;font-size:.89rem;color:#6b625a}
-.col-toc-list li.toc-lv3 a::before{left:20px}
-.col-detail-body h2,.col-detail-body h3{scroll-margin-top:88px}
-/* v5.53 본문 문맥 내부링크 */
-.col-detail-body a.col-inline-link{color:#6B4226;font-weight:600;text-decoration:none;background-image:linear-gradient(#c9a96e,#c9a96e);background-size:100% 1px;background-repeat:no-repeat;background-position:0 1.08em;padding-bottom:1px;transition:background-color .15s}
-.col-detail-body a.col-inline-link:hover{background-color:#f7f0e2;color:#8a5a2b}
-.col-meta-badge.upd{background:#eef6f2;color:#2f6a55}
-.col-meta-badge.rev{background:#f3eee6;color:#7a5f34}
-@media(max-width:640px){.col-toc{padding:15px 16px;border-radius:14px}.col-toc-list li a{font-size:.9rem}}
-.col-detail-body sup.cite{font-size:.62em;line-height:0;vertical-align:super;margin:0 1px 0 2px}
-.col-detail-body sup.cite a{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#f1e7d4;color:#8a6d3b;font-weight:800;text-decoration:none;transition:background .15s}
-.col-detail-body sup.cite a:hover{background:#c9a96e;color:#fff}
-.col-refs{max-width:760px;margin:44px auto 0;padding:26px 24px;background:linear-gradient(180deg,#fbf8f3,#fff);border:1px solid #ece2d2;border-radius:18px}
-.col-refs-head{margin-bottom:18px}
-.col-refs-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:#7a5f34;background:#f3e8d3;border:1px solid #e6d6b8;padding:5px 11px;border-radius:999px;letter-spacing:-.01em}
-.col-refs h2{font-size:1.16rem;font-weight:800;color:#2b2724;margin:12px 0 6px;letter-spacing:-.02em}
-.col-refs-sub{font-size:.88rem;color:#8a8177;line-height:1.65;margin:0;word-break:keep-all}
-.col-refs-list{list-style:none;margin:0;padding:0;counter-reset:none}
-.ref-item{display:flex;gap:12px;padding:14px 0;border-top:1px solid #f0e8dc}
-.ref-item:first-child{border-top:none;padding-top:4px}
-.ref-no{flex:0 0 24px;width:24px;height:24px;border-radius:50%;background:#c9a96e;color:#fff;font-size:.76rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px}
-.ref-body{min-width:0;flex:1}
-.ref-meta{display:block;font-size:.94rem;color:#3f3a35;line-height:1.5}
-.ref-meta b{font-weight:700}
-.ref-year{display:inline-block;margin-left:7px;font-size:.78rem;font-weight:700;color:#8a6d3b;background:#f6efe2;padding:2px 7px;border-radius:6px}
-.ref-journal{display:block;font-size:.9rem;color:#6b625a;font-style:italic;margin-top:3px;line-height:1.5}
-.ref-doi{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:.79rem;font-weight:700;color:#6b7f9e;text-decoration:none;background:#f2f5f9;border:1px solid #e0e8f1;padding:5px 10px;border-radius:8px;word-break:break-all;transition:.15s}
-.ref-doi:hover{background:#e6edf6;color:#41577a}
-.ref-doi i{font-size:.72rem;flex:0 0 auto}
-@media(max-width:640px){
-  .col-refs{padding:20px 16px;margin-top:34px;border-radius:14px}
-  .ref-meta{font-size:.9rem}
-  .ref-doi{font-size:.74rem}
-}
-
-@media(max-width:640px){
-  .col-detail-body{font-size:1.02rem;line-height:1.88}
-  .col-detail-body h2{font-size:1.28rem;margin:38px 0 14px}
-  .col-detail-body h3{font-size:1.11rem;margin:30px 0 12px}
-  .col-detail-body th,.col-detail-body td{padding:10px 11px;font-size:.93rem}
-}
-
-/* ===== BOTTOM AUTHOR BOX ===== */
-.col-author-box{margin-top:40px;padding:28px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:20px;border:1px solid #ede6dd;display:flex;align-items:center;gap:20px}
-.col-author-box-avatar{width:72px;height:72px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #fff;box-shadow:0 4px 16px rgba(107,66,38,.12)}
-.col-author-box-avatar img{width:100%;height:100%;object-fit:cover}
-.col-author-box-avatar .avatar-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;font-size:1.5rem;font-weight:700}
-.col-author-box-info{flex:1}
-.col-author-box-info .author-label{font-size:.7rem;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.col-author-box-info .author-name-line{font-size:1.05rem;font-weight:700;color:#333;margin-bottom:3px;display:flex;align-items:center;gap:6px}
-.col-author-box-info .author-name-line .verified{width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;background:#6B4226;border-radius:50%;font-size:.6rem;color:#fff}
-.col-author-box-info .author-spec{font-size:.82rem;color:#8B5E3C;font-weight:500;margin-bottom:2px}
-.col-author-box-info .author-org{font-size:.78rem;color:#999}
-.col-author-box-link{flex-shrink:0}
-.col-author-box-link a{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:#6B4226;color:#fff;border-radius:50px;font-size:.8rem;font-weight:600;text-decoration:none;transition:all .2s}
-.col-author-box-link a:hover{background:#8B5E3C;transform:translateY(-1px)}
-
-.col-detail-footer{margin-top:24px;padding-top:24px;border-top:1px solid #eee;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
-@media(max-width:600px){
-  .col-detail-header h1{font-size:1.3rem}
-  .col-author-box{flex-direction:column;text-align:center;gap:14px}
-  .col-author-box-link{width:100%}
-  .col-author-box-link a{width:100%;justify-content:center}
-}
-</style>
+${COL_DETAIL_CSS}</style>
 </head>
 <body>
 ${ssrHeader()}
@@ -4830,6 +4878,348 @@ ${ssrMobileNav()}
 <script>
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'column',page_id:'${id}'})}).catch(function(){});
 </script>
+<script src="/js/lang-switcher.js" defer></script>
+</body>
+</html>`)
+})
+
+// ============================================
+// ★ 일어(jp) 컬럼 — R2 data/columns-jp.json 서빙 (2026-08-12)
+//   국문 R2 원본은 건드리지 않고 별도 JSON에 86편 번역본을 둔다.
+//   SSR 파이프라인 재사용: enrichCitations(DOI, 언어무관) → promoteHeadings →
+//   stripEditorStyles → insertBodyFigure → buildToc. autolinkColumnBody 는
+//   한국어 focusKeyword 매칭 전제라 일어판에서는 생략(과링크 방지).
+// ============================================
+const COLUMNS_JP_JSON_KEY = 'data/columns-jp.json'
+async function getColumnsJp(r2: R2Bucket): Promise<any[]> {
+  try {
+    const obj = await r2.get(COLUMNS_JP_JSON_KEY)
+    if (!obj) return []
+    const data = await obj.json() as any
+    return Array.isArray(data) ? data : []
+  } catch { return [] }
+}
+
+// 일어판 존재 slug 목록 (국문 상세 hreflang ja 조건부 출력용)
+// — columns-jp.json(1.5MB) 대신 slug 목록(~5KB)만 로드. isolate 수명 동안 캐시.
+const COLUMNS_JP_SLUGS_KEY = 'data/columns-jp-slugs.json'
+let _jpColSlugsCache: { set: Set<string>; at: number } | null = null
+async function getJpColSlugs(r2: R2Bucket): Promise<Set<string>> {
+  const now = Date.now()
+  if (_jpColSlugsCache && now - _jpColSlugsCache.at < 5 * 60 * 1000) return _jpColSlugsCache.set
+  try {
+    const obj = await r2.get(COLUMNS_JP_SLUGS_KEY)
+    if (!obj) return _jpColSlugsCache?.set || new Set()
+    const arr = await obj.json() as any
+    const set = new Set<string>(Array.isArray(arr) ? arr : [])
+    _jpColSlugsCache = { set, at: now }
+    return set
+  } catch { return _jpColSlugsCache?.set || new Set() }
+}
+
+const JP_DOCTOR_NAME: Record<string, string> = {
+  '문석준 원장': 'ムン・ソクジュン院長', '김민수 원장': 'キム・ミンス院長', '현정민 원장': 'ヒョン・ジョンミン院長',
+  '이승엽 원장': 'イ・スンヨプ院長', '김민규 원장': 'キム・ミンギュ院長', '임지원 원장': 'イム・ジウォン院長',
+  '조설아 원장': 'チョ・ソラ院長', '강민지 원장': 'カン・ミンジ院長', '김민진 원장': 'キム・ミンジン院長',
+  '박상현 원장': 'パク・サンヒョン院長', '서희원 원장': 'ソ・ヒウォン院長', '이병민 원장': 'イ・ビョンミン院長',
+  '최종훈 원장': 'チェ・ジョンフン院長', '박수빈 원장': 'パク・スビン院長',
+}
+const JP_SPECIALTY: Record<string, string> = {
+  moon: '代表院長', kim: '代表院長・統合歯科専門医', hyun: '代表院長・統合歯科専門医',
+  lee: 'インプラントセンター', choi: '総合診療センター', kang: '総合診療センター', 'park-sb': '総合診療センター',
+  lim: '矯正歯科', 'kim-mg': '矯正歯科', 'kang-mj': '保存科', jo: '保存科',
+  'kim-mj': '小児歯科', seo: '小児歯科', park: '小児歯科', 'lee-bm': '口腔内科',
+}
+
+function jpColHeader(): string {
+  return `<header class="site-header" id="siteHeader">
+<div class="header-container">
+<div class="header-brand"><a href="/jp/" class="site-logo" aria-label="ソウルBD歯科 ホーム"><span class="logo-icon">🦷</span><span class="logo-text">ソウルBD歯科</span></a></div>
+<nav class="main-nav" id="mainNav" aria-label="メインナビゲーション">
+<ul>
+<li class="nav-item"><a href="/jp/treatments/">診療</a></li>
+<li class="nav-item"><a href="/jp/doctors/">医療陣</a></li>
+<li class="nav-item"><a href="/jp/column/">院長コラム</a></li>
+<li class="nav-item"><a href="/jp/pricing">料金</a></li>
+<li class="nav-item"><a href="/jp/flight">アクセス・旅行</a></li>
+<li class="nav-item"><a href="/jp/reservation" class="nav-cta">予約</a></li>
+</ul>
+</nav>
+<button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="メニューを開く"><i class="fas fa-bars"></i></button>
+</div>
+</header>`
+}
+
+// /jp/column (no slash) → 301
+app.get('/jp/column', (c) => c.redirect('/jp/column/', 301))
+
+// [일어] 구 jp 경로 301 (Worker 안전망 — _redirects 는 정적 exclude 경로에만 확실히 작동)
+app.get('/jp/glownate', (c) => c.redirect('/jp/guide/laminate', 301))
+app.get('/jp/dental', (c) => c.redirect('/jp/treatments/', 301))
+app.get('/jp/implant', (c) => c.redirect('/jp/treatments/implant', 301))
+app.get('/jp/invisalign', (c) => c.redirect('/jp/treatments/invisalign', 301))
+app.get('/jp/travel-guide', (c) => c.redirect('/jp/flight', 301))
+
+// [일어] 컬럼 목록
+app.get('/jp/column/', async (c) => {
+  const r2 = c.env.R2
+  let columns: any[] = []
+  if (r2) {
+    const all = await getColumnsJp(r2)
+    columns = all.filter((col: any) => col.status === 'published')
+      .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+  }
+  const colCards = columns.map((col: any) => {
+    const excerpt = htmlText(col.content).slice(0, 110) + '…'
+    const date = new Date(col.createdAt || Date.now()).toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' })
+    const slug = DOCTOR_SLUG_MAP[col.doctorName] || ''
+    const drName = JP_DOCTOR_NAME[col.doctorName] || col.doctorName || ''
+    const drSpec = JP_SPECIALTY[slug] || '歯科医師'
+    const thumbHtml = col.thumbnailImage
+      ? `<div class="cc-thumb">${picture(col.thumbnailImage, col.title, 'width="688" height="384"')}${col.category ? `<span class="cc-cat">${attrEsc(col.category)}</span>` : ''}</div>`
+      : `<div class="cc-thumb cc-thumb-empty"><div class="cc-thumb-placeholder"><i class="fas fa-pen-nib"></i></div></div>`
+    const avatarHtml = slug
+      ? `<img src="/images/doctors/${slug}-profile.webp" alt="${attrEsc(drName)}" class="cc-avatar-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="cc-avatar-fb" style="display:none">${(drName || '').charAt(0)}</span>`
+      : `<span class="cc-avatar-fb">${(drName || 'ソ').charAt(0)}</span>`
+    return `<a href="/jp/column/${col.slug}" class="cc-card">
+${thumbHtml}
+<div class="cc-body">
+<h3 class="cc-title">${col.title}</h3>
+<p class="cc-excerpt">${excerpt}</p>
+<div class="cc-footer"><div class="cc-author"><div class="cc-avatar">${avatarHtml}</div>
+<div class="cc-author-info"><span class="cc-author-name">${drName}</span><span class="cc-author-meta">${drSpec} · ${date}</span></div>
+</div></div>
+</div>
+</a>`
+  }).join('')
+
+  return c.html(`<!DOCTYPE html>
+<html lang="ja">
+<head>
+${TRACKING_HEAD}
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>院長コラム｜ソウルBD歯科（韓国・天安）</title>
+<meta name="description" content="ソウルBD歯科の院長陣が執筆する歯科医療コラム。インプラント・矯正・むし歯治療など、論文の根拠に基づいた患者向け解説を日本語でお届けします。">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://bdbddc.com/jp/column/">
+<link rel="alternate" hreflang="ko" href="https://bdbddc.com/column/">
+<link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/">
+<link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/">
+<meta property="og:title" content="院長コラム｜ソウルBD歯科">
+<meta property="og:description" content="韓国・天安のソウルBD歯科 院長陣による日本語医療コラム ${columns.length}本">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bdbddc.com/jp/column/">
+<meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg?v=sq1">
+<meta property="og:locale" content="ja_JP">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://bdbddc.com/jp/"},{"@type":"ListItem","position":2,"name":"院長コラム","item":"https://bdbddc.com/jp/column/"}]}
+</script>
+<style>${COL_LIST_CSS}</style>
+</head>
+<body>
+${jpColHeader()}
+<main>
+<div class="col-page">
+<div class="col-hero">
+<span class="col-hero-badge"><i class="fas fa-pen-nib"></i> Doctor's Column</span>
+<h1>院長コラム</h1>
+<p>ソウルBD歯科の院長陣が、論文の根拠に基づいて直接執筆した歯科医療コラムです</p>
+</div>
+<div class="col-list-grid">
+${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>まだコラムがありません</h3></div>'}
+</div>
+</div>
+</main>
+<script src="/js/main.js" defer></script>
+<script src="/js/lang-switcher.js" defer></script>
+</body>
+</html>`)
+})
+
+// [일어] 컬럼 상세
+app.get('/jp/column/:param', async (c) => {
+  const param = c.req.param('param')
+  if (param.includes('.')) return c.notFound()
+  const r2 = c.env.R2
+  if (!r2) return c.redirect('/jp/column/', 302)
+  const all = await getColumnsJp(r2)
+  const col = all.find((x: any) => (x.slug === param || x.id === param) && x.status === 'published')
+  if (!col) return notFoundPage(c, 'コラムが見つかりません', 'お探しのコラムは存在しないか、削除されました。', '/jp/column/', 'コラム一覧へ')
+  if (col.slug && param !== col.slug) return c.redirect(`/jp/column/${col.slug}`, 301)
+
+  const doctorSlug = DOCTOR_SLUG_MAP[col.doctorName] || ''
+  const drName = JP_DOCTOR_NAME[col.doctorName] || col.doctorName || ''
+  const drSpec = JP_SPECIALTY[doctorSlug] || '歯科医師'
+  const dateStr = new Date(col.createdAt || Date.now()).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
+  const isoDate = col.createdAt ? new Date(col.createdAt).toISOString() : ''
+  const isoUpdated = col.updatedAt ? new Date(col.updatedAt).toISOString() : isoDate
+
+  // 파이프라인: 인용 승격(DOI) → 제목 승격 → 스타일 정리 → 삽화 → 목차
+  const { body: colCited, refs: colRefs } = enrichCitations(col.content || '', 'ja')
+  const colRefsHtml = renderRefs(colRefs, 'ja')
+  const colClean = promoteHeadings(stripEditorStyles(colCited))
+  const colFigured = col.bodyFigure
+    ? insertBodyFigure(colClean, String(col.bodyFigure), String(col.title || '歯科治療の解説図'), 'ソウルBD歯科 院長コラム · 内容の理解を助けるイラストです')
+    : colClean
+  const { body: colBody, toc: colToc } = buildToc(colFigured)
+  const colTocHtml = renderColToc(colToc, 'この記事の目次')
+  const colWordCount = htmlText(colBody).replace(/\s+/g, '').length
+  const plainExcerpt = htmlText(colBody).slice(0, 160)
+
+  // 관련 컬럼: 최신 5편 (일어 전용 단순화 — 토픽 유사도는 한국어 토크나이저 전제)
+  const others = all.filter((x: any) => x.slug !== col.slug && x.status === 'published')
+    .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()).slice(0, 5)
+  const relatedHtml = others.length ? `
+<section style="margin-top:40px;padding:28px 24px;background:linear-gradient(135deg,#faf7f3 0%,#f5f0eb 100%);border-radius:20px;border:1px solid #ede6dd;">
+<h2 style="font-size:1.1rem;font-weight:800;color:#6B4226;margin:0 0 16px;display:flex;align-items:center;gap:8px;"><i class="fas fa-pen-nib"></i> 他のコラムもご覧ください</h2>
+<div style="display:flex;flex-direction:column;gap:10px;">
+${others.map((rc: any) => {
+  const rcDate = new Date(rc.createdAt || Date.now()).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })
+  return `<a href="/jp/column/${rc.slug}" title="${attrEsc(rc.title)}" style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:#fff;border-radius:14px;text-decoration:none;color:inherit;border:1px solid #ede6dd;">
+${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="56" style="width:56px;height:56px;border-radius:10px;object-fit:cover;"', 'flex-shrink:0;display:block;width:56px;height:56px;') : `<div style="width:56px;height:56px;border-radius:10px;background:#f5f0eb;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-pen-nib" style="color:#d4c5b3;font-size:1.2rem;"></i></div>`}
+<div style="min-width:0;flex:1;">
+<div style="font-size:.92rem;font-weight:700;color:#333;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${rc.title}</div>
+<div style="font-size:.78rem;color:#999;margin-top:3px;">${JP_DOCTOR_NAME[rc.doctorName] || rc.doctorName || ''} · ${rcDate}</div>
+</div></a>`
+}).join('\n')}
+</div>
+</section>` : ''
+
+  const seoTitle = String(col.metaTitle || col.title || '').replace(/\s+/g, ' ').trim()
+  const seoDesc = String(col.metaDescription || plainExcerpt).replace(/\s+/g, ' ').trim()
+  const rawThumb = col.thumbnailImage || ''
+  const ogImage = rawThumb.startsWith('http') ? rawThumb : rawThumb ? `https://bdbddc.com${rawThumb}` : 'https://bdbddc.com/images/og-image-v2.jpg?v=sq1'
+  const citationLd = colRefs.length
+    ? `"citation":[${colRefs.map(r => `{"@type":"ScholarlyArticle","name":"${jEsc(r.journal || r.label)}","identifier":"https://doi.org/${r.doi}","url":"https://doi.org/${r.doi}"}`).join(',')}],`
+    : ''
+
+  return c.html(`<!DOCTYPE html>
+<html lang="ja">
+<head>
+${TRACKING_HEAD}
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${attrEsc(seoTitle)}｜院長コラム — ソウルBD歯科</title>
+<meta name="description" content="${attrEsc(seoDesc)}">
+<meta name="author" content="${attrEsc(drName)}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://bdbddc.com/jp/column/${col.slug}">
+<link rel="alternate" hreflang="ko" href="https://bdbddc.com/column/${col.slug}">
+<link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/${col.slug}">
+<link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/${col.slug}">
+<meta property="og:title" content="${attrEsc(seoTitle)}｜ソウルBD歯科">
+<meta property="og:description" content="${attrEsc(seoDesc)}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://bdbddc.com/jp/column/${col.slug}">
+<meta property="og:image" content="${ogImage}">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="${isoDate}">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://bdbddc.com/jp/"},{"@type":"ListItem","position":2,"name":"院長コラム","item":"https://bdbddc.com/jp/column/"},{"@type":"ListItem","position":3,"name":"${jEsc(col.title)}","item":"https://bdbddc.com/jp/column/${col.slug}"}]}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["Article","MedicalWebPage"],
+  "headline":"${jEsc(seoTitle)}",
+  "description":"${jEsc(seoDesc)}",
+  "author":{"@type":"Person","name":"${jEsc(drName)}","jobTitle":"${jEsc(drSpec)}","url":"https://bdbddc.com/doctors/${doctorSlug}","worksFor":{"@type":"Dentist","@id":"https://bdbddc.com/#dentist","name":"ソウルBD歯科","address":{"@type":"PostalAddress","addressLocality":"天安市","addressRegion":"忠清南道","addressCountry":"KR"}}},
+  "datePublished":"${isoDate}",
+  "dateModified":"${isoUpdated || isoDate}",
+  "url":"https://bdbddc.com/jp/column/${col.slug}",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://bdbddc.com/jp/column/${col.slug}"},
+  "image":"${ogImage}",
+  "publisher":{"@type":"Organization","@id":"https://bdbddc.com/#org","name":"ソウルBD歯科","url":"https://bdbddc.com","logo":{"@type":"ImageObject","url":"https://bdbddc.com/images/og-image-v2.jpg?v=sq1"}},
+  ${citationLd}
+  "wordCount":${colWordCount},
+  "specialty":"Dentistry",
+  "audience":{"@type":"MedicalAudience","audienceType":"Patient"},
+  "inLanguage":"ja",
+  "isPartOf":{"@type":"Blog","name":"ソウルBD歯科 院長コラム","url":"https://bdbddc.com/jp/column/"}
+}
+</script>
+<style>
+${COL_DETAIL_CSS}</style>
+</head>
+<body>
+${jpColHeader()}
+<main>
+<div class="col-detail">
+<nav style="font-size:.85rem;color:#888;margin-bottom:20px;">
+<a href="/jp/" style="color:#6B4226;text-decoration:none;">ホーム</a> &gt;
+<a href="/jp/column/" style="color:#6B4226;text-decoration:none;">院長コラム</a> &gt;
+<span>${col.title}</span>
+</nav>
+<div class="col-detail-header">
+<h1>${col.title}</h1>
+<div class="col-meta-badges">
+${col.category ? `<span class="col-meta-badge cat"><i class="fas fa-tag"></i> ${col.category}</span>` : ''}
+<span class="col-meta-badge date"><i class="far fa-calendar"></i> ${dateStr}</span>
+<span class="col-meta-badge rev"><i class="fas fa-user-doctor"></i> ${drName} 監修</span>
+<span class="col-meta-badge rev"><i class="fas fa-language"></i> 韓国語原文から翻訳</span>
+</div>
+</div>
+${doctorSlug ? `<a href="/jp/doctors/${doctorSlug}" class="col-author-card">
+<div class="col-author-avatar">
+<picture>
+<source srcset="/images/doctors/${doctorSlug}-profile.webp" type="image/webp">
+<img src="/images/doctors/${doctorSlug}-profile.jpg" alt="${attrEsc(drName)}" onerror="this.parentElement.parentElement.innerHTML='<div class=\\'avatar-fallback\\'>${(drName || '').charAt(0)}</div>'">
+</picture>
+</div>
+<div class="col-author-info">
+<div class="col-author-name">${drName} <span class="verified"><i class="fas fa-check"></i></span></div>
+<div class="col-author-specialty">${drSpec}</div>
+<div class="col-author-org">ソウルBD歯科</div>
+</div>
+</a>` : ''}
+${col.thumbnailImage ? `<div class="col-detail-hero-img${/^\/api\/images\//.test(String(col.thumbnailImage)) ? ' col-hero-sq' : ''}">${picture(col.thumbnailImage, col.title, /^\/api\/images\//.test(String(col.thumbnailImage)) ? 'width="1024" height="1024"' : 'width="1376" height="768"')}</div>` : ''}
+${colTocHtml}
+<div class="col-detail-body">${colBody}</div>
+${colRefsHtml}
+${doctorSlug ? `<div class="col-author-box">
+<div class="col-author-box-avatar">
+<picture>
+<source srcset="/images/doctors/${doctorSlug}-profile.webp" type="image/webp">
+<img src="/images/doctors/${doctorSlug}-profile.jpg" alt="${attrEsc(drName)}" onerror="this.parentElement.parentElement.innerHTML='<div class=\\'avatar-fallback\\'>${(drName || '').charAt(0)}</div>'">
+</picture>
+</div>
+<div class="col-author-box-info">
+<div class="author-label">Written by</div>
+<div class="author-name-line">${drName} <span class="verified"><i class="fas fa-check"></i></span></div>
+<div class="author-spec">${drSpec}</div>
+<div class="author-org">ソウルBD歯科 · 忠清南道 天安市西北区プルダン34ギル14</div>
+</div>
+<div class="col-author-box-link">
+<a href="/jp/doctors/${doctorSlug}"><i class="fas fa-user-md"></i> プロフィール</a>
+</div>
+</div>` : ''}
+${relatedHtml}
+<section style="margin-top:20px;padding:24px;background:linear-gradient(135deg,#f0f4f8 0%,#e8eef5 100%);border-radius:20px;border:1px solid #dde4ed;">
+<h3 style="font-size:.9rem;font-weight:700;color:#666;margin:0 0 10px;display:flex;align-items:center;gap:6px;"><i class="fas fa-compass"></i> ご案内</h3>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<a href="/jp/" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:#fff;border-radius:50px;text-decoration:none;color:#666;font-size:.82rem;font-weight:500;border:1px solid #e0e0e0;"><i class="fas fa-home" style="font-size:.75rem;color:#999;"></i> ソウルBD歯科 ホーム</a>
+<a href="/jp/treatments/" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:#fff;border-radius:50px;text-decoration:none;color:#666;font-size:.82rem;font-weight:500;border:1px solid #e0e0e0;"><i class="fas fa-tooth" style="font-size:.75rem;color:#999;"></i> 診療案内</a>
+<a href="/jp/pricing" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:#fff;border-radius:50px;text-decoration:none;color:#666;font-size:.82rem;font-weight:500;border:1px solid #e0e0e0;"><i class="fas fa-won-sign" style="font-size:.75rem;color:#999;"></i> 料金案内</a>
+<a href="/jp/flight" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:#fff;border-radius:50px;text-decoration:none;color:#666;font-size:.82rem;font-weight:500;border:1px solid #e0e0e0;"><i class="fas fa-plane" style="font-size:.75rem;color:#999;"></i> 日本からのアクセス</a>
+<a href="/column/${col.slug}" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:#fff;border-radius:50px;text-decoration:none;color:#666;font-size:.82rem;font-weight:500;border:1px solid #e0e0e0;"><i class="fas fa-language" style="font-size:.75rem;color:#999;"></i> 韓国語原文</a>
+</div>
+</section>
+<div class="col-detail-footer">
+<a href="/jp/column/" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#f5f0eb;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-arrow-left"></i> コラム一覧</a>
+<a href="/jp/reservation" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.88rem;"><i class="fas fa-calendar-check"></i> 診療予約</a>
+</div>
+</div>
+</main>
+<script src="/js/main.js" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)

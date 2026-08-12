@@ -163,7 +163,20 @@ const routes = {
     '/en/implant.html','/en/invisalign.html','/en/laminate.html',
     '/en/pricing.html','/en/directions.html','/en/reservation.html',
     '/en/guide','/en/guide/*',
-    '/vi/*','/th/*','/ru/*','/jp/*','/cn/*'
+    // ⚠️ '/jp/*' 와일드카드 금지! (v5.39 '/en/*' 과 같은 함정)
+    // /jp/column/* 는 Worker SSR 라우트이므로 exclude 되면 404 가 된다.
+    // 정적 파일이 실제로 존재하는 /jp/ 경로만 열거한다.
+    // (public/_routes.json 과 동일하게 유지할 것)
+    '/jp','/jp/','/jp/index.html',
+    '/jp/checkup.html','/jp/directions.html','/jp/faq.html','/jp/flight.html',
+    '/jp/floor-guide.html','/jp/pricing.html','/jp/reservation.html',
+    '/jp/checkup','/jp/directions','/jp/faq','/jp/flight',
+    '/jp/floor-guide','/jp/pricing','/jp/reservation',
+    '/jp/treatments','/jp/treatments/*',
+    '/jp/doctors','/jp/doctors/*',
+    '/jp/faq/*',
+    '/jp/guide','/jp/guide/*',
+    '/vi/*','/th/*','/ru/*','/cn/*'
   ]
 };
 fs.writeFileSync('dist/_routes.json', JSON.stringify(routes, null, 2));
