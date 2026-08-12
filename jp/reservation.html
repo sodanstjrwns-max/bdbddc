@@ -804,7 +804,7 @@ function hideMsg(){errEl.className='rsv-msg';sucEl.className='rsv-msg';}
 
   // 텍스트 영역에 자동 메시지
   if(!msgEl.value) {
-    msgEl.value='[참고 케이스: '+refTitle+'] 이 케이스와 비슷한 상담을 받고 싶습니다.';
+    msgEl.value='[参考ケース: '+refTitle+'] このケースと似た内容の相談を希望します。';
   }
 
   // 진료 항목 자동 선택 (카테고리 매칭)
@@ -841,13 +841,13 @@ function rsvGo(target){
   if(target>from){
     if(from===1){
       var tx=document.querySelector('input[name="treatment"]:checked');
-      if(!tx){showErr('진료 항목을 선택해주세요.');return;}
+      if(!tx){showErr('診療項目を選択してください。');return;}
     }
     if(from===2){
       var date=document.getElementById('rsvDate').value;
       var time=document.getElementById('rsvTime').value;
-      if(!date){showErr('희망 날짜를 선택해주세요.');return;}
-      if(!time){showErr('희망 시간을 선택해주세요.');return;}
+      if(!date){showErr('ご希望の日付を選択してください。');return;}
+      if(!time){showErr('ご希望の時間を選択してください。');return;}
     }
   }
 
@@ -868,9 +868,9 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
   var phone=document.getElementById('rsvPhone').value.trim();
   var privacy=document.getElementById('rsvPrivacy').checked;
 
-  if(!name){showErr('성함을 입력해주세요.');return;}
-  if(!phone||!/^01[0-9]-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g,''))){showErr('올바른 연락처를 입력해주세요.');return;}
-  if(!privacy){showErr('개인정보 처리방침에 동의해주세요.');return;}
+  if(!name){showErr('お名前を入力してください。');return;}
+  if(!phone||!/^01[0-9]-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g,''))){showErr('正しい連絡先を入力してください。');return;}
+  if(!privacy){showErr('個人情報の取り扱いに同意してください。');return;}
 
   var data={
     treatment:document.querySelector('input[name="treatment"]:checked').value,
@@ -892,7 +892,7 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
       body:JSON.stringify(data)
     });
     var result=await res.json();
-    if(!res.ok||result.error){showErr(result.error||'예약 신청에 실패했습니다.');return;}
+    if(!res.ok||result.error){showErr(result.error||'予約申請に失敗しました。');return;}
     // ★ 예약 데이터를 sessionStorage에 저장 후 Thank You 페이지로 이동
     // 전환 추적(Meta Pixel, GA4, Amplitude)은 thank-you 페이지에서 실행
     sessionStorage.setItem('bd_reservation', JSON.stringify({
@@ -904,7 +904,7 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
     }));
     window.location.href = '/reservation/thank-you';
   }catch(err){
-    showErr('서버 연결에 실패했습니다. 전화(041-415-2892)로 예약해주세요.');
+    showErr('サーバー接続に失敗しました。お電話(+82-41-415-2892)でご予約ください。');
   }finally{
     document.getElementById('rsvLoader').classList.remove('show');
     document.getElementById('rsvSubmit').disabled=false;

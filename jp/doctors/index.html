@@ -491,33 +491,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     (function(){
       // ── Doctor schedule data ──
       var doctors = [
-        { id:'moon', name:'ムン・ソクジュン', role:'대표원장', specialty:'대표원장',
+        { id:'moon', name:'ムン・ソクジュン', role:'代表院長', specialty:'代表院長',
           schedule:{ '일':'09:00-13:00','월':'09:00-20:00','화':'09:00-20:00','수':'09:00-20:00','목':'09:00-20:00' }},
-        { id:'kim', name:'김민수', role:'대표원장', specialty:'통합치의학과 전문의',
+        { id:'kim', name:'キム・ミンス', role:'代表院長', specialty:'統合歯科学専門医',
           schedule:{ '월':'14:00-20:00','화':'09:00-20:00','수':'09:00-20:00','목':'14:00-20:00','금':'09:00-20:00','토':'09:00-13:00' }},
-        { id:'hyun', name:'ヒョン・ジョンミン', role:'대표원장', specialty:'통합치의학과 전문의',
+        { id:'hyun', name:'ヒョン・ジョンミン', role:'代表院長', specialty:'統合歯科学専門医',
           schedule:{ '월':'09:00-20:00','목':'09:00-20:00','금':'09:00-20:00','토':'09:00-13:00','일':'09:00-13:00' }},
-        { id:'lee', name:'イ・スンヨプ', role:'', specialty:'임플란트센터장',
-          schedule:{ '월':'09:00-20:00','화':'09:00-18:00','수':'09:00-18:00','목':'15:30-20:00','금':'10:00-17:00','토':'09:00-13:00 (2,4,5주)' }},
-        { id:'choi', name:'チェ・ジョンフン', role:'', specialty:'통합진료센터장',
+        { id:'lee', name:'イ・スンヨプ', role:'', specialty:'インプラントセンター長',
+          schedule:{ '월':'09:00-20:00','화':'09:00-18:00','수':'09:00-18:00','목':'15:30-20:00','금':'10:00-17:00','토':'09:00-13:00（第2・4・5週）' }},
+        { id:'choi', name:'チェ・ジョンフン', role:'', specialty:'統合診療センター長',
           schedule:{ '월':'09:00-20:00','화':'09:00-20:00','수':'09:00-20:00','목':'09:00-13:00','금':'09:00-20:00','토':'09:00-13:00' }},
-        { id:'park-sb', name:'パク・スビン', role:'', specialty:'통합진료',
+        { id:'park-sb', name:'パク・スビン', role:'', specialty:'統合診療',
           schedule:{ '일':'09:00-13:00','월':'09:00-20:00','화':'09:00-20:00','수':'09:00-20:00' }},
-        { id:'lim', name:'イム・ジウォン', role:'', specialty:'교정과',
+        { id:'lim', name:'イム・ジウォン', role:'', specialty:'矯正科',
           schedule:{ '화':'14:00-20:00','목':'14:00-20:00','금':'11:30-19:30','토':'10:00-14:00' }},
-        { id:'kim-mg', name:'キム・ミンギュ', role:'', specialty:'치과교정과 전문의',
+        { id:'kim-mg', name:'キム・ミンギュ', role:'', specialty:'歯科矯正科専門医',
           schedule:{ '월':'09:00-18:00','수':'14:00-20:00','목':'09:00-18:00','토':'09:00-13:00','일':'09:00-13:00' }},
-        { id:'kang-mj', name:'カン・ミンジ', role:'', specialty:'보존과 전문의',
+        { id:'kang-mj', name:'カン・ミンジ', role:'', specialty:'保存科専門医',
           schedule:{ '수':'10:30-17:00','금':'10:30-17:00' }},
-        { id:'jo', name:'チョ・ソラ', role:'', specialty:'보존과·통합치의학과 전문의',
-          schedule:{ '월':'10:00-15:30','화':'10:00-15:30','목':'10:00-15:30','일':'10:00-14:00 (2,4주)' }},
-        { id:'kim-mj', name:'김민진', role:'', specialty:'소아치과 전문의',
+        { id:'jo', name:'チョ・ソラ', role:'', specialty:'保存科・統合歯科学専門医',
+          schedule:{ '월':'10:00-15:30','화':'10:00-15:30','목':'10:00-15:30','일':'10:00-14:00（第2・4週）' }},
+        { id:'kim-mj', name:'キム・ミンジン', role:'', specialty:'小児歯科専門医',
           schedule:{ '월':'10:30-18:00','수':'10:30-18:00','목':'10:30-16:00' }},
-        { id:'seo', name:'서희원', role:'', specialty:'소아치과 전문의',
+        { id:'seo', name:'ソ・ヒウォン', role:'', specialty:'小児歯科専門医',
           schedule:{ '화':'11:30-17:00','금':'11:30-17:00' }},
-        { id:'park', name:'박상현', role:'', specialty:'소아치과 전문의',
+        { id:'park', name:'パク・サンヒョン', role:'', specialty:'小児歯科専門医',
           schedule:{ '일':'10:30-15:30','수':'14:00-20:00','목':'10:00-18:00' }},
-        { id:'lee-bm', name:'イ・ビョンミン', role:'', specialty:'구강내과 전문의',
+        { id:'lee-bm', name:'イ・ビョンミン', role:'', specialty:'口腔内科専門医',
           schedule:{ '수':'09:00-17:00','목':'09:00-17:00' }}
       ];
 
@@ -530,12 +530,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         var list = document.getElementById('scheduleDoctorList');
         var available = doctors.filter(function(d){ return d.schedule[day]; });
         
-        var dayLabel = day + '요일';
-        if (day === today) dayLabel += ' (오늘)';
-        title.innerHTML = '<i class="fas fa-calendar-day" style="color:var(--brand-primary)"></i> ' + dayLabel + ' <span class="day-count">' + available.length + '명 진료</span>';
+        var dayJa = {'일':'日','월':'月','화':'火','수':'水','목':'木','금':'金','토':'土'};
+        var dayLabel = (dayJa[day] || day) + '曜日';
+        if (day === today) dayLabel += '（本日）';
+        title.innerHTML = '<i class="fas fa-calendar-day" style="color:var(--brand-primary)"></i> ' + dayLabel + ' <span class="day-count">' + available.length + '名診療</span>';
 
         if (available.length === 0) {
-          list.innerHTML = '<div class="schedule-no-doctor"><i class="fas fa-moon"></i><p>해당 요일은 진료 院長이 없습니다.</p></div>';
+          list.innerHTML = '<div class="schedule-no-doctor"><i class="fas fa-moon"></i><p>この曜日は診療する院長がいません。</p></div>';
           return;
         }
 

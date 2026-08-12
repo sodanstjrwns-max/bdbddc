@@ -766,14 +766,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         var text=this.dataset.copy;
         if(navigator.clipboard){
           navigator.clipboard.writeText(text).then(function(){
-            btn.innerHTML='<i class="fas fa-check"></i> 복사 완료!';
+            btn.innerHTML='<i class="fas fa-check"></i> コピー完了!';
             btn.style.color='var(--green)';
-            setTimeout(function(){btn.innerHTML='<i class="fas fa-copy"></i> 주소 복사';btn.style.color='';},2000);
+            setTimeout(function(){btn.innerHTML='<i class="fas fa-copy"></i> 住所をコピー';btn.style.color='';},2000);
           });
         }else{
           var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-          btn.innerHTML='<i class="fas fa-check"></i> 복사 완료!';
-          setTimeout(function(){btn.innerHTML='<i class="fas fa-copy"></i> 주소 복사';},2000);
+          btn.innerHTML='<i class="fas fa-check"></i> コピー完了!';
+          setTimeout(function(){btn.innerHTML='<i class="fas fa-copy"></i> 住所をコピー';},2000);
         }
       });
     });

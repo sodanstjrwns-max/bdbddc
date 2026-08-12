@@ -844,35 +844,35 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   // Enemy types
   var ENEMY_TYPES = {
-    tartar: { emoji: '🪨', name: '치석', w: 38, h: 38, speed: 3.5, hp: 4, killScore: 80, zigzag: false },
-    cavity: { emoji: '🦠', name: '충치균', w: 34, h: 34, speed: 4.5, hp: 3, killScore: 60, zigzag: true },
-    sugar:  { emoji: '🍬', name: '당분', w: 28, h: 28, speed: 6.5, hp: 1, killScore: 100, zigzag: false },
-    soda:   { emoji: '🥤', name: '산성음료', w: 48, h: 54, speed: 3.0, hp: 12, killScore: 250, damage: 2, zigzag: false },
-    plaque: { emoji: '🫧', name: '치태', w: 30, h: 30, speed: 5.5, hp: 2, killScore: 70, zigzag: true, homing: true },
-    coffee: { emoji: '☕', name: '커피', w: 34, h: 34, speed: 4.0, hp: 3, killScore: 90, zigzag: false, splitting: true }
+    tartar: { emoji: '🪨', name: '歯石', w: 38, h: 38, speed: 3.5, hp: 4, killScore: 80, zigzag: false },
+    cavity: { emoji: '🦠', name: '虫歯菌', w: 34, h: 34, speed: 4.5, hp: 3, killScore: 60, zigzag: true },
+    sugar:  { emoji: '🍬', name: '糖分', w: 28, h: 28, speed: 6.5, hp: 1, killScore: 100, zigzag: false },
+    soda:   { emoji: '🥤', name: '酸性飲料', w: 48, h: 54, speed: 3.0, hp: 12, killScore: 250, damage: 2, zigzag: false },
+    plaque: { emoji: '🫧', name: '歯垢', w: 30, h: 30, speed: 5.5, hp: 2, killScore: 70, zigzag: true, homing: true },
+    coffee: { emoji: '☕', name: 'コーヒー', w: 34, h: 34, speed: 4.0, hp: 3, killScore: 90, zigzag: false, splitting: true }
   };
 
   // Item types
   var ITEM_TYPES = {
-    toothbrush: { emoji: '🪥', name: '칫솔', w: 30, h: 30, effect: 'powershot', duration: 5000, desc: '🔥 3연발 파워샷!' },
-    floss:      { emoji: '🧵', name: '치실', w: 28, h: 28, effect: 'clearAll', duration: 0, desc: '💥 전체 클리어!' },
-    fluoride:   { emoji: '💊', name: '불소', w: 28, h: 28, effect: 'heal', duration: 0, desc: '💚 HP 회복!' }
+    toothbrush: { emoji: '🪥', name: '歯ブラシ', w: 30, h: 30, effect: 'powershot', duration: 5000, desc: '🔥 3連発パワーショット!' },
+    floss:      { emoji: '🧵', name: 'デンタルフロス', w: 28, h: 28, effect: 'clearAll', duration: 0, desc: '💥 全体クリア!' },
+    fluoride:   { emoji: '💊', name: 'フッ素', w: 28, h: 28, effect: 'heal', duration: 0, desc: '💚 HP 回復!' }
   };
 
   // Grades
   var GRADES = [
-    { min: 8000, emoji: '💎', name: '다이아몬드 치아', cls: 'grade-diamond',
-      comment: '진짜요?! 이 정도면 치과 그만 오셔도... 아니 그래도 오세요 ㅋㅋ',
-      cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 4000, emoji: '🦷', name: '건강한 치아', cls: 'grade-healthy',
-      comment: '관리 잘 하고 계시네요! 정기검진만 꾸준히 받으시면 돼요 👍',
-      cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 1500, emoji: '😬', name: '보통 치아', cls: 'grade-normal',
-      comment: '나쁘지 않아요. 근데 조금만 더 관리하면 완벽할 것 같아요!',
-      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 0, emoji: '💀', name: '충치 치아', cls: 'grade-skull',
-      comment: '걱정이 좀 되네요. 지금이라도 한번 오시면 저희가 잘 도와드릴게요!',
-      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' }
+    { min: 8000, emoji: '💎', name: 'ダイヤモンドの歯', cls: 'grade-diamond',
+      comment: '本当ですか?! このレベルならもう歯医者に来なくても… いや、やっぱり来てください 笑',
+      cta: '定期検診を予約する', ctaIcon: 'fa-calendar-check' },
+    { min: 4000, emoji: '🦷', name: '健康な歯', cls: 'grade-healthy',
+      comment: 'しっかりケアできていますね！定期検診だけ継続して受けていただければ大丈夫です👍',
+      cta: '定期検診を予約する', ctaIcon: 'fa-calendar-check' },
+    { min: 1500, emoji: '😬', name: '普通の歯', cls: 'grade-normal',
+      comment: '悪くはありません。でも、もう少しだけケアすれば完璧になりそうです！',
+      cta: '気軽に相談を予約する', ctaIcon: 'fa-calendar-check' },
+    { min: 0, emoji: '💀', name: '虫歯の歯', cls: 'grade-skull',
+      comment: '少し心配ですね。今からでも一度お越しいただければ、私たちがしっかりお手伝いします！',
+      cta: '気軽に相談を予約する', ctaIcon: 'fa-calendar-check' }
   ];
 
   // ---- INIT ----
@@ -890,17 +890,17 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     var badge = document.getElementById('deviceModeBadge');
     var waveInfo = document.getElementById('waveInfoText');
     if (isMobile) {
-      badge.innerHTML = '📱 모바일 모드 (난이도 조정)';
+      badge.innerHTML = '📱 モバイルモード (難易度調整)';
       badge.style.background = 'rgba(59,130,246,0.15)';
       badge.style.border = '1px solid rgba(59,130,246,0.3)';
       badge.style.color = '#60A5FA';
-      if (waveInfo) waveInfo.textContent = '30초마다 웨이브 — 살아남아라!';
+      if (waveInfo) waveInfo.textContent = '30秒ごとにウェーブ — 生き残れ！';
     } else {
-      badge.innerHTML = '🖥️ PC 모드 (EXTREME)';
+      badge.innerHTML = '🖥️ PCモード (EXTREME)';
       badge.style.background = 'rgba(239,68,68,0.15)';
       badge.style.border = '1px solid rgba(239,68,68,0.3)';
       badge.style.color = '#EF4444';
-      if (waveInfo) waveInfo.textContent = '18초마다 웨이브 — 살아남아라!';
+      if (waveInfo) waveInfo.textContent = '18秒ごとにウェーブ — 生き残れ！';
     }
   }
 
@@ -1053,13 +1053,13 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         ? Math.min(12, 4 + waveNumber * 2)   // 모바일: 최대 12마리
         : Math.min(30, 10 + waveNumber * 5);  // PC: 최대 30마리
       var tauntMsgs = [
-        '⚠️ WAVE ' + waveNumber + ' — 각오해라!',
-        '💀 WAVE ' + waveNumber + ' — 아직도 살아있네?',
-        '🔥 WAVE ' + waveNumber + ' — 이건 좀 어려울걸?',
-        '😈 WAVE ' + waveNumber + ' — 포기는 없다!',
-        '👹 WAVE ' + waveNumber + ' — 치석이 분노했다!',
-        '💢 WAVE ' + waveNumber + ' — 킹받지? ㅋㅋ',
-        '🫠 WAVE ' + waveNumber + ' — 다시하기 누를 준비됐지?'
+        '⚠️ WAVE ' + waveNumber + ' — 覚悟しろ！',
+        '💀 WAVE ' + waveNumber + ' — まだ生きてるの？',
+        '🔥 WAVE ' + waveNumber + ' — これはちょっと難しいかも？',
+        '😈 WAVE ' + waveNumber + ' — 諦めない！',
+        '👹 WAVE ' + waveNumber + ' — 歯石が怒っています！',
+        '💢 WAVE ' + waveNumber + ' — ムカつきますよね？ 笑',
+        '🫠 WAVE ' + waveNumber + ' — リトライを押す準備はできましたか？'
       ];
       showPowerup(tauntMsgs[Math.floor(Math.random()*tauntMsgs.length)]);
       if (navigator.vibrate) navigator.vibrate([50,30,50,30,50,30,80]);
@@ -1455,7 +1455,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
           if (combo > maxCombo) maxCombo = combo;
           var dodgeScore = Math.round(50 * multiplier);
           score += dodgeScore;
-          addFloatingText(player.x, player.y - 30, '+' + dodgeScore + ' 아슬아슬!', '#F59E0B');
+          addFloatingText(player.x, player.y - 30, '+' + dodgeScore + ' ギリギリ！', '#F59E0B');
 
           // Multiplier at 5+ combo
           if (combo >= 5 && combo % 5 === 0) {
@@ -1777,7 +1777,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   // ---- HUD ----
   function updateHud() {
-    document.getElementById('hudScore').innerHTML = Math.floor(score).toLocaleString() + '<small> 점</small>';
+    document.getElementById('hudScore').innerHTML = Math.floor(score).toLocaleString() + '<small> 点</small>';
 
     var comboEl = document.getElementById('hudCombo');
     if (combo >= 3) {
@@ -1800,7 +1800,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   function showMultiplier() {
     var el = document.getElementById('hudMultiplier');
-    el.textContent = '×' + multiplier + ' 배율!';
+    el.textContent = '×' + multiplier + ' 倍率！';
     el.classList.add('active');
     setTimeout(function() { el.classList.remove('active'); }, 2000);
   }
@@ -1834,7 +1834,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     var survivalSec = Math.floor(elapsed / 1000);
     var survivalMin = Math.floor(survivalSec / 60);
     var survivalRemSec = survivalSec % 60;
-    var survivalText = survivalMin > 0 ? survivalMin + '분 ' + survivalRemSec + '초' : survivalSec + '초';
+    var survivalText = survivalMin > 0 ? survivalMin + '分 ' + survivalRemSec + '秒' : survivalSec + '秒';
 
     // Save to DB
     saveScoreToDB(Math.floor(score), grade.name);
@@ -1844,14 +1844,14 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     html += '<div class="result-tooth-emoji">' + grade.emoji + '</div>';
     html += '<div class="result-grade ' + grade.cls + '">' + grade.name + '</div>';
     html += '<div class="result-score">' + Math.floor(score).toLocaleString() + '</div>';
-    html += '<div class="result-score-label">점</div>';
+    html += '<div class="result-score-label">点</div>';
 
     // Stats
     html += '<div class="result-stats">';
-    html += '<div class="result-stat"><div class="result-stat-val">' + survivalText + '</div><div class="result-stat-label">생존시간</div></div>';
-    html += '<div class="result-stat"><div class="result-stat-val">' + maxCombo + '</div><div class="result-stat-label">최대콤보</div></div>';
-    html += '<div class="result-stat"><div class="result-stat-val">' + dodgeCount + '</div><div class="result-stat-label">아슬아슬</div></div>';
-    html += '<div class="result-stat"><div class="result-stat-val">' + itemCount + '</div><div class="result-stat-label">아이템</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + survivalText + '</div><div class="result-stat-label">生存時間</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + maxCombo + '</div><div class="result-stat-label">最大コンボ</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + dodgeCount + '</div><div class="result-stat-label">ギリギリ</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + itemCount + '</div><div class="result-stat-label">アイテム</div></div>';
     html += '</div>';
 
     // Ranking placeholder
@@ -1861,27 +1861,27 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     html += '<div class="result-doctor">';
     html += '<div class="result-doctor-header">';
     html += '<div class="result-doctor-avatar">🦷</div>';
-    html += '<div class="result-doctor-info"><div class="result-doctor-name">비디치과 院長</div><div class="result-doctor-title">서울대 치의학과 · 서울비디치과</div></div>';
+    html += '<div class="result-doctor-info"><div class="result-doctor-name">ソウルBD歯科 院長</div><div class="result-doctor-title">ソウル大学 歯学部 · ソウルBD歯科</div></div>';
     html += '</div>';
     html += '<div class="result-doctor-text">"' + grade.comment + '"</div>';
     html += '</div>';
 
     // Share
     html += '<div class="result-share">';
-    html += '<div class="result-share-title">' + grade.emoji + ' 나는 ' + Math.floor(score).toLocaleString() + '점 ' + grade.name + '!</div>';
-    html += '<div class="result-share-sub">너는 몇 점이야? 👀</div>';
+    html += '<div class="result-share-title">' + grade.emoji + ' 私は ' + Math.floor(score).toLocaleString() + '点 ' + grade.name + '!</div>';
+    html += '<div class="result-share-sub">あなたは何点ですか？ 👀</div>';
     html += '<div class="result-share-btns">';
-    html += '<button class="btn-share kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카톡 자랑</button>';
-    html += '<button class="btn-share" onclick="shareLink()"><i class="fas fa-link"></i> 링크 복사</button>';
+    html += '<button class="btn-share kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> カカオトークで自慢</button>';
+    html += '<button class="btn-share" onclick="shareLink()"><i class="fas fa-link"></i> リンクをコピー</button>';
     html += '</div>';
     html += '</div>';
 
     // CTA
     html += '<a href="/reservation" class="btn-cta-result btn-cta-primary"><i class="fas ' + grade.ctaIcon + '"></i> ' + grade.cta + '</a><br>';
     html += '<div style="height:8px"></div>';
-    html += '<button class="btn-retry" onclick="startGame()"><i class="fas fa-redo"></i> 다시 도전하기</button>';
+    html += '<button class="btn-retry" onclick="startGame()"><i class="fas fa-redo"></i> もう一度挑戦する</button>';
 
-    html += '<div class="result-disclaimer">본 게임은 서울비디치과에서 제공하는 흥미·교육 목적의 콘텐츠입니다.</div>';
+    html += '<div class="result-disclaimer">本ゲームはソウルBD歯科が提供する娯楽・教育目的のコンテンツです。</div>';
 
     document.getElementById('resultScreen').innerHTML = html;
     document.getElementById('resultScreen').classList.add('active');
@@ -1914,12 +1914,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         var rankEl = document.getElementById('resultRanking');
         if (rankEl) {
           rankEl.style.display = 'block';
-          var rhtml = '<div class="result-ranking-title">🏆 실시간 랭킹</div>';
-          rhtml += '<div class="result-ranking-row"><span>총 참여자</span><strong>' + data.total_players.toLocaleString() + '명</strong></div>';
+          var rhtml = '<div class="result-ranking-title">🏆 リアルタイムランキング</div>';
+          rhtml += '<div class="result-ranking-row"><span>総参加者</span><strong>' + data.total_players.toLocaleString() + '名</strong></div>';
           if (data.rank) {
-            rhtml += '<div class="result-ranking-row"><span>내 순위</span><strong>상위 ' + data.top_percent + '%</strong></div>';
+            rhtml += '<div class="result-ranking-row"><span>自分の順位</span><strong>上位 ' + data.top_percent + '%</strong></div>';
           }
-          rhtml += '<div class="result-ranking-row"><span>평균 점수</span><strong>' + Math.floor(data.avg_score).toLocaleString() + '점</strong></div>';
+          rhtml += '<div class="result-ranking-row"><span>平均点</span><strong>' + Math.floor(data.avg_score).toLocaleString() + '点</strong></div>';
           rankEl.innerHTML = rhtml;
         }
       }
@@ -1930,7 +1930,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   // ---- SHARING ----
   function shareKakao() {
     var result = window._flightResult || {};
-    var shareText = result.emoji + ' 나는 ' + (result.score || 0).toLocaleString() + '점 ' + result.grade + '!\n너는 몇 점이야? 👀\n#치석플라이트 #서울비디치과';
+    var shareText = result.emoji + ' 私は ' + (result.score || 0).toLocaleString() + '点 ' + result.grade + '！\\nあなたは何点ですか？ 👀\\n#歯石フライト #ソウルBD歯科';
 
     try {
       if (window.Kakao) {
@@ -1944,12 +1944,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
-            title: result.emoji + ' ' + (result.score || 0).toLocaleString() + '점 — ' + result.grade,
-            description: '치석 플라이트에서 내 치아 등급은? 너는 몇 점? 👀',
+            title: result.emoji + ' ' + (result.score || 0).toLocaleString() + '点 — ' + result.grade,
+            description: '歯石フライトでの私の歯のランクは？ あなたは何点ですか？ 👀',
             imageUrl: 'https://bdbddc.com/images/og-checkup.jpg',
             link: { mobileWebUrl: 'https://bdbddc.com/flight', webUrl: 'https://bdbddc.com/flight' }
           },
-          buttons: [{ title: '나도 도전하기 🎮', link: { mobileWebUrl: 'https://bdbddc.com/flight', webUrl: 'https://bdbddc.com/flight' } }]
+          buttons: [{ title: '私も挑戦します 🎮', link: { mobileWebUrl: 'https://bdbddc.com/flight', webUrl: 'https://bdbddc.com/flight' } }]
         });
         return;
       }
@@ -1958,10 +1958,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     }
 
     if (navigator.share) {
-      navigator.share({ title: '치석 플라이트 ' + result.score + '점!', text: shareText, url: 'https://bdbddc.com/flight' }).catch(function(){});
+      navigator.share({ title: '歯石フライト ' + result.score + '点!', text: shareText, url: 'https://bdbddc.com/flight' }).catch(function(){});
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(shareText + '\nhttps://bdbddc.com/flight').then(function() {
-        showToast('공유 텍스트가 복사되었어요! 📋');
+        showToast('共有テキストをコピーしました! 📋');
       });
     }
   }
@@ -1972,16 +1972,16 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     if (window.bdAnalytics && bdAnalytics.trackGameShare) {
       bdAnalytics.trackGameShare('chistone_flight', 'link_copy', { score: result.score, grade: result.grade });
     }
-    var text = result.emoji + ' 치석 플라이트 ' + (result.score || 0).toLocaleString() + '점! ' + result.grade + '\n너는 몇 점? 👀\nhttps://bdbddc.com/flight';
+    var text = result.emoji + ' 歯石フライト ' + (result.score || 0).toLocaleString() + '点! ' + result.grade + '\\nあなたは何点? 👀\\nhttps://bdbddc.com/flight';
 
     if (navigator.share) {
-      navigator.share({ title: '치석 플라이트!', text: text, url: 'https://bdbddc.com/flight' }).catch(function(){});
+      navigator.share({ title: '歯石フライト!', text: text, url: 'https://bdbddc.com/flight' }).catch(function(){});
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(text).then(function() {
-        showToast('링크가 복사되었어요! 📋');
+        showToast('リンクをコピーしました! 📋');
       });
     } else {
-      prompt('복사해서 공유하세요:', text);
+      prompt('コピーして共有してください:', text);
     }
   }
 
