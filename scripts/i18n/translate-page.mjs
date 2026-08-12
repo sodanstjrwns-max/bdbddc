@@ -33,7 +33,7 @@ try {
 } catch {}
 
 const hasKorean = (s) => /[가-힣]/.test(s)
-const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'CODE', 'PRE', 'TEXTAREA'])
+const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'CODE', 'PRE', 'TEXTAREA'])
 
 // ---------- 1) 추출 ----------
 const html = fs.readFileSync(srcArg, 'utf8')

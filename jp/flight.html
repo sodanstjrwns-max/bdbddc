@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
+<!-- End Google Tag Manager -->
+<!-- GA4 gtag.js (커스텀 이벤트 전송용 - GTM과 병행) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+<script src="/static/bd-tag-loader.js" defer></script>
+<script src="/static/bd-analytics.js" defer></script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '971255062435276');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
+     alt="" /></noscript>
+<!-- End Meta Pixel Code -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta name="robots" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1">
+  <title>歯石フライト 🦷✈️ | ソウルBD歯科</title>
+  <meta name="description" content="歯石を避けて歯を守りましょう！ドラゴンフライトの歯科版です。あなたの歯のランクはどれですか？">
+  <meta name="author" content="ソウルBD歯科">
+  <meta name="abstract" content="歯石フライト — 歯石を避けながら歯を守るウェブゲームです。ソウルBD歯科が提供する楽しい歯科ゲームです。">
+  <meta name="ai-summary" content="歯石フライト — 歯石を避けながら歯を守るウェブゲームです。ソウルBD歯科が提供する楽しい歯科ゲームです.">
+  <meta property="og:title" content="歯石フライト 🦷✈️ — あなたの歯のランクはどれですか？">
+  <meta property="og:description" content="歯石を避けて歯を守りましょう！あなたは何点ですか？">
+  <meta property="og:url" content="https://bdbddc.com/jp/flight">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="ソウルBD歯科">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="歯石フライト 🦷✈️ | ソウルBD歯科">
+  <meta name="twitter:description" content="歯石を避けて歯を守りましょう！ドラゴンフライトの歯科版です。あなたの歯のランクはどれですか？">
+  <meta name="twitter:image" content="https://bdbddc.com/images/og/directions.jpg?v=sq1">
+  <meta property="og:image" content="https://bdbddc.com/images/og/directions.jpg?v=sq1">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="歯石フライト 🦷✈️ | ソウルBD歯科">
+
+  <link rel="canonical" href="https://bdbddc.com/jp/flight">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a1a;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow: hidden;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      height: 100vh;
+      height: 100dvh;
+    }
+
+    /* --- INTRO SCREEN --- */
+    .screen { display: none; position: fixed; inset: 0; z-index: 10; }
+    .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+    #introScreen {
+      background: linear-gradient(180deg, #0a0a2e 0%, #1a0a3e 50%, #0a0a1a 100%);
+      text-align: center;
+      padding: 20px;
+    }
+    .intro-tooth {
+      font-size: 80px;
+      animation: floatTooth 3s ease-in-out infinite;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 0 30px rgba(124,58,237,0.5));
+    }
+    @keyframes floatTooth {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .intro-title {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #7C3AED, #EC4899, #F59E0B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .intro-subtitle {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 32px;
+    }
+    .intro-enemies {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .intro-enemy {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 12px 16px;
+      text-align: center;
+      min-width: 80px;
+    }
+    .intro-enemy-emoji { font-size: 1.8rem; margin-bottom: 4px; }
+    .intro-enemy-name { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+
+    .btn-start-game {
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      color: #fff;
+      border: none;
+      padding: 18px 48px;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      cursor: pointer;
+      animation: pulseBtn 2s ease-in-out infinite;
+      margin-bottom: 12px;
+    }
+    @keyframes pulseBtn {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(124,58,237,0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px 10px rgba(124,58,237,0.2); }
+    }
+    .intro-controls {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 24px;
+    }
+    .intro-how {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 16px 20px;
+      max-width: 340px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .intro-how-title { font-size: 0.8rem; font-weight: 700; color: #7C3AED; margin-bottom: 8px; }
+    .intro-how-row { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 4px; display: flex; gap: 8px; }
+    .intro-how-row span { color: #F59E0B; min-width: 20px; }
+
+    .intro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(254,229,0,0.1);
+      border: 1px solid rgba(254,229,0,0.2);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      color: #FEE500;
+    }
+
+    /* --- GAME CANVAS --- */
+    #gameCanvas {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+    }
+
+    /* --- HUD --- */
+    .hud {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      display: none;
+      padding: 12px 16px;
+      background: linear-gradient(180deg, rgba(10,10,26,0.9) 0%, transparent 100%);
+    }
+    .hud.active { display: flex; justify-content: space-between; align-items: center; }
+    .hud-score { font-size: 1.4rem; font-weight: 900; color: #FEE500; }
+    .hud-score small { font-size: 0.65rem; color: rgba(255,255,255,0.4); font-weight: 400; }
+    .hud-combo {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #EC4899;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .hud-combo.active { opacity: 1; }
+    .hud-hp { display: flex; gap: 4px; }
+    .hud-hp-heart { font-size: 1.2rem; transition: all 0.3s; }
+    .hud-hp-heart.lost { opacity: 0.2; transform: scale(0.7); }
+    .hud-multiplier {
+      position: fixed;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 6;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #F59E0B;
+      opacity: 0;
+      transition: opacity 0.5s;
+      display: none;
+      text-shadow: 0 0 20px rgba(245,158,11,0.5);
+    }
+    .hud-multiplier.active { opacity: 1; display: block; }
+
+    /* --- POWERUP INDICATOR --- */
+    .powerup-indicator {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 7;
+      font-size: 2rem;
+      font-weight: 900;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .powerup-indicator.active { opacity: 1; animation: powerupFlash 1.5s ease-out; }
+    @keyframes powerupFlash {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      20% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+
+    /* --- DAMAGE FLASH --- */
+    .damage-flash {
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      background: rgba(239, 68, 68, 0.3);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+    .damage-flash.active { opacity: 1; }
+
+    /* --- RESULT SCREEN --- */
+    #resultScreen {
+      background: linear-gradient(180deg, #0a0a2e 0%, #1a0a3e 50%, #0a0a1a 100%);
+      text-align: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .result-tooth-emoji { font-size: 72px; margin-bottom: 12px; }
+    .result-grade {
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 6px 20px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .grade-skull { background: rgba(239,68,68,0.2); color: #EF4444; }
+    .grade-normal { background: rgba(59,130,246,0.2); color: #3B82F6; }
+    .grade-healthy { background: rgba(16,185,129,0.2); color: #10B981; }
+    .grade-diamond { background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(236,72,153,0.3)); color: #FEE500; }
+
+    .result-score {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+    .result-score-label { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+
+    .result-stats {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .result-stat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px 16px;
+      min-width: 90px;
+    }
+    .result-stat-val { font-size: 1.3rem; font-weight: 800; color: #FEE500; }
+    .result-stat-label { font-size: 0.65rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+    .result-doctor {
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .result-doctor-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .result-doctor-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .result-doctor-info { text-align: left; }
+    .result-doctor-name { font-size: 0.85rem; font-weight: 700; }
+    .result-doctor-title { font-size: 0.65rem; color: rgba(255,255,255,0.4); }
+    .result-doctor-text {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .result-ranking {
+      background: rgba(254,229,0,0.05);
+      border: 1px solid rgba(254,229,0,0.15);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .result-ranking-title { font-size: 0.8rem; font-weight: 700; color: #FEE500; margin-bottom: 8px; }
+    .result-ranking-row { display: flex; justify-content: space-between; font-size: 0.8rem; color: rgba(255,255,255,0.5); padding: 4px 0; }
+    .result-ranking-row strong { color: #fff; }
+
+    .result-share {
+      margin-bottom: 16px;
+    }
+    .result-share-title { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .result-share-sub { font-size: 1.2rem; font-weight: 800; color: #FEE500; margin-bottom: 16px; }
+    .result-share-btns { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; }
+    .btn-share {
+      flex: 1;
+      max-width: 180px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-share:active { transform: scale(0.95); }
+    .btn-share.kakao { background: rgba(254,229,0,0.15); border-color: rgba(254,229,0,0.25); color: #FEE500; }
+
+    .btn-cta-result {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 60px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 12px;
+      text-decoration: none;
+    }
+    .btn-cta-primary {
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      color: #fff;
+    }
+    .btn-retry {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      padding: 14px 28px;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .result-disclaimer {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.2);
+      padding-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    /* --- PARTICLES --- */
+    .star-field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* --- PAUSE OVERLAY --- */
+    .pause-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 8;
+      background: rgba(10,10,26,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .pause-overlay.active { display: flex; }
+    .pause-text { font-size: 2rem; font-weight: 900; color: #7C3AED; }
+    .btn-resume {
+      padding: 14px 40px;
+      border-radius: 60px;
+      border: none;
+      background: linear-gradient(135deg, #7C3AED, #EC4899);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(124,58,237,0.9);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+  <link rel="stylesheet" href="/css/site-v5.css?v=0e95e6eb">
+  <link rel="stylesheet" href="/css/micro.css?v=ac2f0073">
+<!-- Microsoft Clarity (idle 시 로드 → TBT 개선) -->
+<script>
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(function() {
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "wb39d7gn5x");
+    });
+  } else {
+    setTimeout(function() {
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "wb39d7gn5x");
+    }, 3000);
+  }
+</script>
+<!-- End Microsoft Clarity -->
+
+
+
+
+
+<link rel="alternate" hreflang="ko" href="https://bdbddc.com/flight">
+<link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/flight">
+<link rel="alternate" hreflang="x-default" href="https://bdbddc.com/flight">
+</head>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"プラークフライト | ソウルBD歯科","description":"ソウルBD歯科 プラークフライト ゲーム — 口腔の健康知識をテストしながら楽しめるフライトゲームです。","url":"https://bdbddc.com/jp/flight","isPartOf":{"@id":"https://bdbddc.com/#website"},"publisher":{"@id":"https://bdbddc.com/#dentist"},"speakable":{"@type":"SpeakableSpecification","cssSelector":["h1",".game-intro"]},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://bdbddc.com"},{"@type":"ListItem","position":2,"name":"ゲームゾーン","item":"https://bdbddc.com/games"},{"@type":"ListItem","position":3,"name":"プラークフライト","item":"https://bdbddc.com/flight"}]}}</script>
+<body>
+
+<header class="site-header" id="siteHeader">
+    <div class="header-container">
+      <div class="header-brand">
+        <a href="/jp/" class="site-logo" aria-label="ソウルBD歯科 ホーム">
+          <span class="logo-icon">🦷</span>
+          <span class="logo-text">ソウルBD歯科</span>
+        </a>
+        <div class="clinic-status open" aria-live="polite">
+          <span class="status-dot"></span>
+          <span class="status-text">診療中です</span>
+          <span class="status-time">20:00まで</span>
+        </div>
+      </div>
+      
+      <nav class="main-nav" id="mainNav" aria-label="メインナビゲーション">
+        <ul>
+          <li class="nav-item has-dropdown">
+            <a href="/jp/treatments">診療</a>
+            <div class="mega-dropdown">
+              <div class="mega-dropdown-grid">
+                <div class="mega-dropdown-section">
+                  <strong class="section-heading">専門センター</strong>
+                  <ul>
+                    <li><a href="/jp/treatments/glownate">✨ ラミネート（グロウネイト（Glownate））</a></li>
+                    <li><a href="/jp/treatments/implant">インプラント <span class="badge">6つの手術室</span></a></li>
+                    <li><a href="/jp/treatments/invisalign">インビザライン <span class="badge">ダイヤモンド</span></a></li>
+                    <li><a href="/jp/treatments/orthodontics">歯列矯正 <span class="badge">装置矯正</span></a></li>
+                    <li><a href="/jp/treatments/pediatric">小児歯科 <span class="badge">専門医 3名</span></a></li>
+                    <li><a href="/jp/treatments/whitening" style="color:#0369a1;font-weight:600;">ホワイトニング <span class="badge">専門センター</span></a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <strong class="section-heading">一般/保存診療</strong>
+                  <ul>
+                    <li><a href="/jp/treatments/cavity">むし歯治療</a></li>
+                    <li><a href="/jp/treatments/resin">レジン治療</a></li>
+                    <li><a href="/jp/treatments/crown">クラウン</a></li>
+                    <li><a href="/jp/treatments/inlay">インレー/オンレー</a></li>
+                    <li><a href="/jp/treatments/root-canal">神経治療（根管治療）</a></li>
+                    <li><a href="/treatments/aesthetic">審美レジン</a></li>
+                  </ul>
+                </div>
+                <div class="mega-dropdown-section">
+                  <strong class="section-heading">口腔内科/外科</strong>
+                  <ul>
+                    <li><a href="/treatments/oral-medicine" style="color:#6B4226;font-weight:600;">口腔内科 <span class="badge">専門医</span></a></li>
+                    <li><a href="/jp/treatments/tmj">顎関節（TMJ）障害</a></li>
+                    <li><a href="/treatments/bruxism">歯ぎしり／食いしばり</a></li>
+                    <li><a href="/jp/treatments/scaling">スケーリング</a></li>
+                    <li><a href="/jp/treatments/gum">歯周治療</a></li>
+                    <li><a href="/jp/treatments/wisdom-tooth">親知らずの抜歯</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="/jp/doctors">医療スタッフ</a></li>
+          <li class="nav-item"><a href="/mission">ソウルBD歯科のミッション</a></li>
+          <li class="nav-item has-dropdown">
+            <a href="/cases/">コンテンツ</a>
+            <ul class="simple-dropdown">
+              <li><a href="/cases/" style="color:#6B4226;font-weight:600;">🔥 ビフォー/アフター</a></li>
+<li><a href="/symptom-checker" style="color:#EC4899;font-weight:600;">🩺 AI症状チェッカー</a></li>
+              <li><a href="/blog/"><i class="fas fa-blog"></i> ブログ</a></li>
+              <li><a href="/video/"><i class="fab fa-youtube"></i> 動画</a></li>
+                          <li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 歯科百科事典</a></li><li><a href="/column/"><i class="fas fa-pen-nib"></i> 院長コラム</a></li><li><a href="/guide/regret"><i class="fas fa-heart-crack"></i> 後悔白書</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-dropdown">
+            <a href="/jp/directions">ご案内</a>
+            <ul class="simple-dropdown">
+              <li><a href="/jp/pricing" class="nav-highlight">💰 費用のご案内</a></li>
+              <li><a href="/jp/floor-guide">ソウルBD歯科 院内紹介</a></li>
+              <li><a href="/jp/directions">アクセス</a></li>
+              <li><a href="/jp/faq">よくある質問</a></li>
+              <li><a href="/notice/"><i class="fas fa-bullhorn"></i> お知らせ</a></li>
+              <li><a href="/careers"><i class="fas fa-user-tie"></i> 通年採用</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-dropdown">
+            <a href="/games" style="color:#EC4899;font-weight:700;">🎮 プレイ</a>
+            <ul class="simple-dropdown">
+              <li><a href="/jp/flight"><i class="fas fa-rocket"></i> 歯石フライト</a></li>
+              <li><a href="/run"><i class="fas fa-running"></i> トゥースラン</a></li>
+              <li><a href="/jp/checkup"><i class="fas fa-dna"></i> 歯BTI</a></li>
+              <li><a href="/games"><i class="fas fa-th"></i> 全てのゲーム</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="header-actions">
+        <a href="tel:0414152892" class="header-phone" aria-label="お電話でのお問い合わせ"><i class="fas fa-phone"></i></a>
+        <div class="auth-buttons">
+          <a href="/auth/login" class="btn-auth btn-login"><i class="fas fa-sign-in-alt"></i> ログイン</a>
+          <a href="/auth/register" class="btn-auth btn-register"><i class="fas fa-user-plus"></i> 会員登録</a>
+        </div>
+        <a href="/jp/reservation" class="btn-reserve"><i class="fas fa-calendar-check"></i>予約する</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="メニューを開く"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+<nav class="mobile-nav" id="mobileNav" aria-label="モバイルメニュー">
+    <div class="mobile-nav-header">
+      <span class="logo-icon">🦷</span>
+      <button class="mobile-nav-close" id="mobileNavClose" aria-label="メニューを閉じる"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="mobile-nav-menu">
+      <li class="mobile-nav-item has-submenu">
+        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+          <i class="fas fa-tooth"></i> 診療 <i class="fas fa-chevron-down toggle-icon"></i>
+        </a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="/jp/treatments">全ての診療</a></li>
+          <li class="submenu-divider">専門センター</li>
+          <li><a href="/jp/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ ラミネート（グロウネイト（Glownate））</a></li>
+          <li><a href="/jp/treatments/implant">インプラントセンター</a></li>
+          <li><a href="/jp/treatments/invisalign">インビザライン</a></li><li><a href="/jp/treatments/orthodontics">歯列矯正</a></li>
+          <li><a href="/jp/treatments/pediatric">小児歯科</a></li>
+          <li><a href="/treatments/aesthetic">審美レジン</a></li>
+          <li class="submenu-divider">一般診療</li>
+          <li><a href="/jp/treatments/cavity">むし歯治療</a></li>
+          <li><a href="/jp/treatments/resin">レジン治療</a></li>
+          <li><a href="/jp/treatments/scaling">スケーリング</a></li>
+          <li><a href="/jp/treatments/gum">歯周治療</a></li>
+        </ul>
+      </li>
+      <li><a href="/jp/doctors"><i class="fas fa-user-md"></i> 医療スタッフ</a></li>
+      <li><a href="/mission"><i class="fas fa-heart"></i> BDミッション</a></li>
+      <li class="mobile-nav-item has-submenu">
+        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+          <i class="fas fa-newspaper"></i> コンテンツ <i class="fas fa-chevron-down toggle-icon"></i>
+        </a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="/cases/" style="color:#6B4226;font-weight:600;">🔥 ビフォー/アフター</a></li>
+<li><a href="/symptom-checker" style="color:#EC4899;font-weight:600;">🩺 AI症状チェッカー</a></li>
+          <li><a href="/blog/"><i class="fas fa-blog"></i> ブログ</a></li>
+          <li><a href="/video/"><i class="fab fa-youtube"></i> 動画</a></li>
+                  <li><a href="/encyclopedia/"><i class="fas fa-book-medical"></i> 歯科百科事典</a></li><li><a href="/column/"><i class="fas fa-pen-nib"></i> 院長コラム</a></li><li><a href="/guide/regret"><i class="fas fa-heart-crack"></i> 後悔白書</a></li>
+        </ul>
+      </li>
+      <li class="mobile-nav-item has-submenu">
+        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">
+          <i class="fas fa-hospital"></i> 案内 <i class="fas fa-chevron-down toggle-icon"></i>
+        </a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="/jp/pricing">💰 費用案内</a></li>
+          <li><a href="/jp/floor-guide">ソウルBD歯科の院内ツアー</a></li>
+          <li><a href="/jp/directions">アクセス</a></li>
+          <li><a href="/jp/faq">よくある質問</a></li>
+          <li><a href="/notice/"><i class="fas fa-bullhorn"></i> お知らせ</a></li>
+              <li><a href="/careers"><i class="fas fa-user-tie"></i> 通年採用</a></li>
+        </ul>
+      </li>
+      <li class="mobile-nav-item has-submenu">
+        <a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false" style="color:#EC4899;font-weight:700;">
+          🎮 プレイ <i class="fas fa-chevron-down toggle-icon"></i>
+        </a>
+        <ul class="mobile-nav-submenu">
+          <li><a href="/jp/flight"><i class="fas fa-rocket"></i> 歯石フライト</a></li>
+          <li><a href="/run"><i class="fas fa-running"></i> トゥースラン</a></li>
+          <li><a href="/jp/checkup"><i class="fas fa-dna"></i> 歯BTI</a></li>
+          <li><a href="/games"><i class="fas fa-th"></i> 全てのゲーム</a></li>
+        </ul>
+      </li>
+      <li><a href="/jp/reservation" class="highlight"><i class="fas fa-calendar-check"></i> 予約する</a></li>
+    </ul>
+    <div class="mobile-auth-buttons">
+      <a href="/auth/login" class="btn-auth"><i class="fas fa-sign-in-alt"></i> ログイン</a>
+      <a href="/auth/register" class="btn-auth"><i class="fas fa-user-plus"></i> 会員登録</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <p class="mobile-nav-hours"><i class="fas fa-clock"></i> 365日診療 | 平日夜間診療</p>
+      <div class="mobile-nav-quick-btns">
+        <a href="/jp/pricing" class="btn btn-secondary btn-lg"><i class="fas fa-won-sign"></i> 費用案内</a>
+        <a href="tel:041-415-2892" class="btn btn-primary btn-lg"><i class="fas fa-phone"></i> 電話予約</a>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <!-- INTRO SCREEN -->
+  <div class="screen active" id="introScreen">
+    <div class="intro-tooth">🦷</div>
+    <h1 class="intro-title">歯石フライト</h1>
+    <div class="intro-subtitle">歯石を撃って！避けて！歯を守れ！</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:20px;padding:5px 14px;font-size:0.75rem;color:#EF4444;font-weight:700;margin-bottom:6px;">💀 HELL MODE+ — v4.0</div>
+    <div id="deviceModeBadge" style="display:inline-flex;align-items:center;gap:5px;border-radius:16px;padding:4px 12px;font-size:0.7rem;font-weight:600;margin-bottom:12px;"></div>
+
+    <div class="intro-enemies">
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🪨</div>
+        <div class="intro-enemy-name">歯石</div>
+      </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🦠</div>
+        <div class="intro-enemy-name">むし歯菌</div>
+      </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🍬</div>
+        <div class="intro-enemy-name">糖分</div>
+      </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🥤</div>
+        <div class="intro-enemy-name">酸性飲料</div>
+      </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">🫧</div>
+        <div class="intro-enemy-name">歯垢</div>
+      </div>
+      <div class="intro-enemy">
+        <div class="intro-enemy-emoji">☕</div>
+        <div class="intro-enemy-name">コーヒー</div>
+      </div>
+    </div>
+
+    <div class="intro-how">
+      <div class="intro-how-title">🎮 操作方法</div>
+      <div class="intro-how-row"><span>📱</span>画面タッチで歯を移動＋ミサイルを発射できます</div>
+      <div class="intro-how-row"><span>⌨️</span>矢印キーで移動／スペースバーで発射します</div>
+      <div class="intro-how-row"><span>🔫</span>歯みがき粉ミサイルで敵を破壊してください！</div>
+      <div class="intro-how-row"><span>❤️</span>HPは3つ、0になるとゲームオーバーです</div>
+      <div class="intro-how-row"><span>⚡</span>アイテムを取るとパワーアップします！</div>
+      <div class="intro-how-row"><span>⚠️</span> <span id="waveInfoText">18秒ごとにウェーブが来ます — 生き残れ！</span></div>
+      <div class="intro-how-row"><span>☕</span>コーヒーは破壊すると2つに分裂します！</div>
+    </div>
+
+    <button class="btn-start-game" onclick="startGame()">
+      <i class="fas fa-play"></i> &nbsp;ゲーム開始！
+    </button>
+    <div class="intro-controls">タッチまたは矢印キーで操作します</div>
+
+    <div class="intro-badge">
+      <span>🎮</span>
+      <span>ソウルBD歯科 × 歯石フライト</span>
+    </div>
+  </div>
+
+  <!-- GAME CANVAS -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- HUD -->
+  <div class="hud" id="hud">
+    <div>
+      <div class="hud-score" id="hudScore">0<small>点</small></div>
+      <div class="hud-combo" id="hudCombo">🔥 5 COMBO!</div>
+    </div>
+    <div class="hud-hp" id="hudHp">
+      <span class="hud-hp-heart">❤️</span>
+      <span class="hud-hp-heart">❤️</span>
+      <span class="hud-hp-heart">❤️</span>
+    </div>
+  </div>
+  <div class="hud-multiplier" id="hudMultiplier">×1.5倍！</div>
+
+  <!-- POWERUP INDICATOR -->
+  <div class="powerup-indicator" id="powerupIndicator"></div>
+
+  <!-- DAMAGE FLASH -->
+  <div class="damage-flash" id="damageFlash"></div>
+
+  <!-- PAUSE -->
+  <div class="pause-overlay" id="pauseOverlay">
+    <div class="pause-text">⏸️ 一時停止</div>
+    <button class="btn-resume" onclick="resumeGame()">続ける</button>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="screen" id="resultScreen"></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+  // ============================================
+  // 치석 플라이트 (Chistone Flight) v4.0 — HELL MODE+ (모바일/PC 분리)
+  // by 서울비디치과
+  // ============================================
+
+  var canvas, ctx, W, H;
+  var gameRunning = false;
+  var gamePaused = false;
+  var animFrameId = null;
+
+  // Player
+  var player = {
+    x: 0, y: 0,
+    w: 40, h: 40,
+    targetX: 0,
+    hp: 3,
+    maxHp: 3,
+    invincible: false,
+    invincibleTimer: 0,
+    shieldActive: false,
+    shieldTimer: 0
+  };
+
+  // Game state
+  var score = 0;
+  var elapsed = 0; // ms
+  var combo = 0;
+  var maxCombo = 0;
+  var dodgeCount = 0;
+  var itemCount = 0;
+  var multiplier = 1;
+  var lastTime = 0;
+  var spawnTimer = 0;
+  var difficultyLevel = 0;
+
+  // Entities
+  var enemies = [];
+  var items = [];
+  var missiles = [];
+  var particles = [];
+  var bgStars = [];
+  var floatingTexts = [];
+
+  // Missile system
+  var missileTimer = 0;
+  var missileInterval = 420; // ms between auto shots (HARDER)
+  var missileSpeed = 500; // px/sec (HARDER)
+  var missileLevel = 1; // 1=single, 2=double, 3=triple
+  var missileLevelTimer = 0;
+  var killCount = 0;
+
+  // Wave system
+  var waveTimer = 0;
+  var waveNumber = 0;
+  var waveActive = false;
+  var waveEnemiesLeft = 0;
+  var warningTimer = 0;
+  var warningText = '';
+
+  // Input
+  var inputX = null;
+  var keys = {};
+
+  // Device detection: mobile vs PC
+  var isMobile = (W < 768);
+  function updateDeviceType() { isMobile = (W < 768); }
+
+  // Enemy types
+  var ENEMY_TYPES = {
+    tartar: { emoji: '🪨', name: '치석', w: 38, h: 38, speed: 3.5, hp: 4, killScore: 80, zigzag: false },
+    cavity: { emoji: '🦠', name: '충치균', w: 34, h: 34, speed: 4.5, hp: 3, killScore: 60, zigzag: true },
+    sugar:  { emoji: '🍬', name: '당분', w: 28, h: 28, speed: 6.5, hp: 1, killScore: 100, zigzag: false },
+    soda:   { emoji: '🥤', name: '산성음료', w: 48, h: 54, speed: 3.0, hp: 12, killScore: 250, damage: 2, zigzag: false },
+    plaque: { emoji: '🫧', name: '치태', w: 30, h: 30, speed: 5.5, hp: 2, killScore: 70, zigzag: true, homing: true },
+    coffee: { emoji: '☕', name: '커피', w: 34, h: 34, speed: 4.0, hp: 3, killScore: 90, zigzag: false, splitting: true }
+  };
+
+  // Item types
+  var ITEM_TYPES = {
+    toothbrush: { emoji: '🪥', name: '칫솔', w: 30, h: 30, effect: 'powershot', duration: 5000, desc: '🔥 3연발 파워샷!' },
+    floss:      { emoji: '🧵', name: '치실', w: 28, h: 28, effect: 'clearAll', duration: 0, desc: '💥 전체 클리어!' },
+    fluoride:   { emoji: '💊', name: '불소', w: 28, h: 28, effect: 'heal', duration: 0, desc: '💚 HP 회복!' }
+  };
+
+  // Grades
+  var GRADES = [
+    { min: 8000, emoji: '💎', name: '다이아몬드 치아', cls: 'grade-diamond',
+      comment: '진짜요?! 이 정도면 치과 그만 오셔도... 아니 그래도 오세요 ㅋㅋ',
+      cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 4000, emoji: '🦷', name: '건강한 치아', cls: 'grade-healthy',
+      comment: '관리 잘 하고 계시네요! 정기검진만 꾸준히 받으시면 돼요 👍',
+      cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 1500, emoji: '😬', name: '보통 치아', cls: 'grade-normal',
+      comment: '나쁘지 않아요. 근데 조금만 더 관리하면 완벽할 것 같아요!',
+      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
+    { min: 0, emoji: '💀', name: '충치 치아', cls: 'grade-skull',
+      comment: '걱정이 좀 되네요. 지금이라도 한번 오시면 저희가 잘 도와드릴게요!',
+      cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' }
+  ];
+
+  // ---- INIT ----
+  function init() {
+    canvas = document.getElementById('gameCanvas');
+    ctx = canvas.getContext('2d');
+    resize();
+    window.addEventListener('resize', resize);
+    initBgStars();
+    drawBgStars();
+    updateDeviceBadge();
+  }
+
+  function updateDeviceBadge() {
+    var badge = document.getElementById('deviceModeBadge');
+    var waveInfo = document.getElementById('waveInfoText');
+    if (isMobile) {
+      badge.innerHTML = '📱 모바일 모드 (난이도 조정)';
+      badge.style.background = 'rgba(59,130,246,0.15)';
+      badge.style.border = '1px solid rgba(59,130,246,0.3)';
+      badge.style.color = '#60A5FA';
+      if (waveInfo) waveInfo.textContent = '30초마다 웨이브 — 살아남아라!';
+    } else {
+      badge.innerHTML = '🖥️ PC 모드 (EXTREME)';
+      badge.style.background = 'rgba(239,68,68,0.15)';
+      badge.style.border = '1px solid rgba(239,68,68,0.3)';
+      badge.style.color = '#EF4444';
+      if (waveInfo) waveInfo.textContent = '18초마다 웨이브 — 살아남아라!';
+    }
+  }
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+    updateDeviceType();
+    if (document.getElementById('deviceModeBadge')) updateDeviceBadge();
+  }
+
+  function initBgStars() {
+    bgStars = [];
+    for (var i = 0; i < 80; i++) {
+      bgStars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        size: Math.random() * 2 + 0.5,
+        speed: Math.random() * 0.5 + 0.2,
+        alpha: Math.random() * 0.5 + 0.1
+      });
+    }
+  }
+
+  function drawBgStars() {
+    ctx.fillStyle = '#0a0a1a';
+    ctx.fillRect(0, 0, W, H);
+    bgStars.forEach(function(s) {
+      ctx.globalAlpha = s.alpha;
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  // ---- START GAME ----
+  function startGame() {
+    document.getElementById('introScreen').classList.remove('active');
+    document.getElementById('resultScreen').classList.remove('active');
+    document.getElementById('hud').classList.add('active');
+
+    // Reset
+    player.x = W / 2;
+    player.y = H - 100;
+    player.targetX = W / 2;
+    player.hp = 3;
+    player.invincible = false;
+    player.invincibleTimer = 0;
+    player.shieldActive = false;
+    player.shieldTimer = 0;
+
+    score = 0;
+    elapsed = 0;
+    combo = 0;
+    maxCombo = 0;
+    dodgeCount = 0;
+    itemCount = 0;
+    multiplier = 1;
+    spawnTimer = 0;
+    difficultyLevel = 0;
+    enemies = [];
+    items = [];
+    missiles = [];
+    particles = [];
+    floatingTexts = [];
+    missileTimer = 0;
+    missileLevel = 1;
+    missileLevelTimer = 0;
+    killCount = 0;
+    waveTimer = 0;
+    waveNumber = 0;
+    waveActive = false;
+    waveEnemiesLeft = 0;
+    warningTimer = 0;
+    warningText = '';
+
+    updateHud();
+    gameRunning = true;
+    gamePaused = false;
+    lastTime = performance.now();
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    gameLoop(lastTime);
+
+    // Analytics: 게임 시작
+    if (window.bdAnalytics && bdAnalytics.trackGameStart) {
+      bdAnalytics.trackGameStart('chistone_flight');
+    }
+    // 재시작 여부 체크
+    if (window._flightResult) {
+      if (window.bdAnalytics && bdAnalytics.trackGameRestart) {
+        bdAnalytics.trackGameRestart('chistone_flight', window._flightResult.score);
+      }
+    }
+
+    // Vibrate
+    if (navigator.vibrate) navigator.vibrate(50);
+  }
+
+  // ---- GAME LOOP ----
+  function gameLoop(now) {
+    if (!gameRunning) return;
+    if (gamePaused) { animFrameId = requestAnimationFrame(gameLoop); return; }
+
+    var dt = Math.min(now - lastTime, 50); // cap delta
+    lastTime = now;
+    elapsed += dt;
+
+    update(dt);
+    render();
+
+    animFrameId = requestAnimationFrame(gameLoop);
+  }
+
+  // ---- UPDATE ----
+  function update(dt) {
+    var dtSec = dt / 1000;
+    var speedMult = getSpeedMultiplier();
+
+    // Score: 10 per second
+    score += Math.round(10 * dtSec * multiplier);
+
+    // Player movement
+    updatePlayer(dt);
+
+    // Spawn enemies
+    spawnTimer += dt;
+    var spawnInterval = getSpawnInterval();
+    while (spawnTimer >= spawnInterval) {
+      spawnTimer -= spawnInterval;
+      spawnEnemy(speedMult);
+    }
+
+    // Spawn items — 모바일은 아이템 2배 자주! (v4.0)
+    var itemRate = isMobile ? 0.10 : 0.04;
+    if (Math.random() < dtSec * itemRate) {
+      spawnItem();
+    }
+
+    // Wave system — 모바일은 느리게 & 적게, PC는 빡세게 (v4.0)
+    waveTimer += dt;
+    var waveInterval = isMobile ? 30000 : 18000; // 모바일 30초, PC 18초
+    if (!waveActive && waveTimer > waveInterval) {
+      waveTimer = 0;
+      waveNumber++;
+      waveActive = true;
+      waveEnemiesLeft = isMobile
+        ? Math.min(12, 4 + waveNumber * 2)   // 모바일: 최대 12마리
+        : Math.min(30, 10 + waveNumber * 5);  // PC: 최대 30마리
+      var tauntMsgs = [
+        '⚠️ WAVE ' + waveNumber + ' — 각오해라!',
+        '💀 WAVE ' + waveNumber + ' — 아직도 살아있네?',
+        '🔥 WAVE ' + waveNumber + ' — 이건 좀 어려울걸?',
+        '😈 WAVE ' + waveNumber + ' — 포기는 없다!',
+        '👹 WAVE ' + waveNumber + ' — 치석이 분노했다!',
+        '💢 WAVE ' + waveNumber + ' — 킹받지? ㅋㅋ',
+        '🫠 WAVE ' + waveNumber + ' — 다시하기 누를 준비됐지?'
+      ];
+      showPowerup(tauntMsgs[Math.floor(Math.random()*tauntMsgs.length)]);
+      if (navigator.vibrate) navigator.vibrate([50,30,50,30,50,30,80]);
+    }
+    if (waveActive && waveEnemiesLeft > 0) {
+      var waveSpawnRate = isMobile ? 6 : 18; // 모바일: 느린 웨이브 스폰
+      if (Math.random() < dtSec * waveSpawnRate) { // v4.0: 모바일/PC 웨이브 스폰 분리
+        var wTypes = ['tartar','cavity','sugar','plaque','coffee'];
+        if (waveNumber >= 3) wTypes.push('soda');
+        var wk = wTypes[Math.floor(Math.random()*wTypes.length)];
+        enemies.push(createEnemy(wk, speedMult * 1.4));
+        waveEnemiesLeft--;
+      }
+      if (waveEnemiesLeft <= 0) waveActive = false;
+    }
+
+    // Update enemies
+    updateEnemies(dt, speedMult);
+
+    // Auto-fire missiles
+    missileTimer += dt;
+    if (missileTimer >= missileInterval) {
+      missileTimer -= missileInterval;
+      fireMissile();
+    }
+
+    // Update missiles
+    updateMissiles(dt);
+
+    // Update items
+    updateItems(dt);
+
+    // Update particles
+    updateParticles(dt);
+
+    // Update floating texts
+    updateFloatingTexts(dt);
+
+    // Powershot timer
+    if (missileLevel > 1) {
+      missileLevelTimer -= dt;
+      if (missileLevelTimer <= 0) {
+        missileLevel = 1;
+        missileInterval = 420; // Reset fire rate (HARDER)
+      }
+    }
+
+    // Shield timer
+    if (player.shieldActive) {
+      player.shieldTimer -= dt;
+      if (player.shieldTimer <= 0) {
+        player.shieldActive = false;
+      }
+    }
+
+    // Invincibility timer (after hit)
+    if (player.invincible && !player.shieldActive) {
+      player.invincibleTimer -= dt;
+      if (player.invincibleTimer <= 0) {
+        player.invincible = false;
+      }
+    }
+
+    // Combo decay: reset if no dodge in 3 seconds
+    // (combo resets naturally when hit)
+
+    updateHud();
+  }
+
+  function getSpeedMultiplier() {
+    var sec = elapsed / 1000;
+    if (isMobile) {
+      // 모바일 v4.0: 화면 좁으니 속도 대폭 낮춤 (PC 대비 ~60%)
+      if (sec < 8) return 0.8;
+      if (sec < 15) return 1.0;
+      if (sec < 25) return 1.2;
+      if (sec < 35) return 1.4;
+      if (sec < 50) return 1.7;
+      if (sec < 70) return 2.0;
+      if (sec < 90) return 2.3;
+      if (sec < 120) return 2.6;
+      return 2.8 + (sec - 120) * 0.008;
+    } else {
+      // PC: 화면 넓으니 빡세게 (기존 유지)
+      if (sec < 5) return 1.0;
+      if (sec < 12) return 1.4;
+      if (sec < 20) return 1.9;
+      if (sec < 30) return 2.4;
+      if (sec < 45) return 3.0;
+      if (sec < 60) return 3.6;
+      if (sec < 80) return 4.2;
+      if (sec < 100) return 4.8;
+      return 5.2 + (sec - 100) * 0.025;
+    }
+  }
+
+  function getSpawnInterval() {
+    var sec = elapsed / 1000;
+    if (isMobile) {
+      // 모바일 v4.0: 스폰 간격 훨씬 넉넉하게 (PC 대비 ~2배)
+      var base = 500;
+      if (sec > 120) return Math.max(150, base - 320);
+      if (sec > 90) return Math.max(180, base - 270);
+      if (sec > 70) return Math.max(200, base - 230);
+      if (sec > 50) return Math.max(230, base - 190);
+      if (sec > 35) return Math.max(270, base - 150);
+      if (sec > 20) return Math.max(320, base - 100);
+      if (sec > 10) return Math.max(380, base - 50);
+      return base;
+    } else {
+      // PC: 빡빡하게 (기존 유지)
+      var base = 170;
+      if (sec > 100) return Math.max(27, base - 140);
+      if (sec > 80) return Math.max(32, base - 125);
+      if (sec > 60) return Math.max(40, base - 108);
+      if (sec > 45) return Math.max(50, base - 92);
+      if (sec > 30) return Math.max(65, base - 77);
+      if (sec > 20) return Math.max(85, base - 54);
+      if (sec > 10) return Math.max(112, base - 31);
+      return base;
+    }
+  }
+
+  function updatePlayer(dt) {
+    // Keyboard
+    var moveSpeed = 350 * (dt / 1000);
+    if (keys['ArrowLeft'] || keys['a']) player.targetX -= moveSpeed;
+    if (keys['ArrowRight'] || keys['d']) player.targetX += moveSpeed;
+
+    // Touch/mouse input
+    if (inputX !== null) {
+      player.targetX = inputX;
+    }
+
+    // Clamp
+    player.targetX = Math.max(player.w / 2, Math.min(W - player.w / 2, player.targetX));
+
+    // Smooth movement
+    var dx = player.targetX - player.x;
+    player.x += dx * 0.15;
+
+    // Keep player at bottom area
+    player.y = H - 100;
+  }
+
+  // ---- SPAWN ----
+  function createEnemy(typeKey, speedMult, overrideX) {
+    var type = ENEMY_TYPES[typeKey];
+    return {
+      type: typeKey, emoji: type.emoji,
+      x: overrideX || (Math.random() * (W - type.w * 2) + type.w),
+      y: -type.h, w: type.w, h: type.h, hp: type.hp || 1,
+      speed: type.speed * speedMult, damage: type.damage || 1,
+      zigzag: type.zigzag || false, homing: type.homing || false, splitting: type.splitting || false,
+      zigzagPhase: Math.random() * Math.PI * 2,
+      zigzagSpeed: 2 + Math.random() * 3, zigzagAmp: 30 + Math.random() * 50,
+      passed: false, rotation: 0, rotSpeed: (Math.random() - 0.5) * 3, hitFlash: 0
+    };
+  }
+
+  function spawnEnemy(speedMult) {
+    var types = ['tartar', 'tartar', 'cavity', 'cavity', 'sugar'];
+    var sec = elapsed / 1000;
+
+    if (sec > 10) types.push('plaque', 'plaque');
+    if (sec > 15 && Math.random() < 0.2) types.push('soda');
+    if (sec > 25) types.push('coffee', 'plaque', 'sugar');
+    if (sec > 40) types.push('sugar', 'sugar', 'coffee', 'cavity', 'soda');
+    if (sec > 60) types.push('sugar', 'sugar', 'plaque', 'plaque', 'coffee', 'soda');
+    if (sec > 90) types.push('soda', 'soda', 'coffee', 'coffee');
+
+    // 스폰 카운트: 모바일 vs PC 완전 분리 (v4.0)
+    var spawnCount;
+    if (isMobile) {
+      // 모바일 v4.0: 적 수 대폭 감소 (화면 좁음 고려)
+      spawnCount = 1;
+      if (sec > 15 && Math.random() < 0.3) spawnCount = 2;
+      if (sec > 35 && Math.random() < 0.25) spawnCount = 2;
+      if (sec > 60 && Math.random() < 0.2) spawnCount = 3;
+      if (sec > 90 && Math.random() < 0.15) spawnCount = 3;
+    } else {
+      // PC: 빡세게 (기존 유지)
+      spawnCount = 3;
+      if (sec > 10 && Math.random() < 0.5) spawnCount = 4;
+      if (sec > 20 && Math.random() < 0.45) spawnCount = 5;
+      if (sec > 35 && Math.random() < 0.4) spawnCount = 6;
+      if (sec > 50 && Math.random() < 0.35) spawnCount = 7;
+      if (sec > 70 && Math.random() < 0.3) spawnCount = 8;
+      if (sec > 90 && Math.random() < 0.25) spawnCount = 10;
+    }
+
+    // 킹받는 포인트: 플레이어 근처에 적 스폰 (모바일은 거의 없앰)
+    if (sec > (isMobile ? 20 : 8) && Math.random() < (isMobile ? 0.08 : 0.4)) {
+      var sniperType = types[Math.floor(Math.random()*types.length)];
+      var sniperE = createEnemy(sniperType, speedMult, player.x + (Math.random()-0.5)*80);
+      enemies.push(sniperE);
+    }
+
+    // Formation: V-shape (모바일은 확률 낮춤)
+    var pattern = Math.random();
+    var vChance = isMobile ? 0.04 : 0.12;
+    if (sec > (isMobile ? 40 : 20) && pattern < vChance) {
+      var cx = W/2 + (Math.random()-0.5)*W*0.5;
+      for (var v=0; v<3; v++) {
+        var e = createEnemy('tartar', speedMult, cx + (v-1)*60);
+        e.y = -e.h - v*40;
+        enemies.push(e);
+      }
+      return;
+    }
+    // Formation: Wall (모바일은 벽 적 수 줄이고, 출현 늦춤)
+    var wallChance = isMobile ? 0.10 : 0.22;
+    if (sec > (isMobile ? 60 : 35) && pattern < wallChance) {
+      var wc = isMobile ? Math.min(3, 2 + Math.floor(sec/80)) : Math.min(5, 3 + Math.floor(sec/40));
+      var gap = W / (wc+1);
+      var wt = sec > 60 ? 'cavity' : 'tartar';
+      for (var ww=0; ww<wc; ww++) enemies.push(createEnemy(wt, speedMult*0.8, gap*(ww+1)));
+      return;
+    }
+
+    for (var s=0; s<spawnCount; s++) {
+      var typeKey = types[Math.floor(Math.random()*types.length)];
+      enemies.push(createEnemy(typeKey, speedMult));
+    }
+  }
+
+  function spawnItem() {
+    var types = ['toothbrush', 'floss', 'fluoride'];
+    var typeKey = types[Math.floor(Math.random() * types.length)];
+    var type = ITEM_TYPES[typeKey];
+
+    items.push({
+      type: typeKey,
+      emoji: type.emoji,
+      x: Math.random() * (W - 60) + 30,
+      y: -type.h,
+      w: type.w,
+      h: type.h,
+      speed: 1.5,
+      glow: 0,
+      glowDir: 1
+    });
+  }
+
+  // ---- MISSILE SYSTEM ----
+  function fireMissile() {
+    if (!gameRunning || gamePaused) return;
+    
+    var baseX = player.x;
+    var baseY = player.y - 25;
+    
+    if (missileLevel >= 3) {
+      // Triple shot
+      missiles.push({ x: baseX, y: baseY, w: 6, h: 14, speed: missileSpeed });
+      missiles.push({ x: baseX - 16, y: baseY + 8, w: 5, h: 12, speed: missileSpeed * 0.95, angle: -0.15 });
+      missiles.push({ x: baseX + 16, y: baseY + 8, w: 5, h: 12, speed: missileSpeed * 0.95, angle: 0.15 });
+    } else if (missileLevel >= 2) {
+      // Double shot
+      missiles.push({ x: baseX - 10, y: baseY, w: 6, h: 14, speed: missileSpeed });
+      missiles.push({ x: baseX + 10, y: baseY, w: 6, h: 14, speed: missileSpeed });
+    } else {
+      // Single shot
+      missiles.push({ x: baseX, y: baseY, w: 5, h: 12, speed: missileSpeed });
+    }
+  }
+
+  function updateMissiles(dt) {
+    var dtSec = dt / 1000;
+    for (var m = missiles.length - 1; m >= 0; m--) {
+      var ms = missiles[m];
+      var angle = ms.angle || 0;
+      ms.y -= ms.speed * dtSec;
+      ms.x += Math.sin(angle) * ms.speed * dtSec;
+      
+      // Check collision with enemies
+      var hit = false;
+      for (var e = enemies.length - 1; e >= 0; e--) {
+        var en = enemies[e];
+        if (missileHitsEnemy(ms, en)) {
+          en.hp = (en.hp || 1) - 1;
+          hit = true;
+          
+          // Spawn small hit particles
+          for (var p = 0; p < 4; p++) {
+            var a = Math.random() * Math.PI * 2;
+            particles.push({
+              x: ms.x, y: ms.y,
+              vx: Math.cos(a) * 80, vy: Math.sin(a) * 80,
+              size: 2 + Math.random() * 2, color: '#7C3AED',
+              life: 0.3, maxLife: 0.3, alpha: 1
+            });
+          }
+          
+          if (en.hp <= 0) {
+            // Enemy destroyed!
+            var killScore = Math.round((ENEMY_TYPES[en.type].killScore || 50) * multiplier);
+            score += killScore;
+            killCount++;
+            combo++;
+            if (combo > maxCombo) maxCombo = combo;
+            
+            addFloatingText(en.x, en.y, '+' + killScore + ' 💥', '#F59E0B');
+            spawnHitParticles(en.x, en.y, '#EF4444');
+            
+            // Splitting: coffee splits into 2 sugars!
+            if (en.splitting) {
+              var s1 = createEnemy('sugar', getSpeedMultiplier(), en.x - 25);
+              var s2 = createEnemy('sugar', getSpeedMultiplier(), en.x + 25);
+              s1.y = en.y; s2.y = en.y; s1.speed *= 1.3; s2.speed *= 1.3;
+              enemies.push(s1); enemies.push(s2);
+            }
+            
+            // Combo multiplier at 5+ kills
+            if (combo >= 5 && combo % 5 === 0) {
+              multiplier = 1.5;
+              showMultiplier();
+            }
+            
+            enemies.splice(e, 1);
+          } else {
+            // Enemy hit but not dead — flash effect
+            en.hitFlash = 150; // ms
+          }
+          break;
+        }
+      }
+      
+      // Remove if hit or offscreen
+      if (hit || ms.y < -20) {
+        missiles.splice(m, 1);
+      }
+    }
+  }
+
+  function missileHitsEnemy(m, e) {
+    return m.x - m.w/2 < e.x + e.w/2 &&
+           m.x + m.w/2 > e.x - e.w/2 &&
+           m.y - m.h/2 < e.y + e.h/2 &&
+           m.y + m.h/2 > e.y - e.h/2;
+  }
+
+  // ---- UPDATE ENTITIES ----
+  function updateEnemies(dt, speedMult) {
+    var dtSec = dt / 1000;
+    for (var i = enemies.length - 1; i >= 0; i--) {
+      var e = enemies[i];
+      e.y += e.speed * 200 * dtSec;
+      e.rotation += e.rotSpeed * dtSec;
+      
+      // Hit flash decay
+      if (e.hitFlash) {
+        e.hitFlash -= dt;
+        if (e.hitFlash <= 0) e.hitFlash = 0;
+      }
+
+      // Zigzag
+      if (e.zigzag) {
+        e.zigzagPhase += e.zigzagSpeed * dtSec;
+        e.x += Math.sin(e.zigzagPhase) * e.zigzagAmp * dtSec;
+        e.x = Math.max(e.w / 2, Math.min(W - e.w / 2, e.x));
+      }
+
+      // Homing: 모바일은 거의 안 쫓아옴, PC는 빡세게 (v4.0)
+      if (e.homing && e.y < H * 0.75) {
+        var homeDx = player.x - e.x;
+        e.x += homeDx * (isMobile ? 0.8 : 2.5) * dtSec;
+      }
+
+      // Check collision with player
+      if (!player.invincible && !player.shieldActive) {
+        if (checkCollision(player, e)) {
+          hitPlayer(e.damage);
+          spawnHitParticles(e.x, e.y, '#EF4444');
+          enemies.splice(i, 1);
+          continue;
+        }
+      } else if (player.shieldActive && checkCollision(player, e)) {
+        // Shield destroys enemies
+        score += Math.round(50 * multiplier);
+        spawnHitParticles(e.x, e.y, '#7C3AED');
+        addFloatingText(e.x, e.y, '+50', '#7C3AED');
+        enemies.splice(i, 1);
+        continue;
+      }
+
+      // Near miss detection (dodge bonus)
+      if (!e.passed && e.y > player.y + 20) {
+        e.passed = true;
+        var dist = Math.abs(e.x - player.x);
+        if (dist < 80) { // Close call
+          combo++;
+          dodgeCount++;
+          if (combo > maxCombo) maxCombo = combo;
+          var dodgeScore = Math.round(50 * multiplier);
+          score += dodgeScore;
+          addFloatingText(player.x, player.y - 30, '+' + dodgeScore + ' 아슬아슬!', '#F59E0B');
+
+          // Multiplier at 5+ combo
+          if (combo >= 5 && combo % 5 === 0) {
+            multiplier = 1.5;
+            showMultiplier();
+          }
+        }
+      }
+
+      // Remove offscreen
+      if (e.y > H + 60) {
+        enemies.splice(i, 1);
+      }
+    }
+  }
+
+  function updateItems(dt) {
+    var dtSec = dt / 1000;
+    for (var i = items.length - 1; i >= 0; i--) {
+      var item = items[i];
+      item.y += item.speed * 150 * dtSec;
+      item.glow += item.glowDir * dtSec * 3;
+      if (item.glow > 1) item.glowDir = -1;
+      if (item.glow < 0) item.glowDir = 1;
+
+      // Collision with player
+      if (checkCollision(player, item)) {
+        collectItem(item);
+        items.splice(i, 1);
+        continue;
+      }
+
+      // Offscreen
+      if (item.y > H + 40) {
+        items.splice(i, 1);
+      }
+    }
+  }
+
+  function updateParticles(dt) {
+    var dtSec = dt / 1000;
+    for (var i = particles.length - 1; i >= 0; i--) {
+      var p = particles[i];
+      p.x += p.vx * dtSec;
+      p.y += p.vy * dtSec;
+      p.life -= dtSec;
+      p.alpha = Math.max(0, p.life / p.maxLife);
+      p.size *= 0.98;
+      if (p.life <= 0) particles.splice(i, 1);
+    }
+  }
+
+  function updateFloatingTexts(dt) {
+    var dtSec = dt / 1000;
+    for (var i = floatingTexts.length - 1; i >= 0; i--) {
+      var ft = floatingTexts[i];
+      ft.y -= 60 * dtSec;
+      ft.life -= dtSec;
+      ft.alpha = Math.max(0, ft.life / ft.maxLife);
+      if (ft.life <= 0) floatingTexts.splice(i, 1);
+    }
+  }
+
+  // ---- COLLISION ----
+  function checkCollision(a, b) {
+    var pad = 4; // Tighter hitbox (HARDER)
+    return a.x - a.w/2 + pad < b.x + b.w/2 - pad &&
+           a.x + a.w/2 - pad > b.x - b.w/2 + pad &&
+           a.y - a.h/2 + pad < b.y + b.h/2 - pad &&
+           a.y + a.h/2 - pad > b.y - b.h/2 + pad;
+  }
+
+  // ---- PLAYER HIT ----
+  function hitPlayer(damage) {
+    player.hp -= damage;
+    combo = 0;
+    multiplier = 1;
+
+    // Flash
+    var flash = document.getElementById('damageFlash');
+    flash.classList.add('active');
+    setTimeout(function() { flash.classList.remove('active'); }, 200);
+
+    // Vibrate
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+
+    // Invincibility frames
+    player.invincible = true;
+    player.invincibleTimer = 1500;
+
+    if (player.hp <= 0) {
+      player.hp = 0;
+      gameOver();
+    }
+  }
+
+  // ---- COLLECT ITEM ----
+  function collectItem(item) {
+    var type = ITEM_TYPES[item.type];
+    itemCount++;
+    score += Math.round(100 * multiplier);
+
+    // Effect
+    if (type.effect === 'powershot') {
+      missileLevel = 3;
+      missileLevelTimer = type.duration;
+      missileInterval = 250; // Faster fire rate (powerup)
+      // Also brief invincibility
+      player.shieldActive = true;
+      player.shieldTimer = 2000;
+      player.invincible = true;
+    } else if (type.effect === 'clearAll') {
+      // Kill all enemies
+      enemies.forEach(function(e) {
+        spawnHitParticles(e.x, e.y, '#3B82F6');
+        score += Math.round(30 * multiplier);
+        killCount++;
+      });
+      enemies = [];
+    } else if (type.effect === 'heal') {
+      player.hp = Math.min(player.maxHp, player.hp + 1);
+    }
+
+    // Show powerup text
+    showPowerup(type.desc);
+    spawnHitParticles(item.x, item.y, '#10B981');
+    addFloatingText(item.x, item.y, '+100', '#10B981');
+
+    if (navigator.vibrate) navigator.vibrate(30);
+  }
+
+  // ---- PARTICLES ----
+  function spawnHitParticles(x, y, color) {
+    for (var i = 0; i < 12; i++) {
+      var angle = (Math.PI * 2 / 12) * i + Math.random() * 0.5;
+      var speed = 100 + Math.random() * 200;
+      particles.push({
+        x: x, y: y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size: 3 + Math.random() * 4,
+        color: color,
+        life: 0.6 + Math.random() * 0.4,
+        maxLife: 1,
+        alpha: 1
+      });
+    }
+  }
+
+  function addFloatingText(x, y, text, color) {
+    floatingTexts.push({ x: x, y: y, text: text, color: color, life: 1.2, maxLife: 1.2, alpha: 1 });
+  }
+
+  // ---- RENDER ----
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Background gradient
+    var grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, '#0a0a2e');
+    grad.addColorStop(0.5, '#150a2e');
+    grad.addColorStop(1, '#0a0a1a');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Stars
+    bgStars.forEach(function(s) {
+      s.y += s.speed * 2;
+      if (s.y > H) { s.y = 0; s.x = Math.random() * W; }
+      ctx.globalAlpha = s.alpha;
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    // Enemies
+    enemies.forEach(function(e) {
+      ctx.save();
+      ctx.translate(e.x, e.y);
+      ctx.rotate(e.rotation);
+      
+      // Hit flash effect (white overlay when damaged)
+      if (e.hitFlash && e.hitFlash > 0) {
+        ctx.globalAlpha = 0.5 + Math.sin(performance.now() * 0.03) * 0.5;
+      }
+      
+      ctx.font = e.w + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(e.emoji, 0, 0);
+      
+      // HP bar for enemies with hp > 1
+      var maxHp = ENEMY_TYPES[e.type] ? ENEMY_TYPES[e.type].hp : 1;
+      if (maxHp > 1) {
+        var barW = e.w * 0.9;
+        var barH = 4;
+        var barX = -barW / 2;
+        var barY = -e.h / 2 - 8;
+        ctx.globalAlpha = 0.7;
+        ctx.fillStyle = '#333';
+        ctx.fillRect(barX, barY, barW, barH);
+        var hpRatio = Math.max(0, e.hp / maxHp);
+        ctx.fillStyle = hpRatio > 0.5 ? '#10B981' : hpRatio > 0.25 ? '#F59E0B' : '#EF4444';
+        ctx.fillRect(barX, barY, barW * hpRatio, barH);
+        ctx.globalAlpha = 1;
+      }
+      
+      ctx.restore();
+    });
+
+    // Missiles
+    missiles.forEach(function(m) {
+      ctx.save();
+      ctx.translate(m.x, m.y);
+      // Glow
+      ctx.shadowColor = missileLevel >= 3 ? '#EC4899' : '#7C3AED';
+      ctx.shadowBlur = missileLevel >= 3 ? 12 : 8;
+      // Missile body (elongated glow)
+      var grad = ctx.createLinearGradient(0, -m.h/2, 0, m.h/2);
+      grad.addColorStop(0, missileLevel >= 3 ? '#EC4899' : '#A78BFA');
+      grad.addColorStop(0.5, missileLevel >= 3 ? '#F472B6' : '#7C3AED');
+      grad.addColorStop(1, 'rgba(124,58,237,0.2)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, m.w / 2, m.h / 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Bright tip
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(0, -m.h/2 + 2, 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.restore();
+    });
+
+    // Items (with glow)
+    items.forEach(function(item) {
+      ctx.save();
+      ctx.translate(item.x, item.y);
+      // Glow
+      ctx.shadowColor = '#10B981';
+      ctx.shadowBlur = 10 + item.glow * 15;
+      ctx.font = item.w + 'px serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(item.emoji, 0, 0);
+      ctx.shadowBlur = 0;
+      ctx.restore();
+    });
+
+    // Particles
+    particles.forEach(function(p) {
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    // Floating texts
+    floatingTexts.forEach(function(ft) {
+      ctx.globalAlpha = ft.alpha;
+      ctx.fillStyle = ft.color;
+      ctx.font = 'bold 16px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(ft.text, ft.x, ft.y);
+    });
+    ctx.globalAlpha = 1;
+
+    // Player
+    renderPlayer();
+  }
+
+  function renderPlayer() {
+    ctx.save();
+    ctx.translate(player.x, player.y);
+
+    // Shield effect
+    if (player.shieldActive) {
+      ctx.beginPath();
+      ctx.arc(0, 0, 35, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(124,58,237,0.6)';
+      ctx.lineWidth = 3;
+      ctx.shadowColor = '#7C3AED';
+      ctx.shadowBlur = 20;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    }
+
+    // Blink when invincible (hit)
+    if (player.invincible && !player.shieldActive) {
+      ctx.globalAlpha = Math.sin(performance.now() * 0.01) > 0 ? 1 : 0.3;
+    }
+
+    // Tooth emoji
+    ctx.font = '40px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🦷', 0, 0);
+
+    // Thruster effect
+    ctx.globalAlpha = 0.5 + Math.random() * 0.3;
+    var thrusterSize = 8 + Math.random() * 6;
+    ctx.fillStyle = '#7C3AED';
+    ctx.beginPath();
+    ctx.arc(-8, 24, thrusterSize, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#EC4899';
+    ctx.beginPath();
+    ctx.arc(8, 24, thrusterSize * 0.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  // ---- HUD ----
+  function updateHud() {
+    document.getElementById('hudScore').innerHTML = Math.floor(score).toLocaleString() + '<small> 점</small>';
+
+    var comboEl = document.getElementById('hudCombo');
+    if (combo >= 3) {
+      comboEl.textContent = '🔥 ' + combo + ' COMBO!';
+      comboEl.classList.add('active');
+    } else {
+      comboEl.classList.remove('active');
+    }
+
+    var hpEl = document.getElementById('hudHp');
+    var hearts = hpEl.querySelectorAll('.hud-hp-heart');
+    for (var i = 0; i < hearts.length; i++) {
+      if (i < player.hp) {
+        hearts[i].classList.remove('lost');
+      } else {
+        hearts[i].classList.add('lost');
+      }
+    }
+  }
+
+  function showMultiplier() {
+    var el = document.getElementById('hudMultiplier');
+    el.textContent = '×' + multiplier + ' 배율!';
+    el.classList.add('active');
+    setTimeout(function() { el.classList.remove('active'); }, 2000);
+  }
+
+  function showPowerup(text) {
+    var el = document.getElementById('powerupIndicator');
+    el.textContent = text;
+    el.classList.remove('active');
+    void el.offsetWidth; // reflow
+    el.classList.add('active');
+    setTimeout(function() { el.classList.remove('active'); }, 1500);
+  }
+
+  // ---- GAME OVER ----
+  function gameOver() {
+    gameRunning = false;
+    document.getElementById('hud').classList.remove('active');
+    document.getElementById('hudMultiplier').classList.remove('active');
+
+    if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
+
+    // Determine grade
+    var grade = GRADES[GRADES.length - 1];
+    for (var i = 0; i < GRADES.length; i++) {
+      if (score >= GRADES[i].min) {
+        grade = GRADES[i];
+        break;
+      }
+    }
+
+    var survivalSec = Math.floor(elapsed / 1000);
+    var survivalMin = Math.floor(survivalSec / 60);
+    var survivalRemSec = survivalSec % 60;
+    var survivalText = survivalMin > 0 ? survivalMin + '분 ' + survivalRemSec + '초' : survivalSec + '초';
+
+    // Save to DB
+    saveScoreToDB(Math.floor(score), grade.name);
+
+    // Build result screen
+    var html = '';
+    html += '<div class="result-tooth-emoji">' + grade.emoji + '</div>';
+    html += '<div class="result-grade ' + grade.cls + '">' + grade.name + '</div>';
+    html += '<div class="result-score">' + Math.floor(score).toLocaleString() + '</div>';
+    html += '<div class="result-score-label">점</div>';
+
+    // Stats
+    html += '<div class="result-stats">';
+    html += '<div class="result-stat"><div class="result-stat-val">' + survivalText + '</div><div class="result-stat-label">생존시간</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + maxCombo + '</div><div class="result-stat-label">최대콤보</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + dodgeCount + '</div><div class="result-stat-label">아슬아슬</div></div>';
+    html += '<div class="result-stat"><div class="result-stat-val">' + itemCount + '</div><div class="result-stat-label">아이템</div></div>';
+    html += '</div>';
+
+    // Ranking placeholder
+    html += '<div class="result-ranking" id="resultRanking" style="display:none;"></div>';
+
+    // Doctor
+    html += '<div class="result-doctor">';
+    html += '<div class="result-doctor-header">';
+    html += '<div class="result-doctor-avatar">🦷</div>';
+    html += '<div class="result-doctor-info"><div class="result-doctor-name">비디치과 院長</div><div class="result-doctor-title">서울대 치의학과 · 서울비디치과</div></div>';
+    html += '</div>';
+    html += '<div class="result-doctor-text">"' + grade.comment + '"</div>';
+    html += '</div>';
+
+    // Share
+    html += '<div class="result-share">';
+    html += '<div class="result-share-title">' + grade.emoji + ' 나는 ' + Math.floor(score).toLocaleString() + '점 ' + grade.name + '!</div>';
+    html += '<div class="result-share-sub">너는 몇 점이야? 👀</div>';
+    html += '<div class="result-share-btns">';
+    html += '<button class="btn-share kakao" onclick="shareKakao()"><i class="fas fa-comment"></i> 카톡 자랑</button>';
+    html += '<button class="btn-share" onclick="shareLink()"><i class="fas fa-link"></i> 링크 복사</button>';
+    html += '</div>';
+    html += '</div>';
+
+    // CTA
+    html += '<a href="/reservation" class="btn-cta-result btn-cta-primary"><i class="fas ' + grade.ctaIcon + '"></i> ' + grade.cta + '</a><br>';
+    html += '<div style="height:8px"></div>';
+    html += '<button class="btn-retry" onclick="startGame()"><i class="fas fa-redo"></i> 다시 도전하기</button>';
+
+    html += '<div class="result-disclaimer">본 게임은 서울비디치과에서 제공하는 흥미·교육 목적의 콘텐츠입니다.</div>';
+
+    document.getElementById('resultScreen').innerHTML = html;
+    document.getElementById('resultScreen').classList.add('active');
+
+    // Store for sharing
+    window._flightResult = { score: Math.floor(score), grade: grade.name, emoji: grade.emoji };
+
+    // Analytics: 게임 종료
+    if (window.bdAnalytics && bdAnalytics.trackGameOver) {
+      bdAnalytics.trackGameOver('chistone_flight', Math.floor(score), grade.name, survivalSec, {
+        max_combo: maxCombo,
+        dodge_count: dodgeCount,
+        item_count: itemCount,
+        kill_count: killCount,
+        missile_level: missileLevel
+      });
+    }
+  }
+
+  // ---- SAVE SCORE ----
+  function saveScoreToDB(finalScore, gradeName) {
+    fetch('/api/flight/result', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ score: finalScore, grade: gradeName })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success) {
+        var rankEl = document.getElementById('resultRanking');
+        if (rankEl) {
+          rankEl.style.display = 'block';
+          var rhtml = '<div class="result-ranking-title">🏆 실시간 랭킹</div>';
+          rhtml += '<div class="result-ranking-row"><span>총 참여자</span><strong>' + data.total_players.toLocaleString() + '명</strong></div>';
+          if (data.rank) {
+            rhtml += '<div class="result-ranking-row"><span>내 순위</span><strong>상위 ' + data.top_percent + '%</strong></div>';
+          }
+          rhtml += '<div class="result-ranking-row"><span>평균 점수</span><strong>' + Math.floor(data.avg_score).toLocaleString() + '점</strong></div>';
+          rankEl.innerHTML = rhtml;
+        }
+      }
+    })
+    .catch(function(e) { console.log('Score save failed:', e); });
+  }
+
+  // ---- SHARING ----
+  function shareKakao() {
+    var result = window._flightResult || {};
+    var shareText = result.emoji + ' 나는 ' + (result.score || 0).toLocaleString() + '점 ' + result.grade + '!\n너는 몇 점이야? 👀\n#치석플라이트 #서울비디치과';
+
+    try {
+      if (window.Kakao) {
+        if (!Kakao.isInitialized()) {
+          Kakao.init('c5e7b6f82aaa722b63b2fb6e42cec872');
+        }
+        // Analytics: 카카오 공유
+        if (window.bdAnalytics && bdAnalytics.trackGameShare) {
+          bdAnalytics.trackGameShare('chistone_flight', 'kakao', { score: result.score, grade: result.grade });
+        }
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: result.emoji + ' ' + (result.score || 0).toLocaleString() + '점 — ' + result.grade,
+            description: '치석 플라이트에서 내 치아 등급은? 너는 몇 점? 👀',
+            imageUrl: 'https://bdbddc.com/images/og-checkup.jpg',
+            link: { mobileWebUrl: 'https://bdbddc.com/flight', webUrl: 'https://bdbddc.com/flight' }
+          },
+          buttons: [{ title: '나도 도전하기 🎮', link: { mobileWebUrl: 'https://bdbddc.com/flight', webUrl: 'https://bdbddc.com/flight' } }]
+        });
+        return;
+      }
+    } catch(e) {
+      console.log('Kakao share failed:', e);
+    }
+
+    if (navigator.share) {
+      navigator.share({ title: '치석 플라이트 ' + result.score + '점!', text: shareText, url: 'https://bdbddc.com/flight' }).catch(function(){});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText + '\nhttps://bdbddc.com/flight').then(function() {
+        showToast('공유 텍스트가 복사되었어요! 📋');
+      });
+    }
+  }
+
+  function shareLink() {
+    var result = window._flightResult || {};
+    // Analytics: 링크 공유
+    if (window.bdAnalytics && bdAnalytics.trackGameShare) {
+      bdAnalytics.trackGameShare('chistone_flight', 'link_copy', { score: result.score, grade: result.grade });
+    }
+    var text = result.emoji + ' 치석 플라이트 ' + (result.score || 0).toLocaleString() + '점! ' + result.grade + '\n너는 몇 점? 👀\nhttps://bdbddc.com/flight';
+
+    if (navigator.share) {
+      navigator.share({ title: '치석 플라이트!', text: text, url: 'https://bdbddc.com/flight' }).catch(function(){});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function() {
+        showToast('링크가 복사되었어요! 📋');
+      });
+    } else {
+      prompt('복사해서 공유하세요:', text);
+    }
+  }
+
+  function showToast(msg) {
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(function() { el.classList.remove('show'); }, 2500);
+  }
+
+  // ---- INPUT ----
+  // Touch
+  document.addEventListener('touchstart', function(e) {
+    if (!gameRunning) return;
+    e.preventDefault();
+    inputX = e.touches[0].clientX;
+  }, { passive: false });
+
+  document.addEventListener('touchmove', function(e) {
+    if (!gameRunning) return;
+    e.preventDefault();
+    inputX = e.touches[0].clientX;
+  }, { passive: false });
+
+  document.addEventListener('touchend', function(e) {
+    inputX = null;
+  });
+
+  // Mouse
+  document.addEventListener('mousedown', function(e) {
+    if (!gameRunning || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+    inputX = e.clientX;
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!gameRunning || inputX === null) return;
+    inputX = e.clientX;
+  });
+  document.addEventListener('mouseup', function() { inputX = null; });
+
+  // Keyboard
+  document.addEventListener('keydown', function(e) {
+    keys[e.key] = true;
+    if (e.key === 'Escape' && gameRunning) {
+      togglePause();
+    }
+    if ((e.key === ' ' || e.key === 'ArrowUp') && gameRunning && !gamePaused) {
+      e.preventDefault();
+      fireMissile(); // Manual extra shot
+    }
+  });
+  document.addEventListener('keyup', function(e) {
+    keys[e.key] = false;
+  });
+
+  // Pause
+  function togglePause() {
+    gamePaused = !gamePaused;
+    document.getElementById('pauseOverlay').classList.toggle('active', gamePaused);
+  }
+  function resumeGame() {
+    gamePaused = false;
+    lastTime = performance.now();
+    document.getElementById('pauseOverlay').classList.remove('active');
+  }
+
+  // Visibility
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && gameRunning && !gamePaused) {
+      togglePause();
+    }
+  });
+
+  // Init on load
+  init();
+  </script>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script src="/js/analytics.js?v=20260808v9" defer></script>
+<script src="/js/main.js?v=202604190433" defer></script>
+  <script src="/js/micro.js?v=fc744130" defer></script>
+  <script src="/static/chatbot.js" defer></script>
+<script src="/js/gnb-v2.js?v=20260808v1" defer></script>
+
+<!-- Service Worker Registration -->
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
+</script>
+<script src="/js/lang-switcher.js" defer></script>
+</body>
+</html>
