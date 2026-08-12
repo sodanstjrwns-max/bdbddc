@@ -200,6 +200,31 @@ if (head) {
     `\n<link rel="alternate" hreflang="x-default" href="${ORIGIN}${koPath}">\n`)
 }
 
+// 상대경로 → 절대경로 변환 (CSS/JS/이미지 404 방지: /jp는 국문과 디렉토리 깊이가 달라짐)
+const koDir = koPath.endsWith('/') ? koPath : koPath.replace(/\/[^/]*$/, '/') // 국문 원본 기준 디렉토리
+function toAbs(ref) {
+  if (!ref || /^(https?:|\/\/|\/|#|mailto:|tel:|javascript:|data:)/.test(ref)) return null
+  const u = new URL(ref, 'https://x.invalid' + koDir)
+  return u.pathname + u.search + u.hash
+}
+let absFixed = 0
+for (const el of root.querySelectorAll('[href],[src],[data-src],[srcset],[poster],[content]')) {
+  for (const attr of ['href', 'src', 'data-src', 'poster']) {
+    const v = el.getAttribute(attr)
+    const abs = toAbs(v)
+    if (abs) { el.setAttribute(attr, abs); absFixed++ }
+  }
+  const ss = el.getAttribute('srcset')
+  if (ss && !/^(https?:|\/)/.test(ss.trim())) {
+    el.setAttribute('srcset', ss.split(',').map(p => {
+      const [u, d] = p.trim().split(/\s+/)
+      return (toAbs(u) || u) + (d ? ' ' + d : '')
+    }).join(', '))
+    absFixed++
+  }
+}
+console.log(`[abs] relative→absolute fixed=${absFixed}`)
+
 // 내부 링크: jp-sitemap에 있는 경로만 /jp 재작성
 let rewritten = 0, kept = 0
 for (const a of root.querySelectorAll('a[href]')) {
