@@ -43,13 +43,13 @@ async function post(env: Env, path: string): Promise<{ status: number; body: str
 }
 
 /** ★ v5.74 최종 실패 시 원장님께 메일 알림. 실패해도 크론 자체는 죽이지 않는다. */
-async function notifyFail(env: Env, detail: string): Promise<void> {
+async function notifyFail(env: Env, detail: string, subject?: string): Promise<void> {
   try {
     const base = (env.TARGET_URL || 'https://bdbddc.com').replace(/\/+$/, '')
     await fetch(`${base}/api/cron/notify`, {
       method: 'POST',
       headers: { 'X-Cron-Secret': env.CRON_SECRET || '', 'Content-Type': 'application/json', 'User-Agent': UA },
-      body: JSON.stringify({ text: `${new Date().toISOString()}\n${detail}` }),
+      body: JSON.stringify({ text: `${new Date().toISOString()}\n${detail}`, ...(subject ? { subject } : {}) }),
     })
   } catch (e: any) {
     console.error(`[cron] notify 실패: ${e?.message || e}`)
@@ -94,7 +94,18 @@ async function trigger(env: Env): Promise<string> {
       continue
     }
     if (verdict === 'pass') break
-    if (verdict === 'skipped') return 'no-publish(already-published-today)' // 정상 — 알림 불필요
+    if (verdict === 'skipped') {
+      // ★ v5.82 정상 skip(이미 발행됨)이어도 일어 번역 누락분은 만회한다.
+      //   아침 크론에서 ④단계(번역)만 실패한 날, 12:00 보험 크론이 여기로 들어온다.
+      //   slug 없이 부르면 '일어판 없는 최신 발행분'을 집는다. 없으면 즉시 반환(무해).
+      try {
+        const st = await post(env, '/api/cron/translate-jp')
+        console.log(`[cron] 번역 만회 ${st.status} ${st.body.slice(0, 200)}`)
+      } catch (e: any) {
+        console.error(`[cron] 번역 만회 fetch 실패: ${e?.message || e}`)
+      }
+      return 'no-publish(already-published-today)' // 정상 — 알림 불필요
+    }
     // block 이면 다음 회차에서 다시 뽑는다.
     // (게이트 지적은 D1 last_error 에 남아 다음 프롬프트로 되돌아간다 — v5.62)
     lastErr = `게이트 판정 ${verdict || 'unknown'}: ${slug || '(slug 없음)'}`
@@ -130,7 +141,28 @@ async function trigger(env: Env): Promise<string> {
       console.error(`[cron] 3단계 fetch 실패: ${e?.message || e}`)
     }
   }
-  return `${thumbOk ? 'ok' : 'published-nothumb'}(${slug},fig${figs})`
+
+  // ── ④ 일어 자동번역 ★ v5.82 (2026-08-12) ─────────────────────
+  //   오늘 발행분을 즉시 일어화해 /jp/column/<slug> 를 국문과 같은 날 연다.
+  //   반드시 '별도 요청' + 서버측 하트비트 스트리밍 (LLM 배치 5~8회 = 수분).
+  //   실패해도 발행 자체는 성공이므로 크론을 죽이지 않는다. 다음 날 크론이
+  //   slug 없이 불러도 '일어판 없는 최신 발행분'을 집으므로 자동 만회된다.
+  let jaOk = false
+  try {
+    const st = await post(env, `/api/cron/translate-jp?slug=${encodeURIComponent(slug)}`)
+    console.log(`[cron] 4단계(일어) ${st.status} ${st.body.slice(0, 300)}`)
+    if (st.status === 200) {
+      try { jaOk = JSON.parse(st.body.trim()).ok === true } catch { /* 파싱 실패 = 실패 취급 */ }
+    }
+  } catch (e: any) {
+    console.error(`[cron] 4단계(일어) fetch 실패: ${e?.message || e}`)
+  }
+  if (!jaOk) {
+    // 번역 실패는 메일로만 알리고 발행 성공은 유지한다.
+    await notifyFail(env, `일어 자동번역 실패 (발행 자체는 성공: ${slug}).\n다음 날 크론이 자동 만회합니다. 수동 복구: POST /api/cron/translate-jp`,
+      '[서울비디치과] 컴럼 일어 자동번역 실패 (발행은 성공)')
+  }
+  return `${thumbOk ? 'ok' : 'published-nothumb'}(${slug},fig${figs},ja${jaOk ? 'ok' : 'fail'})`
 }
 
 export default {

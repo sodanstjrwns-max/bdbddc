@@ -15,6 +15,7 @@ import type { Hono } from 'hono'
 // THUMB_STYLE 은 실제 발행 경로(column-auto)와 동일해야 하므로 거기서 가져온다.
 // 검증 엔드포인트가 다른 프롬프트를 쓰면 검증의 의미가 없다.
 import { runAutoPublish, genThumb, genFigure, THUMB_STYLE, type AutoEnv } from '../column-auto'
+import { translateColumnToJa, type TranslateEnv } from '../column-translate'
 
 function authed(c: any): boolean {
   const want = c.env?.CRON_SECRET
@@ -91,6 +92,39 @@ export function registerColumnAutoApi(app: Hono<{ Bindings: any }>) {
         try {
           const r = await runAutoPublish(c.env as AutoEnv, { dryRun: dry, skipThumb: nothumb, maxAttempts })
           controller.enqueue(enc.encode(JSON.stringify({ ok: r.verdict === 'pass', dryRun: dry, skipThumb: nothumb, ...r })))
+        } catch (e: any) {
+          controller.enqueue(enc.encode(JSON.stringify({ ok: false, error: String(e?.message || e) })))
+        } finally {
+          clearInterval(hb)
+          try { controller.close() } catch { /* noop */ }
+        }
+      },
+    })
+    return new Response(stream, {
+      status: 200,
+      headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' },
+    })
+  })
+
+  // ★ v5.82 일어 자동번역 (2026-08-12)
+  //   POST /api/cron/translate-jp              일어판 없는 최신 발행분 1편 번역
+  //   POST /api/cron/translate-jp?slug=<슬러그>  특정 컬럼 번역 (당일 발행분 지정용)
+  //   → R2 data/columns-jp.json append + columns-jp-slugs.json 갱신
+  //   번역은 LLM 배치 5~8회 = 수분이 걸리므로 발행과 같은 하트비트 스트리밍을 쓴다
+  //   (125초 엣지 절벽 — v5.80 교훈). 이미 번역된 slug 는 skipped 로 즉시 반환.
+  app.post('/api/cron/translate-jp', async (c) => {
+    if (!authed(c)) return c.json({ ok: false, error: 'unauthorized' }, 401)
+    const slug = (c.req.query('slug') || '').trim() || undefined
+    if (slug && !/^[a-z0-9-]{4,90}$/.test(slug)) return c.json({ ok: false, error: 'slug 형식 오류' }, 400)
+    const enc = new TextEncoder()
+    const stream = new ReadableStream({
+      async start(controller) {
+        const hb = setInterval(() => {
+          try { controller.enqueue(enc.encode('\n')) } catch { /* 이미 닫힘 */ }
+        }, 15_000)
+        try {
+          const r = await translateColumnToJa(c.env as TranslateEnv, slug)
+          controller.enqueue(enc.encode(JSON.stringify(r)))
         } catch (e: any) {
           controller.enqueue(enc.encode(JSON.stringify({ ok: false, error: String(e?.message || e) })))
         } finally {
