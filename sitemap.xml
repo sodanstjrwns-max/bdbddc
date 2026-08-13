@@ -2,13 +2,13 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- 서울비디치과 사이트맵 인덱스 (https://bdbddc.com)              -->
-  <!-- 마지막 업데이트: 2026-08-07                                      -->
+  <!-- 마지막 업데이트: 2026-08-13                                      -->
   <!--                                                              -->
   <!-- 통계:                                                         -->
   <!--   - sitemap-main:          133 URLs (메인+진료+의료진) -->
   <!--   - sitemap-area:           88 URLs (지역 SEO)         -->
   <!--   - sitemap-encyclopedia:  862 URLs (백과사전)        -->
-  <!--   - sitemap-intl:           34 URLs (다국어)          -->
+  <!--   - sitemap-intl:          342 URLs (다국어: en 139 + jp 136 등) -->
   <!--   - sitemap-columns:    동적 (Hono 핸들러 /src/index.tsx)    -->
   <!--   - sitemap-cases:      동적 (Hono 핸들러 /src/index.tsx)    -->
   <!--   - sitemap-blog:       동적 (Hono 핸들러 /src/index.tsx)    -->
@@ -35,7 +35,7 @@
   <!-- 다국어 SEO 페이지 (EN/VI/JP/CN/TH/RU — 34개) -->
   <sitemap>
     <loc>https://bdbddc.com/sitemap-intl.xml</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-08-13</lastmod>
   </sitemap>
 
   <!-- 원장 컬럼 (동적 — R2/D1 실시간 반영) -->

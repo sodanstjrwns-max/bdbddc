@@ -32,7 +32,12 @@
 /jp/implant               /jp/treatments/implant  301
 /jp/invisalign            /jp/treatments/invisalign 301
 /jp/travel-guide          /jp/flight              301
-/en/glownate              /en/laminate            301
+
+# 구 en 수제 페이지 → 새 1:1 대응 페이지로 통합 (2026-08-13)
+/en/glownate              /en/treatments/glownate  301
+/en/laminate              /en/treatments/glownate  301
+/en/implant               /en/treatments/implant   301
+/en/invisalign            /en/treatments/invisalign 301
 /treatments/checkup       /checkup                301
 /area/cheonan-implant     /area/cheonan           301
 
