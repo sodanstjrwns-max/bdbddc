@@ -1,5 +1,19 @@
 # 서울비디치과 (bdbddc.com)
 
+## v5.86 — 영어 전체 사이트 오픈: /en 139장 1:1 미러 (2026-08-13)
+
+**목표**: jp 139장과 동일한 구조로 ko 정본 139장의 영어 미러 구축. Camp Humphreys 미군·가족 타깃 미국영어.
+
+- **번역 파이프라인** (`scripts/i18n/*-en.mjs`): 한글 텍스트노드/속성/메타/JSON-LD 추출 → gpt-5 (stream) → 재삽입. lang=en, canonical→/en, hreflang ko/en/(ja 조건부)/x-default→ko. resumable 설계로 실패 3건(glownate fetch failed, whitening 900s 타임아웃, pediatric JSON 파싱) 전량 회복
+- **동시성**: LLM proxy 한도 5/user에 맞춰 b2러너(2워커×conc2)+b3역방향(1워커×conc1)=5 스트림, 429 발생 0
+- **잔존 소탕**: `final-sweep-en.mjs`(가시 텍스트, 보호 필터: 주소·법인명·요일·언어스위처·카카오ID) 2패스 336세그먼트 + `translate-js-literals-en.mjs`(인라인 script 리터럴 — checkup 373, flight 101) + 결정론적 치환(만원→KRW 정규식, 브랜드명 오스템=Osstem 등, faq 13장 '개 결과'→results). **최종 잔존 5세그먼트 = 전부 의도 보존**(한국 주소 내비용, "급여" NHIS 용어 병기)
+- **가격 규칙**: KRW 정본 + `(approx. $X)` 병기, 10,000₩≒$7.3. 만원 표기 전량 원 단위 변환
+- **/en 라우팅 3중 구조**: ① `_routes.json` exclude(정적 직서빙) ② Worker `EN_LIVE_PREFIXES`/`EN_LIVE_EXACT` 화이트리스트 ③ 그 외 `/en/*` → ko 301. `/en/*` 와일드카드 exclude 금지(`/en/dictionary` Worker SSR 보호)
+- **레거시 301 3중 등록**: 구 수제 페이지 en/{implant,laminate,glownate,invisalign}(+.html) → `/en/treatments/*` — Worker + `_redirects` + 정적 exclude 제거
+- **sitemap**: `sitemap-intl.xml` 342 loc (en 170 포함), 구식 URL 62건 재작성, 중복 0
+- **배포 교훈**: wrangler deploy가 `Uploading (818/1299)`에서 무한 스톨 → 원인은 **샌드박스 OOM**(dmesg oom-kill 확인, dev 서버+deploy 동시 구동 시 985MB 초과). PM2 dev 서버 내리고 재시도하니 즉시 완료
+- **검증**: 로컬+라이브 curl — /en/ 및 하위 전부 200, 301 체인 4종 정상, lang=en/canonical/hreflang 4종, ko·jp 회귀 없음
+
 ## v5.77 — 인비절라인 페이지 스크롤 스크럽 몰입 섹션 (2026-08-10)
 
 **구조**: `/treatments/invisalign` 최상단에 v5.75(임플란트)와 동일한 스크롤 스크럽 몰입 섹션 추가. 기존 H1 히어로는 아래 100% 원본 유지.
