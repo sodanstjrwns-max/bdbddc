@@ -7,9 +7,10 @@
     'use strict';
 
     // ========================================
-    // 로케일 감지 (/jp/ 경로 = 일본어 페이지)
+    // 로케일 감지 (/jp/ = 일본어, /en/ = 영어 페이지)
     // ========================================
     var IS_JP = /^\/jp(\/|$)/.test(location.pathname);
+    var IS_EN = /^\/en(\/|$)/.test(location.pathname);
 
     // ========================================
     // 실시간 진료 상태 표시
@@ -42,21 +43,21 @@
             
             if (currentTime >= openTime && currentTime < lunchStart) {
                 isOpen = true;
-                statusText = IS_JP ? '診療中' : '진료중';
-                closeTime = IS_JP ? '20:00まで' : '20:00까지';
+                statusText = IS_JP ? '診療中' : IS_EN ? 'Open' : '진료중';
+                closeTime = IS_JP ? '20:00まで' : IS_EN ? 'until 20:00' : '20:00까지';
             } else if (currentTime >= lunchEnd && currentTime < closeTimeMin) {
                 isOpen = true;
-                statusText = IS_JP ? '診療中' : '진료중';
-                closeTime = IS_JP ? '20:00まで' : '20:00까지';
+                statusText = IS_JP ? '診療中' : IS_EN ? 'Open' : '진료중';
+                closeTime = IS_JP ? '20:00まで' : IS_EN ? 'until 20:00' : '20:00까지';
             } else if (currentTime >= lunchStart && currentTime < lunchEnd) {
                 isOpen = false;
-                statusText = IS_JP ? '昼休み' : '점심시간';
-                closeTime = IS_JP ? '14:00再開' : '14:00 재개';
+                statusText = IS_JP ? '昼休み' : IS_EN ? 'Lunch break' : '점심시간';
+                closeTime = IS_JP ? '14:00再開' : IS_EN ? 'back at 14:00' : '14:00 재개';
             } else {
                 isOpen = false;
-                statusText = IS_JP ? '診療終了' : '진료종료';
+                statusText = IS_JP ? '診療終了' : IS_EN ? 'Closed' : '진료종료';
                 // 금요일 저녁 종료 시 → 토요일 09:00
-                closeTime = IS_JP ? '明日09:00' : '내일 09:00';
+                closeTime = IS_JP ? '明日09:00' : IS_EN ? 'opens 09:00 tomorrow' : '내일 09:00';
             }
         } else {
             // 주말/공휴일 (점심시간 없음, 09:00-13:00)
@@ -64,13 +65,13 @@
             
             if (currentTime >= openTime && currentTime < closeTimeMin) {
                 isOpen = true;
-                statusText = IS_JP ? '診療中' : '진료중';
-                closeTime = IS_JP ? '13:00まで' : '13:00까지';
+                statusText = IS_JP ? '診療中' : IS_EN ? 'Open' : '진료중';
+                closeTime = IS_JP ? '13:00まで' : IS_EN ? 'until 13:00' : '13:00까지';
             } else {
                 isOpen = false;
-                statusText = IS_JP ? '診療終了' : '진료종료';
+                statusText = IS_JP ? '診療終了' : IS_EN ? 'Closed' : '진료종료';
                 // 토요일 종료 → 내일(일) 09:00 / 일요일 종료 → 월요일 09:00
-                closeTime = day === 6 ? (IS_JP ? '明日09:00' : '내일 09:00') : (IS_JP ? '月曜09:00' : '월요일 09:00');
+                closeTime = day === 6 ? (IS_JP ? '明日09:00' : IS_EN ? 'opens 09:00 tomorrow' : '내일 09:00') : (IS_JP ? '月曜09:00' : IS_EN ? 'opens Mon 09:00' : '월요일 09:00');
             }
         }
 
@@ -90,7 +91,61 @@
     function syncNavMenus() {
         // ── 데스크탑 메뉴 (canonical) ──
         const mainNav = document.getElementById('mainNav');
-        if (mainNav && IS_JP) {
+        if (mainNav && IS_EN) {
+            mainNav.innerHTML =
+            '<ul>' +
+            // Treatments (mega dropdown)
+            '<li class="nav-item has-dropdown"><a href="/en/treatments/">Treatments</a>' +
+            '<div class="mega-dropdown"><div class="mega-dropdown-grid">' +
+            '<div class="mega-dropdown-section"><strong class="section-heading">Specialty Centers</strong><ul>' +
+            '<li><a href="/en/treatments/glownate">✨ Glownate</a></li>' +
+            '<li><a href="/en/treatments/implant">Implants <span class="badge">6 surgical suites</span></a></li>' +
+            '<li><a href="/en/treatments/invisalign">Invisalign <span class="badge">Diamond</span></a></li>' +
+            '<li><a href="/en/treatments/orthodontics">Orthodontics <span class="badge">Braces</span></a></li>' +
+            '<li><a href="/en/treatments/pediatric">Pediatric <span class="badge">3 specialists</span></a></li>' +
+            '<li><a href="/en/treatments/aesthetic">Cosmetic Bonding</a></li>' +
+            '</ul></div>' +
+            '<div class="mega-dropdown-section"><strong class="section-heading">General / Restorative</strong><ul>' +
+            '<li><a href="/en/treatments/cavity">Cavity Treatment</a></li>' +
+            '<li><a href="/en/treatments/resin">Composite Resin</a></li>' +
+            '<li><a href="/en/treatments/crown">Crowns</a></li>' +
+            '<li><a href="/en/treatments/inlay">Inlays / Onlays</a></li>' +
+            '<li><a href="/en/treatments/root-canal">Root Canal</a></li>' +
+            '<li><a href="/en/treatments/whitening">Whitening</a></li>' +
+            '</ul></div>' +
+            '<div class="mega-dropdown-section"><strong class="section-heading">Gum / Oral Surgery</strong><ul>' +
+            '<li><a href="/en/treatments/scaling">Scaling (Cleaning)</a></li>' +
+            '<li><a href="/en/treatments/gum">Gum Treatment</a></li>' +
+            '<li><a href="/en/treatments/periodontitis">Periodontitis</a></li>' +
+            '<li><a href="/en/treatments/wisdom-tooth">Wisdom Tooth Extraction</a></li>' +
+            '<li><a href="/en/treatments/tmj">TMJ Disorder</a></li>' +
+            '<li><a href="/en/treatments/bruxism">Bruxism / Clenching</a></li>' +
+            '</ul></div>' +
+            '</div></div></li>' +
+            // Doctors
+            '<li class="nav-item"><a href="/en/doctors/">Doctors</a></li>' +
+            // Cost Guide
+            '<li class="nav-item has-dropdown"><a href="/en/guide/">Cost Guide</a>' +
+            '<ul class="simple-dropdown">' +
+            '<li><a href="/en/guide/" style="color:#6B4226;font-weight:600;">💰 Korea Dental Cost Guide 2026</a></li>' +
+            '<li><a href="/en/pricing" class="nav-highlight">Full Price List</a></li>' +
+            '<li><a href="/en/guide/regret"><i class="fas fa-heart-crack"></i> Regret Report</a></li>' +
+            '</ul></li>' +
+            // Visit
+            '<li class="nav-item has-dropdown"><a href="/en/directions">Visit Us</a>' +
+            '<ul class="simple-dropdown">' +
+            '<li><a href="/en/floor-guide">Clinic Tour</a></li>' +
+            '<li><a href="/en/directions">Directions</a></li>' +
+            '<li><a href="/en/faq">FAQ</a></li>' +
+            '</ul></li>' +
+            // Play
+            '<li class="nav-item has-dropdown"><a href="/en/checkup" style="color:#EC4899;font-weight:700;">🎮 Play</a>' +
+            '<ul class="simple-dropdown">' +
+            '<li><a href="/en/flight"><i class="fas fa-rocket"></i> Tartar Flight</a></li>' +
+            '<li><a href="/en/checkup"><i class="fas fa-dna"></i> Tooth-BTI</a></li>' +
+            '</ul></li>' +
+            '</ul>';
+        } else if (mainNav && IS_JP) {
             mainNav.innerHTML =
             '<ul>' +
             // 診療 (mega dropdown)
@@ -213,7 +268,58 @@
 
         // ── 모바일 메뉴 (canonical) ──
         const mobileMenu = document.querySelector('.mobile-nav-menu');
-        if (mobileMenu && IS_JP) {
+        if (mobileMenu && IS_EN) {
+            mobileMenu.innerHTML =
+            // Treatments
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
+            '<i class="fas fa-tooth"></i> Treatments <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/en/treatments/">All Treatments</a></li>' +
+            '<li class="submenu-divider">Specialty Centers</li>' +
+            '<li><a href="/en/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ Glownate</a></li>' +
+            '<li><a href="/en/treatments/implant">Implants</a></li>' +
+            '<li><a href="/en/treatments/invisalign">Invisalign</a></li>' +
+            '<li><a href="/en/treatments/orthodontics">Orthodontics</a></li>' +
+            '<li><a href="/en/treatments/pediatric">Pediatric</a></li>' +
+            '<li><a href="/en/treatments/aesthetic">Cosmetic Bonding</a></li>' +
+            '<li class="submenu-divider">General</li>' +
+            '<li><a href="/en/treatments/cavity">Cavity Treatment</a></li>' +
+            '<li><a href="/en/treatments/resin">Composite Resin</a></li>' +
+            '<li><a href="/en/treatments/scaling">Scaling (Cleaning)</a></li>' +
+            '<li><a href="/en/treatments/gum">Gum Treatment</a></li>' +
+            '</ul></li>' +
+            // Doctors
+            '<li><a href="/en/doctors/"><i class="fas fa-user-md"></i> Doctors</a></li>' +
+            // Cost Guide
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
+            '<i class="fas fa-dollar-sign"></i> Cost Guide <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/en/guide/" style="color:#6B4226;font-weight:600;">💰 Korea Dental Cost Guide 2026</a></li>' +
+            '<li><a href="/en/pricing">Full Price List</a></li>' +
+            '<li><a href="/en/guide/regret"><i class="fas fa-heart-crack"></i> Regret Report</a></li>' +
+            '</ul></li>' +
+            // Visit
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
+            '<i class="fas fa-hospital"></i> Visit Us <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/en/floor-guide">Clinic Tour</a></li>' +
+            '<li><a href="/en/directions">Directions</a></li>' +
+            '<li><a href="/en/faq">FAQ</a></li>' +
+            '</ul></li>' +
+            // Play
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false" style="color:#EC4899;font-weight:700;">' +
+            '🎮 Play <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/en/flight"><i class="fas fa-rocket"></i> Tartar Flight</a></li>' +
+            '<li><a href="/en/checkup"><i class="fas fa-dna"></i> Tooth-BTI</a></li>' +
+            '</ul></li>' +
+            // Book
+            '<li><a href="/en/reservation" class="highlight"><i class="fas fa-calendar-check"></i> Book Now</a></li>';
+        } else if (mobileMenu && IS_JP) {
             mobileMenu.innerHTML =
             // 診療
             '<li class="mobile-nav-item has-submenu">' +
@@ -496,7 +602,12 @@
     // 50~75%: 확신 → 📅 지금 예약 | 75~100%: 행동 → 🔥 오늘 상담 가능!
     // ========================================
     function initScrollCTA() {
-        const stages = IS_JP ? [
+        const stages = IS_EN ? [
+            { pct: 0,  icon: 'fa-calendar-check', txt: 'Easy Consultation', mob: 'Consult', cls: 'cta-explore' },
+            { pct: 25, icon: 'fa-clipboard-check', txt: 'Assess My Case', mob: 'Assess', cls: 'cta-consider' },
+            { pct: 50, icon: 'fa-calendar-check', txt: 'Book Now', mob: 'Book', cls: 'cta-decide' },
+            { pct: 75, icon: 'fa-fire', txt: 'Same-Day Consult OK!', mob: 'Book Now', cls: 'cta-action' }
+        ] : IS_JP ? [
             { pct: 0,  icon: 'fa-calendar-check', txt: 'かんたん相談予約', mob: '相談予約', cls: 'cta-explore' },
             { pct: 25, icon: 'fa-clipboard-check', txt: '私のケースを診断', mob: '診断', cls: 'cta-consider' },
             { pct: 50, icon: 'fa-calendar-check', txt: '今すぐ予約する', mob: '予約', cls: 'cta-decide' },
@@ -658,8 +769,8 @@
 
                 const name = data.user.name || '';
                 const logoutFn = "(async function(){await fetch('/api/auth/logout',{method:'POST'});location.reload()})()";
-                const nameSuffix = IS_JP ? '様' : '님';
-                const logoutTxt = IS_JP ? 'ログアウト' : '로그아웃';
+                const nameSuffix = IS_JP ? '様' : IS_EN ? '' : '님';
+                const logoutTxt = IS_JP ? 'ログアウト' : IS_EN ? 'Log out' : '로그아웃';
 
                 // 데스크톱 헤더 .auth-buttons
                 document.querySelectorAll('.auth-buttons').forEach(function(el) {
