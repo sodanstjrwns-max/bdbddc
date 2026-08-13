@@ -7,6 +7,11 @@
     'use strict';
 
     // ========================================
+    // 로케일 감지 (/jp/ 경로 = 일본어 페이지)
+    // ========================================
+    var IS_JP = /^\/jp(\/|$)/.test(location.pathname);
+
+    // ========================================
     // 실시간 진료 상태 표시
     // ========================================
     function updateClinicStatus() {
@@ -37,21 +42,21 @@
             
             if (currentTime >= openTime && currentTime < lunchStart) {
                 isOpen = true;
-                statusText = '진료중';
-                closeTime = '20:00까지';
+                statusText = IS_JP ? '診療中' : '진료중';
+                closeTime = IS_JP ? '20:00まで' : '20:00까지';
             } else if (currentTime >= lunchEnd && currentTime < closeTimeMin) {
                 isOpen = true;
-                statusText = '진료중';
-                closeTime = '20:00까지';
+                statusText = IS_JP ? '診療中' : '진료중';
+                closeTime = IS_JP ? '20:00まで' : '20:00까지';
             } else if (currentTime >= lunchStart && currentTime < lunchEnd) {
                 isOpen = false;
-                statusText = '점심시간';
-                closeTime = '14:00 재개';
+                statusText = IS_JP ? '昼休み' : '점심시간';
+                closeTime = IS_JP ? '14:00再開' : '14:00 재개';
             } else {
                 isOpen = false;
-                statusText = '진료종료';
+                statusText = IS_JP ? '診療終了' : '진료종료';
                 // 금요일 저녁 종료 시 → 토요일 09:00
-                closeTime = '내일 09:00';
+                closeTime = IS_JP ? '明日09:00' : '내일 09:00';
             }
         } else {
             // 주말/공휴일 (점심시간 없음, 09:00-13:00)
@@ -59,13 +64,13 @@
             
             if (currentTime >= openTime && currentTime < closeTimeMin) {
                 isOpen = true;
-                statusText = '진료중';
-                closeTime = '13:00까지';
+                statusText = IS_JP ? '診療中' : '진료중';
+                closeTime = IS_JP ? '13:00まで' : '13:00까지';
             } else {
                 isOpen = false;
-                statusText = '진료종료';
+                statusText = IS_JP ? '診療終了' : '진료종료';
                 // 토요일 종료 → 내일(일) 09:00 / 일요일 종료 → 월요일 09:00
-                closeTime = day === 6 ? '내일 09:00' : '월요일 09:00';
+                closeTime = day === 6 ? (IS_JP ? '明日09:00' : '내일 09:00') : (IS_JP ? '月曜09:00' : '월요일 09:00');
             }
         }
 
@@ -85,7 +90,61 @@
     function syncNavMenus() {
         // ── 데스크탑 메뉴 (canonical) ──
         const mainNav = document.getElementById('mainNav');
-        if (mainNav) {
+        if (mainNav && IS_JP) {
+            mainNav.innerHTML =
+            '<ul>' +
+            // 診療 (mega dropdown)
+            '<li class="nav-item has-dropdown"><a href="/jp/treatments/">診療</a>' +
+            '<div class="mega-dropdown"><div class="mega-dropdown-grid">' +
+            '<div class="mega-dropdown-section"><strong class="section-heading">専門センター</strong><ul>' +
+            '<li><a href="/jp/treatments/glownate">✨ グロウネイト</a></li>' +
+            '<li><a href="/jp/treatments/implant">インプラント <span class="badge">手術室6室</span></a></li>' +
+            '<li><a href="/jp/treatments/invisalign">インビザライン <span class="badge">ダイヤモンド</span></a></li>' +
+            '<li><a href="/jp/treatments/orthodontics">歯列矯正 <span class="badge">ワイヤー矯正</span></a></li>' +
+            '<li><a href="/jp/treatments/pediatric">小児歯科 <span class="badge">専門医3名</span></a></li>' +
+            '<li><a href="/jp/treatments/aesthetic">審美レジン</a></li>' +
+            '</ul></div>' +
+            '<div class="mega-dropdown-section"><strong class="section-heading">一般/保存治療</strong><ul>' +
+            '<li><a href="/jp/treatments/cavity">むし歯治療</a></li>' +
+            '<li><a href="/jp/treatments/resin">レジン治療</a></li>' +
+            '<li><a href="/jp/treatments/crown">クラウン</a></li>' +
+            '<li><a href="/jp/treatments/inlay">インレー/オンレー</a></li>' +
+            '<li><a href="/jp/treatments/root-canal">神経治療（根管治療）</a></li>' +
+            '<li><a href="/jp/treatments/whitening">ホワイトニング</a></li>' +
+            '</ul></div>' +
+            '<div class="mega-dropdown-section"><strong class="section-heading">歯周/外科</strong><ul>' +
+            '<li><a href="/jp/treatments/scaling">スケーリング</a></li>' +
+            '<li><a href="/jp/treatments/gum">歯周治療</a></li>' +
+            '<li><a href="/jp/treatments/periodontitis">歯周炎</a></li>' +
+            '<li><a href="/jp/treatments/wisdom-tooth">親知らず抜歯</a></li>' +
+            '<li><a href="/jp/treatments/tmj">顎関節症（TMJ）</a></li>' +
+            '<li><a href="/jp/treatments/bruxism">歯ぎしり/食いしばり</a></li>' +
+            '</ul></div>' +
+            '</div></div></li>' +
+            // 医療スタッフ
+            '<li class="nav-item"><a href="/jp/doctors/">医療スタッフ</a></li>' +
+            // 費用ガイド (JP専用 — 医療ツーリズム向け)
+            '<li class="nav-item has-dropdown"><a href="/jp/guide/">費用ガイド</a>' +
+            '<ul class="simple-dropdown">' +
+            '<li><a href="/jp/guide/" style="color:#6B4226;font-weight:600;">💰 韓国歯科費用ガイド2026</a></li>' +
+            '<li><a href="/jp/pricing" class="nav-highlight">料金表 全面公開</a></li>' +
+            '<li><a href="/jp/guide/regret"><i class="fas fa-heart-crack"></i> 後悔白書</a></li>' +
+            '</ul></li>' +
+            // ご案内
+            '<li class="nav-item has-dropdown"><a href="/jp/directions">ご案内</a>' +
+            '<ul class="simple-dropdown">' +
+            '<li><a href="/jp/floor-guide">医院内のご紹介</a></li>' +
+            '<li><a href="/jp/directions">アクセス</a></li>' +
+            '<li><a href="/jp/faq">よくある質問</a></li>' +
+            '</ul></li>' +
+            // プレイ
+            '<li class="nav-item has-dropdown"><a href="/jp/checkup" style="color:#EC4899;font-weight:700;">🎮 プレイ</a>' +
+            '<ul class="simple-dropdown">' +
+            '<li><a href="/jp/flight"><i class="fas fa-rocket"></i> 歯石フライト</a></li>' +
+            '<li><a href="/jp/checkup"><i class="fas fa-dna"></i> 歯BTI</a></li>' +
+            '</ul></li>' +
+            '</ul>';
+        } else if (mainNav) {
             mainNav.innerHTML =
             '<ul>' +
             // 진료 (mega dropdown)
@@ -154,7 +213,58 @@
 
         // ── 모바일 메뉴 (canonical) ──
         const mobileMenu = document.querySelector('.mobile-nav-menu');
-        if (mobileMenu) {
+        if (mobileMenu && IS_JP) {
+            mobileMenu.innerHTML =
+            // 診療
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
+            '<i class="fas fa-tooth"></i> 診療 <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/jp/treatments/">診療一覧</a></li>' +
+            '<li class="submenu-divider">専門センター</li>' +
+            '<li><a href="/jp/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ グロウネイト</a></li>' +
+            '<li><a href="/jp/treatments/implant">インプラント</a></li>' +
+            '<li><a href="/jp/treatments/invisalign">インビザライン</a></li>' +
+            '<li><a href="/jp/treatments/orthodontics">歯列矯正</a></li>' +
+            '<li><a href="/jp/treatments/pediatric">小児歯科</a></li>' +
+            '<li><a href="/jp/treatments/aesthetic">審美レジン</a></li>' +
+            '<li class="submenu-divider">一般治療</li>' +
+            '<li><a href="/jp/treatments/cavity">むし歯治療</a></li>' +
+            '<li><a href="/jp/treatments/resin">レジン治療</a></li>' +
+            '<li><a href="/jp/treatments/scaling">スケーリング</a></li>' +
+            '<li><a href="/jp/treatments/gum">歯周治療</a></li>' +
+            '</ul></li>' +
+            // 医療スタッフ
+            '<li><a href="/jp/doctors/"><i class="fas fa-user-md"></i> 医療スタッフ</a></li>' +
+            // 費用ガイド
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
+            '<i class="fas fa-yen-sign"></i> 費用ガイド <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/jp/guide/" style="color:#6B4226;font-weight:600;">💰 韓国歯科費用ガイド2026</a></li>' +
+            '<li><a href="/jp/pricing">料金表 全面公開</a></li>' +
+            '<li><a href="/jp/guide/regret"><i class="fas fa-heart-crack"></i> 後悔白書</a></li>' +
+            '</ul></li>' +
+            // ご案内
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false">' +
+            '<i class="fas fa-hospital"></i> ご案内 <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/jp/floor-guide">医院内のご紹介</a></li>' +
+            '<li><a href="/jp/directions">アクセス</a></li>' +
+            '<li><a href="/jp/faq">よくある質問</a></li>' +
+            '</ul></li>' +
+            // プレイ
+            '<li class="mobile-nav-item has-submenu">' +
+            '<a href="javascript:void(0)" class="mobile-nav-submenu-toggle" role="button" aria-expanded="false" style="color:#EC4899;font-weight:700;">' +
+            '🎮 プレイ <i class="fas fa-chevron-down toggle-icon"></i></a>' +
+            '<ul class="mobile-nav-submenu">' +
+            '<li><a href="/jp/flight"><i class="fas fa-rocket"></i> 歯石フライト</a></li>' +
+            '<li><a href="/jp/checkup"><i class="fas fa-dna"></i> 歯BTI</a></li>' +
+            '</ul></li>' +
+            // 予約
+            '<li><a href="/jp/reservation" class="highlight"><i class="fas fa-calendar-check"></i> 予約する</a></li>';
+        } else if (mobileMenu) {
             mobileMenu.innerHTML =
             // 진료
             '<li class="mobile-nav-item has-submenu">' +
@@ -386,7 +496,12 @@
     // 50~75%: 확신 → 📅 지금 예약 | 75~100%: 행동 → 🔥 오늘 상담 가능!
     // ========================================
     function initScrollCTA() {
-        const stages = [
+        const stages = IS_JP ? [
+            { pct: 0,  icon: 'fa-calendar-check', txt: 'かんたん相談予約', mob: '相談予約', cls: 'cta-explore' },
+            { pct: 25, icon: 'fa-clipboard-check', txt: '私のケースを診断', mob: '診断', cls: 'cta-consider' },
+            { pct: 50, icon: 'fa-calendar-check', txt: '今すぐ予約する', mob: '予約', cls: 'cta-decide' },
+            { pct: 75, icon: 'fa-fire', txt: '本日相談OK!', mob: '今すぐ予約', cls: 'cta-action' }
+        ] : [
             { pct: 0,  icon: 'fa-calendar-check', txt: '편리한 상담예약', mob: '상담예약', cls: 'cta-explore' },
             { pct: 25, icon: 'fa-clipboard-check', txt: '내 케이스 진단받기', mob: '진단', cls: 'cta-consider' },
             { pct: 50, icon: 'fa-calendar-check', txt: '지금 예약하기', mob: '예약', cls: 'cta-decide' },
@@ -543,19 +658,21 @@
 
                 const name = data.user.name || '';
                 const logoutFn = "(async function(){await fetch('/api/auth/logout',{method:'POST'});location.reload()})()";
+                const nameSuffix = IS_JP ? '様' : '님';
+                const logoutTxt = IS_JP ? 'ログアウト' : '로그아웃';
 
                 // 데스크톱 헤더 .auth-buttons
                 document.querySelectorAll('.auth-buttons').forEach(function(el) {
                     el.innerHTML =
-                        '<a href="/auth/mypage" class="btn-auth btn-login"><i class="fas fa-user"></i> ' + name + '님</a>' +
-                        '<a href="javascript:void(0)" class="btn-auth btn-register" onclick="' + logoutFn + '"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>';
+                        '<a href="/auth/mypage" class="btn-auth btn-login"><i class="fas fa-user"></i> ' + name + nameSuffix + '</a>' +
+                        '<a href="javascript:void(0)" class="btn-auth btn-register" onclick="' + logoutFn + '"><i class="fas fa-sign-out-alt"></i> ' + logoutTxt + '</a>';
                 });
 
                 // 모바일 메뉴 .mobile-auth-buttons
                 document.querySelectorAll('.mobile-auth-buttons').forEach(function(el) {
                     el.innerHTML =
-                        '<a href="/auth/mypage" class="btn-auth"><i class="fas fa-user"></i> ' + name + '님</a>' +
-                        '<a href="javascript:void(0)" class="btn-auth" onclick="' + logoutFn + '"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>';
+                        '<a href="/auth/mypage" class="btn-auth"><i class="fas fa-user"></i> ' + name + nameSuffix + '</a>' +
+                        '<a href="javascript:void(0)" class="btn-auth" onclick="' + logoutFn + '"><i class="fas fa-sign-out-alt"></i> ' + logoutTxt + '</a>';
                 });
 
                 // window 전역에 로그인 상태 공유 (gallery.js 등에서 사용)
