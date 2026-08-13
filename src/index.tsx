@@ -1460,7 +1460,11 @@ app.get('/treatments/glownate/jp', (c) => c.redirect('/jp/', 301))
 app.get('/treatments/glownate/cn', (c) => c.redirect('/cn/', 301))
 // /glownate 계열 301: _routes.json include(/*)로 Worker가 _redirects보다 선행하므로 명시 등록 (2026-08-11)
 app.get('/glownate', (c) => c.redirect('/treatments/glownate', 301))
-app.get('/en/glownate', (c) => c.redirect('/en/laminate', 301))
+// v5.86: 구 en 수제 3장 → 새 1:1 대응 페이지로 통합 (jp da0e0f52 패턴)
+app.get('/en/glownate', (c) => c.redirect('/en/treatments/glownate', 301))
+app.get('/en/laminate', (c) => c.redirect('/en/treatments/glownate', 301))
+app.get('/en/implant', (c) => c.redirect('/en/treatments/implant', 301))
+app.get('/en/invisalign', (c) => c.redirect('/en/treatments/invisalign', 301))
 
 // 301 Redirect: 기존 /column/columns.html 만 리다이렉트 (SEO migration)
 app.get('/column/columns.html', (c) => c.redirect('/column/', 301))
@@ -2464,21 +2468,30 @@ registerEnDictionary(app)
 // _routes.json exclude가 1차 방어선이고, 아래는 2차 안전망이다.
 const EN_LIVE_PREFIXES = [
   '/en/dictionary',   // v5.39 신설 — 영문 치과 사전 (Worker SSR)
+  // v5.86: EN 전체 미러 139장 (정적 파일) — jp와 동일 구조
+  '/en/treatments',
+  '/en/doctors',
+  '/en/faq',
+  '/en/guide',
 ]
 const EN_LIVE_EXACT = new Set([
   '/en', '/en/', '/en/index.html',
-  '/en/implant.html', '/en/invisalign.html', '/en/laminate.html',
   '/en/pricing.html', '/en/directions.html', '/en/reservation.html',
-  '/en/guide', '/en/guide/', '/en/guide/index.html',
-  '/en/guide/implant.html', '/en/guide/invisalign.html', '/en/guide/laminate.html',
   // v5.39: sitemap-intl.xml이 광고하는 확장자 없는 클린 URL도 반드시 통과시킨다.
   // 프로덕션 Pages는 자산 정규화 후 exclude를 적용해 200을 주지만
   // wrangler pages dev(로컬)는 Worker로 먼저 넘기므로 여기서 next() 해야 한다.
   // → 환경 간 동작 차이를 없애기 위해 양쪽 형태를 모두 화이트리스트.
-  '/en/implant', '/en/invisalign', '/en/laminate',
   '/en/pricing', '/en/directions', '/en/reservation',
-  '/en/guide/implant', '/en/guide/invisalign', '/en/guide/laminate',
+  // v5.86: EN 전체 미러 플랫 페이지 (확장자 있/없는 형태 모두)
+  '/en/checkup', '/en/checkup.html',
+  '/en/flight', '/en/flight.html',
+  '/en/floor-guide', '/en/floor-guide.html',
+  '/en/faq.html', '/en/directions.html',
 ])
+// 구 en 수제 페이지 .html 직접 접근 → 새 경로 301 (파일 삭제됨, v5.86)
+app.get('/en/implant.html', (c) => c.redirect('/en/treatments/implant', 301))
+app.get('/en/invisalign.html', (c) => c.redirect('/en/treatments/invisalign', 301))
+app.get('/en/laminate.html', (c) => c.redirect('/en/treatments/glownate', 301))
 
 app.get('/en/*', async (c, next) => {
   const p = c.req.path

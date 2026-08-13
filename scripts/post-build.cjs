@@ -159,10 +159,17 @@ const routes = {
     // /en/dictionary/* 는 Worker SSR 라우트이므로 exclude 되면 404 가 된다.
     // 정적 파일이 실제로 존재하는 /en/ 경로만 개별 열거한다.
     // (public/_routes.json 과 동일하게 유지할 것)
+    // v5.86: EN 전체 미러 139장 — 레거시 implant/invisalign/laminate.html은
+    //        삭제됨(Worker 301 필요하므로 exclude 금지)
     '/en','/en/','/en/index.html',
-    '/en/implant.html','/en/invisalign.html','/en/laminate.html',
     '/en/pricing.html','/en/directions.html','/en/reservation.html',
+    '/en/checkup','/en/checkup.html',
+    '/en/flight','/en/flight.html',
+    '/en/floor-guide','/en/floor-guide.html',
+    '/en/faq','/en/faq.html','/en/faq/*',
     '/en/guide','/en/guide/*',
+    '/en/treatments','/en/treatments/*',
+    '/en/doctors','/en/doctors/*',
     // ⚠️ '/jp/*' 와일드카드 금지! (v5.39 '/en/*' 과 같은 함정)
     // /jp/column/* 는 Worker SSR 라우트이므로 exclude 되면 404 가 된다.
     // 정적 파일이 실제로 존재하는 /jp/ 경로만 열거한다.
