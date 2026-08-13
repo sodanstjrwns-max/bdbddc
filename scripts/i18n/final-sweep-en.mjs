@@ -36,8 +36,10 @@ for (const f of files) {
     if (!t || t.length > 300) continue
     if (/서울비디치과의원|사업자/.test(t)) continue // 법인명·사업자 정보는 원문 유지
     if (/^[월화수목금토일]$/.test(t)) continue // 요일 기능값
-    if (t === '한국어' || t === '日本語') continue // 언어 스위처 라벨은 해당 언어 표기 유지
+    if (t === '한국어' || t === '日本語' || /^🇰🇷\s*한국어$/.test(t) || /^🇯🇵\s*日本語$/.test(t)) continue // 언어 스위처 라벨은 해당 언어 표기 유지
     if (/^["“]?충?남|^충청남도/.test(t) && /불당34길/.test(t)) continue // 한국 주소 원문 유지 (내비 검색용)
+    if (/만남로 38/.test(t)) continue // 동남구점 주소 원문 유지
+    if (/@서울비디치과|'서울비디치과' on Naver/.test(t)) continue // 카카오 ID·네이버 검색어는 한글 유지
     if (/^\(navigate to|불당주공5단지.*1[- ]min|Stop "불당주공5단지"/.test(t)) continue // 주소 안내 혼용문 유지
     if (!segs.has(t)) segs.set(t, new Set())
     segs.get(t).add(f)
@@ -53,7 +55,9 @@ if (!list.length) process.exit(0)
 
 const SYSTEM = `English localization of a Korean dental clinic website (Seoul BD Dental, targeting US military families near Camp Humphreys).
 Translate the following Korean (or mixed Korean-English) fragments into natural American English.
-Rules: apply glossary ${JSON.stringify({ ...glossary.brand, ...glossary.treatments })} / keep all numbers and KRW prices as-is / Korean street addresses stay in original Korean / already-English parts unchanged / concise marketing-friendly tone.
+Rules: apply glossary ${JSON.stringify({ ...glossary.brand, ...glossary.treatments })} / Korean street addresses stay in original Korean / already-English parts unchanged / concise marketing-friendly tone.
+Fixed terms: 오스템=Osstem, 스트라우만=Straumann, 클리피씨=Clippy-C, 클라리티울트라=Clarity Ultra, 덴탈론=Dentalon, 워터픽=Waterpik, 치BTI=ChiBTI, 치석 플라이트=Tartar Flight, 투쓰런=Tooth Run, 현정민=Dr. Jeongmin Hyun, 박수빈=Dr. Subin Park, 조설아=Dr. Seola Jo, 네이버=Naver, 구글=Google, 유튜브=YouTube, 카카오톡=KakaoTalk, 의학채널 비온뒤=the medical YouTube channel 'Bionduii', GC 톳스=GC Tooth Mousse.
+Prices/numbers: convert 만원 amounts to full KRW digits plus USD at 10,000 KRW ≈ $7.3 — e.g. 100만원 → 1,000,000 KRW (approx. $730); 1.5~2만원 → 15,000–20,000 KRW (approx. $11–$15); 1500~3000만원 → 15–30 million KRW (approx. $10,950–$21,900). Drop redundant Korean parentheticals like (2026년 6월) when the English date is already present. 20시 → 8 PM; 44만 → 440,000; 3만 → 30,000; 100억 원 → 10 billion KRW; 제29594호 → No. 29594; N년 → N years; N건 → N cases. If a fragment mixes English and leftover Korean, keep the English and translate only the Korean remnants. Never leave any Hangul in the output unless it is a street address.
 Output JSON: {"items":[{"i":<index>,"t":"<translation>"}]} All indexes required.`
 
 async function translate(batch) {

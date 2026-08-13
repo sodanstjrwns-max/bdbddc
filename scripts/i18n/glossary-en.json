@@ -1,0 +1,81 @@
+{
+  "_comment": "영어 번역 고정 용어집 — 가격/고유명사는 절대 흔들리면 안 됨 (2026-08-13, 국문 정본 기준)",
+  "brand": {
+    "서울비디치과": "Seoul BD Dental",
+    "서울비디치과의원": "Seoul BD Dental Clinic",
+    "불당본점": "Buldang Main Branch",
+    "페이션트 퍼널": "Patient Funnel"
+  },
+  "people": {
+    "문석준": "Dr. Seokjun Moon",
+    "대표원장": "Head Director",
+    "치과겁통령": "the 'Dental-Phobia President' (Chikagop-tongryeong)"
+  },
+  "place": {
+    "천안": "Cheonan",
+    "아산": "Asan",
+    "천안아산역": "KTX Cheonan-Asan Station",
+    "불당동": "Buldang-dong",
+    "서울대학교": "Seoul National University",
+    "서울대학교치과병원": "Seoul National University Dental Hospital"
+  },
+  "treatments": {
+    "글로우네이트": "Glownate",
+    "라미네이트": "Laminate Veneer",
+    "인비절라인": "Invisalign",
+    "임플란트": "Dental Implant",
+    "지르코니아": "Zirconia",
+    "세라믹 인레이": "Ceramic Inlay",
+    "신경치료": "Root Canal Treatment",
+    "재신경치료": "Root Canal Retreatment",
+    "치근단절제술": "Apicoectomy",
+    "사랑니": "Wisdom Tooth",
+    "스케일링": "Scaling (Dental Cleaning)",
+    "잇몸치료": "Gum (Periodontal) Treatment",
+    "치주염": "Periodontitis",
+    "충치": "Cavity",
+    "레진": "Composite Resin",
+    "크라운": "Crown",
+    "브릿지": "Dental Bridge",
+    "틀니": "Denture",
+    "이갈이": "Teeth Grinding (Bruxism)",
+    "턱관절": "TMJ (Jaw Joint)",
+    "수면치료": "Sedation Dentistry",
+    "미백": "Teeth Whitening",
+    "소프트 미백": "Soft Whitening",
+    "하드 미백": "Hard Whitening",
+    "교정": "Orthodontics",
+    "골이식": "Bone Graft (GBR)",
+    "상악동거상술": "Sinus Lift",
+    "네비게이션 임플란트": "Navigation-Guided Implant",
+    "오버덴처": "Implant Overdenture",
+    "무절개 임플란트": "Flapless Implant",
+    "즉시 임플란트": "Immediate Implant",
+    "전악 임플란트": "Full-Mouth Implant"
+  },
+  "prices_fixed": {
+    "_rule": "원화가 정본. 만원 표기는 X0,000 KRW 형태 유지, 달러 환산은 (approx. $X) 병기. 환산율: 10,000₩ ≒ $7.3",
+    "임플란트 80만원": "Dental implant 800,000 KRW (approx. $580)",
+    "임플란트 100만원": "Dental implant 1,000,000 KRW (approx. $730)",
+    "임플란트 160만원": "Dental implant 1,600,000 KRW (approx. $1,170)",
+    "지르코니아 55만원": "Zirconia crown 550,000 KRW (approx. $400)",
+    "세라믹인레이 35만원": "Ceramic inlay 350,000 KRW (approx. $255)",
+    "미백 소프트 4.9만원": "Soft whitening (30 min/session) 49,000 KRW (approx. $36)",
+    "미백 하드 8만원": "Hard whitening (2 sessions, 60 min) 80,000 KRW (approx. $58)",
+    "글로우네이트 80만원": "Glownate 800,000 KRW per tooth (approx. $580, single flat price)",
+    "글로우네이트 6본 480만원": "Glownate 6 teeth 4,800,000 KRW (approx. $3,500)",
+    "인비절라인 300~700만원": "Invisalign 3,000,000–7,000,000 KRW (approx. $2,190–$5,110)",
+    "이갈이장치 100만원": "Night guard (bruxism appliance) 1,000,000 KRW (approx. $730)",
+    "골이식 단순 30만원": "Bone graft (simple) 300,000 KRW (approx. $220)",
+    "골이식 복잡 50만원": "Bone graft (complex) 500,000 KRW (approx. $365)",
+    "틀니 150만원": "Denture 1,500,000 KRW (approx. $1,090)"
+  },
+  "style_rules": [
+    "Clinic name is always 'Seoul BD Dental'",
+    "Glownate Light tier does NOT exist — only mention the 800,000 KRW single flat price",
+    "Never invent price ranges — prices absent from the Korean source must not be generated",
+    "Phone numbers, addresses, URLs and digits stay exactly as in the source",
+    "Professional, warm, patient-friendly American English; no medical-ad exaggeration; avoid literal translationese",
+    "Korea-specific concepts (급여/비급여 etc.) → 'covered by Korean NHIS' / 'non-covered (out-of-pocket)' naturally"
+  ]
+}
