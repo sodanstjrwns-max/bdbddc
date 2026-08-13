@@ -6,6 +6,9 @@
 (function() {
   'use strict';
 
+  // 로케일 감지 (/jp/ 경로 = 일본어 페이지)
+  var IS_JP = /^\/jp(\/|$)/.test(window.location.pathname);
+
   // URL → 카테고리 매핑
   const path = window.location.pathname.replace(/\/$/, '');
   const slug = path.split('/').pop();
@@ -25,11 +28,30 @@
     tmj:'턱관절(TMJ)', bruxism:'이갈이/브럭시즘', emergency:'응급치료'
   };
 
+  // 카테고리 일본어 표시명 (표시 전용 — API 키는 CATS 한글 그대로)
+  const CATS_JA = {
+    implant:'インプラント', invisalign:'インビザライン', orthodontics:'歯列矯正',
+    'front-crown':'前歯クラウン', pediatric:'小児歯科',
+    aesthetic:'審美レジン', glownate:'グロウネイト', cavity:'むし歯治療',
+    resin:'レジン治療', crown:'クラウン', inlay:'インレー/オンレー',
+    'root-canal':'神経治療（根管治療）', 're-root-canal':'再根管治療',
+    whitening:'ホワイトニング', bridge:'ブリッジ', denture:'入れ歯',
+    scaling:'スケーリング', gum:'歯周治療', periodontitis:'歯周炎',
+    'gum-surgery':'歯肉手術', 'wisdom-tooth':'親知らず抜歯',
+    apicoectomy:'歯根端切除術', sedation:'静脈内鎮静治療', prevention:'予防歯科',
+    tmj:'顎関節（TMJ）', bruxism:'歯ぎしり', emergency:'救急治療'
+  };
+
   const catName = CATS[slug];
   if (!catName) return; // 매핑 안 되면 무시
+  const catLabel = IS_JP ? (CATS_JA[slug] || catName) : catName; // 표시용 라벨
+  const rsvPath = IS_JP ? '/jp/reservation' : '/reservation';
 
   // ═══ v5.18d: 중간 배치 (Clarity 스크롤맵 분석 — B/A·예약 CTA 하단 도달률 거의 0 → 중간으로 이동) ═══
   function getMidAnchor() {
+    // v5.48: 정적 케이스 섹션이 있으면 그 직후(케이스 → 예약) 흐름으로 배치
+    var st = document.getElementById('gn-static-cases');
+    if (st) return st;
     var sections = document.querySelectorAll('section');
     if (sections.length >= 4) return sections[2];      // 히어로 + 본문 2개 섹션 뒤 = 페이지 중상단
     if (sections.length >= 2) return sections[sections.length - 2];
@@ -41,16 +63,16 @@
     if (!anchor || document.getElementById('midReserveCta')) return null;
     var wrap = document.createElement('section');
     wrap.id = 'midReserveCta';
-    wrap.setAttribute('aria-label', catName + ' 상담 예약');
+    wrap.setAttribute('aria-label', IS_JP ? (catLabel + ' 相談予約') : (catName + ' 상담 예약'));
     wrap.style.cssText = 'padding:0;';
     wrap.innerHTML = '<div class="container" style="max-width:1100px;margin:0 auto;padding:36px 20px;">' +
       '<div style="background:linear-gradient(135deg,#6B4226,#8B5E3C);border-radius:20px;padding:32px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;box-shadow:0 8px 32px rgba(107,66,38,.25);">' +
         '<div>' +
-          '<p style="font-size:1.15rem;font-weight:800;color:#fff;margin:0 0 4px;">' + catName + ', 내 경우엔 어떨까요?</p>' +
-          '<p style="font-size:.88rem;color:rgba(255,255,255,.85);margin:0;">서울대 출신 전문의가 직접 확인해드립니다 · 과잉진료 없는 정직한 상담</p>' +
+          '<p style="font-size:1.15rem;font-weight:800;color:#fff;margin:0 0 4px;">' + (IS_JP ? catLabel + '、私の場合はどうでしょう？' : catName + ', 내 경우엔 어떨까요?') + '</p>' +
+          '<p style="font-size:.88rem;color:rgba(255,255,255,.85);margin:0;">' + (IS_JP ? 'ソウル大学出身の専門医が直接確認します · 過剰診療のない誠実なカウンセリング' : '서울대 출신 전문의가 직접 확인해드립니다 · 과잉진료 없는 정직한 상담') + '</p>' +
         '</div>' +
         '<div style="display:flex;gap:10px;flex-wrap:wrap;">' +
-          '<a href="/reservation?ref_category=' + encodeURIComponent(catName) + '" style="display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;font-size:.95rem;white-space:nowrap;"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>' +
+          '<a href="' + rsvPath + '?ref_category=' + encodeURIComponent(catName) + '" style="display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:#fff;color:#6B4226;border-radius:50px;text-decoration:none;font-weight:700;font-size:.95rem;white-space:nowrap;"><i class="fas fa-calendar-check"></i> ' + (IS_JP ? '相談を予約する' : '상담 예약하기') + '</a>' +
           '<a href="tel:041-415-2892" style="display:inline-flex;align-items:center;gap:8px;padding:13px 22px;background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.5);border-radius:50px;text-decoration:none;font-weight:600;font-size:.95rem;white-space:nowrap;"><i class="fas fa-phone"></i> 041-415-2892</a>' +
         '</div>' +
       '</div>' +
@@ -67,6 +89,8 @@
     .then(function(res) { return res.json(); })
     .then(function(cases) {
       if (!cases || !cases.length) return;
+      // v5.48: 정적 SSR 케이스 섹션이 있는 페이지는 동적 삽입 생략 (중복 방지)
+      if (document.getElementById('gn-static-cases')) return;
       insertCaseSection(cases, catName, slug);
     })
     .catch(function(e) { console.warn('케이스 로드 실패:', e); });
@@ -113,7 +137,7 @@
 
         '</div>' +
         '<div style="padding:14px 16px;">' +
-          '<div style="font-size:.95rem;font-weight:700;color:#333;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (cs.title || '케이스') + '</div>' +
+          '<div style="font-size:.95rem;font-weight:700;color:#333;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (cs.title || (IS_JP ? 'ケース' : '케이스')) + '</div>' +
           '<div style="display:flex;align-items:center;gap:8px;font-size:.78rem;color:#888;">' +
             '<span><i class="fas fa-user-md" style="color:#c9a96e;margin-right:3px;"></i>' + (cs.doctorName || '') + '</span>' +
             (cs.treatmentPeriod ? '<span><i class="fas fa-clock" style="margin-right:3px;"></i>' + cs.treatmentPeriod + '</span>' : '') +
@@ -125,13 +149,13 @@
     section.innerHTML = '<div class="container" style="max-width:1100px;margin:0 auto;padding:0 20px;">' +
       '<div style="text-align:center;margin-bottom:28px;">' +
         '<span style="display:inline-block;font-size:.75rem;font-weight:600;color:#c9a96e;background:rgba(201,169,110,.1);padding:4px 14px;border-radius:50px;margin-bottom:10px;"><i class="fas fa-images" style="margin-right:4px;"></i> REAL CASES</span>' +
-        '<h2 style="font-size:1.6rem;font-weight:800;color:#333;margin:0;">' + catName + ' <span style="color:#6B4226;">Before/After</span></h2>' +
-        '<p style="font-size:.9rem;color:#888;margin-top:6px;">실제 환자분들의 치료 전후 사진입니다</p>' +
+        '<h2 style="font-size:1.6rem;font-weight:800;color:#333;margin:0;">' + catLabel + ' <span style="color:#6B4226;">Before/After</span></h2>' +
+        '<p style="font-size:.9rem;color:#888;margin-top:6px;">' + (IS_JP ? '実際の患者様の治療前後の写真です' : '실제 환자분들의 치료 전후 사진입니다') + '</p>' +
       '</div>' +
       '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px;">' +
         cardHtml +
       '</div>' +
-      (cases.length > maxShow ? '<div style="text-align:center;"><a href="/cases/" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> 전체 ' + cases.length + '건 보기</a></div>' : '') +
+      (cases.length > maxShow ? '<div style="text-align:center;"><a href="/cases/" style="display:inline-flex;align-items:center;gap:6px;padding:12px 28px;background:#6B4226;color:#fff;border-radius:50px;text-decoration:none;font-weight:600;font-size:.9rem;"><i class="fas fa-th"></i> ' + (IS_JP ? '全' + cases.length + '件を見る' : '전체 ' + cases.length + '건 보기') + '</a></div>' : '') +
 
     '</div>';
 
@@ -158,18 +182,18 @@
         '<div style="position:relative;background:#fff;border-radius:24px;padding:40px 36px 32px;max-width:420px;width:90%;box-shadow:0 24px 80px rgba(0,0,0,0.2);text-align:center;animation:loginModalIn .35s cubic-bezier(.22,.68,0,1.15);">' +
           '<button id="loginModalClose" style="position:absolute;top:16px;right:16px;width:36px;height:36px;border:none;background:#f5f5f4;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#78716c;font-size:0.9rem;"><i class="fas fa-times"></i></button>' +
           '<div style="margin-bottom:20px;"><div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#faf7f4,#f0e9e0);display:inline-flex;align-items:center;justify-content:center;color:#6B4226;font-size:1.4rem;border:2px solid rgba(107,66,38,0.1);"><i class="fas fa-lock"></i></div></div>' +
-          '<h3 style="font-size:1.25rem;font-weight:800;color:#1c1917;margin:0 0 8px;">로그인이 필요합니다</h3>' +
-          '<p style="font-size:0.88rem;color:#78716c;line-height:1.6;margin:0 0 20px;">치료 전/후 사진과 상세 케이스 정보는<br>로그인 후 확인하실 수 있습니다.</p>' +
+          '<h3 style="font-size:1.25rem;font-weight:800;color:#1c1917;margin:0 0 8px;">' + (IS_JP ? 'ログインが必要です' : '로그인이 필요합니다') + '</h3>' +
+          '<p style="font-size:0.88rem;color:#78716c;line-height:1.6;margin:0 0 20px;">' + (IS_JP ? '治療前後の写真と詳細ケース情報は<br>ログイン後にご確認いただけます。' : '치료 전/후 사진과 상세 케이스 정보는<br>로그인 후 확인하실 수 있습니다.') + '</p>' +
           '<div style="background:#faf7f4;border-radius:14px;padding:16px 20px;margin-bottom:24px;text-align:left;">' +
-            '<div style="font-size:0.82rem;color:#44403c;padding:5px 0;display:flex;align-items:center;gap:10px;"><i class="fas fa-check-circle" style="color:#6B4226;font-size:0.78rem;"></i> 비포/애프터 사진 전체 공개</div>' +
-            '<div style="font-size:0.82rem;color:#44403c;padding:5px 0;display:flex;align-items:center;gap:10px;"><i class="fas fa-check-circle" style="color:#6B4226;font-size:0.78rem;"></i> 파노라마·구내 사진 확인</div>' +
-            '<div style="font-size:0.82rem;color:#44403c;padding:5px 0;display:flex;align-items:center;gap:10px;"><i class="fas fa-check-circle" style="color:#6B4226;font-size:0.78rem;"></i> 상세 치료 과정 열람</div>' +
+            '<div style="font-size:0.82rem;color:#44403c;padding:5px 0;display:flex;align-items:center;gap:10px;"><i class="fas fa-check-circle" style="color:#6B4226;font-size:0.78rem;"></i> ' + (IS_JP ? 'ビフォー/アフター写真を全公開' : '비포/애프터 사진 전체 공개') + '</div>' +
+            '<div style="font-size:0.82rem;color:#44403c;padding:5px 0;display:flex;align-items:center;gap:10px;"><i class="fas fa-check-circle" style="color:#6B4226;font-size:0.78rem;"></i> ' + (IS_JP ? 'パノラマ・口腔内写真の確認' : '파노라마·구내 사진 확인') + '</div>' +
+            '<div style="font-size:0.82rem;color:#44403c;padding:5px 0;display:flex;align-items:center;gap:10px;"><i class="fas fa-check-circle" style="color:#6B4226;font-size:0.78rem;"></i> ' + (IS_JP ? '詳しい治療過程の閲覧' : '상세 치료 과정 열람') + '</div>' +
           '</div>' +
           '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;">' +
-            '<a href="/auth/login" id="loginModalLoginBtn" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:14px;font-size:0.92rem;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;box-shadow:0 4px 16px rgba(107,66,38,0.25);"><i class="fas fa-sign-in-alt"></i> 로그인하기</a>' +
-            '<a href="/auth/register" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:14px;font-size:0.92rem;font-weight:700;text-decoration:none;background:#faf7f4;color:#6B4226;border:1px solid rgba(107,66,38,0.12);"><i class="fas fa-user-plus"></i> 회원가입 (10초)</a>' +
+            '<a href="/auth/login" id="loginModalLoginBtn" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:14px;font-size:0.92rem;font-weight:700;text-decoration:none;background:linear-gradient(135deg,#6B4226,#8B5E3C);color:#fff;box-shadow:0 4px 16px rgba(107,66,38,0.25);"><i class="fas fa-sign-in-alt"></i> ' + (IS_JP ? 'ログインする' : '로그인하기') + '</a>' +
+            '<a href="/auth/register" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:14px;font-size:0.92rem;font-weight:700;text-decoration:none;background:#faf7f4;color:#6B4226;border:1px solid rgba(107,66,38,0.12);"><i class="fas fa-user-plus"></i> ' + (IS_JP ? '会員登録（10秒）' : '회원가입 (10초)') + '</a>' +
           '</div>' +
-          '<p style="font-size:0.72rem;color:#a8a29e;margin:0;display:flex;align-items:center;justify-content:center;gap:5px;"><i class="fas fa-shield-alt" style="font-size:0.6rem;"></i> 개인정보는 안전하게 보호됩니다</p>' +
+          '<p style="font-size:0.72rem;color:#a8a29e;margin:0;display:flex;align-items:center;justify-content:center;gap:5px;"><i class="fas fa-shield-alt" style="font-size:0.6rem;"></i> ' + (IS_JP ? '個人情報は安全に保護されます' : '개인정보는 안전하게 보호됩니다') + '</p>' +
         '</div>';
       document.body.appendChild(modal);
       // 스타일 주입

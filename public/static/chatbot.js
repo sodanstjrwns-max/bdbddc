@@ -155,9 +155,10 @@
     document.head.appendChild(style);
 
     // 플로팅 버튼
+    var T = getUIText();
     var fab = document.createElement('button');
     fab.id = 'bd-chat-fab';
-    fab.setAttribute('aria-label', 'AI 상담 열기');
+    fab.setAttribute('aria-label', T.fabOpen);
     fab.innerHTML = '<i class="fas fa-comment-dots"></i><span class="fab-badge" id="bdFabBadge">1</span>';
     document.body.appendChild(fab);
 
@@ -168,18 +169,18 @@
       '<div class="bd-chat-header">' +
         '<div class="bd-chat-avatar">\uD83E\uDDB7</div>' +
         '<div class="bd-chat-header-info">' +
-          '<h4>\uBE44\uB514 AI \uC0C1\uB2F4\uC0AC</h4>' +
+          '<h4>' + T.headerTitle + '</h4>' +
           '<p>Seoul BD Dental \u00B7 24/7 Multilingual</p>' +
         '</div>' +
-        '<button class="bd-chat-header-close" aria-label="\uB2EB\uAE30"><i class="fas fa-times"></i></button>' +
+        '<button class="bd-chat-header-close" aria-label="' + T.close + '"><i class="fas fa-times"></i></button>' +
       '</div>' +
       '<div class="bd-chat-body" id="bdChatBody"></div>' +
       '<div class="bd-quick-btns" id="bdQuickBtns"></div>' +
       '<div class="bd-chat-input">' +
         '<textarea id="bdChatInput" rows="1" placeholder="' + getPlaceholder() + '" maxlength="1000"></textarea>' +
-        '<button class="bd-chat-send" id="bdChatSend" aria-label="\uC804\uC1A1"><i class="fas fa-paper-plane"></i></button>' +
+        '<button class="bd-chat-send" id="bdChatSend" aria-label="' + T.send + '"><i class="fas fa-paper-plane"></i></button>' +
       '</div>' +
-      '<div class="bd-chat-brand">Powered by \uC11C\uC6B8\uBE44\uB514\uCE58\uACFC AI</div>';
+      '<div class="bd-chat-brand">' + T.brand + '</div>';
     document.body.appendChild(win);
 
     // 모바일에서 FAB 위치 동적 보정
@@ -220,6 +221,79 @@
     if (bl.startsWith('ja')) return 'ja';
     if (bl.startsWith('vi')) return 'vi';
     return 'ko';
+  }
+
+  // ─── 다국어 UI 텍스트 (헤더/버튼/예약폼) ───
+  var UI_TEXT = {
+    ko: {
+      fabOpen: 'AI 상담 열기', headerTitle: '비디 AI 상담사', close: '닫기', send: '전송',
+      brand: 'Powered by 서울비디치과 AI',
+      bkTitle: '📅 빠른 예약', bkDate: '희망 날짜', bkTime: '희망 시간', bkName: '성함',
+      bkNamePh: '홍길동', bkPhone: '연락처', bkTreat: '관심 치료 (선택)', bkSelect: '선택해주세요',
+      bkSubmit: '예약 완료하기', bkSubmitting: '예약 처리중...',
+      bkErrName: '성함을 입력해주세요.', bkErrPhone: '올바른 휴대폰 번호를 입력해주세요.',
+      bkErrGeneric: '예약 처리 중 오류가 발생했습니다.', bkErrNetwork: '네트워크 오류입니다. 잠시 후 다시 시도해주세요.',
+      bkDone: '예약이 완료되었습니다!',
+      bkDoneMsg: function(name, date, time) { return '<strong>' + name + '</strong>님, ' + date + ' ' + time + '에<br>서울비디치과에서 뵙겠습니다 😊'; },
+      bkDoneNote: '예약 확인 연락을 드릴게요!',
+      bkAiNote: function(name, date, time) { return name + '님 예약이 완료되었습니다. ' + date + ' ' + time + '에 뵙겠습니다. 궁금한 점이 더 있으시면 편하게 물어보세요!'; },
+      bkMemo: '챗봇 예약',
+      days: ['일','월','화','수','목','금','토'],
+      treatments: { implant:'임플란트', invisalign:'인비절라인 교정', glownate:'글로우네이트 (라미네이트)', whitening:'미백', general:'일반진료', pediatric:'소아치과', 'root-canal':'신경치료', checkup:'검진', etc:'기타 / 상담' }
+    },
+    ja: {
+      fabOpen: 'AI相談を開く', headerTitle: 'ビディAIカウンセラー', close: '閉じる', send: '送信',
+      brand: 'Powered by ソウルBD歯科 AI',
+      bkTitle: '📅 クイック予約', bkDate: 'ご希望日', bkTime: 'ご希望時間', bkName: 'お名前',
+      bkNamePh: '山田太郎', bkPhone: '連絡先', bkTreat: 'ご希望の治療（任意）', bkSelect: '選択してください',
+      bkSubmit: '予約を確定する', bkSubmitting: '予約処理中...',
+      bkErrName: 'お名前を入力してください。', bkErrPhone: '正しい携帯電話番号を入力してください。',
+      bkErrGeneric: '予約処理中にエラーが発生しました。', bkErrNetwork: 'ネットワークエラーです。しばらくしてから再度お試しください。',
+      bkDone: 'ご予約が完了しました！',
+      bkDoneMsg: function(name, date, time) { return '<strong>' + name + '</strong>様、' + date + ' ' + time + 'に<br>ソウルBD歯科でお待ちしております 😊'; },
+      bkDoneNote: '予約確認のご連絡をいたします！',
+      bkAiNote: function(name, date, time) { return name + '様のご予約が完了しました。' + date + ' ' + time + 'にお待ちしております。他にご質問があればお気軽にどうぞ！'; },
+      bkMemo: 'チャットボット予約 (日本語)',
+      days: ['日','月','火','水','木','金','土'],
+      treatments: { implant:'インプラント', invisalign:'インビザライン矯正', glownate:'グロウネイト（ラミネート）', whitening:'ホワイトニング', general:'一般診療', pediatric:'小児歯科', 'root-canal':'神経治療（根管治療）', checkup:'検診', etc:'その他 / 相談' }
+    },
+    en: {
+      fabOpen: 'Open AI chat', headerTitle: 'BD AI Consultant', close: 'Close', send: 'Send',
+      brand: 'Powered by Seoul BD Dental AI',
+      bkTitle: '📅 Quick Booking', bkDate: 'Preferred date', bkTime: 'Preferred time', bkName: 'Name',
+      bkNamePh: 'John Smith', bkPhone: 'Phone', bkTreat: 'Treatment (optional)', bkSelect: 'Please select',
+      bkSubmit: 'Complete Booking', bkSubmitting: 'Processing...',
+      bkErrName: 'Please enter your name.', bkErrPhone: 'Please enter a valid mobile number.',
+      bkErrGeneric: 'An error occurred while booking.', bkErrNetwork: 'Network error. Please try again later.',
+      bkDone: 'Booking complete!',
+      bkDoneMsg: function(name, date, time) { return '<strong>' + name + '</strong>, see you on ' + date + ' at ' + time + '<br>at Seoul BD Dental 😊'; },
+      bkDoneNote: 'We will contact you to confirm!',
+      bkAiNote: function(name, date, time) { return 'Booking confirmed for ' + name + ' on ' + date + ' at ' + time + '. Feel free to ask if you have more questions!'; },
+      bkMemo: 'Chatbot booking (English)',
+      days: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+      treatments: { implant:'Implant', invisalign:'Invisalign', glownate:'Glownate (Veneer)', whitening:'Whitening', general:'General', pediatric:'Pediatric', 'root-canal':'Root Canal', checkup:'Checkup', etc:'Other / Consultation' }
+    },
+    zh: {
+      fabOpen: '打开AI咨询', headerTitle: 'BD AI顾问', close: '关闭', send: '发送',
+      brand: 'Powered by 首尔BD牙科 AI',
+      bkTitle: '📅 快速预约', bkDate: '希望日期', bkTime: '希望时间', bkName: '姓名',
+      bkNamePh: '王小明', bkPhone: '联系方式', bkTreat: '感兴趣的治疗（可选）', bkSelect: '请选择',
+      bkSubmit: '完成预约', bkSubmitting: '预约处理中...',
+      bkErrName: '请输入姓名。', bkErrPhone: '请输入正确的手机号码。',
+      bkErrGeneric: '预约处理时发生错误。', bkErrNetwork: '网络错误，请稍后再试。',
+      bkDone: '预约完成！',
+      bkDoneMsg: function(name, date, time) { return '<strong>' + name + '</strong>，' + date + ' ' + time + '<br>首尔BD牙科恭候您的光临 😊'; },
+      bkDoneNote: '我们会与您联系确认预约！',
+      bkAiNote: function(name, date, time) { return name + '的预约已完成。' + date + ' ' + time + '见。如有其他问题请随时提问！'; },
+      bkMemo: '聊天机器人预约 (中文)',
+      days: ['日','一','二','三','四','五','六'],
+      treatments: { implant:'种植牙', invisalign:'隐适美矫正', glownate:'Glownate贴面', whitening:'美白', general:'一般诊疗', pediatric:'儿童牙科', 'root-canal':'根管治疗', checkup:'检查', etc:'其他 / 咨询' }
+    }
+  };
+
+  function getUIText() {
+    var lang = detectLang();
+    return UI_TEXT[lang] || UI_TEXT.en;
   }
 
   // ─── 다국어 인사말 ───
@@ -369,15 +443,15 @@
     scrollToBottom();
   }
 
-  // ─── 인라인 예약 폼 HTML ───
+  // ─── 인라인 예약 폼 HTML (다국어) ───
   function createBookingFormHTML() {
+    var T = getUIText();
     // 내일부터 14일간 날짜 옵션
     var dateOptions = '';
     for (var i = 1; i <= 14; i++) {
       var d = new Date();
       d.setDate(d.getDate() + i);
-      var dayNames = ['\uc77c','\uc6d4','\ud654','\uc218','\ubaa9','\uae08','\ud1a0'];
-      var label = (d.getMonth()+1) + '/' + d.getDate() + ' (' + dayNames[d.getDay()] + ')';
+      var label = (d.getMonth()+1) + '/' + d.getDate() + ' (' + T.days[d.getDay()] + ')';
       var val = d.toISOString().slice(0,10);
       dateOptions += '<option value="' + val + '">' + label + '</option>';
     }
@@ -393,49 +467,45 @@
       }
     }
 
+    // 치료 옵션 (value는 API 키 그대로, 라벨만 번역)
+    var treatKeys = ['implant','invisalign','glownate','whitening','general','pediatric','root-canal','checkup','etc'];
+    var treatOptions = '<option value="">' + T.bkSelect + '</option>';
+    for (var t = 0; t < treatKeys.length; t++) {
+      treatOptions += '<option value="' + treatKeys[t] + '">' + T.treatments[treatKeys[t]] + '</option>';
+    }
+
     return '<div class="bd-booking-form" id="bdBookingForm">' +
-      '<h5>\uD83D\uDCC5 \uBE60\uB978 \uC608\uC57D</h5>' +
+      '<h5>' + T.bkTitle + '</h5>' +
       '<div class="bd-booking-row">' +
         '<div class="bd-booking-field">' +
-          '<label>\uD76C\uB9DD \ub0a0\uc9dc</label>' +
+          '<label>' + T.bkDate + '</label>' +
           '<select id="bdBookDate">' + dateOptions + '</select>' +
         '</div>' +
         '<div class="bd-booking-field">' +
-          '<label>\uD76C\uB9DD \uc2dc\uac04</label>' +
+          '<label>' + T.bkTime + '</label>' +
           '<select id="bdBookTime">' + timeOptions + '</select>' +
         '</div>' +
       '</div>' +
       '<div class="bd-booking-row">' +
         '<div class="bd-booking-field">' +
-          '<label>\uc131\ud568</label>' +
-          '<input type="text" id="bdBookName" placeholder="\ud64d\uae38\ub3d9" maxlength="20" autocomplete="name">' +
+          '<label>' + T.bkName + '</label>' +
+          '<input type="text" id="bdBookName" placeholder="' + T.bkNamePh + '" maxlength="20" autocomplete="name">' +
         '</div>' +
         '<div class="bd-booking-field">' +
-          '<label>\uc5f0\ub77d\ucc98</label>' +
+          '<label>' + T.bkPhone + '</label>' +
           '<input type="tel" id="bdBookPhone" placeholder="010-1234-5678" maxlength="13" autocomplete="tel">' +
         '</div>' +
       '</div>' +
       '<div class="bd-booking-row full">' +
         '<div class="bd-booking-field">' +
-          '<label>\uad00\uc2ec \uce58\ub8cc (\uc120\ud0dd)</label>' +
-          '<select id="bdBookTreatment">' +
-            '<option value="">선택해주세요</option>' +
-            '<option value="implant">\uc784\ud50c\ub780\ud2b8</option>' +
-            '<option value="invisalign">\uc778\ube44\uc838\ub77c\uc778 \uad50\uc815</option>' +
-            '<option value="glownate">\uae00\ub85c\uc6b0\ub124\uc774\ud2b8 (\ub77c\ubbf8\ub124\uc774\ud2b8)</option>' +
-            '<option value="whitening">\ubbf8\ubc31</option>' +
-            '<option value="general">\uc77c\ubc18\uc9c4\ub8cc</option>' +
-            '<option value="pediatric">\uc18c\uc544\uce58\uacfc</option>' +
-            '<option value="root-canal">\uc2e0\uacbd\uce58\ub8cc</option>' +
-            '<option value="checkup">\uac80\uc9c4</option>' +
-            '<option value="etc">\uae30\ud0c0 / \uc0c1\ub2f4</option>' +
-          '</select>' +
+          '<label>' + T.bkTreat + '</label>' +
+          '<select id="bdBookTreatment">' + treatOptions + '</select>' +
         '</div>' +
       '</div>' +
       '<div class="bd-booking-error" id="bdBookError"></div>' +
       '<button class="bd-booking-submit" id="bdBookSubmit" type="button">' +
         '<span class="spinner" id="bdBookSpinner"></span>' +
-        '<span id="bdBookSubmitText">\uC608\uC57D \uC644\uB8CC\uD558\uAE30</span>' +
+        '<span id="bdBookSubmitText">' + T.bkSubmit + '</span>' +
       '</button>' +
     '</div>';
   }
@@ -470,6 +540,7 @@
 
   // ─── 예약 제출 ───
   function submitBooking(form, bubble) {
+    var T = getUIText();
     var date = form.querySelector('#bdBookDate').value;
     var time = form.querySelector('#bdBookTime').value;
     var name = (form.querySelector('#bdBookName').value || '').trim();
@@ -481,15 +552,15 @@
     var btnText = form.querySelector('#bdBookSubmitText');
 
     // 유효성 검사
-    if (!name) { showBookError(errEl, '\uc131\ud568\uc744 \uc785\ub825\ud574\uc8fc\uc138\uc694.'); return; }
+    if (!name) { showBookError(errEl, T.bkErrName); return; }
     if (!phone || !/^01[016789]-?\d{3,4}-?\d{4}$/.test(phone.replace(/-/g, ''))) {
-      showBookError(errEl, '\uc62c\ubc14\ub978 \ud734\ub300\ud3f0 \ubc88\ud638\ub97c \uc785\ub825\ud574\uc8fc\uc138\uc694.'); return;
+      showBookError(errEl, T.bkErrPhone); return;
     }
 
     // 로딩
     btn.disabled = true;
     spinner.style.display = 'inline-block';
-    btnText.textContent = '\uc608\uc57d \ucc98\ub9ac\uc911...';
+    btnText.textContent = T.bkSubmitting;
     errEl.style.display = 'none';
 
     fetch('/api/reservation', {
@@ -501,7 +572,7 @@
         time: time,
         name: name,
         phone: phone,
-        message: '\uCC57\uBD07 \uC608\uC57D',
+        message: T.bkMemo,
         marketingConsent: false,
         source: 'chatbot'
       })
@@ -513,29 +584,29 @@
         // 폼을 성공 UI로 교체
         form.innerHTML = '<div class="bd-booking-success">' +
           '<div class="check-icon"><i class="fas fa-check"></i></div>' +
-          '<h5>\uC608\uC57D\uC774 \uC644\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4!</h5>' +
-          '<p><strong>' + name + '</strong>\uB2D8, ' + date + ' ' + time + '\uC5D0<br>\uC11C\uC6B8\uBE44\uB514\uCE58\uACFC\uC5D0\uC11C \uBF59\uACA0\uC2B5\uB2C8\uB2E4 \uD83D\uDE0A</p>' +
-          '<p style="font-size:.72rem;color:rgba(107,66,38,.5);margin-top:8px">\uC608\uC57D \uD655\uC778 \uC5F0\uB77D\uC744 \uB4DC\uB9B4\uAC8C\uC694!</p>' +
+          '<h5>' + T.bkDone + '</h5>' +
+          '<p>' + T.bkDoneMsg(name, date, time) + '</p>' +
+          '<p style="font-size:.72rem;color:rgba(107,66,38,.5);margin-top:8px">' + T.bkDoneNote + '</p>' +
         '</div>';
         scrollToBottom();
 
         // AI에게도 예약 성공 알림 (대화 맥락 유지)
         state.messages.push({
           role: 'assistant',
-          content: name + '님 예약이 완료되었습니다. ' + date + ' ' + time + '에 뵙겠습니다. 궁금한 점이 더 있으시면 편하게 물어보세요!'
+          content: T.bkAiNote(name, date, time)
         });
       } else {
-        showBookError(errEl, data.error || '\uc608\uc57d \ucc98\ub9ac \uc911 \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4.');
+        showBookError(errEl, data.error || T.bkErrGeneric);
         btn.disabled = false;
         spinner.style.display = 'none';
-        btnText.textContent = '\uc608\uc57d \uc644\ub8cc\ud558\uae30';
+        btnText.textContent = T.bkSubmit;
       }
     })
     .catch(function() {
-      showBookError(errEl, '\ub124\ud2b8\uc6cc\ud06c \uc624\ub958\uc785\ub2c8\ub2e4. \uc7a0\uc2dc \ud6c4 \ub2e4\uc2dc \uc2dc\ub3c4\ud574\uc8fc\uc138\uc694.');
+      showBookError(errEl, T.bkErrNetwork);
       btn.disabled = false;
       spinner.style.display = 'none';
-      btnText.textContent = '\uc608\uc57d \uc644\ub8cc\ud558\uae30';
+      btnText.textContent = T.bkSubmit;
     });
   }
 

@@ -11,7 +11,7 @@
   var LANGS = [
     { code: 'ko', label: '한국어',      flag: '🇰🇷', hub: '/',          match: ['ko'] },
     { code: 'en', label: 'English',     flag: '🇺🇸', hub: '/en/',       match: ['en', 'x-default'] },
-    { code: 'ja', label: '日本語',      flag: '🇯🇵', hub: '/jp/dental', match: ['ja'] },
+    { code: 'ja', label: '日本語',      flag: '🇯🇵', hub: '/jp/',       match: ['ja'] },
     { code: 'zh', label: '中文',        flag: '🇨🇳', hub: '/cn/dental', match: ['zh-CN', 'zh'] },
     { code: 'vi', label: 'Tiếng Việt',  flag: '🇻🇳', hub: '/vi/',       match: ['vi'] },
     { code: 'th', label: 'ไทย',         flag: '🇹🇭', hub: '/th/',       match: ['th'] },

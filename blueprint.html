@@ -1197,7 +1197,7 @@ strong { color: #1a1a2e; }
 <h2>8.2 구현 코드</h2>
 
 <pre><code class="language-html">&lt;!-- 언어 전환 버튼 (모든 페이지 &lt;/body&gt; 직전) --&gt;
-&lt;script src="/js/lang-switcher.js" defer&gt;&lt;/script&gt;
+&lt;script src="/js/lang-switcher.js?v=20260813v2" defer&gt;&lt;/script&gt;
 
 &lt;!-- hreflang (모든 페이지 &lt;head&gt; 내) --&gt;
 &lt;link rel="alternate" hreflang="ko" href="https://bdbddc.com/"&gt;
@@ -1283,7 +1283,7 @@ strong { color: #1a1a2e; }
 <p>│   ├── js/</p>
 <p>│   │   ├── main.js        # 공통 JS</p>
   <script src="/js/micro.js?v=fc744130" defer></script>
-  <script src="/static/chatbot.js" defer></script>
+  <script src="/static/chatbot.js?v=20260813v2" defer></script>
 <p>│   │   ├── gnb-v2.js         # 네비게이션</p>
 <p>│   │   ├── analytics.js   # GA4 + Amplitude</p>
 <p>│   │   ├── gallery.js     # 갤러리 기능</p>
@@ -1834,6 +1834,6 @@ strong { color: #1a1a2e; }
 <script>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
 </script>
-<script src="/js/lang-switcher.js" defer></script>
+<script src="/js/lang-switcher.js?v=20260813v2" defer></script>
 </body>
 </html>
