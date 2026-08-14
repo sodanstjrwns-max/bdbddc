@@ -182,39 +182,54 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .rm-vignette{position:absolute;inset:0;pointer-events:none;
       background:linear-gradient(to top,rgba(10,13,19,.6) 0%,rgba(10,13,19,0) 30%),
                  linear-gradient(to bottom,rgba(10,13,19,.45) 0%,rgba(10,13,19,0) 22%)}
-    .rm-overlay{position:absolute;inset:0;z-index:10;pointer-events:none}
+    .rm-overlay{position:absolute;inset:0;z-index:10;pointer-events:none;font-family:var(--font-family)}
     .rm-head{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
       justify-content:center;text-align:center;padding:0 24px;
-      background:radial-gradient(ellipse at center,rgba(10,13,19,.5) 0%,rgba(10,13,19,.22) 55%,rgba(10,13,19,.04) 100%)}
-    .rm-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.3em;color:#8A93A3;margin-bottom:2vh;text-transform:uppercase;font-family:ui-monospace,'SF Mono',monospace}
-    .rm-title{font-size:clamp(1.9rem,5.6vw,4.4rem);font-weight:900;line-height:1.16;letter-spacing:-.045em;color:#fff;text-shadow:0 6px 50px rgba(0,0,0,.6)}
-    .rm-sub{margin-top:2.4vh;font-size:clamp(.82rem,1.4vw,1.05rem);color:#8A93A3}
-    .rm-hint{position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);font-size:.7rem;
-      letter-spacing:.15em;color:#8A93A3;display:flex;flex-direction:column;align-items:center;gap:8px;
-      font-family:ui-monospace,'SF Mono',monospace}
-    .rm-hint::after{content:"";width:1px;height:38px;background:#fff;animation:rmDrop 1.6s ease-in-out infinite;transform-origin:top}
+      background:radial-gradient(ellipse at center,rgba(10,13,19,.72) 0%,rgba(10,13,19,.42) 55%,rgba(10,13,19,.12) 100%)}
+    .rm-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;letter-spacing:.24em;
+      color:var(--brand-gold-light,#E8D5B7);margin-bottom:2.2vh;text-transform:uppercase}
+    .rm-eyebrow::before,.rm-eyebrow::after{content:"";width:28px;height:1px;background:var(--brand-gold,#C8A97E);opacity:.7}
+    .rm-title{font-size:clamp(1.9rem,5.6vw,4.4rem);font-weight:900;line-height:1.2;letter-spacing:-.045em;color:#fff;
+      text-shadow:0 2px 8px rgba(0,0,0,.85),0 8px 60px rgba(0,0,0,.7)}
+    .rm-title em{font-style:normal;background:linear-gradient(135deg,var(--brand-gold,#C8A97E) 0%,var(--brand-gold-light,#E8D5B7) 50%,var(--brand-gold,#C8A97E) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .rm-sub{margin-top:2.4vh;font-size:clamp(.88rem,1.4vw,1.1rem);font-weight:600;color:rgba(255,255,255,.88);
+      text-shadow:0 1px 6px rgba(0,0,0,.8)}
+    .rm-hint{position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);font-size:.72rem;font-weight:700;
+      letter-spacing:.2em;color:rgba(255,255,255,.75);display:flex;flex-direction:column;align-items:center;gap:8px;
+      text-shadow:0 1px 6px rgba(0,0,0,.8)}
+    .rm-hint::after{content:"";width:1px;height:38px;background:linear-gradient(to bottom,var(--brand-gold,#C8A97E),transparent);animation:rmDrop 1.6s ease-in-out infinite;transform-origin:top}
     @keyframes rmDrop{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
-    .rm-year{position:absolute;left:4vw;bottom:6vh;opacity:0}
-    .rm-year .n{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums;
-      text-shadow:0 4px 40px rgba(0,0,0,.6);font-family:ui-monospace,'SF Mono',monospace}
-    .rm-year .l{font-size:.7rem;color:#8A93A3;margin-top:2px;letter-spacing:.2em;font-family:ui-monospace,'SF Mono',monospace}
-    .rm-count{position:absolute;right:4vw;top:8vh;text-align:right;opacity:0}
+    .rm-year{position:absolute;left:4vw;bottom:6vh;opacity:0;padding:10px 18px;border-radius:16px;
+      background:rgba(10,13,19,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .rm-year .n{font-size:clamp(2.4rem,6.5vw,4.6rem);font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+      color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.85);line-height:1.1}
+    .rm-year .l{font-size:.72rem;font-weight:700;color:var(--brand-gold-light,#E8D5B7);margin-top:2px;letter-spacing:.24em}
+    .rm-count{position:absolute;right:4vw;top:8vh;text-align:right;opacity:0;padding:10px 18px;border-radius:16px;
+      background:rgba(10,13,19,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     .rm-count .n{font-size:clamp(1.5rem,3.6vw,2.7rem);font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;
-      color:#E8B86D;text-shadow:0 0 30px rgba(232,184,109,.4);font-family:ui-monospace,'SF Mono',monospace}
-    .rm-count .l{font-size:.72rem;color:#8A93A3;margin-top:2px}
+      background:linear-gradient(135deg,var(--brand-gold,#C8A97E) 0%,var(--brand-gold-light,#E8D5B7) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      filter:drop-shadow(0 2px 6px rgba(0,0,0,.8))}
+    .rm-count .l{font-size:.74rem;font-weight:600;color:rgba(255,255,255,.85);margin-top:2px}
     .rm-cap{position:absolute;left:50%;bottom:13vh;transform:translateX(-50%);width:max-content;max-width:88vw;text-align:center;opacity:0}
-    .rm-cap p{font-size:clamp(1rem,2vw,1.5rem);font-weight:700;letter-spacing:-.02em;color:rgba(255,255,255,.92);
-      text-shadow:0 2px 26px rgba(0,0,0,.7);line-height:1.5}
+    .rm-cap p{display:inline-block;font-size:clamp(1rem,2vw,1.5rem);font-weight:800;letter-spacing:-.02em;color:#fff;
+      text-shadow:0 2px 8px rgba(0,0,0,.9);line-height:1.5;padding:10px 26px;border-radius:999px;
+      background:rgba(10,13,19,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+      border:1px solid rgba(200,169,126,.25)}
     .rm-finale{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-      text-align:center;padding:0 24px;opacity:0}
-    .rm-finale .rm-fin-h{font-size:clamp(1.9rem,5.4vw,4.2rem);font-weight:900;letter-spacing:-.045em;line-height:1.14;
-      color:#fff;text-shadow:0 8px 60px rgba(0,0,0,.7)}
-    .rm-finale .rm-fin-h em{font-style:normal;color:#E8B86D}
-    .rm-finale .rm-fin-p{margin-top:2.2vh;font-size:clamp(.85rem,1.5vw,1.15rem);color:rgba(255,255,255,.75);font-weight:600}
-    .rm-finale .rm-fin-cta{display:inline-block;margin-top:3.2vh;text-decoration:none;background:#E8B86D;color:#0A0D13;
-      font-weight:800;font-size:.95rem;padding:15px 36px;border-radius:999px;transition:transform .25s;
-      box-shadow:0 0 40px rgba(232,184,109,.35)}
-    .rm-finale .rm-fin-cta:hover{transform:translateY(-2px)}
+      text-align:center;padding:0 24px;opacity:0;
+      background:radial-gradient(ellipse at center,rgba(10,13,19,.72) 0%,rgba(10,13,19,.42) 55%,rgba(10,13,19,.12) 100%)}
+    .rm-finale .rm-fin-h{font-size:clamp(1.9rem,5.4vw,4.2rem);font-weight:900;letter-spacing:-.045em;line-height:1.2;
+      color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.85),0 8px 60px rgba(0,0,0,.7)}
+    .rm-finale .rm-fin-h em{font-style:normal;background:linear-gradient(135deg,var(--brand-gold,#C8A97E) 0%,var(--brand-gold-light,#E8D5B7) 50%,var(--brand-gold,#C8A97E) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      filter:drop-shadow(0 2px 6px rgba(0,0,0,.7))}
+    .rm-finale .rm-fin-p{margin-top:2.2vh;font-size:clamp(.9rem,1.5vw,1.15rem);color:rgba(255,255,255,.92);font-weight:600;
+      text-shadow:0 1px 6px rgba(0,0,0,.85)}
+    .rm-finale .rm-fin-cta{display:inline-flex;align-items:center;gap:8px;margin-top:3.2vh;text-decoration:none;
+      background:var(--brand,#6B4226);color:#fff;font-weight:700;font-size:1rem;padding:16px 38px;border-radius:999px;
+      transition:all .25s;border:1px solid rgba(200,169,126,.45);box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 40px rgba(200,169,126,.22)}
+    .rm-finale .rm-fin-cta:hover{background:var(--brand-dark,#4A2E1A);transform:translateY(-2px)}
     @media(max-width:768px){
       .rm-hero.scrub-on .rm-space{height:520vh}
       .rm-year{bottom:4.5vh}
@@ -680,15 +695,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="rm-overlay">
           <!-- 오프닝 (H1은 아래 본 히어로에 있으므로 장식 헤드라인만) -->
           <div class="rm-head" id="rmHead">
-            <div class="rm-eyebrow">SEOUL BD DENTAL · SINCE 2021</div>
+            <div class="rm-eyebrow">SEOUL BD DENTAL · SINCE 2018</div>
             <p class="rm-title">환자 한 분으로<br>시작했습니다</p>
-            <p class="rm-sub">스크롤하면, 5년이 흐릅니다</p>
+            <p class="rm-sub">스크롤하면, 9년이 흐릅니다</p>
           </div>
           <div class="rm-hint" id="rmHint">SCROLL</div>
 
           <!-- 연도 카운터 -->
           <div class="rm-year" id="rmYear">
-            <div class="n" id="rmYearN">2021</div>
+            <div class="n" id="rmYearN">2018</div>
             <div class="l">YEAR</div>
           </div>
 
@@ -699,7 +714,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
 
           <!-- 확산 캡션 -->
-          <div class="rm-cap" id="rmCap0"><p>2021년 5월, 첫 환자</p></div>
+          <div class="rm-cap" id="rmCap0"><p>2018년, 첫 환자</p></div>
           <div class="rm-cap" id="rmCap1"><p>그분이 어머니를 모시고 왔습니다</p></div>
           <div class="rm-cap" id="rmCap2"><p>어머니는 옆집을, 옆집은 직장 동료를</p></div>
           <div class="rm-cap" id="rmCap3"><p>소개가 소개를 낳았습니다</p></div>
@@ -707,7 +722,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <!-- 피날레 -->
           <div class="rm-finale" id="rmFinale">
             <p class="rm-fin-h">이 불빛이 전부,<br><em>신뢰</em>입니다</p>
-            <p class="rm-fin-p">한 분이 한 분을 모시고 온 5년 — 서울대 출신 14인이 함께합니다</p>
+            <p class="rm-fin-p">한 분이 한 분을 모시고 온 9년 — 서울대 출신 14인이 함께합니다</p>
             <a href="/reservation" class="rm-fin-cta"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>
           </div>
         </div>
@@ -2187,18 +2202,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           if (p > b - f) return (b - p) / f;
           return 1;
         }
-        // 누적 카운터: 개원(2021-05-24) 후 함께한 날 — 팩트 기반, 배포 시점 자동 계산
-        var DAYS_TOTAL = Math.floor((Date.now() - new Date(2021, 4, 24).getTime()) / 86400000);
+        // 누적 카운터: 2018년 시작 후 환자와 함께한 날 — 배포 시점 자동 계산
+        var DAYS_TOTAL = Math.floor((Date.now() - new Date(2018, 0, 1).getTime()) / 86400000);
         function easeInPow2(t){ return t * t; } // 뒤로 갈수록 가속 = 복리 느낌
         function applyOverlay(p){
           var headOp = p < 0.02 ? 1 : Math.max(0, 1 - (p - 0.02) / 0.06);
           head.style.opacity = headOp;
           head.style.transform = 'translateY(' + (-(1-headOp) * 30) + 'px)';
           hint.style.opacity = p < 0.02 ? 1 : Math.max(0, 1 - (p - 0.02) / 0.04);
-          // 연도 카운터: 8%~82% 표시, 2021→2026 틱
+          // 연도 카운터: 8%~82% 표시, 2018→2026 틱
           year.style.opacity = seg(p, 0.08, 0.82, 0.04);
           var yp = Math.max(0, Math.min(1, (p - 0.10) / 0.68));
-          yearN.textContent = Math.round(2021 + yp * 5);
+          yearN.textContent = Math.round(2018 + yp * 8);
           // 누적 카운터: 30%~82% 표시, 0→DAYS_TOTAL (비선형 가속)
           count.style.opacity = seg(p, 0.30, 0.82, 0.04);
           var cp = Math.max(0, Math.min(1, (p - 0.30) / 0.50));
