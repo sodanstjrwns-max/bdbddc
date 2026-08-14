@@ -108,6 +108,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   
   <!-- ■ Fonts -->
   <link rel="preload" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/images/referral-map/frame_0001.webp" as="image" type="image/webp" fetchpriority="high">
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   
   <!-- ■ Icons -->
@@ -170,6 +171,75 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     @media(max-width:768px){
       .why-proof-list{grid-template-columns:1fr;gap:10px}
       .why-proof-list li{font-size:.85rem}
+    }
+    /* ── v5.89 Referral-map immersive hero (84-frame scroll scrub) ── */
+    .rm-hero{display:block;background:#0A0D13;color:#fff;overflow:visible}
+    .rm-space{height:100vh;position:relative}
+    .rm-hero.scrub-on .rm-space{height:640vh}
+    .rm-stage{position:sticky;top:var(--header-height,72px);height:calc(100vh - var(--header-height,72px));overflow:hidden}
+    canvas#rmSeq{position:absolute;inset:0;width:100%;height:100%;display:block}
+    .rm-vignette{position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(to top,rgba(10,13,19,.6) 0%,rgba(10,13,19,0) 30%),
+                 linear-gradient(to bottom,rgba(10,13,19,.45) 0%,rgba(10,13,19,0) 22%)}
+    .rm-overlay{position:absolute;inset:0;z-index:10;pointer-events:none;font-family:var(--font-family)}
+    .rm-head{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;text-align:center;padding:0 24px;
+      background:radial-gradient(ellipse at center,rgba(10,13,19,.72) 0%,rgba(10,13,19,.42) 55%,rgba(10,13,19,.12) 100%)}
+    .rm-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;letter-spacing:.24em;
+      color:var(--brand-gold-light,#E8D5B7);margin-bottom:2.2vh;text-transform:uppercase}
+    .rm-eyebrow::before,.rm-eyebrow::after{content:"";width:28px;height:1px;background:var(--brand-gold,#C8A97E);opacity:.7}
+    .rm-title{font-size:clamp(1.9rem,5.6vw,4.4rem);font-weight:900;line-height:1.2;letter-spacing:-.045em;color:#fff;
+      text-shadow:0 2px 8px rgba(0,0,0,.85),0 8px 60px rgba(0,0,0,.7)}
+    .rm-title em{font-style:normal;background:linear-gradient(135deg,var(--brand-gold,#C8A97E) 0%,var(--brand-gold-light,#E8D5B7) 50%,var(--brand-gold,#C8A97E) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .rm-sub{margin-top:2.4vh;font-size:clamp(.88rem,1.4vw,1.1rem);font-weight:600;color:rgba(255,255,255,.88);
+      text-shadow:0 1px 6px rgba(0,0,0,.8)}
+    .rm-hint{position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);font-size:.72rem;font-weight:700;
+      letter-spacing:.2em;color:rgba(255,255,255,.75);display:flex;flex-direction:column;align-items:center;gap:8px;
+      text-shadow:0 1px 6px rgba(0,0,0,.8)}
+    .rm-hint::after{content:"";width:1px;height:38px;background:linear-gradient(to bottom,var(--brand-gold,#C8A97E),transparent);animation:rmDrop 1.6s ease-in-out infinite;transform-origin:top}
+    @keyframes rmDrop{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
+    .rm-year{position:absolute;left:4vw;bottom:6vh;opacity:0;padding:10px 18px;border-radius:16px;
+      background:rgba(10,13,19,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .rm-year .n{font-size:clamp(2.4rem,6.5vw,4.6rem);font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+      color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.85);line-height:1.1}
+    .rm-year .l{font-size:.72rem;font-weight:700;color:var(--brand-gold-light,#E8D5B7);margin-top:2px;letter-spacing:.24em}
+    .rm-count{position:absolute;right:4vw;top:8vh;text-align:right;opacity:0;padding:10px 18px;border-radius:16px;
+      background:rgba(10,13,19,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .rm-count .n{font-size:clamp(1.5rem,3.6vw,2.7rem);font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+      background:linear-gradient(135deg,var(--brand-gold,#C8A97E) 0%,var(--brand-gold-light,#E8D5B7) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      filter:drop-shadow(0 2px 6px rgba(0,0,0,.8))}
+    .rm-count .l{font-size:.74rem;font-weight:600;color:rgba(255,255,255,.85);margin-top:2px}
+    .rm-cap{position:absolute;left:0;right:0;bottom:11vh;text-align:center;opacity:0;padding:0 5vw;pointer-events:none}
+    .rm-cap::before{content:"";position:absolute;left:0;right:0;top:-10vh;bottom:-11vh;z-index:-1;
+      background:radial-gradient(ellipse 75% 110% at 50% 100%,rgba(5,7,11,.82),rgba(5,7,11,.4) 55%,transparent 78%)}
+    .rm-cap p{display:inline-block;font-size:clamp(1.45rem,3.6vw,2.7rem);font-weight:800;letter-spacing:-.015em;color:#fff;
+      line-height:1.45;text-wrap:balance;
+      text-shadow:0 2px 6px rgba(0,0,0,.95),0 6px 28px rgba(0,0,0,.8),0 0 70px rgba(0,0,0,.6)}
+    .rm-cap p em{font-style:normal;font-weight:900;color:#FFE9BE;
+      text-shadow:0 2px 6px rgba(0,0,0,.95),0 6px 28px rgba(0,0,0,.8),0 0 34px rgba(232,184,109,.55)}
+    .rm-finale{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:0 24px;opacity:0;
+      background:radial-gradient(ellipse at center,rgba(10,13,19,.72) 0%,rgba(10,13,19,.42) 55%,rgba(10,13,19,.12) 100%)}
+    .rm-finale .rm-fin-h{font-size:clamp(1.9rem,5.4vw,4.2rem);font-weight:900;letter-spacing:-.045em;line-height:1.2;
+      color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.85),0 8px 60px rgba(0,0,0,.7)}
+    .rm-finale .rm-fin-h em{font-style:normal;color:#FFE9BE;
+      text-shadow:0 2px 8px rgba(0,0,0,.85),0 8px 60px rgba(0,0,0,.7)}
+    .rm-finale .rm-fin-p{margin-top:2.2vh;font-size:clamp(.9rem,1.5vw,1.15rem);color:rgba(255,255,255,.92);font-weight:600;
+      text-shadow:0 1px 6px rgba(0,0,0,.85)}
+    .rm-finale .rm-fin-cta{display:inline-flex;align-items:center;gap:8px;margin-top:3.2vh;text-decoration:none;
+      background:var(--brand,#6B4226);color:#fff;font-weight:700;font-size:1rem;padding:16px 38px;border-radius:999px;
+      transition:all .25s;border:1px solid rgba(200,169,126,.45);box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 40px rgba(200,169,126,.22)}
+    .rm-finale .rm-fin-cta:hover{background:var(--brand-dark,#4A2E1A);transform:translateY(-2px)}
+    @media(max-width:768px){
+      .rm-hero.scrub-on .rm-space{height:520vh}
+      .rm-year{bottom:4.5vh}
+      .rm-count{top:6vh}
+      .rm-cap{bottom:22vh}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .rm-hero.scrub-on .rm-space{height:100vh}
+      .rm-hint{display:none}
     }
   </style>
   
@@ -346,6 +416,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ■ MAIN -->
   <main id="main-content" role="main">
   
+
+  <!-- ═══ v5.89 Referral-map immersive hero (84-frame scroll scrub) ═══ -->
+  <section class="rm-hero" id="rmHero" aria-label="A map of trust built by referrals">
+    <div class="rm-space" id="rmSpace">
+      <div class="rm-stage">
+        <canvas id="rmSeq" aria-hidden="true"></canvas>
+        <div class="rm-vignette" aria-hidden="true"></div>
+
+        <div class="rm-overlay">
+          <!-- 오프닝 (H1은 아래 본 히어로에 있으므로 장식 헤드라인만) -->
+          <div class="rm-head" id="rmHead">
+            <div class="rm-eyebrow">SEOUL BD DENTAL · SINCE 2018</div>
+            <p class="rm-title">It began with<br>one patient</p>
+            <p class="rm-sub">Scroll — and 9 years unfold</p>
+          </div>
+          <div class="rm-hint" id="rmHint">SCROLL</div>
+
+          <!-- 연도 카운터 -->
+          <div class="rm-year" id="rmYear">
+            <div class="n" id="rmYearN">2018</div>
+            <div class="l">YEAR</div>
+          </div>
+
+          <!-- 누적 카운터: 개원 후 함께한 날 (팩트) -->
+          <div class="rm-count" id="rmCount">
+            <div class="n" id="rmCountN">0</div>
+            <div class="l">Days with our patients</div>
+          </div>
+
+          <!-- 확산 캡션 -->
+          <div class="rm-cap" id="rmCap0"><p>June 2018 — <em>our first patient</em></p></div>
+          <div class="rm-cap" id="rmCap1"><p>They brought <em>their mother</em></p></div>
+          <div class="rm-cap" id="rmCap2"><p>She told a neighbor, who told <em>a coworker</em></p></div>
+          <div class="rm-cap" id="rmCap3"><p><em>One referral</em> became another</p></div>
+
+          <!-- 피날레 -->
+          <div class="rm-finale" id="rmFinale">
+            <p class="rm-fin-h">Every light you see<br>is <em>trust</em></p>
+            <p class="rm-fin-p">9 years of patients bringing patients — 14 SNU-trained dentists by your side</p>
+            <a href="/en/reservation" class="rm-fin-cta"><i class="fas fa-calendar-check"></i> Book a Consultation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════ HERO ═══════ -->
   <section class="hero" aria-label="Seoul BD Dental Home">
     <div class="hero-bg-pattern" aria-hidden="true"></div>
@@ -1777,6 +1893,126 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- ■ Scroll Reveal (통합: main.js initScrollAnimations 제거, micro.js가 mi-reveal 담당, 여기서 .reveal 담당) -->
   <script>
     document.addEventListener('DOMContentLoaded',function(){
+      // ── v5.89 Referral-map immersive hero JS ──
+      (function(){
+        var hero = document.getElementById('rmHero');
+        var space = document.getElementById('rmSpace');
+        var canvas = document.getElementById('rmSeq');
+        if (!hero || !canvas || !canvas.getContext) return;
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var ctx = canvas.getContext('2d');
+
+        var FRAME_COUNT = 84; // 지침: 변경 금지 (01–06 첫 환자 홀드 / 07–30 첫 확산 / 31–84 전면 확산)
+        var framePath = function(i){ return '/images/referral-map/frame_' + String(i).padStart(4,'0') + '.webp'; };
+        var frames = new Array(FRAME_COUNT).fill(null);
+        var currentIndex = -1;
+
+        function resize(){
+          var dpr = Math.min(window.devicePixelRatio || 1, 2);
+          var stage = canvas.parentElement;
+          canvas.width = stage.clientWidth * dpr;
+          canvas.height = stage.clientHeight * dpr;
+          render(Math.max(0, currentIndex), true);
+        }
+        window.addEventListener('resize', resize);
+
+        function drawContain(img){ // 가로: contain(도시 전체) / 세로 모바일: cover(꽉 채움·중앙 크롭 — 레터박스 제거)
+          var cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
+          ctx.fillStyle = '#0A0D13'; ctx.fillRect(0, 0, cw, ch);
+          var s = (ch > cw) ? Math.max(cw/iw, ch/ih) : Math.min(cw/iw, ch/ih);
+          var w = iw*s, h = ih*s;
+          ctx.drawImage(img, (cw-w)/2, (ch-h)/2, w, h);
+        }
+        function render(idx, force){
+          idx = Math.max(0, Math.min(FRAME_COUNT-1, idx));
+          if (idx === currentIndex && !force) return;
+          currentIndex = idx;
+          var img = frames[idx];
+          if (!img) { for (var d=1; d<FRAME_COUNT && !img; d++) { img = frames[idx-d] || frames[idx+d]; } }
+          if (img) drawContain(img);
+        }
+        function loadFrame(i){
+          return new Promise(function(res){
+            var img = new Image();
+            img.onload = function(){ frames[i] = img; res(true); };
+            img.onerror = function(){ res(false); };
+            img.src = framePath(i+1);
+          });
+        }
+
+        // ── 오버레이 타임라인 (progress 0~1) ──
+        var el = function(id){ return document.getElementById(id); };
+        var head = el('rmHead'), hint = el('rmHint'),
+            year = el('rmYear'), yearN = el('rmYearN'),
+            count = el('rmCount'), countN = el('rmCountN'),
+            cap0 = el('rmCap0'), cap1 = el('rmCap1'), cap2 = el('rmCap2'), cap3 = el('rmCap3'),
+            fin = el('rmFinale');
+        function seg(p, a, b, f){
+          if (p <= a || p >= b) return 0;
+          if (p < a + f) return (p - a) / f;
+          if (p > b - f) return (b - p) / f;
+          return 1;
+        }
+        // 누적 카운터: 개원(2018-06-14) 후 환자와 함께한 날 — 배포 시점 자동 계산
+        var DAYS_TOTAL = Math.floor((Date.now() - new Date(2018, 5, 14).getTime()) / 86400000);
+        function easeInPow2(t){ return t * t; } // 뒤로 갈수록 가속 = 복리 느낌
+        function applyOverlay(p){
+          var headOp = p < 0.02 ? 1 : Math.max(0, 1 - (p - 0.02) / 0.06);
+          head.style.opacity = headOp;
+          head.style.transform = 'translateY(' + (-(1-headOp) * 30) + 'px)';
+          hint.style.opacity = p < 0.02 ? 1 : Math.max(0, 1 - (p - 0.02) / 0.04);
+          // 연도 카운터: 8%~82% 표시, 2018→2026 틱
+          year.style.opacity = seg(p, 0.08, 0.82, 0.04);
+          var yp = Math.max(0, Math.min(1, (p - 0.10) / 0.68));
+          yearN.textContent = Math.round(2018 + yp * 8);
+          // 누적 카운터: 30%~82% 표시, 0→DAYS_TOTAL (비선형 가속)
+          count.style.opacity = seg(p, 0.30, 0.82, 0.04);
+          var cp = Math.max(0, Math.min(1, (p - 0.30) / 0.50));
+          countN.textContent = Math.round(easeInPow2(cp) * DAYS_TOTAL).toLocaleString();
+          // 캡션 시퀀스 (확산 국면과 동기)
+          cap0.style.opacity = seg(p, 0.09, 0.17, 0.03);
+          cap1.style.opacity = seg(p, 0.20, 0.32, 0.03);
+          cap2.style.opacity = seg(p, 0.36, 0.50, 0.03);
+          cap3.style.opacity = seg(p, 0.54, 0.68, 0.03);
+          // 피날레
+          var finOp = p < 0.87 ? 0 : Math.min(1, (p - 0.87) / 0.07);
+          fin.style.opacity = finOp;
+          fin.style.pointerEvents = finOp > 0.5 ? 'auto' : 'none';
+        }
+
+        var VID_START = 0.08, VID_END = 0.84; // 지침: 영상은 스크롤 8%~84% 구간
+        var ticking = false;
+        function onScroll(){
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(function(){
+            ticking = false;
+            var rect = space.getBoundingClientRect();
+            var total = space.offsetHeight - window.innerHeight;
+            if (total <= 0) return;
+            var p = Math.max(0, Math.min(1, -rect.top / total));
+            var vidP = Math.max(0, Math.min(1, (p - VID_START) / (VID_END - VID_START)));
+            render(Math.round(vidP * (FRAME_COUNT - 1)));
+            applyOverlay(p);
+          });
+        }
+
+        resize();
+        // 프로그레시브 로딩 (pass1: 5배수 프레임 우선 → 스크럽 개시, pass2: 나머지)
+        loadFrame(0).then(function(){
+          render(0, true);
+          if (reduced) return; // 모션 최소화: 첫 프레임 정지 + 스크럽 비활성
+          var pass1 = [], pass2 = [];
+          for (var i=1; i<FRAME_COUNT; i++) (i % 5 === 0 ? pass1 : pass2).push(i);
+          Promise.all(pass1.map(loadFrame)).then(function(){
+            hero.classList.add('scrub-on'); // 프레임 준비된 후에만 러닝타임 확장
+            onScroll();
+            Promise.all(pass2.map(loadFrame)).then(function(){ render(currentIndex, true); });
+          });
+        });
+        window.addEventListener('scroll', onScroll, { passive: true });
+        applyOverlay(0);
+      })();
       // .reveal 클래스 관찰
       var els=document.querySelectorAll('.reveal');
       if(els.length){

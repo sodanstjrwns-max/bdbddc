@@ -206,7 +206,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .im-scrub { display: block; min-height: 0; overflow: visible; margin-top: calc(var(--header-height, 72px) * -1); }
     .im-scrub-space { height: 100vh; position: relative; }
     .im-scrub.scrub-on .im-scrub-space { height: 560vh; }
-    .im-scrub-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #d6d6d6; }
+    .im-scrub-stage { position: sticky; top: var(--header-height,72px); height: calc(100vh - var(--header-height,72px)); overflow: hidden; background: #d6d6d6; }
     canvas#imSeq { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
     .im-scrub-vignette {
       position: absolute; inset: 0; pointer-events: none;
@@ -1819,15 +1819,23 @@ document.querySelectorAll('.tx-inline-vid__wrap video').forEach(function(v){
 
   function resize(){
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
+    var _st = canvas.parentElement;
+    canvas.width = _st.clientWidth * dpr;
+    canvas.height = _st.clientHeight * dpr;
     render(Math.max(0, currentIndex), true);
   }
   window.addEventListener('resize', resize);
 
-  function drawContain(img){ // 지침: contain 로직 유지 (치아 크롭 방지) — 라이트 배경
+  var _amb=null,_ambx=null;
+  function drawContain(img){ // 지침: contain 유지(치아 크롭 방지) + 세로화면은 앰비언트 배경으로 레터박스 제거
     var cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
     ctx.fillStyle = '#d6d6d6'; ctx.fillRect(0, 0, cw, ch);
+    if (ch > cw) { // 세로(모바일): 저해상도 확대 = 저비용 블러 앰비언트
+      if (!_amb) { _amb = document.createElement('canvas'); _amb.width = 24; _amb.height = 14; _ambx = _amb.getContext('2d'); }
+      _ambx.drawImage(img, 0, 0, 24, 14);
+      var sc = Math.max(cw/24, ch/14), bw = 24*sc, bh = 14*sc;
+      ctx.save(); ctx.globalAlpha = .5; ctx.drawImage(_amb, (cw-bw)/2, (ch-bh)/2, bw, bh); ctx.restore();
+    }
     var s = Math.min(cw/iw, ch/ih), w = iw*s, h = ih*s;
     ctx.drawImage(img, (cw-w)/2, (ch-h)/2, w, h);
   }
