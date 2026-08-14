@@ -3006,16 +3006,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
         window.addEventListener('resize', resize);
 
-        var _amb=null,_ambx=null;
-        function drawContain(img){ // 지침: contain 유지(치아 크롭 방지) + 세로화면은 앰비언트 배경으로 레터박스 제거
+        function drawContain(img){ // 지침: contain 로직 유지 (치아 크롭 방지)
           var cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
           ctx.fillStyle = '#0a0806'; ctx.fillRect(0, 0, cw, ch);
-          if (ch > cw) { // 세로(모바일): 저해상도 확대 = 저비용 블러 앰비언트
-            if (!_amb) { _amb = document.createElement('canvas'); _amb.width = 24; _amb.height = 14; _ambx = _amb.getContext('2d'); }
-            _ambx.drawImage(img, 0, 0, 24, 14);
-            var sc = Math.max(cw/24, ch/14), bw = 24*sc, bh = 14*sc;
-            ctx.save(); ctx.globalAlpha = .5; ctx.drawImage(_amb, (cw-bw)/2, (ch-bh)/2, bw, bh); ctx.restore();
-          }
           var s = Math.min(cw/iw, ch/ih), w = iw*s, h = ih*s;
           ctx.drawImage(img, (cw-w)/2, (ch-h)/2, w, h);
         }
