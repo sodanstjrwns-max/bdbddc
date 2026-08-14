@@ -3160,6 +3160,16 @@ async function injectBlogIndexLinks(html: string): Promise<string> {
 }
 
 function cleanInblogHtml(html: string, reqPath?: string): string {
+  // 0) [v5.90] 공포 마케팅 문구 치환 (의료광고 심의 '불안 조성' 리스크 제거)
+  //    /blog/* 원본은 inblog.ai 외부 서비스라 직접 편집 불가 → 프록시 가공 지점에서 치환.
+  //    ⚠ inblog 관리자에서 원문을 고치는 것이 근본 해결. 원문 수정 후에도 이 치환은 무해(no-op).
+  //    본문 HTML과 Next.js 하이드레이션 JSON(문자열 이스케이프) 양쪽에 걸리도록 문장 단위 전역 치환.
+  const FEAR_COPY_FIXES: Array<[RegExp, string]> = [
+    [/놓치면 교정 선택 후회할지도 몰라요!/g, '내 치아가 인비절라인 적응증에 맞는지, 미리 확인해보세요.'],
+    [/지금 확인 안 하면 진짜 놓칠지도 몰라요\./g, '협진 기준을 알면 진료과 선택이 훨씬 쉬워집니다.'],
+  ]
+  for (const [pat, rep] of FEAR_COPY_FIXES) html = html.replace(pat, rep)
+
   // 1) 인블로그 내부 링크를 /blog로 변환
   html = html.replace(/href="\/(?!blog)/g, 'href="/blog/')
   html = html.replace(/href="https:\/\/bdbddc\.inblog\.ai\//g, 'href="/blog/')
