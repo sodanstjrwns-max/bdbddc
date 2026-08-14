@@ -3010,7 +3010,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           var cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
           ctx.fillStyle = '#0a0806'; ctx.fillRect(0, 0, cw, ch);
           var s = Math.min(cw/iw, ch/ih), w = iw*s, h = ih*s;
-          ctx.drawImage(img, (cw-w)/2, (ch-h)/2, w, h);
+          var y = (ch > cw) ? (ch-h)*0.22 : (ch-h)/2; // 세로(모바일): 상단 쪽 배치
+          ctx.drawImage(img, (cw-w)/2, y, w, h);
         }
         function render(idx, force){
           idx = Math.max(0, Math.min(FRAME_COUNT-1, idx));
