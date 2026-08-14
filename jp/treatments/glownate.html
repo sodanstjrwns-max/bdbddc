@@ -647,8 +647,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-scrub-finale .gn-hero-cta { justify-content: center; pointer-events: auto; }
     @media (max-width: 768px) {
       .gn-scrub-head { background: radial-gradient(ellipse at center, rgba(10,8,6,.6) 0%, rgba(10,8,6,.32) 55%, rgba(10,8,6,.08) 100%); padding-left: 24px; padding-right: 24px; }
+      .gn-scrub-head { align-items: flex-end; padding-bottom: 26vh; } /* 세로: 문구를 이미지 아래쪽에, 간격 확보 */
+      .gn-scrub-finale { bottom: 16vh; } /* 하단 고정 CTA바 회피 */
       .gn-scrub-sub { font-size: .84rem; }
-      .gn-scrub-chapter { left: 6vw; right: 6vw; max-width: none; bottom: 6vh; }
+      .gn-scrub-chapter { left: 6vw; right: 6vw; max-width: none; bottom: 16vh; }
       .gn-scrub.scrub-on .gn-scrub-space { height: 480vh; }
     }
     @media (prefers-reduced-motion: reduce) {

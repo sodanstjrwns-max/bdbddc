@@ -863,8 +863,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     }
     @media (max-width: 768px) {
       .iv-scrub-head { background: radial-gradient(ellipse at center, rgba(255,255,255,.72) 0%, rgba(255,255,255,.42) 55%, rgba(255,255,255,.1) 100%); }
+      .iv-scrub-head { align-items: flex-end; padding-bottom: 26vh; } /* 세로: 문구를 이미지 아래쪽에, 간격 확보 */
+      .iv-scrub-finale { bottom: 16vh; } /* 하단 고정 CTA바 회피 */
       .iv-scrub-sub { font-size: .84rem; }
-      .iv-scrub-chapter { left: 6vw; right: 6vw; max-width: none; bottom: 6vh; }
+      .iv-scrub-chapter { left: 6vw; right: 6vw; max-width: none; bottom: 16vh; }
       .iv-scrub.scrub-on .iv-scrub-space { height: 480vh; }
       .iv-scroll-hint { display: none; }
     }
