@@ -2168,10 +2168,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
         window.addEventListener('resize', resize);
 
-        function drawContain(img){ // contain: 도시 전체가 항상 보이게 (크롭 없음)
+        function drawContain(img){ // 가로: contain(도시 전체) / 세로 모바일: cover(꽉 채움·중앙 크롭 — 레터박스 제거)
           var cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
           ctx.fillStyle = '#0A0D13'; ctx.fillRect(0, 0, cw, ch);
-          var s = Math.min(cw/iw, ch/ih), w = iw*s, h = ih*s;
+          var s = (ch > cw) ? Math.max(cw/iw, ch/ih) : Math.min(cw/iw, ch/ih);
+          var w = iw*s, h = ih*s;
           ctx.drawImage(img, (cw-w)/2, (ch-h)/2, w, h);
         }
         function render(idx, force){
