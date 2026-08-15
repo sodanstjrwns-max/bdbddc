@@ -351,3 +351,15 @@ a.type-card:hover{color:inherit;text-decoration:none}
 .col-deeplinks .cdl-all a{color:#b08d57;font-size:.9rem;text-decoration:none;font-weight:600}
 .col-deeplinks .cdl-all a:hover{text-decoration:underline}
 @media(max-width:640px){.col-deeplinks{margin:32px auto 40px}.col-deeplinks ul{grid-template-columns:1fr}}
+
+/* ═══════ v5.91 일본어 페이지 전용 타이포그래피 (lang="ja") ═══════
+   일본인 피드백: "글씨체가 중국어 같다"(Pretendard로 일본어 렌더링 → 한자 자형이 중국식),
+   "얇고 심플한 폰트" 요청 → 游ゴシック 스택 + 굵기 완화 + 일본식 자간(양수) */
+html[lang="ja"]{--font-family:"游ゴシック体",YuGothic,"游ゴシック Medium","Yu Gothic Medium","Yu Gothic",游ゴシック,"ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif}
+html[lang="ja"] body{font-family:var(--font-family);letter-spacing:.02em;font-feature-settings:"palt"}
+html[lang="ja"] h1,html[lang="ja"] h2,html[lang="ja"] h3,html[lang="ja"] h4,html[lang="ja"] h5,html[lang="ja"] h6{font-weight:600;letter-spacing:.03em}
+html[lang="ja"] .hero-headline,html[lang="ja"] .section-title,html[lang="ja"] .philosophy-quote h2,html[lang="ja"] .reviews-header h2{font-weight:700;letter-spacing:.02em;line-height:1.35}
+html[lang="ja"] .hero-sub,html[lang="ja"] .section-subtitle{letter-spacing:.03em;line-height:1.9}
+html[lang="ja"] .treatment-card h3,html[lang="ja"] .why-card h3,html[lang="ja"] .why-card h4,html[lang="ja"] .doctor-card-body h3{font-weight:600}
+html[lang="ja"] .btn,html[lang="ja"] .nav-item>a{font-weight:500;letter-spacing:.04em}
+html[lang="ja"] .footer-slogan,html[lang="ja"] .section-badge{letter-spacing:.06em}
