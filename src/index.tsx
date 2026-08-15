@@ -2482,6 +2482,8 @@ const EN_LIVE_EXACT = new Set([
   // wrangler pages dev(로컬)는 Worker로 먼저 넘기므로 여기서 next() 해야 한다.
   // → 환경 간 동작 차이를 없애기 위해 양쪽 형태를 모두 화이트리스트.
   '/en/pricing', '/en/directions', '/en/reservation',
+  // v5.93: 안내 허브 + 택시 화면
+  '/en/about', '/en/about.html', '/en/taxi', '/en/taxi.html',
   // v5.86: EN 전체 미러 플랫 페이지 (확장자 있/없는 형태 모두)
   '/en/checkup', '/en/checkup.html',
   '/en/flight', '/en/flight.html',
@@ -2633,8 +2635,9 @@ app.get('/bbs/*', (c) => c.redirect('/', 301))
 
 // v5.8: dist/_redirects 파일이 프로덕션(advanced mode _worker.js)에서 동작하지 않음이 확인되어
 // 레거시 리다이렉트 규칙을 워커 라우트로 이식 (GSC 404 165건 중 구 사이트 URL 해소)
-app.get('/about', (c) => c.redirect('/mission', 301))
-app.get('/about/*', (c) => c.redirect('/mission', 301))
+// v5.93: /about은 이제 안내 허브 페이지 (구 사이트 회사소개 → /mission 리다이렉트 폐기)
+app.get('/about', serveStatic({ path: './about.html' }))
+app.get('/about/*', (c) => c.redirect('/about', 301))
 app.get('/intro', (c) => c.redirect('/mission', 301))
 app.get('/intro/*', (c) => c.redirect('/mission', 301))
 app.get('/greeting', (c) => c.redirect('/mission', 301))

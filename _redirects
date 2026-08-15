@@ -58,8 +58,6 @@
 /doctor/*         /doctors/       301
 /staff            /doctors/       301
 /staff/*          /doctors/       301
-/about            /mission        301
-/about/*          /mission        301
 /contact          /reservation    301
 /contact/*        /reservation    301
 /info             /               301
