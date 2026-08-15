@@ -231,7 +231,7 @@ ${COMMON_HEAD}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${title}">
   <meta name="twitter:description" content="${metaDesc}">
-  <link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
+  <link rel="stylesheet" href="/css/site-v5.css?v=24a633b2">
   ${GUIDE_STYLES}
   <script type="application/ld+json">${articleSchema}</script>
   <script type="application/ld+json">${breadcrumbSchema}</script>

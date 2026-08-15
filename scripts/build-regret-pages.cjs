@@ -202,7 +202,7 @@ ${COMMON_HEAD}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${esc(d.title)}">
   <meta name="twitter:description" content="${esc(d.description)}">
-  <link rel="stylesheet" href="/css/site-v5.css?v=24d559d1">
+  <link rel="stylesheet" href="/css/site-v5.css?v=24a633b2">
 ${STYLES}
   <script type="application/ld+json">${articleLd}</script>
   <script type="application/ld+json">${breadcrumbLd}</script>

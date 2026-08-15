@@ -787,7 +787,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <noscript><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
-  <link rel="stylesheet" href="../css/site-v5.css?v=b413d3a5">
+  <link rel="stylesheet" href="../css/site-v5.css?v=24a633b2">
   <link rel="prefetch" href="/reservation" as="document">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"FAQ","item":"https://bdbddc.com/faq"},{"@type":"ListItem","position":3,"name":"${info.title} FAQ","item":"https://bdbddc.com/faq/${slug}"}]}
