@@ -2505,6 +2505,9 @@ app.get('/en/*', async (c, next) => {
 
 // 301 Redirect: old .html URLs → clean URLs (prevent 308 chain)
 app.get('/directions.html', (c) => c.redirect('/directions', 301))
+app.get('/about.html', (c) => c.redirect('/about', 301))
+app.get('/jp/about.html', (c) => c.redirect('/jp/about', 301))
+app.get('/en/about.html', (c) => c.redirect('/en/about', 301))
 app.get('/pricing.html', (c) => c.redirect('/pricing', 301))
 app.get('/reservation.html', (c) => c.redirect('/reservation', 301))
 app.get('/faq.html', (c) => c.redirect('/faq', 301))
@@ -2963,7 +2966,7 @@ function ssrHeader(): string {
 <li><a href="/column/"><i class="fas fa-pen-nib"></i> 원장 컬럼</a></li>
 <li><a href="/guide/regret"><i class="fas fa-heart-crack"></i> 후회 백서</a></li>
 </ul></li>
-<li class="nav-item has-dropdown"><a href="/directions">안내</a>
+<li class="nav-item has-dropdown"><a href="/about">안내</a>
 <ul class="simple-dropdown">
 <li><a href="/pricing" class="nav-highlight">💰 비용 안내</a></li>
 <li><a href="/floor-guide">비디치과 둘러보기</a></li>
@@ -3507,7 +3510,7 @@ app.post('/api/indexnow', async (c) => {
   // 색인할 전체 URL 목록
   const urlList: string[] = [
     '/',
-    '/reservation', '/pricing', '/pricing/implant-guide', '/pricing/ortho-guide', '/directions',
+    '/reservation', '/pricing', '/pricing/implant-guide', '/pricing/ortho-guide', '/directions', '/about',
     '/implant/estimate-check',
     '/pricing/implant', '/pricing/prosthetic', '/pricing/denture', '/pricing/ortho', '/pricing/pediatric',
     '/treatments/', '/treatments/implant', '/treatments/invisalign',

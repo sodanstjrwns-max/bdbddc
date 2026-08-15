@@ -383,6 +383,18 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+<url>
+    <loc>https://bdbddc.com/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/directions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bdbddc.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://bdbddc.com/vi/directions"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://bdbddc.com/th/directions"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://bdbddc.com/ru/directions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/en/about"/>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
   <url>
     <loc>https://bdbddc.com/directions</loc>
@@ -952,6 +964,13 @@
     <loc>https://bdbddc.com/jp/directions</loc>
     <lastmod>2026-08-11</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/directions"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/directions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/directions"/>
+  </url>
+<url>
+    <loc>https://bdbddc.com/jp/about</loc>
+    <lastmod>2026-08-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/about"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/directions"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/directions"/>
   </url>
