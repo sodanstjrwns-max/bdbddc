@@ -8480,7 +8480,8 @@ app.post('/api/chat', async (c) => {
   try {
     // v5.96: 게이트웨이 이관 — 컬럼 자동발행 엔진과 동일 패턴 (OPENAI_BASE_URL 우선, 구 gpt-4o-mini는 허용 목록에서 제거됨)
     const chatBase = ((c.env as any).OPENAI_BASE_URL || 'https://www.genspark.ai/api/llm_proxy/v1').replace(/\/+$/, '')
-    const chatModel = (c.env as any).CHAT_MODEL || 'claude-haiku-4-5'
+    // v5.97: 고급 모델 승격 — claude-sonnet-5 (답변 품질 우선, 실측 ~11초)
+    const chatModel = (c.env as any).CHAT_MODEL || 'claude-sonnet-5'
     const response = await fetch(`${chatBase}/chat/completions`, {
       method: 'POST',
       headers: {
@@ -8494,7 +8495,7 @@ app.post('/api/chat', async (c) => {
           ...userMessages
         ],
         temperature: 0.7,
-        max_tokens: 800,
+        max_tokens: 1100,
         top_p: 0.9,
         frequency_penalty: 0.3,
         presence_penalty: 0.2
