@@ -25,6 +25,11 @@
 /treatments/laminate      /treatments/glownate    301
 /glownate                 /treatments/glownate    301
 /cn/glownate              /cn/guide/laminate      301
+# 퇴사 의료진 구 프로필 → 종합진료센터 (2026-08-17)
+/doctors/kang        /doctors/general        301
+/jp/doctors/kang     /jp/doctors/general     301
+/en/doctors/kang     /en/doctors/general     301
+
 /jp/glownate              /jp/guide/laminate      301
 
 # 구 jp 수제 페이지 → 새 1:1 대응 페이지로 통합 (2026-08-11)
@@ -76,11 +81,11 @@
 /gallery/*        /cases/         301
 
 # 한글 경로 패턴
-/진료과목         /treatments/    301
-/의료진           /doctors/       301
-/오시는길         /directions     301
-/예약             /reservation    301
-/비용             /pricing        301
+/%EC%A7%84%EB%A3%8C%EA%B3%BC%EB%AA%A9         /treatments/    301
+/%EC%9D%98%EB%A3%8C%EC%A7%84           /doctors/       301
+/%EC%98%A4%EC%8B%9C%EB%8A%94%EA%B8%B8         /directions     301
+/%EC%98%88%EC%95%BD             /reservation    301
+/%EB%B9%84%EC%9A%A9             /pricing        301
 
 # 잘못된 확장자 패턴
 /index.php        /               301
