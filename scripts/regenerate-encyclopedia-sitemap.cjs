@@ -24,6 +24,15 @@ const TODAY = new Date().toISOString().slice(0, 10);
 const data = JSON.parse(fs.readFileSync(ENC_PATH, 'utf-8'));
 const items = data.items || [];
 
+// v6.04: 항목별 실제 수정일 (git 히스토리 기반) — 거짓 lastmod 방지
+// 새 항목 추가/수정 시 data/enc-lastmod.json에 "용어": "YYYY-MM-DD" 갱신 필요
+const LASTMOD_PATH = path.join(REPO_ROOT, 'data/enc-lastmod.json');
+let lastmodMap = {};
+try { lastmodMap = JSON.parse(fs.readFileSync(LASTMOD_PATH, 'utf-8')); } catch (e) { console.warn('enc-lastmod.json 없음 — TODAY로 대체'); }
+function itemLastmod(item) {
+  return lastmodMap[item.term] || lastmodMap[item.id] || TODAY;
+}
+
 function computePriority(item) {
   const len = (item.detail || '').length;
   let priority;
@@ -66,11 +75,12 @@ urls.push({
   priority: '0.9'
 });
 
-// 2. 카테고리 페이지
+// 2. 카테고리 페이지 — v6.04: 해당 카테고리 내 가장 최근 항목 수정일 사용
 for (const cat of categories) {
+  const catDates = items.filter(i => i.category === cat).map(itemLastmod).sort().reverse();
   urls.push({
     loc: `https://bdbddc.com/encyclopedia/category/${encodeURIComponent(cat)}`,
-    lastmod: TODAY,
+    lastmod: catDates[0] || TODAY,
     changefreq: 'weekly',
     priority: '0.7'
   });
@@ -84,7 +94,7 @@ for (const item of items) {
   const { priority, changefreq } = computePriority(item);
   urls.push({
     loc: `https://bdbddc.com/encyclopedia/${encodeURIComponent(item.term)}`,
-    lastmod: TODAY,
+    lastmod: itemLastmod(item), // v6.04: 항목별 실제 수정일
     changefreq,
     priority
   });

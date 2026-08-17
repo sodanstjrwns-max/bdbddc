@@ -25,6 +25,11 @@
 /treatments/laminate      /treatments/glownate    301
 /glownate                 /treatments/glownate    301
 /cn/glownate              /cn/guide/laminate      301
+# /price 오타·외부링크 → /pricing (2026-08-17)
+/price               /pricing                301
+/cost                /pricing                301
+/fee                 /pricing                301
+
 # 퇴사 의료진 구 프로필 → 종합진료센터 (2026-08-17)
 /doctors/kang        /doctors/general        301
 /jp/doctors/kang     /jp/doctors/general     301

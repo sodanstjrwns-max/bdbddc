@@ -988,7 +988,7 @@ function calcSEOScore(col) {
 function renderTable() {
   const search = (document.getElementById('searchInput').value || '').toLowerCase();
   const doctor = document.getElementById('filterDoctor').value;
-  let filtered = columns.filter(c => {
+  let filtered = columns.filter(c = alt=""> {
     if (search && !c.title?.toLowerCase().includes(search) && !c.doctorName?.toLowerCase().includes(search)) return false;
     if (doctor && c.doctorName !== doctor) return false;
     return true;
