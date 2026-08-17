@@ -2,7 +2,7 @@
  * 서울비디치과 영상 페이지 — 유튜브 멀티 채널 탭
  * 데이터: /data/youtube-cache.json (빌드 시 생성)
  * 채널 1: @BDtube / 쉽디 쉬운 치과이야기
- * 채널 2: @geoptongryung / 치과겁통령
+ * 채널 2: @진정임플란트문석준 / 진정 임플란트 문석준 (key: geoptongryung 유지)
  */
 (function () {
   'use strict';

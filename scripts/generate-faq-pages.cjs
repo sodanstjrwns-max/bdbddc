@@ -808,7 +808,7 @@ ${generateFaqSchema(info.faqs)}
     "addressRegion": "충청남도",
     "addressCountry": "KR"
   },
-  "sameAs": ["https://pf.kakao.com/_Cxivlxb","https://www.youtube.com/@BDtube","https://www.youtube.com/@geoptongryung","https://naver.me/5yPnKmqQ"],
+  "sameAs": ["https://pf.kakao.com/_Cxivlxb","https://www.youtube.com/@BDtube","https://www.youtube.com/@%EC%A7%84%EC%A0%95%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8%EB%AC%B8%EC%84%9D%EC%A4%80","https://www.youtube.com/@geoptongryung","https://naver.me/5yPnKmqQ"],
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.9",

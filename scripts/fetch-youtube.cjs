@@ -13,7 +13,7 @@ const RETRY_DELAY = 1000; // ms
 
 const CHANNELS = [
   { id: 'UCakJiVviUa_FJvFWgW_FDBw', key: 'bdtube', name: '쉽디 쉬운 치과이야기' },
-  { id: 'UCKdzv9JtxhLJ-7EOcoIVQZQ', key: 'geoptongryung', name: '치과겁통령 | 서울비디치과' },
+  { id: 'UCphi8l-QZnBnfL_erZh3GQQ', key: 'geoptongryung', name: '진정 임플란트 문석준' },
 ];
 
 function sleep(ms) {
