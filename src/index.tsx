@@ -8478,14 +8478,17 @@ app.post('/api/chat', async (c) => {
   }));
 
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    // v5.96: 게이트웨이 이관 — 컬럼 자동발행 엔진과 동일 패턴 (OPENAI_BASE_URL 우선, 구 gpt-4o-mini는 허용 목록에서 제거됨)
+    const chatBase = ((c.env as any).OPENAI_BASE_URL || 'https://www.genspark.ai/api/llm_proxy/v1').replace(/\/+$/, '')
+    const chatModel = (c.env as any).CHAT_MODEL || 'claude-haiku-4-5'
+    const response = await fetch(`${chatBase}/chat/completions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + apiKey
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: chatModel,
         messages: [
           { role: 'system', content: BD_SYSTEM_PROMPT },
           ...userMessages
