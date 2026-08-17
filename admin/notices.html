@@ -495,7 +495,7 @@ function renderNotices() {
       <div class="notice-content">
         <div class="notice-title">${n.pinned ? '<i class="fas fa-thumbtack pin"></i>' : ''}${n.title||'제목 없음'} <span class="status-badge ${n.status||'published'}">${n.status==='draft'?'비공개':'공개'}</span></div>
         <div class="notice-excerpt">${(n.content||'').replace(/\n/g,' ')}</div>
-        ${(n.images && n.images.length) ? `<div class="notice-images-row">${n.images.slice(0,4).map(src=>`<img src="${src}" alt="" loading="lazy" onerror="this.style.display='none'">`).join('')}${n.images.length>4?`<span class="notice-img-count">+${n.images.length-4}</span>`:''}</div>` : ''}
+        ${(n.images && n.images.length) ? `<div class="notice-images-row">${n.images.slice(0,4).map(src=>`<img src="${src}" alt="${(n.title||'공지')} 첨부 이미지" loading="lazy" onerror="this.style.display='none'">`).join('')}${n.images.length>4?`<span class="notice-img-count">+${n.images.length-4}</span>`:''}</div>` : ''}
         <div class="notice-meta"><span><i class="far fa-calendar"></i> ${d}</span><span><i class="fas fa-tag"></i> ${TYPES[n.type]||'일반'}</span><span style="color:${(noticeViewsMap[n.id]||0)>0?'var(--blue)':'var(--text-muted)'}"><i class="fas fa-eye"></i> ${(noticeViewsMap[n.id]||0).toLocaleString()}회</span>${(n.images&&n.images.length)?`<span><i class="fas fa-image"></i> ${n.images.length}장</span>`:''}</div>
       </div>
       <div class="notice-actions">
