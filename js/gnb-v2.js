@@ -116,6 +116,8 @@
             '<div class="mega-dropdown-section"><strong class="section-heading">Gum / Oral Surgery</strong><ul>' +
             '<li><a href="/en/treatments/scaling">Scaling (Cleaning)</a></li>' +
             '<li><a href="/en/treatments/gum">Gum Treatment</a></li>' +
+            '<li><a href="/en/treatments/tmj">TMJ Disorder</a></li>' +
+            '<li><a href="/en/treatments/bruxism">Bruxism</a></li>' +
             '<li><a href="/en/treatments/periodontitis">Periodontitis</a></li>' +
             '<li><a href="/en/treatments/wisdom-tooth">Wisdom Tooth Extraction</a></li>' +
             '<li><a href="/en/treatments/tmj">TMJ Disorder</a></li>' +
@@ -170,6 +172,8 @@
             '<div class="mega-dropdown-section"><strong class="section-heading">歯周/外科</strong><ul>' +
             '<li><a href="/jp/treatments/scaling">スケーリング</a></li>' +
             '<li><a href="/jp/treatments/gum">歯周治療</a></li>' +
+            '<li><a href="/jp/treatments/tmj">顎関節症</a></li>' +
+            '<li><a href="/jp/treatments/bruxism">歯ぎしり</a></li>' +
             '<li><a href="/jp/treatments/periodontitis">歯周炎</a></li>' +
             '<li><a href="/jp/treatments/wisdom-tooth">親知らず抜歯</a></li>' +
             '<li><a href="/jp/treatments/tmj">顎関節症（TMJ）</a></li>' +
@@ -390,6 +394,11 @@
             '<li><a href="/treatments/resin">레진치료</a></li>' +
             '<li><a href="/treatments/scaling">스케일링</a></li>' +
             '<li><a href="/treatments/gum">잇몸치료</a></li>' +
+            '<li><a href="/treatments/root-canal">신경치료</a></li>' +
+            '<li><a href="/treatments/wisdom-tooth">사랑니 발치</a></li>' +
+            '<li class="submenu-divider">구강내과</li>' +
+            '<li><a href="/treatments/tmj">턱관절장애</a></li>' +
+            '<li><a href="/treatments/bruxism">이갈이/이악물기</a></li>' +
             '</ul></li>' +
             // 의료진
             '<li><a href="/doctors/"><i class="fas fa-user-md"></i> 의료진</a></li>' +
