@@ -114,6 +114,45 @@ const STYLES = `<style>
     .faq-item summary span.q-mark{color:#7EA9C8;margin-right:10px;font-weight:800}
     .faq-item .answer{padding:0 22px 22px;color:#3a3631;line-height:1.9}
     .disclaimer-note{font-size:0.85rem;color:#8a8378;background:#f8f6f3;border-radius:10px;padding:16px 20px;margin:24px 0;line-height:1.7}
+    .deep-dive{border-radius:14px;padding:28px 30px;margin:20px 0}
+    .deep-dive.side-a{background:#f7fafd;border:1px solid #d8e6f0}
+    .deep-dive.side-b{background:#fdfaf4;border:1px solid #ecdfc9}
+    .deep-dive h3{font-size:1.05rem;font-weight:800;margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+    .deep-dive.side-a h3{color:#3d6a8a}
+    .deep-dive.side-b h3{color:#8B6F3F}
+    .deep-dive ul{list-style:none;margin:0 0 8px !important;padding:0}
+    .deep-dive li{position:relative;padding:8px 0 8px 30px;line-height:1.8;color:#3a3631;border-bottom:1px dotted rgba(0,0,0,0.06)}
+    .deep-dive li:last-child{border-bottom:none}
+    .deep-dive ul.pros li::before{content:'+';position:absolute;left:4px;top:7px;font-weight:900;font-size:1.05rem;color:#3f7d4e}
+    .deep-dive ul.cons li::before{content:'−';position:absolute;left:4px;top:7px;font-weight:900;font-size:1.05rem;color:#9a3b2e}
+    .timeline-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin:24px 0}
+    .timeline-col{background:#fff;border:1px solid #e8e0d6;border-radius:14px;padding:24px 26px}
+    .timeline-col.tl-a{border-top:4px solid #7EA9C8}
+    .timeline-col.tl-b{border-top:4px solid #C8A97E}
+    .timeline-col h3{font-size:1.05rem;font-weight:800;margin-bottom:16px;color:#1a1917}
+    .timeline-col ol{list-style:none;margin:0 !important;padding:0;counter-reset:tl}
+    .timeline-col ol li{counter-increment:tl;position:relative;padding:0 0 18px 44px;margin:0;line-height:1.7}
+    .timeline-col ol li::before{content:counter(tl);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;color:#fff}
+    .timeline-col.tl-a ol li::before{background:#7EA9C8}
+    .timeline-col.tl-b ol li::before{background:#C8A97E}
+    .timeline-col ol li::after{content:'';position:absolute;left:13px;top:30px;bottom:2px;width:2px;background:#e8e0d6}
+    .timeline-col ol li:last-child::after{display:none}
+    .timeline-col ol li strong{display:block;font-size:0.95rem;margin-bottom:2px}
+    .timeline-col ol li span{font-size:0.88rem;color:#6b645c}
+    .scenario-card{background:#fff;border:1px solid #e8e0d6;border-radius:14px;padding:24px 28px;margin-bottom:14px}
+    .scenario-card h3{font-size:1.02rem;font-weight:800;color:#1a1917;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .scenario-card h3 i{color:#7EA9C8}
+    .scenario-card .sc-row{display:flex;gap:10px;margin-bottom:10px;line-height:1.8;font-size:0.95rem}
+    .scenario-card .sc-tag{flex-shrink:0;font-weight:800;font-size:0.8rem;padding:3px 10px;border-radius:50px;height:fit-content;margin-top:3px}
+    .scenario-card .sc-tag.t-sit{background:#f0ece8;color:#6b645c}
+    .scenario-card .sc-tag.t-dec{background:#eef5fa;color:#3d6a8a}
+    .scenario-card .sc-tag.t-why{background:#fbf5ec;color:#8B6F3F}
+    .scenario-card p{margin:0;color:#3a3631}
+    .myth-item{display:grid;grid-template-columns:auto 1fr;gap:14px;background:#fff;border:1px solid #e8e0d6;border-radius:14px;padding:22px 26px;margin-bottom:12px}
+    .myth-item .m-icon{font-size:1.4rem;line-height:1}
+    .myth-item .m-myth{font-weight:800;color:#9a3b2e;margin-bottom:8px;font-size:0.98rem;line-height:1.6}
+    .myth-item .m-truth{color:#3a3631;line-height:1.85;font-size:0.95rem}
+    .myth-item .m-truth strong{color:#3f7d4e}
 </style>`;
 
 const FOOTER = `<footer class="footer" role="contentinfo">
@@ -147,13 +186,21 @@ function loadRegretMeta() {
   return meta;
 }
 
+function loadExt(slug) {
+  const p = path.join(ROOT, 'data/compare-content-ext', `${slug}.json`);
+  if (!fs.existsSync(p)) return null;
+  return JSON.parse(fs.readFileSync(p, 'utf-8'));
+}
+
 function buildPage(d, all, regretMeta) {
   const url = `https://bdbddc.com/guide/compare/${d.slug}`;
   const pub = d.datePublished || TODAY;
+  const ext = loadExt(d.slug);
+  const allFaq = ext && ext.extraFaq ? d.faq.concat(ext.extraFaq) : d.faq;
 
   const faqLd = JSON.stringify({
     '@context': 'https://schema.org', '@type': 'FAQPage',
-    mainEntity: d.faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: stripTags(f.a) } }))
+    mainEntity: allFaq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: stripTags(f.a) } }))
   });
   const articleLd = JSON.stringify({
     '@context': 'https://schema.org', '@type': 'Article',
@@ -196,10 +243,179 @@ function buildPage(d, all, regretMeta) {
   const chooseAItems = d.chooseA.map(x => `    <li>${x}</li>`).join('\n');
   const chooseBItems = d.chooseB.map(x => `    <li>${x}</li>`).join('\n');
   const checkItems = d.checkpoints.map(c => `    <li>${c}</li>`).join('\n');
-  const faqItems = d.faq.map(f => `  <details class="faq-item">
+  const faqItems = allFaq.map(f => `  <details class="faq-item">
     <summary><span class="q-mark">Q.</span>${f.q}</summary>
     <div class="answer">${f.a}</div>
   </details>`).join('\n');
+
+  // ── 확장 콘텐츠 섹션 (data/compare-content-ext/<slug>.json) ──
+  let secNum = 0;
+  const nn = () => String(++secNum).padStart(2, '0');
+  const tocEntries = [];
+  const sections = [];
+
+  if (ext && ext.background) {
+    const n = nn();
+    tocEntries.push({ id: 'background', n, label: `왜 ${d.aName} vs ${d.bName}에서 고민하게 되는가` });
+    sections.push(`<section class="guide-section" id="background">
+  <h2><span class="num">${n}</span>왜 ${d.aName} vs ${d.bName}에서 고민하게 되는가</h2>
+${ext.background.map(p => `  <p>${p}</p>`).join('\n')}
+</section>`);
+  }
+
+  {
+    const n = nn();
+    tocEntries.push({ id: 'vs-table', n, label: `${d.aName} vs ${d.bName} 한눈 비교표` });
+    sections.push(`<section class="guide-section" id="vs-table">
+  <h2><span class="num">${n}</span>${d.aName} vs ${d.bName} 한눈 비교표</h2>
+  <p>${d.tableIntro}</p>
+  <table class="vs-table">
+    <thead><tr><th class="col-label">비교 항목</th><th class="col-a">${d.aName}</th><th class="col-b">${d.bName}</th></tr></thead>
+    <tbody>
+${tableRows}
+    </tbody>
+  </table>
+  <div class="disclaimer-note"><i class="fas fa-info-circle"></i> 위 비교는 일반적인 경향을 정리한 것으로, 실제 적합한 치료는 개인의 구강 상태·전신 건강·예산에 따라 달라집니다. 비용은 치료 범위와 사용 재료에 따라 달라지므로 정확한 금액은 검진 후 안내드립니다.</div>
+</section>`);
+  }
+
+  const renderDive = (dd, name, cls) => `  <div class="deep-dive ${cls}">
+  <p style="margin-bottom:4px">${dd.intro}</p>
+  <h3><i class="fas fa-thumbs-up"></i> ${name}의 강점</h3>
+  <ul class="pros">
+${dd.strengths.map(x => `    <li>${x}</li>`).join('\n')}
+  </ul>
+  <h3><i class="fas fa-triangle-exclamation"></i> ${name}의 한계와 주의점</h3>
+  <ul class="cons">
+${dd.weaknesses.map(x => `    <li>${x}</li>`).join('\n')}
+  </ul>
+  </div>`;
+
+  if (ext && ext.deepDiveA) {
+    const n = nn();
+    tocEntries.push({ id: 'deep-a', n, label: `${d.aName} 심층 해부 — 강점과 한계` });
+    sections.push(`<section class="guide-section" id="deep-a">
+  <h2><span class="num">${n}</span>${d.aName} 심층 해부 — 강점과 한계</h2>
+${renderDive(ext.deepDiveA, d.aName, 'side-a')}
+</section>`);
+  }
+  if (ext && ext.deepDiveB) {
+    const n = nn();
+    tocEntries.push({ id: 'deep-b', n, label: `${d.bName} 심층 해부 — 강점과 한계` });
+    sections.push(`<section class="guide-section" id="deep-b">
+  <h2><span class="num">${n}</span>${d.bName} 심층 해부 — 강점과 한계</h2>
+${renderDive(ext.deepDiveB, d.bName, 'side-b')}
+</section>`);
+  }
+
+  if (ext && ext.costStructure) {
+    const n = nn();
+    tocEntries.push({ id: 'cost', n, label: '비용 구조, 숫자 대신 원리로 이해하기' });
+    sections.push(`<section class="guide-section" id="cost">
+  <h2><span class="num">${n}</span>비용 구조, 숫자 대신 원리로 이해하기</h2>
+${ext.costStructure.map(p => `  <p>${p}</p>`).join('\n')}
+  <div class="disclaimer-note"><i class="fas fa-info-circle"></i> 의료광고법에 따라 구체적인 금액은 표기하지 않습니다. 정확한 비용은 구강 상태 확인 후 서면으로 안내드리며, 치료를 강요하지 않습니다.</div>
+</section>`);
+  }
+
+  if (ext && ext.timeline) {
+    const n = nn();
+    tocEntries.push({ id: 'timeline', n, label: '치료 과정 타임라인 비교' });
+    const tlCol = (steps, name, cls) => `    <div class="timeline-col ${cls}">
+      <h3>${name} 진행 과정</h3>
+      <ol>
+${steps.map(s => `        <li><strong>${s.step}</strong><span>${s.desc}</span></li>`).join('\n')}
+      </ol>
+    </div>`;
+    sections.push(`<section class="guide-section" id="timeline">
+  <h2><span class="num">${n}</span>치료 과정 타임라인 비교</h2>
+  <p>${ext.timeline.intro || '두 치료가 처음 내원부터 마무리까지 어떻게 진행되는지 단계별로 비교하면, 내 생활 패턴에 어느 쪽이 맞는지 훨씬 구체적으로 그려집니다.'}</p>
+  <div class="timeline-wrap">
+${tlCol(ext.timeline.aSteps, d.aName, 'tl-a')}
+${tlCol(ext.timeline.bSteps, d.bName, 'tl-b')}
+  </div>
+${ext.timeline.note ? `  <p style="font-size:0.92rem;color:#6b645c"><i class="fas fa-lightbulb" style="color:#C8A97E;margin-right:6px"></i>${ext.timeline.note}</p>` : ''}
+</section>`);
+  }
+
+  {
+    const n = nn();
+    tocEntries.push({ id: 'choose-a', n, label: `이런 분은 ${d.aName}` });
+    sections.push(`<section class="guide-section" id="choose-a">
+  <h2><span class="num">${n}</span>이런 분은 ${d.aName} 쪽이 맞습니다</h2>
+  <div class="choose-box for-a">
+  <ul>
+${chooseAItems}
+  </ul>
+  </div>
+</section>`);
+  }
+  {
+    const n = nn();
+    tocEntries.push({ id: 'choose-b', n, label: `이런 분은 ${d.bName}` });
+    sections.push(`<section class="guide-section" id="choose-b">
+  <h2><span class="num">${n}</span>이런 분은 ${d.bName} 쪽이 맞습니다</h2>
+  <div class="choose-box for-b">
+  <ul>
+${chooseBItems}
+  </ul>
+  </div>
+</section>`);
+  }
+
+  if (ext && ext.scenarios) {
+    const n = nn();
+    tocEntries.push({ id: 'scenarios', n, label: '실제 갈림길 시나리오 3가지' });
+    const sc = ext.scenarios.map(s => `  <div class="scenario-card">
+    <h3><i class="fas fa-user"></i> ${s.title}</h3>
+    <div class="sc-row"><span class="sc-tag t-sit">상황</span><p>${s.situation}</p></div>
+    <div class="sc-row"><span class="sc-tag t-dec">선택</span><p>${s.decision}</p></div>
+    <div class="sc-row"><span class="sc-tag t-why">이유</span><p>${s.reason}</p></div>
+  </div>`).join('\n');
+    sections.push(`<section class="guide-section" id="scenarios">
+  <h2><span class="num">${n}</span>실제 갈림길 시나리오 3가지</h2>
+  <p>진료실에서 자주 만나는 대표적인 갈림길 상황을 재구성했습니다. 특정 환자의 사례가 아닌, 흔한 판단 기준을 이해하기 쉽게 정리한 가상의 시나리오입니다.</p>
+${sc}
+</section>`);
+  }
+
+  if (ext && ext.myths) {
+    const n = nn();
+    tocEntries.push({ id: 'myths', n, label: '흔한 오해 바로잡기' });
+    const my = ext.myths.map(m => `  <div class="myth-item">
+    <div class="m-icon">🙅</div>
+    <div><div class="m-myth">"${m.myth}"</div><div class="m-truth"><strong>사실은 —</strong> ${m.truth}</div></div>
+  </div>`).join('\n');
+    sections.push(`<section class="guide-section" id="myths">
+  <h2><span class="num">${n}</span>흔한 오해 바로잡기</h2>
+  <p>인터넷 커뮤니티와 주변 경험담에서 자주 보이는 오해들입니다. 잘못된 전제로 결정하면 방향 자체가 틀어질 수 있으니 먼저 바로잡고 갑니다.</p>
+${my}
+</section>`);
+  }
+
+  {
+    const n = nn();
+    tocEntries.push({ id: 'checkpoints', n, label: '결정 전 놓치기 쉬운 체크포인트' });
+    sections.push(`<section class="guide-section" id="checkpoints">
+  <h2><span class="num">${n}</span>결정 전 놓치기 쉬운 체크포인트</h2>
+  <p>어느 쪽을 선택하시든, 아래 항목을 상담 때 확인하시면 후회 확률이 크게 줄어듭니다.</p>
+  <ul class="check-list">
+${checkItems}
+  </ul>
+</section>`);
+  }
+  {
+    const n = nn();
+    tocEntries.push({ id: 'faq', n, label: '자주 묻는 질문' });
+    sections.push(`<section class="guide-section" id="faq">
+  <h2><span class="num">${n}</span>자주 묻는 질문</h2>
+${faqItems}
+</section>`);
+  }
+
+  const tocHtml = tocEntries.map(t => `    <li><a href="#${t.id}"><span class="toc-num">${t.n}</span>${t.label}</a></li>`).join('\n');
+  const bodySections = sections.join('\n\n');
+  const readTime = ext ? (d.readTime || 6) + 6 : (d.readTime || 7);
 
   const regretCards = (d.regretSlugs || []).filter(s => regretMeta[s]).map(s => {
     const m = regretMeta[s];
@@ -258,7 +474,7 @@ ${STYLES}
     <div class="guide-meta">
       <span><i class="fas fa-user-md"></i> 서울비디치과 의료진 작성</span>
       <span><i class="fas fa-calendar"></i> ${TODAY.slice(0, 7).replace('-', '년 ')}월 기준</span>
-      <span><i class="fas fa-clock"></i> 읽는 시간 약 ${d.readTime || 7}분</span>
+      <span><i class="fas fa-clock"></i> 읽는 시간 약 ${readTime}분</span>
     </div>
   </div>
 </header>
@@ -273,56 +489,11 @@ ${STYLES}
 <nav class="toc-box" aria-label="목차">
   <h2><i class="fas fa-list-ol" style="color:#7EA9C8"></i> 목차</h2>
   <ul class="toc-list">
-    <li><a href="#vs-table"><span class="toc-num">01</span>${d.aName} vs ${d.bName} 한눈 비교표</a></li>
-    <li><a href="#choose-a"><span class="toc-num">02</span>이런 분은 ${d.aName}</a></li>
-    <li><a href="#choose-b"><span class="toc-num">03</span>이런 분은 ${d.bName}</a></li>
-    <li><a href="#checkpoints"><span class="toc-num">04</span>결정 전 놓치기 쉬운 체크포인트</a></li>
-    <li><a href="#faq"><span class="toc-num">05</span>자주 묻는 질문</a></li>
+${tocHtml}
   </ul>
 </nav>
 
-<section class="guide-section" id="vs-table">
-  <h2><span class="num">01</span>${d.aName} vs ${d.bName} 한눈 비교표</h2>
-  <p>${d.tableIntro}</p>
-  <table class="vs-table">
-    <thead><tr><th class="col-label">비교 항목</th><th class="col-a">${d.aName}</th><th class="col-b">${d.bName}</th></tr></thead>
-    <tbody>
-${tableRows}
-    </tbody>
-  </table>
-  <div class="disclaimer-note"><i class="fas fa-info-circle"></i> 위 비교는 일반적인 경향을 정리한 것으로, 실제 적합한 치료는 개인의 구강 상태·전신 건강·예산에 따라 달라집니다. 비용은 치료 범위와 사용 재료에 따라 달라지므로 정확한 금액은 검진 후 안내드립니다.</div>
-</section>
-
-<section class="guide-section" id="choose-a">
-  <h2><span class="num">02</span>이런 분은 ${d.aName} 쪽이 맞습니다</h2>
-  <div class="choose-box for-a">
-  <ul>
-${chooseAItems}
-  </ul>
-  </div>
-</section>
-
-<section class="guide-section" id="choose-b">
-  <h2><span class="num">03</span>이런 분은 ${d.bName} 쪽이 맞습니다</h2>
-  <div class="choose-box for-b">
-  <ul>
-${chooseBItems}
-  </ul>
-  </div>
-</section>
-
-<section class="guide-section" id="checkpoints">
-  <h2><span class="num">04</span>결정 전 놓치기 쉬운 체크포인트</h2>
-  <p>어느 쪽을 선택하시든, 아래 항목을 상담 때 확인하시면 후회 확률이 크게 줄어듭니다.</p>
-  <ul class="check-list">
-${checkItems}
-  </ul>
-</section>
-
-<section class="guide-section" id="faq">
-  <h2><span class="num">05</span>자주 묻는 질문</h2>
-${faqItems}
-</section>
+${bodySections}
 
 ${regretCards ? `<section class="guide-section" id="regret-links" style="border-bottom:none;padding-bottom:24px">
   <h2 style="font-size:1.3rem"><i class="fas fa-heart-crack" style="color:#9a3b2e;margin-right:8px"></i>선택 전에 후회 사례도 확인하세요</h2>
