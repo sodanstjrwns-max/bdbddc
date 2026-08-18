@@ -131,6 +131,7 @@ const esc = (s) => String(s).replace(/"/g, '\\"');
 
 function buildPage(d, all) {
   const url = `https://bdbddc.com/guide/regret/${d.slug}`;
+  const pub = d.datePublished || '2026-06-12';
 
   const faqLd = JSON.stringify({
     '@context': 'https://schema.org', '@type': 'FAQPage',
@@ -142,9 +143,24 @@ function buildPage(d, all) {
     headline: d.title, description: d.description,
     author: { '@type': 'Organization', name: '서울비디치과 의료진' },
     publisher: { '@type': 'Organization', name: '서울비디치과', logo: { '@type': 'ImageObject', url: 'https://bdbddc.com/images/logo.png' } },
-    datePublished: '2026-06-12', dateModified: TODAY,
+    datePublished: pub, dateModified: TODAY,
     mainEntityOfPage: url, image: 'https://bdbddc.com/images/og-image-v2.jpg',
     speakable: { '@type': 'SpeakableSpecification', cssSelector: ['#quick-answer'] }
+  });
+  // v6.05: MedicalWebPage — AEO/의료 콘텐츠 신뢰 신호 강화
+  const medicalLd = JSON.stringify({
+    '@context': 'https://schema.org', '@type': 'MedicalWebPage',
+    '@id': `${url}#medicalwebpage`,
+    url, name: d.title, description: d.description,
+    inLanguage: 'ko',
+    about: { '@type': 'MedicalProcedure', name: d.name, procedureType: { '@type': 'MedicalProcedureType', name: 'Dental procedure' } },
+    audience: { '@type': 'MedicalAudience', audienceType: 'Patient' },
+    specialty: 'https://schema.org/Dentistry',
+    lastReviewed: TODAY,
+    reviewedBy: { '@type': 'MedicalOrganization', name: '서울비디치과', url: 'https://bdbddc.com/' },
+    datePublished: pub, dateModified: TODAY,
+    mainContentOfPage: { '@type': 'WebPageElement', cssSelector: '.guide-body' },
+    significantLink: [`https://bdbddc.com/guide/regret`, `https://bdbddc.com/reservation`]
   });
   const breadcrumbLd = JSON.stringify({
     '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -186,6 +202,10 @@ ${COMMON_HEAD}
   <meta name="description" content="${esc(d.description)}">
   <meta name="keywords" content="${d.keywords}">
   <link rel="canonical" href="${url}">
+  <link rel="alternate" hreflang="ko" href="${url}">
+  <link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/guide/regret/${d.slug}">
+  <link rel="alternate" hreflang="en" href="https://bdbddc.com/en/guide/regret/${d.slug}">
+  <link rel="alternate" hreflang="x-default" href="${url}">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="author" content="서울비디치과 의료진">
   <meta property="og:title" content="${esc(d.title)}">
@@ -195,7 +215,7 @@ ${COMMON_HEAD}
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="서울비디치과">
   <meta property="og:image" content="https://bdbddc.com/images/og-image-v2.jpg">
-  <meta property="article:published_time" content="2026-06-12T00:00:00+09:00">
+  <meta property="article:published_time" content="${pub}T00:00:00+09:00">
   <meta property="article:modified_time" content="${TODAY}T00:00:00+09:00">
   <meta property="article:author" content="서울비디치과 의료진">
   <meta property="article:section" content="후회 백서">
@@ -205,6 +225,7 @@ ${COMMON_HEAD}
   <link rel="stylesheet" href="/css/site-v5.css?v=24a633b2">
 ${STYLES}
   <script type="application/ld+json">${articleLd}</script>
+  <script type="application/ld+json">${medicalLd}</script>
   <script type="application/ld+json">${breadcrumbLd}</script>
   <script type="application/ld+json">${faqLd}</script>
 </head>
