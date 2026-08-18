@@ -4548,6 +4548,7 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
       { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' },
       { href: '/guide/implant', label: '임플란트 가이드', icon: 'fas fa-book-open' },
       { href: '/guide/regret/implant', label: '임플란트 후회 사례', icon: 'fas fa-triangle-exclamation' },
+      { href: '/guide/compare/bridge-vs-implant', label: '브릿지 vs 임플란트 비교', icon: 'fas fa-scale-balanced' },
     ],
     'implant': [ { href: '/treatments/implant', label: '임플란트 센터', icon: 'fas fa-tooth' } ],
     '수면': [ { href: '/treatments/implant-sedation', label: '수면 임플란트', icon: 'fas fa-moon' } ],
@@ -4565,6 +4566,7 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
       { href: '/treatments/wisdom-tooth', label: '사랑니 발치', icon: 'fas fa-tooth' },
       { href: '/guide/wisdom-tooth', label: '사랑니 가이드', icon: 'fas fa-book-open' },
       { href: '/guide/regret/wisdom-tooth', label: '사랑니 후회 사례', icon: 'fas fa-triangle-exclamation' },
+      { href: '/guide/compare/wisdom-extraction-vs-wait', label: '사랑니 발치 vs 지켜보기', icon: 'fas fa-scale-balanced' },
     ],
     '발치': [ { href: '/treatments/wisdom-tooth', label: '사랑니 발치', icon: 'fas fa-tooth' } ],
     // ── 잇몸 · 치주 ──
@@ -4587,6 +4589,7 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
       { href: '/treatments/root-canal', label: '신경치료', icon: 'fas fa-tooth' },
       { href: '/guide/root-canal', label: '신경치료 가이드', icon: 'fas fa-book-open' },
       { href: '/guide/regret/root-canal', label: '신경치료 후회 사례', icon: 'fas fa-triangle-exclamation' },
+      { href: '/guide/compare/root-canal-vs-implant', label: '신경치료 vs 임플란트 비교', icon: 'fas fa-scale-balanced' },
     ],
     '근관': [ { href: '/treatments/root-canal', label: '신경치료', icon: 'fas fa-tooth' } ],
     '재신경': [ { href: '/treatments/re-root-canal', label: '재신경치료', icon: 'fas fa-rotate-left' } ],
@@ -4596,6 +4599,7 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
       { href: '/treatments/whitening', label: '치아미백', icon: 'fas fa-star' },
       { href: '/guide/whitening', label: '미백 가이드', icon: 'fas fa-book-open' },
       { href: '/guide/regret/whitening', label: '미백 후회 사례', icon: 'fas fa-triangle-exclamation' },
+      { href: '/guide/compare/self-vs-office-whitening', label: '셀프 vs 치과 미백 비교', icon: 'fas fa-scale-balanced' },
     ],
     '변색': [
       { href: '/treatments/whitening', label: '치아미백', icon: 'fas fa-star' },
@@ -4604,6 +4608,7 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
     '라미네이트': [
       { href: '/treatments/glownate', label: '글로우네이트 라미네이트', icon: 'fas fa-gem' },
       { href: '/guide/laminate', label: '라미네이트 가이드', icon: 'fas fa-book-open' },
+      { href: '/guide/compare/glownate-vs-laminate', label: '글로우네이트 vs 라미네이트', icon: 'fas fa-scale-balanced' },
     ],
     '앞니': [
       { href: '/treatments/glownate', label: '글로우네이트 라미네이트', icon: 'fas fa-gem' },
@@ -4636,10 +4641,12 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
       { href: '/treatments/orthodontics', label: '치아교정', icon: 'fas fa-teeth-open' },
       { href: '/guide/orthodontics', label: '교정 가이드', icon: 'fas fa-book-open' },
       { href: '/guide/regret/orthodontics', label: '교정 후회 사례', icon: 'fas fa-triangle-exclamation' },
+      { href: '/guide/compare/extraction-vs-nonextraction', label: '발치 vs 비발치 교정', icon: 'fas fa-scale-balanced' },
     ],
     '인비절라인': [
       { href: '/treatments/invisalign', label: '인비절라인 센터', icon: 'fas fa-teeth-open' },
       { href: '/guide/invisalign', label: '인비절라인 가이드', icon: 'fas fa-book-open' },
+      { href: '/guide/compare/braces-vs-invisalign', label: '브라켓 vs 인비절라인', icon: 'fas fa-scale-balanced' },
     ],
     '투명교정': [ { href: '/treatments/invisalign', label: '인비절라인 센터', icon: 'fas fa-teeth-open' } ],
     '유지장치': [ { href: '/guide/regret/retainer', label: '유지장치 후회 사례', icon: 'fas fa-triangle-exclamation' } ],
@@ -4652,6 +4659,7 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
     '이갈이': [
       { href: '/treatments/bruxism', label: '이갈이·교합안정장치', icon: 'fas fa-teeth' },
       { href: '/guide/regret/bruxism', label: '이갈이 후회 사례', icon: 'fas fa-triangle-exclamation' },
+      { href: '/guide/compare/nightguard-vs-botox', label: '나이트가드 vs 보톡스', icon: 'fas fa-scale-balanced' },
     ],
     '악물': [ { href: '/treatments/bruxism', label: '이갈이·교합안정장치', icon: 'fas fa-teeth' } ],
     // ── 외상 · 응급 ──
@@ -4667,19 +4675,23 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
     '크라운': [
       { href: '/treatments/crown', label: '크라운', icon: 'fas fa-crown' },
       { href: '/guide/regret/crown', label: '크라운 후회 사례', icon: 'fas fa-triangle-exclamation' },
+      { href: '/guide/compare/zirconia-vs-gold-crown', label: '지르코니아 vs 골드 크라운', icon: 'fas fa-scale-balanced' },
     ],
     '브릿지': [
       { href: '/treatments/bridge', label: '브릿지', icon: 'fas fa-bridge' },
       { href: '/guide/regret/bridge', label: '브릿지 후회 사례', icon: 'fas fa-triangle-exclamation' },
+      { href: '/guide/compare/bridge-vs-implant', label: '브릿지 vs 임플란트 비교', icon: 'fas fa-scale-balanced' },
     ],
     '틀니': [
       { href: '/treatments/denture', label: '틀니', icon: 'fas fa-teeth' },
       { href: '/treatments/implant-overdenture', label: '임플란트 오버덴처', icon: 'fas fa-teeth' },
       { href: '/guide/denture', label: '틀니 가이드', icon: 'fas fa-book-open' },
+      { href: '/guide/compare/denture-vs-implant', label: '틀니 vs 임플란트 비교', icon: 'fas fa-scale-balanced' },
     ],
     '인레이': [
       { href: '/treatments/inlay', label: '인레이·온레이', icon: 'fas fa-tooth' },
       { href: '/guide/regret/inlay', label: '인레이 후회 사례', icon: 'fas fa-triangle-exclamation' },
+      { href: '/guide/compare/resin-vs-inlay', label: '레진 vs 인레이 비교', icon: 'fas fa-scale-balanced' },
     ],
     '지르코니아': [ { href: '/treatments/crown', label: '크라운', icon: 'fas fa-crown' } ],
     '보철': [ { href: '/treatments/crown', label: '크라운', icon: 'fas fa-crown' } ],
@@ -4721,8 +4733,12 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
       if (!domTreat.some(x => x.href === t.href)) domTreat.push({ ...t, icon: 'fas fa-tooth' })
     }
   }
-  const treatmentLinks = [...domTreat, ...[...matchedTreatments.values()]
-    .filter(t => !domTreat.some(x => x.href === t.href))].slice(0, 5)
+  // v6.12: 백서(guide/regret·compare) 링크는 slice에 밀리지 않게 별도 슬롯 보장.
+  //   메뉴에서 백서를 숨긴 대신(v6.11) 칼럼→백서 링크 주스는 여기서 흘려보낸다.
+  const kwOnly = [...matchedTreatments.values()].filter(t => !domTreat.some(x => x.href === t.href))
+  const kwGuide = kwOnly.filter(t => t.href.startsWith('/guide/regret') || t.href.startsWith('/guide/compare'))
+  const kwOther = kwOnly.filter(t => !kwGuide.includes(t))
+  const treatmentLinks = [...[...domTreat, ...kwOther].slice(0, 5), ...kwGuide.slice(0, 3)]
   const relatedTreatmentsHtml = `
 <!-- 관련 치료 + 네비게이션 내부 링크 (SEO 양방향 링크) -->
 <section style="margin-top:20px;padding:24px;background:linear-gradient(135deg,#f0f4f8 0%,#e8eef5 100%);border-radius:20px;border:1px solid #dde4ed;">
