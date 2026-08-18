@@ -4230,7 +4230,7 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 �
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260817" defer></script>
+<script src="/js/gnb-v2.js?v=20260818" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -4375,7 +4375,7 @@ ${rows || '<li class="cref-item"><div class="cref-main"><div class="cref-txt"><p
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260817" defer></script>
+<script src="/js/gnb-v2.js?v=20260818" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -4911,7 +4911,7 @@ ${relatedTreatmentsHtml}
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260817" defer></script>
+<script src="/js/gnb-v2.js?v=20260818" defer></script>
 <script>
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'column',page_id:'${id}'})}).catch(function(){});
 </script>
@@ -5608,7 +5608,7 @@ ${caseRelatedTreatmentsHtml}
 </div>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260817" defer></script>
+<script src="/js/gnb-v2.js?v=20260818" defer></script>
 <script>
 // 조회수 기록
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'case',page_id:'${id}'})}).catch(function(){});
@@ -6979,7 +6979,7 @@ ${nextItem ? `<a href="/encyclopedia/${encodeURIComponent(nextItem.term)}" style
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260817" defer></script>
+<script src="/js/gnb-v2.js?v=20260818" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`
@@ -7192,7 +7192,7 @@ ${otherCats}
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260817" defer></script>
+<script src="/js/gnb-v2.js?v=20260818" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`
@@ -7407,6 +7407,33 @@ for (const slug of REGRET_SLUGS) {
   app.get(`/guide/regret/${slug}.html`, (c) => c.redirect(`/guide/regret/${slug}`, 301))
 }
 app.get('/guide/regret/', (c) => c.redirect('/guide/regret', 301))
+// 비교 백서 (v6.06): "A vs B" 선택 갈림길 인텐트 30종 — 후회백서 검증 패턴의 비교 버전.
+//   가격·병원 비교가 아닌 치료방식 비교(브릿지vs임플란트 등)로 의료광고법 안전선 준수.
+app.get('/guide/compare', serveStatic({ path: './guide/compare.html' }))
+app.get('/guide/compare.html', (c) => c.redirect('/guide/compare', 301))
+const COMPARE_SLUGS = [
+  // 임플란트·상실 치아 (9)
+  'bridge-vs-implant', 'denture-vs-implant', 'implant-denture-vs-full-implant',
+  'full-implant-vs-all-on', 'osstem-vs-straumann', 'immediate-vs-delayed-implant',
+  'root-canal-vs-implant', 're-root-canal-vs-implant', 'partial-vs-complete-denture',
+  // 치아교정 (7)
+  'braces-vs-invisalign', 'invisalign-vs-clear-aligner', 'partial-vs-full-ortho',
+  'clippy-c-vs-metal', 'extraction-vs-nonextraction', 'lingual-vs-invisalign',
+  'ceramic-vs-metal-bracket',
+  // 심미치료 (6)
+  'laminate-vs-crown', 'laminate-vs-resin', 'whitening-vs-laminate',
+  'glownate-vs-laminate', 'resin-vs-ortho-gap', 'self-vs-office-whitening',
+  // 보존·보철 (5)
+  'resin-vs-inlay', 'inlay-vs-crown', 'gold-vs-ceramic-inlay',
+  'scaling-vs-gum-treatment', 'zirconia-vs-gold-crown',
+  // 기타 선택 (3)
+  'nightguard-vs-botox', 'sedation-vs-normal', 'wisdom-extraction-vs-wait',
+]
+for (const slug of COMPARE_SLUGS) {
+  app.get(`/guide/compare/${slug}`, serveStatic({ path: `./guide/compare/${slug}.html` }))
+  app.get(`/guide/compare/${slug}.html`, (c) => c.redirect(`/guide/compare/${slug}`, 301))
+}
+app.get('/guide/compare/', (c) => c.redirect('/guide/compare', 301))
 // .html 확장자 접근은 301로 클린 URL로 강제
 app.get('/guide/index.html', (c) => c.redirect('/guide/', 301))
 app.get('/guide/implant.html', (c) => c.redirect('/guide/implant', 301))
