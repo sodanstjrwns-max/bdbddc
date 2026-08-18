@@ -4620,8 +4620,20 @@ ${rc.thumbnailImage ? picture(rc.thumbnailImage, rc.title, 'width="56" height="5
       { href: '/treatments/cavity', label: '충치치료', icon: 'fas fa-tooth' },
       { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' },
     ],
-    '양치': [ { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' } ],
-    '치실': [ { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' } ],
+    '양치': [
+      { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' },
+      { href: '/guide/compare/mouthwash-vs-brushing', label: '가글 vs 양치 비교', icon: 'fas fa-scale-balanced' },
+    ],
+    '치실': [
+      { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' },
+      { href: '/guide/compare/floss-vs-interdental-brush', label: '치실 vs 치간칫솔 비교', icon: 'fas fa-scale-balanced' },
+      { href: '/guide/compare/floss-vs-water-flosser', label: '치실 vs 워터픽 비교', icon: 'fas fa-scale-balanced' },
+    ],
+    '치간칫솔': [ { href: '/guide/compare/floss-vs-interdental-brush', label: '치실 vs 치간칫솔 비교', icon: 'fas fa-scale-balanced' } ],
+    '워터픽': [ { href: '/guide/compare/floss-vs-water-flosser', label: '치실 vs 워터픽 비교', icon: 'fas fa-scale-balanced' } ],
+    '전동칫솔': [ { href: '/guide/compare/electric-vs-manual-toothbrush', label: '전동칫솔 vs 일반칫솔 비교', icon: 'fas fa-scale-balanced' } ],
+    '가글': [ { href: '/guide/compare/mouthwash-vs-brushing', label: '가글 vs 양치 비교', icon: 'fas fa-scale-balanced' } ],
+    '구강청결제': [ { href: '/guide/compare/mouthwash-vs-brushing', label: '가글 vs 양치 비교', icon: 'fas fa-scale-balanced' } ],
     '예방': [ { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' } ],
     '구취': [ { href: '/treatments/prevention', label: '예방치과', icon: 'fas fa-shield-halved' } ],
     '레진': [
@@ -7442,6 +7454,9 @@ const COMPARE_SLUGS = [
   'scaling-vs-gum-treatment', 'zirconia-vs-gold-crown',
   // 기타 선택 (3)
   'nightguard-vs-botox', 'sedation-vs-normal', 'wisdom-extraction-vs-wait',
+  // 구강위생 (4)
+  'floss-vs-interdental-brush', 'floss-vs-water-flosser',
+  'electric-vs-manual-toothbrush', 'mouthwash-vs-brushing',
 ]
 for (const slug of COMPARE_SLUGS) {
   app.get(`/guide/compare/${slug}`, serveStatic({ path: `./guide/compare/${slug}.html` }))
