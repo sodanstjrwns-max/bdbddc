@@ -131,7 +131,6 @@
             '<ul class="simple-dropdown">' +
             '<li><a href="/en/guide/" style="color:#6B4226;font-weight:600;">💰 Korea Dental Cost Guide 2026</a></li>' +
             '<li><a href="/en/pricing" class="nav-highlight">Full Price List</a></li>' +
-            '<li><a href="/en/guide/regret"><i class="fas fa-heart-crack"></i> Regret Report</a></li>' +
             '</ul></li>' +
             // Visit
             '<li class="nav-item has-dropdown"><a href="/en/directions">Visit Us</a>' +
@@ -187,7 +186,6 @@
             '<ul class="simple-dropdown">' +
             '<li><a href="/jp/guide/" style="color:#6B4226;font-weight:600;">💰 韓国歯科費用ガイド2026</a></li>' +
             '<li><a href="/jp/pricing" class="nav-highlight">料金表 全面公開</a></li>' +
-            '<li><a href="/jp/guide/regret"><i class="fas fa-heart-crack"></i> 後悔白書</a></li>' +
             '</ul></li>' +
             // ご案内
             '<li class="nav-item has-dropdown"><a href="/jp/directions">ご案内</a>' +
@@ -301,7 +299,6 @@
             '<ul class="mobile-nav-submenu">' +
             '<li><a href="/en/guide/" style="color:#6B4226;font-weight:600;">💰 Korea Dental Cost Guide 2026</a></li>' +
             '<li><a href="/en/pricing">Full Price List</a></li>' +
-            '<li><a href="/en/guide/regret"><i class="fas fa-heart-crack"></i> Regret Report</a></li>' +
             '</ul></li>' +
             // Visit
             '<li class="mobile-nav-item has-submenu">' +
@@ -352,7 +349,6 @@
             '<ul class="mobile-nav-submenu">' +
             '<li><a href="/jp/guide/" style="color:#6B4226;font-weight:600;">💰 韓国歯科費用ガイド2026</a></li>' +
             '<li><a href="/jp/pricing">料金表 全面公開</a></li>' +
-            '<li><a href="/jp/guide/regret"><i class="fas fa-heart-crack"></i> 後悔白書</a></li>' +
             '</ul></li>' +
             // ご案内
             '<li class="mobile-nav-item has-submenu">' +
