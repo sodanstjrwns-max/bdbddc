@@ -233,10 +233,10 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       transition:all .25s;border:1px solid rgba(200,169,126,.45);box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 40px rgba(200,169,126,.22)}
     .rm-finale .rm-fin-cta:hover{background:var(--brand-dark,#4A2E1A);transform:translateY(-2px)}
     @media(max-width:768px){
-      .rm-hero.scrub-on .rm-space{height:520vh}
+      .rm-hero.scrub-on .rm-space{height:640vh} /* v6.14: PC와 동일한 스크럽 러닝타임 */
       .rm-year{bottom:14vh} /* 하단 고정 CTA바 회피 */
       .rm-count{top:12vh}
-      .rm-cap{bottom:24vh}
+      .rm-cap{bottom:22vh}
       .rm-finale{padding-bottom:10vh}
     }
     @media(prefers-reduced-motion:reduce){
@@ -2175,10 +2175,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
         window.addEventListener('resize', resize);
 
-        function drawContain(img){ // 가로: contain(도시 전체) / 세로 모바일: cover(꽉 채움·중앙 크롭 — 레터박스 제거)
+        function drawContain(img){ // v6.14: 모든 화면 contain — 모바일도 PC와 동일하게 도시 전체 노출 (크롭 없음)
           var cw = canvas.width, ch = canvas.height, iw = img.naturalWidth, ih = img.naturalHeight;
           ctx.fillStyle = '#0A0D13'; ctx.fillRect(0, 0, cw, ch);
-          var s = (ch > cw) ? Math.max(cw/iw, ch/ih) : Math.min(cw/iw, ch/ih);
+          var s = Math.min(cw/iw, ch/ih);
           var w = iw*s, h = ih*s;
           ctx.drawImage(img, (cw-w)/2, (ch-h)/2, w, h);
         }
