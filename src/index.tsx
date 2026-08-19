@@ -4228,7 +4228,7 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 �
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260818" defer></script>
+<script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -4373,7 +4373,7 @@ ${rows || '<li class="cref-item"><div class="cref-main"><div class="cref-txt"><p
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260818" defer></script>
+<script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -4937,7 +4937,7 @@ ${relatedTreatmentsHtml}
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260818" defer></script>
+<script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script>
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'column',page_id:'${id}'})}).catch(function(){});
 </script>
@@ -5634,7 +5634,7 @@ ${caseRelatedTreatmentsHtml}
 </div>
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260818" defer></script>
+<script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script>
 // 조회수 기록
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'case',page_id:'${id}'})}).catch(function(){});
@@ -7005,7 +7005,7 @@ ${nextItem ? `<a href="/encyclopedia/${encodeURIComponent(nextItem.term)}" style
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260818" defer></script>
+<script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`
@@ -7218,7 +7218,7 @@ ${otherCats}
 
 ${ssrMobileNav()}
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260818" defer></script>
+<script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`
