@@ -7,6 +7,7 @@ export type Bindings = {
   ASSETS?: { fetch: (req: Request) => Promise<Response> }
   OPENAI_API_KEY?: string
   ADMIN_PASSWORD?: string
+  STAFF_PASSWORD?: string
   ADMIN_SESSION_SECRET?: string
   GOOGLE_CLIENT_ID?: string
   GOOGLE_CLIENT_SECRET?: string

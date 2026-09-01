@@ -5,7 +5,7 @@
 import type { Hono } from 'hono'
 import { getCookie } from 'hono/cookie'
 import type { Bindings } from '../types'
-import { ADMIN_SESSION_COOKIE, getSessionSecret, verifySessionToken, isRateLimitedD1 } from '../lib/security'
+import { ADMIN_SESSION_COOKIE, getSessionSecret, verifyStaffOrAdmin, isRateLimitedD1 } from '../lib/security'
 
 type Deps = {
   hasSuspiciousInput: (body: Record<string, any>) => string | null
@@ -140,7 +140,7 @@ app.get('/api/admin/careers', async (c) => {
   // 인증 확인
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
 
@@ -191,7 +191,7 @@ app.get('/api/admin/careers', async (c) => {
 app.put('/api/admin/careers/:id', async (c) => {
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
 
@@ -230,7 +230,7 @@ app.put('/api/admin/careers/:id', async (c) => {
 app.delete('/api/admin/careers/:id', async (c) => {
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
 

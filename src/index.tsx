@@ -51,7 +51,7 @@ const EN_DICT_BY_KO: Record<string, string> = {
   "치주인대": "periodontal-ligament"
 }
 import { TRACKING_HEAD } from './lib/layout'
-import { ADMIN_SESSION_COOKIE, SESSION_MAX_AGE, getSessionSecret, createSessionToken, verifySessionToken, isRateLimitedD1 } from './lib/security'
+import { ADMIN_SESSION_COOKIE, SESSION_MAX_AGE, getSessionSecret, createSessionToken, verifySessionToken, verifyStaffOrAdmin, getSessionRole, isRateLimitedD1 } from './lib/security'
 import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSession, verifySiteSession, ensureMembersMigrated, findMemberByEmail, findMemberById, insertMemberD1, sha256Hex } from './lib/auth'
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -239,7 +239,15 @@ app.post('/admin/login', async (c) => {
     return c.html(adminLoginPage('관리자 인증이 설정되지 않았습니다. 관리자에게 문의하세요.'), 503)
   }
 
-  if (!password || password !== adminPw) {
+  // v6.16: 비밀번호 하나의 입력란으로 관리자/직원 구분 로그인
+  // - ADMIN_PASSWORD 일치 → admin 세션 (전체 접근)
+  // - STAFF_PASSWORD 일치 → staff 세션 (비포애프터·채용만)
+  const staffPw = c.env.STAFF_PASSWORD
+  let role: 'admin' | 'staff' | null = null
+  if (password && password === adminPw) role = 'admin'
+  else if (password && staffPw && password === staffPw) role = 'staff'
+
+  if (!role) {
     return c.html(adminLoginPage('비밀번호가 올바르지 않습니다.'), 401)
   }
 
@@ -248,7 +256,7 @@ app.post('/admin/login', async (c) => {
   deleteCookie(c, ADMIN_SESSION_COOKIE, { path: '/admin/' })
 
   // 세션 토큰 생성 + 쿠키 설정
-  const token = await createSessionToken(secret)
+  const token = await createSessionToken(secret, role)
   const isSecure = c.req.url.startsWith('https')
   setCookie(c, ADMIN_SESSION_COOKIE, token, {
     path: '/',
@@ -258,7 +266,8 @@ app.post('/admin/login', async (c) => {
     maxAge: SESSION_MAX_AGE,
   })
 
-  return c.redirect('/admin/', 302)
+  // 직원은 바로 비포애프터 관리로
+  return c.redirect(role === 'staff' ? '/admin/cases' : '/admin/', 302)
 })
 
 // === 관리자 로그아웃 ===
@@ -268,6 +277,8 @@ app.get('/admin/logout', (c) => {
 })
 
 // === /admin/* 인증 미들웨어 (로그인/로그아웃 제외) ===
+// v6.16: staff 세션은 화이트리스트 경로만 허용 (비포애프터·채용)
+const STAFF_ALLOWED_PAGES = new Set(['/admin/cases', '/admin/careers'])
 app.use('/admin/*', async (c, next) => {
   const path = new URL(c.req.url).pathname
   // 로그인/로그아웃 페이지는 통과
@@ -277,9 +288,18 @@ app.use('/admin/*', async (c, next) => {
 
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  const role = token ? await getSessionRole(token, secret) : null
 
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!role) {
     return c.redirect('/admin/login', 302)
+  }
+
+  // 직원: cases/careers 외 경로는 비포애프터 관리로 되돌림
+  if (role === 'staff') {
+    const normalized = path.replace(/\.html$/, '').replace(/\/$/, '') || '/admin'
+    if (!STAFF_ALLOWED_PAGES.has(normalized)) {
+      return c.redirect('/admin/cases', 302)
+    }
   }
 
   return next()
@@ -694,7 +714,7 @@ app.post('/api/admin/upload', async (c) => {
   // 관리자 인증 확인
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
 
@@ -757,7 +777,7 @@ app.get('/api/images/*', async (c) => {
 app.delete('/api/admin/images/*', async (c) => {
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
 
@@ -841,7 +861,7 @@ app.get('/api/cases', async (c) => {
   const adminToken = getCookie(c, ADMIN_SESSION_COOKIE)
   const siteToken = getCookie(c, 'bd_session')
   let authed = false
-  if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
+  if (adminToken && await verifyStaffOrAdmin(adminToken, secret)) authed = true
   if (siteToken && await verifySiteSession(siteToken, secret)) authed = true
   
   const safe = published.map((cs: any) => {
@@ -900,7 +920,7 @@ app.get('/api/cases/:param', async (c) => {
   const adminToken = getCookie(c, ADMIN_SESSION_COOKIE)
   const siteToken = getCookie(c, 'bd_session')
   let authed = false
-  if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
+  if (adminToken && await verifyStaffOrAdmin(adminToken, secret)) authed = true
   if (siteToken && await verifySiteSession(siteToken, secret)) authed = true
   
   // ★ 비로그인 시 after 이미지 URL 제거
@@ -917,7 +937,7 @@ app.get('/api/cases/:param', async (c) => {
 app.get('/api/admin/cases', async (c) => {
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
   
@@ -931,7 +951,7 @@ app.get('/api/admin/cases', async (c) => {
 app.post('/api/admin/cases', async (c) => {
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
   
@@ -949,7 +969,7 @@ app.post('/api/admin/cases', async (c) => {
 app.put('/api/admin/cases/:id', async (c) => {
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
   
@@ -982,7 +1002,7 @@ app.put('/api/admin/cases/:id', async (c) => {
 app.delete('/api/admin/cases/:id', async (c) => {
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
   
@@ -1001,7 +1021,7 @@ app.delete('/api/admin/cases/:id', async (c) => {
 app.post('/api/admin/cases/batch-meta', async (c) => {
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
-  if (!token || !(await verifySessionToken(token, secret))) {
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
     return c.json({ error: '인증이 필요합니다' }, 401)
   }
   
@@ -5410,7 +5430,7 @@ app.get('/cases/:param', async (c) => {
   const siteToken = getCookie(c, 'bd_session')
   
   let authed = false
-  if (adminToken && await verifySessionToken(adminToken, secret)) authed = true
+  if (adminToken && await verifyStaffOrAdmin(adminToken, secret)) authed = true
   if (siteToken && await verifySiteSession(siteToken, secret)) authed = true
   
   const CATS: Record<string,string> = {
