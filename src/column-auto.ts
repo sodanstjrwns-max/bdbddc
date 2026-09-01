@@ -39,6 +39,38 @@ const COLUMNS_KEY = 'data/columns.json'
 /** v5.59 비용·금액성 검색어 판별 (큐에서 제외). 제목/본문에 금액이 들어갈 수밖에 없는 주제들. */
 const COST_WORDS = ['비용','가격','값','얼마','금액','수가','만원','실비','보험','할인','저렴','싼','견적','청구','환급','본인부담']
 const COST_LIKE_SQL = COST_WORDS.map(w => `query LIKE '%${w}%'`).join(' OR ')
+
+// ★ v6.17 주제 다양성 강제 (2026-09-01 원장 지시)
+//   "주제가 존나 계속 돌고 돌아. 후회 후회 후회. … 임플란트 파절/흔들림/부러짐 같은
+//    정말 롱테일 키워드를 다 잡아가고 싶다"
+//   원인 실측: ① GSC 시딩 큐의 상위권이 후회·디시 계열 편중(발행 32편 중 13편이 후회·부정)
+//             ② ORDER BY score DESC LIMIT 1 — 같은 계열 연속 발행을 막을 장치 없음
+//   대책: ① 검색어를 '계열(family)'로 분류하고, 최근 발행 N편과 같은 계열은 건너뛴다
+//        ② 후회·디시·부정 계열은 점수를 강등해 큐 뒤로 보낸다(별도 SQL, 시딩 시 1회)
+/** 검색어 → 주제 계열. 첫 매치 우선이므로 구체적인 패턴을 앞에 둔다. */
+const TOPIC_FAMILIES: Array<[RegExp, string]> = [
+  [/임플란트|식립|픽스처|어버트|상악동|뼈이식|골이식|골유착/, 'implant'],
+  [/사랑니|매복치|하치조/, 'wisdom'],
+  [/교정|인비절라인|투명교정|브라켓|유지장치|리테이너|덧니|돌출입|과개교합|부정교합|개방교합|정중선/, 'ortho'],
+  [/라미네이트|미백|화이트닝|베니어|심미|글로우네이트/, 'cosmetic'],
+  [/신경치료|근관|치수|치근단/, 'endo'],
+  [/크라운|인레이|온레이|보철|틀니|의치|브릿지/, 'prostho'],
+  [/잇몸|치주|치석|스케일링|풍치|치은|퇴축/, 'perio'],
+  [/충치|우식|레진|때우/, 'caries'],
+  [/소아|어린이|유치|젖니|맹출|불소/, 'pediatric'],
+  [/턱관절|악관절|이갈이|교합|턱/, 'tmj'],
+  [/크랙|균열|파절|금 간|깨진|깨짐/, 'crack'],
+  [/구취|입냄새|구내염|편평|백반|혓바늘|구강건조/, 'oral-med'],
+  [/발치|뽑/, 'extraction'],
+  [/마취|수면|진정/, 'anesthesia'],
+]
+function topicFamily(q: string): string {
+  for (const [re, fam] of TOPIC_FAMILIES) if (re.test(q)) return fam
+  return 'etc'
+}
+/** 최근 발행분과 겹치지 않는 계열의 최고점 후보를 뽑는다. */
+const DIVERSITY_WINDOW = 5   // 최근 5편과 같은 계열이면 후순위
+const DIVERSITY_POOL = 30    // 점수 상위 30개 안에서만 고른다(수요 없는 글 방지)
 const DEFAULT_MODEL = 'gpt-5'
 const DEFAULT_BASE = 'https://www.genspark.ai/api/llm_proxy/v1'
 const MAX_ATTEMPTS = 3
@@ -526,9 +558,25 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; ski
          updated_at=CURRENT_TIMESTAMP
      WHERE status='pending' AND (${COST_LIKE_SQL})`).run()
 
-  const cand: any = await env.DB.prepare(
-    `SELECT * FROM column_queue WHERE status = 'pending' ORDER BY score DESC LIMIT 1`).first()
-  if (!cand) return { verdict: 'empty', attempts: 0, ms: Date.now() - t0 }
+  // ★ v6.17 다양성 선택 — 점수 상위 풀에서, 최근 발행 계열과 겹치지 않는 최고점을 뽑는다.
+  //   ① 최근 발행 5편의 계열을 R2 columns.json 에서 구한다 (sourceQuery 우선, 없으면 title)
+  //   ② pending 상위 30개를 점수순으로 훑으며 최근 계열에 없는 첫 후보를 잡는다
+  //   ③ 전부 겹치면(큐가 한 계열뿐) 원래대로 최고점을 쓴다 — 발행이 멈추는 게 최악이므로
+  const pool = await env.DB.prepare(
+    `SELECT * FROM column_queue WHERE status = 'pending' ORDER BY score DESC LIMIT ${DIVERSITY_POOL}`).all()
+  const candidates: any[] = pool.results || []
+  if (!candidates.length) return { verdict: 'empty', attempts: 0, ms: Date.now() - t0 }
+  let recentFams: string[] = []
+  try {
+    const cols = await loadColumns(env)
+    recentFams = cols
+      .filter((x: any) => x?.status === 'published')
+      .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+      .slice(0, DIVERSITY_WINDOW)
+      .map((x: any) => topicFamily(String(x.sourceQuery || x.title || '')))
+  } catch { /* R2 실패 시 다양성 없이 최고점 진행 */ }
+  const cand: any =
+    candidates.find((x: any) => !recentFams.includes(topicFamily(String(x.query)))) || candidates[0]
   const claim = await env.DB.prepare(
     `UPDATE column_queue SET status='processing', updated_at=CURRENT_TIMESTAMP
      WHERE id = ? AND status='pending'`).bind(cand.id).run()
