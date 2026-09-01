@@ -49,7 +49,7 @@ const COST_LIKE_SQL = COST_WORDS.map(w => `query LIKE '%${w}%'`).join(' OR ')
 //        ② 후회·디시·부정 계열은 점수를 강등해 큐 뒤로 보낸다(별도 SQL, 시딩 시 1회)
 /** 검색어 → 주제 계열. 첫 매치 우선이므로 구체적인 패턴을 앞에 둔다. */
 const TOPIC_FAMILIES: Array<[RegExp, string]> = [
-  [/임플란트|식립|픽스처|어버트|상악동|뼈이식|골이식|골유착/, 'implant'],
+  [/임플란트|식립|픽스처|어버트|지대주|상부구조|상악동|뼈이식|골이식|골이식재|골유착|오스템|스트라우만|오버덴처|올온포|all-?on/i, 'implant'],
   [/사랑니|매복치|하치조/, 'wisdom'],
   [/교정|인비절라인|투명교정|브라켓|유지장치|리테이너|덧니|돌출입|과개교합|부정교합|개방교합|정중선/, 'ortho'],
   [/라미네이트|미백|화이트닝|베니어|심미|글로우네이트/, 'cosmetic'],
@@ -575,8 +575,19 @@ export async function runAutoPublish(env: AutoEnv, opts: { dryRun?: boolean; ski
       .slice(0, DIVERSITY_WINDOW)
       .map((x: any) => topicFamily(String(x.sourceQuery || x.title || '')))
   } catch { /* R2 실패 시 다양성 없이 최고점 진행 */ }
-  const cand: any =
-    candidates.find((x: any) => !recentFams.includes(topicFamily(String(x.query)))) || candidates[0]
+  // ★ v6.18 임플란트 우선 모드 — 홀수날(KST)엔 임플란트 계열을 격일 보장한다.
+  //   임플란트날: 큐에 implant 계열이 있으면 그중 최고점 (다양성 회피 무시 — 격일 보장이 목적)
+  //   그 외 날: 기존 다양성 로직 그대로 (직전에 임플란트가 나갔으니 자연히 다른 계열 선택)
+  const kstDay = new Date(Date.now() + 9 * 3600 * 1000).getUTCDate()
+  const implantDay = kstDay % 2 === 1
+  let cand: any = null
+  if (implantDay) {
+    cand = candidates.find((x: any) => topicFamily(String(x.query)) === 'implant') || null
+  }
+  if (!cand) {
+    cand =
+      candidates.find((x: any) => !recentFams.includes(topicFamily(String(x.query)))) || candidates[0]
+  }
   const claim = await env.DB.prepare(
     `UPDATE column_queue SET status='processing', updated_at=CURRENT_TIMESTAMP
      WHERE id = ? AND status='pending'`).bind(cand.id).run()

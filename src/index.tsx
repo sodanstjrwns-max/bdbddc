@@ -1684,6 +1684,27 @@ ${r.journal ? `<em class="ref-journal">${r.journal}</em>` : ''}
 
 // 진료 페이지(수익 페이지) 우선 링크. 백과사전보다 먼저 매칭한다.
 const COL_TREATMENT_LINKS: [string, string][] = [
+  // ★ v6.18 임플란트 세부 용어 → 시술 서브페이지 직조 (2026-09-01 원장 승인)
+  //   칼럼→시술페이지→/guide/implant 허브 삼각 구조. 긴 용어가 먼저 잡히므로
+  //   「상악동 거상술」이 「임플란트」보다 우선 매칭된다(부분 매칭 방지 정렬 활용).
+  ['네비게이션 임플란트', '/treatments/implant-navigation'],
+  ['발치 즉시 임플란트', '/treatments/implant-immediate'],
+  ['임플란트 즉시식립', '/treatments/implant-immediate'],
+  ['즉시 로딩 임플란트', '/treatments/implant-immediate-loading'],
+  ['비절개 임플란트', '/treatments/implant-flapless'],
+  ['전체 임플란트', '/treatments/implant-full-mouth'],
+  ['임플란트 재수술', '/treatments/implant-revision'],
+  ['고난도 임플란트', '/treatments/implant-advanced'],
+  ['상악동 거상술', '/treatments/implant-sinus-lift'],
+  ['상악동거상술', '/treatments/implant-sinus-lift'],
+  ['오버덴처', '/treatments/implant-overdenture'],
+  ['임플란트 주위염', '/treatments/implant'],
+  ['스트라우만', '/treatments/fixture-straumann-roxolid'],
+  ['오스템', '/treatments/fixture-osstem-ca'],
+  ['픽스처', '/guide/implant'],
+  ['지대주', '/guide/implant'],
+  ['어버트먼트', '/guide/implant'],
+  ['골유착', '/guide/implant'],
   ['수면임플란트', '/treatments/implant-sedation'],
   ['인비절라인', '/treatments/invisalign'],
   ['라미네이트', '/treatments/glownate'],
