@@ -178,7 +178,7 @@ const routes = {
     '/jp/checkup.html','/jp/directions.html','/jp/faq.html','/jp/flight.html',
     '/jp/floor-guide.html','/jp/pricing.html','/jp/reservation.html',
     '/jp/checkup','/jp/directions','/jp/faq','/jp/flight',
-    '/jp/floor-guide','/jp/pricing','/jp/reservation',
+    '/jp/floor-guide','/jp/pricing','/jp/pricing/*','/jp/reservation',
     '/jp/treatments','/jp/treatments/*',
     '/jp/doctors','/jp/doctors/*',
     '/jp/faq/*',

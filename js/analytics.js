@@ -1,7 +1,14 @@
 /**
  * 서울비디치과 통합 Analytics v4
  * GTM (GTM-KKVMVZHK) → GA4 (G-3NQP355YQM) + Amplitude (c4e197a17443b1059b402ec0d16fa88f)
- * 
+ *
+ * v10 변경사항 (2026-09-04):
+ * - 전환 측정 복구: 문서 레벨 위임 리스너 추가 (tel: → generate_lead,
+ *   네이버예약 아웃링크 → naver_booking_click) — 동적 CTA 클릭 유실 차단
+ * - 유령 세션(landing not set) 가드: 자동 발화 커스텀 이벤트를
+ *   사람 신호(첫 pointerdown/scroll/keydown/touchstart) 이후로 지연.
+ *   gtag 기본 page_view는 건드리지 않음(측정 연속성)
+ *
  * v5 변경사항 (2026-04-08):
  * - Area CTA 전용 GA4 이벤트 추적 (data-cta, data-area, data-treatment 속성 기반)
  * - area_cta_click 이벤트: 지역명·치료명·CTA유형 포함 → 어느 지역 키워드가 전환에 기여하는지 측정
@@ -118,6 +125,42 @@
       setTimeout(function () { flushAmpQueue((retries || 0) + 1); }, 200);
     }
   })(0);
+
+  // ═══════════════════════════════════════════════════════
+  // 0-1. v10 (2026-09-04): 유령 세션(landing not set) 측정단 가드
+  // ───────────────────────────────────────────────────────
+  // GA4 랜딩페이지 (not set) 세션 = page_view 없이 커스텀 이벤트만 찍힌 세션.
+  // 주범은 크롤러 렌더링·프리렌더 등 "사람 아닌 방문"에서 자동 발화하는
+  // 세션성 커스텀 이벤트다. 대책:
+  //  1) 자동 발화 커스텀 이벤트(page_view_detail, area_page_view,
+  //     treatment/doctor/pricing view 자동 호출)는 사람 신호
+  //     (첫 pointerdown/scroll/keydown/touchstart, isTrusted) 이후에만 발화.
+  //     → gtag config(=page_view 전송)는 이미 실행된 뒤이므로
+  //       커스텀 이벤트가 page_view 를 앞지르는 일도 함께 사라진다.
+  //  2) gtag 기본 page_view(GTM·config)는 건드리지 않는다 — 측정 연속성.
+  //  3) 클릭 유래 이벤트(전화·CTA·예약)는 클릭 자체가 사람 신호라 영향 없음.
+  //  (bd-tag-loader.js 의 Amplitude 사람-게이트와 같은 철학, GA4 커스텀판)
+  var _bdHuman = false;
+  var _bdHumanQueue = [];
+  function whenHuman(fn) {
+    if (_bdHuman) { try { fn(); } catch (e) { /* silent */ } return; }
+    _bdHumanQueue.push(fn);
+  }
+  (function () {
+    var SIGNALS = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+    function mark(e) {
+      if (e && e.isTrusted === false) return;
+      if (_bdHuman) return;
+      _bdHuman = true;
+      SIGNALS.forEach(function (t) { window.removeEventListener(t, mark, true); });
+      while (_bdHumanQueue.length) {
+        try { _bdHumanQueue.shift()(); } catch (err) { /* silent */ }
+      }
+    }
+    SIGNALS.forEach(function (t) {
+      window.addEventListener(t, mark, { capture: true, passive: true });
+    });
+  })();
 
   // ═══════════════════════════════════════════════════════
   // 1. 유틸리티 함수들
@@ -352,18 +395,20 @@
   else if (path.startsWith('/cases')) contentType = 'cases';
   else if (path.startsWith('/column')) contentType = 'column';
 
-  // GA4 커스텀 이벤트: 페이지뷰 상세
-  if (typeof gtag === 'function') {
-    gtag('event', 'page_view_detail', {
-      page_type: pageType,
-      treatment_name: treatmentName,
-      doctor_name: doctorName,
-      area_name: areaName,
-      device_type: deviceType,
-      channel: refInfo.channel,
-      source: refInfo.source
-    });
-  }
+  // GA4 커스텀 이벤트: 페이지뷰 상세 (v10: 사람 신호 이후에만 — 유령 세션 가드)
+  whenHuman(function () {
+    if (typeof gtag === 'function') {
+      gtag('event', 'page_view_detail', {
+        page_type: pageType,
+        treatment_name: treatmentName,
+        doctor_name: doctorName,
+        area_name: areaName,
+        device_type: deviceType,
+        channel: refInfo.channel,
+        source: refInfo.source
+      });
+    }
+  });
 
   // Amplitude 페이지뷰 상세
   ampTrack('Page View', {
@@ -863,6 +908,46 @@
   };
 
   // ═══════════════════════════════════════════════════════
+  // 5-1. v10 (2026-09-04): 전환 측정 복구 — 위임(delegation) 리스너
+  // ───────────────────────────────────────────────────────
+  // 아래 6번의 per-element 바인딩은 DOMContentLoaded 시점 DOM에 있는 요소만
+  // 잡는다. 동적으로 삽입되는 CTA(bd-smart-cta 등)와 늦게 렌더되는 링크에서
+  // 전화·네이버예약 클릭이 유실되던 구멍을 문서 레벨 위임으로 막는다.
+  //  (a) a[href^="tel:"]            → generate_lead (GA4 표준, method:'phone')
+  //  (b) 네이버 예약 아웃링크        → naver_booking_click
+  //      (booking.naver.com 계열 + 리포 공용 예약 숏링크 naver.me/5yPnKmqQ)
+  // 중복 발화 방지: 이벤트 객체 플래그로 한 클릭당 1회만 처리.
+  // 기존 trackPhoneCall(contact/phone_call_click)과는 이벤트명이 달라
+  // 이중 집계가 아니라 상호 보완이다.
+  document.addEventListener('click', function (ev) {
+    if (ev._bdLeadHandled) return;
+    var t = ev.target;
+    var a = t && t.closest ? t.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/^tel:/i.test(href)) {
+      ev._bdLeadHandled = true;
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+          event_category: 'conversion',
+          method: 'phone',
+          location: path
+        });
+      }
+      ampTrack('Phone Lead', { method: 'phone', page_path: path, page_type: pageType });
+    } else if (/(^|\.)booking\.naver\.com|naver\.me\/5yPnKmqQ/i.test(a.href || '')) {
+      ev._bdLeadHandled = true;
+      if (typeof gtag === 'function') {
+        gtag('event', 'naver_booking_click', {
+          event_category: 'conversion',
+          location: path
+        });
+      }
+      ampTrack('Naver Booking Click', { page_path: path, page_type: pageType });
+    }
+  }, true);
+
+  // ═══════════════════════════════════════════════════════
   // 6. 자동 이벤트 바인딩 (DOM Ready)
   // ═══════════════════════════════════════════════════════
 
@@ -923,20 +1008,23 @@
       }
     });
 
-    // 6. 치료 페이지 자동 이벤트
-    if (pageType === 'treatment' && treatmentName) {
-      bdAnalytics.trackTreatmentView(treatmentName);
-    }
+    // 6~8. 페이지 타입별 자동 이벤트 (v10: 사람 신호 이후에만 — 유령 세션 가드)
+    whenHuman(function () {
+      // 6. 치료 페이지 자동 이벤트
+      if (pageType === 'treatment' && treatmentName) {
+        bdAnalytics.trackTreatmentView(treatmentName);
+      }
 
-    // 7. 의사 페이지 자동 이벤트
-    if (pageType === 'doctor' && doctorName) {
-      bdAnalytics.trackDoctorView(doctorName);
-    }
+      // 7. 의사 페이지 자동 이벤트
+      if (pageType === 'doctor' && doctorName) {
+        bdAnalytics.trackDoctorView(doctorName);
+      }
 
-    // 8. 가격 페이지 자동 이벤트
-    if (pageType === 'pricing') {
-      bdAnalytics.trackPricingView();
-    }
+      // 8. 가격 페이지 자동 이벤트
+      if (pageType === 'pricing') {
+        bdAnalytics.trackPricingView();
+      }
+    });
 
     // 9. 스크롤 깊이 트래킹 (25%, 50%, 75%, 100%)
     var scrollMarks = { 25: false, 50: false, 75: false, 100: false };
@@ -1019,7 +1107,8 @@
     });
 
     // 13. Area 페이지 진입 시 area_page_view 이벤트 (지역·치료 파라미터 포함)
-    if (pageType === 'area_seo' && areaName) {
+    //     (v10: 사람 신호 이후에만 — 유령 세션 가드)
+    if (pageType === 'area_seo' && areaName) whenHuman(function () {
       if (typeof gtag === 'function') {
         gtag('event', 'area_page_view', {
           event_category: 'area_engagement',
@@ -1044,7 +1133,7 @@
         aid.append('viewed_areas', areaName);
         if (areaTreatment) aid.append('viewed_area_treatments', areaTreatment);
       });
-    }
+    });
 
     console.log('[BD Analytics v5] GA4 전환추적 강화 + Area CTA 정밀추적 + Amplitude(Script Loader) 초기화 완료 | page_type=' + pageType + (areaName ? ' | area=' + areaName + '/' + areaTreatment : '') + ' | channel=' + refInfo.channel + '/' + refInfo.source);
   });

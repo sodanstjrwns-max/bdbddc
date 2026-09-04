@@ -26,6 +26,8 @@ gtag('config', 'G-LM9VKJSB9F');
 <!-- Amplitude Analytics (지연 로더 — LCP 개선) -->
 <script src="/static/bd-tag-loader.js" defer></script>
 <script src="/static/bd-analytics.js" defer></script>
+<!-- 스마트 CTA — 콘텐츠성(가이드·칼럼·블로그) 페이지에서만 자체 동작 -->
+<script src="/static/bd-smart-cta.js?v=20260904" defer></script>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)

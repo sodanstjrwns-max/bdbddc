@@ -55,7 +55,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/site-v5.css?v=91b2be45">
 <link rel="stylesheet" href="/css/micro.css?v=ac2f0073">
-<script src="/js/analytics.js?v=20260808v9" defer></script>
+<script src="/js/analytics.js?v=20260904v10" defer></script>
 
 <!-- ===== CONVERSION TRACKING SCRIPTS ===== -->
 <script>
@@ -75,33 +75,40 @@ window.addEventListener('DOMContentLoaded', function() {
   };
   var txLabel = txLabels[treatment] || treatment || '미지정';
 
-  // ── 1) Meta Pixel: Lead 전환 ──
-  if (typeof fbq === 'function') {
-    fbq('track', 'Lead', {
-      content_name: '온라인 예약 완료',
-      content_category: txLabel,
-      value: 0,
-      currency: 'KRW'
-    });
-    fbq('track', 'Schedule', {
-      content_name: txLabel + ' 예약'
-    });
-  }
-
-  // ── 2) GA4: 전환 이벤트 ──
-  if (typeof gtag === 'function') {
-    // GA4 이벤트 (GA4 대시보드에서 '전환'으로 마킹 가능)
-    gtag('event', 'reservation_complete', {
-      event_category: 'reservation',
-      event_label: txLabel,
+  // ── 1~3) 통합 전환 추적 (v10, 2026-09-04) ──
+  // js/analytics.js 의 bdAnalytics.trackReservationComplete 가
+  // generate_lead(GA4 표준) + reservation_complete + Amplitude + Meta Lead 를
+  // 한 번에 전송한다. 이 페이지 로드 = 예약 완료이므로 여기서 호출해 연결.
+  // (기존 인라인 fbq Lead / gtag reservation_complete 수동 블록은
+  //  trackReservationComplete 와 이중 발화되므로 대체했다)
+  if (window.bdAnalytics && typeof window.bdAnalytics.trackReservationComplete === 'function') {
+    window.bdAnalytics.trackReservationComplete({
       treatment: treatment,
-      value: 1
+      message: '',
+      marketing: false
     });
-    // Google Ads 전환 (나중에 Google Ads 연동 시 send_to 값만 교체)
-    // gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXX/YYYYYYYYYYYY', value: 1.0, currency: 'KRW' });
+    // Schedule 은 trackReservationComplete 미포함 — 기존 유지
+    if (typeof fbq === 'function') {
+      fbq('track', 'Schedule', { content_name: txLabel + ' 예약' });
+    }
+  } else {
+    // 폴백: analytics.js 미로드 시 기존 인라인 방식 그대로
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead', { content_name: '온라인 예약 완료', content_category: txLabel, value: 0, currency: 'KRW' });
+      fbq('track', 'Schedule', { content_name: txLabel + ' 예약' });
+    }
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        currency: 'KRW', value: 100000,
+        event_category: 'conversion', method: 'reservation_form', treatment: treatment
+      });
+      gtag('event', 'reservation_complete', {
+        event_category: 'reservation', event_label: txLabel, treatment: treatment, value: 1
+      });
+    }
   }
 
-  // ── 3) Amplitude: 커스텀 이벤트 ──
+  // ── Amplitude 상세 이벤트 (bd-analytics.js 래퍼, 기존 유지) ──
   if (typeof window.bdTrack === 'function') {
     window.bdTrack('Reservation Complete', {
       treatment: treatment,

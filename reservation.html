@@ -132,7 +132,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }
 </script>
-<script src="/js/analytics.js?v=20260808v9" defer></script>
+<script src="/js/analytics.js?v=20260904v10" defer></script>
 
 <!-- ===== Reservation Page Styles ===== -->
 <style>
@@ -227,9 +227,20 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 .rsv-btn-outline:hover{border-color:#6B4226;color:#6B4226}
 .rsv-btn-group{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 
-/* Step visibility */
+/* Step visibility (v10: 위저드 제거 후 미사용 — 호환 위해 유지) */
 .rsv-step{display:none}
 .rsv-step.active{display:block}
+
+/* v10: 추가 정보 접이식 + 모바일 터치 영역 */
+.rsv-extra{border:1.5px solid #E0DBD5;border-radius:12px;margin:4px 0 16px;background:#FAFAF9}
+.rsv-extra summary{display:flex;align-items:center;gap:8px;padding:14px 16px;min-height:48px;font-size:.9rem;font-weight:700;color:#57534E;cursor:pointer;list-style:none;user-select:none}
+.rsv-extra summary::-webkit-details-marker{display:none}
+.rsv-extra summary i{color:#6B4226;transition:transform .2s}
+.rsv-extra[open] summary i{transform:rotate(45deg)}
+.rsv-extra-body{padding:4px 16px 16px}
+.f-input,.f-select{min-height:48px}
+.rsv-btn{min-height:48px}
+.f-check{min-height:32px;align-items:center;padding:4px 0}
 
 /* Messages */
 .rsv-msg{padding:12px 16px;border-radius:10px;font-size:.85rem;font-weight:500;display:none;margin-bottom:16px}
@@ -507,62 +518,86 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
           <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:4px;color:#1C1917">온라인 상담 예약</h2>
           <p style="font-size:.88rem;color:#A8A29E;margin-bottom:20px">양식 작성 후 담당자가 확인하여 연락드립니다</p>
 
-          <!-- Step dots -->
-          <div class="step-indicator">
-            <div class="step-dot active" data-s="1"></div>
-            <div class="step-dot" data-s="2"></div>
-            <div class="step-dot" data-s="3"></div>
-          </div>
-
+          <!-- ★ v10 (2026-09-04) 폼 이탈 수술:
+               3단계 위저드(진료항목→일시→연락처)에서 이탈률 94%가 측정됐다.
+               필수 입력을 이름·연락처·증상 한 줄 3개로 축소하고,
+               진료항목·희망일시·마케팅 동의는 "추가 정보 입력(선택)" 접이식으로 이동.
+               기존 필드는 전부 유지(삭제 없음) — 서버 API도 하위호환. -->
           <div id="rsvErr" class="rsv-msg"></div>
           <div id="rsvSuc" class="rsv-msg"></div>
 
           <form id="rsvForm">
-            <!-- Step 1 -->
-            <div class="rsv-step active" data-step="1">
-              <div class="step-title">어떤 진료를 원하시나요?</div>
-              <div class="step-subtitle">진료 항목을 선택해주세요</div>
-              <div class="tx-grid">
-                <div class="tx-option">
-                  <input type="radio" name="treatment" id="tx1" value="checkup" required>
-                  <label for="tx1"><span class="tx-icon"><i class="fas fa-microscope"></i></span><span class="tx-name">BDX 정밀검진</span><span class="tx-desc">초진/종합검진</span></label>
-                </div>
-                <div class="tx-option">
-                  <input type="radio" name="treatment" id="tx2" value="glownate">
-                  <label for="tx2"><span class="tx-icon"><i class="fas fa-gem"></i></span><span class="tx-name">글로우네이트</span><span class="tx-desc">라미네이트</span></label>
-                </div>
-                <div class="tx-option">
-                  <input type="radio" name="treatment" id="tx3" value="invisalign">
-                  <label for="tx3"><span class="tx-icon"><i class="fas fa-teeth"></i></span><span class="tx-name">인비절라인</span><span class="tx-desc">투명교정</span></label>
-                </div>
-                <div class="tx-option">
-                  <input type="radio" name="treatment" id="tx4" value="implant">
-                  <label for="tx4"><span class="tx-icon"><i class="fas fa-teeth-open"></i></span><span class="tx-name">임플란트</span><span class="tx-desc">치아 식립</span></label>
-                </div>
-                <div class="tx-option">
-                  <input type="radio" name="treatment" id="tx5" value="pediatric">
-                  <label for="tx5"><span class="tx-icon"><i class="fas fa-child"></i></span><span class="tx-name">소아치과</span><span class="tx-desc">어린이 진료</span></label>
-                </div>
-                <div class="tx-option">
-                  <input type="radio" name="treatment" id="tx6" value="general">
-                  <label for="tx6"><span class="tx-icon"><i class="fas fa-tooth"></i></span><span class="tx-name">일반/기타</span><span class="tx-desc">충치·신경·스케일링</span></label>
-                </div>
-              </div>
-              <button type="button" class="rsv-btn rsv-btn-brand" onclick="rsvGo(2)">다음 단계 <i class="fas fa-arrow-right"></i></button>
+            <div class="step-title">30초면 신청 끝</div>
+            <div class="step-subtitle">이름·연락처·증상만 남겨주시면 담당자가 확인 후 연락드립니다</div>
+
+            <div class="f-group">
+              <label class="f-label" for="rsvName">성함 <span class="req">*</span></label>
+              <input type="text" id="rsvName" class="f-input" placeholder="홍길동" autocomplete="name" required>
+            </div>
+            <div class="f-group">
+              <label class="f-label" for="rsvPhone">연락처 <span class="req">*</span></label>
+              <input type="tel" id="rsvPhone" class="f-input" inputmode="tel" placeholder="010-0000-0000" autocomplete="tel" required>
             </div>
 
-            <!-- Step 2 -->
-            <div class="rsv-step" data-step="2">
-              <div class="step-title">희망 날짜와 시간</div>
-              <div class="step-subtitle">원하시는 방문 일정을 선택해주세요</div>
+            <!-- #8 케이스 참조 카드 (쿼리 파라미터로 전달됨) -->
+            <div id="refCaseCard" style="display:none;background:linear-gradient(135deg,#faf7f4,#f5ede4);border:1px solid #e0d5c8;border-radius:14px;padding:14px 16px;margin-bottom:16px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5E3C);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.7rem;flex-shrink:0;"><i class="fas fa-images"></i></div>
+                <div>
+                  <div style="font-size:0.72rem;color:#A8A29E;font-weight:600;">참고 케이스</div>
+                  <div id="refCaseTitle" style="font-size:0.88rem;font-weight:700;color:#333;"></div>
+                </div>
+                <button type="button" id="refCaseRemove" style="margin-left:auto;background:none;border:none;color:#A8A29E;cursor:pointer;font-size:0.8rem;padding:4px;" title="제거"><i class="fas fa-times"></i></button>
+              </div>
+              <div id="refCaseMeta" style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.75rem;color:#78716c;"></div>
+            </div>
+
+            <div class="f-group">
+              <label class="f-label" for="rsvMsg">증상 한 줄 <span class="req">*</span></label>
+              <input type="text" id="rsvMsg" class="f-input" placeholder="예: 오른쪽 어금니가 시려요" required>
+            </div>
+
+            <!-- 추가 정보 (선택) — 기존 필수 필드였던 진료항목·희망일시 이동 -->
+            <details class="rsv-extra" id="rsvExtra">
+              <summary><i class="fas fa-plus-circle"></i> 추가 정보 입력 (선택) — 진료 항목·희망 일시</summary>
+              <div class="rsv-extra-body">
+              <div class="f-group">
+                <label class="f-label">진료 항목 (선택)</label>
+                <div class="tx-grid">
+                  <div class="tx-option">
+                    <input type="radio" name="treatment" id="tx1" value="checkup">
+                    <label for="tx1"><span class="tx-icon"><i class="fas fa-microscope"></i></span><span class="tx-name">BDX 정밀검진</span><span class="tx-desc">초진/종합검진</span></label>
+                  </div>
+                  <div class="tx-option">
+                    <input type="radio" name="treatment" id="tx2" value="glownate">
+                    <label for="tx2"><span class="tx-icon"><i class="fas fa-gem"></i></span><span class="tx-name">글로우네이트</span><span class="tx-desc">라미네이트</span></label>
+                  </div>
+                  <div class="tx-option">
+                    <input type="radio" name="treatment" id="tx3" value="invisalign">
+                    <label for="tx3"><span class="tx-icon"><i class="fas fa-teeth"></i></span><span class="tx-name">인비절라인</span><span class="tx-desc">투명교정</span></label>
+                  </div>
+                  <div class="tx-option">
+                    <input type="radio" name="treatment" id="tx4" value="implant">
+                    <label for="tx4"><span class="tx-icon"><i class="fas fa-teeth-open"></i></span><span class="tx-name">임플란트</span><span class="tx-desc">치아 식립</span></label>
+                  </div>
+                  <div class="tx-option">
+                    <input type="radio" name="treatment" id="tx5" value="pediatric">
+                    <label for="tx5"><span class="tx-icon"><i class="fas fa-child"></i></span><span class="tx-name">소아치과</span><span class="tx-desc">어린이 진료</span></label>
+                  </div>
+                  <div class="tx-option">
+                    <input type="radio" name="treatment" id="tx6" value="general">
+                    <label for="tx6"><span class="tx-icon"><i class="fas fa-tooth"></i></span><span class="tx-name">일반/기타</span><span class="tx-desc">충치·신경·스케일링</span></label>
+                  </div>
+                </div>
+              </div>
               <div class="f-row">
                 <div class="f-group">
-                  <label class="f-label" for="rsvDate">희망 날짜 <span class="req">*</span></label>
-                  <input type="date" id="rsvDate" class="f-input" required>
+                  <label class="f-label" for="rsvDate">희망 날짜 (선택)</label>
+                  <input type="date" id="rsvDate" class="f-input">
                 </div>
                 <div class="f-group">
-                  <label class="f-label" for="rsvTime">희망 시간 <span class="req">*</span></label>
-                  <select id="rsvTime" class="f-select" required>
+                  <label class="f-label" for="rsvTime">희망 시간 (선택)</label>
+                  <select id="rsvTime" class="f-select">
                     <option value="">시간 선택</option>
                     <option value="09:00">09:00</option>
                     <option value="09:30">09:30</option>
@@ -584,56 +619,21 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
                   </select>
                 </div>
               </div>
-              <div class="f-note"><i class="fas fa-info-circle"></i><span>예약 시간은 담당자 확인 후 조정될 수 있습니다.</span></div>
-              <div class="rsv-btn-group">
-                <button type="button" class="rsv-btn rsv-btn-outline" onclick="rsvGo(1)"><i class="fas fa-arrow-left"></i> 이전</button>
-                <button type="button" class="rsv-btn rsv-btn-brand" onclick="rsvGo(3)">다음 단계 <i class="fas fa-arrow-right"></i></button>
-              </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="rsv-step" data-step="3">
-              <div class="step-title">연락처 정보</div>
-              <div class="step-subtitle">확인 후 연락드릴 수 있도록 정보를 입력해주세요</div>
-              <div class="f-group">
-                <label class="f-label">성함 <span class="req">*</span></label>
-                <input type="text" id="rsvName" class="f-input" placeholder="홍길동" required>
-              </div>
-              <div class="f-group">
-                <label class="f-label">연락처 <span class="req">*</span></label>
-                <input type="tel" id="rsvPhone" class="f-input" placeholder="010-0000-0000" required>
-              </div>
-              <!-- #8 케이스 참조 카드 (쿼리 파라미터로 전달됨) -->
-              <div id="refCaseCard" style="display:none;background:linear-gradient(135deg,#faf7f4,#f5ede4);border:1px solid #e0d5c8;border-radius:14px;padding:14px 16px;margin-bottom:16px;">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-                  <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6B4226,#8B5E3C);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.7rem;flex-shrink:0;"><i class="fas fa-images"></i></div>
-                  <div>
-                    <div style="font-size:0.72rem;color:#A8A29E;font-weight:600;">참고 케이스</div>
-                    <div id="refCaseTitle" style="font-size:0.88rem;font-weight:700;color:#333;"></div>
-                  </div>
-                  <button type="button" id="refCaseRemove" style="margin-left:auto;background:none;border:none;color:#A8A29E;cursor:pointer;font-size:0.8rem;padding:4px;" title="제거"><i class="fas fa-times"></i></button>
-                </div>
-                <div id="refCaseMeta" style="display:flex;gap:8px;flex-wrap:wrap;font-size:0.75rem;color:#78716c;"></div>
-              </div>
-              <div class="f-group">
-                <label class="f-label">증상 또는 문의사항</label>
-                <textarea id="rsvMsg" class="f-textarea" placeholder="증상이나 궁금하신 점을 입력해주세요"></textarea>
-              </div>
-              <label class="f-check">
-                <input type="checkbox" id="rsvPrivacy" required>
-                <span class="f-check-box"><i class="fas fa-check"></i></span>
-                <span><a href="/privacy" target="_blank">개인정보 처리방침</a>에 동의합니다. <span class="req">*</span></span>
-              </label>
+              <div class="f-note"><i class="fas fa-info-circle"></i><span>예약 시간은 담당자 확인 후 조정될 수 있습니다. 비워두시면 연락 시 함께 정합니다.</span></div>
               <label class="f-check">
                 <input type="checkbox" id="rsvMarketing">
                 <span class="f-check-box"><i class="fas fa-check"></i></span>
                 <span>마케팅 정보 수신에 동의합니다. (선택)</span>
               </label>
-              <div class="rsv-btn-group" style="margin-top:20px">
-                <button type="button" class="rsv-btn rsv-btn-outline" onclick="rsvGo(2)"><i class="fas fa-arrow-left"></i> 이전</button>
-                <button type="submit" class="rsv-btn rsv-btn-brand" id="rsvSubmit"><i class="fas fa-check"></i> 예약 신청</button>
               </div>
-            </div>
+            </details>
+
+            <label class="f-check">
+              <input type="checkbox" id="rsvPrivacy" required>
+              <span class="f-check-box"><i class="fas fa-check"></i></span>
+              <span><a href="/privacy" target="_blank">개인정보 처리방침</a>에 동의합니다. <span class="req">*</span></span>
+            </label>
+            <button type="submit" class="rsv-btn rsv-btn-brand" id="rsvSubmit" style="margin-top:16px"><i class="fas fa-check"></i> 상담 신청하기</button>
           </form>
         </div>
 
@@ -895,32 +895,39 @@ document.getElementById('rsvPhone').addEventListener('input',function(){
   else this.value=v;
 });
 
-// Step navigation
+// v10: 위저드 제거 — rsvGo 는 외부 딥링크/케이스 참조 호환용으로만 유지.
+// 진료항목 자동선택 등으로 호출되면 접이식(추가 정보)을 열고 폼으로 스크롤한다.
 function rsvGo(target){
   hideMsg();
-  var cur=document.querySelector('.rsv-step.active');
-  var from=parseInt(cur.dataset.step);
-
-  if(target>from){
-    if(from===1){
-      var tx=document.querySelector('input[name="treatment"]:checked');
-      if(!tx){showErr('진료 항목을 선택해주세요.');return;}
-    }
-    if(from===2){
-      var date=document.getElementById('rsvDate').value;
-      var time=document.getElementById('rsvTime').value;
-      if(!date){showErr('희망 날짜를 선택해주세요.');return;}
-      if(!time){showErr('희망 시간을 선택해주세요.');return;}
-    }
+  if(target>=2){
+    var extra=document.getElementById('rsvExtra');
+    if(extra) extra.open=true;
   }
-
-  document.querySelectorAll('.rsv-step').forEach(function(s){s.classList.remove('active');});
-  document.querySelector('.rsv-step[data-step="'+target+'"]').classList.add('active');
-  document.querySelectorAll('.step-dot').forEach(function(d){
-    d.classList.toggle('active',parseInt(d.dataset.s)<=target);
-  });
   window.scrollTo({top:document.querySelector('.rsv-form-card').offsetTop-100,behavior:'smooth'});
 }
+
+// v10: 폼 이탈 지점 측정 이벤트 (다음 달 이탈 지점 확정용)
+// form_field_focus(필드별 1회) / form_submit_attempt / form_submit_success
+window._bdRsvGtag=function(name,params){
+  try{
+    window.dataLayer=window.dataLayer||[];
+    var g=window.gtag||function(){window.dataLayer.push(arguments);};
+    g('event',name,Object.assign({event_category:'reservation_form'},params||{}));
+  }catch(e){}
+};
+(function(){
+  var focused={};
+  var form=document.getElementById('rsvForm');
+  if(!form)return;
+  form.addEventListener('focusin',function(e){
+    var el=e.target;
+    if(!el||!el.id&&!el.name)return;
+    var field=el.id||el.name;
+    if(focused[field])return;
+    focused[field]=true;
+    window._bdRsvGtag('form_field_focus',{field_name:field});
+  });
+})();
 
 // Submit
 document.getElementById('rsvForm').addEventListener('submit',async function(e){
@@ -929,19 +936,25 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
 
   var name=document.getElementById('rsvName').value.trim();
   var phone=document.getElementById('rsvPhone').value.trim();
+  var message=document.getElementById('rsvMsg').value.trim();
   var privacy=document.getElementById('rsvPrivacy').checked;
+
+  window._bdRsvGtag('form_submit_attempt',{});
 
   if(!name){showErr('성함을 입력해주세요.');return;}
   if(!phone||!/^01[0-9]-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g,''))){showErr('올바른 연락처를 입력해주세요.');return;}
+  if(!message){showErr('증상을 한 줄만 남겨주세요.');return;}
   if(!privacy){showErr('개인정보 처리방침에 동의해주세요.');return;}
 
+  // v10: 진료항목·희망일시는 선택 — 비어 있으면 상담(기타)으로 접수
+  var txChecked=document.querySelector('input[name="treatment"]:checked');
   var data={
-    treatment:document.querySelector('input[name="treatment"]:checked').value,
+    treatment:txChecked?txChecked.value:'other',
     date:document.getElementById('rsvDate').value,
     time:document.getElementById('rsvTime').value,
     name:name,
     phone:phone,
-    message:document.getElementById('rsvMsg').value.trim(),
+    message:message,
     marketing:document.getElementById('rsvMarketing').checked
   };
 
@@ -956,6 +969,7 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
     });
     var result=await res.json();
     if(!res.ok||result.error){showErr(result.error||'예약 신청에 실패했습니다.');return;}
+    window._bdRsvGtag('form_submit_success',{treatment:data.treatment});
     // ★ 예약 데이터를 sessionStorage에 저장 후 Thank You 페이지로 이동
     // 전환 추적(Meta Pixel, GA4, Amplitude)은 thank-you 페이지에서 실행
     sessionStorage.setItem('bd_reservation', JSON.stringify({

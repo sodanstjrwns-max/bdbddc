@@ -57,6 +57,12 @@ def main():
                 seen.add(url)
                 entries.append(entry(url, h, '0.85' if slug=='' else '0.9'))
 
+    # 3) 일본어 전용 올온4 페이지 2장 (2026-09-04 — ja 단독, hreflang 자기참조)
+    for url in ['/jp/guide/all-on-4', '/jp/pricing/all-on-4']:
+        if url not in seen:
+            seen.add(url)
+            entries.append(entry(url, {'ja': url}, '0.9'))
+
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
            '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'

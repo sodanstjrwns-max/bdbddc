@@ -1065,7 +1065,9 @@ app.post('/api/reservation', async (c) => {
     const { treatment, date, time, name, phone, message, marketing } = body
 
     // Validation
-    if (!treatment || !date || !time || !name || !phone) {
+    // v10 (2026-09-04): 폼 이탈 수술 — 필수는 이름·연락처만.
+    // 진료항목·희망일시는 선택(비면 '기타/상담'·미지정으로 접수). 하위호환 유지.
+    if (!name || !phone) {
       return c.json({ error: '필수 항목을 모두 입력해주세요.' }, 400)
     }
     const cleanPhone = String(phone).replace(/[\s-]/g, '')
@@ -1081,9 +1083,9 @@ app.post('/api/reservation', async (c) => {
 
     const reservation = {
       id: `rsv-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      treatment: treatmentMap[treatment] || treatment,
-      date: String(date),
-      time: String(time),
+      treatment: treatment ? (treatmentMap[treatment] || treatment) : '기타/상담',
+      date: date ? String(date) : '',
+      time: time ? String(time) : '',
       name: String(name).trim(),
       phone: String(phone).trim(),
       message: message ? String(message).trim() : '',
@@ -2760,6 +2762,31 @@ app.get('/blog/transparent-orthodontics-treatment-process-guide', (c) => c.redir
 registerGameApis(app)
 // v5.50 컬럼 자동발행 API — 캐치올보다 먼저 등록해야 매칭된다(Hono 는 등록 순서 우선)
 registerColumnAutoApi(app)
+
+// ============================================
+// 지역 감지 API — 스마트 CTA용 (bd-smart-cta.js)
+// Cloudflare가 요청에 붙여주는 cf 객체의 city/region만 읽는다.
+// IP·개인정보는 읽지도 저장하지도 않는다. 응답도 캐시하지 않는다(no-store).
+// ============================================
+app.get('/api/geo', (c) => {
+  const cf: any = (c.req.raw as any).cf || {}
+  const city = String(cf.city || '').toLowerCase()
+  const region = String(cf.region || '').toLowerCase()
+  const regionCode = String(cf.regionCode || '').toUpperCase()
+
+  let area: 'cheonan' | 'asan' | null = null
+  if (city.includes('cheonan')) area = 'cheonan'
+  else if (city.includes('asan')) area = 'asan'
+
+  // 천안·아산 또는 충남(Chungcheongnam-do, KR-44) 전역이면 local
+  const local = !!area || region.includes('chungcheongnam') || regionCode === '44'
+
+  return c.json(
+    { local, area },
+    200,
+    { 'Cache-Control': 'no-store' }
+  )
+})
 
 // API health check
 app.get('/api/health', (c) => {
