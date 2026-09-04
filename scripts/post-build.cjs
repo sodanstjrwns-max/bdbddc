@@ -29,7 +29,7 @@ for (const entry of fs.readdirSync('.', { withFileTypes: true })) {
     fs.copyFileSync(name, path.join('dist', name));
     copiedFiles++;
   } else if (entry.isDirectory()) {
-    cp.execSync(`mkdir -p dist/${name} && cp -rT ${name} dist/${name}`);
+    cp.execSync(`mkdir -p dist/${name} && cp -r ${name}/. dist/${name}/`);
     copiedDirs++;
   }
 }

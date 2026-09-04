@@ -363,3 +363,23 @@ html[lang="ja"] .hero-sub,html[lang="ja"] .section-subtitle{letter-spacing:.03em
 html[lang="ja"] .treatment-card h3,html[lang="ja"] .why-card h3,html[lang="ja"] .why-card h4,html[lang="ja"] .doctor-card-body h3{font-weight:600}
 html[lang="ja"] .btn,html[lang="ja"] .nav-item>a{font-weight:500;letter-spacing:.04em}
 html[lang="ja"] .footer-slogan,html[lang="ja"] .section-badge{letter-spacing:.06em}
+
+/* ═══ 헤더 태블릿 구간 수리 (2026-09-04) ═══
+   769~1100px: 데스크톱 메뉴·인증버튼 폭 부족으로 글자가 세로로 쪼개지던 문제.
+   → 이 구간은 모바일 햄버거 메뉴로 전환한다 (드로어는 뷰포트 무관 JS 토글이라 그대로 동작).
+   1101~1279px: 잔여 압축 구간 — 패딩/폰트 소폭 축소로 한 줄 유지. */
+.site-logo,.logo-text,.clinic-status,.btn-auth,.btn-reserve{white-space:nowrap}
+.clinic-status,.btn-reserve,.header-phone{flex-shrink:0}
+@media (min-width:769px) and (max-width:1100px){
+.main-nav{display:none}
+.auth-buttons{display:none}
+.mobile-menu-btn{display:flex}
+.header-actions{gap:10px}
+}
+@media (min-width:1101px) and (max-width:1279px){
+.nav-item>a{padding:8px 8px;font-size:.88rem}
+.header-actions{gap:8px}
+.btn-auth{padding:6px 10px;font-size:.92rem}
+.btn-reserve{padding:9px 14px;font-size:.95rem}
+.clinic-status{font-size:.9rem;padding:4px 10px}
+}
