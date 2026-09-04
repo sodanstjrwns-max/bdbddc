@@ -6,7 +6,12 @@
 
 const STATS_DOMAIN = 'bdbddc.com'
 const STATS_TOKEN = '02f28498676aaac2aee90009ba2501a0f086be5301dde589'
+const STATS_MASTER_KEY = 'pfwe-b4f42f06'
 const STATS_API = 'https://pf-dashboard-2nt.pages.dev/api/stats/' + STATS_DOMAIN
+
+// ?key= 접근 검사 — 사이트 토큰 또는 마스터 키 일치 시 통과
+export const isValidStatsKey = (key?: string): boolean =>
+  !!key && (key === STATS_TOKEN || key === STATS_MASTER_KEY)
 
 // ── 60초 메모리 캐시 (isolate 생존 동안) ──
 let _statsCache: { at: number; data: any } | null = null

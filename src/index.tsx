@@ -4,7 +4,7 @@ import { cors } from 'hono/cors'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Bindings } from './types'
 import { registerGscReport } from './routes/gsc-report-dash'
-import { fetchSiteStats, renderStatsPage } from './routes/stats'
+import { fetchSiteStats, renderStatsPage, isValidStatsKey } from './routes/stats'
 import { registerToothNumberingWidget, renderToothNumberingPage } from './routes/tooth-numbering'
 import { registerWidgetEmbeds, WIDGET_BY_TERM, embedBoxHtml } from './routes/widget-embed'
 import { registerGameApis } from './routes/game-api'
@@ -284,6 +284,11 @@ app.use('/admin/*', async (c, next) => {
   const path = new URL(c.req.url).pathname
   // 로그인/로그아웃 페이지는 통과
   if (path === '/admin/login' || path === '/admin/logout') {
+    return next()
+  }
+
+  // /admin/stats 는 ?key=<사이트 토큰|마스터 키> 로도 접근 허용
+  if (path === '/admin/stats' && isValidStatsKey(c.req.query('key'))) {
     return next()
   }
 
