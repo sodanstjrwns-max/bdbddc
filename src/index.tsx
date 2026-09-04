@@ -4,6 +4,7 @@ import { cors } from 'hono/cors'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Bindings } from './types'
 import { registerGscReport } from './routes/gsc-report-dash'
+import { fetchSiteStats, renderStatsPage } from './routes/stats'
 import { registerToothNumberingWidget, renderToothNumberingPage } from './routes/tooth-numbering'
 import { registerWidgetEmbeds, WIDGET_BY_TERM, embedBoxHtml } from './routes/widget-embed'
 import { registerGameApis } from './routes/game-api'
@@ -317,6 +318,9 @@ const gscReportGuard = async (c: any, next: any) => {
 }
 app.use('/gsc-report', gscReportGuard)
 app.use('/gsc-report/*', gscReportGuard)
+
+// === 사이트 통계 (중앙 대시보드 연동, 인증 미들웨어 뒤에 등록) ===
+app.get('/admin/stats', async (c) => c.html(renderStatsPage(await fetchSiteStats())))
 
 // === 인증 통과 후 admin 정적 파일 서빙 ===
 app.get('/admin', serveStatic({ path: './admin/index.html' }))
