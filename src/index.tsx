@@ -8687,7 +8687,8 @@ registerWidgetEmbeds(app)
 // ?key=<사이트 토큰|마스터 키> 필수. 불일치 시 404.
 // 예약은 R2 data/reservations/*.json (+ 해외 data/intl-reservations/*.json) — uploaded 기준 카운트.
 app.get('/api/local-stats', async (c) => {
-  if (!isValidStatsKey(c.req.query('key'))) return c.notFound()
+  // c.notFound() 는 이 앱 구성에선 빈 200 이 되므로 명시적 404 반환
+  if (!isValidStatsKey(c.req.query('key'))) return c.text('Not Found', 404)
   const r2 = c.env?.R2
   if (!r2) return c.json({ supported: false })
   const now = Date.now()
