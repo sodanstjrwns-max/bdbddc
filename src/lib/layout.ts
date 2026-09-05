@@ -44,7 +44,9 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->`
+<!-- End Meta Pixel Code -->
+<!-- PF Web Engine 1st-party 비콘 (중앙 대시보드 방문 집계) -->
+<script defer src="https://pf-dashboard-2nt.pages.dev/beacon.js"></script>`
 
 export const TRACKING_BODY = `<!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

@@ -8683,6 +8683,45 @@ registerToothNumberingWidget(app)
 registerWidgetEmbeds(app)
 
 
+// ── 실예약 로컬 통계 (중앙 대시보드 수집용 — 건수만, 개인정보 없음) ──
+// ?key=<사이트 토큰|마스터 키> 필수. 불일치 시 404.
+// 예약은 R2 data/reservations/*.json (+ 해외 data/intl-reservations/*.json) — uploaded 기준 카운트.
+app.get('/api/local-stats', async (c) => {
+  if (!isValidStatsKey(c.req.query('key'))) return c.notFound()
+  const r2 = c.env?.R2
+  if (!r2) return c.json({ supported: false })
+  const now = Date.now()
+  const P = 28 * 86400_000
+  const countPrefix = async (prefix: string) => {
+    let cur = 0, prev = 0
+    let cursor: string | undefined
+    do {
+      const listed: any = await r2.list({ prefix, limit: 1000, cursor })
+      for (const o of listed.objects || []) {
+        const t = new Date(o.uploaded).getTime()
+        if (t >= now - P) cur++
+        else if (t >= now - 2 * P) prev++
+      }
+      cursor = listed.truncated ? listed.cursor : undefined
+    } while (cursor)
+    return { cur, prev }
+  }
+  try {
+    const dom = await countPrefix('data/reservations/')
+    const intl = await countPrefix('data/intl-reservations/')
+    return c.json({
+      supported: true,
+      tables: [
+        { name: 'reservations', ...dom },
+        { name: 'intl-reservations', ...intl },
+      ],
+      total: { cur: dom.cur + intl.cur, prev: dom.prev + intl.prev },
+    })
+  } catch {
+    return c.json({ supported: false })
+  }
+})
+
 // ============================================
 // Catch-all: 정적 파일 시도 → 없으면 404 반환
 // Cloudflare Pages에서 ASSETS가 빈 200을 반환하는 문제 해결
