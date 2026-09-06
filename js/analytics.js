@@ -1,6 +1,6 @@
 /**
  * 서울비디치과 통합 Analytics v4
- * GTM (GTM-KKVMVZHK) → GA4 (G-3NQP355YQM) + Amplitude (c4e197a17443b1059b402ec0d16fa88f)
+ * GTM (GTM-KKVMVZHK) → GA4 (G-3NQP355YQM) + Amplitude (3f92da3dc3de48cb0dbba63bb31d3413)
  *
  * v10 변경사항 (2026-09-04):
  * - 전환 측정 복구: 문서 레벨 위임 리스너 추가 (tel: → generate_lead,
@@ -55,7 +55,7 @@
 
   // ─── Amplitude 초기화 ───
   // SDK(analytics-browser-2.11.1) + autocapture plugin은 HTML <head>에서 로드됨
-  // <head>에서 amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {...}) 이미 호출됨
+  // <head>에서 amplitude.init('3f92da3dc3de48cb0dbba63bb31d3413', {...}) 이미 호출됨
   // → analytics.js에서 두 번째 init()을 호출하면 세션/이벤트가 꼬일 수 있으므로
   //   이미 init된 경우 건너뜀.
   //
@@ -73,7 +73,7 @@
                               (window.amplitude._isInitialized === true);
     if (!alreadyInitialized) {
       window._bdAmplitudeInitialized = true;
-      window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+      window.amplitude.init('3f92da3dc3de48cb0dbba63bb31d3413', {
         autocapture: {
           attribution: true,
           pageViews: true,

@@ -60,7 +60,7 @@
     loadScript('https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz', function () {
       loadScript('https://cdn.amplitude.com/libs/plugin-autocapture-browser-0.9.0-min.js.gz', function () {
         try {
-          window.amplitude.init('c4e197a17443b1059b402ec0d16fa88f', {
+          window.amplitude.init('3f92da3dc3de48cb0dbba63bb31d3413', {
             autocapture: { elementInteractions: false, pageViews: false, sessions: true, formInteractions: false, fileDownloads: false }
           });
           window._bdAmplitudeInitialized = true;

@@ -54,6 +54,7 @@ const EN_DICT_BY_KO: Record<string, string> = {
 import { TRACKING_HEAD } from './lib/layout'
 import { ADMIN_SESSION_COOKIE, SESSION_MAX_AGE, getSessionSecret, createSessionToken, verifySessionToken, verifyStaffOrAdmin, getSessionRole, isRateLimitedD1 } from './lib/security'
 import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSession, verifySiteSession, ensureMembersMigrated, findMemberByEmail, findMemberById, insertMemberD1, sha256Hex } from './lib/auth'
+import { ensurePriceItemsMigrated, getAllPriceItems, injectPublishedFees, PRICE_TABS, PRICE_TAB_LABELS, type PriceItem } from './lib/pricing'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -224,6 +225,147 @@ ${error ? `<div class="error-msg"><i class="fas fa-exclamation-circle"></i> ${er
 </html>`
 }
 
+// 비급여 수가표 편집기 페이지 (v6.20)
+function renderPricingAdminPage(): string {
+  return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+${TRACKING_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비급여 수가표 관리 | 서울비디치과</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard',-apple-system,sans-serif;background:#f5f0eb;color:#333;padding:24px;max-width:1080px;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.top h1{font-size:1.4rem;color:#6B4226;display:flex;align-items:center;gap:8px}
+.top .links a{color:#8B5E3C;text-decoration:none;font-size:.9rem;margin-left:14px}
+.top .links a:hover{text-decoration:underline}
+.hint{background:#fdf6f0;border-left:4px solid #6B4226;border-radius:10px;padding:14px 18px;font-size:.9rem;line-height:1.6;color:#5a4636;margin-bottom:20px}
+.tab-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tab-nav button{background:#fff;border:2px solid #e8e0d8;border-radius:10px;padding:8px 14px;font-family:inherit;font-size:.88rem;font-weight:600;color:#8B5E3C;cursor:pointer}
+.tab-nav button.active{background:#6B4226;color:#fff;border-color:#6B4226}
+.panel{display:none}
+.panel.active{display:block}
+.grp{font-weight:700;color:#6B4226;margin:18px 0 8px;font-size:.95rem;border-bottom:1px solid #e8e0d8;padding-bottom:6px}
+.row{display:grid;grid-template-columns:1fr 200px 160px 92px;gap:10px;align-items:center;background:#fff;border:1px solid #ece4dc;border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.row.hidden-item{opacity:.5;background:#faf7f4}
+.row input{width:100%;padding:9px 10px;border:1.5px solid #e8e0d8;border-radius:8px;font-family:inherit;font-size:.85rem;outline:none}
+.row input:focus{border-color:#6B4226}
+.row .lbl{font-size:.7rem;color:#aaa;display:block;margin-bottom:3px}
+.toggle{display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;user-select:none}
+.toggle input{display:none}
+.switch{width:44px;height:24px;background:#ccc;border-radius:99px;position:relative;transition:background .2s;flex:0 0 auto}
+.switch::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:left .2s}
+.toggle input:checked + .switch{background:#3a9e5c}
+.toggle input:checked + .switch::after{left:22px}
+.toggle .state{font-size:.72rem;font-weight:700;color:#888;width:34px}
+.toggle input:checked ~ .state{color:#3a9e5c}
+.savebar{position:sticky;bottom:0;background:#f5f0eb;padding:16px 0;margin-top:24px;display:flex;align-items:center;gap:14px;border-top:1px solid #e0d6cc}
+.btn{padding:12px 28px;background:#6B4226;color:#fff;border:none;border-radius:10px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn:hover{background:#8B5E3C}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.msg{font-size:.9rem;font-weight:600}
+.msg.ok{color:#3a9e5c}.msg.err{color:#dc2626}
+.head-row{display:grid;grid-template-columns:1fr 200px 160px 92px;gap:10px;padding:0 12px;font-size:.72rem;color:#aaa;font-weight:700;margin-bottom:4px}
+@media(max-width:760px){.row,.head-row{grid-template-columns:1fr 1fr;} .row .toggle{grid-column:1/-1;justify-content:flex-start} .head-row{display:none}}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1><i class="fas fa-won-sign"></i> 비급여 수가표 관리</h1>
+  <div class="links">
+    <a href="/admin/"><i class="fas fa-arrow-left"></i> 대시보드</a>
+    <a href="/pricing" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> 공개 페이지 보기</a>
+  </div>
+</div>
+<div class="hint">
+  <i class="fas fa-circle-info"></i> 항목명·가격·비고를 직접 수정하고, 오른쪽 토글로 <b>공개/비공개</b>를 설정하세요.
+  비공개 항목은 공개 가격 페이지에서 숨겨지며, 한 소분류의 모든 항목이 비공개면 소분류 자체가 사라집니다.
+  가격·항목명은 HTML(예: <code>&lt;span class="popular-badge"&gt;BEST&lt;/span&gt;</code>)을 그대로 유지할 수 있습니다.
+  <b>저장</b>을 눌러야 반영됩니다.
+</div>
+<div id="tabnav" class="tab-nav"></div>
+<div id="panels"></div>
+<div class="savebar">
+  <button id="saveBtn" class="btn"><i class="fas fa-save"></i> 저장</button>
+  <span id="msg" class="msg"></span>
+</div>
+<script>
+let DATA = null;
+function esc(s){ const d=document.createElement('div'); d.textContent=s==null?'':String(s); return d.innerHTML; }
+async function load(){
+  const r = await fetch('/api/admin/pricing', { credentials:'same-origin' });
+  if(r.status===401){ location.href='/admin/login'; return; }
+  DATA = await r.json();
+  render();
+}
+function render(){
+  const tabs = DATA.tabs, labels = DATA.tabLabels || {};
+  const nav = document.getElementById('tabnav'); nav.innerHTML='';
+  const panels = document.getElementById('panels'); panels.innerHTML='';
+  tabs.forEach((tab,ti)=>{
+    const b=document.createElement('button'); b.textContent=labels[tab]||tab; b.className=ti===0?'active':'';
+    b.onclick=()=>{ document.querySelectorAll('#tabnav button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active')); document.getElementById('panel-'+tab).classList.add('active'); };
+    nav.appendChild(b);
+    const panel=document.createElement('div'); panel.className='panel'+(ti===0?' active':''); panel.id='panel-'+tab;
+    const rows = DATA.items.filter(x=>x.tab===tab).sort((a,b)=>a.sort_order-b.sort_order);
+    const headRow=document.createElement('div'); headRow.className='head-row';
+    headRow.innerHTML='<span>항목명</span><span>가격</span><span>비고</span><span style="text-align:center">공개</span>';
+    let firstItemSeen=false;
+    rows.forEach(it=>{
+      if(it.kind==='group'){
+        const g=document.createElement('div'); g.className='grp';
+        const div=document.createElement('div'); div.innerHTML=it.group_html||'';
+        g.textContent='● '+ (it.group_key||(div.textContent||'').trim());
+        panel.appendChild(g);
+        panel.appendChild(headRow.cloneNode(true));
+        firstItemSeen=false;
+        return;
+      }
+      const row=document.createElement('div'); row.className='row'; row.dataset.id=it.id;
+      if(Number(it.is_published)!==1) row.classList.add('hidden-item');
+      const c1=document.createElement('div'); const i1=document.createElement('input'); i1.className='f-name'; i1.value=it.name||''; c1.appendChild(i1);
+      const c2=document.createElement('div'); const i2=document.createElement('input'); i2.className='f-price'; i2.value=it.price||''; c2.appendChild(i2);
+      const c3=document.createElement('div'); const i3=document.createElement('input'); i3.className='f-note'; i3.value=it.note||''; c3.appendChild(i3);
+      const c4=document.createElement('label'); c4.className='toggle';
+      const cb=document.createElement('input'); cb.type='checkbox'; cb.className='f-pub'; cb.checked=Number(it.is_published)===1;
+      const sw=document.createElement('span'); sw.className='switch';
+      const st=document.createElement('span'); st.className='state'; st.textContent=cb.checked?'공개':'비공개';
+      cb.onchange=()=>{ st.textContent=cb.checked?'공개':'비공개'; row.classList.toggle('hidden-item',!cb.checked); };
+      c4.appendChild(cb); c4.appendChild(sw); c4.appendChild(st);
+      row.appendChild(c1); row.appendChild(c2); row.appendChild(c3); row.appendChild(c4);
+      panel.appendChild(row);
+    });
+    panels.appendChild(panel);
+  });
+}
+document.getElementById('saveBtn').onclick=async ()=>{
+  const btn=document.getElementById('saveBtn'), msg=document.getElementById('msg');
+  const items=[];
+  document.querySelectorAll('.row').forEach(row=>{
+    items.push({ id:Number(row.dataset.id), name:row.querySelector('.f-name').value, price:row.querySelector('.f-price').value, note:row.querySelector('.f-note').value, is_published:row.querySelector('.f-pub').checked?1:0 });
+  });
+  btn.disabled=true; msg.textContent='저장 중...'; msg.className='msg';
+  try{
+    const r=await fetch('/api/admin/pricing',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({items})});
+    const j=await r.json();
+    if(r.ok){ msg.textContent='✓ 저장되었습니다 ('+j.updated+'개 항목)'; msg.className='msg ok'; }
+    else { msg.textContent='오류: '+(j.error||r.status); msg.className='msg err'; }
+  }catch(e){ msg.textContent='저장 실패: '+e; msg.className='msg err'; }
+  btn.disabled=false;
+};
+load();
+</script>
+</body>
+</html>`
+}
+
 // === 관리자 로그인 라우트 ===
 app.get('/admin/login', (c) => {
   return c.html(adminLoginPage())
@@ -326,6 +468,9 @@ app.use('/gsc-report/*', gscReportGuard)
 
 // === 사이트 통계 (중앙 대시보드 연동, 인증 미들웨어 뒤에 등록) ===
 app.get('/admin/stats', async (c) => c.html(renderStatsPage(await fetchSiteStats())))
+
+// === 비급여 수가표 편집기 (v6.20) — /admin/* 미들웨어로 인증 게이트됨 ===
+app.get('/admin/pricing', (c) => c.html(renderPricingAdminPage()))
 
 // === 인증 통과 후 admin 정적 파일 서빙 ===
 app.get('/admin', serveStatic({ path: './admin/index.html' }))
@@ -1056,6 +1201,48 @@ app.post('/api/admin/cases/batch-meta', async (c) => {
   
   await saveCases(r2, allCases)
   return c.json({ success: true, updated, total: allCases.length })
+})
+
+// ===== 비급여 수가표 API (v6.20) — 항목명·가격·비고 편집 + 공개/비공개 토글 =====
+app.get('/api/admin/pricing', async (c) => {
+  const secret = getSessionSecret(c.env)
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+  const db = c.env.DB
+  if (!db) return c.json({ error: 'DB 없음' }, 500)
+  await ensurePriceItemsMigrated(db)
+  const items = await getAllPriceItems(db)
+  return c.json({ items, tabs: PRICE_TABS, tabLabels: PRICE_TAB_LABELS })
+})
+
+app.post('/api/admin/pricing', async (c) => {
+  const secret = getSessionSecret(c.env)
+  const token = getCookie(c, ADMIN_SESSION_COOKIE)
+  if (!token || !(await verifyStaffOrAdmin(token, secret))) {
+    return c.json({ error: '인증이 필요합니다' }, 401)
+  }
+  const db = c.env.DB
+  if (!db) return c.json({ error: 'DB 없음' }, 500)
+  await ensurePriceItemsMigrated(db)
+
+  const body = await c.req.json() as { items?: Array<{ id: number, name?: string, price?: string, note?: string, is_published?: number | boolean }> }
+  const updates = Array.isArray(body?.items) ? body.items : []
+  if (!updates.length) return c.json({ error: 'items 배열 필요' }, 400)
+
+  const stmt = db.prepare(
+    "UPDATE price_items SET name=?, price=?, note=?, is_published=? WHERE id=? AND kind='item'"
+  )
+  const batch = updates
+    .filter(u => u && typeof u.id === 'number')
+    .map(u => stmt.bind(
+      u.name ?? '', u.price ?? '', u.note ?? '',
+      (u.is_published === true || Number(u.is_published) === 1) ? 1 : 0,
+      u.id
+    ))
+  if (batch.length) await db.batch(batch)
+  return c.json({ success: true, updated: batch.length })
 })
 
 // ===== 예약 API =====
@@ -7319,7 +7506,32 @@ app.use('/faq/*', strictStatic())
 // ============================================
 // Root level HTML pages (without .html extension)
 // ============================================
-app.get('/pricing', serveStatic({ path: './pricing.html' }))
+// v6.20: /pricing — 정적 원본을 로드해 D1 공개 항목만 tbody 주입(비공개 항목 숨김).
+//   D1 미가용/미시딩/오류 시 정적 원본 그대로 폴백(절대 빈 표 없음).
+app.get('/pricing', async (c) => {
+  const env = c.env as any
+  let html = ''
+  try {
+    if (env.ASSETS) {
+      const resp = await env.ASSETS.fetch(new Request(new URL('/pricing.html', c.req.url).toString()))
+      if (!resp.ok) return serveStatic({ path: './pricing.html' })(c, async () => {})
+      html = await resp.text()
+    } else {
+      const resp = await fetch(new URL('/pricing.html', c.req.url).toString())
+      html = await resp.text()
+    }
+  } catch {
+    return serveStatic({ path: './pricing.html' })(c, async () => {})
+  }
+  try {
+    if (env.DB) {
+      await ensurePriceItemsMigrated(env.DB)
+      const items = await getAllPriceItems(env.DB)
+      html = injectPublishedFees(html, items)
+    }
+  } catch (e) { console.error('pricing inject failed:', e) }
+  return c.html(html)
+})
 app.get('/pricing/', (c) => c.redirect('/pricing', 301))
 app.get('/pricing/implant-guide', serveStatic({ path: './pricing/implant-guide.html' }))
 app.get('/pricing/ortho-guide', serveStatic({ path: './pricing/ortho-guide.html' }))
@@ -7402,6 +7614,16 @@ app.get('/pricing/:tab{(implant|prosthetic|denture|ortho|pediatric)}', async (c)
   } catch {
     return c.redirect('/pricing', 302)
   }
+
+  // v6.20: D1 공개 항목만 tbody 주입(비공개 숨김). 오류 시 정적 원본 유지.
+  try {
+    const env = c.env as any
+    if (env.DB) {
+      await ensurePriceItemsMigrated(env.DB)
+      const items = await getAllPriceItems(env.DB)
+      html = injectPublishedFees(html, items)
+    }
+  } catch (e) { console.error('pricing tab inject failed:', e) }
 
   const pageUrl = `https://bdbddc.com/pricing/${tab}`
 
