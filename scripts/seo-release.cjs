@@ -4,6 +4,7 @@ const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const { parse } = require('node-html-parser');
 const { Script } = require('node:vm');
+const { createHash } = require('node:crypto');
 const clinic = require('../data/clinic-profile.json');
 const BASE = clinic.url;
 const CORE = ['/', '/treatments/implant', '/treatments/sedation', '/treatments/glownate', '/treatments/invisalign', '/reservation', '/symptom-checker'];
@@ -29,6 +30,7 @@ function run() {
   const fixes = { languagePages: 0, languageGroups: 0, sitemapDates: 0, sitemapLanguageEntries: 0, metadataPages: 0, schemaDuplicatesRemoved: 0 };
   const records = [];
   const issues = [];
+  const cssVersions = new Map();
   function issue(code, url, message, severity = 'warning') { issues.push({ code, url, message, severity }); }
   for (const file of htmlFiles('dist')) {
     let html = fs.readFileSync(file, 'utf8');
@@ -47,6 +49,21 @@ function run() {
       fixes.metadataPages++;
     }
     html = html.replace(/(<span\b[^>]*\bdata-clinic-hours[^>]*>)[\s\S]*?(<\/span>)/g, '$1' + esc(clinic.hoursSummary) + '$2');
+    // Updated heading selectors must not be paired with a browser's old cached CSS.
+    html = html.replace(/<link\b[^>]*>/gi, tag => {
+      const link = parse(tag).querySelector('link');
+      const href = link?.getAttribute('href');
+      if (!href) return tag;
+      let url;
+      try { url = new URL(href, BASE + '/' + file.replace(/^dist\//, '')); } catch { return tag; }
+      if (url.origin !== BASE || !url.pathname.endsWith('.css')) return tag;
+      const cssFile = 'dist' + url.pathname;
+      if (!fs.existsSync(cssFile)) return tag;
+      if (!cssVersions.has(cssFile)) cssVersions.set(cssFile, createHash('sha256').update(fs.readFileSync(cssFile)).digest('hex').slice(0, 12));
+      url.searchParams.set('v', cssVersions.get(cssFile));
+      link.setAttribute('href', url.pathname + url.search);
+      return link.toString();
+    });
     const root = parse(html);
     const cp = canonicalPath(root.querySelector('link[rel="canonical"]')?.getAttribute('href'));
     if (CORE.includes(cp)) {
@@ -161,6 +178,18 @@ function run() {
 function audit(records, membership, fixes, issues, redirects) {
   const pages = [];
   const titles = new Map();
+  const descriptions = new Map();
+  const redirectTargets = new Map(fs.readFileSync('dist/_redirects', 'utf8').split('\n')
+    .filter(l => l.startsWith('/') && !/[*:]/.test(l.split(/\s+/)[0]))
+    .map(l => l.trim().split(/\s+/)));
+  const pathKey = value => { try { return decodeURIComponent(new URL(value, BASE).pathname); } catch { return null; } };
+  const hiddenHeading = node => {
+    for (let p = node; p?.tagName; p = p.parentNode) {
+      if (p.hasAttribute('hidden') || p.getAttribute('aria-hidden') === 'true' ||
+          p.id === 'imageModal' || /(?:gn|im|iv)-scrub-(?:chapter|finale)/.test(p.getAttribute('class') || '')) return true;
+    }
+    return false;
+  };
   const existing = new Map(records.filter(r => r.cp && !r.redirect && !r.noindex).map(r => [r.cp, r]));
   const add = (code, url, message, critical = false) => issues.push({ code, url, message, severity: critical ? 'error' : 'warning' });
   let adminScriptsChecked = 0;
@@ -184,10 +213,27 @@ function audit(records, membership, fixes, issues, redirects) {
     const title = root.querySelector('title')?.textContent.trim() || '';
     const canonicals = root.querySelectorAll('link[rel="canonical"]');
     const h1 = root.querySelectorAll('h1');
-    if (!title) add('title-missing', cp, 'Page title missing.', critical);
-    if (canonicals.length !== 1 || !r.cp) add('canonical-invalid', cp, 'Expected exactly one canonical URL on the official domain.', critical);
-    if (h1.length !== 1) add('heading-count', cp, `H1 count: ${h1.length}; inspect document structure.`, critical);
-    if (!root.querySelector('meta[name="description"]')?.getAttribute('content')) add('description-missing', cp, 'Search description missing.', critical);
+    if (!sourceFor(r.file)) add('orphan-build-page', cp, 'Built HTML has no source; clean dist before building.', true);
+    if (root.querySelectorAll('title').length !== 1 || !title) add('title-invalid', cp, 'Expected one nonempty title.', true);
+    if (canonicals.length !== 1 || !r.cp) add('canonical-invalid', cp, 'Expected exactly one canonical URL on the official domain.', true);
+    if (h1.length !== 1) add('heading-count', cp, `H1 count: ${h1.length}; inspect document structure.`, true);
+    const metas = root.querySelectorAll('meta[name="description"]');
+    const description = metas[0]?.getAttribute('content')?.trim();
+    if (metas.length !== 1 || !description) add('description-invalid', cp, 'Expected one nonempty search description.', true);
+    if (description) { if (!descriptions.has(description)) descriptions.set(description, []); descriptions.get(description).push(cp); }
+    const ogUrls = root.querySelectorAll('meta[property="og:url"]');
+    if (ogUrls.length !== 1 || !canonicalPath(ogUrls[0]?.getAttribute('content')) || pathKey(ogUrls[0]?.getAttribute('content')) !== pathKey(cp)) add('og-canonical-mismatch', cp, 'Open Graph URL must match canonical.', true);
+    if (redirectTargets.has(cp)) add('canonical-redirect', cp, `Canonical is a redirect to ${redirectTargets.get(cp)}`, true);
+    if (/\/index(?:\.html)?$/.test(cp)) add('canonical-index-alias', cp, 'Directory index canonical should be its final slash URL.', true);
+    let previousLevel = 0;
+    for (const heading of root.querySelectorAll('h1,h2,h3,h4,h5,h6')) {
+      if (hiddenHeading(heading)) continue;
+      const level = Number(heading.tagName.slice(1));
+      const dynamicTitle = cp === '/game/cavity-defense' && heading.id === 'resTitle';
+      if (!heading.textContent.trim() && !dynamicTitle) add('empty-heading', cp, 'Empty content heading.', true);
+      if (level > previousLevel + 1) add('heading-skip', cp, `H${previousLevel} to H${level}: ${heading.textContent.trim().slice(0, 100)}`, true);
+      previousLevel = level;
+    }
     if (title) { if (!titles.has(title)) titles.set(title, []); titles.get(title).push(cp); }
     let schemas = 0;
     for (const s of root.querySelectorAll('script[type="application/ld+json"]')) {
@@ -212,6 +258,27 @@ function audit(records, membership, fixes, issues, redirects) {
     pages.push({ url: cp, title, language: r.lang, schemas, languageLinks: alts.length, decisionGuide: !!decision, htmlBytes: Buffer.byteLength(html) });
   }
   for (const [title, urls] of titles) if (urls.length > 1) add('duplicate-title', urls[0], `${title}: ${urls.join(', ')}`);
+  for (const [description, urls] of descriptions) if (urls.length > 1) add('duplicate-description', urls[0], `Repeated description: ${urls.join(', ')}`);
+  const sitemapCounts = {};
+  for (const name of fs.readdirSync('dist').filter(n => /^sitemap.*\.xml$/.test(n))) {
+    const xml = fs.readFileSync('dist/' + name, 'utf8');
+    const seen = new Set();
+    for (const block of xml.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+      const loc = /<loc>([^<]+)<\/loc>/.exec(block[1])?.[1]?.replace(/&amp;/g, '&');
+      const cp = canonicalPath(loc);
+      if (!cp) { add('sitemap-invalid-url', '/' + name, `Invalid page URL: ${loc}`, true); continue; }
+      const key = pathKey(cp);
+      if (seen.has(key)) add('sitemap-duplicate', '/' + name, `Duplicate URL within sitemap: ${cp}`, true);
+      seen.add(key);
+      if (redirectTargets.has(cp)) add('sitemap-redirect', '/' + name, `Sitemap advertises redirect: ${cp}`, true);
+      const filePath = cp.endsWith('/') ? cp + 'index.html' : cp + '.html';
+      const source = records.find(r => r.file === 'dist' + filePath);
+      // /column/ is rendered by the Worker; its legacy static stub is not the response.
+      if (source && cp !== '/column/' && (source.noindex || source.redirect || pathKey(source.cp) !== key)) add('sitemap-noncanonical', '/' + name, `Nonindexable or noncanonical entry: ${cp}`, true);
+      if (/\/(?:index(?:\.html)?)$/.test(cp)) add('sitemap-index-alias', '/' + name, `Index alias: ${cp}`, true);
+    }
+    sitemapCounts[name] = seen.size;
+  }
   const robots = fs.readFileSync('dist/robots.txt', 'utf8');
   for (const name of ['Googlebot', 'Bingbot', 'Yeti', 'OAI-SearchBot']) {
     const blocks = robots.split(/(?=^User-agent:)/mi).filter(s => new RegExp('^User-agent:\\s*' + name + '\\s*$', 'mi').test(s));
@@ -225,7 +292,7 @@ function audit(records, membership, fixes, issues, redirects) {
   const report = {
     version: 1, generatedAt: new Date().toISOString(), commit,
     scope: 'Static build checks only; not search index status, ranking, medical validation or Core Web Vitals.',
-    checkedPages: pages.length, adminScriptsChecked, fixes, redirects,
+    checkedPages: pages.length, adminScriptsChecked, sitemapCounts, fixes, redirects,
     errors: issues.filter(i => i.severity === 'error').length,
     warnings: issues.filter(i => i.severity !== 'error').length,
     issues, pages

@@ -60,17 +60,17 @@ fbq('init','971255062435276');fbq('track','PageView');
     .guide-section:last-child{border-bottom:none}
     .guide-section h2{font-size:clamp(1.5rem,3.5vw,2rem);font-weight:800;color:#1a1917;margin-bottom:12px;line-height:1.3}
     .guide-section h2 .num{color:#C8A97E;margin-right:12px;font-weight:900}
-    .guide-section h3{font-size:1.25rem;font-weight:700;color:#1a1917;margin:32px 0 12px}
-    .guide-section h4{font-size:1.05rem;font-weight:700;color:#2d2926;margin:24px 0 8px}
+    .guide-section h3:not(:where(.heading-from-h4)){font-size:1.25rem;font-weight:700;color:#1a1917;margin:32px 0 12px}
+    .guide-section :is(h4,h3:where(.heading-from-h4)){font-size:1.05rem;font-weight:700;color:#2d2926;margin:24px 0 8px}
     .guide-section p{font-size:1rem;line-height:1.9;color:#3a3631;margin-bottom:16px}
     .guide-section ul, .guide-section ol{margin:0 0 16px 24px;line-height:1.9;color:#3a3631}
     .guide-section li{margin-bottom:6px}
     .guide-section strong{color:#1a1917;font-weight:700}
     .section-intro{font-size:1.1rem;color:#6b645c;line-height:1.8;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid #f0ece8}
     .highlight-box{background:#fef9f0;border-left:4px solid #C8A97E;padding:20px 24px;margin:24px 0;border-radius:0 12px 12px 0}
-    .highlight-box h4{margin-top:0;color:#8B6F3F}
+    .highlight-box :is(h4,h3:where(.heading-from-h4)){margin-top:0;color:#8B6F3F}
     .caution-box{background:#fdf2f2;border-left:4px solid #d9534f;padding:20px 24px;margin:24px 0;border-radius:0 12px 12px 0}
-    .caution-box h4{margin-top:0;color:#a94442}
+    .caution-box :is(h4,h3:where(.heading-from-h4)){margin-top:0;color:#a94442}
     .info-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.95rem}
     .info-table th, .info-table td{padding:12px 16px;text-align:left;border-bottom:1px solid #e8e0d6}
     .info-table th{background:#f8f6f3;font-weight:700;color:#1a1917}
@@ -78,13 +78,13 @@ fbq('init','971255062435276');fbq('track','PageView');
     .ok-mark{color:#2e7d32;font-weight:800}
     .no-mark{color:#c62828;font-weight:800}
     .cta-card{background:linear-gradient(135deg,#C8A97E 0%,#8B6F3F 100%);color:#fff;padding:32px;border-radius:16px;margin:32px 0;text-align:center}
-    .cta-card h3{color:#fff;margin-bottom:8px;font-size:1.3rem}
+    .cta-card h3:not(:where(.heading-from-h4)){color:#fff;margin-bottom:8px;font-size:1.3rem}
     .cta-card p{color:rgba(255,255,255,0.85);margin-bottom:20px}
     .cta-card .btn-group{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .cta-card a.btn-primary{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#8B6F3F;padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem}
     .cta-card a.btn-secondary{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);color:#fff;padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem;border:1px solid rgba(255,255,255,0.4)}
     .related-guides{background:#f8f6f3;padding:40px 24px;border-radius:16px;margin:48px 0}
-    .related-guides h3{margin-top:0;color:#1a1917;margin-bottom:16px;font-size:1.2rem}
+    .related-guides h3:not(:where(.heading-from-h4)){margin-top:0;color:#1a1917;margin-bottom:16px;font-size:1.2rem}
     .related-guides .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .related-guides a.card{display:block;background:#fff;padding:16px 18px;border-radius:12px;border:1px solid #e8e0d6;text-decoration:none;color:#1a1917;transition:all 0.2s}
     .related-guides a.card:hover{border-color:#C8A97E;transform:translateY(-2px);box-shadow:0 4px 12px rgba(200,169,126,0.15)}
@@ -179,7 +179,7 @@ fbq('init','971255062435276');fbq('track','PageView');
   </table>
 
   <div class="highlight-box">
-    <h4><i class="fas fa-tooth"></i> 最も見落としがちなケース：親知らず</h4>
+    <h3><i class="fas fa-tooth heading-from-h4"></i> 最も見落としがちなケース：親知らず</h3>
     <p style="margin-bottom:0">埋伏親知らずの抜歯は、自己負担金が数万ウォン台になることもある保険適用の治療ですが、「歯科は実損保険が使えない」と考えて請求しない方が多いです。2009年10月以降の実損保険加入者であれば、領収書・明細書を用意して請求を検討してください。</p>
   </div>
 </section>
@@ -201,7 +201,7 @@ fbq('init','971255062435276');fbq('track','PageView');
   </table>
 
   <div class="caution-box">
-    <h4><i class="fas fa-exclamation-triangle"></i> 注意：「歯科保険」と混同しないでください</h4>
+    <h3><i class="fas fa-exclamation-triangle heading-from-h4"></i> 注意：「歯科保険」と混同しないでください</h3>
     <p style="margin-bottom:0">実損保険（実費型）とは別に販売される <strong>歯科保険</strong>は、クラウン・インプラント・入れ歯（義歯）などの補綴治療を定額で補償する商品です。上表で「実費不可」とした項目でも、歯科保険に加入していればそちらで補償を受けられる場合がありますので、加入商品をすべてご確認ください。</p>
   </div>
 </section>

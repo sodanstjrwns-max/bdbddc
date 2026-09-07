@@ -97,7 +97,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-spec-card{background:#fff;border:1px solid #e8e0d8;border-radius:12px;padding:1.25rem;text-align:center;transition:all 0.3s;}
     .fx-spec-card:hover{border-color:#c9a96e;box-shadow:0 4px 16px rgba(107,66,38,0.08);}
     .fx-spec-card i{font-size:1.5rem;color:#6B4226;margin-bottom:0.5rem;display:block;}
-    .fx-spec-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
+    .fx-spec-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
     .fx-spec-card p{font-size:0.85rem;color:var(--text-secondary);margin:0;line-height:1.5;}
     .fx-compare{width:100%;border-collapse:collapse;margin:var(--space-lg) 0;}
     .fx-compare th,.fx-compare td{padding:12px 16px;text-align:left;border-bottom:1px solid #e8e0d8;font-size:0.9rem;}
@@ -106,12 +106,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);}
     .fx-who-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:1.25rem;display:flex;align-items:flex-start;gap:12px;}
     .fx-who-card i{color:#16a34a;font-size:1.1rem;margin-top:3px;flex-shrink:0;}
-    .fx-who-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
+    .fx-who-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
     .fx-who-card p{font-size:0.85rem;color:#475569;margin:0;line-height:1.5;}
     .fx-other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-lg);margin-top:var(--space-xl);}
     .fx-other-card{background:#fff;border:1px solid #e8e0d8;border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:all 0.3s;display:block;}
     .fx-other-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(107,66,38,0.1);border-color:#c9a96e;}
-    .fx-other-card h4{font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
+    .fx-other-card :is(h4,h3:where(.heading-from-h4)){font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
     .fx-other-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.8rem;}
     .fx-other-card .fx-card-link{font-size:0.85rem;font-weight:600;color:#6B4226;}
     @media(max-width:768px){.fx-hero-stats{gap:var(--space-lg);}.fx-stat-value{font-size:1.25rem;}}
@@ -307,32 +307,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-spec-grid">
           <div class="fx-spec-card">
             <i class="fas fa-atom"></i>
-            <h4>Calcium ion coating</h4>
+            <h3 class="heading-from-h4">Calcium ion coating</h3>
             <p>A calcium (Ca) ion solution is additionally applied to the SA surface. Calcium is a key component of hydroxyapatite (HA), the main constituent of bone, and is highly biocompatible.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-magnet"></i>
-            <h4>Osteoblast activation</h4>
+            <h3 class="heading-from-h4">Osteoblast activation</h3>
             <p>Calcium ions promote osteoblast attachment and proliferation on the implant surface. This accelerates new bone formation and improves early stability.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-mountain"></i>
-            <h4>SLA-based rough surface</h4>
+            <h3 class="heading-from-h4">SLA-based rough surface</h3>
             <p>A micro-rough surface created by dual sandblasting and acid-etching provides an environment where bone cells adhere well.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-shield-alt"></i>
-            <h4>Proven safety</h4>
+            <h3 class="heading-from-h4">Proven safety</h3>
             <p>Osstem, Korea’s first implant developer, has 30+ years of clinical data and exports to 70+ countries worldwide.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-bolt"></i>
-            <h4>Faster osseointegration</h4>
+            <h3 class="heading-from-h4">Faster osseointegration</h3>
             <p>Compared with the 6~8 weeks typical for SA, the osseointegration period is shortened to 4~6 weeks. Earlier prosthesis placement becomes possible, reducing overall treatment time.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-won-sign"></i>
-            <h4>Affordable pricing</h4>
+            <h3 class="heading-from-h4">Affordable pricing</h3>
             <p>Delivers premium-level performance at a reasonable price. A high-value choice with excellent results for the cost.</p>
           </div>
         </div>
@@ -374,27 +374,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-who-grid">
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Those with good bone quality</h4><p>Those who have sufficient jawbone but want faster osseointegration than the basic type</p></div>
+            <div><h3 class="heading-from-h4">Those with good bone quality</h3><p>Those who have sufficient jawbone but want faster osseointegration than the basic type</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Smokers</h4><p>Those whose osseointegration may be delayed due to smoking. The calcium coating helps enhance initial stability.</p></div>
+            <div><h3 class="heading-from-h4">Smokers</h3><p>Those whose osseointegration may be delayed due to smoking. The calcium coating helps enhance initial stability.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Patients with diabetes</h4><p>Those concerned about delayed healing due to diabetes. Faster osseointegration may reduce the risk of infection.</p></div>
+            <div><h3 class="heading-from-h4">Patients with diabetes</h3><p>Those concerned about delayed healing due to diabetes. Faster osseointegration may reduce the risk of infection.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Prioritize performance for the cost</h4><p>Provides top value for those who want premium-level performance at a reasonable price.</p></div>
+            <div><h3 class="heading-from-h4">Prioritize performance for the cost</h3><p>Provides top value for those who want premium-level performance at a reasonable price.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Want to finish treatment quickly</h4><p>Osseointegration 2~4 weeks faster than SA may shorten the time to place the final restoration.</p></div>
+            <div><h3 class="heading-from-h4">Want to finish treatment quickly</h3><p>Osseointegration 2~4 weeks faster than SA may shorten the time to place the final restoration.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Single or few implants</h4><p>Ideal for patients who want to place about 1~3 routine implants reliably.</p></div>
+            <div><h3 class="heading-from-h4">Single or few implants</h3><p>Ideal for patients who want to place about 1~3 routine implants reliably.</p></div>
           </div>
         </div>
       </div>
@@ -457,13 +457,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-other-grid">
           <a href="/en/treatments/fixture-osstem-soi" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">OS</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Osstem · PREMIUM</span></div>
-            <h4>Osstem SOI</h4>
+            <h3 class="heading-from-h4">Osstem SOI</h3>
             <p>Ultra-hydrophilic surface maximizes blood clot formation. Protein binding 130× higher, osseointegration time shortened by 35%. Osstem’s top tier.</p>
             <span class="fx-card-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </a>
           <a href="/en/treatments/fixture-straumann-roxolid" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#b45309,#f59e0b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">ST</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Straumann · SWISS</span></div>
-            <h4>Straumann Roxolid SLActive</h4>
+            <h3 class="heading-from-h4">Straumann Roxolid SLActive</h3>
             <p>Roxolid® TiZr alloy + SLActive® ultra-hydrophilic surface. 10-year survival 95~98.8%. Backed by the world’s largest clinical dataset.</p>
             <span class="fx-card-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </a>

@@ -156,7 +156,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-spec-card{background:#fff;border:1px solid #e8e0d8;border-radius:12px;padding:1.25rem;text-align:center;transition:all 0.3s;}
     .fx-spec-card:hover{border-color:#c9a96e;box-shadow:0 4px 16px rgba(107,66,38,0.08);}
     .fx-spec-card i{font-size:1.5rem;color:#6B4226;margin-bottom:0.5rem;display:block;}
-    .fx-spec-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
+    .fx-spec-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
     .fx-spec-card p{font-size:0.85rem;color:var(--text-secondary);margin:0;line-height:1.5;}
     .fx-data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-md);margin:var(--space-xl) 0;}
     .fx-data-card{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fde68a;border-radius:12px;padding:1.5rem;text-align:center;}
@@ -165,20 +165,20 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-data-card .fx-data-desc{font-size:0.82rem;color:#64748b;margin-top:6px;line-height:1.4;}
     .fx-two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-top:var(--space-xl);}
     .fx-two-col-card{background:#fff;border:1px solid #e8e0d8;border-radius:16px;padding:1.5rem;}
-    .fx-two-col-card h3{font-size:1.1rem;font-weight:700;margin:0 0 0.8rem;display:flex;align-items:center;gap:8px;}
-    .fx-two-col-card h3 i{color:#6B4226;}
+    .fx-two-col-card h3:not(:where(.heading-from-h4)){font-size:1.1rem;font-weight:700;margin:0 0 0.8rem;display:flex;align-items:center;gap:8px;}
+    .fx-two-col-card h3:not(:where(.heading-from-h4)) i{color:#6B4226;}
     .fx-two-col-card ul{list-style:none;padding:0;margin:0;}
     .fx-two-col-card ul li{font-size:0.88rem;color:#475569;padding:6px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
     .fx-two-col-card ul li i{color:#6B4226;font-size:0.7rem;margin-top:5px;flex-shrink:0;}
     .fx-who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);}
     .fx-who-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:1.25rem;display:flex;align-items:flex-start;gap:12px;}
     .fx-who-card i{color:#16a34a;font-size:1.1rem;margin-top:3px;flex-shrink:0;}
-    .fx-who-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
+    .fx-who-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
     .fx-who-card p{font-size:0.85rem;color:#475569;margin:0;line-height:1.5;}
     .fx-other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-lg);margin-top:var(--space-xl);}
     .fx-other-card{background:#fff;border:1px solid #e8e0d8;border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:all 0.3s;display:block;}
     .fx-other-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(107,66,38,0.1);border-color:#c9a96e;}
-    .fx-other-card h4{font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
+    .fx-other-card :is(h4,h3:where(.heading-from-h4)){font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
     .fx-other-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.8rem;}
     .fx-other-card .fx-card-link{font-size:0.85rem;font-weight:600;color:#6B4226;}
     @media(max-width:768px){.fx-hero-stats{gap:var(--space-lg);}.fx-stat-value{font-size:1.25rem;}.fx-two-col{grid-template-columns:1fr;}.fx-data-card .fx-data-num{font-size:1.5rem;}}
@@ -482,32 +482,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-spec-grid">
           <div class="fx-spec-card">
             <i class="fas fa-dumbbell"></i>
-            <h4>높은 기계적 강도</h4>
+            <h3 class="heading-from-h4">높은 기계적 강도</h3>
             <p>Roxolid® 합금은 순수 티타늄보다 강하여, 더 얇은 직경으로도 충분한 강도를 확보합니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-expand-arrows-alt"></i>
-            <h4>최소 직경 2.9mm</h4>
+            <h3 class="heading-from-h4">최소 직경 2.9mm</h3>
             <p>좁은 뼈폭에서도 식립 가능. 뼈이식 없이 자연 잇몸뼈를 최대한 보존합니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-tint"></i>
-            <h4>초친수성 표면</h4>
+            <h3 class="heading-from-h4">초친수성 표면</h3>
             <p>SLActive® 표면은 혈액과 즉시 결합하여 피브린 네트워크를 빠르게 형성합니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-chart-line"></i>
-            <h4>최다 임상 데이터</h4>
+            <h3 class="heading-from-h4">최다 임상 데이터</h3>
             <p>40년 이상 임상 역사, 수백 편의 논문. 세계적으로 방대한 임상 근거를 보유합니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-heartbeat"></i>
-            <h4>낮은 합병증률</h4>
+            <h3 class="heading-from-h4">낮은 합병증률</h3>
             <p>10년간 임플란트주위염 발생률 1.8%. 장기적으로 안정적인 임플란트를 유지합니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-user-injured"></i>
-            <h4>어려운 환자도 OK</h4>
+            <h3 class="heading-from-h4">어려운 환자도 OK</h3>
             <p>방사선 치료 환자, 면역 저하 환자 등 난이도 높은 케이스에서도 우수한 결과를 보입니다.</p>
           </div>
         </div>
@@ -524,27 +524,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-who-grid">
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>뼈 폭이 좁은 분</h4><p>2.9mm 초소형 직경 식립이 가능하여, 뼈이식 없이도 임플란트가 가능합니다.</p></div>
+            <div><h3 class="heading-from-h4">뼈 폭이 좁은 분</h3><p>2.9mm 초소형 직경 식립이 가능하여, 뼈이식 없이도 임플란트가 가능합니다.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>뼈이식을 최소화하고 싶은 분</h4><p>Roxolid® 합금의 높은 강도로 짧은 4mm 임플란트도 가능. 수직 뼈이식을 줄입니다.</p></div>
+            <div><h3 class="heading-from-h4">뼈이식을 최소화하고 싶은 분</h3><p>Roxolid® 합금의 높은 강도로 짧은 4mm 임플란트도 가능. 수직 뼈이식을 줄입니다.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>빠른 골유착을 원하는 분</h4><p>SLActive® 표면으로 6~8주 내 골유착을 달성. 일반 표면(12~16주) 대비 절반 수준입니다.</p></div>
+            <div><h3 class="heading-from-h4">빠른 골유착을 원하는 분</h3><p>SLActive® 표면으로 6~8주 내 골유착을 달성. 일반 표면(12~16주) 대비 절반 수준입니다.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>전신질환 환자</h4><p>당뇨, 방사선 치료 이력, 면역 저하 환자에서도 높은 성공률이 임상적으로 입증되었습니다.</p></div>
+            <div><h3 class="heading-from-h4">전신질환 환자</h3><p>당뇨, 방사선 치료 이력, 면역 저하 환자에서도 높은 성공률이 임상적으로 입증되었습니다.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>최고 수준의 품질을 원하는 분</h4><p>40년 역사, 세계 최다 임상 논문, 평생 보증(조건부). 프리미엄의 가치를 아는 분께.</p></div>
+            <div><h3 class="heading-from-h4">최고 수준의 품질을 원하는 분</h3><p>40년 역사, 세계 최다 임상 논문, 평생 보증(조건부). 프리미엄의 가치를 아는 분께.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>장기적 안정성이 중요한 분</h4><p>10년 후 골소실 0.5~1mm, 임플란트주위염 1.8%. 오래 쓸 임플란트를 원하신다면 최고의 선택.</p></div>
+            <div><h3 class="heading-from-h4">장기적 안정성이 중요한 분</h3><p>10년 후 골소실 0.5~1mm, 임플란트주위염 1.8%. 오래 쓸 임플란트를 원하신다면 최고의 선택.</p></div>
           </div>
         </div>
       </div>
@@ -607,13 +607,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-other-grid">
           <a href="/treatments/fixture-osstem-ca" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">OS</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Osstem · KOREA</span></div>
-            <h4>오스템 CA</h4>
+            <h3 class="heading-from-h4">오스템 CA</h3>
             <p>SA 표면에 칼슘 이온 코팅을 추가. 초기 고정력 우수, 합리적 가격대. 골질 양호한 분에게 적합.</p>
             <span class="fx-card-link">자세히 보기 <i class="fas fa-arrow-right"></i></span>
           </a>
           <a href="/treatments/fixture-osstem-soi" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">OS</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Osstem · PREMIUM</span></div>
-            <h4>오스템 SOI</h4>
+            <h3 class="heading-from-h4">오스템 SOI</h3>
             <p>초친수성 표면으로 혈액 응고를 극대화. 단백질 결합력 130배 향상, 골유착 35% 단축. 오스템 최상위 등급.</p>
             <span class="fx-card-link">자세히 보기 <i class="fas fa-arrow-right"></i></span>
           </a>

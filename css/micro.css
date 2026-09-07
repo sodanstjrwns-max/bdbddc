@@ -960,7 +960,7 @@
 .ed-mag--dark .ed-mag__title { color: #f0ece4; }
 .ed-mag--dark .ed-mag__lead { color: #999; }
 .ed-mag--dark .ed-mag__quote blockquote { color: #c9a96e; }
-.ed-mag--dark .ed-mag__split-text h3 { color: #f0ece4; }
+.ed-mag--dark .ed-mag__split-text h3:not(:where(.heading-from-h4)) { color: #f0ece4; }
 .ed-mag--dark .ed-mag__split-text p { color: #aaa; }
 .ed-mag--dark .ed-mag__split-text { background: rgba(20,20,20,0.5); }
 
@@ -1053,7 +1053,7 @@
   background: linear-gradient(0deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 70%, transparent 100%);
   border-radius: 0 0 6px 6px;
 }
-.ed-mag__hero-overlay h3 {
+.ed-mag__hero-overlay h3:not(:where(.heading-from-h4)) {
   color: #fff; font-size: 1.3rem; font-weight: 700;
   margin: 6px 0 4px; line-height: 1.4;
 }
@@ -1147,7 +1147,7 @@
 .ed-mag__cell-inner:hover .ed-mag__caption {
   opacity: 1; transform: translateY(0);
 }
-.ed-mag__caption h4 {
+.ed-mag__caption :is(h4,h3:where(.heading-from-h4)) {
   color: #fff; font-size: 0.88rem; font-weight: 700;
   margin: 4px 0 2px; line-height: 1.3;
 }
@@ -1182,7 +1182,7 @@
   background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);
   border-radius: 0 0 4px 4px;
 }
-.ed-mag__cinema-cap h4 {
+.ed-mag__cinema-cap :is(h4,h3:where(.heading-from-h4)) {
   color: #fff; font-size: 1rem; font-weight: 700;
   margin: 6px 0 3px;
 }
@@ -1230,7 +1230,7 @@
   position: absolute; top: 16px; left: 16px;
 }
 .ed-mag__split-text { padding: 40px 48px; }
-.ed-mag__split-text h3 {
+.ed-mag__split-text h3:not(:where(.heading-from-h4)) {
   font-size: 1.4rem; font-weight: 800;
   color: #333; line-height: 1.5;
   margin: 0 0 16px;
@@ -1268,9 +1268,9 @@
 /* ═══ ED-MAG Responsive ═══ */
 @media (max-width: 1024px) {
   .ed-mag { padding: 80px 0 60px; }
-  .ed-mag__hero-overlay h3 { font-size: 1.1rem; }
+  .ed-mag__hero-overlay h3:not(:where(.heading-from-h4)) { font-size: 1.1rem; }
   .ed-mag__split-text { padding: 28px 32px; }
-  .ed-mag__split-text h3 { font-size: 1.2rem; }
+  .ed-mag__split-text h3:not(:where(.heading-from-h4)) { font-size: 1.2rem; }
 }
 @media (max-width: 640px) {
   .ed-mag { padding: 64px 0 48px; }
@@ -1279,7 +1279,7 @@
   .ed-mag__lead { font-size: 0.85rem; }
   .ed-mag__hero img { aspect-ratio: 16 / 10; }
   .ed-mag__hero-overlay { padding: 50px 18px 16px; left: 0; right: 0; }
-  .ed-mag__hero-overlay h3 { font-size: 0.95rem; }
+  .ed-mag__hero-overlay h3:not(:where(.heading-from-h4)) { font-size: 0.95rem; }
   .ed-mag__hero-overlay p { font-size: 0.72rem; }
   .ed-mag__quote blockquote { font-size: 0.92rem; }
   .ed-mag__grid-a { grid-template-columns: 1fr; gap: 5px; }
@@ -1294,14 +1294,14 @@
   .ed-mag__split--reverse { direction: ltr; }
   .ed-mag__split-img img { aspect-ratio: 4 / 3; }
   .ed-mag__split-text { padding: 24px 16px; text-align: center; }
-  .ed-mag__split-text h3 { font-size: 1.15rem; }
+  .ed-mag__split-text h3:not(:where(.heading-from-h4)) { font-size: 1.15rem; }
   .ed-mag__split-text p { font-size: 0.82rem; }
   .ed-mag__duo { grid-template-columns: 1fr; }
   .ed-mag__cinema img { aspect-ratio: 16 / 9; }
   .ed-mag__cinema-cap { padding: 40px 16px 14px; left: 0; right: 0; }
-  .ed-mag__cinema-cap h4 { font-size: 0.88rem; }
+  .ed-mag__cinema-cap :is(h4,h3:where(.heading-from-h4)) { font-size: 0.88rem; }
   .ed-mag__caption { opacity: 1; transform: translateY(0); padding: 36px 12px 10px; }
-  .ed-mag__caption h4 { font-size: 0.78rem; }
+  .ed-mag__caption :is(h4,h3:where(.heading-from-h4)) { font-size: 0.78rem; }
   .ed-mag__caption p { font-size: 0.65rem; }
 }
 
@@ -1428,7 +1428,7 @@
   left: 20px;
   right: 20px;
 }
-.pedo-mag__hero-overlay h3 {
+.pedo-mag__hero-overlay h3:not(:where(.heading-from-h4)) {
   color: #fff;
   font-size: 1.3rem;
   font-weight: 700;
@@ -1546,7 +1546,7 @@
   opacity: 1;
   transform: translateY(0);
 }
-.pedo-mag__caption h4 {
+.pedo-mag__caption :is(h4,h3:where(.heading-from-h4)) {
   color: #fff;
   font-size: 0.88rem;
   font-weight: 700;
@@ -1589,7 +1589,7 @@
   background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);
   border-radius: 0 0 4px 4px;
 }
-.pedo-mag__cinema-cap h4 {
+.pedo-mag__cinema-cap :is(h4,h3:where(.heading-from-h4)) {
   color: #fff;
   font-size: 1rem;
   font-weight: 700;
@@ -1648,7 +1648,7 @@
 .pedo-mag__split-text {
   padding: 40px 48px;
 }
-.pedo-mag__split-text h3 {
+.pedo-mag__split-text h3:not(:where(.heading-from-h4)) {
   font-size: 1.4rem;
   font-weight: 800;
   color: #333;
@@ -1699,9 +1699,9 @@
 /* ── Tablet ── */
 @media (max-width: 1024px) {
   .pedo-mag { padding: 80px 0 60px; }
-  .pedo-mag__hero-overlay h3 { font-size: 1.1rem; }
+  .pedo-mag__hero-overlay h3:not(:where(.heading-from-h4)) { font-size: 1.1rem; }
   .pedo-mag__split-text { padding: 28px 32px; }
-  .pedo-mag__split-text h3 { font-size: 1.2rem; }
+  .pedo-mag__split-text h3:not(:where(.heading-from-h4)) { font-size: 1.2rem; }
 }
 
 /* ── Mobile ── */
@@ -1712,7 +1712,7 @@
   .pedo-mag__lead { font-size: 0.85rem; }
   .pedo-mag__hero img { aspect-ratio: 16 / 10; }
   .pedo-mag__hero-overlay { padding: 50px 18px 16px; left: 0; right: 0; }
-  .pedo-mag__hero-overlay h3 { font-size: 0.95rem; }
+  .pedo-mag__hero-overlay h3:not(:where(.heading-from-h4)) { font-size: 0.95rem; }
   .pedo-mag__hero-overlay p { font-size: 0.72rem; }
   .pedo-mag__quote blockquote { font-size: 0.92rem; }
 
@@ -1746,7 +1746,7 @@
     padding: 24px 16px;
     text-align: center;
   }
-  .pedo-mag__split-text h3 { font-size: 1.15rem; }
+  .pedo-mag__split-text h3:not(:where(.heading-from-h4)) { font-size: 1.15rem; }
   .pedo-mag__split-text p { font-size: 0.82rem; }
 
   /* Duo: 1컬럼 */
@@ -1757,7 +1757,7 @@
   /* Cinema */
   .pedo-mag__cinema img { aspect-ratio: 16 / 9; }
   .pedo-mag__cinema-cap { padding: 40px 16px 14px; left: 0; right: 0; }
-  .pedo-mag__cinema-cap h4 { font-size: 0.88rem; }
+  .pedo-mag__cinema-cap :is(h4,h3:where(.heading-from-h4)) { font-size: 0.88rem; }
 
   /* 모바일 캡션 항상 표시 */
   .pedo-mag__caption {
@@ -1765,7 +1765,7 @@
     transform: translateY(0);
     padding: 36px 12px 10px;
   }
-  .pedo-mag__caption h4 { font-size: 0.78rem; }
+  .pedo-mag__caption :is(h4,h3:where(.heading-from-h4)) { font-size: 0.78rem; }
   .pedo-mag__caption p { font-size: 0.65rem; }
 }
 

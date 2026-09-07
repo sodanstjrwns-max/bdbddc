@@ -92,7 +92,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-spec-card{background:#fff;border:1px solid #e8e0d8;border-radius:12px;padding:1.25rem;text-align:center;transition:all 0.3s;}
     .fx-spec-card:hover{border-color:#c9a96e;box-shadow:0 4px 16px rgba(107,66,38,0.08);}
     .fx-spec-card i{font-size:1.5rem;color:#6B4226;margin-bottom:0.5rem;display:block;}
-    .fx-spec-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
+    .fx-spec-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
     .fx-spec-card p{font-size:0.85rem;color:var(--text-secondary);margin:0;line-height:1.5;}
     .fx-data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-md);margin:var(--space-xl) 0;}
     .fx-data-card{background:linear-gradient(135deg,#faf5ff,#f5f3ff);border:1px solid #ddd6fe;border-radius:12px;padding:1.5rem;text-align:center;}
@@ -102,12 +102,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);}
     .fx-who-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:1.25rem;display:flex;align-items:flex-start;gap:12px;}
     .fx-who-card i{color:#16a34a;font-size:1.1rem;margin-top:3px;flex-shrink:0;}
-    .fx-who-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
+    .fx-who-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
     .fx-who-card p{font-size:0.85rem;color:#475569;margin:0;line-height:1.5;}
     .fx-other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-lg);margin-top:var(--space-xl);}
     .fx-other-card{background:#fff;border:1px solid #e8e0d8;border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:all 0.3s;display:block;}
     .fx-other-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(107,66,38,0.1);border-color:#c9a96e;}
-    .fx-other-card h4{font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
+    .fx-other-card :is(h4,h3:where(.heading-from-h4)){font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
     .fx-other-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.8rem;}
     .fx-other-card .fx-card-link{font-size:0.85rem;font-weight:600;color:#6B4226;}
     @media(max-width:768px){.fx-hero-stats{gap:var(--space-lg);}.fx-stat-value{font-size:1.25rem;}.fx-data-card .fx-data-num{font-size:1.5rem;}}
@@ -327,32 +327,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-spec-grid">
           <div class="fx-spec-card">
             <i class="fas fa-tint"></i>
-            <h4>超親水性表面</h4>
+            <h3 class="heading-from-h4">超親水性表面</h3>
             <p>SOI表面は血液と接触すると直ちに素早く広がり、豊富な血餅の形成を促します。この血餅が骨結合の最初の段階を加速します。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-fire-alt"></i>
-            <h4>高い表面活性エネルギー</h4>
+            <h3 class="heading-from-h4">高い表面活性エネルギー</h3>
             <p>特殊処理により表面活性エネルギーを高く維持します。炭素汚染物の吸着を防ぎ、時間が経っても超親水性を維持します。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-balance-scale"></i>
-            <h4>中性pH環境</h4>
+            <h3 class="heading-from-h4">中性pH環境</h3>
             <p>インプラント表面が中性pHを維持し、骨を破壊する破骨細胞の活性を抑制し、新たな骨を形成する骨芽細胞の活動を最大化します。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-dna"></i>
-            <h4>タンパク質結合力 130倍</h4>
+            <h3 class="heading-from-h4">タンパク質結合力 130倍</h3>
             <p>従来表面に比べ約130倍高いタンパク質結合能により、血漿タンパク質が表面に素早く吸着して骨形成シグナルを強力に伝達します。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-microscope"></i>
-            <h4>SLAベースの微細構造</h4>
+            <h3 class="heading-from-h4">SLAベースの微細構造</h3>
             <p>サンドブラスト加工 + 酸エッチングで形成された微細な粗面の上にSOI処理を施します。機械的結合力と化学的結合力を同時に確保します。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-globe-asia"></i>
-            <h4>グローバルでの検証</h4>
+            <h3 class="heading-from-h4">グローバルでの検証</h3>
             <p>2016年の発売以降、全世界70余カ国で44万個以上を販売。多くの臨床医に選ばれた、実績により検証された最上位フィクスチャーです。</p>
           </div>
         </div>
@@ -388,27 +388,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-who-grid">
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>ご高齢の患者さま</h4><p>加齢により骨結合の速度が遅くなることがあります。SOIの迅速な骨結合が安定した結果に寄与します。</p></div>
+            <div><h3 class="heading-from-h4">ご高齢の患者さま</h3><p>加齢により骨結合の速度が遅くなることがあります。SOIの迅速な骨結合が安定した結果に寄与します。</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>糖尿病・骨粗しょう症の患者さま</h4><p>全身疾患により骨代謝が低下している方です。SOIの骨芽細胞を活性化する働きが、最適な環境を整えます。</p></div>
+            <div><h3 class="heading-from-h4">糖尿病・骨粗しょう症の患者さま</h3><p>全身疾患により骨代謝が低下している方です。SOIの骨芽細胞を活性化する働きが、最適な環境を整えます。</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>骨質が弱い場合（上顎の臼歯部）</h4><p>上顎臼歯部は骨質が軟らかいことが多いです。SOIは骨質が弱い場合でも優れた初期安定性を示します。</p></div>
+            <div><h3 class="heading-from-h4">骨質が弱い場合（上顎の臼歯部）</h3><p>上顎臼歯部は骨質が軟らかいことが多いです。SOIは骨質が弱い場合でも優れた初期安定性を示します。</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>早期の治療完了を希望</h4><p>約4週間の骨結合期間で、最終補綴物までの期間を飛躍的に短縮できます。</p></div>
+            <div><h3 class="heading-from-h4">早期の治療完了を希望</h3><p>約4週間の骨結合期間で、最終補綴物までの期間を飛躍的に短縮できます。</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>難症例</h4><p>骨移植（GBR）を伴う難易度の高い手術では、迅速な骨結合が全体の治療成功率を高めます。</p></div>
+            <div><h3 class="heading-from-h4">難症例</h3><p>骨移植（GBR）を伴う難易度の高い手術では、迅速な骨結合が全体の治療成功率を高めます。</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>最高品質を求める方</h4><p>オステムのラインアップの中で最高グレードの表面技術を適用したプレミアム・フィクスチャーです。</p></div>
+            <div><h3 class="heading-from-h4">最高品質を求める方</h3><p>オステムのラインアップの中で最高グレードの表面技術を適用したプレミアム・フィクスチャーです。</p></div>
           </div>
         </div>
       </div>
@@ -452,13 +452,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-other-grid">
           <a href="/jp/treatments/fixture-osstem-ca" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">OS</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Osstem · KOREA</span></div>
-            <h4>オステム CA</h4>
+            <h3 class="heading-from-h4">オステム CA</h3>
             <p>SA表面にカルシウムイオンコーティングを追加しています。初期固定力に優れ、価格も合理的です。骨質が良好な方に適しています。</p>
             <span class="fx-card-link">詳しく見る <i class="fas fa-arrow-right"></i></span>
           </a>
           <a href="/jp/treatments/fixture-straumann-roxolid" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#b45309,#f59e0b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">ST</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Straumann · SWISS</span></div>
-            <h4>Straumann Roxolid® SLActive</h4>
+            <h3 class="heading-from-h4">Straumann Roxolid® SLActive</h3>
             <p>Roxolid® TiZr 合金 + SLActive® 超親水性表面です。10年生存率は95~98.8%です。世界最多の臨床データを保有しています。</p>
             <span class="fx-card-link">詳しく見る <i class="fas fa-arrow-right"></i></span>
           </a>

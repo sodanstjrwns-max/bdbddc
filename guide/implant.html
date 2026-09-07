@@ -66,8 +66,8 @@ fbq('init','971255062435276');fbq('track','PageView');
     .guide-section:last-child{border-bottom:none}
     .guide-section h2{font-size:clamp(1.5rem,3.5vw,2rem);font-weight:800;color:#1a1917;margin-bottom:12px;line-height:1.3}
     .guide-section h2 .sec-num{color:#C8A97E;font-size:0.8em;margin-right:4px}
-    .guide-section h3{font-size:1.2rem;font-weight:700;color:#2d2926;margin:32px 0 12px;padding-left:14px;border-left:3px solid #C8A97E}
-    .guide-section h4{font-size:1.05rem;font-weight:600;color:#4a4540;margin:24px 0 8px}
+    .guide-section h3:not(:where(.heading-from-h4)){font-size:1.2rem;font-weight:700;color:#2d2926;margin:32px 0 12px;padding-left:14px;border-left:3px solid #C8A97E}
+    .guide-section :is(h4,h3:where(.heading-from-h4)){font-size:1.05rem;font-weight:600;color:#4a4540;margin:24px 0 8px}
     .guide-section p{font-size:1rem;line-height:1.9;color:#4a4540;margin-bottom:16px}
     .guide-section ul,.guide-section ol{margin:12px 0 20px 20px;line-height:1.8;color:#4a4540}
     .guide-section li{margin-bottom:6px}
@@ -87,7 +87,7 @@ fbq('init','971255062435276');fbq('track','PageView');
     .step-item{display:grid;grid-template-columns:60px 1fr;gap:16px;padding:24px 0;border-bottom:1px solid #f0ece8;position:relative}
     .step-item:last-child{border-bottom:none}
     .step-num{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#C8A97E,#a8875a);color:#fff;font-weight:800;font-size:1.1rem;border-radius:50%;flex-shrink:0}
-    .step-content h4{margin:0 0 6px;font-size:1.1rem;font-weight:700;color:#1a1917}
+    .step-content :is(h4,h3:where(.heading-from-h4)){margin:0 0 6px;font-size:1.1rem;font-weight:700;color:#1a1917}
     .step-content p{margin:0;font-size:0.95rem;line-height:1.7;color:#4a4540}
     .step-content .step-detail{margin-top:8px;font-size:0.88rem;color:#6b6560;line-height:1.7}
     .faq-guide{margin:24px 0}
@@ -372,7 +372,7 @@ fbq('init','971255062435276');fbq('track','PageView');
       <div class="step-item">
         <div class="step-num">1</div>
         <div class="step-content">
-          <h4>정밀 검사와 진단</h4>
+          <h3 class="heading-from-h4">정밀 검사와 진단</h3>
           <p>파노라마 X-ray, CT(CBCT) 촬영, 구강 내 검사, 전신 건강 확인을 진행합니다.</p>
           <div class="step-detail">CT 촬영으로 턱뼈의 높이·너비·밀도를 3차원적으로 분석하고, 하치조신경·상악동 등 중요 해부학적 구조와의 거리를 정밀 측정합니다. 당뇨, 고혈압, 골다공증 등 전신 질환 여부도 함께 확인합니다. 소요 시간: 약 30~60분.</div>
         </div>
@@ -380,7 +380,7 @@ fbq('init','971255062435276');fbq('track','PageView');
       <div class="step-item">
         <div class="step-num">2</div>
         <div class="step-content">
-          <h4>치료 계획 수립</h4>
+          <h3 class="heading-from-h4">치료 계획 수립</h3>
           <p>CT 데이터를 기반으로 임플란트의 위치, 각도, 깊이, 브랜드, 추가 시술 여부를 결정합니다.</p>
           <div class="step-detail">디지털 임플란트 계획 소프트웨어를 사용하여 가상으로 임플란트를 배치하고, 보철물까지 고려한 역방향(Top-down) 설계를 합니다. 뼈이식이나 상악동거상술 필요 여부도 이 단계에서 확정됩니다. 환자에게 치료 계획, 예상 비용, 기간을 투명하게 설명합니다.</div>
         </div>
@@ -388,7 +388,7 @@ fbq('init','971255062435276');fbq('track','PageView');
       <div class="step-item">
         <div class="step-num">3</div>
         <div class="step-content">
-          <h4>사전 처치(필요시)</h4>
+          <h3 class="heading-from-h4">사전 처치(필요시)</h3>
           <p>발치, 잔존 치근 제거, 잇몸 치료, 골이식 등 선행 시술을 진행합니다.</p>
           <div class="step-detail">치주질환이 있으면 먼저 스케일링과 잇몸 치료를 시행합니다. 발치가 필요한 경우 발치 후 치유 기간(4~8주)을 거치거나, 조건이 충분하면 발치와 동시에 즉시 식립을 진행합니다. 뼈가 심하게 부족한 경우 먼저 골이식을 하고 4~6개월 후 임플란트를 식립하기도 합니다.</div>
         </div>
@@ -396,7 +396,7 @@ fbq('init','971255062435276');fbq('track','PageView');
       <div class="step-item">
         <div class="step-num">4</div>
         <div class="step-content">
-          <h4>임플란트 식립 수술</h4>
+          <h3 class="heading-from-h4">임플란트 식립 수술</h3>
           <p>국소마취(또는 수면마취) 후 잇몸을 절개하고 드릴로 뼈에 구멍을 뚫어 픽스처를 식립합니다.</p>
           <div class="step-detail">1개당 수술 시간은 약 20~40분입니다. 비절개 방식이면 잇몸 절개 없이 작은 펀치 구멍으로 식립하므로 출혈과 부기가 훨씬 적습니다. 네비게이션 방식은 실시간 3D 화면을 보면서 0.5mm 이내 정밀도로 식립합니다. 수술 후 봉합하고, 필요시 임시 치아를 장착합니다.</div>
         </div>
@@ -404,7 +404,7 @@ fbq('init','971255062435276');fbq('track','PageView');
       <div class="step-item">
         <div class="step-num">5</div>
         <div class="step-content">
-          <h4>골유착 기간(Healing Period)</h4>
+          <h3 class="heading-from-h4">골유착 기간(Healing Period)</h3>
           <p>임플란트와 뼈가 단단히 결합되는 기간입니다. 하악 2~3개월, 상악 4~6개월.</p>
           <div class="step-detail">이 기간 동안 조골세포가 임플란트 표면에 새로운 뼈를 형성합니다. 수술 부위에 과도한 힘이 가해지지 않도록 주의하며, 1~2주 간격으로 경과를 확인합니다. 최신 SLActive 표면 임플란트는 골유착 기간을 3~4주로 크게 단축할 수 있습니다.</div>
         </div>
@@ -412,7 +412,7 @@ fbq('init','971255062435276');fbq('track','PageView');
       <div class="step-item">
         <div class="step-num">6</div>
         <div class="step-content">
-          <h4>2차 수술 및 보철 제작</h4>
+          <h3 class="heading-from-h4">2차 수술 및 보철 제작</h3>
           <p>골유착이 확인되면 잇몸을 열어 지대주를 연결하고, 보철물(크라운)을 제작합니다.</p>
           <div class="step-detail">디지털 구강 스캐너로 정밀 인상을 채득하고, 대합치(반대쪽 치아)와의 교합 관계를 분석합니다. 원내 기공소가 있으면 당일~3일 이내 보철물 완성이 가능하고, 외부 기공소 의뢰 시 1~2주 소요됩니다. 색상, 모양, 교합을 환자와 함께 확인합니다.</div>
         </div>
@@ -420,7 +420,7 @@ fbq('init','971255062435276');fbq('track','PageView');
       <div class="step-item">
         <div class="step-num">7</div>
         <div class="step-content">
-          <h4>최종 보철물 장착 및 유지관리</h4>
+          <h3 class="heading-from-h4">최종 보철물 장착 및 유지관리</h3>
           <p>크라운을 장착하고 교합을 조정한 후, 정기 검진 스케줄을 안내합니다.</p>
           <div class="step-detail">장착 직후 교합지로 높낮이를 미세 조정합니다. 이후 1개월, 3개월, 6개월, 1년 후 정기 검진을 진행하며, 이후 연 1~2회 정기 검진을 권장합니다. 임플란트 주위염 예방을 위해 3~6개월마다 전문 세정(스케일링)을 받는 것이 좋습니다.</div>
         </div>

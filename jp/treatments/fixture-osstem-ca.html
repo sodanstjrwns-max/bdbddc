@@ -93,7 +93,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-spec-card{background:#fff;border:1px solid #e8e0d8;border-radius:12px;padding:1.25rem;text-align:center;transition:all 0.3s;}
     .fx-spec-card:hover{border-color:#c9a96e;box-shadow:0 4px 16px rgba(107,66,38,0.08);}
     .fx-spec-card i{font-size:1.5rem;color:#6B4226;margin-bottom:0.5rem;display:block;}
-    .fx-spec-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
+    .fx-spec-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
     .fx-spec-card p{font-size:0.85rem;color:var(--text-secondary);margin:0;line-height:1.5;}
     .fx-compare{width:100%;border-collapse:collapse;margin:var(--space-lg) 0;}
     .fx-compare th,.fx-compare td{padding:12px 16px;text-align:left;border-bottom:1px solid #e8e0d8;font-size:0.9rem;}
@@ -102,12 +102,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);}
     .fx-who-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:1.25rem;display:flex;align-items:flex-start;gap:12px;}
     .fx-who-card i{color:#16a34a;font-size:1.1rem;margin-top:3px;flex-shrink:0;}
-    .fx-who-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
+    .fx-who-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
     .fx-who-card p{font-size:0.85rem;color:#475569;margin:0;line-height:1.5;}
     .fx-other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-lg);margin-top:var(--space-xl);}
     .fx-other-card{background:#fff;border:1px solid #e8e0d8;border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:all 0.3s;display:block;}
     .fx-other-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(107,66,38,0.1);border-color:#c9a96e;}
-    .fx-other-card h4{font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
+    .fx-other-card :is(h4,h3:where(.heading-from-h4)){font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
     .fx-other-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.8rem;}
     .fx-other-card .fx-card-link{font-size:0.85rem;font-weight:600;color:#6B4226;}
     @media(max-width:768px){.fx-hero-stats{gap:var(--space-lg);}.fx-stat-value{font-size:1.25rem;}}
@@ -302,32 +302,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-spec-grid">
           <div class="fx-spec-card">
             <i class="fas fa-atom"></i>
-            <h4>カルシウムイオンコーティング</h4>
+            <h3 class="heading-from-h4">カルシウムイオンコーティング</h3>
             <p>SA表面にカルシウム（Ca）イオン溶液を追加処理します。カルシウムは骨の主成分であるハイドロキシアパタイト（HA）の主要成分で、生体適合性に非常に優れています。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-magnet"></i>
-            <h4>骨芽細胞の活性化</h4>
+            <h3 class="heading-from-h4">骨芽細胞の活性化</h3>
             <p>カルシウムイオンがインプラント表面で骨芽細胞の付着と増殖を促進します。これにより新しい骨形成が早まり、初期安定性が向上します。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-mountain"></i>
-            <h4>SLAベースの粗面</h4>
+            <h3 class="heading-from-h4">SLAベースの粗面</h3>
             <p>サンドブラスト（Sandblasting）と酸エッチング（Acid-etching）の二重処理で作られた微細な粗面は、骨細胞が良好に付着する環境をつくります。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-shield-alt"></i>
-            <h4>実証された安全性</h4>
+            <h3 class="heading-from-h4">実証された安全性</h3>
             <p>オステムは韓国で初のインプラント開発企業で、30年以上の臨床データと世界70余か国への輸出実績を有しています。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-bolt"></i>
-            <h4>迅速な骨結合</h4>
+            <h3 class="heading-from-h4">迅速な骨結合</h3>
             <p>従来のSAが6~8週間であるのに対し、4~6週間へと骨結合期間が短縮されます。早期の補綴物装着が可能になり、治療期間が短くなります。</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-won-sign"></i>
-            <h4>合理的な価格帯</h4>
+            <h3 class="heading-from-h4">合理的な価格帯</h3>
             <p>プレミアム級の性能を合理的な価格で提供します。費用対効果に優れた結果が期待できるコストパフォーマンスの高い選択です。</p>
           </div>
         </div>
@@ -369,27 +369,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-who-grid">
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>骨質が良好な方</h4><p>十分な歯槽骨があるが、基本型より速い骨結合を望む方</p></div>
+            <div><h3 class="heading-from-h4">骨質が良好な方</h3><p>十分な歯槽骨があるが、基本型より速い骨結合を望む方</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>喫煙者の方</h4><p>喫煙により骨結合が遅延する可能性がある方。カルシウムコーティングが初期安定性を補完します。</p></div>
+            <div><h3 class="heading-from-h4">喫煙者の方</h3><p>喫煙により骨結合が遅延する可能性がある方。カルシウムコーティングが初期安定性を補完します。</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>糖尿病の患者さま</h4><p>糖尿病による回復遅延が懸念される方。速い骨結合により感染リスクを減らします。</p></div>
+            <div><h3 class="heading-from-h4">糖尿病の患者さま</h3><p>糖尿病による回復遅延が懸念される方。速い骨結合により感染リスクを減らします。</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>費用対効果重視</h4><p>プレミアム級の性能を合理的な価格で望む方に、最適なコストパフォーマンスを提供します。</p></div>
+            <div><h3 class="heading-from-h4">費用対効果重視</h3><p>プレミアム級の性能を合理的な価格で望む方に、最適なコストパフォーマンスを提供します。</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>早期の治療完了を希望</h4><p>SAと比べて2〜4週早い骨結合により、最終補綴物装着までの期間を短縮できます。</p></div>
+            <div><h3 class="heading-from-h4">早期の治療完了を希望</h3><p>SAと比べて2〜4週早い骨結合により、最終補綴物装着までの期間を短縮できます。</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>単独・少数インプラント</h4><p>1〜3本程度の一般的なインプラントを安定的に行いたい方に適しています。</p></div>
+            <div><h3 class="heading-from-h4">単独・少数インプラント</h3><p>1〜3本程度の一般的なインプラントを安定的に行いたい方に適しています。</p></div>
           </div>
         </div>
       </div>
@@ -452,13 +452,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-other-grid">
           <a href="/jp/treatments/fixture-osstem-soi" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">OS</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Osstem · PREMIUM</span></div>
-            <h4>オステム SOI</h4>
+            <h3 class="heading-from-h4">オステム SOI</h3>
             <p>超親水性表面により血液凝固を最大化します。タンパク質結合力が130倍に向上し、骨結合は35%短縮します。オステムの最上位グレードです。</p>
             <span class="fx-card-link">詳しく見る <i class="fas fa-arrow-right"></i></span>
           </a>
           <a href="/jp/treatments/fixture-straumann-roxolid" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#b45309,#f59e0b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">ST</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Straumann · SWISS</span></div>
-            <h4>ストローマン Roxolid® SLActive®</h4>
+            <h3 class="heading-from-h4">ストローマン Roxolid® SLActive®</h3>
             <p>Roxolid® TiZr合金 + SLActive® 超親水性表面です。10年生存率は95~98.8%です。世界最多の臨床データを有しています。</p>
             <span class="fx-card-link">詳しく見る <i class="fas fa-arrow-right"></i></span>
           </a>

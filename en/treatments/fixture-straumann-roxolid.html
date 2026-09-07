@@ -96,7 +96,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-spec-card{background:#fff;border:1px solid #e8e0d8;border-radius:12px;padding:1.25rem;text-align:center;transition:all 0.3s;}
     .fx-spec-card:hover{border-color:#c9a96e;box-shadow:0 4px 16px rgba(107,66,38,0.08);}
     .fx-spec-card i{font-size:1.5rem;color:#6B4226;margin-bottom:0.5rem;display:block;}
-    .fx-spec-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
+    .fx-spec-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
     .fx-spec-card p{font-size:0.85rem;color:var(--text-secondary);margin:0;line-height:1.5;}
     .fx-data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-md);margin:var(--space-xl) 0;}
     .fx-data-card{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fde68a;border-radius:12px;padding:1.5rem;text-align:center;}
@@ -105,20 +105,20 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-data-card .fx-data-desc{font-size:0.82rem;color:#64748b;margin-top:6px;line-height:1.4;}
     .fx-two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);margin-top:var(--space-xl);}
     .fx-two-col-card{background:#fff;border:1px solid #e8e0d8;border-radius:16px;padding:1.5rem;}
-    .fx-two-col-card h3{font-size:1.1rem;font-weight:700;margin:0 0 0.8rem;display:flex;align-items:center;gap:8px;}
-    .fx-two-col-card h3 i{color:#6B4226;}
+    .fx-two-col-card h3:not(:where(.heading-from-h4)){font-size:1.1rem;font-weight:700;margin:0 0 0.8rem;display:flex;align-items:center;gap:8px;}
+    .fx-two-col-card h3:not(:where(.heading-from-h4)) i{color:#6B4226;}
     .fx-two-col-card ul{list-style:none;padding:0;margin:0;}
     .fx-two-col-card ul li{font-size:0.88rem;color:#475569;padding:6px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
     .fx-two-col-card ul li i{color:#6B4226;font-size:0.7rem;margin-top:5px;flex-shrink:0;}
     .fx-who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);}
     .fx-who-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:1.25rem;display:flex;align-items:flex-start;gap:12px;}
     .fx-who-card i{color:#16a34a;font-size:1.1rem;margin-top:3px;flex-shrink:0;}
-    .fx-who-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
+    .fx-who-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
     .fx-who-card p{font-size:0.85rem;color:#475569;margin:0;line-height:1.5;}
     .fx-other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-lg);margin-top:var(--space-xl);}
     .fx-other-card{background:#fff;border:1px solid #e8e0d8;border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:all 0.3s;display:block;}
     .fx-other-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(107,66,38,0.1);border-color:#c9a96e;}
-    .fx-other-card h4{font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
+    .fx-other-card :is(h4,h3:where(.heading-from-h4)){font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
     .fx-other-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.8rem;}
     .fx-other-card .fx-card-link{font-size:0.85rem;font-weight:600;color:#6B4226;}
     @media(max-width:768px){.fx-hero-stats{gap:var(--space-lg);}.fx-stat-value{font-size:1.25rem;}.fx-two-col{grid-template-columns:1fr;}.fx-data-card .fx-data-num{font-size:1.5rem;}}
@@ -374,32 +374,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-spec-grid">
           <div class="fx-spec-card">
             <i class="fas fa-dumbbell"></i>
-            <h4>High mechanical strength</h4>
+            <h3 class="heading-from-h4">High mechanical strength</h3>
             <p>The Roxolid® alloy is stronger than pure titanium, delivering sufficient strength even at smaller diameters.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-expand-arrows-alt"></i>
-            <h4>Minimum diameter 2.9mm</h4>
+            <h3 class="heading-from-h4">Minimum diameter 2.9mm</h3>
             <p>Can be placed even when the ridge is narrow. Preserves your natural bone as much as possible without grafting.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-tint"></i>
-            <h4>Ultra-hydrophilic surface</h4>
+            <h3 class="heading-from-h4">Ultra-hydrophilic surface</h3>
             <p>The SLActive® surface bonds with blood immediately, rapidly forming a fibrin network.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-chart-line"></i>
-            <h4>Most extensive clinical data</h4>
+            <h3 class="heading-from-h4">Most extensive clinical data</h3>
             <p>Over 40 years of clinical history and hundreds of publications—one of the largest evidence bases worldwide.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-heartbeat"></i>
-            <h4>Low complication rate</h4>
+            <h3 class="heading-from-h4">Low complication rate</h3>
             <p>Peri-implantitis incidence 1.8% over 10 years. Maintains stable implants long term.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-user-injured"></i>
-            <h4>Even challenging cases—OK</h4>
+            <h3 class="heading-from-h4">Even challenging cases—OK</h3>
             <p>Shows excellent results in demanding cases such as patients with prior radiation therapy or immunosuppression.</p>
           </div>
         </div>
@@ -416,27 +416,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-who-grid">
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Those with narrow ridge width</h4><p>The ultra-small 2.9mm diameter allows placement without bone grafting.</p></div>
+            <div><h3 class="heading-from-h4">Those with narrow ridge width</h3><p>The ultra-small 2.9mm diameter allows placement without bone grafting.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Those who want to minimize bone grafting</h4><p>Thanks to the high strength of the Roxolid® alloy, even short 4mm implants are possible, reducing vertical bone grafting.</p></div>
+            <div><h3 class="heading-from-h4">Those who want to minimize bone grafting</h3><p>Thanks to the high strength of the Roxolid® alloy, even short 4mm implants are possible, reducing vertical bone grafting.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Those who want faster osseointegration</h4><p>With the SLActive® surface, osseointegration is achieved within 6~8 weeks—about half the time of conventional surfaces (12~16 weeks).</p></div>
+            <div><h3 class="heading-from-h4">Those who want faster osseointegration</h3><p>With the SLActive® surface, osseointegration is achieved within 6~8 weeks—about half the time of conventional surfaces (12~16 weeks).</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Patients with systemic conditions</h4><p>High success rates have been clinically demonstrated even in patients with diabetes, prior radiation therapy, or immunosuppression.</p></div>
+            <div><h3 class="heading-from-h4">Patients with systemic conditions</h3><p>High success rates have been clinically demonstrated even in patients with diabetes, prior radiation therapy, or immunosuppression.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Those who want top-tier quality</h4><p>40-year history, the most clinical papers worldwide, and a lifetime (conditional) warranty—ideal for those who value premium quality.</p></div>
+            <div><h3 class="heading-from-h4">Those who want top-tier quality</h3><p>40-year history, the most clinical papers worldwide, and a lifetime (conditional) warranty—ideal for those who value premium quality.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Those for whom long-term stability matters</h4><p>Bone loss 0.5~1mm at 10 years; peri-implantitis 1.8%. The best choice if you want an implant that will last.</p></div>
+            <div><h3 class="heading-from-h4">Those for whom long-term stability matters</h3><p>Bone loss 0.5~1mm at 10 years; peri-implantitis 1.8%. The best choice if you want an implant that will last.</p></div>
           </div>
         </div>
       </div>
@@ -499,13 +499,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-other-grid">
           <a href="/en/treatments/fixture-osstem-ca" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">OS</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Osstem · KOREA</span></div>
-            <h4>Osstem CA</h4>
+            <h3 class="heading-from-h4">Osstem CA</h3>
             <p>Adds a calcium-ion coating to the SA surface. Excellent primary stability at a reasonable price. Suitable for patients with good bone quality.</p>
             <span class="fx-card-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </a>
           <a href="/en/treatments/fixture-osstem-soi" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">OS</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Osstem · PREMIUM</span></div>
-            <h4>Osstem SOI</h4>
+            <h3 class="heading-from-h4">Osstem SOI</h3>
             <p>Superhydrophilic surface maximizes blood clotting. 130 times greater protein binding and 35% shorter osseointegration time. Osstem’s top tier.</p>
             <span class="fx-card-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </a>

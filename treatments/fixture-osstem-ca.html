@@ -157,7 +157,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-spec-card{background:#fff;border:1px solid #e8e0d8;border-radius:12px;padding:1.25rem;text-align:center;transition:all 0.3s;}
     .fx-spec-card:hover{border-color:#c9a96e;box-shadow:0 4px 16px rgba(107,66,38,0.08);}
     .fx-spec-card i{font-size:1.5rem;color:#6B4226;margin-bottom:0.5rem;display:block;}
-    .fx-spec-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
+    .fx-spec-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
     .fx-spec-card p{font-size:0.85rem;color:var(--text-secondary);margin:0;line-height:1.5;}
     .fx-compare{width:100%;border-collapse:collapse;margin:var(--space-lg) 0;}
     .fx-compare th,.fx-compare td{padding:12px 16px;text-align:left;border-bottom:1px solid #e8e0d8;font-size:0.9rem;}
@@ -166,12 +166,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);}
     .fx-who-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:1.25rem;display:flex;align-items:flex-start;gap:12px;}
     .fx-who-card i{color:#16a34a;font-size:1.1rem;margin-top:3px;flex-shrink:0;}
-    .fx-who-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
+    .fx-who-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
     .fx-who-card p{font-size:0.85rem;color:#475569;margin:0;line-height:1.5;}
     .fx-other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-lg);margin-top:var(--space-xl);}
     .fx-other-card{background:#fff;border:1px solid #e8e0d8;border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:all 0.3s;display:block;}
     .fx-other-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(107,66,38,0.1);border-color:#c9a96e;}
-    .fx-other-card h4{font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
+    .fx-other-card :is(h4,h3:where(.heading-from-h4)){font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
     .fx-other-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.8rem;}
     .fx-other-card .fx-card-link{font-size:0.85rem;font-weight:600;color:#6B4226;}
     @media(max-width:768px){.fx-hero-stats{gap:var(--space-lg);}.fx-stat-value{font-size:1.25rem;}}
@@ -415,32 +415,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-spec-grid">
           <div class="fx-spec-card">
             <i class="fas fa-atom"></i>
-            <h4>칼슘 이온 코팅</h4>
+            <h3 class="heading-from-h4">칼슘 이온 코팅</h3>
             <p>SA 표면에 칼슘(Ca) 이온 용액을 추가 처리합니다. 칼슘은 뼈의 주성분인 하이드록시아파타이트(HA)의 핵심 성분으로, 생체적합성이 매우 뛰어납니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-magnet"></i>
-            <h4>조골세포 활성화</h4>
+            <h3 class="heading-from-h4">조골세포 활성화</h3>
             <p>칼슘 이온이 임플란트 표면에서 조골세포의 부착과 증식을 촉진합니다. 이를 통해 새로운 뼈 형성이 빨라지고 초기 안정성이 향상됩니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-mountain"></i>
-            <h4>SLA 기반 거친 표면</h4>
+            <h3 class="heading-from-h4">SLA 기반 거친 표면</h3>
             <p>샌드블라스팅(Sandblasting)과 산 에칭(Acid-etching) 2중 처리로 만들어진 미세 거친 표면은 뼈세포가 잘 부착되는 환경을 만듭니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-shield-alt"></i>
-            <h4>검증된 안전성</h4>
+            <h3 class="heading-from-h4">검증된 안전성</h3>
             <p>오스템은 국내 최초 임플란트 개발사로, 30년 이상의 임상 데이터와 세계 70여 개국 수출 실적을 보유하고 있습니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-bolt"></i>
-            <h4>빠른 골유착</h4>
+            <h3 class="heading-from-h4">빠른 골유착</h3>
             <p>기존 SA의 6~8주 대비 4~6주로 골유착 기간이 단축됩니다. 조기 보철물 장착이 가능해 치료 기간이 줄어듭니다.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-won-sign"></i>
-            <h4>합리적 가격대</h4>
+            <h3 class="heading-from-h4">합리적 가격대</h3>
             <p>프리미엄급 성능을 합리적인 가격에 제공합니다. 비용 대비 우수한 결과를 기대할 수 있는 가성비 높은 선택입니다.</p>
           </div>
         </div>
@@ -482,27 +482,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-who-grid">
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>골질이 양호한 분</h4><p>충분한 잇몸뼈를 보유하고 있으나, 기본형보다 빠른 골유착을 원하시는 분</p></div>
+            <div><h3 class="heading-from-h4">골질이 양호한 분</h3><p>충분한 잇몸뼈를 보유하고 있으나, 기본형보다 빠른 골유착을 원하시는 분</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>흡연자</h4><p>흡연으로 인해 골유착이 지연될 수 있는 분. 칼슘 코팅이 초기 안정성을 보완합니다.</p></div>
+            <div><h3 class="heading-from-h4">흡연자</h3><p>흡연으로 인해 골유착이 지연될 수 있는 분. 칼슘 코팅이 초기 안정성을 보완합니다.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>당뇨 환자</h4><p>당뇨로 인한 회복 지연이 우려되는 분. 빠른 골유착으로 감염 위험을 줄입니다.</p></div>
+            <div><h3 class="heading-from-h4">당뇨 환자</h3><p>당뇨로 인한 회복 지연이 우려되는 분. 빠른 골유착으로 감염 위험을 줄입니다.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>비용 대비 성능 중시</h4><p>프리미엄급 성능을 합리적인 가격에 원하시는 분에게 최적의 가성비를 제공합니다.</p></div>
+            <div><h3 class="heading-from-h4">비용 대비 성능 중시</h3><p>프리미엄급 성능을 합리적인 가격에 원하시는 분에게 최적의 가성비를 제공합니다.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>빠른 치료 완료 희망</h4><p>SA 대비 2~4주 빠른 골유착으로 최종 보철물 장착까지의 기간을 단축할 수 있습니다.</p></div>
+            <div><h3 class="heading-from-h4">빠른 치료 완료 희망</h3><p>SA 대비 2~4주 빠른 골유착으로 최종 보철물 장착까지의 기간을 단축할 수 있습니다.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>단일·소수 임플란트</h4><p>1~3개 정도의 일반적인 임플란트를 안정적으로 진행하려는 분께 적합합니다.</p></div>
+            <div><h3 class="heading-from-h4">단일·소수 임플란트</h3><p>1~3개 정도의 일반적인 임플란트를 안정적으로 진행하려는 분께 적합합니다.</p></div>
           </div>
         </div>
       </div>
@@ -565,13 +565,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-other-grid">
           <a href="/treatments/fixture-osstem-soi" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">OS</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Osstem · PREMIUM</span></div>
-            <h4>오스템 SOI</h4>
+            <h3 class="heading-from-h4">오스템 SOI</h3>
             <p>초친수성 표면으로 혈액 응고를 극대화. 단백질 결합력 130배 향상, 골유착 35% 단축. 오스템 최상위 등급.</p>
             <span class="fx-card-link">자세히 보기 <i class="fas fa-arrow-right"></i></span>
           </a>
           <a href="/treatments/fixture-straumann-roxolid" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#b45309,#f59e0b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">ST</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Straumann · SWISS</span></div>
-            <h4>스트라우만 록솔리드 SLActive</h4>
+            <h3 class="heading-from-h4">스트라우만 록솔리드 SLActive</h3>
             <p>Roxolid® TiZr 합금 + SLActive® 초친수성 표면. 10년 생존율 95~98.8%. 세계 최다 임상 데이터 보유.</p>
             <span class="fx-card-link">자세히 보기 <i class="fas fa-arrow-right"></i></span>
           </a>

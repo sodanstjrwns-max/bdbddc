@@ -10,7 +10,7 @@
 .decision-guide a{color:#714623;text-underline-offset:3px;font-weight:600}
 .decision-guide .decision-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .decision-guide article{background:#fff;border:1px solid #e4dbcf;border-radius:16px;padding:22px;scroll-margin-top:110px}
-.decision-guide h3{font-size:1.04rem;margin:0 0 12px;line-height:1.6}
+.decision-guide h3:not(:where(.heading-from-h4)){font-size:1.04rem;margin:0 0 12px;line-height:1.6}
 .decision-guide article a{display:inline-block;margin:4px 12px 4px 0;font-size:.9rem}
 .decision-guide footer{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:22px;padding-top:20px;border-top:1px solid #e4dbcf}
 .decision-guide .decision-note{font-size:.82rem;flex:1 1 320px;margin:0}

@@ -181,14 +181,14 @@ body{
   font-weight:800;
   flex-shrink:0;
 }
-.guide-section h3{
+.guide-section h3:not(:where(.heading-from-h4)){
   font-size:1.18rem;
   font-weight:700;
   color:var(--text);
   margin:28px 0 14px;
   letter-spacing:-.01em;
 }
-.guide-section h4{
+.guide-section :is(h4,h3:where(.heading-from-h4)){
   font-size:1.02rem;
   font-weight:700;
   color:var(--brown);
@@ -289,7 +289,7 @@ body{
   border-radius:999px;
   letter-spacing:.1em;
 }
-.glow-promo h3{
+.glow-promo h3:not(:where(.heading-from-h4)){
   color:var(--gold-light);
   margin:0 0 10px;
   font-size:1.3rem;
@@ -352,7 +352,7 @@ body{
   margin:40px 0;
   border:1px solid var(--border);
 }
-.author-box h4{
+.author-box :is(h4,h3:where(.heading-from-h4)){
   font-size:.8rem;
   color:var(--gold-dark);
   letter-spacing:.12em;
@@ -384,7 +384,7 @@ body{
   text-align:center;
   margin:48px 0;
 }
-.cta-banner h3{
+.cta-banner h3:not(:where(.heading-from-h4)){
   color:#fff;
   font-size:1.4rem;
   font-weight:800;
@@ -515,7 +515,7 @@ body{
   text-align:center;
 }
 .guide-footer__inner{max-width:880px;margin:0 auto}
-.guide-footer h4{
+.guide-footer :is(h4,h3:where(.heading-from-h4)){
   color:var(--gold-light);
   font-size:1.05rem;
   margin-bottom:14px;
@@ -605,7 +605,7 @@ body{
   letter-spacing:.1em;
 }
 .hub-card__icon{font-size:2.5rem;margin-bottom:12px}
-.hub-card__top h3{
+.hub-card__top h3:not(:where(.heading-from-h4)){
   color:#fff;
   font-size:1.4rem;
   font-weight:800;

@@ -8,6 +8,7 @@
     "build:fast": "vite build && node scripts/post-build.cjs",
     "preview": "wrangler pages dev dist",
     "seo:check": "node --max-old-space-size=256 scripts/seo-release.cjs",
+    "seo:http": "node --max-old-space-size=96 scripts/seo-http-audit.cjs",
     "deploy": "npm run build && wrangler pages deploy dist",
     "deploy:prod": "npm run build && wrangler pages deploy dist --project-name seoul-bd-dental",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",

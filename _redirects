@@ -8,6 +8,12 @@
 /column/index      /column/    301
 /column/index.html /column/    301
 
+# Hub aliases go directly to the final canonical (before :slug.html patterns).
+/treatments/index      /treatments/    301
+/treatments/index.html /treatments/    301
+/doctors/index         /doctors/       301
+/doctors/index.html    /doctors/       301
+
 # GSC 404 에러 해결 — 이전 사이트 잔재 리디렉트
 /tables/treatments/treatments/gum.html    /pricing    301
 /tables/treatments/treatments/index.html  /pricing    301

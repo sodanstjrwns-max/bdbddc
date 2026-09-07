@@ -2773,6 +2773,13 @@ app.get('/en/*', async (c, next) => {
   return c.redirect(path, 301)
 })
 
+// Directory hubs have one final canonical URL, including legacy index aliases.
+for (const hub of ['treatments', 'doctors']) {
+  for (const suffix of ['index', 'index.html']) {
+    app.get(`/${hub}/${suffix}`, (c) => c.redirect(`/${hub}/`, 301))
+  }
+}
+
 // 301 Redirect: old .html URLs → clean URLs (prevent 308 chain)
 app.get('/directions.html', (c) => c.redirect('/directions', 301))
 app.get('/about.html', (c) => c.redirect('/about', 301))
@@ -3064,6 +3071,13 @@ ${items}
 // ============================================
 // 동적 사이트맵: 컬럼 개별 URL (R2 실시간)
 // ============================================
+function sitemapLastmod(value: unknown): string {
+  if (typeof value !== 'string') return ''
+  const date = value.slice(0, 10)
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) && Number.isFinite(Date.parse(date))
+    ? `<lastmod>${date}</lastmod>` : ''
+}
+
 app.get('/sitemap-columns.xml', async (c) => {
   const r2 = c.env.R2
   let columns: any[] = []
@@ -3080,18 +3094,18 @@ app.get('/sitemap-columns.xml', async (c) => {
     <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/${slug}"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/${slug}"/>`
   const urls = columns.map((col: any) => {
-    const lastmod = (col.updatedAt || col.createdAt || new Date().toISOString()).split('T')[0]
+    const lastmod = sitemapLastmod(col.updatedAt || col.createdAt)
     const slug = colSlug(col)
     const hasJp = !!col.slug && jpSlugs.has(col.slug)
     return `  <url>
     <loc>https://bdbddc.com/column/${slug}</loc>${hasJp ? hreflang(slug) : ''}
-    <lastmod>${lastmod}</lastmod>
+    ${lastmod}
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>${hasJp ? `
   <url>
     <loc>https://bdbddc.com/jp/column/${slug}</loc>${hreflang(slug)}
-    <lastmod>${lastmod}</lastmod>
+    ${lastmod}
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>` : ''}`
@@ -3107,7 +3121,6 @@ app.get('/sitemap-columns.xml', async (c) => {
     <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/column/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/"/>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
@@ -3116,7 +3129,6 @@ app.get('/sitemap-columns.xml', async (c) => {
     <xhtml:link rel="alternate" hreflang="ko" href="https://bdbddc.com/column/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/column/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bdbddc.com/column/"/>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.75</priority>
   </url>
@@ -3141,10 +3153,10 @@ app.get('/sitemap-cases.xml', async (c) => {
       .sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
   }
   const urls = cases.map((cs: any) => {
-    const lastmod = (cs.updatedAt || cs.createdAt || new Date().toISOString()).split('T')[0]
+    const lastmod = sitemapLastmod(cs.updatedAt || cs.createdAt)
     return `  <url>
     <loc>https://bdbddc.com/cases/${caseSlug(cs)}</loc>
-    <lastmod>${lastmod}</lastmod>
+    ${lastmod}
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>`
@@ -3156,7 +3168,6 @@ app.get('/sitemap-cases.xml', async (c) => {
   <!-- 총 ${cases.length}개 케이스 + 갤러리 페이지 -->
   <url>
     <loc>https://bdbddc.com/cases/</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
@@ -3399,7 +3410,6 @@ function ssrMobileNav(): string {
 type BlogPost = { slug: string; loc: string; lastmod: string }
 
 async function fetchBlogPosts(): Promise<BlogPost[]> {
-  const today = new Date().toISOString().split('T')[0]
   const out: BlogPost[] = []
   try {
     const res = await fetch('https://bdbddc.inblog.ai/sitemap.xml', {
@@ -3412,7 +3422,8 @@ async function fetchBlogPosts(): Promise<BlogPost[]> {
     let m: RegExpExecArray | null
     while ((m = re.exec(xml)) !== null) {
       let loc = m[1].trim().replace('https://bdbddc.inblog.ai', 'https://bdbddc.com')
-      const lastmod = (m[2] || today).trim().slice(0, 10)
+      const sourceDate = (m[2] || '').trim().slice(0, 10)
+      const lastmod = /^\d{4}-\d{2}-\d{2}$/.test(sourceDate) && Number.isFinite(Date.parse(sourceDate)) ? sourceDate : ''
       if (!loc.startsWith('https://bdbddc.com/blog')) continue
       // 색인 대상 아닌 경로 (우리가 301 로 죽인 것들)
       if (loc.includes('/blog/category/') || loc.includes('/blog/author/')) continue
@@ -3701,18 +3712,17 @@ app.use('/static/*', serveStatic())
 //   (같은 함수를 /blog/ 인덱스 링크 목록에도 쓴다 = 단일 소스)
 // ============================================
 app.get('/sitemap-blog.xml', async (c) => {
-  const today = new Date().toISOString().split('T')[0]
   const posts = await fetchBlogPosts()
 
-  // 인덱스는 항상 첫 항목으로 (인블로그는 /blog 로 내므로 /blog/ 로 통일)
+  // Use the proxy's actual canonical; omit unknown modification dates.
   const entries: Array<{ loc: string; lastmod: string; pri: string }> = [
-    { loc: 'https://bdbddc.com/blog/', lastmod: today, pri: '0.9' },
+    { loc: 'https://bdbddc.com/blog', lastmod: '', pri: '0.9' },
     ...posts.map(p => ({ loc: p.loc, lastmod: p.lastmod, pri: '0.7' }))
   ]
 
   const body = entries.map(e => `  <url>
     <loc>${e.loc}</loc>
-    <lastmod>${e.lastmod}</lastmod>
+    ${e.lastmod ? `<lastmod>${e.lastmod}</lastmod>` : ''}
     <changefreq>weekly</changefreq>
     <priority>${e.pri}</priority>
   </url>`).join('\n')
@@ -3730,49 +3740,9 @@ ${body}
 })
 
 // ============================================
-// 동적 사이트맵 인덱스 — 동적 사이트맵(columns/cases)의 lastmod를 항상 당일로 반영
-// 정적 사이트맵(main/area/encyclopedia/intl)은 빌드 시점 날짜 유지
+// 사이트맵 인덱스는 검증된 빌드 산출물을 사용 (임의의 오늘 날짜를 만들지 않음).
 // ============================================
-app.get('/sitemap.xml', (c) => {
-  const today = new Date().toISOString().split('T')[0]
-  const STATIC_LASTMOD = '2026-05-30' // 정적 사이트맵 최종 갱신일 (배포 시 갱신)
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 서울비디치과 사이트맵 인덱스 (https://bdbddc.com) — 동적 생성 -->
-  <sitemap>
-    <loc>https://bdbddc.com/sitemap-main.xml</loc>
-    <lastmod>${STATIC_LASTMOD}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://bdbddc.com/sitemap-area.xml</loc>
-    <lastmod>${STATIC_LASTMOD}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://bdbddc.com/sitemap-encyclopedia.xml</loc>
-    <lastmod>${STATIC_LASTMOD}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://bdbddc.com/sitemap-intl.xml</loc>
-    <lastmod>${STATIC_LASTMOD}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://bdbddc.com/sitemap-columns.xml</loc>
-    <lastmod>${today}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://bdbddc.com/sitemap-cases.xml</loc>
-    <lastmod>${today}</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://bdbddc.com/sitemap-blog.xml</loc>
-    <lastmod>${today}</lastmod>
-  </sitemap>
-</sitemapindex>`
-  return c.body(xml, 200, {
-    'Content-Type': 'application/xml; charset=utf-8',
-    'Cache-Control': 'public, max-age=3600'
-  })
-})
+app.get('/sitemap.xml', serveStatic())
 
 // Other static files
 app.use('/manifest.json', serveStatic())
@@ -3965,8 +3935,9 @@ app.get('/doctors/:slug', async (c, next) => {
 // ============================================
 app.get('/doctors/:slug', async (c) => {
   const slug = c.req.param('slug')
+  const missingDoctor = () => notFoundPage(c, '의료진 페이지를 찾을 수 없습니다', '요청하신 의료진 소개가 없거나 이동되었습니다.', '/doctors/', '의료진 목록 보기')
   // index 등 정적 경로는 무시
-  if (slug === 'index' || slug.includes('.')) return c.notFound()
+  if (slug === 'index' || slug.includes('.')) return missingDoctor()
   
   const r2 = c.env.R2
   
@@ -4093,16 +4064,18 @@ app.get('/doctors/:slug', async (c) => {
     if (env.ASSETS) {
       const assetReq = new Request(new URL(`/doctors/${slug}.html`, c.req.url).toString())
       const resp = await env.ASSETS.fetch(assetReq)
-      if (!resp.ok) return c.notFound()
+      if (!resp.ok) return missingDoctor()
       html = await resp.text()
     } else {
       // 로컬 개발용 self-fetch (wrangler pages dev)
       const staticUrl = new URL(`/doctors/${slug}.html`, c.req.url)
       const resp = await fetch(staticUrl.toString())
-      if (!resp.ok) return c.notFound()
+      if (!resp.ok) return missingDoctor()
       html = await resp.text()
     }
     
+    if (!html.trim() || !/<h1[\s>]/i.test(html)) return missingDoctor()
+
     // ===== VideoObject 스키마 주입 (Google 동영상 색인) =====
     const DOCTOR_VIDEO_MAP: Record<string, { videoId: string, name: string, description: string }> = {
       'lee-bm': { videoId: 'YoKw5-a4TCI', name: '서울비디치과 이병민 원장', description: '서울비디치과 이병민 원장 소개 영상. 턱관절·구강안면통증 전문, 서울대 출신, 환자 중심의 따뜻한 진료.' },
@@ -4313,7 +4286,7 @@ ${prioritized.map(s => {
     return c.html(html)
   } catch (e) {
     // fetch 실패 시 정적 서빙으로 폴백
-    return c.notFound()
+    return missingDoctor()
   }
 })
 
@@ -8974,12 +8947,18 @@ app.all('*', async (c) => {
   // 1) ASSETS 바인딩으로 정적 파일 서빙 시도
   if (c.env?.ASSETS) {
     try {
-      const assetRes = await c.env.ASSETS.fetch(c.req.raw)
+      const isHead = c.req.method === 'HEAD'
+      const request = isHead
+        ? new Request(c.req.raw.url, { method: 'GET', headers: c.req.raw.headers })
+        : c.req.raw
+      const assetRes = await c.env.ASSETS.fetch(request)
+      // Preserve asset redirects and conditional responses; HEAD must mirror GET.
+      if (assetRes.status === 304 || (assetRes.status >= 301 && assetRes.status <= 308)) return assetRes
       // 정적 파일이 실제로 존재하면 (본문이 있는 200) 그대로 반환
       if (assetRes.ok) {
         const body = await assetRes.arrayBuffer()
         if (body.byteLength > 0) {
-          return new Response(body, {
+          return new Response(isHead ? null : body, {
             status: assetRes.status,
             headers: assetRes.headers
           })

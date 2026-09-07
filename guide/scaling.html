@@ -62,27 +62,27 @@ fbq('init','971255062435276');fbq('track','PageView');
     .guide-section:last-child{border-bottom:none}
     .guide-section h2{font-size:clamp(1.5rem,3.5vw,2rem);font-weight:800;color:#1a1917;margin-bottom:12px;line-height:1.3}
     .guide-section h2 .num{color:#C8A97E;margin-right:12px;font-weight:900}
-    .guide-section h3{font-size:1.25rem;font-weight:700;color:#1a1917;margin:32px 0 12px}
-    .guide-section h4{font-size:1.05rem;font-weight:700;color:#2d2926;margin:24px 0 8px}
+    .guide-section h3:not(:where(.heading-from-h4)){font-size:1.25rem;font-weight:700;color:#1a1917;margin:32px 0 12px}
+    .guide-section :is(h4,h3:where(.heading-from-h4)){font-size:1.05rem;font-weight:700;color:#2d2926;margin:24px 0 8px}
     .guide-section p{font-size:1rem;line-height:1.9;color:#3a3631;margin-bottom:16px}
     .guide-section ul, .guide-section ol{margin:0 0 16px 24px;line-height:1.9;color:#3a3631}
     .guide-section li{margin-bottom:6px}
     .guide-section strong{color:#1a1917;font-weight:700}
     .section-intro{font-size:1.1rem;color:#6b645c;line-height:1.8;margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid #f0ece8}
     .highlight-box{background:#fef9f0;border-left:4px solid #C8A97E;padding:20px 24px;margin:24px 0;border-radius:0 12px 12px 0}
-    .highlight-box h4{margin-top:0;color:#8B6F3F}
+    .highlight-box :is(h4,h3:where(.heading-from-h4)){margin-top:0;color:#8B6F3F}
     .info-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.95rem}
     .info-table th, .info-table td{padding:12px 16px;text-align:left;border-bottom:1px solid #e8e0d6}
     .info-table th{background:#f8f6f3;font-weight:700;color:#1a1917}
     .info-table tbody tr:hover{background:#fcfaf7}
     .cta-card{background:linear-gradient(135deg,#C8A97E 0%,#8B6F3F 100%);color:#fff;padding:32px;border-radius:16px;margin:32px 0;text-align:center}
-    .cta-card h3{color:#fff;margin-bottom:8px;font-size:1.3rem}
+    .cta-card h3:not(:where(.heading-from-h4)){color:#fff;margin-bottom:8px;font-size:1.3rem}
     .cta-card p{color:rgba(255,255,255,0.85);margin-bottom:20px}
     .cta-card .btn-group{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .cta-card a.btn-primary{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#8B6F3F;padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem}
     .cta-card a.btn-secondary{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);color:#fff;padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:700;font-size:0.95rem;border:1px solid rgba(255,255,255,0.4)}
     .related-guides{background:#f8f6f3;padding:40px 24px;border-radius:16px;margin:48px 0}
-    .related-guides h3{margin-top:0;color:#1a1917;margin-bottom:16px;font-size:1.2rem}
+    .related-guides h3:not(:where(.heading-from-h4)){margin-top:0;color:#1a1917;margin-bottom:16px;font-size:1.2rem}
     .related-guides .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .related-guides a.card{display:block;background:#fff;padding:16px 18px;border-radius:12px;border:1px solid #e8e0d6;text-decoration:none;color:#1a1917;transition:all 0.2s}
     .related-guides a.card:hover{border-color:#C8A97E;transform:translateY(-2px);box-shadow:0 4px 12px rgba(200,169,126,0.15)}
@@ -144,7 +144,7 @@ fbq('init','971255062435276');fbq('track','PageView');
 <p>스케일링은 이 치석을 제거하는 시술입니다. 끝부분이 빠르게 진동하는 <strong>초음파 스케일러(ultrasonic scaler)</strong>로 큰 치석을 부수듯 제거하고, 진동만으로 떨어지지 않는 부분은 손기구인 <strong>큐렛(curette)</strong>이나 <strong>스케일러(scaler)</strong>로 긁어내는 방식입니다. 마지막에 미세한 거친 면을 다듬는 <strong>폴리싱(polishing)</strong>까지 마치면 한 번의 스케일링이 끝납니다.</p>
 
 <div class="highlight-box">
-<h4><i class="fas fa-lightbulb" style="color:#C8A97E;margin-right:6px"></i>치석은 왜 위험한가요?</h4>
+<h3><i class="fas fa-lightbulb heading-from-h4" style="color:#C8A97E;margin-right:6px"></i>치석은 왜 위험한가요?</h3>
 <p>치석 자체는 통증이 없지만, 표면이 거칠어 세균이 더 잘 달라붙는 둥지가 됩니다. 이 세균들이 잇몸을 자극하면 <strong>치은염(gingivitis)</strong>이 시작되고, 방치하면 잇몸뼈가 녹는 <strong>치주염(periodontitis)</strong>으로 진행됩니다. 한국인 성인의 잇몸병 유병률은 약 30~50%로, 충치보다 발치 원인이 더 많은 질환입니다.</p>
 </div>
 

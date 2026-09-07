@@ -96,7 +96,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-spec-card{background:#fff;border:1px solid #e8e0d8;border-radius:12px;padding:1.25rem;text-align:center;transition:all 0.3s;}
     .fx-spec-card:hover{border-color:#c9a96e;box-shadow:0 4px 16px rgba(107,66,38,0.08);}
     .fx-spec-card i{font-size:1.5rem;color:#6B4226;margin-bottom:0.5rem;display:block;}
-    .fx-spec-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
+    .fx-spec-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 0.3rem;}
     .fx-spec-card p{font-size:0.85rem;color:var(--text-secondary);margin:0;line-height:1.5;}
     .fx-data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-md);margin:var(--space-xl) 0;}
     .fx-data-card{background:linear-gradient(135deg,#faf5ff,#f5f3ff);border:1px solid #ddd6fe;border-radius:12px;padding:1.5rem;text-align:center;}
@@ -106,12 +106,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     .fx-who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);}
     .fx-who-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:1.25rem;display:flex;align-items:flex-start;gap:12px;}
     .fx-who-card i{color:#16a34a;font-size:1.1rem;margin-top:3px;flex-shrink:0;}
-    .fx-who-card h4{font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
+    .fx-who-card :is(h4,h3:where(.heading-from-h4)){font-size:0.95rem;font-weight:700;color:#1e293b;margin:0 0 4px;}
     .fx-who-card p{font-size:0.85rem;color:#475569;margin:0;line-height:1.5;}
     .fx-other-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-lg);margin-top:var(--space-xl);}
     .fx-other-card{background:#fff;border:1px solid #e8e0d8;border-radius:16px;padding:1.5rem;text-decoration:none;color:inherit;transition:all 0.3s;display:block;}
     .fx-other-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(107,66,38,0.1);border-color:#c9a96e;}
-    .fx-other-card h4{font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
+    .fx-other-card :is(h4,h3:where(.heading-from-h4)){font-size:1.1rem;font-weight:700;color:#1e293b;margin:0 0 0.5rem;}
     .fx-other-card p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin:0 0 0.8rem;}
     .fx-other-card .fx-card-link{font-size:0.85rem;font-weight:600;color:#6B4226;}
     @media(max-width:768px){.fx-hero-stats{gap:var(--space-lg);}.fx-stat-value{font-size:1.25rem;}.fx-data-card .fx-data-num{font-size:1.5rem;}}
@@ -332,32 +332,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-spec-grid">
           <div class="fx-spec-card">
             <i class="fas fa-tint"></i>
-            <h4>Super-hydrophilic surface</h4>
+            <h3 class="heading-from-h4">Super-hydrophilic surface</h3>
             <p>Upon contact with blood, the SOI surface spreads rapidly and induces the formation of a rich blood clot. This clot accelerates the first stage of osseointegration.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-fire-alt"></i>
-            <h4>High surface free energy</h4>
+            <h3 class="heading-from-h4">High surface free energy</h3>
             <p>A special process keeps the surface free energy high. It prevents adsorption of carbon contaminants, preserving super-hydrophilicity over time.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-balance-scale"></i>
-            <h4>Neutral pH environment</h4>
+            <h3 class="heading-from-h4">Neutral pH environment</h3>
             <p>The Dental Implant surface maintains a neutral pH, suppressing bone-resorbing osteoclast activity and maximizing bone-forming osteoblast activity.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-dna"></i>
-            <h4>Protein-binding capacity 130-fold</h4>
+            <h3 class="heading-from-h4">Protein-binding capacity 130-fold</h3>
             <p>With about 130-fold higher protein-binding than conventional surfaces, plasma proteins rapidly adsorb to the surface, strongly transmitting osteogenic signals.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-microscope"></i>
-            <h4>SLA-based microstructure</h4>
+            <h3 class="heading-from-h4">SLA-based microstructure</h3>
             <p>The SOI treatment is applied over a micro-rough surface formed by sandblasting and acid etching, securing both mechanical and chemical bonding strength.</p>
           </div>
           <div class="fx-spec-card">
             <i class="fas fa-globe-asia"></i>
-            <h4>Global validation</h4>
+            <h3 class="heading-from-h4">Global validation</h3>
             <p>Since its 2016 launch, it has been sold in over 70 countries with more than 440,000 units. A proven, top-tier fixture chosen by countless clinicians.</p>
           </div>
         </div>
@@ -393,27 +393,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-who-grid">
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Older patients</h4><p>As you age, osseointegration can slow down. SOI’s faster osseointegration supports stable outcomes.</p></div>
+            <div><h3 class="heading-from-h4">Older patients</h3><p>As you age, osseointegration can slow down. SOI’s faster osseointegration supports stable outcomes.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Patients with diabetes or osteoporosis</h4><p>Those with systemic conditions and reduced bone metabolism. SOI’s ability to activate osteoblasts helps create an optimal environment.</p></div>
+            <div><h3 class="heading-from-h4">Patients with diabetes or osteoporosis</h3><p>Those with systemic conditions and reduced bone metabolism. SOI’s ability to activate osteoblasts helps create an optimal environment.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Weaker bone quality (upper molars)</h4><p>The upper molar area often has softer bone. SOI provides excellent primary stability even in weaker bone.</p></div>
+            <div><h3 class="heading-from-h4">Weaker bone quality (upper molars)</h3><p>The upper molar area often has softer bone. SOI provides excellent primary stability even in weaker bone.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Patients who want to finish treatment quickly</h4><p>With about 4 weeks for osseointegration, the time to the final restoration can be significantly shortened.</p></div>
+            <div><h3 class="heading-from-h4">Patients who want to finish treatment quickly</h3><p>With about 4 weeks for osseointegration, the time to the final restoration can be significantly shortened.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Complex cases</h4><p>In complex surgeries with bone grafting, faster osseointegration can improve overall treatment success.</p></div>
+            <div><h3 class="heading-from-h4">Complex cases</h3><p>In complex surgeries with bone grafting, faster osseointegration can improve overall treatment success.</p></div>
           </div>
           <div class="fx-who-card">
             <i class="fas fa-check-circle"></i>
-            <div><h4>Those who want top-tier quality</h4><p>A premium implant fixture using Osstem’s highest-grade surface technology.</p></div>
+            <div><h3 class="heading-from-h4">Those who want top-tier quality</h3><p>A premium implant fixture using Osstem’s highest-grade surface technology.</p></div>
           </div>
         </div>
       </div>
@@ -457,13 +457,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fx-other-grid">
           <a href="/en/treatments/fixture-osstem-ca" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1e40af,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">OS</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Osstem · KOREA</span></div>
-            <h4>Osstem CA</h4>
+            <h3 class="heading-from-h4">Osstem CA</h3>
             <p>Adds a calcium-ion coating to the SA surface. Excellent primary stability at a reasonable price point. Suitable for patients with good bone quality.</p>
             <span class="fx-card-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </a>
           <a href="/en/treatments/fixture-straumann-roxolid" class="fx-other-card">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.8rem;"><div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#b45309,#f59e0b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.65rem;font-weight:800;">ST</div><span style="font-size:0.75rem;color:var(--text-tertiary);">Straumann · SWISS</span></div>
-            <h4>Straumann Roxolid SLActive</h4>
+            <h3 class="heading-from-h4">Straumann Roxolid SLActive</h3>
             <p>Roxolid® TiZr alloy + SLActive® superhydrophilic surface. 10-year survival rate 95~98.8%. Holds the world’s largest clinical dataset.</p>
             <span class="fx-card-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </a>

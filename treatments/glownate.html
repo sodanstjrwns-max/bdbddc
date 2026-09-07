@@ -1295,7 +1295,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       height: 1px;
       background: #C8A97E;
     }
-    .gn-cinema-text h3 {
+    .gn-cinema-text h3:not(:where(.heading-from-h4)) {
       font-size: 2.2rem;
       font-weight: 800;
       margin: 0 0 16px;
@@ -1434,7 +1434,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-process-card .card-body {
       padding: 20px 22px;
     }
-    .gn-process-card .card-body h4 {
+    .gn-process-card .card-body :is(h4,h3:where(.heading-from-h4)) {
       font-size: 0.95rem;
       font-weight: 700;
       color: #333;
@@ -1487,7 +1487,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         align-items: flex-end;
         padding-bottom: 36px;
       }
-      .gn-cinema-text h3 { font-size: 1.5rem; }
+      .gn-cinema-text h3:not(:where(.heading-from-h4)) { font-size: 1.5rem; }
       .gn-cinema-text p { font-size: 0.85rem; }
       /* 매거진 그리드 모바일 */
       .gn-magazine-grid { grid-template-columns: 1fr; }
@@ -1563,7 +1563,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-mirror-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 18px; margin-top: 32px; }
     .gn-mirror-card { background: #fff; border: 1px solid #efe3d3; border-radius: 16px; padding: 24px 22px; box-shadow: 0 3px 12px rgba(107,66,38,0.05); }
     .gn-mirror-n { display: inline-block; font-size: 0.78rem; font-weight: 800; color: #fff; background: linear-gradient(135deg,#C8A97E,#A8845A); padding: 4px 12px; border-radius: 50px; margin-bottom: 12px; }
-    .gn-mirror-card h3 { font-size: 1.08rem; font-weight: 800; color: #3d2a1a; margin: 0 0 8px; letter-spacing: -0.02em; }
+    .gn-mirror-card h3:not(:where(.heading-from-h4)) { font-size: 1.08rem; font-weight: 800; color: #3d2a1a; margin: 0 0 8px; letter-spacing: -0.02em; }
     .gn-mirror-card p { margin: 0; font-size: 0.9rem; line-height: 1.8; color: #6b5947; }
 
     /* 2막 외인성/내인성 */
@@ -1574,7 +1574,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-vs2-tag { display: inline-block; font-size: 0.76rem; font-weight: 800; padding: 5px 13px; border-radius: 50px; margin-bottom: 12px; }
     .gn-vs2-card.ok .gn-vs2-tag { background: #059669; color: #fff; }
     .gn-vs2-card.warn .gn-vs2-tag { background: #d97706; color: #fff; }
-    .gn-vs2-card h3 { font-size: 1.14rem; font-weight: 800; margin: 0 0 14px; color: #2f2318; letter-spacing: -0.02em; }
+    .gn-vs2-card h3:not(:where(.heading-from-h4)) { font-size: 1.14rem; font-weight: 800; margin: 0 0 14px; color: #2f2318; letter-spacing: -0.02em; }
     .gn-vs2-card ul { list-style: none; padding: 0; margin: 0 0 16px; }
     .gn-vs2-card li { position: relative; padding: 5px 0 5px 18px; font-size: 0.92rem; line-height: 1.75; color: #4b3c2d; }
     .gn-vs2-card li::before { content: '·'; position: absolute; left: 4px; font-weight: 900; }
@@ -1587,8 +1587,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-branch-if { font-size: 0.98rem; font-weight: 700; color: #6b5947; }
     .gn-branch-if span { display: block; font-size: 1.15rem; font-weight: 900; color: #6B4226; letter-spacing: -0.02em; }
     .gn-branch-arrow { text-align: center; color: #C8A97E; }
-    .gn-branch-then h3 { font-size: 1.06rem; font-weight: 800; margin: 0 0 6px; color: #3d2a1a; }
-    .gn-branch-then h3 a { color: #6B4226; }
+    .gn-branch-then h3:not(:where(.heading-from-h4)) { font-size: 1.06rem; font-weight: 800; margin: 0 0 6px; color: #3d2a1a; }
+    .gn-branch-then h3:not(:where(.heading-from-h4)) a { color: #6B4226; }
     .gn-branch-then p { margin: 0; font-size: 0.91rem; line-height: 1.8; color: #6b5947; }
 
     /* 4막 체크 */
@@ -1605,7 +1605,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-fear2-step.deep { border: 2px solid #C8A97E; box-shadow: 0 8px 28px rgba(200,169,126,0.16); }
     .gn-fear2-num { display: inline-block; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.06em; color: #fff; background: #b09068; padding: 4px 12px; border-radius: 50px; margin-bottom: 12px; }
     .gn-fear2-step.deep .gn-fear2-num { background: linear-gradient(135deg,#6B4226,#8B5A2B); }
-    .gn-fear2-step h3 { font-size: 1.16rem; font-weight: 800; color: #3d2a1a; margin: 0 0 10px; letter-spacing: -0.02em; }
+    .gn-fear2-step h3:not(:where(.heading-from-h4)) { font-size: 1.16rem; font-weight: 800; color: #3d2a1a; margin: 0 0 10px; letter-spacing: -0.02em; }
     .gn-fear2-step p { margin: 0; font-size: 0.95rem; line-height: 1.9; color: #5a4433; }
     .gn-fear2-step strong { color: #6B4226; }
     .gn-fear2-fact { margin-top: 20px; padding-top: 20px; border-top: 1px dashed #e6d6bf; }
@@ -1638,7 +1638,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-style-thumb img { width: 100%; height: 100%; object-fit: cover; }
     .gn-style-badge { position: absolute; top: 12px; left: 12px; background: rgba(107,66,38,0.88); color: #fff; font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 50px; backdrop-filter: blur(4px); }
     .gn-style-body { padding: 20px 22px 22px; }
-    .gn-style-body h3 { font-size: 1.1rem; font-weight: 800; color: #3d2a1a; margin: 0 0 4px; }
+    .gn-style-body h3:not(:where(.heading-from-h4)) { font-size: 1.1rem; font-weight: 800; color: #3d2a1a; margin: 0 0 4px; }
     .gn-style-count { font-size: 0.82rem; color: #9c8b76; margin: 0 0 10px; }
     .gn-style-count strong { color: #6B4226; }
     .gn-style-body p { font-size: 0.9rem; line-height: 1.8; color: #6b5947; margin: 0 0 14px; }
@@ -1660,9 +1660,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-case-thumb img { width: 100%; height: 100%; object-fit: cover; }
     .gn-case-lock { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.72)); color: #fff; font-size: 0.72rem; font-weight: 600; padding: 18px 12px 10px; display: flex; align-items: center; gap: 5px; }
     .gn-case-body { padding: 15px 17px 17px; }
-    .gn-case-body h4 { font-size: 0.94rem; font-weight: 700; line-height: 1.55; margin: 0 0 10px; }
-    .gn-case-body h4 a { color: #3d2a1a; text-decoration: none; }
-    .gn-case-body h4 a:hover { color: #6B4226; text-decoration: underline; }
+    .gn-case-body :is(h4,h3:where(.heading-from-h4)) { font-size: 0.94rem; font-weight: 700; line-height: 1.55; margin: 0 0 10px; }
+    .gn-case-body :is(h4,h3:where(.heading-from-h4)) a { color: #3d2a1a; text-decoration: none; }
+    .gn-case-body :is(h4,h3:where(.heading-from-h4)) a:hover { color: #6B4226; text-decoration: underline; }
     .gn-case-meta { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.78rem; color: #8a7660; }
     .gn-case-meta li { display: inline-flex; align-items: center; gap: 4px; }
     .gn-case-meta i { color: #C8A97E; }
@@ -1670,7 +1670,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-case-meta a:hover { text-decoration: underline; }
     .gn-case-more { text-align: center; margin: 8px 0 40px; }
     .gn-case-doctors { background: #fdf8f1; border: 1px solid #eddfcb; border-radius: 20px; padding: 30px 32px; }
-    .gn-case-doctors > h3 { font-size: 1.12rem; font-weight: 800; color: #3d2a1a; margin: 0 0 20px; text-align: center; }
+    .gn-case-doctors > h3:not(:where(.heading-from-h4)) { font-size: 1.12rem; font-weight: 800; color: #3d2a1a; margin: 0 0 20px; text-align: center; }
     .gn-case-docgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 20px; }
     .gn-case-doc { display: flex; gap: 16px; background: #fff; border: 1px solid #f0e4d3; border-radius: 16px; padding: 20px; }
     .gn-case-doc img { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 2px solid #C8A97E; flex-shrink: 0; }
@@ -1687,7 +1687,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     /* 9막 말립니다 */
     .gn-stop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 20px; margin-top: 32px; }
     .gn-stop-card { background: #fff; border: 2px solid #f2c98a; border-radius: 18px; padding: 26px 28px; }
-    .gn-stop-card h3 { display: flex; align-items: center; gap: 9px; font-size: 1.08rem; font-weight: 800; color: #92400e; margin: 0 0 14px; }
+    .gn-stop-card h3:not(:where(.heading-from-h4)) { display: flex; align-items: center; gap: 9px; font-size: 1.08rem; font-weight: 800; color: #92400e; margin: 0 0 14px; }
     .gn-stop-card ul { list-style: none; padding: 0; margin: 0; }
     .gn-stop-card li { position: relative; padding: 9px 0 9px 18px; font-size: 0.92rem; line-height: 1.8; color: #4b3c2d; border-bottom: 1px dashed #f7ecd9; }
     .gn-stop-card li:last-child { border-bottom: none; }
@@ -1697,13 +1697,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     .gn-warranty { margin-top: 24px; background: #fff; border: 2px solid #C8A97E; border-radius: 18px; padding: 26px 28px; }
     .gn-warranty-head { display: flex; gap: 16px; align-items: center; padding-bottom: 18px; border-bottom: 1px solid #f0e6d8; margin-bottom: 20px; }
     .gn-warranty-head i { font-size: 1.9rem; color: #C8A97E; }
-    .gn-warranty-head h3 { margin: 0 0 4px; font-size: 1.16rem; font-weight: 800; color: #3E2B1F; }
+    .gn-warranty-head h3:not(:where(.heading-from-h4)) { margin: 0 0 4px; font-size: 1.16rem; font-weight: 800; color: #3E2B1F; }
     .gn-warranty-head p { margin: 0; font-size: 0.9rem; color: #6b5d52; }
     .gn-warranty-head strong { color: #6B4226; }
     .gn-warranty-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 18px; }
-    .gn-warranty-cols h4 { display: flex; align-items: center; gap: 7px; font-size: 0.95rem; font-weight: 800; margin: 0 0 10px; }
-    .gn-warranty-cols .ok h4 { color: #047857; }
-    .gn-warranty-cols .no h4 { color: #b45309; }
+    .gn-warranty-cols :is(h4,h3:where(.heading-from-h4)) { display: flex; align-items: center; gap: 7px; font-size: 0.95rem; font-weight: 800; margin: 0 0 10px; }
+    .gn-warranty-cols .ok :is(h4,h3:where(.heading-from-h4)) { color: #047857; }
+    .gn-warranty-cols .no :is(h4,h3:where(.heading-from-h4)) { color: #b45309; }
     .gn-warranty-cols ul { list-style: none; padding: 0; margin: 0; }
     .gn-warranty-cols li { position: relative; padding: 7px 0 7px 16px; font-size: 0.88rem; line-height: 1.75; color: #4b3c2d; }
     .gn-warranty-cols li::before { content: '·'; position: absolute; left: 3px; font-weight: 900; color: #C8A97E; }
@@ -2156,7 +2156,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <img src="/images/glownate-process-1.webp" alt="글로우네이트 라미네이트 정밀 세팅 — 원내 기공소에서 포세린 라미네이트를 핀셋으로 정밀하게 다듬는 모습" loading="lazy">
             </div>
             <div class="card-body">
-              <h4>정밀 세팅 & 형태 확인</h4>
+              <h3 class="heading-from-h4">정밀 세팅 & 형태 확인</h3>
               <p>포세린 라미네이트를 치아 모형에 하나하나 정밀하게 세팅하며 형태와 적합도를 확인합니다.</p>
             </div>
           </div>
@@ -2165,7 +2165,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <img src="/images/glownate-process-2.webp" alt="글로우네이트 라미네이트 CAD/CAM 밀링 — 디지털 장비로 포세린 블럭을 정밀하게 밀링하는 과정" loading="lazy">
             </div>
             <div class="card-body">
-              <h4>디지털 CAD/CAM 밀링</h4>
+              <h3 class="heading-from-h4">디지털 CAD/CAM 밀링</h3>
               <p>디지털 장비로 포세린 블럭을 정밀하게 밀링하여 완벽한 형태의 라미네이트를 제작합니다.</p>
             </div>
           </div>
@@ -2174,7 +2174,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <img src="/images/glownate-process-3.webp" alt="Amber Press Master HT+ A0.5 포세린 블럭 — 글로우네이트에 사용되는 프리미엄 세라믹 소재" loading="lazy">
             </div>
             <div class="card-body">
-              <h4>프리미엄 포세린 블럭</h4>
+              <h3 class="heading-from-h4">프리미엄 포세린 블럭</h3>
               <p>Amber Press Master HT+ A0.5 — 자연치아에 가장 가까운 투명도와 색상을 재현하는 프리미엄 소재입니다.</p>
             </div>
           </div>
