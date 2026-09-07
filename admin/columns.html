@@ -245,6 +245,7 @@ tbody tr:hover{background:var(--bg-hover)}
   }
 </script>
 <!-- End Microsoft Clarity -->
+<style>#columnsLoadState[hidden],#columnsRetry[hidden]{display:none!important}</style>
 </head>
 <body>
 
@@ -291,10 +292,10 @@ tbody tr:hover{background:var(--bg-hover)}
 
   <div class="content">
     <div class="stats-row">
-      <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--blue-bg);color:var(--blue)"><i class="fas fa-pen-nib"></i></div><div><div class="mini-stat-value" id="statTotal">0</div><div class="mini-stat-label">전체 컬럼</div></div></div>
-      <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--green-bg);color:var(--green)"><i class="fas fa-check-circle"></i></div><div><div class="mini-stat-value" id="statPublished">0</div><div class="mini-stat-label">게시중</div></div></div>
-      <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--orange-bg);color:var(--orange)"><i class="fas fa-pencil-alt"></i></div><div><div class="mini-stat-value" id="statDraft">0</div><div class="mini-stat-label">임시저장</div></div></div>
-      <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--purple-bg);color:var(--purple)"><i class="fas fa-eye"></i></div><div><div class="mini-stat-value" id="statTotalViews">0</div><div class="mini-stat-label">총 조회수</div></div></div>
+      <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--blue-bg);color:var(--blue)"><i class="fas fa-pen-nib"></i></div><div><div class="mini-stat-value" id="statTotal">—</div><div class="mini-stat-label">전체 컬럼</div></div></div>
+      <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--green-bg);color:var(--green)"><i class="fas fa-check-circle"></i></div><div><div class="mini-stat-value" id="statPublished">—</div><div class="mini-stat-label">게시중</div></div></div>
+      <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--orange-bg);color:var(--orange)"><i class="fas fa-pencil-alt"></i></div><div><div class="mini-stat-value" id="statDraft">—</div><div class="mini-stat-label">임시저장</div></div></div>
+      <div class="mini-stat"><div class="mini-stat-icon" style="background:var(--purple-bg);color:var(--purple)"><i class="fas fa-eye"></i></div><div><div class="mini-stat-value" id="statTotalViews">—</div><div class="mini-stat-label">총 조회수</div></div></div>
     </div>
 
     <div class="toolbar">
@@ -320,6 +321,11 @@ tbody tr:hover{background:var(--bg-hover)}
       </div>
     </div>
 
+    <div id="columnsLoadState" role="status" style="padding:12px 16px;margin-bottom:12px;border:1px solid var(--border);border-radius:10px;color:var(--text-dim);line-height:1.7;">
+      <span id="columnsLoadMessage">칼럼 목록을 불러오는 중입니다. 오래 걸리면 새로고침해주세요.</span>
+      <button type="button" class="btn-secondary" id="columnsRetry" onclick="loadColumns()" hidden style="margin-left:10px;">다시 불러오기</button>
+    </div>
+    <noscript><p>칼럼 목록을 보려면 브라우저에서 JavaScript를 허용해주세요.</p></noscript>
     <div class="table-card">
       <table>
         <thead><tr><th>썸네일</th><th>제목</th><th>원장</th><th>SEO</th><th style="text-align:center"><i class="fas fa-eye" style="margin-right:4px"></i>조회수</th><th>상태</th><th>작성일</th><th>관리</th></tr></thead>
@@ -327,8 +333,8 @@ tbody tr:hover{background:var(--bg-hover)}
       </table>
       <div class="empty-state" id="emptyState" style="display:none">
         <i class="fas fa-pen-nib"></i>
-        <h3>등록된 컬럼이 없습니다</h3>
-        <p>"새 컬럼" 버튼으로 SEO 최적화된 원장 컬럼을 작성해보세요</p>
+        <h3 id="columnsEmptyTitle">등록된 컬럼이 없습니다</h3>
+        <p id="columnsEmptyHint">"새 컬럼" 버튼으로 원장 컬럼을 작성해보세요.</p>
       </div>
     </div>
   </div>
@@ -508,6 +514,8 @@ tbody tr:hover{background:var(--bg-hover)}
 let columns = [];
 let colViewsMap = {};
 let quill = null;
+let columnsLoadId = 0;
+let columnViewsAvailable = false;
 
 // ===== SIDEBAR TOGGLE =====
 function toggleSidebar() {
@@ -949,17 +957,53 @@ function promptImageAlt(index) {
 
 // ===== COLUMN CRUD =====
 async function loadColumns() {
+  const requestId = ++columnsLoadId;
+  const state = document.getElementById('columnsLoadState');
+  const message = document.getElementById('columnsLoadMessage');
+  const retry = document.getElementById('columnsRetry');
+  state.hidden = false;
+  document.getElementById('emptyState').style.display = 'none';
+  message.textContent = '칼럼 목록을 불러오는 중입니다…';
+  retry.hidden = true;
   try {
-    const res = await fetch('/api/admin/columns');
-    if (!res.ok) { window.location.href = '/admin/login'; return; }
-    columns = await res.json();
-    try {
-      const vRes = await fetch('/api/views?type=column');
-      if (vRes.ok) { const vd = await vRes.json(); colViewsMap = {}; vd.forEach(function(v){ colViewsMap[v.page_id] = v.view_count; }); }
-    } catch(e) {}
+    const res = await fetch('/api/admin/columns', { cache: 'no-store', signal: AbortSignal.timeout(15000) });
+    if (requestId !== columnsLoadId) return;
+    if (res.status === 401 || res.status === 403) {
+      message.textContent = '관리자 로그인이 필요합니다. 로그인 화면으로 이동합니다.';
+      window.location.href = '/admin/login';
+      return;
+    }
+    if (!res.ok) throw new Error('columns request failed');
+    const data = await res.json();
+    if (requestId !== columnsLoadId) return;
+    if (!Array.isArray(data) || data.some(c => !c || typeof c !== 'object' || typeof c.id !== 'string')) throw new Error('invalid column list');
+    columns = data;
+    colViewsMap = {};
+    columnViewsAvailable = false;
+    // 목록을 먼저 보여준다. 조회수 통계 지연/오류가 칼럼 표시를 막지 않도록 분리.
     renderTable();
     updateStats();
-  } catch(e) { showToast('로드 실패', true); }
+    state.hidden = true;
+    void loadColumnViews(requestId);
+  } catch(e) {
+    if (requestId !== columnsLoadId) return;
+    message.textContent = '칼럼 목록을 불러오지 못했습니다. 0건이라는 뜻은 아닙니다. 잠시 후 다시 시도해주세요.';
+    retry.hidden = false;
+  }
+}
+
+async function loadColumnViews(requestId) {
+  try {
+    const res = await fetch('/api/views?type=column', { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (requestId !== columnsLoadId || !Array.isArray(data)) return;
+    colViewsMap = {};
+    data.forEach(v => { if (v && typeof v.page_id === 'string' && Number.isFinite(v.view_count)) colViewsMap[v.page_id] = v.view_count; });
+    columnViewsAvailable = true;
+    renderTable();
+    updateStats();
+  } catch(e) { /* 칼럼은 유지, 조회수 미수집은 대시로 표시 */ }
 }
 
 function updateStats() {
@@ -969,7 +1013,7 @@ function updateStats() {
   // 총 조회수 계산
   let totalViews = 0;
   columns.forEach(function(c) { totalViews += (colViewsMap[c.id] || 0); });
-  document.getElementById('statTotalViews').textContent = totalViews.toLocaleString();
+  document.getElementById('statTotalViews').textContent = columnViewsAvailable ? totalViews.toLocaleString() : '—';
 }
 
 function filterColumns() { renderTable(); }
@@ -988,7 +1032,7 @@ function calcSEOScore(col) {
 function renderTable() {
   const search = (document.getElementById('searchInput').value || '').toLowerCase();
   const doctor = document.getElementById('filterDoctor').value;
-  let filtered = columns.filter(c = alt=""> {
+  let filtered = columns.filter(c => {
     if (search && !c.title?.toLowerCase().includes(search) && !c.doctorName?.toLowerCase().includes(search)) return false;
     if (doctor && c.doctorName !== doctor) return false;
     return true;
@@ -997,7 +1041,13 @@ function renderTable() {
 
   const tbody = document.getElementById('columnsTable');
   const empty = document.getElementById('emptyState');
-  if (filtered.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    document.getElementById('columnsEmptyTitle').textContent = columns.length ? '검색 조건에 맞는 칼럼이 없습니다' : '등록된 컬럼이 없습니다';
+    document.getElementById('columnsEmptyHint').textContent = columns.length ? '검색어 또는 원장 필터를 변경해주세요.' : '새 컬럼 버튼으로 원장 컬럼을 작성해보세요.';
+    empty.style.display = 'block';
+    return;
+  }
   empty.style.display = 'none';
 
   tbody.innerHTML = filtered.map(c => {
@@ -1009,7 +1059,7 @@ function renderTable() {
       + '<td><strong>' + (c.title || '') + '</strong></td>'
       + '<td>' + (c.doctorName || '') + '</td>'
       + '<td><span class="seo-score ' + seoClass + '">' + seoScore + '</span></td>'
-      + '<td style="text-align:center;font-weight:700;color:var(--blue)">' + ((colViewsMap[c.id] || 0).toLocaleString()) + '</td>'
+      + '<td style="text-align:center;font-weight:700;color:var(--blue)">' + (columnViewsAvailable ? (colViewsMap[c.id] || 0).toLocaleString() : '—') + '</td>'
       + '<td><span class="status-badge ' + c.status + '">' + (c.status === 'published' ? '게시중' : '임시') + '</span></td>'
       + '<td style="font-size:.8rem;color:var(--text-dim)">' + date + '</td>'
       + '<td><div class="action-btns">'

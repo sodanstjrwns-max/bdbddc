@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const { parse } = require('node-html-parser');
+const { Script } = require('node:vm');
 const clinic = require('../data/clinic-profile.json');
 const BASE = clinic.url;
 const CORE = ['/', '/treatments/implant', '/treatments/sedation', '/treatments/glownate', '/treatments/invisalign', '/reservation', '/symptom-checker'];
@@ -162,6 +163,17 @@ function audit(records, membership, fixes, issues, redirects) {
   const titles = new Map();
   const existing = new Map(records.filter(r => r.cp && !r.redirect && !r.noindex).map(r => [r.cp, r]));
   const add = (code, url, message, critical = false) => issues.push({ code, url, message, severity: critical ? 'error' : 'warning' });
+  let adminScriptsChecked = 0;
+  // Admin HTML is intentionally excluded from indexing checks, not from JavaScript syntax checks.
+  for (const name of fs.readdirSync('dist/admin').filter(n => n.endsWith('.html'))) {
+    const root = parse(fs.readFileSync('dist/admin/' + name, 'utf8'));
+    for (const s of root.querySelectorAll('script')) {
+      if (s.getAttribute('src') || !['', 'text/javascript', 'application/javascript'].includes(s.getAttribute('type') || '')) continue;
+      adminScriptsChecked++;
+      try { new Script(s.rawText, { filename: 'admin/' + name }); }
+      catch (e) { add('admin-script-syntax', '/admin/' + name, 'Inline JavaScript syntax error: ' + e.message, true); }
+    }
+  }
   for (const cp of CORE) if (!existing.has(cp)) add('core-page-missing', cp, 'Required canonical page missing from build.', true);
   for (const r of records) {
     if (r.noindex || r.redirect) continue;
@@ -213,7 +225,7 @@ function audit(records, membership, fixes, issues, redirects) {
   const report = {
     version: 1, generatedAt: new Date().toISOString(), commit,
     scope: 'Static build checks only; not search index status, ranking, medical validation or Core Web Vitals.',
-    checkedPages: pages.length, fixes, redirects,
+    checkedPages: pages.length, adminScriptsChecked, fixes, redirects,
     errors: issues.filter(i => i.severity === 'error').length,
     warnings: issues.filter(i => i.severity !== 'error').length,
     issues, pages

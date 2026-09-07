@@ -2616,14 +2616,23 @@ app.get('/api/columns/:param', async (c) => {
   return c.json(col)
 })
 
-// [관리자] 컬럼 전체 목록
+// [관리자] 컬럼 전체 목록 — 저장소 오류를 빈 목록으로 숨기지 않는다.
 app.get('/api/admin/columns', async (c) => {
+  c.header('Cache-Control', 'private, no-store')
   const secret = getSessionSecret(c.env)
   const token = getCookie(c, ADMIN_SESSION_COOKIE)
   if (!token || !(await verifySessionToken(token, secret))) return c.json({ error: '인증이 필요합니다' }, 401)
   const r2 = c.env.R2
-  if (!r2) return c.json([])
-  return c.json(await getColumns(r2))
+  if (!r2) return c.json({ error: '칼럼 저장소에 연결할 수 없습니다.' }, 503)
+  try {
+    const object = await r2.get(COLUMNS_JSON_KEY)
+    if (!object) return c.json([])
+    const data = await object.json()
+    if (!Array.isArray(data)) return c.json({ error: '칼럼 목록 형식을 확인할 수 없습니다.' }, 503)
+    return c.json(data)
+  } catch {
+    return c.json({ error: '칼럼 목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.' }, 503)
+  }
 })
 
 // [관리자] 컬럼 생성/수정
