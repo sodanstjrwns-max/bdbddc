@@ -4,6 +4,8 @@
 // 토큰은 서버 코드에만 존재하며 브라우저에 노출되지 않는다.
 // ============================================================
 
+import { renderSeoOperations } from '../lib/seo-dashboard'
+
 const STATS_DOMAIN = 'bdbddc.com'
 const STATS_TOKEN = '02f28498676aaac2aee90009ba2501a0f086be5301dde589'
 const STATS_MASTER_KEY = 'pfwe-b4f42f06'
@@ -21,7 +23,7 @@ let _statsCache: { at: number; data: any } | null = null
 export async function fetchSiteStats(): Promise<any | null> {
   if (_statsCache && Date.now() - _statsCache.at < 60_000) return _statsCache.data
   try {
-    const res = await fetch(STATS_API, { headers: { Authorization: 'Bearer ' + STATS_TOKEN } })
+    const res = await fetch(STATS_API, { headers: { Authorization: 'Bearer ' + STATS_TOKEN }, signal: AbortSignal.timeout(8000) })
     if (!res.ok) return null
     const data = await res.json()
     _statsCache = { at: Date.now(), data }
@@ -121,8 +123,8 @@ function buildInsights(d: any): string[] {
   const out: string[] = []
   if (!d || d.configured === false) {
     out.push('구글 서치콘솔·애널리틱스 연동 데이터가 수집되는 대로 이 영역에 자동 분석이 표시됩니다.')
-    out.push('사이트맵 제출·IndexNow·구조화데이터 등 검색엔진 가속 세팅은 이미 완료된 상태입니다.')
-    out.push('지표가 쌓이는 중입니다. 신규 사이트는 통상 개설 1~3개월 차부터 검색 노출이 잡히기 시작합니다.')
+    out.push('데이터를 불러오지 못한 경우와 실제 수치가 0인 경우를 구분해야 합니다. 중앙 연동 상태와 원본 도구를 확인하세요.')
+    out.push('기술 설정과 실제 색인·검색 성과는 다릅니다. 아래 빌드 검사와 Search Console을 함께 확인하세요.')
     return out
   }
   const g = d.gsc || {}
@@ -132,9 +134,9 @@ function buildInsights(d: any): string[] {
   if (dc !== null && dc !== 0) {
     out.push(dc > 0
       ? `최근 28일 검색 클릭이 직전 기간보다 ${fmt(Math.abs(dc))}회 늘었습니다. 상승 흐름입니다.`
-      : `최근 28일 검색 클릭이 직전 기간보다 ${fmt(Math.abs(dc))}회 줄었습니다. 콘텐츠 발행 주기를 점검해 보세요.`)
+      : `최근 28일 검색 클릭이 직전 기간보다 ${fmt(Math.abs(dc))}회 줄었습니다. 검색어·노출 페이지·계절성과 집계 상태를 함께 확인하세요.`)
   } else if (num(g.clicks) > 0) {
-    out.push(`최근 28일 검색 클릭은 ${fmt(num(g.clicks))}회로 직전 기간과 비슷한 수준입니다.`)
+    out.push(`최근 28일 검색 클릭은 ${fmt(num(g.clicks))}회입니다. 제공되지 않은 전기 대비 변화는 추정하지 않습니다.`)
   }
   const tq = Array.isArray(g.topQueries) && g.topQueries.length ? rowOf(g.topQueries[0], ['query', 'name', 'key']) : null
   if (tq && tq.name) out.push(`가장 많이 유입된 검색어는 "${tq.name}"${tq.clicks ? ` (클릭 ${fmt(tq.clicks)}회)` : ''}입니다.`)
@@ -145,43 +147,22 @@ function buildInsights(d: any): string[] {
       : `평균 검색 순위가 ${Math.abs(dp).toFixed(1)}계단 내려갔습니다. 주요 키워드 경쟁 상황을 지켜보는 중입니다.`)
   }
   if (num(ai.sessions) > 0) {
-    out.push(`ChatGPT·Perplexity 등 AI 검색에서 ${fmt(num(ai.sessions))}회 방문이 발생했습니다 (전체의 ${pct(ai.share)}). AEO 세팅이 작동하고 있다는 신호입니다.`)
+    out.push(`ChatGPT·Perplexity 등 AI 검색에서 ${fmt(num(ai.sessions))}회 방문이 발생했습니다 (전체의 ${pct(ai.share)}). AI 답변 인용 횟수나 최적화의 인과 효과를 뜻하지는 않습니다.`)
   }
-  if (num(a.leads) > 0) out.push(`최근 28일 온라인 상담(리드) 신청은 ${fmt(num(a.leads))}건입니다.`)
+  if (num(a.leads) > 0) out.push(`최근 28일 GA 리드 지표는 ${fmt(num(a.leads))}건입니다.`)
   if (out.length === 0) out.push('지표가 쌓이는 중입니다. 데이터가 충분해지면 자동 분석이 표시됩니다.')
   return out.slice(0, 5)
 }
 
-// ── 기대관리(성장 단계) 카드 ──
-const STAGES: Array<[string, string]> = [
-  ['0~1개월', '색인'],
-  ['1~3개월', '롱테일 키워드 노출 시작'],
-  ['3~6개월', '지역+진료 키워드 진입'],
-  ['6개월~', '경쟁 키워드 본순위 시작'],
-]
-
-function timelineHtml(): string {
-  return `<ol class="timeline">${STAGES.map(([p, t]) =>
-    `<li><span class="tl-period">${p}</span><span class="tl-label">${t}</span></li>`).join('')}</ol>`
-}
-
-function expectationCard(early: boolean): string {
-  if (early) {
-    return `<section class="card expect expect-big">
-      <h2>검색 순위는 시간이 필요합니다</h2>
-      ${timelineHtml()}
-      <p class="expect-note">신규 사이트는 색인과 순위 안착까지 시간이 걸립니다. 본격적인 순위 경쟁은 개설 6개월부터 시작됩니다.
-      사이트맵·IndexNow·구조화데이터 등 검색 가속 세팅은 모두 완료되어 있습니다.</p>
-    </section>`
-  }
+// 검색 성과에 고정된 성장 기간이나 순위 보장을 붙이지 않는다.
+function expectationCard(_early: boolean): string {
   return `<details class="card expect expect-small">
-    <summary>검색 순위는 시간이 필요합니다 — 성장 단계 안내 보기</summary>
-    ${timelineHtml()}
-    <p class="expect-note">사이트맵·IndexNow·구조화데이터 등 검색 가속 세팅은 모두 완료되어 있습니다.</p>
+    <summary>지표를 읽기 전에: 기술 설정과 검색 성과는 다릅니다</summary>
+    <p class="expect-note">색인·순위 변화에는 일정한 보장 기간이 없습니다. 현재 데이터의 집계 기간과 누락 여부를 확인하고, 같은 기간의 검색어·페이지·전환을 비교하세요. AI 유입 세션은 출처 인용 횟수가 아니며 버튼 클릭은 상담 접수·예약 확정·내원과 다릅니다.</p>
   </details>`
 }
 
-// ── Clarity 행동 분석 (최근 3일) ──
+// Clarity 행동 분석
 const secFmt = (v: any): string => {
   const s = Math.round(num(v))
   return s >= 60 ? `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}` : `${s}초`
@@ -231,7 +212,7 @@ function claritySection(c: any): string {
 }
 
 // ── 페이지 렌더 ──
-export function renderStatsPage(d: any): string {
+export function renderStatsPage(d: any, seoHealth: any = null): string {
   const configured = !!(d && d.configured !== false)
   const g = (d && d.gsc) || {}
   const a = (d && d.ga) || {}
@@ -239,20 +220,21 @@ export function renderStatsPage(d: any): string {
   const early = !configured || num(g.clicks) < 100
 
   const V = (has: boolean, s: string) => (has ? s : '<span class="nodata">—</span>')
+  const measured = (v: any) => typeof v === 'number' && Number.isFinite(v) && v >= 0
   const hasGsc = configured && d.gsc
   const hasGa = configured && (d.hasGa === undefined ? d.ga : d.hasGa) && d.ga
   const hasAi = configured && d.ai
 
   const metricCards = `
   <div class="grid metrics">
-    <div class="card metric"><span class="m-label">검색 클릭 <small>GSC · 28일</small></span><strong>${V(!!hasGsc, fmt(num(g.clicks)))}</strong>${hasGsc ? arrowHtml(deltaVal(g.delta, 'clicks')) : ''}</div>
-    <div class="card metric"><span class="m-label">검색 노출 <small>GSC · 28일</small></span><strong>${V(!!hasGsc, fmt(num(g.impressions)))}</strong>${hasGsc ? arrowHtml(deltaVal(g.delta, 'impressions')) : ''}</div>
-    <div class="card metric"><span class="m-label">클릭률(CTR)</span><strong>${V(!!hasGsc, pct(g.ctr))}</strong>${hasGsc ? arrowHtml(deltaVal(g.delta, 'ctr')) : ''}</div>
+    <div class="card metric"><span class="m-label">검색 클릭 <small>GSC · 28일</small></span><strong>${V(!!hasGsc && measured(g.clicks), fmt(num(g.clicks)))}</strong>${hasGsc ? arrowHtml(deltaVal(g.delta, 'clicks')) : ''}</div>
+    <div class="card metric"><span class="m-label">검색 노출 <small>GSC · 28일</small></span><strong>${V(!!hasGsc && measured(g.impressions), fmt(num(g.impressions)))}</strong>${hasGsc ? arrowHtml(deltaVal(g.delta, 'impressions')) : ''}</div>
+    <div class="card metric"><span class="m-label">클릭률(CTR)</span><strong>${V(!!hasGsc && measured(g.ctr), pct(g.ctr))}</strong>${hasGsc ? arrowHtml(deltaVal(g.delta, 'ctr')) : ''}</div>
     <div class="card metric"><span class="m-label">평균 순위 <small>낮을수록 좋음</small></span><strong>${V(!!hasGsc && num(g.position) > 0, num(g.position).toFixed(1))}</strong>${hasGsc ? arrowHtml(deltaVal(g.delta, 'position'), true) : ''}</div>
-    <div class="card metric"><span class="m-label">방문자 <small>GA · 28일</small></span><strong>${V(!!hasGa, fmt(num(a.users)))}</strong>${hasGa ? arrowHtml(deltaVal(a.delta, 'users')) : ''}</div>
-    <div class="card metric"><span class="m-label">세션</span><strong>${V(!!hasGa, fmt(num(a.sessions)))}</strong>${hasGa ? arrowHtml(deltaVal(a.delta, 'sessions')) : ''}</div>
-    <div class="card metric"><span class="m-label">상담 신청 <small>리드</small></span><strong>${V(!!hasGa, fmt(num(a.leads)))}</strong></div>
-    <div class="card metric"><span class="m-label">AI 유입 세션 <small>ChatGPT 등</small></span><strong>${V(!!hasAi, fmt(num(ai.sessions)))}</strong>${hasAi && num(ai.sessions) > 0 ? `<span class="delta flat">전체의 ${pct(ai.share)}</span>` : ''}</div>
+    <div class="card metric"><span class="m-label">방문자 <small>GA · 28일</small></span><strong>${V(!!hasGa && measured(a.users), fmt(num(a.users)))}</strong>${hasGa ? arrowHtml(deltaVal(a.delta, 'users')) : ''}</div>
+    <div class="card metric"><span class="m-label">세션</span><strong>${V(!!hasGa && measured(a.sessions), fmt(num(a.sessions)))}</strong>${hasGa ? arrowHtml(deltaVal(a.delta, 'sessions')) : ''}</div>
+    <div class="card metric"><span class="m-label">GA 리드 지표 <small>실제 접수와 별도</small></span><strong>${V(!!hasGa && measured(a.leads), fmt(num(a.leads)))}</strong></div>
+    <div class="card metric"><span class="m-label">AI 유입 세션 <small>ChatGPT 등</small></span><strong>${V(!!hasAi && measured(ai.sessions), fmt(num(ai.sessions)))}</strong>${hasAi && num(ai.sessions) > 0 ? `<span class="delta flat">전체의 ${pct(ai.share)}</span>` : ''}</div>
   </div>`
 
   const queries = Array.isArray(g.topQueries) ? g.topQueries.slice(0, 10).map((x: any) => rowOf(x, ['query', 'name', 'key'])) : []
@@ -366,7 +348,9 @@ td.txt{word-break:break-all}
     <a class="backlink" href="/admin">← 관리자 홈</a>
   </div>
 
+  <nav class="seo-tools" style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px"><a href="#seo-operations">SEO·AEO 운영 점검</a><a href="#seo-build-health">배포 전 기술 검사</a></nav>
   ${expectationCard(early)}
+  ${renderSeoOperations(d, seoHealth)}
 
   <section class="card insights">
     <h2>자동 인사이트</h2>
@@ -389,7 +373,7 @@ td.txt{word-break:break-all}
 
   <section class="card">
     <h3>AI 검색 유입 (ChatGPT · Perplexity · Claude · Gemini)</h3>
-    ${tbl(aiTableRows, 'AI 검색 유입이 아직 없습니다. AEO 세팅은 완료되어 있으며, AI 검색엔진이 사이트를 학습하면 여기에 표시됩니다.', '<th>소스</th><th class="num">세션</th><th class="num">비중</th>')}
+    ${tbl(aiTableRows, '표시할 AI 유입 데이터가 없거나 제공되지 않았습니다. AI 서비스의 출처 인용과 실제 클릭 유입은 서로 다른 지표입니다.', '<th>소스</th><th class="num">세션</th><th class="num">비중</th>')}
   </section>
 </div>
 </body>

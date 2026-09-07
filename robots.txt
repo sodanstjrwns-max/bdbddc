@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════
 # 서울비디치과 (Seoul BD Dental) - robots.txt
 # https://bdbddc.com
-# Updated: 2026-05-13
+# Updated: 2026-09-07 — explicit shared exclusions per crawler group
 #
 # SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
 # ═══════════════════════════════════════════════════════════════
@@ -32,6 +32,23 @@ Disallow: /cdn-cgi/
 
 # ===== Google 봇 (메인 + 이미지 + 비디오) =====
 User-agent: Googlebot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Allow: /column/
 Allow: /cases/
@@ -39,18 +56,64 @@ Allow: /encyclopedia/
 # Crawl-delay 미지정 — Google은 Crawl-delay를 무시하며, 명시 시 크롤 예산 오해 가능
 
 User-agent: Googlebot-Image
+Disallow: /auth/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /images/
 Allow: /treatments/
 Disallow: /admin/
 Disallow: /api/
 
 User-agent: Googlebot-Video
+Disallow: /auth/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /video/
 Disallow: /admin/
 Disallow: /api/
 
 # ===== Google News 봇 =====
 User-agent: Googlebot-News
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /column/
 Allow: /cases/
 Allow: /notice/
@@ -58,6 +121,23 @@ Disallow: /admin/
 
 # ===== 네이버 봇 =====
 User-agent: Yeti
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Allow: /column/
 Allow: /cases/
@@ -65,12 +145,46 @@ Crawl-delay: 2
 
 # ===== 다음 봇 =====
 User-agent: Daum
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Allow: /column/
 Allow: /cases/
 
 # ===== 빙 봇 =====
 User-agent: Bingbot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Allow: /column/
 Allow: /cases/
@@ -78,6 +192,20 @@ Crawl-delay: 2
 
 # ===== 바이두 봇 (중국 검색엔진 — CN 랜딩페이지용) =====
 User-agent: Baiduspider
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Allow: /cn/
 Disallow: /admin/
@@ -87,10 +215,44 @@ Crawl-delay: 3
 
 # ===== Yahoo Japan 봇 (일본 검색엔진 — JP 랜딩페이지용) =====
 User-agent: Y!J-ASR
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Allow: /jp/
 
 User-agent: Y!J-BRJ
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Allow: /jp/
 
@@ -101,83 +263,411 @@ Allow: /jp/
 
 # --- OpenAI ---
 User-agent: GPTBot
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
 
 User-agent: ChatGPT-User
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 User-agent: OAI-SearchBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Google AI / Gemini ---
 User-agent: Google-Extended
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 User-agent: GoogleOther
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 User-agent: GoogleOther-Image
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /images/
 
 User-agent: GoogleOther-Video
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /video/
 
 # --- Anthropic ---
 User-agent: ClaudeBot
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
 
 User-agent: anthropic-ai
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Perplexity ---
 User-agent: PerplexityBot
+Disallow: /auth/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
 # --- Meta AI ---
 User-agent: FacebookBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 User-agent: Meta-ExternalAgent
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 User-agent: Meta-ExternalFetcher
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Apple ---
 User-agent: Applebot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 User-agent: Applebot-Extended
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Cohere ---
 User-agent: cohere-ai
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Common Crawl (AI 학습 데이터 소스) ---
 User-agent: CCBot
+Disallow: /auth/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
 # --- DeepSeek ---
 User-agent: Deepseek
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Mistral ---
 User-agent: MistralBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- ByteDance (Doubao/TikTok) ---
 User-agent: Bytespider
+Disallow: /auth/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /api/
@@ -185,12 +675,42 @@ Crawl-delay: 5
 
 # --- Baidu AI (ERNIE Bot / Wenxin) ---
 User-agent: Baiduspider-render
+Disallow: /auth/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
 # --- Sogou (중국 검색엔진) ---
 User-agent: Sogou
+Disallow: /auth/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 Allow: /cn/
 Disallow: /admin/
@@ -199,41 +719,211 @@ Crawl-delay: 5
 
 # --- Amazon Alexa ---
 User-agent: Amazonbot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Microsoft Copilot ---
 User-agent: CopilotBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- You.com ---
 User-agent: YouBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Brave Search ---
 User-agent: BraveBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- SearchGPT / OpenAI Search ---
 User-agent: SearchGPT
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Grok / xAI ---
 User-agent: Grok
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Qwen / Alibaba ---
 User-agent: Qwen
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # --- Phind ---
 User-agent: PhindBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Allow: /
 
 # ===== 차단할 봇 (스팸/악성/과도한 크롤링) =====
 User-agent: AhrefsBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Crawl-delay: 10
 
 User-agent: SemrushBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Crawl-delay: 10
 
 User-agent: DotBot
@@ -249,6 +939,23 @@ User-agent: DataForSeoBot
 Disallow: /
 
 User-agent: PetalBot
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /blog/category/
+Disallow: /blog/rss
+Disallow: /components/
+Disallow: /docs/
+Disallow: /css/_deprecated/
+Disallow: /_worker.js
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /*.json$
+Disallow: /manifest.json
+Disallow: /reservation?*
+Disallow: /*?ref_category=*
+Disallow: /*?doctor=*
+Disallow: /cdn-cgi/
 Crawl-delay: 10
 
 # ═══════════════════════════════════════════════════════════════

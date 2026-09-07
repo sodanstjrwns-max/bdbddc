@@ -1,0 +1,19 @@
+/* Scoped decision guide for the four core treatment pages. */
+.decision-guide{padding:44px 0;background:#faf7f3;scroll-margin-top:100px;color:#292524}
+.decision-guide .container{max-width:1080px}
+.decision-guide header{max-width:800px;margin-bottom:22px}
+.decision-guide .decision-eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.06em;color:#805535;margin-bottom:8px}
+.decision-guide h2{font-size:clamp(1.3rem,3vw,1.85rem);line-height:1.45;margin:0 0 12px}
+.decision-guide p{line-height:1.85;margin:0 0 12px;color:#57534e}
+.decision-guide nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.decision-guide nav a{padding:8px 14px;border:1px solid #d6c8b6;background:#fff;border-radius:24px}
+.decision-guide a{color:#714623;text-underline-offset:3px;font-weight:600}
+.decision-guide .decision-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.decision-guide article{background:#fff;border:1px solid #e4dbcf;border-radius:16px;padding:22px;scroll-margin-top:110px}
+.decision-guide h3{font-size:1.04rem;margin:0 0 12px;line-height:1.6}
+.decision-guide article a{display:inline-block;margin:4px 12px 4px 0;font-size:.9rem}
+.decision-guide footer{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:22px;padding-top:20px;border-top:1px solid #e4dbcf}
+.decision-guide .decision-note{font-size:.82rem;flex:1 1 320px;margin:0}
+.decision-guide .decision-book{display:inline-block;background:#6b4226;color:#fff;padding:12px 20px;border-radius:12px;text-decoration:none}
+.decision-guide a:focus-visible{outline:3px solid #9b6943;outline-offset:4px}
+@media(max-width:640px){.decision-guide{padding:28px 0}.decision-guide .decision-grid{grid-template-columns:1fr}.decision-guide article{padding:18px}.decision-guide nav a{font-size:.85rem}.decision-guide .decision-book{width:100%;text-align:center}}

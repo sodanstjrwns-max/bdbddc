@@ -5,6 +5,7 @@ import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import type { Bindings } from './types'
 import { registerGscReport } from './routes/gsc-report-dash'
 import { fetchSiteStats, renderStatsPage, isValidStatsKey } from './routes/stats'
+import { loadSeoHealth } from './lib/seo-dashboard'
 import { registerToothNumberingWidget, renderToothNumberingPage } from './routes/tooth-numbering'
 import { registerWidgetEmbeds, WIDGET_BY_TERM, embedBoxHtml } from './routes/widget-embed'
 import { registerGameApis } from './routes/game-api'
@@ -467,7 +468,18 @@ app.use('/gsc-report', gscReportGuard)
 app.use('/gsc-report/*', gscReportGuard)
 
 // === 사이트 통계 (중앙 대시보드 연동, 인증 미들웨어 뒤에 등록) ===
-app.get('/admin/stats', async (c) => c.html(renderStatsPage(await fetchSiteStats())))
+app.get('/admin/stats', async (c) => {
+  c.header('Cache-Control', 'private, no-store')
+  c.header('X-Robots-Tag', 'noindex, nofollow')
+  const [stats, seoHealth] = await Promise.all([fetchSiteStats(), loadSeoHealth(c.env, c.req.url)])
+  return c.html(renderStatsPage(stats, seoHealth))
+})
+app.get('/admin/seo-health.json', async (c) => {
+  c.header('Cache-Control', 'private, no-store')
+  c.header('X-Robots-Tag', 'noindex, nofollow')
+  const health = await loadSeoHealth(c.env, c.req.url)
+  return health ? c.json(health) : c.json({ error: '빌드 검사 결과를 불러오지 못했습니다.' }, 503)
+})
 
 // === 비급여 수가표 편집기 (v6.20) — /admin/* 미들웨어로 인증 게이트됨 ===
 app.get('/admin/pricing', (c) => c.html(renderPricingAdminPage()))

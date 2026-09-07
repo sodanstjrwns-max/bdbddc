@@ -2,13 +2,11 @@
 # 최종 업데이트: 2026-04-16
 # =============================================
 
-# column/ → /blog/ 301 서버사이드 리디렉트
-/column     /blog    301
-/column/    /blog    301
-/column/columns    /blog    301
-/column/columns/   /blog    301
-/column/index      /blog    301
-/column/index.html /blog    301
+# 현재 원장 칼럼은 /column/ 에서 SSR 제공. 정상 허브를 블로그로 보내지 않는다.
+/column/columns    /column/    301
+/column/columns/   /column/    301
+/column/index      /column/    301
+/column/index.html /column/    301
 
 # GSC 404 에러 해결 — 이전 사이트 잔재 리디렉트
 /tables/treatments/treatments/gum.html    /pricing    301
