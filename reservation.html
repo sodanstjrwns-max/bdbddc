@@ -132,7 +132,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   ]
 }
 </script>
-<script src="/js/analytics.js?v=20260904v10" defer></script>
+<script src="/js/analytics.js?v=20260907sc1" defer></script>
 
 <!-- ===== Reservation Page Styles ===== -->
 <style>
@@ -526,7 +526,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
           <div id="rsvErr" class="rsv-msg"></div>
           <div id="rsvSuc" class="rsv-msg"></div>
 
-          <form id="rsvForm">
+          <form id="rsvForm" class="amp-block" data-clarity-mask="true">
             <div class="step-title">30초면 신청 끝</div>
             <div class="step-subtitle">이름·연락처·증상만 남겨주시면 담당자가 확인 후 연락드립니다</div>
 
@@ -554,7 +554,13 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
             <div class="f-group">
               <label class="f-label" for="rsvMsg">증상 한 줄 <span class="req">*</span></label>
-              <input type="text" id="rsvMsg" class="f-input" placeholder="예: 오른쪽 어금니가 시려요" required>
+              <textarea id="rsvMsg" class="f-input" rows="4" maxlength="2500" style="height:auto;min-height:108px;resize:vertical;line-height:1.7" placeholder="예: 오른쪽 어금니가 시려요" aria-describedby="rsvSymptomImportStatus" required></textarea>
+              <aside id="rsvSymptomImport" hidden style="margin-top:12px;padding:16px;border:1px solid #dccdbd;border-radius:12px;background:#faf7f3;font-size:.85rem;line-height:1.7;">
+                <strong>증상체커에서 선택한 내용을 가져왔습니다.</strong>
+                <p style="margin:6px 0;">위 입력란에서 수정하거나 삭제할 수 있습니다. 치료가 결정된 것은 아니며, 개인정보 동의 후 신청 버튼을 눌러야 병원에 접수됩니다.</p>
+                <button type="button" id="rsvSymptomRemove" style="padding:8px 12px;background:#fff;border:1px solid #bda58b;border-radius:8px;color:#6B4226;cursor:pointer;">가져온 내용 삭제</button>
+              </aside>
+              <p id="rsvSymptomImportStatus" role="status" style="font-size:.82rem;color:#57534e;line-height:1.7;margin:8px 0 0;"></p>
             </div>
 
             <!-- 추가 정보 (선택) — 기존 필수 필드였던 진료항목·희망일시 이동 -->
@@ -883,6 +889,55 @@ function hideMsg(){errEl.className='rsv-msg';sucEl.className='rsv-msg';}
     card.style.display='none';
     msgEl.value='';
     window.history.replaceState({},'','/reservation');
+  });
+})();
+
+// 증상체커 → 동일 탭 일회성 전달. URL에는 출처만, 증상은 분석 도구에 전달하지 않는다.
+(function(){
+  var key='bd_symptom_handoff_v1';
+  var fromChecker=new URLSearchParams(window.location.search).get('from')==='symptom-checker';
+  var status=document.getElementById('rsvSymptomImportStatus');
+  var raw;
+  try {
+    raw=sessionStorage.getItem(key);
+    sessionStorage.removeItem(key); // 가져오기·만료·잘못된 진입 모두 재사용 방지
+  } catch (_) {
+    if(fromChecker) status.textContent='임시 내용을 불러올 수 없습니다. 상담하실 증상을 직접 입력해주세요.';
+    return;
+  }
+  if(!fromChecker || !raw) return;
+  var payload;
+  try { payload=JSON.parse(raw); } catch (_) {}
+  if(!payload || payload.version!==1 || !Number.isFinite(payload.expiresAt) ||
+      payload.expiresAt<=Date.now() || payload.expiresAt>Date.now()+30*60*1000 ||
+      typeof payload.summary!=='string' || !payload.summary.trim() || payload.summary.length>1200 ||
+      typeof payload.treatment!=='string' || payload.treatment.length>100) {
+    status.textContent='임시 내용이 만료되었거나 올바르지 않습니다. 증상을 직접 입력하거나 증상체커를 다시 이용해주세요.';
+    return;
+  }
+  var field=document.getElementById('rsvMsg');
+  var previousValue=field.value;
+  var imported='[증상체커에서 선택한 내용 — 진단 아님]\n'+payload.summary+
+    (payload.treatment?'\n문의하고 싶은 진료: '+payload.treatment:'');
+  var nextValue=previousValue?(previousValue+'\n\n'+imported):imported;
+  if(nextValue.length>field.maxLength){
+    status.textContent='이미 작성된 내용이 길어 자동으로 합치지 않았습니다. 필요한 증상만 직접 추가해주세요.';
+    return;
+  }
+  field.value=nextValue;
+  document.getElementById('rsvSymptomImport').hidden=false;
+  document.getElementById('rsvSymptomRemove').addEventListener('click',function(){
+    if(field.value===nextValue){
+      field.value=previousValue;
+      status.textContent='가져온 내용을 삭제했습니다. 상담하실 증상을 직접 입력해주세요.';
+    } else if(field.value.indexOf(imported)!==-1){
+      field.value=field.value.replace(imported,'').trim();
+      status.textContent='가져온 내용만 삭제했습니다. 직접 작성한 내용은 유지됩니다.';
+    } else {
+      status.textContent='내용을 직접 수정하셔서 자동 삭제하지 않았습니다. 위 입력란에서 삭제할 부분을 확인해주세요.';
+    }
+    document.getElementById('rsvSymptomImport').hidden=true;
+    field.focus();
   });
 })();
 

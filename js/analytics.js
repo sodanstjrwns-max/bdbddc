@@ -78,9 +78,10 @@
           attribution: true,
           pageViews: true,
           sessions: true,
-          formInteractions: true,
+          // 증상 선택·상담 입력은 건강정보를 포함하므로 자동 클릭/폼 수집 제외.
+          formInteractions: !/^\/(symptom-checker|reservation)(?:\/|\.html|$)/.test(location.pathname),
           fileDownloads: true,
-          elementInteractions: true
+          elementInteractions: !/^\/(symptom-checker|reservation)(?:\/|\.html|$)/.test(location.pathname)
         },
         serverZone: 'US',
         minIdLength: 1,

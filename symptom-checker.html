@@ -12,26 +12,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script src="/static/bd-analytics.js" defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>증상 체커 | 내 증상에 맞는 치료 찾기 — 서울비디치과</title>
-<meta name="description" content="치아 통증, 잇몸 출혈, 시린이 등 증상을 선택하면 맞춤 치료와 실제 케이스를 보여드립니다. 서울비디치과 AI 증상 체커.">
+<title>증상 체커 | 내 증상으로 진료 안내 찾기 — 서울비디치과</title>
+<meta name="description" content="치아 통증, 잇몸 출혈, 시린이 등 증상과 관련된 진료·사례를 살펴보세요. 진단을 대신하지 않는 참고용 증상체커입니다.">
   <meta name="author" content="서울비디치과">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="ai-summary" content="서울비디치과 AI 증상 체커 — 치아 통증, 잇몸 출혈, 시린이 등 증상을 선택하면 맞춤 치료와 담당 원장, 실제 케이스를 안내합니다.">
-<meta name="abstract" content="서울비디치과 AI 증상 체커 — 증상별 맞춤 치료 찾기. 천안 서울비디치과.">
+<meta name="ai-summary" content="서울비디치과 증상체커 — 미리 정리된 증상·진료 정보를 연결하는 참고 도구입니다. 개별 진단이나 치료 처방이 아니며 진찰이 필요합니다.">
+<meta name="abstract" content="서울비디치과 증상체커 — 증상과 관련된 진료 안내 찾기. 진단을 대신하지 않습니다.">
 <meta name="subject" content="증상 체커, 치아 통증, 잇몸 출혈, 시린이, 천안 치과, 서울비디치과">
 <link rel="canonical" href="https://bdbddc.com/symptom-checker">
 <meta property="og:title" content="증상 체커 | 서울비디치과">
-<meta property="og:description" content="내 증상에 맞는 치료 찾기 — 증상을 선택하면 맞춤 치료와 실제 케이스를 보여드립니다.">
+<meta property="og:description" content="내 증상으로 진료 안내 찾기 — 증상과 관련된 진료·사례를 안내합니다. 진단이나 치료 결정은 아닙니다.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bdbddc.com/symptom-checker">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="서울비디치과">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="증상 체커 | 내 증상에 맞는 치료 찾기 — 서울비디치과">
-  <meta name="twitter:description" content="치아 통증, 잇몸 출혈, 시린이 등 증상을 선택하면 맞춤 치료와 실제 케이스를 보여드립니다. 서울비디치과 AI 증상 체커.">
+  <meta name="twitter:title" content="증상 체커 | 내 증상으로 진료 안내 찾기 — 서울비디치과">
+  <meta name="twitter:description" content="치아 통증, 잇몸 출혈, 시린이 등 증상과 관련된 진료·사례를 살펴보세요. 진단을 대신하지 않는 참고용 증상체커입니다.">
   <meta name="twitter:image" content="https://bdbddc.com/images/og/faq.jpg?v=sq1">
 <meta property="og:image" content="https://bdbddc.com/images/og/faq.jpg?v=sq1">
-  <meta property="og:image:alt" content="증상 체커 | 내 증상에 맞는 치료 찾기 — 서울비디치과">
+  <meta property="og:image:alt" content="증상 체커 | 내 증상으로 진료 안내 찾기 — 서울비디치과">
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png?v=2">
 <link rel="manifest" href="/manifest.json">
@@ -60,6 +60,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .sc-step-line{width:32px;height:2px;background:#e0d5c8;border-radius:1px}
 
 /* 카드 컨테이너 */
+.sc-card,#step3{scroll-margin-top:100px}
 .sc-card{background:#fff;border:1px solid #e8e0d8;border-radius:20px;padding:32px;box-shadow:0 4px 20px rgba(0,0,0,0.04);animation:scFadeIn .4s ease}
 @keyframes scFadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
@@ -133,6 +134,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .sc-nav-next:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(107,66,38,0.3)}
 .sc-nav-next:disabled{opacity:0.4;cursor:not-allowed;transform:none}
 
+/* 안내·선택 요약·상담 연결 */
+.sc-notice{margin:18px 0;padding:16px 18px;border:1px solid #dccdbd;border-radius:12px;background:#faf7f3;color:#57534e;font-size:.88rem;line-height:1.75}
+.sc-notice p{margin:6px 0}
+.sc-notice a{color:#6B4226;text-decoration:underline}
+.sc-handoff{margin:20px 0;padding:20px;border:1px solid #dccdbd;border-radius:14px;background:#fff}
+.sc-handoff h3{font-size:1rem;margin:0 0 10px;color:#44403c}
+.sc-handoff label{display:flex;align-items:flex-start;gap:10px;line-height:1.7;font-size:.9rem;cursor:pointer}
+.sc-handoff input{width:20px;height:20px;margin-top:3px;flex-shrink:0;accent-color:#6B4226}
+.sc-handoff small{display:block;line-height:1.7;color:#78716c;margin-top:8px}
+.sc-selection-summary{white-space:pre-line;line-height:1.8;color:#44403c;margin:0 0 16px;overflow-wrap:anywhere}
+.sc-page button:focus-visible,.sc-page a:focus-visible{outline:3px solid #6B4226;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){.sc-page *{animation:none!important;transition:none!important}}
+
 /* 반응형 */
 @media(max-width:600px){
   .sc-container{padding:24px 16px 40px}
@@ -148,10 +162,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com/"},{"@type":"ListItem","position":2,"name":"증상 체커","item":"https://bdbddc.com/symptom-checker"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"MedicalWebPage","name":"내 증상에 맞는 치료 찾기","url":"https://bdbddc.com/symptom-checker","description":"치아 통증, 잇몸 출혈, 시린이 등 증상을 선택하면 맞춤 치료와 실제 케이스를 안내합니다.","lastReviewed":"2026-04-24","audience":{"@type":"MedicalAudience","audienceType":"Patient"},"specialty":{"@type":"MedicalSpecialty","name":"치의학"}}
+{"@context":"https://schema.org","@type":"MedicalWebPage","name":"내 증상으로 진료 안내 찾기","url":"https://bdbddc.com/symptom-checker","description":"치아 통증, 잇몸 출혈, 시린이 등 증상과 관련된 진료·사례를 안내하는 참고용 도구입니다.","lastReviewed":"2026-04-24","audience":{"@type":"MedicalAudience","audienceType":"Patient"},"specialty":{"@type":"MedicalSpecialty","name":"치의학"}}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"HowTo","name":"증상으로 치과 치료 찾는 방법","step":[{"@type":"HowToStep","text":"현재 불편한 증상을 선택합니다."},{"@type":"HowToStep","text":"증상에 맞는 진료 항목과 담당 원장을 확인합니다."},{"@type":"HowToStep","text":"실제 치료 사례를 확인하고 예약합니다."}]}
+{"@context":"https://schema.org","@type":"HowTo","name":"증상으로 치과 치료 찾는 방법","step":[{"@type":"HowToStep","text":"현재 불편한 증상을 선택합니다."},{"@type":"HowToStep","text":"증상과 관련된 진료 안내와 참고 사례를 확인합니다."},{"@type":"HowToStep","text":"실제 치료 사례를 확인하고 예약합니다."}]}
 </script>
 </head>
 <body>
@@ -251,14 +265,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </nav>
 <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
-<main class="sc-page">
+<main class="sc-page amp-block" data-clarity-mask="true">
   <div class="sc-container">
     <!-- 히어로 -->
     <div class="sc-hero">
       <div class="sc-hero-icon"><i class="fas fa-stethoscope"></i></div>
-      <h1>내 증상에 맞는 <em>치료</em> 찾기</h1>
-      <p>증상을 선택하시면 맞춤 치료와 실제 Before/After 케이스를 보여드립니다</p>
+      <h1>내 증상으로 <em>진료 안내</em> 찾기</h1>
+      <p>불편한 부위와 증상을 선택하고, 관련 진료와 실제 사례를 살펴보세요.</p>
+      <p>미리 정리된 증상–진료 정보를 연결하는 참고용 도구입니다.<br>AI의 개별 진단이나 치료 처방이 아니며, 정확한 판단에는 치과의사의 진찰이 필요합니다.</p>
     </div>
+
+    <aside class="sc-notice" aria-label="먼저 확인할 응급 안내">
+      <strong>이런 경우에는 증상체커보다 진료가 먼저입니다.</strong>
+      <p>숨쉬기·삼키기가 어렵거나 얼굴·목이 빠르게 붓는 경우, 심한 출혈이 멈추지 않으면 <a href="tel:119">119 또는 응급실</a>의 도움을 받으세요. 다쳐서 치아가 빠졌거나 심한 통증·발열을 동반한 부종이 있으면 지체하지 말고 의료기관에 연락하세요.</p>
+      <a href="tel:0414152892">서울비디치과에 전화 문의하기</a>
+    </aside>
+    <noscript><p class="sc-notice">증상 선택에는 JavaScript가 필요합니다. <a href="/treatments/">진료 안내 보기</a> 또는 <a href="/reservation">상담 신청</a>을 이용해주세요.</p></noscript>
 
     <!-- 단계 표시 -->
     <div class="sc-steps">
@@ -302,7 +324,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="sc-section-title"><i class="fas fa-list-check"></i> <span id="step2Title">해당하는 증상을 모두 선택해주세요</span></div>
       <div class="sc-symptom-list" id="symptomList"></div>
       <div class="sc-nav-btns">
-        <button class="sc-nav-btn sc-nav-prev" onclick="goStep(1)"><i class="fas fa-arrow-left"></i> <span>이전</span></button>
+        <button type="button" class="sc-nav-btn sc-nav-prev" id="btnStep2Prev"><i class="fas fa-arrow-left"></i> <span>이전</span></button>
         <button class="sc-nav-btn sc-nav-next" id="btnStep2Next" disabled><span>결과 보기</span> <i class="fas fa-magic"></i></button>
       </div>
     </div>
@@ -320,7 +342,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="/directions" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>
 </div>
 
-<script src="/js/analytics.js?v=20260904v10" defer></script>
+<script src="/js/analytics.js?v=20260907sc1" defer></script>
 <script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script>
 (function() {
@@ -342,7 +364,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       ],
       treatments: {
         'ft-broken': [
-          { slug: 'glownate', name: '글로우네이트 치아성형', match: '최적', desc: '최소 삭제로 자연스러운 앞니 복원. 당일 완성 가능.', icon: 'fa-gem' },
+          { slug: 'glownate', name: '글로우네이트 치아성형', match: '최적', desc: '파손 범위와 치아 상태에 따라 보철 수복 방법을 검토합니다. 삭제량·방문 횟수는 진찰 후 안내합니다.', icon: 'fa-gem' },
           { slug: 'crown', name: '크라운', match: '적합', desc: '심하게 파손된 경우 크라운으로 전체 씌움 치료.', icon: 'fa-crown' }
         ],
         'ft-gap': [
@@ -351,7 +373,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         ],
         'ft-color': [
           { slug: 'whitening', name: '미백', match: '적합', desc: '전문 미백으로 누런 치아를 하얗게.', icon: 'fa-sun' },
-          { slug: 'glownate', name: '글로우네이트', match: '최적', desc: '변색이 심한 경우 라미네이트로 완벽한 색상 개선.', icon: 'fa-gem' }
+          { slug: 'glownate', name: '글로우네이트', match: '최적', desc: '변색의 원인과 치아 상태를 확인한 뒤 미백·보철 등 가능한 방법과 한계를 상담합니다.', icon: 'fa-gem' }
         ],
         'ft-crooked': [
           { slug: 'invisalign', name: '인비절라인', match: '최적', desc: '투명 교정장치로 티 나지 않게 교정.', icon: 'fa-teeth-open' },
@@ -362,11 +384,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           { slug: 'glownate', name: '글로우네이트', match: '적합', desc: '충치가 넓은 경우 라미네이트로 심미적 복원.', icon: 'fa-gem' }
         ],
         'ft-protruding': [
-          { slug: 'orthodontics', name: '치아교정', match: '최적', desc: '발치교정으로 돌출입을 개선합니다.', icon: 'fa-teeth' },
+          { slug: 'orthodontics', name: '치아교정', match: '최적', desc: '돌출의 원인을 검사하고 교정 방법을 상담합니다. 발치 여부는 검사 결과에 따라 달라집니다.', icon: 'fa-teeth' },
           { slug: 'invisalign', name: '인비절라인', match: '적합', desc: '경미한 돌출은 투명교정으로도 개선 가능.', icon: 'fa-teeth-open' }
         ],
         'ft-missing': [
-          { slug: 'implant', name: '임플란트', match: '최적', desc: '빠진 치아를 자연치아처럼 복원하는 최선의 방법.', icon: 'fa-tooth' },
+          { slug: 'implant', name: '임플란트', match: '최적', desc: '치아 상실 시 고려하는 방법 중 하나입니다. 뼈·잇몸 상태와 다른 보철 선택지를 함께 확인합니다.', icon: 'fa-tooth' },
           { slug: 'bridge', name: '브릿지', match: '적합', desc: '양쪽 치아를 이용한 보철 치료.', icon: 'fa-bridge' }
         ],
         'ft-shape': [
@@ -387,8 +409,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       ],
       treatments: {
         'bt-pain': [
-          { slug: 'root-canal', name: '신경치료', match: '최적', desc: '심한 통증은 신경까지 감염된 경우가 많습니다.', icon: 'fa-syringe' },
-          { slug: 'cavity', name: '충치치료', match: '적합', desc: '초기 통증이라면 충치 치료로 해결.', icon: 'fa-fill-drip' }
+          { slug: 'root-canal', name: '신경치료', match: '최적', desc: '통증만으로 신경치료 필요 여부를 알 수 없습니다. 치수 상태와 통증 원인을 먼저 검사합니다.', icon: 'fa-syringe' },
+          { slug: 'cavity', name: '충치치료', match: '적합', desc: '충치·균열·잇몸 등 통증의 원인을 확인한 뒤 필요한 치료를 결정합니다.', icon: 'fa-fill-drip' }
         ],
         'bt-cavity': [
           { slug: 'inlay', name: '인레이/온레이', match: '최적', desc: '어금니 충치를 정밀하게 복원.', icon: 'fa-puzzle-piece' },
@@ -432,11 +454,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           { slug: 'scaling', name: '스케일링', match: '적합', desc: '치석이 원인이라면 스케일링부터.', icon: 'fa-broom' }
         ],
         'gm-receding': [
-          { slug: 'gum-surgery', name: '잇몸수술', match: '최적', desc: '내려간 잇몸을 수술로 보정합니다.', icon: 'fa-scalpel' },
+          { slug: 'gum-surgery', name: '잇몸수술', match: '최적', desc: '잇몸이 내려간 원인과 범위를 확인하고 수술 필요 여부와 한계를 상담합니다.', icon: 'fa-scalpel' },
           { slug: 'gum', name: '잇몸치료', match: '적합', desc: '진행을 멈추는 보존 치료.', icon: 'fa-hand-holding-medical' }
         ],
         'gm-loose': [
-          { slug: 'periodontitis', name: '치주염 치료', match: '최적', desc: '긴급! 흔들리는 치아를 최대한 보존합니다.', icon: 'fa-disease' },
+          { slug: 'periodontitis', name: '치주염 치료', match: '최적', desc: '흔들림의 원인과 치아 보존 가능성을 평가합니다. 갑자기 흔들리거나 통증이 있으면 빠르게 진료받으세요.', icon: 'fa-disease' },
           { slug: 'implant', name: '임플란트', match: '참고', desc: '보존 불가 시 임플란트로 대체.', icon: 'fa-tooth' }
         ],
         'gm-smell': [
@@ -464,7 +486,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           { slug: 'orthodontics', name: '치아교정', match: '적합', desc: '장치교정으로 정확한 교합까지 맞춤.', icon: 'fa-teeth' }
         ],
         'wh-overbite': [
-          { slug: 'orthodontics', name: '치아교정', match: '최적', desc: '교합 불균형을 근본적으로 해결.', icon: 'fa-teeth' },
+          { slug: 'orthodontics', name: '치아교정', match: '최적', desc: '교합 상태와 턱의 성장·골격을 검사하고 적절한 치료 방법을 상담합니다.', icon: 'fa-teeth' },
           { slug: 'invisalign', name: '인비절라인', match: '적합', desc: '경미한 부정교합은 투명교정으로.', icon: 'fa-teeth-open' }
         ],
         'wh-yellow': [
@@ -535,7 +557,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           { slug: 'tmj', name: '턱관절 치료', match: '참고', desc: '턱관절에 영향을 줄 수 있어 함께 관리.', icon: 'fa-head-side' }
         ],
         'jw-headache': [
-          { slug: 'tmj', name: '턱관절 치료', match: '최적', desc: '만성 두통은 턱관절 문제일 수 있습니다.', icon: 'fa-head-side' },
+          { slug: 'tmj', name: '턱관절 치료', match: '최적', desc: '두통은 원인이 다양합니다. 턱 증상이 동반되면 관련성을 평가하며, 갑작스럽고 심한 두통은 즉시 의료기관의 평가가 필요합니다.', icon: 'fa-head-side' },
           { slug: 'bruxism', name: '이갈이/이악물기', match: '적합', desc: '수면 중 이악물기가 두통 원인일 수 있습니다.', icon: 'fa-compress' }
         ]
       }
@@ -555,12 +577,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   var selectedArea = null;
   var selectedSymptoms = [];
+  var HANDOFF_KEY = 'bd_symptom_handoff_v1';
+  // 민감한 선택 내용은 URL·분석 이벤트로 보내지 않는다. 동의한 이동 시에만 같은 탭에 임시 보관.
+  try { sessionStorage.removeItem(HANDOFF_KEY); } catch (_) {}
+
+  function selectionSummary() {
+    var data = SYMPTOM_DB[selectedArea];
+    return data.title + '\n' + data.symptoms.filter(function(s) {
+      return selectedSymptoms.indexOf(s.id) !== -1;
+    }).map(function(s) { return '· ' + s.text; }).join('\n');
+  }
+
+  function openConsultation(treatmentName) {
+    var consent = document.getElementById('scShareSymptoms');
+    var status = document.getElementById('scHandoffStatus');
+    try {
+      sessionStorage.removeItem(HANDOFF_KEY);
+      if (consent && consent.checked) {
+        sessionStorage.setItem(HANDOFF_KEY, JSON.stringify({
+          version: 1,
+          expiresAt: Date.now() + 30 * 60 * 1000,
+          summary: selectionSummary(),
+          treatment: treatmentName || ''
+        }));
+      }
+    } catch (_) {
+      if (consent && consent.checked) {
+        status.textContent = '이 브라우저에서는 선택 내용을 옮길 수 없습니다. 내용을 복사하거나, 체크를 해제하고 상담 화면에서 직접 입력해주세요.';
+        return;
+      }
+    }
+    window.location.assign('/reservation?from=symptom-checker');
+  }
 
   // ── STEP 1: 부위 선택 ──
   document.querySelectorAll('.sc-area-btn').forEach(function(btn) {
+    btn.setAttribute('aria-pressed', 'false');
     btn.addEventListener('click', function() {
-      document.querySelectorAll('.sc-area-btn').forEach(function(b) { b.classList.remove('selected'); });
+      document.querySelectorAll('.sc-area-btn').forEach(function(b) { b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('selected');
+      btn.setAttribute('aria-pressed', 'true');
+      if (selectedArea !== btn.getAttribute('data-area')) selectedSymptoms = [];
       selectedArea = btn.getAttribute('data-area');
       document.getElementById('btnStep1Next').disabled = false;
     });
@@ -576,6 +633,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     showResults();
   });
 
+  document.getElementById('btnStep2Prev').addEventListener('click', function() { goStep(1); });
+
   function goStep(step) {
     document.getElementById('step1').style.display = step === 1 ? 'block' : 'none';
     document.getElementById('step2').style.display = step === 2 ? 'block' : 'none';
@@ -586,7 +645,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     });
 
     if (step === 2) buildSymptomList();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    var panel = document.getElementById('step' + step);
+    panel.setAttribute('tabindex', '-1');
+    panel.focus({ preventScroll: true });
+    panel.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   }
 
   function buildSymptomList() {
@@ -595,17 +657,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     document.getElementById('step2Title').textContent = data.title + ' — 해당하는 증상을 모두 선택해주세요';
     var list = document.getElementById('symptomList');
     list.innerHTML = '';
-    selectedSymptoms = [];
-    document.getElementById('btnStep2Next').disabled = true;
+    document.getElementById('btnStep2Next').disabled = selectedSymptoms.length === 0;
 
     data.symptoms.forEach(function(s) {
       var btn = document.createElement('button');
       btn.className = 'sc-symptom-btn';
       btn.type = 'button';
+      btn.classList.toggle('selected', selectedSymptoms.indexOf(s.id) !== -1);
+      btn.setAttribute('aria-pressed', String(selectedSymptoms.indexOf(s.id) !== -1));
       btn.innerHTML = '<span class="sc-sym-check"><i class="fas fa-check"></i></span>' +
         '<i class="fas ' + s.icon + '" style="color:#C8A97E;font-size:0.85rem;"></i> ' + s.text;
       btn.addEventListener('click', function() {
         btn.classList.toggle('selected');
+        btn.setAttribute('aria-pressed', String(btn.classList.contains('selected')));
         if (btn.classList.contains('selected')) {
           selectedSymptoms.push(s.id);
         } else {
@@ -618,9 +682,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   function showResults() {
-    goStep(3);
     var data = SYMPTOM_DB[selectedArea];
-    if (!data) return;
+    if (!data || selectedSymptoms.length === 0) return;
 
     // 추천 치료 수집 (중복 제거, 최적 우선)
     var txMap = {};
@@ -635,7 +698,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     });
 
     var sortedTx = Object.values(txMap).sort(function(a, b) {
-      return (matchOrder[a.match] || 9) - (matchOrder[b.match] || 9);
+      return (matchOrder[a.match] ?? 9) - (matchOrder[b.match] ?? 9);
     });
 
     // 결과 HTML 생성
@@ -646,11 +709,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         '<div class="sc-treatment-card" data-slug="' + tx.slug + '">' +
           '<div class="sc-tx-header">' +
             '<div class="sc-tx-icon"><i class="fas ' + tx.icon + '"></i></div>' +
-            '<div><span class="sc-tx-name">' + tx.name + '</span><span class="sc-tx-match">' + tx.match + '</span></div>' +
+            '<div><span class="sc-tx-name">' + tx.name + '</span><span class="sc-tx-match">관련 진료</span></div>' +
           '</div>' +
           '<div class="sc-tx-desc">' + tx.desc + '</div>' +
           '<div class="sc-tx-actions">' +
-            '<a href="/reservation?ref_category=' + encodeURIComponent(tx.name) + '" class="sc-tx-btn sc-tx-btn-primary"><i class="fas fa-calendar-check"></i> 이 치료 상담받기</a>' +
+            '<button type="button" data-sc-consult="' + tx.slug + '" class="sc-tx-btn sc-tx-btn-primary" style="border:0;cursor:pointer"><i class="fas fa-calendar-check"></i> 이 진료에 대해 문의하기</button>' +
             '<a href="/treatments/' + tx.slug + '" class="sc-tx-btn sc-tx-btn-outline"><i class="fas fa-info-circle"></i> 상세 안내</a>' +
           '</div>' +
           '<div class="sc-cases-wrap" id="cases-' + tx.slug + '"></div>' +
@@ -660,20 +723,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     container.innerHTML =
       '<div class="sc-card sc-result">' +
         '<div class="sc-result-header">' +
-          '<h2><i class="fas fa-clipboard-check" style="color:#C8A97E;margin-right:8px;"></i>맞춤 치료 추천 결과</h2>' +
-          '<p>선택하신 증상을 기반으로 추천드리는 치료입니다</p>' +
+          '<h2><i class="fas fa-clipboard-check" style="color:#C8A97E;margin-right:8px;"></i>증상과 관련된 진료 안내</h2>' +
+          '<p>아래 순서는 진단 결과나 치료의 우선순위가 아닙니다.<br>같은 증상에도 원인과 필요한 치료는 다를 수 있습니다.</p>' +
         '</div>' +
+        '<section class="sc-handoff" aria-labelledby="scSummaryTitle">' +
+          '<h3 id="scSummaryTitle">선택한 증상을 확인해주세요</h3>' +
+          '<p id="scSelectionSummary" class="sc-selection-summary"></p>' +
+          '<button type="button" id="scEditSymptoms" class="sc-nav-btn sc-nav-prev">증상 선택 수정하기</button>' +
+          '<label style="margin-top:16px" for="scShareSymptoms"><input type="checkbox" id="scShareSymptoms"><span>[선택] 선택한 부위·증상을 상담 입력란으로 가져오겠습니다.</span></label>' +
+          '<small>선택하면 상담 이동 시 현재 탭에 임시 보관하고(30분 후 가져오기 불가), 입력란으로 가져온 뒤 임시 보관본은 삭제합니다. 상담 화면에서 수정·삭제할 수 있으며 신청 버튼을 누르기 전에는 병원에 접수되지 않습니다. 선택하지 않아도 상담할 수 있습니다.</small>' +
+          '<p id="scHandoffStatus" role="status" style="color:#9f301c;line-height:1.7"></p>' +
+        '</section>' +
         txHtml +
         '<div class="sc-cta-section">' +
-          '<h3>어떤 치료가 맞을지 고민되시나요?</h3>' +
-          '<p>전문 상담사가 친절히 상담해드립니다</p>' +
-          '<a href="/reservation" class="sc-cta-btn"><i class="fas fa-calendar-check"></i> 상담 예약하기</a>' +
+          '<h3>어떤 진료가 필요한지 함께 확인해보세요</h3>' +
+          '<p>담당자가 상담과 내원 일정을 안내합니다. 치료는 진찰 후 결정합니다.</p>' +
+          '<button type="button" id="scGeneralConsult" class="sc-cta-btn" style="border:0;cursor:pointer"><i class="fas fa-calendar-check"></i> 상담 신청하기</button>' +
         '</div>' +
         '<div class="sc-nav-btns" style="justify-content:center">' +
           '<button class="sc-nav-btn sc-nav-prev" onclick="location.reload()"><i class="fas fa-redo"></i> <span>처음부터 다시하기</span></button>' +
         '</div>' +
       '</div>';
-    container.style.display = 'block';
+    document.getElementById('scSelectionSummary').textContent = selectionSummary();
+    document.getElementById('scEditSymptoms').addEventListener('click', function() { goStep(2); });
+    document.getElementById('scGeneralConsult').addEventListener('click', function() { openConsultation(''); });
+    container.querySelectorAll('[data-sc-consult]').forEach(function(button) {
+      button.addEventListener('click', function() {
+        var tx = txMap[button.getAttribute('data-sc-consult')];
+        openConsultation(tx ? tx.name : '');
+      });
+    });
+    goStep(3);
 
     // 각 치료별 실제 케이스 로드
     sortedTx.forEach(function(tx) {
