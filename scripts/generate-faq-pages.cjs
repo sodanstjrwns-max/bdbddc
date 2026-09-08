@@ -732,8 +732,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <!-- GA4 gtag.js -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
-<!-- Amplitude Script Loader -->
-<script src="/static/bd-tag-loader.js" defer></script>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)

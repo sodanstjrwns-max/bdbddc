@@ -1,6 +1,6 @@
 // ============================================
 // lib/layout.ts — 공통 레이아웃/트래킹 스니펫
-// Meta Pixel + GTM + Amplitude 공통 트래킹 코드
+// Meta Pixel + GTM + GA4 + Clarity 공통 트래킹 코드 (Amplitude 는 2026-09-08 영구 제거)
 // (v5.7 모듈 분리 2단계: index.tsx에서 추출)
 // ============================================
 
@@ -23,9 +23,6 @@ gtag('config', 'G-LM9VKJSB9F');
 <script type="text/javascript">
 (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wb39d7gn5x");
 </script>
-<!-- Amplitude Analytics (지연 로더 — LCP 개선) -->
-<script src="/static/bd-tag-loader.js" defer></script>
-<script src="/static/bd-analytics.js" defer></script>
 <!-- 스마트 CTA — 콘텐츠성(가이드·칼럼·블로그) 페이지에서만 자체 동작 -->
 <script src="/static/bd-smart-cta.js?v=20260904" defer></script>
 <!-- Meta Pixel Code -->

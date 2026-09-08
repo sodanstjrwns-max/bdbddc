@@ -622,7 +622,7 @@ name: `{병원명}` (예: 서울비디치과), alternateName: `{병원명_영문
 
 ## 7.1 필수 도구
 
-GTM(태그 관리), GA4(트래픽 분석), Amplitude(행동 분석), Google Search Console(`{도메인}` (예: bdbddc.com) 검색 성능), Naver Search Advisor, Bing Webmaster+IndexNow.
+GTM(태그 관리), GA4(트래픽 분석), Google Search Console(`{도메인}` (예: bdbddc.com) 검색 성능), Naver Search Advisor, Bing Webmaster+IndexNow.
 
 ## 7.2 9대 핵심 이벤트
 
@@ -765,7 +765,7 @@ HTTPS+SSL+DDoS(Cloudflare 자동), 보안 헤더(CSP, X-Frame-Options), API 키 
 
 ## 13.3 Phase 3: SEO & 마케팅 (1~2주) — 9개 항목
 
-GTM, GA4, Amplitude, GSC(`{도메인}` (예: bdbddc.com) 인증), Naver SA, Bing+IndexNow(`{사이트맵URL수}`개 (예: 73개) URL), 구글 리뷰(`{구글PlaceID}` + `{구글API키}`), OG 이미지.
+GTM, GA4, GSC(`{도메인}` (예: bdbddc.com) 인증), Naver SA, Bing+IndexNow(`{사이트맵URL수}`개 (예: 73개) URL), 구글 리뷰(`{구글PlaceID}` + `{구글API키}`), OG 이미지.
 
 ## 13.4 Phase 4: 다국어 & 고급 (1주) — 5개 항목
 
@@ -832,7 +832,7 @@ Weglot, `{다국어목록}` (예: 영어, 베트남어, 중국어, 러시아어,
 
 ### ▶ 실전 예시: 서울비디치과는 Premium 패키지
 
-서울비디치과(bdbddc.com)는 Premium 패키지 + 일부 Enterprise 기능을 적용한 사례입니다. 80개 HTML 페이지, 134개 JSON-LD, 5개 언어 번역, 실시간 구글 리뷰 API, GTM+GA4+Amplitude 풀 세팅, 비포/애프터 갤러리, 유튜브/블로그 RSS 자동 연동. 매출 규모가 연 120억원인 대형 치과이기 때문에 풀 스펙이 적용되었으나, 연 10~30억원 규모 치과는 Standard 패키지(40페이지)로 시작해 환자 유입량에 따라 확장하는 것을 권장합니다.
+서울비디치과(bdbddc.com)는 Premium 패키지 + 일부 Enterprise 기능을 적용한 사례입니다. 80개 HTML 페이지, 134개 JSON-LD, 5개 언어 번역, 실시간 구글 리뷰 API, GTM+GA4+Clarity 풀 세팅, 비포/애프터 갤러리, 유튜브/블로그 RSS 자동 연동. 매출 규모가 연 120억원인 대형 치과이기 때문에 풀 스펙이 적용되었으나, 연 10~30억원 규모 치과는 Standard 패키지(40페이지)로 시작해 환자 유입량에 따라 확장하는 것을 권장합니다.
 
 | 패키지 | 추천 규모 | 페이지 수 | 월 예상 효과 |
 |-------|---------|---------|-----------|

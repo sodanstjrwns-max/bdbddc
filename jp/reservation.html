@@ -8,8 +8,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
-<script src="/static/bd-tag-loader.js" defer></script>
-<script src="/static/bd-analytics.js" defer></script>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -895,7 +893,7 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
     var result=await res.json();
     if(!res.ok||result.error){showErr(result.error||'予約申請に失敗しました。');return;}
     // ★ 예약 데이터를 sessionStorage에 저장 후 Thank You 페이지로 이동
-    // 전환 추적(Meta Pixel, GA4, Amplitude)은 thank-you 페이지에서 실행
+    // 전환 추적(Meta Pixel, GA4)은 thank-you 페이지에서 실행
     sessionStorage.setItem('bd_reservation', JSON.stringify({
       id: result.reservation.id || '',
       treatment: data.treatment,

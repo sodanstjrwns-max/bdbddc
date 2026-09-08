@@ -261,7 +261,6 @@ def render_page(page, lang_cfg):
 {body_sections}
 </main>
 {footer_html}
-<script src="/static/bd-tag-loader.js" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>

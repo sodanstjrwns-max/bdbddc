@@ -253,7 +253,7 @@
 - 롱테일/PAA 질문 키워드 콘텐츠화, 구어체 음성검색 대응
 
 ### 5-8. 분석 도구 셋업(스크립트 슬롯 — §0 값으로 치환)
-- Google Tag Manager / GA4 / (선택) Amplitude / Meta Pixel / 네이버 애널리틱스
+- Google Tag Manager / GA4 / Meta Pixel / 네이버 애널리틱스
 - GSC·네이버 서치어드바이저·Bing Webmaster 등록 안내 포함
 
 ---

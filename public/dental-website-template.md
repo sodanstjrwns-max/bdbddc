@@ -26,7 +26,7 @@ Hono(TypeScript) + Cloudflare Pages + R2 + D1 기반의 **치과 전용 풀스�
 | **이메일** | Resend API | 예약 알림 이메일 |
 | **AI 챗봇** | OpenAI GPT-4o-mini | 실시간 상담 챗봇 |
 | **OAuth** | Google OAuth 2.0 | 소셜 로그인 |
-| **분석** | GA4 + GTM + Meta Pixel + Amplitude | 풀 마케팅 트래킹 |
+| **분석** | GA4 + GTM + Meta Pixel + Clarity | 풀 마케팅 트래킹 |
 | **다국어** | Weglot | 자동 다국어 번역 |
 | **블로그** | InBlog (외부) → 프록시 | 블로그 콘텐츠 |
 | **SEO** | IndexNow + Google Ping + JSON-LD | 검색엔진 최적화 |
@@ -44,7 +44,7 @@ webapp/
 │   └── site-v5.css            # 전역 CSS (GNB, 푸터, 공통 컴포넌트)
 │
 ├── js/
-│   ├── analytics.js           # GA4+GTM+Amplitude 통합 트래킹
+│   ├── analytics.js           # GA4+GTM 통합 트래킹
 │   ├── gnb.js                 # 글로벌 네비게이션 바 (모바일 메뉴 포함)
 │   ├── main.js                # 메인페이지 전용 로직
 │   ├── gallery.js             # 비포/애프터 갤러리 (필터, 카드, 로그인 체크)
@@ -468,7 +468,7 @@ const filterGroupMap = {
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <!-- 1. 트래킹 코드 (GTM, GA4, Amplitude, Meta Pixel) -->
+  <!-- 1. 트래킹 코드 (GTM, GA4, Meta Pixel) -->
   <!-- 2. SEO 메타 (title, description, canonical, OG, Twitter) -->
   <!-- 3. JSON-LD 구조화 데이터 -->
   <!-- 4. CSS (Pretendard 폰트, Font Awesome, site-v5.css) -->
@@ -540,7 +540,7 @@ CSS 변수 기반 디자인 시스템:
 
 | 파일 | 역할 | 로드 위치 |
 |------|------|----------|
-| `analytics.js` | GTM/GA4/Amplitude 이벤트 전송 | 전체 페이지 |
+| `analytics.js` | GTM/GA4 이벤트 전송 | 전체 페이지 |
 | `gnb.js` | GNB 드롭다운, 모바일 메뉴, 스크롤 효과 | 전체 페이지 |
 | `main.js` | 메인 히어로, Google 리뷰 로드, 유튜브 카드 | index.html만 |
 | `gallery.js` | 비포/애프터 카드, 필터, 인증 체크 | cases/gallery.html |
@@ -578,7 +578,6 @@ OPENAI_API_KEY=          # OpenAI API 키 (GPT-4o-mini)
 # src/index.tsx 내 하드코딩 (병원별 반드시 교체)
 GTM 컨테이너 ID:       GTM-XXXXXXX
 GA4 측정 ID:           G-XXXXXXXXXX
-Amplitude API 키:      [amplitude_api_key]
 Meta Pixel ID:         [pixel_id]
 Weglot API 키:         wg_XXXXX
 Google Maps API 키:    [google_maps_api_key]
@@ -724,7 +723,7 @@ npx wrangler d1 migrations apply {{DB_NAME}}
 
 4. 외부 서비스 키
    - 모든 환경변수 (.dev.vars)
-   - GTM, GA4, Meta Pixel, Amplitude ID
+   - GTM, GA4, Meta Pixel ID
    - Weglot API 키
    - Google Maps API 키 + Place ID
    - YouTube 채널 ID
@@ -829,7 +828,7 @@ Phase 3: 회원 + 콘텐츠 (2~3일)
 Phase 4: 부가 기능 (1~2일)
   11. 블로그 연동 (InBlog 프록시 또는 자체)
   12. 비용 안내, FAQ, 오시는 길, 층별 안내
-  13. 마케팅 트래킹 (GA4, GTM, Meta Pixel, Amplitude)
+  13. 마케팅 트래킹 (GA4, GTM, Meta Pixel)
 
 Phase 5: SEO + 최적화 (1~2일)
   14. JSON-LD 구조화 데이터

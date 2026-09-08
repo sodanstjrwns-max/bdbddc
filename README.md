@@ -1,5 +1,14 @@
 # 서울비디치과 (bdbddc.com)
 
+## 2026-09-08 (2차) — Amplitude 영구 제거 (코드베이스 전체, 운영 배포 완료)
+
+- **결정**: 사용자 "Amplitude는 영원히 안 쓴다". 1차 킬 스위치(같은 날 `f8506fe4`)에 이어 코드·템플릿·문서에서 전부 걷어냄. GA4(2속성)·GTM·Clarity·Meta Pixel·PF 비콘은 그대로. 공용 규칙은 `/Users/msj/pfwebengine/AGENTS.md` "기타"에 명문화.
+- **GTM 확인**: 공개 컨테이너 `gtm.js?id=GTM-KKVMVZHK`(352KB)에 amplitude 문자열 0건 → GTM 경유 로드 없음.
+- **제거 내역**: ① 정적 HTML 563장에서 `/static/bd-tag-loader.js`·`/static/bd-analytics.js` 태그 삭제 ② SSR `src/lib/layout.ts` TRACKING_HEAD, `scripts/tracking-head.html`(BD-BLOCK amplitude 블록 삭제 → post-build 자동주입 대상에서 제외) ③ 페이지 빌더 7종(generate-html/faq/invisalign-subpages, build-guide/regret/compare-pages, intl_gen/engine.py)의 템플릿에서 태그 삭제 ④ `js/analytics.js` v11: Amplitude init·지연 로더 폴백·ampTrack 큐·safeIdentify/deferredIdentify·호출 41곳 삭제(GA4 이벤트 무수정, `node --check` 통과) ⑤ `bd-smart-cta.js` Amplitude 블록, `reservation/thank-you.html` bdTrack 블록 삭제 ⑥ `privacy.html` 제3자 제공 표에서 Amplitude 행 삭제 ⑦ `scripts/migrate-amplitude-loader.py` 삭제, `enhance-area-treatment-pages.py` 키 조회 제거 ⑧ 청사진/템플릿/마스터프롬프트 문서(blueprint.html 3본, dental-website-template.md 2본, hospital-website-blueprint.md, MASTER-PROMPT)에서 Amplitude 문구 제거, `sales/index.html` 마키에서 AMPLITUDE 삭제.
+- **임시 스텁**: `public/static/bd-tag-loader.js`·`bd-analytics.js`는 한 줄 주석만 남긴 빈 파일. 엣지 캐시(HTML s-maxage 24h)에 남은 옛 HTML 참조가 404 나지 않게 하는 용도. **2026-09-10 이후 두 파일 삭제해도 됨.**
+- **배포**: `npm run build:fast`(tracking inject blocks 에서 amplitude 항목 사라짐, seo-release 587p 오류 0) → wrangler 운영 배포. 스냅샷 https://51d050e7.seoul-bd-dental.pages.dev. 운영 확인: `/`·`/encyclopedia/`·`/blog/`·`/reservation.html` 응답에 loader/analytics/cdn.amplitude 태그 0건, gtag·Clarity·Pixel 유지. 스텁 파일 서빙 확인. 이전 배포 `4034bf8a`(1차 킬 스위치).
+- **남은 것(코드 밖)**: Amplitude 프로젝트 API 키 삭제/플랜 해지는 사용자가 app.amplitude.com 에서 직접. 며칠 뒤 MTU 0 확인.
+
 ## 2026-09-08 — Amplitude 완전 차단 (운영 배포 완료)
 
 - **배경**: v2.0 지연 로더(사람 제스처에서만 SDK 로드)로도 2026-09 MTU가 다시 폭주. 사용자 결정으로 Amplitude 자체를 끔. GA4·GTM·Clarity·Meta Pixel은 그대로.
