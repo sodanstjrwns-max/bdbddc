@@ -1,5 +1,13 @@
 # 서울비디치과 (bdbddc.com)
 
+## 2026-09-08 — Amplitude 완전 차단 (운영 배포 완료)
+
+- **배경**: v2.0 지연 로더(사람 제스처에서만 SDK 로드)로도 2026-09 MTU가 다시 폭주. 사용자 결정으로 Amplitude 자체를 끔. GA4·GTM·Clarity·Meta Pixel은 그대로.
+- **변경**: `public/static/bd-tag-loader.js` v3.0 — `cdn.amplitude.com` SDK 로드 코드 전부 제거, `_bdAmpLoaderRan`/`_bdLoadAmplitude` 만 남긴 무동작 킬 스위치. 이 파일이 사이트에서 SDK를 받는 유일한 경로였음(HTML 593장 + SSR TRACKING_HEAD + `/blog/*` 프록시 모두 이 로더를 참조). `js/analytics.js`·`bd-analytics.js`·`bd-smart-cta.js`는 전부 `typeof window.amplitude` 가드가 있어 무수정.
+- **배포**: `npm run build:fast` → `wrangler pages deploy dist --project-name seoul-bd-dental`. 스냅샷 https://4034bf8a.seoul-bd-dental.pages.dev. 운영 https://bdbddc.com/static/bd-tag-loader.js 가 v3.0 응답 확인(cf-cache-status EXPIRED → 갱신됨, 브라우저 캐시 max-age 4h 이내 자연 교체).
+- **되돌리기**: 이 파일만 v2.0(커밋 `1125b041`)으로 복원. v1.0 자동 로드로는 절대 금지.
+- **남은 확인(코드 밖)**: ① GTM 컨테이너 `GTM-KKVMVZHK`에 Amplitude 태그가 있으면 GTM에서 별도 일시중지 필요. ② 확실한 차단은 Amplitude 프로젝트 설정에서 API 키 삭제/교체 + 플랜 확인. ③ 며칠 뒤 Amplitude MTU가 0 근처인지 확인.
+
 ## 2026-09-07 — 관리자 원장 칼럼 목록 표시 오류 수정
 
 - **원인**: `admin/columns.html`의 목록 필터 화살표 함수가 `c = alt="">`로 손상되어 전체 인라인 스크립트가 파싱되지 않았음. 운영 공개/관리자 읽기 API에서 기존 칼럼 112건 확인. 원본 손실이 아니라 관리자 화면 실행 오류.
