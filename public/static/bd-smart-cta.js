@@ -58,17 +58,6 @@
         page_path: path
       });
     } catch (e) { /* silent */ }
-    // Amplitude (로드돼 있을 때만)
-    try {
-      if (window.amplitude && typeof window.amplitude.track === 'function') {
-        window.amplitude.track('CTA Click', {
-          cta_name: 'smart_cta_' + target,
-          cta_location: 'content_bottom',
-          page_type: pageType,
-          page_path: path
-        });
-      }
-    } catch (e) { /* silent */ }
   }
 
   function buildButtons(cls) {

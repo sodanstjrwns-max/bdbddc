@@ -296,14 +296,13 @@ import pathlib as _pl
 
 _ROOT = _pl.Path(__file__).parent.parent
 _PARTIAL = _ROOT / 'scripts' / 'tracking-head.html'      # GTM / GA4 의 단일 소스
-_LOADER = _ROOT / 'public' / 'static' / 'bd-tag-loader.js'  # Amplitude 키의 단일 소스
 
 
 def _read_ids_from_source():
     """트래킹 ID 를 실제 소유 파일에서 읽어온다.
 
     GTM/GA4 → scripts/tracking-head.html
-    Amplitude → public/static/bd-tag-loader.js 의 amplitude.init() 인자
+    Amplitude → 없음 (2026-09-08 영구 제거, 키 없음)
 
     주의: GA4 는 프로퍼티가 2개다 (G-3NQP355YQM 뉴비디치과 /
     G-LM9VKJSB9F bdbddc). Google 태그 하나가 두 프로퍼티에 의도적으로
@@ -317,12 +316,7 @@ def _read_ids_from_source():
 
     ga4 = 'G-3NQP355YQM' if 'G-3NQP355YQM' in head else None
 
-    amp = None
-    if _LOADER.exists():
-        m = re.search(r'amplitude\.init\(\s*[\'"]([0-9a-f]{32})[\'"]',
-                      _LOADER.read_text(encoding='utf-8'))
-        if m:
-            amp = m.group(1)
+    amp = None  # Amplitude 영구 제거 (2026-09-08) — 키 없음
 
     return gtm, ga4, amp
 
@@ -367,7 +361,7 @@ def remove_wrong_analytics_block(content):
     # Remove old inline Amplitude snippet (long block)
     content = re.sub(
         r'  <!-- Amplitude -->\n  <script>!function\(\)\{.*?</script>\n  <script>amplitude\.init\(\'[^\']+\'.*?</script>\n',
-        '  <!-- Amplitude (지연 로더) -->\n  <script src="/static/bd-tag-loader.js" defer></script>\n',
+        '',
         content,
         flags=re.DOTALL
     )
@@ -602,7 +596,7 @@ if __name__ == "__main__":
     if not (CORRECT_GTM and CORRECT_GA4 and CORRECT_AMP_KEY):
         print("실행 중단: 트래킹 ID 를 단일 소스에서 읽지 못했습니다.")
         print("  GTM=%r  GA4=%r  AMP=%r" % (CORRECT_GTM, CORRECT_GA4, CORRECT_AMP_KEY))
-        print("  확인: scripts/tracking-head.html, public/static/bd-tag-loader.js")
+        print("  확인: scripts/tracking-head.html")
         sys.exit(2)
 
     main()
