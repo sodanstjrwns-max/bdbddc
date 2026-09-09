@@ -759,7 +759,7 @@
         '<div class="gc-photo" data-action="lightbox" data-case-id="' + c.id + '" data-photo-type="before" style="cursor:zoom-in">' +
           '<img src="' + imgSrc + '" alt="' + (c.title || 'Before') + '" class="gc-img" loading="lazy" ' +
             'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
-          '<div class="gc-ph" style="display:none"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
+          '<div class="gc-ph" style="display:none"><i class="fas ' + catIcon + '"></i><span>사진을 불러오지 못했습니다</span></div>' +
           '<div class="gc-photo-overlay">' +
             '<span class="gc-badge-before">BEFORE</span>' +
             '<div class="gc-badge-types">' +
@@ -774,7 +774,7 @@
     } else {
       photoHtml =
         '<div class="gc-photo">' +
-          '<div class="gc-ph"><i class="fas ' + catIcon + '"></i><span>사진 준비중</span></div>' +
+          '<div class="gc-ph"><i class="fas ' + catIcon + '"></i><span>사진 없이 등록된 사례입니다</span></div>' +
           '<div class="gc-photo-overlay">' +
             '<span class="gc-badge-before">BEFORE</span>' +
           '</div>' +

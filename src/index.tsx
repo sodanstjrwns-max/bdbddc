@@ -8799,7 +8799,7 @@ app.post('/api/chat', async (c) => {
   const apiKey = c.env.OPENAI_API_KEY;
   if (!apiKey) {
     console.error('OPENAI_API_KEY is not set');
-    return c.json({ error: 'AI 상담 서비스가 준비 중입니다.' }, 500);
+    return c.json({ error: '현재 AI 상담을 이용할 수 없습니다. 상담은 041-415-2892로 문의해주세요.' }, 503);
   }
 
   // ▶ 보안: 챗봇 Rate Limiting (OpenAI 과금 보호 — 1분 10건 + 1시간 60건)

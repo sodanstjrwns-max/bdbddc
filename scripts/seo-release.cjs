@@ -192,6 +192,23 @@ function audit(records, membership, fixes, issues, redirects) {
   };
   const existing = new Map(records.filter(r => r.cp && !r.redirect && !r.noindex).map(r => [r.cp, r]));
   const add = (code, url, message, critical = false) => issues.push({ code, url, message, severity: critical ? 'error' : 'warning' });
+  // Patient-facing fallback copy must describe the current state, not an unfinished site.
+  const checkPublicCopy = (root, url) => {
+    for (const node of root.querySelectorAll('.profile-photo-placeholder,.gallery-item-placeholder,.game-card')) {
+      if (/촬영\s*예정|coming\s*soon|shoot scheduled|to be taken|scheduled to be taken|撮影予定/i.test(node.textContent))
+        add('unfinished-public-copy', url, 'Unfinished photo or game announcement in patient-facing HTML.', true);
+    }
+    if (root.querySelector('script[src*="bd-tag-loader.js"],script[src*="bd-analytics.js"],script[src*="cdn.amplitude.com"]'))
+      add('retired-tracker', url, 'Retired analytics loader must not return after a merge.', true);
+  };
+  const memberHtml = fs.readFileSync('dist/auth/mypage.html', 'utf8');
+  const memberRoot = parse(memberHtml);
+  checkPublicCopy(memberRoot, '/auth/mypage');
+  if (/준비\s*중|모든 데이터가 삭제됩니다/.test(memberHtml)) add('unfinished-member-action', '/auth/mypage', 'Member actions must not promise unimplemented updates or deletion.', true);
+  for (const script of memberRoot.querySelectorAll('script')) {
+    if (script.getAttribute('src') || !['', 'text/javascript', 'application/javascript'].includes(script.getAttribute('type') || '')) continue;
+    try { new Script(script.rawText); } catch (e) { add('member-script-syntax', '/auth/mypage', e.message, true); }
+  }
   let adminScriptsChecked = 0;
   // Admin HTML is intentionally excluded from indexing checks, not from JavaScript syntax checks.
   for (const name of fs.readdirSync('dist/admin').filter(n => n.endsWith('.html'))) {
@@ -210,6 +227,7 @@ function audit(records, membership, fixes, issues, redirects) {
     const root = parse(html);
     const cp = r.cp || '/' + r.file.replace(/^dist\//, '');
     const critical = CORE.includes(cp);
+    checkPublicCopy(root, cp);
     const title = root.querySelector('title')?.textContent.trim() || '';
     const canonicals = root.querySelectorAll('link[rel="canonical"]');
     const h1 = root.querySelectorAll('h1');
