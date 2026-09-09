@@ -1,5 +1,16 @@
 # 서울비디치과 (bdbddc.com)
 
+## 2026-09-09 — SEO 기초 정비·미완성 문구 정리 운영 배포
+
+- **승인/반영**: 사용자 ‘둘다 ㄱㄱ’ 승인으로 GitHub main push 및 본인 Cloudflare 계정의 기존 `seoul-bd-dental` 프로젝트에 배포. 기능 커밋 `3adc2292`, 표준 빌드 영상 캐시를 포함한 배포 커밋 `18566f7a`. 병합된 Amplitude 영구 제거·기존 SEO 기초 개선 유지.
+- **운영 주소**: https://bdbddc.com / 배포 스냅샷 https://e536630c.seoul-bd-dental.pages.dev. 직전 Amplitude 제거 배포 스냅샷 https://51d050e7.seoul-bd-dental.pages.dev.
+- **빌드**: `npm run build` 및 `npm run seo:check` 성공. 587페이지·차단 오류0·검토 경고0·140언어 묶음. 운영 관리자 보고서에서 배포 커밋 `18566f7a`와 동일한 검사 결과 확인.
+- **실제 화면 검증**: 메인·게임·회원 화면·한/영/일 의료진·진료 허브·해외 안내의 GET/HEAD 200 및 최신 문구 확인. 진료/의료진 index 별칭 4개는 직접 301, 없는 의료진은 실제 404. 확인한 화면에서 폐기된 추적 로더 참조 없음.
+- **접근/데이터**: 관리자 인증 보고서 200/private,no-store, 비로그인·직원은 접근 차단. 관리자 칼럼 목록 114건 읽기 확인. 예약 생성·회원정보 변경·칼럼 수정/삭제·DB 마이그레이션·시크릿 변경 없음.
+- **이전 잔여 캐시 해결 확인**: 운영 robots.txt와 사이트맵 인덱스/main/encyclopedia/images 내용이 이번 dist와 정확히 일치. robots 응답은 HIT이지만 내용은 최신이므로 이전 캐시 갱신 대기는 해소됨. 별도 cache purge 요청 없이 확인.
+- **전체 HTTP 검사 완료**: `npm run seo:http -- https://bdbddc.com --sitemaps` 실행으로 운영 사이트맵의 고유 URL **1,906개 전부 검사, issues 0**. GET 200·비어 있지 않은 본문, HEAD/GET 상태 일치, canonical·title·H1·description·OG 및 noindex 여부 확인. 운영 검색 색인/순위나 의학적 정확성을 보장하는 결과는 아님. 로컬 미리보기 메모리 때문에 남았던 전체 HTTP 재검증도 이번 운영 검사로 완료.
+
+
 ## 2026-09-09 — 최신 Git 병합 및 미완성 인상 문구 조사 (운영 미배포)
 
 - **병합**: 원격 `5529f775`의 Amplitude 영구 제거와 로컬 SEO 기초 개선을 `28bb951f`에서 병합. README의 양쪽 이력 보존, 중국어 메인의 제목/CSS 개선을 보존하면서 폐기 추적 로더는 제거. 원격 변경을 되돌리지 않음.
