@@ -1,3 +1,4 @@
+import { registerPatientNotes } from './routes/patient-notes'
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-pages'
 import { cors } from 'hono/cors'
@@ -8894,6 +8895,7 @@ app.post('/api/chat', async (c) => {
   }
 });
 
+registerPatientNotes(app, { header: ssrHeader, mobileNav: ssrMobileNav })
 registerGscReport(app)
 registerToothNumberingWidget(app)
 registerWidgetEmbeds(app)
