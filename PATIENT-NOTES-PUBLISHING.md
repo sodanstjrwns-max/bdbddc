@@ -44,3 +44,20 @@
 - `scripts/patient-notes-status.mjs`: 소스 기준 날짜별 발행 자리와 운영 검증 대상 URL. 이를 운영 배포 성공 기록으로 오해하지 않는다.
 
 초기 질문 후보: `/Users/msj/bddc/reports/2026-09-16-website-analysis/NICHE-CONTENT-TREE.md`와 `SEO-TECH-TREE.md`. 후보는 실제 수요나 임상 답변을 확인한 완성 원고가 아니므로 중복·근거를 매번 확인한다.
+
+
+## 검색엔진 통보와 성과 점검 (2026-09-17 추가 승인)
+
+사용자 요청: 운영 공개 이후 검색 유입에 필요한 조치를 모두 실행하고 성과도 예측한다. 기존 오전9시 발행 작업에서 다음을 수행한다.
+
+- 공개 검증이 끝나면 `node scripts/notify-patient-notes.mjs --state /Users/msj/bddc/reports/2026-09-17-notes-search-launch/indexnow-state.json --submit` 실행. 운영 사이트맵에 실제 공개된 새 노트와 변경된 허브만 대상으로 네이버와 Bing에 IndexNow 통보한다. 예약 글은 제외한다. 첫 실행 전 `--submit` 없이 대상을 검토할 수 있다.
+- 200은 접수, 202는 접수 및 키 확인 대기다. 이를 검색 색인 완료라고 표현하지 않는다. 엔진별 영속 기록으로 이미 접수된 동일 글은 재전송하지 않는다. 실패한 엔진만 다음 실행에 재시도한다. 스크립트 오류·429 시 반복 호출하지 말고 기록한다. 과거 글의 내용 변경은 이 신규 공개 전용 스크립트와 별도로 변경 URL만 통보한다.
+- 오늘 두 편이 이미 공개된 경우에도 검색엔진 통보 기록이 비어 있으면 누락된 통보를 처리한다. 소스 공개 여부와 운영 검증·검색엔진 접수·검색 색인을 구분해 기록한다.
+- Google은 제출된 `/sitemap-concerns.xml`을 다시 읽는 경로를 유지한다. 매일 같은 사이트맵·URL을 수동 재제출하지 않는다. 새 노트 색인 문제가 지속될 때만 URL 검사를 통해 원인을 확인하고 필요한 URL을 요청한다. Google Indexing API를 일반 진료 콘텐츠에 사용하지 않는다.
+- 첫 색인 확인은 다음 정시 실행에서 읽기 전용 Search Console URL Inspection으로 공개 노트만 확인한다. 이후 매주 목요일에 14일 이상 된 미색인 글을 우선 최대10개 표본으로 점검한다. 인증·권한이 없으면 조작하거나 결과를 꾸미지 않고 기록한다.
+- 매주 목요일 GSC 최신 확정 28일의 `/concerns/` 클릭·노출·검색어와 기존 가이드/지역 페이지를 비교한다. 처음 28일은 불완전 관측 기간임을 표시한다. 핵심 지역 검색어는 천안·아산·홍성·예산·당진·서산이며, 노트별 공개 후 경과일도 함께 본다. URL 증가율을 트래픽 증가율로 간주하지 않는다.
+- 성과 원시 자료와 제출 결과는 `/Users/msj/bddc/reports/2026-09-17-notes-search-launch/` 아래 날짜별로 남긴다. 기존 원시 자료를 덮어쓰지 않는다. 사용 가능한 기존 읽기 전용 Google 서비스 계정은 `/Users/msj/bddc/content-pipeline/daily-watch/gcp-sa.json`이며 값은 출력·복사하지 않는다. GSC 속성은 `sc-domain:bdbddc.com`이다. URL-prefix 속성의 API 권한은 별도이므로 도메인 속성으로 조회한다.
+- GA4는 `/concerns/` 진입 세션·참여·예약/전화/카카오 행동을 분리한다. 기존 중복 이벤트 합계를 실제 상담·내원 수로 환산하지 않는다. 실제 접수와 연결되지 않으면 신규 환자·매출은 예측하지 않는다.
+- 전망은 공개 글 수 × 색인 가정 × 글당 클릭 가정으로 계산한 시나리오이며 보장치가 아니다. 30·60·90일 실측으로 갱신하고 기존 페이지 클릭을 가져온 효과와 사이트 전체 순증을 구분한다. 효과가 약한 주제는 양을 늘리기보다 의도 중복·본문·내부 링크를 보완한다.
+
+공식 기준: https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl · https://searchadvisor.naver.com/guide/indexnow-request
