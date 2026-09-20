@@ -28,7 +28,8 @@ const crack = { title: '미국근관치료학회 AAE · 치아 균열의 증상�
 const efp = { title: '유럽치주학회 EFP · 임플란트 주위질환 치료', href: 'https://www.efp.org/for-patients/dental-implants/peri-implant-disease-treatment/' }
 
 // 지역은 글에서 설명하는 방문 맥락이다. 병원의 소재지나 환자의 실제 거주지를 의미하지 않는다.
-// 질문 출처: 2026-09-16 사용자 제공 여섯 질문. 모두 가상 상담 상황이며 환자 후기가 아니다.
+// 초기 여섯 질문은 2026-09-16 사용자 제공, 이후는 승인된 편집 후보에서 선정한다.
+// 모두 가상 상담 상황이며 환자 후기나 실제 의료진 감수 사례가 아니다.
 // updated는 실제 본문 수정일만 기록한다. 자동 일일 갱신 금지.
 export const patientNotes: PatientNote[] = [
   {
@@ -152,6 +153,162 @@ export const patientNotes: PatientNote[] = [
     localAdvice: '자료를 어떤 형식으로 가져갈지, 첫 상담에 어느 정도 시간을 잡을지, 추가 방문이 필요하면 어떤 간격으로 진행할지 문의하세요. 실제 이동 시간은 출발지와 교통 상황에 따라 달라지므로 오시는 길에서 경로를 확인하세요. 서울비디치과는 서산 지점이 아닌 천안 불당동에서 진료합니다.',
     related: [{ title: '기존 치과가 폐업한 경우', href: '/concerns/implant-clinic-closed' }, { title: '임플란트 치료 가이드', href: '/guide/implant' }, { title: '오시는 길', href: '/directions' }],
     sources: [fda, { title: 'NHS · 치과 감염에서 신속한 진료가 필요한 증상', href: 'https://www.nhs.uk/conditions/dental-abscess/' }], updated: '2026-09-16'
+  },
+  {
+    "slug": "crown-fell-out-with-tooth-piece",
+    "title": "크라운이 빠졌는데, 안쪽에 치아 조각 같은 게 붙어 있어요.",
+    "region": "천안",
+    "areaPath": "/area/cheonan",
+    "topic": "크라운",
+    "concern": "치아까지 부러진 건지 무서워요",
+    "description": "천안에서 빠진 크라운 안쪽의 조각 때문에 걱정된다면, 보철 재사용과 남은 치아 보존을 어떻게 구분해 상담할지 정리해 보세요.",
+    "situation": "천안에 살며 예전에 씌운 크라운이 식사 중 빠졌습니다. 안쪽이 비어 있지 않고 단단한 덩어리가 붙어 있어, 내 치아까지 부러져 나온 건지 걱정됩니다.",
+    "answer": "빠진 크라운 안쪽의 덩어리는 접착 재료나 치아를 보강했던 재료, 실제 치아 일부 등 여러 가능성이 있습니다. 겉모습만으로 구분하거나 다시 붙일 수 있다고 판단하지 않고, 빠진 보철과 입안에 남은 치아를 함께 확인해야 합니다.",
+    "checks": [
+      "빠진 시점과 직전의 흔들림·씹을 때 불편, 이전 신경치료나 기둥 치료 여부를 전달합니다.",
+      "크라운 자체의 손상과 안쪽에 붙은 구조, 입안에 남은 치아의 충치·파절·지지 상태를 구분해 평가합니다.",
+      "기존 크라운을 사용할 수 있는지와 치아를 남길 수 있는지는 별도로 설명받습니다. 필요한 경우 영상 검사와 추가 평가를 함께 진행합니다."
+    ],
+    "choices": [
+      {
+        "condition": "남은 치아와 기존 크라운 상태가 재부착에 적합하다면",
+        "option": "기존 보철을 다시 사용하는 방안을 검토합니다.",
+        "limit": "밖에서 보기에 멀쩡하다는 이유만으로 재사용을 확정하지 않습니다."
+      },
+      {
+        "condition": "치아를 보존할 수 있지만 지지 구조나 크라운의 회복이 필요하다면",
+        "option": "남은 치아를 보강하고 보철을 다시 만드는 등 수복 범위를 상의합니다.",
+        "limit": "신경치료나 추가 처치의 필요성은 현재 검사 결과에 따라 달라집니다."
+      },
+      {
+        "condition": "깊은 파절 등으로 치아를 유지하기 어렵다고 판단되면",
+        "option": "보존이 어려운 근거와 다른 치료 선택을 설명받습니다.",
+        "limit": "안쪽에 조각이 붙어 있다는 사실만으로 발치를 결정하지 않습니다."
+      }
+    ],
+    "unknown": "사진에 보이는 색이나 모양만으로 충치, 치근 파절, 재사용 가능성을 확정할 수 없습니다. 가정용 접착제로 붙이거나, 맞는지 보려고 반복해서 끼우거나, 안쪽 재료를 긁어내지 마세요.",
+    "prepare": [
+      "빠진 크라운을 잃어버리지 않게 보관해 가져오기. 붙어 있는 부분은 임의로 분리하지 않기",
+      "신경치료·기둥·크라운을 받은 대략적인 시기와 보유한 이전 영상",
+      "빠지기 전후의 통증·부기·출혈·씹기 어려움과 시작 시점",
+      "첫날 가장 필요한 도움: 통증 확인, 치아 보호, 보철 재사용 가능성 등"
+    ],
+    "localHeading": "천안에서 크라운 탈락 상담을 준비한다면",
+    "localAdvice": "예약할 때 “크라운이 빠졌고 안쪽에 단단한 조각이 붙어 있다”고 알려주세요. 다시 붙이기만 원하는지보다 치아까지 손상됐는지가 걱정된다고 말씀하셔도 됩니다. 서울비디치과는 천안 불당동에서 진료하며, 첫날 가능한 평가·보호 처치와 최종 보철 완료 일정은 나누어 확인하세요.",
+    "related": [
+      {
+        "title": "크라운 치료 안내",
+        "href": "/treatments/crown"
+      },
+      {
+        "title": "치아 균열에 관한 가이드",
+        "href": "/guide/regret/tooth-crack"
+      },
+      {
+        "title": "신경치료한 치아가 다시 아플 때",
+        "href": "/concerns/root-canal-pain-years-later"
+      }
+    ],
+    "sources": [
+      {
+        "title": "NHS Wales · 빠진 크라운의 보관, 진료 및 치료 선택",
+        "href": "https://111.wales.nhs.uk/LostFillingorCrown/"
+      },
+      {
+        "title": "NHS Health Education England · 크라운 탈락 시 치아 파절 여부 확인",
+        "href": "https://london.wtepharmacy.nhs.uk/dyn/_assets/_folder4/community-pharmacy/dental-fact-sheets/PharmacyDentalFactSheetsFinal.pdf"
+      },
+      {
+        "title": "미국근관치료학회 AAE · 치아 균열의 범위와 치료",
+        "href": "https://www.aae.org/patients/dental-symptoms/cracked-teeth/"
+      },
+      {
+        "title": "미국근관치료학회 AAE · 신경치료 후 보철과 기둥의 역할",
+        "href": "https://www.aae.org/patients/root-canal-treatment/what-is-a-root-canal/root-canal-explained/"
+      },
+      {
+        "title": "NHS · 치과 감염에서 신속한 진료가 필요한 증상",
+        "href": "https://www.nhs.uk/conditions/dental-abscess/"
+      }
+    ],
+    "updated": "2026-09-20",
+    "publishedAt": "2026-09-20T14:24:51+09:00"
+  },
+  {
+    "slug": "unfinished-root-canal-after-moving",
+    "title": "신경치료를 중간에 멈추고 이사했어요. 다른 치과에서 이어서 받을 수 있나요?",
+    "region": "아산",
+    "areaPath": "/area/asan",
+    "topic": "신경치료",
+    "concern": "중단한 치료를 다시 시작하고 싶어요",
+    "description": "아산으로 이사한 뒤 중단된 신경치료를 다시 시작하려는 분을 위해, 이전 치료 단계와 현재 상태, 기록·비용·방문 일정을 확인할 질문을 정리합니다.",
+    "situation": "아산으로 이사하면서 신경치료 예약을 놓쳤습니다. 마지막에 임시로 막았다는 기억은 있지만 어디까지 치료했는지 모르고, 예전 치과에 다시 다니기는 어렵습니다.",
+    "answer": "다른 치과에서 중단된 신경치료의 현재 상태를 평가받을 수 있습니다. 다만 방문 횟수나 통증이 줄었다는 기억만으로 남은 단계를 정할 수는 없습니다. 이전 기록과 현재 검사로 어느 단계였는지, 치아를 어떻게 보호하고 있었는지 확인한 뒤 이어갈 치료를 계획합니다.",
+    "checks": [
+      "마지막 진료 날짜, 치료한 부위, 다음에 무엇을 하자고 들었는지를 기억나는 범위에서 정리합니다.",
+      "치아 내부 치료가 진행 중인지, 내부 치료를 마치고 최종 수복만 남았는지 기록과 검사로 구분합니다.",
+      "임시 재료의 유지 상태, 통증·부기·씹을 때 변화와 남은 치아 구조를 함께 평가합니다."
+    ],
+    "choices": [
+      {
+        "condition": "치아 내부 치료가 미완료이고 보존 치료가 가능하다면",
+        "option": "현재 상태에 필요한 세척·소독·충전 등 남은 근관치료 단계를 계획합니다.",
+        "limit": "이전 처치 일부를 다시 확인하거나 시행할 수 있어 예전 일정표를 그대로 옮기지는 않습니다."
+      },
+      {
+        "condition": "내부 치료는 마쳤고 최종 수복이 남았다면",
+        "option": "치아 상태에 맞는 충전·크라운 등 보호와 기능 회복 계획을 세웁니다.",
+        "limit": "임시 재료가 보인다는 사실만으로 내부 치료의 완료 여부를 구분할 수 없습니다."
+      },
+      {
+        "condition": "새 감염이나 구조적 손상 등 추가 문제가 확인되면",
+        "option": "추가 근관치료나 수복의 가능성과 한계, 다른 선택지를 함께 검토합니다.",
+        "limit": "중단 기간만으로 재치료나 발치를 자동 결정하지 않습니다."
+      }
+    ],
+    "unknown": "며칠 또는 몇 달 중단했다는 사실만으로 치아 상태나 남은 방문 횟수를 예측할 수 없습니다. 임시 재료가 빠졌거나 불편이 새로 생겼다면 스스로 안쪽을 청소하거나 채우지 말고 치과에 알려 진료 시점을 안내받으세요.",
+    "prepare": [
+      "가능하다면 이전 진료기록과 영상 사본, 치료계획서",
+      "마지막 방문일과 다음 예약을 놓친 뒤의 증상 변화",
+      "임시로 막은 부분이 빠졌거나 깨진 기억, 최종 크라운을 했는지 여부",
+      "복용 약과 주요 질환, 앞으로 방문 가능한 요일·시간과 이동 제약"
+    ],
+    "localHeading": "아산에서 중단된 신경치료를 이어가려면",
+    "localAdvice": "아산에서 천안 불당동 서울비디치과로 상담을 고려한다면 “이사 후 신경치료를 이어가지 못했고 마지막 단계는 모른다”고 먼저 알려주세요. 첫 평가와 치료·최종 보철·경과 확인의 방문을 나누어 문의하고, 아산에서 반복 이동할 수 있는 요일과 시간도 함께 상의하세요.",
+    "related": [
+      {
+        "title": "신경치료의 단계와 관리 가이드",
+        "href": "/guide/root-canal"
+      },
+      {
+        "title": "치아를 남기는 치료와 발치 후 치료 비교",
+        "href": "/guide/compare/root-canal-vs-implant"
+      },
+      {
+        "title": "아산에서 오시는 길 안내",
+        "href": "/area/asan"
+      }
+    ],
+    "sources": [
+      {
+        "title": "미국근관치료학회 AAE · 근관치료의 단계와 최종 수복",
+        "href": "https://www.aae.org/patients/root-canal-treatment/what-is-a-root-canal/root-canal-explained/"
+      },
+      {
+        "title": "미국근관치료학회 AAE · 보철 지연·오염과 재치료 평가",
+        "href": "https://www.aae.org/patients/root-canal-treatment/endodontic-treatment-options/endodontic-retreatment/"
+      },
+      {
+        "title": "NHS · 신경치료의 여러 방문과 임시 충전",
+        "href": "https://www.nhs.uk/tests-and-treatments/root-canal-treatment/"
+      },
+      {
+        "title": "NHS · 치과 감염의 신속한 평가와 응급 증상",
+        "href": "https://www.nhs.uk/conditions/dental-abscess/"
+      }
+    ],
+    "updated": "2026-09-20",
+    "publishedAt": "2026-09-20T14:24:51+09:00"
   }
 ]
 
