@@ -14,7 +14,9 @@
   var lastIntent = { name: '', at: 0 };
   function emit(name, extra) {
     if (!live) return;
-    var data = Object.assign({ page_type: pageType, page_path: path, measurement_version: '20260921' }, extra || {});
+    // The live GTM/connected-tag configuration does not reliably route the default group.
+    // Explicit destinations preserve the two existing properties without another config/pageview.
+    var data = Object.assign({ send_to: ['G-LM9VKJSB9F', 'G-3NQP355YQM'], page_type: pageType, page_path: path, measurement_version: '20260921' }, extra || {});
     window.dataLayer = window.dataLayer || [];
     var g = window.gtag || function () { window.dataLayer.push(arguments); };
     try { g('event', name, data); } catch (_) { /* Measurement must never block a saved request or navigation. */ }

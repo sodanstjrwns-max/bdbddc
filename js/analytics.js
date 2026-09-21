@@ -50,7 +50,12 @@
   // ★ 중복 방지: tracking-head 인라인 블록이 먼저 실행됐으면(_bdGtagDone)
   //   여기서 다시 config 하지 않는다 (page_view 이중 집계 방지).
   window.dataLayer = window.dataLayer || [];
-  function gtag() { window.dataLayer.push(arguments); }
+  function gtag() {
+    // Explicit routing is required by the current connected-tag/GTM configuration.
+    // Leave config/pageview ownership unchanged; route only this module's custom events.
+    if (arguments[0] === 'event') arguments[2] = Object.assign({ send_to: ['G-LM9VKJSB9F', 'G-3NQP355YQM'] }, arguments[2] || {});
+    window.dataLayer.push(arguments);
+  }
   window.gtag = window.gtag || gtag; // 전역에서도 접근 가능하게
   if (!window._bdGtagDone) {
     window._bdGtagDone = 1;
