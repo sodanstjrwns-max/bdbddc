@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { Hono } from 'hono'
 import { build } from 'esbuild'
 import { mkdtemp, rm, readFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -34,6 +35,30 @@ try {
     const article = await app.request('https://bdbddc.com/blog/example-article', {}, {})
     assert.doesNotMatch(await article.text(), /name="robots" content="noindex/)
   } finally { globalThis.fetch = realFetch }
+  // A temporary outage must never masquerade as an indexed empty page or a permanent deletion.
+  const realError = console.error
+  try {
+    console.error = () => {}
+    globalThis.fetch = async () => { throw new Error('simulated upstream outage') }
+    for (const url of ['/blog', '/blog/example-article']) {
+      const response = await app.request('https://bdbddc.com' + url, {}, {})
+      assert.equal(response.status, 503, url + ': upstream outage')
+      assert.equal(response.headers.get('retry-after'), '120')
+      assert.equal(response.headers.get('cache-control'), 'no-store')
+    }
+    const failures = new Hono()
+    failures.onError(app.errorHandler)
+    failures.get('/__gsc-outage-test', () => { throw new Error('simulated render outage') })
+    const unavailable = await failures.request('https://bdbddc.com/__gsc-outage-test', {}, {})
+    assert.equal(unavailable.status, 503, 'Render outage is temporary, not 404')
+    assert.equal(unavailable.headers.get('retry-after'), '120')
+    assert.doesNotMatch(await unavailable.text(), /name="robots" content="noindex/)
+    const recovered = await failures.request('https://bdbddc.com/__gsc-outage-test', {}, {
+      ASSETS: { fetch: async () => new Response('<html><body>Original page</body></html>', { headers: { 'Content-Type': 'text/html' } }) }
+    })
+    assert.equal(recovered.status, 200, 'Existing static page remains a valid fallback')
+    assert.match(await recovered.text(), /Original page/)
+  } finally { globalThis.fetch = realFetch; console.error = realError }
   const html = await readFile('treatments/re-root-canal.html', 'utf8')
   assert.equal(repair(html), html, 'Video repair is idempotent')
   assert.equal(validate(html, 'valid').errors.length, 0)

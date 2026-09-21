@@ -3706,8 +3706,8 @@ app.all('/blog/*', async (c) => {
       headers: response.headers,
     })
   } catch (error) {
-    // 인블로그 원본 장애 시 500 대신 최소 페이지(200, no-store) — 색인 유지·재크롤 유도
-    return c.html(`<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>서울비디치과 블로그</title></head><body style="font-family:Pretendard,-apple-system,sans-serif;text-align:center;padding:48px 24px"><h1>서울비디치과 블로그</h1><p>블로그 글을 불러오는 중입니다. 잠시 후 다시 열어 주세요.</p><p><a href="/blog">블로그 목록</a> · <a href="/column/">원장 칼럼</a> · <a href="/">홈으로</a></p></body></html>`, 200, { 'Cache-Control': 'no-store' })
+    // 일시적인 원본 장애는 재시도 가능한 503으로 알린다. 빈 안내 화면을 200으로 색인시키지 않는다.
+    return c.html(`<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>서울비디치과 블로그</title></head><body style="font-family:Pretendard,-apple-system,sans-serif;text-align:center;padding:48px 24px"><h1>서울비디치과 블로그</h1><p>블로그 글을 불러오는 중입니다. 잠시 후 다시 열어 주세요.</p><p><a href="/blog">블로그 목록</a> · <a href="/column/">원장 칼럼</a> · <a href="/">홈으로</a></p></body></html>`, 503, { 'Retry-After': '120', 'Cache-Control': 'no-store' })
   }
 })
 
@@ -3735,8 +3735,8 @@ app.get('/blog', async (c) => {
       },
     })
   } catch (error) {
-    // 인블로그 원본 장애 시 500 대신 최소 페이지(200, no-store) — 색인 유지·재크롤 유도
-    return c.html(`<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>서울비디치과 블로그</title></head><body style="font-family:Pretendard,-apple-system,sans-serif;text-align:center;padding:48px 24px"><h1>서울비디치과 블로그</h1><p>블로그 글을 불러오는 중입니다. 잠시 후 다시 열어 주세요.</p><p><a href="/blog">블로그 목록</a> · <a href="/column/">원장 칼럼</a> · <a href="/">홈으로</a></p></body></html>`, 200, { 'Cache-Control': 'no-store' })
+    // 일시적인 원본 장애는 재시도 가능한 503으로 알린다. 빈 안내 화면을 200으로 색인시키지 않는다.
+    return c.html(`<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>서울비디치과 블로그</title></head><body style="font-family:Pretendard,-apple-system,sans-serif;text-align:center;padding:48px 24px"><h1>서울비디치과 블로그</h1><p>블로그 글을 불러오는 중입니다. 잠시 후 다시 열어 주세요.</p><p><a href="/blog">블로그 목록</a> · <a href="/column/">원장 칼럼</a> · <a href="/">홈으로</a></p></body></html>`, 503, { 'Retry-After': '120', 'Cache-Control': 'no-store' })
   }
 })
 
@@ -9050,7 +9050,7 @@ app.notFound(async (c) => {
 <body><div class="e"><div class="c">404</div><h1>페이지를 찾을 수 없습니다</h1><p>요청하신 페이지가 존재하지 않거나 이동되었습니다.</p><a href="/"><i class="fas fa-home"></i> 홈으로 돌아가기</a><p style="margin-top:2rem;font-size:.85rem;color:#999">☎ 041-415-2892 | 365일 진료</p></div></body></html>`, 404)
 })
 
-// 글로벌 에러 핸들러 (500 에러 방지)
+// 글로벌 에러 핸들러: 실제 정적 콘텐츠가 있으면 복구하고, 없으면 일시 장애를 알린다.
 app.onError(async (err, c) => {
   console.error('Unhandled error:', err)
   const path = new URL(c.req.url).pathname
@@ -9058,8 +9058,8 @@ app.onError(async (err, c) => {
     return c.json({ error: 'temporarily unavailable' }, 503, { 'Retry-After': '120', 'Cache-Control': 'no-store' })
   }
   // 2026-09-21 GSC 5xx 방어: SSR 오버레이 페이지(/, /pricing, /doctors/:slug, /treatments/* 등)는
-  //   워커 렌더가 실패해도 정적 원본을 200 으로 서빙한다. 정적 원본이 없으면 404(noindex).
-  //   (500 은 구글이 반복 재시도 후 색인에서 빼므로, 원본 존재 여부로 200/404 를 명확히 준다)
+  //   워커 렌더가 실패해도 정적 원본을 200으로 서빙한다. 복구할 수 없으면 503으로 재시도를 요청한다.
+  //   일시적인 저장소·렌더 오류를 영구적인 페이지 삭제(404/noindex)로 알리지 않는다.
   if ((c.req.method === 'GET' || c.req.method === 'HEAD') && c.env?.ASSETS) {
     try {
       const res = await c.env.ASSETS.fetch(new Request(c.req.url, { method: 'GET', headers: { Accept: 'text/html' } }))
@@ -9075,13 +9075,13 @@ app.onError(async (err, c) => {
           })
         }
       }
-    } catch { /* 폴백 실패 → 404 */ }
+    } catch { /* 정적 복구 실패 → 일시 장애 응답 */ }
   }
   return c.html(`<!DOCTYPE html>
-<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="robots" content="noindex">
-<title>페이지를 찾을 수 없습니다 | 서울비디치과</title>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>잠시 후 다시 시도해 주세요 | 서울비디치과</title>
 <style>body{font-family:Pretendard,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#faf9f7;color:#333;text-align:center}.e{max-width:480px;padding:2rem}.c{font-size:6rem;font-weight:800;color:#6B4226;margin:0}h1{font-size:1.5rem;margin:1rem 0}p{color:#666;margin:1rem 0}a{display:inline-block;background:#6B4226;color:#fff;padding:12px 32px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:1rem}a:hover{background:#8B5E3C}</style></head>
-<body><div class="e"><div class="c">404</div><h1>페이지를 찾을 수 없습니다</h1><p>요청하신 페이지가 존재하지 않거나 이동되었습니다.</p><a href="/">홈으로 돌아가기</a><p style="margin-top:2rem;font-size:.85rem;color:#999">☎ 041-415-2892 | 365일 진료</p></div></body></html>`, 404, { 'Cache-Control': 'no-store' })
+<body><div class="e"><div class="c">503</div><h1>일시적인 오류가 발생했습니다</h1><p>잠시 후 다시 시도해 주세요.</p><a href="/">홈으로 돌아가기</a><p style="margin-top:2rem;font-size:.85rem;color:#999">☎ 041-415-2892 | 365일 진료</p></div></body></html>`, 503, { 'Retry-After': '120', 'Cache-Control': 'no-store' })
 })
 
 export default app
