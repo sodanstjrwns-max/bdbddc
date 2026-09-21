@@ -894,7 +894,6 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
     if(!res.ok||result.error||!result.success||!result.reservation||!result.reservation.id){showErr(result.error||'Appointment request failed.');return;}
     // ★ 예약 데이터를 sessionStorage에 저장 후 Thank You 페이지로 이동
     // 전환 추적은 저장 성공 응답 직후 한 번만 실행 (완료 화면 직접 진입/새로고침 제외)
-    if(window.bdConversions) window.bdConversions.reservationAccepted(result.reservation.id);
     try { sessionStorage.setItem('bd_reservation', JSON.stringify({
       id: result.reservation.id || '',
       treatment: data.treatment,
@@ -902,6 +901,7 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
       time: data.time,
       name: data.name
     })); } catch (_) { /* Saved on server; blocked storage must not look like submission failure. */ }
+    if(window.bdConversions) await new Promise(function(resolve) { window.bdConversions.reservationAccepted(result.reservation.id, resolve); });
     window.location.href = '/reservation/thank-you';
   }catch(err){
     showErr('Failed to connect to the server. Please book by phone (041-415-2892).');

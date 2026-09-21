@@ -8,15 +8,15 @@ import { pathToFileURL } from 'node:url'
 
 const collector = await readFile('public/static/bd-conversions.js', 'utf8')
 function browser(path = '/concerns/example', host = 'bdbddc.com', storage = new Map()) {
-  const events = [], listeners = {}, elements = [], callbacks = []
+  const events = [], listeners = {}, elements = [], callbacks = [], timers = new Map()
   const location = new URL('https://' + host + path)
   const document = { visibilityState: 'visible', readyState: 'loading', documentElement: { scrollHeight: 2000 },
     addEventListener: (name, fn) => (listeners[name] ||= []).push(fn), querySelectorAll: () => elements }
-  const window = { dataLayer: [], innerHeight: 500, scrollY: 0, addEventListener: (name, fn) => (listeners[name] ||= []).push(fn), setInterval: fn => callbacks.push(fn), gtag: (...args) => events.push(args) }
+  const window = { dataLayer: [], innerHeight: 500, scrollY: 0, addEventListener: (name, fn) => (listeners[name] ||= []).push(fn), setInterval: fn => callbacks.push(fn), setTimeout: (fn, ms) => { timers.set(fn, ms); return fn }, clearTimeout: id => timers.delete(id), gtag: (...args) => events.push(args) }
   const sessionStorage = { getItem: k => storage.get(k), setItem: (k, v) => storage.set(k, v) }
   const context = vm.createContext({ window, document, location, sessionStorage, URL, Date, console })
   vm.runInContext(collector, context)
-  return { context, window, events, listeners, elements, storage, click: href => {
+  return { context, window, events, listeners, elements, storage, timers, click: href => {
     const a = { getAttribute: k => k === 'href' ? href : null, closest: selector => selector === 'a[href]' ? a : null }
     listeners.click?.forEach(fn => fn({ target: a }))
   } }
@@ -47,6 +47,30 @@ const local = browser('/concerns/example', 'localhost'); local.click('/reservati
 const blocked = browser('/reservation'); blocked.context.sessionStorage.getItem = () => { throw Error('blocked') }
 assert.equal(blocked.window.bdConversions.reservationAccepted('rsv-123457-abc123'), true)
 assert.equal(blocked.window.bdConversions.reservationAccepted('rsv-123457-abc123'), false)
+// A navigation must wait for both destinations, then finish only once; blocked tags time out.
+const delayed = browser('/reservation'); let completed = 0
+delayed.window.bdConversions.reservationAccepted('rsv-123458-abc123', () => completed++)
+assert.equal(completed, 0)
+assert.equal(delayed.events.length, 2)
+assert.equal(delayed.events[0][2].send_to, 'G-LM9VKJSB9F')
+assert.equal(delayed.events[1][2].send_to, 'G-3NQP355YQM')
+delayed.events[0][2].event_callback(); delayed.events[0][2].event_callback()
+assert.equal(completed, 0, 'Duplicate callback from one destination must not navigate early')
+delayed.events[1][2].event_callback(); delayed.events[1][2].event_callback()
+assert.equal(completed, 1); assert.equal(delayed.timers.size, 0)
+const stalled = browser('/reservation'); let fallback = 0
+stalled.window.bdConversions.reservationAccepted('rsv-123459-abc123', () => fallback++)
+for (const [fn, ms] of stalled.timers) { assert.equal(ms, 700); fn() }
+assert.equal(fallback, 1)
+stalled.events.forEach(e => e[2].event_callback()); assert.equal(fallback, 1)
+const navigation = browser(); const destinations = []
+navigation.window.location = { assign: href => destinations.push(href) }
+const anchor = { href: 'https://bdbddc.com/reservation', getAttribute: k => k === 'href' ? '/reservation' : null, closest: s => s === 'a[href]' ? anchor : null }
+let prevented = false
+navigation.listeners.click[0]({ target: anchor, button: 0, preventDefault: () => { prevented = true } })
+assert(prevented); assert.equal(destinations.length, 0)
+navigation.events.forEach(e => e[2].event_callback())
+assert.deepEqual(destinations, ['https://bdbddc.com/reservation'])
 // Real handler regression: the href changes after binding, or contains CSS punctuation / Korean.
 const main = await readFile('js/main.js', 'utf8')
 const smooth = main.slice(main.indexOf('function initSmoothScroll()'), main.indexOf('/**\n * Utility: Debounce'))
@@ -93,7 +117,7 @@ try {
   for (const file of ['reservation.html', 'en/reservation.html', 'jp/reservation.html']) {
     const form = await readFile(file, 'utf8')
     assert.match(form, /!result.success\|\|!result.reservation\|\|!result.reservation.id/)
-    assert.match(form, /reservationAccepted\(result.reservation.id\)/)
+    assert.match(form, /reservationAccepted\(result.reservation.id, resolve\)/)
   }
   const thankyou = await readFile('reservation/thank-you.html', 'utf8')
   assert.doesNotMatch(thankyou, /gtag\('event', '(generate_lead|reservation_complete)'|trackReservationComplete\(/)

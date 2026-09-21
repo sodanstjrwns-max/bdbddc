@@ -3590,7 +3590,7 @@ form:has(input[placeholder="Email"]) { display: none !important; }
   //     태그 정의는 src/lib/layout.ts 의 TRACKING_HEAD 하나뿐이므로 개별 관리 안 함.
   //   멱등: 인블로그가 나중에 같은 태그를 심어도 중복되지 않도록 GTM ID 유무로 판별.
   const blogTracking = html.includes('GTM-KKVMVZHK')
-    ? (html.includes('bd-conversions.js') ? '' : '<script src="/static/bd-conversions.js?v=20260921-r2" defer></script>')
+    ? (html.includes('bd-conversions.js') ? '' : '<script src="/static/bd-conversions.js?v=20260921-r3" defer></script>')
     : TRACKING_HEAD
 
   html = html.replace('</head>', blogTracking + blogAEOMeta + blogSchema + inblogCustomCSS + '</head>')

@@ -12,20 +12,34 @@
   var pageType = /^\/concerns\//.test(path) ? 'concern' : /^\/guide/.test(path) ? 'guide' : /^\/(blog|column)\//.test(path) ? 'content' : /^\/area\//.test(path) ? 'area' : /^\/(en\/|jp\/)?reservation/.test(path) ? 'reservation' : 'other';
   var sent = Object.create(null);
   var lastIntent = { name: '', at: 0 };
-  function emit(name, extra) {
-    if (!live) return;
+  function emit(name, extra, after) {
+    if (!live) { if (after) after(); return; }
     // The live GTM/connected-tag configuration does not reliably route the default group.
     // Explicit destinations preserve the two existing properties without another config/pageview.
     var data = Object.assign({ send_to: ['G-LM9VKJSB9F', 'G-3NQP355YQM'], page_type: pageType, page_path: path, measurement_version: '20260921' }, extra || {});
     window.dataLayer = window.dataLayer || [];
     var g = window.gtag || function () { window.dataLayer.push(arguments); };
-    try { g('event', name, data); } catch (_) { /* Measurement must never block a saved request or navigation. */ }
+    if (after) {
+      var finished = false, remaining = data.send_to.length;
+      function done() { if (finished) return; finished = true; window.clearTimeout(timer); after(); }
+      // Never leave a patient waiting if a tag is blocked or its callback is missing.
+      var timer = window.setTimeout(done, 700);
+      data.send_to.forEach(function (destination) {
+        var acknowledged = false;
+        try { g('event', name, Object.assign({}, data, { send_to: destination, event_timeout: 600, event_callback: function () {
+          if (acknowledged) return; acknowledged = true;
+          if (--remaining === 0) done();
+        } })); } catch (_) { done(); }
+      });
+    } else {
+      try { g('event', name, data); } catch (_) { /* Measurement must never block navigation. */ }
+    }
   }
-  function intent(name, placement) {
+  function intent(name, placement, after) {
     // Inline legacy handlers and the capture listener see the same click.
-    if (lastIntent.name === name && Date.now() - lastIntent.at < 500) return;
+    if (lastIntent.name === name && Date.now() - lastIntent.at < 500) { if (after) after(); return; }
     lastIntent = { name: name, at: Date.now() };
-    emit(name, { cta_location: placement || 'content' });
+    emit(name, { cta_location: placement || 'content' }, after);
     if (live && typeof window.fbq === 'function' && /^(phone_call_click|kakao_click)$/.test(name)) {
       try { window.fbq('track', 'Contact', { content_name: name === 'phone_call_click' ? 'phone_call' : 'kakao_talk' }); } catch (_) {}
     }
@@ -48,21 +62,30 @@
     if (a.closest('aside')) return 'sidebar';
     return 'content';
   }
-  function reservationAccepted(id) {
-    if (typeof id !== 'string' || !/^rsv-\d+-[a-z0-9]+$/.test(id) || sent[id]) return false;
+  function reservationAccepted(id, after) {
+    if (typeof id !== 'string' || !/^rsv-\d+-[a-z0-9]+$/.test(id) || sent[id]) { if (after) after(); return false; }
     var key = 'bd_lead_sent:' + id;
-    try { if (sessionStorage.getItem(key)) return false; sessionStorage.setItem(key, '1'); } catch (_) { /* in-memory dedup still works */ }
+    try { if (sessionStorage.getItem(key)) { if (after) after(); return false; } sessionStorage.setItem(key, '1'); } catch (_) { /* in-memory dedup still works */ }
     sent[id] = true;
     // The identifier is used only in this tab, never in analytics payloads.
-    emit('generate_lead', { method: 'reservation_form', lead_stage: 'request_saved' });
+    emit('generate_lead', { method: 'reservation_form', lead_stage: 'request_saved' }, after);
     if (live && typeof window.fbq === 'function') { try { window.fbq('track', 'Lead', { content_name: 'consultation_request' }); } catch (_) {} }
     return true;
   }
   window.bdConversions = { intent: intent, reservationAccepted: reservationAccepted, version: '20260921' };
+  var navigating = false;
   document.addEventListener('click', function (e) {
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (!a) return;
     var name = action(a);
+    if (name === 'reservation_click' && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && !a.getAttribute('download') && (!a.getAttribute('target') || a.getAttribute('target') === '_self')) {
+      e.preventDefault();
+      if (navigating) return;
+      navigating = true;
+      var destination = a.href;
+      intent(name, placement(a), function () { window.location.assign(destination); });
+      return;
+    }
     if (name) intent(name, placement(a));
   }, true);
   function ready() {
