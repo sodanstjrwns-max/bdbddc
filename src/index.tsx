@@ -1,6 +1,7 @@
 import { gscLegacyTarget } from './data/gsc-legacy-redirects'
 import videoMetadata from '../data/video-metadata.json'
 import { registerPatientJourney } from './lib/patient-journey'
+import { removeLegacyBlogTestimonials } from './lib/review-copy'
 import { registerPatientNotes } from './routes/patient-notes'
 import { goneResponse, similarSlug, resolveLegacyEncTerm, TREATMENT_SLUGS } from './lib/gone'
 import { Hono } from 'hono'
@@ -3505,6 +3506,7 @@ async function injectBlogIndexLinks(html: string): Promise<string> {
 }
 
 function cleanInblogHtml(html: string, reqPath?: string): string {
+  html = removeLegacyBlogTestimonials(html)
   // Technical author archives repeat the same clinic listing; individual posts remain indexable.
   if (reqPath?.startsWith('/blog/author/')) {
     html = html.replace(/<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>/gi, '')

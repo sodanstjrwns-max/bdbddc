@@ -23,11 +23,13 @@ function inspectReviewDisplay(html) {
   root.querySelectorAll('script,style,code,pre').forEach(n => n.remove());
   const text = `${meta} ${root.text}`.replace(/\s+/g, ' ');
   const patterns = [
-    [/(?:네이버|구글|Google|Naver)\s*[★⭐:]?\s*4\.(?:85|9)(?!\d)/i, 'clinic rating score'],
+    [/(?:네이버|구글|Google|Naver)\s*[★⭐:]?\s*(?:[0-4]\.\d{1,2}|5(?:\.0{1,2})?)(?!\d)/i, 'clinic rating score'],
     [/(?:만족도|satisfaction)\s*[:：]?\s*\d+(?:\.\d+)?\s*%/i, 'patient satisfaction percentage'],
+    [/\d+(?:\.\d+)?\s*%\+?\s*(?:환자\s*만족도|(?:patient\s*)?satisfaction|患者満足度)/i, 'patient satisfaction percentage before label'],
     [/구글 평점/, 'clinic rating label'],
     [/환자분들이 가장 많이 하시는 말씀/, 'promotional patient quotation'],
     [/라미네이트 후기에서 가장 만족도|most satisfying option in patient feedback|口コミでも満足度が最も高い/, 'testimonial-based superiority claim'],
+    [/교정 실사용 후기 핵심 요약|소아 정기검진 방문 후기 핵심 요약|환자 후기에서도 색 안정성 평가|원데이 시술 후기에서는/, 'legacy blog testimonial summary'],
   ];
   for (const [pattern, label] of patterns) if (pattern.test(text)) issues.push(label);
   return [...new Set(issues)];
