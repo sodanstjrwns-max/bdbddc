@@ -95,6 +95,8 @@ export function rewriteReviewFlight(stream: string): string {
 }
 
 export function removeLegacyBlogTestimonials(html: string): string {
+  // Leave all unrelated blog responses byte-for-byte unchanged.
+  if (!LEGACY_BLOCKS.some(([original]) => html.includes(original))) return html
   const chunks: Array<{ original: string; payload: any[] }> = []
   // Protect serialized data from HTML replacements; rebuild its framed stream separately.
   html = html.replace(/self\.__next_f\.push\((\[[\s\S]*?\])\)/g, (original, payload: string) => {
