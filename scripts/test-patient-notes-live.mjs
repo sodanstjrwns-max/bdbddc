@@ -45,7 +45,7 @@ try {
   clock = RealDate.parse(today + 'T08:30:00+09:00')
   const scheduled = await auditPublication({ state: state(), get, allowScheduled: true })
   assert.equal(scheduled.stage, 'scheduled')
-  assert.equal(scheduled.future.length, 2)
+  assert.equal(scheduled.future.length, state().upcoming.length, 'Include all future dates, not only the two slots under test')
   await assert.rejects(auditPublication({ state: state(), get }), /not fully public/)
   clock = RealDate.parse(today + 'T09:00:00+09:00')
   assert.equal((await auditPublication({ state: state(), get })).stage, 'published')

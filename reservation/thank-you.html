@@ -57,7 +57,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
 <!-- ===== CONVERSION TRACKING SCRIPTS ===== -->
 <script>
-// ★★★ 전환 추적 — 이 페이지 로드 = 예약 완료 ★★★
+// 접수 결과 표시 전용 — 페이지 로드를 신청 완료로 집계하지 않는다.
 window.addEventListener('DOMContentLoaded', function() {
   // sessionStorage에서 예약 데이터 읽기
   var rsvData = {};
@@ -73,60 +73,8 @@ window.addEventListener('DOMContentLoaded', function() {
   };
   var txLabel = txLabels[treatment] || treatment || '미지정';
 
-  // ── 1~3) 통합 전환 추적 (v10, 2026-09-04) ──
-  // js/analytics.js 의 bdAnalytics.trackReservationComplete 가
-  // generate_lead(GA4 표준) + reservation_complete + Meta Lead 를
-  // 한 번에 전송한다. 이 페이지 로드 = 예약 완료이므로 여기서 호출해 연결.
-  // (기존 인라인 fbq Lead / gtag reservation_complete 수동 블록은
-  //  trackReservationComplete 와 이중 발화되므로 대체했다)
-  if (window.bdAnalytics && typeof window.bdAnalytics.trackReservationComplete === 'function') {
-    window.bdAnalytics.trackReservationComplete({
-      treatment: treatment,
-      message: '',
-      marketing: false
-    });
-    // Schedule 은 trackReservationComplete 미포함 — 기존 유지
-    if (typeof fbq === 'function') {
-      fbq('track', 'Schedule', { content_name: txLabel + ' 예약' });
-    }
-  } else {
-    // 폴백: analytics.js 미로드 시 기존 인라인 방식 그대로
-    if (typeof fbq === 'function') {
-      fbq('track', 'Lead', { content_name: '온라인 예약 완료', content_category: txLabel, value: 0, currency: 'KRW' });
-      fbq('track', 'Schedule', { content_name: txLabel + ' 예약' });
-    }
-    if (typeof gtag === 'function') {
-      gtag('event', 'generate_lead', {
-        currency: 'KRW', value: 100000,
-        event_category: 'conversion', method: 'reservation_form', treatment: treatment
-      });
-      gtag('event', 'reservation_complete', {
-        event_category: 'reservation', event_label: txLabel, treatment: treatment, value: 1
-      });
-    }
-  }
-
-  // ── 4) 네이버 광고 전환 (네이버 SA 연동 시 주석 해제) ──
-  // if (typeof wcs !== 'undefined' && wcs.cnv) {
-  //   var _nasa = {};
-  //   _nasa["cnv"] = wcs.cnv("1", "0");
-  // }
-
-  // ── 5) 카카오 모먼트 전환 (카카오 광고 연동 시 주석 해제) ──
-  // if (typeof kakaoPixel === 'function') {
-  //   kakaoPixel('YOUR_PIXEL_ID').participation();
-  // }
-
-  // ── 6) dataLayer push (GTM에서 추가 트리거로 활용 가능) ──
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: 'reservation_complete',
-    reservation_treatment: treatment,
-    reservation_treatment_label: txLabel,
-    reservation_id: rsvData.id || '',
-    reservation_date: rsvData.date || '',
-    reservation_time: rsvData.time || ''
-  });
+  // Measurement happens only after /api/reservation confirms a saved request.
+  // Direct visits and reloads of this screen never create lead events.
 
   // ── UI 렌더링 ──
   var elId = document.getElementById('rcId');

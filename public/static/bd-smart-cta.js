@@ -44,28 +44,12 @@
   var geoArea = ''; // 'cheonan' | 'asan' | ''
   var geoLocal = false;
 
-  // gtag 셔틀 — 페이지에 gtag 가 없으면 dataLayer 큐잉 방식으로 정의
-  // (tracking-head 주입으로 GTM + gtag/js 는 전 페이지에 존재)
-  function fireCta(target) {
-    try {
-      window.dataLayer = window.dataLayer || [];
-      var g = window.gtag || function () { window.dataLayer.push(arguments); };
-      g('event', 'cta_click', {
-        event_category: 'conversion',
-        page_type: pageType,
-        area: geoArea || (geoLocal ? 'chungnam' : ''),
-        target: target,
-        page_path: path
-      });
-    } catch (e) { /* silent */ }
-  }
-
   function buildButtons(cls) {
     var telBtn = document.createElement('a');
     telBtn.href = TEL;
     telBtn.className = cls + '__btn ' + cls + '__btn--tel';
     telBtn.innerHTML = '📞 전화하기';
-    telBtn.addEventListener('click', function () { fireCta('tel'); });
+    telBtn.setAttribute('data-cta-location', cls === 'bd-scta-bar' ? 'floating' : 'article_end');
 
     var nvBtn = document.createElement('a');
     nvBtn.href = NAVER;
@@ -73,7 +57,7 @@
     nvBtn.rel = 'noopener';
     nvBtn.className = cls + '__btn ' + cls + '__btn--naver';
     nvBtn.textContent = '네이버 예약';
-    nvBtn.addEventListener('click', function () { fireCta('naver'); });
+    nvBtn.setAttribute('data-cta-location', cls === 'bd-scta-bar' ? 'floating' : 'article_end');
 
     return [telBtn, nvBtn];
   }
@@ -117,23 +101,28 @@
     var geo = document.createElement('div');
     geo.className = 'bd-scta__geo';
     geo.id = 'bdSctaGeo';
-    geo.textContent = '천안·아산에서 보고 계시다면 — 서울비디치과가 가까이 있습니다';
+    geo.textContent = '천안·아산에서 첫 상담을 준비한다면, 방문 자료와 일정을 먼저 확인해 주세요.';
     card.appendChild(geo);
 
     var title = document.createElement('p');
     title.className = 'bd-scta__title';
-    title.textContent = '읽고 계신 내용, 직접 상담받아보세요';
+    title.textContent = '읽고도 마음에 남는 걱정이 있으신가요?';
     card.appendChild(title);
 
     var sub = document.createElement('p');
     sub.className = 'bd-scta__sub';
-    sub.textContent = '서울비디치과 · 365일 진료 · 천안 불당동';
+    sub.textContent = '치료를 미리 결정하지 않아도 괜찮습니다. 지금 불편한 점부터 말씀해 주세요. 서울비디치과 · 천안 불당동';
     card.appendChild(sub);
 
     var btns = document.createElement('div');
     btns.className = 'bd-scta__btns';
     buildButtons('bd-scta').forEach(function (b) { btns.appendChild(b); });
     card.appendChild(btns);
+    var prep = document.createElement('a');
+    prep.href = '/reservation#visit-preparation';
+    prep.textContent = '첫 상담 준비 · 지역별 방문 안내 →';
+    prep.style.cssText = 'display:inline-block;margin-top:16px;color:#6B4226;text-decoration:underline;font-size:.9rem';
+    card.appendChild(prep);
     wrap.appendChild(card);
 
     var main = document.querySelector('main');

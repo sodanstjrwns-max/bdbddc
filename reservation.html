@@ -1021,17 +1021,18 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
       body:JSON.stringify(data)
     });
     var result=await res.json();
-    if(!res.ok||result.error){showErr(result.error||'예약 신청에 실패했습니다.');return;}
+    if(!res.ok||result.error||!result.success||!result.reservation||!result.reservation.id){showErr(result.error||'예약 신청에 실패했습니다.');return;}
     window._bdRsvGtag('form_submit_success',{treatment:data.treatment});
     // ★ 예약 데이터를 sessionStorage에 저장 후 Thank You 페이지로 이동
-    // 전환 추적(Meta Pixel, GA4)은 thank-you 페이지에서 실행
-    sessionStorage.setItem('bd_reservation', JSON.stringify({
+    // 전환 추적은 저장 성공 응답 직후 한 번만 실행 (완료 화면 직접 진입/새로고침 제외)
+    if(window.bdConversions) window.bdConversions.reservationAccepted(result.reservation.id);
+    try { sessionStorage.setItem('bd_reservation', JSON.stringify({
       id: result.reservation.id || '',
       treatment: data.treatment,
       date: data.date,
       time: data.time,
       name: data.name
-    }));
+    })); } catch (_) { /* Saved on server; blocked storage must not look like submission failure. */ }
     window.location.href = '/reservation/thank-you';
   }catch(err){
     showErr('서버 연결에 실패했습니다. 전화(041-415-2892)로 예약해주세요.');

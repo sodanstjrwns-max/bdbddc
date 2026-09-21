@@ -56,10 +56,12 @@ export function renderSeoOperations(d: any, health: any): string {
   const range = d?.range?.start && d?.range?.end ? `${esc(d.range.start)} ~ ${esc(d.range.end)}` : '기간 정보 없음'
   const events = configured ? arr(d.convEvents).filter(r => typeof r.event === 'string' && finite(r.count)) : []
   const eventLabel: Record<string, string> = {
+    phone_call_click: '전화 버튼 클릭 (통화 연결 아님)', kakao_click: '카카오 상담으로 이동 (상담 완료 아님)',
     phone_click: '전화 버튼 클릭 (통화 연결 아님)', naver_booking_click: '네이버 예약으로 이동 (완료 아님)',
     reservation_click: '예약 화면 이동', reservation_complete: '상담 신청 완료 이벤트 (예약 확정 아님)',
     form_submit_success: '폼 제출 성공 이벤트', form_submit_attempt: '폼 제출 시도',
-    cta_click: '콘텐츠 CTA 클릭', generate_lead: 'GA 리드 이벤트 (정의 확인 필요)'
+    cta_click: '콘텐츠 CTA 클릭', generate_lead: '상담 신청 저장 성공 (2026-09-22부터 새 정의; 이전에는 전화 클릭 포함)',
+    consultation_cta_view: '상담 버튼 노출', contact: '구 통합 연락 이벤트 (중복 합산 제외)'
   }
   const local = configured && d.localStats?.supported === true ? arr(d.localStats.tables) : []
   const localValue = (name: string) => local.find(r => r.name === name)?.cur

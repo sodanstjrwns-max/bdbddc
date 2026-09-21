@@ -137,9 +137,12 @@ function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-
-      const target = document.querySelector(targetId);
+      // A link may have been rewritten after DOMContentLoaded. Only local IDs
+      // belong to smooth scrolling; URLs and CSS-special characters are not selectors.
+      if (!targetId || targetId[0] !== '#' || targetId.length === 1) return;
+      let id;
+      try { id = decodeURIComponent(targetId.slice(1)); } catch (_) { return; }
+      const target = document.getElementById(id);
       if (target) {
         e.preventDefault();
         const headerHeight = document.getElementById('header')?.offsetHeight || 0;

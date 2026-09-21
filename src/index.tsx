@@ -1,5 +1,6 @@
 import { gscLegacyTarget } from './data/gsc-legacy-redirects'
 import videoMetadata from '../data/video-metadata.json'
+import { registerPatientJourney } from './lib/patient-journey'
 import { registerPatientNotes } from './routes/patient-notes'
 import { goneResponse, similarSlug, resolveLegacyEncTerm, TREATMENT_SLUGS } from './lib/gone'
 import { Hono } from 'hono'
@@ -62,6 +63,7 @@ import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSess
 import { ensurePriceItemsMigrated, getAllPriceItems, injectPublishedFees, PRICE_TABS, PRICE_TAB_LABELS, type PriceItem } from './lib/pricing'
 
 const app = new Hono<{ Bindings: Bindings }>()
+registerPatientJourney(app)
 
 // ★ SEO: 존재하지 않는 콘텐츠는 302 리다이렉트(소프트 404) 대신 진짜 404를 반환
 //   크롤러에 명확한 신호 → 크롤 버짓 절약 + '발견됨-색인 안 됨' 오염 방지
@@ -1318,9 +1320,10 @@ app.post('/api/reservation', async (c) => {
       status: 'pending'
     }
 
-    // R2에 예약 데이터 저장 (개별 오브젝트 + 목록 업데이트)
+    // Success requires the durable individual record; no receipt on a storage failure.
     try {
       const r2 = (c.env as any).R2
+      if (!r2) return c.json({ error: '접수 저장에 실패했습니다. 잠시 후 다시 시도하거나 전화로 문의해주세요.' }, 503)
       if (r2) {
         // 1. 개별 예약을 독립 오브젝트로 저장 (race condition 방지)
         await r2.put(`data/reservations/${reservation.id}.json`, JSON.stringify(reservation, null, 2), {
@@ -1342,7 +1345,8 @@ app.post('/api/reservation', async (c) => {
         } catch (_) { /* 목록 업데이트 실패는 무시 - 개별 파일은 이미 저장됨 */ }
       }
     } catch (r2Err) {
-      console.error('R2 save error (reservation still accepted):', r2Err)
+      console.error('Reservation persistence failed')
+      return c.json({ error: '접수 저장에 실패했습니다. 잠시 후 다시 시도하거나 전화로 문의해주세요.' }, 503)
     }
 
     // === 이메일 알림 (Resend) - 비동기, 실패해도 예약은 정상 처리 ===
@@ -3585,7 +3589,9 @@ form:has(input[placeholder="Email"]) { display: none !important; }
   //   → 프록시 응답을 가공하는 이 지점에서 공통 파셜을 넣는다.
   //     태그 정의는 src/lib/layout.ts 의 TRACKING_HEAD 하나뿐이므로 개별 관리 안 함.
   //   멱등: 인블로그가 나중에 같은 태그를 심어도 중복되지 않도록 GTM ID 유무로 판별.
-  const blogTracking = html.includes('GTM-KKVMVZHK') ? '' : TRACKING_HEAD
+  const blogTracking = html.includes('GTM-KKVMVZHK')
+    ? (html.includes('bd-conversions.js') ? '' : '<script src="/static/bd-conversions.js?v=20260921" defer></script>')
+    : TRACKING_HEAD
 
   html = html.replace('</head>', blogTracking + blogAEOMeta + blogSchema + inblogCustomCSS + '</head>')
 
@@ -4527,7 +4533,7 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 �
 </div>
 </main>
 ${ssrMobileNav()}
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js?v=20260921" defer></script>
 <script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
@@ -4672,7 +4678,7 @@ ${rows || '<li class="cref-item"><div class="cref-main"><div class="cref-txt"><p
 </div>
 </main>
 ${ssrMobileNav()}
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js?v=20260921" defer></script>
 <script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
@@ -5236,7 +5242,7 @@ ${relatedTreatmentsHtml}
 </div>
 </main>
 ${ssrMobileNav()}
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js?v=20260921" defer></script>
 <script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script>
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'column',page_id:'${id}'})}).catch(function(){});
@@ -5398,7 +5404,7 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>まだ�
 </div>
 </div>
 </main>
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js?v=20260921" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -5582,7 +5588,7 @@ ${relatedHtml}
 </div>
 </div>
 </main>
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js?v=20260921" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -5939,7 +5945,7 @@ ${caseRelatedTreatmentsHtml}
 <div class="case-lb-label" id="caseLBLabel"></div>
 </div>
 ${ssrMobileNav()}
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js?v=20260921" defer></script>
 <script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script>
 // 조회수 기록
@@ -7297,7 +7303,7 @@ ${nextItem ? `<a href="/encyclopedia/${encodeURIComponent(nextItem.term)}" style
 </footer>
 
 ${ssrMobileNav()}
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js?v=20260921" defer></script>
 <script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
@@ -7511,7 +7517,7 @@ ${otherCats}
 </footer>
 
 ${ssrMobileNav()}
-<script src="/js/main.js" defer></script>
+<script src="/js/main.js?v=20260921" defer></script>
 <script src="/js/gnb-v2.js?v=20260819fix" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>

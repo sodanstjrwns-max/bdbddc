@@ -36,6 +36,8 @@
  */
 (function() {
   'use strict';
+  if (window._bdAnalyticsLoaded) return;
+  window._bdAnalyticsLoaded = true;
 
   // ─── GA4 gtag 초기화 (GTM과 병행) ───
   // GTM은 dataLayer만 생성하고 gtag() 전역 함수를 만들지 않음
@@ -121,6 +123,11 @@
     if (hostname.includes('bdbddc.com') || hostname.includes('seoul-bd-dental')) {
       return { channel: 'internal', source: 'self' };
     }
+
+    if (/^(?:[a-z]+\.)?place\.naver\.com$/.test(hostname) || hostname === 'map.naver.com' || hostname === 'naver.me') return { channel: 'map', source: 'naver_map' };
+    if (hostname === 'blog.naver.com' || hostname === 'm.blog.naver.com') return { channel: 'social', source: 'naver_blog' };
+    if (hostname === 'cafe.naver.com' || hostname === 'm.cafe.naver.com') return { channel: 'social', source: 'naver_cafe' };
+    if (hostname === 'map.kakao.com' || hostname === 'maps.google.com') return { channel: 'map', source: hostname === 'map.kakao.com' ? 'kakao_map' : 'google_map' };
 
     // 검색엔진
     if (hostname.includes('google')) return { channel: 'organic_search', source: 'google' };
@@ -221,6 +228,7 @@
   else if (path.startsWith('/blog') || path.startsWith('/column') || path.startsWith('/video') || path.startsWith('/cases')) pageType = 'content';
   else if (path.startsWith('/encyclopedia')) pageType = 'encyclopedia';
   else if (path.startsWith('/guide')) pageType = 'guide';
+  else if (path.startsWith('/concerns/')) pageType = 'concern';
   else if (path.includes('reservation')) pageType = 'reservation';
   else if (path.includes('pricing')) pageType = 'pricing';
   else if (path.includes('directions')) pageType = 'directions';
@@ -279,7 +287,7 @@
         area_name: areaName,
         device_type: deviceType,
         channel: refInfo.channel,
-        source: refInfo.source
+        referrer_source: refInfo.source
       });
     }
   });
@@ -316,103 +324,13 @@
 
     // ── 전환 이벤트 (Conversion) ──
 
-    // 예약 버튼 클릭
-    trackReservation: function(source) {
-      var data = {
-        source: source || pageType,
-        page_type: pageType,
-        page_path: path,
-        treatment_name: treatmentName,
-        channel: refInfo.channel,
-        device_type: deviceType
-      };
-      if (typeof gtag === 'function') {
-        // GA4 커스텀 이벤트 (기존 호환)
-        gtag('event', 'reservation_click', {
-          event_category: 'conversion',
-          event_label: source || pageType,
-          page_type: pageType,
-          treatment_name: treatmentName
-        });
-      }
-    },
-
-    // 예약 폼 제출 성공 (★ 핵심 전환 이벤트)
-    trackReservationComplete: function(reservationData) {
-      var data = {
-        source: pageType,
-        page_path: path,
-        treatment: reservationData.treatment || '',
-        has_message: !!(reservationData.message),
-        marketing_agreed: !!(reservationData.marketing),
-        channel: refInfo.channel,
-        device_type: deviceType
-      };
-      if (typeof gtag === 'function') {
-        // ★ GA4 표준 이벤트: generate_lead (자동 주요 이벤트 인식)
-        gtag('event', 'generate_lead', {
-          currency: 'KRW',
-          value: 100000,
-          event_category: 'conversion',
-          method: 'reservation_form',
-          treatment: reservationData.treatment || ''
-        });
-        // 커스텀 이벤트 (상세 분석용)
-        gtag('event', 'reservation_complete', {
-          event_category: 'conversion',
-          treatment: reservationData.treatment || '',
-          marketing_agreed: !!(reservationData.marketing)
-        });
-      }
-      // Meta Pixel: Lead 이벤트
-      if (typeof fbq === 'function') {
-        fbq('track', 'Lead', { content_name: reservationData.treatment || 'general' });
-      }
-    },
-
-    // 전화 클릭
-    trackPhoneCall: function(source) {
-      if (typeof gtag === 'function') {
-        // ★ GA4 표준 이벤트: contact (자동 주요 이벤트 인식 가능)
-        gtag('event', 'contact', {
-          event_category: 'conversion',
-          method: 'phone',
-          event_label: source || pageType,
-          page_type: pageType
-        });
-        // 커스텀 이벤트 (기존 호환 + 상세 분석)
-        gtag('event', 'phone_call_click', {
-          event_category: 'conversion',
-          event_label: source || pageType,
-          page_type: pageType
-        });
-      }
-      // Meta Pixel: Contact 이벤트
-      if (typeof fbq === 'function') {
-        fbq('track', 'Contact', { content_name: 'phone_call' });
-      }
-    },
-
-    // 카카오 상담 클릭
-    trackKakao: function(source) {
-      if (typeof gtag === 'function') {
-        // ★ GA4 표준 이벤트: contact (method로 구분)
-        gtag('event', 'contact', {
-          event_category: 'conversion',
-          method: 'kakao',
-          event_label: source || pageType
-        });
-        // 커스텀 이벤트 (기존 호환)
-        gtag('event', 'kakao_click', {
-          event_category: 'conversion',
-          event_label: source || pageType
-        });
-      }
-      // Meta Pixel: Contact 이벤트
-      if (typeof fbq === 'function') {
-        fbq('track', 'Contact', { content_name: 'kakao_talk' });
-      }
-    },
+    // Consultation clicks have one owner on every page: bd-conversions.js.
+    trackReservation: function(source) { if (window.bdConversions) window.bdConversions.intent('reservation_click', source); },
+    trackPhoneCall: function(source) { if (window.bdConversions) window.bdConversions.intent('phone_call_click', source); },
+    trackKakao: function(source) { if (window.bdConversions) window.bdConversions.intent('kakao_click', source); },
+    // Completion is emitted only by the form's successful API response.
+    // Keep this legacy entry point inert: a thank-you view is not a new lead.
+    trackReservationComplete: function() {},
 
     // ── 참여 이벤트 (Engagement) ──
 
@@ -461,7 +379,7 @@
       // ★ 마이크로 전환: 정보 콘텐츠(백과사전/가이드/블로그)를 75% 이상 읽음
       //   = "정보검색러가 끝까지 읽은 환자 후보" → 어느 글이 진짜 리드를 만드는지 측정
       var isContentPage = (pageType === 'encyclopedia' || pageType === 'guide' || pageType === 'content');
-      if (depth >= 75 && isContentPage && !window._bdReadComplete) {
+      if (!window.bdConversions && depth >= 75 && isContentPage && !window._bdReadComplete) {
         window._bdReadComplete = true;
         if (typeof gtag === 'function') {
           gtag('event', 'content_read_complete', {
@@ -625,69 +543,8 @@
   };
 
   // ═══════════════════════════════════════════════════════
-  // 5-1. v10 (2026-09-04): 전환 측정 복구 — 위임(delegation) 리스너
-  // ───────────────────────────────────────────────────────
-  // 아래 6번의 per-element 바인딩은 DOMContentLoaded 시점 DOM에 있는 요소만
-  // 잡는다. 동적으로 삽입되는 CTA(bd-smart-cta 등)와 늦게 렌더되는 링크에서
-  // 전화·네이버예약 클릭이 유실되던 구멍을 문서 레벨 위임으로 막는다.
-  //  (a) a[href^="tel:"]            → generate_lead (GA4 표준, method:'phone')
-  //  (b) 네이버 예약 아웃링크        → naver_booking_click
-  //      (booking.naver.com 계열 + 리포 공용 예약 숏링크 naver.me/5yPnKmqQ)
-  // 중복 발화 방지: 이벤트 객체 플래그로 한 클릭당 1회만 처리.
-  // 기존 trackPhoneCall(contact/phone_call_click)과는 이벤트명이 달라
-  // 이중 집계가 아니라 상호 보완이다.
-  document.addEventListener('click', function (ev) {
-    if (ev._bdLeadHandled) return;
-    var t = ev.target;
-    var a = t && t.closest ? t.closest('a[href]') : null;
-    if (!a) return;
-    var href = a.getAttribute('href') || '';
-    if (/^tel:/i.test(href)) {
-      ev._bdLeadHandled = true;
-      if (typeof gtag === 'function') {
-        gtag('event', 'generate_lead', {
-          event_category: 'conversion',
-          method: 'phone',
-          location: path
-        });
-      }
-    } else if (/(^|\.)booking\.naver\.com|naver\.me\/5yPnKmqQ/i.test(a.href || '')) {
-      ev._bdLeadHandled = true;
-      if (typeof gtag === 'function') {
-        gtag('event', 'naver_booking_click', {
-          event_category: 'conversion',
-          location: path
-        });
-      }
-    }
-  }, true);
-
-  // ═══════════════════════════════════════════════════════
-  // 6. 자동 이벤트 바인딩 (DOM Ready)
-  // ═══════════════════════════════════════════════════════
-
+  // 6. Other engagement bindings; consultation links use delegated tracking.
   document.addEventListener('DOMContentLoaded', function() {
-
-    // 1. 예약 링크 자동 감지
-    document.querySelectorAll('a[href*="reservation"]').forEach(function(el) {
-      el.addEventListener('click', function() {
-        bdAnalytics.trackReservation(el.closest('section') ? el.closest('section').className : 'unknown');
-      });
-    });
-
-    // 2. 전화 링크 자동 감지
-    document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
-      el.addEventListener('click', function() {
-        bdAnalytics.trackPhoneCall(el.closest('section') ? el.closest('section').className : 'unknown');
-      });
-    });
-
-    // 3. 카카오 링크 자동 감지
-    document.querySelectorAll('a[href*="kakao"], a[href*="pf.kakao"]').forEach(function(el) {
-      el.addEventListener('click', function() {
-        bdAnalytics.trackKakao(el.closest('section') ? el.closest('section').className : 'unknown');
-      });
-    });
 
     // 4. 지도 링크 자동 감지
     document.querySelectorAll('a[href*="map.naver"], a[href*="map.kakao"], a[href*="google.com/maps"], a[href*="naver.me"], a[href*="nmap"]').forEach(function(el) {
@@ -820,7 +677,7 @@
           area_name: areaName,
           treatment_type: areaTreatment || 'general',
           channel: refInfo.channel,
-          source: refInfo.source,
+          referrer_source: refInfo.source,
           device_type: deviceType
         });
       }

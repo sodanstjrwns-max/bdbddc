@@ -19,12 +19,13 @@ gtag('js', new Date());
 gtag('config', 'G-3NQP355YQM', { send_page_view: false });
 gtag('config', 'G-LM9VKJSB9F');
 </script>
+<script src="/static/bd-conversions.js?v=20260921" defer></script>
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
 (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wb39d7gn5x");
 </script>
 <!-- 스마트 CTA — 콘텐츠성(가이드·칼럼·블로그) 페이지에서만 자체 동작 -->
-<script src="/static/bd-smart-cta.js?v=20260904" defer></script>
+<script src="/static/bd-smart-cta.js?v=20260921" defer></script>
 <!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)

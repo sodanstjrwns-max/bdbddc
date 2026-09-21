@@ -87,7 +87,11 @@ const TRACKING_BLOCKS = (function () {
 })();
 
 function injectTrackingFile(full, stats) {
-  const html = fs.readFileSync(full, 'utf8');
+  let html = fs.readFileSync(full, 'utf8');
+  const beforeVersions = html;
+  html = html.replace(/((?:src=["'])(?:\.\.\/)*\/?js\/(?:main|analytics)\.js)(?:\?[^"']*)?/g, '$1?v=20260921');
+  html = html.replace(/((?:src=["'])\/static\/bd-smart-cta\.js)(?:\?[^"']*)?/g, '$1?v=20260921');
+  if (html !== beforeVersions) fs.writeFileSync(full, html);
   stats.scanned++;
 
   // <head> 가 없는 조각 파일(리다이렉트 stub 등)은 건너뛴다
