@@ -43,34 +43,76 @@ const LEGACY_BLOCKS: Array<[string, string]> = [
   ]
 ]
 
-export function removeLegacyBlogTestimonials(html: string): string {
-  const unicodeHtml = (text: string) => text.replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026')
+const REMOVED_ANCHORS = ['교정-실사용-후기-핵심-요약-18', '소아-정기검진-방문-후기-핵심-요약-19']
+
+function replaceCopy(text: string): string {
+  const unicodeHtml = (s: string) => s.replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026')
   for (const [original, replacement] of LEGACY_BLOCKS) {
     let from = original, to = replacement
     for (let level = 0; level < 3; level++) {
-      html = html.split(from).join(to)
-      html = html.split(unicodeHtml(from)).join(unicodeHtml(to))
+      text = text.split(from).join(to)
+      text = text.split(unicodeHtml(from)).join(unicodeHtml(to))
       from = JSON.stringify(from).slice(1, -1)
       to = JSON.stringify(to).slice(1, -1)
     }
   }
-  // Remove the two obsolete TOC entries in both SSR markup and React Flight data.
-  const removedAnchors = ['교정-실사용-후기-핵심-요약-18', '소아-정기검진-방문-후기-핵심-요약-19']
-  for (const id of removedAnchors) html = html.replace(new RegExp(`<a\\b[^>]*href="#${id}"[^>]*>[\\s\\S]*?<\\/a>`, 'g'), '')
-  html = html.replace(/self\.__next_f\.push\((\[[\s\S]*?\])\)/g, (original, payload: string) => {
-    try {
-      const chunk = JSON.parse(payload)
-      if (typeof chunk[1] !== 'string') return original
-      chunk[1] = chunk[1].split('\n').map((line: string) => {
-        const row = line.match(/^([0-9a-f]+):(\[.*)$/)
-        if (!row) return line
+  for (const id of REMOVED_ANCHORS) text = text.replace(new RegExp(`<a\\b[^>]*href="#${id}"[^>]*>[\\s\\S]*?<\\/a>`, 'g'), '')
+  return text
+}
+
+// React Flight T records declare UTF-8 byte lengths. Replacing HTML inside them
+// without updating the length corrupts hydration, even when SSR looks correct.
+export function rewriteReviewFlight(stream: string): string {
+  const encoder = new TextEncoder(), decoder = new TextDecoder()
+  const bytes = encoder.encode(stream)
+  const result: string[] = []
+  let offset = 0
+  while (offset < bytes.length) {
+    const header = decoder.decode(bytes.subarray(offset, offset + 80)).match(/^([0-9a-f]+):T([0-9a-f]+),/)
+    if (header) {
+      const start = offset + header[0].length
+      const end = start + parseInt(header[2], 16)
+      if (end > bytes.length) throw new Error('Incomplete blog Flight text record')
+      const text = replaceCopy(decoder.decode(bytes.subarray(start, end)))
+      result.push(`${header[1]}:T${encoder.encode(text).length.toString(16)},${text}`)
+      offset = end
+    } else {
+      const newline = bytes.indexOf(10, offset)
+      const end = newline < 0 ? bytes.length : newline
+      let line = replaceCopy(decoder.decode(bytes.subarray(offset, end)))
+      const row = line.match(/^([0-9a-f]+):(\[.*)$/)
+      if (row) {
         try {
           const element = JSON.parse(row[2])
-          return element[1] === 'a' && removedAnchors.includes(element[3]?.href?.slice(1)) ? `${row[1]}:null` : line
-        } catch { return line }
-      }).join('\n')
-      return `self.__next_f.push(${JSON.stringify(chunk).replace(/</g, '\\u003c')})`
+          if (element[1] === 'a' && REMOVED_ANCHORS.includes(element[3]?.href?.slice(1))) line = `${row[1]}:null`
+        } catch { /* Other Flight row kinds are preserved. */ }
+      }
+      result.push(line + (newline < 0 ? '' : '\n'))
+      offset = end + (newline < 0 ? 0 : 1)
+    }
+  }
+  return result.join('')
+}
+
+export function removeLegacyBlogTestimonials(html: string): string {
+  const chunks: Array<{ original: string; payload: any[] }> = []
+  // Protect serialized data from HTML replacements; rebuild its framed stream separately.
+  html = html.replace(/self\.__next_f\.push\((\[[\s\S]*?\])\)/g, (original, payload: string) => {
+    try {
+      const value = JSON.parse(payload)
+      if (value[0] !== 1 || typeof value[1] !== 'string') return original
+      const id = chunks.push({ original, payload: value }) - 1
+      return `/*bd-review-flight-${id}*/`
     } catch { return original }
   })
+  html = replaceCopy(html)
+  if (chunks.length) {
+    const stream = rewriteReviewFlight(chunks.map(c => c.payload[1]).join(''))
+    chunks.forEach((chunk, i) => {
+      chunk.payload[1] = i === 0 ? stream : ''
+      const call = `self.__next_f.push(${JSON.stringify(chunk.payload).replace(/</g, '\\u003c')})`
+      html = html.replace(`/*bd-review-flight-${i}*/`, call)
+    })
+  }
   return html
 }
