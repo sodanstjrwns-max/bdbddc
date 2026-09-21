@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { reviewLinks } = require('./review-links.cjs');
 /**
  * HTML 생성 엔진 — 임플란트 세부 진료 페이지 v3.0
  * /tmp/implant-types.json 에서 데이터를 읽어 treatments/ 에 HTML 생성
@@ -194,16 +195,6 @@ function buildPage(t) {
     '<tr>' + row.map((c,i) => i === t.comparison.highlightCol ? `<td class="col-highlight">${esc(c)}</td>` : `<td>${esc(c)}</td>`).join('') + '</tr>'
   ).join('\n              ');
 
-  const reviewsHTML = t.reviews.map(r => `
-          <div class="review-card-v2">
-            <div class="review-header">
-              <div class="review-avatar">${r.name.charAt(0)}</div>
-              <div><div class="review-name">${esc(r.name)}님</div><span class="review-source ${r.source}">${r.source === 'naver' ? '네이버' : '구글'}</span></div>
-            </div>
-            <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="review-text">${r.text}</p>
-            <div class="review-tags">${r.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div>
-          </div>`).join('');
 
   const recommendHTML = t.recommend.map(r => `
             <span style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:rgba(107,66,38,0.06);border-radius:var(--radius-full);font-weight:600;color:var(--brand);font-size:0.95rem;"><i class="fas fa-check-circle" style="color:var(--brand-gold);"></i>${esc(r)}</span>`).join('');
@@ -372,17 +363,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </section>
 
-    <!-- 환자 후기 -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>실제 <span class="text-gradient">환자 후기</span></h2>
-          <p class="section-subtitle">네이버·구글에서 검증된 실제 후기입니다</p>
-        </div>
-        <div class="review-grid-v2">${reviewsHTML}
-        </div>
-      </div>
-    </section>
+    <!-- 외부 리뷰 확인 -->
+    ${reviewLinks()}
 
     <!-- 추천 대상 -->
     <section class="section" style="background:var(--gray-50);">

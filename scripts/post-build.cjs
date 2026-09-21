@@ -201,6 +201,9 @@ fs.writeFileSync('dist/tables/treatments/implant.html', redirectHtml('/pricing')
 // SEO release maintenance + blocking validation; report remains behind /admin/* authentication.
 cp.execFileSync(process.execPath, ['--max-old-space-size=256', path.join(__dirname, 'seo-release.cjs')], { stdio: 'inherit' });
 
+// Block embedded patient testimonials/ratings before every deployment.
+cp.execFileSync(process.execPath, [path.join(__dirname, 'review-display-check.cjs'), 'dist'], { stdio: 'inherit' });
+
 console.log(`post-build done: ${copiedFiles} files + ${copiedDirs} dirs auto-copied, _routes.json patched`);
 console.log(
   `tracking inject: scanned ${trkStats.scanned} / injected ${trkStats.injected} / ` +

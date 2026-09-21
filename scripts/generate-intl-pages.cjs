@@ -31,7 +31,7 @@ const LANGS = {
     pages: {
       dental: {
         title: 'Cheonan Dental Clinic | Foreigner-Friendly · 15 SNU Dentists · 400㎡ — Seoul BD Dental',
-        desc: 'Best dental clinic in Cheonan for foreigners. 400㎡ facility, 6 surgery rooms, 15 Seoul National University dentists. Implant, Invisalign, laminate veneer, Glownate. Google 4.9★ (2,847 reviews). Same price as Korean patients — NO broker fees. 10 min from KTX Cheonan-Asan Station. ☎+82-41-415-2892',
+        desc: 'Best dental clinic in Cheonan for foreigners. 400㎡ facility, 6 surgery rooms, 15 Seoul National University dentists. Implant, Invisalign, laminate veneer, Glownate. Same price as Korean patients — NO broker fees. 10 min from KTX Cheonan-Asan Station. ☎+82-41-415-2892',
         h1: 'Cheonan Dental Clinic',
         subtitle: 'Foreigner-Friendly · No Broker · Same Price as Koreans',
         badge: '🇰🇷 Cheonan\'s Largest Dental Clinic',
@@ -40,7 +40,6 @@ const LANGS = {
             { icon: 'fa-hospital', t: '400㎡ Premium Facility', d: 'Cheonan\'s largest dental clinic with 6 independent surgery rooms, air shower infection control, and floor-by-floor specialty centers.' },
             { icon: 'fa-user-doctor', t: '15 SNU-Trained Dentists', d: 'All 15 dentists graduated from Seoul National University — Korea\'s #1 medical school. Specialist consultation available for every treatment.' },
             { icon: 'fa-won-sign', t: 'Same Price, No Broker', d: 'You pay exactly the same as Korean patients. No middleman, no markup. Direct booking only.' },
-            { icon: 'fa-star', t: 'Google 4.9★ (2,847 Reviews)', d: 'One of the highest-rated dental clinics in Chungnam province. Real patient reviews, not paid promotions.' }
           ]},
           treatments: { title: 'Our Treatments', items: [
             { icon: 'fa-tooth', t: 'Dental Implant', d: '6 dedicated surgery rooms · Navigation-guided · Same-day loading available', link: '/en/implant' },
@@ -69,7 +68,7 @@ const LANGS = {
       },
       implant: {
         title: 'Cheonan Dental Implant | 6 Surgery Rooms · SNU Specialists · Navigation-Guided — Seoul BD Dental',
-        desc: 'Best dental implant clinic in Cheonan. 6 dedicated surgery rooms, navigation-guided surgery, same-day loading, bone grafting specialists. All 15 dentists from Seoul National University. Same price for foreigners — no broker. Google 4.9★. ☎+82-41-415-2892',
+        desc: 'Best dental implant clinic in Cheonan. 6 dedicated surgery rooms, navigation-guided surgery, same-day loading, bone grafting specialists. All 15 dentists from Seoul National University. Same price for foreigners — no broker. ☎+82-41-415-2892',
         h1: 'Dental Implant in Cheonan',
         subtitle: '6 Dedicated Surgery Rooms · Navigation-Guided Precision',
         badge: '🦷 Implant Specialty Center',
@@ -101,7 +100,7 @@ const LANGS = {
       },
       invisalign: {
         title: 'Cheonan Invisalign | Diamond Provider · SNU Orthodontist · Clear Aligners — Seoul BD Dental',
-        desc: 'Invisalign Diamond Provider in Cheonan. SNU-trained orthodontic specialists, 3D ClinCheck simulation, dedicated 1F orthodontic center. Same price for foreigners. Google 4.9★. ☎+82-41-415-2892',
+        desc: 'Invisalign Diamond Provider in Cheonan. SNU-trained orthodontic specialists, 3D ClinCheck simulation, dedicated 1F orthodontic center. Same price for foreigners. ☎+82-41-415-2892',
         h1: 'Invisalign in Cheonan',
         subtitle: 'Diamond Provider · SNU Orthodontic Specialist',
         badge: '✨ Invisalign Diamond Provider',
@@ -164,7 +163,7 @@ const LANGS = {
     pages: {
       dental: {
         title: 'Nha Khoa Cheonan | Thân Thiện Với Người Nước Ngoài · 15 Bác Sĩ ĐH Quốc Gia Seoul — Nha Khoa Seoul BD',
-        desc: 'Nha khoa tốt nhất Cheonan cho người nước ngoài. Cơ sở 400m², 6 phòng phẫu thuật, 15 bác sĩ Đại học Quốc gia Seoul. Cấy ghép implant, niềng răng Invisalign, dán sứ laminate, Glownate. Google 4.9★ (2.847 đánh giá). Giá như người Hàn — KHÔNG phí môi giới. Cách ga KTX Cheonan-Asan 10 phút. ☎+82-41-415-2892',
+        desc: 'Nha khoa tốt nhất Cheonan cho người nước ngoài. Cơ sở 400m², 6 phòng phẫu thuật, 15 bác sĩ Đại học Quốc gia Seoul. Cấy ghép implant, niềng răng Invisalign, dán sứ laminate, Glownate. Giá như người Hàn — KHÔNG phí môi giới. Cách ga KTX Cheonan-Asan 10 phút. ☎+82-41-415-2892',
         h1: 'Nha Khoa Cheonan',
         subtitle: 'Thân Thiện Với Người Nước Ngoài · Không Môi Giới · Giá Như Người Hàn',
         badge: '🇰🇷 Nha Khoa Lớn Nhất Cheonan',
@@ -173,7 +172,6 @@ const LANGS = {
             { icon: 'fa-hospital', t: 'Cơ Sở 400m² Cao Cấp', d: 'Nha khoa lớn nhất Cheonan với 6 phòng phẫu thuật độc lập, hệ thống kiểm soát nhiễm trùng tiêu chuẩn bệnh viện.' },
             { icon: 'fa-user-doctor', t: '15 Bác Sĩ ĐH Quốc Gia Seoul', d: 'Tất cả 15 bác sĩ tốt nghiệp Đại học Quốc gia Seoul — trường y khoa hàng đầu Hàn Quốc.' },
             { icon: 'fa-won-sign', t: 'Cùng Giá, Không Môi Giới', d: 'Bạn trả đúng giá như bệnh nhân Hàn Quốc. Không trung gian, không phụ phí.' },
-            { icon: 'fa-star', t: 'Google 4.9★ (2.847 Đánh Giá)', d: 'Một trong những nha khoa được đánh giá cao nhất tỉnh Chungnam.' }
           ]},
           treatments: { title: 'Dịch Vụ Điều Trị', items: [
             { icon: 'fa-tooth', t: 'Cấy Ghép Implant', d: '6 phòng phẫu thuật chuyên dụng · Phẫu thuật dẫn đường · Có thể gắn răng ngay', link: '/vi/implant' },
@@ -201,7 +199,7 @@ const LANGS = {
       },
       implant: {
         title: 'Cấy Ghép Implant Cheonan | 6 Phòng Phẫu Thuật · Bác Sĩ ĐH Quốc Gia Seoul — Nha Khoa Seoul BD',
-        desc: 'Cấy ghép implant tốt nhất Cheonan. 6 phòng phẫu thuật chuyên dụng, phẫu thuật dẫn đường, gắn răng ngay trong ngày. 15 bác sĩ ĐH Quốc gia Seoul. Giá như người Hàn — không môi giới. Google 4.9★. ☎+82-41-415-2892',
+        desc: 'Cấy ghép implant tốt nhất Cheonan. 6 phòng phẫu thuật chuyên dụng, phẫu thuật dẫn đường, gắn răng ngay trong ngày. 15 bác sĩ ĐH Quốc gia Seoul. Giá như người Hàn — không môi giới. ☎+82-41-415-2892',
         h1: 'Cấy Ghép Implant tại Cheonan',
         subtitle: '6 Phòng Phẫu Thuật Chuyên Dụng · Độ Chính Xác Dẫn Đường',
         badge: '🦷 Trung Tâm Implant Chuyên Khoa',
@@ -227,7 +225,7 @@ const LANGS = {
       },
       invisalign: {
         title: 'Invisalign Cheonan | Diamond Provider · Bác Sĩ Chỉnh Nha ĐH Quốc Gia Seoul — Nha Khoa Seoul BD',
-        desc: 'Invisalign Diamond Provider tại Cheonan. Bác sĩ chỉnh nha chuyên khoa ĐH Quốc gia Seoul, mô phỏng 3D ClinCheck, trung tâm chỉnh nha chuyên dụng tầng 1. Giá như người Hàn. Google 4.9★. ☎+82-41-415-2892',
+        desc: 'Invisalign Diamond Provider tại Cheonan. Bác sĩ chỉnh nha chuyên khoa ĐH Quốc gia Seoul, mô phỏng 3D ClinCheck, trung tâm chỉnh nha chuyên dụng tầng 1. Giá như người Hàn. ☎+82-41-415-2892',
         h1: 'Invisalign tại Cheonan',
         subtitle: 'Diamond Provider · Bác Sĩ Chỉnh Nha ĐH Quốc Gia Seoul',
         badge: '✨ Invisalign Diamond Provider',
@@ -288,7 +286,7 @@ const LANGS = {
     pages: {
       dental: {
         title: '天安歯科 | 外国人対応 · ソウル大15人の歯科医師 · 400㎡ — ソウルBD歯科',
-        desc: '天安で最高の歯科医院。400㎡の施設、6つの手術室、ソウル国立大学卒の歯科医師15名。インプラント、インビザライン、ラミネートベニア、グロウネイト。Google 4.9★（2,847件）。韓国人と同じ料金 — 仲介業者なし。KTX天安牙山駅10分。☎+82-41-415-2892',
+        desc: '天安で最高の歯科医院。400㎡の施設、6つの手術室、ソウル国立大学卒の歯科医師15名。インプラント、インビザライン、ラミネートベニア、グロウネイト。韓国人と同じ料金 — 仲介業者なし。KTX天安牙山駅10分。☎+82-41-415-2892',
         h1: '天安歯科',
         subtitle: '外国人対応 · 仲介業者なし · 韓国人と同じ料金',
         badge: '🇰🇷 天安最大規模の歯科医院',
@@ -297,7 +295,6 @@ const LANGS = {
             { icon: 'fa-hospital', t: '400㎡ プレミアム施設', d: '天安最大の歯科。6つの独立手術室、エアシャワー感染管理、フロア別専門センター。' },
             { icon: 'fa-user-doctor', t: 'ソウル大卒 歯科医師15名', d: '全員がソウル国立大学卒。各治療分野の専門医が在籍。' },
             { icon: 'fa-won-sign', t: '同じ料金・仲介業者なし', d: '韓国人患者と完全に同じ料金。中間マージンなし。' },
-            { icon: 'fa-star', t: 'Google 4.9★（2,847件）', d: '忠清南道で最高評価の歯科医院の一つ。' }
           ]},
           treatments: { title: '診療内容', items: [
             { icon: 'fa-tooth', t: 'インプラント', d: '6つの専用手術室 · ナビゲーション手術 · 即日荷重可能', link: '/jp/implant' },
@@ -325,7 +322,7 @@ const LANGS = {
       },
       implant: {
         title: '天安インプラント | 6つの専用手術室 · ソウル大専門医 · ナビゲーション手術 — ソウルBD歯科',
-        desc: '天安最高のインプラント専門歯科。6つの独立手術室、ナビゲーション手術、即日インプラント、骨移植専門。ソウル国立大学卒15名。外国人同一料金。Google 4.9★。☎+82-41-415-2892',
+        desc: '天安最高のインプラント専門歯科。6つの独立手術室、ナビゲーション手術、即日インプラント、骨移植専門。ソウル国立大学卒15名。外国人同一料金。☎+82-41-415-2892',
         h1: '天安インプラント',
         subtitle: '6つの専用手術室 · ナビゲーションガイド精密手術',
         badge: '🦷 インプラント専門センター',
@@ -350,7 +347,7 @@ const LANGS = {
       },
       invisalign: {
         title: '天安インビザライン | ダイヤモンドプロバイダー · ソウル大矯正専門医 — ソウルBD歯科',
-        desc: '天安のインビザライン ダイヤモンドプロバイダー。ソウル国立大学矯正専門医、3D ClinCheckシミュレーション、1F専用矯正センター。外国人同一料金。Google 4.9★。☎+82-41-415-2892',
+        desc: '天安のインビザライン ダイヤモンドプロバイダー。ソウル国立大学矯正専門医、3D ClinCheckシミュレーション、1F専用矯正センター。外国人同一料金。☎+82-41-415-2892',
         h1: '天安インビザライン',
         subtitle: 'ダイヤモンドプロバイダー · ソウル大矯正専門医',
         badge: '✨ インビザライン ダイヤモンドプロバイダー',
@@ -386,7 +383,7 @@ const LANGS = {
     pages: {
       dental: {
         title: '天安牙科 | 外国人友好 · 首尔大学15名牙医 · 400㎡ — 首尔BD牙科',
-        desc: '天安最好的牙科诊所。400㎡设施、6间手术室、15名首尔国立大学牙医。种植牙、隐适美、瓷贴面、格洛内特。Google 4.9★（2,847条评价）。与韩国患者相同价格——无中介费。距KTX天安牙山站10分钟。☎+82-41-415-2892',
+        desc: '天安最好的牙科诊所。400㎡设施、6间手术室、15名首尔国立大学牙医。种植牙、隐适美、瓷贴面、格洛内特。与韩国患者相同价格——无中介费。距KTX天安牙山站10分钟。☎+82-41-415-2892',
         h1: '天安牙科',
         subtitle: '外国人友好 · 无中介 · 与韩国人同价',
         badge: '🇰🇷 天安最大规模牙科',
@@ -395,7 +392,6 @@ const LANGS = {
             { icon: 'fa-hospital', t: '400㎡高端设施', d: '天安最大牙科诊所，6间独立手术室，空气淋浴感染控制，分层专科中心。' },
             { icon: 'fa-user-doctor', t: '15名首尔大学牙医', d: '全部15名牙医毕业于首尔国立大学——韩国排名第一的医学院。' },
             { icon: 'fa-won-sign', t: '同价·无中介', d: '您支付与韩国患者完全相同的价格。无中间商，无加价。' },
-            { icon: 'fa-star', t: 'Google 4.9★（2,847条）', d: '忠清南道评价最高的牙科诊所之一。' }
           ]},
           treatments: { title: '诊疗项目', items: [
             { icon: 'fa-tooth', t: '种植牙', d: '6间专用手术室 · 导航手术 · 即刻负重', link: '/cn/implant' },
@@ -423,7 +419,7 @@ const LANGS = {
       },
       implant: {
         title: '天安种植牙 | 6间专用手术室 · 首尔大学专家 · 导航手术 — 首尔BD牙科',
-        desc: '天安最好的种植牙诊所。6间独立手术室、导航引导手术、即刻种植、骨移植专家。15名首尔大学牙医。外国人同价——无中介。Google 4.9★。☎+82-41-415-2892',
+        desc: '天安最好的种植牙诊所。6间独立手术室、导航引导手术、即刻种植、骨移植专家。15名首尔大学牙医。外国人同价——无中介。☎+82-41-415-2892',
         h1: '天安种植牙',
         subtitle: '6间专用手术室 · 导航引导精准手术',
         badge: '🦷 种植牙专科中心',
@@ -448,7 +444,7 @@ const LANGS = {
       },
       invisalign: {
         title: '天安隐适美 | 钻石供应商 · 首尔大学正畸专家 — 首尔BD牙科',
-        desc: '天安隐适美钻石供应商。首尔大学正畸专家、3D ClinCheck模拟、1楼专用正畸中心。外国人同价。Google 4.9★。☎+82-41-415-2892',
+        desc: '天安隐适美钻石供应商。首尔大学正畸专家、3D ClinCheck模拟、1楼专用正畸中心。外国人同价。☎+82-41-415-2892',
         h1: '天安隐适美',
         subtitle: '钻石供应商 · 首尔大学正畸专家',
         badge: '✨ 隐适美钻石供应商',
@@ -484,7 +480,7 @@ const LANGS = {
     pages: {
       dental: {
         title: 'คลินิกทันตกรรมชอนัน | รองรับชาวต่างชาติ · ทันตแพทย์ SNU 15 คน · 400㎡ — โซล บีดี เดนทัล',
-        desc: 'คลินิกทันตกรรมที่ดีที่สุดในชอนันสำหรับชาวต่างชาติ 400㎡ ห้องผ่าตัด 6 ห้อง ทันตแพทย์จาก Seoul National University 15 คน รากฟันเทียม Invisalign วีเนียร์ลามิเนต Glownate Google 4.9★ (2,847 รีวิว) ราคาเดียวกับคนเกาหลี ไม่มีค่านายหน้า ☎+82-41-415-2892',
+        desc: 'คลินิกทันตกรรมที่ดีที่สุดในชอนันสำหรับชาวต่างชาติ 400㎡ ห้องผ่าตัด 6 ห้อง ทันตแพทย์จาก Seoul National University 15 คน รากฟันเทียม Invisalign วีเนียร์ลามิเนต Glownate ราคาเดียวกับคนเกาหลี ไม่มีค่านายหน้า ☎+82-41-415-2892',
         h1: 'คลินิกทันตกรรมชอนัน',
         subtitle: 'รองรับชาวต่างชาติ · ไม่มีนายหน้า · ราคาเดียวกับคนเกาหลี',
         badge: '🇰🇷 คลินิกทันตกรรมที่ใหญ่ที่สุดในชอนัน',
@@ -493,7 +489,6 @@ const LANGS = {
             { icon: 'fa-hospital', t: 'สถานที่ระดับพรีเมียม 400㎡', d: 'คลินิกทันตกรรมที่ใหญ่ที่สุดในชอนัน ห้องผ่าตัดอิสระ 6 ห้อง ระบบควบคุมการติดเชื้อมาตรฐานโรงพยาบาล' },
             { icon: 'fa-user-doctor', t: 'ทันตแพทย์จาก SNU 15 คน', d: 'ทันตแพทย์ทั้ง 15 คนจบจาก Seoul National University — มหาวิทยาลัยแพทย์อันดับ 1 ของเกาหลี' },
             { icon: 'fa-won-sign', t: 'ราคาเดียวกัน ไม่มีนายหน้า', d: 'คุณจ่ายราคาเดียวกับผู้ป่วยชาวเกาหลี ไม่มีตัวกลาง ไม่บวกเพิ่ม' },
-            { icon: 'fa-star', t: 'Google 4.9★ (2,847 รีวิว)', d: 'หนึ่งในคลินิกทันตกรรมที่ได้รับคะแนนสูงสุดในจังหวัดชุงนัม' }
           ]},
           treatments: { title: 'การรักษาของเรา', items: [
             { icon: 'fa-tooth', t: 'รากฟันเทียม', d: 'ห้องผ่าตัดเฉพาะทาง 6 ห้อง · การผ่าตัดนำทาง · สามารถใส่ฟันได้ทันที' },
@@ -526,7 +521,7 @@ const LANGS = {
     pages: {
       dental: {
         title: 'Стоматология Чхонан | Для иностранцев · 15 врачей SNU · 400㎡ — Seoul BD Dental',
-        desc: 'Лучшая стоматология в Чхонане для иностранцев. 400㎡, 6 операционных, 15 стоматологов из Сеульского национального университета. Имплантация, Invisalign, виниры, Glownate. Google 4.9★ (2 847 отзывов). Те же цены, что и для корейцев — без посредников. 10 мин от станции KTX. ☎+82-41-415-2892',
+        desc: 'Лучшая стоматология в Чхонане для иностранцев. 400㎡, 6 операционных, 15 стоматологов из Сеульского национального университета. Имплантация, Invisalign, виниры, Glownate. Те же цены, что и для корейцев — без посредников. 10 мин от станции KTX. ☎+82-41-415-2892',
         h1: 'Стоматология в Чхонане',
         subtitle: 'Для иностранцев · Без посредников · Цены как для корейцев',
         badge: '🇰🇷 Крупнейшая стоматология Чхонана',
@@ -535,7 +530,6 @@ const LANGS = {
             { icon: 'fa-hospital', t: 'Клиника 400㎡', d: 'Крупнейшая стоматология Чхонана: 6 независимых операционных, система контроля инфекций.' },
             { icon: 'fa-user-doctor', t: '15 врачей из SNU', d: 'Все 15 стоматологов — выпускники Сеульского национального университета, медицинского вуза №1 в Корее.' },
             { icon: 'fa-won-sign', t: 'Одинаковые цены', d: 'Вы платите ровно столько же, сколько корейские пациенты. Никаких наценок.' },
-            { icon: 'fa-star', t: 'Google 4.9★ (2 847 отзывов)', d: 'Одна из самых высоко оценённых стоматологий провинции Чхуннам.' }
           ]},
           treatments: { title: 'Наши услуги', items: [
             { icon: 'fa-tooth', t: 'Имплантация', d: '6 операционных · Навигационная хирургия · Возможна немедленная нагрузка' },
@@ -691,7 +685,7 @@ ${hreflangTags}
 ${langData.fontImport}
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Dentist","name":"${langData.clinicName}","url":"${SITE_URL}${canonicalPath}","telephone":"${PHONE}","address":{"@type":"PostalAddress","streetAddress":"${langData.addressLocal}","addressLocality":"Cheonan","addressRegion":"Chungcheongnam-do","addressCountry":"KR"},"geo":{"@type":"GeoCoordinates","latitude":36.8151,"longitude":127.1139},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"2847"},"availableLanguage":["ko","en","ja","zh","vi","th","ru"],"areaServed":{"@type":"City","name":"Cheonan"}}
+{"@context":"https://schema.org","@type":"Dentist","name":"${langData.clinicName}","url":"${SITE_URL}${canonicalPath}","telephone":"${PHONE}","address":{"@type":"PostalAddress","streetAddress":"${langData.addressLocal}","addressLocality":"Cheonan","addressRegion":"Chungcheongnam-do","addressCountry":"KR"},"geo":{"@type":"GeoCoordinates","latitude":36.8151,"longitude":127.1139},"availableLanguage":["ko","en","ja","zh","vi","th","ru"],"areaServed":{"@type":"City","name":"Cheonan"}}
 </script>
 ${faqLD}
 

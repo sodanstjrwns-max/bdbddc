@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { reviewLinks } = require('./review-links.cjs');
 /**
  * 서울비디치과 지역별 오시는길 세부 페이지 생성기 v2
  * - 기존 16개 페이지 업그레이드 + 12개 신규 생성 = 총 28개
@@ -246,7 +247,6 @@ function generatePage(r) {
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "20:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "09:00", "closes": "17:00" }
     ],
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "2847", "bestRating": "5" },
     "priceRange": "₩₩",
     "medicalSpecialty": ["Implantology", "Orthodontics", "PediatricDentistry", "CosmeticDentistry"],
     "availableService": [
@@ -592,63 +592,7 @@ ${faqs.map((f, i) => `        <div class="why-hero-card reveal delay-${(i % 3) +
   </section>
 
   <!-- ═══════ REVIEWS ═══════ -->
-  <section class="reviews-section section" aria-label="환자 후기">
-    <div class="reviews-container">
-      <div class="reviews-header reveal">
-        <span class="section-badge">전국 각지에서</span>
-        <h2>50,000명 이상의 환자분들이<br><span class="highlight">서울비디치과</span>를 선택했습니다</h2>
-        <p>네이버, 카카오, 구글에서 검증된 실제 리뷰입니다</p>
-      </div>
-      
-      <div class="reviews-stats reveal">
-        <div class="reviews-stat-item">
-          <span class="stat-icon naver"><i class="fas fa-star"></i></span>
-          <span class="stat-number">4.85</span>
-          <span class="stat-label">네이버</span>
-        </div>
-        <div class="reviews-stat-item">
-          <span class="stat-icon google"><i class="fab fa-google"></i></span>
-          <span class="stat-number">4.9</span>
-          <span class="stat-label">구글</span>
-        </div>
-        <div class="reviews-stat-item">
-          <span class="stat-icon"><i class="fas fa-smile-beam" style="color:var(--brand-gold)"></i></span>
-          <span class="stat-number">98%</span>
-          <span class="stat-label">만족도</span>
-        </div>
-      </div>
-      
-      <div class="reviews-grid reveal">
-        <div class="review-card">
-          <div class="review-card-header">
-            <div class="review-avatar">김</div>
-            <div class="review-author-info"><div class="author-name">김**님</div><span class="review-source naver"><i class="fas fa-check-circle"></i> 네이버</span></div>
-          </div>
-          <div class="review-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="review-text">${r.name}에서 왔는데 <span class="highlight">임플란트 수술이 정말 편안했어요</span>. 4층 전체가 수술센터라 전문적이고, 수술 후 죽까지 주시는 세심한 배려에 감동!</p>
-          <div class="review-tags"><span class="review-tag">임플란트</span><span class="review-tag">${r.name}에서 방문</span></div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-header">
-            <div class="review-avatar">이</div>
-            <div class="review-author-info"><div class="author-name">이**님</div><span class="review-source naver"><i class="fas fa-check-circle"></i> 네이버</span></div>
-          </div>
-          <div class="review-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="review-text">인비절라인 교정 중인데, <span class="highlight">ClinCheck 3D로 결과를 미리 볼 수 있어서</span> 안심이 돼요. ${r.name}에서 다니기도 괜찮아요!</p>
-          <div class="review-tags"><span class="review-tag">인비절라인</span><span class="review-tag">3D 시뮬레이션</span></div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-header">
-            <div class="review-avatar">정</div>
-            <div class="review-author-info"><div class="author-name">정**님</div><span class="review-source google"><i class="fab fa-google"></i> 구글</span></div>
-          </div>
-          <div class="review-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="review-text"><span class="highlight">과잉진료 없이 솔직하게 말씀해주셔서</span> 신뢰가 갑니다. ${r.name}에서 좀 멀지만 올 만한 가치가 있어요!</p>
-          <div class="review-tags"><span class="review-tag">NO 과잉진료</span><span class="review-tag">친절한 설명</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
+${reviewLinks()}
 
   <!-- ═══════ CTA ═══════ -->
   <section class="cta-section section" aria-label="상담 예약">

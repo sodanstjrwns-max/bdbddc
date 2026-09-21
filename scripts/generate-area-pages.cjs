@@ -1,3 +1,4 @@
+const { reviewLinks } = require('./review-links.cjs');
 /**
  * 28개 지역별 "오시는 길" 페이지 일괄 생성 스크립트
  * Schema.org 보강: BreadcrumbList + FAQPage + Dentist + SpeakableSpecification + MedicalBusiness
@@ -18,8 +19,7 @@ const regions = [
     landmark: '천안스퀘어, 갤러리아 백화점, 불당 CGV',
     whyFar: '천안 불당동에 위치한 서울비디치과는 천안 최대 규모 치과로, 굳이 멀리 가지 않아도 서울대병원급 진료를 받으실 수 있습니다.',
     implantNote: '4층 전체가 임플란트센터이며, 6개 독립 수술실과 네비게이션 가이드 시스템을 갖추고 있습니다.',
-    reviewName: '김', reviewText: '천안에서 왔는데 임플란트 수술이 정말 편안했어요. 4층 전체가 수술센터라 전문적이고, 수술 후 죽까지 주시는 세심한 배려에 감동!',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'buldang', name: '불당동', fullName: '불당동', province: '충청남도', provinceShort: '충남',
@@ -30,8 +30,7 @@ const regions = [
     landmark: '불당 CGV, 스타벅스 불당점, 갤러리아 백화점',
     whyFar: '불당동에 바로 위치한 서울비디치과는 도보로 5~10분이면 도착합니다. 동네 치과의 편리함에 서울대급 의료 시스템을 갖추고 있습니다.',
     implantNote: '불당동에서 가장 가까운 대형 치과로, 4층 임플란트 전용센터와 6개 수술실을 운영합니다.',
-    reviewName: '박', reviewText: '불당동에 살아서 걸어서 다녀요. 이렇게 큰 규모의 치과가 집 앞에 있다니, 정말 편해요!',
-    reviewTag: '접근성', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'asan', name: '아산', fullName: '아산시', province: '충청남도', provinceShort: '충남',
@@ -42,8 +41,7 @@ const regions = [
     landmark: '아산 온양온천, 현충사, 아산시청',
     whyFar: '아산에서 20분이면 도착하는 서울대급 의료 시스템을 경험할 수 있습니다. 14인 원장 협진, 6개 수술실, 네비게이션 임플란트 등 차원이 다른 진료 환경입니다.',
     implantNote: '아산에서 임플란트를 고려하신다면, 20분 거리의 서울비디치과에서 네비게이션 가이드 임플란트와 수면 임플란트를 경험해보세요.',
-    reviewName: '이', reviewText: '아산에서 20분 거리라 부담 없이 다녀요. 15명의 원장님이 계시니 어떤 문제든 해결해주실 것 같은 안심감이 있어요.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'dangjin', name: '당진', fullName: '당진시', province: '충청남도', provinceShort: '충남',
@@ -54,8 +52,7 @@ const regions = [
     landmark: '당진시청, 삽교호방조제, 합덕수리시설',
     whyFar: '당진에서 50분 거리이지만, 서울대 출신 14인 원장이 협진하는 충남 최대 규모 치과에서 정밀한 진료를 받을 가치가 있습니다.',
     implantNote: '당진에서 고난도 임플란트(뼈이식, 상악동거상술 등)를 고민하신다면, 6개 수술실과 CT 장비를 갖춘 서울비디치과를 추천드립니다.',
-    reviewName: '최', reviewText: '당진에서 오는 길이 멀지 않아요. 고속도로 타면 50분이고, 이 정도 규모와 실력의 치과는 당진에서 찾기 어렵습니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'seosan', name: '서산', fullName: '서산시', province: '충청남도', provinceShort: '충남',
@@ -66,8 +63,7 @@ const regions = [
     landmark: '서산시청, 해미읍성, 서산 버드랜드',
     whyFar: '서산에서 1시간 거리이지만, 서울대급 의료진 14인이 협진하는 치과를 경험하시면 충분히 올 만한 가치가 있습니다.',
     implantNote: '서산에서 임플란트 전문 치과를 찾으신다면, 네비게이션 가이드 임플란트와 6개 독립 수술실을 갖춘 서울비디치과를 추천합니다.',
-    reviewName: '한', reviewText: '서산에서 1시간 운전해서 왔는데, 이 정도 시설이면 충분히 올 가치가 있어요. 과잉진료 없이 솔직하게 설명해주셔서 좋았어요.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'hongseong', name: '홍성', fullName: '홍성군', province: '충청남도', provinceShort: '충남',
@@ -78,8 +74,7 @@ const regions = [
     landmark: '홍성시장, 홍주읍성, 홍성군청',
     whyFar: '홍성에서 50분이면 충남 최대 규모 치과에서 서울대급 진료를 받으실 수 있습니다.',
     implantNote: '홍성에서 임플란트를 계획하신다면, 6개 수술실과 네비게이션 시스템을 갖춘 전문 임플란트센터에서 안전한 수술을 받으세요.',
-    reviewName: '송', reviewText: '홍성에서 왔는데, KTX로 빠르게 올 수 있어서 좋아요. 15명 원장님이 계셔서 든든합니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'yesan', name: '예산', fullName: '예산군', province: '충청남도', provinceShort: '충남',
@@ -90,8 +85,7 @@ const regions = [
     landmark: '예산군청, 수덕사, 덕산온천',
     whyFar: '예산에서 40분 거리로, 서울대 출신 전문의 14인이 365일 진료하는 대형 치과를 이용하실 수 있습니다.',
     implantNote: '예산에서 임플란트를 고려하신다면, 40분 거리의 서울비디치과 4층 임플란트센터에서 정밀 진단을 받아보세요.',
-    reviewName: '윤', reviewText: '예산에서 40분이면 도착해요. 동네 치과에서 어렵다던 임플란트를 여기서 깔끔하게 해결했습니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'gongju', name: '공주', fullName: '공주시', province: '충청남도', provinceShort: '충남',
@@ -102,8 +96,7 @@ const regions = [
     landmark: '공주시청, 무령왕릉, 공산성',
     whyFar: '공주에서 40분이면 서울대급 의료 시스템을 갖춘 충남 최대 규모 치과에서 진료를 받으실 수 있습니다.',
     implantNote: '공주에서 임플란트 전문 치과를 찾으신다면, 고난도 수술(뼈이식, 상악동거상술)도 전문적으로 진행하는 서울비디치과를 추천합니다.',
-    reviewName: '정', reviewText: '공주에서 KTX로 15분이면 천안아산역이에요. 거기서 택시 10분! 생각보다 가깝고, 실력은 확실합니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'nonsan', name: '논산', fullName: '논산시', province: '충청남도', provinceShort: '충남',
@@ -114,8 +107,7 @@ const regions = [
     landmark: '논산시청, 관촉사(은진미륵), 논산딸기',
     whyFar: '논산에서 45분이면 서울대 출신 14인 원장이 협진하는 대형 치과에서 정밀 진료를 받으실 수 있습니다.',
     implantNote: '논산에서 임플란트를 계획하신다면, 천안-논산고속도로로 45분 거리의 서울비디치과 임플란트센터를 추천합니다.',
-    reviewName: '강', reviewText: '논산에서 고속도로 타면 금방이에요. 여기서 임플란트하고 정말 만족합니다. 과잉진료 걱정 없어요.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'cheongyang', name: '청양', fullName: '청양군', province: '충청남도', provinceShort: '충남',
@@ -126,8 +118,7 @@ const regions = [
     landmark: '청양군청, 칠갑산, 장곡사',
     whyFar: '청양에서 50분이면 충남 최대 규모 치과에서 서울대급 진료를 받을 수 있습니다. 14인 전문의가 365일 진료합니다.',
     implantNote: '청양에서 임플란트 전문 치과를 찾으신다면, 네비게이션 가이드 임플란트와 수면 임플란트를 제공하는 서울비디치과를 추천합니다.',
-    reviewName: '임', reviewText: '청양에서 왔어요. 칠갑산 넘어오면 생각보다 가깝더라구요. 15명 원장님이 같이 봐주시니 안심이 됩니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'buyeo', name: '부여', fullName: '부여군', province: '충청남도', provinceShort: '충남',
@@ -138,8 +129,7 @@ const regions = [
     landmark: '부여군청, 백제문화단지, 부소산성, 궁남지',
     whyFar: '부여에서 55분이면 서울대급 의료진이 진료하는 충남 최대 치과에 도착합니다. 내원 횟수를 최소화하는 집중 진료도 가능합니다.',
     implantNote: '부여에서 임플란트를 고려하신다면, 6개 수술실과 원내 기공소를 갖춘 서울비디치과에서 빠르고 정밀한 시술을 받으세요.',
-    reviewName: '조', reviewText: '부여에서 왔는데 고속도로 타면 1시간 안에 도착해요. 동네에서 못하는 고난도 임플란트도 여기선 가능하더라구요.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'seocheon', name: '서천', fullName: '서천군', province: '충청남도', provinceShort: '충남',
@@ -150,8 +140,7 @@ const regions = [
     landmark: '서천군청, 국립생태원, 한산모시마을',
     whyFar: '서천에서 1시간 거리이지만, 서울대 출신 14인 원장 협진과 365일 진료를 제공하는 치과는 충남에서 서울비디치과가 유일합니다.',
     implantNote: '서천에서 임플란트를 계획하신다면, 멀리 오신 분들을 위한 집중 진료 시스템으로 내원 횟수를 최소화해드립니다.',
-    reviewName: '신', reviewText: '서천에서 1시간 거리인데 충분히 올 가치가 있어요. 이 규모와 시스템은 서천에서는 절대 못 찾습니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'boryeong', name: '보령', fullName: '보령시', province: '충청남도', provinceShort: '충남',
@@ -162,8 +151,7 @@ const regions = [
     landmark: '보령시청, 대천해수욕장, 보령머드축제',
     whyFar: '보령에서 1시간이면 충남 최대 규모의 서울대급 치과에서 진료를 받으실 수 있습니다.',
     implantNote: '보령에서 임플란트를 고려하신다면, 6개 수술실과 CT 정밀 진단 장비를 갖춘 서울비디치과 임플란트센터를 추천합니다.',
-    reviewName: '오', reviewText: '보령에서 고속도로 타고 1시간이에요. 대천 갔다가 치과도 가능! 시설이 정말 깨끗하고 전문적이에요.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'taean', name: '태안', fullName: '태안군', province: '충청남도', provinceShort: '충남',
@@ -174,8 +162,7 @@ const regions = [
     landmark: '태안군청, 안면도, 천리포수목원, 만리포해수욕장',
     whyFar: '태안에서 70분 거리이지만, 서울대 출신 14인 원장이 협진하는 365일 치과를 경험하시면 충분히 올 만한 가치가 있습니다.',
     implantNote: '태안에서 임플란트를 계획하신다면, 멀리 오신 분들을 위해 당일 상담+수술 집중 진료를 제공합니다.',
-    reviewName: '장', reviewText: '태안에서 좀 멀지만 이 정도 실력의 치과는 태안 근처에 없어요. 임플란트 결과에 100% 만족합니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'geumsan', name: '금산', fullName: '금산군', province: '충청남도', provinceShort: '충남',
@@ -186,8 +173,7 @@ const regions = [
     landmark: '금산군청, 금산인삼시장, 진악산',
     whyFar: '금산에서 50분이면 서울대급 전문 치과에서 진료를 받으실 수 있습니다. 인삼의 고장에서 건강한 치아도 챙기세요.',
     implantNote: '금산에서 임플란트를 고려하신다면, 천안-논산고속도로로 50분 거리의 서울비디치과에서 네비게이션 가이드 임플란트를 경험해보세요.',
-    reviewName: '권', reviewText: '금산에서 왔어요. 인삼 건강도 좋지만 치아 건강이 먼저죠! 여기 임플란트 실력은 확실합니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   {
     id: 'gyeryong', name: '계룡', fullName: '계룡시', province: '충청남도', provinceShort: '충남',
@@ -198,8 +184,7 @@ const regions = [
     landmark: '계룡시청, 계룡대(국방부), 계룡산국립공원',
     whyFar: '계룡에서 35분이면 서울대 출신 14인 원장이 365일 진료하는 대형 치과에 도착합니다.',
     implantNote: '계룡에서 임플란트를 계획하신다면, 군인 가족분들도 많이 찾는 서울비디치과 임플란트센터를 추천합니다.',
-    reviewName: '류', reviewText: '계룡대에서 근무하는데 35분이면 도착해요. 군인 가족도 많이 다니더라구요. 시설이 최고입니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-44',
+    geoRegion: 'KR-44',
   },
   // ── 세종·대전 ──
   {
@@ -211,8 +196,7 @@ const regions = [
     landmark: '정부세종청사, 세종시청, 세종호수공원',
     whyFar: '세종에서 35분이면 충남 최대 규모 치과에서 서울대급 진료를 받으실 수 있습니다. 공무원분들도 많이 방문하십니다.',
     implantNote: '세종에서 임플란트를 고려하신다면, 서울대 출신 전문의가 6개 수술실에서 진행하는 네비게이션 가이드 임플란트를 추천합니다.',
-    reviewName: '양', reviewText: '세종시에서 공무원으로 근무 중인데, 주말에 35분이면 도착해요. 365일 진료라 주말에도 편하게 다닙니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-50',
+    geoRegion: 'KR-50',
   },
   {
     id: 'yeongi', name: '연기', fullName: '연기면(세종)', province: '세종특별자치시', provinceShort: '세종',
@@ -223,8 +207,7 @@ const regions = [
     landmark: '세종시청(연기면), 조치원역, 연기대첩비',
     whyFar: '연기(세종)에서 30분이면 서울대급 치과에서 365일 진료를 받으실 수 있습니다.',
     implantNote: '연기에서 임플란트를 계획하신다면, 30분 거리의 서울비디치과에서 최첨단 진단과 수술을 받아보세요.',
-    reviewName: '배', reviewText: '조치원에서 30분이면 도착! 세종에 대형 치과가 부족한데, 여기는 1~5층 전체가 치과라 정말 전문적이에요.',
-    reviewTag: '임플란트', geoRegion: 'KR-50',
+    geoRegion: 'KR-50',
   },
   {
     id: 'daejeon', name: '대전', fullName: '대전광역시', province: '대전광역시', provinceShort: '대전',
@@ -235,8 +218,7 @@ const regions = [
     landmark: '대전역, 유성온천, 엑스포과학공원, 대전시청',
     whyFar: '대전에서 KTX로 15분 + 택시 10분이면 도착합니다. 서울대 출신 14인 원장 협진 시스템을 경험해보세요.',
     implantNote: '대전에서 임플란트를 고려하신다면, KTX로 빠르게 접근 가능한 서울비디치과 4층 임플란트센터를 추천합니다.',
-    reviewName: '서', reviewText: '대전에서 KTX 타면 15분이에요! 대전에도 치과 많지만 이 규모와 시스템은 여기뿐이에요.',
-    reviewTag: '임플란트', geoRegion: 'KR-30',
+    geoRegion: 'KR-30',
   },
   // ── 충청북도 ──
   {
@@ -248,8 +230,7 @@ const regions = [
     landmark: '청주시청, 수암골, 청주국제공항',
     whyFar: '청주에서 50분이면 서울대급 의료 시스템을 갖춘 충남 최대 규모 치과에서 진료를 받으실 수 있습니다.',
     implantNote: '청주에서 임플란트를 고려하신다면, 오송역에서 KTX로 10분 거리의 서울비디치과 임플란트센터를 추천합니다.',
-    reviewName: '황', reviewText: '청주에서 오송역 KTX 타면 금방이에요. 15명 원장님 협진이라 복잡한 케이스도 안심하고 맡겼어요.',
-    reviewTag: '임플란트', geoRegion: 'KR-43',
+    geoRegion: 'KR-43',
   },
   {
     id: 'jincheon', name: '진천', fullName: '진천군', province: '충청북도', provinceShort: '충북',
@@ -260,8 +241,7 @@ const regions = [
     landmark: '진천군청, 농다리, 진천종박물관',
     whyFar: '진천에서 40분이면 서울대 출신 전문의 14인이 365일 진료하는 대형 치과에 도착합니다.',
     implantNote: '진천에서 임플란트를 계획하신다면, 40분 거리의 서울비디치과에서 네비게이션 가이드 임플란트를 경험해보세요.',
-    reviewName: '안', reviewText: '진천에서 40분이면 도착해요. 진천에는 없는 대형 임플란트센터라 여기서 수술받고 정말 만족합니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-43',
+    geoRegion: 'KR-43',
   },
   {
     id: 'chungju', name: '충주', fullName: '충주시', province: '충청북도', provinceShort: '충북',
@@ -272,8 +252,7 @@ const regions = [
     landmark: '충주시청, 충주호, 수안보온천, 탄금대',
     whyFar: '충주에서 1시간 거리이지만, 서울대급 의료진 14인이 협진하는 치과에서의 진료는 충분히 가치 있습니다.',
     implantNote: '충주에서 임플란트를 고려하신다면, 집중 진료 시스템으로 내원 횟수를 최소화해드리는 서울비디치과를 추천합니다.',
-    reviewName: '유', reviewText: '충주에서 1시간 거리인데 고속도로 타면 편해요. 이런 규모의 치과는 충주에서는 찾기 어렵습니다.',
-    reviewTag: '임플란트', geoRegion: 'KR-43',
+    geoRegion: 'KR-43',
   },
   {
     id: 'eumseong', name: '음성', fullName: '음성군', province: '충청북도', provinceShort: '충북',
@@ -284,8 +263,7 @@ const regions = [
     landmark: '음성군청, 음성 꽃동네, 수정산',
     whyFar: '음성에서 50분이면 서울대급 전문 치과에 도착합니다. 14인 원장이 365일 진료하는 시스템을 경험해보세요.',
     implantNote: '음성에서 임플란트를 계획하신다면, 중부고속도로로 50분 거리의 서울비디치과 임플란트센터를 추천합니다.',
-    reviewName: '노', reviewText: '음성에서 고속도로 타면 50분이에요. 규모가 크고 장비도 최신식이라 안심하고 임플란트 했어요.',
-    reviewTag: '임플란트', geoRegion: 'KR-43',
+    geoRegion: 'KR-43',
   },
   {
     id: 'okcheon', name: '옥천', fullName: '옥천군', province: '충청북도', provinceShort: '충북',
@@ -296,8 +274,7 @@ const regions = [
     landmark: '옥천군청, 정지용 생가, 금강유원지',
     whyFar: '옥천에서 55분이면 서울대 출신 전문의 14인이 진료하는 충남 최대 규모 치과에 도착합니다.',
     implantNote: '옥천에서 임플란트를 고려하신다면, 경부고속도로로 55분 거리의 서울비디치과에서 정밀 진단을 받아보세요.',
-    reviewName: '하', reviewText: '옥천에서 경부고속도로 타면 1시간 안에 도착해요. 동네 치과에서 못한 임플란트를 여기서 해결했어요.',
-    reviewTag: '임플란트', geoRegion: 'KR-43',
+    geoRegion: 'KR-43',
   },
   {
     id: 'yeongdong', name: '영동', fullName: '영동군', province: '충청북도', provinceShort: '충북',
@@ -308,8 +285,7 @@ const regions = [
     landmark: '영동군청, 영동포도축제, 난계국악기체험관',
     whyFar: '영동에서 1시간이면 서울대급 의료 시스템을 갖춘 대형 치과에서 진료를 받으실 수 있습니다.',
     implantNote: '영동에서 임플란트를 계획하신다면, 원거리 환자를 위한 집중 진료 프로그램을 운영하는 서울비디치과를 추천합니다.',
-    reviewName: '전', reviewText: '영동에서 포도 가지고 올라왔어요. 1시간 거리지만 이런 시설의 치과는 영동 근처에 없어요.',
-    reviewTag: '임플란트', geoRegion: 'KR-43',
+    geoRegion: 'KR-43',
   },
   // ── 경기도 ──
   {
@@ -321,8 +297,7 @@ const regions = [
     landmark: '평택시청, 평택항, 미군기지, 소사벌',
     whyFar: '평택에서 45분이면 서울대 출신 14인 원장이 협진하는 충남 최대 규모 치과에 도착합니다.',
     implantNote: '평택에서 임플란트를 고려하신다면, 경부고속도로로 45분 거리의 서울비디치과에서 6개 수술실과 네비게이션 시스템을 갖춘 전문 진료를 받으세요.',
-    reviewName: '문', reviewText: '평택에서 경부고속도로 타면 45분이에요. 서울 가는 것보다 가깝고, 서울급 치료를 받을 수 있어요.',
-    reviewTag: '임플란트', geoRegion: 'KR-41',
+    geoRegion: 'KR-41',
   },
   {
     id: 'anseong', name: '안성', fullName: '안성시', province: '경기도', provinceShort: '경기',
@@ -333,8 +308,7 @@ const regions = [
     landmark: '안성시청, 안성맞춤랜드, 남사당놀이',
     whyFar: '안성에서 40분이면 서울대급 전문 치과에서 진료를 받으실 수 있습니다. 서울까지 가지 않아도 됩니다.',
     implantNote: '안성에서 임플란트를 계획하신다면, 40분 거리의 서울비디치과에서 서울대 출신 전문의의 정밀 진단을 받아보세요.',
-    reviewName: '차', reviewText: '안성에서 40분이면 도착! 서울 강남까지 가지 않아도 여기서 서울대급 치료를 받을 수 있어요.',
-    reviewTag: '임플란트', geoRegion: 'KR-41',
+    geoRegion: 'KR-41',
   },
   {
     id: 'osan', name: '오산', fullName: '오산시', province: '경기도', provinceShort: '경기',
@@ -345,8 +319,7 @@ const regions = [
     landmark: '오산시청, 오산 세교지구, 독산성',
     whyFar: '오산에서 1시간이면 서울 가는 것과 비슷한 거리에서 서울대급 치과 진료를 받으실 수 있습니다.',
     implantNote: '오산에서 임플란트를 고려하신다면, 1호선으로도 접근 가능한 천안 서울비디치과 임플란트센터를 추천합니다.',
-    reviewName: '추', reviewText: '오산에서 1호선 타고 올 수도 있고, 차로 1시간이면 도착해요. 서울까지 갈 필요 없이 여기서 해결!',
-    reviewTag: '임플란트', geoRegion: 'KR-41',
+    geoRegion: 'KR-41',
   },
 ];
 
@@ -451,12 +424,6 @@ function generateHTML(r) {
       {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"20:00"},
       {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"09:00","closes":"17:00"}
     ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "2847",
-      "bestRating": "5"
-    },
     "priceRange": "₩₩",
     "medicalSpecialty": ["Implantology", "Orthodontics", "PediatricDentistry", "CosmeticDentistry"],
     "availableService": [
@@ -826,63 +793,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <!-- ═══════ REVIEWS ═══════ -->
-  <section class="reviews-section section" aria-label="환자 후기">
-    <div class="reviews-container">
-      <div class="reviews-header reveal">
-        <span class="section-badge">전국 각지에서</span>
-        <h2>50,000명 이상의 환자분들이<br><span class="highlight">서울비디치과</span>를 선택했습니다</h2>
-        <p>네이버, 카카오, 구글에서 검증된 실제 리뷰입니다</p>
-      </div>
-      
-      <div class="reviews-stats reveal">
-        <div class="reviews-stat-item">
-          <span class="stat-icon naver"><i class="fas fa-star"></i></span>
-          <span class="stat-number">4.85</span>
-          <span class="stat-label">네이버</span>
-        </div>
-        <div class="reviews-stat-item">
-          <span class="stat-icon google"><i class="fab fa-google"></i></span>
-          <span class="stat-number">4.9</span>
-          <span class="stat-label">구글</span>
-        </div>
-        <div class="reviews-stat-item">
-          <span class="stat-icon"><i class="fas fa-smile-beam" style="color:var(--brand-gold)"></i></span>
-          <span class="stat-number">98%</span>
-          <span class="stat-label">만족도</span>
-        </div>
-      </div>
-      
-      <div class="reviews-grid reveal">
-        <div class="review-card">
-          <div class="review-card-header">
-            <div class="review-avatar">${r.reviewName}</div>
-            <div class="review-author-info"><div class="author-name">${r.reviewName}**님</div><span class="review-source naver"><i class="fas fa-check-circle"></i> 네이버</span></div>
-          </div>
-          <div class="review-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="review-text">${r.reviewText}</p>
-          <div class="review-tags"><span class="review-tag">${r.reviewTag}</span><span class="review-tag">${r.name}에서 방문</span></div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-header">
-            <div class="review-avatar">이</div>
-            <div class="review-author-info"><div class="author-name">이**님</div><span class="review-source naver"><i class="fas fa-check-circle"></i> 네이버</span></div>
-          </div>
-          <div class="review-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="review-text">인비절라인 교정 중인데, <span class="highlight">ClinCheck 3D로 결과를 미리 볼 수 있어서</span> 안심이 돼요. ${r.name}에서 다니기도 괜찮아요!</p>
-          <div class="review-tags"><span class="review-tag">인비절라인</span><span class="review-tag">3D 시뮬레이션</span></div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-header">
-            <div class="review-avatar">정</div>
-            <div class="review-author-info"><div class="author-name">정**님</div><span class="review-source google"><i class="fab fa-google"></i> 구글</span></div>
-          </div>
-          <div class="review-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-          <p class="review-text"><span class="highlight">과잉진료 없이 솔직하게 말씀해주셔서</span> 신뢰가 갑니다. ${r.name}에서 좀 멀지만 올 만한 가치가 있어요!</p>
-          <div class="review-tags"><span class="review-tag">NO 과잉진료</span><span class="review-tag">친절한 설명</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
+${reviewLinks()}
 
   <!-- ═══════ CTA ═══════ -->
   <section class="cta-section section" aria-label="상담 예약">
@@ -979,4 +890,3 @@ console.log('  ✓ Dentist + MedicalBusiness (복합 타입)');
 console.log('  ✓ WebPage + SpeakableSpecification (별도)');
 console.log('  ✓ availableService: 임플란트, 인비절라인, 글로우네이트(라미네이트)');
 console.log('  ✓ isAcceptingNewPatients: true');
-console.log('  ✓ aggregateRating: 4.9/5 (2,847 reviews)');

@@ -1,3 +1,4 @@
+const { reviewLinks } = require('./review-links.cjs');
 /**
  * Invisalign 5종 상세 페이지 자동 생성 스크립트
  * BEST(Comprehensive), MODERATE, LIGHT, EXPRESS, FIRST
@@ -70,11 +71,6 @@ const PROGRAMS = [
         ['추천 케이스', '<strong>전체/복잡</strong>', '중등도', '경미']
       ]
     },
-    reviews: [
-      {name:'한',fullName:'한**님',source:'naver',text:'돌출입 발치 교정을 투명교정으로 했는데 <mark>정말 자연스럽게 변해서 주변에서 몰라요.</mark> 컴프리헨시브라 리파인먼트도 추가비용 없이 해줘서 좋았습니다.',tags:['발치 교정','컴프리헨시브']},
-      {name:'이',fullName:'이**님',source:'google',text:'교정 5개월차인데 <mark>ClinCheck으로 최종 모습을 미리 봤을 때 확신이 생겼어요.</mark> 매번 장치 교체할 때마다 변하는 게 눈에 보여요.',tags:['ClinCheck','투명교정']},
-      {name:'박',fullName:'박**님',source:'naver',text:'다른 병원에서 브라켓만 가능하다고 했는데 <mark>서울비디 다이아몬드 등급이라 투명교정으로 가능했어요.</mark> 직장인에게 투명교정 진짜 최고.',tags:['다이아몬드','직장인 교정']}
-    ],
     recommends: ['전체 교정이 필요한 분','발치 교정 + 투명교정을 원하는 분','복잡한 부정교합인 분','완벽한 결과를 위해 리파인먼트를 원하는 분','장기간 교정이 예상되는 분'],
     costInfo: '700만원 (무이자 할부 가능)',
     faqs: [
@@ -163,11 +159,6 @@ const PROGRAMS = [
         ['가격 대비 효율', '★★★★☆', '<strong>★★★★★</strong>', '★★★★☆']
       ]
     },
-    reviews: [
-      {name:'정',fullName:'정**님',source:'naver',text:'컴프리헨시브까지는 필요 없다고 해서 모더레이트로 했어요. <mark>23단계인데 충분히 좋아졌어요.</mark> 150만원 아꼈습니다!',tags:['모더레이트','비용 절약']},
-      {name:'최',fullName:'최**님',source:'google',text:'앞니가 좀 삐뚤고 어금니도 살짝 틀어져 있었는데 <mark>모더레이트가 딱 맞는 범위</mark>였어요.',tags:['중등도 교정','모더레이트']},
-      {name:'김',fullName:'김**님',source:'naver',text:'라이트로는 부족하다는데 컴프리헨시브는 과하다고. <mark>모더레이트가 정답이었어요.</mark>',tags:['골든 밸런스','합리적']}
-    ],
     recommends: ['라이트로는 부족하고 컴프리헨시브까지는 필요 없는 분','앞니~소구치 범위의 배열 교정이 필요한 분','비용 대비 효율을 중시하는 분','10~18개월 교정 기간이 적절한 분','가벼운 교합 조정이 필요한 분'],
     costInfo: '550만원 (무이자 할부 가능)',
     faqs: [
@@ -254,11 +245,6 @@ const PROGRAMS = [
         ['추천', '전체/복잡', '중등도', '<strong>앞니 교정/재교정</strong>']
       ]
     },
-    reviews: [
-      {name:'송',fullName:'송**님',source:'naver',text:'앞니 2개만 살짝 삐뚤었는데 <mark>라이트로 8개월 만에 끝났어요.</mark> 비용도 합리적이고 진짜 만족!',tags:['앞니 교정','단기 완료']},
-      {name:'윤',fullName:'윤**님',source:'google',text:'중학교 때 교정했는데 다시 틀어져서 <mark>재교정으로 라이트 했어요. 6개월이면 끝!</mark>',tags:['재교정','라이트']},
-      {name:'조',fullName:'조**님',source:'naver',text:'결혼식 전에 급하게 했는데 <mark>10개월 만에 완성!</mark> 사진 찍을 때 자신 있었어요.',tags:['결혼 준비','단기교정']}
-    ],
     recommends: ['앞니 배열만 교정하고 싶은 분','이전 교정 후 재발된 분(재교정)','6~12개월 단기 교정을 원하는 분','경제적인 투명교정을 원하는 분','결혼/면접 등 이벤트 전 빠른 교정이 필요한 분'],
     costInfo: '450만원 (무이자 할부 가능)',
     faqs: [
@@ -345,11 +331,6 @@ const PROGRAMS = [
         ['추천', '앞니 교정', '<strong>미세 조정</strong>', '더 간단']
       ]
     },
-    reviews: [
-      {name:'강',fullName:'강**님',source:'naver',text:'앞니 하나만 살짝 삐뚤었는데 <mark>익스프레스로 4개월 만에 끝!</mark> 300만원이라 부담도 없었어요.',tags:['익스프레스','4개월']},
-      {name:'임',fullName:'임**님',source:'google',text:'크라운 하기 전에 치아 위치 조정이 필요했는데 <mark>익스프레스로 깔끔하게 정리했어요.</mark>',tags:['Pre-ortho','미세 조정']},
-      {name:'유',fullName:'유**님',source:'naver',text:'졸업사진 찍기 전에 앞니를 맞추고 싶어서 <mark>3개월 만에 완료!</mark> 사진 결과 대만족.',tags:['졸업 사진','단기교정']}
-    ],
     recommends: ['앞니 한두 개만 미세 조정이 필요한 분','이전 교정 후 경미하게 재발된 분','3~6개월 내 빠른 교정을 원하는 분','보철(크라운/라미네이트) 전 위치 조정이 필요한 분','최저 비용으로 투명교정을 체험하고 싶은 분'],
     costInfo: '300만원 (무이자 할부 가능)',
     faqs: [
@@ -436,11 +417,6 @@ const PROGRAMS = [
         ['심미성', '<strong>★★★★★</strong>', '★★★☆☆', '★★☆☆☆']
       ]
     },
-    reviews: [
-      {name:'박',fullName:'박**님(학부모)',source:'naver',text:'7살 아이 교정 시작했는데 <mark>투명이라 아이가 전혀 거부감 없어요.</mark> 학교에서도 친구들이 모른대요!',tags:['퍼스트','학부모 후기']},
-      {name:'김',fullName:'김**님(학부모)',source:'google',text:'악궁이 좁아서 영구치 나올 자리가 없다고 하셨는데 <mark>퍼스트로 턱을 넓히니 이가 잘 나오고 있어요.</mark>',tags:['악궁 확장','영구치']},
-      {name:'이',fullName:'이**님(학부모)',source:'naver',text:'소아치과 전문의 선생님이 아이를 너무 잘 다뤄주셔서 <mark>울지도 않고 교정을 잘 받고 있어요.</mark>',tags:['소아치과 전문의','아이 케어']}
-    ],
     recommends: ['6~10세 성장기 아이','영구치 나올 공간이 부족한 아이','앞니가 거꾸로 물리는(반대교합) 아이','턱뼈가 좁은 아이','교차교합이 있는 아이'],
     costInfo: '상담 후 안내',
     faqs: [
@@ -725,26 +701,8 @@ ${p.compareTable.rows.map(r=>`              <tr>${r.map((c,i)=>`<td${i===1||i===
       </div>
     </section>
 
-    <!-- 환자 후기 -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>실제 <span class="text-gradient">환자 후기</span></h2>
-          <p class="section-subtitle">네이버·구글에서 검증된 실제 후기입니다</p>
-        </div>
-        <div class="review-grid-v2">
-${p.reviews.map(r=>`          <div class="review-card-v2">
-            <div class="review-header">
-              <div class="review-avatar">${r.name}</div>
-              <div><div class="review-name">${r.fullName}</div><span class="review-source ${r.source}">${r.source === 'naver' ? '네이버' : '구글'}</span></div>
-            </div>
-            <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-            <p class="review-text">${r.text}</p>
-            <div class="review-tags">${r.tags.map(t=>`<span>${t}</span>`).join('')}</div>
-          </div>`).join('\n')}
-        </div>
-      </div>
-    </section>
+    <!-- 외부 리뷰 확인 -->
+    ${reviewLinks()}
 
     <!-- 추천 대상 -->
     <section class="section" style="background:var(--gray-50);">

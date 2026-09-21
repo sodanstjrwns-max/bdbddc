@@ -431,9 +431,6 @@ strong { color: #1a1a2e; }
 <tr><td><code>{블로그URL}</code></td><td>블로그</td><td>(해당 시 입력)</td></tr>
 <tr><td><code>{구글PlaceID}</code></td><td>Google Place ID</td><td>(해당 시 입력)</td></tr>
 <tr><td><code>{구글API키}</code></td><td>Google Places API Key</td><td>(해당 시 입력)</td></tr>
-<tr><td><code>{네이버평점}</code></td><td>네이버 리뷰 평점</td><td>4.85</td></tr>
-<tr><td><code>{구글평점}</code></td><td>구글 리뷰 평점</td><td>4.9</td></tr>
-<tr><td><code>{리뷰수}</code></td><td>총 리뷰 수</td><td>500+</td></tr>
 </tbody>
 </table>
 <h2>지역 SEO</h2>
@@ -520,7 +517,7 @@ strong { color: #1a1a2e; }
 
 <strong>4단계: 비교</strong> — 환자는 반드시 다른 병원과 비교합니다. "왜 <code>{병원명}</code> (예: 서울비디치과)이어야 하는가?"에 답하기 위해 의사 프로필 <code>{의사프로필수}</code>개 (예: 14개), 시설 안내(층별 가이드), 차별점 카드 — <code>{차별점1}</code> (예: 서울대 출신 14인 원장 협진), <code>{차별점2}</code> (예: 365일 진료), <code>{차별점3}</code> (예: 6개 독립 수술실) 등 — 가 준비되어야 합니다.
 
-<strong>5단계: 신뢰</strong> — 비교를 마친 환자는 "정말 잘하는가?"를 확인합니다. 실시간 구글 리뷰 위젯(API 연동으로 <code>{구글평점}</code> (예: 4.9) / <code>{리뷰수}</code> (예: 500+건) 표시), 비포/애프터 갤러리(슬라이더 비교), 외부 리뷰 플랫폼 링크가 사회적 증거를 제공합니다.
+<strong>5단계: 신뢰</strong> — 비교를 마친 환자는 "정말 잘하는가?"를 확인합니다. 네이버·구글 외부 리뷰 확인 링크, 비포/애프터 갤러리(슬라이더 비교), 외부 리뷰 플랫폼 링크가 사회적 증거를 제공합니다.
 
 <strong>6단계: 결심</strong> — 신뢰가 쌓인 환자는 예약을 결심합니다. 이 순간을 놓치지 않기 위해 모든 페이지에 CTA가 배치됩니다 — 전화 <code>{전화번호}</code> (예: 041-415-2892), 카카오톡 <code>{카카오톡URL}</code> (예: pf.kakao.com/_Cxivlxb), 네이버 예약 <code>{네이버예약URL}</code> (예: naver.me/5yPnKmqQ), 온라인 폼. 모바일 하단 고정 바, 데스크톱 플로팅 버튼, 페이지 내 중간/하단 CTA 섹션이 항상 손 닿는 곳에 있어야 합니다.
 
@@ -581,7 +578,7 @@ strong { color: #1a1a2e; }
 <h3>▶ 실전 예시: 서울비디치과 메인 페이지 13개 섹션 전체 구성</h3>
 
 <ol>
-<li><strong>히어로</strong>: 배경 — 병원 내부 고화질 사진(400평 인테리어). 메인 카피 "과잉진료 없는 양심치과". 배지 — "서울대 14인 | 365일 진료 | 6개 수술실". CTA "무료 상담 예약하기"(골드 버튼) + "비용 안내"(화이트 버튼). 좌측 하단 리뷰: 네이버 ★4.85 / 구글 ★4.9.</li>
+<li><strong>히어로</strong>: 배경 — 병원 내부 고화질 사진(400평 인테리어). 메인 카피 "과잉진료 없는 양심치과". 배지 — "서울대 14인 | 365일 진료 | 6개 수술실". CTA "무료 상담 예약하기"(골드 버튼) + "비용 안내"(화이트 버튼). 좌측 하단: 네이버·구글 외부 리뷰 확인 링크.</li>
 </ol>
 
 <ol>
@@ -605,7 +602,7 @@ strong { color: #1a1a2e; }
 </ol>
 
 <ol>
-<li><strong>구글 리뷰 실시간 위젯</strong>: API로 최신 5~10개 리뷰 표시. 별점 + 작성자 이니셜 + 리뷰 내용 일부. "구글 리뷰 전체 보기 →"</li>
+<li><strong>외부 리뷰 확인</strong>: 네이버·구글 링크만 제공. 리뷰 본문·별점·만족도 수치를 사이트에 직접 표시하지 않습니다.</li>
 </ol>
 
 <ol>
@@ -902,7 +899,7 @@ strong { color: #1a1a2e; }
 
 <h2>6.3 Dentist 스키마 핵심 필드</h2>
 
-<p>name: <code>{병원명}</code> (예: 서울비디치과), alternateName: <code>{병원명_영문}</code> (예: Seoul BD Dental), url: https://<code>{도메인}</code> (예: bdbddc.com), telephone: <code>{전화번호}</code> (예: 041-415-2892), address: <code>{주소}</code> (예: 충남 천안시 서북구 불당25로 60), geo: <code>{위도}</code> (예: 36.8151) / <code>{경도}</code> (예: 127.1139), openingHoursSpecification: <code>{진료시간_평일}</code> (예: 09:00~20:00) 등 매핑, aggregateRating: <code>{구글평점}</code> (예: 4.9) / <code>{리뷰수}</code> (예: 500+), sameAs: <code>{네이버예약URL}</code> (예: naver.me/5yPnKmqQ), <code>{유튜브URL}</code>, <code>{카카오톡URL}</code> (예: pf.kakao.com/_Cxivlxb), areaServed: <code>{서비스지역목록}</code> (예: 천안, 아산, 세종...) → 각각 City.</p>
+<p>name: <code>{병원명}</code> (예: 서울비디치과), alternateName: <code>{병원명_영문}</code> (예: Seoul BD Dental), url: https://<code>{도메인}</code> (예: bdbddc.com), telephone: <code>{전화번호}</code> (예: 041-415-2892), address: <code>{주소}</code> (예: 충남 천안시 서북구 불당25로 60), geo: <code>{위도}</code> (예: 36.8151) / <code>{경도}</code> (예: 127.1139), openingHoursSpecification: <code>{진료시간_평일}</code> (예: 09:00~20:00) 등 매핑, sameAs: <code>{네이버예약URL}</code> (예: naver.me/5yPnKmqQ), <code>{유튜브URL}</code>, <code>{카카오톡URL}</code> (예: pf.kakao.com/_Cxivlxb), areaServed: <code>{서비스지역목록}</code> (예: 천안, 아산, 세종...) → 각각 City.</p>
 
 <h3>▶ 실전 예시: 서울비디치과 Dentist JSON-LD (메인 페이지)</h3>
 
@@ -931,12 +928,6 @@ strong { color: #1a1a2e; }
 <p>    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "13:00"},</p>
 <p>    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "10:00", "closes": "16:00"}</p>
 <p>  ],</p>
-<p>  "aggregateRating": {</p>
-<p>    "@type": "AggregateRating",</p>
-<p>    "ratingValue": "4.9",</p>
-<p>    "reviewCount": "500",</p>
-<p>    "bestRating": "5"</p>
-<p>  },</p>
 <p>  "sameAs": [</p>
 <p>    "https://pf.kakao.com/_Cxivlxb",</p>
 <p>    "https://naver.me/5yPnKmqQ"</p>
@@ -1015,7 +1006,7 @@ strong { color: #1a1a2e; }
 
 <h2>7.3 전환 최적화</h2>
 
-<p>CTA 우선순위: 전화 → 카카오톡 → 네이버 예약 → 온라인 폼 → 길찾기. 구글 리뷰: <code>{구글PlaceID}</code> + <code>{구글API키}</code>로 API 연동 → <code>{구글평점}</code> (예: 4.9) / <code>{리뷰수}</code> (예: 500+) 실시간 표시.</p>
+<p>CTA 우선순위: 전화 → 카카오톡 → 네이버 예약 → 온라인 폼 → 길찾기. 리뷰: 네이버·구글 외부 링크에서 직접 확인하도록 안내.</p>
 
 <h3>▶ 실전 예시: 서울비디치과 CTA 전환율 벤치마크</h3>
 
@@ -1212,7 +1203,7 @@ strong { color: #1a1a2e; }
 
 <h2>15.3 가격 패키지</h2>
 
-<strong>Basic</strong> (~15p): 메인+예약+비용+오시는길+치료5+의사3. <strong>Standard</strong> (~40p): +치료15+전체의사+지역5+FAQ+갤러리. <strong>Premium</strong> (~80p): 전체+SEO(<code>{JSON-LD수}</code>개 (예: 134개))+GTM/GA4+다국어(<code>{다국어수}</code>개 (예: 5개))+리뷰위젯. <strong>Enterprise</strong> (100p+): +AI챗봇+CMS+퀴즈+계산기+유지보수.
+<strong>Basic</strong> (~15p): 메인+예약+비용+오시는길+치료5+의사3. <strong>Standard</strong> (~40p): +치료15+전체의사+지역5+FAQ+갤러리. <strong>Premium</strong> (~80p): 전체+SEO(<code>{JSON-LD수}</code>개 (예: 134개))+GTM/GA4+다국어(<code>{다국어수}</code>개 (예: 5개))+외부 리뷰 링크. <strong>Enterprise</strong> (100p+): +AI챗봇+CMS+퀴즈+계산기+유지보수.
 
 <h3>▶ 실전 예시: 서울비디치과는 Premium 패키지</h3>
 
@@ -1241,7 +1232,7 @@ strong { color: #1a1a2e; }
 
 <strong>의료진</strong>: 의사 수(예: 14명), 각 의사별(이름, 직함, 전문분야, 학력, 경력, 사진)
 
-<strong>외부 서비스</strong>: 네이버 예약(예: naver.me/5yPnKmqQ), 카카오(예: pf.kakao.com/_Cxivlxb), 유튜브, 인스타, 블로그, Google Place ID, Google API Key, 네이버 평점(예: 4.85), 구글 평점(예: 4.9), 리뷰 수(예: 500+)
+<strong>외부 서비스</strong>: 네이버 예약(예: naver.me/5yPnKmqQ), 카카오(예: pf.kakao.com/_Cxivlxb), 유튜브, 인스타, 블로그, 네이버·구글 외부 리뷰 링크
 
 <strong>지역</strong>: 타겟 리스트(예: 천안, 아산, 불당, 세종 외 12개), 지역 페이지 수(예: 16개)
 
