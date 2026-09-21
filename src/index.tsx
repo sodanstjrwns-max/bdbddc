@@ -1,6 +1,7 @@
 import { gscLegacyTarget } from './data/gsc-legacy-redirects'
 import videoMetadata from '../data/video-metadata.json'
 import { registerPatientNotes } from './routes/patient-notes'
+import { goneResponse, similarSlug, resolveLegacyEncTerm, TREATMENT_SLUGS } from './lib/gone'
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-pages'
 import { cors } from 'hono/cors'
@@ -127,6 +128,22 @@ app.use('*', async (c, next) => {
   c.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload')
   c.header('Permissions-Policy', 'camera=(), microphone=(), geolocation=(self)')
 })
+
+// ============================================
+// GSC 404 정리 (2026-09-21)
+//   - GET /api/auth/logout : 크롤러가 링크로 따라온 것 → 405 + noindex (POST 는 그대로)
+//   - /{implant|invisalign|laminate}/frames/frame_ , /images/referral-map/frame_ :
+//     구글봇이 JS 문자열 'frames/frame_' + i 를 URL 로 추출한 것 → 410 Gone
+//     (frames/* 는 _routes.json 에서 frame_0* 만 정적 제외하므로 이 경로는 워커에 도달한다)
+// ============================================
+app.on(['GET', 'HEAD'], '/api/auth/logout', (c) => {
+  c.header('Allow', 'POST')
+  c.header('X-Robots-Tag', 'noindex, nofollow')
+  c.header('Cache-Control', 'no-store')
+  return c.json({ error: 'Method Not Allowed. Use POST.' }, 405)
+})
+app.on(['GET', 'HEAD'], '/:dir{(implant|invisalign|laminate)}/frames/frame_', (c) => goneResponse(c))
+app.on(['GET', 'HEAD'], '/images/referral-map/frame_', (c) => goneResponse(c))
 
 // ============================================
 // 공통 트래킹/레이아웃 → src/lib/layout.ts
@@ -2870,10 +2887,15 @@ const TREATMENT_SLUG_301: Record<string, string> = {
 }
 app.get('/treatments/:slug', async (c, next) => {
   let slug = ''
-  try { slug = decodeURIComponent(c.req.param('slug')) } catch { return next() }
+  try { slug = decodeURIComponent(c.req.param('slug')) } catch { return goneResponse(c, '진료 안내를 찾을 수 없습니다', '/treatments/', '진료 안내 목록') }
   const target = TREATMENT_SLUG_301[slug]
   if (target) return c.redirect(target, 301)
-  return next()
+  // 실존 정적 페이지·정적 파일·index 별칭은 통과 (아래 라우트/정적 서빙이 처리)
+  if (!slug || slug.includes('.') || slug === 'index' || TREATMENT_SLUGS.has(slug)) return next()
+  // 2026-09-21 GSC 404: 존재하지 않는 slug → 유사 slug 301, 없으면 410 Gone
+  const near = similarSlug(slug, [...TREATMENT_SLUGS])
+  if (near) return c.redirect(`/treatments/${near}`, 301)
+  return goneResponse(c, '진료 안내를 찾을 수 없습니다', '/treatments/', '진료 안내 목록')
 })
 
 // ============================================
@@ -3684,7 +3706,8 @@ app.all('/blog/*', async (c) => {
       headers: response.headers,
     })
   } catch (error) {
-    return c.text('블로그를 불러올 수 없습니다.', 500)
+    // 인블로그 원본 장애 시 500 대신 최소 페이지(200, no-store) — 색인 유지·재크롤 유도
+    return c.html(`<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>서울비디치과 블로그</title></head><body style="font-family:Pretendard,-apple-system,sans-serif;text-align:center;padding:48px 24px"><h1>서울비디치과 블로그</h1><p>블로그 글을 불러오는 중입니다. 잠시 후 다시 열어 주세요.</p><p><a href="/blog">블로그 목록</a> · <a href="/column/">원장 칼럼</a> · <a href="/">홈으로</a></p></body></html>`, 200, { 'Cache-Control': 'no-store' })
   }
 })
 
@@ -3712,7 +3735,8 @@ app.get('/blog', async (c) => {
       },
     })
   } catch (error) {
-    return c.text('블로그를 불러올 수 없습니다.', 500)
+    // 인블로그 원본 장애 시 500 대신 최소 페이지(200, no-store) — 색인 유지·재크롤 유도
+    return c.html(`<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>서울비디치과 블로그</title></head><body style="font-family:Pretendard,-apple-system,sans-serif;text-align:center;padding:48px 24px"><h1>서울비디치과 블로그</h1><p>블로그 글을 불러오는 중입니다. 잠시 후 다시 열어 주세요.</p><p><a href="/blog">블로그 목록</a> · <a href="/column/">원장 칼럼</a> · <a href="/">홈으로</a></p></body></html>`, 200, { 'Cache-Control': 'no-store' })
   }
 })
 
@@ -5672,7 +5696,13 @@ app.get('/cases/:param', async (c) => {
   const allCases = await getCases(r2)
   const cs = findCaseByParam(allCases, param)
   
-  if (!cs) return notFoundPage(c, '치료 사례를 찾을 수 없습니다', '요청하신 치료 사례가 존재하지 않거나 삭제되었습니다.', '/cases/', '치료 사례 갤러리 보기')
+  if (!cs) {
+    // 2026-09-21 GSC 404: 삭제·개명된 사례 slug → 유사 slug 301, 없으면 410 Gone
+    const published = allCases.filter((x: any) => x.status === 'published').map((x: any) => caseSlug(x)).filter(Boolean)
+    const near = similarSlug(param, published)
+    if (near) return c.redirect(`/cases/${near}`, 301)
+    return goneResponse(c, '치료 사례를 찾을 수 없습니다', '/cases/', '치료 사례 갤러리 보기')
+  }
   
   // 기존 ID로 접근 시 → slug URL로 301 리다이렉트 (SEO 가치 이전)
   if (cs.slug && param !== cs.slug) {
@@ -6743,6 +6773,14 @@ const ENC_TO_GUIDE_301: Record<string, string> = {
   '실비보험 청구': '/guide/insurance',
 }
 
+// 대표어 → 최종 목적지 경로 (가이드 통합·병합 301 을 한 번에 반영해 리다이렉트 체인 방지)
+function encFinalPath(term: string): string {
+  if (ENC_TO_GUIDE_301[term]) return ENC_TO_GUIDE_301[term]
+  const merged = ENC_MERGE_301[term] || term
+  if (ENC_TO_GUIDE_301[merged]) return ENC_TO_GUIDE_301[merged]
+  return `/encyclopedia/${encodeURIComponent(merged)}`
+}
+
 // v5.40: 존치하는 대표 백과 항목 → 전용 가이드 유도 배너 (301 대신 2️⃣ 방식)
 const ENC_GUIDE_NUDGE: Record<string, { href: string; title: string; desc: string }> = {
   '실비보험': {
@@ -6887,33 +6925,12 @@ app.get('/encyclopedia/:term', async (c) => {
   }
 
   if (!item) {
-    // ★ SEO 컨설팅: 존재하지 않는 용어는 302(소프트 404) 대신 진짜 404 반환
-    //   크롤러에 명확한 "없음" 신호 → 크롤 버짓 절약, 색인 오염 방지
-    return c.html(`<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex">
-<title>용어를 찾을 수 없습니다 | 치과 백과사전 — 서울비디치과</title>
-<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" defer></script>
-<style>body{font-family:'Pretendard',-apple-system,sans-serif;background:#faf7f3;margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
-.box{text-align:center;max-width:480px}
-h1{font-size:1.5rem;color:#3E2B1F;margin-bottom:12px}
-p{color:#6b5d52;line-height:1.7;margin-bottom:24px}
-a{display:inline-block;padding:12px 28px;background:#6B4226;color:#fff;border-radius:10px;text-decoration:none;font-weight:700;margin:4px}
-a.outline{background:#fff;color:#6B4226;border:1px solid #d4b896}</style>
-</head>
-<body>
-<div class="box">
-<div style="font-size:3rem;margin-bottom:16px;">🔍</div>
-<h1>"${termParam.replace(/</g,'&lt;').slice(0,50)}" 용어를 찾을 수 없습니다</h1>
-<p>치과 백과사전에 등록되지 않은 용어입니다.<br>820개 치과 용어를 백과사전에서 검색해 보세요.</p>
-<a href="/encyclopedia/">백과사전에서 검색하기</a>
-<a href="/" class="outline">홈으로</a>
-</div>
-</body>
-</html>`, 404)
+    // 2026-09-21 GSC 404 245건: 구 한글 slug(예: '법랑질에나멜이란-몸에서-…')·오타 URL 은
+    //   대표어로 해석되면 301, 아니면 410 Gone(noindex) → 구글이 재시도 없이 색인에서 제거
+    const resolved = resolveLegacyEncTerm(termParam, encItems)
+    const finalPath = resolved ? encFinalPath(resolved) : null
+    if (finalPath && finalPath !== `/encyclopedia/${encodeURIComponent(termParam)}`) return c.redirect(finalPath, 301)
+    return goneResponse(c, '용어를 찾을 수 없습니다', '/encyclopedia/', '백과사전에서 검색하기')
   }
 
   // ★ v5.30 역대급 전용 페이지 분기: '치아 번호' (GSC 노출 1,531 최강 자산)
@@ -7314,7 +7331,8 @@ const categoryMeta: Record<string, {icon: string; intro: string; keywords: strin
 }
 
 app.get('/encyclopedia/category/:name', async (c) => {
-  const catName = decodeURIComponent(c.req.param('name'))
+  let catName = ''
+  try { catName = decodeURIComponent(c.req.param('name')) } catch { return c.redirect('/encyclopedia/', 301) }
 
   const encItems = await getEncItems(c)
   const encCategories = [...new Set(encItems.map(i => i.category))]
@@ -7506,6 +7524,15 @@ ${ssrMobileNav()}
 // ▶ 슬래시 포함 옛 백과 URL(예: /encyclopedia/CAD/CAM, /방사선 투과상/불투과상,
 //   /근심면/원심면, /협측/설측)은 대응 콘텐츠가 없고 5xx/404를 유발.
 //   category 라우트보다 뒤에 두어 충돌을 피하고, 나머지 2-depth는 백과 메인으로 301.
+// 2026-09-21: 슬래시로 끝나는 구 URL(/encyclopedia/xxx/) — 대표어로 해석되면 301, 아니면 410
+app.get('/encyclopedia/:term/', async (c) => {
+  let termParam = ''
+  try { termParam = decodeURIComponent(c.req.param('term')) } catch { return goneResponse(c, '용어를 찾을 수 없습니다', '/encyclopedia/', '백과사전에서 검색하기') }
+  const encItems = await getEncItems(c)
+  const resolved = resolveLegacyEncTerm(termParam, encItems)
+  if (resolved) return c.redirect(encFinalPath(resolved), 301)
+  return goneResponse(c, '용어를 찾을 수 없습니다', '/encyclopedia/', '백과사전에서 검색하기')
+})
 app.get('/encyclopedia/:term/:sub', (c) => c.redirect('/encyclopedia/', 301))
 app.get('/encyclopedia/:term/:sub/*', (c) => c.redirect('/encyclopedia/', 301))
 
@@ -7805,7 +7832,9 @@ const EXISTING_GUIDES = new Set([
 ])
 
 function mapDeadGuideSlug(slug: string): string {
-  const s = decodeURIComponent(slug).toLowerCase().replace(/\/$/, '')
+  let decoded = slug
+  try { decoded = decodeURIComponent(slug) } catch { /* 깨진 퍼센트 인코딩 → 원문 그대로 매핑 */ }
+  const s = decoded.toLowerCase().replace(/\/$/, '')
   // 이미 존재하는 가이드면 그대로 (안전망)
   if (EXISTING_GUIDES.has(s)) return `/guide/${s}`
 
@@ -9022,13 +9051,37 @@ app.notFound(async (c) => {
 })
 
 // 글로벌 에러 핸들러 (500 에러 방지)
-app.onError((err, c) => {
+app.onError(async (err, c) => {
   console.error('Unhandled error:', err)
+  const path = new URL(c.req.url).pathname
+  if (path.startsWith('/api/')) {
+    return c.json({ error: 'temporarily unavailable' }, 503, { 'Retry-After': '120', 'Cache-Control': 'no-store' })
+  }
+  // 2026-09-21 GSC 5xx 방어: SSR 오버레이 페이지(/, /pricing, /doctors/:slug, /treatments/* 등)는
+  //   워커 렌더가 실패해도 정적 원본을 200 으로 서빙한다. 정적 원본이 없으면 404(noindex).
+  //   (500 은 구글이 반복 재시도 후 색인에서 빼므로, 원본 존재 여부로 200/404 를 명확히 준다)
+  if ((c.req.method === 'GET' || c.req.method === 'HEAD') && c.env?.ASSETS) {
+    try {
+      const res = await c.env.ASSETS.fetch(new Request(c.req.url, { method: 'GET', headers: { Accept: 'text/html' } }))
+      if (res.ok) {
+        const body = await res.arrayBuffer()
+        if (body.byteLength > 0) {
+          return new Response(c.req.method === 'HEAD' ? null : body, {
+            status: 200,
+            headers: {
+              'Content-Type': res.headers.get('Content-Type') || 'text/html; charset=utf-8',
+              'Cache-Control': 'no-store',
+            },
+          })
+        }
+      }
+    } catch { /* 폴백 실패 → 404 */ }
+  }
   return c.html(`<!DOCTYPE html>
-<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>오류가 발생했습니다 | 서울비디치과</title>
-<style>body{font-family:Pretendard,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#faf9f7;color:#333;text-align:center}.e{max-width:480px;padding:2rem}.c{font-size:4rem;margin:0}h1{font-size:1.5rem;margin:1rem 0}p{color:#666}a{display:inline-block;background:#6B4226;color:#fff;padding:12px 32px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:1rem}a:hover{background:#8B5E3C}</style></head>
-<body><div class="e"><div class="c">⚠️</div><h1>일시적인 오류가 발생했습니다</h1><p>잠시 후 다시 시도해주세요.</p><a href="/">홈으로 돌아가기</a><p style="margin-top:2rem;font-size:.85rem;color:#999">☎ 041-415-2892 | 365일 진료</p></div></body></html>`, 500)
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="robots" content="noindex">
+<title>페이지를 찾을 수 없습니다 | 서울비디치과</title>
+<style>body{font-family:Pretendard,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#faf9f7;color:#333;text-align:center}.e{max-width:480px;padding:2rem}.c{font-size:6rem;font-weight:800;color:#6B4226;margin:0}h1{font-size:1.5rem;margin:1rem 0}p{color:#666;margin:1rem 0}a{display:inline-block;background:#6B4226;color:#fff;padding:12px 32px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:1rem}a:hover{background:#8B5E3C}</style></head>
+<body><div class="e"><div class="c">404</div><h1>페이지를 찾을 수 없습니다</h1><p>요청하신 페이지가 존재하지 않거나 이동되었습니다.</p><a href="/">홈으로 돌아가기</a><p style="margin-top:2rem;font-size:.85rem;color:#999">☎ 041-415-2892 | 365일 진료</p></div></body></html>`, 404, { 'Cache-Control': 'no-store' })
 })
 
 export default app

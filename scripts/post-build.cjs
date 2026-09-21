@@ -152,9 +152,9 @@ const routes = {
     '/favicon.ico','/apple-touch-icon.png',
     '/robots.txt','/6f74445f7ec14eccb522a4d3f253128c.txt','/bdbddc2026indexnow.txt',
     '/llms.txt','/llms-full.txt','/sw.js','/report/*','/videos/*',
-    '/laminate/frames/*',
-    '/implant/frames/*',
-    '/invisalign/frames/*',
+    '/laminate/frames/frame_0*',
+    '/implant/frames/frame_0*',
+    '/invisalign/frames/frame_0*',
     // ⚠️ v5.39: '/en/*' 와일드카드 금지!
     // /en/dictionary/* 는 Worker SSR 라우트이므로 exclude 되면 404 가 된다.
     // 정적 파일이 실제로 존재하는 /en/ 경로만 개별 열거한다.
