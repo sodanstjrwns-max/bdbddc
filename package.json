@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "vite",
     "dev:sandbox": "wrangler pages dev dist --ip 0.0.0.0 --port 3000",
-    "build": "node scripts/fetch-youtube.cjs && vite build && node scripts/post-build.cjs",
-    "build:fast": "vite build && node scripts/post-build.cjs",
+    "build": "node scripts/fetch-youtube.cjs && vite build && node scripts/post-build.cjs && node scripts/video-schema.cjs --dist",
+    "build:fast": "vite build && node scripts/post-build.cjs && node scripts/video-schema.cjs --dist",
     "preview": "wrangler pages dev dist",
     "seo:check": "node --max-old-space-size=256 scripts/seo-release.cjs",
     "seo:http": "node --max-old-space-size=96 scripts/seo-http-audit.cjs",

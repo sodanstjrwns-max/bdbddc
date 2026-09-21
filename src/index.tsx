@@ -1,3 +1,5 @@
+import { gscLegacyTarget } from './data/gsc-legacy-redirects'
+import videoMetadata from '../data/video-metadata.json'
 import { registerPatientNotes } from './routes/patient-notes'
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-pages'
@@ -2774,6 +2776,14 @@ app.get('/en/*', async (c, next) => {
   return c.redirect(path, 301)
 })
 
+// Only verified, equivalent legacy URLs are consolidated. Keep query parameters intact.
+app.use('*', async (c, next) => {
+  if (c.req.method !== 'GET' && c.req.method !== 'HEAD') return next()
+  const target = gscLegacyTarget(c.req.path)
+  if (target) return c.redirect(encodeURI(target) + new URL(c.req.url).search, 301)
+  return next()
+})
+
 // Directory hubs have one final canonical URL, including legacy index aliases.
 for (const hub of ['treatments', 'doctors']) {
   for (const suffix of ['index', 'index.html']) {
@@ -3469,6 +3479,12 @@ async function injectBlogIndexLinks(html: string): Promise<string> {
 }
 
 function cleanInblogHtml(html: string, reqPath?: string): string {
+  // Technical author archives repeat the same clinic listing; individual posts remain indexable.
+  if (reqPath?.startsWith('/blog/author/')) {
+    html = html.replace(/<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>/gi, '')
+    html = html.replace('</head>', '<meta name="robots" content="noindex,follow"></head>')
+  }
+
   // 0) [v5.90] 공포 마케팅 문구 치환 (의료광고 심의 '불안 조성' 리스크 제거)
   //    /blog/* 원본은 inblog.ai 외부 서비스라 직접 편집 불가 → 프록시 가공 지점에서 치환.
   //    ⚠ inblog 관리자에서 원문을 고치는 것이 근본 해결. 원문 수정 후에도 이 치환은 무해(no-op).
@@ -4096,9 +4112,10 @@ app.get('/doctors/:slug', async (c) => {
     }
     
     const videoInfo = DOCTOR_VIDEO_MAP[slug]
+    const videoSource = videoInfo && videoMetadata.find(v => v.id === videoInfo.videoId)
     let videoObjectSchema = ''
     // 정적 HTML에 이미 VideoObject 스키마가 있으면 중복 주입하지 않음 (정적 버전이 duration·정확한 uploadDate 포함)
-    if (videoInfo && !html.includes('"VideoObject"')) {
+    if (videoInfo && videoSource?.uploadDate && !html.includes('"VideoObject"')) {
       videoObjectSchema = `
 <script type="application/ld+json">
 {
@@ -4107,8 +4124,8 @@ app.get('/doctors/:slug', async (c) => {
   "name": "${videoInfo.name}",
   "description": "${videoInfo.description}",
   "thumbnailUrl": "https://i.ytimg.com/vi/${videoInfo.videoId}/hqdefault.jpg",
-  "uploadDate": "2025-01-01T00:00:00+09:00",
-  "contentUrl": "https://www.youtube.com/watch?v=${videoInfo.videoId}",
+  "uploadDate": "${videoSource.uploadDate}",
+  "duration": "PT${videoSource.lengthSeconds}S",
   "embedUrl": "https://www.youtube.com/embed/${videoInfo.videoId}",
   "publisher": {
     "@type": "Organization",
