@@ -1289,7 +1289,13 @@ app.post('/api/reservation', async (c) => {
     } catch (parseErr) {
       return c.json({ error: '잘못된 요청 형식입니다.' }, 400)
     }
-    const { treatment, date, time, name, phone, message, marketing } = body
+    const { treatment, date, time, name, phone, message, marketing, privacyConsent, sensitiveConsent, consentVersion } = body || {}
+
+    // Validate explicit, separate consent before saving or sending notifications.
+    // Old open tabs must reload the updated notice; never infer consent from submission.
+    if (privacyConsent !== true || sensitiveConsent !== true || consentVersion !== '2026-09-23') {
+      return c.json({ error: '개인정보 및 건강정보 수집·이용에 각각 동의해주세요. 이전 화면을 열어 두셨다면 새로고침 후 다시 신청해주세요.' }, 400)
+    }
 
     // Validation
     // v10 (2026-09-04): 폼 이탈 수술 — 필수는 이름·연락처만.
@@ -1316,7 +1322,13 @@ app.post('/api/reservation', async (c) => {
       name: String(name).trim(),
       phone: String(phone).trim(),
       message: message ? String(message).trim() : '',
-      marketing: !!marketing,
+      marketing: marketing === true,
+      consent: {
+        privacy: true,
+        sensitive: true,
+        version: consentVersion,
+        recordedAt: new Date().toISOString()
+      },
       createdAt: new Date().toISOString(),
       status: 'pending'
     }

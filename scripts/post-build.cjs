@@ -91,6 +91,7 @@ function injectTrackingFile(full, stats) {
   const beforeVersions = html;
   html = html.replace(/((?:src=["'])(?:\.\.\/)*\/?js\/(?:main|analytics)\.js)(?:\?[^"']*)?/g, '$1?v=20260921-r2');
   html = html.replace(/((?:src=["'])\/static\/bd-smart-cta\.js)(?:\?[^"']*)?/g, '$1?v=20260921');
+  html = html.replace(/((?:src=["'])\/static\/chatbot\.js)(?:\?[^"']*)?/g, '$1?v=20260923-consent');
   if (html !== beforeVersions) fs.writeFileSync(full, html);
   stats.scanned++;
 

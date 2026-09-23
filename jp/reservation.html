@@ -144,9 +144,13 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 .f-note{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#FAFAF9;border-radius:10px;font-size:.8rem;color:#78716C;margin-bottom:20px}
 .f-note i{color:#6B4226}
 
+.rsv-consent-notice{margin:20px 0 14px;padding:16px;background:#faf7f3;border:1px solid #e8e0d6;border-radius:12px;font-size:.8rem;line-height:1.7;color:#57534e}
+.rsv-consent-notice p{margin:6px 0}.rsv-consent-notice a{color:#6b4226;text-decoration:underline}
+.f-check{position:relative}.f-check input:focus-visible + .f-check-box{outline:2px solid #6b4226;outline-offset:3px}
+
 /* Checkbox */
 .f-check{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:.85rem;color:#44403C;cursor:pointer}
-.f-check input[type="checkbox"]{display:none}
+.f-check input[type="checkbox"]{position:absolute;left:0;width:20px;height:20px;margin:0;opacity:0;cursor:pointer}
 .f-check-box{width:20px;height:20px;border:2px solid #ccc;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:.6rem;color:transparent;margin-top:1px}
 .f-check input:checked + .f-check-box{background:#6B4226;border-color:#6B4226;color:#fff}
 .f-check a{color:#6B4226;font-weight:600;text-decoration:underline}
@@ -560,10 +564,23 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
                 <label class="f-label">症状またはお問い合わせ内容</label>
                 <textarea id="rsvMsg" class="f-textarea" placeholder="症状やご不明な点をご入力ください。"></textarea>
               </div>
+              <div class="rsv-consent-notice" id="rsvConsentNotice" data-consent-version="2026-09-23">
+                <strong>お申し込み情報の取り扱い</strong>
+                <p>氏名・電話番号・診療項目・希望日時は必須です。症状やお問い合わせ内容は任意です。</p>
+                <p>氏名・電話番号・希望日時はご連絡と予約調整に、症状・治療歴・診療項目に含まれる健康情報は相談内容の把握と診療相談の準備に利用します。</p>
+                <p>保有期間：ご連絡と予約調整の目的を達成するまで保有し、その後遅滞なく削除します。法定の保存義務がある情報は当該期間保管します。</p>
+                <p>同意を拒否できますが、必須の同意がなければオンラインでのお申し込みはできません。予約方法は041-415-2892へお問い合わせください。</p>
+                <a href="/privacy#online-consultation" target="_blank" rel="noopener noreferrer">個人情報の取扱方針を見る</a>
+              </div>
               <label class="f-check">
-                <input type="checkbox" id="rsvPrivacy" required>
+                <input type="checkbox" id="rsvPrivacy" aria-describedby="rsvConsentNotice" required>
                 <span class="f-check-box"><i class="fas fa-check"></i></span>
-                <span><a href="/privacy" target="_blank">個人情報の取扱方針</a>に同意します。 <span class="req">*</span></span>
+                <span>個人情報の収集・利用に同意します。 <span class="req">*</span></span>
+              </label>
+              <label class="f-check">
+                <input type="checkbox" id="rsvSensitive" aria-describedby="rsvConsentNotice" required>
+                <span class="f-check-box"><i class="fas fa-check"></i></span>
+                <span>健康情報（症状・治療歴など）の収集・利用に別途同意します。 <span class="req">*</span></span>
               </label>
               <label class="f-check">
                 <input type="checkbox" id="rsvMarketing">
@@ -866,10 +883,12 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
   var name=document.getElementById('rsvName').value.trim();
   var phone=document.getElementById('rsvPhone').value.trim();
   var privacy=document.getElementById('rsvPrivacy').checked;
+  var sensitive=document.getElementById('rsvSensitive').checked;
 
   if(!name){showErr('お名前を入力してください。');return;}
   if(!phone||!/^01[0-9]-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g,''))){showErr('正しい連絡先を入力してください。');return;}
   if(!privacy){showErr('個人情報の取り扱いに同意してください。');return;}
+  if(!sensitive){showErr('健康情報の収集・利用に別途同意してください。');return;}
 
   var data={
     treatment:document.querySelector('input[name="treatment"]:checked').value,
@@ -878,6 +897,9 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
     name:name,
     phone:phone,
     message:document.getElementById('rsvMsg').value.trim(),
+    privacyConsent:privacy,
+    sensitiveConsent:sensitive,
+    consentVersion:'2026-09-23',
     marketing:document.getElementById('rsvMarketing').checked
   };
 

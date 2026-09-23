@@ -209,9 +209,13 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 .f-note{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#FAFAF9;border-radius:10px;font-size:.8rem;color:#78716C;margin-bottom:20px}
 .f-note i{color:#6B4226}
 
+.rsv-consent-notice{margin:20px 0 14px;padding:16px;background:#faf7f3;border:1px solid #e8e0d6;border-radius:12px;font-size:.8rem;line-height:1.7;color:#57534e}
+.rsv-consent-notice p{margin:6px 0}.rsv-consent-notice a{color:#6b4226;text-decoration:underline}
+.f-check{position:relative}.f-check input:focus-visible + .f-check-box{outline:2px solid #6b4226;outline-offset:3px}
+
 /* Checkbox */
 .f-check{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:.85rem;color:#44403C;cursor:pointer}
-.f-check input[type="checkbox"]{display:none}
+.f-check input[type="checkbox"]{position:absolute;left:0;width:20px;height:20px;margin:0;opacity:0;cursor:pointer}
 .f-check-box{width:20px;height:20px;border:2px solid #ccc;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:.6rem;color:transparent;margin-top:1px}
 .f-check input:checked + .f-check-box{background:#6B4226;border-color:#6B4226;color:#fff}
 .f-check a{color:#6B4226;font-weight:600;text-decoration:underline}
@@ -632,11 +636,24 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
               </div>
             </details>
 
-            <label class="f-check">
-              <input type="checkbox" id="rsvPrivacy" required>
-              <span class="f-check-box"><i class="fas fa-check"></i></span>
-              <span><a href="/privacy" target="_blank">개인정보 처리방침</a>에 동의합니다. <span class="req">*</span></span>
-            </label>
+            <div class="rsv-consent-notice" id="rsvConsentNotice" data-consent-version="2026-09-23">
+                <strong>상담 신청 정보 안내</strong>
+                <p>성명·연락처·증상/상담 내용은 필수이며, 진료 항목·희망 날짜·시간은 선택입니다.</p>
+                <p>성명·연락처·희망 일시는 상담 회신과 예약 조율에, 증상·치료 이력·진료 항목에 포함된 건강정보는 상담 내용 파악과 진료 상담 준비에 이용합니다.</p>
+                <p>보유 기간: 상담 회신·예약 조율 목적 달성 시까지 보유 후 지체 없이 파기합니다. 법정 보존 의무가 있는 정보는 해당 기간 보관합니다.</p>
+                <p>동의를 거부할 수 있으나 필수 동의 없이는 온라인 신청이 어렵습니다. 전화 041-415-2892로 예약 방법을 문의하실 수 있습니다.</p>
+                <a href="/privacy#online-consultation" target="_blank" rel="noopener noreferrer">개인정보 처리방침 자세히 보기</a>
+              </div>
+              <label class="f-check">
+                <input type="checkbox" id="rsvPrivacy" aria-describedby="rsvConsentNotice" required>
+                <span class="f-check-box"><i class="fas fa-check"></i></span>
+                <span>개인정보 수집·이용에 동의합니다. <span class="req">*</span></span>
+              </label>
+              <label class="f-check">
+                <input type="checkbox" id="rsvSensitive" aria-describedby="rsvConsentNotice" required>
+                <span class="f-check-box"><i class="fas fa-check"></i></span>
+                <span>건강정보(증상·치료 이력 등) 수집·이용에 별도로 동의합니다. <span class="req">*</span></span>
+              </label>
             <button type="submit" class="rsv-btn rsv-btn-brand" id="rsvSubmit" style="margin-top:16px"><i class="fas fa-check"></i> 상담 신청하기</button>
           </form>
         </div>
@@ -991,6 +1008,7 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
   var phone=document.getElementById('rsvPhone').value.trim();
   var message=document.getElementById('rsvMsg').value.trim();
   var privacy=document.getElementById('rsvPrivacy').checked;
+  var sensitive=document.getElementById('rsvSensitive').checked;
 
   window._bdRsvGtag('form_submit_attempt',{});
 
@@ -998,6 +1016,7 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
   if(!phone||!/^01[0-9]-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g,''))){showErr('올바른 연락처를 입력해주세요.');return;}
   if(!message){showErr('증상을 한 줄만 남겨주세요.');return;}
   if(!privacy){showErr('개인정보 처리방침에 동의해주세요.');return;}
+  if(!sensitive){showErr('건강정보 수집·이용에 별도로 동의해주세요.');return;}
 
   // v10: 진료항목·희망일시는 선택 — 비어 있으면 상담(기타)으로 접수
   var txChecked=document.querySelector('input[name="treatment"]:checked');
@@ -1008,6 +1027,9 @@ document.getElementById('rsvForm').addEventListener('submit',async function(e){
     name:name,
     phone:phone,
     message:message,
+    privacyConsent:privacy,
+    sensitiveConsent:sensitive,
+    consentVersion:'2026-09-23',
     marketing:document.getElementById('rsvMarketing').checked
   };
 

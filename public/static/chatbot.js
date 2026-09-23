@@ -296,6 +296,29 @@
     return UI_TEXT[lang] || UI_TEXT.en;
   }
 
+  // Booking consent is separate from the chat conversation and never preselected.
+  function getBookingConsentText() {
+    var texts = {
+      ko: {
+        notice: '성명·연락처·희망 일시와 선택한 진료 항목을 상담 회신·예약 조율에 이용합니다. 진료 항목의 건강정보는 상담 준비에 이용합니다. 두 종류의 정보 모두 목적 달성 시까지 보유 후 지체 없이 파기하며, 법정 보존 의무가 있으면 해당 기간 보관합니다. 동의를 거부할 수 있으나 필수 동의 없이는 온라인 접수가 어렵습니다. 전화 041-415-2892로 예약 방법을 문의하실 수 있습니다.',
+        privacy: '개인정보 수집·이용 동의 (필수)', sensitive: '건강정보 수집·이용 별도 동의 (필수)', policy: '개인정보 처리방침', error: '개인정보와 건강정보 수집·이용에 각각 동의해주세요.'
+      },
+      en: {
+        notice: 'We use your name, phone, preferred date/time and selected treatment to reply and coordinate your appointment. Health information in the treatment selection is used to prepare for your consultation. Both are kept until these purposes are fulfilled, then deleted without delay, except information subject to legal retention. You may refuse consent; required consent is needed for online booking. Call 041-415-2892 for booking options.',
+        privacy: 'I consent to personal information collection and use (required)', sensitive: 'I separately consent to health information collection and use (required)', policy: 'Privacy Policy', error: 'Please consent separately to personal and health information collection and use.'
+      },
+      ja: {
+        notice: '氏名・電話番号・希望日時・選択した診療項目はご連絡と予約調整に、診療項目に含まれる健康情報は相談の準備に利用します。どちらも目的達成まで保有し、その後遅滞なく削除します。法定の保存義務がある情報は当該期間保管します。同意を拒否できますが、必須の同意がなければオンライン予約はできません。予約方法は041-415-2892へお問い合わせください。',
+        privacy: '個人情報の収集・利用に同意します（必須）', sensitive: '健康情報の収集・利用に別途同意します（必須）', policy: '個人情報の取扱方針', error: '個人情報と健康情報の収集・利用にそれぞれ同意してください。'
+      },
+      zh: {
+        notice: '我们将姓名、电话、希望就诊的日期时间及所选诊疗项目用于回复和预约协调。诊疗项目中的健康信息用于咨询准备。两类信息均保留至上述目的达成后及时删除；法律要求保存的信息按法定期限保管。您可以拒绝同意，但在线预约需要必选同意。可致电041-415-2892咨询预约方式。',
+        privacy: '同意收集和使用个人信息（必选）', sensitive: '单独同意收集和使用健康信息（必选）', policy: '隐私政策', error: '请分别同意收集和使用个人信息及健康信息。'
+      }
+    };
+    return texts[detectLang()] || texts.en;
+  }
+
   // ─── 다국어 인사말 ───
   var GREETINGS = {
     ko: '안녕하세요! 서울비디치과 AI 상담사 비디입니다 😊\n\n진료, 예약, 비용 등 궁금한 점을 편하게 물어보세요.',
@@ -446,6 +469,7 @@
   // ─── 인라인 예약 폼 HTML (다국어) ───
   function createBookingFormHTML() {
     var T = getUIText();
+    var consent = getBookingConsentText();
     // 내일부터 14일간 날짜 옵션
     var dateOptions = '';
     for (var i = 1; i <= 14; i++) {
@@ -502,6 +526,11 @@
           '<select id="bdBookTreatment">' + treatOptions + '</select>' +
         '</div>' +
       '</div>' +
+      '<div style="font-size:.75rem;line-height:1.6;margin:12px 0" data-consent-version="2026-09-23">' +
+        '<details><summary>' + consent.policy + '</summary><p>' + consent.notice + '</p><a href="/privacy#online-consultation" target="_blank" rel="noopener noreferrer">' + consent.policy + '</a></details>' +
+        '<label style="display:flex;align-items:flex-start;gap:8px;margin-top:10px"><input type="checkbox" id="bdBookPrivacy" style="flex-shrink:0;margin-top:3px">' + consent.privacy + '</label>' +
+        '<label style="display:flex;align-items:flex-start;gap:8px;margin-top:10px"><input type="checkbox" id="bdBookSensitive" style="flex-shrink:0;margin-top:3px">' + consent.sensitive + '</label>' +
+      '</div>' +
       '<div class="bd-booking-error" id="bdBookError"></div>' +
       '<button class="bd-booking-submit" id="bdBookSubmit" type="button">' +
         '<span class="spinner" id="bdBookSpinner"></span>' +
@@ -556,6 +585,11 @@
     if (!phone || !/^01[016789]-?\d{3,4}-?\d{4}$/.test(phone.replace(/-/g, ''))) {
       showBookError(errEl, T.bkErrPhone); return;
     }
+    var privacyConsent = form.querySelector('#bdBookPrivacy').checked;
+    var sensitiveConsent = form.querySelector('#bdBookSensitive').checked;
+    if (!privacyConsent || !sensitiveConsent) {
+      showBookError(errEl, getBookingConsentText().error); return;
+    }
 
     // 로딩
     btn.disabled = true;
@@ -573,7 +607,10 @@
         name: name,
         phone: phone,
         message: T.bkMemo,
-        marketingConsent: false,
+        privacyConsent: privacyConsent,
+        sensitiveConsent: sensitiveConsent,
+        consentVersion: '2026-09-23',
+        marketing: false,
         source: 'chatbot'
       })
     })

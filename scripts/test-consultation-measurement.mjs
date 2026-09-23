@@ -91,7 +91,7 @@ const temp = await mkdtemp(join(tmpdir(), 'bd-consultation-test-'))
 try {
   await build({ stdin: { contents: `export { default as app } from './src/index'; export { relatedNotes, visitPreparation, visitRegions } from './src/lib/patient-journey'; export { visiblePatientNotes } from './src/data/patient-notes';`, resolveDir: process.cwd(), loader: 'ts' }, bundle: true, format: 'esm', platform: 'node', target: 'node22', outfile: join(temp, 'test.mjs'), logLevel: 'error' })
   const { app, relatedNotes, visitRegions, visitPreparation, visiblePatientNotes } = await import(pathToFileURL(join(temp, 'test.mjs')))
-  const data = { name: 'LOCAL TEST', phone: '01000000000', message: 'local synthetic fixture', treatment: 'other' }
+  const data = { name: 'LOCAL TEST', phone: '01000000000', message: 'local synthetic fixture', treatment: 'other', privacyConsent: true, sensitiveConsent: true, consentVersion: '2026-09-23' }
   const request = env => app.request('https://bdbddc.com/api/reservation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }, env)
   const originalError = console.error
   console.error = () => {}
@@ -105,6 +105,16 @@ try {
   const receipt = await success.json()
   assert.equal(receipt.success, true)
   assert(records.some(r => r.key === 'data/reservations/' + receipt.reservation.id + '.json'))
+  const saved = JSON.parse(records.find(r => r.key.endsWith('/' + receipt.reservation.id + '.json')).value)
+  assert.equal(saved.consent.privacy, true)
+  assert.equal(saved.consent.sensitive, true)
+  assert.equal(saved.consent.version, '2026-09-23')
+  assert(Number.isFinite(Date.parse(saved.consent.recordedAt)))
+  assert.equal(saved.marketing, false, 'Required consent must not opt into marketing')
+  for (const override of [{ privacyConsent: false }, { sensitiveConsent: false }, { privacyConsent: 'true' }, { sensitiveConsent: 'true' }, { consentVersion: undefined }, { consentVersion: '2024-12-01' }]) {
+    const rejected = await app.request('https://bdbddc.com/api/reservation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, ...override }) }, { R2: { put: async () => assert.fail('Unconsented request must not be stored') } })
+    assert.equal(rejected.status, 400)
+  }
   const indexFailure = await request({ R2: { put: async key => { if (key.endsWith('/reservations.json')) throw Error('index only') }, get: async () => null } })
   assert.equal(indexFailure.status, 200, 'Durable record remains accepted when the legacy list fails')
   const notes = visiblePatientNotes()
