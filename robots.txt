@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════
 # 서울비디치과 (Seoul BD Dental) - robots.txt
 # https://bdbddc.com
-# Updated: 2026-09-07 — explicit shared exclusions per crawler group
+# Updated: 2026-09-24 — allow public doctor-column archives; preserve private/tracking exclusions
 #
 # SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
 # ═══════════════════════════════════════════════════════════════
@@ -24,10 +24,11 @@ Disallow: /sw.js
 Disallow: /offline.html
 Disallow: /*.json$
 Disallow: /manifest.json
-# 쿼리스트링 URL 차단 (canonical로 통합되지만 크롤 예산 절약 목적)
+# 추적·일반 doctor 쿼리 차단. 공개 원장별 칼럼은 자체 canonical/index 페이지이므로 더 구체적인 Allow로 허용.
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 
 # ===== Google 봇 (메인 + 이미지 + 비디오) =====
@@ -48,6 +49,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Allow: /column/
@@ -70,6 +72,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /images/
 Allow: /treatments/
@@ -91,6 +94,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /video/
 Disallow: /admin/
@@ -113,6 +117,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /column/
 Allow: /cases/
@@ -137,6 +142,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Allow: /column/
@@ -161,6 +167,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Allow: /column/
@@ -184,6 +191,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Allow: /column/
@@ -205,6 +213,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Allow: /cn/
@@ -231,6 +240,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Allow: /jp/
@@ -252,6 +262,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Allow: /jp/
@@ -276,6 +287,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
@@ -299,6 +311,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -319,6 +332,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -340,6 +354,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -360,6 +375,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -380,6 +396,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /images/
 
@@ -400,6 +417,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /video/
 
@@ -418,6 +436,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
@@ -441,6 +460,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -460,6 +480,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
@@ -483,6 +504,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -503,6 +525,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -523,6 +546,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -544,6 +568,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -564,6 +589,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -585,6 +611,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -604,6 +631,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
@@ -627,6 +655,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -648,6 +677,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -667,6 +697,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
@@ -689,6 +720,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
@@ -710,6 +742,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 Allow: /cn/
@@ -735,6 +768,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -756,6 +790,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -777,6 +812,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -798,6 +834,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -819,6 +856,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -840,6 +878,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -861,6 +900,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -882,6 +922,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Allow: /
 
@@ -903,6 +944,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Crawl-delay: 10
 
@@ -923,6 +965,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Crawl-delay: 10
 
@@ -955,6 +998,7 @@ Disallow: /manifest.json
 Disallow: /reservation?*
 Disallow: /*?ref_category=*
 Disallow: /*?doctor=*
+Allow: /column/?doctor=
 Disallow: /cdn-cgi/
 Crawl-delay: 10
 

@@ -202,6 +202,9 @@ fs.writeFileSync('dist/tables/treatments/implant.html', redirectHtml('/pricing')
 // SEO release maintenance + blocking validation; report remains behind /admin/* authentication.
 cp.execFileSync(process.execPath, ['--max-old-space-size=256', path.join(__dirname, 'seo-release.cjs')], { stdio: 'inherit' });
 
+// Keep public doctor-column archives crawlable without opening private routes.
+cp.execFileSync(process.execPath, [path.join(__dirname, 'check-robots.cjs'), 'dist/robots.txt'], { stdio: 'inherit' });
+
 // Block embedded patient testimonials/ratings before every deployment.
 cp.execFileSync(process.execPath, [path.join(__dirname, 'review-display-check.cjs'), 'dist'], { stdio: 'inherit' });
 
