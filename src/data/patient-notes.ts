@@ -889,6 +889,278 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-09-23",
   "publishedAt": "2026-09-23T10:11:47+09:00"
+},
+{
+  "slug": "tooth-extraction-while-taking-blood-thinners",
+  "title": "피 묽게 하는 약을 먹는데 이를 빼야 한대요. 약부터 끊어야 하나요?",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "발치",
+  "concern": "먹는 약 때문에 치료가 걱정돼요",
+  "description": "당진에서 항응고제·항혈소판제를 복용하며 발치 상담을 준비할 때, 임의 중단 대신 확인할 약 정보와 출혈 관리·방문 계획을 정리합니다.",
+  "situation": "당진에서 치아를 빼야 한다는 설명을 들었습니다. 심장이나 혈관 문제로 약을 먹고 있어 피가 멎지 않을까 걱정되고, 약을 쉬었다 가야 하는지도 모르겠습니다.",
+  "answer": "발치를 앞두었다고 항응고제나 항혈소판제를 먼저 끊지 마세요. 약의 종류·복용 이유·다른 질환과 발치 범위를 확인해 계획합니다. 약을 유지하며 국소 지혈로 치료하는 경우도 많지만, 개인별 복용 지시는 진료진이 확인해 알려드려야 합니다.",
+  "checks": [
+    "처방전에서 정확한 약 이름·용량·복용 시간과 처방 목적을 확인합니다.",
+    "이전에 피가 오래 났던 경험, 함께 먹는 약·건강기능식품과 주요 질환을 전달합니다.",
+    "발치 범위와 지혈 방법, 필요한 의과 협의나 검사, 귀가 후 연락 방법을 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "현재 약을 유지하며 치료할 수 있다고 평가되면",
+      "option": "국소 지혈과 경과 확인 계획에 따라 발치를 진행합니다.",
+      "limit": "약을 먹어도 괜찮다는 말이 출혈 위험이 전혀 없다는 뜻은 아닙니다."
+    },
+    {
+      "condition": "추가 정보나 처방 의료진과의 조율이 필요하면",
+      "option": "진료진이 확인할 내용을 정리하고 발치 일정과 복용 지침을 조율합니다.",
+      "limit": "환자분이 인터넷의 중단 일수나 타인의 처방을 그대로 적용하지 않습니다."
+    }
+  ],
+  "unknown": "이 글은 어떤 약을 며칠 쉬거나 언제 다시 먹을지 정하는 처방이 아닙니다. 이미 복용을 거르셨다면 숨기지 말고 약 이름과 마지막 복용 시각을 알려 즉시 개별 지침을 받으세요.",
+  "prepare": [
+    "현재 처방전 또는 약 이름·용량이 보이는 약 봉투",
+    "복용 이유와 처방 병원, 최근 검사 결과가 있다면 해당 기록",
+    "이전 발치·수술 후 출혈 경험과 이동 가능한 일정"
+  ],
+  "localHeading": "당진에서 발치 상담을 오기 전 약 정보를 먼저 알려주세요",
+  "localAdvice": "당진에서 천안 불당동으로 방문하실 때는 “피 묽게 하는 약을 복용 중이며 발치 상담이 필요하다”고 예약 단계에서 전하세요. 필요한 자료를 먼저 확인하고, 상담과 발치가 같은 날 가능한지는 따로 문의하세요. 서울비디치과의 진료 장소는 천안 불당동입니다. 출혈이 심하고 멎지 않거나 어지럼·의식 변화가 있으면 먼 예약을 기다리지 말고 가까운 응급의료기관의 도움을 받으세요.",
+  "related": [
+    {
+      "title": "사랑니 발치와 준비 과정",
+      "href": "/guide/wisdom-tooth"
+    },
+    {
+      "title": "발치 후 불편과 확인할 사항",
+      "href": "/guide/regret/wisdom-tooth"
+    },
+    {
+      "title": "당진에서 첫 상담 준비하기",
+      "href": "/area/dangjin#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국치과의사협회 ADA · 항응고·항혈소판 약과 치과 치료",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/oral-anticoagulant-and-antiplatelet-medications-and-dental-procedures"
+    },
+    {
+      "title": "NHS Scotland SDCEP · 약을 복용하는 환자분의 치과 치료 안내",
+      "href": "https://www.sdcep.org.uk/media/202dy54j/sdcep-anticoagulant-or-antiplatelet-medication-and-your-dental-treatment.pdf"
+    },
+    {
+      "title": "SDCEP · 항응고·항혈소판제 복용 환자의 진료 지침과 개별 안내 자료",
+      "href": "https://www.sdcep.org.uk/published-guidance/anticoagulants-and-antiplatelets/"
+    }
+  ],
+  "updated": "2026-09-24",
+  "publishedAt": "2026-09-24T09:00:00+09:00"
+},
+{
+  "slug": "wisdom-tooth-swelling-keeps-returning",
+  "title": "사랑니 잇몸이 부었다 가라앉기를 반복해요. 안 아픈 날에는 안 빼도 되나요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "사랑니",
+  "concern": "괜찮아졌다가 다시 불편해져요",
+  "description": "서산에서 반복되는 사랑니 잇몸 붓기로 발치를 고민할 때, 증상이 없는 날의 상담과 재발 기록·발치와 경과 관찰의 판단 근거를 정리합니다.",
+  "situation": "서산에서 지내며 몇 달 사이 사랑니 주변이 여러 번 부었습니다. 예약하려고 하면 가라앉아 다시 미루게 되고, 지금 안 아픈데 발치까지 해야 하는지 망설여집니다.",
+  "answer": "오늘 통증이 없더라도 같은 부위의 붓기가 반복됐다면 그 이력을 함께 평가해야 합니다. 사랑니 주위 잇몸 염증인지, 다른 치아의 문제인지 확인하고 재발 양상·주변 치아 상태·발치 위험을 비교해 결정합니다. 모든 사랑니를 예방적으로 빼거나 붓기 횟수만으로 발치를 확정하지 않습니다.",
+  "checks": [
+    "붓기가 생긴 날짜와 지속 기간, 식사·입 벌리기에 미친 영향을 정리합니다.",
+    "음식 끼임, 좋지 않은 맛, 열감·발열과 이전 처방 또는 처치 경험을 전달합니다.",
+    "사랑니 위치와 주변 치아·잇몸, 필요한 영상과 발치 위험을 함께 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "반복되는 사랑니 주위 염증 등 치료가 필요한 문제가 확인되면",
+      "option": "현재 염증에 대한 처치와 발치 필요성·시기를 함께 검토합니다.",
+      "limit": "그날 바로 뺄 수 있는지, 어느 진료기관이 적합한지는 검사 후 판단합니다."
+    },
+    {
+      "condition": "현재 질환이 없고 관리·관찰이 적합하다면",
+      "option": "점검 시점과 다시 연락할 증상, 관리 방법을 정합니다.",
+      "limit": "오늘 안 아프다는 사실만으로 앞으로도 문제가 없다고 보장하지 않습니다."
+    }
+  ],
+  "unknown": "사진만으로 치아와 신경의 거리, 발치 난이도나 회복 기간을 확정할 수 없습니다. 남은 항생제를 임의로 다시 복용하거나 잇몸 아래를 날카로운 도구로 찌르지 마세요.",
+  "prepare": [
+    "최근 붓기·통증이 반복된 시점과 이전 처방 내역",
+    "기존 사랑니 영상과 과거 상담 내용이 있다면 준비",
+    "식사·입 벌림의 어려움과 발치 후 쉬기 어려운 일정"
+  ],
+  "localHeading": "서산에서 사랑니 상담을 준비할 때는 괜찮아진 날도 이력을 알려주세요",
+  "localAdvice": "서산에서 천안 불당동으로 방문하기 전 “현재는 덜 아프지만 같은 부위가 반복해서 부었다”고 설명하세요. 첫 상담과 실제 발치 일정을 나누어 확인하고, 귀가 뒤 연락할 곳과 경과 확인 방법을 문의하세요. 서울비디치과는 천안 불당동에서 진료합니다. 붓기가 빠르게 퍼지거나 열·심한 입 벌림 제한이 생기면 신속히 진료받고, 숨쉬기·삼키기가 어렵다면 가까운 응급실 또는 119 도움을 받으세요.",
+  "related": [
+    {
+      "title": "사랑니 발치와 지켜보기 비교",
+      "href": "/guide/compare/wisdom-extraction-vs-wait"
+    },
+    {
+      "title": "사랑니 치료 가이드",
+      "href": "/guide/wisdom-tooth"
+    },
+    {
+      "title": "서산에서 첫 상담 준비하기",
+      "href": "/area/seosan#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "NICE · 사랑니 발치 적응증과 반복 치관주위염 권고",
+      "href": "https://www.nice.org.uk/guidance/ta1/chapter/1-Recommendations"
+    },
+    {
+      "title": "NHS · 사랑니 문제의 평가와 발치",
+      "href": "https://www.nhs.uk/tests-and-treatments/wisdom-tooth-removal/"
+    },
+    {
+      "title": "NHS Gloucestershire · 사랑니 발치 전 확인과 위험 설명",
+      "href": "https://www.gloshospitals.nhs.uk/your-visit/patient-information-leaflets/advice-patients-having-wisdom-teeth-removed/"
+    },
+    {
+      "title": "NHS · 치성 감염과 긴급 평가가 필요한 증상",
+      "href": "https://www.nhs.uk/conditions/dental-abscess/"
+    }
+  ],
+  "updated": "2026-09-24",
+  "publishedAt": "2026-09-24T09:00:00+09:00"
+},
+{
+  "slug": "implant-gums-bleed-without-pain",
+  "title": "임플란트 옆 잇몸에서 피가 나는데 아프지는 않아요. 양치를 멈춰야 하나요?",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "임플란트",
+  "concern": "아프지 않아도 확인해야 하나요",
+  "description": "천안에서 임플란트 주변 잇몸 출혈을 발견했을 때, 관리에 대한 자책보다 먼저 확인할 잇몸·뼈 상태와 세정 방법, 다음 점검의 질문을 정리합니다.",
+  "situation": "천안에서 생활하며 오래 사용한 임플란트 옆을 닦다가 피를 봤습니다. 통증은 없어 칫솔이 센 것인지 염증인지 모르겠고, 더 건드리면 임플란트가 잘못될까 걱정됩니다.",
+  "answer": "통증이 없더라도 반복되는 임플란트 주변 출혈은 상태를 확인할 이유가 됩니다. 잇몸에 국한된 염증인지 뼈 지지에도 변화가 있는지 진찰과 필요한 영상으로 구분합니다. 출혈 하나만으로 임플란트 실패나 제거를 결정하지 않으며, 청소를 전부 중단하거나 세게 문지르기보다 본인에게 맞는 방법을 안내받으세요.",
+  "checks": [
+    "어느 임플란트에서 언제부터 피가 났고 어떤 도구를 사용할 때 보이는지 전달합니다.",
+    "붓기·좋지 않은 맛·고름·흔들림이 함께 있는지 확인하되 일부러 눌러 재현하지 않습니다.",
+    "주변 잇몸 검사와 필요한 영상, 이전 기록을 비교해 치료 범위를 설명받습니다."
+  ],
+  "choices": [
+    {
+      "condition": "염증이 임플란트 주변 연조직에 국한된 경우",
+      "option": "전문적인 세정과 일상 관리 방법을 조정하고 반응을 확인합니다.",
+      "limit": "몇 번 닦으면 낫는지나 모든 분께 같은 점검 간격을 약속할 수는 없습니다."
+    },
+    {
+      "condition": "뼈 지지의 변화까지 확인된 경우",
+      "option": "임플란트 주위염의 범위와 접근 가능한 치료를 검토합니다.",
+      "limit": "수술 또는 제거 필요성은 출혈 여부만으로 결정하지 않습니다."
+    }
+  ],
+  "unknown": "출혈 사진이나 통증 유무만으로 뼈 상태를 알 수 없습니다. 임플란트를 직접 흔들거나 날카로운 도구로 주변을 긁지 말고, 가글만으로 문제가 해결됐다고 판단하지 마세요.",
+  "prepare": [
+    "임플란트 치료 시점과 마지막 점검 시점",
+    "현재 사용하는 칫솔·치간도구의 종류와 사용 중 어려운 점",
+    "보유 중인 제품 정보·이전 영상과 최근 수리 이력"
+  ],
+  "localHeading": "천안에서 임플란트 잇몸 출혈 상담을 준비한다면",
+  "localAdvice": "천안 불당동으로 예약할 때 “통증은 없지만 임플란트 옆에서 피가 반복된다”고 알려주세요. 임플란트를 심은 곳이 달라도 보유 자료와 현재 불편부터 전달할 수 있습니다. 출혈이 멎지 않거나 붓기·고름·흔들림이 생기면 더 빠른 평가가 필요한지 문의하세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다.",
+  "related": [
+    {
+      "title": "임플란트 치료와 유지관리 가이드",
+      "href": "/guide/implant"
+    },
+    {
+      "title": "임플란트 치료 후 걱정되는 문제",
+      "href": "/guide/regret/implant"
+    },
+    {
+      "title": "천안 방문 전 상담 준비",
+      "href": "/area/cheonan#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "EFP · 임플란트 주위질환과 출혈 등의 신호",
+      "href": "https://www.efp.org/for-patients/dental-implants/peri-implant-diseases/"
+    },
+    {
+      "title": "EFP · 임플란트 주위질환의 치료와 관리",
+      "href": "https://www.efp.org/for-patients/dental-implants/peri-implant-disease-treatment/"
+    },
+    {
+      "title": "EFP · 임플란트 주위질환 예방·치료 임상진료지침",
+      "href": "https://www.efp.org/education/continuing-education/clinical-guidelines/guideline-on-treatment-of-peri-implant-diseases/"
+    },
+    {
+      "title": "FDA · 임플란트의 관리와 문제 발생 시 상담",
+      "href": "https://www.fda.gov/medical-devices/dental-devices/dental-implants-what-you-should-know"
+    }
+  ],
+  "updated": "2026-09-24",
+  "publishedAt": "2026-09-24T09:00:00+09:00"
+},
+{
+  "slug": "dry-mouth-after-medication-new-cavities",
+  "title": "약을 먹은 뒤 입이 마르고 충치가 자꾸 생겨요. 약을 끊어야 할까요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "입마름",
+  "concern": "관리하는데도 문제가 반복돼요",
+  "description": "아산에서 약 복용 뒤 시작된 입마름과 반복 충치로 고민할 때, 임의 중단 대신 원인 평가·처방기관 상담·불편 완화와 충치 예방을 함께 준비하는 방법입니다.",
+  "situation": "아산에서 생활하며 평소처럼 양치하는데 입이 끈적하고 밤에 물을 찾게 됩니다. 최근 충치도 더 발견돼 새로 먹는 약 때문인지, 치아를 지키려면 약부터 끊어야 하는지 걱정됩니다.",
+  "answer": "일부 약은 입마름에 영향을 줄 수 있고 침의 보호 기능이 줄면 충치 위험이 커질 수 있습니다. 다만 복용 뒤 시작됐다는 이유만으로 원인을 확정하거나 처방약을 끊지 마세요. 약 목록과 시작 시점, 입안 상태를 확인하고 처방 의료진과 조정 가능성을 상의하면서 불편 완화와 충치 예방을 함께 계획합니다.",
+  "checks": [
+    "복용 중인 처방약·일반약과 시작 또는 변경 시점을 정리합니다.",
+    "낮과 밤의 차이, 말하기·식사·수면의 불편, 눈마름 등 동반 변화를 전달합니다.",
+    "현재 충치와 잇몸·점막 상태, 필요한 추가 평가와 예방 계획을 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "약과의 관련성을 검토할 필요가 있다면",
+      "option": "처방 의료진과 약의 조정 가능성을 상의합니다.",
+      "limit": "치과 방문 전 스스로 복용을 중단하거나 용량·시간을 바꾸지 않습니다."
+    },
+    {
+      "condition": "입마름과 충치 위험 관리가 필요하다면",
+      "option": "불편 완화 방법과 불소 사용·개별 점검 계획을 함께 정합니다.",
+      "limit": "입안이 촉촉해지는 느낌이 충치 예방이나 원인 해결을 보장하지는 않습니다."
+    }
+  ],
+  "unknown": "입마름의 원인은 약 외에도 다양합니다. 느끼는 건조감과 실제 침 분비량이 항상 일치하지 않으며, 온라인 질문만으로 특정 질환이나 약의 부작용을 확정할 수 없습니다.",
+  "prepare": [
+    "복용약 이름과 최근 변경 날짜를 확인할 자료",
+    "불편한 시간대와 식사·수면에 미치는 영향 메모",
+    "현재 사용하는 치약·가글·입마름 제품과 최근 충치 치료 이력"
+  ],
+  "localHeading": "아산에서 입마름과 반복 충치 상담을 준비한다면",
+  "localAdvice": "아산에서 천안 불당동으로 방문하기 전 입마름과 충치가 함께 걱정된다고 알려주세요. 약 목록은 진료진이 확인할 수 있게 준비하되 공개 게시판에 올릴 필요는 없습니다. 처방기관과 치과에 각각 확인할 내용을 정리하면 반복 방문 부담을 계획하는 데 도움이 됩니다. 서울비디치과는 천안 불당동에서 진료합니다.",
+  "related": [
+    {
+      "title": "충치 치료 후 반복되는 걱정 살펴보기",
+      "href": "/guide/regret/cavity"
+    },
+    {
+      "title": "아산에서 상담 전 준비할 자료",
+      "href": "/area/asan#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국 국립치과두개안면연구소 NIDCR · 구강건조의 원인과 관리",
+      "href": "https://www.nidcr.nih.gov/health-info/dry-mouth"
+    },
+    {
+      "title": "미국치과의사협회 ADA · 입마름 평가와 합병증 예방",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/xerostomia"
+    },
+    {
+      "title": "NHS · 입마름의 생활 관리와 처방약 상담",
+      "href": "https://www.nhs.uk/symptoms/dry-mouth/"
+    },
+    {
+      "title": "NIDCR · 충치의 과정과 불소를 포함한 예방",
+      "href": "https://www.nidcr.nih.gov/health-info/tooth-decay"
+    }
+  ],
+  "updated": "2026-09-24",
+  "publishedAt": "2026-09-24T09:00:00+09:00"
 }
 ]
 
