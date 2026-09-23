@@ -3,6 +3,7 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { dailyNoteLimit } from './patient-notes-policy.mjs'
 
 const temp = await mkdtemp(join(tmpdir(), 'bd-notes-status-'))
 try {
@@ -15,10 +16,11 @@ try {
   const scheduled = patientNotes.filter(n => n.publishedAt)
   if (scheduled.some(n => !Number.isFinite(Date.parse(n.publishedAt)))) throw new Error('Invalid publication timestamp')
   const slots = scheduled.filter(n => kstDate(n.publishedAt) === today)
+  const limitPerDay = dailyNoteLimit(today)
   const brief = n => ({ slug: n.slug, region: n.region, title: n.title, publishedAt: n.publishedAt, url: 'https://bdbddc.com/concerns/' + n.slug })
   console.log(JSON.stringify({
-    checkedAt: new Date(now).toISOString(), kstDate: today, limitPerDay: 2,
-    allocatedToday: slots.map(brief), remainingSlotsToday: Math.max(0, 2 - slots.length),
+    checkedAt: new Date(now).toISOString(), kstDate: today, limitPerDay,
+    allocatedToday: slots.map(brief), remainingSlotsToday: Math.max(0, limitPerDay - slots.length),
     currentlyPublicInSource: scheduled.filter(n => Date.parse(n.publishedAt) <= now).map(brief),
     upcoming: scheduled.filter(n => Date.parse(n.publishedAt) > now).sort((a, b) => a.publishedAt.localeCompare(b.publishedAt)).map(brief),
     drafts: patientNotes.filter(n => !n.publishedAt).map(brief),

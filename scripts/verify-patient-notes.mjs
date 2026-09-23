@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { parse } from 'node-html-parser'
+import { dailyNoteLimit } from './patient-notes-policy.mjs'
 
 const RealDate = Date
 let clock = RealDate.now()
@@ -27,7 +28,7 @@ try {
     const day = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Seoul' }).format(new RealDate(note.publishedAt))
     slots.set(day, (slots.get(day) || 0) + 1)
   }
-  for (const [day, count] of slots) assert.ok(count <= 2, 'At most two new notes per KST day: ' + day)
+  for (const [day, count] of slots) assert.ok(count <= dailyNoteLimit(day), 'Daily publication limit exceeded: ' + day)
   const slugs = patientNotes.map(n => n.slug)
   assert.equal(new Set(slugs).size, originalCount)
   for (const note of patientNotes) {

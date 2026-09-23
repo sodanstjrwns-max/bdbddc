@@ -4,15 +4,18 @@ import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse } from 'node-html-parser'
+import { dailyNoteLimit } from './patient-notes-policy.mjs'
 
 const origin = 'https://bdbddc.com'
 const hubUrl = origin + '/concerns'
 const requireCheck = (ok, message) => assert.ok(ok, message)
 
-// A healthy old site is not evidence that today's two notes were published.
+// A healthy old site is not evidence that today's required notes were published.
 // Injecting the reader allows failure and schedule cases to be checked offline.
 export async function auditPublication({ state, get, allowScheduled = false }) {
-  requireCheck(state.allocatedToday.length === 2, `${state.kstDate}: expected two assigned notes, found ${state.allocatedToday.length}`)
+  const limitPerDay = dailyNoteLimit(state.kstDate)
+  requireCheck(state.limitPerDay === limitPerDay, 'Source daily limit differs from publication policy')
+  requireCheck(state.allocatedToday.length === limitPerDay, `${state.kstDate}: expected ${limitPerDay} assigned notes, found ${state.allocatedToday.length}`)
   const publicUrls = new Set(state.currentlyPublicInSource.map(n => n.url))
   const pendingToday = state.allocatedToday.filter(n => !publicUrls.has(n.url))
   requireCheck(!pendingToday.length || allowScheduled, 'Today is not fully public; scheduled deployment is not publication')
@@ -64,7 +67,7 @@ export async function auditPublication({ state, get, allowScheduled = false }) {
     requireCheck(!hubDom.querySelector(`a[href="/concerns/${n.slug}"]`), `${n.url}: future note linked from live hub`)
     future.push({ url: n.url, status: r.status, noindex: true })
   }
-  return { checkedAt: new Date().toISOString(), kstDate: state.kstDate, stage: pendingToday.length ? 'scheduled' : 'published', today: state.allocatedToday, publicNotes: pages.length, pages, future, sitemapUrls: urls, allPassed: true }
+  return { checkedAt: new Date().toISOString(), kstDate: state.kstDate, limitPerDay, stage: pendingToday.length ? 'scheduled' : 'published', today: state.allocatedToday, publicNotes: pages.length, pages, future, sitemapUrls: urls, allPassed: true }
 }
 
 async function main() {
