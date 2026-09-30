@@ -2875,6 +2875,283 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-09-30",
   "publishedAt": "2026-09-30T09:00:00+09:00"
+},
+{
+  "slug": "loose-front-tooth-can-it-be-saved",
+  "title": "앞니가 흔들려요. 잇몸 치료로 살릴 수 있을까요?",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "잇몸 치료",
+  "concern": "이를 빼야 할까 봐 두려워요",
+  "description": "홍성에서 앞니 흔들림과 발치 걱정으로 상담을 준비할 때, 잇몸·뼈 검사와 보존 가능성, 치료 후 재평가와 방문 계획을 정리합니다.",
+  "situation": "앞니가 움직이는 것 같아 혀로 자꾸 확인하게 됩니다. 홍성에서 잇몸 치료 상담을 알아보지만 바로 발치를 권할까 봐 예약을 망설입니다.",
+  "answer": "앞니가 흔들린다는 사실만으로 발치를 결정하지는 않습니다. 치아를 지지하는 잇몸·뼈, 맞물림과 다른 손상 여부를 검사하고 보존을 시도할 조건과 한계를 함께 판단합니다.",
+  "checks": [
+    "흔들림을 처음 느낀 시기, 부딪힘과 통증·출혈 여부를 알립니다.",
+    "잇몸 주머니·출혈·치아 움직임·맞물림·영상에서 보이는 뼈 상태를 함께 확인합니다.",
+    "보존 치료의 목표와 다시 평가할 시점, 발치 판단을 바꿀 조건을 묻습니다."
+  ],
+  "choices": [
+    {
+      "condition": "보존 치료를 시도할 조건이 있으면",
+      "option": "상태에 맞는 치주 치료와 관리 후 반응을 다시 평가합니다.",
+      "limit": "치료 후 움직임이 완전히 사라지거나 소실된 지지가 모두 회복된다고 보장하지 않습니다."
+    },
+    {
+      "condition": "치아를 유지하기 어렵다고 판단되면",
+      "option": "그 판단의 근거와 다른 평가 가능성, 빈자리의 중간 대책을 상담합니다.",
+      "limit": "흔들림 정도 하나나 온라인 사진만으로 발치를 확정할 수 없습니다."
+    }
+  ],
+  "unknown": "이 글은 서서히 느낀 성인 자연치 앞니의 흔들림 상담을 위한 안내입니다. 충격 직후 치아가 움직이거나 위치가 변한 상황은 외상 평가가 우선입니다.",
+  "prepare": [
+    "증상 시작 시점과 외상·교정·치주 치료 이력",
+    "복용약과 전신질환 정보, 이전 영상이 있다면 사본",
+    "발치·외형·식사·이동 중 가장 걱정되는 점"
+  ],
+  "localHeading": "홍성에서 앞니 흔들림 상담을 준비한다면",
+  "localAdvice": "홍성에서 천안 불당동으로 방문하기 전 앞니 위치, 시작 시점, 붓기와 외상 여부를 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 첫 평가와 이후 치주 치료·재평가 일정은 나누어 확인하세요.",
+  "related": [
+    {
+      "title": "치주염 치료를 고민할 때",
+      "href": "/guide/regret/periodontitis"
+    },
+    {
+      "title": "잇몸 치료 가이드",
+      "href": "/guide/regret/gum"
+    },
+    {
+      "title": "잇몸이 내려가 뿌리가 보일 때",
+      "href": "/concerns/receding-gums-exposed-roots-brushing-blame"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국 NIH NIDCR · 치주질환의 증상·검사·치료",
+      "href": "https://www.nidcr.nih.gov/health-info/gum-disease"
+    },
+    {
+      "title": "미국치주학회 AAP · 치주 진료에서 확인하는 항목",
+      "href": "https://www.perio.org/for-patients/what-is-a-periodontist/"
+    },
+    {
+      "title": "미국치주학회 AAP · 비수술 치주 치료와 유지 관리",
+      "href": "https://www.perio.org/for-patients/periodontal-treatments-and-procedures/non-surgical-treatments/"
+    }
+  ],
+  "updated": "2026-10-01",
+  "publishedAt": "2026-10-01T09:00:00+09:00"
+},
+{
+  "slug": "root-canal-finished-crown-cost-delay",
+  "title": "신경치료는 끝났는데 크라운 비용이 부담돼요. 씌우는 치료를 미뤄도 될까요?",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "신경치료",
+  "concern": "마무리 치료의 비용과 일정이 부담돼요",
+  "description": "예산에서 신경치료 후 크라운 비용 때문에 마무리를 망설일 때, 내부 치료와 최종 수복의 차이, 지연 상담과 임시 상태의 주의점을 정리합니다.",
+  "situation": "신경치료를 받고 통증은 줄었지만 씌우는 치료 비용이 걱정됩니다. 예산에서 여러 차례 방문한 뒤라 일정을 더 내기도 어려워 몇 달 뒤로 미뤄도 되는지 궁금합니다.",
+  "answer": "신경치료가 끝나도 치아를 밀폐하고 씹는 힘에서 보호하는 최종 수복이 남을 수 있습니다. 미뤄도 되는 기간을 일괄 정할 수 없으므로 현재 임시 재료와 남은 치아 상태를 확인하고, 비용·일정 제약을 알린 뒤 마무리 계획을 잡으세요.",
+  "checks": [
+    "신경치료가 실제로 끝났는지, 현재 위쪽을 막은 재료가 무엇인지 확인합니다.",
+    "남은 치아 양과 위치에 맞는 수복 범위, 크라운을 권하는 이유를 묻습니다.",
+    "지연이 불가피하면 임시 관리와 재점검 시점, 연락해야 할 증상을 구체적으로 정합니다."
+  ],
+  "choices": [
+    {
+      "condition": "최종 수복을 바로 계획할 수 있으면",
+      "option": "치아 상태에 맞는 보호 방법과 일정을 정합니다.",
+      "limit": "모든 신경치료 치아에 똑같은 수복 방식이 필요한 것은 아닙니다."
+    },
+    {
+      "condition": "비용이나 방문 제약으로 지연이 불가피하면",
+      "option": "치료한 치과에 먼저 알리고 현재 상태의 점검과 단계별 계획을 상담합니다.",
+      "limit": "임시 상태를 장기간 안전하게 유지할 수 있다고 약속할 수는 없습니다."
+    }
+  ],
+  "unknown": "며칠 또는 몇 달이라는 공통 안전기간, 비용·분납·보험 적용이나 당일 제작 가능 여부는 이 글에서 확정할 수 없습니다.",
+  "prepare": [
+    "치료한 치아 위치와 마지막 신경치료 날짜",
+    "현재 임시 재료·코어·크라운 설명 및 견적서가 있다면 준비",
+    "방문 가능한 일정과 가장 부담되는 비용 단계"
+  ],
+  "localHeading": "예산에서 신경치료 마무리를 준비한다면",
+  "localAdvice": "예산에서 천안 불당동으로 방문하기 전 마지막 치료 날짜와 임시 재료의 이상 여부를 전달하세요. 서울비디치과의 진료 장소는 천안 불당동이며, 첫 확인과 보철 제작·장착 일정을 각각 문의할 수 있습니다.",
+  "related": [
+    {
+      "title": "신경치료 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "크라운 치료를 결정하기 전",
+      "href": "/guide/regret/crown"
+    },
+    {
+      "title": "임시 크라운이 빠졌을 때",
+      "href": "/concerns/temporary-crown-fell-out-before-next-visit"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국근관치료학회 AAE · 치료 후 관리와 최종 수복",
+      "href": "https://www.aae.org/patients/your-office-visit/post-treatment-care/"
+    },
+    {
+      "title": "미국근관치료학회 AAE · 신경치료와 치아 수복 과정",
+      "href": "https://www.aae.org/patients/root-canal-treatment/what-is-a-root-canal/root-canal-explained/"
+    },
+    {
+      "title": "미국근관치료학회 AAE · 수복 지연·누출과 재치료",
+      "href": "https://www.aae.org/patients/root-canal-treatment/endodontic-treatment-options/endodontic-retreatment/"
+    },
+    {
+      "title": "영국 NHS · 신경치료와 충전·크라운",
+      "href": "https://www.nhs.uk/tests-and-treatments/root-canal-treatment/"
+    }
+  ],
+  "updated": "2026-10-01",
+  "publishedAt": "2026-10-01T09:00:00+09:00"
+},
+{
+  "slug": "baby-molar-cavity-treat-before-falling-out",
+  "title": "어차피 빠질 유치인데, 충치를 꼭 치료해야 하나요?",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "소아 충치",
+  "concern": "아이에게 필요한 치료인지 모르겠어요",
+  "description": "당진에서 아이 유치 어금니 충치 상담을 준비할 때, 교환 시기·충치 진행·통증과 치료 부담을 함께 비교하고 관찰과 수복의 조건을 정리합니다.",
+  "situation": "아이 유치 어금니에 충치가 있다는 말을 들었습니다. 당진에서 치료를 위해 이동해야 하고 아이도 치과를 무서워해 빠질 때까지 기다려도 되는지 고민합니다.",
+  "answer": "유치는 빠질 치아라도 그때까지 씹고 말하며 영구치가 나올 길을 유지하는 역할이 있습니다. 모든 충치를 같은 방법으로 치료하지는 않으며, 교환까지 남은 시간과 충치의 깊이·진행, 증상과 아이의 진료 적응을 함께 평가합니다.",
+  "checks": [
+    "해당 치아가 유치인지와 교환까지의 예상 경과를 확인합니다.",
+    "충치의 깊이·구멍·진행 여부와 통증·감염 징후를 구분합니다.",
+    "관찰한다면 관리 방법과 재검 시점을, 치료한다면 방식과 방문 단계를 묻습니다."
+  ],
+  "choices": [
+    {
+      "condition": "예방 관리와 관찰이 적합하다고 판단되면",
+      "option": "진행 위험에 맞는 관리와 계획된 재검을 이어갑니다.",
+      "limit": "빠질 때까지 아무 확인 없이 기다린다는 뜻은 아닙니다."
+    },
+    {
+      "condition": "치아를 수복할 필요가 있으면",
+      "option": "남은 구조와 병변 범위에 맞춰 충전이나 크라운 등을 검토합니다.",
+      "limit": "치아마다 필요한 범위가 다르며 모든 유치에 크라운이 필요한 것은 아닙니다."
+    }
+  ],
+  "unknown": "유치라는 이유만으로 치료가 불필요하지도, 충치라는 말만으로 모두 크게 깎아야 하지도 않습니다. 보호자가 보이는 색이나 아이의 통증 표현만으로 치료 범위를 확정할 수 없습니다.",
+  "prepare": [
+    "아이 나이와 불편이 시작된 때, 식사·수면의 변화",
+    "이전 영상·치료 계획·복용약과 알레르기 정보",
+    "아이의 두려움과 방문 가능한 일정"
+  ],
+  "localHeading": "당진에서 유치 충치 상담을 준비한다면",
+  "localAdvice": "당진에서 천안 불당동으로 오기 전 아이 나이, 아픈 위치, 붓기와 밤에 깨는 증상 여부를 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 검사와 실제 치료의 범위, 추가 방문 가능성을 먼저 확인하세요.",
+  "related": [
+    {
+      "title": "충치 치료를 결정하기 전",
+      "href": "/guide/regret/cavity"
+    },
+    {
+      "title": "아이 영구치 어금니가 누렇고 부서질 때",
+      "href": "/concerns/child-new-molar-yellow-and-crumbling"
+    },
+    {
+      "title": "당진에서 방문 준비",
+      "href": "/area/dangjin"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국소아치과학회 AAPD · 유치의 역할과 보호자 질문",
+      "href": "https://www.aapd.org/resources/parent/faq/"
+    },
+    {
+      "title": "미국소아치과학회 AAPD · 소아 수복 치료 권고",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/pediatric-restorative-dentistry/"
+    },
+    {
+      "title": "미국소아치과학회 AAPD · 충치 위험 평가와 개별 관리",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/caries-risk-assessment-and-management-for-infants-children-and-adolescents/"
+    },
+    {
+      "title": "미국소아치과학회 AAPD · 어린이 충치 치료 정책 자료",
+      "href": "https://www.aapd.org/globalassets/media/policy-center/treatingtoothdecay.pdf"
+    }
+  ],
+  "updated": "2026-10-01",
+  "publishedAt": "2026-10-01T09:00:00+09:00"
+},
+{
+  "slug": "sharp-pain-when-releasing-bite-cracked-tooth",
+  "title": "씹었다가 힘을 뺄 때 찌릿해요. 금이 갔다면 무조건 뽑아야 하나요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "치아 균열",
+  "concern": "금이 갔다는 말에 발치부터 떠올라요",
+  "description": "서산에서 씹고 힘을 뺄 때 찌릿한 통증과 치아 균열을 걱정한다면, 검사로 확인할 범위와 보존·발치 판단, 단계별 치료 계획을 정리해 보세요.",
+  "situation": "평소에는 괜찮다가 음식을 씹고 힘을 뺄 때 한 번씩 찌릿합니다. 서산에서 치아 균열 검사를 알아보지만 금이 갔다는 말을 들으면 바로 뽑아야 할까 봐 두렵습니다.",
+  "answer": "씹거나 힘을 뺄 때의 통증은 균열에서 나타날 수 있지만 그 느낌만으로 확진하지 않습니다. 균열의 형태·범위, 치수와 잇몸 상태, 남은 구조를 함께 평가해 보존 치료 가능성과 한계를 설명받아야 합니다.",
+  "checks": [
+    "통증이 물 때인지 힘을 뺄 때인지, 차갑거나 뜨거운 것에도 반응하는지 알립니다.",
+    "증상·씹기 검사·잇몸 검사·치수 반응·영상 등을 종합해 확인한 점과 불확실한 점을 나눠 듣습니다.",
+    "보호 수복·신경치료·발치가 각각 어떤 조건에서 필요한지와 재평가 시점을 묻습니다."
+  ],
+  "choices": [
+    {
+      "condition": "수복하여 유지할 조건이 있으면",
+      "option": "균열과 남은 치아 상태에 맞는 보호 치료를 상담합니다.",
+      "limit": "크라운으로 금이 사라지거나 장기 결과가 보장되는 것은 아닙니다."
+    },
+    {
+      "condition": "치수의 상태가 치료를 필요로 하면",
+      "option": "신경치료와 이후 치아 보호를 함께 검토할 수 있습니다.",
+      "limit": "통증이나 균열이 있다는 이유만으로 모든 치아에 신경치료를 적용하지는 않습니다."
+    },
+    {
+      "condition": "유지하기 어렵다고 평가되면",
+      "option": "발치 판단의 근거와 대안·일정에 대한 설명을 듣습니다.",
+      "limit": "집에서 보이는 선이나 통증 양상만으로 이 단계라고 확정할 수 없습니다."
+    }
+  ],
+  "unknown": "이 글은 자연치의 균열 의심 증상에 대한 상담 안내입니다. 실제 균열의 깊이와 치료 가능성, 비용·방문 횟수는 온라인으로 확정할 수 없습니다.",
+  "prepare": [
+    "어느 쪽에서 어떤 음식·동작 때 아픈지 적은 메모",
+    "오래된 충전·크라운·신경치료 여부와 보유한 영상",
+    "서산에서 가능한 방문 일정과 치료 선택에서 가장 두려운 점"
+  ],
+  "localHeading": "서산에서 치아 균열 상담을 준비한다면",
+  "localAdvice": "서산에서 천안 불당동으로 방문하기 전 씹을 때와 힘을 뺄 때의 통증, 기존 보철 여부를 알려주세요. 서울비디치과의 진료 장소는 천안 불당동입니다. 첫 평가와 치료·재평가 일정을 나누어 문의하세요.",
+  "related": [
+    {
+      "title": "신경치료 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "신경치료와 임플란트를 비교하기 전",
+      "href": "/guide/compare/root-canal-vs-implant"
+    },
+    {
+      "title": "어금니가 불편한데 엑스레이는 괜찮다고 할 때",
+      "href": "/concerns/molar-discomfort-normal-xray"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국근관치료학회 AAE · 치아 균열의 증상과 유형",
+      "href": "https://www.aae.org/patients/dental-symptoms/cracked-teeth/"
+    },
+    {
+      "title": "미국근관치료학회 AAE · 균열 검사와 예후 판단의 한계",
+      "href": "https://www.aae.org/specialty/cracking-the-cracked-tooth-code-from-unpredictability-to-predictability/"
+    },
+    {
+      "title": "미국근관치료학회 AAE · 균열 치아의 보존 여부를 판단할 때",
+      "href": "https://www.aae.org/specialty/cracked-teeth-to-treat-or-not-to-treat/"
+    }
+  ],
+  "updated": "2026-10-01",
+  "publishedAt": "2026-10-01T09:00:00+09:00"
 }
 ]
 
