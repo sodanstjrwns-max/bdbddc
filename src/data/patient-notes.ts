@@ -3440,7 +3440,295 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-02",
   "publishedAt": "2026-10-02T09:00:00+09:00"
-}
+},
+  {
+    "slug": "deep-gum-treatment-after-recent-scaling",
+    "title": "스케일링을 했는데 잇몸 속 치료를 또 하자고 해요. 같은 치료를 반복하는 건가요?",
+    "region": "당진",
+    "areaPath": "/area/dangjin",
+    "topic": "잇몸 치료",
+    "concern": "이미 치료했는데 또 해야 하나요",
+    "description": "당진에서 최근 스케일링 후 추가 잇몸 치료를 권유받았다면, 이전 처치 범위와 치주 검사 결과를 비교하고 방문·비용·마취 계획을 확인하는 방법을 살펴봅니다.",
+    "situation": "당진에서 시간을 내 스케일링을 받았는데 잇몸 안쪽을 몇 번 더 치료하자고 합니다. 깨끗하게 했다는 느낌인데 왜 다시 해야 하는지, 치료가 끝없이 이어질지 걱정됩니다.",
+    "answer": "일상에서 스케일링이라고 부르는 처치와 잇몸 아래 치주질환을 치료하는 범위는 다를 수 있습니다. 최근 받았다는 사실만으로 추가 치료가 불필요하거나 반드시 필요하다고 정하지 않습니다. 이전에 어느 부위를 치료했는지와 현재 잇몸 주머니·출혈·뼈 상태를 함께 확인하세요.",
+    "checks": [
+      "이전 스케일링 날짜와 치료한 부위·범위를 확인합니다.",
+      "잇몸 주머니 깊이, 출혈과 치아를 지지하는 뼈 상태를 설명받습니다.",
+      "이번 처치의 목적과 부위, 마취 여부 및 재평가 계획을 구분합니다."
+    ],
+    "choices": [
+      {
+        "condition": "염증이 잇몸 표면에 머물고 기본 관리에 반응하는 경우",
+        "option": "전문적인 청소와 일상 관리를 조정하며 확인합니다.",
+        "limit": "검사 없이 깊은 치료가 필요 없다고 단정하지 않습니다."
+      },
+      {
+        "condition": "잇몸 아래 치근면과 주머니에 치료할 문제가 있는 경우",
+        "option": "비수술적 치주 치료의 범위와 순서를 상의합니다.",
+        "limit": "방문 수나 치료비는 진단과 계획을 확인해야 합니다."
+      },
+      {
+        "condition": "초기 치료 뒤에도 깊은 주머니와 염증이 남는 경우",
+        "option": "재평가 결과에 따라 추가 치료나 전문 진료를 검토합니다.",
+        "limit": "처음부터 모든 분에게 잇몸 수술을 정하는 것은 아닙니다."
+      }
+    ],
+    "unknown": "스케일링이라는 이름과 영수증 금액만으로 이전 처치가 충분했는지, 이번 치료가 중복인지 판단할 수 없습니다.",
+    "prepare": [
+      "최근 스케일링 날짜와 가지고 있는 진료내역",
+      "출혈·시림·음식 끼임의 위치와 변화",
+      "복용약·당뇨 등 건강 상태와 방문 가능한 일정"
+    ],
+    "localHeading": "당진에서 잇몸 치료 상담을 준비한다면",
+    "localAdvice": "당진에서 천안 불당동으로 이동하기 전에 최근 스케일링을 받은 날짜와 추가 치료 설명 중 궁금한 점을 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 첫 검사와 치료 범위, 이후 방문 및 재평가 일정을 나누어 상의할 수 있습니다.",
+    "related": [
+      {
+        "title": "스케일링과 잇몸 관리",
+        "href": "/guide/scaling"
+      },
+      {
+        "title": "스케일링 뒤 치아 사이가 비어 보일 때",
+        "href": "/concerns/gaps-between-teeth-after-scaling"
+      },
+      {
+        "title": "앞니가 흔들려 잇몸 치료를 고민할 때",
+        "href": "/concerns/loose-front-tooth-can-it-be-saved"
+      }
+    ],
+    "sources": [
+      {
+        "title": "미국 국립치의학연구소 NIDCR · 치주질환 검사와 치료",
+        "href": "https://www.nidcr.nih.gov/health-info/gum-disease"
+      },
+      {
+        "title": "미국치과의사협회 ADA · 잇몸 아래 청소와 치근면 치료",
+        "href": "https://www.mouthhealthy.org/all-topics-a-z/scaling-and-root-planing"
+      },
+      {
+        "title": "유럽치주학회 EFP · 단계별 잇몸 치료와 재평가",
+        "href": "https://www.efp.org/for-patients/gum-diseases/gum-disease-treatment/"
+      }
+    ],
+    "updated": "2026-10-03",
+    "publishedAt": "2026-10-03T09:00:00+09:00"
+  },
+  {
+    "slug": "toothache-returns-after-antibiotics",
+    "title": "항생제를 먹으면 치통이 가라앉아요. 치료 없이 약으로 버틸 수는 없나요?",
+    "region": "서산",
+    "areaPath": "/area/seosan",
+    "topic": "치통",
+    "concern": "약이 들으면 치료를 미뤄도 될까요",
+    "description": "서산에서 약을 먹는 동안 치통이 줄어 진료를 미루고 있다면, 증상 완화와 원인 치료의 차이, 항생제가 필요한 조건과 빠른 평가가 필요한 변화를 살펴봅니다.",
+    "situation": "서산에서 어금니 통증 때문에 약을 처방받았습니다. 약을 먹으면 덜 아프지만 치료를 시작하자니 비용과 방문 일정이 부담돼, 다시 아플 때 약만 받아도 되는지 고민합니다.",
+    "answer": "약을 먹고 덜 아프다는 사실만으로 치아의 원인이 해결됐다고 판단하지 않습니다. 치통은 모두 항생제가 필요한 것도 아니며, 감염 원인에 대한 치과 처치가 필요한 경우 약만 반복해서 대신할 수 없습니다. 처방받은 약은 지시에 따라 사용하고 재발·부기·발열을 알려 다음 진료를 정하세요.",
+    "checks": [
+      "처방약 이름과 복용 시점, 통증이 줄었다 다시 생긴 시점을 확인합니다.",
+      "치아·잇몸 원인과 부기, 발열 등 감염 확산 징후를 평가합니다.",
+      "약의 목적과 원인 치료, 재평가 및 빠른 연락 기준을 나눠 설명받습니다."
+    ],
+    "choices": [
+      {
+        "condition": "치아 내부나 뿌리 주변 원인에 대한 처치가 필요한 경우",
+        "option": "검사에 따라 신경치료·배농 등 적절한 치과 치료를 계획합니다.",
+        "limit": "약에 대한 반응만으로 치료 종류나 발치를 정하지 않습니다."
+      },
+      {
+        "condition": "전신 증상이나 건강 상태 때문에 항생제가 필요한 경우",
+        "option": "진료자가 약과 처치 및 재평가 시점을 함께 정합니다.",
+        "limit": "항생제를 모든 치통에 쓰거나 필요할 때도 피하라는 뜻은 아닙니다."
+      },
+      {
+        "condition": "호흡·삼킴 어려움 등 위험 신호가 있는 경우",
+        "option": "119 또는 가까운 응급실을 통해 즉시 평가받습니다.",
+        "limit": "원래 치과 예약이나 약 효과를 기다리지 않습니다."
+      }
+    ],
+    "unknown": "약을 먹고 좋아졌는지 여부만으로 원인 치아, 감염 범위, 치료 없이 기다릴 수 있는 기간을 확정할 수 없습니다.",
+    "prepare": [
+      "처방전·약 봉투 또는 복용약 이름을 알 수 있는 사진",
+      "복용 전후 통증과 부기·발열 변화 기록",
+      "알레르기·기저질환·임신 여부와 다른 복용약 정보"
+    ],
+    "localHeading": "서산에서 반복되는 치통 상담을 준비한다면",
+    "localAdvice": "서산에서 천안 불당동 방문을 계획할 때 약 복용 뒤 다시 아픈지와 얼굴 부기·발열 유무를 먼저 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 호흡·삼킴 어려움 등 응급 증상은 먼 이동이나 예약을 기다리지 말고 가까운 응급의료를 이용하세요.",
+    "related": [
+      {
+        "title": "신경치료 과정과 확인할 점",
+        "href": "/guide/root-canal"
+      },
+      {
+        "title": "아프지 않아도 신경치료를 권유받았을 때",
+        "href": "/concerns/root-canal-recommended-without-toothache"
+      },
+      {
+        "title": "잇몸 뾰루지가 반복될 때",
+        "href": "/concerns/gum-pimple-keeps-coming-back-without-pain"
+      }
+    ],
+    "sources": [
+      {
+        "title": "미국치과의사협회 ADA · 치성 통증·감염과 항생제 적정 사용",
+        "href": "https://www.ada.org/resources/ada-library/oral-health-topics/antibiotic-stewardship"
+      },
+      {
+        "title": "미국 CDC · 항생제 복용 원칙과 부작용 상담",
+        "href": "https://www.cdc.gov/antibiotic-use/about/"
+      },
+      {
+        "title": "NHS · 치성 농양의 치료와 응급 증상",
+        "href": "https://www.nhs.uk/conditions/dental-abscess/"
+      },
+      {
+        "title": "NHS · 약물 관련 심한 알레르기와 응급 증상",
+        "href": "https://www.nhs.uk/conditions/anaphylaxis/"
+      }
+    ],
+    "updated": "2026-10-03",
+    "publishedAt": "2026-10-03T09:00:00+09:00"
+  },
+  {
+    "slug": "white-marks-around-orthodontic-brackets",
+    "title": "교정장치 주변에 하얀 자국이 보여요. 가지런해져도 얼룩이 남는 건가요?",
+    "region": "천안",
+    "areaPath": "/area/cheonan",
+    "topic": "교정",
+    "concern": "교정이 끝나도 웃기 어려울까 봐 걱정돼요",
+    "description": "천안에서 교정 브라켓 주변의 흰 자국 때문에 걱정된다면, 치아 표면 변화와 초기 충치를 확인하고 교정·예방 관리 계획을 함께 상의하는 방법을 살펴봅니다.",
+    "situation": "천안에서 고정식 교정장치를 사용 중인데 앞니 브라켓 주변에 하얀 테두리 같은 자국이 보입니다. 양치가 부족했던 탓인지 자책되고, 교정이 끝난 뒤 앞니를 깎아야 할까 걱정됩니다.",
+    "answer": "교정장치 주변의 흰 자국은 치아 표면의 무기질이 빠져나간 초기 충치 변화일 수 있지만 사진이나 색만으로 단정할 수 없습니다. 담당 치과에서 이전 사진과 현재 표면 상태를 확인하세요. 진행을 막는 관리와 남은 색 차이를 다루는 계획은 구분하며, 모든 자국을 곧바로 깎거나 덮는 것은 아닙니다.",
+    "checks": [
+      "흰 자국을 처음 본 시점과 교정 전 사진을 비교합니다.",
+      "치아 표면 손상·충치 진행 여부와 장치 주변 청소 상태를 살핍니다.",
+      "불소 사용·식사 간격·장치 관리와 확인 시점을 함께 정합니다."
+    ],
+    "choices": [
+      {
+        "condition": "표면이 유지된 초기 충치 변화로 평가되는 경우",
+        "option": "불소와 구강위생·식습관 등 비수복적 관리 가능성을 상의합니다.",
+        "limit": "진행 억제와 흰색의 완전한 소실은 같은 결과가 아닙니다."
+      },
+      {
+        "condition": "구멍이나 진행된 손상이 확인되는 경우",
+        "option": "치아 상태에 맞는 치료와 교정 일정 조정을 검토합니다.",
+        "limit": "장치를 임의로 떼거나 글만 보고 치료법을 선택하지 않습니다."
+      },
+      {
+        "condition": "건강 상태를 안정시킨 뒤 색 차이가 고민으로 남는 경우",
+        "option": "표면 상태에 맞는 외관 개선의 선택과 한계를 설명받습니다.",
+        "limit": "곧바로 미백·삭제·크라운을 정하거나 얼룩 제거를 보장하지 않습니다."
+      }
+    ],
+    "unknown": "집에서 찍은 사진만으로 초기 충치인지, 진행이 멈췄는지, 자국이 얼마나 남을지 판단할 수 없습니다.",
+    "prepare": [
+      "교정 시작 전 또는 변화 전 사진이 있다면 준비",
+      "평소 칫솔·치간칫솔·치약 정보와 관리가 어려운 부위",
+      "간식·음료를 먹는 시간과 최근 시림·통증 여부"
+    ],
+    "localHeading": "천안에서 교정 중 치아 표면 상담을 준비한다면",
+    "localAdvice": "천안에서 상담을 예약할 때 현재 교정 중이라는 점과 흰 자국이 보이는 위치를 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 기존 교정 담당 치과의 계획과 자료를 함께 확인하고, 장치 조정과 치아 표면 평가의 역할을 구분해 상의하세요.",
+    "related": [
+      {
+        "title": "교정 치료와 관리 가이드",
+        "href": "/guide/orthodontics"
+      },
+      {
+        "title": "충치 치료를 결정하기 전",
+        "href": "/guide/regret/cavity"
+      },
+      {
+        "title": "미백 뒤 시림이 생겼을 때",
+        "href": "/concerns/sensitive-teeth-after-whitening"
+      }
+    ],
+    "sources": [
+      {
+        "title": "미국 국립치의학연구소 NIDCR · 흰 자국과 초기 충치의 진행",
+        "href": "https://www.nidcr.nih.gov/health-info/tooth-decay/more-info/tooth-decay-process"
+      },
+      {
+        "title": "NHS · 고정식 교정장치 관리와 정기 검사",
+        "href": "https://www.nhs.uk/tests-and-treatments/braces/"
+      },
+      {
+        "title": "South Tees Hospitals NHS · 교정 중 백색 변화와 충치 위험",
+        "href": "https://www.southtees.nhs.uk/services/orthodontics/frequently-asked-questions/"
+      }
+    ],
+    "updated": "2026-10-03",
+    "publishedAt": "2026-10-03T09:00:00+09:00"
+  },
+  {
+    "slug": "old-amalgam-filling-mercury-removal-worry",
+    "title": "오래된 아말감에 수은이 있다는데, 안 아파도 전부 바꿔야 하나요?",
+    "region": "아산",
+    "areaPath": "/area/asan",
+    "topic": "충전물",
+    "concern": "그동안 몸에 해로운 것을 두고 산 건가요",
+    "description": "아산에서 오래된 은색 충전물의 수은 때문에 불안하다면, 아말감 상태와 교체 이유를 확인하고 새 재료 선택과 정상 충전물 제거를 구분하는 상담 방법을 살펴봅니다.",
+    "situation": "아산에서 오래전 어금니를 은색 재료로 메운 뒤 잘 지냈는데 수은 관련 영상을 보고 불안해졌습니다. 여러 개를 한꺼번에 바꾸면 비용도 크고 멀쩡한 치아를 더 깎을까 걱정됩니다.",
+    "answer": "FDA는 충전물이 온전하고 아래에 충치가 없다면 질병 예방만을 이유로 아말감을 제거하는 것을 권하지 않습니다. 제거할 때 건강한 치아가 더 손실되거나 일시적으로 수은 증기 노출이 늘 수 있기 때문입니다. 파손·충치·확인된 알레르기 등 개별 사유와 건강 상태를 살펴 교체 필요성을 상담하세요.",
+    "checks": [
+      "은색 충전물이 아말감인지와 현재 파손·충치 여부를 확인합니다.",
+      "교체 이유가 치아 문제, 재료에 대한 우려, 외관 중 무엇인지 나눕니다.",
+      "임신·수유·신장/신경 질환·확인된 재료 알레르기 등 건강 이력을 전달합니다."
+    ],
+    "choices": [
+      {
+        "condition": "기존 충전물이 온전하고 추가 충치가 확인되지 않는 경우",
+        "option": "일률적 제거보다 상태를 기록하고 정기적으로 점검합니다.",
+        "limit": "아프지 않다는 느낌만으로 온전하다고 판단하지 않습니다."
+      },
+      {
+        "condition": "충전물 파손이나 충치 등 치과적 문제가 확인된 경우",
+        "option": "보존할 치아와 필요한 수복 범위에 맞춰 치료를 비교합니다.",
+        "limit": "모든 은색 충전물을 같은 방법으로 한꺼번에 교체하지 않습니다."
+      },
+      {
+        "condition": "특정 건강 상태나 재료 알레르기가 우려되는 경우",
+        "option": "치과 및 필요한 경우 담당 의사와 개별 위험·이점을 상의합니다.",
+        "limit": "새 아말감 사용을 피하라는 권고와 정상 충전물 제거 권고는 다릅니다."
+      }
+    ],
+    "unknown": "색이나 사용 기간, 막연한 피로감만으로 충전물 상태 또는 수은으로 인한 건강 문제를 진단할 수 없습니다.",
+    "prepare": [
+      "기존 충전 시기나 진료 기록을 알고 있다면 준비",
+      "치아 불편의 위치와 파손·음식 끼임 변화",
+      "알레르기 검사 또는 관련 질환·복용약 자료"
+    ],
+    "localHeading": "아산에서 오래된 충전물 상담을 준비한다면",
+    "localAdvice": "아산에서 천안 불당동으로 방문하기 전 충전물의 불편과 수은에 대한 걱정 중 무엇이 상담 이유인지 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 치아별 점검과 치료 필요성, 재료 선택 및 방문 계획을 구분해 상의할 수 있습니다.",
+    "related": [
+      {
+        "title": "충치 치료 전 확인할 점",
+        "href": "/guide/regret/cavity"
+      },
+      {
+        "title": "레진과 인레이 치료 범위 비교",
+        "href": "/guide/compare/resin-vs-inlay"
+      },
+      {
+        "title": "충전물 가장자리만 깨졌을 때",
+        "href": "/concerns/chipped-filling-repair-or-replace"
+      }
+    ],
+    "sources": [
+      {
+        "title": "미국 FDA · 아말감의 위험 평가와 기존 충전물 제거 안내",
+        "href": "https://www.fda.gov/medical-devices/dental-amalgam-fillings/information-patients-about-dental-amalgam-fillings"
+      },
+      {
+        "title": "미국 FDA · 새 아말감 선택과 기존 충전물에 대한 권고 구분",
+        "href": "https://www.fda.gov/medical-devices/dental-amalgam-fillings/dental-amalgam-fillings-recommendations-graphics"
+      },
+      {
+        "title": "미국 FDA · 충치 수복 재료의 선택",
+        "href": "https://www.fda.gov/medical-devices/dental-amalgam-fillings/treatment-options-dental-caries"
+      }
+    ],
+    "updated": "2026-10-03",
+    "publishedAt": "2026-10-03T09:00:00+09:00"
+  }
 ]
 
 export const noteRegions = ['천안', '아산', '홍성', '예산', '당진', '서산'] as const
