@@ -3728,7 +3728,268 @@ export const patientNotes: PatientNote[] = [
     ],
     "updated": "2026-10-03",
     "publishedAt": "2026-10-03T09:00:00+09:00"
-  }
+  },
+{
+  "slug": "dental-anesthesia-while-breastfeeding",
+  "title": "수유 중인데 치통이 심해요. 마취하면 모유를 버려야 하나요?",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "치과 마취",
+  "concern": "아이에게 영향이 갈까 두려워요",
+  "description": "홍성에서 수유 중 치통으로 치과 방문을 망설일 때, 국소마취와 다른 약을 구분하고 수유·돌봄 일정을 상담하는 방법을 정리합니다.",
+  "situation": "홍성에서 아기를 돌보며 모유 수유를 하고 있습니다. 치통으로 잠을 못 자지만 마취약이 아기에게 갈까 걱정되고, 유축해 둔 모유도 넉넉하지 않아 치료를 미루고 있습니다.",
+  "answer": "수유 중이라는 이유만으로 필요한 치과 치료와 국소마취를 모두 미룰 필요는 없습니다. 리도카인에 대한 LactMed 안내는 일반적으로 수유를 중단하거나 모유를 버리는 특별한 조치가 필요하지 않다고 설명합니다. 다만 실제 마취제·함께 쓰는 약·진정 여부와 아기 상태를 확인해 개별 안내를 받으세요.",
+  "checks": [
+    "수유 중임을 예약과 진료 때 알리고 아기 나이, 미숙아 출생이나 황달 이력을 전달합니다.",
+    "국소마취만 하는지, 진정제와 치료 후 약도 쓰는지 구분합니다.",
+    "통증 시작 시점과 부기, 복용 중인 약 및 알레르기 정보를 정리합니다."
+  ],
+  "choices": [
+    {
+      "condition": "일반적인 치과 국소마취가 필요한 경우",
+      "option": "사용할 약을 확인하고 수유를 이어 가면서 치료할 수 있는지 상담합니다.",
+      "limit": "리도카인의 안내를 모든 약이나 진정치료에 그대로 적용하지 않습니다."
+    },
+    {
+      "condition": "진정치료나 추가 약이 필요한 경우",
+      "option": "약별 수유 안내와 치료 당일 아기 돌봄·귀가 계획을 함께 확인합니다.",
+      "limit": "진료 내용이 정해지기 전에 수유 재개 시각을 일괄 약속할 수 없습니다."
+    }
+  ],
+  "unknown": "수유 중이라고 임의로 처방약을 끊거나, 통증을 참으려고 마취를 거부하지 마세요. 특정 약에 대한 설명을 받았다면 약 이름과 권고 이유를 확인하세요.",
+  "prepare": [
+    "아기 나이·출생 관련 의료 정보 중 약 선택에 필요한 내용",
+    "현재 복용약과 이미 먹은 진통제 이름 또는 약 봉투",
+    "치통 경과와 치료 당일 돌봄을 도와줄 수 있는 시간"
+  ],
+  "localHeading": "홍성에서 수유 중 치과 마취 상담을 준비한다면",
+  "localAdvice": "홍성에서 이동하면서 수유 간격과 돌봄까지 맞춰야 한다면 예약 시 가능한 체류 시간과 동행 여부를 알려주세요. 첫 방문 평가와 실제 치료 시간이 같은지는 확인이 필요합니다. 서울비디치과의 실제 진료 장소는 천안 불당동이며, 이동 준비 때문에 심해지는 통증의 평가를 미루지 마세요.",
+  "related": [
+    {
+      "title": "치과 상담을 준비하는 기준",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "마취를 해도 아팠던 기억이 무서울 때",
+      "href": "/concerns/root-canal-fear-after-pain-despite-anesthesia"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국 NIH LactMed · 리도카인과 수유",
+      "href": "https://www.ncbi.nlm.nih.gov/sites/books/NBK501230/"
+    },
+    {
+      "title": "영국 NHS · 수유 중 약과 치과 국소마취",
+      "href": "https://www.nhs.uk/baby/breastfeeding-and-bottle-feeding/breastfeeding-and-lifestyle/medicines/"
+    },
+    {
+      "title": "영국 NHS · 치과 응급 진료와 전신·얼굴 손상 시 도움",
+      "href": "https://www.nhs.uk/nhs-services/dentists/how-to-find-an-nhs-dentist-in-an-emergency/"
+    }
+  ],
+  "updated": "2026-10-04",
+  "publishedAt": "2026-10-04T09:00:00+09:00"
+},
+{
+  "slug": "permanent-tooth-knocked-out-in-accident",
+  "title": "넘어져 영구치가 통째로 빠졌어요. 다시 살릴 수 있나요?",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "치아 외상",
+  "concern": "갑자기 앞니를 잃을까 두려워요",
+  "description": "예산에서 사고로 영구치가 통째로 빠졌을 때, 즉시 진료를 연결하고 치아를 다루는 방법과 유치와의 차이, 이후 확인할 과정을 안내합니다.",
+  "situation": "예산에서 넘어지거나 운동하다가 앞니가 통째로 빠졌습니다. 손에 든 치아를 씻어야 할지, 다시 넣어야 할지 모르겠고 앞니가 영영 없어질까 두렵습니다.",
+  "answer": "영구치가 통째로 빠진 경우에는 기다리지 말고 즉시 가까운 치과에 연락해 응급 평가를 받으세요. 치아는 뿌리가 아닌 머리 부분을 잡고 마르지 않게 보관합니다. 다시 넣기 어렵다면 우유나 전용 치아 보존액에 담아 함께 가져가세요. 유치는 다시 넣지 않습니다. 의식 저하·호흡 문제·심한 얼굴 손상이 있으면 119 등 응급의료가 먼저입니다.",
+  "checks": [
+    "영구치인지 유치인지, 빠진 시각과 이후 건조했던 시간을 알립니다.",
+    "뿌리를 만지거나 문질러 닦지 말고 현재 보관한 방법을 전달합니다.",
+    "머리·얼굴 손상과 의식·호흡 문제를 먼저 확인해 응급의료 연결이 필요한지 판단합니다."
+  ],
+  "choices": [
+    {
+      "condition": "영구치가 빠졌고 의식이 명료한 경우",
+      "option": "즉시 응급 치과와 연결하고 치아를 마르지 않게 보호합니다.",
+      "limit": "아이이거나 삼킬 위험이 있으면 입안에 보관하지 마세요. 억지로 밀어 넣지 않습니다."
+    },
+    {
+      "condition": "유치가 빠졌거나 구분이 안 되는 경우",
+      "option": "유치는 재삽입하지 않고, 구분이 안 되면 치아를 보관해 즉시 진료자에게 문의합니다.",
+      "limit": "크기나 아이 나이만으로 영구치라고 확신하지 마세요."
+    }
+  ],
+  "unknown": "빠진 시간, 치아 뿌리의 발달과 손상, 보관 상태 등을 평가해야 합니다. 시간이 지났다는 이유로 버리지 말고, 다시 심는 처치가 가능해도 장기 유지가 보장되는 것은 아닙니다.",
+  "prepare": [
+    "빠진 치아와 담아 둔 용기",
+    "사고 시각·건조 시간·보관액을 아는 범위에서 기록",
+    "다친 상황과 현재 복용약·알레르기 정보"
+  ],
+  "localHeading": "예산에서 치아 외상 직후 진료를 찾는다면",
+  "localAdvice": "예산에서 영구치가 빠졌다면 특정 병원의 예약이나 장거리 이동을 기다리지 말고 가장 빨리 응급 평가를 받을 수 있는 가까운 치과에 먼저 연락하세요. 서울비디치과의 진료 장소는 천안 불당동이며 즉시 처치 가능 여부는 확인해야 합니다. 심한 전신·얼굴 손상은 119 등 응급의료 안내를 우선하세요.",
+  "related": [
+    {
+      "title": "치료 결정을 앞두고 확인할 질문",
+      "href": "/guide/regret"
+    },
+    {
+      "title": "앞니 조각이 깨졌지만 통증이 없을 때",
+      "href": "/concerns/chipped-front-tooth-without-pain"
+    }
+  ],
+  "sources": [
+    {
+      "title": "영국 NHS · 빠진 치아의 응급 대처와 유치 주의",
+      "href": "https://www.nhs.uk/conditions/knocked-out-tooth/"
+    },
+    {
+      "title": "미국근관치료학회 AAE · 빠진 영구치의 보존과 즉시 진료",
+      "href": "https://www.aae.org/patients/dental-symptoms/knocked-out-teeth/"
+    },
+    {
+      "title": "미국근관치료학회 AAE · 치아 외상 평가와 경과 확인",
+      "href": "https://www.aae.org/patients/dental-symptoms/traumatic-dental-injuries/"
+    },
+    {
+      "title": "영국 NHS · 치과 응급 진료와 전신·얼굴 손상 시 도움",
+      "href": "https://www.nhs.uk/nhs-services/dentists/how-to-find-an-nhs-dentist-in-an-emergency/"
+    }
+  ],
+  "updated": "2026-10-04",
+  "publishedAt": "2026-10-04T09:00:00+09:00"
+},
+{
+  "slug": "adult-repeat-cavities-fluoride-treatment",
+  "title": "충치가 자꾸 생기는데, 어른도 불소를 발라야 하나요?",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "충치 예방",
+  "concern": "열심히 관리해도 또 치료하게 돼요",
+  "description": "당진에서 성인의 반복 충치로 불소 도포를 권유받았을 때, 개인 위험 평가와 치약·전문가 도포의 차이, 치료가 필요한 충치와의 구분을 안내합니다.",
+  "situation": "당진에서 정기검진을 받을 때마다 다른 치아에 충치가 있다고 듣습니다. 양치도 열심히 하는데 어른에게 불소를 바르자는 설명을 들으니 필요한 예방인지 추가 치료인지 헷갈립니다.",
+  "answer": "불소를 이용한 충치 예방은 어린이에게만 해당하지 않습니다. 성인도 충치 위험이 높다면 전문가 도포나 처방 불소 제품을 검토할 수 있습니다. 최근 충치, 입마름, 뿌리 노출과 생활습관을 평가해 방법을 정하며, 이미 구멍이 생긴 충치를 불소만으로 모두 메우거나 해결할 수는 없습니다.",
+  "checks": [
+    "새 충치가 생긴 시기와 위치, 과거 치료 주변인지 확인합니다.",
+    "입마름·복용약·노출된 뿌리와 간식·음료를 먹는 빈도를 함께 상담합니다.",
+    "현재 치약과 구강세정제, 도포를 권유한 이유를 기록합니다."
+  ],
+  "choices": [
+    {
+      "condition": "충치 위험이 높고 추가 예방이 필요한 경우",
+      "option": "치과에서 불소 도포 또는 개인에게 맞는 처방 제품을 검토합니다.",
+      "limit": "제품과 사용 간격을 모든 성인에게 같은 방식으로 정하지 않습니다."
+    },
+    {
+      "condition": "구멍이 생기기 전 초기 변화로 평가된 경우",
+      "option": "불소와 일상 관리, 경과 확인으로 관리할 수 있는지 살펴봅니다.",
+      "limit": "색깔만 보고 초기 충치라고 자가 판단하지 않습니다."
+    },
+    {
+      "condition": "구멍이나 수복이 필요한 손상이 확인된 경우",
+      "option": "필요한 치료와 이후 새 충치를 줄이는 예방 계획을 나눠 설명받습니다.",
+      "limit": "예방 도포가 이미 손상된 치아의 수복을 모두 대신하지 않습니다."
+    }
+  ],
+  "unknown": "충치가 생겼다는 사실만으로 양치를 게을리했다고 단정할 수 없습니다. 어떤 치아가 치료 대상이고 어느 곳을 예방·관찰할지 구분해 설명받으세요.",
+  "prepare": [
+    "최근 충치 치료 시기와 기존 검사 자료가 있다면 사본",
+    "평소 치약·구강세정제 제품 정보",
+    "입마름과 약 복용, 업무 중 간식·음료 습관"
+  ],
+  "localHeading": "당진에서 충치 예방 상담을 준비한다면",
+  "localAdvice": "당진에서 방문할 때 최근 치료 내역과 사용 제품을 알려 예방 상담 범위를 확인하세요. 매번 도포만 받으러 오기 부담스럽다면 평소 집에서 할 관리와 재평가 일정을 함께 상의할 수 있습니다. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 도포 여부와 간격은 검사 결과에 따라 정합니다.",
+  "related": [
+    {
+      "title": "치과 선택과 상담 준비",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "입이 마른 뒤 충치가 늘었다면",
+      "href": "/concerns/dry-mouth-after-medication-new-cavities"
+    },
+    {
+      "title": "잇몸이 내려가 치아 뿌리가 보인다면",
+      "href": "/concerns/receding-gums-exposed-roots-brushing-blame"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국치과의사협회 ADA · 국소 불소와 충치 위험별 적용",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/fluoride-topical-and-systemic-supplements"
+    },
+    {
+      "title": "미국 NIDCR · 충치의 진행·예방과 초기 병소 관리",
+      "href": "https://www.nidcr.nih.gov/health-info/tooth-decay"
+    },
+    {
+      "title": "미국치과의사협회 MouthHealthy · 성인의 불소 치약과 전문가 도포",
+      "href": "https://www.mouthhealthy.org/all-topics-a-z/fluoride/"
+    }
+  ],
+  "updated": "2026-10-04",
+  "publishedAt": "2026-10-04T09:00:00+09:00"
+},
+{
+  "slug": "dental-ct-after-recent-panoramic-xray",
+  "title": "얼마 전에 엑스레이를 찍었는데 CT를 또 찍자고 해요. 꼭 필요한가요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "치과 CT",
+  "concern": "검사가 겹치고 방사선이 걱정돼요",
+  "description": "서산에서 최근 치과 엑스레이 이후 CBCT 촬영을 권유받았을 때, 검사 목적과 기존 영상 활용, 촬영 범위 및 설명받을 질문을 정리합니다.",
+  "situation": "서산에서 치과 상담을 받고 파노라마 사진을 찍었습니다. 다른 진료 계획을 상담하는 중 CT가 더 필요하다는 설명을 들어, 같은 검사를 반복하는 것인지 방사선과 비용이 걱정됩니다.",
+  "answer": "일반 치과 엑스레이와 치과용 콘빔 CT는 제공하는 정보가 다르지만, CT가 항상 필요한 것은 아닙니다. 기존 영상으로 답하기 어려운 구체적인 진료 질문이 있는지, CT 결과가 치료 계획을 어떻게 바꾸는지 설명받으세요. 최근 영상을 전달해 중복을 줄이고, 필요한 범위와 촬영 조건을 확인할 수 있습니다.",
+  "checks": [
+    "기존 검사 종류·촬영 날짜·부위를 정리하고 원본 영상 전달 방법을 문의합니다.",
+    "이번 CT로 추가 확인하려는 구조와 치료 결정에 미치는 영향을 묻습니다.",
+    "임신 가능성이나 어린이 검사 여부, 촬영 중 자세 유지의 어려움을 미리 알립니다."
+  ],
+  "choices": [
+    {
+      "condition": "기존 영상으로 필요한 판단을 할 수 있는 경우",
+      "option": "추가 CT 없이 평가할 수 있는지 확인합니다.",
+      "limit": "영상의 날짜뿐 아니라 촬영 범위와 질도 확인해야 합니다."
+    },
+    {
+      "condition": "일반 영상만으로 필요한 정보를 얻기 어려운 경우",
+      "option": "진료 목적에 맞춘 CT의 이점과 위험을 비교합니다.",
+      "limit": "CT를 찍는다고 모든 통증 원인이나 치료 결과를 확정하는 것은 아닙니다."
+    }
+  ],
+  "unknown": "촬영 횟수 하나나 “정밀검사”라는 말만으로 필요 여부를 결정할 수 없습니다. 다른 병원에서 촬영했다는 사실만으로 재촬영이 당연한 것도 아니며, 최근 사진이 있다는 이유로 언제나 추가 검사가 불필요한 것도 아닙니다.",
+  "prepare": [
+    "최근 치과 영상의 날짜·검사 종류·판독 또는 설명 내용",
+    "영상 원본을 받을 수 있는지와 전달 방법",
+    "현재 증상, 이전 치료계획, 검사에서 가장 걱정되는 점"
+  ],
+  "localHeading": "서산에서 치과 CT 상담을 위해 이동하기 전",
+  "localAdvice": "서산에서 천안으로 방문하기 전에 보유 영상을 어떤 형식으로 전달할지 문의하세요. 자료를 가져와도 필요한 정보가 부족하면 추가 검사가 논의될 수 있습니다. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 첫 상담과 촬영 가능 범위·비용은 예약과 진찰 과정에서 개별 확인하세요.",
+  "related": [
+    {
+      "title": "치과 선택 전 설명받을 기준",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "임플란트 진료 과정 알아보기",
+      "href": "/guide/implant"
+    },
+    {
+      "title": "엑스레이는 괜찮은데 어금니가 불편할 때",
+      "href": "/concerns/molar-discomfort-normal-xray"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국 FDA · 치과용 콘빔 CT의 필요성·방사선 최적화·중복 촬영 검토",
+      "href": "https://www.fda.gov/radiation-emitting-products/medical-x-ray-imaging/dental-cone-beam-computed-tomography"
+    },
+    {
+      "title": "ACR·RSNA RadiologyInfo · 치과용 콘빔 CT의 용도와 한계",
+      "href": "https://www.radiologyinfo.org/en/info/dentalconect"
+    }
+  ],
+  "updated": "2026-10-04",
+  "publishedAt": "2026-10-04T09:00:00+09:00"
+}
 ]
 
 export const noteRegions = ['천안', '아산', '홍성', '예산', '당진', '서산'] as const
