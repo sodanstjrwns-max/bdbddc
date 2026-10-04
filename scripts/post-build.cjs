@@ -199,6 +199,9 @@ const redirectHtml = (url) => `<!DOCTYPE html><html><head><meta http-equiv="refr
 fs.writeFileSync('dist/tables/treatments/treatments/gum.html', redirectHtml('/pricing'));
 fs.writeFileSync('dist/tables/treatments/implant.html', redirectHtml('/pricing'));
 
+// Promote revision consultations in Korean static menus, including without JS.
+console.log('[treatment-navigation]', require('./treatment-navigation.cjs').syncBuiltNavigation('dist'), 'pages updated');
+
 // SEO release maintenance + blocking validation; report remains behind /admin/* authentication.
 cp.execFileSync(process.execPath, ['--max-old-space-size=256', path.join(__dirname, 'seo-release.cjs')], { stdio: 'inherit' });
 

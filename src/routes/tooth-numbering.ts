@@ -451,7 +451,7 @@ function tnCopyEmbed(){
 }
 </script>
 <script src="/js/main.js" defer></script>
-<script src="/js/gnb-v2.js?v=20260819fix" defer></script>
+<script src="/js/gnb-v2.js?v=20261004revision" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`

@@ -210,6 +210,7 @@
             '<div class="mega-dropdown-section"><strong class="section-heading">전문센터</strong><ul>' +
             '<li><a href="/treatments/glownate">✨ 글로우네이트</a></li>' +
             '<li><a href="/treatments/implant">임플란트 <span class="badge">6개 수술실</span></a></li>' +
+            '<li><a href="/treatments/implant-revision" style="color:#6B4226;font-weight:700;">임플란트 재수술</a></li>' +
             '<li><a href="/treatments/invisalign">인비절라인 <span class="badge">다이아몬드</span></a></li>' +
             '<li><a href="/treatments/orthodontics">치아교정 <span class="badge">장치교정</span></a></li>' +
             '<li><a href="/treatments/pediatric">소아치과 <span class="badge">전문의 3인</span></a></li>' +
@@ -380,6 +381,7 @@
             '<li class="submenu-divider">전문센터</li>' +
             '<li><a href="/treatments/glownate" style="color:#6B4226;font-weight:600;">✨ 글로우네이트</a></li>' +
             '<li><a href="/treatments/implant">임플란트</a></li>' +
+            '<li><a href="/treatments/implant-revision" style="color:#6B4226;font-weight:700;">임플란트 재수술</a></li>' +
             '<li><a href="/treatments/invisalign">인비절라인</a></li>' +
             '<li><a href="/treatments/orthodontics">치아교정</a></li>' +
             '<li><a href="/treatments/pediatric">소아치과</a></li>' +
@@ -605,6 +607,8 @@
     // 50~75%: 확신 → 📅 지금 예약 | 75~100%: 행동 → 🔥 오늘 상담 가능!
     // ========================================
     function initScrollCTA() {
+        // Revision consultations start with listening, without scroll-based urgency.
+        if (document.body.dataset.consultationTone === 'calm') return;
         const stages = IS_EN ? [
             { pct: 0,  icon: 'fa-calendar-check', txt: 'Easy Consultation', mob: 'Consult', cls: 'cta-explore' },
             { pct: 25, icon: 'fa-clipboard-check', txt: 'Assess My Case', mob: 'Assess', cls: 'cta-consider' },
