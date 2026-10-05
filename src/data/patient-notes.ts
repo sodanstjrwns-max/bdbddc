@@ -4276,6 +4276,294 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-05",
   "publishedAt": "2026-10-05T09:00:00+09:00"
+},
+{
+  "slug": "bone-graft-at-extraction-before-implant-decision",
+  "title": "이를 빼면서 뼈이식도 하자는데, 임플란트는 아직 결정 못 했어요.",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "발치 후 뼈이식",
+  "concern": "치아를 잃는 것도 힘든데 다음 치료까지 바로 결정해야 할 때",
+  "description": "당진에서 발치와 뼈이식을 함께 권유받았지만 임플란트를 결정하지 못한 환자분을 위한 안내. 발치 부위 보존의 목적, 이식 시기와 재료, 대안과 비용을 나누어 상담할 질문을 정리합니다.",
+  "situation": "당진에서 어금니 발치를 상담하다가 같은 날 뼈이식도 하자는 설명을 들었습니다. 이를 빼야 한다는 말도 아직 받아들이기 어려운데, 임플란트 비용과 이후 방문 일정까지 한 번에 정해야 할 것 같아 막막합니다.",
+  "answer": "발치 부위 보존을 위한 뼈이식은 이후 치료를 준비하는 선택일 수 있지만, 모든 발치에 자동으로 필요한 것은 아닙니다. 현재 뼈와 잇몸 상태, 이식의 목적, 예정된 보철 방법을 확인하고 지금 시행할 때와 나중에 평가할 때의 차이를 설명받으세요. 뼈이식만으로 임플란트 식립 가능성이나 추가 이식이 필요 없음을 보장할 수 없습니다.",
+  "checks": [
+    "발치가 필요한 근거와 치아 보존 가능성에 대한 설명",
+    "발치 부위 보존인지 이미 부족한 뼈의 재건인지 이번 이식의 목적",
+    "임플란트·브리지·틀니 등 이후 계획과 아직 결정하지 못한 부분",
+    "이식 재료와 막의 종류, 회복 확인과 추가 처치 가능성"
+  ],
+  "choices": [
+    {
+      "condition": "향후 임플란트를 고려하며 발치 부위 보존이 도움이 될 조건이라면",
+      "option": "발치 시점의 이식과 회복 후 평가 계획을 상담합니다.",
+      "limit": "모든 뼈 변화가 막히거나 나중의 추가 이식이 없어지는 것은 아닙니다."
+    },
+    {
+      "condition": "이후 보철 방법을 정하지 못했거나 바로 이식하기 어려운 사정이 있다면",
+      "option": "지금 필요한 처치와 결정을 미룰 수 있는 부분, 재평가 시점을 구분합니다.",
+      "limit": "미뤄도 조건이 그대로 유지된다고 약속할 수 없고, 반대로 나중 치료가 불가능하다고 일괄 단정하지 않습니다."
+    },
+    {
+      "condition": "임플란트 외의 방법을 우선 생각한다면",
+      "option": "해당 보철 계획에서도 이식이 필요한 이유가 있는지 확인합니다.",
+      "limit": "치아를 대체하는 방법마다 고려할 장단점이 달라 가격만으로 동일한 치료처럼 비교하기 어렵습니다."
+    }
+  ],
+  "unknown": "이식 범위와 재료, 발치 당일 시행 여부, 회복 기간 및 향후 보철은 실제 검사 후 정합니다. 특정 재료나 일정, 보험 적용, 전체 비용을 이 글에서 약속하지 않습니다.",
+  "prepare": [
+    "기존 영상과 발치·보철 치료계획서",
+    "복용약·주사 치료 및 흡연 여부",
+    "결정 가능한 예산 범위와 통원 가능한 시기",
+    "동물 유래 재료 등에 관한 개인적인 선호와 질문"
+  ],
+  "localHeading": "당진에서 발치 후 뼈이식을 상담하러 오신다면",
+  "localAdvice": "당진에서 이동한다면 첫 상담, 발치·이식, 회복 확인, 이후 보철 결정을 각각 나누어 문의하세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 여러 번 오기 어렵다는 사정을 전달하되 이동 부담 때문에 충분히 이해하지 못한 치료까지 한 번에 결정할 필요는 없습니다. 필요한 진료 시기는 상태에 맞게 설명받으세요.",
+  "related": [
+    {
+      "title": "임플란트 진료 가이드",
+      "href": "/guide/implant"
+    },
+    {
+      "title": "치아 하나가 없을 때 브리지와 임플란트 상담",
+      "href": "/concerns/missing-tooth-bridge-or-implant-healthy-neighbors"
+    },
+    {
+      "title": "골다공증 약을 사용하는 분의 발치 상담",
+      "href": "/concerns/osteoporosis-medication-before-tooth-extraction"
+    }
+  ],
+  "sources": [
+    {
+      "title": "AAOMS · 발치 후 뼈 보존과 향후 치료 계획, 2026년 9월 갱신",
+      "href": "https://myoms.org/what-we-do/extractions-and-dentoalveolar-surgery/preserving-bone-for-dental-implants-and-oral-health/"
+    },
+    {
+      "title": "AAOMS · 뼈이식 재료와 차폐막, 회복의 개인차",
+      "href": "https://myoms.org/what-we-do/extractions-and-dentoalveolar-surgery/bone-grafts/"
+    },
+    {
+      "title": "Cambridge University Hospitals NHS · 임플란트 뼈이식의 목적·위험·대안",
+      "href": "https://www.cuh.nhs.uk/patient-information/bone-grafting-for-dental-implants/"
+    }
+  ],
+  "updated": "2026-10-06",
+  "publishedAt": "2026-10-06T09:00:00+09:00"
+},
+{
+  "slug": "water-enters-nose-after-upper-molar-extraction",
+  "title": "윗어금니를 뺀 뒤 물이 코로 새는 느낌이에요. 상처가 아물 때까지 기다려도 되나요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "발치 후 불편",
+  "concern": "분명 이를 뺐는데 코에서 이상한 느낌이 나서 겁이 날 때",
+  "description": "서산에서 윗어금니 발치 후 물이 코로 새거나 공기가 통하는 느낌을 겪는 환자분을 위한 안내. 입과 상악동 사이 연결 가능성, 빠른 확인이 필요한 이유와 진료 전 주의사항을 설명합니다.",
+  "situation": "서산에서 윗어금니를 뺀 뒤 물을 마시다가 같은 쪽 코로 물이 나오는 듯했습니다. 통증이 심하지 않아 괜찮은 건지, 다시 수술해야 하는 건지 알 수 없고 멀리 진료를 받으러 가야 할까 봐 망설여집니다.",
+  "answer": "윗어금니 발치 뒤 물이 코로 새거나 발치 자리에 공기가 통하는 느낌이 있다면, 입과 상악동 사이에 연결이 생겼는지 확인이 필요합니다. 통증이 적어도 예정된 재진까지 그냥 기다리지 말고 발치한 치과에 증상을 알리고 빠르게 진료 시기를 안내받으세요. 코를 세게 풀거나 물을 반복해서 마시며 스스로 시험하지 마세요.",
+  "checks": [
+    "발치한 치아의 위치와 날짜, 증상이 처음 생긴 시각",
+    "물이 코로 나온 느낌과 공기 통과 느낌의 양상",
+    "한쪽 코막힘·분비물·볼의 압박감 등 함께 생긴 변화",
+    "발치 당시 설명과 처치, 이후 복용한 약과 주의사항"
+  ],
+  "choices": [
+    {
+      "condition": "물을 마신 뒤 코로 새거나 상처에 공기가 통하는 느낌이 있다면",
+      "option": "발치한 치과에 먼저 연락해 진찰과 필요한 평가를 받습니다.",
+      "limit": "느낌만으로 연결의 유무나 크기를 집에서 판단할 수 없습니다."
+    },
+    {
+      "condition": "검사 후 작은 연결이며 경과 관찰이 적절하다고 판단된다면",
+      "option": "의료진의 보호 지침과 재평가 일정을 따릅니다.",
+      "limit": "작아 보인다는 이유로 스스로 기다리는 것과는 다릅니다."
+    },
+    {
+      "condition": "연결이 크거나 지속되거나 다른 문제가 함께 확인된다면",
+      "option": "폐쇄 처치 및 필요한 구강악안면외과 진료 등을 상담합니다.",
+      "limit": "한 가지 수술법이나 당일 해결 가능 여부를 미리 정할 수 없습니다."
+    }
+  ],
+  "unknown": "상악동과의 연결 여부, 감염 동반 여부와 치료 범위는 진찰 후 판단합니다. 이 글은 발치 과정의 잘못을 판정하거나 특정 처치의 성공을 보장하지 않습니다.",
+  "prepare": [
+    "발치 날짜와 치아 위치, 기존 영상이 있다면 그 자료",
+    "새 증상의 시작 시점과 변화 메모",
+    "처방전과 현재 복용약 목록",
+    "발치한 치과에서 받은 안내 및 연락처"
+  ],
+  "localHeading": "서산에서 발치 후 불편을 확인받으신다면",
+  "localAdvice": "서산에서 이동을 준비하기 전에 발치한 치과에 코로 물이 새는 듯한 발치 후 불편을 구체적으로 알리세요. 서울비디치과의 진료 장소는 천안 불당동이며 서산 분원이 아닙니다. 이동 거리가 부담스럽다면 현재 위치와 가능한 시간을 말하고 가까운 진료가 필요한지부터 안내받으세요. 먼 예약 날짜에 맞추려고 새 증상을 참지 마세요.",
+  "related": [
+    {
+      "title": "사랑니와 발치 진료 가이드",
+      "href": "/guide/wisdom-tooth"
+    },
+    {
+      "title": "발치 나흘 뒤 통증이 더 심해졌을 때",
+      "href": "/concerns/extraction-pain-worse-on-day-four"
+    },
+    {
+      "title": "혈액을 묽게 하는 약을 복용 중인 분의 발치 상담",
+      "href": "/concerns/tooth-extraction-while-taking-blood-thinners"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Newcastle Hospitals NHS · 윗어금니 발치 후 상악동 연결과 관리",
+      "href": "https://www.newcastle-hospitals.nhs.uk/resources/surgical-removal-of-teeth/"
+    },
+    {
+      "title": "University Hospitals of Leicester NHS · 구강상악동 교통 환자 안내, 2024년 제작·2027년 검토 예정",
+      "href": "https://yourhealth.leicestershospitals.nhs.uk/library/musculoskeletal-specialist-surgery-mss/maxillofacial/3373-oro-antral-communication-oac/file"
+    }
+  ],
+  "updated": "2026-10-06",
+  "publishedAt": "2026-10-06T09:00:00+09:00"
+},
+{
+  "slug": "heart-racing-after-dental-local-anesthetic",
+  "title": "치과 마취 뒤 심장이 두근거렸어요. 마취약 알레르기라면 치료를 어떻게 받죠?",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "치과 마취",
+  "concern": "지난번 마취 때의 두근거림이 떠올라 치료 예약을 미루고 있을 때",
+  "description": "천안에서 치과 마취 뒤 두근거림을 경험한 환자분을 위한 안내. 긴장·약 성분 반응과 알레르기를 구분할 기록, 응급 증상, 다음 진료를 준비하는 상담 질문을 정리합니다.",
+  "situation": "천안에서 충치 치료 중 마취 주사를 맞은 뒤 심장이 빠르게 뛰고 손이 떨렸습니다. 잠시 쉬자 나아졌지만 또 같은 일이 생길까 두려워 치료를 미루고 있습니다. 마취 알레르기라면 앞으로 치과 치료를 못 받는 건 아닐까 걱정됩니다.",
+  "answer": "두근거림만으로 치과 마취약 알레르기를 확정하지는 않습니다. 긴장이나 마취액에 포함되는 혈관수축제 반응 등 여러 가능성을 당시 기록과 함께 살펴야 합니다. 다음 예약 전에 증상의 시작·지속 시간과 동반 증상을 알리세요. 현재 두근거림이 가라앉지 않거나 가슴 통증·숨참·실신, 혀나 목의 부종이 있으면 119 등 응급 도움을 받으세요.",
+  "checks": [
+    "주사 전부터인지 맞은 직후인지 등 증상의 시작 시점",
+    "두근거림의 지속 시간과 당시 받은 관찰·처치 기록",
+    "발진·부종·숨참·가슴 통증·의식 변화 등 동반 증상",
+    "사용한 마취제와 복용약, 기존 심장 질환 및 평소 두근거림"
+  ],
+  "choices": [
+    {
+      "condition": "이전 두근거림이 가라앉았고 현재 응급 증상이 없다면",
+      "option": "다음 치료 전에 당시 경과와 기록을 검토하고 마취 계획을 상담합니다.",
+      "limit": "오래전 기억만으로 원인을 하나로 확정하기 어렵습니다."
+    },
+    {
+      "condition": "알레르기가 의심되는 동반 증상이나 기록이 있다면",
+      "option": "의료진 판단에 따라 관련 전문 평가와 사용할 약에 대한 확인을 받습니다.",
+      "limit": "마취 주사를 임의로 다시 맞아 반응을 시험하지 않습니다."
+    },
+    {
+      "condition": "현재 지속되는 두근거림이나 가슴 통증·호흡 곤란·실신이 있다면",
+      "option": "일반 치과 예약을 기다리지 말고 응급 도움을 받습니다.",
+      "limit": "과거에도 긴장한 적이 있다는 이유로 현재 증상을 단순 불안으로 넘기지 않습니다."
+    }
+  ],
+  "unknown": "이 글만으로 알레르기·부정맥·불안 반응을 진단하거나 특정 마취제가 안전하다고 보장할 수 없습니다. 개인 상태와 당시 기록을 확인한 뒤 진료 환경과 약제 선택을 정합니다.",
+  "prepare": [
+    "당시 치료 날짜와 치과, 가능한 경우 마취 및 처치 기록",
+    "증상의 순서와 지속 시간, 피부·호흡 증상 메모",
+    "복용약과 건강보조제 목록, 확인된 알레르기 정보",
+    "가장 두려운 순간과 진료 중 멈춤 신호에 대한 요청"
+  ],
+  "localHeading": "천안에서 치과 마취가 걱정되어 상담하신다면",
+  "localAdvice": "천안에서 치과 마취 경험 때문에 치료를 미뤘다면 예약 때 미리 알려 설명을 위한 시간을 문의하세요. 서울비디치과는 천안 불당동에서 진료합니다. 첫 상담에서 기록 확인과 치료 계획을 나누어 듣고, 진료 중 불편을 알릴 방법도 정할 수 있습니다. 응급 증상이 현재 있다면 치과 상담 예약보다 응급 평가가 먼저입니다.",
+  "related": [
+    {
+      "title": "신경치료 진료 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "마취했는데 아팠던 기억 때문에 신경치료가 두려울 때",
+      "href": "/concerns/root-canal-fear-after-pain-despite-anesthesia"
+    },
+    {
+      "title": "구역질 때문에 치과 치료를 미루고 있을 때",
+      "href": "/concerns/gag-reflex-keeps-delaying-dental-care"
+    }
+  ],
+  "sources": [
+    {
+      "title": "NHS Specialist Pharmacy Service · 치과 국소마취 주사 후 반응의 구분과 기록",
+      "href": "https://sps.nhs.uk/articles/managing-reactions-to-dental-local-anaesthetic-injections/"
+    },
+    {
+      "title": "NHS · 국소마취의 역할과 이상 반응, 2025년 12월 검토",
+      "href": "https://www.nhs.uk/tests-and-treatments/local-anaesthesia/"
+    },
+    {
+      "title": "NHS · 두근거림과 응급 평가 신호, 2026년 3월 검토",
+      "href": "https://www.nhs.uk/symptoms/heart-palpitations/"
+    }
+  ],
+  "updated": "2026-10-06",
+  "publishedAt": "2026-10-06T09:00:00+09:00"
+},
+{
+  "slug": "child-early-baby-molar-loss-space-maintainer",
+  "title": "아이 유치를 일찍 뽑았는데 공간유지장치를 하자고 해요. 꼭 필요한가요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "공간유지장치",
+  "concern": "아이 이를 지켜주지 못했다는 미안함에 추가 장치 설명까지 어렵게 들릴 때",
+  "description": "아산에서 아이의 유치 조기 발치 뒤 공간유지장치를 권유받은 보호자를 위한 안내. 장치의 목적과 관찰할 수 있는 조건, 관리와 재진, 이후 교정과의 차이를 설명합니다.",
+  "situation": "아산에서 아이의 썩은 유치 어금니를 일찍 뽑았습니다. 아픈 치료가 끝나 한숨 돌렸는데 빈자리에 공간유지장치를 해야 한다고 합니다. 젖니 하나 때문에 치료가 커지는 것 같고, 늦게 데려온 제 탓인가 싶어 설명을 차분히 듣기 어렵습니다.",
+  "answer": "공간유지장치는 일찍 없어진 유치의 빈자리를 관리하기 위한 선택이며, 유치를 뺐다고 모든 아이에게 자동으로 필요하지는 않습니다. 빠진 치아의 위치와 시기, 남은 공간, 후속 영구치의 발육과 맹출 상태, 관리 가능성을 함께 평가합니다. 장치를 해도 이후 교정이 필요 없다고 보장할 수 없으며, 장착 후 확인과 적절한 제거 시점까지 계획해야 합니다.",
+  "checks": [
+    "빠진 유치가 어느 치아인지와 발치 시기",
+    "뒤이어 날 영구치의 유무·발육·위치와 남은 공간",
+    "주변 치아와 전체 치열, 이미 생긴 공간 변화",
+    "아이의 협조와 위생 관리, 정기 확인이 가능한 일정"
+  ],
+  "choices": [
+    {
+      "condition": "남은 공간을 유지할 필요가 있다고 판단된다면",
+      "option": "맞는 장치 종류와 관리 방법, 점검·제거 계획을 설명받습니다.",
+      "limit": "장치가 모든 치열 문제나 향후 교정 치료를 예방하지는 않습니다."
+    },
+    {
+      "condition": "현재 상태에서 장치 없이 관찰할 수 있다면",
+      "option": "무엇을 언제 다시 확인할지 정하고 경과를 살핍니다.",
+      "limit": "아무런 확인 없이 영구치가 나올 때까지 기다리는 계획은 아닙니다."
+    },
+    {
+      "condition": "이미 공간이 줄었거나 다른 맹출 문제가 있다면",
+      "option": "단순 유지와 공간 회복 등 필요한 평가를 구분해 상담합니다.",
+      "limit": "수동적으로 공간을 지키는 장치만으로 모든 변화를 되돌릴 수는 없습니다."
+    }
+  ],
+  "unknown": "장치의 필요성·종류와 사용 기간은 아이의 발육과 실제 검사를 보고 정합니다. 나이만으로 시작·제거 날짜를 정하거나 특정 장치의 비용, 교정 회피 가능성을 약속하지 않습니다.",
+  "prepare": [
+    "발치 날짜와 치아 위치, 기존 영상과 진료 내용",
+    "현재 불편과 아이가 걱정하는 점",
+    "양치·식사 습관과 보호자가 도울 수 있는 부분",
+    "학교 일정과 통원 가능 시기, 비용 문의 항목"
+  ],
+  "localHeading": "아산에서 공간유지장치 상담을 준비하신다면",
+  "localAdvice": "아산에서 공간유지장치 진료를 위해 이동한다면 장착일뿐 아니라 점검과 제거를 위한 방문도 함께 문의하세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 학교와 보호자 근무 일정에 맞출 수 있는 범위를 말하되, 장치 불편이나 흔들림이 생겼을 때 연락할 경로도 정해 두세요.",
+  "related": [
+    {
+      "title": "교정 진료 가이드",
+      "href": "/guide/orthodontics"
+    },
+    {
+      "title": "곧 빠질 유치의 충치도 치료해야 할까요?",
+      "href": "/concerns/baby-molar-cavity-treat-before-falling-out"
+    },
+    {
+      "title": "유치가 빠졌는데 앞니 영구치가 늦게 나올 때",
+      "href": "/concerns/permanent-front-tooth-not-coming-after-baby-tooth"
+    }
+  ],
+  "sources": [
+    {
+      "title": "AAPD · 발육 중 치열과 교합 관리, 2024년 개정·2026–2027 참고 매뉴얼",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/management-of-the-developing-dentition-and-occlusion-in-pediatric-dentistry/"
+    },
+    {
+      "title": "NHS · 유치의 역할과 어린이 치아 관리",
+      "href": "https://www.nhs.uk/best-start-in-life/how-to-take-care-of-your-baby-or-toddlers-teeth/"
+    },
+    {
+      "title": "East Sussex Healthcare NHS · 가철식 장치의 용도와 한계",
+      "href": "https://www.esht.nhs.uk/leaflet/removable-appliances/"
+    }
+  ],
+  "updated": "2026-10-06",
+  "publishedAt": "2026-10-06T09:00:00+09:00"
 }
 ]
 
