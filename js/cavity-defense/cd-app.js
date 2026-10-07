@@ -157,6 +157,7 @@
       mount: $('gameMount'),
       stage: stageId,
       onHUD: updateHUD,
+      onGraphicsLost: () => pauseModal.classList.add('show'),
       onToast: showToast,
       onBossIntro: showBossIntro,
       onBuildMenu: openBuildMenu,

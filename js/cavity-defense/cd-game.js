@@ -40,6 +40,7 @@
     let brushActive = 0;         // 남은 지속시간
     let killCount = 0;
     let destroyed = false;
+    let scene3d = null, visualLoading = true;
 
     const enemies = [];
     const towers = [];
@@ -58,10 +59,34 @@
       resolution: Math.min(2, window.devicePixelRatio || 1),
       autoDensity: true,
       preference: 'webgl'
-    }), PIXI.Assets.load('/images/arcade/defense-island.webp').catch(()=>null)]).then(() => {
+    }), PIXI.Assets.load('/images/arcade/defense-island.webp').catch(()=>null)]).then(async () => {
       if(destroyed){app.destroy(true, {children:true});return;}
       mountEl.appendChild(app.canvas);
       setup();
+      app.canvas.classList.add('cd-ui');
+      try {
+        const {createDefenseScene}=await import('./cd-scene.js?v=20261007b');
+        if(destroyed)return;
+        const view=await createDefenseScene(mountEl,()=>({width:LW,height:LH,theme:stageDef.theme,paths,spots,towers,enemies,elapsed,castle:castle.container,brushActive,brushY:-40+(self._brushWavePos||0),waveProgress:waveIdx/TOTAL_WAVES}),()=>{
+          if(destroyed)return;
+          self.pause(true);
+          opts.onGraphicsLost?.();
+          bg.container.renderable=layers.path.renderable=layers.unit.renderable=true;
+          ambient.renderable=true;
+          spots.forEach(m=>m.alpha=1);
+          scene3d?.destroy();scene3d=null;
+          toast('3D 화면 연결이 끊겨 기본 화면으로 전환했습니다. 계속하기를 눌러주세요.','warn');
+        });
+        if(destroyed){view.destroy();return;}
+        scene3d=view;
+        bg.container.renderable=layers.path.renderable=layers.unit.renderable=false;
+        ambient.renderable=false;
+        spots.forEach(m=>m.alpha=.001);
+        app.ticker.add(renderScene);
+      } catch(error) {
+        if(!destroyed)toast('3D 자료를 불러오지 못해 기본 화면으로 시작합니다.','warn');
+        console.warn('[CavityDefense] 3D unavailable:',error);
+      } finally {visualLoading=false;if(!destroyed)pushHUD();}
     }).catch((err) => {
       // WebGL 미지원/초기화 실패 — 사용자에게 안내
       mountEl.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:30px;text-align:center;color:#fff">' +
@@ -141,6 +166,7 @@
     }
 
     let rangeG = null;
+    function renderScene(){if(!destroyed && state!==GameState.PAUSED)scene3d?.render();}
     function resizeWorld(){
       if(destroyed || !app.renderer)return;
       const width=mountEl.clientWidth,height=mountEl.clientHeight;
@@ -148,6 +174,7 @@
       mw=width;mh=height;app.renderer.resize(mw,mh);
       const scale=Math.min(mw/LW,mh/LH);world.scale.set(scale);world.position.set((mw-LW*scale)/2,(mh-LH*scale)/2);
       clearSelection();
+      scene3d?.resize();scene3d?.render();
     }
     window.addEventListener('resize',resizeWorld);
 
@@ -161,7 +188,7 @@
         totalWaves: TOTAL_WAVES, score: Math.floor(score),
         brushCharges, brushProgress, brushActive: brushActive > 0,
         state, speedMult, nextEnemies, nextWave:nextIndex+1,
-        canStart: state === GameState.READY || state === GameState.BETWEEN
+        canStart: !visualLoading && (state === GameState.READY || state === GameState.BETWEEN)
       });
     }
     function toast(msg, cls) { opts.onToast && opts.onToast(msg, cls); }
@@ -572,7 +599,7 @@
 
     // ---------- 메인 루프 ----------
     function tick(ticker) {
-      if (destroyed || state === GameState.PAUSED) return;
+      if (destroyed || visualLoading || state === GameState.PAUSED) return;
       const rawDt = Math.min(0.05, ticker.deltaMS / 1000);
       const dt = rawDt * speedMult;
       elapsed += dt;
@@ -871,8 +898,9 @@
     this.getState = () => state;
     this.destroy = function () {
       destroyed = true;
+      scene3d?.destroy();scene3d=null;
       window.removeEventListener('resize',resizeWorld);
-      try { app.ticker.remove(tick); bg?.destroy?.(); app.destroy(true, { children: true }); } catch (e) {}
+      try { app.ticker.remove(tick); app.ticker.remove(renderScene); bg?.destroy?.(); app.destroy(true, { children: true }); } catch (e) {}
     };
   }
 
