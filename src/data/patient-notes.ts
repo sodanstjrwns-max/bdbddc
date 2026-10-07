@@ -4856,6 +4856,314 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-07",
   "publishedAt": "2026-10-07T09:00:00+09:00"
+},
+{
+  "slug": "deep-cavity-can-the-nerve-be-preserved",
+  "title": "충치가 깊다는데 신경을 살려 볼 수 있대요. 치료를 미루는 건 아닐까요?",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "충치 치료",
+  "concern": "설명이 달라 결정하기 어려워요",
+  "description": "천안에서 깊은 충치의 신경 보존을 제안받았을 때 선택적 충치 제거·치수 치료와 신경치료의 차이, 치료 중 계획 변경과 이후 관찰을 준비합니다.",
+  "situation": "천안에서 어금니 충치 치료를 상담받았습니다. 신경치료가 필요할 수 있다는 말과 신경을 살려 보자는 말을 함께 들으니, 덜 치료했다가 나중에 더 아파지는 것은 아닌지 걱정됩니다.",
+  "answer": "깊은 충치라도 치아 안쪽 치수의 상태와 남은 치아 구조에 따라 보존을 고려할 수 있습니다. 선택적으로 충치를 제거하고 밀폐하는 방법과 노출된 치수를 치료하는 방법은 다르며, 치료 중 확인한 소견에 따라 신경치료로 계획이 바뀔 수 있습니다. 시도할 조건과 바꿀 기준, 재검 계획을 함께 확인하세요.",
+  "checks": [
+    "찬 자극이 사라진 뒤에도 통증이 이어지는지, 가만히 있거나 밤에도 아픈지",
+    "충치 깊이와 치수 사이의 구조, 치아를 다시 수복할 수 있는지",
+    "노출된 치수가 있다면 실제 조직 상태와 출혈 조절 가능 여부",
+    "치료 뒤 밀폐·최종 수복·재검까지의 계획"
+  ],
+  "choices": [
+    {
+      "condition": "치수가 정상 또는 회복 가능한 염증으로 평가되고 깊은 충치가 있다면",
+      "option": "치수 노출을 줄이는 선택적 충치 제거와 밀폐 수복 등을 검토합니다.",
+      "limit": "충치를 무조건 남겨도 된다는 뜻은 아니며 적절한 대상 선정이 필요합니다."
+    },
+    {
+      "condition": "치수가 노출됐어도 보존 조건이 맞는다면",
+      "option": "치수복조나 부분·전체 치수절단술 등 생활치수 치료를 고려합니다.",
+      "limit": "남길 조직의 상태를 확인해야 하며 모든 깊은 충치에 적용하지 않습니다."
+    },
+    {
+      "condition": "치수 보존이 적절하지 않은 상태로 확인된다면",
+      "option": "신경치료 등 다른 치료로 전환할 이유와 치아 유지 가능성을 설명받습니다.",
+      "limit": "처음의 희망과 치료 도중 확인된 사실을 구분해야 합니다."
+    }
+  ],
+  "unknown": "통증의 유무나 엑스레이 한 장만으로 신경을 반드시 살릴 수 있다고 약속할 수 없습니다. 얼굴이 붓거나 열이 나고 통증이 커지면 예정일보다 빨리 진료를 요청하세요. 호흡·삼킴 곤란이 동반되면 즉시 응급 평가가 필요합니다.",
+  "prepare": [
+    "통증이 시작된 시점과 자극 후 지속 양상",
+    "기존 영상·견적·설명 중 이해되지 않았던 부분",
+    "복용약과 치료받을 수 있는 날짜",
+    "보존 시도 후 추가 치료가 필요한 경우의 비용 질문"
+  ],
+  "localHeading": "천안에서 충치 치료 상담을 준비하신다면",
+  "localAdvice": "천안에서 깊은 충치 치료를 고민하신다면 신경 보존을 원하는 마음과 다시 아플까 걱정되는 부분을 함께 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 첫 검사에서 알 수 있는 범위와 치료 도중 판단할 부분, 추후 재검 일정을 나누어 상의하세요.",
+  "related": [
+    {
+      "title": "신경치료 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "신경치료와 임플란트를 비교하기 전",
+      "href": "/guide/compare/root-canal-vs-implant"
+    },
+    {
+      "title": "통증이 없는데 신경치료를 권유받았을 때",
+      "href": "/concerns/root-canal-recommended-without-toothache"
+    }
+  ],
+  "sources": [
+    {
+      "title": "AAPD · 영구치 생활치수 치료 지침, 2025",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/silver-diamine-fluoride-for-dental-caries-management-in-children-and-adolescents-including-those-with-special-health-care-needs2/"
+    },
+    {
+      "title": "AAE · 생활치수 치료 입장문, 2021",
+      "href": "https://www.aae.org/wp-content/uploads/2021/05/VitalPulpTherapy_PositionStatement_v2.pdf"
+    },
+    {
+      "title": "ADA · 보존적인 충치 제거와 수복 치료 지침 안내, 2023",
+      "href": "https://www.ada.org/about/press-releases/american-dental-association-releases-new-tooth-decay-treatment-guideline"
+    },
+    {
+      "title": "NHS · 치아 감염에서 신속한 평가가 필요한 증상",
+      "href": "https://www.nhs.uk/conditions/dental-abscess/"
+    }
+  ],
+  "updated": "2026-10-08",
+  "publishedAt": "2026-10-08T09:00:00+09:00"
+},
+{
+  "slug": "orthodontic-wire-poking-cheek-before-visit",
+  "title": "교정 철사가 볼을 찔러요. 다음 예약일까지 참아야 하나요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "치아교정",
+  "concern": "다음 예약까지 버티기 힘들어요",
+  "description": "아산에서 교정 철사가 볼을 찌르거나 장치가 느슨해졌을 때 임시 보호와 치과 연락, 조기 점검이 필요한 불편을 나누어 정리합니다.",
+  "situation": "아산에서 치아교정을 받고 있는데 뒤쪽 철사가 볼 안쪽을 긁어 식사와 대화가 불편합니다. 다음 예약은 아직 남았고, 사소한 일로 연락하는 것 같아 망설여집니다.",
+  "answer": "교정 장치가 볼을 찌르거나 상처를 내면 정기 예약일까지 무조건 참지 말고 치료 중인 치과에 연락하세요. 교정용 왁스는 마찰을 잠시 줄이는 데 쓰지만 수리를 대신하지 않습니다. 철사 파손·이탈·브래킷 흔들림과 식사·수면에 미치는 영향을 알려 점검 시점을 정해야 합니다.",
+  "checks": [
+    "위아래·좌우 어느 부위가 언제부터 찌르는지",
+    "철사 끝인지, 붙인 장치나 어금니 고리가 흔들리는지",
+    "왁스로 보호해도 계속 아픈지, 식사·수면이 어려운지",
+    "부품이 떨어진 뒤 기침·호흡 곤란 등 다른 문제가 생겼는지"
+  ],
+  "choices": [
+    {
+      "condition": "장치가 문지르는 불편이 있고 임시 보호가 가능하다면",
+      "option": "안내받은 교정용 왁스로 마찰을 줄이고 치과에 점검 시점을 문의합니다.",
+      "limit": "왁스를 붙였다고 장치가 정상으로 돌아온 것은 아닙니다."
+    },
+    {
+      "condition": "철사가 찌르거나 장치가 느슨해 통증이 계속된다면",
+      "option": "정기 예약보다 빠른 장치 점검·조정이 필요한지 안내받습니다.",
+      "limit": "직접 잡아당기거나 자르기보다 상태에 맞는 지시를 먼저 받으세요."
+    },
+    {
+      "condition": "부품 이탈 뒤 숨쉬기 어렵거나 질식 증상이 있다면",
+      "option": "즉시 119 등 응급 도움을 요청합니다.",
+      "limit": "일반적인 장치 수리 예약을 기다리는 상황과 다릅니다."
+    }
+  ],
+  "unknown": "사진만으로 철사의 위치와 상처 깊이, 부품 상태를 모두 알 수 없습니다. 입을 다물기 어렵거나 출혈이 멎지 않는 경우, 부종·발열이 동반되는 경우에도 빠른 평가가 필요합니다. 삼킨 것 같다는 추측만으로 안전하다고 판단하지 마세요.",
+  "prepare": [
+    "불편한 위치가 보이는 사진은 치과가 안내한 경로로 전달",
+    "최근 장치를 조정한 날짜와 다음 예약일",
+    "씹기·말하기·잠자기 중 특히 힘든 상황",
+    "떨어진 부품이 이미 입 밖에 있다면 깨끗한 용기에 보관"
+  ],
+  "localHeading": "아산에서 치아교정 상담을 준비하신다면",
+  "localAdvice": "아산에서 천안 불당동으로 치아교정 장치 점검을 계획한다면 먼저 치료 중인 치과에 연락해 불편한 부위와 장치 종류를 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 다른 치과에서 치료 중이라면 임시 불편 완화와 전체 교정 계획의 변경을 구분해 가능한 진료 범위부터 확인하세요.",
+  "related": [
+    {
+      "title": "치아교정 가이드",
+      "href": "/guide/orthodontics"
+    },
+    {
+      "title": "투명교정 장치가 잘 맞지 않을 때",
+      "href": "/concerns/clear-aligner-not-fitting-next-tray"
+    },
+    {
+      "title": "유지장치가 맞지 않을 때",
+      "href": "/concerns/removable-retainer-no-longer-fits"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Royal Devon NHS · 교정 장치의 통증·파손·철사 자극, 2025년 4월",
+      "href": "https://www.royaldevon.nhs.uk/media/hzsiu5vu/what-to-do-if-you-have-a-problem-with-your-brace-rd-18-236-003.pdf"
+    },
+    {
+      "title": "Plymouth NHS · 고정식 교정 장치가 손상됐을 때",
+      "href": "https://www.plymouthhospitals.nhs.uk/display-pil/pil-what-to-do-if-your-fixed-brace-breaks-5549"
+    },
+    {
+      "title": "NHS · 호흡 곤란과 질식 증상의 응급 평가",
+      "href": "https://www.nhs.uk/symptoms/shortness-of-breath/"
+    },
+    {
+      "title": "NHS · 긴급 치과 평가가 필요한 출혈·부종·통증",
+      "href": "https://www.nhs.uk/nhs-services/dentists/how-to-find-an-nhs-dentist-in-an-emergency/"
+    }
+  ],
+  "updated": "2026-10-08",
+  "publishedAt": "2026-10-08T09:00:00+09:00"
+},
+{
+  "slug": "heart-valve-antibiotics-before-dental-scaling",
+  "title": "심장 판막 수술을 했는데 스케일링 전에 항생제를 먹어야 하나요?",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "스케일링",
+  "concern": "기존 질환 때문에 치료가 걱정돼요",
+  "description": "홍성에서 심장 판막 수술 후 스케일링을 준비할 때 예방 항생제의 대상, 심장 진료 기록과 복용약 확인, 처방과 방문 일정을 나누어 정리합니다.",
+  "situation": "홍성에서 잇몸 출혈 때문에 스케일링을 예약하려는데 예전 심장 판막 수술이 마음에 걸립니다. 항생제를 미리 먹으라는 말을 들은 것 같지만 약 이름과 복용 시점이 기억나지 않습니다.",
+  "answer": "인공 심장 판막이나 판막 수리에 사용한 인공 재료가 있는 경우 등 일부 고위험 심장 상태에서는 잇몸을 조작하는 치과 처치 전 예방 항생제가 권고됩니다. 모든 심장병이나 모든 치과 방문에 필요한 것은 아닙니다. 수술 종류와 예정된 처치를 확인한 뒤 담당 의료진이 필요 여부와 처방·복용 시점을 정해야 합니다.",
+  "checks": [
+    "판막 교체인지 수리인지, 인공 판막·재료의 종류와 수술 기록",
+    "과거 감염성 심내막염 여부와 심장 주치의의 안내",
+    "약물 알레르기와 현재 항생제·항응고제 등 복용약",
+    "이번 방문이 검사만인지 스케일링 등 잇몸 처치를 포함하는지"
+  ],
+  "choices": [
+    {
+      "condition": "예방이 권고되는 심장 상태이며 해당 치과 처치를 한다면",
+      "option": "심장 병력과 알레르기를 확인한 뒤 예방 항생제 처방·복용 안내를 받습니다.",
+      "limit": "남은 약이나 예전 처방을 스스로 재사용하지 마세요."
+    },
+    {
+      "condition": "수술 종류나 예방 필요 여부가 명확하지 않다면",
+      "option": "수술 요약·판막 카드·주치의 의견 등을 치과와 공유해 확인합니다.",
+      "limit": "환자분 혼자 병명을 추측하거나 약을 선택할 필요는 없습니다."
+    },
+    {
+      "condition": "해당 고위험 심장 상태가 아니라면",
+      "option": "현재 지침과 개인 상태에 맞게 예방 약이 필요한지 설명받습니다.",
+      "limit": "불안하다는 이유만으로 모든 방문에 항생제를 추가하지 않습니다."
+    }
+  ],
+  "unknown": "예방 항생제와 항응고제 조절은 서로 다른 문제입니다. 평소 심장약을 스스로 끊지 마세요. 원인 모를 발열이나 오한, 새로 심해진 전신 증상이 있으면 스케일링 준비보다 의료진 평가가 먼저일 수 있으므로 심장 병력을 알리고 신속히 상담하세요.",
+  "prepare": [
+    "심장 수술 요약·판막 카드 또는 주치의 진료 안내",
+    "현재 약 목록과 과거 항생제 이상 반응",
+    "스케일링 예정일과 처방 받을 수 있는 기관",
+    "이미 항생제를 복용했다면 약 이름·시각·양"
+  ],
+  "localHeading": "홍성에서 스케일링 상담을 준비하신다면",
+  "localAdvice": "홍성에서 천안 불당동으로 스케일링 상담을 오신다면 예약할 때 심장 판막 수술 이력을 먼저 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 필요한 심장 진료 자료와 예방 처방 확인이 방문 전에 가능한지 상의하면, 긴 이동 후 준비가 부족해 다시 방문하는 일을 줄이는 데 도움이 됩니다.",
+  "related": [
+    {
+      "title": "스케일링 가이드",
+      "href": "/guide/scaling"
+    },
+    {
+      "title": "혈액을 묽게 하는 약을 먹고 발치가 필요할 때",
+      "href": "/concerns/tooth-extraction-while-taking-blood-thinners"
+    },
+    {
+      "title": "최근 스케일링 후 잇몸 치료를 권유받았을 때",
+      "href": "/concerns/deep-gum-treatment-after-recent-scaling"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국심장협회 AHA · 감염성 심내막염과 치과 처치, 2026년 7월 검토",
+      "href": "https://www.heart.org/en/health-topics/infective-endocarditis"
+    },
+    {
+      "title": "ADA · 치과 처치 전 예방 항생제의 대상과 적용",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/antibiotic-prophylaxis"
+    },
+    {
+      "title": "AHA · 감염성 심내막염 예방 환자 카드",
+      "href": "https://professional.heart.org/-/media/files/health-topics/infective-endocarditis/infective-endocarditis-wallet-card.pdf?la=en"
+    },
+    {
+      "title": "ADA · 치과 처치와 항응고제·항혈소판제 복용 조정",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/oral-anticoagulant-and-antiplatelet-medications-and-dental-procedures"
+    }
+  ],
+  "updated": "2026-10-08",
+  "publishedAt": "2026-10-08T09:00:00+09:00"
+},
+{
+  "slug": "child-cavity-silver-fluoride-black-stain",
+  "title": "아이 충치에 약을 바르면 검게 변한대요. 그냥 썩게 두는 건 아닌가요?",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "소아 충치",
+  "concern": "아이에게 맞는 치료인지 걱정돼요",
+  "description": "예산에서 아이 충치에 SDF를 제안받았을 때 검은 착색과 충치 진행 억제의 차이, 적용 조건·다른 치료·재검 계획을 살펴봅니다.",
+  "situation": "예산에서 아이 소아 충치 상담을 받았는데 약을 바르면 충치 부분이 검게 변할 수 있다고 합니다. 아이가 기계 소리를 무서워해 반가운 방법 같다가도 검은 치아로 지내게 하는 것이 미안합니다.",
+  "answer": "SDF는 적절한 충치 병소에 발라 진행을 억제하는 데 쓰는 약제이며, 치료한 충치 부위가 검게 착색될 수 있습니다. 구멍을 채우거나 모든 치아 감염을 치료하는 방법은 아닙니다. 적용할 치아의 상태와 색 변화, 다른 선택지, 효과 확인과 추가 치료 계획을 설명받고 결정해야 합니다.",
+  "checks": [
+    "아이가 가만히 있거나 밤에도 아픈지, 잇몸 부종이나 고름은 없는지",
+    "충치의 깊이·위치와 약을 바를 수 있는지",
+    "앞니 등 웃을 때 보이는 부위에 남을 착색 범위",
+    "치료 협조 정도, 다른 수복 방법과 재검 가능 일정"
+  ],
+  "choices": [
+    {
+      "condition": "치수 문제가 없는 적절한 충치로 평가된다면",
+      "option": "SDF를 충치 관리 계획의 일부로 사용할지 상의할 수 있습니다.",
+      "limit": "검게 변하는 점과 효과가 지속되는지 확인할 재검을 이해해야 합니다."
+    },
+    {
+      "condition": "구멍의 모양이나 씹는 기능을 회복해야 한다면",
+      "option": "충치 진행 억제와 별도로 수복 등 후속 치료를 검토합니다.",
+      "limit": "약을 발랐다고 손상된 치아 모양이 돌아오는 것은 아닙니다."
+    },
+    {
+      "condition": "자발통·지속 통증·붓기 등 다른 문제가 있다면",
+      "option": "치수 상태를 평가하고 필요한 다른 치료를 계획합니다.",
+      "limit": "아이에게 치료가 어렵다는 이유로 SDF만으로 해결된다고 가정하지 않습니다."
+    }
+  ],
+  "unknown": "검은색이 됐다는 사실만으로 충치가 멈췄다고 확정할 수 없습니다. 치과에서 병소 상태를 확인해야 합니다. 제품 성분 알레르기 등 병력을 알리고, 국내에서 사용하는 제품과 실제 시행 가능 여부·비용은 진료 기관에 별도로 확인하세요.",
+  "prepare": [
+    "아이 나이와 통증·식사·잠의 변화",
+    "알레르기와 복용약, 이전 치과 치료 경험",
+    "색 변화에 관해 가족과 아이가 걱정하는 점",
+    "재검을 받을 수 있는 일정과 궁금한 다른 치료 방법"
+  ],
+  "localHeading": "예산에서 소아 충치 상담을 준비하신다면",
+  "localAdvice": "예산에서 천안 불당동으로 소아 충치 상담을 오신다면 아이가 힘들어하는 상황과 현재 통증 여부를 먼저 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. SDF 시행 여부나 당일 처치를 전제로 예약하지 말고, 검사 후 가능한 선택과 후속 방문 계획을 확인하세요.",
+  "related": [
+    {
+      "title": "아이 진료를 상담할 때 살필 기준",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "곧 빠질 젖니의 충치도 치료해야 할까요?",
+      "href": "/concerns/baby-molar-cavity-treat-before-falling-out"
+    },
+    {
+      "title": "새로 난 어금니가 누렇고 부서질 때",
+      "href": "/concerns/child-new-molar-yellow-and-crumbling"
+    }
+  ],
+  "sources": [
+    {
+      "title": "AAPD · SDF 충치 관리 진료 지침, 2025 개정",
+      "href": "https://www.aapd.org/globalassets/media/policies_guidelines/r_chairside--guide25.pdf"
+    },
+    {
+      "title": "ADA · SDF의 역할·착색·추가 수복과 추적 관찰",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/silver-diamine-fluoride"
+    },
+    {
+      "title": "미국소아과학회 AAP · SDF 설명과 보호자의 동의",
+      "href": "https://www.aap.org/en/patient-care/silver-diamine-fluoride-application-in-the-pediatric-medical-setting/silver-diamine-fluoride-discussing-indications-and-obtaining-informed-consent/"
+    },
+    {
+      "title": "AAP · SDF 이후 관리와 치아 착색",
+      "href": "https://www.aap.org/en/patient-care/silver-diamine-fluoride-application-in-the-pediatric-medical-setting/silver-diamine-fluoride-aftercare/"
+    }
+  ],
+  "updated": "2026-10-08",
+  "publishedAt": "2026-10-08T09:00:00+09:00"
 }
 ]
 
