@@ -33,6 +33,7 @@ function fiveSections(t, embedded = false) {
 ${!embedded && aliases[key] ? `<span id="${aliases[key]}" class="io-anchor"></span>` : ''}
 <div class="io-section-heading"><span class="io-number">${num}</span><div><p class="io-eyebrow">${label}</p><h2 id="${prefix}${key}-title">${title}</h2></div></div>
 ${key === 'contraindications' ? `<p class="io-note">금기증과 주의가 필요한 상태는 구분해야 합니다. 아래는 피할 접근, 먼저 조절할 상태, 추가 평가가 필요한 조건입니다. 하나에 해당한다고 스스로 치료 가능 여부를 확정하지 마세요.</p><div class="io-conditions">${t[key].map(c=>`<div><span class="io-tag">${esc(c.level)}</span><h3>${esc(c.title)}</h3><p>${esc(c.text)}</p></div>`).join('')}</div>` : paragraphs(t[key])}
+${(t.depth?.[key] || []).map(d => `<div class="io-depth"><h3>${esc(d.title)}</h3><p>${esc(d.text)}</p></div>`).join('\n')}
 <p class="io-evidence"><a href="#${embedded?'inside-out-':''}sources">이 설명의 근거와 한계 확인 ↓</a></p></section>`).join('\n');
 }
 function render(t) {
@@ -42,7 +43,7 @@ function render(t) {
  return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(description)}"><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://bdbddc.com${t.path}">
 <meta property="og:type" content="article"><meta property="og:title" content="${esc(t.name)}, 그 안과 밖"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="https://bdbddc.com${t.path}"><meta property="og:site_name" content="서울비디치과"><meta property="og:locale" content="ko_KR">
-<link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/site-v5.css"><link rel="stylesheet" href="/css/treatment-insights.css?v=20261007"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+<link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/site-v5.css"><link rel="stylesheet" href="/css/treatment-insights.css?v=20261007b"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 <script type="application/ld+json">${json(schema)}</script></head><body data-consultation-tone="calm"><a class="skip-link" href="#main-content">본문으로 바로가기</a>${header}
 <main id="main-content" class="io-page" data-insight="${t.slug}">
 <section class="io-hero"><div class="io-wrap"><nav class="io-breadcrumb" aria-label="현재 위치"><a href="/">홈</a><span> / </span><a href="/treatments/${t.treatments[0]}">${esc(t.name)} 안내</a></nav><div class="io-hero-grid"><div><p class="io-eyebrow">서울비디치과 · ${series}</p><h1>${esc(t.name)},<br><em>그 안과 밖.</em></h1><p class="io-deck">${esc(t.title)}</p><p class="io-hero-caption">좋은 점을 아는 만큼,<br>내게 맞지 않는 조건도 알아야 하니까요.</p></div><nav class="io-five" aria-label="다섯 가지 관점">${parts.map(([id,n,label,caption])=>`<a href="#${id}"><span>${n}</span><strong>${label}</strong><small>${caption}</small><b aria-hidden="true">↗</b></a>`).join('')}</nav></div></div></section>
@@ -63,7 +64,7 @@ const r=topics.find(t=>t.mode==='existing-treatment');
 const embedded=`<!-- treatment-insights:start -->\n<section id="inside-out" class="io-embedded io-page"><div class="io-wrap"><p class="io-eyebrow">${series}</p><h2 class="io-embedded-title">재수술을 결정하기 전,<br>다섯 가지를 함께 살펴보세요.</h2><p class="io-deck">기대할 수 있는 변화와 감수할 부담, 지금 먼저 확인할 조건까지.</p>${fiveSections(r,true)}${references(r)}</div></section>\n<!-- treatment-insights:end -->`;
 let updated=revision.replace(/<!-- treatment-insights:start -->[\s\S]*?<!-- treatment-insights:end -->\s*/,'');
 updated=updated.replace(/<link rel="stylesheet" href="\/css\/treatment-insights\.css[^>]*>\s*/,'');
-updated=updated.replace('</head>','<link rel="stylesheet" href="/css/treatment-insights.css?v=20261007">\n</head>');
+updated=updated.replace('</head>','<link rel="stylesheet" href="/css/treatment-insights.css?v=20261007b">\n</head>');
 updated=updated.replace(/ *<section id="revision-sources"/,embedded+'\n  <section id="revision-sources"');
 fs.writeFileSync(revisionFile,updated);
 // Append new canonical pages only; sitemap release tooling derives lastmod from Git.

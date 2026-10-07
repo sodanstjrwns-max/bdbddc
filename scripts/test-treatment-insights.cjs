@@ -36,7 +36,11 @@ for(const t of data.topics){
  }
  for(const script of doc.querySelectorAll('script[type="application/ld+json"]'))JSON.parse(script.text);
  if(t.mode!=='existing-treatment') {
-  assert.ok(doc.querySelectorAll('.io-faq').length===2);
+  assert.equal(doc.querySelectorAll('.io-faq').length,t.faq.length);
+  for(const id of ['benefits','limits','indications','contraindications','care']){
+   assert.ok(t.depth?.[id]?.length,`${t.slug}: authored depth missing for ${id}`);
+   for(const d of t.depth[id]){assert.ok(doc.querySelector('#'+id).text.includes(d.title));assert.ok(doc.querySelector('#'+id).text.includes(d.text));}
+  }
   assert.ok(!/후회.*80%|100% 성공|완치 보장|Review|AggregateRating/.test(html));
   for(const a of doc.querySelectorAll('.io-sources a'))assert.ok(a.getAttribute('href').startsWith('https://'));
  }
