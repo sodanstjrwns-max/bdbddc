@@ -42,97 +42,28 @@
   // 배경 — 패럴랙스 3레이어 디오라마
   // ============================================================
   function buildBackground(app, theme, W, H) {
-    const T = THEMES[theme] || THEMES.morning;
     const root = new PIXI.Container();
-
-    // 하늘(구강 상부) 그라데이션 — 밴드 방식
-    const sky = new PIXI.Graphics();
-    const bands = 24;
-    for (let i = 0; i < bands; i++) {
-      sky.rect(0, (H / bands) * i, W, H / bands + 1).fill(mixColor(T.sky1, T.sky2, i / bands));
-    }
-    root.addChild(sky);
-
-    // [레이어1 · 원경] 목젖 실루엣 + 안개
-    const far = new PIXI.Container();
-    const uvula = new PIXI.Graphics();
-    uvula.ellipse(W * 0.5, H * 0.06, W * 0.42, H * 0.13).fill({ color: T.far, alpha: 0.5 });
-    uvula.ellipse(W * 0.5, H * 0.02, W * 0.09, H * 0.085).fill({ color: T.far, alpha: 0.75 });
-    uvula.circle(W * 0.5, H * 0.1, W * 0.055).fill({ color: T.far, alpha: 0.85 });
-    far.addChild(uvula);
-    // 원경 어금니 능선
-    const farTeeth = new PIXI.Graphics();
-    for (let i = 0; i < 7; i++) {
-      const tx = W * (0.02 + i * 0.16), tw = W * 0.13, th = H * (0.05 + (i % 2) * 0.016);
-      farTeeth.roundRect(tx, H * 0.16 - th, tw, th + 20, 14).fill({ color: 0xFFFFFF, alpha: theme === 'night' ? 0.10 : 0.45 });
-    }
-    far.addChild(farTeeth);
-    root.addChild(far);
-
-    // [레이어2 · 중경] 잇몸 능선 (부드러운 언덕)
-    const mid = new PIXI.Graphics();
-    mid.moveTo(0, H * 0.30);
-    for (let x = 0; x <= W; x += W / 24) {
-      mid.lineTo(x, H * 0.26 + Math.sin(x * 0.011 + 2) * H * 0.028 + Math.sin(x * 0.004) * H * 0.02);
-    }
-    mid.lineTo(W, H).lineTo(0, H).closePath().fill(mixColor(T.ridge, P().gum, 0.4));
-    root.addChild(mid);
-
-    // [레이어3 · 전경] 잇몸 지형 본체
-    const ground = new PIXI.Graphics();
-    ground.moveTo(0, H * 0.36);
-    for (let x = 0; x <= W; x += W / 20) {
-      ground.lineTo(x, H * 0.33 + Math.sin(x * 0.008 + 5) * H * 0.024);
-    }
-    ground.lineTo(W, H).lineTo(0, H).closePath().fill(P().gum);
-    // 지형 하이라이트/음영 얼룩 (유기적 질감)
-    for (let i = 0; i < 26; i++) {
-      const gx = Math.random() * W, gy = H * (0.4 + Math.random() * 0.55), gr = 14 + Math.random() * 42;
-      ground.ellipse(gx, gy, gr, gr * 0.5).fill({ color: Math.random() > 0.5 ? P().gumLight : P().gumDark, alpha: 0.10 + Math.random() * 0.08 });
-    }
-    root.addChild(ground);
-
-    // 타액 강 — 반짝임은 tick에서
-    const river = new PIXI.Graphics();
-    const riverPts = [];
-    for (let x = -20; x <= W + 20; x += W / 16) {
-      riverPts.push({ x, y: H * 0.33 + Math.sin(x * 0.008 + 5) * H * 0.024 + 6 });
-    }
-    river.moveTo(riverPts[0].x, riverPts[0].y);
-    riverPts.forEach(p => river.lineTo(p.x, p.y));
-    river.stroke({ width: 10, color: P().saliva, alpha: theme === 'night' ? 0.35 : 0.65, cap: 'round' });
-    root.addChild(river);
-    const sparkles = new PIXI.Container();
-    const sparkleDots = [];
-    for (let i = 0; i < 10; i++) {
-      const d = new PIXI.Graphics();
-      d.circle(0, 0, 1.6 + Math.random() * 1.6).fill({ color: 0xFFFFFF, alpha: 0.9 });
-      const bp = riverPts[Math.floor(Math.random() * riverPts.length)];
-      d.x = bp.x; d.y = bp.y; d._ph = Math.random() * 6.28;
-      sparkles.addChild(d); sparkleDots.push(d);
-    }
-    root.addChild(sparkles);
-
-    // 전경 장식 — 잇몸 돌기·미니 치아
-    const deco = new PIXI.Graphics();
-    for (let i = 0; i < 10; i++) {
-      const dx = Math.random() * W, dy = H * (0.42 + Math.random() * 0.5);
-      if (Math.random() > 0.5) {
-        deco.ellipse(dx, dy, 6 + Math.random() * 7, 4 + Math.random() * 5).fill({ color: P().gumLight, alpha: 0.55 });
-      } else {
-        deco.roundRect(dx, dy, 9, 12, 4).fill({ color: 0xFFFFFF, alpha: theme === 'night' ? 0.14 : 0.5 });
+    // Paint the static diorama once, then animate a bounded set of fireflies.
+    const c=document.createElement('canvas');c.width=W*2;c.height=H*2;
+    const x=c.getContext('2d');x.scale(2,2);
+    const sky=x.createLinearGradient(0,0,0,H);sky.addColorStop(0,theme==='night'?'#091021':'#173947');sky.addColorStop(1,'#071622');x.fillStyle=sky;x.fillRect(0,0,W,H);
+    const halo=x.createRadialGradient(W*.68,H*.1,0,W*.68,H*.1,W*.8);halo.addColorStop(0,theme==='evening'?'#b8865144':'#75dfcf33');halo.addColorStop(1,'#183c4500');x.fillStyle=halo;x.fillRect(0,0,W,H);
+    for(let layer=0;layer<3;layer++){
+      for(let i=0;i<8;i++){
+        const bx=i*70-50+layer*20,by=H*(.15+layer*.06),height=40+(i*37%85),width=35+layer*8;
+        x.fillStyle=['#284853','#3b6567','#60847c'][layer];x.globalAlpha=.35+layer*.12;
+        x.beginPath();x.moveTo(bx,by);x.lineTo(bx+width,by);x.lineTo(bx+width*.9,by-height);x.quadraticCurveTo(bx+width*.65,by-height-20,bx+width*.5,by-height-9);x.quadraticCurveTo(bx,by-height-28,bx,by-height);x.fill();
       }
-    }
-    root.addChild(deco);
-
-    return {
-      container: root, sparkleDots,
-      tick(t) {
-        sparkleDots.forEach(d => { d.alpha = 0.3 + 0.6 * Math.abs(Math.sin(t * 1.8 + d._ph)); });
-        far.x = Math.sin(t * 0.18) * 5;   // 원경 미세 패럴랙스
-        mid.x = Math.sin(t * 0.18) * 2.4;
-      }
-    };
+    }x.globalAlpha=1;
+    // Beveled stone island and contours, kept clear around interactive paths.
+    x.fillStyle='#06131b';x.beginPath();x.moveTo(14,H*.28);x.lineTo(W-14,H*.28);x.lineTo(W-4,H*.94);x.lineTo(W*.75,H);x.lineTo(25,H*.96);x.closePath();x.fill();
+    const stone=x.createLinearGradient(0,H*.25,W,H);stone.addColorStop(0,'#315c60');stone.addColorStop(.5,'#183d49');stone.addColorStop(1,'#112c3a');x.fillStyle=stone;x.beginPath();x.roundRect(9,H*.25,W-18,H*.70,32);x.fill();
+    for(let i=0;i<24;i++){x.strokeStyle=i%3===0?'#76baa218':'#9dcaaf0d';x.lineWidth=1;x.beginPath();for(let j=0;j<18;j++){const xx=j*W/17, yy=H*.28+i*H*.027+Math.sin(j*.5+i)*9;j?x.lineTo(xx,yy):x.moveTo(xx,yy);}x.stroke();}
+    for(let i=0;i<16;i++){const bx=i%2?W-13:13,by=H*(.31+i*.039);x.fillStyle='#274450';x.beginPath();x.moveTo(bx-9,by+18);x.lineTo(bx+8,by+15);x.lineTo(bx+5,by-9);x.lineTo(bx-3,by-18);x.closePath();x.fill();x.strokeStyle='#7bd4c099';x.beginPath();x.moveTo(bx-3,by-18);x.lineTo(bx+1,by+9);x.stroke();}
+    const tex=PIXI.Texture.from(c),sprite=new PIXI.Sprite(tex);sprite.width=W;sprite.height=H;root.addChild(sprite);
+    const island=PIXI.Assets.get('/images/arcade/defense-island.webp');if(island){const terrain=new PIXI.Sprite(island);terrain.width=W;terrain.height=H;terrain.tint=theme==='night'?0xb4c4df:theme==='evening'?0xffdab5:0xffffff;root.addChild(terrain);}
+    const motes=[];for(let i=0;i<22;i++){const g=new PIXI.Graphics();g.circle(0,0,1.1).fill(i%3===0?0xffd398:0x86e3d6);g.x=(i*79+13)%W;g.y=(i*113+57)%H;g.blendMode='add';g._x=g.x;g._y=g.y;root.addChild(g);motes.push(g);}
+    return {container:root,tick(t){for(let i=0;i<motes.length;i++){const g=motes[i];g.alpha=.25+.45*Math.sin(t*.7+i)**2;g.x=g._x+Math.sin(t*.16+i)*6;g.y=g._y+Math.cos(t*.13+i)*5;}},destroy(){tex.destroy(true);}};
   }
 
   // 앰비언트 라이팅 오버레이 (웨이브 진행 → 아침→오후→밤)
@@ -165,13 +96,13 @@
     const g = new PIXI.Graphics();
     // 외곽 딥 라인
     g.moveTo(sm[0].x, sm[0].y); sm.forEach(p => g.lineTo(p.x, p.y));
-    g.stroke({ width: 46, color: P().gumDark, alpha: 0.9, cap: 'round', join: 'round' });
+    g.stroke({ width: 46, color: 0x061723, alpha: 0.95, cap: 'round', join: 'round' });
     // 본체
     g.moveTo(sm[0].x, sm[0].y); sm.forEach(p => g.lineTo(p.x, p.y));
-    g.stroke({ width: 38, color: mixColor(P().gum, 0xC96F58, 0.45), cap: 'round', join: 'round' });
+    g.stroke({ width: 36, color: 0x40574F, cap: 'round', join: 'round' });
     // 중앙 하이라이트
     g.moveTo(sm[0].x, sm[0].y); sm.forEach(p => g.lineTo(p.x, p.y));
-    g.stroke({ width: 14, color: P().gumLight, alpha: 0.35, cap: 'round', join: 'round' });
+    g.stroke({ width: 28, color: 0xC9BC8D, alpha: 0.12, cap: 'round', join: 'round' });
     // 점선 발자국 (진격 방향 암시)
     const dots = new PIXI.Graphics();
     for (let i = 6; i < sm.length - 4; i += 10) {
@@ -561,14 +492,15 @@
       let p = pool.pop();
       if (!p) {
         p = new PIXI.Graphics();
-        p.circle(0, 0, 3).fill(0xFFFFFF);
+        p.circle(0, 0, 7).fill({color:0x7bd8c2,alpha:.12});
+        p.circle(0,0,3).fill(0xFFFFFF);p.blendMode='add';
       }
       layer.addChild(p);
       return p;
     }
     function spawn(x, y, opts) {
       if (active.length >= max) return;
-      const n = opts.count || 8;
+      const n = Math.min(opts.count || 8, max-active.length);
       for (let i = 0; i < n; i++) {
         const p = get();
         const a = Math.random() * Math.PI * 2;

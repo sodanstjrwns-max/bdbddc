@@ -28,7 +28,7 @@
     brush: {
       id: 'brush', name: '칫솔 타워', icon: '🪥',
       desc: '근접 회전 스윙. 빠른 공속으로 물량을 갈아낸다.',
-      eduTip: '하루 3번, 한 번에 3분. 기본기가 최강입니다.',
+      eduTip: '칫솔질과 치아 사이 청소, 꾸준한 관리가 중요합니다.',
       hitsAir: false, type: 'melee',
       levels: [
         { name: '일반 칫솔', cost: 100, dmg: 14, rate: 0.55, range: 105 },
@@ -39,7 +39,7 @@
     floss: {
       id: 'floss', name: '치실 타워', icon: '🧵',
       desc: '단일 저격 레이저. 치간 은신 세균을 유일하게 감지·저격.',
-      eduTip: '칫솔이 못 닿는 치아 사이 40%는 치실만이 지킵니다.',
+      eduTip: '치아 사이 청소 방법은 공간과 잇몸 상태에 맞춰 안내받으세요.',
       hitsAir: true, type: 'snipe', detects: true,
       levels: [
         { name: '왁스 치실', cost: 140, dmg: 42, rate: 1.15, range: 190 },
@@ -115,7 +115,7 @@
     calculus: {
       id: 'calculus', name: '치석 골렘', hp: 480, speed: 24, gold: 40,
       dmgToBase: 3, size: 26, color: 0xB8B09A, armor: 9, weakToNova: true,
-      desc: '플라그가 굳었다. 방어 극강 — 가글(스케일링)에 약하다.'
+      desc: '플라그가 굳었다. 방어 극강 — 게임 속 가글 포탑의 광역 공격에 약하다.'
     },
     bat: {
       id: 'bat', name: '야식 박쥐', hp: 64, speed: 96, gold: 15,
@@ -309,7 +309,7 @@
       '치아 사이가 수상합니다. 치실은 준비되셨습니까?',
       '야식 군단이 접근 중입니다. 지휘관님, 양치 타임을 아껴두셨습니까?'
     ],
-    calculusWarn: '플라그가 굳었습니다. 이제 칫솔로는 늦었습니다. — 가글(스케일링)을 배치하십시오.',
+    calculusWarn: '플라그가 굳었습니다. 이제 칫솔로는 늦었습니다. — 가글 포탑을 배치하십시오.',
     bossClear: ['밤 12시를 사수했습니다. 내일 아침도 부탁합니다.', '전선은 지켜졌다. 하지만 세균은 매일 돌아온다.'],
     gameOver: {
       title: '충치가 발생했습니다.',

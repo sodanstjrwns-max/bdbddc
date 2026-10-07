@@ -51,14 +51,15 @@
 
     // ---------- PIXI 초기화 ----------
     const app = new PIXI.Application();
-    let ready = app.init({
+    let ready = Promise.all([app.init({
       width: mw, height: mh,
       backgroundAlpha: 0,
       antialias: true,
       resolution: Math.min(2, window.devicePixelRatio || 1),
       autoDensity: true,
       preference: 'webgl'
-    }).then(() => {
+    }), PIXI.Assets.load('/images/arcade/defense-island.webp').catch(()=>null)]).then(() => {
+      if(destroyed){app.destroy(true, {children:true});return;}
       mountEl.appendChild(app.canvas);
       setup();
     }).catch((err) => {
@@ -140,14 +141,26 @@
     }
 
     let rangeG = null;
+    function resizeWorld(){
+      if(destroyed || !app.renderer)return;
+      const width=mountEl.clientWidth,height=mountEl.clientHeight;
+      if(width<50||height<50)return;
+      mw=width;mh=height;app.renderer.resize(mw,mh);
+      const scale=Math.min(mw/LW,mh/LH);world.scale.set(scale);world.position.set((mw-LW*scale)/2,(mh-LH*scale)/2);
+      clearSelection();
+    }
+    window.addEventListener('resize',resizeWorld);
 
     // ---------- HUD 브릿지 ----------
     function pushHUD() {
+      const activeState=state===GameState.PAUSED?self._prevState:state;
+      const nextIndex=waveIdx+(activeState===GameState.WAVE?1:0);
+      const nextEnemies=(waves[nextIndex]||[]).map(([type,count])=>({name:(DATA.ENEMIES[type]||DATA.BOSSES[type]).name,count}));
       opts.onHUD && opts.onHUD({
         gold: Math.floor(gold), lives, wave: Math.min(waveIdx + (state === GameState.WAVE ? 1 : 0), TOTAL_WAVES),
         totalWaves: TOTAL_WAVES, score: Math.floor(score),
         brushCharges, brushProgress, brushActive: brushActive > 0,
-        state, speedMult,
+        state, speedMult, nextEnemies, nextWave:nextIndex+1,
         canStart: state === GameState.READY || state === GameState.BETWEEN
       });
     }
@@ -266,7 +279,8 @@
 
     function worldToScreen(x, y) {
       const s = world.scale.x;
-      return { x: world.x + x * s, y: world.y + y * s, scale: s };
+      const rect=mountEl.getBoundingClientRect();
+      return { x: rect.left + world.x + x * s, y: rect.top + world.y + y * s, scale: s };
     }
 
     function buildTower(typeId) {
@@ -558,7 +572,7 @@
 
     // ---------- 메인 루프 ----------
     function tick(ticker) {
-      if (destroyed) return;
+      if (destroyed || state === GameState.PAUSED) return;
       const rawDt = Math.min(0.05, ticker.deltaMS / 1000);
       const dt = rawDt * speedMult;
       elapsed += dt;
@@ -851,13 +865,14 @@
     this.pause = function (p) {
       if (state === GameState.OVER || state === GameState.CLEAR) return;
       if (p && state !== GameState.PAUSED) { self._prevState = state; state = GameState.PAUSED; }
-      else if (!p && state === GameState.PAUSED) { state = self._prevState || GameState.BETWEEN; }
+      else if (!p && state === GameState.PAUSED) { state = self._prevState ?? GameState.BETWEEN; }
       pushHUD();
     };
     this.getState = () => state;
     this.destroy = function () {
       destroyed = true;
-      try { app.ticker.remove(tick); app.destroy(true, { children: true }); } catch (e) {}
+      window.removeEventListener('resize',resizeWorld);
+      try { app.ticker.remove(tick); bg?.destroy?.(); app.destroy(true, { children: true }); } catch (e) {}
     };
   }
 

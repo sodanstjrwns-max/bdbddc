@@ -309,8 +309,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       #buildMenu, #towerMenu { width:330px; }
     }
   </style>
+<link rel="stylesheet" href="/css/arcade-upgrade.css?v=20261007a">
 </head>
-<body>
+<body data-arcade="defense">
   <!-- GTM noscript -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
@@ -336,18 +337,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <button class="howto-btn" id="howtoBtn">🎮 게임 방법 보기</button>
 
     <details class="seo-box">
-      <summary>게임 속 치의학은 진짜입니다</summary>
+      <summary>게임 속 설정과 실제 구강 관리는 다릅니다</summary>
       <div class="seo-body">
-        <b>뮤탄스균</b>(스트렙토코쿠스 뮤탄스)은 실제 충치의 주범입니다. 당분을 먹고 산을 만들어 치아를 녹입니다.
-        <b>치실</b>은 칫솔이 닿지 않는 치아 사이 면적 약 40%를 담당합니다 — 게임에서 치실 타워만 '치간 닌자'를 잡는 이유죠.
-        <b>불소</b>는 에나멜을 강화해 산 공격을 견디게 하고, <b>치석</b>은 굳은 플라그라서 칫솔로는 제거할 수 없어 스케일링이 필요합니다.
-        그리고 <b>정기검진</b>은 눈에 안 보이는 초기 충치를 발견하는 유일한 방법입니다.
+        이 게임의 전투·타워 능력·점수는 재미를 위한 가상 설정이며, 실제 질환의 진단이나 치료 효과를 나타내지 않습니다.
+        칫솔질과 치아 사이 청소는 구강 관리에 중요하지만, 게임처럼 세균을 모두 없애거나 가글로 치석을 제거할 수는 없습니다.
+        불편한 증상이나 관리 방법은 진찰과 개별 안내를 통해 확인하세요.
         더 알아보기: <a href="/encyclopedia/">치과 백과사전</a> · <a href="/treatments/scaling">스케일링</a> · <a href="/treatments/prevention">예방치료</a>
       </div>
     </details>
 
     <footer class="intro-foot">
-      🔇 사운드는 기본 꺼짐 · 개인정보 수집 없음<br>
+      🔇 사운드는 기본 꺼짐 · 랭킹 등록은 선택입니다<br>
       <a href="/games">← 게임존으로</a> · <a href="/">서울비디치과 홈</a>
     </footer>
   </section>
@@ -373,7 +373,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <span id="brushCharge">0</span>
         <span class="big">🪥</span><span>양치 타임</span>
       </button>
-      <button id="waveBtn" class="mint-btn">▶ 웨이브 시작</button>
+      <div class="wave-control"><p id="wavePreview" aria-live="polite"></p><button id="waveBtn" class="mint-btn">▶ 웨이브 시작</button></div>
       <button id="speedBtn" class="enamel-btn">x1</button>
     </div>
 
@@ -453,9 +453,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="howto-row"><span class="hi">🪥</span><div class="ht"><b>칫솔:</b> 근접 광역. 싸고 빠르지만 <b>비행 적(야식 박쥐)에게 안 닿음</b>.</div></div>
       <div class="howto-row"><span class="hi">🧵</span><div class="ht"><b>치실:</b> 단일 저격. <b>은신한 '치간 닌자'를 감지하는 유일한 공격 타워</b>.</div></div>
       <div class="howto-row"><span class="hi">💧</span><div class="ht"><b>불소:</b> 범위 슬로우 + 도트 피해. 길목에 깔면 밥값 두 배.</div></div>
-      <div class="howto-row"><span class="hi">🌊</span><div class="ht"><b>가글:</b> 광역 파도 + 넉백. <b>치석 골렘의 카운터</b> (칫솔로는 못 뚫음 = 스케일링 원리).</div></div>
+      <div class="howto-row"><span class="hi">🌊</span><div class="ht"><b>가글:</b> 광역 파도 + 넉백. <b>치석 골렘의 카운터</b> (게임 속 가상 능력).</div></div>
       <div class="howto-row"><span class="hi">🔍</span><div class="ht"><b>검진:</b> 맵 전체 은신 감지 + 골드 수급. 정기검진은 게임에서도 현실에서도 이득.</div></div>
-      <div class="howto-row"><span class="hi">✨</span><div class="ht"><b>양치 타임(궁극기):</b> 3웨이브마다 충전. 전장 전체 클렌징! <b>웨이브 사이(=식후)에 쓰면 효과 2배</b>.</div></div>
+      <div class="howto-row"><span class="hi">✨</span><div class="ht"><b>양치 타임(궁극기):</b> 3웨이브마다 충전. 전장 전체 클렌징! <b>웨이브 사이(=식후)에 쓰면 게임 효과 2배</b>.</div></div>
       <button class="mint-btn howto-close" id="howtoClose">출격 준비 완료!</button>
     </div>
   </div>
@@ -470,11 +470,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/pixi.js@8.6.6/dist/pixi.min.js"></script>
-  <script src="/js/cavity-defense/cd-data.js?v=2"></script>
-  <script src="/js/cavity-defense/cd-art.js?v=2"></script>
-  <script src="/js/cavity-defense/cd-game.js?v=2"></script>
-  <script src="/js/cavity-defense/cd-app.js?v=2"></script>
+  <script src="/js/arcade/vendor/pixi.min.js"></script>
+  <script src="/js/cavity-defense/cd-data.js?v=20261007a"></script>
+  <script src="/js/cavity-defense/cd-art.js?v=20261007a"></script>
+  <script src="/js/cavity-defense/cd-game.js?v=20261007a"></script>
+  <script src="/js/cavity-defense/cd-app.js?v=20261007a"></script>
 <script src="/js/lang-switcher.js?v=20260813v2" defer></script>
 </body>
 </html>

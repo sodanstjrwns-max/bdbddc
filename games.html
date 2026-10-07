@@ -263,11 +263,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   }
 </script>
 <!-- End Microsoft Clarity -->
+<link rel="stylesheet" href="/css/arcade-hub.css?v=20261007a">
 </head>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"게임존 | 서울비디치과","description":"서울비디치과 게임존 — 플라그 플라이트, 플라그 런, 치BTI 등 재미있는 구강 건강 게임을 즐겨보세요.","url":"https://bdbddc.com/games","isPartOf":{"@id":"https://bdbddc.com/#website"},"publisher":{"@id":"https://bdbddc.com/#dentist"},"speakable":{"@type":"SpeakableSpecification","cssSelector":["h1",".game-description"]},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com"},{"@type":"ListItem","position":2,"name":"게임존","item":"https://bdbddc.com/games"}]}}
 </script>
-<body>
+<body class="bd-play-hub">
 <header class="site-header" id="siteHeader">
     <div class="header-container">
       <div class="header-brand">
@@ -453,116 +454,22 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     </div>
   </nav>
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
-  <div class="games-header">
-    <div class="games-header-content">
-      <div class="games-badge"><span>🎮</span> 서울비디치과 × 게임존</div>
-      <h1 class="games-title">플레이</h1>
-      <p class="games-subtitle">치과가 이렇게 재밌을 수 있다고?<br>게임하고 점수 자랑하고 예약까지! 🦷</p>
+  <main class="arcade-hub" id="main-content">
+    <section class="play-hero">
+      <div class="play-hero-content"><p class="play-eyebrow">SEOUL BD DENTAL / THE ARCADE</p><h1>작은 치아의<br><em>커다란 모험.</em></h1><p class="play-lead">하늘을 가르고, 협곡을 달리고, 성채를 지키세요.<br>잠깐의 기다림이 한 판의 모험이 되는 곳.</p><a href="#choose-game" class="play-explore">오늘의 모험 고르기 <span>↓</span></a><div class="play-meta"><span>01 — 03 / ARCADE</span><span>설치 없이 바로 플레이</span></div></div>
+      <span class="play-art-caption">ENAMEL WORLD · 런치 아트</span>
+    </section>
+    <section class="play-library" id="choose-game" aria-labelledby="library-title"><div class="play-section-head"><div><p class="play-eyebrow">CHOOSE YOUR ADVENTURE</p><h2 id="library-title">어디부터 떠날까요?</h2></div><p>각기 다른 세 가지 플레이.<br>내 기록을 한 번 더 넘어보세요.</p></div>
+    <div class="play-grid">
+      <a class="play-card play-flight" href="/flight"><div class="play-card-art"><img src="/images/arcade/flight-preview.webp" alt="치석 플라이트 실제 플레이 화면" width="720" height="480" loading="lazy"><span class="play-card-no">01</span><span class="play-card-kind">3D FLIGHT</span></div><div class="play-card-body"><p>ORBIT / 아케이드 슈팅</p><h3>치석 플라이트 <span>↗</span></h3><div>치석 군단 사이로, 한 번 더 날아오르기.<br>충격파를 모았다가, 위기의 순간에 터뜨리세요.</div><footer><span>드래그 · 방향키</span><span>충격파 / 연속 격파</span></footer></div></a>
+      <a class="play-card play-run" href="/run"><div class="play-card-art"><img src="/images/arcade/run-preview.webp" alt="투쓰런 실제 플레이 화면" width="720" height="480" loading="lazy"><span class="play-card-no">02</span><span class="play-card-kind">3D RUNNER</span></div><div class="play-card-body"><p>ENAMEL VALLEY / 무한 러너</p><h3>투쓰런 <span>↗</span></h3><div>점프 한 번에 달라지는 다음 순간.<br>협곡을 달리며 30초 너머를 향해.</div><footer><span>탭 · Space / 2단 점프</span><span>기록 / 캐릭터 해금</span></footer></div></a>
+      <a class="play-card play-defense" href="/game/cavity-defense"><div class="play-card-art"><img src="/images/arcade/defense-preview.webp" alt="충치 디펜스 실제 플레이 화면" width="720" height="480" loading="lazy"><span class="play-card-no">03</span><span class="play-card-kind">STRATEGY</span></div><div class="play-card-body"><p>THE LAST MOLAR / 타워 디펜스</p><h3>충치 디펜스 <span>↗</span></h3><div>어금니 성채를 지킬 작전이 필요해요.<br>다음 적을 읽고, 길목에 타워를 배치하세요.</div><footer><span>탑 위치 선택 · 배치</span><span>3개 전장 / 5종 타워</span></footer></div></a>
     </div>
-  </div>
-
-  <div class="games-grid">
-
-    <!-- 충치 디펜스 -->
-    <a href="/game/cavity-defense" class="game-card">
-      <div class="game-card-banner cavity">🦷⚔️</div>
-      <div class="game-card-body">
-        <div class="game-card-tags">
-          <span class="game-tag tag-new">NEW</span>
-          <span class="game-tag tag-hot">타워 디펜스</span>
-        </div>
-        <div class="game-card-title">충치 디펜스</div>
-        <div class="game-card-desc">입속은 전장이다! 칫솔·치실·불소·가글 타워로 세균 군단을 막아라. 궁극기 '양치 타임'으로 밤 12시 야식왕을 사수하라!</div>
-        <div class="game-card-meta">
-          <span><i class="fas fa-clock"></i> 10~15분</span>
-          <span><i class="fas fa-chess-rook"></i> 3스테이지 + 보스 3종</span>
-          <span><i class="fas fa-trophy"></i> 주간 랭킹</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- 치석 플라이트 -->
-    <a href="/flight" class="game-card">
-      <div class="game-card-banner flight">🦷✈️</div>
-      <div class="game-card-body">
-        <div class="game-card-tags">
-          <span class="game-tag tag-arcade">아케이드</span>
-        </div>
-        <div class="game-card-title">치석 플라이트</div>
-        <div class="game-card-desc">치석을 피하고 치아를 지켜라! 드래곤 플라이트 치과 버전. 내 치아 등급은?</div>
-        <div class="game-card-meta">
-          <span><i class="fas fa-clock"></i> 3~5분</span>
-          <span><i class="fas fa-gamepad"></i> 터치 / 방향키</span>
-          <span><i class="fas fa-trophy"></i> 랭킹</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- TOOTH RUN -->
-    <a href="/run" class="game-card">
-      <div class="game-card-banner run">🦷🏃</div>
-      <div class="game-card-body">
-        <div class="game-card-tags">
-          <span class="game-tag tag-new">NEW</span>
-          <span class="game-tag tag-arcade">무한 러너</span>
-        </div>
-        <div class="game-card-title">TOOTH RUN</div>
-        <div class="game-card-desc">30초 버틸 수 있어? 치석을 피해 달려라! 쿠키런 스타일 치과 무한 러너.</div>
-        <div class="game-card-meta">
-          <span><i class="fas fa-clock"></i> 30초 도전</span>
-          <span><i class="fas fa-gamepad"></i> 터치 / 점프</span>
-          <span><i class="fas fa-trophy"></i> 랭킹 + 캐릭터</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- 치BTI -->
-    <a href="/checkup" class="game-card">
-      <div class="game-card-banner chbti">🧬🦷</div>
-      <div class="game-card-body">
-        <div class="game-card-tags">
-          <span class="game-tag tag-quiz">심리테스트</span>
-        </div>
-        <div class="game-card-title">치BTI</div>
-        <div class="game-card-desc">MBTI 말고 치BTI! 16가지 구강 유형 중 나는? 16문항으로 알아보는 내 구강 습관.</div>
-        <div class="game-card-meta">
-          <span><i class="fas fa-clock"></i> ~2분</span>
-          <span><i class="fas fa-dna"></i> 16가지 유형</span>
-          <span><i class="fas fa-share-alt"></i> 공유</span>
-        </div>
-      </div>
-    </a>
-
-
-  </div>
-
-  <div class="games-footer">
-    <div class="games-footer-text">원하는 게임을 선택해 즐겨보세요.</div>
-    <a href="/" class="games-footer-link"><i class="fas fa-arrow-left"></i> 서울비디치과 홈으로</a>
-  </div>
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KKVMVZHK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<script src="/js/analytics.js?v=20260904v10" defer></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // 게임 카드 클릭 트래킹
-  document.querySelectorAll('a.game-card').forEach(function(card) {
-    card.addEventListener('click', function() {
-      var gameName = card.querySelector('.game-card-title');
-      var href = card.getAttribute('href') || '';
-      var name = gameName ? gameName.textContent.trim() : href;
-      if (window.bdAnalytics && bdAnalytics.trackGameSelect) {
-        bdAnalytics.trackGameSelect(name, 'game_hub');
-      }
-    });
-  });
-});
-</script>
-<script src="/js/main.js?v=202604190433" defer></script>
+    <a href="/checkup" class="play-quiz"><div><p class="play-eyebrow">BONUS / DISCOVER YOUR HABITS</p><h3>싸우는 것보다, 나를 알아가는 쪽이라면.</h3><p>치BTI에서 16문항으로 내 구강 습관 유형을 만나보세요. 진단용 검사는 아닙니다.</p></div><span>치BTI 시작 ↗</span></a>
+    <p class="play-disclaimer">게임의 점수·등급·공격 효과는 재미를 위한 가상 설정이며 실제 구강 건강이나 치료 효과를 나타내지 않습니다. 비행·러닝은 3D 표시를 지원하지 않는 환경에서 기본 그래픽으로 실행됩니다.</p>
+    </section>
+  </main>
   <script src="/js/micro.js?v=fc744130" defer></script>
   <script src="/static/chatbot.js?v=20260813v2" defer></script>
 <script src="/js/gnb-v2.js?v=20260819fix" defer></script>

@@ -320,11 +320,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   }
 </script>
 <!-- End Microsoft Clarity -->
+<link rel="stylesheet" href="/css/arcade-upgrade.css?v=20261007a">
 </head>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"플라그 런 | 서울비디치과","description":"서울비디치과 플라그 런 게임 — 충치균을 물리치며 구강 건강 상식을 배우는 인터랙티브 게임입니다.","url":"https://bdbddc.com/run","isPartOf":{"@id":"https://bdbddc.com/#website"},"publisher":{"@id":"https://bdbddc.com/#dentist"},"speakable":{"@type":"SpeakableSpecification","cssSelector":["h1",".game-intro"]},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com"},{"@type":"ListItem","position":2,"name":"게임존","item":"https://bdbddc.com/games"},{"@type":"ListItem","position":3,"name":"플라그 런","item":"https://bdbddc.com/run"}]}}
 </script>
-<body>
+<body data-arcade="run">
 
 <header class="site-header" id="siteHeader">
     <div class="header-container">
@@ -511,39 +512,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     </div>
   </nav>
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
   <!-- INTRO SCREEN -->
-  <div class="screen active" id="introScreen">
-    <div class="intro-char" id="introCharPreview">🦷</div>
-    <h1 class="intro-title">TOOTH RUN</h1>
-    <div class="intro-subtitle">치석을 피해 달려라! 30초 버틸 수 있어?</div>
-    <div class="intro-badge">💀 서울비디치과 바이럴 게임 3탄</div>
-
-    <!-- Character Select -->
-    <div class="char-select" id="charSelect"></div>
-
-    <div class="intro-enemies">
-      <div class="intro-enemy"><div class="intro-enemy-emoji">🪨</div><div class="intro-enemy-name">치석</div></div>
-      <div class="intro-enemy"><div class="intro-enemy-emoji">🦠</div><div class="intro-enemy-name">충치균</div></div>
-      <div class="intro-enemy"><div class="intro-enemy-emoji">🍬</div><div class="intro-enemy-name">당분</div></div>
-      <div class="intro-enemy"><div class="intro-enemy-emoji">🥤</div><div class="intro-enemy-name">산성음료</div></div>
-    </div>
-
-    <div class="intro-how">
-      <div class="intro-how-title">🎮 조작법</div>
-      <div class="intro-how-row"><span>📱</span> 화면 터치 / 탭 = 점프</div>
-      <div class="intro-how-row"><span>⌨️</span> 스페이스바 / ↑ = 점프</div>
-      <div class="intro-how-row"><span>❤️</span> HP 3개, 0이 되면 게임오버</div>
-      <div class="intro-how-row"><span>⚡</span> 아이템 먹으면 파워업!</div>
-      <div class="intro-how-row"><span>💀</span> 30초 생존율 1%... 가능?</div>
-    </div>
-
-    <button class="btn-start" onclick="startGame()"><i class="fas fa-play"></i> &nbsp;달려!!!</button>
-    <div class="intro-controls">터치 또는 스페이스바로 점프</div>
-    <div class="intro-footer-badge"><span>🦷</span><span>서울비디치과 × TOOTH RUN</span></div>
-  </div>
-
-  <!-- GAME CANVAS -->
+  <div class="screen active" id="introScreen"><div class="arcade-launch"><p class="arcade-kicker">BD PLAY / 02 · ENAMEL VALLEY</p><h1>한 번 더.<br><span>조금 더 멀리.</span></h1><p class="arcade-description">깊은 협곡을 달리는 작은 치아.<br>장애물을 뛰어넘고, 아이템을 잡고,<br>30초 너머의 새 기록에 도전하세요.</p><span id="introCharPreview" hidden></span><div class="char-select" id="charSelect"></div><div class="arcade-controls"><div><b>JUMP</b>화면 탭 · Space · ↑ · 2단 점프</div><div><b>CHALLENGE</b>30초 도전 · 캐릭터 해금</div><div><b>PAUSE</b>일시정지 버튼 · Esc</div></div><button class="btn-start-game" onclick="startGame()">달리기 시작하기 &nbsp; ↗</button><p class="arcade-note">게임 속 능력과 점수는 실제 구강 건강·치료 효과를 나타내지 않습니다.<br>소리는 직접 켤 수 있습니다.</p></div></div>
   <canvas id="gameCanvas"></canvas>
 
   <!-- HUD -->
@@ -566,7 +536,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <div class="damage-flash" id="damageFlash"></div>
 
   <!-- RESULT SCREEN -->
-  <div class="screen" id="resultScreen"></div>
+  <div class="pause-overlay" id="pauseOverlay"><div class="pause-text">잠깐 쉬어가기</div><button class="btn-resume" onclick="resumeGame()">계속하기</button></div>
+<div class="screen" id="resultScreen"></div>
 
   <!-- TOAST -->
   <div class="toast" id="toast"></div>
@@ -579,6 +550,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   var canvas, ctx, W, H;
   var gameRunning = false;
+  var gamePaused = false;
   var animFrameId = null;
   var GROUND_Y; // calculated on resize
   var GRAVITY = 2800; // px/s²
@@ -596,7 +568,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   // Player
   var player = {
     x: 0, y: 0, w: 44, h: 44,
-    vy: 0, onGround: true,
+    vy: 0, onGround: true, jumps: 0,
     hp: 3, maxHp: 3,
     invincible: false, invincibleTimer: 0,
     shieldActive: false, shieldTimer: 0,
@@ -638,19 +610,19 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   // Grades
   var GRADES = [
     { min: 30, emoji: '👑', name: '치아 전설', cls: 'grade-legend',
-      comment: '이 정도면 치아도 완벽할 듯. 원장도 인정합니다 👏',
+      comment: '30초 돌파! 멋진 집중력으로 협곡을 달렸어요.',
       cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
     { min: 25, emoji: '🔥', name: '거의 전설', cls: 'grade-almost',
-      comment: '30초까지 0.1초 남았는데 진짜 아깝다...',
+      comment: '30초가 눈앞이에요. 다음 점프에서 기록을 넘겨보세요.',
       cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
     { min: 15, emoji: '😏', name: '제법인데요', cls: 'grade-decent',
-      comment: '0.1초 차이였는데 아쉽다... 한 번만 더?',
+      comment: '좋은 출발이에요. 한 번 더 도전해 볼까요?',
       cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 5, emoji: '😬', name: '치석 보유자', cls: 'grade-tartar',
+    { min: 5, emoji: '😬', name: '협곡 탐험가', cls: 'grade-tartar',
       comment: '조금 더 하면 될 것 같죠? 그게 함정입니다 ㅋㅋ',
       cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 0, emoji: '💀', name: '충치 직전', cls: 'grade-skull',
-      comment: '이게 치과 공포보다 더 무섭죠?',
+    { min: 0, emoji: '💀', name: '첫 번째 모험', cls: 'grade-skull',
+      comment: '첫 점프부터 차근차근. 다음 모험에서 다시 만나요.',
       cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' }
   ];
 
@@ -764,6 +736,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   // ---- START GAME ----
   function startGame() {
+    document.getElementById('damageFlash').classList.remove('active');
+    document.getElementById('powerupIndicator').classList.remove('active');
     document.getElementById('introScreen').classList.remove('active');
     document.getElementById('resultScreen').classList.remove('active');
     document.getElementById('hud').classList.add('active');
@@ -772,6 +746,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     player.y = GROUND_Y - player.h;
     player.vy = 0;
     player.onGround = true;
+    player.jumps = 0;
     player.hp = 3;
     player.invincible = false;
     player.invincibleTimer = 0;
@@ -796,6 +771,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     initBg();
     updateHud();
     gameRunning = true;
+    gamePaused = false;
+    document.getElementById("pauseOverlay").classList.remove("active");
     lastTime = performance.now();
     if (animFrameId) cancelAnimationFrame(animFrameId);
     gameLoop(lastTime);
@@ -809,6 +786,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   // ---- GAME LOOP ----
   function gameLoop(now) {
     if (!gameRunning) return;
+    if (gamePaused) { animFrameId = requestAnimationFrame(gameLoop); return; }
     var dt = Math.min(now - lastTime, 50);
     lastTime = now;
     elapsed += dt;
@@ -927,15 +905,17 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
       player.y = GROUND_Y - player.h;
       player.vy = 0;
       player.onGround = true;
+      player.jumps = 0;
     } else {
       player.onGround = false;
     }
   }
 
   function jump() {
-    if (!gameRunning) return;
-    if (player.onGround) {
-      player.vy = JUMP_FORCE;
+    if (!gameRunning || gamePaused) return;
+    if (player.onGround || player.jumps < 2) {
+      player.jumps = player.onGround ? 1 : 2;
+      player.vy = JUMP_FORCE * (player.jumps === 2 ? .82 : 1);
       player.onGround = false;
       if (navigator.vibrate) navigator.vibrate(20);
     }
@@ -1562,23 +1542,28 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   // ---- INPUT ----
   document.addEventListener('touchstart', function(e) {
-    if (!gameRunning) return;
+    if (!gameRunning || gamePaused || e.target.closest('button,a,input,.arcade-toolbar')) return;
     e.preventDefault();
     jump();
   }, { passive: false });
 
   document.addEventListener('mousedown', function(e) {
-    if (!gameRunning || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+    if (!gameRunning || gamePaused || e.target.closest('button,a,input,.arcade-toolbar')) return;
     jump();
   });
 
   document.addEventListener('keydown', function(e) {
-    if ((e.key === ' ' || e.key === 'ArrowUp') && gameRunning) {
+    if(e.key !== 'Escape' && e.target.closest('button,a,input,textarea')) return;
+    if ((e.key === ' ' || e.key === 'ArrowUp') && gameRunning && !gamePaused) {
       e.preventDefault();
       jump();
     }
   });
 
+  function togglePause(){gamePaused=!gamePaused;document.getElementById('pauseOverlay').classList.toggle('active',gamePaused);if(!gamePaused)lastTime=performance.now();}
+  function resumeGame(){gamePaused=false;lastTime=performance.now();document.getElementById('pauseOverlay').classList.remove('active');}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&gameRunning)togglePause();});
+  document.addEventListener('visibilitychange',function(){if(document.hidden&&gameRunning&&!gamePaused)togglePause();});
   // Init on load
   init();
   </script>
@@ -1597,5 +1582,6 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
 </script>
 <script src="/js/lang-switcher.js?v=20260813v2" defer></script>
+<nav class="arcade-toolbar" aria-label="게임 설정"><a href="/games">← 플레이</a><button id="arcadeSound" aria-pressed="false">소리 꺼짐</button><button id="arcadePause" hidden>일시정지</button></nav><script src="/js/arcade/arcade-controls.js?v=20261007a"></script><script type="module" src="/js/arcade/arcade-3d.js?v=20261007a"></script>
 </body>
 </html>

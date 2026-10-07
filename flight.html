@@ -491,11 +491,12 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   }
 </script>
 <!-- End Microsoft Clarity -->
+<link rel="stylesheet" href="/css/arcade-upgrade.css?v=20261007a">
 </head>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"플라그 플라이트 | 서울비디치과","description":"서울비디치과 플라그 플라이트 게임 — 구강 건강 지식을 테스트하며 즐기는 비행 게임입니다.","url":"https://bdbddc.com/flight","isPartOf":{"@id":"https://bdbddc.com/#website"},"publisher":{"@id":"https://bdbddc.com/#dentist"},"speakable":{"@type":"SpeakableSpecification","cssSelector":["h1",".game-intro"]},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://bdbddc.com"},{"@type":"ListItem","position":2,"name":"게임존","item":"https://bdbddc.com/games"},{"@type":"ListItem","position":3,"name":"플라그 플라이트","item":"https://bdbddc.com/flight"}]}}
 </script>
-<body>
+<body data-arcade="flight">
 
 <header class="site-header" id="siteHeader">
     <div class="header-container">
@@ -682,64 +683,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     </div>
   </nav>
   <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
   <!-- INTRO SCREEN -->
-  <div class="screen active" id="introScreen">
-    <div class="intro-tooth">🦷</div>
-    <h1 class="intro-title">치석 플라이트</h1>
-    <div class="intro-subtitle">치석을 쏘고! 피하고! 치아를 지켜라!</div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:20px;padding:5px 14px;font-size:0.75rem;color:#EF4444;font-weight:700;margin-bottom:6px;">💀 HELL MODE+ — v4.0</div>
-    <div id="deviceModeBadge" style="display:inline-flex;align-items:center;gap:5px;border-radius:16px;padding:4px 12px;font-size:0.7rem;font-weight:600;margin-bottom:12px;"></div>
-
-    <div class="intro-enemies">
-      <div class="intro-enemy">
-        <div class="intro-enemy-emoji">🪨</div>
-        <div class="intro-enemy-name">치석</div>
-      </div>
-      <div class="intro-enemy">
-        <div class="intro-enemy-emoji">🦠</div>
-        <div class="intro-enemy-name">충치균</div>
-      </div>
-      <div class="intro-enemy">
-        <div class="intro-enemy-emoji">🍬</div>
-        <div class="intro-enemy-name">당분</div>
-      </div>
-      <div class="intro-enemy">
-        <div class="intro-enemy-emoji">🥤</div>
-        <div class="intro-enemy-name">산성음료</div>
-      </div>
-      <div class="intro-enemy">
-        <div class="intro-enemy-emoji">🫧</div>
-        <div class="intro-enemy-name">치태</div>
-      </div>
-      <div class="intro-enemy">
-        <div class="intro-enemy-emoji">☕</div>
-        <div class="intro-enemy-name">커피</div>
-      </div>
-    </div>
-
-    <div class="intro-how">
-      <div class="intro-how-title">🎮 조작법</div>
-      <div class="intro-how-row"><span>📱</span> 화면 터치로 치아 이동 + 미사일 발사</div>
-      <div class="intro-how-row"><span>⌨️</span> 방향키 이동 / 스페이스바 발사</div>
-      <div class="intro-how-row"><span>🔫</span> 치약 미사일로 적을 파괴하세요!</div>
-      <div class="intro-how-row"><span>❤️</span> HP 3개, 0이 되면 게임 오버</div>
-      <div class="intro-how-row"><span>⚡</span> 아이템 먹으면 파워업!</div>
-      <div class="intro-how-row"><span>⚠️</span> <span id="waveInfoText">18초마다 웨이브 — 살아남아라!</span></div>
-      <div class="intro-how-row"><span>☕</span> 커피는 파괴 시 2개로 분열!</div>
-    </div>
-
-    <button class="btn-start-game" onclick="startGame()">
-      <i class="fas fa-play"></i> &nbsp;게임 시작!
-    </button>
-    <div class="intro-controls">터치 또는 방향키로 조작</div>
-
-    <div class="intro-badge">
-      <span>🎮</span>
-      <span>서울비디치과 × 치석 플라이트</span>
-    </div>
-  </div>
-
+  <div class="screen active" id="introScreen"><div class="arcade-launch"><p class="arcade-kicker">BD PLAY / 01 · ORBIT</p><h1>작은 치아의<br><span>거대한 비행.</span></h1><p class="arcade-description">치석 군단 사이를 가로지르세요.<br>빛나는 아이템, 연속 격파, 아슬아슬한 회피.<br>이번 비행은 어디까지 갈 수 있을까요?</p><span id="deviceModeBadge"></span><div class="arcade-controls"><div><b>MOVE</b>화면 드래그 · ← →</div><div><b>FIRE</b>자동 발사 · Space 추가 발사</div><div><b>PULSE</b>충격파 E · 버튼</div><div><b>SURVIVE</b>생명 3 · <span id="waveInfoText">웨이브 도전</span></div></div><button class="btn-start-game" onclick="startGame()">비행 시작하기 &nbsp; ↗</button><p class="arcade-note">게임 속 능력과 점수는 실제 구강 건강·치료 효과를 나타내지 않습니다.<br>소리는 직접 켤 수 있습니다.</p></div></div>
   <!-- GAME CANVAS -->
   <canvas id="gameCanvas"></canvas>
 
@@ -863,16 +808,16 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   // Grades
   var GRADES = [
     { min: 8000, emoji: '💎', name: '다이아몬드 치아', cls: 'grade-diamond',
-      comment: '진짜요?! 이 정도면 치과 그만 오셔도... 아니 그래도 오세요 ㅋㅋ',
+      comment: '최고의 비행! 다음 웨이브에서도 이 집중력을 보여주세요.',
       cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 4000, emoji: '🦷', name: '건강한 치아', cls: 'grade-healthy',
-      comment: '관리 잘 하고 계시네요! 정기검진만 꾸준히 받으시면 돼요 👍',
+    { min: 4000, emoji: '🦷', name: '에이스 파일럿', cls: 'grade-healthy',
+      comment: '깔끔한 회피와 연속 격파. 에이스다운 비행이었어요.',
       cta: '정기검진 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 1500, emoji: '😬', name: '보통 치아', cls: 'grade-normal',
-      comment: '나쁘지 않아요. 근데 조금만 더 관리하면 완벽할 것 같아요!',
+    { min: 1500, emoji: '😬', name: '궤도 탐험가', cls: 'grade-normal',
+      comment: '회피 타이밍이 좋아지고 있어요. 충격파를 아껴서 다음 웨이브에 도전하세요.',
       cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' },
-    { min: 0, emoji: '💀', name: '충치 치아', cls: 'grade-skull',
-      comment: '걱정이 좀 되네요. 지금이라도 한번 오시면 저희가 잘 도와드릴게요!',
+    { min: 0, emoji: '💀', name: '신입 파일럿', cls: 'grade-skull',
+      comment: '첫 비행 완료! 적의 움직임을 익혔다면 다시 도전해 보세요.',
       cta: '편하게 상담 예약하기', ctaIcon: 'fa-calendar-check' }
   ];
 
@@ -942,6 +887,8 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   // ---- START GAME ----
   function startGame() {
+    document.getElementById('damageFlash').classList.remove('active');
+    document.getElementById('powerupIndicator').classList.remove('active');
     document.getElementById('introScreen').classList.remove('active');
     document.getElementById('resultScreen').classList.remove('active');
     document.getElementById('hud').classList.add('active');
@@ -1355,31 +1302,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
           }
           
           if (en.hp <= 0) {
-            // Enemy destroyed!
-            var killScore = Math.round((ENEMY_TYPES[en.type].killScore || 50) * multiplier);
-            score += killScore;
-            killCount++;
-            combo++;
-            if (combo > maxCombo) maxCombo = combo;
-            
-            addFloatingText(en.x, en.y, '+' + killScore + ' 💥', '#F59E0B');
-            spawnHitParticles(en.x, en.y, '#EF4444');
-            
-            // Splitting: coffee splits into 2 sugars!
-            if (en.splitting) {
-              var s1 = createEnemy('sugar', getSpeedMultiplier(), en.x - 25);
-              var s2 = createEnemy('sugar', getSpeedMultiplier(), en.x + 25);
-              s1.y = en.y; s2.y = en.y; s1.speed *= 1.3; s2.speed *= 1.3;
-              enemies.push(s1); enemies.push(s2);
-            }
-            
-            // Combo multiplier at 5+ kills
-            if (combo >= 5 && combo % 5 === 0) {
-              multiplier = 1.5;
-              showMultiplier();
-            }
-            
-            enemies.splice(e, 1);
+            destroyEnemyAt(e);
           } else {
             // Enemy hit but not dead — flash effect
             en.hitFlash = 150; // ms
@@ -1393,6 +1316,23 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
         missiles.splice(m, 1);
       }
     }
+  }
+
+  function destroyEnemyAt(index) {
+    var en = enemies[index];
+    if (!en) return;
+    var killScore = Math.round((ENEMY_TYPES[en.type].killScore || 50) * multiplier);
+    score += killScore; killCount++; combo++; maxCombo = Math.max(combo, maxCombo);
+    addFloatingText(en.x, en.y, '+' + killScore + ' 💥', '#F59E0B');
+    spawnHitParticles(en.x, en.y, '#EF4444');
+    if (en.splitting) {
+      var s1 = createEnemy('sugar', getSpeedMultiplier(), en.x - 25);
+      var s2 = createEnemy('sugar', getSpeedMultiplier(), en.x + 25);
+      s1.y = en.y; s2.y = en.y; s1.speed *= 1.3; s2.speed *= 1.3;
+      enemies.push(s1); enemies.push(s2);
+    }
+    if (combo >= 5 && combo % 5 === 0) { multiplier = 1.5; showMultiplier(); }
+    enemies.splice(index, 1);
   }
 
   function missileHitsEnemy(m, e) {
@@ -1996,13 +1936,13 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   // ---- INPUT ----
   // Touch
   document.addEventListener('touchstart', function(e) {
-    if (!gameRunning) return;
+    if (!gameRunning || gamePaused || e.target.closest('button,a,input,.arcade-toolbar')) return;
     e.preventDefault();
     inputX = e.touches[0].clientX;
   }, { passive: false });
 
   document.addEventListener('touchmove', function(e) {
-    if (!gameRunning) return;
+    if (!gameRunning || gamePaused || e.target.closest('button,a,input,.arcade-toolbar')) return;
     e.preventDefault();
     inputX = e.touches[0].clientX;
   }, { passive: false });
@@ -2013,7 +1953,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   // Mouse
   document.addEventListener('mousedown', function(e) {
-    if (!gameRunning || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+    if (!gameRunning || gamePaused || e.target.closest('button,a,input,.arcade-toolbar')) return;
     inputX = e.clientX;
   });
   document.addEventListener('mousemove', function(e) {
@@ -2024,6 +1964,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 
   // Keyboard
   document.addEventListener('keydown', function(e) {
+    if(e.key !== 'Escape' && e.target.closest('button,a,input,textarea')) return;
     keys[e.key] = true;
     if (e.key === 'Escape' && gameRunning) {
       togglePause();
@@ -2040,6 +1981,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   // Pause
   function togglePause() {
     gamePaused = !gamePaused;
+    if (!gamePaused) lastTime = performance.now();
     document.getElementById('pauseOverlay').classList.toggle('active', gamePaused);
   }
   function resumeGame() {
@@ -2073,5 +2015,6 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
 </script>
 <script src="/js/lang-switcher.js?v=20260813v2" defer></script>
+<nav class="arcade-toolbar" aria-label="게임 설정"><a href="/games">← 플레이</a><button id="arcadeSound" aria-pressed="false">소리 꺼짐</button><button id="arcadePause" hidden>일시정지</button></nav><script src="/js/arcade/arcade-controls.js?v=20261007a"></script><script src="/js/arcade/arcade-abilities.js?v=20261007a"></script><script type="module" src="/js/arcade/arcade-3d.js?v=20261007a"></script>
 </body>
 </html>

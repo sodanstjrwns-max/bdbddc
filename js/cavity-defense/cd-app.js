@@ -184,6 +184,8 @@
     // 웨이브 사이 + 충전 있음 = 최적 타이밍 펄스
     brushBtn.classList.toggle('pulse', h.brushCharges > 0 && h.canStart && !h.brushActive);
     speedBtn.textContent = 'x' + h.speedMult;
+    const preview=h.nextEnemies.length ? '다음 적 · '+h.nextEnemies.map(e=>e.name+' '+e.count).join(' / ') : '마지막 전투 · 성채를 지키세요';
+    if($('wavePreview').textContent!==preview)$('wavePreview').textContent=preview;
   }
   waveBtn.addEventListener('click', () => { sfx('click'); ac(); game && game.startWave(); });
   brushBtn.addEventListener('click', () => { game && game.useBrushTime(); });
