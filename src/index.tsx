@@ -7745,6 +7745,7 @@ app.get('/checkup', serveStatic({ path: './checkup.html' }))
 app.get('/symptom-checker', serveStatic({ path: './symptom-checker.html' }))
 app.get('/run', serveStatic({ path: './run.html' }))
 app.get('/games', serveStatic({ path: './games.html' }))
+app.get('/game/enamel', serveStatic())
 app.get('/game/cavity-defense', serveStatic({ path: './game/cavity-defense.html' }))
 app.get('/game/cavity-defense/', serveStatic({ path: './game/cavity-defense.html' }))
 
