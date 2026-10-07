@@ -1,6 +1,7 @@
 import { gscLegacyTarget } from './data/gsc-legacy-redirects'
 import videoMetadata from '../data/video-metadata.json'
 import { registerPatientJourney } from './lib/patient-journey'
+import { registerTreatmentInsightLinks, registerTreatmentInsightRoutes } from './lib/treatment-insights'
 import { removeLegacyBlogTestimonials } from './lib/review-copy'
 import { registerPatientNotes } from './routes/patient-notes'
 import { goneResponse, similarSlug, resolveLegacyEncTerm, TREATMENT_SLUGS } from './lib/gone'
@@ -65,6 +66,7 @@ import { ensurePriceItemsMigrated, getAllPriceItems, injectPublishedFees, PRICE_
 
 const app = new Hono<{ Bindings: Bindings }>()
 registerPatientJourney(app)
+registerTreatmentInsightLinks(app)
 
 // ★ SEO: 존재하지 않는 콘텐츠는 302 리다이렉트(소프트 404) 대신 진짜 404를 반환
 //   크롤러에 명확한 신호 → 크롤 버짓 절약 + '발견됨-색인 안 됨' 오염 방지
@@ -7752,6 +7754,7 @@ app.get('/demo-trends', serveStatic({ path: './demo-trends.html' }))
 // ============================================
 // 가이드 페이지 (백과사전 토픽 클러스터의 "더 자세한 정보" 스포크)
 // ============================================
+registerTreatmentInsightRoutes(app)
 app.get('/guide', serveStatic({ path: './guide/index.html' }))
 app.get('/guide/', serveStatic({ path: './guide/index.html' }))
 app.get('/guide/implant', serveStatic({ path: './guide/implant.html' }))

@@ -1,0 +1,264 @@
+[
+  {
+    "slug": "implant",
+    "name": "임플란트",
+    "path": "/guide/regret/implant",
+    "mode": "existing-guide",
+    "treatments": [
+      "implant",
+      "implant-advanced",
+      "implant-flapless",
+      "implant-full-mouth",
+      "implant-holiday",
+      "implant-hybrid",
+      "implant-immediate-loading",
+      "implant-immediate",
+      "implant-navigation",
+      "implant-overdenture",
+      "implant-sinus-lift",
+      "fixture-osstem-ca",
+      "fixture-osstem-soi",
+      "fixture-straumann-roxolid"
+    ]
+  },
+  {
+    "slug": "implant-revision",
+    "name": "임플란트 재수술",
+    "path": "/treatments/implant-revision",
+    "mode": "existing-treatment",
+    "treatments": [
+      "implant-revision"
+    ]
+  },
+  {
+    "slug": "orthodontics",
+    "name": "치아교정",
+    "path": "/guide/regret/orthodontics",
+    "mode": "existing-guide",
+    "treatments": [
+      "orthodontics",
+      "ortho-best",
+      "ortho-express",
+      "ortho-first",
+      "ortho-light",
+      "ortho-moderate",
+      "orthodontic-clarity-ultra",
+      "orthodontic-clippy-c"
+    ]
+  },
+  {
+    "slug": "invisalign",
+    "name": "인비절라인·투명교정",
+    "path": "/guide/regret/invisalign",
+    "mode": "existing-guide",
+    "treatments": [
+      "invisalign",
+      "invisalign-best",
+      "invisalign-express",
+      "invisalign-first",
+      "invisalign-light",
+      "invisalign-moderate"
+    ]
+  },
+  {
+    "slug": "laminate",
+    "name": "라미네이트",
+    "path": "/guide/regret/laminate",
+    "mode": "existing-guide",
+    "treatments": [
+      "glownate"
+    ]
+  },
+  {
+    "slug": "whitening",
+    "name": "치아미백",
+    "path": "/guide/regret/whitening",
+    "mode": "existing-guide",
+    "treatments": [
+      "whitening"
+    ]
+  },
+  {
+    "slug": "cavity",
+    "name": "충치치료",
+    "path": "/guide/regret/cavity",
+    "mode": "existing-guide",
+    "treatments": [
+      "cavity"
+    ]
+  },
+  {
+    "slug": "resin",
+    "name": "레진·심미레진",
+    "path": "/guide/regret/resin",
+    "mode": "existing-guide",
+    "treatments": [
+      "resin",
+      "aesthetic"
+    ]
+  },
+  {
+    "slug": "inlay",
+    "name": "인레이·온레이",
+    "path": "/guide/regret/inlay",
+    "mode": "existing-guide",
+    "treatments": [
+      "inlay"
+    ]
+  },
+  {
+    "slug": "crown",
+    "name": "크라운",
+    "path": "/guide/regret/crown",
+    "mode": "existing-guide",
+    "treatments": [
+      "crown"
+    ]
+  },
+  {
+    "slug": "root-canal",
+    "name": "신경치료",
+    "path": "/guide/regret/root-canal",
+    "mode": "existing-guide",
+    "treatments": [
+      "root-canal"
+    ]
+  },
+  {
+    "slug": "re-root-canal",
+    "name": "재신경치료",
+    "path": "/guide/inside-out/re-root-canal",
+    "mode": "new-guide",
+    "treatments": [
+      "re-root-canal"
+    ]
+  },
+  {
+    "slug": "apicoectomy",
+    "name": "치근단수술",
+    "path": "/guide/inside-out/apicoectomy",
+    "mode": "new-guide",
+    "treatments": [
+      "apicoectomy"
+    ]
+  },
+  {
+    "slug": "bridge",
+    "name": "브릿지",
+    "path": "/guide/regret/bridge",
+    "mode": "existing-guide",
+    "treatments": [
+      "bridge"
+    ]
+  },
+  {
+    "slug": "denture",
+    "name": "틀니",
+    "path": "/guide/regret/denture",
+    "mode": "existing-guide",
+    "treatments": [
+      "denture"
+    ]
+  },
+  {
+    "slug": "scaling",
+    "name": "스케일링",
+    "path": "/guide/regret/scaling",
+    "mode": "existing-guide",
+    "treatments": [
+      "scaling"
+    ]
+  },
+  {
+    "slug": "gum",
+    "name": "잇몸치료",
+    "path": "/guide/regret/gum",
+    "mode": "existing-guide",
+    "treatments": [
+      "gum",
+      "periodontitis"
+    ]
+  },
+  {
+    "slug": "gum-surgery",
+    "name": "잇몸수술",
+    "path": "/guide/inside-out/gum-surgery",
+    "mode": "new-guide",
+    "treatments": [
+      "gum-surgery"
+    ]
+  },
+  {
+    "slug": "pediatric",
+    "name": "소아치과 진료",
+    "path": "/guide/inside-out/pediatric",
+    "mode": "new-guide",
+    "treatments": [
+      "pediatric"
+    ]
+  },
+  {
+    "slug": "prevention",
+    "name": "예방 진료",
+    "path": "/guide/inside-out/prevention",
+    "mode": "new-guide",
+    "treatments": [
+      "prevention"
+    ]
+  },
+  {
+    "slug": "wisdom-tooth",
+    "name": "사랑니 발치",
+    "path": "/guide/regret/wisdom-tooth",
+    "mode": "existing-guide",
+    "treatments": [
+      "wisdom-tooth"
+    ]
+  },
+  {
+    "slug": "tmj",
+    "name": "턱관절장애 진료",
+    "path": "/guide/inside-out/tmj",
+    "mode": "new-guide",
+    "treatments": [
+      "tmj"
+    ]
+  },
+  {
+    "slug": "bruxism",
+    "name": "이갈이·이악물기 관리",
+    "path": "/guide/regret/bruxism",
+    "mode": "existing-guide",
+    "treatments": [
+      "bruxism"
+    ]
+  },
+  {
+    "slug": "sedation",
+    "name": "진정치료",
+    "path": "/guide/regret/sedation",
+    "mode": "existing-guide",
+    "treatments": [
+      "sedation",
+      "implant-sedation"
+    ]
+  },
+  {
+    "slug": "oral-medicine",
+    "name": "구강내과 진료",
+    "path": "/guide/inside-out/oral-medicine",
+    "mode": "new-guide",
+    "treatments": [
+      "oral-medicine"
+    ]
+  },
+  {
+    "slug": "emergency",
+    "name": "치과 응급 진료",
+    "path": "/guide/inside-out/emergency",
+    "mode": "new-guide",
+    "treatments": [
+      "emergency"
+    ]
+  }
+]

@@ -345,9 +345,14 @@ const files = fs.readdirSync(CONTENT_DIR).filter(f => f.endsWith('.json'));
 const all = files.map(f => JSON.parse(fs.readFileSync(path.join(CONTENT_DIR, f), 'utf-8')));
 all.sort((a, b) => (a.order || 99) - (b.order || 99));
 
+// These canonical pages are now owned by the evidence-based five-perspective renderer.
+const insightSlugs = new Set(require('../src/data/treatment-insight-links.json').filter(t => t.mode === 'existing-guide').map(t => t.slug));
 for (const d of all) {
+  if (insightSlugs.has(d.slug)) continue;
   const html = buildPage(d, all);
   fs.writeFileSync(path.join(OUT_DIR, `${d.slug}.html`), html);
   console.log(`✅ guide/regret/${d.slug}.html (${(html.length / 1024).toFixed(1)}KB) — ${d.title}`);
 }
 console.log(`\n총 ${all.length}개 후회 백서 세부 페이지 생성 완료`);
+
+require('./build-treatment-insights.cjs');
