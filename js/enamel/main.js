@@ -1,6 +1,6 @@
 import * as T from '../arcade/vendor/three.module.min.js';
 import {Atmosphere} from './atmosphere.js?v=20261007a';
-import {buildWorld,heightAt,BEACONS,GATE} from './world.js?v=20261007a';
+import {buildWorld,heightAt,BEACONS,GATE} from './world.js?v=20261007b';
 import {createRun,addShard,lightBeacon,canFinish,resolveDamage,restoreAtCheckpoint,wrapAngle} from './rules.js?v=20261007a';
 const $=id=>document.getElementById(id),canvas=$('world');
 const coarse=matchMedia('(pointer:coarse)').matches,reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;

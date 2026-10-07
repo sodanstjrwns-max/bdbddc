@@ -151,7 +151,7 @@ const routes = {
   version: 1,
   include: ['/*'],
   exclude: [
-    '/css/*','/js/*','/images/*','/static/*','/data/*',
+    '/css/*','/js/*','/images/*','/static/*','/data/*','/assets/*',
     '/manifest.json','/sitemap.xml','/sitemap-main.xml','/sitemap-area.xml','/sitemap-encyclopedia.xml',
     '/sitemap-intl.xml',
     '/favicon.ico','/apple-touch-icon.png',
