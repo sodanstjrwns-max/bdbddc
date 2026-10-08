@@ -1,0 +1,55 @@
+.local-visit { color: #302920; }
+.local-visit .hero { min-height: 0; padding: 88px 0 76px; }
+.local-visit .hero-headline { font-size: clamp(2.15rem, 4.5vw, 3.8rem); line-height: 1.3; word-break: keep-all; text-wrap: balance; }
+.local-visit .hero-sub { max-width: 700px; line-height: 1.85; word-break: keep-all; }
+.lv-shell { max-width: 1100px; }
+.lv-nav { display: flex; gap: 10px; flex-wrap: wrap; padding: 26px 0; border-bottom: 1px solid #e6ddd0; }
+.lv-nav a { padding: 9px 16px; border: 1px solid #e1d4c4; border-radius: 999px; color: #65462f; background: #fff; font-size: .9rem; }
+.lv-section { padding: 64px 0; border-bottom: 1px solid #e6ddd0; scroll-margin-top: 110px; }
+.lv-eyebrow { color: #80603d; font-size: .84rem; font-weight: 700; letter-spacing: .05em; margin: 0 0 14px; }
+.local-visit h2 { font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.45; letter-spacing: -.035em; margin: 0 0 26px; word-break: keep-all; }
+.local-visit h3 { font-size: 1.15rem; margin: 0 0 14px; line-height: 1.5; word-break: keep-all; }
+.lv-section p, .lv-section li { font-size: 1rem; line-height: 1.95; word-break: keep-all; overflow-wrap: anywhere; }
+.lv-section p { margin: 0 0 18px; }
+.lv-section p a, .lv-card > a { color: #704823; text-decoration: underline; text-underline-offset: 4px; }
+.lv-intro { max-width: 790px; }
+.lv-address { padding: 32px; background: #f6f1e8; border-radius: 20px; margin-bottom: 22px; }
+.lv-address > span { display: block; color: #76532f; font-size: .88rem; margin-bottom: 10px; }
+.lv-address > strong { display: block; font-size: clamp(1.2rem, 2.5vw, 1.65rem); line-height: 1.6; margin-bottom: 16px; word-break: keep-all; }
+.lv-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.lv-card { display: block; padding: 28px; background: #fff; border: 1px solid #e4dacc; border-radius: 18px; color: inherit; min-width: 0; }
+.lv-card p:last-child { margin-bottom: 0; }
+.lv-card ul { padding-left: 20px; margin: 0 0 20px; }
+.lv-card li { margin-bottom: 8px; }
+.lv-links { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 22px; align-items: center; }
+.lv-links a { color: #674326; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; line-height: 1.65; }
+.lv-hours { margin: 0; }
+.lv-hours div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 15px 0; border-bottom: 1px solid #eee7dd; }
+.lv-hours dt { color: #736354; }
+.lv-hours dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.lv-section .lv-note { margin-top: 20px; font-size: .9rem; color: #736354; }
+.lv-care-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+.lv-care-grid a { text-decoration: none; transition: border-color .2s, background .2s; }
+.lv-care-grid a:hover { border-color: #957249; background: #fcf9f4; }
+.lv-care-grid p { font-size: .94rem; }
+.lv-care-grid span { color: #805a30; font-size: .86rem; font-weight: 700; }
+.lv-card blockquote { margin: 0 0 18px; padding: 0 0 0 18px; border-left: 3px solid #b99462; color: #68482e; line-height: 1.95; font-size: 1.08rem; word-break: keep-all; }
+.lv-faq { border-top: 1px solid #e5dbcf; }
+.lv-faq:last-child { border-bottom: 1px solid #e5dbcf; }
+.lv-faq summary { cursor: pointer; padding: 23px 4px; font-size: 1.05rem; font-weight: 650; line-height: 1.65; }
+.lv-faq p { padding: 0 6px 18px; color: #625548; }
+.lv-contact { padding: 44px; margin-top: 52px; background: #f6f1e8; border-radius: 22px; }
+.lv-contact p { line-height: 1.8; }
+.lv-contact .btn { color: #fff; text-decoration: none; }
+.lv-reviewed { font-size: .83rem; line-height: 1.7; color: #73675a; margin: 24px 0 0; }
+.local-visit a:focus-visible, .lv-faq summary:focus-visible { outline: 3px solid #99703d; outline-offset: 5px; }
+@media (max-width: 700px) {
+  .local-visit .hero { padding: 56px 0 48px; }
+  .lv-section { padding: 42px 0; scroll-margin-top: 90px; }
+  .lv-grid, .lv-care-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .lv-card, .lv-address { padding: 23px; }
+  .lv-contact { padding: 28px 23px; }
+  .lv-nav { gap: 8px; }
+  .lv-nav a { padding: 8px 12px; font-size: .84rem; }
+}
+@media (prefers-reduced-motion: reduce) { .lv-care-grid a { transition: none; } }

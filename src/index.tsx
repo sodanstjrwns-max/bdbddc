@@ -3085,13 +3085,14 @@ app.get('/feed.xml', async (c) => {
   columns.sort((a: any, b: any) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
   const items = columns.slice(0, 20).map((col: any) => {
     const excerpt = htmlText(col.content).slice(0, 300)
-    const slug = DOCTOR_SLUG_MAP[col.doctorName] || ''
+    const cdata = (value: string) => value.replace(/\]\]>/g, ']]]]><![CDATA[>')
+    const url = attrEsc(`https://bdbddc.com/column/${colSlug(col)}`)
     const date = new Date(col.createdAt || Date.now()).toUTCString()
     return `    <item>
-      <title><![CDATA[${col.title || ''}]]></title>
-      <link>https://bdbddc.com/column/${colSlug(col)}</link>
-      <guid isPermaLink="true">https://bdbddc.com/column/${colSlug(col)}</guid>
-      <description><![CDATA[${excerpt}]]></description>
+      <title><![CDATA[${cdata(col.title || '')}]]></title>
+      <link>${url}</link>
+      <guid isPermaLink="true">${url}</guid>
+      <description><![CDATA[${cdata(excerpt)}]]></description>
       <author>${attrEsc(col.doctorName || '서울비디치과')}</author>
       <category>${attrEsc(col.category || '진료 이야기')}</category>
       <pubDate>${date}</pubDate>
@@ -3115,9 +3116,10 @@ app.get('/feed.xml', async (c) => {
 ${items}
   </channel>
 </rss>`
-  c.header('Content-Type', 'application/rss+xml; charset=utf-8')
-  c.header('Cache-Control', 'public, max-age=3600')
-  return c.text(xml)
+  return c.body(xml, 200, {
+    'Content-Type': 'application/rss+xml; charset=utf-8',
+    'Cache-Control': 'public, max-age=3600',
+  })
 })
 
 // ============================================
@@ -3618,15 +3620,19 @@ form:has(input[placeholder="Email"]) { display: none !important; }
     html = html.replace('</body>', '<script src="/js/lang-switcher.js" defer></script>\n</body>')
   }
 
-  // 6) [C] 치료 페이지 권위 회수 — 블로그 본문에 등장하는 치료 키워드를
-  //    해당 /treatments/ 페이지로 연결하는 "관련 진료" 박스를 본문 끝에 1회 주입.
-  //    (인블로그가 빨아먹던 키워드 권위를 치료 페이지로 PageRank 전달)
-  //    안전: 기존 본문 텍스트는 변경하지 않고, 등장한 키워드에 대해서만 박스를 추가.
+  // Related treatment links help readers move from a specific question to care information.
+  // The implant-cost article keeps its own URL/title and places its existing link near the heading.
+  let isImplantCostPost = false
+  try { isImplantCostPost = decodeURIComponent(reqPath || '').replace(/\/$/, '') === '/blog/천안임플란트' } catch {}
+  // Inblog hydrates the article and can remove server-added nodes; restore the same visible link.
+  if (isImplantCostPost && !html.includes('/static/blog-implant-link.js')) {
+    html = html.replace('</head>', '<script src="/static/blog-implant-link.js?v=20261008" defer></script></head>')
+  }
   const treatmentKeywordMap: Array<{ kw: string; href: string; label: string }> = [
     { kw: '인비절라인', href: '/treatments/invisalign', label: '인비절라인(투명교정)' },
     { kw: '치아교정', href: '/treatments/orthodontics', label: '치아교정' },
     { kw: '라미네이트', href: '/treatments/glownate', label: '라미네이트(글로우네이트)' },
-    { kw: '임플란트', href: '/treatments/implant', label: '임플란트' },
+    { kw: '임플란트', href: '/treatments/implant', label: isImplantCostPost ? '천안 임플란트' : '임플란트' },
   ]
   // 본문(스크립트/스타일 제외)에 키워드가 등장하는지 검사용으로 태그를 거칠게 제거한 텍스트
   const bodyText = html
@@ -3634,17 +3640,18 @@ form:has(input[placeholder="Email"]) { display: none !important; }
     .replace(/<style[\s\S]*?<\/style>/gi, '')
     .replace(/<[^>]+>/g, ' ')
   const matched = treatmentKeywordMap.filter(t => bodyText.includes(t.kw))
-  if (matched.length > 0) {
+  if (matched.length > 0 && !html.includes('data-bd-related-treatment')) {
     const linksHtml = matched.map(t =>
       `<a href="${t.href}" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:#fff;border:1px solid #c9a96e;border-radius:50px;text-decoration:none;color:#6B4226;font-weight:600;font-size:0.9rem;"><i class="fas fa-stethoscope" style="font-size:0.8rem;"></i> ${t.label} 진료 보기</a>`
     ).join('')
     const relatedTreatmentBox = `
 <aside data-bd-related-treatment style="max-width:768px;margin:32px auto;padding:24px;background:#faf7f3;border:1px solid #e8d9c1;border-radius:16px;">
-<p style="font-size:0.9rem;color:#888;margin:0 0 12px;"><i class="fas fa-link" style="color:#c9a96e;margin-right:6px;"></i> 이 글에서 다룬 치료 — 서울비디치과 진료 안내</p>
+<p style="font-size:0.9rem;color:#736354;margin:0 0 12px;line-height:1.7;"><i class="fas fa-link" style="color:#c9a96e;margin-right:6px;"></i> ${isImplantCostPost ? '비용을 비교하기 전, 치료 과정과 상담에서 확인할 사항도 함께 살펴보세요.' : '이 글에서 다룬 치료 — 서울비디치과 진료 안내'}</p>
 <div style="display:flex;flex-wrap:wrap;gap:10px;">${linksHtml}</div>
 </aside>`
-    // 본문 끝(</article> 우선, 없으면 <footer> 앞, 그것도 없으면 </body> 앞)에 1회 삽입
-    if (/<\/article>/i.test(html)) {
+    if (isImplantCostPost && /<h1\b[^>]*>[\s\S]*?<\/h1>/i.test(html)) {
+      html = html.replace(/<h1\b[^>]*>[\s\S]*?<\/h1>/i, heading => heading + relatedTreatmentBox)
+    } else if (/<\/article>/i.test(html)) {
       html = html.replace(/<\/article>/i, relatedTreatmentBox + '</article>')
     } else if (/<footer/i.test(html)) {
       html = html.replace(/<footer/i, relatedTreatmentBox + '<footer')
@@ -3699,9 +3706,10 @@ app.all('/blog/*', async (c) => {
       },
     })
     
-    // 인블로그 404 → 301 리디렉트 (삭제된 블로그 글 → 블로그 메인으로)
+    // A missing post has no equivalent replacement in the listing. Preserve a real 404;
+    // known legacy redirects are handled by their explicit mappings before this proxy.
     if (response.status === 404) {
-      return c.redirect('/blog/', 301)
+      return notFoundPage(c, '블로그 글을 찾을 수 없습니다', '요청하신 글이 없거나 주소가 변경되었습니다. 블로그 목록에서 필요한 내용을 찾아주세요.', '/blog/', '블로그 목록 보기')
     }
 
     // HTML 응답인 경우 내부 링크 수정
