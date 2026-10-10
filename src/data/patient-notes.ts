@@ -5164,6 +5164,306 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-08",
   "publishedAt": "2026-10-08T09:00:00+09:00"
+},
+{
+  "slug": "dental-check-before-chemotherapy-extraction-worry",
+  "title": "항암치료 전에 치과부터 가라는데, 안 아픈 이도 빼야 하나요?",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "항암 전 치과검사",
+  "concern": "큰 치료를 앞두고 더 막막해요",
+  "description": "당진에서 항암치료 전 치과검사를 준비할 때 발치가 필요한 근거, 치아를 남길 가능성, 항암 일정과 회복 기간을 의료진 사이에서 조율하는 방법을 정리합니다.",
+  "situation": "당진에서 항암치료를 앞두고 치과검사를 권유받았습니다. 지금은 이가 아프지 않은데 발치까지 필요할까 봐 걱정되고, 치과 치료 때문에 항암 시작이 늦어질까 마음이 급합니다.",
+  "answer": "항암 전 치과검사는 앞으로 감염이나 통증을 일으킬 수 있는 문제를 찾아 관리 계획을 세우는 과정입니다. 모든 치아를 예방적으로 빼는 것은 아닙니다. 치아를 남길 수 있는지와 치료할 시간, 항암치료 종류·일정·혈액검사 등을 함께 검토하고 치과와 종양내과가 필요한 처치와 시점을 조율해야 합니다.",
+  "checks": [
+    "항암치료 시작 예정일과 약제·치료 계획",
+    "현재 충치·잇몸병·뿌리 주변 감염과 치아를 유지할 가능성",
+    "최근 혈액검사, 복용약과 뼈에 영향을 주는 주사 치료 여부",
+    "처치 후 회복 확인과 항암 중 연락할 진료팀"
+  ],
+  "choices": [
+    {
+      "condition": "치아를 보존할 수 있고 치료·확인 시간이 확보된다면",
+      "option": "충치·신경·잇몸 치료 등으로 문제를 안정시키는 방법을 검토합니다.",
+      "limit": "남길 수 있다는 판단과 항암 전 필요한 범위는 치아마다 다릅니다."
+    },
+    {
+      "condition": "보존이 어렵거나 감염 위험이 큰 치아가 있다면",
+      "option": "발치 필요성과 상처 회복을 확인할 일정을 항암 진료팀과 협의합니다.",
+      "limit": "통증 유무나 인터넷 기준만으로 발치를 결정하지 않습니다."
+    },
+    {
+      "condition": "항암 시작이 임박해 모든 처치를 마치기 어렵다면",
+      "option": "지금 필요한 처치와 나중에 할 수 있는 치료의 우선순위를 정합니다.",
+      "limit": "환자분이 항암 날짜를 임의로 미루거나 치과 처치를 서둘러 확정하지 않습니다."
+    }
+  ],
+  "unknown": "치과검사를 받았다고 항암 중 구강 합병증이 전혀 생기지 않는 것은 아닙니다. 항암 중 발열·오한, 갑자기 커지는 부종, 지속 출혈이나 물을 마시기 어려운 통증이 생기면 정기 치과 예약을 기다리지 말고 항암 진료팀에 즉시 연락하세요. 숨쉬기·삼키기가 어렵다면 응급 평가가 우선입니다.",
+  "prepare": [
+    "항암 계획서·시작 예정일과 담당 진료팀 연락 방법",
+    "치과에 제공 가능한 최근 혈액검사와 약 목록",
+    "기존 영상·치료계획, 흔들리거나 반복해서 붓는 위치",
+    "발치 두려움·식사 문제·함께 이동할 보호자 일정"
+  ],
+  "localHeading": "당진에서 항암 전 치과검사를 준비하신다면",
+  "localAdvice": "당진에서 천안 불당동으로 항암 전 치과검사를 오신다면 예약 단계에서 항암 시작 예정일을 먼저 알려주세요. 서울비디치과의 진료 장소는 천안 불당동입니다. 검사, 필요한 처치, 회복 확인을 나누어 상의하고 항암 진료기관과 자료를 어떻게 주고받을지 확인하세요. 당일 발치나 치료 완료를 전제로 이동하지 않는 것이 좋습니다.",
+  "related": [
+    {
+      "title": "치과 상담을 준비할 때 살필 기준",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "신경치료의 과정과 판단",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "골다공증 약을 먹고 발치를 권유받았을 때",
+      "href": "/concerns/osteoporosis-medication-before-tooth-extraction"
+    }
+  ],
+  "sources": [
+    {
+      "title": "NCI · 항암치료 전 구강 평가와 치료 우선순위",
+      "href": "https://www.cancer.gov/about-cancer/treatment/side-effects/mouth-throat/oral-complications-hp-pdq"
+    },
+    {
+      "title": "NCI · 환자를 위한 암 치료의 구강 합병증 안내",
+      "href": "https://www.cancer.gov/about-cancer/treatment/side-effects/mouth-throat/oral-complications-pdq"
+    },
+    {
+      "title": "NIDCR · 암 치료 전 치과검사와 진료팀 간 협력",
+      "href": "https://www.nidcr.nih.gov/health-info/cancer-treatments"
+    }
+  ],
+  "updated": "2026-10-10",
+  "publishedAt": "2026-10-10T22:27:06+09:00"
+},
+{
+  "slug": "dark-root-canal-tooth-internal-bleaching-or-crown",
+  "title": "신경치료한 앞니 하나만 어두워요. 색 때문에 크라운을 해야 하나요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "치아미백",
+  "concern": "웃을 때마다 한 치아가 신경 쓰여요",
+  "description": "서산에서 신경치료한 앞니의 변색을 상담할 때 내부 미백과 레진·라미네이트·크라운의 차이, 치아 구조와 재치료 여부, 색의 한계와 후속 관리를 정리합니다.",
+  "situation": "서산에서 예전에 신경치료한 앞니 하나가 어두워져 웃을 때 신경 쓰입니다. 색을 맞추려면 멀쩡해 보이는 치아를 많이 깎거나 옆 치아까지 함께 씌워야 할까 걱정됩니다.",
+  "answer": "색이 어두워졌다는 이유만으로 바로 크라운이 필요한 것은 아닙니다. 기존 신경치료와 충전 상태, 남은 치아 구조, 변색 원인을 먼저 확인합니다. 조건에 따라 내부 미백을 검토할 수 있고 수복 치료가 필요할 수도 있습니다. 색을 밝히는 목적과 치아를 보호·회복하는 목적을 나누어 설명받으세요.",
+  "checks": [
+    "신경치료 시기와 과거 외상, 변색의 변화",
+    "통증·잇몸 부기와 기존 뿌리 치료·충전의 상태",
+    "남은 치아 양, 균열과 큰 충전물·보철 여부",
+    "원하는 색과 인접 치아 색, 감수할 치료 범위"
+  ],
+  "choices": [
+    {
+      "condition": "기존 치료와 구조를 확인한 뒤 미백을 시도할 수 있다면",
+      "option": "내부 미백의 적합성, 경과 확인과 최종 충전 계획을 상담합니다.",
+      "limit": "옆 치아와 완벽한 색 일치나 영구적인 결과를 보장하지 않습니다."
+    },
+    {
+      "condition": "색뿐 아니라 치아 손상·큰 충전 등 수복할 이유가 있다면",
+      "option": "레진·라미네이트·크라운 등 가능한 방법의 범위를 비교합니다.",
+      "limit": "각 방법의 삭제량과 관리·재치료 부담이 다릅니다."
+    },
+    {
+      "condition": "기존 신경치료나 뿌리 주변에 해결할 문제가 있다면",
+      "option": "문제의 평가와 필요한 치료를 먼저 계획합니다.",
+      "limit": "겉을 밝게 만드는 것만으로 내부의 문제가 해결되지는 않습니다."
+    }
+  ],
+  "unknown": "미백 반응, 필요한 횟수와 최종 색은 검사 전에 확정할 수 없습니다. 미백에는 잇몸 자극 등 부작용과 드물게 치근 흡수 같은 합병증이 있어 적합성 평가와 추적 확인이 필요합니다. 부기·씹을 때 통증·잇몸 뾰루지가 생기면 미용 상담만 기다리지 말고 먼저 알려주세요.",
+  "prepare": [
+    "예전 신경치료·외상 시기와 영상이 있다면 사본",
+    "평소 빛에서 찍은 색 변화 사진",
+    "중요한 일정과 원하는 개선 정도",
+    "치아를 깎는 범위·비용·추가 방문에 대한 걱정"
+  ],
+  "localHeading": "서산에서 앞니 치아미백 상담을 준비하신다면",
+  "localAdvice": "서산에서 천안 불당동으로 치아미백 상담을 오신다면 앞니 하나의 신경치료 이력과 기존 보철 유무를 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 내부 미백 시행 여부와 본인에게 맞는 방법은 검사 후 확인하며, 색 확인이나 최종 충전을 위한 추가 방문도 함께 상의하세요.",
+  "related": [
+    {
+      "title": "치아미백 가이드",
+      "href": "/guide/whitening"
+    },
+    {
+      "title": "미백 전에 생각할 기대와 한계",
+      "href": "/guide/regret/whitening"
+    },
+    {
+      "title": "신경치료 후 시간이 지나 아플 때",
+      "href": "/concerns/root-canal-pain-years-later"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Leeds NHS · 신경치료 치아의 미백, 한계와 대안",
+      "href": "https://www.leedsth.nhs.uk/patients/resources/tooth-whitening-information-for-adult-patients/"
+    },
+    {
+      "title": "ADA · 치아 변색의 평가와 미백의 역할",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/whitening"
+    },
+    {
+      "title": "AAE · 내부 미백을 통한 보존적 색 개선",
+      "href": "https://endoondemand.aae.org/products/sp-19-internal-micro-bleaching-lessons-from-private-endodontic-practice"
+    },
+    {
+      "title": "AAE · 신경치료 후 재치료가 필요한 상황",
+      "href": "https://www.aae.org/patients/root-canal-treatment/endodontic-treatment-options/endodontic-retreatment/"
+    }
+  ],
+  "updated": "2026-10-10",
+  "publishedAt": "2026-10-10T22:27:06+09:00"
+},
+{
+  "slug": "blood-pressure-high-only-at-dentist",
+  "title": "치과에만 가면 혈압이 올라 치료를 못 받아요. 또 돌려보내질까 겁납니다.",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "치과 치료와 혈압",
+  "concern": "검사 숫자부터 무서워요",
+  "description": "천안에서 치과 방문 때 혈압이 높아져 치료가 미뤄진 경우, 가정혈압 기록과 재측정, 약물 확인, 치과·내과 협의와 불안 조절을 준비하는 방법을 정리합니다.",
+  "situation": "천안에서 치과 치료를 받으려는데 진료실 혈압이 높아 일정이 미뤄졌습니다. 집에서는 덜 높은 것 같은데 다음 방문에도 같은 일이 생길까 두렵고, 아픈 치아를 계속 방치하게 될까 걱정됩니다.",
+  "answer": "치과에서의 통증이나 불안 때문에 혈압이 일시적으로 높아질 수 있지만, 한 번의 높은 수치를 단순한 긴장으로 단정해서도 안 됩니다. 안정 후 재측정, 평소 혈압·약·동반 질환과 치과 치료의 긴급도를 함께 평가합니다. 반복된다면 내과와 치과가 정보를 공유해 안전한 다음 단계를 정하는 것이 필요합니다.",
+  "checks": [
+    "치과에서 측정한 혈압과 재측정 결과·당시 증상",
+    "올바른 방법으로 잰 가정혈압 기록과 기기",
+    "평소 약 이름·복용 시각·최근 변경과 다른 약",
+    "치통·부종의 정도, 필요한 처치의 긴급도와 불안 경험"
+  ],
+  "choices": [
+    {
+      "condition": "안정 후 재측정과 평소 기록을 함께 볼 수 있다면",
+      "option": "진료실과 일상에서의 차이를 확인하고 치료 계획을 상담합니다.",
+      "limit": "집에서 한 번 낮게 나왔다는 사실만으로 당일 처치를 확정하지 않습니다."
+    },
+    {
+      "condition": "높은 혈압이 반복되거나 조절 상태가 불분명하다면",
+      "option": "내과 평가와 치과 치료 시점·방법의 협의를 진행합니다.",
+      "limit": "진료실 수치를 낮추려고 혈압약을 추가 복용하지 않습니다."
+    },
+    {
+      "condition": "치통·감염 때문에 신속한 처치가 필요한 상황이라면",
+      "option": "혈압과 전신 상태를 고려한 응급 처치·진료기관을 상의합니다.",
+      "limit": "혈압이 높다는 이유로 모든 증상을 계속 집에서 참는 계획은 적절하지 않습니다."
+    }
+  ],
+  "unknown": "가슴 통증, 숨참, 갑작스러운 시야 변화, 한쪽 힘 빠짐이나 말이 어눌해지는 증상은 혈압 숫자가 낮아지기를 기다리지 말고 119 등 응급 평가를 요청하세요. 증상이 없더라도 수축기 혈압이 180mmHg를 초과하거나 이완기 혈압이 120mmHg를 초과하면 최소 1분 뒤 다시 재고, 여전히 매우 높으면 즉시 의료진에게 연락하세요. 이는 치과 치료 가능 여부를 정하는 기준은 아닙니다. 이 글의 설명은 개인의 치료 허용 수치를 정하지 않습니다.",
+  "prepare": [
+    "최근 가정혈압의 날짜·시각·수치 기록",
+    "혈압약과 감기약·진통제·보충제를 포함한 목록",
+    "이전 치과에서 치료가 미뤄진 이유와 기록",
+    "무서운 순간과 도움이 됐던 대응 방법"
+  ],
+  "localHeading": "천안에서 치과 치료와 혈압을 함께 상담하신다면",
+  "localAdvice": "천안에서 치과 치료와 혈압 때문에 고민한다면 예약할 때 이전에 치료가 미뤄졌다는 점부터 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 당일 처치 가능 여부를 미리 단정하기보다 필요한 내과 자료와 상담 범위를 확인하고, 급히 도착해 바로 혈압을 재지 않도록 일정에 여유를 두세요.",
+  "related": [
+    {
+      "title": "진료를 선택하고 상담하는 기준",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "진정치료의 기대와 주의점",
+      "href": "/guide/regret/sedation"
+    },
+    {
+      "title": "마취 후 두근거린 경험이 있을 때",
+      "href": "/concerns/heart-racing-after-dental-local-anesthetic"
+    }
+  ],
+  "sources": [
+    {
+      "title": "ADA · 고혈압 환자의 치과 평가와 진료 고려사항",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/hypertension"
+    },
+    {
+      "title": "AHA · 가정혈압 측정과 높은 수치의 대응",
+      "href": "https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings/monitoring-your-blood-pressure-at-home"
+    },
+    {
+      "title": "AHA · 혈압약과 다른 약의 복용 관리",
+      "href": "https://www.heart.org/en/health-topics/high-blood-pressure/changes-you-can-make-to-manage-high-blood-pressure/managing-high-blood-pressure-medications"
+    }
+  ],
+  "updated": "2026-10-10",
+  "publishedAt": "2026-10-10T22:27:06+09:00"
+},
+{
+  "slug": "child-bit-lip-after-dental-anesthesia",
+  "title": "아이가 마취 후 입술을 씹었어요. 하얗게 붓고 헐었는데 감염인가요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "소아 치과 마취",
+  "concern": "제가 잘 못 봐준 것 같아요",
+  "description": "아산에서 아이가 치과 마취 후 입술을 씹어 붓고 헐었을 때 확인할 변화, 추가 손상 예방, 재진료와 응급 평가가 필요한 신호를 정리합니다.",
+  "situation": "아산에서 아이가 치과 치료를 마치고 돌아오는 동안 입술을 씹었습니다. 처음엔 아프지 않다고 하더니 입술이 붓고 안쪽이 하얗게 헐어 보호자가 감염이나 마취 알레르기를 걱정하고 있습니다.",
+  "answer": "마취로 감각이 둔한 동안 입술·볼·혀를 씹어 상처가 생길 수 있습니다. 이런 손상은 대개 회복되지만 출혈이나 감염이 동반될 수 있으므로 색만으로 정상 또는 감염을 단정하지 마세요. 치료한 치과에 상황을 알리고, 붓기·통증·열·식사와 수분 섭취 상태를 함께 전달해 필요한 평가를 받으세요.",
+  "checks": [
+    "치료와 마취를 받은 시각, 씹은 위치와 시점",
+    "입술에 국한된 상처인지 얼굴·혀·목으로 번지는 부종인지",
+    "발열·통증 악화·지속 출혈과 감각 회복 여부",
+    "물을 마실 수 있는지, 아이의 활동과 전신 상태"
+  ],
+  "choices": [
+    {
+      "condition": "씹은 부위의 국소 상처로 평가되고 전신 상태가 괜찮다면",
+      "option": "추가로 씹거나 뜯지 않도록 살피고 안내받은 통증·위생 관리를 합니다.",
+      "limit": "하얗게 보인다는 이유로 상처 표면을 벗기지 않습니다."
+    },
+    {
+      "condition": "부기·통증이 악화되거나 열·분비물·섭취 곤란이 있다면",
+      "option": "치료한 치과 또는 소아 진료기관에 신속히 연락해 재평가를 받습니다.",
+      "limit": "며칠 기다리면 낫는다고 정해 두고 악화를 참지 않습니다."
+    },
+    {
+      "condition": "혀·목이 갑자기 붓거나 호흡·삼킴에 문제가 있다면",
+      "option": "119 등 즉각적인 응급 평가를 요청합니다.",
+      "limit": "씹어서 생긴 상처라고 가정하고 치과 연락만 기다리지 않습니다."
+    }
+  ],
+  "unknown": "입술 부종의 원인과 상처 깊이, 약의 필요성은 직접 확인해야 합니다. 항생제나 성인용 구내염 약을 임의로 사용하지 마세요. 마취 감각이 안내받은 시간보다 오래 남거나 이상 증상이 지속되는 경우에도 치과에 알려 확인받으세요.",
+  "prepare": [
+    "처치 내용과 마취 시각, 귀가 후 관찰한 행동",
+    "상처의 변화를 비교할 수 있는 사진",
+    "아이 나이·체중, 약과 알레르기 정보",
+    "통증·체온·물 마시는 양·소변 감소 여부"
+  ],
+  "localHeading": "아산에서 소아 치과 마취 뒤 입술 손상을 상담하신다면",
+  "localAdvice": "아산에서 아이의 소아 치과 마취 후 상처 때문에 문의하신다면 먼저 치료한 치과에 마취 시각과 증상을 알려주세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 재방문 필요 여부와 현재 가능한 관리를 확인한 뒤 이동하고, 호흡 곤란이나 급격한 부종이 있다면 가까운 응급 진료가 우선입니다.",
+  "related": [
+    {
+      "title": "아이 치과 진료를 상담하는 기준",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "곧 빠질 유치의 충치 치료",
+      "href": "/concerns/baby-molar-cavity-treat-before-falling-out"
+    },
+    {
+      "title": "마취 뒤 두근거림과 알레르기가 걱정될 때",
+      "href": "/concerns/heart-racing-after-dental-local-anesthetic"
+    }
+  ],
+  "sources": [
+    {
+      "title": "AAPD · 소아 국소마취와 치료 후 입술·볼 손상",
+      "href": "https://www.aapd.org/globalassets/media/policies_guidelines/bp_localanesthesia25.pdf"
+    },
+    {
+      "title": "Guy’s and St Thomas’ NHS · 아이의 국소마취 후 입안 관리, 2026년 7월 검토",
+      "href": "https://www.guysandstthomas.nhs.uk/health-information/caring-your-childs-mouth-after-tooth-removal-under-local-anaesthetic"
+    },
+    {
+      "title": "NHS SPS · 치과 국소마취 후 반응과 응급 알레르기 평가",
+      "href": "https://sps.nhs.uk/articles/managing-reactions-to-dental-local-anaesthetic-injections/"
+    },
+    {
+      "title": "Cambridge NHS · 소아 치과 수술 뒤 악화·감염 신호",
+      "href": "https://www.cuh.nhs.uk/patient-information/post-operative-mouth-care-for-children-following-dental-extractions/"
+    }
+  ],
+  "updated": "2026-10-10",
+  "publishedAt": "2026-10-10T22:27:06+09:00"
 }
 ]
 
