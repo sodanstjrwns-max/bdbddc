@@ -5766,6 +5766,290 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-11",
   "publishedAt": "2026-10-11T18:09:30+09:00"
+},
+{
+  "slug": "broken-night-guard-repair-or-replace",
+  "title": "이갈이 장치에 금이 갔어요. 안 끼면 치아가 상할까 봐 겁나요.",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "턱관절",
+  "concern": "장치가 깨져 불안해요",
+  "description": "천안에서 깨진 이갈이 장치와 교합안정장치를 점검할 때, 사용 중단과 수리·재제작의 조건 및 치아와 턱 불편 상담을 정리합니다.",
+  "situation": "천안에서 밤마다 이갈이 장치를 사용하다가 한쪽에 금이 간 것을 발견했습니다. 장치 없이 자면 치아가 깨질 것 같고, 새로 만드는 비용도 부담돼 계속 끼워도 될지 망설입니다.",
+  "answer": "금이 가거나 조각이 떨어진 장치는 사용을 멈추고 제공한 치과에 점검을 요청하세요. 다시 끼워지는 것만으로 안전한 사용을 확인할 수 없습니다. 장치의 손상과 맞음새, 현재 치아와 턱 증상을 함께 살핀 뒤 수리 또는 재제작을 비교합니다.",
+  "checks": [
+    "장치를 만든 시점, 손상을 처음 발견한 날, 떨어진 조각 유무를 확인합니다.",
+    "최근 크라운·충전·교정 등 치아 치료 후 맞음새가 달라졌는지 알립니다.",
+    "치아 통증·턱 통증·잠에서 깬 뒤 맞물림 변화가 있는지 따로 정리합니다."
+  ],
+  "choices": [
+    {
+      "condition": "손상 부위가 제한적이고 수리 뒤 적합성을 확보할 수 있다면",
+      "option": "치과에서 수리 가능성을 평가합니다.",
+      "limit": "사진이나 금의 길이만으로 수리 가능 여부를 확정할 수 없습니다."
+    },
+    {
+      "condition": "변형·마모·파절 때문에 안정적인 사용이 어렵다면",
+      "option": "재제작과 장치 사용 목적을 다시 상담합니다.",
+      "limit": "새 장치의 재료·설계·제작 기간과 비용은 개별 확인 사항입니다."
+    },
+    {
+      "condition": "장치 사용과 별개로 새 치아·턱 증상이 생겼다면",
+      "option": "증상의 원인을 먼저 평가하고 관리 계획을 조정합니다.",
+      "limit": "장치가 깨졌다는 사실만으로 치아가 이미 손상됐다고 단정하지 않습니다."
+    }
+  ],
+  "unknown": "이 글은 밤에 사용하는 이갈이 장치·교합안정장치에 관한 안내입니다. 교정 유지장치, 수면무호흡 장치, 외상 치아를 고정한 철사는 목적과 대응이 다릅니다. 접착제로 붙이거나 끓는 물로 모양을 바꾸지 말고 장치 종류부터 확인하세요.",
+  "prepare": [
+    "깨진 장치와 찾을 수 있는 조각, 원래 보관함",
+    "제작 병원과 날짜, 장치 사용 지시가 남아 있다면 함께 준비",
+    "최근 치과 치료와 사용 전후 통증·맞물림 변화 메모"
+  ],
+  "localHeading": "천안에서 턱관절 장치 점검을 준비한다면",
+  "localAdvice": "천안 불당동 서울비디치과로 방문할 때는 기존 장치의 종류와 제작 병원, 금이 간 위치를 먼저 알리세요. 첫 방문의 장치 평가와 수리·재제작 완료는 구분해 일정을 문의할 수 있습니다. 다른 병원에서 만든 장치의 보증이나 부품·재료 조건이 그대로 적용된다고 가정하지 마세요.",
+  "related": [
+    {
+      "title": "턱관절 진료 가이드",
+      "href": "/guide/inside-out/tmj"
+    },
+    {
+      "title": "통증 없는 턱 소리와 장치 고민",
+      "href": "/concerns/jaw-clicking-without-pain"
+    }
+  ],
+  "sources": [
+    {
+      "title": "NHS Wales · 교합 장치의 사용 목적·맞음새·맞물림 변화 시 상담",
+      "href": "https://primarycareone.nhs.wales/files/information-for-dental-service/all-wales-oral-surgery-referral-handbook-for-general-dental-practitioners-pdf/"
+    },
+    {
+      "title": "Manchester University NHS · 깨진 구강 장치의 사용 중단과 치과 연락",
+      "href": "https://mft.nhs.uk/app/uploads/sites/3/2018/09/UDH-121.pdf"
+    },
+    {
+      "title": "NHS Business Services Authority · 교합 장치의 적합성 및 증상 재평가",
+      "href": "https://faq.nhsbsa.nhs.uk/knowledgebase/article/KA-02042/en-us"
+    },
+    {
+      "title": "Royal Berkshire NHS · 교합안정장치 점검과 손상·마모 뒤 상담(2025)",
+      "href": "https://www.royalberkshire.nhs.uk/media/qy5b5zl4/caring-for-your-hard-bite-raising-appliance-michigan-splint_may25.pdf"
+    }
+  ],
+  "updated": "2026-10-12",
+  "publishedAt": "2026-10-12T09:00:00+09:00"
+},
+{
+  "slug": "child-baby-tooth-knocked-out-do-not-replant",
+  "title": "아이가 넘어져 유치가 통째로 빠졌어요. 다시 끼워 넣어야 하나요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "소아치과",
+  "concern": "아이 앞니가 빠졌어요",
+  "description": "아산에서 아이 유치가 외상으로 빠졌을 때, 영구치와 다른 응급 대응과 치아를 찾지 못한 경우의 확인, 이후 관찰을 정리합니다.",
+  "situation": "아산에서 어린아이가 넘어져 앞니가 보이지 않습니다. 바닥에서 치아를 찾았지만 다시 끼워야 한다는 영구치 응급 안내가 떠올라 유치도 그렇게 해야 할지 혼란스럽습니다.",
+  "answer": "외상으로 통째로 빠진 유치는 다시 심지 않습니다. 영구치 탈락과 대응이 다르므로 치아 종류가 불확실하면 즉시 치과에 문의하세요. 유치가 빠졌더라도 입안과 다른 손상은 확인해야 하며, 치아를 찾지 못했거나 호흡 이상이 있다면 그 사실을 바로 알리세요.",
+  "checks": [
+    "넘어진 시간과 부딪힌 장소, 빠진 치아를 찾았는지 정리합니다.",
+    "치아가 원래 유치였는지, 최근 새로 난 영구치였는지 알립니다. 모르면 추측하지 않습니다.",
+    "호흡 이상·의식 변화·반복 구토·멈추지 않는 출혈 등 동반 손상을 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "통째로 빠진 유치로 확인된다면",
+      "option": "재식하지 않고 상처와 주변 치아, 이후 영구치 발육을 관찰하는 계획을 상담합니다.",
+      "limit": "빈자리가 생겼다는 이유만으로 모든 아이에게 장치가 필요한 것은 아닙니다."
+    },
+    {
+      "condition": "치아를 찾지 못했거나 잇몸 안으로 들어간 가능성이 있다면",
+      "option": "실제 탈락인지 다른 손상인지 진찰과 필요한 검사를 받습니다.",
+      "limit": "눈에 안 보인다는 사실만으로 삼켰거나 빠졌다고 단정하지 않습니다."
+    },
+    {
+      "condition": "영구치 탈락이거나 치아 종류가 불확실하다면",
+      "option": "시간을 지체하지 말고 치과 응급 안내를 받습니다.",
+      "limit": "이 유치 노트의 재식 금지 안내를 영구치에 그대로 적용하지 마세요."
+    }
+  ],
+  "unknown": "유치 외상 뒤 영구치가 정상으로 나올지, 장치나 추가 처치가 필요한지는 손상과 발육 상태를 확인해야 합니다. 보호자가 직접 빈자리를 찌르거나 유치를 끼워 넣지 마세요. 호흡곤란·의식 이상이 있으면 119 등 응급 의료가 우선입니다.",
+  "prepare": [
+    "찾은 치아는 용기에 담아 가져가되 유치 재식을 시도하지 않기",
+    "사고 시각·장소·아이 나이와 동반 증상 메모",
+    "가능하면 이전 치아 사진과 이미 시행한 처치 정보"
+  ],
+  "localHeading": "아산에서 소아치과 외상 상담을 준비한다면",
+  "localAdvice": "아산에서 천안 불당동 서울비디치과로 이동하기 전 아이 나이와 사고 시각, 치아를 찾았는지, 호흡이나 의식 변화 여부를 먼저 전달하세요. 응급 의료가 필요한 아이를 특정 치과까지 이동시키느라 지연하지 마세요. 진찰 가능한 일정과 필요한 진료 연결을 확인합니다.",
+  "related": [
+    {
+      "title": "소아치과 진료 가이드",
+      "href": "/guide/inside-out/pediatric"
+    },
+    {
+      "title": "영구치가 통째로 빠진 경우",
+      "href": "/concerns/permanent-tooth-knocked-out-in-accident"
+    },
+    {
+      "title": "유치를 일찍 잃은 뒤 공간유지장치 고민",
+      "href": "/concerns/child-early-baby-molar-loss-space-maintainer"
+    }
+  ],
+  "sources": [
+    {
+      "title": "IADT · 현재 제공되는 치아 외상 지침과 유치·영구치 구분",
+      "href": "https://iadt-dentaltrauma.org/guidelines-and-resources/guidelines/"
+    },
+    {
+      "title": "AAPD · IADT 유치 외상 지침",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/guidelines-for-the-management-of-traumatic-dental-injuries-in-the-primary-dentition/"
+    },
+    {
+      "title": "American Academy of Pediatrics · 유치 재식 금지와 찾지 못한 치아 평가",
+      "href": "https://publications.aap.org/pediatrics/article/133/2/e466/30896/Management-of-Dental-Trauma-in-a-Primary-Care"
+    },
+    {
+      "title": "IADT·Academy for Sports Dentistry · 2024 응급처치 교육 지침: 유치·영구치 구분",
+      "href": "https://doi.org/10.1111/edt.12931"
+    }
+  ],
+  "updated": "2026-10-12",
+  "publishedAt": "2026-10-12T09:00:00+09:00"
+},
+{
+  "slug": "white-lacy-mouth-patches-oral-lichen-planus",
+  "title": "볼 안쪽에 하얀 그물무늬가 생겼어요. 편평태선이라는데 암인가요?",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "구강내과",
+  "concern": "낯선 진단명이 두려워요",
+  "description": "홍성에서 구강 편평태선 설명을 들었을 때, 흰무늬의 확인과 조직검사·증상 치료·정기 관찰을 구분해 상담을 준비합니다.",
+  "situation": "홍성에서 볼 안쪽 흰무늬를 발견해 치과에 갔다가 구강 편평태선이라는 설명을 들었습니다. 아프지 않은데 조직검사와 정기 관찰 이야기가 나와 암이라는 뜻인지 걱정됩니다.",
+  "answer": "구강 편평태선은 구강 점막의 염증성 질환이며 진단명 자체가 암을 뜻하지 않습니다. 다만 흰무늬만 보고 집에서 진단할 수 없고, 필요하면 조직검사로 확인합니다. 증상이 적으면 약 없이 관찰할 수 있어도 새 궤양·덩어리·변화가 생기면 다시 평가해야 합니다.",
+  "checks": [
+    "정확한 진단명과 조직검사를 이미 했는지, 결과를 확인할 날짜를 정리합니다.",
+    "흰무늬가 시작된 시기와 통증·따가움·식사 불편, 최근 변화 부위를 알립니다.",
+    "복용약과 최근 치과 재료 치료, 피부 등 입 밖의 증상이 있는지 함께 전달합니다."
+  ],
+  "choices": [
+    {
+      "condition": "진찰과 필요 검사로 확인되고 생활 불편이 적다면",
+      "option": "정해진 간격으로 변화를 관찰하며 관리합니다.",
+      "limit": "약을 안 쓰는 결정이 이후 검진까지 생략하라는 의미는 아닙니다."
+    },
+    {
+      "condition": "따가움·통증 때문에 식사와 위생 관리가 어렵다면",
+      "option": "증상 치료와 사용 방법, 재평가 시점을 상담합니다.",
+      "limit": "처방 없이 피부용 스테로이드 등을 입안에 바르지 마세요."
+    },
+    {
+      "condition": "새로운 궤양·덩어리 또는 양상이 다른 부위가 생겼다면",
+      "option": "정기 예약을 기다리기보다 평가 시기를 다시 문의합니다.",
+      "limit": "기존 진단명이 모든 새 변화를 설명한다고 단정하지 않습니다."
+    }
+  ],
+  "unknown": "개인별 장기 경과나 위험을 사진 한 장으로 예측할 수 없습니다. 암이 아니니 영원히 걱정할 필요 없다는 보장과 반드시 암으로 변한다는 단정 모두 피해야 합니다. 조직검사 이유와 추적 관찰 기준을 설명받고 필요한 전문 진료 연결을 상담하세요.",
+  "prepare": [
+    "이전 진찰·조직검사 결과가 있다면 사본",
+    "복용약 이름과 시작·변경 시점, 관련 치과 치료 기록",
+    "평소 식사와 양치에서 불편한 자극, 새 변화 메모"
+  ],
+  "localHeading": "홍성에서 구강내과 상담을 준비한다면",
+  "localAdvice": "홍성에서 천안 불당동 서울비디치과로 방문하려면 처음 들은 진단명과 조직검사 유무를 먼저 전달하세요. 구강내과 평가 또는 전문기관 연결이 필요한지, 첫 진찰과 검사 결과 확인을 어떻게 나눌지 문의합니다. 병원은 천안 불당동에 있으며 홍성 분원이 있다는 의미가 아닙니다.",
+  "related": [
+    {
+      "title": "구강내과 진료 가이드",
+      "href": "/guide/inside-out/oral-medicine"
+    },
+    {
+      "title": "입안 상처가 오래 낫지 않을 때",
+      "href": "/concerns/mouth-ulcer-same-spot-over-three-weeks"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Cambridge University Hospitals · 구강 편평태선의 진단·증상 치료·관찰",
+      "href": "https://www.cuh.nhs.uk/patient-information/lichen-planus-of-the-mouth/"
+    },
+    {
+      "title": "University College London Hospitals · 구강 편평태선과 정기 재평가",
+      "href": "https://www.uclh.nhs.uk/patients-and-visitors/patient-information-pages/lichen-planus"
+    },
+    {
+      "title": "NHS · 편평태선과 구강 증상 관리",
+      "href": "https://www.nhs.uk/conditions/lichen-planus/"
+    }
+  ],
+  "updated": "2026-10-12",
+  "publishedAt": "2026-10-12T09:00:00+09:00"
+},
+{
+  "slug": "diarrhoea-after-dental-antibiotics",
+  "title": "치과 항생제를 먹고 설사가 나요. 끝까지 먹어야 한다는데 참아야 하나요?",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "응급진료",
+  "concern": "약 부작용이 걱정돼요",
+  "description": "예산에서 치과 처방 항생제 복용 뒤 설사가 생겼을 때, 약 이름과 증상으로 상담을 준비하고 심한 설사·혈변·알레르기 응급 신호를 구분합니다.",
+  "situation": "예산에서 치과 감염 치료를 받고 항생제를 복용한 뒤 설사가 시작됐습니다. 약을 끝까지 먹으라는 설명과 부작용이 걱정되는 마음 사이에서 다음 복용을 어떻게 해야 할지 망설입니다.",
+  "answer": "항생제 복용 중 설사가 생기면 참으면서 계속 먹을지 혼자 정하기보다 처방 의료진이나 약사에게 바로 알리세요. 약 이름·복용 시각·설사 정도가 판단에 필요합니다. 심한 설사나 혈액·점액이 섞인 변, 탈수 등은 신속한 의료 평가가 필요하며 호흡곤란·입술이나 혀 부종은 119 응급 대응이 우선입니다.",
+  "checks": [
+    "약 봉투에서 항생제 이름과 용량, 복용을 시작한 날을 확인합니다.",
+    "설사 시작 시각·횟수·혈액이나 점액·복통·열·소변 감소를 알립니다.",
+    "최근 다른 항생제·다른 약 복용과 치과 감염의 붓기·통증 변화도 전달합니다."
+  ],
+  "choices": [
+    {
+      "condition": "항생제 복용 중 새 설사가 생겼으나 심한 증상이 없다면",
+      "option": "처방 의료진 또는 약사에게 약 이름과 증상을 전하고 다음 복용 지시를 확인합니다.",
+      "limit": "가벼워 보인다는 이유만으로 아무 연락 없이 오래 참지 마세요."
+    },
+    {
+      "condition": "심한 설사·혈변·점액변·심한 복통이나 탈수 의심이 있다면",
+      "option": "다음 복용 전 신속한 의료 평가를 받으며 해당 약의 중단·변경 지시를 확인합니다.",
+      "limit": "지사제를 임의로 추가해 증상을 가리고 버티지 마세요."
+    },
+    {
+      "condition": "숨쉬기 어렵거나 입술·혀·목이 붓는다면",
+      "option": "119 등 응급 의료로 연결하며 의심 약을 다시 복용하지 않습니다.",
+      "limit": "치과 연락이나 다음 예약을 기다리지 마세요."
+    }
+  ],
+  "unknown": "설사만으로 약 알레르기나 C. difficile 감염을 확진할 수 없습니다. 항생제별 주의사항이 달라 이 글은 특정 용량의 복용·중단 처방을 대신하지 않습니다. 아목시실린 안내에는 심한 설사나 혈액·점액이 섞인 설사 시 중단하고 즉시 의료 도움을 받도록 명시돼 있습니다. 실제 약 이름을 확인하세요.",
+  "prepare": [
+    "약 봉투·처방전과 복용한 다른 약의 이름",
+    "최근 복용 시각과 설사·열·복통·수분 섭취·소변 변화",
+    "치과에서 받은 감염 치료와 이후 붓기·통증 경과"
+  ],
+  "localHeading": "예산에서 응급진료와 처방 상담을 준비한다면",
+  "localAdvice": "예산에서 천안 불당동 서울비디치과로 이동하기 전에 처방 약과 설사 증상을 전화로 먼저 전달하세요. 심한 설사나 탈수는 가까운 의료기관 평가가 필요할 수 있어 특정 치과까지 이동하느라 지연하지 않습니다. 치아 감염 치료 일정과 약 부작용 평가를 함께 조정할 방법을 상의합니다.",
+  "related": [
+    {
+      "title": "치과 응급진료 가이드",
+      "href": "/guide/inside-out/emergency"
+    },
+    {
+      "title": "항생제로 치통이 가라앉아도 치료가 필요한 이유",
+      "href": "/concerns/toothache-returns-after-antibiotics"
+    }
+  ],
+  "sources": [
+    {
+      "title": "NHS · 항생제의 부작용과 처방별 주의사항",
+      "href": "https://www.nhs.uk/medicines/antibiotics/"
+    },
+    {
+      "title": "NHS · 아목시실린의 설사·중대한 부작용 안내",
+      "href": "https://www.nhs.uk/medicines/amoxicillin/side-effects-of-amoxicillin/"
+    },
+    {
+      "title": "NHS · C. difficile 감염과 항생제 복용 후 설사 평가",
+      "href": "https://www.nhs.uk/conditions/c-difficile/"
+    },
+    {
+      "title": "NHS · 아목시실린 복용과 누락된 용량 안내",
+      "href": "https://www.nhs.uk/medicines/amoxicillin/how-and-when-to-take-amoxicillin/"
+    }
+  ],
+  "updated": "2026-10-12",
+  "publishedAt": "2026-10-12T09:00:00+09:00"
 }
 ]
 
