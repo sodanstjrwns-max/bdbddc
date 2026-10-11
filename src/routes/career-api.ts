@@ -108,23 +108,24 @@ app.post('/api/careers/apply', async (c) => {
       now
     ).run()
 
-    // 이메일 알림 발송 (비동기 — 실패해도 지원서는 성공)
-    const gmailPw = c.env.GMAIL_APP_PASSWORD
-    const notifyEmail = c.env.NOTIFICATION_EMAIL || '6481qqq@naver.com'
-    if (gmailPw) {
+    // 환자 예약과 같은 메일 설정으로, 지원서 저장이 끝난 뒤 알림을 보냅니다.
+    const resendKey = c.env.RESEND_API_KEY
+    const notifyEmail = c.env.NOTIFICATION_EMAIL || 'sodanstjrwns@gmail.com'
+    if (resendKey) {
+      const notification = sendCareerNotificationEmail({
+        to: notifyEmail,
+        applicantName: name.trim(),
+        position,
+        phone: phone.trim(),
+        email: email?.trim() || '',
+        experience: experience || '미기재',
+        appliedAt: now,
+        resendKey
+      })
       try {
-        await sendCareerNotificationEmail({
-          to: notifyEmail,
-          applicantName: name.trim(),
-          position,
-          phone: phone.trim(),
-          email: email?.trim() || '',
-          experience: experience || '미기재',
-          appliedAt: now,
-          gmailPassword: gmailPw
-        })
-      } catch (emailErr) {
-        console.error('Email notification error:', emailErr)
+        c.executionCtx.waitUntil(notification)
+      } catch {
+        await notification
       }
     }
 
@@ -252,7 +253,7 @@ app.delete('/api/admin/careers/:id', async (c) => {
   return c.json({ success: true })
 })
 
-// 이메일 알림 함수 (Gmail SMTP via API)
+// 환자 예약 알림과 동일한 서비스·인증된 발신 주소를 사용합니다.
 async function sendCareerNotificationEmail(opts: {
   to: string
   applicantName: string
@@ -261,16 +262,9 @@ async function sendCareerNotificationEmail(opts: {
   email: string
   experience: string
   appliedAt: string
-  gmailPassword: string
+  resendKey: string
 }) {
-  // Gmail API를 통한 이메일 발송 (MailChannels 또는 fetch 기반)
-  // Cloudflare Workers에서는 SMTP 직접 연결이 불가하므로 MailChannels Send API 사용
-  const emailBody = `
-서울비디치과 채용 지원서가 접수되었습니다.
-
-━━━━━━━━━━━━━━━━━━━━━━━━
-📋 지원자 정보
-━━━━━━━━━━━━━━━━━━━━━━━━
+  const emailBody = `서울비디치과 채용 지원서가 접수되었습니다.
 
 • 이름: ${opts.applicantName}
 • 지원 분야: ${opts.position}
@@ -279,31 +273,25 @@ async function sendCareerNotificationEmail(opts: {
 • 경력: ${opts.experience}
 • 접수 시간: ${new Date(opts.appliedAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}
 
-━━━━━━━━━━━━━━━━━━━━━━━━
-
-📌 관리자 페이지에서 상세 내용을 확인해주세요.
-https://bdbddc.com/admin/
-
-⏰ 이력서 확인 후 만 24시간 이내 연락 부탁드립니다.
+지원서 상세 내용은 채용 관리에서 확인해주세요.
+https://bdbddc.com/admin/careers
 `
-
-  // MailChannels API (Cloudflare Workers에서 무료 사용 가능)
+  const subject = `[채용지원] ${opts.applicantName}님 · ${opts.position}`.replace(/[\r\n]+/g, ' ').slice(0, 200)
   try {
-    const res = await fetch('https://api.mailchannels.net/tx/v1/send', {
+    const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { Authorization: `Bearer ${opts.resendKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        personalizations: [{ to: [{ email: opts.to }] }],
-        from: { email: 'careers@bdbddc.com', name: '서울비디치과 채용' },
-        subject: `[채용지원] ${opts.applicantName}님 - ${opts.position} 지원서 접수`,
-        content: [{ type: 'text/plain', value: emailBody }]
-      })
+        from: '서울비디치과 알림 <noreply@patientview.kr>',
+        to: [opts.to],
+        subject,
+        text: emailBody
+      }),
+      signal: AbortSignal.timeout(10000)
     })
-    if (!res.ok) {
-      console.error('MailChannels error:', res.status, await res.text())
-    }
-  } catch (err) {
-    console.error('Email send failed:', err)
+    if (!response.ok) console.error('Career notification rejected:', response.status)
+  } catch {
+    console.error('Career notification failed (application saved)')
   }
 }
 }
