@@ -12,6 +12,14 @@ function checkMenu(root, context) {
     const links = nav.querySelectorAll(`a[href="${revision}"]`);
     assert.equal(links.length, 1, context + ': one revision item per menu');
     assert.equal(implant.parentNode.nextElementSibling, links[0].parentNode, context + ': immediately after implant');
+    let previous = links[0].parentNode;
+    for (const [href, label] of [['/treatments/implant-hybrid','하이브리드 풀아치 임플란트(올온X)'],['/treatments/implant-sedation','의식하진정 임플란트']]) {
+      const items = nav.querySelectorAll(`a[href="${href}"]`);
+      assert.equal(items.length, 1, context + ': one ' + href);
+      assert.equal(items[0].text, label);
+      assert.equal(previous.nextElementSibling, items[0].parentNode, context + ': ordered implant submenu');
+      previous = items[0].parentNode;
+    }
   }
 }
 const sample = '<html lang="ko"><nav id="mainNav"><ul><li><a href="/treatments/implant">임플란트</a></li></ul></nav><main><a href="/treatments/implant">본문</a></main></html>';
@@ -32,7 +40,7 @@ function walk(dir) {
       if (!(root.querySelector('html')?.getAttribute('lang') || '').startsWith('ko')) continue;
       checkMenu(root,file); checked++;
       const script = root.querySelector('script[src*="/js/gnb-v2.js"]');
-      if (script) assert.match(script.getAttribute('src'), /v=20261004revision$/, file + ': fresh menu script');
+      if (script) assert.match(script.getAttribute('src'), /v=20261013implantmenus$/, file + ': fresh menu script');
     }
   }
 }

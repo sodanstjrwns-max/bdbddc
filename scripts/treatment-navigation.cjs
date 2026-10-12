@@ -3,7 +3,12 @@ const path = require('node:path');
 const { parse } = require('node-html-parser');
 
 const REVISION = '/treatments/implant-revision';
-const GNB_VERSION = '20261004revision';
+const GNB_VERSION = '20261013implantmenus';
+const IMPLANT_ITEMS = [
+  [REVISION, '임플란트 재수술'],
+  ['/treatments/implant-hybrid', '하이브리드 풀아치 임플란트(올온X)'],
+  ['/treatments/implant-sedation', '의식하진정 임플란트'],
+];
 
 // Static pages contain older copies of the header. Keep their crawlable menus
 // consistent with the SSR header and js/gnb-v2.js without rewriting their bodies.
@@ -12,10 +17,14 @@ function promoteRevision(html) {
   return html.replace(/<nav\b[^>]*\bid=["'](?:mainNav|mobileNav)["'][^>]*>[\s\S]*?<\/nav>/gi, nav => {
     const root = parse(nav);
     const implant = root.querySelector('a[href="/treatments/implant"]');
-    if (!implant || root.querySelector(`a[href="${REVISION}"]`)) return nav;
-    const item = implant.parentNode;
+    if (!implant) return nav;
+    let item = implant.parentNode;
     if (item?.tagName !== 'LI') return nav;
-    item.insertAdjacentHTML('afterend', `<li><a href="${REVISION}" style="color:#6B4226;font-weight:700;">임플란트 재수술</a></li>`);
+    for (const [href, label] of IMPLANT_ITEMS) {
+      const existing = root.querySelector(`a[href="${href}"]`);
+      if (!existing) item.insertAdjacentHTML('afterend', `<li><a href="${href}" style="color:#6B4226;font-weight:700;">${label}</a></li>`);
+      item = root.querySelector(`a[href="${href}"]`).parentNode;
+    }
     return root.toString();
   }).replace(/(\/js\/gnb-v2\.js)(?:\?v=[^"'\s>]*)?(?=["'])/g, '$1?v=' + GNB_VERSION);
 }
