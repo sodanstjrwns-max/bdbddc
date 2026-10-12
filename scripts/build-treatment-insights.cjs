@@ -55,7 +55,7 @@ ${fiveSections(t)}
 <section class="io-section" id="checklist"><div class="io-section-heading"><span class="io-number">08</span><div><p class="io-eyebrow">질문을 잘 준비하지 못해도 괜찮습니다</p><h2>이 문장부터 물어보세요</h2></div></div><ol class="io-questions">${t.questions.map(q=>`<li>${esc(q)}</li>`).join('')}</ol><p>가장 걱정되는 질문 하나에 표시해 두세요. 설명을 다 듣고도 이해되지 않는 부분이 남으면, 다른 말이나 사진으로 다시 설명해 달라고 요청하셔도 됩니다.</p><div class="io-consult"><h3>치료 이름보다, 지금의 불편부터</h3><p>천안·아산에서 가깝게 오시든, 홍성·예산·당진·서산에서 시간을 내어 오시든 첫날 확인할 범위와 추가 방문 가능성을 미리 상의하세요. 진료 장소는 천안 불당동 서울비디치과입니다.</p><div><a href="/reservation">내 상황으로 상담 문의하기 <span aria-hidden="true">→</span></a><a href="/directions">위치·방문 준비</a></div></div></section>
 <section class="io-related" aria-labelledby="related-title"><p class="io-eyebrow">결정은 비교할수록 구체적으로</p><h2 id="related-title">함께 살펴볼 치료</h2><div>${t.related.map(slug=>{const r=find(slug);if(!r)throw Error(slug);return `<a href="${href(r)}"><strong>${esc(r.name)}</strong><span>${esc(r.title)} →</span></a>`}).join('')}</div><a class="io-back" href="/treatments/${t.treatments[0]}">${esc(t.name)} 진료 안내로 돌아가기 →</a></section>
 ${references(t)}
-</div></div></main>${footer}${mobile}<script src="/js/main.js?v=202604190433" defer></script><script src="/js/gnb-v2.js?v=20261004revision" defer></script></body></html>\n`;
+</div></div></main>${footer}${mobile}<script src="/js/main.js?v=202604190433" defer></script><script src="/js/gnb-v2.js?v=20261013implantmenus" defer></script></body></html>\n`;
 }
 for (const t of topics.filter(t=>t.mode!=='existing-treatment')) {
  const file=path.join(root,t.path+'.html');fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,render(t).replace(/[ \t]+$/gm, ''));
