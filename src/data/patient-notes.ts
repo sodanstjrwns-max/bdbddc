@@ -6343,6 +6343,306 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-13",
   "publishedAt": "2026-10-13T14:25:59.347Z"
+},
+{
+  "slug": "broken-instrument-left-in-root-canal",
+  "title": "신경치료 중 기구가 부러져 안에 남았대요. 빼내지 않으면 위험한가요?",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "신경치료",
+  "concern": "치아 안에 기구가 남았대요",
+  "description": "홍성에서 신경치료 중 기구 파절 이야기를 듣고 불안한 분을 위한 안내. 제거·우회·경과 관찰의 판단 기준과 치아를 지키기 위해 확인할 질문을 정리합니다.",
+  "situation": "홍성에서 신경치료를 받다가 가느다란 기구 일부가 뿌리 안에 남았다는 설명을 들었습니다. 그대로 두자니 몸에 문제가 생길까 두렵고, 꺼내려다 치아를 잃을 수 있다는 말도 이해하기 어렵습니다.",
+  "answer": "기구가 남았다는 사실만으로 신경치료 실패나 발치가 결정되지는 않습니다. 조각의 위치, 그때까지 진행된 세척·소독, 감염과 남은 치아 구조를 함께 평가합니다. 제거의 이득과 치아 손상 위험을 비교해 제거·우회·유지 후 추적 또는 다른 치료를 검토합니다.",
+  "checks": [
+    "어느 치아의 어느 뿌리에 조각이 있고, 남은 길을 세척할 수 있는지 확인합니다.",
+    "기구가 분리된 시점과 이전 감염 상태, 현재 증상·영상 소견을 비교합니다.",
+    "제거를 시도할 때 잃을 치아 구조와 의뢰 필요성, 시도를 멈출 기준을 묻습니다."
+  ],
+  "choices": [
+    {
+      "condition": "접근할 수 있고 치아 손상을 줄이며 제거할 가능성이 있다면",
+      "option": "기구 제거를 고려하고 이후 신경치료를 이어갑니다.",
+      "limit": "조각을 꺼냈다고 치아의 장기 유지까지 보장되는 것은 아닙니다."
+    },
+    {
+      "condition": "제거 위험이 크지만 필요한 치료와 추적을 할 수 있다면",
+      "option": "조각 옆으로 길을 찾는 우회 또는 조각을 남기는 계획을 비교합니다.",
+      "limit": "그대로 두는 결정에도 이유와 추적 일정, 계획을 바꿀 조건이 필요합니다."
+    },
+    {
+      "condition": "감염이 지속되거나 접근·치아 보존에 한계가 있다면",
+      "option": "근관치료에 숙련된 치과의사의 평가와 추가 치료 선택지를 상의합니다.",
+      "limit": "수술이나 발치는 기구 파절 자체만으로 자동 결정하지 않습니다."
+    }
+  ],
+  "unknown": "제거 가능성, 치아 보존 전망, 추가 비용과 방문 횟수는 조각의 존재만으로 정할 수 없습니다. 현재 평가에서 확인된 것과 아직 확인이 어려운 것을 나누어 설명받으세요.",
+  "prepare": [
+    "파절 전후 영상과 치료한 날짜·단계를 알 수 있는 기록",
+    "통증·부기 등 변화와 설명받은 선택지의 메모",
+    "복용약·알레르기 정보와 장거리 방문 때 어려운 일정"
+  ],
+  "localHeading": "홍성에서 신경치료 상담을 준비한다면",
+  "localAdvice": "홍성에서 천안으로 이동하기 전, 신경치료 중 기구 파절을 평가받고 싶다고 알리고 기존 영상 전달 방법을 문의하세요. 첫날 검사와 제거 시도가 같은 날 가능한지는 미리 확정할 수 없습니다. 서울비디치과의 실제 진료 장소는 천안 불당동입니다.",
+  "related": [
+    {
+      "title": "신경치료의 과정과 선택 기준",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "재신경치료와 임플란트를 비교할 때",
+      "href": "/guide/compare/re-root-canal-vs-implant"
+    },
+    {
+      "title": "치근단수술의 판단 기준",
+      "href": "/guide/inside-out/apicoectomy"
+    }
+  ],
+  "sources": [
+    {
+      "title": "AAE 임상 해설 · 근관치료 합병증과 기구 파절 시 판단 (2026)",
+      "href": "https://www.aae.org/specialty/what-happens-when-everything-goes-wrong-errors-and-complications-in-nonsurgical-root-canal-treatment-and-how-to-make-it-right/"
+    },
+    {
+      "title": "Leeds NHS · 신경치료·재신경치료의 과정과 한계",
+      "href": "https://www.leedsth.nhs.uk/patients/resources/understanding-your-endodontic-root-canal-treatment/"
+    },
+    {
+      "title": "Wirral NHS · 신경치료 중 기구 분리와 후속 상담",
+      "href": "https://www.wchc.nhs.uk/resources/having-root-canal-treatment/"
+    },
+    {
+      "title": "AAE · 비수술 치료 이후 근관수술 선택",
+      "href": "https://www.aae.org/patients/root-canal-treatment/endodontic-treatment-options/endodontic-surgery/"
+    }
+  ],
+  "updated": "2026-10-14",
+  "publishedAt": "2026-10-14T09:00:00+09:00"
+},
+{
+  "slug": "sinus-lift-before-upper-molar-implant",
+  "title": "비염이 있는데 상악동 거상술을 해도 되나요? 코 치료부터 해야 할까요?",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "임플란트",
+  "concern": "비염 때문에 수술 순서가 걱정돼요",
+  "description": "예산에서 비염이 있는 상태로 윗어금니 임플란트와 상악동 거상술을 준비하는 분을 위한 안내. 코 증상·병력 평가, 이비인후과 협진과 치료 순서의 질문을 정리합니다.",
+  "situation": "예산에서 윗어금니 임플란트를 상담하다가 상악동을 올려야 한다는 말을 들었습니다. 평소 코가 자주 막히는데, 치아를 하나 채우려다 코 수술까지 받게 되는 건 아닌지 걱정됩니다.",
+  "answer": "상악동 거상술은 윗어금니 위쪽 공기 공간의 안쪽 막을 들어 올려 임플란트를 위한 뼈 공간을 확보하는 과정입니다. 코 모양을 바꾸거나 코 안의 질환을 치료하는 수술과 목적이 다릅니다. 다만 코 증상과 과거 부비동 치료 이력에 따라 이비인후과 평가나 선행 치료가 필요한지 따로 확인합니다.",
+  "checks": [
+    "현재 코막힘·분비물·얼굴 불편과 반복 여부, 과거 부비동염 진단·수술 이력을 알립니다.",
+    "임플란트를 놓을 자리의 남은 뼈와 상악동 상태를 영상과 진찰로 평가합니다.",
+    "상악동 거상술의 필요성과 코 질환 치료의 필요성을 나누고 각각의 판단 근거를 묻습니다."
+  ],
+  "choices": [
+    {
+      "condition": "현재 조건에서 뼈 높이를 늘리는 방법이 적절하다면",
+      "option": "상악동 거상술의 접근 방법과 임플란트 동시 식립 또는 단계적 식립을 비교합니다.",
+      "limit": "남은 뼈와 초기 고정 조건에 따라 일정이 달라지고 수술 중 계획이 바뀔 수도 있습니다."
+    },
+    {
+      "condition": "코 증상·병력이나 영상에서 추가 확인이 필요하다면",
+      "option": "필요한 이비인후과 평가와 치과 치료의 순서를 정합니다.",
+      "limit": "비염이라는 이름만으로 수술 가능 여부를 결정하거나 모두 코 수술을 받는 것은 아닙니다."
+    },
+    {
+      "condition": "추가 수술 부담이 크거나 다른 회복 방법도 가능하다면",
+      "option": "짧은 임플란트, 브릿지·틀니 등 적용 가능한 대안을 비교합니다.",
+      "limit": "대안도 남은 뼈·주변 치아·맞물림에 조건이 있으며 누구에게나 수술을 피할 방법이 있는 것은 아닙니다."
+    }
+  ],
+  "unknown": "코 증상만으로 상악동 상태나 수술 가능 여부를 확정할 수 없습니다. 필요한 검사, 이식재, 수술 범위, 회복 기간과 전체 비용은 개별 평가 후 확인할 사항입니다.",
+  "prepare": [
+    "기존 치과 영상과 임플란트 치료계획서가 있다면 사본",
+    "비염·부비동염 진단과 코 수술 이력, 현재 사용하는 약 정보",
+    "쉬기 어려운 날짜와 이동·운전·동행에 관한 현실적인 사정"
+  ],
+  "localHeading": "예산에서 첫 상담을 준비한다면",
+  "localAdvice": "예산에서 천안으로 임플란트 상담을 오기 전 상악동 거상술 권유와 평소 코 증상을 함께 알려주세요. 검사와 이비인후과 평가가 필요한지부터 상의하고 수술 당일 완료를 전제로 일정을 잡지 마세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다.",
+  "related": [
+    {
+      "title": "임플란트 치료 전체 과정",
+      "href": "/guide/implant"
+    },
+    {
+      "title": "브릿지와 임플란트의 조건 비교",
+      "href": "/guide/compare/bridge-vs-implant"
+    },
+    {
+      "title": "상악동 거상술 진료 안내",
+      "href": "/treatments/implant-sinus-lift"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Cambridge NHS · 상악동 거상술의 과정·위험·대안",
+      "href": "https://www.cuh.nhs.uk/patient-information/sinus-lift-procedures/"
+    },
+    {
+      "title": "ITI 임상 해설 · 상악동 거상술 전 코 증상·병력 평가",
+      "href": "https://blog.iti.org/clinical-insights/sinus-floor-elevation-in-implant-dentistry/"
+    },
+    {
+      "title": "ITI 합의문 · 짧은 임플란트의 적응 조건과 비교",
+      "href": "https://academy.iti.org/academy/consensus-database/consensus-statement/-/consensus/survival-rates-of-short-dental-implants-6-mm-compared-with-implants-longer-than-6-mm-in-posterior-jaw-areas/1806"
+    },
+    {
+      "title": "Guy’s and St Thomas’ NHS · 임플란트 단계와 준비할 건강 정보",
+      "href": "https://www.guysandstthomas.nhs.uk/health-information/dental-implants"
+    }
+  ],
+  "updated": "2026-10-14",
+  "publishedAt": "2026-10-14T09:00:00+09:00"
+},
+{
+  "slug": "crown-lengthening-gum-surgery-before-crown",
+  "title": "크라운을 씌우려면 잇몸부터 내려야 한대요. 치아가 길어져도 괜찮나요?",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "잇몸치료",
+  "concern": "치아를 살리려다 잇몸이 상할까 두려워요",
+  "description": "당진에서 크라운 전 치관연장술을 권유받았을 때, 잇몸과 뼈를 조정하는 이유, 치아 보존 가능성과 시림·잇몸선 변화, 회복 및 보철 비용을 나누어 확인합니다.",
+  "situation": "당진에서 충치가 깊은 치아를 크라운으로 씌우려는데, 잇몸을 내려 치아를 더 드러내는 수술부터 필요하다는 말을 들었습니다. 치아는 남기고 싶지만 잇몸과 뼈를 건드린 뒤 더 시리거나 웃을 때 길어 보일까 걱정됩니다.",
+  "answer": "치관연장술은 잇몸 아래에 있는 치아를 드러내 수복할 여건을 마련하는 방법입니다. 잇몸과 필요한 경우 뼈의 위치를 조정하지만, 모든 크라운에 필요한 것은 아닙니다. 확보할 건강한 치아 구조와 남는 지지 조직, 예상되는 잇몸선 변화를 함께 평가해야 합니다.",
+  "checks": [
+    "충치나 파절이 잇몸 아래 어디까지 이어졌고, 크라운을 지탱할 건강한 치아가 얼마나 남는지 확인합니다.",
+    "잇몸만 다루는지 뼈도 조정하는지, 옆 치아와 웃을 때 보이는 잇몸선에 어떤 영향을 예상하는지 묻습니다.",
+    "수술 후 최종 크라운까지의 회복·임시보철·재평가 단계를 나누어 설명받습니다."
+  ],
+  "choices": [
+    {
+      "condition": "수복에 필요한 치아 구조를 확보하고 지지 상태도 유지할 수 있다면",
+      "option": "치관연장술 뒤 회복을 확인하고 보철 치료를 이어가는 계획을 검토합니다.",
+      "limit": "치아를 드러낼 수 있다는 것과 장기간 사용할 수 있다는 것은 같은 약속이 아닙니다."
+    },
+    {
+      "condition": "잇몸선 변화나 지지 조직의 손실 부담이 크다면",
+      "option": "치아를 남기는 다른 수복 접근이나 추가 전문 평가가 가능한지 비교합니다.",
+      "limit": "모든 대안이 같은 치아에 가능하지 않으며, 추가 단계와 비용도 함께 확인해야 합니다."
+    },
+    {
+      "condition": "남는 치아와 지지 상태로 유지가 어렵다고 판단되면",
+      "option": "보존을 더 시도할 이점과 한계, 발치 후 회복을 포함한 선택을 설명받습니다.",
+      "limit": "수술이 두렵다는 이유만으로 발치를 서두르거나, 반대로 무조건 보존을 보장할 수는 없습니다."
+    }
+  ],
+  "unknown": "필요한 수술 범위, 신경치료 필요성, 최종 크라운을 만드는 시기, 예상 수명과 비용은 진찰 전 확정할 수 없습니다. 같은 치관연장술이라는 이름이라도 미용 목적과 깊은 충치의 수복 목적은 다를 수 있습니다.",
+  "prepare": [
+    "기존 영상·치료계획과 충치 또는 파절에 대해 들은 설명",
+    "앞니 모양, 찬물 시림, 수술 통증 중 가장 걱정되는 부분",
+    "복용약과 건강 상태, 휴가·이동·총비용에서 조정이 필요한 조건"
+  ],
+  "localHeading": "당진에서 크라운 전 잇몸치료를 상담받는다면",
+  "localAdvice": "당진에서 천안으로 이동한다면 크라운 전 잇몸치료 상담이라는 점과 치관연장술 권유 내용을 알려주세요. 첫 검사, 수술, 회복 확인, 보철 제작을 한 번의 방문으로 가정하지 말고 단계별로 문의하세요. 서울비디치과의 실제 진료 장소는 천안 불당동이며, 수술 가능 여부와 일정은 개별 평가 후 안내합니다.",
+  "related": [
+    {
+      "title": "잇몸수술의 장점과 한계",
+      "href": "/guide/inside-out/gum-surgery"
+    },
+    {
+      "title": "크라운을 결정하기 전에 확인할 것",
+      "href": "/guide/regret/crown"
+    },
+    {
+      "title": "잇몸치료 뒤 남는 관리 부담",
+      "href": "/guide/regret/gum"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국치주학회 AAP · 치관연장술의 목적과 잇몸·뼈 조정",
+      "href": "https://www.perio.org/for-patients/periodontal-treatments-and-procedures/surgical-procedures/"
+    },
+    {
+      "title": "Cambridge University Hospitals NHS · 치관연장술의 과정·위험·회복 (2025)",
+      "href": "https://www.cuh.nhs.uk/patient-information/crown-lengthening-surgery/"
+    },
+    {
+      "title": "미국근관치료학회 AAE · 치아 수복 가능성 평가",
+      "href": "https://www.aae.org/specialty/fundamentals-of-restorability/"
+    },
+    {
+      "title": "미국근관치료학회 AAE · 손상된 치아의 치료 선택 안내",
+      "href": "https://www.aae.org/specialty/clinical-resources/treatment-planning/treatment-options-guide/"
+    }
+  ],
+  "updated": "2026-10-14",
+  "publishedAt": "2026-10-14T09:00:00+09:00"
+},
+{
+  "slug": "red-tongue-patches-changing-location",
+  "title": "혀의 붉은 반점이 옮겨 다녀요. 지도설이라는데 계속 지켜봐도 되나요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "구강점막",
+  "concern": "괜찮다는데 모양이 자꾸 달라져 불안해요",
+  "description": "서산에서 혀의 옮겨 다니는 붉은 반점과 지도설을 상담할 때, 진단을 확인하는 방법과 식사 불편, 가족에게 전염될 걱정, 다시 진찰받아야 할 변화를 나누어 정리합니다.",
+  "situation": "서산에서 혀의 붉은 반점 때문에 진료를 받고 지도설이라는 설명을 들었습니다. 한쪽이 나아지면 다른 쪽이 붉어지고 음식을 먹을 때 따끔한 날도 있어, 계속 기다려도 되는지와 다른 병을 놓친 것은 아닌지 걱정됩니다.",
+  "answer": "진찰로 확인된 지도설은 혀 표면의 붉고 매끈한 부위가 위치와 모양을 바꾸며 나타날 수 있는 양성 상태입니다. 전염성 질환이나 암으로 변하는 병으로 보지 않지만, 혀의 모든 붉은 반점이 지도설은 아닙니다. 처음 생긴 변화나 기존 양상과 다른 부위는 다시 평가받아야 합니다.",
+  "checks": [
+    "처음 생긴 시점과 반점의 위치·크기가 변하는지, 같은 자리에 고정된 부분이 있는지 구분해 전달합니다.",
+    "따끔거림을 유발하는 음식이나 제품, 식사에 지장이 있는 정도, 함께 나타난 다른 증상을 설명합니다.",
+    "이전 진단이 어떤 관찰에 근거했는지, 어느 변화가 생기면 재평가할지 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "진찰에서 전형적인 지도설로 확인되고 불편이 적다면",
+      "option": "질환의 특성과 관찰 방법을 설명받으며 경과를 확인할 수 있습니다.",
+      "limit": "이번 진단이 이후에 생기는 모든 혀 변화를 설명하는 것은 아닙니다."
+    },
+    {
+      "condition": "따끔거림이나 화끈거림 때문에 식사가 불편하다면",
+      "option": "본인에게 자극이 되는 조건을 줄이고 필요한 증상 조절을 상담합니다.",
+      "limit": "불편을 줄이는 치료와 반점이 다시 생기지 않게 하는 치료는 같은 목표가 아닙니다."
+    },
+    {
+      "condition": "한 부위가 고정되거나 낫지 않는 상처·덩이가 새로 생긴다면",
+      "option": "기존 지도설로 넘기지 말고 다른 원인 여부를 진찰받습니다.",
+      "limit": "겉모습이나 사진만으로 감염·영양 문제·종양 등을 스스로 구분할 수 없습니다."
+    }
+  ],
+  "unknown": "혀 사진만으로 지도설을 확진하거나, 반복되는 모든 반점을 스트레스·영양 부족 때문이라고 단정할 수 없습니다. 검사나 약물이 필요한지는 병력과 실제 진찰에 따라 달라집니다.",
+  "prepare": [
+    "날짜가 표시된 변화 사진이 있다면 몇 장과 처음 발견한 때의 기억",
+    "특정 음식·치약·가글과 불편의 관계, 복용약·건강 상태",
+    "이전 진단명과 처방, 같은 자리에 계속 남는 부위가 있는지에 대한 메모"
+  ],
+  "localHeading": "서산에서 혀와 구강점막 변화를 상담받는다면",
+  "localAdvice": "서산에서 천안으로 이동하기 전 혀의 반점에 대해 지도설 설명을 들었는지, 고정된 상처나 식사 불편이 생겼는지 알려주세요. 구강점막 상담에서 첫날 확인할 범위와 필요 시 추가 평가·의뢰 경로를 문의할 수 있습니다. 서울비디치과의 실제 진료 장소는 천안 불당동이며, 사진 상담만으로 진단이나 모든 검사 가능 여부를 약속하지 않습니다.",
+  "related": [
+    {
+      "title": "구강내과 진료에서 확인할 것",
+      "href": "/guide/inside-out/oral-medicine"
+    },
+    {
+      "title": "구강내과 진료 안내",
+      "href": "/treatments/oral-medicine"
+    },
+    {
+      "title": "가글과 칫솔질의 역할 비교",
+      "href": "/guide/compare/mouthwash-vs-brushing"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국구강내과학회 AAOM · 지도설의 특징과 비전염성",
+      "href": "https://www.aaom.com/geographic-tongue"
+    },
+    {
+      "title": "University Hospitals of Leicester NHS · 지도설의 평가와 불편 관리 (2025)",
+      "href": "https://yourhealth.leicestershospitals.nhs.uk/library/musculoskeletal-specialist-surgery-mss/maxillofacial/2157-managing-geographic-tongue/file"
+    },
+    {
+      "title": "NHS · 혀 통증·색 변화와 진찰 필요성",
+      "href": "https://www.nhs.uk/symptoms/sore-or-white-tongue/"
+    },
+    {
+      "title": "NHS · 지속되는 구강 변화의 진료 기준",
+      "href": "https://www.nhs.uk/conditions/mouth-cancer/symptoms/"
+    }
+  ],
+  "updated": "2026-10-14",
+  "publishedAt": "2026-10-14T09:00:00+09:00"
 }
 ]
 
