@@ -6050,6 +6050,299 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-12",
   "publishedAt": "2026-10-12T09:00:00+09:00"
+},
+{
+  "slug": "full-arch-implant-food-trapped-under-bridge",
+  "title": "전체 임플란트 아래에 음식이 껴요. 고정된 치아를 빼서 닦아야 하나요?",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "임플란트",
+  "concern": "고정식 풀아치 아래 음식 끼임과 청소의 어려움",
+  "description": "전체 임플란트 아래 음식이 끼고 냄새가 걱정될 때, 청소 도구가 닿는지와 잇몸 염증·보철 흔들림을 나누어 확인합니다. 보철을 분리할 조건과 진료 준비를 정리합니다.",
+  "situation": "당진에서 생활하며 식사 뒤 고정된 치아 아래에 음식이 남는 느낌이 들고, 다시 큰 치료가 필요할까 봐 청소할 때마다 조심스러운 상황입니다.",
+  "answer": "음식이 낀다는 이유만으로 전체 보철을 매번 분리하지는 않습니다. 집에서 닿지 않는 곳, 잇몸 상태와 보철의 안정성을 확인한 뒤 의료진이 전문 청소와 분리 필요성을 결정합니다.",
+  "checks": [
+    "어느 쪽에 무엇이 끼며 청소 뒤에도 남는지",
+    "출혈·붓기·고름·나쁜 맛이나 흔들림이 있는지",
+    "도구가 보철 아래를 실제로 통과하는지"
+  ],
+  "choices": [
+    {
+      "condition": "보철이 안정적이고 청소할 통로를 사용할 수 있을 때",
+      "option": "현재 구조에 맞는 도구와 방법을 배워 관리",
+      "limit": "잇몸 염증 여부는 별도로 확인해야 합니다."
+    },
+    {
+      "condition": "도구가 닿지 않거나 같은 곳의 불편이 반복될 때",
+      "option": "전문 청소와 보철 형태·청소 접근성 평가",
+      "limit": "조정 또는 분리 범위는 진찰 뒤 정합니다."
+    },
+    {
+      "condition": "출혈·붓기·고름 또는 흔들림이 동반될 때",
+      "option": "잇몸과 임플란트 주위, 연결 부품을 함께 검사",
+      "limit": "증상만으로 재수술이나 단순 나사 문제를 구분할 수 없습니다."
+    }
+  ],
+  "unknown": "사진만으로 청소 공간의 적절함, 뼈 상태, 나사나 보철의 손상 여부를 확정할 수 없습니다.",
+  "prepare": [
+    "사용 중인 칫솔·치간 도구",
+    "보철을 장착한 시기와 최근 점검 기록",
+    "불편한 위치·시점과 증상 메모"
+  ],
+  "localHeading": "당진에서 이동한다면, 청소 교육과 필요한 검사를 함께 확인하세요",
+  "localAdvice": "실제 진료 장소는 천안 불당동입니다. 당진에서 방문하기 전 기존 임플란트 보철 정보와 증상을 알려 필요한 자료를 확인하고, 정기 관리 장소와 갑작스러운 불편 때 연락할 곳을 구분해 두세요.",
+  "related": [
+    {
+      "title": "임플란트 치료와 관리 가이드",
+      "href": "/guide/implant"
+    },
+    {
+      "title": "전체 임플란트와 올온 방식 비교",
+      "href": "/guide/compare/full-implant-vs-all-on"
+    }
+  ],
+  "sources": [
+    {
+      "title": "ACP · 고정식 풀아치 임플란트 보철의 유지관리 입장문",
+      "href": "https://www.prosthodontics.org/about-acp/position-statement-maintenance-of-full-arch-implant-restorations/"
+    },
+    {
+      "title": "EFP · 임플란트 주위 질환 예방·치료 임상지침",
+      "href": "https://www.efp.org/education/continuing-education/clinical-guidelines/guideline-on-treatment-of-peri-implant-diseases/"
+    },
+    {
+      "title": "EFP · 임플란트 주위 질환과 경고 증상",
+      "href": "https://www.efp.org/for-patients/dental-implants/peri-implant-diseases/"
+    },
+    {
+      "title": "EFP · 임플란트 주위 질환 예방",
+      "href": "https://www.efp.org/for-patients/dental-implants/peri-implant-disease-prevention/"
+    }
+  ],
+  "updated": "2026-10-13",
+  "publishedAt": "2026-10-13T14:25:59.347Z"
+},
+{
+  "slug": "partial-denture-metal-clasp-visible",
+  "title": "부분틀니의 금속 고리가 보여 웃기가 불편해요. 고리를 없앨 수 있나요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "틀니",
+  "concern": "웃을 때 보이는 부분틀니 고리와 남은 치아에 대한 걱정",
+  "description": "부분틀니 금속 고리가 보여 웃음을 숨기게 될 때, 고리의 역할과 남은 치아 상태를 먼저 살핍니다. 덜 보이는 연결 방식과 브리지·임플란트의 조건, 조정 전 확인할 질문을 정리합니다.",
+  "situation": "서산에서 생활하며 씹는 것은 나아졌지만 웃을 때마다 금속 고리가 눈에 들어와, 틀니를 했다는 사실이 드러날까 신경 쓰이는 상황입니다.",
+  "answer": "금속 고리는 틀니가 제자리에 머물도록 돕는 부품이라 임의로 없애면 안 됩니다. 덜 보이는 방식이 가능한지, 남은 치아와 잇몸이 감당할 수 있는지를 함께 비교해야 합니다.",
+  "checks": [
+    "어떤 표정에서 어느 고리가 보이는지",
+    "씹을 때 들뜸이나 치아 통증이 있는지",
+    "고리를 거는 치아와 잇몸의 건강 상태"
+  ],
+  "choices": [
+    {
+      "condition": "현재 틀니는 편하고 보이는 부분만 신경 쓰일 때",
+      "option": "기존 설계에서 개선 가능한 범위 평가",
+      "limit": "부분 조정만으로 고리가 완전히 사라진다고 약속할 수 없습니다."
+    },
+    {
+      "condition": "다른 연결 방식을 고려할 수 있을 때",
+      "option": "어태치먼트 등 덜 보이는 방식 비교",
+      "limit": "남은 치아의 치료와 비용·관리 부담이 추가될 수 있습니다."
+    },
+    {
+      "condition": "틀니 이외의 방법도 비교하고 싶을 때",
+      "option": "브리지 또는 임플란트 적합성 평가",
+      "limit": "치아 삭제나 수술 여부 등 새로운 부담을 함께 고려해야 합니다."
+    }
+  ],
+  "unknown": "사진만으로 고리를 옮기거나 없앨 수 있는지, 기존 틀니를 수정할 수 있는지 확정할 수 없습니다.",
+  "prepare": [
+    "현재 사용하는 부분틀니",
+    "고리가 신경 쓰이는 표정의 사진",
+    "제작 시기와 아프거나 헐거운 위치 메모"
+  ],
+  "localHeading": "서산에서 방문한다면, 지금 쓰는 틀니와 원하는 변화를 함께 가져오세요",
+  "localAdvice": "실제 진료 장소는 천안 불당동입니다. 서산에서 이동하기 전 부분틀니 조정 상담임을 알리고, 첫 검사와 필요할 수 있는 제작·조정 방문을 나누어 일정과 비용 설명을 받으세요.",
+  "related": [
+    {
+      "title": "틀니 선택과 적응 가이드",
+      "href": "/guide/denture"
+    },
+    {
+      "title": "부분틀니와 전체틀니 비교",
+      "href": "/guide/compare/partial-vs-complete-denture"
+    }
+  ],
+  "sources": [
+    {
+      "title": "ADA·ACP · 부분틀니 연결 방식과 관리 안내",
+      "href": "https://www.mouthhealthy.org/all-topics-a-z/dentures-partial"
+    },
+    {
+      "title": "Leeds NHS · 가철성 부분틀니 안내",
+      "href": "https://www.leedsth.nhs.uk/patients/resources/removable-partial-dentures/"
+    },
+    {
+      "title": "Leeds NHS · 브리지의 종류와 대안",
+      "href": "https://www.leedsth.nhs.uk/patients/resources/bridges/"
+    },
+    {
+      "title": "NHS · 틀니의 사용·관리와 점검이 필요한 증상",
+      "href": "https://www.nhs.uk/tests-and-treatments/dentures/"
+    }
+  ],
+  "updated": "2026-10-13",
+  "publishedAt": "2026-10-13T14:25:59.347Z"
+},
+{
+  "slug": "orthodontic-roots-shortened-on-xray",
+  "title": "교정 중 치아 뿌리가 짧아졌대요. 교정을 멈춰야 하나요?",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "치아교정",
+  "concern": "치근흡수 때문에 치아를 잃을까 두렵고, 계속할지 멈출지 결정하기 어려운 상황",
+  "description": "교정 중 엑스레이에서 발견한 치근흡수. 변화의 범위와 진행 여부, 남은 이동의 필요성을 비교하고 치료 조정과 유지계획을 질문하는 순서를 살펴봅니다.",
+  "situation": "천안에서 치아교정을 받고 있습니다. 치아는 가지런해지고 있는데 뿌리가 짧아졌다는 말을 들었습니다. 끝까지 치료해도 되는지, 지금 멈추면 들인 시간과 비용이 헛될지 걱정됩니다.",
+  "answer": "짧아졌다는 한마디만으로 교정 중단이나 치아의 수명을 결정하지 않습니다. 처음과 현재 영상의 변화, 남은 뿌리와 잇몸 지지, 추가 이동의 이익과 위험을 함께 평가해 계획을 다시 정합니다.",
+  "checks": [
+    "어느 치아의 어느 부위가 이전 영상과 달라졌는지",
+    "촬영 조건을 고려해 실제 변화와 진행 여부를 확인했는지",
+    "이전에 부딪힌 치아나 기존에 짧았던 뿌리가 있는지",
+    "남은 이동의 목적과 계획을 줄였을 때 생기는 차이"
+  ],
+  "choices": [
+    {
+      "condition": "변화가 작고 남은 치료의 이익이 있다고 판단되는 경우",
+      "option": "힘과 이동 계획, 확인 간격을 조정하며 진행을 논의합니다.",
+      "limit": "작은 변화라는 이유만으로 이후 진행이 없다고 보장하지 않습니다."
+    },
+    {
+      "condition": "진행이 의심되거나 변화가 커서 위험 재평가가 필요한 경우",
+      "option": "능동적인 이동의 휴지, 해당 치아 이동 제한, 목표 수정 또는 종료를 검토합니다.",
+      "limit": "휴지기간과 재개 여부를 인터넷 기준으로 정하지 않습니다."
+    },
+    {
+      "condition": "교정 관련 변화인지 다른 치근흡수인지 분명하지 않은 경우",
+      "option": "필요한 추가 검사와 관련 진료과 평가로 원인을 구분합니다.",
+      "limit": "모든 경우에 CT나 신경치료가 필요한 것은 아닙니다."
+    }
+  ],
+  "unknown": "검사 전에는 흡수의 원인과 정도, 앞으로의 진행 여부, 가능한 최종 배열을 확정할 수 없습니다. 현재 사진 한 장으로 치아가 몇 년 남았는지도 계산할 수 없습니다.",
+  "prepare": [
+    "교정 전·중간 영상과 촬영 날짜",
+    "교정 시작 시점과 장치 변경 기록",
+    "치아 외상·신경치료 이력 및 새로 생긴 증상",
+    "계속 치료할 때와 줄여 마칠 때 각각 가장 걱정되는 점"
+  ],
+  "localHeading": "천안에서 치아교정 경과를 다시 상담한다면",
+  "localAdvice": "천안에서 치아교정 중 치근흡수 설명을 들었다면 기존 병원 기록을 먼저 확보하고 상담 목적을 정리해 보세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 직장·학교 일정과 이동 부담을 고려해 기록 검토에 필요한 자료, 추가 검사 여부와 추적 방문 계획을 예약 전에 확인하면 도움이 됩니다.",
+  "related": [
+    {
+      "title": "치아교정 선택 전에 살펴볼 가이드",
+      "href": "/guide/orthodontics"
+    },
+    {
+      "title": "교정 후 후회와 계획 변경을 고민할 때",
+      "href": "/guide/regret/orthodontics"
+    }
+  ],
+  "sources": [
+    {
+      "title": "영국교정학회 — 교정치료 위험 설명 지침(2023 검토)",
+      "href": "https://bos.org.uk/wp-content/uploads/2024/12/RISKS-OF-ORTHODONTIC-TREATMENT-GUIDANCE-ON-INFORMING-PATIENTS-2024.pdf"
+    },
+    {
+      "title": "유럽근관치료학회 — 치근흡수 입장문(2023)",
+      "href": "https://www.e-s-e.eu/fileadmin/user_upload/ESE_Position_Statement_-_Root_Resorption_2023_Final.pdf"
+    },
+    {
+      "title": "네덜란드교정학회 승인 치근흡수 진료지침 연구(2019 공개·2020 게재)",
+      "href": "https://academic.oup.com/ejo/article/42/2/115/5489277"
+    },
+    {
+      "title": "영국교정학회 — 교정치료 동의와 계획 변경(2025)",
+      "href": "https://bos.org.uk/wp-content/uploads/2025/05/CONSENT-IN-ORTHODONTICS-MAY-2025.pdf"
+    }
+  ],
+  "updated": "2026-10-13",
+  "publishedAt": "2026-10-13T14:25:59.347Z"
+},
+{
+  "slug": "child-baby-molar-stainless-steel-crown-worry",
+  "title": "아이 유치에 은색 크라운을 씌우자는데, 너무 큰 치료 아닌가요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "소아치과",
+  "concern": "곧 빠질 유치에 금속관을 씌워야 하는지, 아이가 힘들어하거나 눈에 띄어 속상해하지 않을지 걱정되는 상황",
+  "description": "유치 어금니의 은색 크라운을 권유받았을 때 충치 범위, 신경치료 여부, 씹는 기능과 외관, 치료 후 관리까지 비교하며 결정하는 질문을 정리합니다.",
+  "situation": "아산에서 아이 충치를 상담했습니다. 작은 충치인 줄 알았는데 치아 전체에 은색 모자를 씌운다고 합니다. 그냥 메울 수는 없는지, 유치인데 꼭 해야 하는지 마음이 복잡합니다.",
+  "answer": "은색 크라운이 필요한지는 유치라는 이름보다 충치 범위와 남은 치아, 치수 상태, 앞으로 사용할 기간을 함께 보고 판단합니다. 작은 수복이 가능한 경우와 치아 전체를 보호하는 편이 나은 경우를 구분해 설명받으세요.",
+  "checks": [
+    "어느 유치의 몇 개 면이 손상되었고 남은 치아가 얼마나 되는지",
+    "치수 치료가 필요한지, 크라운만 계획된 것인지",
+    "영구치로 교환되기까지 예상되는 기간과 현재 증상",
+    "메우기·크라운·다른 대안의 이익과 한계",
+    "마취와 치료 방법, 아이가 받아들일 수 있는 진행 방식"
+  ],
+  "choices": [
+    {
+      "condition": "손상 범위가 제한되고 적절한 수복이 가능한 경우",
+      "option": "부분 수복과 예방·경과 관찰 계획을 비교합니다.",
+      "limit": "작은 치료가 모든 큰 충치에서도 오래 유지되는 것은 아닙니다."
+    },
+    {
+      "condition": "여러 면이 손상되거나 남은 치아를 감싸 보호할 필요가 있는 경우",
+      "option": "기성 금속관 등 전체를 덮는 수복을 검토합니다.",
+      "limit": "금속 색, 초기 물림의 변화, 추후 탈락·마모 가능성과 관리를 함께 설명받습니다."
+    },
+    {
+      "condition": "깊은 충치나 감염, 수복하기 어려운 손상이 의심되는 경우",
+      "option": "치수 상태와 치아 보존 가능성을 먼저 평가합니다.",
+      "limit": "크라운만 씌우면 모두 해결되는 상황은 아니며 별도 치료 판단이 필요합니다."
+    }
+  ],
+  "unknown": "입안을 보기 전에는 단순 수복이 가능한지, 치수 치료가 필요한지, 어떤 크라운이 적합한지 알 수 없습니다. 나이만으로 유치가 곧 빠질 것이라고 단정할 수도 없습니다.",
+  "prepare": [
+    "통증·식사 불편·붓기를 처음 느낀 시점",
+    "이전 엑스레이와 충치 치료 기록",
+    "알려진 금속 등 재료 알레르기와 복용 약 정보",
+    "아이의 이전 진료 경험과 특히 두려워하는 과정"
+  ],
+  "localHeading": "아산에서 아이의 소아치과 상담을 준비한다면",
+  "localAdvice": "아산에서 소아치과 진료를 위해 이동한다면 아이의 등하원과 보호자 일정까지 조정해야 할 수 있습니다. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 기존 검사 자료를 가져갈 수 있는지, 상담과 치료가 나뉘는지, 치료 후 불편할 때 어떤 절차로 연락하는지 미리 확인해 이동 계획을 세워 보세요.",
+  "related": [
+    {
+      "title": "부모 마음부터 살피는 소아치과 안내",
+      "href": "/guide/inside-out/pediatric"
+    },
+    {
+      "title": "아이의 소아치과 진료 안내",
+      "href": "/treatments/pediatric"
+    },
+    {
+      "title": "크라운 치료의 선택 기준",
+      "href": "/treatments/crown"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국소아치과학회 — 소아 수복치료 지침(2022 개정)",
+      "href": "https://www.aapd.org/media/Policies_Guidelines/BP_RestorativeDent.pdf"
+    },
+    {
+      "title": "케임브리지대학병원 — 유치 금속관의 일반적인 시술 방법(2023)",
+      "href": "https://www.cuh.nhs.uk/patient-information/stainless-steel-crowns-conventional-technique-a-parents-guide/"
+    },
+    {
+      "title": "가이스·세인트토머스 NHS — 어린이 금속관과 이후 관리(2026년 7월 검토)",
+      "href": "https://www.guysandstthomas.nhs.uk/health-information/stainless-steel-crowns-children"
+    },
+    {
+      "title": "위럴 NHS — Hall 방식의 금속관 부모 안내(2025 검토)",
+      "href": "https://www.wchc.nhs.uk/resources/stainless-steel-crowns-using-the-hall-technique/"
+    }
+  ],
+  "updated": "2026-10-13",
+  "publishedAt": "2026-10-13T14:25:59.347Z"
 }
 ]
 
