@@ -162,6 +162,6 @@ export const TREATMENT_SLUGS = new Set([
   'implant-revision', 'implant-sedation', 'implant-sinus-lift', 'implant', 'inlay',
   'invisalign-best', 'invisalign-express', 'invisalign-first', 'invisalign-light', 'invisalign-moderate', 'invisalign',
   'oral-medicine', 'ortho-best', 'ortho-express', 'ortho-first', 'ortho-light', 'ortho-moderate',
-  'orthodontic-clarity-ultra', 'orthodontic-clippy-c', 'orthodontics', 'pediatric', 'periodontitis', 'prevention',
+  'orthodontic-clarity-ultra', 'orthodontic-clippy-c', 'orthodontic-retreatment', 'orthodontics', 'pediatric', 'periodontitis', 'prevention',
   're-root-canal', 'resin', 'root-canal', 'scaling', 'sedation', 'tmj', 'whitening', 'wisdom-tooth',
 ])

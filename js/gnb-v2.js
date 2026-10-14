@@ -102,6 +102,7 @@
             '<li><a href="/en/treatments/implant">Implants <span class="badge">6 surgical suites</span></a></li>' +
             '<li><a href="/en/treatments/invisalign">Invisalign <span class="badge">Diamond</span></a></li>' +
             '<li><a href="/en/treatments/orthodontics">Orthodontics <span class="badge">Braces</span></a></li>' +
+            '<li><a href="/en/treatments/orthodontic-retreatment" style="color:#6B4226;font-weight:700;">Orthodontic retreatment</a></li>' +
             '<li><a href="/en/treatments/pediatric">Pediatric <span class="badge">3 specialists</span></a></li>' +
             '<li><a href="/en/treatments/aesthetic">Cosmetic Bonding</a></li>' +
             '</ul></div>' +
@@ -157,6 +158,7 @@
             '<li><a href="/jp/treatments/implant">インプラント <span class="badge">手術室6室</span></a></li>' +
             '<li><a href="/jp/treatments/invisalign">インビザライン <span class="badge">ダイヤモンド</span></a></li>' +
             '<li><a href="/jp/treatments/orthodontics">歯列矯正 <span class="badge">ワイヤー矯正</span></a></li>' +
+            '<li><a href="/jp/treatments/orthodontic-retreatment" style="color:#6B4226;font-weight:700;">再矯正</a></li>' +
             '<li><a href="/jp/treatments/pediatric">小児歯科 <span class="badge">専門医3名</span></a></li>' +
             '<li><a href="/jp/treatments/aesthetic">審美レジン</a></li>' +
             '</ul></div>' +
@@ -215,6 +217,7 @@
             '<li><a href="/treatments/implant-sedation" style="color:#6B4226;font-weight:700;">의식하진정 임플란트</a></li>' +
             '<li><a href="/treatments/invisalign">인비절라인 <span class="badge">다이아몬드</span></a></li>' +
             '<li><a href="/treatments/orthodontics">치아교정 <span class="badge">장치교정</span></a></li>' +
+            '<li><a href="/treatments/orthodontic-retreatment" style="color:#6B4226;font-weight:700;">재교정</a></li>' +
             '<li><a href="/treatments/pediatric">소아치과 <span class="badge">전문의 3인</span></a></li>' +
             '<li><a href="/treatments/aesthetic">심미레진</a></li>' +
             '</ul></div>' +
@@ -285,6 +288,7 @@
             '<li><a href="/en/treatments/implant">Implants</a></li>' +
             '<li><a href="/en/treatments/invisalign">Invisalign</a></li>' +
             '<li><a href="/en/treatments/orthodontics">Orthodontics</a></li>' +
+            '<li><a href="/en/treatments/orthodontic-retreatment" style="color:#6B4226;font-weight:700;">Orthodontic retreatment</a></li>' +
             '<li><a href="/en/treatments/pediatric">Pediatric</a></li>' +
             '<li><a href="/en/treatments/aesthetic">Cosmetic Bonding</a></li>' +
             '<li class="submenu-divider">General</li>' +
@@ -335,6 +339,7 @@
             '<li><a href="/jp/treatments/implant">インプラント</a></li>' +
             '<li><a href="/jp/treatments/invisalign">インビザライン</a></li>' +
             '<li><a href="/jp/treatments/orthodontics">歯列矯正</a></li>' +
+            '<li><a href="/jp/treatments/orthodontic-retreatment" style="color:#6B4226;font-weight:700;">再矯正</a></li>' +
             '<li><a href="/jp/treatments/pediatric">小児歯科</a></li>' +
             '<li><a href="/jp/treatments/aesthetic">審美レジン</a></li>' +
             '<li class="submenu-divider">一般治療</li>' +
@@ -388,6 +393,7 @@
             '<li><a href="/treatments/implant-sedation" style="color:#6B4226;font-weight:700;">의식하진정 임플란트</a></li>' +
             '<li><a href="/treatments/invisalign">인비절라인</a></li>' +
             '<li><a href="/treatments/orthodontics">치아교정</a></li>' +
+            '<li><a href="/treatments/orthodontic-retreatment" style="color:#6B4226;font-weight:700;">재교정</a></li>' +
             '<li><a href="/treatments/pediatric">소아치과</a></li>' +
             '<li><a href="/treatments/aesthetic">심미레진</a></li>' +
             '<li class="submenu-divider">일반 진료</li>' +

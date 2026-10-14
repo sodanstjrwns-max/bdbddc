@@ -1,0 +1,15 @@
+/* Language-aware typography, with the same patient-first reading order as Korean. */
+.tg-localized[lang=en] h1,.tg-localized[lang=en] h2,.tg-localized[lang=en] h3{letter-spacing:-.025em;word-break:normal;overflow-wrap:break-word}
+.tg-localized[lang=en] p,.tg-localized[lang=en] a,.tg-localized[lang=ja] p,.tg-localized[lang=ja] h1,.tg-localized[lang=ja] h2,.tg-localized[lang=ja] h3{word-break:normal;overflow-wrap:anywhere}
+.tg-localized[lang=en] .tg-title-question{font-size:clamp(31px,3.6vw,49px);line-height:1.18}
+.tg-localized .tg-question-panel h2{max-width:none}.tg-localized .tg-hero-grid{gap:40px;grid-template-columns:minmax(0,1.2fr) minmax(290px,.85fr)}
+.tg-localized .tg-guide-photo{max-width:1112px;margin:48px auto 0;padding:0 28px}.tg-guide-photo img{display:block;width:100%;height:auto;border-radius:5px}.tg-guide-photo figcaption{font-size:13px;color:#625749;line-height:1.7;margin-top:12px}
+.tg-video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:28px}.tg-video-grid iframe{width:100%;aspect-ratio:16/9;height:auto;border:0;border-radius:8px}
+.tg-localized .tg-treatment-link{line-height:1.6}.tg-localized .tg-sources a{overflow-wrap:anywhere}
+@media(max-width:900px){.tg-localized .tg-hero-grid{grid-template-columns:1fr;gap:0}.tg-localized .tg-question-panel{max-width:100%;margin-top:0}.tg-localized .tg-hero-copy{padding-bottom:32px}}
+@media(max-width:600px){.tg-localized[lang=en] .tg-title-question{font-size:32px}.tg-localized .tg-guide-photo{padding:0 20px;margin-top:32px}.tg-video-grid{grid-template-columns:1fr}.tg-localized .tg-question-panel{padding:26px 22px}.tg-localized .tg-links{grid-template-columns:1fr}}
+
+/* Keep translated navigation usable even where English labels need more room. */
+.treatment-localized-page .header-brand,.treatment-localized-page .header-actions{flex-shrink:0}
+@media(max-width:1500px){.treatment-localized-page .clinic-status{display:none}}
+@media(max-width:600px){.treatment-localized-page .header-container{gap:8px;padding:0 12px}.treatment-localized-page .header-phone{display:none}.treatment-localized-page .header-actions{gap:10px}.treatment-localized-page .site-logo{font-size:14px;gap:4px}.treatment-localized-page .btn-reserve{font-size:12px;padding:8px 10px}.treatment-localized-page .mobile-menu-btn{flex:0 0 28px}}

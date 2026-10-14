@@ -3301,6 +3301,7 @@ function ssrHeader(): string {
 <li><a href="/treatments/implant-sedation" style="color:#6B4226;font-weight:700;">의식하진정 임플란트</a></li>
 <li><a href="/treatments/invisalign">인비절라인 <span class="badge">다이아몬드</span></a></li>
 <li><a href="/treatments/orthodontics">치아교정 <span class="badge">장치교정</span></a></li>
+<li><a href="/treatments/orthodontic-retreatment" style="color:#6B4226;font-weight:700;">재교정</a></li>
 <li><a href="/treatments/pediatric">소아치과 <span class="badge">전문의 3인</span></a></li>
 <li><a href="/treatments/whitening" style="color:#0369a1;font-weight:600;">치아미백 <span class="badge">전문센터</span></a></li>
 </ul></div>
@@ -3389,6 +3390,7 @@ function ssrMobileNav(): string {
 <li><a href="/treatments/implant-sedation" style="color:#6B4226;font-weight:700;">의식하진정 임플란트</a></li>
 <li><a href="/treatments/invisalign">인비절라인</a></li>
 <li><a href="/treatments/orthodontics">치아교정</a></li>
+<li><a href="/treatments/orthodontic-retreatment" style="color:#6B4226;font-weight:700;">재교정</a></li>
 <li><a href="/treatments/pediatric">소아치과</a></li>
 <li><a href="/treatments/whitening" style="color:#0369a1;font-weight:600;">치아미백 전문센터</a></li>
 <li class="submenu-divider">일반 진료</li>
@@ -4575,7 +4577,7 @@ ${colCards || '<div class="col-empty"><i class="fas fa-pen-nib"></i><h3>아직 �
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js?v=20260921" defer></script>
-<script src="/js/gnb-v2.js?v=20261013implantmenus" defer></script>
+<script src="/js/gnb-v2.js?v=20261014retreatment" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -4720,7 +4722,7 @@ ${rows || '<li class="cref-item"><div class="cref-main"><div class="cref-txt"><p
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js?v=20260921" defer></script>
-<script src="/js/gnb-v2.js?v=20261013implantmenus" defer></script>
+<script src="/js/gnb-v2.js?v=20261014retreatment" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`)
@@ -5284,7 +5286,7 @@ ${relatedTreatmentsHtml}
 </main>
 ${ssrMobileNav()}
 <script src="/js/main.js?v=20260921" defer></script>
-<script src="/js/gnb-v2.js?v=20261013implantmenus" defer></script>
+<script src="/js/gnb-v2.js?v=20261014retreatment" defer></script>
 <script>
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'column',page_id:'${id}'})}).catch(function(){});
 </script>
@@ -5990,7 +5992,7 @@ ${caseRelatedTreatmentsHtml}
 </div>
 ${ssrMobileNav()}
 <script src="/js/main.js?v=20260921" defer></script>
-<script src="/js/gnb-v2.js?v=20261013implantmenus" defer></script>
+<script src="/js/gnb-v2.js?v=20261014retreatment" defer></script>
 <script>
 // 조회수 기록
 fetch('/api/views', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({page_type:'case',page_id:'${id}'})}).catch(function(){});
@@ -7348,7 +7350,7 @@ ${nextItem ? `<a href="/encyclopedia/${encodeURIComponent(nextItem.term)}" style
 
 ${ssrMobileNav()}
 <script src="/js/main.js?v=20260921" defer></script>
-<script src="/js/gnb-v2.js?v=20261013implantmenus" defer></script>
+<script src="/js/gnb-v2.js?v=20261014retreatment" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`
@@ -7562,7 +7564,7 @@ ${otherCats}
 
 ${ssrMobileNav()}
 <script src="/js/main.js?v=20260921" defer></script>
-<script src="/js/gnb-v2.js?v=20261013implantmenus" defer></script>
+<script src="/js/gnb-v2.js?v=20261014retreatment" defer></script>
 <script src="/js/lang-switcher.js" defer></script>
 </body>
 </html>`

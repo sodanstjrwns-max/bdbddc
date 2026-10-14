@@ -8,7 +8,7 @@ export function registerFaviconResponse(app: Hono<any>) {
     if (c.req.method === 'HEAD' || c.res.status !== 200 || !c.res.headers.get('content-type')?.includes('text/html')) return
     const original = c.res
     const html = await original.text()
-    const updated = normalizeFaviconHead(html)
+    const updated = normalizeFaviconHead(html).replace(/(\/js\/gnb-v2\.js)(?:\?v=[^"'\s>]*)?(?=["'])/g, '$1?v=20261014retreatment')
     const headers = new Headers(original.headers)
     // Keep existing Cache-Control, CSP, cookies and preview noindex policies intact.
     c.res = new Response(updated, { status: original.status, statusText: original.statusText, headers })
