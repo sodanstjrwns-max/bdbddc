@@ -1,13 +1,12 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
-import { transform } from 'esbuild';
+import { build } from 'esbuild';
 
 const path = new URL('../src/lib/case-social-image.ts', import.meta.url);
-const result = await transform(await readFile(path, 'utf8'), { loader: 'ts', format: 'esm' });
-const { getCaseSocialImage, renderCaseImageMeta } = await import('data:text/javascript;base64,' + Buffer.from(result.code).toString('base64'));
+const result = await build({ entryPoints: [path.pathname], bundle: true, format: 'esm', platform: 'node', write: false });
+const { getCaseSocialImage, renderCaseImageMeta } = await import('data:text/javascript;base64,' + Buffer.from(result.outputFiles[0].text).toString('base64'));
 const published = { status: 'published' };
 const image = '/api/images/cases/before.jpg';
-const expected = 'https://bdbddc.com' + image;
+const expected = 'https://bdbddc.com/case-images/before.jpg';
 assert.equal(getCaseSocialImage({ ...published, beforeImage: image, afterImage: '/api/images/cases/after.jpg' }), expected);
 assert.equal(getCaseSocialImage({ ...published, afterImage: image, panBeforeImage: '/api/images/cases/pano.jpg' }), expected);
 assert.equal(getCaseSocialImage({ ...published, panBeforeImage: image }), expected);

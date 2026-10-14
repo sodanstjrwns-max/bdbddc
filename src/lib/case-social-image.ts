@@ -1,3 +1,5 @@
+import { publicCaseImageUrl } from './case-public-image'
+
 const ORIGIN = 'https://bdbddc.com'
 
 type PublishedCaseImages = {
@@ -19,7 +21,9 @@ export function getCaseSocialImage(cs: PublishedCaseImages): string {
       if (url.origin !== ORIGIN || url.username || url.password) continue
       const pathname = decodeURIComponent(url.pathname)
       if (pathname.includes('..') || pathname.includes('\\') || /[<>"'\s\x00-\x1f\x7f]/.test(pathname)) continue
-      if (!pathname.startsWith('/api/images/cases/') && !pathname.startsWith('/images/')) continue
+      const publicUrl = publicCaseImageUrl(value)
+      if (publicUrl) return publicUrl
+      if (!pathname.startsWith('/images/')) continue
       if (!/\.(?:jpe?g|png|webp|gif|avif)$/i.test(pathname)) continue
       url.hash = ''
       return url.href

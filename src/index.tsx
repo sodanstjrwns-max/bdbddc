@@ -1,5 +1,6 @@
 import { registerFaviconResponse } from './lib/favicon-response'
 import { getCaseSocialImage, renderCaseImageMeta } from './lib/case-social-image'
+import { publicCaseImageUrl, servePublicCaseImage } from './lib/case-public-image'
 import { gscLegacyTarget } from './data/gsc-legacy-redirects'
 import videoMetadata from '../data/video-metadata.json'
 import { registerPatientJourney } from './lib/patient-journey'
@@ -997,6 +998,13 @@ async function getCases(r2: R2Bucket): Promise<any[]> {
     return Array.isArray(data) ? data : []
   } catch { return [] }
 }
+
+// Crawlable alias for images already displayed by a published case.
+// /images/* bypasses the Worker, so this intentionally uses its own prefix.
+app.on(['GET', 'HEAD'], '/case-images/:filename', async (c) => {
+  const r2 = c.env.R2
+  return servePublicCaseImage(c.req.param('filename'), r2, () => r2 ? getCases(r2) : Promise.resolve([]), c.req.method)
+})
 
 // 케이스 저장 (R2에)
 async function saveCases(r2: R2Bucket, cases: any[]) {
@@ -5779,7 +5787,7 @@ app.get('/cases/:param', async (c) => {
   // 이미지 스타일 (모든 사용자에게 공개)
   const caseImage = getCaseSocialImage(cs)
   const imgStyle = ''
-  const safeImg = (url: string) => url || ''
+  const safeImg = (url: string) => publicCaseImageUrl(url) || url || ''
   
   // 백과사전 자동 링크: 설명 텍스트에서 백과사전 용어를 찾아 링크로 변환
   let descText = (cs.description || '').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>')
@@ -5812,7 +5820,7 @@ app.get('/cases/:param', async (c) => {
 </h3>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;">
 ${relatedCases.map((rc: any) => {
-  const rcThumb = rc.beforeImage || rc.panBeforeImage || ''
+  const rcThumb = safeImg(rc.beforeImage || rc.panBeforeImage || '')
   return `<a href="/cases/${caseSlug(rc)}" style="text-decoration:none;color:inherit;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(107,66,38,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.06)'">
   <div style="aspect-ratio:16/9;background:#f0ebe4;overflow:hidden;">${rcThumb ? `<img src="${rcThumb}" alt="${rc.title}" style="width:100%;height:100%;object-fit:cover;" loading="lazy">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><i class="fas fa-tooth" style="font-size:1.5rem;color:#d4c5b3;"></i></div>'}</div>
   <div style="padding:10px 12px;"><h4 style="font-size:.85rem;font-weight:600;color:#333;margin:0 0 4px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${rc.title}</h4>
