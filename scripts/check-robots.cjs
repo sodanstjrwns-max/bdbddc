@@ -52,8 +52,25 @@ function check(text) {
       assert(!allowed(text, agent, path), `${agent} unexpectedly permits ${path}`);
     }
   }
-  for (const agent of ['DotBot', 'MJ12bot', 'BLEXBot', 'DataForSeoBot']) assert(!allowed(text, agent, '/column/?doctor=moon'), `${agent} blanket block changed`);
-  console.log(`robots check: ${crawlAgents.length} crawler groups; public doctor-column archives allowed; private, tracking and blanket blocks preserved`);
+  // Specific crawler groups do not inherit the wildcard group. Check the image
+  // exception for every public crawler, and keep every other API prefix closed.
+  const caseImageAgents = groups.filter(g => g.rules.some(r => r.allow && r.path === '/api/images/cases/')).map(g => g.agent);
+  for (const agent of ['*', 'googlebot', 'googlebot-image', 'yeti', 'bingbot']) {
+    assert(caseImageAgents.includes(agent), `${agent} must explicitly permit public case images`);
+  }
+  for (const agent of caseImageAgents) {
+    for (const path of ['/api/images/cases/example-before.jpg', '/api/images/cases/example-pano.webp?v=1']) {
+      assert(allowed(text, agent, path), `${agent} unexpectedly blocks public case image ${path}`);
+    }
+    for (const path of ['/api/images/private/example.jpg', '/api/images/cases-private/example.jpg', '/api/images/cases.json', '/api/admin/images/cases/example.jpg', '/api/cases', '/api/reservation']) {
+      assert(!allowed(text, agent, path), `${agent} case image exception exposes ${path}`);
+    }
+  }
+  for (const agent of ['DotBot', 'MJ12bot', 'BLEXBot', 'DataForSeoBot']) {
+    assert(!allowed(text, agent, '/column/?doctor=moon'), `${agent} blanket block changed`);
+    assert(!allowed(text, agent, '/api/images/cases/example.jpg'), `${agent} case image blanket block changed`);
+  }
+  console.log(`robots check: ${crawlAgents.length} crawler groups; public doctor-column archives and case images allowed; other API, private, tracking and blanket blocks preserved`);
 }
 
 module.exports = { allowed, check };

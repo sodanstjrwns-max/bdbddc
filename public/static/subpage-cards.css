@@ -1,0 +1,19 @@
+/* Actual clinic photography; no treatment-result imagery. */
+.subpage-representative{margin:0 0 24px;text-align:left}
+.subpage-representative img{display:block;width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:14px}
+.subpage-representative figcaption{margin-top:9px;font-size:12px;line-height:1.65;color:#655f58;font-weight:400;word-break:keep-all;overflow-wrap:anywhere}
+.tg-question-panel .subpage-representative figcaption{color:#e6dacb}
+.subpage-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:0 0 36px}
+.subpage-card{display:flex;flex-direction:column;min-width:0;border:1px solid #e5dcd0;border-radius:18px;overflow:hidden;background:#fff;color:#3d3028;text-decoration:none;transition:box-shadow .2s,border-color .2s}
+.subpage-card:hover{border-color:#b59a7e;box-shadow:0 10px 28px #3d302812}
+.subpage-card:focus-visible{outline:3px solid #6b4226;outline-offset:5px}
+.subpage-card>img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+.subpage-card-copy{display:flex;flex:1;flex-direction:column;padding:24px}
+.subpage-card-copy h3{margin:0 0 10px;color:#493522;font-size:1.3rem;line-height:1.4;word-break:keep-all;overflow-wrap:anywhere}
+.subpage-card-copy p{margin:0 0 20px;color:#68615b;font-size:.95rem;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+.subpage-card-more{display:flex;justify-content:space-between;gap:12px;margin-top:auto;color:#6b4226;font-size:.8rem;font-weight:600}
+@media(max-width:760px){.subpage-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.subpage-card-copy{padding:18px 14px}.subpage-card-copy h3{font-size:1.05rem}.subpage-card-copy p{font-size:.85rem}.subpage-card-more{font-size:.72rem;flex-wrap:wrap}}
+@media(max-width:380px){.subpage-card-grid{gap:10px}.subpage-card-copy{padding:15px 11px}.subpage-card-copy h3{font-size:.96rem}.subpage-card-copy p{font-size:.8rem}.subpage-card-more{font-size:.68rem}}
+
+/* Keep the logo, contact action and menu reachable on narrow phones. */
+@media(max-width:380px){.header .clinic-status,.site-header .clinic-status{display:none}}

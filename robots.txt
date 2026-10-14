@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════
 # 서울비디치과 (Seoul BD Dental) - robots.txt
 # https://bdbddc.com
-# Updated: 2026-09-24 — allow public doctor-column archives; preserve private/tracking exclusions
+# Updated: 2026-10-14 — allow public case images; preserve other API/private/tracking exclusions
 #
 # SEO/AEO/GEO (Generative Engine Optimization) 완전 최적화
 # ═══════════════════════════════════════════════════════════════
@@ -14,6 +14,7 @@ Allow: /cases/
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -36,6 +37,7 @@ User-agent: Googlebot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -78,6 +80,7 @@ Allow: /images/
 Allow: /treatments/
 Disallow: /admin/
 Disallow: /api/
+Allow: /api/images/cases/
 
 User-agent: Googlebot-Video
 Disallow: /auth/
@@ -99,11 +102,13 @@ Disallow: /cdn-cgi/
 Allow: /video/
 Disallow: /admin/
 Disallow: /api/
+Allow: /api/images/cases/
 
 # ===== Google News 봇 =====
 User-agent: Googlebot-News
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -129,6 +134,7 @@ User-agent: Yeti
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -154,6 +160,7 @@ User-agent: Daum
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -178,6 +185,7 @@ User-agent: Bingbot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -220,6 +228,7 @@ Allow: /cn/
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Crawl-delay: 3
 
 # ===== Yahoo Japan 봇 (일본 검색엔진 — JP 랜딩페이지용) =====
@@ -227,6 +236,7 @@ User-agent: Y!J-ASR
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -249,6 +259,7 @@ User-agent: Y!J-BRJ
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -293,11 +304,13 @@ Allow: /
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 
 User-agent: ChatGPT-User
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -319,6 +332,7 @@ User-agent: OAI-SearchBot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -341,6 +355,7 @@ User-agent: Google-Extended
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -362,6 +377,7 @@ User-agent: GoogleOther
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -383,6 +399,7 @@ User-agent: GoogleOther-Image
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -404,6 +421,7 @@ User-agent: GoogleOther-Video
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -442,11 +460,13 @@ Allow: /
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 
 User-agent: anthropic-ai
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -485,12 +505,14 @@ Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Allow: /api/images/cases/
 
 # --- Meta AI ---
 User-agent: FacebookBot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -512,6 +534,7 @@ User-agent: Meta-ExternalAgent
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -533,6 +556,7 @@ User-agent: Meta-ExternalFetcher
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -555,6 +579,7 @@ User-agent: Applebot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -576,6 +601,7 @@ User-agent: Applebot-Extended
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -598,6 +624,7 @@ User-agent: cohere-ai
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -636,12 +663,14 @@ Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Allow: /api/images/cases/
 
 # --- DeepSeek ---
 User-agent: Deepseek
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -664,6 +693,7 @@ User-agent: MistralBot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -702,6 +732,7 @@ Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Allow: /api/images/cases/
 Crawl-delay: 5
 
 # --- Baidu AI (ERNIE Bot / Wenxin) ---
@@ -725,6 +756,7 @@ Disallow: /cdn-cgi/
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Allow: /api/images/cases/
 
 # --- Sogou (중국 검색엔진) ---
 User-agent: Sogou
@@ -748,6 +780,7 @@ Allow: /
 Allow: /cn/
 Disallow: /admin/
 Disallow: /api/
+Allow: /api/images/cases/
 Crawl-delay: 5
 
 # --- Amazon Alexa ---
@@ -755,6 +788,7 @@ User-agent: Amazonbot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -777,6 +811,7 @@ User-agent: CopilotBot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -799,6 +834,7 @@ User-agent: YouBot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -821,6 +857,7 @@ User-agent: BraveBot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -843,6 +880,7 @@ User-agent: SearchGPT
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -865,6 +903,7 @@ User-agent: Grok
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -887,6 +926,7 @@ User-agent: Qwen
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/
@@ -909,6 +949,7 @@ User-agent: PhindBot
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /api/
+Allow: /api/images/cases/
 Disallow: /blog/category/
 Disallow: /blog/rss
 Disallow: /components/

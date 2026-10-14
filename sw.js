@@ -23,8 +23,8 @@ const PRECACHE_ASSETS = [
   '/js/main.js',
   '/js/micro.js',
   '/js/gnb-v2.js',
-  '/images/icons/favicon.svg',
-  '/manifest.json'
+  '/images/icons/favicon-48.png?v=fav20261014',
+  '/manifest.json?v=fav20261014'
 ];
 
 // Install: Pre-cache critical assets

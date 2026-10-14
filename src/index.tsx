@@ -1,3 +1,5 @@
+import { registerFaviconResponse } from './lib/favicon-response'
+import { getCaseSocialImage, renderCaseImageMeta } from './lib/case-social-image'
 import { gscLegacyTarget } from './data/gsc-legacy-redirects'
 import videoMetadata from '../data/video-metadata.json'
 import { registerPatientJourney } from './lib/patient-journey'
@@ -65,6 +67,7 @@ import { SITE_SESSION_COOKIE, SITE_SESSION_MAX_AGE, hashPassword, createSiteSess
 import { ensurePriceItemsMigrated, getAllPriceItems, injectPublishedFees, PRICE_TABS, PRICE_TAB_LABELS, type PriceItem } from './lib/pricing'
 
 const app = new Hono<{ Bindings: Bindings }>()
+registerFaviconResponse(app)
 registerPatientJourney(app)
 registerTreatmentInsightLinks(app)
 
@@ -5774,6 +5777,7 @@ app.get('/cases/:param', async (c) => {
   const dateStr = new Date(cs.createdAt || Date.now()).toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' })
   
   // 이미지 스타일 (모든 사용자에게 공개)
+  const caseImage = getCaseSocialImage(cs)
   const imgStyle = ''
   const safeImg = (url: string) => url || ''
   
@@ -5853,6 +5857,7 @@ ${TRACKING_HEAD}
 <meta property="og:description" content="${catLabel} 치료 전후 사진 — ${cs.doctorName || '서울비디치과'}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://bdbddc.com/cases/${caseSlug(cs)}">
+${renderCaseImageMeta(caseImage)}
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96.png?v=2"><link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg?v=2">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -5865,6 +5870,7 @@ ${TRACKING_HEAD}
   "name":"${cs.title}",
   "description":"${catLabel} 치료 전후 — ${cs.doctorName || '서울비디치과'}",
   "url":"https://bdbddc.com/cases/${caseSlug(cs)}",
+  ${caseImage ? '"image":' + JSON.stringify(caseImage).replace(/</g, '\\u003c') + ',' : ''}
   "datePublished":"${cs.createdAt || ''}",
   "author":{"@type":"Dentist","name":"서울비디치과","telephone":"+82-41-415-2892"${cs.region ? ',"areaServed":{"@type":"City","name":"' + cs.region + '"}' : ''}},
   "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[

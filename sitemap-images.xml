@@ -33,6 +33,7 @@
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/implant</loc>
+    <image:image><image:loc>https://bdbddc.com/images/subpage-cards/implant.jpg</image:loc><image:title>서울비디치과에서 설명에 사용하는 임플란트 모형</image:title></image:image>
     <image:image>
       <image:loc>https://bdbddc.com/images/implant-gallery/surgery-team.webp</image:loc>
       <image:title>임플란트 수술 팀 협진</image:title>
@@ -72,6 +73,7 @@
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/invisalign</loc>
+    <image:image><image:loc>https://bdbddc.com/images/subpage-cards/invisalign.jpg</image:loc><image:title>서울비디치과의 투명 교정장치</image:title></image:image>
     <image:image>
       <image:loc>https://bdbddc.com/images/ortho-gallery/lounge-wide.webp</image:loc>
       <image:title>서울비디치과 교정센터 라운지</image:title>
@@ -170,6 +172,7 @@
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/pediatric</loc>
+    <image:image><image:loc>https://bdbddc.com/images/subpage-cards/pediatric.jpg</image:loc><image:title>서울비디치과에서 장난감을 쥔 아이의 손</image:title></image:image>
     <image:image>
       <image:loc>https://bdbddc.com/images/pedo-gallery/entrance-giraffe.webp</image:loc>
       <image:title>소아치과 입구 기린 인형</image:title>
@@ -237,6 +240,7 @@
   </url>
   <url>
     <loc>https://bdbddc.com/treatments/glownate</loc>
+    <image:image><image:loc>https://bdbddc.com/images/subpage-cards/glownate.jpg</image:loc><image:title>서울비디치과 원내 기공소의 세라믹 색조 작업</image:title></image:image>
     <image:image>
       <image:loc>https://bdbddc.com/images/glownate-model-1.webp</image:loc>
       <image:title>글로우네이트 라미네이트로 완성한 환한 미소</image:title>
@@ -551,4 +555,8 @@
       <image:title>서희원 원장 2</image:title>
     </image:image>
   </url>
+  <url><loc>https://bdbddc.com/treatments/wisdom-tooth</loc>
+    <image:image><image:loc>https://bdbddc.com/images/subpage-cards/wisdom-tooth.jpg</image:loc><image:title>서울비디치과 원내 CT 촬영 장비</image:title></image:image></url>
+  <url><loc>https://bdbddc.com/treatments/cavity</loc>
+    <image:image><image:loc>https://bdbddc.com/images/subpage-cards/cavity.jpg</image:loc><image:title>서울비디치과 원내 세라믹 수복물 제작 장비</image:title></image:image></url>
 </urlset>
