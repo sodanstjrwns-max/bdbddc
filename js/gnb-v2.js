@@ -618,7 +618,7 @@
     // ========================================
     function initScrollCTA() {
         // Revision consultations start with listening, without scroll-based urgency.
-        if (document.body.dataset.consultationTone === 'calm') return;
+        if (document.body.dataset.consultationTone === 'calm' || document.querySelector('main[data-consultation-tone="calm"]')) return;
         const stages = IS_EN ? [
             { pct: 0,  icon: 'fa-calendar-check', txt: 'Easy Consultation', mob: 'Consult', cls: 'cta-explore' },
             { pct: 25, icon: 'fa-clipboard-check', txt: 'Assess My Case', mob: 'Assess', cls: 'cta-consider' },

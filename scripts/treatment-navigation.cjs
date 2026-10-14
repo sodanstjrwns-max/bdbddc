@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { parse } = require('node-html-parser');
-const GNB_VERSION = '20261014retreatment';
+const GNB_VERSION = '20261014retreatment2';
 const IMPLANT_ITEMS = [
   ['/treatments/implant-revision', '임플란트 재수술'],
   ['/treatments/implant-hybrid', '하이브리드 풀아치 임플란트(올온X)'],
