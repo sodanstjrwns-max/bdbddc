@@ -6643,6 +6643,304 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-14",
   "publishedAt": "2026-10-14T09:00:00+09:00"
+},
+{
+  "slug": "orthodontic-premolar-extraction-facial-change",
+  "title": "멀쩡한 작은어금니를 빼고 교정하래요. 얼굴이 꺼지면 어떡하죠?",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "치아교정",
+  "concern": "발치 결정이 두려워요",
+  "description": "발치교정을 권유받았을 때 필요한 공간의 이유, 얼굴 변화에 대한 기대와 한계, 비발치 대안의 부담을 비교하고 결정 전에 확인할 질문을 정리합니다.",
+  "situation": "천안에서 치아교정 상담을 받다가 충치도 없는 작은어금니를 빼자는 설명을 들었습니다. 배열은 좋아져도 입이 너무 들어가거나 얼굴이 꺼질까 불안합니다.",
+  "answer": "발치 개수만으로 교정 후 얼굴을 예측하지 않습니다. 어떤 문제를 해결할 공간인지, 앞니와 입술의 현재 상태와 목표가 무엇인지, 비발치로 가능한 범위와 한계를 검사 자료로 비교해 설명받는 것이 먼저입니다.",
+  "checks": [
+    "발치로 얻는 공간을 어떤 문제 해결에 사용할 계획인지",
+    "현재 입술과 앞니 위치에서 원하는 변화와 원하지 않는 변화",
+    "비발치 대안이 가능한지와 그때 남는 배열·교합의 한계",
+    "뺄 치아의 정확한 위치와 선택 이유, 발치 시점",
+    "계획 변경이 필요할 때 다시 설명하고 결정하는 방식"
+  ],
+  "choices": [
+    {
+      "condition": "필요한 이동 공간을 다른 방법으로 충분히 확보하기 어렵다고 판단되는 경우",
+      "option": "발치로 얻을 이익과 제거할 치아, 이후 이동 목표를 함께 검토합니다.",
+      "limit": "발치 자체가 원하는 얼굴이나 안정적인 결과를 보장하지는 않습니다."
+    },
+    {
+      "condition": "검사상 비발치 접근이 합리적인 대안이 되는 경우",
+      "option": "치열 확장이나 치아 사이 공간 확보 등 가능한 방법을 비교합니다.",
+      "limit": "만들 수 있는 공간과 치아 이동에는 한계가 있으며 모든 사람에게 적용할 수 없습니다."
+    },
+    {
+      "condition": "발치 필요성이나 예상 변화에 대한 설명이 충분하지 않은 경우",
+      "option": "자료와 서면 계획을 확인하고 추가 상담 또는 독립적인 의견을 구합니다.",
+      "limit": "치료를 미루는 선택에도 현재 상태에 따른 고려점이 있으므로 확인 없이 방치하지 않습니다."
+    }
+  ],
+  "unknown": "검사 전에는 발치 필요성, 적절한 치아 수, 실제 가능한 입술·교합 변화를 확정할 수 없습니다. 다른 사람의 전후 사진이나 화면 속 예측 이미지가 자신의 결과를 보장하지 않습니다.",
+  "prepare": [
+    "기존 상담의 영상·사진과 서면 치료계획",
+    "발치를 권한 치아 위치와 설명받은 이유",
+    "외형에서 바꾸고 싶은 점과 꼭 유지하고 싶은 점",
+    "치료 기간·비용·방문 일정 중 가장 부담되는 항목"
+  ],
+  "localHeading": "천안에서 발치교정 설명을 다시 듣고 싶다면",
+  "localAdvice": "천안에서 치아교정의 발치 여부를 고민한다면 이전 검사 자료와 질문을 정리해 상담을 준비해 보세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 직장·학교 일정에 맞춰 필요한 기록과 상담 시간을 미리 확인하고, 발치 결정을 위한 설명과 장기 방문 계획을 구분해 살펴보면 좋습니다.",
+  "related": [
+    {
+      "title": "치아교정 방법과 선택 기준 살펴보기",
+      "href": "/guide/orthodontics"
+    },
+    {
+      "title": "발치교정과 비발치교정 비교",
+      "href": "/guide/compare/extraction-vs-nonextraction"
+    },
+    {
+      "title": "교정 결정 전에 후회를 줄이는 질문",
+      "href": "/guide/regret/orthodontics"
+    }
+  ],
+  "sources": [
+    {
+      "title": "영국교정학회 — 발치와 비발치에 관한 환자 질문",
+      "href": "https://bos.org.uk/patients/treatments/faqs/"
+    },
+    {
+      "title": "영국교정학회 — 교정치료에 대한 과장 주장과 개별 평가",
+      "href": "https://bos.org.uk/news/claims-about-orthodontics/"
+    },
+    {
+      "title": "영국교정학회 — 교정치료 동의와 대안 설명(2025)",
+      "href": "https://bos.org.uk/wp-content/uploads/2025/05/CONSENT-IN-ORTHODONTICS-MAY-2025.pdf"
+    },
+    {
+      "title": "영국교정학회 — 교정 목적 발치의 확인·의뢰 지침",
+      "href": "https://bos.org.uk/wp-content/uploads/2024/12/ORTHODONTIC-EXTRACTIONS-RISK-MANAGEMENT-GUIDELINES-2024.pdf"
+    }
+  ],
+  "updated": "2026-10-15",
+  "publishedAt": "2026-10-15T09:00:00+09:00"
+},
+{
+  "slug": "child-baby-molar-sinking-below-bite",
+  "title": "아이 유치 어금니가 옆 치아보다 낮아졌어요. 잇몸 속으로 가라앉는 건가요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "소아치과",
+  "concern": "관찰해도 괜찮을까요",
+  "description": "옆 치아보다 낮아 보이는 유치 어금니. 저위교합과 유착 가능성을 어떻게 평가하고, 영구치와 주변 치아 상태에 따라 관찰·발치 계획을 비교하는지 살펴봅니다.",
+  "situation": "아산에서 아이 양치를 도와주다 한쪽 유치 어금니만 낮아진 모습을 보았습니다. 아프다는 말은 없지만 치아가 묻히는 것 같아 걱정됩니다.",
+  "answer": "낮아 보이는 모습만으로 유착을 확정하거나 바로 발치하지 않습니다. 높이 변화와 주변 치아, 뒤따르는 영구치의 유무·위치를 확인하고, 지금 관찰할 수 있는 조건과 치료가 필요한 신호를 구분합니다.",
+  "checks": [
+    "어느 치아가 낮아졌고 이전 기록과 비교해 변화가 있는지",
+    "주변 치아가 기울거나 영구치가 나올 길에 문제가 있는지",
+    "해당 유치 뒤에 영구치가 있는지와 발육·위치",
+    "씹기 불편, 음식 끼임, 통증 등 생활 변화",
+    "관찰 중 확인할 항목과 다음 진료 시점"
+  ],
+  "choices": [
+    {
+      "condition": "검사상 관찰이 적절하다고 판단되는 경우",
+      "option": "비교할 기록을 남기고 정해진 일정에 경과를 확인합니다.",
+      "limit": "관찰은 치아가 저절로 정상 높이로 회복된다는 약속이 아닙니다."
+    },
+    {
+      "condition": "영구치 맹출 방해나 주변 치아 이동 등의 문제가 확인되는 경우",
+      "option": "원인과 발치 필요성을 평가하고 이후 공간 관리까지 논의합니다.",
+      "limit": "발치만 하면 모든 문제가 해결된다고 보장하지 않으며 추가 진료가 필요할 수 있습니다."
+    },
+    {
+      "condition": "뒤따르는 영구치가 없거나 장기 계획이 복잡한 경우",
+      "option": "유치의 상태와 성장, 전체 치열 계획을 함께 검토합니다.",
+      "limit": "무조건 오래 남기거나 바로 빼는 한 가지 원칙을 적용하기 어렵습니다."
+    }
+  ],
+  "unknown": "겉모습만으로 유착 여부나 진행 속도, 발치 시점과 방법을 확정할 수 없습니다. 영구치가 있다는 사실만으로 정상 위치에 저절로 나온다고 약속할 수도 없습니다.",
+  "prepare": [
+    "처음 높이 차이를 알아차린 때와 이전 치과 기록",
+    "아이의 씹는 습관 변화와 불편한 위치",
+    "과거 외상·치료 이력과 현재 건강 정보",
+    "관찰 방문과 치료 일정에서 가족이 어려운 점"
+  ],
+  "localHeading": "아산에서 아이의 낮아진 유치를 상담한다면",
+  "localAdvice": "아산에서 소아치과 진료를 준비한다면 기존 검사 자료를 가져올 수 있는지 먼저 확인해 보세요. 서울비디치과의 실제 진료 장소는 천안 불당동입니다. 등하원과 보호자 근무 시간을 고려해 검사·상담의 목적, 다음 경과 확인 일정과 연락 방법을 정리하면 반복 이동을 계획하는 데 도움이 됩니다.",
+  "related": [
+    {
+      "title": "부모 마음부터 살피는 소아치과 가이드",
+      "href": "/guide/inside-out/pediatric"
+    },
+    {
+      "title": "아이의 소아치과 진료 안내",
+      "href": "/treatments/pediatric"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국소아치과학회 — 성장기 치열·교합 관리와 유착(2024 개정)",
+      "href": "https://www.aapd.org/media/Policies_Guidelines/BP_DevelopDentition.pdf"
+    },
+    {
+      "title": "미국소아치과학회 — 어린이 치과 영상검사의 선택과 시기(2025)",
+      "href": "https://www.aapd.org/globalassets/media/policies_guidelines/bp_radiographs25.pdf"
+    },
+    {
+      "title": "미국소아치과학회 — 소아 구강외과 치료 고려사항(2025)",
+      "href": "https://www.aapd.org/media/Policies_Guidelines/BP_OralSurgery.pdf"
+    },
+    {
+      "title": "미국소아치과학회 — 어린이 진료 불안과 행동 안내(2024 개정)",
+      "href": "https://www.aapd.org/globalassets/media/policies_guidelines/bp_behavguide25.pdf"
+    }
+  ],
+  "updated": "2026-10-15",
+  "publishedAt": "2026-10-15T09:00:00+09:00"
+},
+{
+  "slug": "inhaler-white-mouth-patches-thrush",
+  "title": "천식 흡입기를 쓴 뒤 입안에 하얀 막이 생겼어요. 약을 끊어야 하나요?",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "구강질환",
+  "concern": "약을 계속 써도 될까요",
+  "description": "흡입기 사용 중 입안이 하얗고 따가워졌다면 칸디다증인지 다른 점막 문제인지 확인해야 합니다. 약을 스스로 끊지 않으면서 사용법 점검과 구강 치료를 함께 계획하는 방법을 정리합니다.",
+  "situation": "홍성에서 천식 치료를 받는 중 하얀 막과 따가움 같은 구강질환 증상이 생겨, 흡입기를 계속 쓰자니 입안이 걱정되고 끊자니 숨이 찰까 두려운 상황입니다.",
+  "answer": "스테로이드 성분 흡입기는 구강 칸디다증과 관련될 수 있지만 하얀 부위가 모두 곰팡이 감염은 아닙니다. 흡입약을 자의로 중단하거나 줄이지 말고 입안 진찰과 처방 의료진의 사용법 점검을 함께 받으세요.",
+  "checks": [
+    "흡입기 이름·성분과 최근 용량 변경",
+    "하얀 부위의 위치·지속 기간과 식사 불편",
+    "최근 항생제·틀니 사용 및 다른 복용약"
+  ],
+  "choices": [
+    {
+      "condition": "진찰에서 칸디다증으로 판단될 때",
+      "option": "적절한 항진균 치료와 흡입기 사용법 점검",
+      "limit": "약 선택과 기간은 증상·병력에 따라 달라집니다."
+    },
+    {
+      "condition": "하얀 부위가 계속 남거나 다른 점막 질환이 의심될 때",
+      "option": "추가 평가와 필요한 진료 의뢰",
+      "limit": "사진이나 닦이는 정도만으로 진단할 수 없습니다."
+    },
+    {
+      "condition": "물이나 음식을 삼키기 어렵거나 통증이 심해질 때",
+      "option": "예약을 미루지 말고 의료진에게 신속히 문의",
+      "limit": "갑작스러운 호흡곤란·혀나 목의 부종은 응급 평가가 필요합니다."
+    }
+  ],
+  "unknown": "흡입기 사용 이후 생겼다는 사실만으로 원인·진단·처방 변경 필요성을 확정할 수 없습니다.",
+  "prepare": [
+    "실제 흡입기와 설명서·처방 목록",
+    "처음 생긴 날과 악화·호전 메모",
+    "최근 찍은 입안 사진과 기존 치료 정보"
+  ],
+  "localHeading": "홍성에서 이동하기 전, 입안 증상과 천식 치료 정보를 함께 정리하세요",
+  "localAdvice": "실제 진료 장소는 천안 불당동입니다. 홍성에서 구강질환 상담을 오기 전 흡입기 이름과 증상을 알려 필요한 자료를 확인하고, 천식 처방 의료진과 연락할 경로도 준비하세요.",
+  "related": [
+    {
+      "title": "구강내과 진료에서 확인할 것",
+      "href": "/guide/inside-out/oral-medicine"
+    },
+    {
+      "title": "치과 상담에서 확인할 진료 선택 기준",
+      "href": "/guide/cheonan-dentist-choice"
+    }
+  ],
+  "sources": [
+    {
+      "title": "NHS · 구강 칸디다증의 증상과 치료",
+      "href": "https://www.nhs.uk/conditions/oral-thrush-mouth-thrush/"
+    },
+    {
+      "title": "NHS · 베클로메타손 흡입기의 구강 부작용",
+      "href": "https://www.nhs.uk/medicines/beclometasone-inhalers/side-effects-of-beclometasone-inhalers/"
+    },
+    {
+      "title": "NHS · 부데소니드 흡입기 사용법과 중단 주의",
+      "href": "https://www.nhs.uk/medicines/budesonide-inhalers/how-and-when-to-use-budesonide-inhalers/"
+    },
+    {
+      "title": "NHS · 아프거나 하얗게 변한 혀의 감별",
+      "href": "https://www.nhs.uk/symptoms/sore-or-white-tongue/"
+    }
+  ],
+  "updated": "2026-10-15",
+  "publishedAt": "2026-10-15T09:00:00+09:00"
+},
+{
+  "slug": "worn-short-teeth-full-mouth-crowns-worry",
+  "title": "이가 짧아져 여러 치아를 씌우자는데, 남은 치아를 더 깎아도 괜찮을까요?",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "보철치료",
+  "concern": "더 깎을까 봐 두려워요",
+  "description": "치아가 짧아져 여러 개의 크라운을 권유받았다면 마모의 원인과 진행, 치아별 필요성을 먼저 확인하세요. 관찰·접착 수복·크라운의 장단점과 전악 보철치료를 결정할 질문을 정리합니다.",
+  "situation": "예산에서 치아 마모로 보철치료 상담을 받은 뒤 여러 치아를 씌워야 한다는 말을 듣고, 이미 짧아진 치아를 더 깎으면 되돌릴 수 없을까 걱정되는 상황입니다.",
+  "answer": "치아가 짧다는 이유만으로 모두 같은 크라운을 해야 하는 것은 아닙니다. 마모 원인과 진행 여부, 남은 치아 조직과 씹는 기능을 평가하고 관찰·접착 수복·크라운의 필요성과 범위를 비교해야 합니다.",
+  "checks": [
+    "예전 기록과 비교한 마모의 변화",
+    "이갈이·이 악물기와 산성 음식·역류 병력",
+    "치아마다 남은 조직·기존 수복물·통증과 씹는 불편"
+  ],
+  "choices": [
+    {
+      "condition": "마모가 경미하고 기능 문제가 크지 않을 때",
+      "option": "원인 관리와 기록을 통한 경과 관찰",
+      "limit": "변화를 정기적으로 확인해야 하며 이미 닳은 형태가 저절로 복구되지는 않습니다."
+    },
+    {
+      "condition": "덧붙이는 방식으로 회복을 시도할 수 있을 때",
+      "option": "접착 수복과 필요한 부분의 치료 비교",
+      "limit": "깨짐·탈락·착색과 향후 수리 가능성을 고려합니다."
+    },
+    {
+      "condition": "조직 손상이 크고 보호·회복이 필요한 치아가 있을 때",
+      "option": "크라운 등 보철치료를 치아별로 평가",
+      "limit": "추가 삭제와 치수 문제, 이후 교체·관리 부담을 설명받아야 합니다."
+    }
+  ],
+  "unknown": "사진 한 장이나 짧아 보인다는 인상만으로 전악 수복 필요성, 삭제량, 치료 수명을 확정할 수 없습니다.",
+  "prepare": [
+    "이전 치아 사진·검사 자료와 치료계획서",
+    "시린 곳·씹기 어려운 음식·깨짐 메모",
+    "이갈이·역류와 식음료 습관, 사용 중인 장치 정보"
+  ],
+  "localHeading": "예산에서 여러 번 방문해야 한다면, 결정 단계와 치료 단계를 나누세요",
+  "localAdvice": "실제 진료 장소는 천안 불당동입니다. 예산에서 보철치료를 상담할 때 검사·계획 설명·제작·조정·유지관리에 필요한 방문을 나누고, 원인 관리와 단계별 비용을 함께 확인하세요.",
+  "related": [
+    {
+      "title": "크라운을 결정하기 전에 확인할 것",
+      "href": "/guide/regret/crown"
+    },
+    {
+      "title": "인레이와 크라운의 선택 기준 비교",
+      "href": "/guide/compare/inlay-vs-crown"
+    },
+    {
+      "title": "레진 치료의 기대와 관리 부담",
+      "href": "/guide/regret/resin"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Leicester NHS · 치아 마모의 평가와 치료 선택",
+      "href": "https://yourhealth.leicestershospitals.nhs.uk/library/musculoskeletal-specialist-surgery-mss/restorative-dentistry-orthodontics/348-335-022019-tooth-wear/file"
+    },
+    {
+      "title": "ADA · 산에 의한 치아 침식의 원인과 관리",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/dental-erosion"
+    },
+    {
+      "title": "NIDCR · 이갈이와 이 악물기의 진단·관리",
+      "href": "https://www.nidcr.nih.gov/health-info/bruxism"
+    },
+    {
+      "title": "Leeds NHS · 크라운의 적용과 대안",
+      "href": "https://www.leedsth.nhs.uk/patients/resources/crowns/"
+    }
+  ],
+  "updated": "2026-10-15",
+  "publishedAt": "2026-10-15T09:00:00+09:00"
 }
 ]
 
