@@ -9,7 +9,7 @@
   const mobileQuery = window.matchMedia('(max-width: 760px)');
   const assetScript = document.querySelector('script[src*="/static/treatment-scroll.js"]');
   const assetQuery = assetScript ? new URL(assetScript.src, location.href).search : '';
-  const moduleURL = '/static/treatment-scroll-3d.js' + assetQuery;
+  const sequenceURL = '/static/treatment-scroll-sequence.js' + assetQuery;
   let reduced = reducedQuery.matches;
   let raf = 0;
   let headerOffset = 88;
@@ -17,31 +17,13 @@
     const steps = [...section.querySelectorAll('.bd-scroll-step')];
     const visual = section.querySelector('.bd-scroll-visual');
     if (!steps.length || !visual) return null;
-    const transforms = [...section.querySelectorAll('[data-motion="align"]')].map(node => ({
-      // Coordinates are absolute on this outer motion group. Its SVG transform
-      // is the no-JS starting pose; inner geometry transforms remain untouched.
-      node, base: node.getAttribute('data-motion-base') || '',
-      from: ['x', 'y', 'r'].map(key => number(node.getAttribute('data-from-' + key), 0)),
-      to: ['x', 'y', 'r'].map(key => number(node.getAttribute('data-to-' + key), 0)),
-      originX: number(node.getAttribute('data-origin-x'), 0),
-      originY: number(node.getAttribute('data-origin-y'), 0),
-      start: number(node.getAttribute('data-motion-start'), 0),
-      end: number(node.getAttribute('data-motion-end'), 1)
-    }));
-    const reveals = [...section.querySelectorAll('[data-motion="reveal"]')].map(node => ({
-      node, from: number(node.getAttribute('data-from-opacity'), 0),
-      to: number(node.getAttribute('data-to-opacity'), 1),
-      start: number(node.getAttribute('data-motion-start'), 0),
-      end: number(node.getAttribute('data-motion-end'), 1)
-    }));
     const state = {
-      section, visual, steps, transforms, reveals,
-      stages: [...section.querySelectorAll('[data-motion-stage]')],
+      section, visual, steps,
       controls: [...section.querySelectorAll('.bd-scroll-step-control')],
       label: section.querySelector('.bd-scroll-label'),
       counter: section.querySelector('.bd-scroll-counter'),
       toggle: section.querySelector('.bd-scroll-toggle'),
-      art: section.querySelector('.bd-scroll-art'), three: null, threeLoading: false, threeFailed: false,
+      art: section.querySelector('.bd-scroll-art'), sequence: null, sequenceLoading: false, sequenceFailed: false,
       near: false, paused: false, progress: -1, phase: -1
     };
     section.classList.add('is-enhanced');
@@ -57,12 +39,25 @@
         if (!state.paused) requestUpdate();
       });
     }
+    const skip = section.querySelector('.bd-scroll-skip');
+    skip?.addEventListener('click', event => {
+      const target = section.nextElementSibling?.querySelector('h2, h3') || section.querySelector('#bd-scroll-after');
+      if (!target) return;
+      // Capture before the site's generic smooth-anchor handler, including under
+      // reduced motion. Move keyboard focus past the controls as well as the view.
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      target.setAttribute('tabindex', '-1');
+      const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - headerOffset);
+      target.focus({ preventScroll: true });
+      window.scrollTo({ top, behavior: 'instant' });
+    }, { capture: true });
     state.controls.forEach(control => {
       control.addEventListener('click', () => {
         const index = clamp(number(control.dataset.step, 0), 0, steps.length - 1);
         const step = steps[index];
         if (reduced) {
-          step.scrollIntoView({ behavior: 'auto', block: 'center' });
+          step.scrollIntoView({ behavior: 'instant', block: 'center' });
           return;
         }
         const rect = step.getBoundingClientRect();
@@ -76,16 +71,17 @@
     return state;
   }).filter(Boolean);
 
-  async function ensure3D(state) {
-    if (reduced || !state.near || !state.art || state.three || state.threeLoading || state.threeFailed) return;
-    state.threeLoading = true;
+  async function ensureSequence(state) {
+    if (reduced || !state.near || !state.art || state.sequence || state.sequenceLoading || state.sequenceFailed) return;
+    state.sequenceLoading = true;
     try {
-      const module = await import(moduleURL);
+      const module = await import(sequenceURL);
       if (reduced || !state.near || document.hidden) return;
-      state.three = module.createTreatmentScene({ host: state.art, sceneName: state.section.dataset.scene, variant: state.section.dataset.variant || '', onError: () => { state.threeFailed = true; state.three?.dispose(); state.three = null; } });
-      state.three.update(Math.max(0, state.progress));
-    } catch (_) { state.threeFailed = true; state.art.classList.remove('has-3d'); }
-    finally { state.threeLoading = false; }
+      const config = JSON.parse(state.art.dataset.sequence);
+      state.sequence = module.createSequence({ container: state.art, config, onError: () => { state.section.dataset.assetStatus = 'fallback'; }, onReady: () => { state.section.dataset.assetStatus = 'ready'; } });
+      state.sequence.update(Math.max(0, state.progress));
+    } catch (_) { state.sequenceFailed = true; state.art.classList.remove('has-sequence'); }
+    finally { state.sequenceLoading = false; }
   }
   function measureHeader() {
     let bottom = 0;
@@ -108,10 +104,6 @@
     }
     return headerOffset + Math.max(150, viewport - headerOffset) * .48;
   }
-  function rangeProgress(progress, start, end) {
-    const fraction = clamp((progress - start) / Math.max(.0001, end - start));
-    return fraction * fraction * (3 - 2 * fraction);
-  }
   function paint(state, progress) {
     const p = clamp(progress);
     const count = state.steps.length;
@@ -119,25 +111,10 @@
     const phase = Math.min(count - 1, Math.round(phaseFloat));
     if (Math.abs(state.progress - p) < .0001 && state.phase === phase) return;
     state.progress = p;
-    state.three?.update(p);
+    state.sequence?.update(p);
     state.section.style.setProperty('--bd-progress', p.toFixed(5));
     state.section.style.setProperty('--bd-phase-progress', (phaseFloat % 1).toFixed(5));
     state.section.dataset.activeStep = String(phase);
-    state.stages.forEach(node => {
-      const stage = number(node.getAttribute('data-motion-stage'), 0);
-      const opacity = clamp(1 - Math.abs(phaseFloat - stage));
-      node.style.opacity = opacity.toFixed(4);
-      node.style.visibility = opacity > .001 ? 'visible' : 'hidden';
-    });
-    state.transforms.forEach(item => {
-      const amount = rangeProgress(p, item.start, item.end);
-      const [x, y, r] = item.from.map((value, index) => value + (item.to[index] - value) * amount);
-      item.node.setAttribute('transform', `${item.base} translate(${x.toFixed(3)} ${y.toFixed(3)}) rotate(${r.toFixed(3)} ${item.originX} ${item.originY})`.trim());
-    });
-    state.reveals.forEach(item => {
-      const amount = rangeProgress(p, item.start, item.end);
-      item.node.style.opacity = (item.from + (item.to - item.from) * amount).toFixed(4);
-    });
     if (state.phase !== phase) {
       state.phase = phase;
       state.steps.forEach((step, index) => {
@@ -175,16 +152,16 @@
       if (!state) return;
       state.near = entry.isIntersecting;
       state.section.classList.toggle('is-near', state.near);
-      if (state.near) ensure3D(state);
+      if (state.near) ensureSequence(state);
     });
     requestUpdate();
   }, { rootMargin: '300px 0px' });
   states.forEach(state => observer.observe(state.section));
   window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', () => { measureHeader(); states.forEach(state => state.three?.resize()); requestUpdate(); }, { passive: true });
+  window.addEventListener('resize', () => { measureHeader(); states.forEach(state => state.sequence?.resize()); requestUpdate(); }, { passive: true });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden && raf) { window.cancelAnimationFrame(raf); raf = 0; }
-    else { states.forEach(state => { ensure3D(state); state.three?.resize(); }); requestUpdate(); }
+    else { states.forEach(state => { ensureSequence(state); state.sequence?.resize(); }); requestUpdate(); }
   });
   const motionChange = () => {
     reduced = reducedQuery.matches;
@@ -192,8 +169,8 @@
     states.forEach(state => {
       state.section.setAttribute('data-motion-mode', reduced ? 'reduced' : state.paused ? 'paused' : 'scroll');
       if (state.toggle) state.toggle.hidden = reduced;
-      if (reduced) { state.three?.dispose(); state.three = null; paint(state, 0); }
-      else ensure3D(state);
+      if (reduced) { state.sequence?.dispose(); state.sequence = null; paint(state, 0); }
+      else ensureSequence(state);
     });
     measureHeader();
     requestUpdate();
@@ -201,7 +178,7 @@
   if (reducedQuery.addEventListener) reducedQuery.addEventListener('change', motionChange);
   else reducedQuery.addListener(motionChange);
   if ('ResizeObserver' in window) {
-    const resize = new ResizeObserver(() => { states.forEach(state => state.three?.resize()); requestUpdate(); });
+    const resize = new ResizeObserver(() => { states.forEach(state => state.sequence?.resize()); requestUpdate(); });
     states.forEach(state => resize.observe(state.section));
   }
   measureHeader();

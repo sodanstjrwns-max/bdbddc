@@ -1,0 +1,1715 @@
+{
+  "version": 1,
+  "description": "Reviewed educational visuals with bounded scroll motion. Illustrations are not patient outcomes.",
+  "hub": "consultation-neutral",
+  "profiles": {
+    "aesthetic": "direct-anterior-composite",
+    "apicoectomy": "apical-surgery",
+    "bridge": "bridge",
+    "bruxism": "bruxism-splint",
+    "cavity": "direct-molar-restoration",
+    "crown": "full-crown",
+    "denture": "removable-denture",
+    "emergency": "consultation-neutral",
+    "fixture-osstem-ca": "existing-single-implant",
+    "fixture-osstem-soi": "existing-single-implant",
+    "fixture-straumann-roxolid": "existing-single-implant",
+    "glownate": "existing-ceramic-veneer",
+    "gum": "periodontal-assessment",
+    "gum-surgery": "periodontal-surgery",
+    "implant": "existing-single-implant",
+    "implant-advanced": "advanced-implant-graft",
+    "implant-flapless": "flapless-access",
+    "implant-full-mouth": "full-mouth-options",
+    "implant-holiday": "consultation-neutral",
+    "implant-hybrid": "fixed-fullarch",
+    "implant-immediate": "immediate-placement",
+    "implant-immediate-loading": "immediate-loading",
+    "implant-navigation": "guided-implant",
+    "implant-overdenture": "removable-overdenture",
+    "implant-revision": "implant-reassessment",
+    "implant-sedation": "sedation-monitoring",
+    "implant-sinus-lift": "sinus-upper-jaw",
+    "inlay": "partial-inlay-onlay",
+    "invisalign": "existing-clear-aligner",
+    "invisalign-best": "existing-clear-aligner",
+    "invisalign-express": "existing-clear-aligner",
+    "invisalign-first": "child-clear-aligner",
+    "invisalign-light": "existing-clear-aligner",
+    "invisalign-moderate": "existing-clear-aligner",
+    "oral-medicine": "consultation-neutral",
+    "ortho-best": "fixed-brackets",
+    "ortho-express": "fixed-brackets",
+    "ortho-first": "child-succession",
+    "ortho-light": "fixed-brackets",
+    "ortho-moderate": "fixed-brackets",
+    "orthodontic-clarity-ultra": "fixed-brackets",
+    "orthodontic-clippy-c": "fixed-brackets",
+    "orthodontic-retreatment": "ortho-options-retention",
+    "orthodontics": "ortho-options-retention",
+    "pediatric": "child-succession",
+    "periodontitis": "periodontal-assessment",
+    "prevention": "prevention",
+    "re-root-canal": "root-canal-retreatment",
+    "resin": "direct-molar-restoration",
+    "root-canal": "root-canal-primary",
+    "scaling": "scaling",
+    "sedation": "sedation-monitoring",
+    "tmj": "jaw-joint",
+    "whitening": "whitening",
+    "wisdom-tooth": "impacted-wisdom"
+  },
+  "sets": {
+    "advanced-implant-graft": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/advanced-implant-graft/2cd73b3137f7/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/advanced-implant-graft/2cd73b3137f7/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/advanced-implant-graft/2cd73b3137f7/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "b62aa802-b554-4d53-ba9d-dd6bed5438ce",
+        "videoModel": "kling3_0",
+        "videoJobId": "c6e56cec-e33c-443a-9e12-4b0aaf20d7c9",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "5500c4e611954b68d309e42cbc08882c8bc38cd18e59edc76a075182ba5e3a5c",
+        "reviewRecord": "videos-a-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "apical-surgery": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/apical-surgery/2f24e9476492/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/apical-surgery/2f24e9476492/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/apical-surgery/2f24e9476492/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "b590458f-6a22-4ef6-a870-82de37121a38",
+        "videoModel": "kling3_0",
+        "videoJobId": "9961a90a-6dfc-4986-989a-85275e411668",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "a3da8292abc295763467f5f7f565d7d49b8f37cdd3c21aec7c084a35dd49a938",
+        "reviewRecord": "videos-a-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "bridge": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/bridge/2bed454279f7/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/bridge/2bed454279f7/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/bridge/2bed454279f7/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "e0bbc5a0-9861-4815-84b6-a1d733989bb6",
+        "videoModel": "kling3_0",
+        "videoJobId": "3acb17a3-c869-4d5d-861e-8e1f9f24531a",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "863fe37a9ba712a7ae25dce33dcff0519816366546afcc246c85c8be59de00a6",
+        "reviewRecord": "videos-root-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "bruxism-splint": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/bruxism-splint/884e5ee15196/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/bruxism-splint/884e5ee15196/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/bruxism-splint/884e5ee15196/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "c27ab2d1-7d81-4cea-a397-76808dff17e8",
+        "videoModel": "kling3_0",
+        "videoJobId": "fa73cfe6-f00d-4dc8-b7c7-c127d826d7f4",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "7a005dbfe7dde47f150ae3befcf124fc3528f2af9617d4b50d4e39fe5332ebbc",
+        "reviewRecord": "videos-a-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "child-clear-aligner": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/child-clear-aligner/29a92b0a1462/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/child-clear-aligner/29a92b0a1462/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/child-clear-aligner/29a92b0a1462/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "302dcedc-4be2-4195-85a6-8cf3900b07a4",
+        "videoModel": "kling3_0",
+        "videoJobId": "e03e6972-b603-4189-8217-b6e049663e02",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "9b02251225789c5aa78810365e9b728bab491585bcc3f62119fcfc263d067abb",
+        "reviewRecord": "videos-root-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "child-succession": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/child-succession/7270633bf049/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/child-succession/7270633bf049/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/child-succession/7270633bf049/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "f7386277-f626-4b25-95a4-927d4697da30",
+        "videoModel": "kling3_0",
+        "videoJobId": "15a7460f-4bb8-4852-91f5-5d482efcc181",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "0498d4ef5700c3ccfb59bf9f3edbe7a0078a7ac1dfc9f6d1d3e6be02a67c3354",
+        "reviewRecord": "videos-root-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "consultation-neutral": {
+      "status": "visual-review-passed",
+      "kind": "clinic-photo-sequence",
+      "poster": "/static/treatment-motion/consultation-neutral/68fc38ac0b25/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/consultation-neutral/68fc38ac0b25/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1024,
+        "height": 683,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/consultation-neutral/68fc38ac0b25/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 512,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "existingPublicAsset": "/images/pedo-gallery/consultation-room.webp",
+        "selectedMethod": "camera-pan",
+        "sha256": "3935532ba9492ac8dee391c0b5a4123c13b1984b59b3b2fdbe4b5f0fb79c2e89",
+        "reviewRecord": "clinic-photos-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "direct-anterior-composite": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/direct-anterior-composite/a9003d9bb3d9/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/direct-anterior-composite/a9003d9bb3d9/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/direct-anterior-composite/a9003d9bb3d9/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "61da8ba2-1ad1-4319-b97d-364fb26c50ac",
+        "videoModel": "kling3_0",
+        "videoJobId": "0600ff51-b7e8-4a74-9752-c0593a69e5ab",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "0a53ec3fff24e3c552138660691d97a18c95b19e427f1f97f4e8b451f9233cf0",
+        "reviewRecord": "videos-root-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "direct-molar-restoration": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/direct-molar-restoration/3166cc8a8d9c/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/direct-molar-restoration/3166cc8a8d9c/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/direct-molar-restoration/3166cc8a8d9c/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "f67ffa24-1185-4351-b5e1-82a6f4e762ef",
+        "videoModel": "kling3_0",
+        "videoJobId": "4d6cf90b-d4e1-4ed0-8121-0903ffc0ed54",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "272e0901e2ecb8d55a1e99261d680d4fb7d61676e145e6f0be22ff160813a7b0",
+        "reviewRecord": "videos-root-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "existing-ceramic-veneer": {
+      "status": "visual-review-passed",
+      "kind": "existing-sequence",
+      "poster": "/laminate/frames/frame_0001.webp",
+      "desktop": {
+        "pattern": "/laminate/frames/frame_{index}.webp",
+        "count": 67,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/existing-ceramic-veneer/a61c4927b65a/mobile/frame_{index}.webp",
+        "count": 34,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "selectedMethod": "existing-original-sequence",
+        "originalSequence": "/laminate/frames/",
+        "sha256": "df53641468a47a6565d65305e10f090d30e7ea4883c8a6af433541236d944d38",
+        "sha256Definition": "SHA256 of newline-separated zero-padded one-based frame number, colon, and original-file SHA256, with final newline",
+        "originalFrameCount": 67,
+        "originalWidth": 1280,
+        "originalHeight": 720,
+        "posterSourceFrame": 1,
+        "mobileSourceFrames": [
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55,
+          57,
+          59,
+          61,
+          63,
+          65,
+          67
+        ],
+        "mobileEncoding": "ffmpeg libwebp quality 80 compression 5 lanczos 768x432",
+        "provenance": "Existing published site sequence explicitly selected by the user as the quality benchmark; all original desktop file bytes preserved. No new clinical approval is asserted.",
+        "historicalImportCommit": "199bfa5c",
+        "generatorProvenance": "Existing Higgsfield sequence documented in README/history",
+        "reviewRecord": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-premium-motion-20261015/asset-receipts/existing-ceramic-veneer.json",
+        "reviewBasis": "User-selected existing reference with derivative resolution and byte-preservation checks",
+        "clinicalApproval": false
+      }
+    },
+    "existing-clear-aligner": {
+      "status": "visual-review-passed",
+      "kind": "existing-sequence",
+      "poster": "/invisalign/frames/frame_0001.webp",
+      "desktop": {
+        "pattern": "/invisalign/frames/frame_{index}.webp",
+        "count": 67,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/existing-clear-aligner/164b47545c59/mobile/frame_{index}.webp",
+        "count": 34,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "selectedMethod": "existing-original-sequence",
+        "originalSequence": "/invisalign/frames/",
+        "sha256": "19b55f7db66c0836c232f0215182a4067443d0f6fc156c6be09eac332c7f7b7a",
+        "sha256Definition": "SHA256 of newline-separated zero-padded one-based frame number, colon, and original-file SHA256, with final newline",
+        "originalFrameCount": 67,
+        "originalWidth": 1280,
+        "originalHeight": 720,
+        "posterSourceFrame": 1,
+        "mobileSourceFrames": [
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55,
+          57,
+          59,
+          61,
+          63,
+          65,
+          67
+        ],
+        "mobileEncoding": "ffmpeg libwebp quality 80 compression 5 lanczos 768x432",
+        "provenance": "Existing published site sequence explicitly selected by the user as the quality benchmark; all original desktop file bytes preserved. No new clinical approval is asserted.",
+        "historicalImportCommit": "6c6ef73d",
+        "generatorProvenance": "Original generating model and prompt not recovered; existing published asset is the source of truth",
+        "reviewRecord": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-premium-motion-20261015/asset-receipts/existing-clear-aligner.json",
+        "reviewBasis": "User-selected existing reference with derivative resolution and byte-preservation checks",
+        "clinicalApproval": false
+      }
+    },
+    "existing-single-implant": {
+      "status": "visual-review-passed",
+      "kind": "existing-sequence",
+      "poster": "/implant/frames/frame_0001.webp",
+      "desktop": {
+        "pattern": "/implant/frames/frame_{index}.webp",
+        "count": 67,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/existing-single-implant/b45dc194ad9a/mobile/frame_{index}.webp",
+        "count": 34,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "selectedMethod": "existing-original-sequence",
+        "originalSequence": "/implant/frames/",
+        "sha256": "1a5c49b96c5d912e998b7eb890ccad5392a45cf246feeeafb6e16163b8d4e0f9",
+        "sha256Definition": "SHA256 of newline-separated zero-padded one-based frame number, colon, and original-file SHA256, with final newline",
+        "originalFrameCount": 67,
+        "originalWidth": 1280,
+        "originalHeight": 720,
+        "posterSourceFrame": 1,
+        "mobileSourceFrames": [
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55,
+          57,
+          59,
+          61,
+          63,
+          65,
+          67
+        ],
+        "mobileEncoding": "ffmpeg libwebp quality 80 compression 5 lanczos 768x432",
+        "provenance": "Existing published site sequence explicitly selected by the user as the quality benchmark; all original desktop file bytes preserved. No new clinical approval is asserted.",
+        "historicalImportCommit": "592bfda8",
+        "generatorProvenance": "Original generating model and prompt not recovered; existing published asset is the source of truth",
+        "reviewRecord": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-premium-motion-20261015/asset-receipts/existing-single-implant.json",
+        "reviewBasis": "User-selected existing reference with derivative resolution and byte-preservation checks",
+        "clinicalApproval": false
+      }
+    },
+    "fixed-brackets": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/fixed-brackets/e70b745f33eb/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/fixed-brackets/e70b745f33eb/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/fixed-brackets/e70b745f33eb/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "e27d906f-e07f-425d-b0bd-0bad5e5c0a44",
+        "videoModel": "kling3_0",
+        "videoJobId": "3ed8690e-155e-4f95-9c26-6cbdc5e32138",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "a8c729ff103d1a7791f931443df4ffe2b9e128abf90f5b2343e7fa925b827ba7",
+        "reviewRecord": "videos-a-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "fixed-fullarch": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/fixed-fullarch/8c33bd4fc8e9/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/fixed-fullarch/8c33bd4fc8e9/desktop/frame_{index}.webp",
+        "count": 24,
+        "width": 1280,
+        "height": 1280,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/fixed-fullarch/8c33bd4fc8e9/mobile/frame_{index}.webp",
+        "count": 12,
+        "width": 768,
+        "height": 768,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "c9ae2607-e217-4a35-96d0-582d3fb34523",
+        "videoModel": "kling3_0",
+        "videoJobId": "96b2e2d4-6e60-4469-bc23-4f29e249ebee",
+        "selectedSourceFrames": [
+          1,
+          24
+        ],
+        "excludedSourceFrames": [
+          25,
+          73
+        ],
+        "sourceOriginalResolution": [
+          2880,
+          2880
+        ],
+        "selectedMethod": "video",
+        "sha256": "f05e2097771c8fbe757b86a4774f9edc8c3c4ff494957b27097905745feeb51a",
+        "reviewRecord": "fullarch-visual-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "flapless-access": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/flapless-access/64765b35dda6/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/flapless-access/64765b35dda6/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/flapless-access/64765b35dda6/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "e3ceba33-ac8b-4057-accb-10de066d1b27",
+        "videoModel": "kling3_0",
+        "videoJobId": "c1ddc95f-9d4f-472d-ad0a-d3c540f70213",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "21d5c0562b7f5c90c22a5bd1a649f114b3ee98e9dc722b29fe46806450221bad",
+        "reviewRecord": "videos-a-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "full-crown": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/full-crown/f7f1f71a1bfd/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/full-crown/f7f1f71a1bfd/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/full-crown/f7f1f71a1bfd/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "edc6dcb2-b042-42b8-b328-414086d2393b",
+        "videoModel": "kling3_0",
+        "videoJobId": "34567905-aa22-4c94-9c7f-63db37ff87d8",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "8d886c3308132b6708ed9b8fcc93d172a72a937cce07fea8a411f82074f11747",
+        "reviewRecord": "videos-a-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "full-mouth-options": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/full-mouth-options/512ee75aa458/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/full-mouth-options/512ee75aa458/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/full-mouth-options/512ee75aa458/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "ea8a4baf-22f9-40f6-a634-9e4012c6528d",
+        "videoModel": "kling3_0",
+        "videoJobId": "6b07b7b8-7d9b-4ac9-b7ff-11f72d28d34d",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "a3e3404d04e1969f58ae184e4fbad54f69d6954864cf45a98ac21d3ed0d6a18d",
+        "reviewRecord": "videos-a-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "guided-implant": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/guided-implant/285926630f61/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/guided-implant/285926630f61/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/guided-implant/285926630f61/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "3a6619de-1b8f-4638-bff4-5b2e249b0aad",
+        "videoModel": "kling3_0",
+        "videoJobId": "7d926c4e-3420-48f8-9257-b3844b08eb93",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "49cc267789ffc8efd0f7d66886d93ac64aea56771dec9b4520c1c2e06687b075",
+        "reviewRecord": "videos-a-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "immediate-loading": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/immediate-loading/7dd045cb0b29/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/immediate-loading/7dd045cb0b29/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/immediate-loading/7dd045cb0b29/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "acf3d5f2-24c3-4887-89e8-314c14df016f",
+        "videoModel": "kling3_0",
+        "videoJobId": "fb8c4150-0f59-47be-8894-607520808b79",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "4b59223e2d4557fc503dfaadcdf5221464e023d6d0e80482101368cd5c6128f4",
+        "reviewRecord": "videos-a-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "immediate-placement": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/immediate-placement/0b1bf80cff73/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/immediate-placement/0b1bf80cff73/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/immediate-placement/0b1bf80cff73/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "ee255164-f50b-4d45-860a-bd8d44135771",
+        "videoModel": "kling3_0",
+        "videoJobId": "bde11dab-fd60-41f1-b667-df54a7a96ec8",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "d76396b2f7c1d009576330f63cd268f4c31765f804c2ccc5476acf60bf2965b4",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "impacted-wisdom": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/impacted-wisdom/5ed6acc3f2ed/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/impacted-wisdom/5ed6acc3f2ed/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/impacted-wisdom/5ed6acc3f2ed/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "ac1b36d8-6f04-4e7a-bc86-73164754d442",
+        "videoModel": "kling3_0",
+        "videoJobId": "86131cfc-ead1-4ada-87ca-d82834afc114",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "54b87dacb9b8d3c53a9e48b545fa4684d990d7756a8c3b88d762f7ffa12de21e",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "implant-reassessment": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/implant-reassessment/5cb9cb780761/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/implant-reassessment/5cb9cb780761/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/implant-reassessment/5cb9cb780761/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "684d0b25-4a16-4930-bbd9-1284c210ff85",
+        "videoModel": "kling3_0",
+        "videoJobId": "3e010657-f30e-4264-9ba7-1a6316cba2a5",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "ccb6730ab4ecda5d06d4af914660eb8403b08179da003bc41370d675b6dea0c9",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "jaw-joint": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/jaw-joint/df9ba2bdfed2/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/jaw-joint/df9ba2bdfed2/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/jaw-joint/df9ba2bdfed2/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "883b305e-a64d-4718-bd52-b81af8006971",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "d9b1bd69096590ba7b0d77b3452ea57051b718dc6fc91e01ae4b9957f00b016b",
+        "reviewRecord": "jaw-joint-v2-receipt.json",
+        "clinicalApproval": false
+      }
+    },
+    "ortho-options-retention": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/ortho-options-retention/d4ee1a33a971/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/ortho-options-retention/d4ee1a33a971/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/ortho-options-retention/d4ee1a33a971/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "a1c7d274-edb6-4685-99bc-d5332b9406ea",
+        "videoModel": "kling3_0",
+        "videoJobId": "c2698806-829f-43bd-88d1-e6a691c27c3c",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "ca99de190c403b36e0a63e07efe213c6e57f50c40d188bd0f767dd7eeaecc2a9",
+        "reviewRecord": "videos-root-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "partial-inlay-onlay": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/partial-inlay-onlay/7b70e0af2689/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/partial-inlay-onlay/7b70e0af2689/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/partial-inlay-onlay/7b70e0af2689/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "8724616e-7635-41c3-8582-571a1eec2c11",
+        "videoModel": "kling3_0",
+        "videoJobId": "654158aa-85f7-4a64-b281-836cc3c5dd81",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "bc6cf32eb2230fdd3e1eb25cf38340acc5cca33be733fb2f92a69adef2693bee",
+        "reviewRecord": "videos-root-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "periodontal-assessment": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/periodontal-assessment/44ac03b16e08/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/periodontal-assessment/44ac03b16e08/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/periodontal-assessment/44ac03b16e08/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "3f76b567-d5d5-4a6d-9b51-375ae72cf87e",
+        "videoModel": "kling3_0",
+        "videoJobId": "a4bad10a-a9a0-4b59-9f8c-a9a85e2384f1",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "86c243e915519ef578c65a4615c003b1439e37ef01eaadcbd9afc397bb164666",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "periodontal-surgery": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/periodontal-surgery/5498cb66a877/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/periodontal-surgery/5498cb66a877/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/periodontal-surgery/5498cb66a877/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "b4e92405-2600-4282-a0ad-36222ff4383c",
+        "videoModel": "kling3_0",
+        "videoJobId": "ee903ab0-d055-48cf-a32c-91cab0d20e35",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "950b7c77550f599cd34f831217a88884edae616c98ca5809b4dd26129f9c5164",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "prevention": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/prevention/082f5db8f113/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/prevention/082f5db8f113/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/prevention/082f5db8f113/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "27a84504-30a2-4d3b-9a97-d7d1a0d57aa7",
+        "videoModel": "kling3_0",
+        "videoJobId": "19bc01e1-0a55-460a-876e-77b2bdf32842",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "1a5a48c9d2bae5885ed180dc41a823ac9d972a67726d7e8635ba4e6cd58155d3",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "removable-denture": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/removable-denture/9ad73c469e33/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/removable-denture/9ad73c469e33/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/removable-denture/9ad73c469e33/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "1712c1f3-0370-40c7-b3d2-b55256efc96c",
+        "videoModel": "kling3_0",
+        "videoJobId": "33c2ee9a-16a7-47f8-aad9-726767bdc841",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "8e7084b7ee5fab4ab92045492f145822b3f78358a62d9da2cd9b6233044b4e8b",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "removable-overdenture": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/removable-overdenture/8a07b499f328/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/removable-overdenture/8a07b499f328/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/removable-overdenture/8a07b499f328/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "2ce6eb41-c9f3-4e62-a882-7427a49d8969",
+        "videoModel": "kling3_0",
+        "videoJobId": "292f28b9-a8ae-45c1-87bd-293d4f5208e9",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "74e476f9e4bbc99e6becfc275e4607385bb4380c3175392b991e7da8ecf18d5f",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "root-canal-primary": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/root-canal-primary/2c1f91cacda2/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/root-canal-primary/2c1f91cacda2/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/root-canal-primary/2c1f91cacda2/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "8a073e53-15c7-4e5e-bb9d-8cb3013bfe58",
+        "videoModel": "kling3_0",
+        "videoJobId": "1f9378e5-0df3-4d84-8f67-7a4d62a3e2a1",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "4ad760ad603e7c9193fd5589098022b5d874dbe7af8cffdcd78227c8ba354859",
+        "reviewRecord": "videos-root-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "root-canal-retreatment": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/root-canal-retreatment/04a29f508d37/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/root-canal-retreatment/04a29f508d37/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/root-canal-retreatment/04a29f508d37/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "c73fdf23-360d-4408-a518-2a00bc93d5ae",
+        "videoModel": "kling3_0",
+        "videoJobId": "407f919f-3efb-4d56-8d8d-fbfc2f7edec8",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "b4906d52eafbaf3265342dee68c289d02f0b00d0554c56e45464d863f15fc5bb",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "scaling": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/scaling/5d52413773c5/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/scaling/5d52413773c5/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/scaling/5d52413773c5/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "489b3b0c-032d-4139-ae70-5c2ea7b05c39",
+        "videoModel": "kling3_0",
+        "videoJobId": "1086668c-ff0e-4adb-b691-6a5e7b2e3edc",
+        "videoUsed": false,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "camera-pan",
+        "sha256": "0f702bc1f681f89193205115c02962d3dee5cda13c6038c0b28fa22b310fb075",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "sedation-monitoring": {
+      "status": "visual-review-passed",
+      "kind": "clinic-photo-sequence",
+      "poster": "/static/treatment-motion/sedation-monitoring/62571e35bd2b/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/sedation-monitoring/62571e35bd2b/desktop/frame_{index}.webp",
+        "count": 1,
+        "width": 1024,
+        "height": 683,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/sedation-monitoring/62571e35bd2b/mobile/frame_{index}.webp",
+        "count": 1,
+        "width": 768,
+        "height": 512,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": true,
+      "source": {
+        "existingPublicAsset": "/images/implant-gallery/monitor-xray.webp",
+        "selectedMethod": "camera-pan",
+        "sha256": "7a84c9063666fb393f2aeda33ed8ca69ec96043363ba0febc7ff0d19a16ffd58",
+        "reviewRecord": "clinic-photos-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "sinus-upper-jaw": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/sinus-upper-jaw/3b349f9ff16a/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/sinus-upper-jaw/3b349f9ff16a/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/sinus-upper-jaw/3b349f9ff16a/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "1f034ea0-bffe-4e56-ae3a-6db2cfd28cef",
+        "videoModel": "kling3_0",
+        "videoJobId": "d885b9f7-c4c5-4dec-ae9c-965e469bced1",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "00696e3a2abb61b152edeaa6cfa107eeb580379f6cc31d1fc363bde73062b433",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    },
+    "whitening": {
+      "status": "visual-review-passed",
+      "kind": "generated-sequence",
+      "poster": "/static/treatment-motion/whitening/f7c4b4d5b7e9/poster.webp",
+      "desktop": {
+        "pattern": "/static/treatment-motion/whitening/f7c4b4d5b7e9/desktop/frame_{index}.webp",
+        "count": 73,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4
+      },
+      "mobile": {
+        "pattern": "/static/treatment-motion/whitening/f7c4b4d5b7e9/mobile/frame_{index}.webp",
+        "count": 37,
+        "width": 768,
+        "height": 432,
+        "start": 1,
+        "pad": 4
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "imageModel": "gpt_image_2_5",
+        "imageJobId": "9cfbf8d2-ff3e-4979-8028-84ec239671f0",
+        "videoModel": "kling3_0",
+        "videoJobId": "5032bc39-e6aa-46df-9707-0a1a89f9de7b",
+        "videoUsed": true,
+        "sourceOriginalResolution": [
+          3840,
+          2160
+        ],
+        "selectedMethod": "video",
+        "sha256": "78d73a454d42d7efc4fee2329e5d61a19d81dc6215f216112d99b194d03ce7b1",
+        "reviewRecord": "videos-b-review.json",
+        "clinicalApproval": false
+      }
+    }
+  }
+}
