@@ -121,13 +121,34 @@ for (const setKey of referencedSets) {
   check(allowedKinds.has(set.kind), setKey, 'Unsupported visual sequence kind');
   check(typeof set.cameraPan === 'boolean', setKey, 'Explicit camera motion policy is required');
   if (set.cameraPan) check(set.desktop?.count === 1 && set.mobile?.count === 1, setKey, 'Camera-only stills must use exactly one reviewed image per size');
+  if (set.kind !== 'existing-sequence') check(!!set.motion, setKey, 'Every generated/photo visual must define an explicit visible camera path');
+  if (set.motion !== undefined) {
+    const m = set.motion;
+    check(m && typeof m === 'object' && !Array.isArray(m), setKey, 'Motion must be an object');
+    for (const [field, min, max] of [['scales', .65, 1], ['x', -1, 1], ['y', -1, 1]]) {
+      check(Array.isArray(m?.[field]) && m[field].length === 4 && m[field].every(value => Number.isFinite(value) && value >= min && value <= max), setKey, 'Motion requires four bounded ' + field + ' values');
+    }
+    if (Array.isArray(m?.scales) && m.scales.length === 4) check(Math.max(...m.scales) - Math.min(...m.scales) >= .15, setKey, 'Camera movement remains too subtle for the approved repair');
+  }
+  if (set.component !== undefined) {
+    const c = set.component;
+    check(c && c.type === 'rigid-lift', setKey, 'Only reviewed rigid separation is supported');
+    const polygonValid = Array.isArray(c?.polygon) && c.polygon.length >= 3 && c.polygon.length <= 64 && c.polygon.every(point => Array.isArray(point) && point.length === 2 && point.every(value => Number.isFinite(value) && value >= 0 && value <= 1));
+    const offsetsValid = Array.isArray(c?.offsets) && c.offsets.length === 4 && c.offsets.every(value => Number.isFinite(value) && value >= -.1 && value <= 0);
+    check(polygonValid, setKey, 'Component polygon must be bounded normalized points');
+    check(offsetsValid, setKey, 'Four component offsets must preserve the original or greater separation');
+    if (polygonValid && offsetsValid) check(c.polygon.every(point => point[1] + Math.min(...c.offsets) >= 0), setKey, 'Raised component would leave source containment bounds');
+    check(Array.isArray(c?.background) && c.background.length === 2 && c.background.every(color => /^#[0-9a-f]{6}$/i.test(color)), setKey, 'Component needs two explicit neutral background colors');
+    check(typeof c?.note === 'string' && c.note.length >= 20, setKey, 'Component needs an explanatory provenance note');
+  }
+
   check(set.source && typeof set.source === 'object' && Object.keys(set.source).length > 0, setKey, 'Visual source/provenance record is missing');
   const anchors = set.anchors;
   check(Array.isArray(anchors) && anchors.length === 4 && anchors.every(Number.isFinite) && anchors[0] === 0 && anchors[3] === 1 && anchors.every((value, index) => value >= 0 && value <= 1 && (!index || value > anchors[index - 1])), setKey, 'Exactly four ordered progress anchors from 0 to 1 are required');
   resolveVisualAsset(set.poster, setKey + ' poster');
   checkSequence(set.desktop, setKey + ' desktop');
   checkSequence(set.mobile, setKey + ' mobile');
-  visualSetReport.push({ key: setKey, kind: set.kind, status: set.status, poster: set.poster, desktopFrames: set.desktop?.count || 0, mobileFrames: set.mobile?.count || 0 });
+  visualSetReport.push({ key: setKey, kind: set.kind, status: set.status, poster: set.poster, desktopFrames: set.desktop?.count || 0, mobileFrames: set.mobile?.count || 0, explicitCameraMotion: !!set.motion, rigidComponent: !!set.component });
 }
 const versions = { css: new Set(), js: new Set() };
 const scenes = new Set();
@@ -181,7 +202,7 @@ for (const { folder, lang } of languages) {
     try {
       const config = JSON.parse(art?.getAttribute('data-sequence') || 'null');
       check(config && typeof config === 'object', relative, 'Missing parseable sequence configuration');
-      for (const field of ['poster', 'desktop', 'mobile', 'anchors', 'kind', 'cameraPan']) check(jsonSame(config?.[field], visualSet?.[field]), relative, 'Embedded sequence ' + field + ' differs from the reviewed manifest');
+      for (const field of ['poster', 'desktop', 'mobile', 'anchors', 'kind', 'cameraPan', 'motion', 'component']) check(jsonSame(config?.[field], visualSet?.[field]), relative, 'Embedded sequence ' + field + ' differs from the reviewed manifest');
     } catch (error) { check(false, relative, 'Invalid data-sequence JSON: ' + error.message); }
     const controls = scene.querySelectorAll('button.bd-scroll-step-control');
     check(controls.length === 4, relative, 'Four explicit navigation controls required');
@@ -238,7 +259,7 @@ for (const { folder, lang } of languages) {
 check(report.length === 168, 'coverage', 'Expected all 165 details plus 3 treatment hubs');
 check(scenes.size >= 8, 'coverage', 'Treatment families need distinct explanatory scenes');
 const assetDirectory = path.join(root, mode === 'source' ? 'public/static' : 'static');
-const runtimeFiles = ['treatment-scroll.js', 'treatment-scroll.css', 'treatment-scroll-sequence.js'];
+const runtimeFiles = ['treatment-scroll.js', 'treatment-scroll.css', 'treatment-scroll-sequence.js', 'treatment-scroll-compositor.js'];
 const runtimeBuffers = runtimeFiles.map(file => {
   const full = path.join(assetDirectory, file);
   if (!check(fs.existsSync(full), file, 'Local scroll runtime asset is missing')) return null;
@@ -255,14 +276,18 @@ check(importsFrom(moduleText).length === 0 && !/\bimport\s*\(/.test(moduleText) 
 check(!/three\.module|WebGLRenderer|treatment-scroll-3d/.test(moduleText), 'sequence module', 'Old procedural Three.js rendering must not remain in the photoreal module');
 const runtimeText = runtimeBuffers[0]?.toString('utf8') || '';
 check(/const\s+sequenceURL\s*=\s*['"]\/static\/treatment-scroll-sequence\.js['"]\s*\+\s*assetQuery/.test(runtimeText), 'scroll runtime', 'Sequence module must inherit the page asset query version');
-check(jsonSame([...runtimeText.matchAll(/\bimport\s*\(\s*([^)]*)\)/g)].map(match => match[1].trim()), ['sequenceURL']), 'scroll runtime', 'Only the known local sequence module may be dynamically imported');
+check(/const\s+compositorURL\s*=\s*['"]\/static\/treatment-scroll-compositor\.js['"]\s*\+\s*assetQuery/.test(runtimeText), 'scroll runtime', 'Compositor must inherit the page asset query version');
+check(jsonSame([...runtimeText.matchAll(/\bimport\s*\(\s*([^)]*)\)/g)].map(match => match[1].trim()), ['sequenceURL', 'compositorURL']), 'scroll runtime', 'Only the known local sequence and compositor modules may be dynamically imported');
+const compositorText = runtimeBuffers[3]?.toString('utf8') || '';
+check(importsFrom(compositorText).length === 0 && !/\bimport\s*(?:\(|["'])/.test(compositorText), 'compositor module', 'Compositor must have no external or additional imports');
+check(!/three\.module|WebGLRenderer|treatment-scroll-3d/.test(compositorText), 'compositor module', 'Old procedural rendering must not be loaded');
 check(importsFrom(runtimeText).length === 0 && !/\bimport\s*["']/.test(runtimeText), 'scroll runtime', 'Unexpected static runtime module import');
 check(!/treatment-scroll-3d|three\.module/.test(runtimeText), 'scroll runtime', 'Old procedural Three.js module must not be loaded');
 for (const type of ['css', 'js']) {
   check(versions[type].size === 1, type, 'All treatment pages must use the same versioned asset');
   for (const url of versions[type]) {
     check(/\?v=[a-zA-Z0-9_-]+/.test(url), type, 'Missing asset cache version');
-    check(assetVersion && new URL(url, origin).searchParams.get('v') === assetVersion, type, 'Page asset version does not match current JS + CSS + sequence + manifest bytes');
+    check(assetVersion && new URL(url, origin).searchParams.get('v') === assetVersion, type, 'Page asset version does not match current JS + CSS + sequence + compositor + manifest bytes');
     const pathname = new URL(url, origin).pathname;
     const asset = path.join(root, mode === 'source' ? 'public' : '', pathname);
     check(fs.existsSync(asset), type, 'Linked runtime asset is absent from release');

@@ -10,6 +10,7 @@
   const assetScript = document.querySelector('script[src*="/static/treatment-scroll.js"]');
   const assetQuery = assetScript ? new URL(assetScript.src, location.href).search : '';
   const sequenceURL = '/static/treatment-scroll-sequence.js' + assetQuery;
+  const compositorURL = '/static/treatment-scroll-compositor.js' + assetQuery;
   let reduced = reducedQuery.matches;
   let raf = 0;
   let headerOffset = 88;
@@ -33,6 +34,7 @@
       state.toggle.setAttribute('aria-pressed', 'false');
       state.toggle.addEventListener('click', () => {
         state.paused = !state.paused;
+        state.sequence?.setPaused(state.paused);
         section.setAttribute('data-motion-mode', state.paused ? 'paused' : 'scroll');
         state.toggle.setAttribute('aria-pressed', String(state.paused));
         state.toggle.textContent = state.paused ? state.toggle.dataset.resume : state.toggle.dataset.pause;
@@ -64,7 +66,7 @@
         const target = window.scrollY + rect.top + rect.height / 2 - readingLine(state);
         // Explicit navigation only. Never intercept wheel, touch, or keyboard scrolling.
         window.scrollTo({ top: Math.max(0, target), behavior: state.paused ? 'auto' : 'smooth' });
-        if (state.paused) paint(state, index / Math.max(1, steps.length - 1));
+        if (state.paused) paint(state, index / Math.max(1, steps.length - 1), true);
       });
     });
     paint(state, 0);
@@ -75,10 +77,11 @@
     if (reduced || !state.near || !state.art || state.sequence || state.sequenceLoading || state.sequenceFailed) return;
     state.sequenceLoading = true;
     try {
-      const module = await import(sequenceURL);
+      const [module, compositor] = await Promise.all([import(sequenceURL), import(compositorURL)]);
       if (reduced || !state.near || document.hidden) return;
       const config = JSON.parse(state.art.dataset.sequence);
-      state.sequence = module.createSequence({ container: state.art, config, onError: () => { state.section.dataset.assetStatus = 'fallback'; }, onReady: () => { state.section.dataset.assetStatus = 'ready'; } });
+      state.sequence = module.createSequence({ container: state.art, config, renderFrame: compositor.drawTreatmentFrame, onError: () => { state.section.dataset.assetStatus = 'fallback'; }, onReady: () => { state.section.dataset.assetStatus = 'ready'; } });
+      state.sequence.setPaused(state.paused);
       state.sequence.update(Math.max(0, state.progress));
     } catch (_) { state.sequenceFailed = true; state.art.classList.remove('has-sequence'); }
     finally { state.sequenceLoading = false; }
@@ -104,14 +107,14 @@
     }
     return headerOffset + Math.max(150, viewport - headerOffset) * .48;
   }
-  function paint(state, progress) {
+  function paint(state, progress, instant = false) {
     const p = clamp(progress);
     const count = state.steps.length;
     const phaseFloat = p * Math.max(1, count - 1);
     const phase = Math.min(count - 1, Math.round(phaseFloat));
-    if (Math.abs(state.progress - p) < .0001 && state.phase === phase) return;
+    if (!instant && Math.abs(state.progress - p) < .0001 && state.phase === phase) return;
     state.progress = p;
-    state.sequence?.update(p);
+    state.sequence?.update(p, { instant });
     state.section.style.setProperty('--bd-progress', p.toFixed(5));
     state.section.style.setProperty('--bd-phase-progress', (phaseFloat % 1).toFixed(5));
     state.section.dataset.activeStep = String(phase);

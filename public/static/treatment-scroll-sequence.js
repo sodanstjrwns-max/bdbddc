@@ -2,7 +2,7 @@
  * A bounded, scroll-driven frame renderer. It never plays video or intercepts scroll.
  *
  * createSequence({ container, config, onReady?, onError? })
- *   -> { update(progress), resize(), dispose() }
+ *   -> { update(progress), setPaused(paused), resize(), dispose() }
  *
  * config = {
  *   poster: '/static/treatment-motion/example/poster.webp', // SSR <img> already present
@@ -66,13 +66,23 @@ function releaseFrame(frame) {
   else if (frame?.removeAttribute) frame.removeAttribute('src');
 }
 
-export function createSequence({ container, config, onReady = () => {}, onError = () => {} }) {
+export function createSequence({ container, config, renderFrame, onReady = () => {}, onError = () => {} }) {
   if (!container || typeof container.appendChild !== 'function' || !config) {
     throw new TypeError('createSequence requires a container and frame configuration');
   }
   const desktop = validateSource(config.desktop, 'desktop');
   const mobile = config.mobile ? validateSource(config.mobile, 'mobile') : desktop;
   const anchors = validateAnchors(config.anchors);
+  const cameraPan = config.cameraPan === true;
+  const motion = config.motion || (cameraPan ? { scales: [.78, .88, .94, 1], x: [-.6, -.2, .3, 0], y: [.15, 0, -.15, 0] } : null);
+  if (motion) {
+    for (const [key, min, max] of [['scales', .65, 1], ['x', -1, 1], ['y', -1, 1]]) {
+      if (!Array.isArray(motion[key]) || motion[key].length !== 4 || motion[key].some(value => !Number.isFinite(value) || value < min || value > max)) {
+        throw new TypeError('Sequence motion requires four bounded scales, x and y values');
+      }
+    }
+  }
+  const component = Boolean(config.component);
   const cacheLimit = clamp(positiveInt(config.cacheSize, 10), 4, 16);
   const breakpoint = clamp(positiveInt(config.mobileBreakpoint, 760), 320, 1200);
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -90,12 +100,13 @@ export function createSequence({ container, config, onReady = () => {}, onError 
   const failed = new Set();
   let source = mobileQuery.matches ? mobile : desktop;
   let reduced = motionQuery.matches;
-  let near = !('IntersectionObserver' in window);
+  let near = !('IntersectionObserver' in window), visible = near, paused = false;
   let disposed = false, epoch = 0, ready = false;
-  let progress = 0, target = 0, drawn = -1, drawnProgress = -1;
-  const cameraPan = config.cameraPan === true;
+  let progress = 0, targetProgress = 0, target = 0, drawn = -1, drawnProgress = -1;
+  let direction = 1, tweenFrom = 0, tweenStarted = 0, animationRAF = 0, snapshotPending = false;
+  const tweenDuration = 760;
   let queue = [], resizeRAF = 0, inFlight = 0;
-  let observer = null, resizeObserver = null;
+  let observer = null, visibilityObserver = null, resizeObserver = null;
 
   function report(error, index) {
     try { onError(error, { index, source: source.pattern }); } catch (_) { /* The caller must not break fallback rendering. */ }
@@ -108,6 +119,7 @@ export function createSequence({ container, config, onReady = () => {}, onError 
   }
   function active() { return !disposed && near && !reduced && !document.hidden; }
   function mappedFrame(p) {
+    if (component) return 0;
     const segment = clamp(p) * (anchors.length - 1);
     const i = Math.min(anchors.length - 2, Math.floor(segment));
     const framePosition = anchors[i] + (anchors[i + 1] - anchors[i]) * (segment - i);
@@ -141,9 +153,8 @@ export function createSequence({ container, config, onReady = () => {}, onError 
   }
   function availableFrame() {
     if (cache.has(target)) return target;
-    // Retain an already painted frame while its replacement loads. A canvas resize
-    // calls draw(force), which can use the closest decoded frame synchronously.
-    if (cache.has(drawn)) return drawn;
+    // Show the nearest decoded position immediately. Retaining the last painted
+    // frame until the exact target arrives can make a working sequence look frozen.
     let closest = -1, distance = Infinity;
     for (const index of cache.keys()) {
       const gap = Math.abs(index - target);
@@ -151,26 +162,40 @@ export function createSequence({ container, config, onReady = () => {}, onError 
     }
     return closest;
   }
+  function motionValue(key, fallback) {
+    if (!motion) return fallback;
+    const position = clamp(progress) * 3;
+    const segment = Math.min(2, Math.floor(position));
+    const fraction = position - segment;
+    const eased = fraction * fraction * (3 - 2 * fraction);
+    return motion[key][segment] + (motion[key][segment + 1] - motion[key][segment]) * eased;
+  }
   function draw(force = false) {
-    if (disposed || reduced || document.hidden || !canvas.width || !canvas.height) return;
+    if (disposed || reduced || (paused && !snapshotPending && !force) || document.hidden || !canvas.width || !canvas.height) return;
     const index = availableFrame();
-    if (index < 0 || (!force && drawn === index && ready && (!cameraPan || Math.abs(drawnProgress - progress) < .0001))) return;
+    if (index < 0 || (!force && drawn === index && ready && Math.abs(drawnProgress - progress) < .0001)) return;
     const frame = touch(index);
     if (!frame) return;
     const width = frame.width || frame.naturalWidth;
     const height = frame.height || frame.naturalHeight;
     if (!width || !height) return;
-    // A reviewed still can move gently without inventing new anatomy. Scale stays
-    // inside the contain bounds, so even the final state cannot crop the image.
-    const cameraScale = cameraPan ? .97 + .03 * (progress * progress * (3 - 2 * progress)) : 1;
+    // Camera movement never crops the reviewed image or invents new anatomy.
+    // Translation is expressed only within the unused contain margins.
+    const cameraScale = motionValue('scales', 1);
     const scale = Math.min(canvas.width / width, canvas.height / height) * cameraScale;
     const w = width * scale, h = height * scale;
+    const x = (canvas.width - w) / 2 * (1 + motionValue('x', 0));
+    const y = (canvas.height - h) / 2 * (1 + motionValue('y', 0));
     context.fillStyle = config.background || '#f7f7f0';
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.imageSmoothingEnabled = true;
     context.imageSmoothingQuality = 'high';
     try {
-      context.drawImage(frame, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+      let rendered = false;
+      if (typeof renderFrame === 'function') {
+        rendered = renderFrame({ context, frame, index, progress, rect: { x, y, width: w, height: h }, canvas, source, config }) === true;
+      }
+      if (!rendered) context.drawImage(frame, x, y, w, h);
     } catch (error) {
       cache.delete(index);
       releaseFrame(frame);
@@ -181,6 +206,14 @@ export function createSequence({ container, config, onReady = () => {}, onError 
     }
     drawn = index;
     drawnProgress = progress;
+    if (index === target) snapshotPending = false;
+    canvas.dataset.frame = String(index + source.start);
+    canvas.dataset.progress = progress.toFixed(5);
+    canvas.dataset.targetProgress = targetProgress.toFixed(5);
+    canvas.dataset.scale = cameraScale.toFixed(5);
+    canvas.dataset.x = x.toFixed(2);
+    canvas.dataset.y = y.toFixed(2);
+    canvas.dataset.settled = String(Math.abs(progress - targetProgress) < .0001);
     if (!ready) {
       ready = true;
       container.classList.add('has-sequence');
@@ -202,27 +235,55 @@ export function createSequence({ container, config, onReady = () => {}, onError 
     else hideCanvas();
   }
   function preferredIndices() {
+    if (component) return [0];
     const wanted = [target];
     const add = index => {
       if (index >= 0 && index < source.count && !wanted.includes(index) && wanted.length < cacheLimit) wanted.push(index);
     };
-    // Four nearby frames first, then text-step anchor frames, then the next neighbors.
-    for (let distance = 1; distance <= 2; distance++) { add(target + distance); add(target - distance); }
+    // Read ahead in the current direction before the opposite side or anchors.
+    for (let distance = 1; distance <= 4; distance++) add(target + direction * distance);
+    for (let distance = 1; distance <= 2; distance++) add(target - direction * distance);
     const anchorIndices = anchors.map(value => Math.round(value * (source.count - 1))).sort((a, b) => Math.abs(a - target) - Math.abs(b - target));
     anchorIndices.forEach(add);
-    for (let distance = 3; wanted.length < cacheLimit && distance < cacheLimit; distance++) { add(target + distance); add(target - distance); }
+    for (let distance = 5; wanted.length < cacheLimit && distance < cacheLimit; distance++) { add(target + direction * distance); add(target - direction * distance); }
     return wanted;
   }
   function schedule() {
     if (!active()) return;
     target = mappedFrame(progress);
     queue = preferredIndices();
-    // A rapid reverse scroll should not be held up by unrelated old requests.
-    for (const [index, request] of requests) {
-      if (!queue.includes(index)) { clearTimeout(request.timer); request.controller.abort(); requests.delete(index); }
-    }
+    // Keep the two bounded in-flight requests alive during scrolling. Repeatedly
+    // aborting them on every new target prevents slow connections ever decoding.
     draw();
     pump();
+  }
+  function stopAnimation() {
+    if (animationRAF) cancelAnimationFrame(animationRAF);
+    animationRAF = 0;
+  }
+  function canAnimate() { return active() && visible && !paused; }
+  function animate(now) {
+    animationRAF = 0;
+    if (!canAnimate()) return;
+    const elapsed = clamp((now - tweenStarted) / tweenDuration);
+    const eased = 1 - Math.pow(1 - elapsed, 3);
+    progress = tweenFrom + (targetProgress - tweenFrom) * eased;
+    if (elapsed === 1 || Math.abs(progress - targetProgress) < .0001) progress = targetProgress;
+    schedule();
+    if (progress !== targetProgress) animationRAF = requestAnimationFrame(animate);
+  }
+  function resumeAnimation() {
+    if (!canAnimate()) return;
+    tweenFrom = progress;
+    tweenStarted = performance.now();
+    if (Math.abs(progress - targetProgress) < .0001) { progress = targetProgress; schedule(); }
+    else if (!animationRAF) animationRAF = requestAnimationFrame(animate);
+  }
+  function setPaused(value) {
+    paused = Boolean(value);
+    snapshotPending = false;
+    if (paused) stopAnimation();
+    else resumeAnimation();
   }
   async function decode(blob, signal, requestSource, isMobile) {
     if (signal.aborted) throw abortError();
@@ -311,17 +372,34 @@ export function createSequence({ container, config, onReady = () => {}, onError 
       })();
     }
   }
-  function update(value) {
+  function update(value, { instant = false } = {}) {
     if (disposed) return;
-    progress = clamp(finite(value, 0));
-    if (!reduced) schedule();
+    const next = clamp(finite(value, 0));
+    if (!instant && Math.abs(next - targetProgress) < .0001) { if (!ready && !paused && !reduced) schedule(); return; }
+    direction = next >= targetProgress ? 1 : -1;
+    targetProgress = next;
+    canvas.dataset.targetProgress = targetProgress.toFixed(5);
+    if (instant) {
+      // A deliberate step selection remains usable while paused. This is one
+      // static frame change, not a resumed animation or a new RAF loop.
+      stopAnimation();
+      progress = targetProgress;
+      snapshotPending = paused;
+      schedule();
+    } else if (canAnimate()) resumeAnimation();
+    else if (!paused && !reduced && !visible) {
+      // No animation loop runs outside the viewport. Render that position when it
+      // returns, instead of replaying a long journey made while off-screen.
+      progress = targetProgress;
+      schedule();
+    }
   }
   function motionChanged() {
     if (disposed) return;
     reduced = motionQuery.matches;
-    cancelRequests();
+    stopAnimation(); cancelRequests();
     if (reduced) { clearCache(); hideCanvas(); }
-    else { resize(); schedule(); }
+    else { resize(); schedule(); resumeAnimation(); }
   }
   function viewportChanged() {
     if (disposed) return;
@@ -332,8 +410,8 @@ export function createSequence({ container, config, onReady = () => {}, onError 
     resize(); schedule();
   }
   function visibilityChanged() {
-    if (document.hidden) cancelRequests();
-    else { resize(); schedule(); }
+    if (document.hidden) { stopAnimation(); cancelRequests(); }
+    else { resize(); schedule(); resumeAnimation(); }
   }
   function queueResize() {
     if (disposed || resizeRAF) return;
@@ -346,8 +424,8 @@ export function createSequence({ container, config, onReady = () => {}, onError 
   function dispose() {
     if (disposed) return;
     disposed = true;
-    cancelRequests(); clearCache();
-    observer?.disconnect(); resizeObserver?.disconnect();
+    stopAnimation(); cancelRequests(); clearCache();
+    observer?.disconnect(); visibilityObserver?.disconnect(); resizeObserver?.disconnect();
     listen(motionQuery, motionChanged, true); listen(mobileQuery, viewportChanged, true);
     document.removeEventListener('visibilitychange', visibilityChanged);
     window.removeEventListener('resize', queueResize);
@@ -364,15 +442,22 @@ export function createSequence({ container, config, onReady = () => {}, onError 
     observer = new IntersectionObserver(entries => {
       if (disposed) return;
       near = entries.some(entry => entry.target === container && entry.isIntersecting);
-      if (near) { resize(); schedule(); }
-      else cancelRequests();
+      if (near) { resize(); schedule(); resumeAnimation(); }
+      else { stopAnimation(); cancelRequests(); }
     }, { rootMargin: '300px 0px' });
     observer.observe(container);
+    visibilityObserver = new IntersectionObserver(entries => {
+      if (disposed) return;
+      visible = entries.some(entry => entry.target === container && entry.isIntersecting);
+      if (visible) resumeAnimation();
+      else stopAnimation();
+    }, { rootMargin: '0px' });
+    visibilityObserver.observe(container);
   }
   if ('ResizeObserver' in window) {
     resizeObserver = new ResizeObserver(queueResize);
     resizeObserver.observe(container);
   }
   resize(); schedule();
-  return { update, resize, dispose };
+  return { update, setPaused, resize, dispose };
 }

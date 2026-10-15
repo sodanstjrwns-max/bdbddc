@@ -101,6 +101,26 @@
         "sha256": "5500c4e611954b68d309e42cbc08882c8bc38cd18e59edc76a075182ba5e3a5c",
         "reviewRecord": "videos-a-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "apical-surgery": {
@@ -144,6 +164,26 @@
         "sha256": "a3da8292abc295763467f5f7f565d7d49b8f37cdd3c21aec7c084a35dd49a938",
         "reviewRecord": "videos-a-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "bridge": {
@@ -187,6 +227,26 @@
         "sha256": "863fe37a9ba712a7ae25dce33dcff0519816366546afcc246c85c8be59de00a6",
         "reviewRecord": "videos-root-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "bruxism-splint": {
@@ -230,6 +290,26 @@
         "sha256": "7a005dbfe7dde47f150ae3befcf124fc3528f2af9617d4b50d4e39fe5332ebbc",
         "reviewRecord": "videos-a-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "child-clear-aligner": {
@@ -273,6 +353,26 @@
         "sha256": "9b02251225789c5aa78810365e9b728bab491585bcc3f62119fcfc263d067abb",
         "reviewRecord": "videos-root-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "child-succession": {
@@ -316,6 +416,26 @@
         "sha256": "0498d4ef5700c3ccfb59bf9f3edbe7a0078a7ac1dfc9f6d1d3e6be02a67c3354",
         "reviewRecord": "videos-root-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "consultation-neutral": {
@@ -351,6 +471,26 @@
         "sha256": "3935532ba9492ac8dee391c0b5a4123c13b1984b59b3b2fdbe4b5f0fb79c2e89",
         "reviewRecord": "clinic-photos-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "direct-anterior-composite": {
@@ -394,6 +534,26 @@
         "sha256": "0a53ec3fff24e3c552138660691d97a18c95b19e427f1f97f4e8b451f9233cf0",
         "reviewRecord": "videos-root-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "direct-molar-restoration": {
@@ -437,6 +597,26 @@
         "sha256": "272e0901e2ecb8d55a1e99261d680d4fb7d61676e145e6f0be22ff160813a7b0",
         "reviewRecord": "videos-root-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "existing-ceramic-veneer": {
@@ -723,6 +903,26 @@
         "sha256": "a8c729ff103d1a7791f931443df4ffe2b9e128abf90f5b2343e7fa925b827ba7",
         "reviewRecord": "videos-a-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "fixed-fullarch": {
@@ -773,6 +973,94 @@
         "sha256": "f05e2097771c8fbe757b86a4774f9edc8c3c4ff494957b27097905745feeb51a",
         "reviewRecord": "fullarch-visual-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.8,
+          0.96,
+          1,
+          0.86
+        ],
+        "x": [
+          0,
+          0,
+          0,
+          0.3
+        ],
+        "y": [
+          0.3,
+          0,
+          0,
+          -0.4
+        ]
+      },
+      "component": {
+        "type": "rigid-lift",
+        "polygon": [
+          [
+            0.07,
+            0.12
+          ],
+          [
+            0.925,
+            0.12
+          ],
+          [
+            0.925,
+            0.335
+          ],
+          [
+            0.89,
+            0.375
+          ],
+          [
+            0.865,
+            0.405
+          ],
+          [
+            0.81,
+            0.434
+          ],
+          [
+            0.675,
+            0.462
+          ],
+          [
+            0.49,
+            0.466
+          ],
+          [
+            0.34,
+            0.453
+          ],
+          [
+            0.23,
+            0.426
+          ],
+          [
+            0.165,
+            0.396
+          ],
+          [
+            0.11,
+            0.355
+          ],
+          [
+            0.07,
+            0.32
+          ]
+        ],
+        "offsets": [
+          0,
+          -0.085,
+          0,
+          -0.065
+        ],
+        "background": [
+          "#f0ece1",
+          "#eee9dd"
+        ],
+        "note": "Exploded-view separation only. No seating or tissue transformation."
       }
     },
     "flapless-access": {
@@ -816,6 +1104,26 @@
         "sha256": "21d5c0562b7f5c90c22a5bd1a649f114b3ee98e9dc722b29fe46806450221bad",
         "reviewRecord": "videos-a-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "full-crown": {
@@ -859,6 +1167,26 @@
         "sha256": "8d886c3308132b6708ed9b8fcc93d172a72a937cce07fea8a411f82074f11747",
         "reviewRecord": "videos-a-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "full-mouth-options": {
@@ -902,6 +1230,26 @@
         "sha256": "a3e3404d04e1969f58ae184e4fbad54f69d6954864cf45a98ac21d3ed0d6a18d",
         "reviewRecord": "videos-a-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "guided-implant": {
@@ -945,6 +1293,26 @@
         "sha256": "49cc267789ffc8efd0f7d66886d93ac64aea56771dec9b4520c1c2e06687b075",
         "reviewRecord": "videos-a-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "immediate-loading": {
@@ -988,6 +1356,26 @@
         "sha256": "4b59223e2d4557fc503dfaadcdf5221464e023d6d0e80482101368cd5c6128f4",
         "reviewRecord": "videos-a-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "immediate-placement": {
@@ -1031,6 +1419,26 @@
         "sha256": "d76396b2f7c1d009576330f63cd268f4c31765f804c2ccc5476acf60bf2965b4",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "impacted-wisdom": {
@@ -1074,6 +1482,26 @@
         "sha256": "54b87dacb9b8d3c53a9e48b545fa4684d990d7756a8c3b88d762f7ffa12de21e",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "implant-reassessment": {
@@ -1117,6 +1545,26 @@
         "sha256": "ccb6730ab4ecda5d06d4af914660eb8403b08179da003bc41370d675b6dea0c9",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "jaw-joint": {
@@ -1158,6 +1606,26 @@
         "sha256": "d9b1bd69096590ba7b0d77b3452ea57051b718dc6fc91e01ae4b9957f00b016b",
         "reviewRecord": "jaw-joint-v2-receipt.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "ortho-options-retention": {
@@ -1201,6 +1669,26 @@
         "sha256": "ca99de190c403b36e0a63e07efe213c6e57f50c40d188bd0f767dd7eeaecc2a9",
         "reviewRecord": "videos-root-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "partial-inlay-onlay": {
@@ -1244,6 +1732,26 @@
         "sha256": "bc6cf32eb2230fdd3e1eb25cf38340acc5cca33be733fb2f92a69adef2693bee",
         "reviewRecord": "videos-root-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "periodontal-assessment": {
@@ -1287,6 +1795,26 @@
         "sha256": "86c243e915519ef578c65a4615c003b1439e37ef01eaadcbd9afc397bb164666",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "periodontal-surgery": {
@@ -1330,6 +1858,26 @@
         "sha256": "950b7c77550f599cd34f831217a88884edae616c98ca5809b4dd26129f9c5164",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "prevention": {
@@ -1373,6 +1921,26 @@
         "sha256": "1a5a48c9d2bae5885ed180dc41a823ac9d972a67726d7e8635ba4e6cd58155d3",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "removable-denture": {
@@ -1416,6 +1984,26 @@
         "sha256": "8e7084b7ee5fab4ab92045492f145822b3f78358a62d9da2cd9b6233044b4e8b",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "removable-overdenture": {
@@ -1459,6 +2047,26 @@
         "sha256": "74e476f9e4bbc99e6becfc275e4607385bb4380c3175392b991e7da8ecf18d5f",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "root-canal-primary": {
@@ -1502,6 +2110,26 @@
         "sha256": "4ad760ad603e7c9193fd5589098022b5d874dbe7af8cffdcd78227c8ba354859",
         "reviewRecord": "videos-root-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "root-canal-retreatment": {
@@ -1545,6 +2173,26 @@
         "sha256": "b4906d52eafbaf3265342dee68c289d02f0b00d0554c56e45464d863f15fc5bb",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "scaling": {
@@ -1588,6 +2236,26 @@
         "sha256": "0f702bc1f681f89193205115c02962d3dee5cda13c6038c0b28fa22b310fb075",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "sedation-monitoring": {
@@ -1623,6 +2291,26 @@
         "sha256": "7a84c9063666fb393f2aeda33ed8ca69ec96043363ba0febc7ff0d19a16ffd58",
         "reviewRecord": "clinic-photos-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "sinus-upper-jaw": {
@@ -1666,6 +2354,26 @@
         "sha256": "00696e3a2abb61b152edeaa6cfa107eeb580379f6cc31d1fc363bde73062b433",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     },
     "whitening": {
@@ -1709,6 +2417,26 @@
         "sha256": "78d73a454d42d7efc4fee2329e5d61a19d81dc6215f216112d99b194d03ce7b1",
         "reviewRecord": "videos-b-review.json",
         "clinicalApproval": false
+      },
+      "motion": {
+        "scales": [
+          0.76,
+          1,
+          0.82,
+          0.98
+        ],
+        "x": [
+          -0.4,
+          0,
+          0.75,
+          0
+        ],
+        "y": [
+          0.35,
+          0,
+          -0.65,
+          0
+        ]
       }
     }
   }
