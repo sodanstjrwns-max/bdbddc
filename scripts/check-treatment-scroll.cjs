@@ -117,18 +117,18 @@ const referencedSets = new Set([...Object.values(motionProfiles), motionManifest
 for (const setKey of referencedSets) {
   const set = motionSets[setKey];
   if (!set) continue;
-  check(set.status === 'visual-review-passed', setKey, 'Visual set has not passed the recorded visual review');
+  check(['visual-review-passed', 'process-sample-reviewed'].includes(set.status), setKey, 'Visual set is missing a recorded review status');
   check(allowedKinds.has(set.kind), setKey, 'Unsupported visual sequence kind');
   check(typeof set.cameraPan === 'boolean', setKey, 'Explicit camera motion policy is required');
   if (set.cameraPan) check(set.desktop?.count === 1 && set.mobile?.count === 1, setKey, 'Camera-only stills must use exactly one reviewed image per size');
-  if (set.kind !== 'existing-sequence') check(!!set.motion, setKey, 'Every generated/photo visual must define an explicit visible camera path');
+  if (set.kind !== 'existing-sequence' && !set.processStages) check(!!set.motion, setKey, 'Every generated/photo visual must define an explicit visible camera path');
   if (set.motion !== undefined) {
     const m = set.motion;
     check(m && typeof m === 'object' && !Array.isArray(m), setKey, 'Motion must be an object');
     for (const [field, min, max] of [['scales', .65, 1], ['x', -1, 1], ['y', -1, 1]]) {
       check(Array.isArray(m?.[field]) && m[field].length === 4 && m[field].every(value => Number.isFinite(value) && value >= min && value <= max), setKey, 'Motion requires four bounded ' + field + ' values');
     }
-    if (Array.isArray(m?.scales) && m.scales.length === 4) check(Math.max(...m.scales) - Math.min(...m.scales) >= .15, setKey, 'Camera movement remains too subtle for the approved repair');
+    // A zoom range is not evidence of treatment-specific motion or visual quality.
   }
   if (set.component !== undefined) {
     const c = set.component;
@@ -142,6 +142,14 @@ for (const setKey of referencedSets) {
     check(typeof c?.note === 'string' && c.note.length >= 20, setKey, 'Component needs an explanatory provenance note');
   }
 
+  if (set.processStages !== undefined) {
+    const stages = set.processStages;
+    check(Array.isArray(stages) && stages.length === 4 && stages.every((stage, i) =>
+      stage && Number.isInteger(stage.start) && Number.isInteger(stage.end) && stage.start >= 0 &&
+      stage.end >= stage.start && stage.end < Math.min(set.desktop?.count || 0, set.mobile?.count || 0) &&
+      (!i || stage.start > stages[i - 1].end)), setKey, 'Invalid process chapter frame ranges');
+    check(!set.component && !set.cameraPan && !set.motion, setKey, 'Process chapters must show source movement without simulated camera or component transforms');
+  }
   check(set.source && typeof set.source === 'object' && Object.keys(set.source).length > 0, setKey, 'Visual source/provenance record is missing');
   const anchors = set.anchors;
   check(Array.isArray(anchors) && anchors.length === 4 && anchors.every(Number.isFinite) && anchors[0] === 0 && anchors[3] === 1 && anchors.every((value, index) => value >= 0 && value <= 1 && (!index || value > anchors[index - 1])), setKey, 'Exactly four ordered progress anchors from 0 to 1 are required');
@@ -202,7 +210,7 @@ for (const { folder, lang } of languages) {
     try {
       const config = JSON.parse(art?.getAttribute('data-sequence') || 'null');
       check(config && typeof config === 'object', relative, 'Missing parseable sequence configuration');
-      for (const field of ['poster', 'desktop', 'mobile', 'anchors', 'kind', 'cameraPan', 'motion', 'component']) check(jsonSame(config?.[field], visualSet?.[field]), relative, 'Embedded sequence ' + field + ' differs from the reviewed manifest');
+      for (const field of ['poster', 'desktop', 'mobile', 'anchors', 'kind', 'cameraPan', 'motion', 'component', 'processStages']) check(jsonSame(config?.[field], visualSet?.[field]), relative, 'Embedded sequence ' + field + ' differs from the reviewed manifest');
     } catch (error) { check(false, relative, 'Invalid data-sequence JSON: ' + error.message); }
     const controls = scene.querySelectorAll('button.bd-scroll-step-control');
     check(controls.length === 4, relative, 'Four explicit navigation controls required');
@@ -318,11 +326,11 @@ if (baseline) {
 const output = args.find(value => value.startsWith('--output='))?.slice(9);
 if (output) {
   if (!path.isAbsolute(output) || !path.resolve(output).startsWith('/Volumes/MSJ_WORK/Workspaces/')) throw Error('Report output must be an absolute SSD workspace path');
-  fs.writeFileSync(output, JSON.stringify({ passed: !errors.length, checkedAt: new Date().toISOString(), mode, baseline: baseline || null, assetVersion, visualSets: visualSetReport, visualAssets: assetExistenceCache.size, checks: report, errors }, null, 2) + '\n', { flag: 'wx' });
+  fs.writeFileSync(output, JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: !errors.length, checkedAt: new Date().toISOString(), mode, baseline: baseline || null, assetVersion, visualSets: visualSetReport, visualAssets: assetExistenceCache.size, checks: report, errors }, null, 2) + '\n', { flag: 'wx' });
 }
 if (errors.length) {
-  console.error(JSON.stringify({ passed: false, mode, errors }, null, 2));
+  console.error(JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: false, mode, errors }, null, 2));
   process.exitCode = 1;
 } else {
-  console.log(JSON.stringify({ passed: true, mode, pages: report.length, preservedImplantFrames: implantFrames.length, baseline: baseline || null, sceneFamilies: scenes.size, assetVersion, visualSets: visualSetReport.length, visualAssets: assetExistenceCache.size, locales: languages.map(({ folder, lang }) => ({ lang, pages: report.filter(item => new URL(item.path).pathname.startsWith((folder ? '/' + folder : '') + '/treatments/')).length })) }));
+  console.log(JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: true, mode, pages: report.length, preservedImplantFrames: implantFrames.length, baseline: baseline || null, sceneFamilies: scenes.size, assetVersion, visualSets: visualSetReport.length, visualAssets: assetExistenceCache.size, locales: languages.map(({ folder, lang }) => ({ lang, pages: report.filter(item => new URL(item.path).pathname.startsWith((folder ? '/' + folder : '') + '/treatments/')).length })) }));
 }

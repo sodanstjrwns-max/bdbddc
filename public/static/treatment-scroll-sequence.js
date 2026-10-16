@@ -73,6 +73,15 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   const desktop = validateSource(config.desktop, 'desktop');
   const mobile = config.mobile ? validateSource(config.mobile, 'mobile') : desktop;
   const anchors = validateAnchors(config.anchors);
+  // Each chapter uses its own treatment clip. Chapter boundaries match the
+  // four text steps, so brushing frames cannot appear under fixation text.
+  const processStages = config.processStages;
+  if (processStages !== undefined && (!Array.isArray(processStages) || processStages.length !== 4 ||
+      processStages.some((stage, i) => !stage || !Number.isInteger(stage.start) || !Number.isInteger(stage.end) ||
+        stage.start < 0 || stage.end < stage.start || stage.end >= Math.min(desktop.count, mobile.count) ||
+        (i > 0 && stage.start <= processStages[i - 1].end)))) {
+    throw new TypeError('Process stages need four ordered, non-overlapping frame ranges');
+  }
   const cameraPan = config.cameraPan === true;
   const motion = config.motion || (cameraPan ? { scales: [.78, .88, .94, 1], x: [-.6, -.2, .3, 0], y: [.15, 0, -.15, 0] } : null);
   if (motion) {
@@ -83,6 +92,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     }
   }
   const component = Boolean(config.component);
+  if (processStages && (component || motion)) throw new TypeError('Process clips must not use synthetic component or camera movement');
   const cacheLimit = clamp(positiveInt(config.cacheSize, 10), 4, 16);
   const breakpoint = clamp(positiveInt(config.mobileBreakpoint, 760), 320, 1200);
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -98,6 +108,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   const cache = new Map(); // insertion order is the decoded-frame LRU
   const requests = new Map();
   const failed = new Set();
+  const failureCounts = new Map();
   let source = mobileQuery.matches ? mobile : desktop;
   let reduced = motionQuery.matches;
   let near = !('IntersectionObserver' in window), visible = near, paused = false;
@@ -119,6 +130,14 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   }
   function active() { return !disposed && near && !reduced && !document.hidden; }
   function mappedFrame(p) {
+    if (processStages) {
+      const phase = Math.round(clamp(p) * 3);
+      const lower = phase === 0 ? 0 : (phase - .5) / 3;
+      const upper = phase === 3 ? 1 : (phase + .5) / 3;
+      const fraction = clamp((p - lower) / (upper - lower));
+      const stage = processStages[phase];
+      return Math.round(stage.start + fraction * (stage.end - stage.start));
+    }
     if (component) return 0;
     const segment = clamp(p) * (anchors.length - 1);
     const i = Math.min(anchors.length - 2, Math.floor(segment));
@@ -150,13 +169,16 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     cache.forEach(releaseFrame);
     cache.clear();
     failed.clear();
+    failureCounts.clear();
   }
   function availableFrame() {
     if (cache.has(target)) return target;
     // Show the nearest decoded position immediately. Retaining the last painted
     // frame until the exact target arrives can make a working sequence look frozen.
     let closest = -1, distance = Infinity;
+    const chapter = processStages?.[Math.round(clamp(progress) * 3)];
     for (const index of cache.keys()) {
+      if (chapter && (index < chapter.start || index > chapter.end)) continue;
       const gap = Math.abs(index - target);
       if (gap < distance) { distance = gap; closest = index; }
     }
@@ -173,6 +195,19 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   function draw(force = false) {
     if (disposed || reduced || (paused && !snapshotPending && !force) || document.hidden || !canvas.width || !canvas.height) return;
     const index = availableFrame();
+    if (index < 0 && processStages) {
+      if (!queue.some(candidate => !failed.has(candidate))) { hideCanvas(); return; }
+      // Keep a neutral canvas while this chapter decodes, rather than showing
+      // a previous procedure beside the current explanation.
+      context.fillStyle = config.background || '#f7f7f0';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.style.opacity = '1';
+      container.classList.add('has-sequence');
+      drawn = -1;
+      canvas.dataset.frame = '';
+      canvas.dataset.processStage = String(Math.round(clamp(progress) * 3));
+      return;
+    }
     if (index < 0 || (!force && drawn === index && ready && Math.abs(drawnProgress - progress) < .0001)) return;
     const frame = touch(index);
     if (!frame) return;
@@ -208,6 +243,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     drawnProgress = progress;
     if (index === target) snapshotPending = false;
     canvas.dataset.frame = String(index + source.start);
+    if (processStages) canvas.dataset.processStage = String(Math.round(clamp(progress) * 3));
     canvas.dataset.progress = progress.toFixed(5);
     canvas.dataset.targetProgress = targetProgress.toFixed(5);
     canvas.dataset.scale = cameraScale.toFixed(5);
@@ -237,13 +273,16 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   function preferredIndices() {
     if (component) return [0];
     const wanted = [target];
+    const currentStage = processStages?.[Math.round(clamp(progress) * 3)];
     const add = index => {
+      if (currentStage && (index < currentStage.start || index > currentStage.end)) return;
       if (index >= 0 && index < source.count && !wanted.includes(index) && wanted.length < cacheLimit) wanted.push(index);
     };
+    if (currentStage) { add(currentStage.start); add(currentStage.end); }
     // Read ahead in the current direction before the opposite side or anchors.
     for (let distance = 1; distance <= 4; distance++) add(target + direction * distance);
     for (let distance = 1; distance <= 2; distance++) add(target - direction * distance);
-    const anchorIndices = anchors.map(value => Math.round(value * (source.count - 1))).sort((a, b) => Math.abs(a - target) - Math.abs(b - target));
+    const anchorIndices = (processStages ? processStages.flatMap(stage => [stage.start, stage.end]) : anchors.map(value => Math.round(value * (source.count - 1)))).sort((a, b) => Math.abs(a - target) - Math.abs(b - target));
     anchorIndices.forEach(add);
     for (let distance = 5; wanted.length < cacheLimit && distance < cacheLimit; distance++) { add(target + direction * distance); add(target - direction * distance); }
     return wanted;
@@ -360,14 +399,18 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
           draw();
         } catch (error) {
           if (!disposed && generation === epoch && (error?.name !== 'AbortError' || request.timedOut)) {
-            failed.add(index);
+            const attempts = (failureCounts.get(index) || 0) + 1;
+            failureCounts.set(index, attempts);
+            // Retry transient process-frame failures once, then show the poster
+            // instead of permanently covering it with an empty canvas.
+            if (!processStages || attempts >= 2) failed.add(index);
             report(request.timedOut ? new Error('Frame request timed out') : error, index);
           }
         } finally {
           clearTimeout(request.timer);
           inFlight--;
           if (requests.get(index) === request) requests.delete(index);
-          if (!disposed) pump();
+          if (!disposed) { if (processStages) draw(); pump(); }
         }
       })();
     }
@@ -377,9 +420,10 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     const next = clamp(finite(value, 0));
     if (!instant && Math.abs(next - targetProgress) < .0001) { if (!ready && !paused && !reduced) schedule(); return; }
     direction = next >= targetProgress ? 1 : -1;
+    const chapterChanged = processStages && Math.round(next * 3) !== Math.round(progress * 3);
     targetProgress = next;
     canvas.dataset.targetProgress = targetProgress.toFixed(5);
-    if (instant) {
+    if (instant || (chapterChanged && !paused)) {
       // A deliberate step selection remains usable while paused. This is one
       // static frame change, not a resumed animation or a new RAF loop.
       stopAnimation();

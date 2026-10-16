@@ -88,7 +88,7 @@
       "variant": "implant-hybrid",
       "ko": {
         "title": "치아 없는 턱에, 고정된 치열은 어떻게 지지될까요?",
-        "intro": "그림은 구조를 이해하기 위한 예시입니다. 실제 임플란트 수와 위치·보철 모양은 개인별로 달라집니다.",
+        "intro": "치아 없는 아래턱에 보철을 연결하고 관리하는 원리를 보여주는 설명 모형입니다. 수술과 회복 과정은 생략했으며, 네 개의 지지점은 한 예입니다. 실제 수와 위치·보철 모양은 개인별로 달라집니다.",
         "steps": [
           {
             "title": "치아 없는 턱의 상태",
@@ -96,25 +96,25 @@
             "label": "치아 없는 턱의 상태"
           },
           {
-            "title": "지지점 설계",
-            "text": "여러 임플란트가 치열 한 줄의 보철을 함께 지지합니다. 네 개나 여섯 개라는 숫자보다 뼈와 힘의 분산이 기준입니다.",
-            "label": "지지점 설계"
+            "title": "하나의 치열을 연결",
+            "text": "여러 임플란트가 치열 한 줄의 보철을 함께 지지하는 구조입니다. 보철이 지지점에 연결되는 모습을 살펴보세요. 실제 임플란트 수와 위치는 뼈와 씹는 힘을 고려해 정합니다.",
+            "label": "지지점과 보철 연결"
           },
           {
-            "title": "연결 보철 확인",
-            "text": "치아와 필요한 잇몸 부분을 연결해 구성할 수 있습니다. 임시 보철과 최종 보철, 초기 식사 제한은 구분합니다.",
-            "label": "연결 보철 확인"
+            "title": "나사로 고정하는 보철",
+            "text": "보철의 통로를 통해 연결 나사를 체결하는 구조를 보여줍니다. 환자가 스스로 끼우고 빼는 틀니와 다릅니다. 임시·최종 보철, 연결 시점과 초기 식사 제한은 따로 확인합니다.",
+            "label": "나사 체결 구조"
           },
           {
-            "title": "아래 공간 관리",
-            "text": "고정형도 보철 아래를 매일 닦을 수 있어야 합니다. 청소 도구와 부품·보철을 수리할 때의 방문 계획을 확인합니다.",
-            "label": "아래 공간 관리"
+            "title": "보철 아래 청소",
+            "text": "고정된 보철 아래에도 음식물과 치태가 남을 수 있습니다. 공간에 맞는 도구와 사용법을 치과에서 익히고 매일 관리합니다. 화면은 접근 위치의 예이며 보철을 직접 분리하지 않습니다.",
+            "label": "고정 보철의 일상 관리"
           }
         ]
       },
       "en": {
         "title": "How can a fixed arch be supported when all teeth in a jaw are missing?",
-        "intro": "The drawing explains the structure. Implant numbers, positions and restoration shapes vary by individual.",
+        "intro": "An illustrative model shows how a fixed arch connects to implants in a toothless lower jaw and how to clean beneath it. Surgery and healing are omitted. Four supports are one example; actual numbers, positions and restoration shapes vary.",
         "steps": [
           {
             "title": "Assess the toothless jaw",
@@ -122,25 +122,25 @@
             "label": "The toothless jaw"
           },
           {
-            "title": "Plan the supports",
-            "text": "Several implants support a connected arch. Bone conditions and distribution of forces matter more than choosing a fixed number.",
-            "label": "Plan the supports"
+            "title": "Connect one complete arch",
+            "text": "Several implants share the support of a connected arch. Watch the restoration meet its supports. The actual implant number and positions depend on bone conditions and chewing forces.",
+            "label": "Connecting the arch"
           },
           {
-            "title": "Understand the arch",
-            "text": "The restoration may include teeth and replacement gum tissue. Temporary teeth, the final arch and early eating limits are separate decisions.",
-            "label": "Understand the arch"
+            "title": "Secure the restoration",
+            "text": "A driver reaches a connecting screw through an access opening in the restoration. This is different from a denture you remove yourself. Temporary and final restorations, connection timing and early eating limits need separate discussion.",
+            "label": "Screw-retained connection"
           },
           {
-            "title": "Care beneath the arch",
-            "text": "A fixed arch still needs daily cleaning underneath. Discuss suitable cleaning aids and visits for component or restoration repairs.",
-            "label": "Care beneath the arch"
+            "title": "Clean beneath the arch",
+            "text": "Food and plaque can collect under a fixed arch. Learn which cleaning aid and technique suit the space from your dental team. The scene illustrates access; do not detach the restoration yourself.",
+            "label": "Daily cleaning access"
           }
         ]
       },
       "ja": {
         "title": "歯がない顎で、固定式の人工歯はどう支えられるのでしょうか？",
-        "intro": "図は構造を理解するための例です。実際の本数、位置、人工歯の形は個々に異なります。",
+        "intro": "歯のない下顎で人工歯を支え、清掃する仕組みを示す説明用模型です。手術と治癒の過程は省略しています。四本の支えは一例で、本数・位置・人工歯の形は個々に異なります。",
         "steps": [
           {
             "title": "歯のない顎を確認",
@@ -148,19 +148,19 @@
             "label": "歯のない顎の状態"
           },
           {
-            "title": "支える位置を設計",
-            "text": "複数のインプラントで一列の人工歯を支えます。四本・六本という数だけでなく、骨と力の分散から計画します。",
-            "label": "支える位置を設計"
+            "title": "一列の人工歯を連結",
+            "text": "複数のインプラントが一列の人工歯を支える構造です。人工歯が支えに接続する様子を見てみましょう。実際の本数と位置は骨や噛む力を考慮して決めます。",
+            "label": "支えと人工歯の接続"
           },
           {
-            "title": "連結した人工歯",
-            "text": "人工歯に必要な歯ぐき部分を組み合わせる場合があります。仮歯・最終の人工歯・初期の食事制限は分けて確認します。",
-            "label": "連結した人工歯"
+            "title": "ねじで固定する構造",
+            "text": "人工歯の穴から接続ねじを締める構造を示します。自分で着脱する入れ歯とは異なります。仮歯・最終の人工歯、接続する時期や初期の食事制限は分けて確認します。",
+            "label": "ねじによる固定"
           },
           {
-            "title": "下の空間を清掃",
-            "text": "固定式でも人工歯の下を毎日清掃する必要があります。清掃用具と、部品や人工歯を修理する際の通院を確認します。",
-            "label": "下の空間を清掃"
+            "title": "人工歯の下を清掃",
+            "text": "固定式の人工歯の下にも食べ物やプラークが残ることがあります。空間に合う用具と使い方を歯科で教わり、毎日清掃します。画面は清掃位置の一例で、人工歯を自分で外すことはありません。",
+            "label": "固定式人工歯のお手入れ"
           }
         ]
       }
