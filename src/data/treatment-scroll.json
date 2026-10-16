@@ -87,13 +87,13 @@
       "scene": "fullarch",
       "variant": "implant-hybrid",
       "ko": {
-        "title": "이를 모두 빼야 할까요? 다시 편하게 먹을 수 있을까요?",
+        "title": "치아 없는 턱에, 고정된 치열은 어떻게 지지될까요?",
         "intro": "그림은 구조를 이해하기 위한 예시입니다. 실제 임플란트 수와 위치·보철 모양은 개인별로 달라집니다.",
         "steps": [
           {
-            "title": "치아별 보존 판단",
-            "text": "여러 치아가 불편해도 모두 뽑는 결론부터 내리지 않습니다. 치아별로 남길 가능성과 전체 맞물림을 확인합니다.",
-            "label": "치아별 보존 판단"
+            "title": "치아 없는 턱의 상태",
+            "text": "치아가 없는 위턱 또는 아래턱에서 잇몸뼈의 양과 형태, 보철을 넣을 공간을 확인합니다. 지금 틀니를 쓴다면 들뜸·씹기·발음 중 어떤 불편이 큰지도 함께 살펴봅니다.",
+            "label": "치아 없는 턱의 상태"
           },
           {
             "title": "지지점 설계",
@@ -113,13 +113,13 @@
         ]
       },
       "en": {
-        "title": "Before replacing a whole arch, can we talk about what frightens you?",
+        "title": "How can a fixed arch be supported when all teeth in a jaw are missing?",
         "intro": "The drawing explains the structure. Implant numbers, positions and restoration shapes vary by individual.",
         "steps": [
           {
-            "title": "Assess each tooth",
-            "text": "Discomfort in many teeth does not automatically mean removing them all. Assess preservation and the overall bite tooth by tooth.",
-            "label": "Assess each tooth"
+            "title": "Assess the toothless jaw",
+            "text": "Assess the bone, gums and space for a restoration in the toothless upper or lower jaw. If you wear a denture, explain whether movement, chewing or speech causes the most difficulty.",
+            "label": "The toothless jaw"
           },
           {
             "title": "Plan the supports",
@@ -139,13 +139,13 @@
         ]
       },
       "ja": {
-        "title": "全部抜かないといけませんか？ また安心して食べられますか？",
+        "title": "歯がない顎で、固定式の人工歯はどう支えられるのでしょうか？",
         "intro": "図は構造を理解するための例です。実際の本数、位置、人工歯の形は個々に異なります。",
         "steps": [
           {
-            "title": "一本ずつ保存判断",
-            "text": "多くの歯に不具合があっても、すべて抜くとは限りません。一本ずつ保存の可能性と全体の噛み合わせを確認します。",
-            "label": "一本ずつ保存判断"
+            "title": "歯のない顎を確認",
+            "text": "歯がない上顎または下顎の骨や歯ぐき、人工歯を入れる空間を確認します。入れ歯を使っている場合は、浮き上がり・噛みにくさ・発音のどれが一番困るかも伝えましょう。",
+            "label": "歯のない顎の状態"
           },
           {
             "title": "支える位置を設計",
