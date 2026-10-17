@@ -1,0 +1,2091 @@
+{
+  "version": 1,
+  "pendingSlugs": [],
+  "images": {
+    "aesthetic": {
+      "src": "/images/treatment-editorial/aesthetic/69a79f9beaaf/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 124723,
+      "sha256": "a59003f01acabae5b034efa97c9889ad08bba40643bf0baf9444353a453202c8",
+      "alt": {
+        "ko": "앞니의 작은 결손과 치아색 수복 재료를 보여주는 설명용 모형",
+        "en": "Teaching model showing a small incisor defect and tooth-coloured restorative material",
+        "ja": "前歯の小さな欠損と歯冠色修復材料を示す説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "69a79f9beaaf1bcd38073b6ddf1c6716625d46bd36dde8ecd00e74de1718e6f1",
+      "sourceJob": "151a8f5f-197f-4174-988f-9ab5c25ea84b",
+      "sourceSlug": "aesthetic",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407815+00:00",
+        "observations": [
+          "Chipped incisor teaching model and separated restorative material show assessment/material context, not a repaired outcome."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "apicoectomy": {
+      "src": "/images/treatment-editorial/apicoectomy/a89b41b97a5f/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 119206,
+      "sha256": "bc4e028a38564a4ac1d30cf3c48e4d78dea15e809370f1e76fedfb0b1f455a35",
+      "alt": {
+        "ko": "치근 끝의 단면과 치과 거울을 보여주는 설명용 모형",
+        "en": "Educational model showing a root-end section and a dental mirror",
+        "ja": "歯根の先端の断面と歯科用ミラーを示す説明用模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "a89b41b97a5f523c502e24054bff6b819b4c4410452569f0f6a28e2e1b70f92b",
+      "sourceJob": "cb11d764-2bcd-454c-b0ef-a53874ca6020",
+      "sourceSlug": "apicoectomy",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "절제 길이·수술 접근·역충전·치유를 증명하지 않는 단순화된 설명 모형이다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "치근 끝의 잘린 면과 중앙 근관, 이를 비추는 치과 거울이 있는 확대 모형이다. 실제 수술 장면으로 구성되지 않았다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "bridge": {
+      "src": "/images/treatment-editorial/bridge/7006441d4317/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 106109,
+      "sha256": "64750afd05d2b99721e495fc95af5353b91047501e8717e423aa95f3c3baca56",
+      "alt": {
+        "ko": "두 지대치와 연결된 세 단위 브리지를 보여주는 모형",
+        "en": "Model showing two prepared supporting teeth and a connected three-unit bridge",
+        "ja": "二本の支台歯と連結した三ユニットブリッジを示す模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "7006441d4317ae550714dd54f23c58d6ded37f6c4118f5453af9dce9672bec53",
+      "sourceJob": "d7f93c4d-aa6e-4953-943e-578ee9944b58",
+      "sourceSlug": "bridge",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "개별 환자의 삭제량·보철 강도·적합도·청소 가능성을 보장하는 자료가 아니다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "두 지대치 위에 양끝이 속 빈 연결 보철물과 가운데 결손 부위를 보여주는 구조가 명확하다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "bruxism": {
+      "src": "/images/treatment-editorial/bruxism/7f8711a1e2dd/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 134731,
+      "sha256": "a44c388ee0640506b99977e8e24de658f566eaa48de059abde3a1087171dcda8",
+      "alt": {
+        "ko": "치열 모형과 투명한 치아 보호장치를 보여주는 이미지",
+        "en": "Illustration showing a dental model and a transparent tooth-protection appliance",
+        "ja": "歯列模型と透明な歯の保護装置を示す画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "7f8711a1e2dd48ecaf2f853e74fa5300f92fe02fcb7b085aa184d4fb4852e455",
+      "sourceJob": "f052b36b-c1f5-4731-b305-35272e69592e",
+      "sourceSlug": "bruxism",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "장치 디자인·물성·교합 조정은 확인하지 않았으며 이갈이 완치나 특정 스플린트 처방 효과를 보장하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "씹는 면이 닳은 형태의 치열 모형과 별도의 투명 보호장치가 놓인 구성이다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "cavity": {
+      "src": "/images/treatment-editorial/cavity/a653142c10bd/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 183850,
+      "sha256": "167862b478e65376bfc4746fd127cbbe2f551c1778d138e5b67ee2b4166ba96f",
+      "alt": {
+        "ko": "법랑질·상아질과 충치 위치를 단면으로 보여주는 어금니 설명용 모형",
+        "en": "Sectioned molar model showing enamel, dentin and a localized cavity",
+        "ja": "エナメル質・象牙質とう蝕の位置を断面で示す臼歯模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "a653142c10bd25c4af08d67685db2f5f400f234bceeb5a8866eb88483296a09c",
+      "sourceJob": "a9789bbc-bf9b-4ce9-9e1e-488c783c2f8f",
+      "sourceSlug": "cavity",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407792+00:00",
+        "observations": [
+          "Sectioned molar shows a localized occlusal lesion extending into dentin, with distinct enamel and pulp anatomy."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      },
+      "thumbnail": {
+        "src": "/images/treatment-editorial/cavity/a653142c10bd/thumbnail.jpg",
+        "width": 600,
+        "height": 600,
+        "bytes": 93813,
+        "sha256": "f52d4dbb8b42ed8f0b32a3eea451e57f496a5d20c0b6102ca78702a43f59f2ad"
+      }
+    },
+    "crown": {
+      "src": "/images/treatment-editorial/crown/49f8d3200a69/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 142624,
+      "sha256": "77e2d9ca04e9bdf49ca4ae6aa0a893055fd1cfe1e791f7e6b1a7689d0a97d323",
+      "alt": {
+        "ko": "삭제된 치아 위에 분리된 크라운을 보여주는 단면 모형",
+        "en": "Sectioned model showing a separate crown above a prepared tooth",
+        "ja": "削った歯の上に分離したクラウンを示す断面模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "49f8d3200a697fede99046ec03ee075d4fd7e33a3c688c1da1ce1977e55fbcd8",
+      "sourceJob": "fc260426-b722-4ae0-9a90-37ac9dcf94c6",
+      "sourceSlug": "crown",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "삭제량·변연·교합·치근 개수와 실제 환자의 적합도를 증명하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "삭제된 지대치 위에 속이 빈 크라운이 분리되어 있다. 인접 치아와 뿌리·뼈가 설명 모형 형태로 표현된다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "denture": {
+      "src": "/images/treatment-editorial/denture/4a03bbace647/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 130447,
+      "sha256": "7c9e138abe1e369dbf0354e2021b4a99aec781c186abd253742fe30287028810",
+      "alt": {
+        "ko": "상악 무치악 모형과 분리된 전체 틀니",
+        "en": "An edentulous upper-jaw model with a separate complete denture",
+        "ja": "上顎の無歯顎模型と分離した総義歯"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "4a03bbace647d3ae258d5844b007591f1934e6abffd84ce120b9a7c61a33e67e",
+      "sourceJob": "8303b6be-9709-42c0-a002-e620f4bfe194",
+      "sourceSlug": "denture",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "유지력·편안함·보철 적합도나 모든 환자의 형태를 보장하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "무치악 상악 모형 옆에 구개를 덮는 분리된 틀니가 놓인 재료 정물이다. 실제 착용 결과는 없다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "emergency": {
+      "src": "/images/treatment-editorial/emergency/a4e13bce329b/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 127907,
+      "sha256": "a0cfe5ac90efc7ed2dcde7d33d9616f1606a980655f8a7086652fa4cc0f8a130",
+      "alt": {
+        "ko": "앞니 일부가 깨진 모형과 치과 거울을 보여주는 응급 진료 설명 이미지",
+        "en": "Emergency-care illustration showing a chipped front-tooth model and dental mirror",
+        "ja": "前歯の一部が欠けた模型と歯科用ミラーを示す緊急診療の説明用画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "a4e13bce329b10a15011b2a50f222fe87b86eb252dc472fa9c12458d84771c34",
+      "sourceJob": "32067093-c70f-48e0-8e0c-c90f6c26f228",
+      "sourceSlug": "emergency",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "빈 케이스는 정물 소품이다. 깨진 치아나 빠진 치아를 이 마른 케이스에 보관하라는 응급처치 안내로 해석되게 사용하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "앞니 일부가 깨진 치아 모형과 이를 비추는 거울, 빈 케이스가 배치돼 있다. 실제 환자나 치료 후 결과는 없다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "fixture-osstem-ca": {
+      "src": "/images/treatment-editorial/fixture-osstem-ca/a033516ae09e/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 155715,
+      "sha256": "2f41f907978ec539282af0ac9ca02c4d815fbecdd2896cbe8a7cc3fd972bdbed",
+      "alt": {
+        "ko": "임플란트 나사 구조와 표면을 설명하는 일반 모형과 재료 표본",
+        "en": "Generic implant and material samples illustrating fixture structure and surface",
+        "ja": "インプラントの構造と表面を説明する一般模型と素材見本"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "a033516ae09e005a6ba91108673ef3194f48f42ad0f15307932c49609a1a7e73",
+      "sourceJob": "40b8db88-1c82-440c-acbe-2d0413f1974e",
+      "sourceSlug": "fixture-osstem-ca",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407808+00:00",
+        "observations": [
+          "Generic implant cutaway and surface sample; not a verified rendering or photograph of an Osstem CA product."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "fixture-osstem-soi": {
+      "src": "/images/treatment-editorial/fixture-osstem-soi/2efc3277314d/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 158935,
+      "sha256": "54c4fbe450a2adf6c0e1b74d43d15bf902986ae38b2949fe89f35b67081b8d30",
+      "alt": {
+        "ko": "임플란트 구조와 표면 특성의 이해를 돕는 일반 설명용 모형",
+        "en": "Generic educational model for implant structure and surface characteristics",
+        "ja": "インプラントの構造と表面特性を理解するための一般説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "2efc3277314d60b92a5e272813470d9dbddcfb4e010eb725cc83845852604777",
+      "sourceJob": "0c092984-50bc-41cb-8655-7b730be203d1",
+      "sourceSlug": "fixture-osstem-soi",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407809+00:00",
+        "observations": [
+          "Generic implant/surface still life; does not verify the named manufacturer's surface chemistry or clinical effect."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "fixture-straumann-roxolid": {
+      "src": "/images/treatment-editorial/fixture-straumann-roxolid/ee9edc5ba8ea/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 162583,
+      "sha256": "d4de4da1a1cb559fec165f5d2409d6e714fdf7bb6e3e829f1a6f8e9d850178fc",
+      "alt": {
+        "ko": "자연치 뿌리와 임플란트의 위치를 비교해 보여주는 일반 단면 모형",
+        "en": "Generic cutaway model showing the positions of a tooth root and implant",
+        "ja": "天然歯根とインプラントの位置を示す一般断面模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "ee9edc5ba8ea8169a31cd0c0d2f9441022d65636e1556341d324612844b118be",
+      "sourceJob": "f51a47f7-f68b-48f0-9d9c-853b301e4a53",
+      "sourceSlug": "fixture-straumann-roxolid",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407810+00:00",
+        "observations": [
+          "Generic fixture cutaway by a natural-root model; no claim of exact Roxolid dimensions, design or material identity."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "glownate": {
+      "src": "/images/treatment-editorial/glownate/52844f0e6b51/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 85686,
+      "sha256": "d10aa3eeb5ce352b13d484b2f06cae686e66b192d629fdef830da1f6af6529be",
+      "alt": {
+        "ko": "앞니와 얇은 세라믹 쉘을 나란히 보여주는 설명용 모형",
+        "en": "Educational model of a front tooth with a separate thin ceramic shell",
+        "ja": "前歯と薄いセラミックシェルを並べた説明用模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "52844f0e6b51a169f3cbca5d97da4e424a8dce2ba633cb02d074141cdc50bed5",
+      "sourceJob": "df38a334-b891-4a22-b3f4-b2072654b233",
+      "sourceSlug": "glownate",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "세라믹 쉘의 두께·삭제량·적합도 및 특정 브랜드의 실제 재료를 증명하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "절치 모형 앞에 얇은 세라믹 쉘을 분리해 둔 구성이다. 자연치와 쉘의 경계가 보이고, 글자·로고·환자 얼굴은 보이지 않는다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      },
+      "thumbnail": {
+        "src": "/images/treatment-editorial/glownate/52844f0e6b51/thumbnail.jpg",
+        "width": 600,
+        "height": 600,
+        "bytes": 51998,
+        "sha256": "04989bdee24f17f3f5becf86edbb955131545f9be31f564d37b3063e9bb7af30"
+      }
+    },
+    "gum": {
+      "src": "/images/treatment-editorial/gum/cdc4307755ab/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 142245,
+      "sha256": "f99f5ff5983240e61a53e420fcb36dd41fd9eb21e739dd76374ece926e965383",
+      "alt": {
+        "ko": "치주 탐침과 치아·잇몸·뼈의 단면을 보여주는 모형",
+        "en": "Model showing a periodontal probe and a section of tooth, gum and bone",
+        "ja": "歯周プローブと歯・歯肉・骨の断面を示す模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "cdc4307755ab9fef1cf4f10da3e74e4800a3794264b6e2adc37f8438d7d1a1a7",
+      "sourceJob": "e237f262-2fa1-4162-81e7-337b7c375e5c",
+      "sourceSlug": "gum",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "탐침 깊이의 수치나 진단·기구 사용법을 이 이미지로 판단하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "잇몸과 치아 사이를 확인하는 눈금 탐침과 치근·잇몸·뼈 단면이 보인다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "gum-surgery": {
+      "src": "/images/treatment-editorial/gum-surgery/470e7d863049/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 143279,
+      "sha256": "267838667e0f9cbfab82ccc58bb53e41f5dd5bbed5808fcac7f0510f4113d280",
+      "alt": {
+        "ko": "분리형 잇몸 부품과 치과 기구를 함께 놓은 치주 설명 모형",
+        "en": "Periodontal teaching model with a removable gum component and dental instruments",
+        "ja": "取り外し式の歯肉パーツと歯科器具を並べた歯周説明用模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "470e7d8630493125a9b820d3b44c6e75f21acc11f28e54c7d0777a337d03169c",
+      "sourceJob": "cdc67780-149b-4c9e-b335-4e705fd6e56a",
+      "sourceSlug": "gum-surgery",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "분리형 설명 모형으로만 사용한다. 분리 부품을 실제 절제·제거한 잇몸이나 실제 수술 범위로 설명하면 안 된다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "치아·뼈 단면 모형 옆에 분리형 분홍색 잇몸 부품과 치과 기구가 놓여 있다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "implant": {
+      "src": "/images/treatment-editorial/implant/4f5876edb54a/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 165077,
+      "sha256": "ee3d3aced55ba81e76ecddb8c24788ccdb89aef6a229e79ae7d911e946c5c038",
+      "alt": {
+        "ko": "뼈 속 임플란트와 지대주·보철의 연결 구조를 보여주는 단면 모형",
+        "en": "Cutaway model showing an implant fixture, abutment and crown connection",
+        "ja": "骨内のインプラントとアバットメント・被せ物の接続を示す断面模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "4f5876edb54ac2645445cc094f71ddc0389cb12ef459d1ab677e6852e9f084ed",
+      "sourceJob": "b94f3527-fb67-4b66-ac67-714f9d361f1b",
+      "sourceSlug": "implant",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407796+00:00",
+        "observations": [
+          "Single implant fixture in sectioned bone, separated abutment and crown are coherently aligned."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      },
+      "thumbnail": {
+        "src": "/images/treatment-editorial/implant/4f5876edb54a/thumbnail.jpg",
+        "width": 600,
+        "height": 600,
+        "bytes": 87154,
+        "sha256": "f7bafae3f23ce7fa3684ddfbfbfab47837556367a48aeece6fe0e230e042a21a"
+      }
+    },
+    "implant-advanced": {
+      "src": "/images/treatment-editorial/implant-advanced/554d7dcedf03/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 170869,
+      "sha256": "9062b519a2825d34496b6df25008e5fbd0e018a7d63c3f12e3cc5dc84430f2f2",
+      "alt": {
+        "ko": "치조골 모형과 골이식재·차폐막을 함께 보여주는 뼈이식 설명용 이미지",
+        "en": "Educational still life of an alveolar-ridge model, graft material and barrier membrane",
+        "ja": "歯槽骨模型と骨補填材・遮蔽膜を示す骨造成の説明画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "554d7dcedf03ddff7318a6e315218349a5822f2f85367831609a0ff1de0a5646",
+      "sourceJob": "3621711d-fc58-4c89-a360-2c85bb5fd93b",
+      "sourceSlug": "implant-advanced",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407797+00:00",
+        "observations": [
+          "Ridge deficiency and separate graft material/membrane are depicted as teaching components rather than a patient before/after."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "implant-flapless": {
+      "src": "/images/treatment-editorial/implant-flapless/aef36678eb3f/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 137381,
+      "sha256": "be60c0b05135c416c77d83d17082fa071013cdd43d14ac3eb8e1f782c6e91a38",
+      "alt": {
+        "ko": "치아 지지형 수술 가이드와 삽입 위치를 보여주는 임플란트 설명용 모형",
+        "en": "Implant teaching model showing a tooth-supported surgical guide and placement position",
+        "ja": "歯で支えるサージカルガイドと埋入位置を示すインプラント模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "aef36678eb3f967db18bef2ef5ac36484d2f95bd742550ab011b306986d4af69",
+      "sourceJob": "856c687d-841a-4fbb-b5f6-8744e10d151d",
+      "sourceSlug": "implant-flapless",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407798+00:00",
+        "observations": [
+          "Transparent tooth-supported guide and sleeve are positioned over the model gum opening; no surgery outcome implied."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "implant-full-mouth": {
+      "src": "/images/treatment-editorial/implant-hybrid-remake/7bccb91498ee/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 124067,
+      "sha256": "efa6a020de4b5d1d4e3c3ad304504dbf8ba3678ab11864829c7847ad4eb5a298",
+      "alt": {
+        "ko": "잇몸색 부분과 치아가 이어진 풀아치 보철 설명용 모형",
+        "en": "Educational model of a full-arch prosthesis with connected teeth and gum-coloured material",
+        "ja": "歯と歯肉色の部分が連続したフルアーチ補綴物の説明用模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "7bccb91498ee8f22c0df7b522b0831e9c570608f86be983f2d42db88e86ccc54",
+      "sourceJob": "ab462c2d-395d-44ad-a89c-16c35c7ce9ad",
+      "sourceSlug": "implant-hybrid-remake",
+      "reuseOf": "implant-hybrid",
+      "reuseReason": "The standalone full-arch prosthesis model illustrates the same whole-arch prosthetic form; it does not claim a particular fixation system or number of implants.",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "userQualityApproval": false,
+        "blockingIssues": [],
+        "observations": [
+          "치아와 잇몸색 부분이 연속된 단독 풀아치 보철 모형이며 얼굴·문자·로고·실제 환자 전후 장면은 없다.",
+          "임플란트와 보철의 연결 장면 자체를 그리지 않아 이전 그림의 맞물림 문제를 반복하지 않는다.",
+          "Primary review agrees with the independent descriptive scope; the image depicts a standalone prosthetic model, not clinical placement or a verified manufactured product."
+        ],
+        "limitations": [
+          "연결부가 보이지 않아 고정식 여부·임플란트 개수·체결 방식·실제 재료·임상 적합도를 이 사진으로 증명하지 않는다.",
+          "implant-hybrid와 implant-full-mouth의 보철물 개념 설명에만 사용한다.",
+          "1400×788検討用JPEGの直接視覚確認。実患者・治療結果の写真ではないAI教育画像の表示を維持する。"
+        ],
+        "allowedUse": "Representative educational still under corrected descriptive alt only",
+        "promptCompliance": {
+          "exactTreatmentSubtypeConfirmed": false,
+          "note": "Full-arch connection is not depicted"
+        },
+        "checkedAt": "2026-10-17T12:39:14.555084+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "sourceAndReviewSha256Matched": true,
+        "reasons": [],
+        "method": "Direct visual review of original and 1400px review image by motion_asset_inventory, with independent visual review by motion_failure_diagnosis",
+        "reviewedAt": "2026-10-17T12:41:31.871921+00:00",
+        "independentReviewPath": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-process-resume-20261017/restoration/photo-refresh/remake30/secondary-review.json",
+        "reuseRelevance": "The standalone full-arch prosthesis model illustrates the same whole-arch prosthetic form; it does not claim a particular fixation system or number of implants."
+      }
+    },
+    "implant-holiday": {
+      "src": "/images/treatment-editorial/implant-holiday/a261a47ace7a/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 129574,
+      "sha256": "4715c63e1cfdaf787606af92c90cd33b85fe058d74dd4ea479a403bfcbadef01",
+      "alt": {
+        "ko": "임플란트 단면 모형과 치경·메모장을 배치한 상담 준비 이미지",
+        "en": "Consultation still life with an implant cutaway model, dental mirror and blank notebook",
+        "ja": "インプラント断面模型とミラー・無地のノートを配置した相談準備の画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "a261a47ace7a089c6ce679a8f2b2eea75bae9f4854c07797513622299172d186",
+      "sourceJob": "4a757597-a678-4114-832d-1d700a4673f7",
+      "sourceSlug": "implant-holiday",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407801+00:00",
+        "observations": [
+          "Single implant teaching model beside an unmarked notebook and mirror; no appointment or same-day promise."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "implant-hybrid": {
+      "src": "/images/treatment-editorial/implant-hybrid-remake/7bccb91498ee/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 124067,
+      "sha256": "efa6a020de4b5d1d4e3c3ad304504dbf8ba3678ab11864829c7847ad4eb5a298",
+      "alt": {
+        "ko": "잇몸색 부분과 치아가 이어진 풀아치 보철 설명용 모형",
+        "en": "Educational model of a full-arch prosthesis with connected teeth and gum-coloured material",
+        "ja": "歯と歯肉色の部分が連続したフルアーチ補綴物の説明用模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "7bccb91498ee8f22c0df7b522b0831e9c570608f86be983f2d42db88e86ccc54",
+      "sourceJob": "ab462c2d-395d-44ad-a89c-16c35c7ce9ad",
+      "sourceSlug": "implant-hybrid-remake",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "userQualityApproval": false,
+        "blockingIssues": [],
+        "observations": [
+          "치아와 잇몸색 부분이 연속된 단독 풀아치 보철 모형이며 얼굴·문자·로고·실제 환자 전후 장면은 없다.",
+          "임플란트와 보철의 연결 장면 자체를 그리지 않아 이전 그림의 맞물림 문제를 반복하지 않는다.",
+          "Primary review agrees with the independent descriptive scope; the image depicts a standalone prosthetic model, not clinical placement or a verified manufactured product."
+        ],
+        "limitations": [
+          "연결부가 보이지 않아 고정식 여부·임플란트 개수·체결 방식·실제 재료·임상 적합도를 이 사진으로 증명하지 않는다.",
+          "implant-hybrid와 implant-full-mouth의 보철물 개념 설명에만 사용한다.",
+          "1400×788検討用JPEGの直接視覚確認。実患者・治療結果の写真ではないAI教育画像の表示を維持する。"
+        ],
+        "allowedUse": "Representative educational still under corrected descriptive alt only",
+        "promptCompliance": {
+          "exactTreatmentSubtypeConfirmed": false,
+          "note": "Full-arch connection is not depicted"
+        },
+        "checkedAt": "2026-10-17T12:39:14.555084+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "sourceAndReviewSha256Matched": true,
+        "reasons": [],
+        "method": "Direct visual review of original and 1400px review image by motion_asset_inventory, with independent visual review by motion_failure_diagnosis",
+        "reviewedAt": "2026-10-17T12:41:31.871921+00:00",
+        "independentReviewPath": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-process-resume-20261017/restoration/photo-refresh/remake30/secondary-review.json"
+      }
+    },
+    "implant-immediate": {
+      "src": "/images/treatment-editorial/implant-immediate/0d7f45998ae4/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 174860,
+      "sha256": "f9211d2d3b9209e9bea62d5342b6cb563a548322383c6839a474e3de7bfbe42b",
+      "alt": {
+        "ko": "발치와와 그 안의 임플란트 위치를 단면으로 보여주는 설명용 모형",
+        "en": "Cutaway teaching model showing an implant in an extraction socket",
+        "ja": "抜歯窩内のインプラント位置を断面で示す説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "0d7f45998ae4ab81a5fa1b581835d39476566fc513294f7a6cca1801f8b946b8",
+      "sourceJob": "48182274-8a8d-417a-b1af-163e5d32f2b9",
+      "sourceSlug": "implant-immediate",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407802+00:00",
+        "observations": [
+          "Implant in a represented extraction socket with apical bone engagement; illustrative geometry, not suitability evidence."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "implant-immediate-loading": {
+      "src": "/images/treatment-editorial/implant-immediate-loading/f2436ab028e8/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 129877,
+      "sha256": "5da8e523b1426f5e40985758cc35248fb3dfac9d70739795ad0741a8a0cf6720",
+      "alt": {
+        "ko": "임플란트와 지대주·임시 치아의 위치를 분리해 보여주는 설명용 모형",
+        "en": "Educational model separating an implant, abutment and provisional crown",
+        "ja": "インプラント・アバットメント・仮歯の位置を分けて示す説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "f2436ab028e8f1c48da7dfca4ead8f4ec98e8cf71b6f7f27fbf90c6d9df7dbab",
+      "sourceJob": "f53d9ed3-57d9-4216-a9ec-4f34e4a77383",
+      "sourceSlug": "implant-immediate-loading",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407803+00:00",
+        "observations": [
+          "Fixture remains in bone with separated abutment and temporary crown; no immediate chewing/result claim."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "implant-navigation": {
+      "src": "/images/treatment-editorial/implant-flapless/aef36678eb3f/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 137381,
+      "sha256": "be60c0b05135c416c77d83d17082fa071013cdd43d14ac3eb8e1f782c6e91a38",
+      "alt": {
+        "ko": "치아 지지형 수술 가이드와 삽입 위치를 보여주는 임플란트 설명용 모형",
+        "en": "Implant teaching model showing a tooth-supported surgical guide and placement position",
+        "ja": "歯で支えるサージカルガイドと埋入位置を示すインプラント模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "aef36678eb3f967db18bef2ef5ac36484d2f95bd742550ab011b306986d4af69",
+      "sourceJob": "856c687d-841a-4fbb-b5f6-8744e10d151d",
+      "sourceSlug": "implant-flapless",
+      "reuseOf": "implant-flapless",
+      "reuseReason": "Tooth-supported transparent surgical guide accurately represents the shared guided-placement component; no claim that all navigation cases are flapless.",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407798+00:00",
+        "observations": [
+          "Transparent tooth-supported guide and sleeve are positioned over the model gum opening; no surgery outcome implied."
+        ],
+        "reasons": [],
+        "userQualityApproval": false,
+        "reuseRelevance": "Tooth-supported transparent surgical guide accurately represents the shared guided-placement component; no claim that all navigation cases are flapless."
+      }
+    },
+    "implant-overdenture": {
+      "src": "/images/treatment-editorial/implant-overdenture/d1d0851ac724/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 127120,
+      "sha256": "f6b1a30c97599157d26067a61214e08ffa043503660d020f5959dca24dd8d1c0",
+      "alt": {
+        "ko": "두 개의 연결부와 탈착식 틀니 안쪽 결합부를 보여주는 오버덴처 모형",
+        "en": "Overdenture model showing two attachments and the matching removable-denture housings",
+        "ja": "二つのアタッチメントと取り外し式義歯の接合部を示すオーバーデンチャー模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "d1d0851ac724895e9bc7ed26021c47f813c046ffc74499c85b47c38e29a58a95",
+      "sourceJob": "9a6df74f-5638-442d-83b7-cc1bca659030",
+      "sourceSlug": "implant-overdenture",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407805+00:00",
+        "observations": [
+          "Two anterior ball attachments and corresponding denture housings clearly describe a removable overdenture; must not stand in for fixed full arch."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "implant-revision": {
+      "src": "/images/treatment-editorial/implant-revision/b1cac9d7bd90/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 138994,
+      "sha256": "4aa4be008dc0c9ef741ca42681420298a60521dade483c36d2f99c1e9b945a4a",
+      "alt": {
+        "ko": "임플란트 나사·지대주·보철을 분리해 점검 구조를 보여주는 모형",
+        "en": "Model showing separated implant screw, abutment and crown for component assessment",
+        "ja": "インプラントのねじ・アバットメント・被せ物を分けて確認構造を示す模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "b1cac9d7bd9098a7446cd4a40dc0f843695b17002299f9bb89dfc9020d32a1f9",
+      "sourceJob": "d50d43f3-e8ef-47b3-8024-3a56bc98eac3",
+      "sourceSlug": "implant-revision",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407817+00:00",
+        "observations": [
+          "Sectioned implant and separated crown/abutment/screw show components to assess, not every retreatment indication."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "implant-sedation": {
+      "src": "/images/treatment-editorial/implant-sedation/60ebc0f03c4b/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 137125,
+      "sha256": "a8c6b0485720864a7aaba0ed4ff6212da6ff600ac67e177ced7c9b54349d1cc2",
+      "alt": {
+        "ko": "임플란트 단면 모형과 산소포화도 감시장치를 함께 배치한 진정 진료 설명용 이미지",
+        "en": "Educational still life of an implant model and oxygen-saturation monitoring equipment",
+        "ja": "インプラント模型と酸素飽和度モニターを配置した鎮静診療の説明画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "60ebc0f03c4b1cc43782efdecdbf7e021516bd1ae44f52691d7d929a9a47a759",
+      "sourceJob": "e6a727ed-8133-44f4-b81e-75144ab543b1",
+      "sourceSlug": "implant-sedation",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407788+00:00",
+        "observations": [
+          "Implant cutaway, monitoring equipment and mannequin hand form a relevant educational still life; no patient outcome shown."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "implant-sinus-lift": {
+      "src": "/images/treatment-editorial/implant-sinus-lift/7b26b935b31e/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 142140,
+      "sha256": "6266ce49883bd325fa681eff5da34fb00feda3ee5d83f24ece7687a1192d752e",
+      "alt": {
+        "ko": "상악동 막과 바닥·골이식재 위치를 구분한 설명용 단면 모형",
+        "en": "Educational cutaway distinguishing the sinus membrane, floor and graft material",
+        "ja": "上顎洞粘膜・洞底・骨補填材の位置を区別した説明用断面模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "7b26b935b31eba5180b633605376991b65cb5753509636d8657f2846dd9dbe76",
+      "sourceJob": "de310d05-28f1-47f0-8365-0912fc45db38",
+      "sourceSlug": "implant-sinus-lift",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407807+00:00",
+        "observations": [
+          "Cutaway separates sinus lining, floor and graft granules; educational anatomy only, not a patient operation or implant placement example."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "inlay": {
+      "src": "/images/treatment-editorial/inlay-remake/7f17d5d6a2d1/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 118974,
+      "sha256": "5bcbeb31e4a1d92fb92b5cb675f5444ccde5b266bb82174792685bf7cfbb4b85",
+      "alt": {
+        "ko": "씹는 면을 표현한 세라믹 부분수복물과 치과용 거울",
+        "en": "A ceramic partial-restoration model showing the chewing surface, with a dental mirror",
+        "ja": "噛む面を表したセラミック部分修復物の模型と歯科用ミラー"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "7f17d5d6a2d17e13453bbcf7eeb6380eb2eceb6e0e82d5eec2dc981109b5fb43",
+      "sourceJob": "c42872df-b028-420d-ba9d-4decc1bfda16",
+      "sourceSlug": "inlay-remake",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "userQualityApproval": false,
+        "blockingIssues": [],
+        "observations": [
+          "치과 거울 앞에 단독 세라믹 부분수복물을 놓은 정물이다. 기존 보류 이미지의 원통형 돌기·삭제면 불일치가 없다.",
+          "교두를 포함한 넓은 씹는 면을 덮는 외형으로, 교두 안쪽만 채우는 intracoronal inlay라고 단정할 수 없다. 온레이·부분수복물 맥락으로만 사용 가능하다.",
+          "KO/EN/JA /treatments/inlay 페이지의 현재 제목과 본문이 모두 인레이와 온레이의 차이를 다루는 것을 직접 확인했다.",
+          "Primary review agrees with the independent descriptive scope; the image depicts a standalone prosthetic model, not clinical placement or a verified manufactured product."
+        ],
+        "limitations": [
+          "prompt의 cusp-free intracoronal inlay 요구를 충족한 것으로 기록하면 안 된다.",
+          "세라믹 부분수복물/온레이의 설명용 정물로만 사용하며, 정확한 인레이 해부학·삭제량·적합도를 나타낸다고 설명하지 않는다.",
+          "1400×788検討用JPEGの直接視覚確認。実患者・治療結果の写真ではないAI教育画像の表示を維持する。"
+        ],
+        "allowedUse": "Representative educational still under corrected descriptive alt only",
+        "promptCompliance": {
+          "exactTreatmentSubtypeConfirmed": false,
+          "note": "Intracoronal-inlay prompt not met; use only for the page that explicitly covers inlays and onlays"
+        },
+        "checkedAt": "2026-10-17T12:39:14.571617+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "sourceAndReviewSha256Matched": true,
+        "reasons": [],
+        "method": "Direct visual review of original and 1400px review image by motion_asset_inventory, with independent visual review by motion_failure_diagnosis",
+        "reviewedAt": "2026-10-17T12:41:31.871921+00:00",
+        "independentReviewPath": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-process-resume-20261017/restoration/photo-refresh/remake30/secondary-review.json"
+      }
+    },
+    "invisalign": {
+      "src": "/images/treatment-editorial/invisalign-best/616fffb30eb7/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 132773,
+      "sha256": "7cae3c10cb8ea5f8367ccbb3d6ed2728bc7faa954d14195052ffc8f86ff3c86a",
+      "alt": {
+        "ko": "위아래 치열 모형과 분리된 투명 교정장치를 보여주는 이미지",
+        "en": "Educational image of upper and lower dental models with separate clear aligners",
+        "ja": "上下歯列模型と取り外した透明アライナーを示す説明画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "616fffb30eb79d084a17d3d2f14279596fa116f2e70d0c04eec3e72da13b4f71",
+      "sourceJob": "69cc9f6c-19a7-4739-9ac3-e5628507989e",
+      "sourceSlug": "invisalign-best",
+      "reuseOf": "invisalign-best",
+      "reuseReason": "Upper/lower teaching arches with separate clear aligners fit the broad clear-aligner guide without the held image's opaque attachment-placement ambiguity.",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407848+00:00",
+        "observations": [
+          "Separate upper/lower aligners and teaching arches are coherent; exact brand geometry not claimed."
+        ],
+        "reasons": [],
+        "userQualityApproval": false,
+        "reuseRelevance": "Upper/lower teaching arches with separate clear aligners fit the broad clear-aligner guide without the held image's opaque attachment-placement ambiguity."
+      },
+      "thumbnail": {
+        "src": "/images/treatment-editorial/invisalign-best/616fffb30eb7/thumbnail.jpg",
+        "width": 600,
+        "height": 600,
+        "bytes": 70978,
+        "sha256": "036cec537d67fc1706795aaeaaafa3d3cba030e27ad564833cfd46df20759bf3"
+      }
+    },
+    "invisalign-best": {
+      "src": "/images/treatment-editorial/invisalign-best/616fffb30eb7/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 132773,
+      "sha256": "7cae3c10cb8ea5f8367ccbb3d6ed2728bc7faa954d14195052ffc8f86ff3c86a",
+      "alt": {
+        "ko": "위아래 치열 모형과 분리된 투명 교정장치를 보여주는 이미지",
+        "en": "Educational image of upper and lower dental models with separate clear aligners",
+        "ja": "上下歯列模型と取り外した透明アライナーを示す説明画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "616fffb30eb79d084a17d3d2f14279596fa116f2e70d0c04eec3e72da13b4f71",
+      "sourceJob": "69cc9f6c-19a7-4739-9ac3-e5628507989e",
+      "sourceSlug": "invisalign-best",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407848+00:00",
+        "observations": [
+          "Separate upper/lower aligners and teaching arches are coherent; exact brand geometry not claimed."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "invisalign-express": {
+      "src": "/images/treatment-editorial/invisalign-express/c499504ec800/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 130437,
+      "sha256": "b0e5e1e5be17b1e19df1fa177fdd17eec4934ce2ca49836b5d07bf027f9ae42d",
+      "alt": {
+        "ko": "앞니 치열과 분리된 투명 교정장치를 보여주는 설명용 모형",
+        "en": "Teaching model showing front teeth and a detached clear aligner",
+        "ja": "前歯の歯列と取り外した透明アライナーを示す説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "c499504ec800a313acc28cad3ce7aacf0bd53e890e1024fe9a52022fa816d828",
+      "sourceJob": "ce969db7-0527-4f5f-a1cd-ea341e5d5da9",
+      "sourceSlug": "invisalign-express",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407849+00:00",
+        "observations": [
+          "Anterior teaching segment and detached clear tray depict a correction appliance rather than a guaranteed completed result."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "invisalign-first": {
+      "src": "/images/treatment-editorial/invisalign-first/503b57ecf273/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 124347,
+      "sha256": "c5fb732bc2529e44fa676232711d9eca277940e019188b9e1bc84f5445706ed9",
+      "alt": {
+        "ko": "어린이 치열 모형과 투명 교정장치를 함께 보여주는 설명용 이미지",
+        "en": "Educational image of a child dental arch and a clear aligner",
+        "ja": "子どもの歯列模型と透明アライナーを示す説明画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "503b57ecf2738bb377de9586683429c2317982cb38926fb59a62c9df52f470d6",
+      "sourceJob": "2c9525e1-38a9-4e6a-8580-23486f555b2b",
+      "sourceSlug": "invisalign-first",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407850+00:00",
+        "observations": [
+          "Child mixed-dentition arch and separate clear aligner without embedded-bud anatomy; use for assessment/options not guaranteed suitability."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "invisalign-light": {
+      "src": "/images/treatment-editorial/invisalign-light/e27c426c47c9/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 129556,
+      "sha256": "e637416fc938b2ca28bc562da6044a8c145a1d50290defd3b837ccef836fb11c",
+      "alt": {
+        "ko": "치열의 겹침과 분리된 투명 교정장치를 보여주는 설명용 모형",
+        "en": "Teaching model showing dental crowding beside a separate clear aligner",
+        "ja": "歯列の重なりと取り外した透明アライナーを示す説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "e27c426c47c9df1172539ac7279412428882863db4b8247c61b117763b105443",
+      "sourceJob": "20dac8d8-f4e5-41e9-b721-4a93fd9097b5",
+      "sourceSlug": "invisalign-light",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407852+00:00",
+        "observations": [
+          "Mildly crowded model and separate clear aligner are coherent; no before/after pairing."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "invisalign-moderate": {
+      "src": "/images/treatment-editorial/invisalign-moderate/62db4ec901d2/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 129969,
+      "sha256": "1fdb045918f1f576565e68881642d5e8ed8281e4919e8eb9b154df211b892e08",
+      "alt": {
+        "ko": "치아의 어태치먼트와 투명 교정장치의 관계를 보여주는 설명용 모형",
+        "en": "Teaching model showing the relationship between tooth attachments and a clear aligner",
+        "ja": "歯のアタッチメントと透明アライナーの関係を示す説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "62db4ec901d296cc008ac68490adf2c075448f24d8fc8d0f3294c8fe0ae32e8e",
+      "sourceJob": "756d0a45-8ed4-4102-bfa6-08e14ae512ef",
+      "sourceSlug": "invisalign-moderate",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407853+00:00",
+        "observations": [
+          "Attachments appear on teeth and a partially separated tray displays their relationship; positioning is illustrative not wear instruction."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "oral-medicine": {
+      "src": "/images/treatment-editorial/oral-medicine/ad5199d9d3f5/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 131860,
+      "sha256": "90aa5b5895682f6477096f90b2c84fcfe06555ae9c6dd6c81fecafbc42ab49e3",
+      "alt": {
+        "ko": "구강 안의 치아·점막과 치경을 보여주는 진찰 설명용 모형",
+        "en": "Educational oral-examination model showing teeth, mucosa and a dental mirror",
+        "ja": "歯・口腔粘膜とデンタルミラーを示す診察説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "ad5199d9d3f5d1191bb9cce033ff2824200b5c69f700f97937a8036ac215778c",
+      "sourceJob": "edda1045-f475-419e-a295-813c3e35dedb",
+      "sourceSlug": "oral-medicine",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407816+00:00",
+        "observations": [
+          "Illustrative open-mouth anatomy with dental mirror; no identifiable real patient or treatment result."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "ortho-best": {
+      "src": "/images/treatment-editorial/ortho-best/da1cda612dee/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 137206,
+      "sha256": "f0bae28739845c4d66a292c23bd68e218071f030e04a6396cb9fdba34bec0c53",
+      "alt": {
+        "ko": "위아래 치열과 브래킷·와이어를 보여주는 고정식 교정 모형",
+        "en": "Fixed-orthodontic model showing upper and lower arches, brackets and archwires",
+        "ja": "上下歯列のブラケットとワイヤーを示す固定式矯正模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "da1cda612dee481878d59f884f4f3a239421b95f6bd540b266a4e69eb4b3ffc0",
+      "sourceJob": "e91aface-ca70-4223-80e0-c87fd6dbc838",
+      "sourceSlug": "ortho-best",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407818+00:00",
+        "observations": [
+          "Two arches with labial brackets and a coherent archwire; educational treatment stage, not result."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "ortho-express": {
+      "src": "/images/treatment-editorial/ortho-express/3d9c0b15d5f6/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 114353,
+      "sha256": "e9d52da6966929f7e99ba96bfc9c9aba65b964b003c5f9603a7d6276b28d8968",
+      "alt": {
+        "ko": "겹친 앞니와 브래킷·와이어를 보여주는 교정 설명용 모형",
+        "en": "Orthodontic teaching model showing crowded front teeth with brackets and an archwire",
+        "ja": "重なった前歯とブラケット・ワイヤーを示す矯正説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "3d9c0b15d5f62ee43704a02fa2ae8697f9ad8a89491805b5cbc89fb4ceaad014",
+      "sourceJob": "ed972abb-8dd7-438f-ab1c-249731109a1f",
+      "sourceSlug": "ortho-express",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407819+00:00",
+        "observations": [
+          "Anterior crowding and labial brackets are clear; relevant to limited correction and retreatment options without promising duration."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "ortho-first": {
+      "src": "/images/treatment-editorial/invisalign-first/503b57ecf273/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 124347,
+      "sha256": "c5fb732bc2529e44fa676232711d9eca277940e019188b9e1bc84f5445706ed9",
+      "alt": {
+        "ko": "어린이 치열 모형과 투명 교정장치를 함께 보여주는 설명용 이미지",
+        "en": "Educational image of a child dental arch and a clear aligner",
+        "ja": "子どもの歯列模型と透明アライナーを示す説明画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "503b57ecf2738bb377de9586683429c2317982cb38926fb59a62c9df52f470d6",
+      "sourceJob": "2c9525e1-38a9-4e6a-8580-23486f555b2b",
+      "sourceSlug": "invisalign-first",
+      "reuseOf": "invisalign-first",
+      "reuseReason": "Child dentition and a separate clear aligner illustrate early orthodontic assessment and one appliance option; not a promise of suitability.",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407850+00:00",
+        "observations": [
+          "Child mixed-dentition arch and separate clear aligner without embedded-bud anatomy; use for assessment/options not guaranteed suitability."
+        ],
+        "reasons": [],
+        "userQualityApproval": false,
+        "reuseRelevance": "Child dentition and a separate clear aligner illustrate early orthodontic assessment and one appliance option; not a promise of suitability."
+      }
+    },
+    "ortho-light": {
+      "src": "/images/treatment-editorial/ortho-express/3d9c0b15d5f6/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 114353,
+      "sha256": "e9d52da6966929f7e99ba96bfc9c9aba65b964b003c5f9603a7d6276b28d8968",
+      "alt": {
+        "ko": "겹친 앞니와 브래킷·와이어를 보여주는 교정 설명용 모형",
+        "en": "Orthodontic teaching model showing crowded front teeth with brackets and an archwire",
+        "ja": "重なった前歯とブラケット・ワイヤーを示す矯正説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "3d9c0b15d5f62ee43704a02fa2ae8697f9ad8a89491805b5cbc89fb4ceaad014",
+      "sourceJob": "ed972abb-8dd7-438f-ab1c-249731109a1f",
+      "sourceSlug": "ortho-express",
+      "reuseOf": "ortho-express",
+      "reuseReason": "Anterior crowding and a labial archwire fit limited-correction assessment without the held image's inward-facing bracket ambiguity.",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407819+00:00",
+        "observations": [
+          "Anterior crowding and labial brackets are clear; relevant to limited correction and retreatment options without promising duration."
+        ],
+        "reasons": [],
+        "userQualityApproval": false,
+        "reuseRelevance": "Anterior crowding and a labial archwire fit limited-correction assessment without the held image's inward-facing bracket ambiguity."
+      }
+    },
+    "ortho-moderate": {
+      "src": "/images/treatment-editorial/ortho-moderate/7cd1f82658aa/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 150282,
+      "sha256": "54e903bc14feb681735bd6a4ec886dd2b4d025dd45914c31623639a5dd0b9147",
+      "alt": {
+        "ko": "치열·치근과 브래킷 위치를 함께 보여주는 교정 단면 모형",
+        "en": "Orthodontic cutaway model showing arches, tooth roots and bracket positions",
+        "ja": "歯列・歯根とブラケット位置を示す矯正断面模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "7cd1f82658aadb9b4f03f77fe48b94f3e66869a3a2438603f13b4df7f1e29d3c",
+      "sourceJob": "ecaab1e7-6e38-4b1b-a387-fc30479859bd",
+      "sourceSlug": "ortho-moderate",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407823+00:00",
+        "observations": [
+          "Sectioned arches and labial brackets convey combined tooth-root/occlusion assessment; no movement prediction."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "orthodontic-clarity-ultra": {
+      "src": "/images/treatment-editorial/orthodontic-clarity-ultra/c2c4a8148b84/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 110150,
+      "sha256": "2f179f24897b86917d3bf6cf6363e9c157b194c3a49f1243bff56932a49c8728",
+      "alt": {
+        "ko": "반투명 브래킷과 와이어의 결합을 설명하는 확대 일반 모형",
+        "en": "Enlarged generic model explaining a translucent bracket and archwire connection",
+        "ja": "半透明ブラケットとワイヤーの接続を説明する拡大一般模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "c2c4a8148b84d21f954f2b6d446db3039238ca23be96352dfba8761e395e7b55",
+      "sourceJob": "5395e42f-c082-4be6-a63a-e282394a8311",
+      "sourceSlug": "orthodontic-clarity-ultra",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407824+00:00",
+        "observations": [
+          "Enlarged generic translucent bracket and archwire separated from model; not an exact branded product representation."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "orthodontic-clippy-c": {
+      "src": "/images/treatment-editorial/orthodontic-clippy-c/9368317108d8/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 134287,
+      "sha256": "cd1b4bb7f36f454eba9b769e1b357a27f52188fe80c7618b6858c073feab8ff8",
+      "alt": {
+        "ko": "세라믹 계열 브래킷의 잠금 구조와 와이어를 보여주는 일반 설명용 모형",
+        "en": "Generic educational model showing a ceramic-type bracket retaining mechanism and wire",
+        "ja": "セラミック系ブラケットの保持構造とワイヤーを示す一般説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 일반 설명용 모형입니다. 해당 브랜드 제품이나 실제 환자·치료 결과를 촬영한 사진이 아닙니다.",
+        "en": "An AI-generated generic educational model, not a photograph or verified depiction of the named branded product, a patient or a treatment result.",
+        "ja": "AIで制作した一般説明模型です。該当ブランドの製品や実際の患者・治療結果を撮影した写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "9368317108d8e3fe4690a0bc4a881603a581a203353f63ee6ae63adffbb14ebd",
+      "sourceJob": "c1c5407e-5344-44e0-938d-1e8e72290ca6",
+      "sourceSlug": "orthodontic-clippy-c",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407847+00:00",
+        "observations": [
+          "Generic ceramic-type bracket with visible retaining mechanism and separate wire; not a manufacturer-verified Clippy-C product image."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "orthodontic-retreatment": {
+      "src": "/images/treatment-editorial/ortho-express/3d9c0b15d5f6/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 114353,
+      "sha256": "e9d52da6966929f7e99ba96bfc9c9aba65b964b003c5f9603a7d6276b28d8968",
+      "alt": {
+        "ko": "겹친 앞니와 브래킷·와이어를 보여주는 교정 설명용 모형",
+        "en": "Orthodontic teaching model showing crowded front teeth with brackets and an archwire",
+        "ja": "重なった前歯とブラケット・ワイヤーを示す矯正説明模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "3d9c0b15d5f62ee43704a02fa2ae8697f9ad8a89491805b5cbc89fb4ceaad014",
+      "sourceJob": "ed972abb-8dd7-438f-ab1c-249731109a1f",
+      "sourceSlug": "ortho-express",
+      "reuseOf": "ortho-express",
+      "reuseReason": "Crowded anterior teeth with labial brackets are a relevant fixed-appliance retreatment option; does not depict a result or retention-wire placement.",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407819+00:00",
+        "observations": [
+          "Anterior crowding and labial brackets are clear; relevant to limited correction and retreatment options without promising duration."
+        ],
+        "reasons": [],
+        "userQualityApproval": false,
+        "reuseRelevance": "Crowded anterior teeth with labial brackets are a relevant fixed-appliance retreatment option; does not depict a result or retention-wire placement."
+      }
+    },
+    "orthodontics": {
+      "src": "/images/treatment-editorial/orthodontics/85a29a95efbd/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 131305,
+      "sha256": "b5910c430c55ac4a1c1f7049d0a33d1b8ca2b217f59dc98c7c12d22ae02d9cba",
+      "alt": {
+        "ko": "치열 모형과 투명 교정장치·브래킷을 함께 보여주는 교정 설명용 이미지",
+        "en": "Orthodontic teaching models with clear-aligner and fixed-bracket options",
+        "ja": "歯列模型と透明アライナー・ブラケットを示す矯正説明画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "85a29a95efbd215701d3f2ef52eb7dc98adba44ee8edaf6e1dcedbe8d43a8ab5",
+      "sourceJob": "5b2a53e0-79e9-411b-be2b-1cd51e807dd4",
+      "sourceSlug": "orthodontics",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407811+00:00",
+        "observations": [
+          "Crowded teaching arches with separate clear aligner and fixed-bracket alternatives; no before/after promise."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "pediatric": {
+      "src": "/images/treatment-editorial/pediatric/39852a9957f8/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 120424,
+      "sha256": "73a37517fe38c8096c7755416689d3330fc37a2785ddfdf6959627b7f7e50dc2",
+      "alt": {
+        "ko": "어린이 치아 모형과 칫솔·치경을 배치한 소아 진료 설명용 이미지",
+        "en": "Educational still life of a child dental model, toothbrush and dental mirror",
+        "ja": "子どもの歯列模型と歯ブラシ・デンタルミラーを配置した説明画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "39852a9957f8573ae8de625abdd40d6a1a7268abd0b1fc61e23baacc379c532d",
+      "sourceJob": "905e58a2-b26c-4299-b42f-f0a835373a51",
+      "sourceSlug": "pediatric",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "method": "direct individual visual review of 1400px image",
+        "limitations": [
+          "Illustrative educational depiction; not a patient, outcome, manufacturer-certified product or clinical approval."
+        ],
+        "reviewedAt": "2026-10-17T12:20:36.407793+00:00",
+        "observations": [
+          "Child-sized teaching arch and examination/cleaning items; no real child or claimed result."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      },
+      "thumbnail": {
+        "src": "/images/treatment-editorial/pediatric/39852a9957f8/thumbnail.jpg",
+        "width": 600,
+        "height": 600,
+        "bytes": 63309,
+        "sha256": "41a90ebdd5b6701e65dde4b8f64fcaed93c003b042c900e6d97fc862ccfe0b18"
+      }
+    },
+    "periodontitis": {
+      "src": "/images/treatment-editorial/periodontitis/1c7e1d3f17ab/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 179550,
+      "sha256": "035efa62a367d00322fffba609625d0a119535d8f6a89df6b7d60dbb7460f73c",
+      "alt": {
+        "ko": "치근 주변 뼈와 잇몸 상태의 차이를 보여주는 치주 설명 모형",
+        "en": "Periodontal model showing differences in gum and bone around tooth roots",
+        "ja": "歯根周囲の骨と歯肉の状態の違いを示す歯周説明用模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "1c7e1d3f17ab08a2334656b49ff08490a6c4c0761145bc0c6543292d367b7e4b",
+      "sourceJob": "f9745e4a-592a-427a-a0aa-4a1dd18ae5ad",
+      "sourceSlug": "periodontitis",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "인접한 부위의 상태 비교로만 설명해야 한다. 치료 전후나 잇몸·뼈 재생 결과로 설명하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "치근 주변 뼈 높이와 잇몸 상태가 다른 두 부위, 치주 탐침이 보이는 단면 구성이다. 치료 전후 사진으로 보이는 표시는 없다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "prevention": {
+      "src": "/images/treatment-editorial/prevention/c69a3a16b3d1/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 129571,
+      "sha256": "f9e4bbbb067a002537d12f00b75cb51683c734503b4a10f82fc0dd0f437fbaca",
+      "alt": {
+        "ko": "어금니의 홈과 칫솔·치간칫솔을 함께 보여주는 예방 설명 이미지",
+        "en": "Preventive-care illustration showing molar grooves, a toothbrush and an interdental brush",
+        "ja": "臼歯の溝と歯ブラシ・歯間ブラシを示す予防ケアの説明用画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "c69a3a16b3d1c47c4777adc3aaf8d9705c74147344b616ca8a8af13451e5ee3f",
+      "sourceJob": "2f917668-3ffd-45e5-a502-100b5ad4b9b8",
+      "sourceSlug": "prevention",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "칫솔과 치간칫솔의 크기는 설명용 배치이며 실제 사용 크기나 적용 방법을 안내하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "어금니 모형의 씹는 면 홈에 재료가 놓이고, 칫솔과 치간칫솔이 주변에 배치된 예방 관리 정물이다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "re-root-canal": {
+      "src": "/images/treatment-editorial/re-root-canal/81b53b5e4ece/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 147264,
+      "sha256": "b33562878b7cb1b0ea2a2123e787134d552552e9dbd4cecd713a50faf3c0197b",
+      "alt": {
+        "ko": "기존 수복물과 근관 충전 재료를 보여주는 재치료 설명 모형",
+        "en": "Retreatment model showing an existing restoration and root-canal filling material",
+        "ja": "既存の修復物と根管充填材を示す再治療の説明用模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "81b53b5e4ecea7eb92cfcc7fcfbd156ee319e866ec6aeb5a712f78c842ad936a",
+      "sourceJob": "cf924472-bbec-4910-92d3-530265bbc922",
+      "sourceSlug": "re-root-canal",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "실제 제거 기법이나 특정 충전 재료의 물성을 검증하지 않았다. 완치·재치료 결과 사진으로 쓰지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "기존 수복물과 근관 안 충전 재료가 있는 치아 단면을 기구와 함께 보여 재치료의 기존 재료 확인 맥락에 맞는다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "resin": {
+      "src": "/images/treatment-editorial/resin/13b9caeaeb54/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 122306,
+      "sha256": "8bfb6859d63dbc97ccd56f339155f10938a7334c0ff89f0e148bd69877186808",
+      "alt": {
+        "ko": "어금니의 치아색 수복 재료와 성형기구를 보여주는 설명용 모형",
+        "en": "Educational molar model showing tooth-coloured filling material and a shaping instrument",
+        "ja": "歯の色の修復材料と成形器具を示す臼歯の説明用模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "13b9caeaeb5469376dc36d733d6c7a6459d071d7a4ebf569f73db72739e70570",
+      "sourceJob": "159901e4-bc4e-48bc-94e2-730a0f1637b9",
+      "sourceSlug": "resin",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "정지 모형의 재료 접촉만 확인했다. 충전 깊이·접착·중합·완성된 교합을 검증한 것이 아니다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "어금니 모형의 삭제된 부위에 치아색 재료와 성형기구가 배치돼 있어 직접 수복 주제가 드러난다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "root-canal": {
+      "src": "/images/treatment-editorial/root-canal/1843182b46f7/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 151152,
+      "sha256": "369f43b7b8ab4908525d692dbe2bf452fc3ea0d6f8f03afe22e333fa6e5c6c74",
+      "alt": {
+        "ko": "어금니의 근관과 근관 파일을 보여주는 단면 모형",
+        "en": "Sectioned molar model showing root canals and an endodontic file",
+        "ja": "根管と根管用ファイルを示す臼歯の断面模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "1843182b46f7bbd76d85d5fbb563906433daa604a2695084db19f555faa3e6e8",
+      "sourceJob": "71e23279-ef98-4cf6-a8a1-668127341ef0",
+      "sourceSlug": "root-canal",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "확대 단면과 파일은 개념 설명용이다. 작업 길이·근관 형태·기구 사용법의 임상 승인은 아니다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "절개된 어금니의 치수강과 근관, 근관 안으로 들어간 가는 파일이 보여 근관 치료 주제를 구분할 수 있다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "scaling": {
+      "src": "/images/treatment-editorial/scaling/a3d23bb7d4c7/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 126752,
+      "sha256": "f4482516168377b8e8dcca6a2b4669d94eba241bc81e89548b461b83450b7edd",
+      "alt": {
+        "ko": "치아 사이 치석과 스케일러 끝을 보여주는 설명용 이미지",
+        "en": "Educational illustration showing tartar between teeth and a scaler tip",
+        "ja": "歯の間の歯石とスケーラーの先端を示す説明用画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "a3d23bb7d4c70f4a7aa950b321071931000447d1265cd39d9a6db375312a4cdb",
+      "sourceJob": "23f8b028-52e2-4c77-85a0-1b592b61a3e8",
+      "sourceSlug": "scaling",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "모형 표면이 실제 구강처럼 보일 수 있어 생성 설명 이미지라는 캡션을 유지해야 한다. 기구 사용법이나 실제 시술 결과로 제시하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "앞니 사이 치석과 인접한 초음파 스케일러 끝이 보이는 확대 구도다. 기구가 치아를 관통하는 형태는 보이지 않는다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "sedation": {
+      "src": "/images/treatment-editorial/sedation/a3bc71ea505b/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 119118,
+      "sha256": "d4be4162d04efb27c75d9bd9e3133625d392f8d0678e4199ad759678da976f56",
+      "alt": {
+        "ko": "치아 모형과 손가락 센서·관찰 모니터를 배치한 진정 설명 이미지",
+        "en": "Sedation illustration with a tooth model, finger sensor and monitoring display",
+        "ja": "歯の模型と指のセンサー・モニターを配置した鎮静の説明用画像"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "a3bc71ea505bcb6a20844e8cf214d3eefcee8c1ba9071fa60f9bd147a5d2f1ad",
+      "sourceJob": "915fb22d-15b3-43b6-bed4-fded1e2cb683",
+      "sourceSlug": "sedation",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "생성된 손·장비와 개념 파형이며 실제 원내 장비나 환자가 아니다. 이 센서 하나로 진정 안전이 보장된다고 설명하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "임플란트 단면 모형, 손가락 센서, 파형 모니터를 함께 놓은 진정 중 관찰 주제의 구성이다. 읽을 수 있는 약물명·수치·브랜드는 없다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "tmj": {
+      "src": "/images/treatment-editorial/tmj/8c9d7bbe3fd0/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 109342,
+      "sha256": "768a58a79b58a5770fc4b16768d778371f7d0ef5c601e94640b1fe638babb2fc",
+      "alt": {
+        "ko": "턱관절 원판과 아래턱 뼈를 보여주는 설명용 모형",
+        "en": "Educational model showing the jaw-joint disc and lower jaw",
+        "ja": "顎関節の関節円板と下顎骨を示す説明用模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "8c9d7bbe3fd013363ee4482e45f287ea95e6cee3027b892eb84f2f3c60228338",
+      "sourceJob": "41a2b98c-adf8-48a7-9061-33951e64d13e",
+      "sourceSlug": "tmj",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "관절 원판 두께·위치와 개별 질환의 진단을 위한 정밀 해부학 자료는 아니다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "턱관절 원판·과두와 턱뼈를 배치한 받침대 위 모형이다. 관절 주제가 명확하고 전후 결과 표시는 없다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "whitening": {
+      "src": "/images/treatment-editorial/whitening/eb878f759eec/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 130460,
+      "sha256": "a60404594eea7d31d8f97fbcf3decf21e3d8323f4d521702dc06c6143ac551c5",
+      "alt": {
+        "ko": "잇몸 경계 보호재와 치면의 젤을 보여주는 치아 모형",
+        "en": "Tooth model showing a gum-line barrier and gel on the tooth surfaces",
+        "ja": "歯肉の境界の保護材と歯面のジェルを示す歯の模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "eb878f759eec8a9167993f6748aa77da40c1119eceb03edb5bb4b1a29bbf2c38",
+      "sourceJob": "aa30c34f-f434-4c58-b2af-d2953eeaad9b",
+      "sourceSlug": "whitening",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "젤 성분·농도·도포 범위·실제 시술 순서나 미백 결과를 안내하는 자료로 사용하지 않는다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "앞니 모형의 잇몸 경계에 보호재, 치면에 투명 젤을 배치한 구성이다. 색 변화 전후나 실제 환자 사진이 아니다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      }
+    },
+    "wisdom-tooth": {
+      "src": "/images/treatment-editorial/wisdom-tooth/5650053cc42b/representative.jpg",
+      "width": 1200,
+      "height": 630,
+      "bytes": 169595,
+      "sha256": "704a0c5546cf8b96fd57443b391eb4fbae93611d60b59768e1ffcedf52b25a62",
+      "alt": {
+        "ko": "매복 사랑니와 아래턱 신경관의 위치를 보여주는 단면 모형",
+        "en": "Sectioned model showing an impacted wisdom tooth and the mandibular nerve canal",
+        "ja": "埋伏した親知らずと下顎の神経管の位置を示す断面模型"
+      },
+      "caption": {
+        "ko": "AI로 제작한 진료 설명용 이미지입니다. 실제 환자나 치료 결과를 보여주는 사진이 아닙니다.",
+        "en": "An AI-generated educational illustration, not a photograph of a patient or a treatment outcome.",
+        "ja": "AIで制作した診療説明用の画像です。実際の患者さんや治療結果を示す写真ではありません。"
+      },
+      "generated": true,
+      "sourceSha256": "5650053cc42b19b7b22a7c6d22c2aa4cb72eb176397911ae30ed577ee3b8f923",
+      "sourceJob": "44923c17-7d19-4b69-a18b-92d78b6f6089",
+      "sourceSlug": "wisdom-tooth",
+      "review": {
+        "status": "sample-reviewed",
+        "clinicalApproval": false,
+        "limitations": [
+          "모든 환자의 신경 위치나 발치 난도·안전을 보장하지 않는다. 설명을 위한 단순화된 단면이다.",
+          "AI 생성 설명 이미지라는 캡션을 유지하고 실제 원내·환자·치료 결과 사진으로 표현하지 않는다.",
+          "단일 대표 정지 이미지의 직접 시각검토이며 임상 승인 또는 사용자 최종 품질 승인이 아니다."
+        ],
+        "checkedAt": "2026-10-17T12:23:03.444088+00:00",
+        "reviewer": "motion_failure_diagnosis",
+        "method": "view_image of full 1400×788 review JPEG; source and review SHA-256 verified",
+        "observations": [
+          "옆으로 기울어진 매복 사랑니, 인접 어금니, 턱뼈 내부 신경관의 관계를 구분할 수 있는 단면 모형이다."
+        ],
+        "reasons": [],
+        "userQualityApproval": false
+      },
+      "thumbnail": {
+        "src": "/images/treatment-editorial/wisdom-tooth/5650053cc42b/thumbnail.jpg",
+        "width": 600,
+        "height": 600,
+        "bytes": 86830,
+        "sha256": "f3d43f769444bab2e0e6a1f1fd29fa8774ecc5372f99419f98b71e93ca52cfd6"
+      }
+    }
+  }
+}

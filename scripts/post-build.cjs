@@ -212,6 +212,7 @@ console.log('[treatment-scroll]', require('./treatment-scroll.cjs').syncAll(path
 cp.execFileSync(process.execPath, [path.join(__dirname, 'check-treatment-scroll.cjs'), 'dist'], { stdio: 'inherit' });
 cp.execFileSync(process.execPath, [path.join(__dirname, 'normalize-favicons.mjs'), path.resolve('dist')], { stdio: 'inherit' });
 cp.execFileSync(process.execPath, [path.join(__dirname, 'test-subpage-cards.cjs'), path.resolve('dist')], { stdio: 'inherit' });
+cp.execFileSync(process.execPath, [path.join(__dirname, 'test-treatment-editorial-images.cjs'), path.resolve('dist')], { stdio: 'inherit' });
 
 // Keep public doctor-column archives crawlable without opening private routes.
 cp.execFileSync(process.execPath, [path.join(__dirname, 'check-robots.cjs'), 'dist/robots.txt'], { stdio: 'inherit' });

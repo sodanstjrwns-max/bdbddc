@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { parse } = require('node-html-parser');
 const cards = require('../src/data/subpage-cards.json');
+const editorialImages = require('./treatment-editorial-images.cjs');
 const origin = 'https://bdbddc.com';
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const json = x => JSON.stringify(x).replace(/</g, '\\u003c');
@@ -10,6 +11,7 @@ function withStyle(html) {
   return html.includes('/static/subpage-cards.css') ? html : html.replace('</head>', style+'\n</head>');
 }
 function syncTreatmentPage(html, slug) {
+  if (editorialImages.has(slug)) return editorialImages.syncTreatmentPage(html, slug, 'ko');
   const card = cards.find(c => c.slug === slug);
   if (!card) return html;
   const image = origin + card.image, url = origin + '/treatments/' + slug;
@@ -68,6 +70,7 @@ function syncHome(html) {
   return withStyle(html).replace('</head>', '<script type="application/ld+json" id="home-treatment-cards-schema">'+json(schema)+'</script>\n</head>');
 }
 function syncImageSitemap(xml) {
+  if (Object.keys(editorialImages.readManifest().images).length) return editorialImages.syncImageSitemap(xml);
   for (const c of cards) {
     const url=origin+'/treatments/'+c.slug;
     const entry=`<image:image><image:loc>${origin+c.image}</image:loc><image:title>${esc(c.alt)}</image:title></image:image>`;
@@ -94,6 +97,7 @@ function syncAll(root) {
     return 'href='+quote+pathname+u.search+u.hash+quote;
   })));
   edit('sitemap-images.xml',syncImageSitemap);
+  changed += editorialImages.syncAll(root);
   return changed;
 }
 module.exports={cards,syncTreatmentPage,syncHome,syncImageSitemap,syncAll};
