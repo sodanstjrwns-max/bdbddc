@@ -514,10 +514,10 @@ app.get('/admin/seo-health.json', async (c) => {
 app.get('/admin/pricing', (c) => c.html(renderPricingAdminPage()))
 
 // === 인증 통과 후 admin 정적 파일 서빙 ===
-app.get('/admin', serveStatic({ path: './admin/index.html' }))
-app.get('/admin/', serveStatic({ path: './admin/index.html' }))
-app.get('/admin/careers', serveStatic({ path: './admin/careers.html' }))
-app.get('/admin/intl-inquiries', serveStatic({ path: './admin/intl-inquiries.html' }))
+app.get('/admin', serveStatic())
+app.get('/admin/', serveStatic())
+app.get('/admin/careers', serveStatic())
+app.get('/admin/intl-inquiries', serveStatic())
 app.use('/admin/*', strictStatic())
 
 // CORS for API (must be before API routes)
@@ -2974,7 +2974,7 @@ app.get('/bbs/*', (c) => c.redirect('/', 301))
 // v5.8: dist/_redirects 파일이 프로덕션(advanced mode _worker.js)에서 동작하지 않음이 확인되어
 // 레거시 리다이렉트 규칙을 워커 라우트로 이식 (GSC 404 165건 중 구 사이트 URL 해소)
 // v5.93: /about은 이제 안내 허브 페이지 (구 사이트 회사소개 → /mission 리다이렉트 폐기)
-app.get('/about', serveStatic({ path: './about.html' }))
+app.get('/about', serveStatic())
 app.get('/about/*', (c) => c.redirect('/about', 301))
 app.get('/intro', (c) => c.redirect('/mission', 301))
 app.get('/intro/*', (c) => c.redirect('/mission', 301))
@@ -3970,25 +3970,25 @@ app.post('/api/google-ping', async (c) => {
 // ============================================
 
 // Treatments directory
-app.get('/treatments', serveStatic({ path: './treatments/index.html' }))
-app.get('/treatments/', serveStatic({ path: './treatments/index.html' }))
+app.get('/treatments', serveStatic())
+app.get('/treatments/', serveStatic())
 app.use('/treatments/*', strictStatic())
 
 // Doctors directory — index는 정적, 개별 페이지는 SSR
-app.get('/doctors', serveStatic({ path: './doctors/index.html' }))
-app.get('/doctors/', serveStatic({ path: './doctors/index.html' }))
+app.get('/doctors', serveStatic())
+app.get('/doctors/', serveStatic())
 
 // ============================================
 // 전문과별 소개 페이지 (정적 서빙 — :slug 위에 먼저 등록)
 // ============================================
-app.get('/doctors/oral-medicine', serveStatic({ path: './doctors/oral-medicine.html' }))
-app.get('/doctors/pediatric', serveStatic({ path: './doctors/pediatric.html' }))
-app.get('/doctors/conservative', serveStatic({ path: './doctors/conservative.html' }))
-app.get('/doctors/orthodontics', serveStatic({ path: './doctors/orthodontics.html' }))
-app.get('/doctors/implant', serveStatic({ path: './doctors/implant.html' }))
-app.get('/doctors/general', serveStatic({ path: './doctors/general.html' }))
-app.get('/doctors/representative', serveStatic({ path: './doctors/representative.html' }))
-app.get('/doctors/integrated-dentistry', serveStatic({ path: './doctors/integrated-dentistry.html' }))
+app.get('/doctors/oral-medicine', serveStatic())
+app.get('/doctors/pediatric', serveStatic())
+app.get('/doctors/conservative', serveStatic())
+app.get('/doctors/orthodontics', serveStatic())
+app.get('/doctors/implant', serveStatic())
+app.get('/doctors/general', serveStatic())
+app.get('/doctors/representative', serveStatic())
+app.get('/doctors/integrated-dentistry', serveStatic())
 
 // 정적 자산 (CSS/JS/이미지 등 . 포함 경로)
 app.use('/doctors/*', async (c, next) => {
@@ -5638,8 +5638,8 @@ ${relatedHtml}
 })
 
 // Video directory
-app.get('/video', serveStatic({ path: './video/index.html' }))
-app.get('/video/', serveStatic({ path: './video/index.html' }))
+app.get('/video', serveStatic())
+app.get('/video/', serveStatic())
 app.use('/video/*', strictStatic())
 
 // Cases directory
@@ -6040,23 +6040,23 @@ document.addEventListener('keydown',function(e){
 app.use('/cases/*', strictStatic())
 
 // Notice directory
-app.get('/notice', serveStatic({ path: './notice/index.html' }))
-app.get('/notice/', serveStatic({ path: './notice/index.html' }))
+app.get('/notice', serveStatic())
+app.get('/notice/', serveStatic())
 app.use('/notice/*', strictStatic())
 
 // Auth directory
-app.get('/auth/login', serveStatic({ path: './auth/login.html' }))
-app.get('/auth/register', serveStatic({ path: './auth/register.html' }))
-app.get('/auth/mypage', serveStatic({ path: './auth/mypage.html' }))
-app.get('/auth/reset-password', serveStatic({ path: './auth/reset-password.html' }))
+app.get('/auth/login', serveStatic())
+app.get('/auth/register', serveStatic())
+app.get('/auth/mypage', serveStatic())
+app.get('/auth/reset-password', serveStatic())
 app.use('/auth/*', strictStatic())
 
 // Admin directory — 인증은 상단 미들웨어에서 처리, 여기는 정적 파일만
 // (미들웨어가 이미 /admin/* 보호하므로, 인증 통과 후에만 서빙됨)
 
 // Encyclopedia directory (치과 백과사전)
-app.get('/encyclopedia', serveStatic({ path: './encyclopedia/index.html' }))
-app.get('/encyclopedia/', serveStatic({ path: './encyclopedia/index.html' }))
+app.get('/encyclopedia', serveStatic())
+app.get('/encyclopedia/', serveStatic())
 
 // ============================================
 // 백과사전 개별 용어 페이지 (SSR - SEO 500개 URL)
@@ -7605,14 +7605,14 @@ app.get('/pricing', async (c) => {
   try {
     if (env.ASSETS) {
       const resp = await env.ASSETS.fetch(new Request(new URL('/pricing.html', c.req.url).toString()))
-      if (!resp.ok) return serveStatic({ path: './pricing.html' })(c, async () => {})
+      if (!resp.ok) return serveStatic()(c, async () => {})
       html = await resp.text()
     } else {
       const resp = await fetch(new URL('/pricing.html', c.req.url).toString())
       html = await resp.text()
     }
   } catch {
-    return serveStatic({ path: './pricing.html' })(c, async () => {})
+    return serveStatic()(c, async () => {})
   }
   try {
     if (env.DB) {
@@ -7624,9 +7624,9 @@ app.get('/pricing', async (c) => {
   return c.html(html)
 })
 app.get('/pricing/', (c) => c.redirect('/pricing', 301))
-app.get('/pricing/implant-guide', serveStatic({ path: './pricing/implant-guide.html' }))
-app.get('/pricing/ortho-guide', serveStatic({ path: './pricing/ortho-guide.html' }))
-app.get('/implant/estimate-check', serveStatic({ path: './implant/estimate-check.html' }))
+app.get('/pricing/implant-guide', serveStatic())
+app.get('/pricing/ortho-guide', serveStatic())
+app.get('/implant/estimate-check', serveStatic())
 
 // ============================================
 // v5.18e: 가격 탭별 고유 URL (SSR) — "임플란트 가격", "인비절라인 비용" 등
@@ -7757,45 +7757,45 @@ app.get('/pricing/:tab{(implant|prosthetic|denture|ortho|pediatric)}', async (c)
 
   return c.html(html)
 })
-app.get('/reservation', serveStatic({ path: './reservation.html' }))
-app.get('/reservation/thank-you', serveStatic({ path: './reservation/thank-you.html' }))
-app.get('/directions', serveStatic({ path: './directions.html' }))
-app.get('/faq', serveStatic({ path: './faq.html' }))
-app.get('/floor-guide', serveStatic({ path: './floor-guide.html' }))
-app.get('/privacy', serveStatic({ path: './privacy.html' }))
-app.get('/terms', serveStatic({ path: './terms.html' }))
-app.get('/mission', serveStatic({ path: './mission.html' }))
-app.get('/blueprint', serveStatic({ path: './blueprint.html' }))
+app.get('/reservation', serveStatic())
+app.get('/reservation/thank-you', serveStatic())
+app.get('/directions', serveStatic())
+app.get('/faq', serveStatic())
+app.get('/floor-guide', serveStatic())
+app.get('/privacy', serveStatic())
+app.get('/terms', serveStatic())
+app.get('/mission', serveStatic())
+app.get('/blueprint', serveStatic())
 
 // 게임 (플레이)
-app.get('/flight', serveStatic({ path: './flight.html' }))
-app.get('/checkup', serveStatic({ path: './checkup.html' }))
-app.get('/symptom-checker', serveStatic({ path: './symptom-checker.html' }))
-app.get('/run', serveStatic({ path: './run.html' }))
-app.get('/games', serveStatic({ path: './games.html' }))
+app.get('/flight', serveStatic())
+app.get('/checkup', serveStatic())
+app.get('/symptom-checker', serveStatic())
+app.get('/run', serveStatic())
+app.get('/games', serveStatic())
 app.get('/game/enamel', serveStatic())
-app.get('/game/cavity-defense', serveStatic({ path: './game/cavity-defense.html' }))
-app.get('/game/cavity-defense/', serveStatic({ path: './game/cavity-defense.html' }))
+app.get('/game/cavity-defense', serveStatic())
+app.get('/game/cavity-defense/', serveStatic())
 
 // 디자인 트렌드 데모
-app.get('/demo-trends', serveStatic({ path: './demo-trends.html' }))
+app.get('/demo-trends', serveStatic())
 
 // ============================================
 // 가이드 페이지 (백과사전 토픽 클러스터의 "더 자세한 정보" 스포크)
 // ============================================
 registerTreatmentInsightRoutes(app)
-app.get('/guide', serveStatic({ path: './guide/index.html' }))
-app.get('/guide/', serveStatic({ path: './guide/index.html' }))
-app.get('/guide/implant', serveStatic({ path: './guide/implant.html' }))
-app.get('/guide/invisalign', serveStatic({ path: './guide/invisalign.html' }))
-app.get('/guide/laminate', serveStatic({ path: './guide/laminate.html' }))
-app.get('/guide/scaling', serveStatic({ path: './guide/scaling.html' }))
-app.get('/guide/whitening', serveStatic({ path: './guide/whitening.html' }))
-app.get('/guide/wisdom-tooth', serveStatic({ path: './guide/wisdom-tooth.html' }))
-app.get('/guide/denture', serveStatic({ path: './guide/denture.html' }))
-app.get('/guide/root-canal', serveStatic({ path: './guide/root-canal.html' }))
-app.get('/guide/orthodontics', serveStatic({ path: './guide/orthodontics.html' }))
-app.get('/guide/insurance', serveStatic({ path: './guide/insurance.html' }))
+app.get('/guide', serveStatic())
+app.get('/guide/', serveStatic())
+app.get('/guide/implant', serveStatic())
+app.get('/guide/invisalign', serveStatic())
+app.get('/guide/laminate', serveStatic())
+app.get('/guide/scaling', serveStatic())
+app.get('/guide/whitening', serveStatic())
+app.get('/guide/wisdom-tooth', serveStatic())
+app.get('/guide/denture', serveStatic())
+app.get('/guide/root-canal', serveStatic())
+app.get('/guide/orthodontics', serveStatic())
+app.get('/guide/insurance', serveStatic())
 // v5.40: 과잉진료 판별 가이드 (「치과 과잉진료」 29노출 10.6위 · 「치과 과잉진료 신고 후기」 7노출 13.0위)
 // [v5.41] 과잉진료 카니발라이제이션 해소
 //   /guide/overtreatment 는 v5.40 에서 신설했으나, 동일 인텐트의
@@ -7806,9 +7806,9 @@ app.get('/guide/overtreatment', (c) => c.redirect('/blog/dental-over-treatment-g
 // [v5.45] 「천안 치과 추천」 전용 랜딩 (실측 「천안 치과 추천」계 1,034노출 / CTR 1.93%)
 //   기존 /area/cheonan (1.10%) 은 진료 안내 인텐트라 "추천/고르는 법" 정보 인텐트를 받지 못한다.
 //   의료법 제56조에 따라 병원 순위·목록은 넣지 않고, 판단 기준만 제공하는 정보 페이지로 구성.
-app.get('/guide/cheonan-dentist-choice', serveStatic({ path: './guide/cheonan-dentist-choice.html' }))
+app.get('/guide/cheonan-dentist-choice', serveStatic())
 app.get('/guide/cheonan-dentist-choice.html', (c) => c.redirect('/guide/cheonan-dentist-choice', 301))
-app.get('/guide/regret', serveStatic({ path: './guide/regret.html' }))
+app.get('/guide/regret', serveStatic())
 // 후회 백서 진료별 세부 페이지 (SEO/AEO 스포크: "<진료명> 후회", "<진료명> 부작용")
 // [v5.45] 12종 -> 24종 확장. 기존 12p 실측 1,093클릭/28,424노출/3.85% 의 검증된 패턴을
 //   상업·증상 인텐트 상위 12개 주제로 복제한다(GSC 2026-04-26~07-25 노출 기준 선정).
@@ -7821,13 +7821,13 @@ const REGRET_SLUGS = [
   'malocclusion', 'retainer', 'front-teeth', 'tooth-crack', 'bruxism', 'sedation',
 ]
 for (const slug of REGRET_SLUGS) {
-  app.get(`/guide/regret/${slug}`, serveStatic({ path: `./guide/regret/${slug}.html` }))
+  app.get(`/guide/regret/${slug}`, serveStatic())
   app.get(`/guide/regret/${slug}.html`, (c) => c.redirect(`/guide/regret/${slug}`, 301))
 }
 app.get('/guide/regret/', (c) => c.redirect('/guide/regret', 301))
 // 비교 백서 (v6.06): "A vs B" 선택 갈림길 인텐트 30종 — 후회백서 검증 패턴의 비교 버전.
 //   가격·병원 비교가 아닌 치료방식 비교(브릿지vs임플란트 등)로 의료광고법 안전선 준수.
-app.get('/guide/compare', serveStatic({ path: './guide/compare.html' }))
+app.get('/guide/compare', serveStatic())
 app.get('/guide/compare.html', (c) => c.redirect('/guide/compare', 301))
 const COMPARE_SLUGS = [
   // 임플란트·상실 치아 (9)
@@ -7851,7 +7851,7 @@ const COMPARE_SLUGS = [
   'electric-vs-manual-toothbrush', 'mouthwash-vs-brushing',
 ]
 for (const slug of COMPARE_SLUGS) {
-  app.get(`/guide/compare/${slug}`, serveStatic({ path: `./guide/compare/${slug}.html` }))
+  app.get(`/guide/compare/${slug}`, serveStatic())
   app.get(`/guide/compare/${slug}.html`, (c) => c.redirect(`/guide/compare/${slug}`, 301))
 }
 app.get('/guide/compare/', (c) => c.redirect('/guide/compare', 301))
@@ -8157,10 +8157,10 @@ app.get('/laminate', (c) => c.redirect('/treatments/glownate', 301))
 app.get('/laminate/', (c) => c.redirect('/treatments/glownate', 301))
 
 // 채용 페이지
-app.get('/careers', serveStatic({ path: './careers.html' }))
+app.get('/careers', serveStatic())
 
 // Homepage
-app.get('/', serveStatic({ path: './index.html' }))
+app.get('/', serveStatic())
 
 // Fallback for any .html file
 app.use('/*.html', strictStatic())

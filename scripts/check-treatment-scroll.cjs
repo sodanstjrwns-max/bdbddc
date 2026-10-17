@@ -112,7 +112,13 @@ function checkSequence(config, label) {
   check(new Set(urls).size === config.count, label, 'Sequence frames must have unique URLs');
   urls.forEach(url => resolveVisualAsset(url, label));
 }
-for (const [slug, setKey] of Object.entries(motionProfiles)) check(typeof setKey === 'string' && !!motionSets[setKey], slug, 'Treatment references a missing visual set');
+for (const [slug, setKey] of Object.entries(motionProfiles)) {
+  const set = motionSets[setKey];
+  check(typeof setKey === 'string' && !!set, slug, 'Treatment references a missing visual set');
+  if (!set) continue;
+  check(set.desktop?.count > 1 && set.mobile?.count > 1, slug, 'Treatment detail needs source movement on desktop and mobile');
+  check(!set.cameraPan && !set.motion && !set.component, slug, 'A camera pan or synthetic cutout transform cannot stand in for treatment motion');
+}
 const referencedSets = new Set([...Object.values(motionProfiles), motionManifest.hub]);
 for (const setKey of referencedSets) {
   const set = motionSets[setKey];

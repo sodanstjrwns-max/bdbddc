@@ -237,8 +237,8 @@ export function renderStatsPage(d: any, seoHealth: any = null): string {
     <div class="card metric"><span class="m-label">AI 유입 세션 <small>ChatGPT 등</small></span><strong>${V(!!hasAi && measured(ai.sessions), fmt(num(ai.sessions)))}</strong>${hasAi && num(ai.sessions) > 0 ? `<span class="delta flat">전체의 ${pct(ai.share)}</span>` : ''}</div>
   </div>`
 
-  const queries = Array.isArray(g.topQueries) ? g.topQueries.slice(0, 10).map((x: any) => rowOf(x, ['query', 'name', 'key'])) : []
-  const pages = Array.isArray(g.topPages) ? g.topPages.slice(0, 10).map((x: any) => rowOf(x, ['page', 'url', 'path', 'name', 'key'])) : []
+  const queries: ReturnType<typeof rowOf>[] = Array.isArray(g.topQueries) ? g.topQueries.slice(0, 10).map((x: any) => rowOf(x, ['query', 'name', 'key'])) : []
+  const pages: ReturnType<typeof rowOf>[] = Array.isArray(g.topPages) ? g.topPages.slice(0, 10).map((x: any) => rowOf(x, ['page', 'url', 'path', 'name', 'key'])) : []
   const aiRows = aiSourceRows(ai.bySource)
   const aiTotal = aiRows.reduce((s, r) => s + r[1], 0)
 
