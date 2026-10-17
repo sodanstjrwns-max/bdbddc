@@ -93,7 +93,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   }
   const component = Boolean(config.component);
   if (processStages && (component || motion)) throw new TypeError('Process clips must not use synthetic component or camera movement');
-  const cacheLimit = clamp(positiveInt(config.cacheSize, 10), 4, 16);
+  const cacheLimit = clamp(positiveInt(config.cacheSize, processStages ? 16 : 10), 4, 16);
   const breakpoint = clamp(positiveInt(config.mobileBreakpoint, 760), 320, 1200);
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const mobileQuery = window.matchMedia('(max-width: ' + breakpoint + 'px)');
@@ -118,15 +118,35 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   const tweenDuration = 760;
   let queue = [], resizeRAF = 0, inFlight = 0;
   let observer = null, visibilityObserver = null, resizeObserver = null;
+  // One pixel snapshot bridges a filmed chapter cut; it never synthesizes anatomy.
+  let transition = null, transitionRAF = 0;
+  const transitionDuration = 220;
 
   function report(error, index) {
     try { onError(error, { index, source: source.pattern }); } catch (_) { /* The caller must not break fallback rendering. */ }
   }
+  function stopTransition(release = false) {
+    if (transitionRAF) cancelAnimationFrame(transitionRAF);
+    transitionRAF = 0;
+    if (release && transition) {
+      releaseFrame(transition.image);
+      transition = null;
+      delete canvas.dataset.transition;
+      delete canvas.dataset.transitionFromStage;
+    }
+  }
+  function stageOf(index) {
+    return processStages ? processStages.findIndex(stage => index >= stage.start && index <= stage.end) : -1;
+  }
   function hideCanvas() {
+    stopTransition(true);
     canvas.style.opacity = '0';
     container.classList.remove('has-sequence');
     ready = false;
     drawn = -1;
+    canvas.dataset.frame = '';
+    canvas.dataset.settled = 'false';
+    delete canvas.dataset.processStage;
   }
   function active() { return !disposed && near && !reduced && !document.hidden; }
   function mappedFrame(p) {
@@ -153,8 +173,11 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     if (cache.has(index)) releaseFrame(cache.get(index));
     cache.delete(index);
     cache.set(index, frame);
+    const preferred = new Set(preferredIndices());
     while (cache.size > cacheLimit) {
-      const oldest = cache.keys().next().value;
+      // Keep visible/target images; evict stale positions before upcoming cuts.
+      const candidates = [...cache.keys()].filter(key => key !== drawn && key !== target);
+      const oldest = candidates.find(key => !preferred.has(key)) ?? candidates[0] ?? cache.keys().next().value;
       releaseFrame(cache.get(oldest));
       cache.delete(oldest);
     }
@@ -192,28 +215,55 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     const eased = fraction * fraction * (3 - 2 * fraction);
     return motion[key][segment] + (motion[key][segment + 1] - motion[key][segment]) * eased;
   }
+  function startTransition(nextStage) {
+    // Capture the composited pixels too, so quick reversals never flash a stale cut.
+    const image = document.createElement('canvas');
+    image.width = canvas.width; image.height = canvas.height;
+    const snapshot = image.getContext('2d', { alpha: false });
+    if (!snapshot) { releaseFrame(image); return; }
+    snapshot.drawImage(canvas, 0, 0);
+    stopTransition(true);
+    transition = { image, fromStage: stageOf(drawn), toStage: nextStage, started: performance.now(), elapsed: 0 };
+  }
+  function queueTransition() {
+    if (!transition || transitionRAF || !canAnimate()) return;
+    transitionRAF = requestAnimationFrame(() => {
+      transitionRAF = 0;
+      if (canAnimate()) draw(true);
+    });
+  }
   function draw(force = false) {
     if (disposed || reduced || (paused && !snapshotPending && !force) || document.hidden || !canvas.width || !canvas.height) return;
-    const index = availableFrame();
+    let index = availableFrame();
+    let waiting = false;
     if (index < 0 && processStages) {
-      if (!queue.some(candidate => !failed.has(candidate))) { hideCanvas(); return; }
-      // Keep a neutral canvas while this chapter decodes, rather than showing
-      // a previous procedure beside the current explanation.
-      context.fillStyle = config.background || '#f7f7f0';
-      context.fillRect(0, 0, canvas.width, canvas.height);
-      canvas.style.opacity = '1';
-      container.classList.add('has-sequence');
-      drawn = -1;
-      canvas.dataset.frame = '';
-      canvas.dataset.processStage = String(Math.round(clamp(progress) * 3));
-      return;
+      const stage = processStages[Math.round(clamp(progress) * 3)];
+      const candidates = queue.filter(candidate => candidate >= stage.start && candidate <= stage.end);
+      if (candidates.length && candidates.every(candidate => failed.has(candidate))) { hideCanvas(); return; }
+      // Retain the last real pixels (or SSR poster on first load). A slow decode
+      // must not erase the image or mark a previous chapter as the new procedure.
+      stopTransition();
+      canvas.dataset.waiting = 'true';
+      canvas.dataset.settled = 'false';
+      canvas.dataset.targetStage = String(Math.round(clamp(progress) * 3));
+      waiting = true;
+      // Resizing clears a canvas: repaint the retained frame at the new size.
+      if (force && cache.has(drawn)) index = drawn;
+      else return;
     }
-    if (index < 0 || (!force && drawn === index && ready && Math.abs(drawnProgress - progress) < .0001)) return;
+    if (index < 0) return;
+    canvas.dataset.waiting = String(waiting);
+    if (!force && !transition && drawn === index && ready && Math.abs(drawnProgress - progress) < .0001) return;
     const frame = touch(index);
     if (!frame) return;
     const width = frame.width || frame.naturalWidth;
     const height = frame.height || frame.naturalHeight;
     if (!width || !height) return;
+    const nextStage = stageOf(index);
+    if (processStages && ready && drawn >= 0 && stageOf(drawn) !== nextStage && !snapshotPending && !paused && visible) {
+      startTransition(nextStage);
+    }
+    if (snapshotPending) stopTransition(true);
     // Camera movement never crops the reviewed image or invents new anatomy.
     // Translation is expressed only within the unused contain margins.
     const cameraScale = motionValue('scales', 1);
@@ -231,7 +281,20 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
         rendered = renderFrame({ context, frame, index, progress, rect: { x, y, width: w, height: h }, canvas, source, config }) === true;
       }
       if (!rendered) context.drawImage(frame, x, y, w, h);
+      if (transition) {
+        if (!waiting && !paused && active() && visible) transition.elapsed = clamp((performance.now() - transition.started) / transitionDuration);
+        const mix = transition.elapsed * transition.elapsed * (3 - 2 * transition.elapsed);
+        if (mix < 1) {
+          context.globalAlpha = 1 - mix;
+          context.drawImage(transition.image, 0, 0, canvas.width, canvas.height);
+          context.globalAlpha = 1;
+          canvas.dataset.transition = mix.toFixed(5);
+          canvas.dataset.transitionFromStage = String(transition.fromStage);
+          if (!waiting) queueTransition();
+        } else stopTransition(true);
+      }
     } catch (error) {
+      context.globalAlpha = 1;
       cache.delete(index);
       releaseFrame(frame);
       failed.add(index);
@@ -243,13 +306,16 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     drawnProgress = progress;
     if (index === target) snapshotPending = false;
     canvas.dataset.frame = String(index + source.start);
-    if (processStages) canvas.dataset.processStage = String(Math.round(clamp(progress) * 3));
+    if (processStages) {
+      canvas.dataset.processStage = String(nextStage);
+      canvas.dataset.targetStage = String(Math.round(clamp(progress) * 3));
+    }
     canvas.dataset.progress = progress.toFixed(5);
     canvas.dataset.targetProgress = targetProgress.toFixed(5);
     canvas.dataset.scale = cameraScale.toFixed(5);
     canvas.dataset.x = x.toFixed(2);
     canvas.dataset.y = y.toFixed(2);
-    canvas.dataset.settled = String(Math.abs(progress - targetProgress) < .0001);
+    canvas.dataset.settled = String(!waiting && !transition && index === target && Math.abs(progress - targetProgress) < .0001);
     if (!ready) {
       ready = true;
       container.classList.add('has-sequence');
@@ -273,17 +339,35 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   function preferredIndices() {
     if (component) return [0];
     const wanted = [target];
-    const currentStage = processStages?.[Math.round(clamp(progress) * 3)];
     const add = index => {
-      if (currentStage && (index < currentStage.start || index > currentStage.end)) return;
       if (index >= 0 && index < source.count && !wanted.includes(index) && wanted.length < cacheLimit) wanted.push(index);
     };
-    if (currentStage) { add(currentStage.start); add(currentStage.end); }
-    // Read ahead in the current direction before the opposite side or anchors.
+    if (processStages) {
+      // Decode the first visible frame before speculative requests. Thereafter
+      // reserve cache slots for both sides of a cut, even during reverse scroll.
+      if (!ready) return wanted;
+      const phase = Math.round(clamp(progress) * 3), stage = processStages[phase];
+      const next = processStages[phase + direction], previous = processStages[phase - direction];
+      if (next) add(direction > 0 ? next.start : next.end);
+      if (previous) add(direction > 0 ? previous.end : previous.start);
+      // After the two immediate neighboring cuts, spend bandwidth on local
+      // movement. Far ends of other clips must not starve the frames being read.
+      const addNearby = distance => {
+        for (const index of [target + direction * distance, target - direction * distance]) {
+          if (index >= stage.start && index <= stage.end) add(index);
+        }
+      };
+      for (let distance = 1; distance <= 3; distance++) addNearby(distance);
+      add(direction > 0 ? stage.end : stage.start);
+      add(direction > 0 ? stage.start : stage.end);
+      if (next) add(direction > 0 ? next.end : next.start);
+      if (previous) add(direction > 0 ? previous.start : previous.end);
+      for (let distance = 4; wanted.length < cacheLimit && distance < cacheLimit; distance++) addNearby(distance);
+      return wanted;
+    }
     for (let distance = 1; distance <= 4; distance++) add(target + direction * distance);
     for (let distance = 1; distance <= 2; distance++) add(target - direction * distance);
-    const anchorIndices = (processStages ? processStages.flatMap(stage => [stage.start, stage.end]) : anchors.map(value => Math.round(value * (source.count - 1)))).sort((a, b) => Math.abs(a - target) - Math.abs(b - target));
-    anchorIndices.forEach(add);
+    anchors.map(value => Math.round(value * (source.count - 1))).sort((a, b) => Math.abs(a - target) - Math.abs(b - target)).forEach(add);
     for (let distance = 5; wanted.length < cacheLimit && distance < cacheLimit; distance++) { add(target + direction * distance); add(target - direction * distance); }
     return wanted;
   }
@@ -321,8 +405,11 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   function setPaused(value) {
     paused = Boolean(value);
     snapshotPending = false;
-    if (paused) stopAnimation();
-    else resumeAnimation();
+    if (paused) { stopAnimation(); stopTransition(); }
+    else {
+      if (transition) transition.started = performance.now() - transition.elapsed * transitionDuration;
+      resumeAnimation(); queueTransition();
+    }
   }
   async function decode(blob, signal, requestSource, isMobile) {
     if (signal.aborted) throw abortError();
@@ -410,7 +497,10 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
           clearTimeout(request.timer);
           inFlight--;
           if (requests.get(index) === request) requests.delete(index);
-          if (!disposed) { if (processStages) draw(); pump(); }
+          if (!disposed) {
+            if (processStages) { queue = preferredIndices(); draw(); }
+            pump();
+          }
         }
       })();
     }
@@ -441,7 +531,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   function motionChanged() {
     if (disposed) return;
     reduced = motionQuery.matches;
-    stopAnimation(); cancelRequests();
+    stopAnimation(); stopTransition(true); cancelRequests();
     if (reduced) { clearCache(); hideCanvas(); }
     else { resize(); schedule(); resumeAnimation(); }
   }
@@ -454,7 +544,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     resize(); schedule();
   }
   function visibilityChanged() {
-    if (document.hidden) { stopAnimation(); cancelRequests(); }
+    if (document.hidden) { stopAnimation(); stopTransition(); cancelRequests(); }
     else { resize(); schedule(); resumeAnimation(); }
   }
   function queueResize() {
@@ -468,7 +558,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   function dispose() {
     if (disposed) return;
     disposed = true;
-    stopAnimation(); cancelRequests(); clearCache();
+    stopAnimation(); stopTransition(true); cancelRequests(); clearCache();
     observer?.disconnect(); visibilityObserver?.disconnect(); resizeObserver?.disconnect();
     listen(motionQuery, motionChanged, true); listen(mobileQuery, viewportChanged, true);
     document.removeEventListener('visibilitychange', visibilityChanged);
@@ -487,14 +577,14 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
       if (disposed) return;
       near = entries.some(entry => entry.target === container && entry.isIntersecting);
       if (near) { resize(); schedule(); resumeAnimation(); }
-      else { stopAnimation(); cancelRequests(); }
+      else { stopAnimation(); stopTransition(); cancelRequests(); }
     }, { rootMargin: '300px 0px' });
     observer.observe(container);
     visibilityObserver = new IntersectionObserver(entries => {
       if (disposed) return;
       visible = entries.some(entry => entry.target === container && entry.isIntersecting);
       if (visible) resumeAnimation();
-      else stopAnimation();
+      else { stopAnimation(); stopTransition(); }
     }, { rootMargin: '0px' });
     visibilityObserver.observe(container);
   }
