@@ -7813,6 +7813,300 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-18",
   "publishedAt": "2026-10-18T09:00:00+09:00"
+},
+{
+  "slug": "adult-baby-tooth-no-successor-keep-or-replace",
+  "title": "성인인데 아직 유치가 있어요. 멀쩡해도 뽑고 임플란트를 해야 하나요?",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "성인 잔존 유치",
+  "concern": "지금은 잘 쓰는 치아를 미리 빼야 한다니 걱정돼요",
+  "description": "성인에게 남은 유치와 뒤따르는 영구치 결손을 확인했을 때, 현재 치아를 유지할 조건과 발치를 검토할 이유, 이후 공간·보철 계획을 함께 살펴봅니다.",
+  "situation": "천안에서 검진을 받다가 어금니 하나가 아직 유치이고 뒤에 날 영구치도 없다는 말을 들었습니다. 아프거나 흔들리지 않는데 미리 빼고 임플란트를 해야 하는지, 기다리다 더 큰 치료가 될까 봐 걱정됩니다.",
+  "answer": "성인에게 유치가 남아 있고 후속 영구치가 없다는 이유만으로 바로 발치하는 것은 아닙니다. 현재 유치의 치아·뿌리·잇몸 상태와 물림, 주변 치아와의 관계를 평가해 유지와 치료의 조건을 비교합니다. 발치를 검토한다면 빈자리를 어떻게 관리할지까지 먼저 계획해야 합니다.",
+  "checks": [
+    "영구치가 처음부터 없는지, 잇몸 속에 남아 있는지 기존 영상과 필요한 검사로 확인합니다.",
+    "유치의 충치·마모·뿌리 상태, 흔들림과 주변 잇몸을 살펴봅니다.",
+    "옆 치아보다 낮아지는 변화와 씹는 접촉, 이후 공간 계획을 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "유치가 기능하고 주변에 뚜렷한 문제가 없다면",
+      "option": "현재 치아를 관리하며 정기적으로 변화 여부를 살피는 계획을 검토합니다.",
+      "limit": "앞으로 몇 년을 더 쓸 수 있는지 미리 보장할 수는 없습니다."
+    },
+    {
+      "condition": "치아가 손상됐지만 보존 치료를 검토할 수 있다면",
+      "option": "수복 등으로 유지 가능한 범위와 부담을 비교합니다.",
+      "limit": "모든 잔존 유치를 같은 방법으로 치료할 수 있는 것은 아닙니다."
+    },
+    {
+      "condition": "보존이 어렵거나 전체 치열 계획상 발치가 필요하다면",
+      "option": "발치 시점과 교정·브릿지·임플란트 등 이후 선택을 함께 정합니다.",
+      "limit": "빈자리·주변 치아·뼈와 성장 상태에 따라 가능한 방법이 다릅니다."
+    }
+  ],
+  "unknown": "유치라는 이름이나 나이, 통증이 없다는 사실만으로 수명·발치 시점·임플란트 가능 여부를 확정할 수 없습니다. 발치와 즉시 임플란트가 항상 한날에 가능한 것도 아닙니다.",
+  "prepare": [
+    "이전에 찍은 영상과 유치·영구치 결손에 대해 들은 설명",
+    "통증·흔들림·음식 끼임·높이 변화의 시점",
+    "발치가 두려운 점, 치료에 쓸 수 있는 시간과 비용의 우선순위"
+  ],
+  "localHeading": "천안에서 성인 잔존 유치를 상담한다면",
+  "localAdvice": "서울비디치과의 진료 장소는 천안 불당동입니다. 예약 때 성인에게 남은 유치와 후속 영구치 결손 상담이라고 알려주세요. 보유 영상을 준비하고, 첫 방문에서는 현재 유지 조건과 이후 계획을 나누어 설명받으세요.",
+  "related": [
+    {
+      "title": "치아 배열과 공간을 함께 보는 교정 가이드",
+      "href": "/guide/orthodontics"
+    },
+    {
+      "title": "브릿지와 임플란트의 조건 비교",
+      "href": "/guide/compare/bridge-vs-implant"
+    },
+    {
+      "title": "임플란트 상담 전 확인할 점",
+      "href": "/guide/implant"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Guy’s and St Thomas’ NHS · 영구치 결손의 진단과 치료 선택",
+      "href": "https://www.guysandstthomas.nhs.uk/health-information/hypodontia"
+    },
+    {
+      "title": "UCLH Eastman · 성인 잔존 유치의 유지·발치와 장기 계획",
+      "href": "https://www.uclh.nhs.uk/our-services/find-service/dental-services/hypodontia-clinic"
+    },
+    {
+      "title": "미국 FDA · 임플란트의 적합성·위험과 유지관리",
+      "href": "https://www.fda.gov/medical-devices/dental-devices/dental-implants-what-you-should-know"
+    }
+  ],
+  "updated": "2026-10-19",
+  "publishedAt": "2026-10-19T09:00:00+09:00"
+},
+{
+  "slug": "orthodontic-retainer-how-long-lifelong-burden",
+  "title": "교정 끝난 지 몇 년인데, 유지장치는 언제까지 껴야 하나요?",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "교정 후 장기 유지",
+  "concern": "치료는 끝났는데 관리에는 끝이 없는 것 같아요",
+  "description": "교정 후 수년이 지나도 유지장치를 계속 써야 하는지 고민할 때, 장기 유지의 이유와 착용 계획·교체·점검·이동 부담을 함께 정리합니다.",
+  "situation": "홍성에서 생활하며 교정을 마친 지 여러 해가 지났습니다. 치아는 가지런한 편인데 매일 장치를 씻고 챙기는 일이 지칩니다. 평생 써야 한다면 치료가 아직 끝나지 않은 것 같고, 임의로 줄였다가 다시 틀어질까 봐 걱정됩니다.",
+  "answer": "교정이 끝난 뒤에도 치아 위치는 변할 수 있어 장기 유지가 필요할 수 있습니다. 오랜 기간 유지한다는 말이 모든 사람에게 같은 시간표를 뜻하지는 않습니다. 치아 배열과 장치 상태를 확인하고 현재 필요한 착용 빈도, 점검과 교체 방법을 개인별로 정하세요.",
+  "checks": [
+    "교정 종료 시점과 당시 안내받은 착용 계획, 현재 실제 사용하는 빈도를 비교합니다.",
+    "가철식 장치의 맞음새와 손상, 고정식 장치의 접착과 주변 청결을 확인합니다.",
+    "지금 착용을 줄일 수 있는지와 줄인 뒤 다시 확인할 시점을 상의합니다."
+  ],
+  "choices": [
+    {
+      "condition": "현재 배열과 장치가 안정적이고 불편 없이 사용한다면",
+      "option": "기존 처방을 따르며 장기 점검 계획을 확인합니다.",
+      "limit": "몇 년이 지났다는 이유만으로 스스로 중단하지 않습니다."
+    },
+    {
+      "condition": "착용과 관리 부담 때문에 오래 지속하기 어렵다면",
+      "option": "불편의 원인을 확인하고 착용 계획이나 장치 선택을 상담합니다.",
+      "limit": "다른 사람이 쓰는 주당 횟수가 자신에게도 맞는 것은 아닙니다."
+    },
+    {
+      "condition": "장치가 손상됐거나 치아·잇몸에 변화가 생겼다면",
+      "option": "유지 계획을 재평가하고 필요한 수리·교체 등을 검토합니다.",
+      "limit": "현재 상태를 확인하기 전에는 기존 장치를 계속 써도 되는지 단정하지 않습니다."
+    }
+  ],
+  "unknown": "유지장치의 종료 시점·착용 횟수·교체 주기와 비용은 개인별 확인 사항입니다. 장기 착용 권고가 같은 장치를 평생 교체 없이 쓰거나 치아가 전혀 변하지 않는다는 보장은 아닙니다.",
+  "prepare": [
+    "교정 종료 연도와 마지막 유지장치 점검일",
+    "현재 사용하는 장치 전부와 착용 빈도 메모",
+    "수면·출장·육아 등 관리가 어려운 상황과 이후 점검 가능한 일정"
+  ],
+  "localHeading": "홍성에서 장기 유지장치 관리를 이어간다면",
+  "localAdvice": "서울비디치과의 실제 진료 장소는 천안 불당동입니다. 홍성에서 방문한다면 교정 종료 후 장기 관리 상담이라는 목적과 기존 장치 종류를 미리 알려주세요. 정기 점검과 문제가 생겼을 때의 연락·내원 방법을 나누어 계획하세요.",
+  "related": [
+    {
+      "title": "유지장치 관리와 교정 후 고민 가이드",
+      "href": "/guide/regret/retainer"
+    },
+    {
+      "title": "교정 치료와 유지 과정",
+      "href": "/guide/orthodontics"
+    },
+    {
+      "title": "유지장치가 더 이상 맞지 않는 경우",
+      "href": "/concerns/removable-retainer-no-longer-fits"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국교정학회 AAO · 교정 후 평생 이어질 수 있는 치아 변화와 유지",
+      "href": "https://aaoinfo.org/whats-trending/will-my-teeth-stay-where-my-orthodontist-moved-them/"
+    },
+    {
+      "title": "Nottingham University Hospitals NHS · 장기 착용과 고정식 유지장치 점검",
+      "href": "https://www.nuh.nhs.uk/orthodontics-retainers"
+    },
+    {
+      "title": "University Hospitals Plymouth NHS · 장기 유지장치 착용 계획의 개인차",
+      "href": "https://www.plymouthhospitals.nhs.uk/display-pil/pil-orthodontic-retention-advice-long-term-5550"
+    }
+  ],
+  "updated": "2026-10-19",
+  "publishedAt": "2026-10-19T09:00:00+09:00"
+},
+{
+  "slug": "extraction-bleeding-at-home-when-to-call",
+  "title": "이를 빼고 집에 왔는데 침이 계속 빨개요. 거즈를 다시 물어야 할까요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "발치 후 출혈",
+  "concern": "피가 멎었는지 몰라 자꾸 확인하게 돼요",
+  "description": "아산에서 발치 후 붉은 침과 계속되는 출혈 때문에 불안할 때, 거즈 압박 중 반복 확인을 피하는 이유와 치과 연락·응급 도움의 기준을 정리합니다.",
+  "situation": "아산 집으로 돌아온 뒤 침에 붉은빛이 보여 거즈를 몇 번이나 꺼내 봤습니다. 다시 피가 나는 것 같고, 병원에서 들은 설명도 잘 기억나지 않아 혼자 있어도 되는지 걱정됩니다.",
+  "answer": "소량의 피가 침에 섞이는 현상과 선명한 피가 계속 흐르는 상태는 구별해야 합니다. 받은 지침대로 압박해도 출혈이 이어지면 발치한 치과에 연락하세요. 심한 지속 출혈이나 실신·호흡곤란은 기다리지 말고 119에 도움을 요청할 상황입니다.",
+  "checks": [
+    "발치 시각과 위치, 출혈이 다시 시작한 시각",
+    "침에 붉은빛만 도는지, 피가 계속 고이거나 흐르는지",
+    "거즈를 얼마나 연속해서 물었고 중간에 꺼냈는지",
+    "복용약 이름과 마지막 복용 시각, 어지러움 등 동반 증상"
+  ],
+  "choices": [
+    {
+      "condition": "침에 소량의 피가 섞이고 점차 옅어지는 양상이라면",
+      "option": "퇴원 안내를 따르며 변화를 살피고 판단이 어렵다면 전화로 확인합니다.",
+      "limit": "침의 색만으로 정상이나 출혈량을 확정할 수 없습니다."
+    },
+    {
+      "condition": "안내받은 압박 뒤에도 선명한 출혈이 지속된다면",
+      "option": "발치한 치과에 바로 알려 추가 평가와 방문 시기를 안내받습니다.",
+      "limit": "거즈만 계속 교체하며 밤새 기다리는 방식으로 해결하지 마세요."
+    },
+    {
+      "condition": "출혈이 심하거나 의식·호흡에 이상이 있다면",
+      "option": "119에 현재 위치와 상태를 알리고 응급 도움을 요청합니다.",
+      "limit": "예약한 치과까지 장거리 이동하는 것보다 신속한 도움이 먼저입니다."
+    }
+  ],
+  "unknown": "거즈 사진만으로 출혈 원인과 추가 처치 여부를 판단하기 어렵습니다. 봉합·지혈 처치·약 조정이 필요한지는 진료 후 결정하며 복용약은 임의로 끊지 않습니다.",
+  "prepare": [
+    "발치 후 받은 안내문과 처방전",
+    "현재 복용약 목록 또는 약 봉투",
+    "압박 시작·종료 시각과 이후 변화 메모"
+  ],
+  "localHeading": "아산에서 발치 후 출혈 때문에 연락한다면",
+  "localAdvice": "아산 집에서 관찰한 출혈과 압박 시간을 발치한 치과에 먼저 전달하세요. 서울비디치과의 진료 장소는 천안 불당동입니다. 이동이 필요한지부터 안내받고, 심한 출혈이나 실신·호흡곤란이 있으면 천안 예약을 기다리지 말고 119에 연락하세요.",
+  "related": [
+    {
+      "title": "사랑니와 발치 진료 가이드",
+      "href": "/guide/wisdom-tooth"
+    },
+    {
+      "title": "혈액을 묽게 하는 약을 먹는 중의 발치 상담",
+      "href": "/concerns/tooth-extraction-while-taking-blood-thinners"
+    },
+    {
+      "title": "발치 나흘 뒤 통증이 더 심해졌을 때",
+      "href": "/concerns/extraction-pain-worse-on-day-four"
+    }
+  ],
+  "sources": [
+    {
+      "title": "UCLH NHS · 발치 후 붉은 침과 지속 출혈 안내",
+      "href": "https://www.uclh.nhs.uk/patients-and-visitors/patient-information-pages/dental-extractions-post-operative-instructions"
+    },
+    {
+      "title": "Royal Devon NHS · 압박 중 반복 확인과 복용약 주의",
+      "href": "https://www.royaldevon.nhs.uk/services/community-dental-service/emergency-dental-service/advice-on-managing-post-extraction-bleeding/"
+    },
+    {
+      "title": "SDCEP · 발치 후 출혈과 항응고·항혈소판제 복용자 재연락 기준",
+      "href": "https://www.acutedentalproblems.sdcep.org.uk/supporting-tools/dental-practice-guide/providing-self-care-advice-to-patients/"
+    },
+    {
+      "title": "찾기쉬운 생활법령정보 · 응급환자 119 신고",
+      "href": "https://www.easylaw.go.kr/CSP/CnpClsMain.laf?ccfNo=1&cciNo=2&cnpClsNo=1&csmSeq=906"
+    }
+  ],
+  "updated": "2026-10-19",
+  "publishedAt": "2026-10-19T09:00:00+09:00"
+},
+{
+  "slug": "dental-crown-implant-before-mri-worry",
+  "title": "MRI 예약이 있는데 크라운과 임플란트가 있어요. 치과 금속 때문에 못 찍나요?",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "치과 보철과 MRI",
+  "concern": "입안의 금속 때문에 검사가 취소될까 걱정돼요",
+  "description": "예산에서 MRI를 앞두고 크라운·임플란트·교정장치를 걱정할 때, 영상의학팀에 사전 신고할 정보와 영상 왜곡·안전 확인을 구분하는 방법을 안내합니다.",
+  "situation": "예산에서 MRI 검사를 예약했는데 문진표의 금속 질문을 보고 오래된 크라운과 임플란트가 떠올랐습니다. 제품 이름은 모르고 치과부터 가야 하는지, 검사 예약을 취소해야 하는지 걱정됩니다.",
+  "answer": "치과 장치가 있다는 사실을 검사할 영상의학팀에 미리 알리세요. 검사 안전 조건과 영상에 주는 영향은 각각 확인합니다. 장치 정보를 모르면 필요한 자료를 안내받으세요. 모든 치과 금속이 안전하다거나 MRI가 불가능하다고 스스로 결정하지 마세요.",
+  "checks": [
+    "MRI 예약 날짜와 검사할 신체 부위",
+    "고정 보철·임플란트·교정장치·탈착 가능한 장치의 종류와 위치",
+    "치료 시기, 제조사·모델 또는 제품 카드와 진료기록 유무",
+    "기존 MRI 경험 이후 새로 추가되거나 바뀐 장치"
+  ],
+  "choices": [
+    {
+      "condition": "장치 정보와 검사 조건을 확인할 수 있다면",
+      "option": "영상의학팀이 검사 가능 여부와 필요한 조건을 판단합니다.",
+      "limit": "제품 이름만으로 본인이 안전을 확정하지 않습니다."
+    },
+    {
+      "condition": "오래된 보철이라 재료나 제품을 모른다면",
+      "option": "검사 기관에 먼저 알리고 필요한 경우 치료한 치과의 기록을 확인합니다.",
+      "limit": "자료를 찾는 동안 일정을 임의로 미루지 말고 담당팀과 상의하세요."
+    },
+    {
+      "condition": "장치가 영상에 영향을 줄 가능성이 있다면",
+      "option": "검사 목적에 맞는 촬영 방안 또는 대안을 의료진과 상의합니다.",
+      "limit": "영상 왜곡 가능성이 곧 장치 제거가 필요하다는 뜻은 아닙니다."
+    }
+  ],
+  "unknown": "장치별 MRI 표시·검사 조건·영상 영향은 개별 확인 사항입니다. 일반 치과 전화 답변이나 이 글이 해당 검사 기관의 사전 안전 확인을 대신하지 않습니다.",
+  "prepare": [
+    "검사 예약 안내와 의뢰된 신체 부위",
+    "보유 중인 제품 카드나 보철 관련 기록",
+    "고정·탈착 장치를 구분한 메모와 최근 치료 이력"
+  ],
+  "localHeading": "예산에서 MRI와 치과 기록 확인을 함께 준비한다면",
+  "localAdvice": "예산에서 검사받을 영상의학팀에 먼저 연락해 필요한 치과 자료와 제출 방법을 확인하세요. 서울비디치과는 천안 불당동에 있으며 MRI 검사기관을 대신하지 않습니다. 치과 예약을 새로 잡느라 필요한 검사를 지연시키지 말고 기록 전달로 가능한지부터 상의하세요.",
+  "related": [
+    {
+      "title": "임플란트 치료와 기록 확인 가이드",
+      "href": "/guide/implant"
+    },
+    {
+      "title": "크라운 치료 후 궁금한 점을 정리하는 가이드",
+      "href": "/guide/regret/crown"
+    },
+    {
+      "title": "교정 치료 가이드",
+      "href": "/guide/orthodontics"
+    }
+  ],
+  "sources": [
+    {
+      "title": "ACR·RSNA RadiologyInfo · MRI 안전과 치과 장치의 영상 영향",
+      "href": "https://www.radiologyinfo.org/en/info/safety-mr"
+    },
+    {
+      "title": "FDA · MRI 환경에서 의료기기의 위험과 MR Conditional 조건",
+      "href": "https://www.fda.gov/radiation-emitting-products/mri-magnetic-resonance-imaging/benefits-and-risks"
+    },
+    {
+      "title": "NHS · MRI 검사 전 금속·치과 충전물·브리지 신고",
+      "href": "https://www.nhs.uk/tests-and-treatments/mri-scan/"
+    },
+    {
+      "title": "FDA · MRI 전 장치 정보 전달과 준비",
+      "href": "https://www.fda.gov/radiation-emitting-products/mri-magnetic-resonance-imaging/what-patients-should-know-having-mri-exam"
+    }
+  ],
+  "updated": "2026-10-19",
+  "publishedAt": "2026-10-19T09:00:00+09:00"
 }
 ]
 
