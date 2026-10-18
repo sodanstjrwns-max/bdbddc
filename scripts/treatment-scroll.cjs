@@ -18,19 +18,19 @@ function singleShotErrors(set) {
  check(set.cameraPan === false && set.motion === undefined && set.component === undefined && set.processStages === undefined, 'Single shots must not contain camera-only transforms, cutout motion or chapter clips');
  const anchors = [0, 1/3, 2/3, 1];
  check(Array.isArray(set.anchors) && set.anchors.length === 4 && set.anchors.every((v,i) => Number.isFinite(v) && Math.abs(v-anchors[i]) < 1e-9), 'Single shots need one global linear timeline');
- const source = set.source, duration = source?.durationSeconds, timelineValid = [6,8].includes(duration);
+ const source = set.source, duration = source?.durationSeconds, timelineValid = [4,6,8].includes(duration);
  const frameCount = timelineValid ? duration*24 : 0, chunkCount = frameCount/8;
  const prefix = /^\/static\/treatment-motion\/new-continuous-chunks\/([a-z0-9-]+)\/([a-f0-9]{12,64})\//;
  const bases = [];
  for (const [size, width, height] of [['desktop',1280,720],['mobile',800,450]]) {
   const sequence = set[size], match = typeof sequence?.pattern === 'string' ? sequence.pattern.match(prefix) : null;
-  check(sequence?.format === CHUNK_FORMAT && timelineValid && sequence.count === frameCount && sequence.framesPerChunk === 8 && sequence.chunkCount === chunkCount, size + ' needs the actual 6/8-second timeline in eight-frame chunks (144/192 frames)');
+  check(sequence?.format === CHUNK_FORMAT && timelineValid && sequence.count === frameCount && sequence.framesPerChunk === 8 && sequence.chunkCount === chunkCount, size + ' needs the actual 4/6/8-second timeline in eight-frame chunks (96/144/192 frames)');
   check(sequence?.width === width && sequence?.height === height && sequence?.start === 1 && sequence?.pad === 4, size + ' dimensions/range do not match the delivery format');
   check(!!match && sequence.pattern === match[0] + size + '/chunk_{index}.bdseq', size + ' needs a content-addressed local chunk pattern');
   if (match) bases.push(match[0]);
  }
  check(bases.length === 2 && bases[0] === bases[1] && set.poster === bases[0] + 'poster.jpg', 'Poster and both sizes must share one source revision');
- check(timelineValid && source.fps === 24 && source.frameCount === frameCount, 'Missing actual six- or eight-second source timeline provenance');
+ check(timelineValid && source.fps === 24 && source.frameCount === frameCount, 'Missing actual four-, six- or eight-second source timeline provenance');
  check(source?.declaredSingleShot?.continuous === true && source?.declaredSingleShot?.cutCount === 0 && timelineValid && source?.declaredSingleShot?.durationSeconds === duration, 'Missing explicit single-shot declaration');
  check(Array.isArray(source?.chapters) && source.chapters.length === 4 && source.chapters.every((c,i) => Number.isFinite(c?.atSeconds) && Math.abs(c.atSeconds-i*duration/3)<1e-6 && nonempty(c.label)), 'Chapter labels must describe the same global timeline');
  for (const media of ['image','video']) {
@@ -39,7 +39,7 @@ function singleShotErrors(set) {
   check(metadata && metadata.sha256 === record?.sha256 && Number.isSafeInteger(metadata.bytes) && metadata.bytes > 0 && Number.isSafeInteger(metadata.width) && Number.isSafeInteger(metadata.height) && metadata.width >= 3840 && metadata.height >= 2160 && Math.abs(metadata.width/metadata.height-16/9)<0.005, media + ' metadata does not match the 4K source receipt');
  }
  const video = source?.mediaMetadata?.video;
- check(timelineValid && Number.isFinite(video?.duration) && Math.abs(video.duration-duration)<=1/24+1e-6 && Number.isFinite(video?.fps) && video.fps>=24, 'Video metadata must match the declared six- or eight-second source at 24fps or more');
+ check(timelineValid && Number.isFinite(video?.duration) && Math.abs(video.duration-duration)<=1/24+1e-6 && Number.isFinite(video?.fps) && video.fps>=24, 'Video metadata must match the declared four-, six- or eight-second source at 24fps or more');
  check(typeof source?.clinicalApproval === 'boolean' && typeof source?.userQualityApproval === 'boolean', 'Clinical approval and user acceptance must be explicit separate facts');
  const review = set.review;
  check(review?.integrityAllFramesChecked === true && review?.anatomicalReview === true && Number.isSafeInteger(review?.visualSampleCount) && review.visualSampleCount >= 16, 'Missing all-frame integrity or at least 16 sampled visual-review observations');

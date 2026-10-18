@@ -101,7 +101,7 @@ function frameUrl(config, index) {
 function checkSequence(config, label, set, size) {
   if (set?.kind === SINGLE_SHOT_KIND) {
     const duration = set.source?.durationSeconds, frameCount = duration*24, chunkCount = frameCount/8;
-    if (![6,8].includes(duration) || !config || config.format !== 'webp-chunks-v1' || config.count !== frameCount || config.chunkCount !== chunkCount || config.framesPerChunk !== 8 || config.start !== 1 || config.pad !== 4) return;
+    if (![4,6,8].includes(duration) || !config || config.format !== 'webp-chunks-v1' || config.count !== frameCount || config.chunkCount !== chunkCount || config.framesPerChunk !== 8 || config.start !== 1 || config.pad !== 4) return;
     const receipts = set.technicalOutput?.packaging?.[size]?.chunks;
     if (!Array.isArray(receipts) || receipts.length !== chunkCount) return;
     for (let index = 0; index < chunkCount; index++) {

@@ -5,80 +5,80 @@
       "scene": "implant",
       "variant": "implant",
       "ko": {
-        "title": "치아 하나가 없을 뿐인데, 먹는 즐거움까지 줄어들었나요?",
-        "intro": "남은 치아와 뼈·잇몸 상태, 다른 대안의 부담을 함께 비교합니다.",
+        "title": "임플란트와 지대주는 어떻게 연결될까요?",
+        "intro": "치아 모양 보철물을 받치는 지대주가 임플란트의 연결 공간에 들어가는 모습을 살펴봅니다.",
         "steps": [
           {
-            "title": "남길 치아 확인",
-            "text": "빈자리를 채우기 전에 남은 치아와 잇몸을 살핍니다. 치아를 보존할 가능성과 브릿지·틀니도 함께 비교합니다.",
-            "label": "남길 치아 확인"
+            "title": "연결 방향 맞추기",
+            "label": "연결 방향 맞추기",
+            "text": "지대주의 아래 연결부를 임플란트의 입구와 나란히 맞춥니다."
           },
           {
-            "title": "몸체와 연결부",
-            "text": "뼈 안의 몸체와 잇몸 위 연결 부품은 역할이 다릅니다. 심는 위치뿐 아니라 위에 놓일 치아의 모양도 계획합니다.",
-            "label": "몸체와 연결부"
+            "title": "연결부가 안으로 들어가기",
+            "label": "연결부가 안으로 들어가기",
+            "text": "지대주가 내려오면서 아래 연결부가 임플란트 내부로 들어갑니다."
           },
           {
-            "title": "치유 뒤 보철",
-            "text": "수술이 끝나도 치유와 보철 제작 단계가 남습니다. 임시치아의 종류와 씹을 수 있는 범위를 따로 확인합니다.",
-            "label": "치유 뒤 보철"
+            "title": "어깨가 맞닿는 위치",
+            "label": "어깨가 맞닿는 위치",
+            "text": "지대주의 넓은 어깨가 상부 플랫폼과 만나는 위치를 볼 수 있습니다."
           },
           {
-            "title": "주변까지 청소",
-            "text": "보이는 치아뿐 아니라 잇몸 주변과 치아 사이를 관리합니다. 흔들림·고름·새 통증이 있으면 점검을 받습니다.",
-            "label": "주변까지 청소"
+            "title": "기구가 물러난 뒤",
+            "label": "기구가 물러난 뒤",
+            "text": "기구가 위로 빠져도 지대주는 연결 위치에 남아 있습니다."
           }
         ]
       },
       "en": {
-        "title": "Has one missing tooth changed the way you eat?",
-        "intro": "Compare bone and gum conditions, alternative treatments and the care you can maintain.",
+        "title": "How do an implant and abutment connect?",
+        "intro": "Follow the abutment that supports a tooth-shaped restoration as it enters the implant connection.",
         "steps": [
           {
-            "title": "Check what can stay",
-            "text": "Assess the remaining teeth and gums first. Compare tooth preservation, bridges and dentures before choosing an implant.",
-            "label": "Check what can stay"
+            "title": "Aligning the connection",
+            "label": "Aligning the connection",
+            "text": "The lower connector is aligned with the opening of the implant."
           },
           {
-            "title": "Body and connector",
-            "text": "The implant body and connecting component have different roles. Plan the future tooth as well as the position in the bone.",
-            "label": "Body and connector"
+            "title": "Entering the socket",
+            "label": "Entering the socket",
+            "text": "As the abutment descends, its lower connector enters the implant."
           },
           {
-            "title": "Healing and restoration",
-            "text": "Healing and restoration continue after surgery. Confirm the temporary tooth and the limits on chewing during this period.",
-            "label": "Healing and restoration"
+            "title": "Meeting the platform",
+            "label": "Meeting the platform",
+            "text": "The broad shoulder reaches the platform at the top of the implant."
           },
           {
-            "title": "Clean around the implant",
-            "text": "Clean around the gum and between the teeth, not only the visible crown. New looseness, pus or pain needs assessment.",
-            "label": "Clean around the implant"
+            "title": "After the tool withdraws",
+            "label": "After the tool withdraws",
+            "text": "The tool lifts away while the abutment remains in position."
           }
         ]
       },
       "ja": {
-        "title": "歯が一本ないだけなのに、食べる楽しみまで減っていませんか？",
-        "intro": "自然歯の保存とブリッジ・入れ歯を比較し、本体・部品・人工歯・管理を分けて理解します。",
+        "title": "インプラントと支台は、どうつながるのでしょうか？",
+        "intro": "歯の形をした補綴物を支える支台が、インプラントの接続部分に入る様子を見てみましょう。",
         "steps": [
           {
-            "title": "残せる歯を確認",
-            "text": "残っている歯と歯ぐきを先に調べます。インプラントを選ぶ前に、歯の保存やブリッジ・入れ歯も比較します。",
-            "label": "残せる歯を確認"
+            "title": "向きを合わせる",
+            "label": "向きを合わせる",
+            "text": "支台の下の接続部を、インプラントの入口に合わせます。"
           },
           {
-            "title": "本体と連結部",
-            "text": "骨の中の本体と歯ぐきの上の連結部は役割が異なります。埋める位置と、その上に作る歯を一緒に計画します。",
-            "label": "本体と連結部"
+            "title": "接続部が中に入る",
+            "label": "接続部が中に入る",
+            "text": "支台が下がるにつれ、下の接続部がインプラントの内側に入ります。"
           },
           {
-            "title": "治癒と人工歯",
-            "text": "手術後も治癒と人工歯を作る段階が続きます。その間の仮歯の種類と、噛んでよい範囲を確認します。",
-            "label": "治癒と人工歯"
+            "title": "肩の部分が接する位置",
+            "label": "肩の部分が接する位置",
+            "text": "幅のある肩の部分が、上部の台座に接する位置を確認できます。"
           },
           {
-            "title": "周囲も清掃",
-            "text": "見える人工歯だけでなく、歯ぐきの周囲や歯間も清掃します。新たなぐらつき・膿・痛みは確認が必要です。",
-            "label": "周囲も清掃"
+            "title": "器具が離れたあと",
+            "label": "器具が離れたあと",
+            "text": "器具だけが上に離れ、支台は接続位置に残っています。"
           }
         ]
       }
@@ -251,80 +251,80 @@
       "scene": "implant",
       "variant": "implant-advanced",
       "ko": {
-        "title": "임플란트가 어렵다는 말을 듣고, 다른 방법도 없을까 걱정되나요?",
-        "intro": "고난도라는 이름보다 무엇이 어려운지, 그 조건을 어떻게 다룰지부터 확인합니다.",
+        "title": "부족한 부위에 놓이는 작은 입자들",
+        "intro": "뼈이식 재료를 결손부에 옮기는 한 장면입니다. 입자가 놓이는 모습과 이후 뼈가 형성되는 과정은 다릅니다.",
         "steps": [
           {
-            "title": "부족한 공간을 어떻게 보완할까요?",
-            "text": "뼈가 부족한 부위에 이식재가 놓이는 예시입니다. 필요한 범위와 임플란트를 동시에 심을지는 진단 후 달라집니다.",
-            "label": "부족한 공간을 어떻게 보완할까요?"
+            "title": "재료를 담은 기구",
+            "label": "재료를 담은 기구",
+            "text": "스푼 모양의 기구에 담긴 작은 입자들이 결손부 위로 다가옵니다."
           },
           {
-            "title": "차폐막이 덮이는 자리",
-            "text": "이식한 부위 위로 막이 덮이는 모습을 보여줍니다. 어떤 재료와 방법을 선택하는지는 결손 형태와 치료 계획에 따라 다릅니다.",
-            "label": "차폐막이 덮이는 자리"
+            "title": "기구를 기울이기",
+            "label": "기구를 기울이기",
+            "text": "기구가 기울면서 입자들이 아래쪽으로 움직입니다."
           },
           {
-            "title": "상처를 덮고 봉합",
-            "text": "잇몸이 이동해 이식 부위를 덮고 봉합됩니다. 그림의 구조는 이해를 위한 단면이며 실제 수술은 개인별로 다릅니다.",
-            "label": "상처를 덮고 봉합"
+            "title": "결손부 안에 쌓이기",
+            "label": "결손부 안에 쌓이기",
+            "text": "입자들이 기존 결손부 안으로 옮겨져 쌓입니다."
           },
           {
-            "title": "회복은 다음 단계입니다",
-            "text": "막과 이식 부위의 시간 경과를 압축한 모형입니다. 짧은 영상처럼 곧바로 뼈가 완성되는 뜻은 아니며 회복을 확인한 뒤 다음 단계를 정합니다.",
-            "label": "회복은 다음 단계입니다"
+            "title": "재료가 남은 자리",
+            "label": "재료가 남은 자리",
+            "text": "기구가 올라가고 결손부 안에는 재료가 남습니다. 옆의 흰 막은 아직 펼쳐 놓기 전입니다."
           }
         ]
       },
       "en": {
-        "title": "Have you been told your case is too difficult?",
-        "intro": "Choose according to the actual anatomical and health constraints, not the label “complex”.",
+        "title": "Small particles placed in a deficient area",
+        "intro": "This scene shows graft material being transferred into a defect. Placing particles is different from the later process of bone formation.",
         "steps": [
           {
-            "title": "How can a deficient site be supported?",
-            "text": "Graft material is placed at a deficient site in this example. The extent and whether placement can be simultaneous require assessment.",
-            "label": "How can a deficient site be supported?"
+            "title": "Material on the spoon",
+            "label": "Material on the spoon",
+            "text": "A spoon-shaped instrument carries small particles toward the defect."
           },
           {
-            "title": "Where the membrane sits",
-            "text": "A membrane covers the grafted area. Material and technique depend on the defect and the treatment plan.",
-            "label": "Where the membrane sits"
+            "title": "Tilting the instrument",
+            "label": "Tilting the instrument",
+            "text": "As the instrument tilts, particles begin to move downward."
           },
           {
-            "title": "Cover and suture the wound",
-            "text": "The gum moves over the graft and is sutured. This cutaway is a simplified explanation, not an individual surgical plan.",
-            "label": "Cover and suture the wound"
+            "title": "Collecting in the defect",
+            "label": "Collecting in the defect",
+            "text": "The particles transfer into the existing defect and collect there."
           },
           {
-            "title": "Healing is a separate stage",
-            "text": "This model compresses changes over time. It does not mean mature bone forms immediately; recovery must be assessed before the next stage.",
-            "label": "Healing is a separate stage"
+            "title": "Material stays behind",
+            "label": "Material stays behind",
+            "text": "The spoon lifts away while the material remains. The white membrane beside it has not yet been placed."
           }
         ]
       },
       "ja": {
-        "title": "難しいと言われたら、もう選べる方法はないのでしょうか？",
-        "intro": "難しさの原因と追加処置の目的を確認し、手術以外の方法も生活に合わせて比較します。",
+        "title": "不足した部分に置かれる小さな粒",
+        "intro": "骨補填材を欠損部へ移す一場面です。粒を置くことと、その後に骨が形成される過程は別です。",
         "steps": [
           {
-            "title": "不足した部分をどう補いますか",
-            "text": "骨が不足した場所に移植材を置く例です。範囲や同時にインプラントを入れるかは診断により異なります。",
-            "label": "不足した部分をどう補いますか"
+            "title": "材料を載せた器具",
+            "label": "材料を載せた器具",
+            "text": "スプーン状の器具に載った小さな粒が欠損部へ近づきます。"
           },
           {
-            "title": "膜で覆う位置を見ます",
-            "text": "移植した部分を膜で覆う様子です。材料や方法は欠損の形と治療計画によって異なります。",
-            "label": "膜で覆う位置を見ます"
+            "title": "器具を傾ける",
+            "label": "器具を傾ける",
+            "text": "器具が傾くと、粒が下へ移動します。"
           },
           {
-            "title": "歯ぐきで覆って縫合",
-            "text": "歯ぐきを戻して移植部を覆い、縫合します。断面は説明用に簡略化したもので、実際の手術は個人ごとに異なります。",
-            "label": "歯ぐきで覆って縫合"
+            "title": "欠損部に積み重なる",
+            "label": "欠損部に積み重なる",
+            "text": "粒がもともとの欠損部へ移され、その中にたまります。"
           },
           {
-            "title": "治癒は別の段階です",
-            "text": "膜と移植部の時間経過を圧縮した模型です。すぐ骨が完成する意味ではなく、回復を確認して次の段階を決めます。",
-            "label": "治癒は別の段階です"
+            "title": "材料が残った場所",
+            "label": "材料が残った場所",
+            "text": "器具が上がり、欠損部には材料が残ります。隣の白い膜はまだ置かれていません。"
           }
         ]
       }
@@ -579,80 +579,80 @@
       "scene": "implant",
       "variant": "implant-immediate",
       "ko": {
-        "title": "치아를 뺀 날 바로 심으면, 기다리는 부담을 줄일 수 있을까요?",
-        "intro": "빠른 식립과 빠른 사용을 구분하고 계획 변경 때의 임시치아 대안까지 비교합니다.",
+        "title": "빈 치아 자리와 임플란트의 위치",
+        "intro": "치아가 빠진 자리에 임플란트를 배치하는 설명 모형입니다. 빈 공간과 식립체가 어떻게 맞물리는지 살펴봅니다.",
         "steps": [
           {
-            "title": "발치부터 신중하게",
-            "text": "보존이 어려운 치아를 잡고 발치를 준비하는 예시입니다. 먼저 왜 남기기 어려운지 설명을 듣고 다른 선택지도 확인합니다.",
-            "label": "발치부터 신중하게"
+            "title": "기존 공간 살펴보기",
+            "label": "기존 공간 살펴보기",
+            "text": "양옆 치아 사이에 남아 있는 빈 공간과 그 위의 식립체를 볼 수 있습니다."
           },
           {
-            "title": "발치한 자리를 확인",
-            "text": "치아가 빠지고 발치와가 드러납니다. 이 상태에서 뼈·염증·연조직 조건을 확인하며 예정한 계획이 달라질 수 있습니다.",
-            "label": "발치한 자리를 확인"
+            "title": "축을 따라 내려가기",
+            "label": "축을 따라 내려가기",
+            "text": "기구에 연결된 식립체가 빈 공간의 방향을 따라 내려갑니다."
           },
           {
-            "title": "가능한 조건에서 식립",
-            "text": "조건이 맞을 때 발치한 부위에 임플란트를 놓는 단순화된 예시입니다. 영상은 골내 준비와 모든 수술 판단을 재현하지 않습니다.",
-            "label": "가능한 조건에서 식립"
+            "title": "공간 안에 놓이는 몸체",
+            "label": "공간 안에 놓이는 몸체",
+            "text": "나사형 몸체가 들어가며 기존 공간의 벽에 가려지는 부분이 늘어납니다."
           },
           {
-            "title": "임시치아는 별도 판단",
-            "text": "임시 보철이 연결되는 예시입니다. 발치 즉시 식립했다고 바로 씹어도 된다는 뜻은 아니며 임시치아와 부하 허용은 따로 확인합니다.",
-            "label": "임시치아는 별도 판단"
+            "title": "기구가 빠져도 남는 식립체",
+            "label": "기구가 빠져도 남는 식립체",
+            "text": "기구가 위로 물러난 뒤에도 식립체는 같은 위치에 남아 있습니다."
           }
         ]
       },
       "en": {
-        "title": "Can the gap be treated when the tooth is removed?",
-        "intro": "Choose timing according to the site and final restoration, not the desire for speed alone.",
+        "title": "An implant in an empty tooth socket",
+        "intro": "This educational model shows an implant being positioned in an empty socket between neighboring teeth.",
         "steps": [
           {
-            "title": "Begin with the extraction decision",
-            "text": "The model prepares to remove a tooth that cannot be retained. First understand the reason and the alternatives.",
-            "label": "Begin with the extraction decision"
+            "title": "Viewing the existing space",
+            "label": "Viewing the existing space",
+            "text": "The empty socket and the implant above it are visible between the adjacent teeth."
           },
           {
-            "title": "Assess the fresh socket",
-            "text": "Removing the tooth reveals the socket. Bone, infection and soft-tissue findings can change the planned approach.",
-            "label": "Assess the fresh socket"
+            "title": "Following the socket axis",
+            "label": "Following the socket axis",
+            "text": "The implant, attached to a tool, descends along the direction of the space."
           },
           {
-            "title": "Place only when conditions allow",
-            "text": "This simplified example places an implant at the extraction site. It does not show all preparation or intraoperative decisions.",
-            "label": "Place only when conditions allow"
+            "title": "Moving inside the socket",
+            "label": "Moving inside the socket",
+            "text": "More of the threaded body is hidden by the existing socket walls as it moves down."
           },
           {
-            "title": "A provisional tooth is a separate decision",
-            "text": "The example connects a provisional restoration. Immediate placement does not automatically permit immediate chewing or loading.",
-            "label": "A provisional tooth is a separate decision"
+            "title": "After the tool lifts",
+            "label": "After the tool lifts",
+            "text": "The implant remains in the same position when the tool withdraws."
           }
         ]
       },
       "ja": {
-        "title": "抜いた日に埋めれば、待つ負担を減らせますか？",
-        "intro": "抜歯即時の埋入と、即時に人工歯へ力をかける計画を分けて判断します。",
+        "title": "歯を失った場所とインプラントの位置",
+        "intro": "歯を失った空間にインプラントを配置する説明用の模型です。空間と本体の位置関係を見てみましょう。",
         "steps": [
           {
-            "title": "まず抜歯の理由を確認",
-            "text": "保存が難しい歯を抜く準備の例です。残すことが難しい理由と、ほかの選択肢を先に確認します。",
-            "label": "まず抜歯の理由を確認"
+            "title": "もとの空間を見る",
+            "label": "もとの空間を見る",
+            "text": "隣の歯の間にある空間と、その上のインプラントが見えます。"
           },
           {
-            "title": "抜いたあとの状態を見る",
-            "text": "歯が抜けて抜歯窩が見えます。骨、炎症、軟組織の状態によって予定した計画が変わることがあります。",
-            "label": "抜いたあとの状態を見る"
+            "title": "空間の向きに沿って下がる",
+            "label": "空間の向きに沿って下がる",
+            "text": "器具につながった本体が、空間の向きに沿って下がります。"
           },
           {
-            "title": "条件が合う場合に埋入",
-            "text": "条件が合った部位へインプラントを入れる簡略図です。骨内の準備や手術中の判断すべてを再現していません。",
-            "label": "条件が合う場合に埋入"
+            "title": "空間の中に収まる本体",
+            "label": "空間の中に収まる本体",
+            "text": "ねじ状の本体が入り、もとの壁に隠れる部分が増えていきます。"
           },
           {
-            "title": "仮歯は別に判断します",
-            "text": "仮の補綴物をつなぐ例です。即時埋入したからすぐ噛めるとは限らず、仮歯と荷重の可否は別に確認します。",
-            "label": "仮歯は別に判断します"
+            "title": "器具が離れたあと",
+            "label": "器具が離れたあと",
+            "text": "器具が上に離れても、本体は同じ位置に残っています。"
           }
         ]
       }
@@ -661,80 +661,80 @@
       "scene": "implant",
       "variant": "implant-immediate-loading",
       "ko": {
-        "title": "수술한 날 치아가 생기면, 바로 평소처럼 먹어도 될까요?",
-        "intro": "당일 연결 여부와 별도로 치유 중 사용 범위와 최종 보철 계획을 확인합니다.",
+        "title": "임시 보철은 임플란트 지대주에 어떻게 맞출까요?",
+        "intro": "속이 빈 임시 보철을 지대주의 방향에 맞추어 놓는 짧은 연결 동작입니다.",
         "steps": [
           {
-            "title": "연결 전에 확인할 조건",
-            "text": "이 영상은 보철 연결 구조만 보여줍니다. 실제 즉시부하 가능 여부는 초기 고정·씹는 힘 등 조건을 확인한 뒤 결정합니다.",
-            "label": "연결 전에 확인할 조건"
+            "title": "먼저 방향을 맞춥니다",
+            "label": "먼저 방향을 맞춥니다",
+            "text": "기구가 기울어진 보철을 바로 세워 안쪽 공간과 고정된 지대주의 축을 맞춥니다."
           },
           {
-            "title": "보철이 제자리에 앉는 모습",
-            "text": "준비한 보철이 연결부로 내려와 앉습니다. 연결 원리의 예시이며 임시 재료·치유 상태·당일 가능 여부를 재현한 영상은 아닙니다.",
-            "label": "보철이 제자리에 앉는 모습"
+            "title": "지대주를 감싸며 내려옵니다",
+            "label": "지대주를 감싸며 내려옵니다",
+            "text": "같은 보철이 아래로 내려오고 지대주가 보철 안쪽에 들어갑니다."
           },
           {
-            "title": "연결 부위를 고정",
-            "text": "기구가 보철의 연결부에 접근하는 장면입니다. 연결됐다는 사실과 식사에 허용되는 힘의 범위는 구분해 안내받습니다.",
-            "label": "연결 부위를 고정"
+            "title": "경계까지 맞춥니다",
+            "label": "경계까지 맞춥니다",
+            "text": "보철이 기울어지지 않은 상태로 아래 경계까지 자리 잡습니다."
           },
           {
-            "title": "마무리 뒤에도 관리가 남습니다",
-            "text": "접근 구멍을 마무리하는 예시입니다. 씹기 시작할 시기와 음식·점검 일정은 본인의 치료 계획에 맞게 안내받습니다.",
-            "label": "마무리 뒤에도 관리가 남습니다"
+            "title": "기구를 놓습니다",
+            "label": "기구를 놓습니다",
+            "text": "기구가 물러나도 보철은 지대주 위에 남습니다. 이 장면은 즉시 씹을 수 있다는 뜻이나 모든 환자의 당일 치료 가능성을 보여주는 것은 아닙니다."
           }
         ]
       },
       "en": {
-        "title": "Do you want to avoid a long period without usable teeth?",
-        "intro": "Assess support and force control separately from the wish to have visible teeth quickly.",
+        "title": "How is a provisional crown aligned with an implant abutment?",
+        "intro": "This short connection step places a hollow provisional restoration over an abutment.",
         "steps": [
           {
-            "title": "Check eligibility before connection",
-            "text": "The animation shows connection mechanics only. Immediate-loading eligibility requires a separate assessment of stability and loading conditions.",
-            "label": "Check eligibility before connection"
+            "title": "Align it first",
+            "label": "Align it first",
+            "text": "The instrument straightens the tilted crown and aligns its inner space with the fixed abutment axis."
           },
           {
-            "title": "See the restoration seat",
-            "text": "The prepared restoration descends onto its connection. This illustrates mechanics, not provisional material, healing status or same-day eligibility.",
-            "label": "See the restoration seat"
+            "title": "Lower around the abutment",
+            "label": "Lower around the abutment",
+            "text": "The same crown descends while the abutment enters its hollow interior."
           },
           {
-            "title": "Secure the connection",
-            "text": "The instrument reaches the restoration connection. A secured restoration does not by itself establish the forces allowed during eating.",
-            "label": "Secure the connection"
+            "title": "Reach the margin",
+            "label": "Reach the margin",
+            "text": "The crown reaches its margin without remaining tilted."
           },
           {
-            "title": "Care continues after finishing",
-            "text": "The access opening is finished in the model. Follow your own plan for eating, food choices and review appointments.",
-            "label": "Care continues after finishing"
+            "title": "Release the instrument",
+            "label": "Release the instrument",
+            "text": "The instrument withdraws while the crown remains on the abutment. This does not imply immediate chewing or same-day treatment for every patient."
           }
         ]
       },
       "ja": {
-        "title": "手術の日に歯が入ったら、普段どおり食べられますか？",
-        "intro": "仮歯と最終補綴、見た目の回復と噛む力の許容範囲を区別します。",
+        "title": "仮の補綴物はアバットメントにどう合わさるのでしょうか？",
+        "intro": "内側が空洞の仮の補綴物を、アバットメントの向きに合わせて置く短い接続動作です。",
         "steps": [
           {
-            "title": "つなぐ前に条件を確認",
-            "text": "この動画は補綴物の接続構造だけを示します。即時荷重の可否は初期固定や力の条件を別に評価して決めます。",
-            "label": "つなぐ前に条件を確認"
+            "title": "先に向きを合わせる",
+            "label": "先に向きを合わせる",
+            "text": "器具で傾いた補綴物を起こし、その内面と固定されたアバットメントの軸を合わせます。"
           },
           {
-            "title": "補綴物が定位置に収まる様子",
-            "text": "準備した補綴物が接続部に下りて収まります。接続原理の例で、仮歯の材質や治癒状態、当日の可否を示すものではありません。",
-            "label": "補綴物が定位置に収まる様子"
+            "title": "アバットメントを覆って下げる",
+            "label": "アバットメントを覆って下げる",
+            "text": "同じ補綴物が下がり、アバットメントが内側に入ります。"
           },
           {
-            "title": "接続部を固定します",
-            "text": "器具が補綴物の接続部へ入る場面です。固定されたことと、食事で許される力の範囲は分けて確認します。",
-            "label": "接続部を固定します"
+            "title": "境目まで合わせる",
+            "label": "境目まで合わせる",
+            "text": "補綴物が傾かずに、下縁まで所定の位置に収まります。"
           },
           {
-            "title": "仕上げ後も管理が続きます",
-            "text": "アクセス孔を仕上げる例です。食事の開始時期、食べ物、点検日程は自分の治療計画に沿って確認します。",
-            "label": "仕上げ後も管理が続きます"
+            "title": "器具を離す",
+            "label": "器具を離す",
+            "text": "器具が離れても補綴物はアバットメントの上に残ります。すぐに噛めることや、すべての患者さんが当日治療できることを意味しません。"
           }
         ]
       }
@@ -825,80 +825,80 @@
       "scene": "denture",
       "variant": "implant-overdenture",
       "ko": {
-        "title": "임플란트 틀니는 고정식 치아와 무엇이 다를까요?",
-        "intro": "잇몸 위의 연결 부품과 탈착되는 틀니를 따로 봅니다. 두 개의 볼형 연결부를 쓴 설명 예시이며 실제 개수와 부품은 계획에 따라 달라집니다.",
+        "title": "의치는 지지부 위에 어떻게 놓일까요?",
+        "intro": "하악 의치와 두 개의 지지부가 만나는 모습을 설명 모형으로 살펴봅니다.",
         "steps": [
           {
-            "title": "연결 부품을 먼저 봅니다",
-            "text": "치아가 없는 아래턱에서 잇몸 위로 나온 연결부 두 개를 보여 줍니다. 틀니가 연결되는 부분과 잇몸을 덮는 바닥은 역할이 다릅니다.",
-            "label": "연결 부품을 먼저 봅니다"
+            "title": "두 지지부에 방향 맞추기",
+            "label": "두 지지부에 방향 맞추기",
+            "text": "의치 아래의 결합 부분을 두 개의 둥근 지지부에 맞춥니다."
           },
           {
-            "title": "틀니가 연결부로 내려옵니다",
-            "text": "틀니가 형태를 유지한 채 연결부 위로 접근합니다. 실제 착용 방향과 힘은 부품 종류와 적합도에 맞춰 안내받습니다.",
-            "label": "틀니가 연결부로 내려옵니다"
+            "title": "의치 전체를 내려놓기",
+            "label": "의치 전체를 내려놓기",
+            "text": "손이 하나로 이어진 의치를 지지부 쪽으로 내려놓습니다."
           },
           {
-            "title": "안쪽 부품이 맞물립니다",
-            "text": "확대 단면에서 틀니 안쪽의 유지 부품이 볼형 지대주를 감싸며 내려옵니다. 한 가지 연결 방식의 구조 설명이며 모든 제품이 같은 모양은 아닙니다.",
-            "label": "안쪽 부품이 맞물립니다"
+            "title": "결합 부분이 겹치는 위치",
+            "label": "결합 부분이 겹치는 위치",
+            "text": "의치가 내려가며 두 지지부가 대응하는 결합 부분 안으로 가려집니다."
           },
           {
-            "title": "빼서 틀니와 주변을 닦습니다",
-            "text": "안착 원본을 역순으로 보여 주어 탈착 방향을 설명합니다. 고정식 풀아치처럼 계속 붙어 있는 구조와 구분되며, 틀니와 연결부 주변을 각각 관리합니다.",
-            "label": "빼서 틀니와 주변을 닦습니다"
+            "title": "손이 떨어진 뒤",
+            "label": "손이 떨어진 뒤",
+            "text": "가볍게 누르던 손이 물러나도 의치는 그 위치에 남습니다."
           }
         ]
       },
       "en": {
-        "title": "How is an overdenture different from fixed teeth?",
-        "intro": "Separate the attachment heads from the removable denture. Two ball attachments are an illustrative example; number and design depend on the treatment plan.",
+        "title": "How does an overdenture meet its supports?",
+        "intro": "See how a lower denture meets two supports in this educational model.",
         "steps": [
           {
-            "title": "Look at the attachments",
-            "text": "Two attachment heads project above the gum of a toothless lower jaw. These connectors and the tissue-facing denture base serve different roles.",
-            "label": "Look at the attachments"
+            "title": "Aligning two connections",
+            "label": "Aligning two connections",
+            "text": "The connections beneath the denture are aligned with two rounded supports."
           },
           {
-            "title": "Bring the denture to them",
-            "text": "The intact denture approaches the attachments. In practice, the seating direction and pressure are taught for the chosen components and fit.",
-            "label": "Bring the denture to them"
+            "title": "Lowering the whole denture",
+            "label": "Lowering the whole denture",
+            "text": "Hands lower the single connected denture toward the supports."
           },
           {
-            "title": "The internal parts engage",
-            "text": "An enlarged section shows the retaining housing lowering around a ball abutment. This is one attachment design, not the shape of every product.",
-            "label": "The internal parts engage"
+            "title": "Where the parts meet",
+            "label": "Where the parts meet",
+            "text": "The two supports become hidden inside the corresponding connections."
           },
           {
-            "title": "Remove for cleaning",
-            "text": "Reversed seating frames explain detachment. Unlike a continuously attached fixed full-arch restoration, the denture comes out so it and the attachment areas can be cleaned separately.",
-            "label": "Remove for cleaning"
+            "title": "After the hands release",
+            "label": "After the hands release",
+            "text": "The hands withdraw after a light press, leaving the denture in position."
           }
         ]
       },
       "ja": {
-        "title": "インプラントオーバーデンチャーは固定式の歯と何が違う？",
-        "intro": "歯ぐき上の連結部と、取り外せる入れ歯を分けて見ます。二つのボール型連結部を使った説明例で、実際の数や種類は計画で異なります。",
+        "title": "義歯は支えの上にどう収まるのでしょうか？",
+        "intro": "下の義歯と二つの支えが接する様子を、説明用模型で見てみましょう。",
         "steps": [
           {
-            "title": "連結部を確認",
-            "text": "歯のない下顎で、歯ぐきの上に出た二つの連結部を示します。連結部と、粘膜に接する床は役割が異なります。",
-            "label": "連結部を確認"
+            "title": "二つの支えに合わせる",
+            "label": "二つの支えに合わせる",
+            "text": "義歯の下の接続部分を、二つの丸い支えに合わせます。"
           },
           {
-            "title": "連結部へ入れ歯を下ろす",
-            "text": "入れ歯が形を保ちながら連結部へ近づきます。実際の装着方向と力は、部品や適合状態に合わせて説明を受けます。",
-            "label": "連結部へ入れ歯を下ろす"
+            "title": "義歯全体を下ろす",
+            "label": "義歯全体を下ろす",
+            "text": "手で一体の義歯を支えの方向へ下ろします。"
           },
           {
-            "title": "内側の部品がかみ合う",
-            "text": "拡大断面で、入れ歯内部の維持部品がボール型支台を包むように下りてきます。一つの方式の構造説明で、全製品が同じ形ではありません。",
-            "label": "内側の部品がかみ合う"
+            "title": "接続部分が重なる位置",
+            "label": "接続部分が重なる位置",
+            "text": "義歯が下がり、二つの支えが対応する接続部分に隠れます。"
           },
           {
-            "title": "外して別々に清掃",
-            "text": "装着映像を逆順にして着脱方向を示します。固定式フルアーチとは異なり、入れ歯を外して、入れ歯と連結部の周囲をそれぞれ清掃します。",
-            "label": "外して別々に清掃"
+            "title": "手が離れたあと",
+            "label": "手が離れたあと",
+            "text": "軽く押さえていた手が離れても、義歯はその位置に残ります。"
           }
         ]
       }
@@ -989,80 +989,80 @@
       "scene": "implant",
       "variant": "fixture-osstem-ca",
       "ko": {
-        "title": "임플란트 이름은 많은데, 왜 이 제품이 필요한지 궁금한가요?",
-        "intro": "브랜드의 익숙함보다 실제 모델과 포함 범위, 장기 수리 계획을 확인합니다.",
+        "title": "연결부가 안으로 들어가는 모습",
+        "intro": "임플란트와 상부 지대주의 연결 위치를 일반 설명 모형으로 살펴봅니다.",
         "steps": [
           {
-            "title": "제품명 밖의 조건",
-            "text": "CA라는 이름을 보기 전에 뼈·잇몸과 최종 치아 계획을 확인합니다. 제품 선택은 전체 치료의 한 부분입니다.",
-            "label": "제품명 밖의 조건"
+            "title": "서로 마주 보는 연결부",
+            "label": "서로 마주 보는 연결부",
+            "text": "지대주 아래의 연결부와 임플란트 입구가 마주 보도록 놓여 있습니다."
           },
           {
-            "title": "모델·크기 비교",
-            "text": "사용할 모델과 크기, 선택 이유를 구체적으로 듣습니다. 같은 브랜드 안에서도 모든 규격이 같은 조건은 아닙니다.",
-            "label": "모델·크기 비교"
+            "title": "형태를 유지하며 내려가기",
+            "label": "형태를 유지하며 내려가기",
+            "text": "지대주가 한 덩어리로 내려오며 아래 연결부가 안으로 들어갑니다."
           },
           {
-            "title": "부품·보철 연결",
-            "text": "뼈 안 몸체와 연결 부품, 위의 치아를 구분해 봅니다. 견적도 몸체만인지 최종 보철까지인지 맞춰 비교합니다.",
-            "label": "부품·보철 연결"
+            "title": "안쪽으로 가려지는 부분",
+            "label": "안쪽으로 가려지는 부분",
+            "text": "아래쪽 연결부가 소켓 안에 가려지고 상부 지대주가 남습니다."
           },
           {
-            "title": "이후 수리 조건",
-            "text": "치료 기록과 사용 부품을 확인해 둡니다. 청소·정기 점검과 보철 수리가 필요할 때의 대응을 함께 상담합니다.",
-            "label": "이후 수리 조건"
+            "title": "기구만 물러나기",
+            "label": "기구만 물러나기",
+            "text": "위쪽 기구가 빠져도 연결된 지대주는 같은 위치에 있습니다."
           }
         ]
       },
       "en": {
-        "title": "How do you compare implant products without becoming a specialist?",
-        "intro": "Compare the whole treatment scope and the reasons for selecting the model.",
+        "title": "Watching the connector enter",
+        "intro": "Explore the position of an implant and upper abutment connection with a general educational model.",
         "steps": [
           {
-            "title": "Look beyond the name",
-            "text": "Assess bone, gums and the planned tooth before comparing CA products. The implant choice is one part of the complete treatment.",
-            "label": "Look beyond the name"
+            "title": "Facing connections",
+            "label": "Facing connections",
+            "text": "The lower abutment connector faces the opening of the implant."
           },
           {
-            "title": "Compare model and size",
-            "text": "Ask which model and size are planned and why. Different specifications within one brand are not interchangeable treatment plans.",
-            "label": "Compare model and size"
+            "title": "Descending as one piece",
+            "label": "Descending as one piece",
+            "text": "The abutment moves down as a rigid piece and its lower connector enters."
           },
           {
-            "title": "Check the complete restoration",
-            "text": "Distinguish the body, connector and crown. Compare estimates that cover the same components and final restoration.",
-            "label": "Check the complete restoration"
+            "title": "The portion hidden inside",
+            "label": "The portion hidden inside",
+            "text": "The lower connection becomes hidden in the socket, leaving the upper abutment visible."
           },
           {
-            "title": "Plan later maintenance",
-            "text": "Keep information about the treatment and components. Discuss cleaning, reviews and how restoration repairs would be handled.",
-            "label": "Plan later maintenance"
+            "title": "Only the tool withdraws",
+            "label": "Only the tool withdraws",
+            "text": "The upper tool lifts away while the abutment remains in the same position."
           }
         ]
       },
       "ja": {
-        "title": "製品がたくさんあって、なぜこれを選ぶのか分かりません。",
-        "intro": "製品名と表面、本体の規格、人工歯と修理の条件を分けて確認します。",
+        "title": "接続部が中に入る様子",
+        "intro": "インプラントと上部の支台がつながる位置を、一般的な説明用模型で見てみましょう。",
         "steps": [
           {
-            "title": "製品名以外の条件",
-            "text": "CAという名前の前に、骨、歯ぐき、最終の歯を確認します。製品選びは全体の治療計画の一部です。",
-            "label": "製品名以外の条件"
+            "title": "向かい合う接続部",
+            "label": "向かい合う接続部",
+            "text": "支台の下の接続部と、インプラントの入口が向かい合っています。"
           },
           {
-            "title": "型式と大きさ",
-            "text": "使用する型式と大きさ、その理由を聞きます。同じブランドでも、すべての規格が同じ条件ではありません。",
-            "label": "型式と大きさ"
+            "title": "形を保ったまま下がる",
+            "label": "形を保ったまま下がる",
+            "text": "支台が一体のまま下がり、下の接続部が中に入ります。"
           },
           {
-            "title": "部品と人工歯",
-            "text": "骨内の本体、連結部品、上の歯を区別します。見積もりも本体だけか最終の人工歯までかを揃えて比べます。",
-            "label": "部品と人工歯"
+            "title": "内側に隠れる部分",
+            "label": "内側に隠れる部分",
+            "text": "下の接続部が内部に隠れ、上の支台が見える状態になります。"
           },
           {
-            "title": "後の修理も確認",
-            "text": "治療記録と使用部品を確認しておきます。清掃、定期点検、人工歯の修理が必要なときの対応も相談します。",
-            "label": "後の修理も確認"
+            "title": "器具だけが離れる",
+            "label": "器具だけが離れる",
+            "text": "上の器具が離れても、支台は同じ位置に残っています。"
           }
         ]
       }
@@ -1071,80 +1071,80 @@
       "scene": "implant",
       "variant": "fixture-osstem-soi",
       "ko": {
-        "title": "회복이 빠르다는 설명, 제 치료도 빨리 끝난다는 뜻일까요?",
-        "intro": "제품 설명과 내 뼈·고정·이식 조건에서 실제 정해지는 일정을 구분합니다.",
+        "title": "식립체가 들어가는 공간 살펴보기",
+        "intro": "임플란트 몸체와 뼈 안의 공간을 일반 설명 모형으로 살펴봅니다.",
         "steps": [
           {
-            "title": "시기부터 구분",
-            "text": "SOI 제품을 선택해도 발치즉시 식립이나 조기 사용이 자동 결정되지는 않습니다. 뼈와 수술 조건을 먼저 봅니다.",
-            "label": "시기부터 구분"
+            "title": "공간 위에서 방향 맞추기",
+            "label": "공간 위에서 방향 맞추기",
+            "text": "나사형 식립체가 준비된 공간의 위쪽에 놓여 있습니다."
           },
           {
-            "title": "적용 이유 확인",
-            "text": "모델과 규격이 내 계획에 맞는 이유를 설명받습니다. 표면에 관한 설명과 개인의 치유 예측을 구분합니다.",
-            "label": "적용 이유 확인"
+            "title": "몸체가 내려가기",
+            "label": "몸체가 내려가기",
+            "text": "식립체가 같은 방향을 유지하며 공간 안으로 들어갑니다."
           },
           {
-            "title": "고정·치유 평가",
-            "text": "식립 후 고정과 조직 상태에 따라 보철 시기를 정합니다. 이식이나 치유 대기가 필요한 조건도 남아 있을 수 있습니다.",
-            "label": "고정·치유 평가"
+            "title": "벽에 가려지는 나사산",
+            "label": "벽에 가려지는 나사산",
+            "text": "몸체가 내려갈수록 나사산은 고정된 공간의 벽 뒤로 가려집니다."
           },
           {
-            "title": "장기 관리 계획",
-            "text": "제품명과 별개로 주변 잇몸과 부품은 관리가 필요합니다. 청소법과 이상이 있을 때의 점검 방법을 확인합니다.",
-            "label": "장기 관리 계획"
+            "title": "상부에 남는 연결 부분",
+            "label": "상부에 남는 연결 부분",
+            "text": "기구가 물러나면 식립체 위쪽의 연결 부분이 보입니다."
           }
         ]
       },
       "en": {
-        "title": "Does a newer-sounding surface mean you can skip healing?",
-        "intro": "Ask which patient-specific findings support the proposed sequence.",
+        "title": "The space around an implant fixture",
+        "intro": "Explore an implant body and the prepared space in bone through a general educational model.",
         "steps": [
           {
-            "title": "Separate product and timing",
-            "text": "Choosing an SOI product does not automatically permit immediate placement or early loading. Assess bone and surgical conditions first.",
-            "label": "Separate product and timing"
+            "title": "Aligning above the space",
+            "label": "Aligning above the space",
+            "text": "A threaded fixture is positioned above the prepared opening."
           },
           {
-            "title": "Understand the choice",
-            "text": "Ask why the model and specification fit the plan. A surface description is different from predicting an individual's healing.",
-            "label": "Understand the choice"
+            "title": "Lowering the body",
+            "label": "Lowering the body",
+            "text": "The fixture descends into the space while keeping the same direction."
           },
           {
-            "title": "Assess stability and healing",
-            "text": "Stability and tissue conditions guide restoration timing. Grafting or a waiting period may still be necessary.",
-            "label": "Assess stability and healing"
+            "title": "Threads behind the walls",
+            "label": "Threads behind the walls",
+            "text": "The fixed walls progressively hide the threads as the body moves down."
           },
           {
-            "title": "Plan continuing care",
-            "text": "Gums and components need care regardless of the product name. Confirm cleaning methods and how to have problems checked.",
-            "label": "Plan continuing care"
+            "title": "The upper connection remains",
+            "label": "The upper connection remains",
+            "text": "When the tool withdraws, the connection at the top of the fixture remains visible."
           }
         ]
       },
       "ja": {
-        "title": "早くなじむという説明は、私の治療も早く終わるという意味ですか？",
-        "intro": "表面の説明と個人の治癒・荷重の予定を分け、固定と追加処置から日程を考えます。",
+        "title": "インプラントが入る空間を見る",
+        "intro": "インプラントの本体と骨の中の空間を、一般的な説明用模型で見てみましょう。",
         "steps": [
           {
-            "title": "製品と時期は別",
-            "text": "SOIを選んでも抜歯即時埋入や早期使用が自動で決まるわけではありません。骨と手術の条件を先に確認します。",
-            "label": "製品と時期は別"
+            "title": "空間の上で向きを合わせる",
+            "label": "空間の上で向きを合わせる",
+            "text": "ねじ状の本体が、準備された空間の上に置かれています。"
           },
           {
-            "title": "選択理由を確認",
-            "text": "型式や規格が計画に合う理由を聞きます。表面についての説明と、個人の治癒の予測を区別します。",
-            "label": "選択理由を確認"
+            "title": "本体が下がる",
+            "label": "本体が下がる",
+            "text": "本体は同じ向きを保ちながら、空間の中へ入ります。"
           },
           {
-            "title": "固定と治癒を評価",
-            "text": "固定と組織の状態から人工歯の時期を決めます。骨移植や治癒を待つ期間が必要な場合もあります。",
-            "label": "固定と治癒を評価"
+            "title": "壁に隠れるねじ山",
+            "label": "壁に隠れるねじ山",
+            "text": "本体が下がるほど、ねじ山は動かない壁の後ろに隠れます。"
           },
           {
-            "title": "長期管理を計画",
-            "text": "製品名にかかわらず周囲の歯ぐきや部品の管理は必要です。清掃方法と問題が起きたときの確認方法を聞きます。",
-            "label": "長期管理を計画"
+            "title": "上部に残る接続部分",
+            "label": "上部に残る接続部分",
+            "text": "器具が離れると、本体上部の接続部分が見えます。"
           }
         ]
       }
@@ -1317,80 +1317,80 @@
       "scene": "align",
       "variant": "invisalign",
       "ko": {
-        "title": "티 안 나게 교정하고 싶은데, 제가 꾸준히 착용할 수 있을까요?",
-        "intro": "원하는 이동에 적합한지와 실제 생활에서 착용을 이어갈 수 있는지를 함께 판단합니다.",
+        "title": "투명 장치는 치아에 어떻게 맞춰질까요?",
+        "intro": "하나의 투명 장치가 위쪽 치아를 감싸는 과정을 살펴봅니다. 치아의 위치가 바뀌는 장면은 아닙니다.",
         "steps": [
           {
-            "title": "투명장치 적합성",
-            "text": "눈에 덜 띄는 장치를 원해도 필요한 이동부터 봅니다. 치아와 물림 상태에 맞는 범위인지 고정식 장치와 비교합니다.",
-            "label": "투명장치 적합성"
+            "title": "치아 아래에서 방향 맞추기",
+            "label": "치아 아래에서 방향 맞추기",
+            "text": "양손이 장치를 잡고 치아의 윤곽과 장치의 빈 공간을 맞춥니다."
           },
           {
-            "title": "부착물·착용 계획",
-            "text": "투명장치 외에 부착물이나 고무줄이 필요할 수 있습니다. 빼고 끼우는 생활과 착용 계획을 함께 확인합니다.",
-            "label": "부착물·착용 계획"
+            "title": "치아를 감싸며 올라가기",
+            "label": "치아를 감싸며 올라가기",
+            "text": "장치가 위로 올라가면서 앞니의 끝과 겉면을 감쌉니다."
           },
           {
-            "title": "맞음·이동 점검",
-            "text": "장치가 맞는지와 실제 이동을 확인합니다. 계획과 다르면 재스캔이나 보완 장치 등 다음 선택을 상담합니다.",
-            "label": "맞음·이동 점검"
+            "title": "양쪽을 눌러 위치 잡기",
+            "label": "양쪽을 눌러 위치 잡기",
+            "text": "손가락이 양쪽 장치를 눌러 치아 위의 위치를 유지합니다."
           },
           {
-            "title": "유지·관리 연결",
-            "text": "마지막 장치를 썼다고 유지 단계가 사라지지는 않습니다. 유지장치와 청소·점검 계획까지 함께 정합니다.",
-            "label": "유지·관리 연결"
+            "title": "손이 물러난 뒤",
+            "label": "손이 물러난 뒤",
+            "text": "손이 빠져도 투명 장치는 위쪽 치아에 남아 있습니다."
           }
         ]
       },
       "en": {
-        "title": "Would removable aligners fit your real day, not just your ideal one?",
-        "intro": "Compare the required movement and daily wearing commitments with fixed braces.",
+        "title": "How does a clear aligner fit over the teeth?",
+        "intro": "Watch one clear aligner cover the upper teeth. This scene shows placement, not tooth movement.",
         "steps": [
           {
-            "title": "Assess aligner suitability",
-            "text": "Start with the movements needed, even if appearance is your priority. Compare aligners and fixed appliances for your teeth and bite.",
-            "label": "Assess aligner suitability"
+            "title": "Aligning beneath the teeth",
+            "label": "Aligning beneath the teeth",
+            "text": "Both hands align the empty pockets of the tray with the tooth contours."
           },
           {
-            "title": "Plan attachments and wear",
-            "text": "Attachments or elastics may be needed as well as clear trays. Discuss removal, reinsertion and the prescribed wearing plan.",
-            "label": "Plan attachments and wear"
+            "title": "Moving over the crowns",
+            "label": "Moving over the crowns",
+            "text": "The tray rises to cover the biting edges and outer surfaces of the front teeth."
           },
           {
-            "title": "Check fit and progress",
-            "text": "Review tray fit and actual movement. If progress differs from the plan, discuss rescanning or additional appliances.",
-            "label": "Check fit and progress"
+            "title": "Pressing on both sides",
+            "label": "Pressing on both sides",
+            "text": "Fingers press the tray on both sides to keep it in position."
           },
           {
-            "title": "Continue with retention",
-            "text": "Finishing the last aligner does not remove the retention stage. Plan retainers, cleaning and follow-up checks.",
-            "label": "Continue with retention"
+            "title": "After the hands withdraw",
+            "label": "After the hands withdraw",
+            "text": "The clear tray remains over the upper teeth when the hands move away."
           }
         ]
       },
       "ja": {
-        "title": "目立たず矯正したい。でも毎日つけ続けられるか心配ですか？",
-        "intro": "移動への適合性と装着を続けられる生活条件を、固定式の選択肢と比べます。",
+        "title": "透明な装置は、歯にどう収まるのでしょうか？",
+        "intro": "一つの透明な装置が上の歯を覆う様子を見てみましょう。歯そのものが動く場面ではありません。",
         "steps": [
           {
-            "title": "透明装置の適否",
-            "text": "目立ちにくさを希望しても、必要な移動から確認します。歯と噛み合わせに合うか固定式装置とも比較します。",
-            "label": "透明装置の適否"
+            "title": "歯の下で向きを合わせる",
+            "label": "歯の下で向きを合わせる",
+            "text": "両手で装置を持ち、歯の輪郭と装置のくぼみを合わせます。"
           },
           {
-            "title": "付属物と装着計画",
-            "text": "透明な装置以外にアタッチメントやゴムが必要な場合があります。着脱する生活と装着計画を確認します。",
-            "label": "付属物と装着計画"
+            "title": "歯を覆うように上げる",
+            "label": "歯を覆うように上げる",
+            "text": "装置が上がり、前歯の先端と表面を覆います。"
           },
           {
-            "title": "適合と移動を点検",
-            "text": "装置の適合と実際の移動を確認します。計画と違う場合は再スキャンや補助装置などを相談します。",
-            "label": "適合と移動を点検"
+            "title": "両側を押さえる",
+            "label": "両側を押さえる",
+            "text": "指で装置の両側を押さえ、歯の上で位置を保ちます。"
           },
           {
-            "title": "保定と管理へ",
-            "text": "最後の装置が終わっても保定は必要です。保定装置と清掃、点検の計画まで決めます。",
-            "label": "保定と管理へ"
+            "title": "手が離れたあと",
+            "label": "手が離れたあと",
+            "text": "手が離れても、透明な装置は上の歯に残っています。"
           }
         ]
       }
@@ -1399,80 +1399,80 @@
       "scene": "veneer",
       "variant": "aesthetic",
       "ko": {
-        "title": "작은 앞니 틈 때문에, 웃을 때 입부터 가리고 있나요?",
-        "intro": "색·형태·배열 중 주된 고민을 나누고 미백·레진·교정·보철의 범위를 비교합니다.",
+        "title": "앞니 사이의 재료는 어떻게 다듬을까요?",
+        "intro": "투명한 띠 옆으로 재료를 옮기고 눌러 모양을 잡는 모습입니다. 굳히거나 연마한 최종 결과를 보여주는 장면은 아닙니다.",
         "steps": [
           {
-            "title": "접착할 경계를 준비",
-            "text": "작은 틈도 치아 위치와 물림을 먼저 봅니다. 레진으로 보완하기로 했다면 필요한 경계를 준비하며, 이 그림은 주요 과정만 간추려 보여줍니다.",
-            "label": "접착할 경계를 준비"
+            "title": "치아 사이의 투명한 띠",
+            "label": "치아 사이의 투명한 띠",
+            "text": "앞니 사이에 놓인 투명한 띠와 기구 끝의 재료를 살펴보세요."
           },
           {
-            "title": "더할 형태를 살펴보기",
-            "text": "틈을 메우는 데 필요한 범위와 치아 비율을 살펴봅니다. 모형의 형태 변화는 설명용이며 실제 치료에서는 두께·경계·물림을 함께 조정합니다.",
-            "label": "더할 형태를 살펴보기"
+            "title": "가장자리 쪽으로 옮기기",
+            "label": "가장자리 쪽으로 옮기기",
+            "text": "기구가 재료를 치아 가운데에서 투명한 띠 옆으로 옮깁니다."
           },
           {
-            "title": "재료를 빛으로 굳히기",
-            "text": "보완한 부위에 광중합기를 가까이해 재료를 굳히는 모습을 봅니다. 이 장면은 치아를 갈아내는 연마 과정이 아닙니다.",
-            "label": "재료를 빛으로 굳히기"
+            "title": "재료를 눌러 펴기",
+            "label": "재료를 눌러 펴기",
+            "text": "기구 끝이 재료를 가장자리 방향으로 누르며 모양을 잡습니다."
           },
           {
-            "title": "굳힌 뒤 모양과 물림 확인",
-            "text": "광중합 뒤 형태와 경계·물림을 확인하는 단계로 이어집니다. 레진도 착색·마모·파절이 생길 수 있어 이후 점검이 필요합니다.",
-            "label": "굳힌 뒤 모양과 물림 확인"
+            "title": "기구를 떼어내기",
+            "label": "기구를 떼어내기",
+            "text": "기구가 물러나고 띠 옆에는 놓인 재료가 남아 있습니다."
           }
         ]
       },
       "en": {
-        "title": "Could a small change help without covering the whole tooth?",
-        "intro": "Compare the change you want with tooth preservation, proportions and bite demands.",
+        "title": "How is material shaped between front teeth?",
+        "intro": "Watch material move beside a clear strip and be pressed into shape. This is not the final cured or polished result.",
         "steps": [
           {
-            "title": "Prepare the bonding margins",
-            "text": "Even a small gap needs assessment of tooth position and bite. If composite is suitable, the relevant margins are prepared; only selected stages are illustrated.",
-            "label": "Prepare the bonding margins"
+            "title": "A clear strip between teeth",
+            "label": "A clear strip between teeth",
+            "text": "Notice the strip between the front teeth and the material on the instrument."
           },
           {
-            "title": "Consider the added shape",
-            "text": "The amount to add and the tooth proportions are considered. This model transition is explanatory; thickness, margins and bite are adjusted clinically.",
-            "label": "Consider the added shape"
+            "title": "Moving toward the edge",
+            "label": "Moving toward the edge",
+            "text": "The instrument moves the material from the middle of the tooth toward the strip."
           },
           {
-            "title": "Light cure the material",
-            "text": "The curing light approaches the restored area to harden the material. This scene shows curing, not grinding or polishing the tooth.",
-            "label": "Light cure the material"
+            "title": "Pressing the material",
+            "label": "Pressing the material",
+            "text": "The instrument presses and spreads the material along the edge."
           },
           {
-            "title": "Review shape and bite",
-            "text": "After curing, the shape, margins and bite are reviewed. Composite may stain, wear or chip, so follow-up remains important.",
-            "label": "Review shape and bite"
+            "title": "Lifting the instrument away",
+            "label": "Lifting the instrument away",
+            "text": "The instrument withdraws while the placed material remains beside the strip."
           }
         ]
       },
       "ja": {
-        "title": "小さなすき間が気になって、笑うとき口を隠していませんか？",
-        "intro": "すき間の原因と歯の比率、噛み合わせを調べ、矯正や別の修復と比較します。",
+        "title": "前歯の間の材料は、どう整えるのでしょうか？",
+        "intro": "透明な帯の隣へ材料を移し、押して形を整える様子です。硬化や研磨を終えた最終結果ではありません。",
         "steps": [
           {
-            "title": "接着する境目を準備する",
-            "text": "小さな隙間でも歯の位置とかみ合わせを確認します。レジンが適する場合は必要な境目を準備します。図は主な工程のみを示しています。",
-            "label": "接着する境目を準備する"
+            "title": "歯の間の透明な帯",
+            "label": "歯の間の透明な帯",
+            "text": "前歯の間にある透明な帯と、器具の先の材料に注目してください。"
           },
           {
-            "title": "補う形を考える",
-            "text": "隙間を補う範囲と歯の比率を確認します。模型の形の変化は説明用で、実際には厚さ、境目、かみ合わせを調整します。",
-            "label": "補う形を考える"
+            "title": "縁へ材料を移す",
+            "label": "縁へ材料を移す",
+            "text": "器具で材料を歯の中央から透明な帯の隣へ移します。"
           },
           {
-            "title": "光で材料を硬化させる",
-            "text": "修復部に光照射器を近づけ、材料を硬化させる様子です。歯を削ったり研磨したりする場面ではありません。",
-            "label": "光で材料を硬化させる"
+            "title": "押して形を整える",
+            "label": "押して形を整える",
+            "text": "器具の先で材料を縁に沿って押し広げます。"
           },
           {
-            "title": "硬化後に形とかみ合わせを確認",
-            "text": "硬化後は形、境目、かみ合わせを確認します。レジンにも着色、摩耗、破折が起こり得るため、その後の点検が必要です。",
-            "label": "硬化後に形とかみ合わせを確認"
+            "title": "器具を離す",
+            "label": "器具を離す",
+            "text": "器具が離れ、帯の隣には置いた材料が残っています。"
           }
         ]
       }
@@ -1645,80 +1645,80 @@
       "scene": "align",
       "variant": "ortho-best",
       "ko": {
-        "title": "장치를 붙인 뒤, 치아는 어떻게 움직일까요?",
-        "intro": "부착부터 이동·제거·유지까지, 서로 다른 역할을 나눠 봅니다. 장기간의 변화를 압축한 설명 모형이며 실제 치료 속도나 결과를 뜻하지 않습니다.",
+        "title": "교정용 고무줄은 어디에 걸릴까요?",
+        "intro": "이미 있는 위아래 두 훅에 고무줄 하나를 연결하는 과정을 설명 모형으로 봅니다.",
         "steps": [
           {
-            "title": "치아에 장치를 붙입니다",
-            "text": "도구가 치아 표면에 브라켓을 놓는 모습을 보여 줍니다. 실제 진료에서는 접착 전 준비와 위치 확인 등 여러 과정이 함께 이루어집니다.",
-            "label": "치아에 장치를 붙입니다"
+            "title": "위쪽 훅에 맞춥니다",
+            "label": "위쪽 훅에 맞춥니다",
+            "text": "기구가 고무줄의 한쪽을 위쪽의 둥근 끝이 있는 훅으로 가져갑니다."
           },
           {
-            "title": "치아가 조금씩 이동합니다",
-            "text": "브라켓과 철사가 연결된 상태에서 치아의 배열이 달라집니다. 움직이는 양과 방향은 진단에 따라 정하며, 화면처럼 한 번에 가지런해지는 치료는 아닙니다.",
-            "label": "치아가 조금씩 이동합니다"
+            "title": "고무줄을 두 훅 사이로 가져갑니다",
+            "label": "고무줄을 두 훅 사이로 가져갑니다",
+            "text": "기구가 같은 고무줄을 아래쪽 훅을 향해 늘려 두 훅 사이에 맞춥니다. 치아와 브라켓의 위치는 그대로입니다."
           },
           {
-            "title": "치료 뒤 장치를 떼어 냅니다",
-            "text": "철사가 제거된 뒤 도구로 브라켓을 하나씩 분리하는 장면입니다. 장치를 떼는 시점은 배열뿐 아니라 맞물림과 치료 목표를 함께 확인해 정합니다.",
-            "label": "치료 뒤 장치를 떼어 냅니다"
+            "title": "두 훅에 걸린 상태를 맞춥니다",
+            "label": "두 훅에 걸린 상태를 맞춥니다",
+            "text": "고무줄이 기존 위아래 훅의 끝을 감싸고 한 개의 연결로 자리 잡습니다."
           },
           {
-            "title": "유지장치가 자리를 잡습니다",
-            "text": "별도의 아래턱 모형에 투명 유지장치가 내려앉습니다. 이미 정리된 치아 위치를 유지하는 단계이며, 앞 장면의 모든 사람에게 같은 장치를 쓰는 것은 아닙니다.",
-            "label": "유지장치가 자리를 잡습니다"
+            "title": "기구가 빠집니다",
+            "label": "기구가 빠집니다",
+            "text": "기구가 고무줄에서 빠져나오고 하나의 연결이 남습니다. 이 영상으로 고무줄 위치나 착용 방법을 스스로 정하는 것은 아닙니다."
           }
         ]
       },
       "en": {
-        "title": "What changes after braces are fitted?",
-        "intro": "Follow attachment, movement, removal and retention. These explanatory models compress a long process; they do not predict treatment speed or results.",
+        "title": "Where does an orthodontic elastic attach?",
+        "intro": "This teaching model connects one elastic ring to two hooks that are already present.",
         "steps": [
           {
-            "title": "Brackets are attached",
-            "text": "Tools place brackets on tooth surfaces. Real bonding also includes preparation and careful positioning; the illustration condenses those steps.",
-            "label": "Brackets are attached"
+            "title": "Approach the upper hook",
+            "label": "Approach the upper hook",
+            "text": "The instrument carries one side of the ring toward the existing upper ball-ended hook."
           },
           {
-            "title": "Teeth move gradually",
-            "text": "Tooth positions change while brackets and an archwire remain attached. Direction and distance depend on the treatment plan, over time rather than in one visit.",
-            "label": "Teeth move gradually"
+            "title": "Bring the ring between the hooks",
+            "label": "Bring the ring between the hooks",
+            "text": "The instrument stretches the same ring toward the lower hook and positions it between the two hooks. Teeth and brackets remain in place."
           },
           {
-            "title": "Brackets are removed",
-            "text": "After the wire is removed, pliers lift brackets individually. Removal is planned after checking the bite and the treatment goals, not appearance alone.",
-            "label": "Brackets are removed"
+            "title": "Settle onto both hooks",
+            "label": "Settle onto both hooks",
+            "text": "The ring wraps around the retaining ends of the existing upper and lower hooks, forming one connection."
           },
           {
-            "title": "A retainer seats",
-            "text": "A clear retainer lowers onto a separate lower-jaw model. It holds an established tooth position; the same retainer is not suitable for everyone.",
-            "label": "A retainer seats"
+            "title": "Disengage the instrument",
+            "label": "Disengage the instrument",
+            "text": "The instrument leaves the elastic while one connection remains. This model is not an instruction to choose elastic placement or wear independently."
           }
         ]
       },
       "ja": {
-        "title": "装置を付けた後、歯はどう動くのでしょうか？",
-        "intro": "装着・移動・除去・保定を分けて見ていきます。長期間の変化を短く示した説明用模型で、治療速度や結果を予測するものではありません。",
+        "title": "矯正用ゴムはどこに掛かるのでしょうか？",
+        "intro": "すでにある上下二つのフックに、一つのゴムをつなぐ過程の説明用模型です。",
         "steps": [
           {
-            "title": "ブラケットを装着",
-            "text": "器具が歯の表面にブラケットを置く様子です。実際には、接着前の処置や位置の確認なども行います。",
-            "label": "ブラケットを装着"
+            "title": "上のフックに合わせる",
+            "label": "上のフックに合わせる",
+            "text": "器具がゴムの片側を、丸い先端のある既存の上側フックへ運びます。"
           },
           {
-            "title": "少しずつ歯が移動",
-            "text": "ブラケットとワイヤーが付いた状態で歯並びが変わります。方向と量は治療計画で決め、画面のように一度で並ぶわけではありません。",
-            "label": "少しずつ歯が移動"
+            "title": "ゴムを二つのフックの間に運ぶ",
+            "label": "ゴムを二つのフックの間に運ぶ",
+            "text": "器具が同じゴムを下のフックへ向かって伸ばし、二つのフックの間に合わせます。歯とブラケットの位置は変わりません。"
           },
           {
-            "title": "装置を一つずつ除去",
-            "text": "ワイヤーを外した後、器具でブラケットを個別に外す場面です。歯並びだけでなく、かみ合わせや治療目標を確認して時期を決めます。",
-            "label": "装置を一つずつ除去"
+            "title": "両方のフックに収める",
+            "label": "両方のフックに収める",
+            "text": "ゴムが既存の上下のフックの先端を囲み、一つの接続として収まります。"
           },
           {
-            "title": "保定装置を装着",
-            "text": "別の下顎模型に透明な保定装置が下りてきます。整えた歯の位置を保つ段階で、全員に同じ装置を使うわけではありません。",
-            "label": "保定装置を装着"
+            "title": "器具を外す",
+            "label": "器具を外す",
+            "text": "器具がゴムから外れ、一つの接続が残ります。この模型をもとにゴムの位置や装着方法を自己判断するものではありません。"
           }
         ]
       }
@@ -1727,80 +1727,80 @@
       "scene": "align",
       "variant": "ortho-express",
       "ko": {
-        "title": "장치를 붙인 뒤, 치아는 어떻게 움직일까요?",
-        "intro": "부착부터 이동·제거·유지까지, 서로 다른 역할을 나눠 봅니다. 장기간의 변화를 압축한 설명 모형이며 실제 치료 속도나 결과를 뜻하지 않습니다.",
+        "title": "브래킷의 작은 고리는 어떻게 걸릴까요?",
+        "intro": "와이어가 놓인 브래킷에 탄성 고리 하나를 거는 장면입니다. 치아가 움직이거나 교정이 끝나는 과정은 아닙니다.",
         "steps": [
           {
-            "title": "치아에 장치를 붙입니다",
-            "text": "도구가 치아 표면에 브라켓을 놓는 모습을 보여 줍니다. 실제 진료에서는 접착 전 준비와 위치 확인 등 여러 과정이 함께 이루어집니다.",
-            "label": "치아에 장치를 붙입니다"
+            "title": "기구가 잡은 작은 고리",
+            "label": "기구가 잡은 작은 고리",
+            "text": "기구 끝에 잡힌 파란 고리가 브래킷으로 다가갑니다."
           },
           {
-            "title": "치아가 조금씩 이동합니다",
-            "text": "브라켓과 철사가 연결된 상태에서 치아의 배열이 달라집니다. 움직이는 양과 방향은 진단에 따라 정하며, 화면처럼 한 번에 가지런해지는 치료는 아닙니다.",
-            "label": "치아가 조금씩 이동합니다"
+            "title": "날개 둘레로 늘리기",
+            "label": "날개 둘레로 늘리기",
+            "text": "고리가 늘어나면서 브래킷의 돌출된 부분 둘레를 감쌉니다."
           },
           {
-            "title": "치료 뒤 장치를 떼어 냅니다",
-            "text": "철사가 제거된 뒤 도구로 브라켓을 하나씩 분리하는 장면입니다. 장치를 떼는 시점은 배열뿐 아니라 맞물림과 치료 목표를 함께 확인해 정합니다.",
-            "label": "치료 뒤 장치를 떼어 냅니다"
+            "title": "고리를 놓아주기",
+            "label": "고리를 놓아주기",
+            "text": "기구가 고리를 놓으면 고리는 브래킷 둘레에 남습니다."
           },
           {
-            "title": "유지장치가 자리를 잡습니다",
-            "text": "별도의 아래턱 모형에 투명 유지장치가 내려앉습니다. 이미 정리된 치아 위치를 유지하는 단계이며, 앞 장면의 모든 사람에게 같은 장치를 쓰는 것은 아닙니다.",
-            "label": "유지장치가 자리를 잡습니다"
+            "title": "와이어와 고리의 위치",
+            "label": "와이어와 고리의 위치",
+            "text": "기구가 물러난 뒤 와이어와 그 주변의 고리를 함께 볼 수 있습니다."
           }
         ]
       },
       "en": {
-        "title": "What changes after braces are fitted?",
-        "intro": "Follow attachment, movement, removal and retention. These explanatory models compress a long process; they do not predict treatment speed or results.",
+        "title": "How does the small ring fit around a bracket?",
+        "intro": "This scene shows one elastic ring being placed around a bracket carrying a wire. It does not show tooth movement or completed orthodontic treatment.",
         "steps": [
           {
-            "title": "Brackets are attached",
-            "text": "Tools place brackets on tooth surfaces. Real bonding also includes preparation and careful positioning; the illustration condenses those steps.",
-            "label": "Brackets are attached"
+            "title": "A small ring held by an instrument",
+            "label": "A small ring held by an instrument",
+            "text": "The blue ring approaches the bracket in the instrument tips."
           },
           {
-            "title": "Teeth move gradually",
-            "text": "Tooth positions change while brackets and an archwire remain attached. Direction and distance depend on the treatment plan, over time rather than in one visit.",
-            "label": "Teeth move gradually"
+            "title": "Stretching around the wings",
+            "label": "Stretching around the wings",
+            "text": "The ring stretches around the projecting parts of the bracket."
           },
           {
-            "title": "Brackets are removed",
-            "text": "After the wire is removed, pliers lift brackets individually. Removal is planned after checking the bite and the treatment goals, not appearance alone.",
-            "label": "Brackets are removed"
+            "title": "Releasing the ring",
+            "label": "Releasing the ring",
+            "text": "The instrument releases the ring, which stays around the bracket."
           },
           {
-            "title": "A retainer seats",
-            "text": "A clear retainer lowers onto a separate lower-jaw model. It holds an established tooth position; the same retainer is not suitable for everyone.",
-            "label": "A retainer seats"
+            "title": "Wire and ring together",
+            "label": "Wire and ring together",
+            "text": "After the instrument withdraws, the wire and the surrounding ring remain visible."
           }
         ]
       },
       "ja": {
-        "title": "装置を付けた後、歯はどう動くのでしょうか？",
-        "intro": "装着・移動・除去・保定を分けて見ていきます。長期間の変化を短く示した説明用模型で、治療速度や結果を予測するものではありません。",
+        "title": "ブラケットの小さな輪は、どう掛かるのでしょうか？",
+        "intro": "ワイヤーのあるブラケットに弾性の輪を一つ掛ける場面です。歯の移動や矯正の完了を示すものではありません。",
         "steps": [
           {
-            "title": "ブラケットを装着",
-            "text": "器具が歯の表面にブラケットを置く様子です。実際には、接着前の処置や位置の確認なども行います。",
-            "label": "ブラケットを装着"
+            "title": "器具で持った小さな輪",
+            "label": "器具で持った小さな輪",
+            "text": "器具の先にある青い輪がブラケットへ近づきます。"
           },
           {
-            "title": "少しずつ歯が移動",
-            "text": "ブラケットとワイヤーが付いた状態で歯並びが変わります。方向と量は治療計画で決め、画面のように一度で並ぶわけではありません。",
-            "label": "少しずつ歯が移動"
+            "title": "突起の周りに伸ばす",
+            "label": "突起の周りに伸ばす",
+            "text": "輪を伸ばし、ブラケットの突起の周りへ掛けます。"
           },
           {
-            "title": "装置を一つずつ除去",
-            "text": "ワイヤーを外した後、器具でブラケットを個別に外す場面です。歯並びだけでなく、かみ合わせや治療目標を確認して時期を決めます。",
-            "label": "装置を一つずつ除去"
+            "title": "輪を放す",
+            "label": "輪を放す",
+            "text": "器具が輪を放すと、輪はブラケットの周りに残ります。"
           },
           {
-            "title": "保定装置を装着",
-            "text": "別の下顎模型に透明な保定装置が下りてきます。整えた歯の位置を保つ段階で、全員に同じ装置を使うわけではありません。",
-            "label": "保定装置を装着"
+            "title": "ワイヤーと輪の位置",
+            "label": "ワイヤーと輪の位置",
+            "text": "器具が離れたあと、ワイヤーとその周りの輪を一緒に確認できます。"
           }
         ]
       }
@@ -2055,80 +2055,80 @@
       "scene": "align",
       "variant": "orthodontic-clarity-ultra",
       "ko": {
-        "title": "장치를 붙인 뒤, 치아는 어떻게 움직일까요?",
-        "intro": "부착부터 이동·제거·유지까지, 서로 다른 역할을 나눠 봅니다. 장기간의 변화를 압축한 설명 모형이며 실제 치료 속도나 결과를 뜻하지 않습니다.",
+        "title": "투명 브래킷의 위치를 맞추는 순간",
+        "intro": "작은 브래킷을 앞니 표면에 놓는 과정을 설명 모형으로 살펴봅니다. 특정 제품의 실제 형상을 그대로 재현한 자료는 아닙니다.",
         "steps": [
           {
-            "title": "치아에 장치를 붙입니다",
-            "text": "도구가 치아 표면에 브라켓을 놓는 모습을 보여 줍니다. 실제 진료에서는 접착 전 준비와 위치 확인 등 여러 과정이 함께 이루어집니다.",
-            "label": "치아에 장치를 붙입니다"
+            "title": "기구가 잡은 브래킷",
+            "label": "기구가 잡은 브래킷",
+            "text": "핀셋이 작은 투명 브래킷을 잡고 앞니로 다가갑니다."
           },
           {
-            "title": "치아가 조금씩 이동합니다",
-            "text": "브라켓과 철사가 연결된 상태에서 치아의 배열이 달라집니다. 움직이는 양과 방향은 진단에 따라 정하며, 화면처럼 한 번에 가지런해지는 치료는 아닙니다.",
-            "label": "치아가 조금씩 이동합니다"
+            "title": "치아 표면에 맞추기",
+            "label": "치아 표면에 맞추기",
+            "text": "브래킷의 뒷면을 앞니 표면 쪽으로 옮겨 위치를 맞춥니다."
           },
           {
-            "title": "치료 뒤 장치를 떼어 냅니다",
-            "text": "철사가 제거된 뒤 도구로 브라켓을 하나씩 분리하는 장면입니다. 장치를 떼는 시점은 배열뿐 아니라 맞물림과 치료 목표를 함께 확인해 정합니다.",
-            "label": "치료 뒤 장치를 떼어 냅니다"
+            "title": "위치 유지하기",
+            "label": "위치 유지하기",
+            "text": "브래킷을 같은 자리에서 지지한 채 핀셋이 벌어집니다."
           },
           {
-            "title": "유지장치가 자리를 잡습니다",
-            "text": "별도의 아래턱 모형에 투명 유지장치가 내려앉습니다. 이미 정리된 치아 위치를 유지하는 단계이며, 앞 장면의 모든 사람에게 같은 장치를 쓰는 것은 아닙니다.",
-            "label": "유지장치가 자리를 잡습니다"
+            "title": "브래킷은 남고 기구는 물러나기",
+            "label": "브래킷은 남고 기구는 물러나기",
+            "text": "핀셋이 빠져나간 뒤 브래킷이 치아 표면에 남습니다. 접착의 전체 과정은 생략돼 있습니다."
           }
         ]
       },
       "en": {
-        "title": "What changes after braces are fitted?",
-        "intro": "Follow attachment, movement, removal and retention. These explanatory models compress a long process; they do not predict treatment speed or results.",
+        "title": "Positioning a clear bracket",
+        "intro": "An illustrative model shows a small bracket being placed on a front tooth. It is not an exact reproduction of a specific commercial product.",
         "steps": [
           {
-            "title": "Brackets are attached",
-            "text": "Tools place brackets on tooth surfaces. Real bonding also includes preparation and careful positioning; the illustration condenses those steps.",
-            "label": "Brackets are attached"
+            "title": "Holding the bracket",
+            "label": "Holding the bracket",
+            "text": "Forceps carry a small clear bracket toward the front tooth."
           },
           {
-            "title": "Teeth move gradually",
-            "text": "Tooth positions change while brackets and an archwire remain attached. Direction and distance depend on the treatment plan, over time rather than in one visit.",
-            "label": "Teeth move gradually"
+            "title": "Meeting the tooth surface",
+            "label": "Meeting the tooth surface",
+            "text": "The back of the bracket moves toward the tooth surface into position."
           },
           {
-            "title": "Brackets are removed",
-            "text": "After the wire is removed, pliers lift brackets individually. Removal is planned after checking the bite and the treatment goals, not appearance alone.",
-            "label": "Brackets are removed"
+            "title": "Keeping its position",
+            "label": "Keeping its position",
+            "text": "The bracket is supported in place as the forceps open."
           },
           {
-            "title": "A retainer seats",
-            "text": "A clear retainer lowers onto a separate lower-jaw model. It holds an established tooth position; the same retainer is not suitable for everyone.",
-            "label": "A retainer seats"
+            "title": "The bracket remains",
+            "label": "The bracket remains",
+            "text": "The forceps withdraw and the bracket stays on the tooth. The complete bonding process is not shown."
           }
         ]
       },
       "ja": {
-        "title": "装置を付けた後、歯はどう動くのでしょうか？",
-        "intro": "装着・移動・除去・保定を分けて見ていきます。長期間の変化を短く示した説明用模型で、治療速度や結果を予測するものではありません。",
+        "title": "透明なブラケットの位置を合わせる瞬間",
+        "intro": "説明用模型で、小さなブラケットを前歯の表面に置く過程を見てみましょう。特定製品の実際の形状を忠実に再現したものではありません。",
         "steps": [
           {
-            "title": "ブラケットを装着",
-            "text": "器具が歯の表面にブラケットを置く様子です。実際には、接着前の処置や位置の確認なども行います。",
-            "label": "ブラケットを装着"
+            "title": "ブラケットを持つ",
+            "label": "ブラケットを持つ",
+            "text": "ピンセットが透明なブラケットを持ち、前歯へ近づきます。"
           },
           {
-            "title": "少しずつ歯が移動",
-            "text": "ブラケットとワイヤーが付いた状態で歯並びが変わります。方向と量は治療計画で決め、画面のように一度で並ぶわけではありません。",
-            "label": "少しずつ歯が移動"
+            "title": "歯の表面に合わせる",
+            "label": "歯の表面に合わせる",
+            "text": "ブラケットの裏側を前歯の表面へ近づけ、位置を合わせます。"
           },
           {
-            "title": "装置を一つずつ除去",
-            "text": "ワイヤーを外した後、器具でブラケットを個別に外す場面です。歯並びだけでなく、かみ合わせや治療目標を確認して時期を決めます。",
-            "label": "装置を一つずつ除去"
+            "title": "位置を保つ",
+            "label": "位置を保つ",
+            "text": "ブラケットを同じ場所で支えながら、ピンセットが開きます。"
           },
           {
-            "title": "保定装置を装着",
-            "text": "別の下顎模型に透明な保定装置が下りてきます。整えた歯の位置を保つ段階で、全員に同じ装置を使うわけではありません。",
-            "label": "保定装置を装着"
+            "title": "器具が離れ、装置が残る",
+            "label": "器具が離れ、装置が残る",
+            "text": "ピンセットが抜けたあと、ブラケットが歯の表面に残ります。接着の全工程は省略しています。"
           }
         ]
       }
@@ -2137,80 +2137,80 @@
       "scene": "align",
       "variant": "orthodontic-clippy-c",
       "ko": {
-        "title": "장치를 붙인 뒤, 치아는 어떻게 움직일까요?",
-        "intro": "부착부터 이동·제거·유지까지, 서로 다른 역할을 나눠 봅니다. 장기간의 변화를 압축한 설명 모형이며 실제 치료 속도나 결과를 뜻하지 않습니다.",
+        "title": "작은 클립이 와이어를 잡는 방식",
+        "intro": "브래킷의 클립이 닫히는 과정을 일반 자가결찰 장치 모형으로 살펴봅니다.",
         "steps": [
           {
-            "title": "치아에 장치를 붙입니다",
-            "text": "도구가 치아 표면에 브라켓을 놓는 모습을 보여 줍니다. 실제 진료에서는 접착 전 준비와 위치 확인 등 여러 과정이 함께 이루어집니다.",
-            "label": "치아에 장치를 붙입니다"
+            "title": "열린 클립과 와이어",
+            "label": "열린 클립과 와이어",
+            "text": "브래킷 위에 열린 클립과 그 사이를 지나는 와이어가 보입니다."
           },
           {
-            "title": "치아가 조금씩 이동합니다",
-            "text": "브라켓과 철사가 연결된 상태에서 치아의 배열이 달라집니다. 움직이는 양과 방향은 진단에 따라 정하며, 화면처럼 한 번에 가지런해지는 치료는 아닙니다.",
-            "label": "치아가 조금씩 이동합니다"
+            "title": "기구가 클립에 접근하기",
+            "label": "기구가 클립에 접근하기",
+            "text": "기구 끝이 위쪽으로 열린 클립에 닿도록 움직입니다."
           },
           {
-            "title": "치료 뒤 장치를 떼어 냅니다",
-            "text": "철사가 제거된 뒤 도구로 브라켓을 하나씩 분리하는 장면입니다. 장치를 떼는 시점은 배열뿐 아니라 맞물림과 치료 목표를 함께 확인해 정합니다.",
-            "label": "치료 뒤 장치를 떼어 냅니다"
+            "title": "아래로 닫히는 클립",
+            "label": "아래로 닫히는 클립",
+            "text": "같은 클립이 아래로 내려오면서 브래킷 안에 놓입니다."
           },
           {
-            "title": "유지장치가 자리를 잡습니다",
-            "text": "별도의 아래턱 모형에 투명 유지장치가 내려앉습니다. 이미 정리된 치아 위치를 유지하는 단계이며, 앞 장면의 모든 사람에게 같은 장치를 쓰는 것은 아닙니다.",
-            "label": "유지장치가 자리를 잡습니다"
+            "title": "기구가 떨어진 뒤",
+            "label": "기구가 떨어진 뒤",
+            "text": "기구가 물러나도 클립은 닫힌 위치를 유지하며 와이어는 그대로 있습니다."
           }
         ]
       },
       "en": {
-        "title": "What changes after braces are fitted?",
-        "intro": "Follow attachment, movement, removal and retention. These explanatory models compress a long process; they do not predict treatment speed or results.",
+        "title": "How a small clip holds the wire",
+        "intro": "Watch a bracket clip close in a general model of a self-ligating appliance.",
         "steps": [
           {
-            "title": "Brackets are attached",
-            "text": "Tools place brackets on tooth surfaces. Real bonding also includes preparation and careful positioning; the illustration condenses those steps.",
-            "label": "Brackets are attached"
+            "title": "An open clip and wire",
+            "label": "An open clip and wire",
+            "text": "An open clip sits above the bracket, with the wire passing through."
           },
           {
-            "title": "Teeth move gradually",
-            "text": "Tooth positions change while brackets and an archwire remain attached. Direction and distance depend on the treatment plan, over time rather than in one visit.",
-            "label": "Teeth move gradually"
+            "title": "The tool approaches",
+            "label": "The tool approaches",
+            "text": "The tool tip moves toward the raised clip."
           },
           {
-            "title": "Brackets are removed",
-            "text": "After the wire is removed, pliers lift brackets individually. Removal is planned after checking the bite and the treatment goals, not appearance alone.",
-            "label": "Brackets are removed"
+            "title": "Closing downward",
+            "label": "Closing downward",
+            "text": "The same clip moves down into the bracket."
           },
           {
-            "title": "A retainer seats",
-            "text": "A clear retainer lowers onto a separate lower-jaw model. It holds an established tooth position; the same retainer is not suitable for everyone.",
-            "label": "A retainer seats"
+            "title": "After the tool leaves",
+            "label": "After the tool leaves",
+            "text": "The clip stays closed when the tool withdraws, while the wire remains in place."
           }
         ]
       },
       "ja": {
-        "title": "装置を付けた後、歯はどう動くのでしょうか？",
-        "intro": "装着・移動・除去・保定を分けて見ていきます。長期間の変化を短く示した説明用模型で、治療速度や結果を予測するものではありません。",
+        "title": "小さなクリップがワイヤーを支える仕組み",
+        "intro": "一般的なセルフライゲーション装置の模型で、クリップが閉じる様子を見てみましょう。",
         "steps": [
           {
-            "title": "ブラケットを装着",
-            "text": "器具が歯の表面にブラケットを置く様子です。実際には、接着前の処置や位置の確認なども行います。",
-            "label": "ブラケットを装着"
+            "title": "開いたクリップとワイヤー",
+            "label": "開いたクリップとワイヤー",
+            "text": "ブラケットの上に開いたクリップと、その間を通るワイヤーが見えます。"
           },
           {
-            "title": "少しずつ歯が移動",
-            "text": "ブラケットとワイヤーが付いた状態で歯並びが変わります。方向と量は治療計画で決め、画面のように一度で並ぶわけではありません。",
-            "label": "少しずつ歯が移動"
+            "title": "器具が近づく",
+            "label": "器具が近づく",
+            "text": "器具の先端が、上に開いたクリップへ近づきます。"
           },
           {
-            "title": "装置を一つずつ除去",
-            "text": "ワイヤーを外した後、器具でブラケットを個別に外す場面です。歯並びだけでなく、かみ合わせや治療目標を確認して時期を決めます。",
-            "label": "装置を一つずつ除去"
+            "title": "下に閉じるクリップ",
+            "label": "下に閉じるクリップ",
+            "text": "同じクリップが下がり、ブラケットの中に収まります。"
           },
           {
-            "title": "保定装置を装着",
-            "text": "別の下顎模型に透明な保定装置が下りてきます。整えた歯の位置を保つ段階で、全員に同じ装置を使うわけではありません。",
-            "label": "保定装置を装着"
+            "title": "器具が離れたあと",
+            "label": "器具が離れたあと",
+            "text": "器具が離れても、クリップは閉じた位置を保ち、ワイヤーはそのままです。"
           }
         ]
       }
@@ -2219,80 +2219,80 @@
       "scene": "align",
       "variant": "invisalign-best",
       "ko": {
-        "title": "투명장치로 큰 변화도 가능할까요? 긴 착용을 감당할 수 있을까요?",
-        "intro": "원하는 넓은 변화의 가능 범위와 착용·비용·유지의 실제 부담을 함께 판단합니다.",
+        "title": "아래쪽 투명 장치를 끼우는 모습",
+        "intro": "위쪽 장치가 놓인 상태에서 아래쪽 장치를 치아에 맞춥니다. 양쪽 장치가 보이더라도 짧은 시간에 치아가 이동하는 장면은 아닙니다.",
         "steps": [
           {
-            "title": "포괄적 목표 설정",
-            "text": "앞니뿐 아니라 전체 배열과 물림의 목표를 봅니다. 컴프리헨시브라는 이름이 모든 이동을 보장하지는 않습니다.",
-            "label": "포괄적 목표 설정"
+            "title": "위아래 장치를 구분하기",
+            "label": "위아래 장치를 구분하기",
+            "text": "위쪽 장치는 치아를 감싸고 있고, 손은 아래쪽 장치를 잡고 있습니다."
           },
           {
-            "title": "보조 장치 계획",
-            "text": "부착물·고무줄과 착용 부담을 함께 상담합니다. 계획한 이동에 고정식 보완이 필요한지도 확인합니다.",
-            "label": "보조 장치 계획"
+            "title": "아래 치아 쪽으로 맞추기",
+            "label": "아래 치아 쪽으로 맞추기",
+            "text": "하나의 아래쪽 장치가 치아의 윤곽을 따라 내려갑니다."
           },
           {
-            "title": "적합도·보완 점검",
-            "text": "장치가 맞는지와 치아가 계획대로 반응하는지 확인합니다. 재스캔·보완의 범위와 조건을 구체적으로 듣습니다.",
-            "label": "적합도·보완 점검"
+            "title": "치관을 감싸는 장치",
+            "label": "치관을 감싸는 장치",
+            "text": "아래 앞니의 끝과 겉면이 투명한 장치 안으로 들어갑니다."
           },
           {
-            "title": "종료 뒤 유지",
-            "text": "최종 배열과 물림을 확인해 치료를 마무리합니다. 이후 유지장치 비용·사용·교체 범위도 별도로 확인합니다.",
-            "label": "종료 뒤 유지"
+            "title": "양쪽에서 눌러주기",
+            "label": "양쪽에서 눌러주기",
+            "text": "손이 양쪽을 가볍게 눌러 장치의 위치를 유지합니다."
           }
         ]
       },
       "en": {
-        "title": "Can removable aligners address the whole problem you want to solve?",
-        "intro": "Compare realistic objectives and support measures with fixed-brace alternatives.",
+        "title": "Placing the lower clear aligner",
+        "intro": "The lower tray is placed while the upper tray remains in position. Seeing both trays does not mean the teeth move within this short scene.",
         "steps": [
           {
-            "title": "Set comprehensive goals",
-            "text": "Review whole-arch alignment and bite goals, not only the front teeth. A Comprehensive label does not guarantee every movement.",
-            "label": "Set comprehensive goals"
+            "title": "Two separate trays",
+            "label": "Two separate trays",
+            "text": "The upper tray covers the teeth while the hands hold the lower tray."
           },
           {
-            "title": "Plan supporting appliances",
-            "text": "Discuss attachments, elastics and wearing demands. Check whether fixed-appliance assistance may be needed for the planned movements.",
-            "label": "Plan supporting appliances"
+            "title": "Aligning with the lower teeth",
+            "label": "Aligning with the lower teeth",
+            "text": "The single lower tray moves down along the tooth contours."
           },
           {
-            "title": "Review fit and refinements",
-            "text": "Assess aligner fit and the teeth's response. Clarify the scope and conditions for rescanning or refinements.",
-            "label": "Review fit and refinements"
+            "title": "Covering the crowns",
+            "label": "Covering the crowns",
+            "text": "The biting edges and outer surfaces of the lower front teeth enter the clear tray."
           },
           {
-            "title": "Retention after completion",
-            "text": "Review final alignment and bite before finishing. Clarify retainer use, replacement and costs separately.",
-            "label": "Retention after completion"
+            "title": "Pressing on both sides",
+            "label": "Pressing on both sides",
+            "text": "The hands make a light finishing press on both sides to keep the tray in position."
           }
         ]
       },
       "ja": {
-        "title": "歯列全体の透明矯正、装着から追加調整まで何が必要ですか？",
-        "intro": "包括的な移動の計画の適応と、含まれる処置・追加条件・保定を確認します。",
+        "title": "下の透明な装置を装着する様子",
+        "intro": "上の装置が入った状態で、下の装置を歯に合わせます。上下の装置が見えても、短時間で歯が動く場面ではありません。",
         "steps": [
           {
-            "title": "包括的な目標",
-            "text": "前歯だけでなく歯列全体と咬合の目標を確認します。Comprehensiveという名称ですべての移動を保証するわけではありません。",
-            "label": "包括的な目標"
+            "title": "上下の装置を見分ける",
+            "label": "上下の装置を見分ける",
+            "text": "上の装置は歯を覆い、手は下の装置を持っています。"
           },
           {
-            "title": "補助装置を計画",
-            "text": "アタッチメント、ゴム、装着の負担を相談します。計画した移動に固定式装置の補助が必要かも確認します。",
-            "label": "補助装置を計画"
+            "title": "下の歯に合わせる",
+            "label": "下の歯に合わせる",
+            "text": "一つの下の装置が歯の輪郭に沿って下がります。"
           },
           {
-            "title": "適合と追加調整",
-            "text": "装置の適合と歯の反応を確認します。再スキャンや追加調整の範囲と条件を具体的に聞きます。",
-            "label": "適合と追加調整"
+            "title": "歯冠を覆う装置",
+            "label": "歯冠を覆う装置",
+            "text": "下の前歯の先端と表面が透明な装置の中に入ります。"
           },
           {
-            "title": "終了後の保定",
-            "text": "最終の歯並びと咬合を確認して終了します。その後の保定装置の費用、使用、交換範囲も別に確認します。",
-            "label": "終了後の保定"
+            "title": "両側を押さえる",
+            "label": "両側を押さえる",
+            "text": "両手で軽く押さえ、装置の位置を保ちます。"
           }
         ]
       }
@@ -2301,80 +2301,80 @@
       "scene": "align",
       "variant": "invisalign-express",
       "ko": {
-        "title": "교정했던 앞니가 다시 틀어졌다면, 투명장치로 조금만 바꿀 수 있을까요?",
-        "intro": "재발 원인과 실제 이동 범위를 확인한 뒤 보완·유지 조건을 함께 정합니다.",
+        "title": "투명 장치는 치아에 어떻게 맞춰질까요?",
+        "intro": "치아의 위치를 그대로 둔 채, 하나의 투명 장치가 치열 전체를 감싸는 모습을 설명 모형으로 살펴봅니다.",
         "steps": [
           {
-            "title": "작은 고민 구분",
-            "text": "앞니의 작은 틀어짐과 전체 물림 문제를 구분합니다. 원하는 변화가 제한된 투명교정 범위에 맞는지 봅니다.",
-            "label": "작은 고민 구분"
+            "title": "치아와 장치를 맞춥니다",
+            "label": "치아와 장치를 맞춥니다",
+            "text": "치아 아래에 놓인 장치의 홈을 각각의 치아와 맞춥니다. 이 장면에서 움직이는 것은 장치이며 치아의 배열은 바뀌지 않습니다."
           },
           {
-            "title": "범위 밖도 설명",
-            "text": "해결할 이동과 그대로 남을 조건을 먼저 이해합니다. 장치 수나 이름만 보고 짧게 끝날 것으로 단정하지 않습니다.",
-            "label": "범위 밖도 설명"
+            "title": "앞뒤를 함께 끼웁니다",
+            "label": "앞뒤를 함께 끼웁니다",
+            "text": "장치 전체가 위쪽과 안쪽으로 움직이며 앞니와 어금니를 함께 감쌉니다."
           },
           {
-            "title": "착용·맞음 점검",
-            "text": "작은 이동이라도 안내받은 착용과 점검을 이어갑니다. 장치가 뜨거나 맞지 않을 때 다음 단계를 상담합니다.",
-            "label": "착용·맞음 점검"
+            "title": "들뜬 부분 없이 맞춥니다",
+            "label": "들뜬 부분 없이 맞춥니다",
+            "text": "장치 안쪽과 치아의 끝이 대응하도록 마지막 위치를 맞춥니다. 앞니 아래에 빈 홈이 매달리지 않는 모습을 보세요."
           },
           {
-            "title": "변화 뒤 유지",
-            "text": "짧은 계획도 유지장치까지 생각해야 합니다. 남은 물림 문제와 관리 범위를 치료 종료 때 다시 확인합니다.",
-            "label": "변화 뒤 유지"
+            "title": "잡고 있던 힘을 풉니다",
+            "label": "잡고 있던 힘을 풉니다",
+            "text": "손가락이 장치를 잡고 있던 힘을 풀어도 장치는 치아를 감싼 상태로 남습니다. 장치 착용을 보여주며 치아 이동이나 치료 결과를 뜻하지 않습니다."
           }
         ]
       },
       "en": {
-        "title": "Is a small change enough—or is the visible tooth only part of the issue?",
-        "intro": "Confirm that the goal fits the assessed range and understand any remaining bite compromise.",
+        "title": "How does a clear tray fit over the teeth?",
+        "intro": "This teaching model shows one clear tray fitting over an unchanged dental arch.",
         "steps": [
           {
-            "title": "Define the small concern",
-            "text": "Separate minor front-tooth irregularity from the overall bite. Assess whether a limited aligner course fits the desired change.",
-            "label": "Define the small concern"
+            "title": "Match the teeth and tray",
+            "label": "Match the teeth and tray",
+            "text": "The tray below the teeth is aligned so each pocket corresponds to a tooth. The tray moves; the tooth positions stay unchanged."
           },
           {
-            "title": "Explain what remains outside",
-            "text": "Understand the planned movement and what will remain unchanged. Aligner counts or labels alone do not establish completion time.",
-            "label": "Explain what remains outside"
+            "title": "Seat the whole arch",
+            "label": "Seat the whole arch",
+            "text": "The entire tray moves upward and inward, surrounding the front and back teeth together."
           },
           {
-            "title": "Check wear and fit",
-            "text": "Follow the prescribed wear and reviews even for small movements. Ask for advice if trays lift or do not fit.",
-            "label": "Check wear and fit"
+            "title": "Complete the fit",
+            "label": "Complete the fit",
+            "text": "The final adjustment brings the pocket floors into contact with the corresponding tooth edges. No empty pockets remain suspended below the front teeth."
           },
           {
-            "title": "Retain the change",
-            "text": "A limited course still needs a retention plan. Review any remaining bite issues and ongoing care at completion.",
-            "label": "Retain the change"
+            "title": "Ease the supporting grip",
+            "label": "Ease the supporting grip",
+            "text": "The fingers ease their grip while the tray remains around the teeth. This illustrates appliance placement, not tooth movement or a treatment result."
           }
         ]
       },
       "ja": {
-        "title": "少し戻った前歯は、限られた透明矯正で対応できますか？",
-        "intro": "小範囲の前歯の移動の適応と、含まれる処置・追加条件・保定を確認します。",
+        "title": "透明な装置は歯にどう合わさるのでしょうか？",
+        "intro": "歯の位置を変えずに、一つの透明な装置が歯列全体を覆う様子を説明用模型で見てみましょう。",
         "steps": [
           {
-            "title": "小さな悩みを分ける",
-            "text": "前歯の小さな乱れと全体の咬合の問題を分けます。希望する変化が限定的な透明矯正に合うか確認します。",
-            "label": "小さな悩みを分ける"
+            "title": "歯と装置を合わせる",
+            "label": "歯と装置を合わせる",
+            "text": "歯の下にある装置のくぼみを、それぞれの歯に合わせます。動くのは装置で、歯並びは変わりません。"
           },
           {
-            "title": "対象外も説明",
-            "text": "対応する移動と変わらず残る条件を先に理解します。装置の数や名前だけで終了時期を決めつけません。",
-            "label": "対象外も説明"
+            "title": "前後を一緒に装着する",
+            "label": "前後を一緒に装着する",
+            "text": "装置全体が上方と内側へ動き、前歯と奥歯を一緒に覆います。"
           },
           {
-            "title": "装着と適合を点検",
-            "text": "小さな移動でも指示された装着と点検を続けます。浮いたり合わなかったりしたら次の段階を相談します。",
-            "label": "装着と適合を点検"
+            "title": "浮き上がりを残さず合わせる",
+            "label": "浮き上がりを残さず合わせる",
+            "text": "装置の内面と歯の先端が対応する位置へ合わせます。前歯の下に空のくぼみが垂れ下がらない様子に注目してください。"
           },
           {
-            "title": "変化の後の保定",
-            "text": "短い計画でも保定を考える必要があります。残る咬合の問題と管理範囲を終了時に再確認します。",
-            "label": "変化の後の保定"
+            "title": "支えていた力を緩める",
+            "label": "支えていた力を緩める",
+            "text": "指で支えていた力を緩めても、装置は歯を覆った位置に残ります。装着を示す場面であり、歯の移動や治療結果を表すものではありません。"
           }
         ]
       }
@@ -2465,80 +2465,80 @@
       "scene": "align",
       "variant": "invisalign-light",
       "ko": {
-        "title": "앞니만 살짝 바꾸고 싶은데, 투명교정으로 어디까지 될까요?",
-        "intro": "작은 플랜의 편의와 남는 목표를 비교하고 생활 속 착용 가능성을 확인합니다.",
+        "title": "앞니부터 어금니까지, 장치는 어떻게 자리 잡을까요?",
+        "intro": "위쪽 치열에 투명 장치를 끼우는 모습을 비스듬한 시점에서 봅니다. 치아 자체의 움직임은 포함하지 않은 설명 모형입니다.",
         "steps": [
           {
-            "title": "목표 범위 확인",
-            "text": "제한된 투명교정으로 원하는 배열을 다룰 수 있는지 봅니다. 물림·잇몸·뿌리 검사를 간단히 생략하지 않습니다.",
-            "label": "목표 범위 확인"
+            "title": "장치의 방향을 맞춥니다",
+            "label": "장치의 방향을 맞춥니다",
+            "text": "손가락이 장치의 뒤쪽을 받치고 각 치아와 장치의 홈이 대응하도록 방향을 맞춥니다."
           },
           {
-            "title": "포함 조건 비교",
-            "text": "포함된 이동과 보완 장치 조건을 확인합니다. 라이트라는 이름보다 내 치료에서 제외되는 항목을 알아두는 게 중요합니다.",
-            "label": "포함 조건 비교"
+            "title": "치열 전체를 감쌉니다",
+            "label": "치열 전체를 감쌉니다",
+            "text": "장치가 위쪽과 안쪽으로 이동하며 앞니와 뒤쪽 치아를 함께 감쌉니다."
           },
           {
-            "title": "착용 중 재확인",
-            "text": "장치의 맞음과 이동 반응을 점검합니다. 맞지 않는 장치를 계속 끼우며 버티기보다 조정 필요성을 상담합니다.",
-            "label": "착용 중 재확인"
+            "title": "뒤쪽의 들뜸을 맞춥니다",
+            "label": "뒤쪽의 들뜸을 맞춥니다",
+            "text": "앞니 쪽 장치를 유지하면서 뒤쪽도 제자리에 맞춥니다. 끝부분이 바깥으로 벌어지지 않아야 합니다."
           },
           {
-            "title": "유지와 남은 목표",
-            "text": "마무리 시 달성한 변화와 남은 목표를 비교합니다. 유지장치와 추가 치료가 필요한 조건을 나눠 설명받습니다.",
-            "label": "유지와 남은 목표"
+            "title": "장치만 남습니다",
+            "label": "장치만 남습니다",
+            "text": "손을 놓은 뒤에도 앞뒤 장치가 함께 치아에 놓여 있습니다. 특정 제품의 정밀한 맞춤이나 치료 효과를 입증하는 영상은 아닙니다."
           }
         ]
       },
       "en": {
-        "title": "Can a limited aligner plan improve the teeth that bother you most?",
-        "intro": "Compare the planned change and remaining limitations with more extensive treatment.",
+        "title": "How does the tray settle from front to back?",
+        "intro": "A three-quarter view shows a clear tray fitting over the upper teeth. The teeth themselves remain fixed in this teaching model.",
         "steps": [
           {
-            "title": "Confirm the limited goal",
-            "text": "Assess whether a limited aligner plan can address the intended alignment. Bite, gum and root assessment still matter.",
-            "label": "Confirm the limited goal"
+            "title": "Align the tray",
+            "label": "Align the tray",
+            "text": "The fingers support the back of the tray while its pockets are aligned with the corresponding teeth."
           },
           {
-            "title": "Compare what is included",
-            "text": "Clarify movements and additional-appliance conditions. Understand exclusions rather than relying on the Light label.",
-            "label": "Compare what is included"
+            "title": "Enclose the whole arch",
+            "label": "Enclose the whole arch",
+            "text": "The tray moves upward and inward to surround the anterior and posterior teeth together."
           },
           {
-            "title": "Recheck during wear",
-            "text": "Review fit and movement. Seek advice about adjustments rather than persisting with a poorly fitting tray.",
-            "label": "Recheck during wear"
+            "title": "Settle the posterior edge",
+            "label": "Settle the posterior edge",
+            "text": "With the front still seated, the back is brought into position without leaving a segment flared outward."
           },
           {
-            "title": "Retention and remaining goals",
-            "text": "Compare achieved changes with remaining goals. Distinguish retention from situations needing additional treatment.",
-            "label": "Retention and remaining goals"
+            "title": "Leave the tray in place",
+            "label": "Leave the tray in place",
+            "text": "The hand withdraws while both front and back remain seated. This does not verify a particular product's precision fit or clinical effect."
           }
         ]
       },
       "ja": {
-        "title": "透明な装置で前歯を整えるとき、治療範囲はどこまでですか？",
-        "intro": "限定的な範囲の矯正の適応と、含まれる処置・追加条件・保定を確認します。",
+        "title": "前歯から奥歯まで、装置はどう収まるのでしょうか？",
+        "intro": "上の歯列に透明な装置を装着する様子を、斜めから見た説明用模型です。歯自体の移動は含みません。",
         "steps": [
           {
-            "title": "目標範囲を確認",
-            "text": "限定的な透明矯正で希望する歯並びに対応できるか確認します。咬合、歯ぐき、歯根の評価は省きません。",
-            "label": "目標範囲を確認"
+            "title": "装置の向きを合わせる",
+            "label": "装置の向きを合わせる",
+            "text": "指で装置の後方を支え、それぞれの歯とくぼみが対応する向きに合わせます。"
           },
           {
-            "title": "含まれる条件を比較",
-            "text": "移動と補助装置の条件を確認します。ライトという名前より、対象外になる項目の理解が大切です。",
-            "label": "含まれる条件を比較"
+            "title": "歯列全体を覆う",
+            "label": "歯列全体を覆う",
+            "text": "装置が上方と内側へ動き、前歯と奥歯を一緒に覆います。"
           },
           {
-            "title": "装着中に再確認",
-            "text": "適合と移動の反応を確認します。合わない装置を無理に使い続けず調整を相談します。",
-            "label": "装着中に再確認"
+            "title": "奥側の浮きを合わせる",
+            "label": "奥側の浮きを合わせる",
+            "text": "前歯側を保ちながら後方も所定の位置に合わせます。端が外側へ開かない様子を見てください。"
           },
           {
-            "title": "保定と残る目標",
-            "text": "得られた変化と残った目標を比較します。保定と追加治療が必要な条件を分けて聞きます。",
-            "label": "保定と残る目標"
+            "title": "装置をその場に残す",
+            "label": "装置をその場に残す",
+            "text": "手が離れた後も、前方と後方の装置が歯に収まっています。特定製品の精密な適合や治療効果を証明する映像ではありません。"
           }
         ]
       }
@@ -2629,80 +2629,80 @@
       "scene": "veneer",
       "variant": "glownate",
       "ko": {
-        "title": "웃는 모습은 바꾸고 싶은데, 멀쩡한 치아를 깎을까 걱정되나요?",
-        "intro": "얻고 싶은 변화와 남길 치아를 함께 보고 미백·레진·교정 대안을 먼저 비교합니다.",
+        "title": "얇은 보철은 앞니에 어떻게 놓일까요?",
+        "intro": "앞니의 전면을 덮는 얇은 보철 한 장의 위치를 맞추는 장면입니다. 접착과 마무리의 전체 과정을 보여주지는 않습니다.",
         "steps": [
           {
-            "title": "색·형태·위치 구분",
-            "text": "웃을 때 신경 쓰이는 것이 색인지 모양인지 배열인지 나눠 봅니다. 해결할 문제가 다르면 적합한 치료도 달라집니다.",
-            "label": "색·형태·위치 구분"
+            "title": "앞니 앞의 얇은 보철",
+            "label": "앞니 앞의 얇은 보철",
+            "text": "기구가 보철을 받친 채 준비된 앞니 쪽으로 올립니다."
           },
           {
-            "title": "삭제 전 대안 비교",
-            "text": "미백·레진·교정으로 가능한 범위를 먼저 비교합니다. 표면을 덮어 얻을 변화와 치아를 남기는 부담을 함께 봅니다.",
-            "label": "삭제 전 대안 비교"
+            "title": "윤곽을 맞추기",
+            "label": "윤곽을 맞추기",
+            "text": "보철의 가장자리가 앞니의 전면 윤곽과 겹쳐집니다."
           },
           {
-            "title": "얇아도 적합성 확인",
-            "text": "라미네이트가 얇아도 모든 치아에 무삭제로 적용되지는 않습니다. 접착 조건·두께·물림을 함께 확인합니다.",
-            "label": "얇아도 적합성 확인"
+            "title": "자리에서 지지하기",
+            "label": "자리에서 지지하기",
+            "text": "보철이 치아 면에 놓이고 기구가 아래쪽에서 위치를 지지합니다."
           },
           {
-            "title": "경계·물림 관리",
-            "text": "보철의 경계와 물림, 청소 상태를 점검합니다. 파절이나 탈락이 생겼을 때 수리·재제작 가능성을 상담합니다.",
-            "label": "경계·물림 관리"
+            "title": "기구가 물러나기",
+            "label": "기구가 물러나기",
+            "text": "기구가 아래로 물러나고 보철은 앞니 면에 남습니다."
           }
         ]
       },
       "en": {
-        "title": "Can you change your smile without regretting what was removed?",
-        "intro": "Compare the desired change with the amount of tooth alteration and less invasive alternatives.",
+        "title": "How is a thin veneer placed on a front tooth?",
+        "intro": "This scene shows positioning one thin veneer over a front tooth. It does not show the complete bonding and finishing process.",
         "steps": [
           {
-            "title": "Separate colour, shape, position",
-            "text": "Identify whether colour, shape or alignment bothers you. Different concerns may need different treatments.",
-            "label": "Colour, shape and position"
+            "title": "A thin shell in front",
+            "label": "A thin shell in front",
+            "text": "An instrument supports the veneer as it rises toward the prepared tooth."
           },
           {
-            "title": "Compare before preparation",
-            "text": "Compare whitening, composite and orthodontics first. Weigh the proposed appearance change against preparation of the tooth.",
-            "label": "Compare before preparation"
+            "title": "Matching the outline",
+            "label": "Matching the outline",
+            "text": "The edge of the veneer aligns with the front surface of the tooth."
           },
           {
-            "title": "Thin still needs assessment",
-            "text": "A thin veneer is not automatically a no-preparation option for every tooth. Bonding conditions, thickness and bite still matter.",
-            "label": "Thin still needs assessment"
+            "title": "Supporting its position",
+            "label": "Supporting its position",
+            "text": "The veneer rests on the tooth while the instrument supports its lower edge."
           },
           {
-            "title": "Review margins and bite",
-            "text": "Review restoration margins, bite and cleaning. Discuss repair or replacement if chipping or debonding occurs.",
-            "label": "Review margins and bite"
+            "title": "The instrument withdraws",
+            "label": "The instrument withdraws",
+            "text": "The instrument moves down and away, leaving the veneer on the tooth."
           }
         ]
       },
       "ja": {
-        "title": "笑顔を変えたい。でも健康な歯を削って後悔しませんか？",
-        "intro": "色・形・位置を分け、ホワイトニング、レジン、矯正と歯の削除量を比較します。",
+        "title": "薄い補綴物は、前歯にどう置かれるのでしょうか？",
+        "intro": "前歯の表面を覆う薄い補綴物一枚の位置を合わせる場面です。接着や仕上げの全工程を示すものではありません。",
         "steps": [
           {
-            "title": "色・形・位置を分ける",
-            "text": "笑うときに気になるのが色、形、歯並びのどれかを分けます。困りごとが違えば適切な治療も変わります。",
-            "label": "色・形・位置を分ける"
+            "title": "前歯の前にある薄い一枚",
+            "label": "前歯の前にある薄い一枚",
+            "text": "器具で支えながら、補綴物を形成された前歯へ持ち上げます。"
           },
           {
-            "title": "削る前に代替案",
-            "text": "ホワイトニング、レジン、矯正で可能な範囲を先に比較します。表面を覆う変化と、歯を削る負担を合わせて考えます。",
-            "label": "削る前に代替案"
+            "title": "輪郭を合わせる",
+            "label": "輪郭を合わせる",
+            "text": "補綴物の縁を前歯の表面の輪郭に合わせます。"
           },
           {
-            "title": "薄くても適否を確認",
-            "text": "薄いラミネートでも、すべての歯に削らず使えるわけではありません。接着条件、厚み、咬合を確認します。",
-            "label": "薄くても適否を確認"
+            "title": "その位置で支える",
+            "label": "その位置で支える",
+            "text": "補綴物が歯の表面に収まり、器具が下側を支えています。"
           },
           {
-            "title": "境目と咬合を管理",
-            "text": "人工歯の境目、噛み合わせ、清掃を点検します。破折や脱離が起きたときの修理・再製作を相談します。",
-            "label": "境目と咬合を管理"
+            "title": "器具が離れる",
+            "label": "器具が離れる",
+            "text": "器具が下へ離れ、補綴物は前歯の表面に残ります。"
           }
         ]
       }
@@ -3039,80 +3039,80 @@
       "scene": "crown",
       "variant": "crown",
       "ko": {
-        "title": "씌우면 오래 쓸 수 있을까요? 깎고 나서 후회할까 걱정되나요?",
-        "intro": "씌우는 행위 자체보다 남은 치아에 어느 정도 보호가 필요한지 먼저 확인합니다.",
+        "title": "크라운 안에는 다듬은 치아가 어떻게 들어갈까요?",
+        "intro": "속이 빈 크라운이 준비된 치아를 감싸는 짧은 장착 과정을 설명 모형으로 봅니다.",
         "steps": [
           {
-            "title": "남은 치아를 위한 준비",
-            "text": "많이 깎일까 걱정된다면 어느 부분을 왜 줄이는지 먼저 확인하세요. 남은 치아와 다른 수복 방법을 비교해 필요한 범위를 정합니다.",
-            "label": "남은 치아를 위한 준비"
+            "title": "속이 빈 보철을 맞춥니다",
+            "label": "속이 빈 보철을 맞춥니다",
+            "text": "크라운의 안쪽 공간을 다듬은 치아의 방향과 맞춥니다. 주변 치아는 그대로 있습니다."
           },
           {
-            "title": "치아 모양을 기록",
-            "text": "준비한 치아와 주변 치아의 형태를 기록합니다. 보철의 경계와 인접 접촉·물림을 맞추기 위한 정보입니다.",
-            "label": "치아 모양을 기록"
+            "title": "치아를 감싸며 내려옵니다",
+            "label": "치아를 감싸며 내려옵니다",
+            "text": "같은 크라운이 아래로 움직이며 준비된 치아를 안쪽에 담습니다."
           },
           {
-            "title": "임시치아로 보호",
-            "text": "최종 보철을 기다리는 동안의 보호 방법을 설명받습니다. 임시치아가 빠지거나 불편하면 참고 기다리기보다 연락하세요.",
-            "label": "임시치아로 보호"
+            "title": "경계까지 자리를 맞춥니다",
+            "label": "경계까지 자리를 맞춥니다",
+            "text": "크라운의 아래쪽 경계가 준비된 치아의 경계에 도달하도록 맞춥니다. 보철 아래에 넓은 삭제면이 남지 않는 모습을 살펴보세요."
           },
           {
-            "title": "최종 크라운을 맞춤",
-            "text": "크라운을 씌운 뒤 경계와 물림을 확인합니다. 새 통증이나 씹을 때 불편함이 있으면 높이뿐 아니라 내부 상태도 평가합니다.",
-            "label": "최종 크라운을 맞춤"
+            "title": "집게를 놓습니다",
+            "label": "집게를 놓습니다",
+            "text": "집게가 벌어져 물러나고 크라운은 자리에 남습니다. 이 장면만으로 접착·물림 확인이나 치료의 전체 과정을 보여주는 것은 아닙니다."
           }
         ]
       },
       "en": {
-        "title": "Will covering the tooth protect it—or remove more than it needs?",
-        "intro": "Choose the extent of coverage and material according to the remaining tooth and bite.",
+        "title": "How does a prepared tooth fit inside a crown?",
+        "intro": "A teaching model shows the short placement step in which a hollow crown surrounds a prepared tooth.",
         "steps": [
           {
-            "title": "Prepare the remaining tooth",
-            "text": "If tooth reduction worries you, ask what needs to be reduced and why. The remaining structure and alternative restorations guide the plan.",
-            "label": "Prepare the remaining tooth"
+            "title": "Align the hollow restoration",
+            "label": "Align the hollow restoration",
+            "text": "The inner space of the crown is aligned with the prepared tooth. The neighboring teeth stay still."
           },
           {
-            "title": "Record the tooth shape",
-            "text": "The prepared tooth and neighboring teeth are recorded. These details help plan the margins, contacts and bite.",
-            "label": "Record the tooth shape"
+            "title": "Lower it around the tooth",
+            "label": "Lower it around the tooth",
+            "text": "The same crown descends, enclosing the prepared tooth within its hollow interior."
           },
           {
-            "title": "Protect it temporarily",
-            "text": "Ask how the tooth will be protected while the final restoration is made. Contact the clinic if the temporary crown comes off or feels uncomfortable.",
-            "label": "Protect it temporarily"
+            "title": "Bring the margins together",
+            "label": "Bring the margins together",
+            "text": "The crown's lower edge reaches the preparation margin. Notice that no broad prepared surface remains exposed beneath the restoration."
           },
           {
-            "title": "Fit the final crown",
-            "text": "The crown margins and bite are checked after placement. New pain or chewing discomfort may require assessment of the tooth as well as the crown.",
-            "label": "Fit the final crown"
+            "title": "Release the tweezers",
+            "label": "Release the tweezers",
+            "text": "The tweezers open and withdraw while the crown remains seated. This scene does not show bonding, bite checks or the complete treatment process."
           }
         ]
       },
       "ja": {
-        "title": "被せれば長く使えますか？ 削ってから後悔しませんか？",
-        "intro": "残る歯と力のかかり方から、部分修復とクラウンの保護範囲を比較します。",
+        "title": "形成した歯はクラウンの中にどう入るのでしょうか？",
+        "intro": "内側が空洞のクラウンが形成した歯を覆う、短い装着過程の説明用模型です。",
         "steps": [
           {
-            "title": "残った歯を守るための準備",
-            "text": "削る量が心配なら、どこをなぜ削るのかを先に確認しましょう。残った歯と他の修復方法を比較して範囲を決めます。",
-            "label": "残った歯を守るための準備"
+            "title": "内面の空間を合わせる",
+            "label": "内面の空間を合わせる",
+            "text": "クラウンの内側を形成した歯の向きに合わせます。周囲の歯は動きません。"
           },
           {
-            "title": "歯の形を記録する",
-            "text": "形成した歯と周囲の歯の形を記録します。補綴物の境目、隣の歯との接触、かみ合わせを合わせるための情報です。",
-            "label": "歯の形を記録する"
+            "title": "歯を覆いながら下げる",
+            "label": "歯を覆いながら下げる",
+            "text": "同じクラウンが下がり、形成した歯を内側に収めます。"
           },
           {
-            "title": "仮歯で保護する",
-            "text": "最終的な補綴物を待つ間の保護方法を確認します。仮歯が外れたり違和感があるときは、我慢せず連絡しましょう。",
-            "label": "仮歯で保護する"
+            "title": "境目まで合わせる",
+            "label": "境目まで合わせる",
+            "text": "クラウンの下縁を歯の形成部の境目まで合わせます。補綴物の下に広い形成面を残さない様子を見てください。"
           },
           {
-            "title": "最終的なクラウンを合わせる",
-            "text": "装着後に境目とかみ合わせを確認します。新しい痛みや噛みにくさがあれば、歯の内部も含めて評価します。",
-            "label": "最終的なクラウンを合わせる"
+            "title": "ピンセットを離す",
+            "label": "ピンセットを離す",
+            "text": "ピンセットが開いて離れ、クラウンはその場に残ります。接着、かみ合わせの確認、治療全体を示す場面ではありません。"
           }
         ]
       }
@@ -3203,80 +3203,80 @@
       "scene": "endo",
       "variant": "re-root-canal",
       "ko": {
-        "title": "한 번 치료한 치아가 또 아프면, 이제는 빼야 하는 걸까요?",
-        "intro": "이전 치료의 문제와 치아 구조를 확인하고 재치료·수술·발치의 부담을 비교합니다.",
+        "title": "재신경치료의 입구에서는 무엇을 살펴볼까요?",
+        "intro": "치아 안쪽을 보여주는 모형에서 근관 입구의 기존 재료 일부를 직접 건드려 제거하는 한 단계를 봅니다.",
         "steps": [
           {
-            "title": "이전 치료 부위에 다시 접근",
-            "text": "다시 열면 치아가 더 약해질까 걱정될 수 있습니다. 기존 보철·기둥의 상태와 재접근 위험, 다른 대안을 먼저 비교합니다.",
-            "label": "이전 치료 부위에 다시 접근"
+            "title": "기존 재료에 접근합니다",
+            "label": "기존 재료에 접근합니다",
+            "text": "구부러진 기구 끝이 치아 위쪽의 입구로 접근합니다. 깊은 근관 안의 충전재는 그대로 남아 있습니다."
           },
           {
-            "title": "기존 충전재를 제거",
-            "text": "가능한 범위에서 이전 근관 충전재를 제거하는 모습을 봅니다. 모든 치아에서 같은 방식으로 제거할 수 있는 것은 아닙니다.",
-            "label": "기존 충전재를 제거"
+            "title": "닿은 부분을 움직입니다",
+            "label": "닿은 부분을 움직입니다",
+            "text": "기구가 입구의 재료에 닿아 작은 부분을 느슨하게 합니다. 기구가 닿지 않은 깊은 재료는 변하지 않습니다."
           },
           {
-            "title": "다시 내부를 정리",
-            "text": "재접근한 근관을 정리하고 소독하는 단계로 이어집니다. 남아 있는 문제와 위쪽 누출 원인도 함께 확인해야 합니다.",
-            "label": "다시 내부를 정리"
+            "title": "작은 조각을 들어 올립니다",
+            "label": "작은 조각을 들어 올립니다",
+            "text": "접촉한 지점에서 분리된 조각이 기구와 함께 위로 움직입니다."
           },
           {
-            "title": "재충전과 입구 밀폐",
-            "text": "근관을 다시 채우고 입구를 밀폐하는 과정을 봅니다. 이후 증상과 영상 변화를 관찰하며 반응이 부족하면 다음 대안도 상담합니다.",
-            "label": "재충전과 입구 밀폐"
+            "title": "입구 위에서 조각을 확인합니다",
+            "label": "입구 위에서 조각을 확인합니다",
+            "text": "기구 끝에 작은 조각이 들린 채 입구 바로 위에 머뭅니다. 국소적인 제거 장면이며 근관 전체의 세척 완료를 뜻하지 않습니다."
           }
         ]
       },
       "en": {
-        "title": "Why does a tooth that was already treated need attention again?",
-        "intro": "Compare the cause, ability to restore the tooth and the risks of each approach.",
+        "title": "What happens at the entrance during root-canal retreatment?",
+        "intro": "This cutaway model shows one local step: contacting and removing a small piece of old material at the canal entrance.",
         "steps": [
           {
-            "title": "Reopen the previously treated area",
-            "text": "Reopening may raise concerns about weakening the tooth. Existing restorations, posts, risks and alternatives are considered first.",
-            "label": "Reopen the previously treated area"
+            "title": "Approach the old material",
+            "label": "Approach the old material",
+            "text": "A bent tip approaches the coronal access. The deeper filling inside the root remains in place."
           },
           {
-            "title": "Remove the old filling",
-            "text": "The model shows removal of previous canal filling where feasible. Not every tooth allows the same approach.",
-            "label": "Remove the old filling"
+            "title": "Work only at contact",
+            "label": "Work only at contact",
+            "text": "The instrument touches and loosens a small part of the material at the entrance. Deeper, untouched material does not change."
           },
           {
-            "title": "Clean the reopened canal",
-            "text": "The reopened canal is cleaned and disinfected. Persistent causes and leakage from the upper restoration also need assessment.",
-            "label": "Clean the reopened canal"
+            "title": "Lift a small fragment",
+            "label": "Lift a small fragment",
+            "text": "The fragment separated at the contact point moves upward with the tip."
           },
           {
-            "title": "Refill and seal the access",
-            "text": "The canal is refilled and the access is sealed. Symptoms and imaging changes are monitored, with other options reconsidered if the response is inadequate.",
-            "label": "Refill and seal the access"
+            "title": "Observe the fragment above the access",
+            "label": "Observe the fragment above the access",
+            "text": "A small fragment remains on the raised tip just above the opening. This local removal does not mean that the entire canal has been cleaned."
           }
         ]
       },
       "ja": {
-        "title": "一度治した歯がまた痛いなら、もう抜くしかありませんか？",
-        "intro": "経過観察、非外科的な再治療、根尖手術と抜歯を、感染と残存歯から比較します。",
+        "title": "根管の再治療では、入口で何をするのでしょうか？",
+        "intro": "歯の断面模型で、根管入口にある古い材料の一部に直接触れて取り除く一段階を示します。",
         "steps": [
           {
-            "title": "以前の治療部位に再びアクセス",
-            "text": "開け直すことで歯が弱くならないか心配になることがあります。補綴物やポストの状態、再アクセスのリスク、他の方法を先に比較します。",
-            "label": "以前の治療部位に再びアクセス"
+            "title": "古い材料に近づく",
+            "label": "古い材料に近づく",
+            "text": "曲がった器具の先端が歯冠側の入口へ近づきます。根の奥の充填材はそのまま残っています。"
           },
           {
-            "title": "古い充填材を除去する",
-            "text": "可能な範囲で以前の根管充填材を除去する様子です。すべての歯で同じ方法が使えるわけではありません。",
-            "label": "古い充填材を除去する"
+            "title": "触れた部分だけを動かす",
+            "label": "触れた部分だけを動かす",
+            "text": "器具が入口の材料に触れ、小さな部分を緩めます。器具が触れていない奥の材料は変わりません。"
           },
           {
-            "title": "内部を再び清掃する",
-            "text": "再アクセスした根管を清掃・消毒する工程です。残る原因や上部の修復物からの漏洩も確認する必要があります。",
-            "label": "内部を再び清掃する"
+            "title": "小さなかけらを持ち上げる",
+            "label": "小さなかけらを持ち上げる",
+            "text": "接触点で分離したかけらが、先端と一緒に上へ動きます。"
           },
           {
-            "title": "再充填して入口を封鎖する",
-            "text": "根管を再充填し、入口を封鎖します。その後の症状や画像の変化を観察し、反応が十分でなければ他の選択も相談します。",
-            "label": "再充填して入口を封鎖する"
+            "title": "入口の上でかけらを見る",
+            "label": "入口の上でかけらを見る",
+            "text": "先端に小さなかけらを保持したまま、入口のすぐ上に留まります。局所的な除去であり、根管全体の清掃完了を意味しません。"
           }
         ]
       }
@@ -3285,80 +3285,80 @@
       "scene": "endo",
       "variant": "apicoectomy",
       "ko": {
-        "title": "다시 열기 어렵다는 치아, 뽑기 전에 다른 길이 있을까요?",
-        "intro": "다시 여는 방법과 수술의 위험을 비교하고 치아 전체의 보존 가능성을 함께 판단합니다.",
+        "title": "치근 끝의 작은 공간에는 재료를 어떻게 넣을까요?",
+        "intro": "이미 절제된 치근 끝의 작은 와동에 재료를 넣는 한 단계를 확대해 봅니다.",
         "steps": [
           {
-            "title": "뿌리 끝에 접근",
-            "text": "발치 말고 다른 길이 있는지 고민될 때, 먼저 내부 재치료와 수술의 이점·위험을 비교합니다. 모형은 잇몸을 열어 뿌리 끝 주변에 접근하는 모습을 보여줍니다.",
-            "label": "뿌리 끝에 접근"
+            "title": "작은 와동으로 접근합니다",
+            "label": "작은 와동으로 접근합니다",
+            "text": "재료를 든 기구가 치근 끝의 가운데 작은 공간으로 접근합니다. 주변 치근과 뼈는 그대로입니다."
           },
           {
-            "title": "필요한 끝부분을 처리",
-            "text": "필요한 뿌리 끝 부위를 처리하는 과정을 봅니다. 실제 범위는 뿌리 구조와 주변 해부학·원인에 따라 달라집니다.",
-            "label": "필요한 끝부분을 처리"
+            "title": "공간 안에 놓습니다",
+            "label": "공간 안에 놓습니다",
+            "text": "같은 재료가 기존 와동 안으로 들어갑니다. 치근 밖에 새 덩어리를 쌓는 모습이 아닙니다."
           },
           {
-            "title": "끝부분을 다시 밀폐",
-            "text": "뿌리 끝에서 접근한 공간을 준비하고 밀폐하는 모습을 봅니다. 위쪽 보철의 누출 같은 원인이 남아 있지 않은지도 확인합니다.",
-            "label": "끝부분을 다시 밀폐"
+            "title": "절단면 높이에 맞춥니다",
+            "label": "절단면 높이에 맞춥니다",
+            "text": "재료를 작은 공간 안에 맞추고 바깥으로 크게 튀어나오지 않도록 표면 높이를 맞춥니다."
           },
           {
-            "title": "잇몸을 닫고 치유 관찰",
-            "text": "잇몸을 제자리로 놓고 봉합하는 과정으로 이어집니다. 이후 증상과 치유 반응을 살피며 예상과 다르면 보존 가능성과 대안을 다시 평가합니다.",
-            "label": "잇몸을 닫고 치유 관찰"
+            "title": "기구가 물러납니다",
+            "label": "기구가 물러납니다",
+            "text": "기구가 물러나고 작은 충전부가 남습니다. 치근 끝 수술의 전체 과정이나 치유 결과를 보여주는 영상은 아닙니다."
           }
         ]
       },
       "en": {
-        "title": "Could surgery save the tooth—and why not treat it from the top again?",
-        "intro": "Choose according to the source of disease, access and overall restorability.",
+        "title": "How is the small root-end preparation filled?",
+        "intro": "A close teaching view shows one placement step within a preparation at an already resected root end.",
         "steps": [
           {
-            "title": "Access the root tip",
-            "text": "When looking for an alternative to extraction, compare internal retreatment and surgery first. The model shows tissue being reflected to reach the root-tip area.",
-            "label": "Access the root tip"
+            "title": "Approach the small preparation",
+            "label": "Approach the small preparation",
+            "text": "The material carrier approaches the small central space. Surrounding root and bone remain unchanged."
           },
           {
-            "title": "Treat the necessary root end",
-            "text": "The illustrated root end is treated. The clinical extent depends on root structure, nearby anatomy and the underlying cause.",
-            "label": "Treat the necessary root end"
+            "title": "Place material inside",
+            "label": "Place material inside",
+            "text": "The same material enters the existing preparation rather than forming a new mass outside the root."
           },
           {
-            "title": "Seal from the root end",
-            "text": "The root-end space is prepared and sealed. Other causes, including leakage from the upper restoration, also need assessment.",
-            "label": "Seal from the root end"
+            "title": "Match the cut-face level",
+            "label": "Match the cut-face level",
+            "text": "The material is adapted inside the recess with its exposed surface level with the cut face, not protruding as a large mound."
           },
           {
-            "title": "Close and monitor healing",
-            "text": "The tissue is repositioned and sutured. Symptoms and healing are reviewed, and tooth retention or alternatives are reconsidered if the response differs from expectations.",
-            "label": "Close and monitor healing"
+            "title": "Withdraw the carrier",
+            "label": "Withdraw the carrier",
+            "text": "The carrier withdraws, leaving a small filling. This does not show the full surgical procedure or healing outcome."
           }
         ]
       },
       "ja": {
-        "title": "上から開け直せない歯にも、残すための方法はありますか？",
-        "intro": "上からの再治療と根尖への手術の負担を比較し、歯全体の保存条件を確認します。",
+        "title": "歯根の先の小さな空間にはどう材料を入れるのでしょうか？",
+        "intro": "すでに切除された歯根端の小さな窩洞に材料を置く、一段階を拡大した説明です。",
         "steps": [
           {
-            "title": "根の先にアクセスする",
-            "text": "抜歯以外の方法を考えるときは、内部からの再治療と手術の利点・リスクを比較します。模型は歯肉を開き、根の先に近づく様子です。",
-            "label": "根の先にアクセスする"
+            "title": "小さな窩洞に近づく",
+            "label": "小さな窩洞に近づく",
+            "text": "材料を持つ器具が歯根端中央の小さな空間へ近づきます。周囲の歯根と骨は変わりません。"
           },
           {
-            "title": "必要な根の先を処理する",
-            "text": "必要な根尖部を処理する過程です。実際の範囲は根の構造、周囲の解剖、原因によって異なります。",
-            "label": "必要な根の先を処理する"
+            "title": "空間の中に置く",
+            "label": "空間の中に置く",
+            "text": "同じ材料が既存の窩洞に入ります。歯根の外に新しい塊を積む場面ではありません。"
           },
           {
-            "title": "根の先から封鎖する",
-            "text": "根尖側の空間を形成して封鎖する様子です。上部の補綴物からの漏洩など、別の原因が残っていないかも確認します。",
-            "label": "根の先から封鎖する"
+            "title": "切断面の高さに合わせる",
+            "label": "切断面の高さに合わせる",
+            "text": "小さな空間の中で材料を合わせ、外へ大きく突き出さないよう表面の高さを整えます。"
           },
           {
-            "title": "歯肉を閉じて治癒を観察",
-            "text": "歯肉を戻して縫合します。その後の症状と治癒を確認し、予想と異なる場合は保存の可能性や代替方法を再評価します。",
-            "label": "歯肉を閉じて治癒を観察"
+            "title": "器具を離す",
+            "label": "器具を離す",
+            "text": "器具が離れ、小さな充填部が残ります。歯根端手術の全過程や治癒結果を示す映像ではありません。"
           }
         ]
       }
@@ -3367,80 +3367,80 @@
       "scene": "bridge",
       "variant": "bridge",
       "ko": {
-        "title": "임플란트 수술은 피하고 싶은데, 옆 치아가 상할까 걱정되나요?",
-        "intro": "옆 치아의 현재 상태와 삭제 부담, 보철 아래 청소 가능성을 함께 비교합니다.",
+        "title": "브릿지는 양쪽 치아에 어떻게 함께 놓일까요?",
+        "intro": "두 지대치와 그 사이의 빈 공간 위에, 세 부분이 연결된 하나의 브릿지가 놓이는 설명 모형입니다.",
         "steps": [
           {
-            "title": "첫 지지치아를 준비",
-            "text": "옆 치아를 깎는 일이 걱정된다면 그 부담과 대안을 먼저 비교하세요. 이 모형은 전통적인 브릿지에서 지지치아를 준비하는 예입니다.",
-            "label": "첫 지지치아를 준비"
+            "title": "두 지대치에 맞춥니다",
+            "label": "두 지대치에 맞춥니다",
+            "text": "브릿지 양쪽의 속 빈 부분을 각각의 지대치 위에 맞춥니다."
           },
           {
-            "title": "양쪽의 지지를 함께 고려",
-            "text": "반대편 지지치아도 연결 구조에 맞춰 준비하는 모습을 봅니다. 실제 삭제 범위는 각 치아의 상태와 보철 계획에 따라 달라집니다.",
-            "label": "양쪽의 지지를 함께 고려"
+            "title": "하나의 보철이 함께 내려옵니다",
+            "label": "하나의 보철이 함께 내려옵니다",
+            "text": "연결된 보철 전체가 같은 방향으로 움직입니다. 가운데 인공치 아래에는 새 치근이나 임플란트가 생기지 않습니다."
           },
           {
-            "title": "준비한 치아의 형태 기록",
-            "text": "스캐너로 준비한 치아의 형태를 기록합니다. 기둥이 될 치아의 상태와 적합을 위한 정보를 확인하는 과정입니다.",
-            "label": "준비한 치아의 형태 기록"
+            "title": "양쪽 경계를 맞춥니다",
+            "label": "양쪽 경계를 맞춥니다",
+            "text": "양쪽 보철의 아래 경계를 각 지대치의 경계까지 함께 맞춥니다."
           },
           {
-            "title": "빈자리와 양끝을 함께 기록",
-            "text": "스캐너가 빈자리와 지지치아를 함께 살피는 단계입니다. 이 영상은 제작을 위한 준비까지 보여주며, 최종 장착·물림·보철 아래 청소는 별도로 확인합니다.",
-            "label": "빈자리와 양끝을 함께 기록"
+            "title": "연결된 보철은 남습니다",
+            "label": "연결된 보철은 남습니다",
+            "text": "집게가 물러나도 브릿지는 양쪽 지대치 위에 남습니다. 장착 동작을 보여주며 접착이나 사용 후 결과를 뜻하지 않습니다."
           }
         ]
       },
       "en": {
-        "title": "Can a fixed replacement work without implant surgery?",
-        "intro": "Compare preparation, support and repair needs with implants and removable alternatives.",
+        "title": "How does a bridge meet both supporting teeth?",
+        "intro": "This model shows one connected three-unit bridge meeting two prepared supports and spanning the space between them.",
         "steps": [
           {
-            "title": "Prepare the first supporting tooth",
-            "text": "If reducing adjacent teeth concerns you, compare the burden and alternatives first. This model illustrates preparation for a conventional bridge.",
-            "label": "Prepare the first supporting tooth"
+            "title": "Align both retainers",
+            "label": "Align both retainers",
+            "text": "The two hollow ends of the bridge are aligned over their corresponding supports."
           },
           {
-            "title": "Consider support at both ends",
-            "text": "The other supporting tooth is prepared for the planned structure. The actual amount depends on each tooth and the restoration plan.",
-            "label": "Consider support at both ends"
+            "title": "Lower one connected unit",
+            "label": "Lower one connected unit",
+            "text": "The entire restoration moves together. No new root or implant appears beneath the central replacement tooth."
           },
           {
-            "title": "Record the prepared shape",
-            "text": "A scanner records the prepared teeth. This provides information for the fit and supporting structure.",
-            "label": "Record the prepared shape"
+            "title": "Match both margins",
+            "label": "Match both margins",
+            "text": "Both lower retainer edges reach the preparation margins together."
           },
           {
-            "title": "Capture the gap and both supports",
-            "text": "The scan includes the missing-tooth space and supporting teeth. This sequence stops at preparation for fabrication; final fit, bite and cleaning under the bridge need separate checks.",
-            "label": "Capture the gap and both supports"
+            "title": "Leave the bridge in place",
+            "label": "Leave the bridge in place",
+            "text": "The tweezers withdraw while the bridge remains over both supports. This illustrates placement, not bonding or a long-term outcome."
           }
         ]
       },
       "ja": {
-        "title": "手術は避けたい。でも隣の歯を削るのが心配ですか？",
-        "intro": "支台歯の状態と削る量、接着性設計、入れ歯・インプラントを比較します。",
+        "title": "ブリッジは両側の歯にどう収まるのでしょうか？",
+        "intro": "二本の支台歯とその間の空間に、三つの部分がつながった一体のブリッジを合わせる説明用模型です。",
         "steps": [
           {
-            "title": "最初の支台歯を準備する",
-            "text": "隣の歯を削ることが心配なら、負担と代替方法を先に比較しましょう。模型は従来型ブリッジの支台歯形成の例です。",
-            "label": "最初の支台歯を準備する"
+            "title": "両側の支台歯に合わせる",
+            "label": "両側の支台歯に合わせる",
+            "text": "ブリッジ両端の空洞部分を、それぞれの支台歯の上に合わせます。"
           },
           {
-            "title": "両側の支えを考える",
-            "text": "反対側の支台歯も計画した構造に合わせて準備します。実際の切削範囲は歯の状態と補綴計画によって異なります。",
-            "label": "両側の支えを考える"
+            "title": "一体の補綴物を下げる",
+            "label": "一体の補綴物を下げる",
+            "text": "つながった補綴物全体が同じ方向へ動きます。中央の人工歯の下に新しい歯根やインプラントは現れません。"
           },
           {
-            "title": "形成した歯の形を記録",
-            "text": "スキャナーで形成した歯を記録します。適合や支える構造のための情報を確認する工程です。",
-            "label": "形成した歯の形を記録"
+            "title": "両側の境目を合わせる",
+            "label": "両側の境目を合わせる",
+            "text": "両端の下縁を、それぞれの支台歯の形成部の境目まで一緒に合わせます。"
           },
           {
-            "title": "欠損部と両端を一緒に記録",
-            "text": "欠損部と支台歯を合わせて読み取ります。映像は製作の準備までで、最終装着、かみ合わせ、ブリッジ下の清掃は別に確認します。",
-            "label": "欠損部と両端を一緒に記録"
+            "title": "ブリッジを残す",
+            "label": "ブリッジを残す",
+            "text": "ピンセットが離れても、ブリッジは両側の支台歯の上に残ります。装着動作を示し、接着や使用後の結果を示すものではありません。"
           }
         ]
       }
@@ -3449,80 +3449,80 @@
       "scene": "denture",
       "variant": "denture",
       "ko": {
-        "title": "틀니는 어디에 기대고, 어떻게 빼는 걸까요?",
-        "intro": "치아가 없는 턱에 놓이는 전체 틀니를 보여 줍니다. 착탈 방향을 설명한 모형이며, 실제 적합도와 유지력은 진찰로 확인합니다.",
+        "title": "완전틀니는 치아 없는 턱에 어떻게 맞춰볼까요?",
+        "intro": "완전틀니를 양손으로 지지하며 치아 없는 위턱 모형 쪽으로 가까이 가져가 방향과 위치를 살펴보는 장면입니다.",
         "steps": [
           {
-            "title": "잇몸을 덮는 바닥이 있습니다",
-            "text": "위·아래 전체 틀니를 멈춰서 봅니다. 인공치아 아래의 분홍색 바닥은 모양과 범위가 서로 다르며, 잇몸과 닿는 면을 함께 확인해야 합니다.",
-            "label": "잇몸을 덮는 바닥이 있습니다"
+            "title": "틀니와 턱의 방향을 맞춥니다",
+            "label": "틀니와 턱의 방향을 맞춥니다",
+            "text": "양손이 하나의 완전틀니를 받치고, 안쪽 바닥면과 치아 없는 턱의 방향을 맞춥니다."
           },
           {
-            "title": "잇몸 방향으로 내려옵니다",
-            "text": "하나의 틀니가 형태를 유지한 채 치아 없는 아래턱으로 내려옵니다. 실제 입에서는 안내받은 방향에 맞춰 다루며 억지로 물어 넣지 않습니다.",
-            "label": "잇몸 방향으로 내려옵니다"
+            "title": "같은 턱 쪽으로 가까이 가져갑니다",
+            "label": "같은 턱 쪽으로 가까이 가져갑니다",
+            "text": "틀니의 치아와 분홍색 바닥이 함께 움직이며 잇몸과 입천장 모형 쪽으로 천천히 내려옵니다."
           },
           {
-            "title": "잇몸 위에 자리를 잡습니다",
-            "text": "틀니 바닥이 잇몸 위에 가까워지며 안착합니다. 이 모형의 접촉 장면만으로 편안함이나 흔들림이 없다는 결과를 보장할 수는 없습니다.",
-            "label": "잇몸 위에 자리를 잡습니다"
+            "title": "틈을 보며 위치를 살펴봅니다",
+            "label": "틈을 보며 위치를 살펴봅니다",
+            "text": "턱의 형태가 보이는 상태에서 틀니를 더 가까이 가져갑니다. 틀니가 입천장을 갑자기 덮는 장면은 아닙니다."
           },
           {
-            "title": "분리해 관리할 수 있습니다",
-            "text": "안착 장면을 역순으로 보여 주어 틀니가 분리되는 방향을 설명합니다. 실제 틀니는 안내받은 방법으로 빼고 청소하며, 아픈 부위는 임의로 깎지 말고 조정받습니다.",
-            "label": "분리해 관리할 수 있습니다"
+            "title": "닿기 전 위치에서 지지합니다",
+            "label": "닿기 전 위치에서 지지합니다",
+            "text": "양손으로 틀니를 지지한 채 좁은 틈을 남기고 멈춥니다. 이 장면만으로 완전한 장착이나 실제 유지력을 판단할 수는 없습니다."
           }
         ]
       },
       "en": {
-        "title": "How does a denture rest and come out?",
-        "intro": "A complete denture is shown on a toothless jaw. This model explains seating and removal; an examination assesses actual fit and retention.",
+        "title": "How is a complete denture aligned with a toothless jaw?",
+        "intro": "Both hands support a complete denture and bring it toward an edentulous upper-jaw model to demonstrate its orientation and position.",
         "steps": [
           {
-            "title": "A base supports the teeth",
-            "text": "A still view shows upper and lower complete dentures. Their pink bases differ in shape and extent; the tissue-facing surface matters as well as the teeth.",
-            "label": "A base supports the teeth"
+            "title": "Align denture and jaw",
+            "label": "Align denture and jaw",
+            "text": "Both hands support one complete denture and align its fitting surface with the toothless jaw."
           },
           {
-            "title": "Approach the ridge",
-            "text": "One intact denture lowers toward a toothless lower jaw. In the mouth, follow the demonstrated path and do not force it into place by biting.",
-            "label": "Approach the ridge"
+            "title": "Bring it toward the same model",
+            "label": "Bring it toward the same model",
+            "text": "The denture teeth and pink base move together as the denture is lowered toward the ridge and palate."
           },
           {
-            "title": "Seat on the tissues",
-            "text": "The denture base approaches and rests on the gum. This contact illustration cannot promise a comfortable or completely stable fit.",
-            "label": "Seat on the tissues"
+            "title": "Observe the remaining gap",
+            "label": "Observe the remaining gap",
+            "text": "The denture moves closer while the underlying jaw shape remains visible. The palate does not abruptly become covered."
           },
           {
-            "title": "Remove it for care",
-            "text": "The seating frames run in reverse to explain the removable path. Remove and clean it as instructed, and have sore areas adjusted rather than trimming the denture yourself.",
-            "label": "Remove it for care"
+            "title": "Hold just before contact",
+            "label": "Hold just before contact",
+            "text": "Both hands keep supporting the denture with a narrow gap remaining. This does not demonstrate complete seating or establish actual retention."
           }
         ]
       },
       "ja": {
-        "title": "入れ歯はどこで支えられ、どう外すのでしょうか？",
-        "intro": "歯のない顎に装着する総入れ歯を示します。着脱方向の説明用模型で、実際の適合や維持力は診察で確認します。",
+        "title": "総入れ歯は歯のない顎にどう位置を合わせるのでしょうか？",
+        "intro": "両手で総入れ歯を支え、歯のない上顎模型へ近づけながら向きと位置を見る場面です。",
         "steps": [
           {
-            "title": "歯を支える床がある",
-            "text": "上下の総入れ歯を静止画で示します。ピンク色の床は形や範囲が異なり、歯だけでなく粘膜に接する面も大切です。",
-            "label": "歯を支える床がある"
+            "title": "入れ歯と顎の向きを合わせる",
+            "label": "入れ歯と顎の向きを合わせる",
+            "text": "両手で一つの総入れ歯を支え、内面と歯のない顎の向きを合わせます。"
           },
           {
-            "title": "歯ぐきへ近づける",
-            "text": "一体の入れ歯が形を保って、歯のない下顎へ下りてきます。実際には説明された方向で扱い、かみ込んで無理に押し込みません。",
-            "label": "歯ぐきへ近づける"
+            "title": "同じ顎へ近づける",
+            "label": "同じ顎へ近づける",
+            "text": "入れ歯の歯とピンク色の床が一緒に動き、歯ぐきと口蓋の模型へゆっくり近づきます。"
           },
           {
-            "title": "歯ぐきの上に収まる",
-            "text": "床が歯ぐきに近づいて収まります。この接触の模型だけで、快適さや揺れのない適合を保証することはできません。",
-            "label": "歯ぐきの上に収まる"
+            "title": "隙間を見ながら位置を確認する",
+            "label": "隙間を見ながら位置を確認する",
+            "text": "顎の形が見える状態で入れ歯を近づけます。口蓋が突然覆われる場面ではありません。"
           },
           {
-            "title": "外して管理する",
-            "text": "装着場面を逆順にして、外れる方向を説明します。実際には教わった方法で外して清掃し、痛む場所は自分で削らず調整を受けます。",
-            "label": "外して管理する"
+            "title": "触れる直前で支える",
+            "label": "触れる直前で支える",
+            "text": "両手で支えたまま、狭い隙間を残して止まります。完全な装着や実際の保持力を示す場面ではありません。"
           }
         ]
       }
@@ -3695,80 +3695,80 @@
       "scene": "gum",
       "variant": "periodontitis",
       "ko": {
-        "title": "치아가 흔들리기 시작했다면, 아직 지켜볼 방법이 있을까요?",
-        "intro": "표면 청소와 깊은 치료의 역할을 나누고 치아별 예후와 관리 가능성을 확인합니다.",
+        "title": "치근에 붙은 치석은 어떻게 떨어질까요?",
+        "intro": "치아 뿌리의 표면에 붙은 침착물 일부가 기구의 접촉으로 떨어지는 모습을 봅니다.",
         "steps": [
           {
-            "title": "잇몸만 붓는 단계일까요?",
-            "text": "치아 단면에서 잇몸의 색과 부피가 달라지는 모습을 봅니다. 겉모습만으로 치주염의 깊이를 판단하지 않습니다.",
-            "label": "잇몸만 붓는 단계일까요?"
+            "title": "침착물에 닿습니다",
+            "label": "침착물에 닿습니다",
+            "text": "휘어진 기구 끝이 치근 표면의 침착물에 닿습니다. 잇몸과 뼈의 위치는 그대로입니다."
           },
           {
-            "title": "치아 옆 틈이 깊어지면",
-            "text": "잇몸과 치아 사이 공간이 깊어지는 과정을 보여줍니다. 실제 상담에서는 치주낭 측정과 출혈 등 검사 결과를 함께 설명받습니다.",
-            "label": "치아 옆 틈이 깊어지면"
+            "title": "침착물의 접촉 위치를 맞춥니다",
+            "label": "침착물의 접촉 위치를 맞춥니다",
+            "text": "기구 끝이 침착물의 아래쪽을 따라 움직이며 닿을 위치를 맞춥니다. 치근의 형태와 주변 뼈는 그대로입니다."
           },
           {
-            "title": "지지하는 뼈도 살핍니다",
-            "text": "치아를 받치는 뼈의 높이가 낮아지는 모형입니다. 모든 부위가 같은 속도로 진행하는 것은 아니며 치아별 상태를 확인합니다.",
-            "label": "지지하는 뼈도 살핍니다"
+            "title": "작은 조각을 들어 올립니다",
+            "label": "작은 조각을 들어 올립니다",
+            "text": "접촉한 작은 침착물이 기구와 함께 위쪽으로 움직여 치근면에서 분리됩니다."
           },
           {
-            "title": "흔들림의 이유를 확인합니다",
-            "text": "지지 조직이 줄었을 때 치아가 움직이는 모습입니다. 흔들린다는 이유만으로 발치를 정하지 않고 남길 가능성과 관리 부담을 함께 살핍니다.",
-            "label": "흔들림의 이유를 확인합니다"
+            "title": "치근면에서 분리됩니다",
+            "label": "치근면에서 분리됩니다",
+            "text": "기구가 작은 침착물 조각을 치근면에서 떼어 낸 위치에 머뭅니다. 국소적인 제거 동작이며 치주질환의 치료나 회복이 끝났다는 의미는 아닙니다."
           }
         ]
       },
       "en": {
-        "title": "Are you afraid that one loose tooth means you will lose them all?",
-        "intro": "Base choices on tooth-level findings, response and the ability to control recurring risks.",
+        "title": "How does a deposit separate from a root surface?",
+        "intro": "The model shows part of an existing root-surface deposit separating where an instrument contacts it.",
         "steps": [
           {
-            "title": "Is this only swollen gum?",
-            "text": "The model shows changes in gum colour and volume. Surface appearance alone does not establish the extent of periodontal disease.",
-            "label": "Is this only swollen gum?"
+            "title": "Contact the deposit",
+            "label": "Contact the deposit",
+            "text": "A curved instrument tip engages a deposit on the root. The gingiva and bone remain in the same positions."
           },
           {
-            "title": "When the pocket deepens",
-            "text": "Watch the space beside the root become deeper. Discuss the actual pocket measurements and bleeding findings from your examination.",
-            "label": "When the pocket deepens"
+            "title": "Position the tip at the deposit",
+            "label": "Position the tip at the deposit",
+            "text": "The tip follows the lower part of the deposit to position its contact. The root shape and surrounding bone remain unchanged."
           },
           {
-            "title": "Look at the supporting bone",
-            "text": "The model illustrates loss of supporting bone height. Different sites do not necessarily progress at the same rate.",
-            "label": "Look at the supporting bone"
+            "title": "Lift a small fragment",
+            "label": "Lift a small fragment",
+            "text": "A finite piece at the contact point moves upward with the instrument and separates from the root surface."
           },
           {
-            "title": "Understand why a tooth moves",
-            "text": "The rigid tooth moves as its support becomes reduced. Mobility alone does not decide extraction; discuss preservation and ongoing care.",
-            "label": "Understand why a tooth moves"
+            "title": "Separate from the root",
+            "label": "Separate from the root",
+            "text": "The instrument holds the detached deposit just clear of the root surface. This local removal does not mean periodontal treatment or recovery is complete."
           }
         ]
       },
       "ja": {
-        "title": "歯が揺れ始めても、まだ守れる方法はありますか？",
-        "intro": "一歯ごとの支持と治療反応を基に、保存の範囲と追加処置を比較します。",
+        "title": "歯根についた歯石はどう離れるのでしょうか？",
+        "intro": "歯根表面の沈着物の一部が、器具の接触によって離れる様子を示します。",
         "steps": [
           {
-            "title": "歯ぐきの腫れだけでしょうか",
-            "text": "模型では歯ぐきの色と厚みが変化します。見た目だけで歯周病の深さは判断できません。",
-            "label": "歯ぐきの腫れだけでしょうか"
+            "title": "沈着物に触れる",
+            "label": "沈着物に触れる",
+            "text": "曲がった器具の先端が歯根表面の沈着物に触れます。歯ぐきと骨の位置はそのままです。"
           },
           {
-            "title": "歯の周りの溝が深くなると",
-            "text": "歯根の横の空間が深くなる様子です。実際の診察では歯周ポケットの測定や出血の所見を確認します。",
-            "label": "歯の周りの溝が深くなると"
+            "title": "沈着物への接触位置を合わせる",
+            "label": "沈着物への接触位置を合わせる",
+            "text": "先端が沈着物の下側に沿って動き、接触する位置を合わせます。歯根の形と周囲の骨は変わりません。"
           },
           {
-            "title": "支える骨も確認します",
-            "text": "歯を支える骨の高さが減る模型です。すべての部位が同じ速さで進むわけではなく、歯ごとに確認します。",
-            "label": "支える骨も確認します"
+            "title": "小さなかけらを持ち上げる",
+            "label": "小さなかけらを持ち上げる",
+            "text": "接触した小さな沈着物が器具とともに上へ動き、歯根面から離れます。"
           },
           {
-            "title": "揺れる理由を確かめます",
-            "text": "支えが減ったときに歯が動く様子です。揺れるという理由だけで抜歯を決めず、保存の可能性と管理を相談します。",
-            "label": "揺れる理由を確かめます"
+            "title": "歯根面から離れる",
+            "label": "歯根面から離れる",
+            "text": "器具が小さな沈着物のかけらを歯根面から少し離れた位置に保持します。局所的な除去動作であり、歯周病の治療や回復の完了を意味しません。"
           }
         ]
       }
@@ -3859,80 +3859,80 @@
       "scene": "child",
       "variant": "pediatric",
       "ko": {
-        "title": "유치가 흔들릴 때, 잇몸 안에서는 무슨 일이 생길까요?",
-        "intro": "유치 뿌리의 변화와 후속 영구치의 맹출을 나눠 봅니다. 정상적인 치아 교환의 설명이며, 교정장치가 움직이는 장면은 아닙니다.",
+        "title": "작은 유치에 금속관은 어떻게 맞춰질까요?",
+        "intro": "준비된 유치 위로 같은 금속관이 내려와 감싸는 장착 과정을 설명 모형으로 봅니다.",
         "steps": [
           {
-            "title": "유치 뿌리가 짧아집니다",
-            "text": "유치 어금니 아래에서 영구치가 자라는 동안 유치 뿌리가 점차 흡수되는 모형입니다. 실제 교환 시기와 진행 정도는 아이마다 다릅니다.",
-            "label": "유치 뿌리가 짧아집니다"
+            "title": "금속관의 입구를 맞춥니다",
+            "label": "금속관의 입구를 맞춥니다",
+            "text": "집게가 금속관을 잡고 안쪽 공간을 준비된 유치 위에 맞춥니다."
           },
           {
-            "title": "유치가 떨어져 나옵니다",
-            "text": "뿌리가 짧아진 유치가 잇몸에서 분리되는 모습을 보여 줍니다. 도구로 억지로 뽑는 장면이 아니며, 모든 흔들리는 치아를 바로 빼야 한다는 뜻도 아닙니다.",
-            "label": "유치가 떨어져 나옵니다"
+            "title": "유치를 감싸며 내려옵니다",
+            "label": "유치를 감싸며 내려옵니다",
+            "text": "금속관이 같은 형태를 유지하며 치아의 바깥쪽을 감쌉니다."
           },
           {
-            "title": "영구치가 올라옵니다",
-            "text": "비워진 자리로 후속 영구치가 올라오는 장면입니다. 긴 발육 과정을 짧게 압축했으며, 자리와 맹출 방향이 걱정될 때는 검사로 확인합니다.",
-            "label": "영구치가 올라옵니다"
+            "title": "아래 경계까지 맞춥니다",
+            "label": "아래 경계까지 맞춥니다",
+            "text": "금속관의 아래 경계가 준비된 치아의 경계까지 내려옵니다. 관 아래에 넓은 삭제면이 남지 않아야 합니다."
           },
           {
-            "title": "씌운 유치도 함께 빠집니다",
-            "text": "별도의 예시에서는 금속관을 씌운 유치가 치아와 관이 붙은 채 빠집니다. 관을 씌웠다는 사실만으로 정상적인 치아 교환이 막히는 것은 아닙니다.",
-            "label": "씌운 유치도 함께 빠집니다"
+            "title": "집게를 놓습니다",
+            "label": "집게를 놓습니다",
+            "text": "집게가 물러나고 금속관은 유치 위에 남습니다. 치아를 다듬는 과정이나 접착·물림 확인 전체를 담은 영상은 아닙니다."
           }
         ]
       },
       "en": {
-        "title": "What happens below a loose baby tooth?",
-        "intro": "See root changes and the emergence of a permanent successor. This illustrates tooth replacement, not movement produced by an orthodontic appliance.",
+        "title": "How does a metal crown fit over a primary tooth?",
+        "intro": "This teaching model shows the same metal crown descending over a prepared primary molar.",
         "steps": [
           {
-            "title": "Baby-tooth roots shorten",
-            "text": "A model shows a permanent tooth developing beneath a primary molar while the primary roots resorb. Timing and progression vary among children.",
-            "label": "Baby-tooth roots shorten"
+            "title": "Align the crown opening",
+            "label": "Align the crown opening",
+            "text": "The tweezers hold the crown so its inner space matches the prepared primary tooth."
           },
           {
-            "title": "The primary tooth sheds",
-            "text": "The shortened-root baby tooth separates from the gum. This is not forced extraction and does not mean every loose tooth must be removed immediately.",
-            "label": "The primary tooth sheds"
+            "title": "Enclose the tooth",
+            "label": "Enclose the tooth",
+            "text": "The metal crown keeps its shape as it descends around the tooth."
           },
           {
-            "title": "The successor emerges",
-            "text": "The permanent successor rises into the space. Development is compressed for explanation; concerns about space or direction need an examination.",
-            "label": "The successor emerges"
+            "title": "Reach the lower margin",
+            "label": "Reach the lower margin",
+            "text": "The crown's lower edge reaches the preparation margin without leaving a broad exposed prepared band below it."
           },
           {
-            "title": "A crowned primary tooth sheds",
-            "text": "In a separate example, a primary tooth sheds with its metal crown still attached. A crown does not by itself prevent normal tooth replacement.",
-            "label": "A crowned primary tooth sheds"
+            "title": "Release the tweezers",
+            "label": "Release the tweezers",
+            "text": "The tweezers withdraw while the crown remains over the primary tooth. Tooth preparation, bonding and bite checks are not fully shown here."
           }
         ]
       },
       "ja": {
-        "title": "乳歯がぐらつくとき、歯ぐきの中では何が起きるのでしょうか？",
-        "intro": "乳歯の根の変化と後続永久歯の萌出を分けて見ます。歯の生え替わりの説明で、矯正装置による移動の場面ではありません。",
+        "title": "乳歯に金属冠はどう合わさるのでしょうか？",
+        "intro": "形成した乳歯に同じ金属冠が下がって覆う装着過程を、説明用模型で見てみましょう。",
         "steps": [
           {
-            "title": "乳歯の根が短くなる",
-            "text": "乳臼歯の下で永久歯が育つ間に、乳歯の根が徐々に吸収される模型です。生え替わりの時期と進み方には個人差があります。",
-            "label": "乳歯の根が短くなる"
+            "title": "金属冠の入口を合わせる",
+            "label": "金属冠の入口を合わせる",
+            "text": "ピンセットで金属冠を持ち、その内面を形成した乳歯の上に合わせます。"
           },
           {
-            "title": "乳歯が抜ける",
-            "text": "根が短くなった乳歯が歯ぐきから離れる様子です。器具で無理に抜く場面ではなく、ぐらつく歯をすぐ抜くという意味でもありません。",
-            "label": "乳歯が抜ける"
+            "title": "乳歯を覆いながら下げる",
+            "label": "乳歯を覆いながら下げる",
+            "text": "金属冠が同じ形を保ちながら、歯の外側を覆います。"
           },
           {
-            "title": "永久歯が生えてくる",
-            "text": "空いた場所へ後続永久歯が上がってきます。長い発育過程を短縮した説明で、スペースや方向が気になるときは検査で確認します。",
-            "label": "永久歯が生えてくる"
+            "title": "下縁まで合わせる",
+            "label": "下縁まで合わせる",
+            "text": "金属冠の下縁が歯の形成部の境目まで下がります。冠の下に広い形成面を残さない様子を示します。"
           },
           {
-            "title": "冠を付けた乳歯の例",
-            "text": "別の例では、金属冠を付けた乳歯が冠と一緒に抜けます。冠を付けたこと自体で正常な生え替わりが妨げられるわけではありません。",
-            "label": "冠を付けた乳歯の例"
+            "title": "ピンセットを離す",
+            "label": "ピンセットを離す",
+            "text": "ピンセットが離れ、金属冠は乳歯の上に残ります。歯の形成、接着、かみ合わせの確認の全過程を示す映像ではありません。"
           }
         ]
       }
@@ -3941,80 +3941,80 @@
       "scene": "prevention",
       "variant": "prevention",
       "ko": {
-        "title": "충치를 예방하는 재료는 어디에, 어떻게 닿을까요?",
-        "intro": "표면 청소, 홈 메우기, 광중합, 불소 도포의 실제 대상 움직임을 나눠 봅니다. 필요한 방법을 선택하는 설명이며 모두를 매번 시행하는 순서는 아닙니다.",
+        "title": "치아의 좁은 홈에는 재료를 어떻게 놓을까요?",
+        "intro": "어금니의 기존 홈 안에 얇게 재료를 놓고 빛을 비추기 시작하는 설명 모형입니다.",
         "steps": [
           {
-            "title": "치아 표면을 닦습니다",
-            "text": "회전하는 브러시가 어금니의 씹는 면을 닦습니다. 치아를 깎는 장면이 아니라, 예방 처치에 앞서 표면을 살피고 청소하는 예시입니다.",
-            "label": "치아 표면을 닦습니다"
+            "title": "홈으로 접근합니다",
+            "label": "홈으로 접근합니다",
+            "text": "도포기가 어금니의 좁은 홈에 접근합니다. 이미 보이는 광조사 기구는 잠시 옆으로 물러납니다."
           },
           {
-            "title": "깊은 홈에 재료를 넣습니다",
-            "text": "가느다란 도구에서 나온 실란트가 어금니의 홈을 따라 놓입니다. 적합한 치아와 홈인지 먼저 확인한 뒤 적용합니다.",
-            "label": "깊은 홈에 재료를 넣습니다"
+            "title": "홈 안에 얇게 놓습니다",
+            "label": "홈 안에 얇게 놓습니다",
+            "text": "도포기가 홈을 따라 움직이며 소량의 재료를 얇게 놓습니다. 교두 위로 두꺼운 띠를 만드는 과정은 아닙니다."
           },
           {
-            "title": "빛으로 재료를 굳힙니다",
-            "text": "광중합기가 다가와 파란빛을 비추고 물러납니다. 재료에 맞는 경화 과정을 설명한 장면이며, 화면의 재생 시간이 실제 처치 시간을 뜻하지는 않습니다.",
-            "label": "빛으로 재료를 굳힙니다"
+            "title": "도포기를 뺍니다",
+            "label": "도포기를 뺍니다",
+            "text": "재료 공급이 멈추고 도포기가 물러납니다. 치아와 홈의 모양은 그대로입니다."
           },
           {
-            "title": "불소를 얇게 바릅니다",
-            "text": "별도 모형에서 브러시가 치아 표면에 불소 바니시를 펼칩니다. 실란트와 역할이 다른 예방 방법으로, 필요성과 사용 방법은 충치 위험에 맞춰 안내받습니다.",
-            "label": "불소를 얇게 바릅니다"
+            "title": "빛을 비추기 시작합니다",
+            "label": "빛을 비추기 시작합니다",
+            "text": "같은 광조사 기구가 재료 위로 접근해 빛을 비춥니다. 짧은 장면으로 필요한 광조사 시간이 끝났다고 표현하지 않습니다."
           }
         ]
       },
       "en": {
-        "title": "Where do preventive treatments act?",
-        "intro": "Watch cleaning, fissure sealing, light curing and fluoride application. These are selected preventive options, not a required sequence at every visit.",
+        "title": "How is material placed in a narrow tooth fissure?",
+        "intro": "This model shows a thin layer placed within an existing molar fissure, followed by the start of light exposure.",
         "steps": [
           {
-            "title": "Clean the surface",
-            "text": "A rotating brush cleans a molar chewing surface. It illustrates preparation and cleaning, not drilling away the tooth.",
-            "label": "Clean the surface"
+            "title": "Approach the fissure",
+            "label": "Approach the fissure",
+            "text": "The applicator approaches the narrow groove while the visible curing tip moves aside."
           },
           {
-            "title": "Seal selected grooves",
-            "text": "An applicator lays sealant along the pits and fissures of a molar. Suitability of the tooth and its grooves is assessed first.",
-            "label": "Seal selected grooves"
+            "title": "Place a thin layer inside",
+            "label": "Place a thin layer inside",
+            "text": "The applicator follows the fissure, placing a small thin amount. It does not build a thick raised strip above the cusps."
           },
           {
-            "title": "Cure the material",
-            "text": "A curing tip approaches, emits blue light and withdraws. The illustration shows curing; its playback duration is not a prescribed treatment time.",
-            "label": "Cure the material"
+            "title": "Withdraw the applicator",
+            "label": "Withdraw the applicator",
+            "text": "Dispensing stops and the applicator withdraws. The tooth and fissure keep their shapes."
           },
           {
-            "title": "Apply fluoride varnish",
-            "text": "On a separate model, a brush spreads a thin varnish layer. Fluoride and sealants have different roles; use is guided by individual caries risk.",
-            "label": "Apply fluoride varnish"
+            "title": "Begin light exposure",
+            "label": "Begin light exposure",
+            "text": "The same curing tip moves over the material and begins illumination. This brief scene does not represent completion of the required exposure time."
           }
         ]
       },
       "ja": {
-        "title": "むし歯予防の材料は、どこにどう使うのでしょうか？",
-        "intro": "清掃・溝の封鎖・光照射・フッ化物塗布を分けて見ます。必要な方法を選ぶための説明で、毎回すべて行う順番ではありません。",
+        "title": "歯の細い溝には材料をどう置くのでしょうか？",
+        "intro": "奥歯の既存の溝に薄く材料を置き、光を当て始める説明用模型です。",
         "steps": [
           {
-            "title": "歯の表面を清掃",
-            "text": "回転するブラシが奥歯のかむ面を清掃します。歯を削る場面ではなく、予防処置の前の確認と清掃の例です。",
-            "label": "歯の表面を清掃"
+            "title": "溝に近づく",
+            "label": "溝に近づく",
+            "text": "塗布器が奥歯の細い溝へ近づきます。見えている光照射器は一度横へ離れます。"
           },
           {
-            "title": "溝を材料で封鎖",
-            "text": "細い器具から出たシーラントを奥歯の溝に置きます。その歯や溝に適しているかを先に確認します。",
-            "label": "溝を材料で封鎖"
+            "title": "溝の中に薄く置く",
+            "label": "溝の中に薄く置く",
+            "text": "塗布器が溝に沿って動き、少量の材料を薄く置きます。咬頭より高い厚い帯を作る過程ではありません。"
           },
           {
-            "title": "光で材料を硬化",
-            "text": "照射器が近づき、青い光を当てて離れます。材料の硬化を示す説明で、再生時間が実際の処置時間を示すものではありません。",
-            "label": "光で材料を硬化"
+            "title": "塗布器を離す",
+            "label": "塗布器を離す",
+            "text": "材料の供給が止まり、塗布器が離れます。歯と溝の形はそのままです。"
           },
           {
-            "title": "フッ化物を薄く塗布",
-            "text": "別の模型で、ブラシが歯の表面にバーニッシュを広げます。シーラントとは役割が異なり、必要性や使用方法はむし歯リスクに合わせます。",
-            "label": "フッ化物を薄く塗布"
+            "title": "光を当て始める",
+            "label": "光を当て始める",
+            "text": "同じ光照射器が材料の上へ近づき、照射を始めます。この短い場面で必要な照射時間が完了したことを示すものではありません。"
           }
         ]
       }
@@ -4105,80 +4105,80 @@
       "scene": "jaw",
       "variant": "tmj",
       "ko": {
-        "title": "턱에서 나는 소리, 관절 안에서는 어떻게 움직일까요?",
-        "intro": "정상 운동과 서로 다른 디스크 위치의 예시를 비교합니다. 앞 장면이 뒤 장면으로 반드시 악화된다는 진행도가 아니며, 소리만으로 진단할 수 없습니다.",
+        "title": "입을 벌릴 때 턱관절은 어떻게 움직일까요?",
+        "intro": "옆에서 본 설명 모형으로 아래턱이 열렸다가 닫히는 쪽으로 돌아오는 한 번의 움직임을 살펴봅니다.",
         "steps": [
           {
-            "title": "정상적인 열림을 봅니다",
-            "text": "아래턱의 관절머리가 회전하며 앞으로 움직이고, 디스크가 그 사이에 놓이는 단면입니다. 화면 왼쪽이 얼굴 앞쪽입니다.",
-            "label": "정상적인 열림을 봅니다"
+            "title": "닫힌 턱의 위치",
+            "label": "닫힌 턱의 위치",
+            "text": "아래턱 관절 부위와 그 위의 원판을 구분해 봅니다. 머리뼈는 같은 위치에 있습니다."
           },
           {
-            "title": "디스크 위치가 다른 예시",
-            "text": "다른 모형에서는 디스크가 관절머리 앞쪽에 놓여 있습니다. 실제 통증과 불편은 디스크 위치만으로 설명되지 않을 수 있어 증상과 운동 범위를 함께 살핍니다.",
-            "label": "디스크 위치가 다른 예시"
+            "title": "아래턱이 회전합니다",
+            "label": "아래턱이 회전합니다",
+            "text": "아래턱과 아래 치아가 함께 움직이며 입이 조금씩 열립니다."
           },
           {
-            "title": "열면서 관계가 달라집니다",
-            "text": "앞쪽에 있던 디스크와 관절머리의 관계가 입을 여는 중 달라지는 예시입니다. 통증 없는 소리와 치료가 필요한 불편을 구분해서 평가합니다.",
-            "label": "열면서 관계가 달라집니다"
+            "title": "열린 턱의 관계를 봅니다",
+            "label": "열린 턱의 관계를 봅니다",
+            "text": "아래턱이 열린 동안 위턱은 그대로 있고, 아래 치열은 아래턱과 함께 움직입니다. 관절 부위의 원판과 과두를 구분해 보세요."
           },
           {
-            "title": "움직임이 제한된 다른 예시",
-            "text": "별도의 비정복성 예시에서는 디스크가 앞쪽에 남고 관절머리의 이동이 제한됩니다. 모든 딱 소리가 이런 상태로 진행하는 것은 아니며 억지로 벌리는 동작을 뜻하지 않습니다.",
-            "label": "움직임이 제한된 다른 예시"
+            "title": "닫히는 쪽으로 돌아옵니다",
+            "label": "닫히는 쪽으로 돌아옵니다",
+            "text": "아래턱과 아래 치열이 함께 처음 위치 쪽으로 돌아옵니다. 관절 움직임을 설명하는 모형이며 질환의 회복을 나타내지는 않습니다."
           }
         ]
       },
       "en": {
-        "title": "What can move differently inside a clicking jaw?",
-        "intro": "Compare normal movement with different disc-position examples. These are not inevitable stages of worsening, and sounds alone cannot establish a diagnosis.",
+        "title": "How does the jaw joint move during opening?",
+        "intro": "A side-view teaching model shows the lower jaw opening and then returning toward a closed position.",
         "steps": [
           {
-            "title": "Normal opening",
-            "text": "The condyle rotates and translates forward with the disc between the joint surfaces. The left side of this section is anterior.",
-            "label": "Normal opening"
+            "title": "Locate the closed joint",
+            "label": "Locate the closed joint",
+            "text": "Identify the mandibular joint surface and the disc above it. The skull remains fixed."
           },
           {
-            "title": "A different disc position",
-            "text": "In another example, the disc lies in front of the condyle. Disc position alone may not explain discomfort; symptoms and range of motion are assessed together.",
-            "label": "A different disc position"
+            "title": "Rotate the lower jaw",
+            "label": "Rotate the lower jaw",
+            "text": "The mandible and lower teeth move together as the mouth begins to open."
           },
           {
-            "title": "The relationship changes on opening",
-            "text": "This example shows the relationship changing as the condyle moves under the displaced disc. Painless sounds are distinguished from symptoms needing care.",
-            "label": "The relationship changes on opening"
+            "title": "Observe the open position",
+            "label": "Observe the open position",
+            "text": "The upper jaw remains fixed while the lower teeth move with the mandible. Distinguish the disc from the condylar region in this model."
           },
           {
-            "title": "A separate limited-movement example",
-            "text": "In this nonreducing example, the disc remains anterior and translation is limited. Not every click progresses to this condition, and the image is not an instruction to force the jaw open.",
-            "label": "A separate limited-movement example"
+            "title": "Return toward closed",
+            "label": "Return toward closed",
+            "text": "The mandible and lower teeth return together toward their initial position. This illustrates joint movement, not recovery from a disorder."
           }
         ]
       },
       "ja": {
-        "title": "音のする顎では、関節の中でどう動くのでしょうか？",
-        "intro": "正常な動きと、関節円板の位置が異なる例を比較します。順に必ず悪化する段階図ではなく、音だけで診断はできません。",
+        "title": "口を開けるとき、顎関節はどう動くのでしょうか？",
+        "intro": "横から見た説明用模型で、下顎が開いてから閉じる方向へ戻る一回の動きを見てみましょう。",
         "steps": [
           {
-            "title": "正常な開口運動",
-            "text": "下顎頭が回転しながら前へ移動し、関節面の間に円板が位置する断面です。画面の左側が顔の前方です。",
-            "label": "正常な開口運動"
+            "title": "閉じた関節の位置",
+            "label": "閉じた関節の位置",
+            "text": "下顎の関節部分とその上の円板を見分けます。頭蓋骨は同じ位置にあります。"
           },
           {
-            "title": "円板の位置が異なる例",
-            "text": "別の模型では円板が下顎頭の前方にあります。位置だけで痛みを説明できない場合もあり、症状と可動域を合わせて調べます。",
-            "label": "円板の位置が異なる例"
+            "title": "下顎が回転する",
+            "label": "下顎が回転する",
+            "text": "下顎と下の歯が一緒に動き、口が少しずつ開きます。"
           },
           {
-            "title": "開口中に関係が変わる",
-            "text": "前方の円板と下顎頭の関係が、口を開ける途中で変わる例です。痛みのない音と、診療が必要な不調を区別します。",
-            "label": "開口中に関係が変わる"
+            "title": "開いた位置の関係を見る",
+            "label": "開いた位置の関係を見る",
+            "text": "上顎は固定されたまま、下の歯列が下顎と一緒に動きます。模型の円板と下顎頭を見分けてください。"
           },
           {
-            "title": "動きが制限される別の例",
-            "text": "別の非復位性の例では、円板が前方に残り移動が制限されます。すべてのクリック音がこの状態へ進むわけではなく、無理に開口する指示でもありません。",
-            "label": "動きが制限される別の例"
+            "title": "閉じる方向へ戻る",
+            "label": "閉じる方向へ戻る",
+            "text": "下顎と下の歯列が一緒に最初の位置へ戻ります。関節の動きを示す模型であり、病気の回復を表すものではありません。"
           }
         ]
       }
