@@ -51,7 +51,7 @@ function preservation(doc) {
   };
 }
 
-const { inject, singleShotErrors, validateChunkBytes, runtimeFileNames, SINGLE_SHOT_KIND, SINGLE_SHOT_STATUS } = require('./treatment-scroll.cjs');
+const { inject, singleShotErrors, singleShotTimeline, validateSourceRangeEvidence, validateChunkBytes, runtimeFileNames, SINGLE_SHOT_KIND, SINGLE_SHOT_STATUS } = require('./treatment-scroll.cjs');
 const scrollData = JSON.parse(fs.readFileSync(path.join(source, 'src/data/treatment-scroll.json'), 'utf8'));
 const motionManifestRelative = 'src/data/treatment-motion-assets.json';
 const motionManifestBytes = fs.readFileSync(path.join(source, motionManifestRelative));
@@ -100,8 +100,8 @@ function frameUrl(config, index) {
 }
 function checkSequence(config, label, set, size) {
   if (set?.kind === SINGLE_SHOT_KIND) {
-    const duration = set.source?.durationSeconds, frameCount = duration*24, chunkCount = frameCount/8;
-    if (![4,6,8].includes(duration) || !config || config.format !== 'webp-chunks-v1' || config.count !== frameCount || config.chunkCount !== chunkCount || config.framesPerChunk !== 8 || config.start !== 1 || config.pad !== 4) return;
+    const timeline = singleShotTimeline(set.source), frameCount = timeline.frameCount, chunkCount = frameCount/8;
+    if (!timeline.valid || !config || config.format !== 'webp-chunks-v1' || config.count !== frameCount || config.chunkCount !== chunkCount || config.framesPerChunk !== 8 || config.start !== 1 || config.pad !== 4) return;
     const receipts = set.technicalOutput?.packaging?.[size]?.chunks;
     if (!Array.isArray(receipts) || receipts.length !== chunkCount) return;
     for (let index = 0; index < chunkCount; index++) {
@@ -139,6 +139,7 @@ for (const setKey of referencedSets) {
   check((set.kind === SINGLE_SHOT_KIND ? [SINGLE_SHOT_STATUS] : ['visual-review-passed', 'process-sample-reviewed']).includes(set.status), setKey, 'Visual set is missing a recorded review status');
   if (set.kind === SINGLE_SHOT_KIND) {
     for (const error of singleShotErrors(set)) check(false, setKey, error);
+    try { validateSourceRangeEvidence(set); } catch(error) { check(false,setKey,error.message); }
     const record = set.review?.record;
     try {
       check(typeof record === 'string' && path.isAbsolute(record) && path.resolve(record).startsWith('/Volumes/MSJ_WORK/Workspaces/') && fs.realpathSync(record) === path.resolve(record) && fs.statSync(record).isFile() && fs.statSync(record).size > 0, setKey, 'Saved review evidence is missing or outside a real SSD path');

@@ -10,6 +10,38 @@ const SINGLE_SHOT_STATUS = 'single-shot-reviewed';
 const CHUNK_FORMAT = 'webp-chunks-v1';
 const SHA256 = /^[a-f0-9]{64}$/;
 const nonempty = value => typeof value === 'string' && value.trim().length > 0;
+// A reviewed crop keeps the original job and metadata; only delivery timing changes.
+function singleShotTimeline(source) {
+ const duration = source?.durationSeconds, range = source?.sourceRange, errors = [];
+ if (range === undefined) return {valid:[4,6,8].includes(duration),duration,frameCount:[4,6,8].includes(duration)?duration*24:0,originalDuration:duration,errors};
+ const check=(ok,message)=>{if(!ok)errors.push('Source range: '+message);};
+ check(range && range.version===1 && range.selectionPolicy==='contiguous-original-frames-v1','explicit contiguous selection policy required');
+ check(range?.startFrame===0 && range?.endFrameExclusive===64 && range?.frameCount===64,'only the reviewed original interval 0..63 is supported');
+ check(range?.sourceJob===source?.video?.sourceJob && range?.sourceSHA256===source?.video?.sha256 && SHA256.test(range?.sourceSHA256),'original job/SHA must remain exact');
+ check(range?.originalNominalDurationSeconds===4 && [96,97].includes(range?.sourceFrameCount) && range.sourceFrameCount===source?.mediaMetadata?.video?.frameCount,'original four-second source frame count must be preserved');
+ check(range?.fps===24 && source?.mediaMetadata?.video?.fps===24 && range?.playbackRate===1 && range?.constantOriginalCadence===true,'original 24fps cadence and playback rate one required');
+ check(range?.interpolation===false && range?.padding===false && range?.loop===false && range?.reversed===false,'interpolation, padding, looping and synthetic reverse are forbidden');
+ check(Array.isArray(range?.sourceFrameIndices) && range.sourceFrameIndices.length===64 && range.sourceFrameIndices.every((v,i)=>v===i),'all original frame indices 0..63 must appear once in order');
+ check(Number.isFinite(duration) && Math.abs(duration-64/24)<1e-12 && range?.firstTimestampSeconds===0 && range?.lastTimestampSeconds===63/24 && range?.exclusiveEndSeconds===64/24,'delivery duration and original timestamps must be exactly 64/24 seconds');
+ check(range?.fullSourceStatus==='hold' && range?.wholeSourceAccepted===false,'full-source HOLD must remain separate from the selected interval');
+ check(nonempty(range?.reviewEvidence?.path) && range.reviewEvidence.path.startsWith('/Volumes/MSJ_WORK/Workspaces/') && SHA256.test(range?.reviewEvidence?.sha256),'exact saved interval review required');
+ for(const size of ['desktop','mobile'])check(nonempty(range?.frameEvidence?.[size]?.path) && range.frameEvidence[size].path.startsWith('/Volumes/MSJ_WORK/Workspaces/') && SHA256.test(range?.frameEvidence?.[size]?.sha256),size+' frame identity evidence required');
+ return {valid:errors.length===0,duration,frameCount:64,originalDuration:4,errors};
+}
+function validateRangeFrameRecord(record,range,hashes) {
+ if(record?.sourceSHA256!==range?.sourceSHA256||record?.sourceJob!==range?.sourceJob||record?.selectionPolicy!==range?.selectionPolicy||record?.sourceCount!==range?.sourceFrameCount||record?.targetCount!==64||record?.fps!==24||record?.playbackRate!==1||record?.constantOriginalCadence!==true||record?.interpolation!==false||record?.padding!==false||record?.loop!==false||record?.reversed!==false||record?.nominalTimelineSeconds!==64/24||record?.lastSourceTimestampSeconds!==63/24||!['sourceIndices','sourceFrameIndices'].every(key=>Array.isArray(record?.[key])&&record[key].length===64&&record[key].every((v,i)=>v===i))||record?.frames?.length!==64||hashes?.length!==64||record.frames.some((f,i)=>f.index!==i||f.sourceFrameIndex!==i||f.sha256!==hashes[i]))throw Error('Output frame SHA/order/cadence does not preserve original interval');
+}
+function validateSourceRangeEvidence(set) {
+ const range=set.source?.sourceRange;if(range===undefined)return;
+ const fail=message=>{throw Error('Source range evidence: '+message);};
+ const read=ref=>{if(!ref?.path?.startsWith('/Volumes/MSJ_WORK/Workspaces/')||fs.realpathSync(ref.path)!==ref.path)fail('unsafe path');const bytes=fs.readFileSync(ref.path);if(crypto.createHash('sha256').update(bytes).digest('hex')!==ref.sha256)fail('SHA differs');return JSON.parse(bytes);};
+ const review=read(range.reviewEvidence),r=review.acceptedRange;
+ if(review.status!=='pass_exact_contiguous_source_interval'||review.fullSourceStatus!=='hold'||review.sourceSHA256!==range.sourceSHA256||review.jobId!==range.sourceJob||r?.firstFrameInclusive!==0||r?.lastFrameInclusive!==63||r?.frameCount!==64||r?.fps!==24||r?.playbackDurationSeconds!==64/24||r?.constantOriginalCadence!==true||review.clinicalApproval!==false)fail('review does not accept this exact original interval');
+ for(const size of ['desktop','mobile']){
+  const record=read(range.frameEvidence[size]),hashes=set.technicalOutput?.packaging?.[size]?.chunks?.flatMap(c=>c.frameSHA256s);
+  try{validateRangeFrameRecord(record,range,hashes);}catch(error){fail(size+' '+error.message);}
+ }
+}
 function singleShotErrors(set) {
  const errors = [], check = (ok, message) => { if (!ok) errors.push(message); };
  check(set && set.kind === SINGLE_SHOT_KIND, 'Expected a single-shot sequence');
@@ -18,8 +50,9 @@ function singleShotErrors(set) {
  check(set.cameraPan === false && set.motion === undefined && set.component === undefined && set.processStages === undefined, 'Single shots must not contain camera-only transforms, cutout motion or chapter clips');
  const anchors = [0, 1/3, 2/3, 1];
  check(Array.isArray(set.anchors) && set.anchors.length === 4 && set.anchors.every((v,i) => Number.isFinite(v) && Math.abs(v-anchors[i]) < 1e-9), 'Single shots need one global linear timeline');
- const source = set.source, duration = source?.durationSeconds, timelineValid = [4,6,8].includes(duration);
- const frameCount = timelineValid ? duration*24 : 0, chunkCount = frameCount/8;
+ const source = set.source, timeline = singleShotTimeline(source), duration = timeline.duration, timelineValid = timeline.valid;
+ errors.push(...timeline.errors);
+ const frameCount = timeline.frameCount, chunkCount = frameCount/8;
  const prefix = /^\/static\/treatment-motion\/new-continuous-chunks\/([a-z0-9-]+)\/([a-f0-9]{12,64})\//;
  const bases = [];
  for (const [size, width, height] of [['desktop',1280,720],['mobile',800,450]]) {
@@ -31,7 +64,7 @@ function singleShotErrors(set) {
  }
  check(bases.length === 2 && bases[0] === bases[1] && set.poster === bases[0] + 'poster.jpg', 'Poster and both sizes must share one source revision');
  check(timelineValid && source.fps === 24 && source.frameCount === frameCount, 'Missing actual four-, six- or eight-second source timeline provenance');
- check(source?.declaredSingleShot?.continuous === true && source?.declaredSingleShot?.cutCount === 0 && timelineValid && source?.declaredSingleShot?.durationSeconds === duration, 'Missing explicit single-shot declaration');
+ check(source?.declaredSingleShot?.continuous === true && source?.declaredSingleShot?.cutCount === 0 && timelineValid && source?.declaredSingleShot?.durationSeconds === timeline.originalDuration, 'Missing explicit single-shot declaration');
  check(Array.isArray(source?.chapters) && source.chapters.length === 4 && source.chapters.every((c,i) => Number.isFinite(c?.atSeconds) && Math.abs(c.atSeconds-i*duration/3)<1e-6 && nonempty(c.label)), 'Chapter labels must describe the same global timeline');
  for (const media of ['image','video']) {
   const record = source?.[media], metadata = source?.mediaMetadata?.[media];
@@ -39,7 +72,7 @@ function singleShotErrors(set) {
   check(metadata && metadata.sha256 === record?.sha256 && Number.isSafeInteger(metadata.bytes) && metadata.bytes > 0 && Number.isSafeInteger(metadata.width) && Number.isSafeInteger(metadata.height) && metadata.width >= 3840 && metadata.height >= 2160 && Math.abs(metadata.width/metadata.height-16/9)<0.005, media + ' metadata does not match the 4K source receipt');
  }
  const video = source?.mediaMetadata?.video;
- check(timelineValid && Number.isFinite(video?.duration) && Math.abs(video.duration-duration)<=1/24+1e-6 && Number.isFinite(video?.fps) && video.fps>=24, 'Video metadata must match the declared four-, six- or eight-second source at 24fps or more');
+ check(timelineValid && Number.isFinite(video?.duration) && Math.abs(video.duration-timeline.originalDuration)<=1/24+1e-6 && Number.isFinite(video?.fps) && video.fps>=24, 'Video metadata must match the declared four-, six- or eight-second source at 24fps or more');
  check(typeof source?.clinicalApproval === 'boolean' && typeof source?.userQualityApproval === 'boolean', 'Clinical approval and user acceptance must be explicit separate facts');
  const review = set.review;
  check(review?.integrityAllFramesChecked === true && review?.anatomicalReview === true && Number.isSafeInteger(review?.visualSampleCount) && review.visualSampleCount >= 16, 'Missing all-frame integrity or at least 16 sampled visual-review observations');
@@ -117,5 +150,5 @@ function assetVersion(){return crypto.createHash('sha256').update([...runtimeFil
 function hubProfile(locale){const u=ui[locale];return{scene:'consult',variant:'hub',[locale]:{title:u.hubTitle,intro:u.hubIntro,steps:u.hubSteps.map(([title,text,label])=>({title,text,label}))}};}
 function syncPage(html,slug,locale='ko'){const profiles=JSON.parse(fs.readFileSync(path.join(root,'src/data/treatment-scroll.json'),'utf8')).profiles;const profile=slug==='index'?hubProfile(locale):profiles[slug];if(!profile)throw Error('Missing scroll profile '+slug);return inject(html,profile,locale,slug,assetVersion());}
 function syncAll(destination=root){const data=JSON.parse(fs.readFileSync(path.join(root,'src/data/treatment-scroll.json'),'utf8'));const expected=Object.keys(require('../src/data/treatment-page-editorial.json').profiles).sort();if(JSON.stringify(Object.keys(data.profiles).sort())!==JSON.stringify(expected))throw Error('Scroll profiles must cover all 55 treatments');const version=assetVersion();let count=0;for(const [folder,locale] of [['','ko'],['en','en'],['jp','ja']]){const dir=path.join(destination,folder,'treatments');for(const [slug,profile] of [...Object.entries(data.profiles),['index',hubProfile(locale)]]){const file=path.join(dir,slug+'.html'),html=fs.readFileSync(file,'utf8'),updated=inject(html,profile,locale,slug,version);if(html!==updated){fs.writeFileSync(file,updated);count++;}}}return{updated:count,version,profiles:Object.keys(data.profiles).length};}
-module.exports={art,render,inject,syncPage,syncAll,visualConfig,singleShotErrors,validateChunkBytes,runtimeFileNames,SINGLE_SHOT_KIND,SINGLE_SHOT_STATUS,CHUNK_FORMAT};
+module.exports={art,render,inject,syncPage,syncAll,visualConfig,singleShotErrors,singleShotTimeline,validateRangeFrameRecord,validateSourceRangeEvidence,validateChunkBytes,runtimeFileNames,SINGLE_SHOT_KIND,SINGLE_SHOT_STATUS,CHUNK_FORMAT};
 if(require.main===module)console.log(JSON.stringify(syncAll(process.argv.includes('--dist')?path.join(root,'dist'):root)));

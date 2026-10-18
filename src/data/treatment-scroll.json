@@ -1970,83 +1970,83 @@
       }
     },
     "ortho-moderate": {
-      "scene": "align",
+      "scene": "ortho-moderate",
       "variant": "ortho-moderate",
       "ko": {
-        "title": "장치를 붙인 뒤, 치아는 어떻게 움직일까요?",
-        "intro": "부착부터 이동·제거·유지까지, 서로 다른 역할을 나눠 봅니다. 장기간의 변화를 압축한 설명 모형이며 실제 치료 속도나 결과를 뜻하지 않습니다.",
+        "title": "교정 와이어는 어금니 장치에 어떻게 연결하나요?",
+        "intro": "어금니에 붙인 튜브의 구멍으로 와이어 한 가닥을 넣고 기구를 놓는 모습을 보여주는 설명용 모형입니다.",
         "steps": [
           {
-            "title": "치아에 장치를 붙입니다",
-            "text": "도구가 치아 표면에 브라켓을 놓는 모습을 보여 줍니다. 실제 진료에서는 접착 전 준비와 위치 확인 등 여러 과정이 함께 이루어집니다.",
-            "label": "치아에 장치를 붙입니다"
+            "title": "와이어와 입구를 봅니다",
+            "text": "어금니 바깥쪽에 작은 튜브가 붙어 있습니다. 기구가 잡은 와이어 끝과 원래 입구의 위치를 살펴봅니다.",
+            "label": "와이어와 입구를 봅니다"
           },
           {
-            "title": "치아가 조금씩 이동합니다",
-            "text": "브라켓과 철사가 연결된 상태에서 치아의 배열이 달라집니다. 움직이는 양과 방향은 진단에 따라 정하며, 화면처럼 한 번에 가지런해지는 치료는 아닙니다.",
-            "label": "치아가 조금씩 이동합니다"
+            "title": "원래 입구로 넣습니다",
+            "text": "기구와 와이어가 함께 앞으로 움직이며 끝이 튜브의 구멍 안으로 들어갑니다.",
+            "label": "원래 입구로 넣습니다"
           },
           {
-            "title": "치료 뒤 장치를 떼어 냅니다",
-            "text": "철사가 제거된 뒤 도구로 브라켓을 하나씩 분리하는 장면입니다. 장치를 떼는 시점은 배열뿐 아니라 맞물림과 치료 목표를 함께 확인해 정합니다.",
-            "label": "치료 뒤 장치를 떼어 냅니다"
+            "title": "반대쪽으로 나오는 끝을 봅니다",
+            "text": "같은 와이어가 튜브를 지나며 반대쪽 끝이 보입니다. 치아를 이동시키는 장면이 아니라 장치를 연결하는 과정입니다.",
+            "label": "반대쪽으로 나오는 끝을 봅니다"
           },
           {
-            "title": "유지장치가 자리를 잡습니다",
-            "text": "별도의 아래턱 모형에 투명 유지장치가 내려앉습니다. 이미 정리된 치아 위치를 유지하는 단계이며, 앞 장면의 모든 사람에게 같은 장치를 쓰는 것은 아닙니다.",
-            "label": "유지장치가 자리를 잡습니다"
+            "title": "기구를 놓고 연결을 살펴봅니다",
+            "text": "기구가 벌어져 아래로 물러나고 와이어는 튜브 안에 남습니다. 실제 진료에서는 돌출된 끝의 길이와 주변 조직에 닿는지도 따로 확인합니다.",
+            "label": "기구를 놓고 연결을 살펴봅니다"
           }
         ]
       },
       "en": {
-        "title": "What changes after braces are fitted?",
-        "intro": "Follow attachment, movement, removal and retention. These explanatory models compress a long process; they do not predict treatment speed or results.",
+        "title": "How does an orthodontic wire connect to a molar tube?",
+        "intro": "This teaching model shows one wire being inserted through a tube attached to a molar, followed by release of the instrument.",
         "steps": [
           {
-            "title": "Brackets are attached",
-            "text": "Tools place brackets on tooth surfaces. Real bonding also includes preparation and careful positioning; the illustration condenses those steps.",
-            "label": "Brackets are attached"
+            "title": "View the wire and opening",
+            "text": "A small tube is attached to the outer surface of the molar. Observe the wire tip held by the instrument and the existing entry.",
+            "label": "View the wire and opening"
           },
           {
-            "title": "Teeth move gradually",
-            "text": "Tooth positions change while brackets and an archwire remain attached. Direction and distance depend on the treatment plan, over time rather than in one visit.",
-            "label": "Teeth move gradually"
+            "title": "Enter the original opening",
+            "text": "The instrument and wire advance together as the tip enters the opening of the tube.",
+            "label": "Enter the original opening"
           },
           {
-            "title": "Brackets are removed",
-            "text": "After the wire is removed, pliers lift brackets individually. Removal is planned after checking the bite and the treatment goals, not appearance alone.",
-            "label": "Brackets are removed"
+            "title": "Watch the tip emerge",
+            "text": "The same wire passes through and its tip becomes visible on the other side. The scene explains appliance connection, not tooth movement.",
+            "label": "Watch the tip emerge"
           },
           {
-            "title": "A retainer seats",
-            "text": "A clear retainer lowers onto a separate lower-jaw model. It holds an established tooth position; the same retainer is not suitable for everyone.",
-            "label": "A retainer seats"
+            "title": "Release the instrument",
+            "text": "The instrument opens and moves downward while the wire remains through the tube. In actual care, the protruding end length and any contact with surrounding tissue require separate checks.",
+            "label": "Release the instrument"
           }
         ]
       },
       "ja": {
-        "title": "装置を付けた後、歯はどう動くのでしょうか？",
-        "intro": "装着・移動・除去・保定を分けて見ていきます。長期間の変化を短く示した説明用模型で、治療速度や結果を予測するものではありません。",
+        "title": "矯正用ワイヤーは奥歯の装置にどう通すのでしょうか？",
+        "intro": "奥歯に付けたチューブの穴へ一本のワイヤーを通し、器具を離す様子を示す説明用模型です。",
         "steps": [
           {
-            "title": "ブラケットを装着",
-            "text": "器具が歯の表面にブラケットを置く様子です。実際には、接着前の処置や位置の確認なども行います。",
-            "label": "ブラケットを装着"
+            "title": "ワイヤーと入口を見る",
+            "text": "奥歯の外側に小さなチューブが付いています。器具で保持したワイヤーの先端と、もともとの入口の位置を見ます。",
+            "label": "ワイヤーと入口を見る"
           },
           {
-            "title": "少しずつ歯が移動",
-            "text": "ブラケットとワイヤーが付いた状態で歯並びが変わります。方向と量は治療計画で決め、画面のように一度で並ぶわけではありません。",
-            "label": "少しずつ歯が移動"
+            "title": "もともとの入口へ通す",
+            "text": "器具とワイヤーが一緒に前へ動き、先端がチューブの穴へ入ります。",
+            "label": "もともとの入口へ通す"
           },
           {
-            "title": "装置を一つずつ除去",
-            "text": "ワイヤーを外した後、器具でブラケットを個別に外す場面です。歯並びだけでなく、かみ合わせや治療目標を確認して時期を決めます。",
-            "label": "装置を一つずつ除去"
+            "title": "反対側に出る先端を見る",
+            "text": "同じワイヤーがチューブを通り、反対側に先端が見えてきます。歯の移動ではなく、装置を接続する過程を示しています。",
+            "label": "反対側に出る先端を見る"
           },
           {
-            "title": "保定装置を装着",
-            "text": "別の下顎模型に透明な保定装置が下りてきます。整えた歯の位置を保つ段階で、全員に同じ装置を使うわけではありません。",
-            "label": "保定装置を装着"
+            "title": "器具を離して接続を見る",
+            "text": "器具が開いて下へ離れ、ワイヤーはチューブ内に残ります。実際の診療では、突き出た先端の長さや周囲の組織に触れないかも別に確認します。",
+            "label": "器具を離して接続を見る"
           }
         ]
       }
@@ -2954,83 +2954,83 @@
       }
     },
     "inlay": {
-      "scene": "caries",
+      "scene": "inlay",
       "variant": "inlay",
       "ko": {
-        "title": "때우면 될 줄 알았는데, 왜 일부를 덮어야 한다고 할까요?",
-        "intro": "속만 채워도 되는지, 힘을 받는 부분까지 덮어야 하는지를 손상 범위로 판단합니다.",
+        "title": "인레이는 붙이기 전에 어떻게 확인하나요?",
+        "intro": "접착 전 시적 중인 작은 인레이를 잠시 들어 올려, 보철과 치아에 준비된 공간의 관계를 보여주는 설명용 모형입니다.",
         "steps": [
           {
-            "title": "안쪽을 채우는 인레이",
-            "text": "속만 채워도 남은 치아가 버틸 수 있는지 먼저 봅니다. 충치 크기뿐 아니라 치아 벽과 씹는 힘이 선택에 영향을 줍니다.",
-            "label": "안쪽을 채우는 인레이"
+            "title": "접착 전 위치를 봅니다",
+            "text": "치아의 중앙 공간에 인레이가 놓여 있습니다. 바깥쪽 교두는 그대로 드러나고, 기구 끝은 보철 윗면에 닿아 있습니다.",
+            "label": "접착 전 위치를 봅니다"
           },
           {
-            "title": "인레이를 맞추는 과정",
-            "text": "만든 수복물을 치아 안쪽에 맞추는 모습을 봅니다. 실제 접착에서는 경계·인접 접촉·물림과 접착 조건을 확인합니다.",
-            "label": "인레이를 맞추는 과정"
+            "title": "같은 인레이를 들어 올립니다",
+            "text": "기구가 접착 전 시적 중인 인레이를 위로 들어 올립니다. 같은 보철이 주변 교두를 덮지 않은 채 분리됩니다.",
+            "label": "같은 인레이를 들어 올립니다"
           },
           {
-            "title": "교두까지 덮는 온레이",
-            "text": "힘을 받는 교두의 보호가 필요하면 온레이를 비교합니다. 인레이 다음에 반드시 받는 단계가 아니라 손상 범위에 따른 다른 선택입니다.",
-            "label": "교두까지 덮는 온레이"
+            "title": "준비된 공간을 살펴봅니다",
+            "text": "보철이 올라가며 그 아래의 중앙 공간이 드러납니다. 주변 치아와 교두의 위치는 그대로입니다.",
+            "label": "준비된 공간을 살펴봅니다"
           },
           {
-            "title": "온레이를 맞추는 과정",
-            "text": "필요한 부위를 덮는 범위와 맞음새를 확인합니다. 치료 뒤 씹을 때 불편하거나 경계가 거슬리면 다시 점검받으세요.",
-            "label": "온레이를 맞추는 과정"
+            "title": "보철과 경계를 함께 봅니다",
+            "text": "인레이와 준비된 공간을 함께 보며 형태와 경계의 관계를 이해합니다. 실제 접착 여부는 진료 중 맞음새 등을 확인해 결정합니다.",
+            "label": "보철과 경계를 함께 봅니다"
           }
         ]
       },
       "en": {
-        "title": "Why is a simple filling no longer being recommended?",
-        "intro": "Choose the coverage the tooth requires, rather than the smallest or most expensive label.",
+        "title": "How is an inlay checked before bonding?",
+        "intro": "This teaching model briefly lifts a small, unbonded trial inlay to show its relationship to the prepared space in the tooth.",
         "steps": [
           {
-            "title": "An inlay fills the inside",
-            "text": "The dentist first assesses whether the remaining tooth can support an internal restoration. Tooth walls and chewing forces matter as well as cavity size.",
-            "label": "An inlay fills the inside"
+            "title": "View the trial-fit position",
+            "text": "The inlay sits in the central preparation. The outer cusps remain uncovered, and the instrument tip touches the top of the restoration.",
+            "label": "View the trial-fit position"
           },
           {
-            "title": "Fitting the inlay",
-            "text": "The model shows an inlay fitting inside the tooth. Bonding conditions, margins, contacts and bite need clinical checks.",
-            "label": "Fitting the inlay"
+            "title": "Lift the same inlay",
+            "text": "The instrument lifts the unbonded trial inlay upward. The same restoration separates without covering the surrounding cusps.",
+            "label": "Lift the same inlay"
           },
           {
-            "title": "An onlay also covers a cusp",
-            "text": "An onlay is considered when a load-bearing cusp needs protection. It is an alternative based on the damage, not a required step after an inlay.",
-            "label": "An onlay also covers a cusp"
+            "title": "Observe the prepared space",
+            "text": "The central preparation becomes visible beneath the lifted inlay. The surrounding tooth and cusps stay in place.",
+            "label": "Observe the prepared space"
           },
           {
-            "title": "Fitting the onlay",
-            "text": "The coverage and fit are assessed. Ask for a review if chewing remains uncomfortable or the edge feels troublesome.",
-            "label": "Fitting the onlay"
+            "title": "Compare the restoration and margins",
+            "text": "Seeing the inlay and preparation together helps explain their shapes and margins. Actual bonding follows clinical assessment of fit and other relevant factors.",
+            "label": "Compare the restoration and margins"
           }
         ]
       },
       "ja": {
-        "title": "詰めればよいと思ったのに、なぜ一部を覆う必要があるのですか？",
-        "intro": "内側を補う範囲と咬頭を覆う範囲を、残存する歯の構造で比較します。",
+        "title": "インレーは接着前にどう確認するのでしょうか？",
+        "intro": "接着前に試適している小さなインレーを一時的に持ち上げ、修復物と歯に形成した空間の関係を示す説明用模型です。",
         "steps": [
           {
-            "title": "内側を補うインレー",
-            "text": "内側を埋める方法で残った歯を支えられるか確認します。虫歯の大きさだけでなく、歯の壁や噛む力も判断に関わります。",
-            "label": "内側を補うインレー"
+            "title": "試適した位置を見る",
+            "text": "歯の中央の窩洞にインレーが置かれています。外側の咬頭は覆われず、器具の先端が修復物の上面に触れています。",
+            "label": "試適した位置を見る"
           },
           {
-            "title": "インレーを合わせる",
-            "text": "歯の内側に修復物が合う様子を示しています。実際の接着では境目、隣接面、かみ合わせ、接着条件を確認します。",
-            "label": "インレーを合わせる"
+            "title": "同じインレーを持ち上げる",
+            "text": "器具が接着前のインレーを上方へ持ち上げます。同じ修復物が、周囲の咬頭を覆わずに離れていきます。",
+            "label": "同じインレーを持ち上げる"
           },
           {
-            "title": "咬頭まで覆うオンレー",
-            "text": "力がかかる咬頭の保護が必要ならオンレーを比較します。インレーの次に必ず行う工程ではなく、損傷範囲による別の選択です。",
-            "label": "咬頭まで覆うオンレー"
+            "title": "形成した空間を見る",
+            "text": "インレーが上がるにつれ、その下の中央の窩洞が見えてきます。周囲の歯や咬頭の位置は変わりません。",
+            "label": "形成した空間を見る"
           },
           {
-            "title": "オンレーを合わせる",
-            "text": "覆う範囲と適合を確認します。治療後も噛みにくい、境目が気になる場合は再確認を受けましょう。",
-            "label": "オンレーを合わせる"
+            "title": "修復物と辺縁を見比べる",
+            "text": "インレーと窩洞を一緒に見ることで、形や辺縁の関係を理解できます。実際の接着は診療で適合などを確認して判断します。",
+            "label": "修復物と辺縁を見比べる"
           }
         ]
       }
@@ -3118,83 +3118,83 @@
       }
     },
     "root-canal": {
-      "scene": "endo",
+      "scene": "root-canal",
       "variant": "root-canal",
       "ko": {
-        "title": "신경치료가 무서워 미뤘는데, 아직 치아를 남길 수 있을까요?",
-        "intro": "통증만 보지 않고 치수 상태와 치아의 보존 가능성, 이후 보호 방법을 함께 평가합니다.",
+        "title": "근관 속 흡수재는 어떻게 다룰까요?",
+        "intro": "치아 단면 모형에서 가느다란 흡수재가 근관 안에서 조금 내려갔다가 다시 올라오는 모습을 살펴봅니다. 네 구간은 이 짧은 한 동작을 나누어 보여줍니다.",
         "steps": [
           {
-            "title": "안쪽 공간에 접근",
-            "text": "무조건 많이 파내는 치료인지 걱정된다면 치료할 내부 공간을 먼저 설명받으세요. 모형은 입구를 만들고 근관 안에 기구가 들어가는 모습을 보여줍니다.",
-            "label": "안쪽 공간에 접근"
+            "title": "가느다란 흡수재를 봅니다",
+            "text": "집게가 흰 페이퍼 포인트의 윗부분을 잡고 있습니다. 단면을 통해 근관 안에 있는 가는 끝의 위치가 보입니다.",
+            "label": "가느다란 흡수재를 봅니다"
           },
           {
-            "title": "근관 내부를 세척",
-            "text": "기구로 처리한 내부를 세척하는 과정을 봅니다. 통증이 줄어도 필요한 소독과 남은 단계가 끝났다는 뜻은 아닙니다.",
-            "label": "근관 내부를 세척"
+            "title": "조금 아래로 이동합니다",
+            "text": "집게와 흡수재가 함께 아래로 움직입니다. 치아의 모양은 그대로인 상태에서 흡수재의 위치가 달라집니다.",
+            "label": "조금 아래로 이동합니다"
           },
           {
-            "title": "정리한 공간을 충전",
-            "text": "정리한 근관에 충전재를 넣는 모습을 보여줍니다. 실제 근관의 수와 모양·상태에 따라 치료 과정이 달라질 수 있습니다.",
-            "label": "정리한 공간을 충전"
+            "title": "다시 위로 올라옵니다",
+            "text": "아래로 이동했던 흡수재가 집게와 함께 다시 올라옵니다. 같은 근관 안에서 일어나는 작은 움직임을 따라갑니다.",
+            "label": "다시 위로 올라옵니다"
           },
           {
-            "title": "입구를 막고 치아 보호",
-            "text": "접근한 입구를 밀폐하고 남은 치아를 보호하는 수복을 계획합니다. 임시 상태로 오래 미루지 말고 최종 보호와 점검 일정을 확인하세요.",
-            "label": "입구를 막고 치아 보호"
+            "title": "움직인 뒤의 위치를 봅니다",
+            "text": "흡수재의 끝은 여전히 근관 안에 있습니다. 이 장면은 흡수재를 다루는 모습을 설명하며, 완전히 꺼냈거나 근관 건조가 끝났다는 뜻은 아닙니다.",
+            "label": "움직인 뒤의 위치를 봅니다"
           }
         ]
       },
       "en": {
-        "title": "Does the name frighten you more than the toothache?",
-        "intro": "Compare the diagnosis, preservation options and the tooth’s ability to support a final restoration.",
+        "title": "How is an absorbent point handled inside a root canal?",
+        "intro": "A cutaway tooth model shows a slender absorbent point moving slightly downward and then upward inside a canal. The four sections follow this one brief movement.",
         "steps": [
           {
-            "title": "Access the internal space",
-            "text": "If you worry about how much is removed, ask which internal space needs treatment. The model shows access preparation and an instrument entering the canal.",
-            "label": "Access the internal space"
+            "title": "Locate the slender point",
+            "text": "Tweezers hold the upper part of a white paper point. The cutaway reveals the position of its slender tip inside the canal.",
+            "label": "Locate the slender point"
           },
           {
-            "title": "Clean the canal",
-            "text": "The treated internal space is irrigated. Less pain does not necessarily mean disinfection and the remaining stages are complete.",
-            "label": "Clean the canal"
+            "title": "It moves slightly downward",
+            "text": "The tweezers and absorbent point move downward together. The tooth keeps its shape while the point changes position.",
+            "label": "It moves slightly downward"
           },
           {
-            "title": "Fill the prepared space",
-            "text": "Filling material is placed inside the prepared canal. Canal number, shape and condition vary between teeth.",
-            "label": "Fill the prepared space"
+            "title": "It rises again",
+            "text": "The point moves back upward with the tweezers. Follow this small movement within the same canal.",
+            "label": "It rises again"
           },
           {
-            "title": "Seal and protect the tooth",
-            "text": "The access is sealed and a restoration is planned to protect the remaining tooth. Confirm the final protection and review schedule rather than leaving a temporary restoration indefinitely.",
-            "label": "Seal and protect the tooth"
+            "title": "View its new position",
+            "text": "The tip remains inside the canal. This illustrates handling an absorbent point; it does not show complete removal or establish that the canal is dry.",
+            "label": "View its new position"
           }
         ]
       },
       "ja": {
-        "title": "神経の治療が怖くて先延ばしにしました。まだ歯を残せますか？",
-        "intro": "歯髄を残せる条件、根管治療と抜歯、最後の歯の保護を比較します。",
+        "title": "根管内の吸収材は、どのように扱うのでしょうか？",
+        "intro": "歯の断面模型で、細い吸収材が根管内を少し下がり、再び上がる様子を見てみましょう。四つの区間で、この短い一つの動きを追います。",
         "steps": [
           {
-            "title": "内部の空間にアクセスする",
-            "text": "削る量が心配なら、治療する内部の空間を先に説明してもらいましょう。模型は入口を作り、根管に器具を入れる様子です。",
-            "label": "内部の空間にアクセスする"
+            "title": "細い吸収材の位置を見る",
+            "text": "ピンセットが白いペーパーポイントの上部をつかんでいます。断面から、根管内にある細い先端の位置が見えます。",
+            "label": "細い吸収材の位置を見る"
           },
           {
-            "title": "根管の内部を洗浄する",
-            "text": "器具で処理した内部を洗浄します。痛みが減っても、消毒や残りの工程が終わったとは限りません。",
-            "label": "根管の内部を洗浄する"
+            "title": "少し下へ動く",
+            "text": "ピンセットと吸収材が一緒に下へ動きます。歯の形は変わらず、吸収材の位置が変わります。",
+            "label": "少し下へ動く"
           },
           {
-            "title": "整えた空間を充填する",
-            "text": "処理した根管に充填材を入れる様子です。根管の数、形、状態によって治療の進み方は異なります。",
-            "label": "整えた空間を充填する"
+            "title": "再び上へ戻る",
+            "text": "下へ動いた吸収材が、ピンセットと一緒に再び上がります。同じ根管内での小さな動きを追います。",
+            "label": "再び上へ戻る"
           },
           {
-            "title": "入口を封鎖して歯を保護する",
-            "text": "入口を封鎖し、残った歯を保護する修復を計画します。仮の状態で長く放置せず、最終的な保護と点検予定を確認しましょう。",
-            "label": "入口を封鎖して歯を保護する"
+            "title": "動いた後の位置を見る",
+            "text": "先端はまだ根管内にあります。吸収材を扱う様子の説明であり、完全に取り出したことや根管の乾燥が完了したことを示す場面ではありません。",
+            "label": "動いた後の位置を見る"
           }
         ]
       }

@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
-const { singleShotErrors, validateChunkBytes, visualConfig, art, runtimeFileNames } = require('./treatment-scroll.cjs');
+const { singleShotErrors, singleShotTimeline, validateRangeFrameRecord, validateChunkBytes, visualConfig, art, runtimeFileNames } = require('./treatment-scroll.cjs');
 const site = path.resolve(__dirname, '..');
 const hash = b => crypto.createHash('sha256').update(b).digest('hex');
 const clone = value => JSON.parse(JSON.stringify(value));
@@ -79,6 +79,27 @@ test('six-second source needs actual 18-chunk receipts',()=>{const s=fixture(6);
 test('six-second quarter motion cannot be mostly duplicate frames',()=>{const s=fixture(6);const cs=s.technicalOutput.packaging.desktop.chunks;for(let f=0;f<11;f++)cs[Math.floor(f/8)].frameSHA256s[f%8]=hash('same');assert(singleShotErrors(s).some(e=>e.includes('distinct')));});
 test('unapproved seven-second duration is rejected even with consistent counts',()=>{const s=fixture(8);s.source.durationSeconds=7;assert(singleShotErrors(s).some(e=>e.includes('timeline')));});
 test('thirteen identical consecutive frames cannot pass aggregate uniqueness',()=>{const s=fixture(8),cs=s.technicalOutput.packaging.desktop.chunks;for(let f=0;f<13;f++)cs[Math.floor(f/8)].frameSHA256s[f%8]=hash('held');assert(singleShotErrors(s).some(e=>e.includes('still hold')));});
+// Explicit original interval: full source provenance remains four seconds/HOLD.
+function rangeFixture(){
+ const s=fixture(64/24),v=s.source.video;
+ Object.assign(s.source.mediaMetadata.video,{duration:97/24,frameCount:97,fps:24});s.source.declaredSingleShot.durationSeconds=4;
+ s.source.sourceRange={version:1,selectionPolicy:'contiguous-original-frames-v1',startFrame:0,endFrameExclusive:64,frameCount:64,sourceJob:v.sourceJob,sourceSHA256:v.sha256,sourceFrameCount:97,originalNominalDurationSeconds:4,fps:24,playbackRate:1,constantOriginalCadence:true,interpolation:false,padding:false,loop:false,reversed:false,sourceFrameIndices:Array.from({length:64},(_,i)=>i),firstTimestampSeconds:0,lastTimestampSeconds:63/24,exclusiveEndSeconds:64/24,fullSourceStatus:'hold',wholeSourceAccepted:false,reviewEvidence:{path:site+'/.wrangler/fixture-range-review.json',sha256:hash('range-review')},frameEvidence:Object.fromEntries(['desktop','mobile'].map(size=>[size,{path:site+'/.wrangler/fixture-'+size+'.json',sha256:hash(size)}]))};return s;
+}
+test('64 contiguous original frames retain original4second provenance and8chunks',()=>{const s=rangeFixture();assert.deepEqual(singleShotErrors(s),[]);assert.equal(singleShotTimeline(s.source).originalDuration,4);assert.equal(visualConfig(s).desktop.count,64);assert.equal(visualConfig(s).mobile.chunkCount,8);assert.equal(s.source.mediaMetadata.video.duration,97/24);});
+for(const[name,mutate]of[
+ ['incorrect interval start',s=>s.source.sourceRange.startFrame=1],
+ ['excluded frame64 included',s=>s.source.sourceRange.endFrameExclusive=65],
+ ['omitted original48',s=>s.source.sourceRange.sourceFrameIndices[48]=49],
+ ['reversed source order',s=>s.source.sourceRange.sourceFrameIndices.reverse()],
+ ['slowdown',s=>s.source.sourceRange.playbackRate=.5],
+ ['padding',s=>s.source.sourceRange.padding=true],
+ ['false4second delivery',s=>s.source.durationSeconds=4],
+ ['altered original source SHA',s=>s.source.sourceRange.sourceSHA256=hash('other')],
+ ['full source falsely accepted',s=>s.source.sourceRange.wholeSourceAccepted=true],
+ ['missing exact interval evidence',s=>delete s.source.sourceRange.reviewEvidence]
+])test('selected range rejects '+name,()=>{const s=rangeFixture();mutate(s);assert(singleShotErrors(s).some(x=>x.includes('Source range')));assert.throws(()=>visualConfig(s));});
+test('delivered64frames require explicit source range',()=>{const s=rangeFixture();delete s.source.sourceRange;assert(singleShotErrors(s).some(x=>x.includes('timeline')));});
+test('range frame identity rejects changed SHA, skipped frame and duplicate output',()=>{const s=rangeFixture(),r=s.source.sourceRange,h=s.technicalOutput.packaging.desktop.chunks.flatMap(c=>c.frameSHA256s),record={sourceSHA256:r.sourceSHA256,sourceJob:r.sourceJob,selectionPolicy:r.selectionPolicy,sourceCount:97,targetCount:64,sourceIndices:r.sourceFrameIndices,sourceFrameIndices:r.sourceFrameIndices,fps:24,playbackRate:1,constantOriginalCadence:true,interpolation:false,padding:false,loop:false,reversed:false,nominalTimelineSeconds:64/24,lastSourceTimestampSeconds:63/24,frames:h.map((sha256,i)=>({index:i,sourceFrameIndex:i,sha256}))};validateRangeFrameRecord(record,r,h);for(const mutate of [x=>x.frames[48].sourceFrameIndex=49,x=>x.frames[5].sha256=hash('changed'),x=>x.frames[8].index=7,x=>x.interpolation=true,x=>x.padding=true,x=>x.loop=true,x=>x.reversed=true,x=>x.constantOriginalCadence=false,x=>x.nominalTimelineSeconds=4,x=>x.lastSourceTimestampSeconds=64/24,x=>x.sourceIndices=[...x.sourceIndices.slice(0,48),49,...x.sourceIndices.slice(49)]]){const bad=clone(record);mutate(bad);assert.throws(()=>validateRangeFrameRecord(bad,r,h),/SHA\/order/);}});
 // An actual old WebP is used only to verify the binary container, never as a new treatment result.
 const frames=Array.from({length:8},(_,i)=>fs.readFileSync(path.join(site,'implant/frames','frame_'+String(i+1).padStart(4,'0')+'.webp')));
 function chunkFixture() {
