@@ -1,3 +1,4 @@
+import { createFrameChunkLoader } from './treatment-frame-chunks.7865fb72729b.js';
 /*
  * A bounded, scroll-driven frame renderer. It never plays video or intercepts scroll.
  *
@@ -39,7 +40,9 @@ function validateSource(source, label) {
       Number(source.width) < 1 || Number(source.height) < 1 || width > 4096 || height > 4096) {
     throw new TypeError(label + ' needs valid frame count and dimensions');
   }
+  if (source.format !== undefined && (source.format !== 'webp-chunks-v1' || source.framesPerChunk !== 8 || source.chunkCount !== Math.ceil(count / 8))) throw new TypeError(label + ' has invalid chunk metadata');
   return {
+    ...(source.format ? { format: source.format, framesPerChunk: 8, chunkCount: source.chunkCount } : {}),
     pattern: source.pattern,
     count, width, height,
     start: Math.max(0, Math.round(finite(source.start, 1))),
@@ -105,6 +108,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   canvas.style.cssText = 'position:absolute;inset:0;display:block;width:100%;height:100%;pointer-events:none;opacity:0;';
   container.appendChild(canvas);
 
+  const chunks = createFrameChunkLoader();
   const cache = new Map(); // insertion order is the decoded-frame LRU
   const requests = new Map();
   const failed = new Set();
@@ -189,6 +193,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     queue = [];
   }
   function clearCache() {
+    chunks.clear();
     cache.forEach(releaseFrame);
     cache.clear();
     failed.clear();
@@ -342,6 +347,10 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     const add = index => {
       if (index >= 0 && index < source.count && !wanted.includes(index) && wanted.length < cacheLimit) wanted.push(index);
     };
+    if (source.format === 'webp-chunks-v1') {
+      for (let distance = 1; wanted.length < cacheLimit && distance < cacheLimit; distance++) { add(target + direction * distance); add(target - direction * distance); }
+      return wanted;
+    }
     if (processStages) {
       // Decode the first visible frame before speculative requests. Thereafter
       // reserve cache slots for both sides of a cut, even during reverse scroll.
@@ -472,11 +481,16 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
       inFlight++;
       (async () => {
         try {
-          const response = await fetch(frameURL(requestSource, index), {
-            signal: controller.signal, cache: 'force-cache', credentials: 'same-origin'
-          });
-          if (!response.ok) throw new Error('Frame request returned HTTP ' + response.status);
-          const blob = await response.blob();
+          let blob;
+          if (requestSource.format === 'webp-chunks-v1') {
+            blob = await chunks.getFrame(requestSource, index, { signal: controller.signal });
+          } else {
+            const response = await fetch(frameURL(requestSource, index), {
+              signal: controller.signal, cache: 'force-cache', credentials: 'same-origin'
+            });
+            if (!response.ok) throw new Error('Frame request returned HTTP ' + response.status);
+            blob = await response.blob();
+          }
           if (!blob.size || blob.size > 2 * 1024 * 1024 || (blob.type && !blob.type.startsWith('image/'))) {
             throw new Error('Invalid or unexpectedly large frame response');
           }
@@ -490,7 +504,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
             failureCounts.set(index, attempts);
             // Retry transient process-frame failures once, then show the poster
             // instead of permanently covering it with an empty canvas.
-            if (!processStages || attempts >= 2) failed.add(index);
+            if ((!processStages && requestSource.format !== 'webp-chunks-v1') || attempts >= 2) failed.add(index);
             report(request.timedOut ? new Error('Frame request timed out') : error, index);
           }
         } finally {
@@ -558,7 +572,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   function dispose() {
     if (disposed) return;
     disposed = true;
-    stopAnimation(); stopTransition(true); cancelRequests(); clearCache();
+    stopAnimation(); stopTransition(true); cancelRequests(); clearCache(); chunks.dispose();
     observer?.disconnect(); visibilityObserver?.disconnect(); resizeObserver?.disconnect();
     listen(motionQuery, motionChanged, true); listen(mobileQuery, viewportChanged, true);
     document.removeEventListener('visibilitychange', visibilityChanged);

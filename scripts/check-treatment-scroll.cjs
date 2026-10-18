@@ -51,7 +51,7 @@ function preservation(doc) {
   };
 }
 
-const { inject } = require('./treatment-scroll.cjs');
+const { inject, singleShotErrors, validateChunkBytes, runtimeFileNames, SINGLE_SHOT_KIND, SINGLE_SHOT_STATUS } = require('./treatment-scroll.cjs');
 const scrollData = JSON.parse(fs.readFileSync(path.join(source, 'src/data/treatment-scroll.json'), 'utf8'));
 const motionManifestRelative = 'src/data/treatment-motion-assets.json';
 const motionManifestBytes = fs.readFileSync(path.join(source, motionManifestRelative));
@@ -64,7 +64,7 @@ const expectedProfiles = Object.keys(scrollData.profiles).sort();
 check(expectedProfiles.length === 55, 'motion coverage', 'Expected exactly 55 reviewed treatment content profiles');
 check(jsonSame(Object.keys(motionProfiles).sort(), expectedProfiles), 'motion coverage', 'Motion mapping must cover the exact 55 treatment slugs, with no missing or extra slug');
 check(typeof motionManifest.hub === 'string' && !!motionSets[motionManifest.hub], 'motion hub', 'Hub must reference an existing reviewed visual set');
-const allowedKinds = new Set(['generated-sequence', 'existing-sequence', 'clinic-photo-sequence']);
+const allowedKinds = new Set(['generated-sequence', 'existing-sequence', 'clinic-photo-sequence', SINGLE_SHOT_KIND]);
 const assetExistenceCache = new Map();
 const visualSetReport = [];
 function resolveVisualAsset(url, label) {
@@ -98,7 +98,20 @@ function frameUrl(config, index) {
   if (/\{(?:frame|index)\}/.test(config.pattern)) return config.pattern.replace(/\{(?:frame|index)\}/g, value);
   return config.pattern.replace(/%0?(\d*)d/g, (_, width) => String(index).padStart(width ? Number(width) : config.pad, '0'));
 }
-function checkSequence(config, label) {
+function checkSequence(config, label, set, size) {
+  if (set?.kind === SINGLE_SHOT_KIND) {
+    const duration = set.source?.durationSeconds, frameCount = duration*24, chunkCount = frameCount/8;
+    if (![6,8].includes(duration) || !config || config.format !== 'webp-chunks-v1' || config.count !== frameCount || config.chunkCount !== chunkCount || config.framesPerChunk !== 8 || config.start !== 1 || config.pad !== 4) return;
+    const receipts = set.technicalOutput?.packaging?.[size]?.chunks;
+    if (!Array.isArray(receipts) || receipts.length !== chunkCount) return;
+    for (let index = 0; index < chunkCount; index++) {
+      const file = resolveVisualAsset(frameUrl(config, index + 1), label);
+      if (!file) continue;
+      try { validateChunkBytes(fs.readFileSync(file), receipts[index]); }
+      catch (error) { check(false, label + ' chunk ' + (index + 1), error.message); }
+    }
+    return;
+  }
   if (!check(config && typeof config === 'object', label, 'Sequence configuration is required')) return;
   const fields = ['count', 'width', 'height', 'start', 'pad'];
   for (const key of fields) check(Number.isSafeInteger(config[key]) && (key === 'start' ? config[key] >= 0 : config[key] > 0), label, `Invalid sequence ${key}`);
@@ -123,11 +136,21 @@ const referencedSets = new Set([...Object.values(motionProfiles), motionManifest
 for (const setKey of referencedSets) {
   const set = motionSets[setKey];
   if (!set) continue;
-  check(['visual-review-passed', 'process-sample-reviewed'].includes(set.status), setKey, 'Visual set is missing a recorded review status');
+  check((set.kind === SINGLE_SHOT_KIND ? [SINGLE_SHOT_STATUS] : ['visual-review-passed', 'process-sample-reviewed']).includes(set.status), setKey, 'Visual set is missing a recorded review status');
+  if (set.kind === SINGLE_SHOT_KIND) {
+    for (const error of singleShotErrors(set)) check(false, setKey, error);
+    const record = set.review?.record;
+    try {
+      check(typeof record === 'string' && path.isAbsolute(record) && path.resolve(record).startsWith('/Volumes/MSJ_WORK/Workspaces/') && fs.realpathSync(record) === path.resolve(record) && fs.statSync(record).isFile() && fs.statSync(record).size > 0, setKey, 'Saved review evidence is missing or outside a real SSD path');
+      check(hash(fs.readFileSync(record)) === set.review?.recordSHA256, setKey, 'Saved review evidence SHA differs from the accepted record');
+    } catch (_) { check(false, setKey, 'Saved review evidence file is unavailable'); }
+    const posterFile = resolveVisualAsset(set.poster, setKey + ' poster');
+    if (posterFile) check(fs.statSync(posterFile).size === set.technicalOutput?.poster?.bytes && hash(fs.readFileSync(posterFile)) === set.technicalOutput?.poster?.sha256, setKey, 'Poster bytes differ from the prepared receipt');
+  }
   check(allowedKinds.has(set.kind), setKey, 'Unsupported visual sequence kind');
   check(typeof set.cameraPan === 'boolean', setKey, 'Explicit camera motion policy is required');
   if (set.cameraPan) check(set.desktop?.count === 1 && set.mobile?.count === 1, setKey, 'Camera-only stills must use exactly one reviewed image per size');
-  if (set.kind !== 'existing-sequence' && !set.processStages) check(!!set.motion, setKey, 'Every generated/photo visual must define an explicit visible camera path');
+  if (set.kind !== 'existing-sequence' && set.kind !== SINGLE_SHOT_KIND && !set.processStages) check(!!set.motion, setKey, 'Every generated/photo visual must define an explicit visible camera path');
   if (set.motion !== undefined) {
     const m = set.motion;
     check(m && typeof m === 'object' && !Array.isArray(m), setKey, 'Motion must be an object');
@@ -160,9 +183,18 @@ for (const setKey of referencedSets) {
   const anchors = set.anchors;
   check(Array.isArray(anchors) && anchors.length === 4 && anchors.every(Number.isFinite) && anchors[0] === 0 && anchors[3] === 1 && anchors.every((value, index) => value >= 0 && value <= 1 && (!index || value > anchors[index - 1])), setKey, 'Exactly four ordered progress anchors from 0 to 1 are required');
   resolveVisualAsset(set.poster, setKey + ' poster');
-  checkSequence(set.desktop, setKey + ' desktop');
-  checkSequence(set.mobile, setKey + ' mobile');
+  checkSequence(set.desktop, setKey + ' desktop', set, 'desktop');
+  checkSequence(set.mobile, setKey + ' mobile', set, 'mobile');
   visualSetReport.push({ key: setKey, kind: set.kind, status: set.status, poster: set.poster, desktopFrames: set.desktop?.count || 0, mobileFrames: set.mobile?.count || 0, explicitCameraMotion: !!set.motion, rigidComponent: !!set.component });
+}
+const singleShotProfiles = Object.entries(motionProfiles).filter(([, key]) => motionSets[key]?.kind === SINGLE_SHOT_KIND);
+for (const [slug,key] of singleShotProfiles) check(['desktop','mobile'].every(size => typeof motionSets[key][size]?.pattern === 'string' && motionSets[key][size].pattern.startsWith('/static/treatment-motion/new-continuous-chunks/' + slug + '/')), slug, 'Single-shot asset namespace belongs to a different treatment');
+check(new Set(singleShotProfiles.map(([,key]) => key)).size === singleShotProfiles.length, 'single-shot coverage', 'Each replacement treatment must have its own new visual set');
+for (const media of ['image','video']) {
+  for (const field of ['sha256','sourceJob']) {
+    const values = singleShotProfiles.map(([,key]) => motionSets[key]?.source?.[media]?.[field]);
+    check(new Set(values).size === values.length, 'single-shot sources', 'Replacement treatments must not share ' + media + ' ' + field);
+  }
 }
 const versions = { css: new Set(), js: new Set() };
 const scenes = new Set();
@@ -213,10 +245,12 @@ for (const { folder, lang } of languages) {
     check(poster?.closest('.bd-scroll-art') === art, relative, 'Sequence poster must appear inside the visual panel');
     check(poster?.hasAttribute('alt'), relative, 'Poster needs descriptive alt text or explicit decorative alt');
     check(poster?.getAttribute('src') === visualSet?.poster, relative, 'Poster differs from the reviewed visual set');
+    if (visualSet?.kind === SINGLE_SHOT_KIND) check(poster?.getAttribute('width') === '1200' && poster?.getAttribute('height') === '630', relative, 'Single-shot poster dimensions must match the actual JPEG');
     try {
       const config = JSON.parse(art?.getAttribute('data-sequence') || 'null');
       check(config && typeof config === 'object', relative, 'Missing parseable sequence configuration');
       for (const field of ['poster', 'desktop', 'mobile', 'anchors', 'kind', 'cameraPan', 'motion', 'component', 'processStages']) check(jsonSame(config?.[field], visualSet?.[field]), relative, 'Embedded sequence ' + field + ' differs from the reviewed manifest');
+      if (visualSet?.kind === SINGLE_SHOT_KIND) check(config?.posterWidth === 1200 && config?.posterHeight === 630, relative, 'Embedded poster dimensions differ from the prepared asset');
     } catch (error) { check(false, relative, 'Invalid data-sequence JSON: ' + error.message); }
     const controls = scene.querySelectorAll('button.bd-scroll-step-control');
     check(controls.length === 4, relative, 'Four explicit navigation controls required');
@@ -273,7 +307,7 @@ for (const { folder, lang } of languages) {
 check(report.length === 168, 'coverage', 'Expected all 165 details plus 3 treatment hubs');
 check(scenes.size >= 8, 'coverage', 'Treatment families need distinct explanatory scenes');
 const assetDirectory = path.join(root, mode === 'source' ? 'public/static' : 'static');
-const runtimeFiles = ['treatment-scroll.js', 'treatment-scroll.css', 'treatment-scroll-sequence.js', 'treatment-scroll-compositor.js'];
+const runtimeFiles = runtimeFileNames(source);
 const runtimeBuffers = runtimeFiles.map(file => {
   const full = path.join(assetDirectory, file);
   if (!check(fs.existsSync(full), file, 'Local scroll runtime asset is missing')) return null;
@@ -286,7 +320,19 @@ const assetVersion = runtimeBuffers.every(Boolean)
   : null;
 const importsFrom = text => [...text.matchAll(/\bfrom\s*["']([^"']+)["']/g)].map(match => match[1]);
 const moduleText = runtimeBuffers[2]?.toString('utf8') || '';
-check(importsFrom(moduleText).length === 0 && !/\bimport\s*\(/.test(moduleText) && !/\bimport\s*["']/.test(moduleText), 'sequence module', 'Photoreal sequence module must have no external or additional module imports');
+const sequenceImports = importsFrom(moduleText);
+const chunkHelpers = runtimeFiles.slice(4);
+const expectedChunkImports = chunkHelpers.map(name => './' + name);
+check(sequenceImports.length <= 1 && jsonSame(sequenceImports, expectedChunkImports) && !/\bimport\s*\(/.test(moduleText) && !/\bimport\s*["']/.test(moduleText), 'sequence module', 'Only one content-addressed local chunk helper import is permitted');
+if (singleShotProfiles.length) check(chunkHelpers.length === 1, 'sequence module', 'Single-shot chunks require the reviewed local chunk decoder');
+for (let index = 4; index < runtimeFiles.length; index++) {
+  const name = runtimeFiles[index], bytes = runtimeBuffers[index];
+  if (!bytes) continue;
+  check(name === 'treatment-frame-chunks.' + hash(bytes).slice(0,12) + '.js', name, 'Chunk helper filename does not match its content hash');
+  const helperText = bytes.toString('utf8');
+  check(importsFrom(helperText).length === 0 && !/\bimport\s*(?:\(|["'])/.test(helperText), name, 'Chunk helper must be standalone without external imports');
+  check(bytes.length < 100 * 1024, name, 'Chunk helper unexpectedly large');
+}
 check(!/three\.module|WebGLRenderer|treatment-scroll-3d/.test(moduleText), 'sequence module', 'Old procedural Three.js rendering must not remain in the photoreal module');
 const runtimeText = runtimeBuffers[0]?.toString('utf8') || '';
 check(/const\s+sequenceURL\s*=\s*['"]\/static\/treatment-scroll-sequence\.js['"]\s*\+\s*assetQuery/.test(runtimeText), 'scroll runtime', 'Sequence module must inherit the page asset query version');
@@ -332,11 +378,11 @@ if (baseline) {
 const output = args.find(value => value.startsWith('--output='))?.slice(9);
 if (output) {
   if (!path.isAbsolute(output) || !path.resolve(output).startsWith('/Volumes/MSJ_WORK/Workspaces/')) throw Error('Report output must be an absolute SSD workspace path');
-  fs.writeFileSync(output, JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: !errors.length, checkedAt: new Date().toISOString(), mode, baseline: baseline || null, assetVersion, visualSets: visualSetReport, visualAssets: assetExistenceCache.size, checks: report, errors }, null, 2) + '\n', { flag: 'wx' });
+  fs.writeFileSync(output, JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: !errors.length, checkedAt: new Date().toISOString(), mode, baseline: baseline || null, assetVersion, singleShotProfiles: singleShotProfiles.length, visualSets: visualSetReport, visualAssets: assetExistenceCache.size, checks: report, errors }, null, 2) + '\n', { flag: 'wx' });
 }
 if (errors.length) {
   console.error(JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: false, mode, errors }, null, 2));
   process.exitCode = 1;
 } else {
-  console.log(JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: true, mode, pages: report.length, preservedImplantFrames: implantFrames.length, baseline: baseline || null, sceneFamilies: scenes.size, assetVersion, visualSets: visualSetReport.length, visualAssets: assetExistenceCache.size, locales: languages.map(({ folder, lang }) => ({ lang, pages: report.filter(item => new URL(item.path).pathname.startsWith((folder ? '/' + folder : '') + '/treatments/')).length })) }));
+  console.log(JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: true, mode, pages: report.length, preservedImplantFrames: implantFrames.length, baseline: baseline || null, sceneFamilies: scenes.size, assetVersion, singleShotProfiles: singleShotProfiles.length, visualSets: visualSetReport.length, visualAssets: assetExistenceCache.size, locales: languages.map(({ folder, lang }) => ({ lang, pages: report.filter(item => new URL(item.path).pathname.startsWith((folder ? '/' + folder : '') + '/treatments/')).length })) }));
 }
