@@ -3774,83 +3774,83 @@
       }
     },
     "gum-surgery": {
-      "scene": "gum",
+      "scene": "gum-surgery",
       "variant": "gum-surgery",
       "ko": {
-        "title": "잇몸치료도 힘들었는데, 수술까지 받아야 하는 이유가 뭘까요?",
-        "intro": "남은 문제와 결손 형태를 근거로 수술 목적과 외관·관리 부담을 함께 비교합니다.",
+        "title": "잇몸수술에서 젖힌 잇몸은 어떻게 다룰까요?",
+        "intro": "모형에서 이미 젖혀진 잇몸 가장자리를 기구로 조금 들어 올렸다가 다시 내리는 움직임을 보여줍니다. 수술 전체나 봉합을 재현하는 장면은 아닙니다.",
         "steps": [
           {
-            "title": "왜 잇몸을 열어야 하나요?",
-            "text": "비수술 치료 후에도 남은 부위를 직접 보기 위해 잇몸을 여는 예시입니다. 모든 치주염에 수술이 필요한 것은 아닙니다.",
-            "label": "왜 잇몸을 열어야 하나요?"
+            "title": "노출된 부위를 살펴봅니다",
+            "label": "노출된 부위를 살펴봅니다",
+            "text": "치아 아래에 노출된 부위와 주변 잇몸의 관계를 봅니다. 왼쪽 기구가 젖혀진 잇몸 가장자리에 닿아 있습니다."
           },
           {
-            "title": "보이지 않던 뿌리면 정리",
-            "text": "노출된 뿌리면을 따라 기구가 이동하며 침착물을 정리합니다. 실제 치료 범위는 잇몸과 뼈 상태에 따라 달라집니다.",
-            "label": "보이지 않던 뿌리면 정리"
+            "title": "가장자리를 받쳐 들어 올립니다",
+            "label": "가장자리를 받쳐 들어 올립니다",
+            "text": "기구와 닿아 있는 기존 잇몸 가장자리가 함께 올라갑니다. 위쪽의 노출된 부위는 계속 보입니다."
           },
           {
-            "title": "다시 덮고 안정시킵니다",
-            "text": "정리한 부위를 잇몸으로 덮고 봉합하는 과정입니다. 상처가 자극받지 않도록 이후 관리 방법을 안내받습니다.",
-            "label": "다시 덮고 안정시킵니다"
+            "title": "부분적으로 접힌 위치를 봅니다",
+            "label": "부분적으로 접힌 위치를 봅니다",
+            "text": "잇몸 가장자리가 국소적으로 접힌 상태를 보여줍니다. 새 조직이 생기거나 전체 부위를 덮는 장면은 아닙니다."
           },
           {
-            "title": "시간을 두고 다시 확인",
-            "text": "봉합 뒤 조직이 가라앉는 모습을 시간 압축으로 표현했습니다. 실제 회복 기간·잇몸선·시린 증상은 경과를 보며 확인합니다.",
-            "label": "시간을 두고 다시 확인"
+            "title": "다시 아래로 내려놓습니다",
+            "label": "다시 아래로 내려놓습니다",
+            "text": "기구와 잇몸 가장자리가 아래쪽으로 돌아옵니다. 봉합이나 회복이 끝난 모습은 보여주지 않습니다."
           }
         ]
       },
       "en": {
-        "title": "Why is surgery being suggested after you already had gum treatment?",
-        "intro": "Compare the specific surgical objective with the remaining disease after nonsurgical care.",
+        "title": "How is reflected gum tissue handled during surgery?",
+        "intro": "A model shows the edge of an already reflected gum flap being lifted a little and lowered again with an instrument. This is not a complete operation or a suturing demonstration.",
         "steps": [
           {
-            "title": "Why open the gum?",
-            "text": "This example opens the gum to access a site that still needs treatment. Periodontal surgery is not required for every case.",
-            "label": "Why open the gum?"
+            "title": "View the exposed area",
+            "label": "View the exposed area",
+            "text": "Observe the relationship between the exposed area beneath the teeth and the surrounding gum. The instrument on the left contacts the reflected flap edge."
           },
           {
-            "title": "Clean the hidden root surface",
-            "text": "The instrument moves along the exposed root surface to remove deposits. The actual extent depends on the gum and bone findings.",
-            "label": "Clean the hidden root surface"
+            "title": "Support and lift the edge",
+            "label": "Support and lift the edge",
+            "text": "The existing gum edge rises with the instrument that supports it. The upper part of the exposed area remains visible."
           },
           {
-            "title": "Close and stabilise the tissue",
-            "text": "The gum returns over the treated area and is sutured. Follow the postoperative instructions given for your wound.",
-            "label": "Close and stabilise the tissue"
+            "title": "Observe a partial fold",
+            "label": "Observe a partial fold",
+            "text": "The edge is shown in a locally folded position. No new tissue appears and the entire field is not covered."
           },
           {
-            "title": "Review healing over time",
-            "text": "The model compresses the later tissue response into a short transition. Actual healing time, gum level and sensitivity require follow-up.",
-            "label": "Review healing over time"
+            "title": "Lower the edge again",
+            "label": "Lower the edge again",
+            "text": "The instrument and flap edge return downward. The scene does not show a sutured wound or completed healing."
           }
         ]
       },
       "ja": {
-        "title": "清掃も頑張ったのに、なぜ手術まで必要なのでしょうか？",
-        "intro": "残る深い部位と反応から、手術の目的、非外科的な管理と期待できる限界を比較します。",
+        "title": "歯ぐきの手術でめくった組織はどう扱うのでしょうか？",
+        "intro": "模型上で、すでにめくった歯ぐきの縁を器具で少し持ち上げ、再び下ろす動きを示します。手術全体や縫合を再現した場面ではありません。",
         "steps": [
           {
-            "title": "なぜ歯ぐきを開くのですか",
-            "text": "残った病変に直接届くよう歯ぐきを開く例です。すべての歯周病に手術が必要なわけではありません。",
-            "label": "なぜ歯ぐきを開くのですか"
+            "title": "露出した部分を見る",
+            "label": "露出した部分を見る",
+            "text": "歯の下に露出した部分と周囲の歯ぐきの関係を見ます。左の器具がめくった歯ぐきの縁に触れています。"
           },
           {
-            "title": "見えなかった根の表面を清掃",
-            "text": "器具が露出した歯根に沿って動き、付着物を取り除きます。実際の範囲は歯ぐきや骨の状態で変わります。",
-            "label": "見えなかった根の表面を清掃"
+            "title": "縁を支えて持ち上げる",
+            "label": "縁を支えて持ち上げる",
+            "text": "器具に支えられた既存の歯ぐきの縁が一緒に上がります。上方の露出した部分は見えたままです。"
           },
           {
-            "title": "歯ぐきを戻して安定させます",
-            "text": "処置した部位を歯ぐきで覆い、縫合する流れです。傷への刺激を避けるため、術後の説明を確認します。",
-            "label": "歯ぐきを戻して安定させます"
+            "title": "部分的に折れた位置を見る",
+            "label": "部分的に折れた位置を見る",
+            "text": "歯ぐきの縁が局所的に折れた状態を示します。新しい組織が生じたり、全体を覆ったりする場面ではありません。"
           },
           {
-            "title": "時間を置いて経過を確認",
-            "text": "縫合後の組織変化を短くまとめた概念図です。実際の回復期間、歯ぐきの位置、しみる症状は経過観察で確認します。",
-            "label": "時間を置いて経過を確認"
+            "title": "再び下へ戻す",
+            "label": "再び下へ戻す",
+            "text": "器具と歯ぐきの縁が下方へ戻ります。縫合や治癒が完了した状態は示していません。"
           }
         ]
       }

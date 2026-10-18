@@ -16,7 +16,7 @@
     "fixture-straumann-roxolid": "new-continuous-fixture-straumann-roxolid-147b0894f57dc9ba",
     "glownate": "new-continuous-glownate-ea6818b2b0e3fd93",
     "gum": "new-continuous-gum-8db8b269e731ffaa",
-    "gum-surgery": "periodontal-surgery",
+    "gum-surgery": "new-continuous-gum-surgery-c7a78f01b90581ac",
     "implant": "new-continuous-implant-af0f56fe92cdd728",
     "implant-advanced": "new-continuous-implant-advanced-eff81a74ce9dffbe",
     "implant-flapless": "new-continuous-implant-flapless-ae302895c1019aa9",
@@ -52298,6 +52298,780 @@
         "integrityScope": "Every published WebP frame container and SHA checked; not every-frame visual review",
         "record": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/integration/exports/selected26-20261018-v1/reviews/tmj.json",
         "recordSHA256": "bc1e63b473673535d152ad20fee32e46ca813e0a3f4de95557e66168e93960af"
+      }
+    },
+    "new-continuous-gum-surgery-c7a78f01b90581ac": {
+      "status": "single-shot-reviewed",
+      "kind": "single-shot-sequence",
+      "poster": "/static/treatment-motion/new-continuous-chunks/gum-surgery/c7a78f01b90581ac/poster.jpg",
+      "desktop": {
+        "format": "webp-chunks-v1",
+        "pattern": "/static/treatment-motion/new-continuous-chunks/gum-surgery/c7a78f01b90581ac/desktop/chunk_{index}.bdseq",
+        "count": 96,
+        "width": 1280,
+        "height": 720,
+        "start": 1,
+        "pad": 4,
+        "framesPerChunk": 8,
+        "chunkCount": 12
+      },
+      "mobile": {
+        "format": "webp-chunks-v1",
+        "pattern": "/static/treatment-motion/new-continuous-chunks/gum-surgery/c7a78f01b90581ac/mobile/chunk_{index}.bdseq",
+        "count": 96,
+        "width": 800,
+        "height": 450,
+        "start": 1,
+        "pad": 4,
+        "framesPerChunk": 8,
+        "chunkCount": 12
+      },
+      "anchors": [
+        0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1
+      ],
+      "cameraPan": false,
+      "source": {
+        "image": {
+          "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/media/gum-surgery/97e903a3-7380-425b-a5c7-a0377dcdf57c.png",
+          "sha256": "3799f73d29c34b08ad6d61dedadbd0c9589339f9be56d5d8d3a3092eccfce3c0",
+          "sourceJob": "97e903a3-7380-425b-a5c7-a0377dcdf57c",
+          "provider": "higgsfield",
+          "model": "gpt_image_2_5",
+          "generatedAt": "2026-10-18T08:37:22.570Z",
+          "generatedAtBasis": "Submission intent timestamp; provider exact completion time unavailable",
+          "providerParameters": {
+            "model": "gpt_image_2_5",
+            "variant": "flare",
+            "quality": "max",
+            "resolution": "4k",
+            "aspect_ratio": "16:9",
+            "count": 1,
+            "medias": [
+              {
+                "role": "image",
+                "value": "08219e85-6b26-478f-9830-ebde690cc2fe"
+              }
+            ],
+            "prompt": "Edit the supplied 3840x2160 periodontal educational illustration. Preserve tooth count and placement, existing surgical region, premium materials, warm neutral background and camera view. Correct the needle-holder mechanics: the closed metal jaws must visibly grasp the METAL BODY of one curved suture needle near its middle, not the blue thread. One continuous blue suture must attach at the needle swage and trail slack behind the needle without loops through the holder jaws. Keep the needle curved, with a clearly visible free pointed tip. Reposition the reflected gingival flap partly toward its adjacent gingival margin so there are two believable neighboring tissue edges and one clear needle entry/exit route; the needle tip is just before entry, not passing through a tooth, bone or empty space. Use a clean non-graphic anatomical teaching-model appearance with modest soft pink/red tissue rather than a large dark bloody open field. No bleeding, no extra needle or tools, no preformed knot, no immediate closed/healed result, no regenerating tissue. No text, labels, logos or watermark. Exact 16:9, 4K, highest detail."
+          },
+          "providerParametersBasis": "Submission intent parameters; provider batch receipt confirms exact job and index",
+          "batchReceipt": {
+            "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/receipts/batch-repair-images-02.json",
+            "sha256": "f383d81d2a37bd820848c20bd1b9f04169373081481172bde414e2d74b8157b4"
+          },
+          "generationReceipt": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/receipts/gum-surgery-image-02-receipt.json",
+          "generationReceiptSHA256": "330f32fa3d6a5053f997c530bfc7ce6beb364078aba68c7f94924b74a8c37869",
+          "submissionIntent": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/receipts/gum-surgery-image-02-intent.json",
+          "submissionIntentSHA256": "0cae7c47ed4822fc4ecfcdc83abc1f3f95bb47a542798f0b2ecf91815db31f62",
+          "downloadReceipt": null
+        },
+        "video": {
+          "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/media/gum-surgery/40f9c3c1-6b01-4fcf-804d-b023326c8641.mp4",
+          "sha256": "cfcc6f218b95c6840340ebba520875f468adb0619960e7b56a57470683accd20",
+          "sourceJob": "40f9c3c1-6b01-4fcf-804d-b023326c8641",
+          "provider": "higgsfield",
+          "model": "kling3_0",
+          "generatedAt": "2026-10-18T12:36:16.422Z",
+          "generatedAtBasis": "Local submission receipt saved timestamp; provider exact generation time unavailable",
+          "providerParameters": {
+            "prompt": "Create one uninterrupted four-second 4K 16:9 silent macro educational-model shot, starting exactly from the attached original START. Locked camera, focus and lighting. Preserve exact anatomy, textures, tooth count, hands and tool identity. Animate physical objects continuously in every interval; no crossfade, hard cut, image replacement, morphing, camera-only movement, text, symbols, logos or watermark. Do not force a fully completed treatment endpoint. Keep the upper-right needle, needle-holder and blue suture stationary outside the tissue throughout. The lower-left spoon-shaped retractor stays under and in continuous physical contact with the SAME existing lower reflected flap. Between0.25 and3.5 seconds, lift the tool tip upward slowly by roughly one third of the exposed field height, visibly carrying the attached free flap edge with it. The existing lower pink flap folds upward as one finite sheet, progressively covering only the lower third of the field. Its free edge and side incisions remain clearly visible and track continuously; the central upper two thirds of the original bone stay exposed and unchanged. At3.5-4 seconds the tool supports that partially lifted position. Do not fill the entire field, generate new pink tissue, erase bone, seal wound edges, form sutures or move the needle. Tissue texture must travel with the existing flap, never appear by a wipe or dissolve.",
+            "aspect_ratio": "16:9",
+            "duration": 4,
+            "reference_images": [
+              "97e903a3-7380-425b-a5c7-a0377dcdf57c"
+            ],
+            "mode": "4k",
+            "sound": "off"
+          },
+          "providerParametersBasis": "Provider response parameters",
+          "batchReceipt": null,
+          "generationReceipt": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/receipts/gum-surgery-video-v2-retry02-receipt.json",
+          "generationReceiptSHA256": "12cc86b8fc8ebd190cca21528bc79ed4e2488e25d73831bd248ed5892a9a4353",
+          "submissionIntent": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/receipts/gum-surgery-video-v2-retry02-intent.json",
+          "submissionIntentSHA256": "01f458be8e6df917d2f3ae713210d4422669a80adb914ec85dea70df65a035cf",
+          "downloadReceipt": {
+            "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/ops-state/media/40f9c3c1-6b01-4fcf-804d-b023326c8641.json",
+            "sha256": "8c19354206f5d905eb6c08af55a2f242f3ba9e3d122e720292b6542b28561d59"
+          }
+        },
+        "endImage": null,
+        "referenceEvidence": {
+          "startJob": "97e903a3-7380-425b-a5c7-a0377dcdf57c",
+          "endJob": null,
+          "referenceMode": "start-only",
+          "expectedEndImageProvided": false
+        },
+        "sampleReviewEvidence": null,
+        "mediaMetadata": {
+          "image": {
+            "width": 3840,
+            "height": 2160,
+            "codec": "png",
+            "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/media/gum-surgery/97e903a3-7380-425b-a5c7-a0377dcdf57c.png",
+            "bytes": 10683892,
+            "sha256": "3799f73d29c34b08ad6d61dedadbd0c9589339f9be56d5d8d3a3092eccfce3c0"
+          },
+          "video": {
+            "width": 3840,
+            "height": 2160,
+            "duration": 4.041666666666666,
+            "durationSource": "stream.duration_ts*time_base",
+            "fps": 24,
+            "codec": "h264",
+            "frameCount": 97,
+            "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/media/gum-surgery/40f9c3c1-6b01-4fcf-804d-b023326c8641.mp4",
+            "bytes": 13999758,
+            "sha256": "cfcc6f218b95c6840340ebba520875f468adb0619960e7b56a57470683accd20"
+          }
+        },
+        "method": "One provider-generated clip sampled at explicit original indices round(i*(sourceFrameCount-1)/(outputFrameCount-1)); first and last original frames retained. A one-extra-frame source omits one interior frame. No crossfade, concatenation, optical-flow interpolation or synthetic still chapter. Original per-frame cadence is not asserted unchanged.",
+        "durationSeconds": 4,
+        "fps": 24,
+        "frameCount": 96,
+        "chapters": [
+          {
+            "atSeconds": 0,
+            "label": "시작 장면"
+          },
+          {
+            "atSeconds": 1.3333333333333333,
+            "label": "연속 시간 ⅓"
+          },
+          {
+            "atSeconds": 2.6666666666666665,
+            "label": "연속 시간 ⅔"
+          },
+          {
+            "atSeconds": 4,
+            "label": "마지막 장면"
+          }
+        ],
+        "declaredSingleShot": {
+          "continuous": true,
+          "cutCount": 0,
+          "durationSeconds": 4,
+          "declarationBasis": "Generation prompt constraint only; actual continuity awaits independent review"
+        },
+        "endpointFrameSelection": {
+          "desktop": {
+            "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/exports/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/frame-selection.json",
+            "sha256": "997fb0ba28f377f9189421a57779a0db71459665a686b64c5e35a5ad0bb95152"
+          },
+          "mobile": {
+            "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/exports/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/frame-selection.json",
+            "sha256": "997fb0ba28f377f9189421a57779a0db71459665a686b64c5e35a5ad0bb95152"
+          }
+        },
+        "clinicalApproval": false,
+        "userQualityApproval": false
+      },
+      "technicalOutput": {
+        "desktopSHA": "6bbd5fb53a7036617be0e07df25c580f96a5119e85ae7bd3119f3f49a9ca4029",
+        "mobileSHA": "98cbdeb5aae23b2eb8a9c442e28eadcee377ba8c9e98032c03cdc0a561362ffe",
+        "poster": {
+          "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/poster.jpg",
+          "width": 1200,
+          "height": 630,
+          "bytes": 206838,
+          "sha256": "fd781bedb4e036d0e9748f7a7ff05bbf9d672fdf68ced5490331e62094b9ac30",
+          "encoding": {
+            "codec": "mjpeg",
+            "q": 2,
+            "fit": "contain",
+            "padding": "#f7f7f0"
+          }
+        },
+        "literalMotionCheck": {
+          "desktop": {
+            "distinctFrames": 96,
+            "minimumDistinct": 72,
+            "quarterDistinctFrames": [
+              24,
+              24,
+              24,
+              24
+            ],
+            "minimumPerQuarter": 18,
+            "longestIdenticalRun": 1,
+            "passed": true,
+            "note": "Encoded-frame diversity only; not motion quality or clinical approval"
+          },
+          "mobile": {
+            "distinctFrames": 96,
+            "minimumDistinct": 72,
+            "quarterDistinctFrames": [
+              24,
+              24,
+              24,
+              24
+            ],
+            "minimumPerQuarter": 18,
+            "longestIdenticalRun": 1,
+            "passed": true,
+            "note": "Encoded-frame diversity only; not motion quality or clinical approval"
+          }
+        },
+        "packaging": {
+          "format": "webp-chunks-v1",
+          "desktop": {
+            "format": "webp-chunks-v1",
+            "framesPerChunk": 8,
+            "chunkCount": 12,
+            "count": 96,
+            "publishedFiles": 12,
+            "publishedBytes": 7314592,
+            "chunks": [
+              {
+                "index": 0,
+                "firstFrame": 0,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0001.bdseq",
+                "bytes": 696012,
+                "sha256": "459a4cfd9e5dc28c793e827c6507b8826880da5946578ae26b83c9ca08d4b024",
+                "frameSHA256s": [
+                  "d4fdc672e1f411e7950f7699d2ee88e44a3724949cc77a8aa5912767cfd81415",
+                  "f67d40d345ee1789e77da7642ecd640c3121fd9a319a431610700a9bc6a0b279",
+                  "3aa5ae7d7eee05ca5bec9bb1c6024b803883e4978b715f2c2b395276d69d8d38",
+                  "898c2829534e503a3217aa9acd3d9366799e3c871fb6c6d0434c7fb9389f176c",
+                  "c003b606ddde14a0c12648efa162012eefe31793abed6e92229fb314a7754c1a",
+                  "dea055be52b9e39ade8eaeaf3371588b5547486a6df9c545b90a71a0338a5a78",
+                  "72cea542596ccce6cc697e1bcd9bfacbd761aebc074750d4fc5cb3d0e73c902f",
+                  "5962bd57e800f507d1a19ff666d6a0a549c6e4fd8e003f2cba22ea900c470750"
+                ]
+              },
+              {
+                "index": 1,
+                "firstFrame": 8,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0002.bdseq",
+                "bytes": 662614,
+                "sha256": "4429c2083d0bc3013cb7e0953577f0a610a774a0dd5b5f3a1f6b544e8eeb9376",
+                "frameSHA256s": [
+                  "ee7634d35498948841623a0cb2959e8497886f80d1b7909c3cae9f32a32a52ae",
+                  "358b8b0b3e49c80d901853d973b32c508381437da9bdb5a1e04fb2cffb057a6b",
+                  "ee4b00ca7b4e7c9e3499f3deb0f999f0cb0d6d0f6f231d18981188ecdd1ad9cf",
+                  "5b394cc2515f3e124e780b348014d633833fe0719e7b6172ac79f646ad98b0bc",
+                  "82060604bb1a61018332b0e1de1b313eb2bbca673b388a184fb55ad7886e0b75",
+                  "3be3515182fee92ec8c7680566472670bb0dcba60f66e7ba6cc91a5b98f4ccb9",
+                  "d0af2fcb19f3caa1d037079e289773143e159100841b7a1a0528e608e52d830c",
+                  "dafccd919bd88bf66eaf512973b21a293bac45d30f8cc780e92009f2f53db078"
+                ]
+              },
+              {
+                "index": 2,
+                "firstFrame": 16,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0003.bdseq",
+                "bytes": 647218,
+                "sha256": "1d5944d9b4fbc02ebf18be2d783da554c252607a118aabea39664211c6bf7806",
+                "frameSHA256s": [
+                  "5eab9978d171d3194b762946c6fcb35a6cc42f6270058c640b14197f33a9f460",
+                  "5efe48d0c675d4e9643904fede9363857161a3d8e2eaca5bdcf45b887cfa55f3",
+                  "63d4534a42b74b67f1b7f8ec988258ee44809565392d7a7fd419fa0244717f35",
+                  "b72c3ea53067f90872dfd64f3336c9f5f052221330ab681ade16539da1c79b31",
+                  "6c8d136a20ddc63d145291febf5064db7a0eceaea9f5546e60deefff688f64ad",
+                  "10b77e318f98b68994f3225f6b6706f68b182434ea77602c4c15166dc4638f09",
+                  "2800724bbff4560f6f4d982b5821d9d9812e566b79c6a427c887cbeb332f6ee3",
+                  "a326355892ad2eb50d55a3afba8933a96fe82c85b0413bd7c3bf4ce80db9918e"
+                ]
+              },
+              {
+                "index": 3,
+                "firstFrame": 24,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0004.bdseq",
+                "bytes": 643978,
+                "sha256": "0c60be21aae8c95a9342c80d652fb63863a0a2a342ab6b7a9555d568f59216e9",
+                "frameSHA256s": [
+                  "315c09d31cb25c776b1b1030ff4d8814b7d61a2be7d9820d18fd262669b2081d",
+                  "78c339446e4f8efd0b16d4c8e0e8c3653cce84bbba7b58e7b2f489fb02e40f2a",
+                  "3ee74fa04bcd33e2ec9cebbb441b2485f409a26a5dd6ffa99d9d2c9163b12cc3",
+                  "0d4722981a4b6f0b68335e69071f926222ecae396fe676e79f5063beabe09a57",
+                  "91d914fbf9a5b6980e70d31cea40501240a13e8b33e1eb8838784020dd1b5e1f",
+                  "03439ac40f3a3360e8b3c8d46591ddfddb6020b64e7020a3d9dd0d7c261b19db",
+                  "5c1b5e617734e2f84c4fcb4a8a0a5bcd79d6921953dcfffcdac7dbc1e13e9db9",
+                  "1eaea8b344e53139914e6ed6265e11c040d87d0bdfba4e6995df54650fa25751"
+                ]
+              },
+              {
+                "index": 4,
+                "firstFrame": 32,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0005.bdseq",
+                "bytes": 614026,
+                "sha256": "3fd6e3ad3c57337f11f957c3857681de22ac4a8d40dbec22b664bf77f89e9daa",
+                "frameSHA256s": [
+                  "1bf3326a0748aa94907e8680069ba3ba5c3f007ce37375e1286370006fa61b64",
+                  "7207fd52e56680a495ac87c826c5ab2bef03bfe4191407c08e1fc16e720f1075",
+                  "0470e1fae59d38c5506228ed73b382269ebfd5ad41fa324bff902405428a8092",
+                  "2489b8fba627e3105163c5ae539e619341a75ca4616ec947e785d15dc8f51da1",
+                  "76adef06cb41de42df943034ad8a0cd0da23d92bb8f8185afa07b42830f20a67",
+                  "6350a58995abfd687c8d869a830a04cc84635ebb63b64acad67f2fe4df944043",
+                  "1c5191341e4db945928da1e998ef74776726171ffaad237fdd43fe2d78a8ff9b",
+                  "92824e0500f910f97a63dfa9c707ae8e30f921d182329f2538e2391a98329663"
+                ]
+              },
+              {
+                "index": 5,
+                "firstFrame": 40,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0006.bdseq",
+                "bytes": 601050,
+                "sha256": "c6a6b1093077c924d349e3f6d74433518df9965ad25d172cc00d37bc81b977a2",
+                "frameSHA256s": [
+                  "e72f126140c4ae1dffb0c76084e766654d37084d8cdc914389badb37f30b93b9",
+                  "3596337ea3fad8f129a7400613da7ae7d36a8177978c1ff6f3d74a0d62d9fd43",
+                  "59b25e630cc97aedc2f0a9df3988c2354f6d00f7dbad3f70e1f4a3d07dedf81e",
+                  "735fe0d8763d965b4e011dc4952d171be9d5375010ff53b4a8e78c171637a9c5",
+                  "3d605f5bb7b16ad5ee3b0e679cb617320504ca2db19dbd7b710a868a3c3f41bb",
+                  "2d283f7ffcb476a5539d217237080a53af8cebe6a5c8413b979e89ec3d5d24b7",
+                  "a122d6fcb3eb1a7724a383f4241fcd29e9a08d714c7ec37a28aa459efcca9134",
+                  "0fd8fec70c9faf1cb165a976ef13dbbb1db857eeaf5f3d098e3b7117a594968a"
+                ]
+              },
+              {
+                "index": 6,
+                "firstFrame": 48,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0007.bdseq",
+                "bytes": 595620,
+                "sha256": "6a8acf1ed56b87392aef0ca0f4a92a0dd4fc9728eb14747db0698efa40b37169",
+                "frameSHA256s": [
+                  "4c0d4805f32db4c5a73700e3b2a710420da40e2e0fbd934ca2a56bd43e79b640",
+                  "810d3573d66a7a0f432574a857b4eba4dcbf599a9881ad15925c701fc5b32184",
+                  "7481bde21845fb7d6523aaf2af48a1bdafe2ca1692c28dbb2937d16764bce93c",
+                  "a59b6469e9458235b436a74bc79fbddde1ecad386c7b9f77f181de349f45a52a",
+                  "4ea84912b0c0b78e8ed0edfdbab37f92aab0909f3eb793201aac5f0636adcad8",
+                  "6707abb800a1a00fb3de9eb88295989d4c00a39b178a44018ad3c344f32c79f9",
+                  "2c94fd8dee2630b0e3797bebd35a83b5047d91f31b50148e76249c4a41a42351",
+                  "e94f4a39904c97e989f9ab475c3b591de03f7321642d610a376eb0d65889f5fb"
+                ]
+              },
+              {
+                "index": 7,
+                "firstFrame": 56,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0008.bdseq",
+                "bytes": 556752,
+                "sha256": "77b3038b583e05784a00a3f5e51d17d04f62f2a29d6046260eecde62fe633353",
+                "frameSHA256s": [
+                  "e484bc718b5ad712d6dd325253d1176e6e1e6de01d2da3fb2f578a12b47512bb",
+                  "b8211567b4e4d192884ae2f00f88ffb53a8e235613e00d5d821485668507c024",
+                  "a47d506444373e6e0c0bd7c1737ee40242b72bc8b8ed997e1491add5fab51201",
+                  "16b342494d8c5708ca27a380d37b6f4c66787639e75347ccc5fb72ca2472c56c",
+                  "b85ca1c8ec1175d199189848b5dbf8e769952e1339896b8cbed4828797ecf639",
+                  "85229dad2c13e0ed13d5fe84fe0dc20dd0a4b6fd94895a369f48df4a0ab7a57a",
+                  "805d33bef68de39bf7c18e5da4bda84af8b3cf69f028d378852074893989e856",
+                  "087745607bb3712e4c61bd3de169ba094d1d0094eeb5cecb905859b00cad01b7"
+                ]
+              },
+              {
+                "index": 8,
+                "firstFrame": 64,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0009.bdseq",
+                "bytes": 545346,
+                "sha256": "07103406cdbde587ba78ff2f64817fddcb02ae50e8545aa8d90aff6a6a96cc0f",
+                "frameSHA256s": [
+                  "b17f64f017da2147d377e69e2840d29657385372374c5723536eacf8aa6c9110",
+                  "25d6c22a33ed6e8a420f507c3e29121138cdabe47773c6c7d95d37b9e983fae7",
+                  "cafdc82a1a0eae15a41ed6cd0eaf36c8703197eba5182d3ca086bb13bbd95953",
+                  "135cdb67d4258a0fbd614b79b606aefb492ae0704cf89ff98e923b69fc89eec5",
+                  "70a076cae31d45e37a915d177f873b9d7707d2ff4d12334696702319c8c042d6",
+                  "bab1df1e773cb473fa808cfce65edbafe595bfe4d6a8fd64af20a2b7640fa95e",
+                  "4b216f90da49d396a3060a9c462e5d3d0cdcf6cd8f1dd12b8099c8fe052453f8",
+                  "c21e417b17e13a8823e2a7c805ed1344d3cdee58620516b263ff871236408c34"
+                ]
+              },
+              {
+                "index": 9,
+                "firstFrame": 72,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0010.bdseq",
+                "bytes": 569536,
+                "sha256": "264e17e259efdf947cac31ec736f7805becbd4240090f6dc12b3be049b45c6d5",
+                "frameSHA256s": [
+                  "4334fe4c61abb669f410e700c2a6b8c09a669d48eb74305b255c8c85f53dff43",
+                  "652b7fa1bf3fee5ebc89bf58d8168f42fdee6bcb696e3f7d1a2b6cf963922ba5",
+                  "39c83934aa9ff0206e225cd40e537ceea2c7365f0ace339857e4d1d6d5d73c45",
+                  "b43bccb4b43e056f314aceb3631336c21ed105639fb5fa8ad417729bca114e0c",
+                  "f0a6c4b310bab5c6d8ff532b2ddbfa157b12f58a643e3b266cdf10525b33481b",
+                  "fc6c6a4da362fedeeca0d36b81c18ab60e682a5604b07b0bf1a2f8d36983d418",
+                  "3d3e0c9e2a3b43d985f102053db053051aad04ede35548e447136d496a30fb8c",
+                  "e4e54430313ef3cb29797b46125ca215ec5e5a033dd669fa57dd7e62b4ed6979"
+                ]
+              },
+              {
+                "index": 10,
+                "firstFrame": 80,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0011.bdseq",
+                "bytes": 581894,
+                "sha256": "0086df595bb6c9d181a36ee0a6070529d8db1a2245b7519d99026fa659dbc3fe",
+                "frameSHA256s": [
+                  "46c71308bb96f326dc4e24f2a48eb45267348b5ca2f822c02817290e94eb0dfc",
+                  "92a6b62c2334696c06df33b5fb35be7121fc5d3aadd0200fa8dc0c658e71834b",
+                  "2208915ea36d872c3fa991ca20d84d4b990ff53582d7fcc6e35c5551cc2adfd6",
+                  "0ed9272116dd37332420c3c57d46f2fc4161c628411e031ccec6602768f5449c",
+                  "410c50f21ec0f7540ee3695c5679d96c4b5649374c7a2d22184fb62cb9796c2f",
+                  "5c51d9b292434b1ea70339d98d5383e9bd4b5c6a19f4e756171a70c1bb0d56d6",
+                  "8103c6adf2cce931d820eb58dccacfc20cf2f5f43613f7f90c6d791782b04826",
+                  "041d18bbfb25101f564630bf4949aa196724923a0a73618e676b987a2f69129a"
+                ]
+              },
+              {
+                "index": 11,
+                "firstFrame": 88,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/desktop/chunk_0012.bdseq",
+                "bytes": 600546,
+                "sha256": "13335d8562ba9e814f5acd4a87f83e4b6a8696cdf014064a66748649b2c5700d",
+                "frameSHA256s": [
+                  "2f2e9c7a2c73d1f3ae518c7b7eb95817993c0ce97dadf533e391859843f8ce50",
+                  "8cbce5a8c487304ebd7ae2941c2c2fcc61c0d0d0f1df9e83a3ec4fffb0ea65ef",
+                  "b98c320594011cc154129c3638bffac5178e56eba08707f1130aacbb9b7ee346",
+                  "6e6e737bec52a17d86560e116774f8a857aa6bda7020349e521d01f271696aa5",
+                  "73bfaa10b631c6c38359c163e73998ad9a44d68deaeedd66b3207ffcf10993b3",
+                  "03b6e262e8111676a88c40a8371135bb74be83d0ebf77a20c33b02bd28b5e66e",
+                  "aede0ae4cd59ee8d8f6c2c688be662f0f4e56f0b9374e1a576682da400fc6ab0",
+                  "7d7b1b093d0404e6fddeba8b1daa16ec45110bb8f1c5ed3ed6fb4000d4ee52ca"
+                ]
+              }
+            ]
+          },
+          "mobile": {
+            "format": "webp-chunks-v1",
+            "framesPerChunk": 8,
+            "chunkCount": 12,
+            "count": 96,
+            "publishedFiles": 12,
+            "publishedBytes": 3526796,
+            "chunks": [
+              {
+                "index": 0,
+                "firstFrame": 0,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0001.bdseq",
+                "bytes": 318724,
+                "sha256": "f99b416a84ca0c68a861451a68961aed1bfbe6c1183378afcc22f4fc758749fc",
+                "frameSHA256s": [
+                  "a4987b5a27e7abad2fc65f72633edd2e2124c167c1d06aa417468952c6b8b272",
+                  "ad00c27a180bb1048e243ad882ab6c4cf31057821c6ffb77cbd4cc0ff3e860a0",
+                  "660a23dff07d797805a21c7ab786ac235fa693bf28f2f267b227bbe603836d58",
+                  "7f50a3be042823a5b12e6321968bc8f9b5aa06e8e4134c216e030774f9f01441",
+                  "f7cc23ca4674fe8566dabae48abfa4895fd33b7020323b5060d72d28d95487b3",
+                  "c03d4f9dc671ddc398fac36ef891bdafe8a5b6690ca1eb355d11b63b2df32280",
+                  "da2d3fe6b903bdf663da53d3f34c2e7839562cd5b9e88fc22cafed44ffc09d13",
+                  "a4054a85c1f16f60069f2c76f86de458c07282d3385aeba4cd9cc564104917df"
+                ]
+              },
+              {
+                "index": 1,
+                "firstFrame": 8,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0002.bdseq",
+                "bytes": 310800,
+                "sha256": "8741e894116e41e44ceee238049e23cca3ae6a028973725604500115240d6dea",
+                "frameSHA256s": [
+                  "5e607ff3f9e5aea2a4234d81257deb9982dbeab38ad0843dbad1caab47789963",
+                  "43c00bb5b73c67e945f11e8429e0900e0139dc7d9b25e480535b830d0eafb45b",
+                  "3c8b667e7fcae010d8a92d1bb469822850cc399c74fe55c8ef635ecb5cae3329",
+                  "2ca4c3568223e579f72576e55313b7ca54860fe512c79e59844c45ae146ad418",
+                  "ce54f37a7fadce11678f81f9606e83c854e615dbacb61a9c2e5f2527dec78c25",
+                  "7fb927546bbdfbe80fb8836839c42e9418a002bb59d797565f2ad489a56d4a76",
+                  "79fd3932303fe4a521f554b3ed9bc0264bf89f9d9c1f033a798b3208dc43c14e",
+                  "c2d66fb69b38302249f2cc46b50dc7956984342b5ea059a817794474f4ac6b09"
+                ]
+              },
+              {
+                "index": 2,
+                "firstFrame": 16,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0003.bdseq",
+                "bytes": 308464,
+                "sha256": "3916142c49360bf7993ffb430bb5cff9ea1b7fc8454a34a354859d308bd4eac3",
+                "frameSHA256s": [
+                  "816639dc0cceb6ad93a63faabfd77893f33ec0d78f647b3a8839999d028f37a6",
+                  "31a4907c0869d9a211d34ccb594df239aa93a35a841ae70ca95d394b1a1185ac",
+                  "9b41e2981da592bfaa846c9b84fcb8ba2e0b93fe4a347f8fcf906198c7bc81c6",
+                  "17975f16861956b04e60e0f075702c73a2d2c03627ed720d857606afa7f6face",
+                  "e3b043cab6f9dbd4bf8530915379ebf1c3c11850c22fddd1e787cf422d6c19af",
+                  "f93fadd6b89a8d19f634c402d31655dbdedc4a7699c529b77cc3589406ddd638",
+                  "0aa7a158119d00e084343a40d20fd02acc60126b71ded459b4e5c6d342f02f1e",
+                  "453040c86176d7db556a73bd1e8844e7b2ccdf6e4174d9cb520a9e1527f70693"
+                ]
+              },
+              {
+                "index": 3,
+                "firstFrame": 24,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0004.bdseq",
+                "bytes": 308332,
+                "sha256": "f94a8b9d5d124782a438422080bc8e9a6ebe027c35e8bdb13d2d4e1bdc18ef1f",
+                "frameSHA256s": [
+                  "4d3043bfc48de565e52d8907ccec3457156fb7330806ffa23328548f7e3e5155",
+                  "7a084fb890be6fcdd13475fd1ba6f610a8a697bccc5ce4d3eae7e947bc6dc447",
+                  "ed80d0ef0ab185a297571cf15724011ef6908f2cf6df014b8e2fae558888d684",
+                  "4af64284480e373c589bd36e07928f5f98b73ef70cd3027deade58edc88b5d37",
+                  "89f0ee5ee165a96210bc83c8f6f65a612eaee2f4eb206ec75dfd842e5bb67580",
+                  "d19aaab42379a670aa6d32929430030e0f4fb54a84ffd140a7d80b44e75a87a6",
+                  "726fda08b561c9f609921a06468d3c65159229c877417364fda9eb4d3b3ee61f",
+                  "c2a40146b9777ed6e62c112296ef336159444a603972e8a3a80c209fa9acff9c"
+                ]
+              },
+              {
+                "index": 4,
+                "firstFrame": 32,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0005.bdseq",
+                "bytes": 296102,
+                "sha256": "9d3fd9c38ebaf1c9da81fd519a1ad912a419f59b4ded1a259d29d0acd552a6f1",
+                "frameSHA256s": [
+                  "bc6f1facdd787ef32c4b363dd6133c8fee6a9f9a2b0b4ecf27874da0150b11f1",
+                  "8876e3abb815100137ff895a637960b6febda6aa01940a55d322301367d73b5a",
+                  "7131fb5d9365b8697465dc647ad098710fdc0315d2d82540243b82d8cf057a87",
+                  "3887b0b77912a9f3db12e6187594c5b4b4f685350d23372f109bac40f255e003",
+                  "905c11c46df76851f04ffbac36e9a401ca40e8d541e73e40e71de491cb99ca76",
+                  "9050dd9a66afe2eeaf2109536410ba6f8da836d87b135dfb769e51b7cf83ff12",
+                  "c8c2d94b6ef9f0499b95bea28a71f908d42449b13c8c35f1a4c0794dcb3017fa",
+                  "dd2f150860ccf0b76dac94ce05ea9f2f0fded53e8befe4bf383dad51b44d667a"
+                ]
+              },
+              {
+                "index": 5,
+                "firstFrame": 40,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0006.bdseq",
+                "bytes": 292004,
+                "sha256": "d675af204b3c8c24691d08df925f0aa9c92a43cf93c57460c330581edfc529e2",
+                "frameSHA256s": [
+                  "2c15b637f00aab6fb075b02699685a40019972acbfa1afc49927d3b0f56f12a7",
+                  "e5dcb588afeb105cac1a3cdb105f5a3478b151b4c281503d42ab158c54d8a876",
+                  "4a767e923ea31dcef1a98a972a635c0daf4a3a47daa003f2bcef507f3e3c7129",
+                  "be89fe39a2f952cdfd41ded664ec56f548ef6bccb7d9876459db71ec76dfd838",
+                  "cb16c7b21c54f687d54a5b2fba4788a4bcfd03bf1c8dc7ec9b56096cd82081b8",
+                  "d784a0b03d8a3188a76dc731be12c63c2236a6ea44b5f832b6dcd70c47ca65a1",
+                  "cf4fe49700932191589a5f9b47896febd4de2122d2bd92591fde45062588079d",
+                  "6a22d85c7924fde0e89c93027dabbca0f860e1589663180299e64b2507709c19"
+                ]
+              },
+              {
+                "index": 6,
+                "firstFrame": 48,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0007.bdseq",
+                "bytes": 291270,
+                "sha256": "f3b6672a6bab7b4f61417d62d0288ea9da6d1c37e1c95b89ea37ede20cedff8e",
+                "frameSHA256s": [
+                  "eebdc3d2ed1efbc8ccbdad611d6f9d9b3c75162f2efba51727eb1256e3d0eb59",
+                  "d5c3e4ccf82b34cd637d70f19bb483b1f36e5b3d34c74640bb5b381f8cb7bf2b",
+                  "20033eec0a6a08a31df9114ddd6e45d5913c0ffa3ce9dd8ea7617e48aabfdefe",
+                  "de8cc6225c0601abb0f1b7baa5112092214352ff0be5066bde7fcaa67472af30",
+                  "517ce0242cdb77692d903da2d712fa7e6c16ca566a486dee1e16eef216699990",
+                  "aa10cbeef4742890ba82ebb3233bc6358b6a7c56898cd0d9e349874754fa33c2",
+                  "d6b6641c8883ea1c9e66b416d28715fc623c1b40681b12d50f1a1119090a041a",
+                  "8f8830e5799832f04d9c86fc6ac66bb1702f04a7f19a675bbc4d028791b3acd3"
+                ]
+              },
+              {
+                "index": 7,
+                "firstFrame": 56,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0008.bdseq",
+                "bytes": 276768,
+                "sha256": "386b19d966d1be9e47799b310d6263a68c10c5a3af1b1c5ccfb31a6c2cacf4d2",
+                "frameSHA256s": [
+                  "0b68af58161ced0e135516ab08c18935f750e8ecfb6aa1b231d0095436085a2f",
+                  "26f4dcfaf757ddb0d4e70b5a0339200a3043c6d9d6b94a899ec6ee98e4c27f2c",
+                  "1d674211de571d047c48505357c75feeb6b0c3ba66e78d6905996f652c7350ae",
+                  "ff40c5b7dee49cea3e3dd7342311b157dd7b6906879103c2a49230112dc9bae7",
+                  "96d980151094a28f2881a6890353d5946dbec4c54fb40e7ae468fdf0c7a3934e",
+                  "b407496536cb9f973027b9a43de4d8ae385d62df288519dca272c51bf34292c9",
+                  "ba47df003b8891980f472c7f998ff2c80849f82294dfc313d1c3bc04258e572a",
+                  "d595c149a048db2e53ed2596d0f21c3209ab649848dc2215e8b415e9952ffc73"
+                ]
+              },
+              {
+                "index": 8,
+                "firstFrame": 64,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0009.bdseq",
+                "bytes": 270714,
+                "sha256": "c23a39953c2bdd74da5b93e412ecb6f7ed34902ef405691ac478a3fa4d545713",
+                "frameSHA256s": [
+                  "2ed88b9af39e245b4030111fb90ae867794f385074c82d6599d6935ff6bd8be7",
+                  "5591c92bb7c81be0fc086085a7889308144e034863663674d80a065537bee492",
+                  "2befbdfd107da5f148eee4f83d871839704524d3f48e149e9de6666ef8ba5b92",
+                  "c3138cd336221ebd4138d1f4237f6b61608e05ac11bc6a384d8da522ba6c07b6",
+                  "3c262f075b9674ee6a73d4e4b28a8d8119343d16effe453274e5d6292ceb7a2d",
+                  "f3385f32092245f4e24e556087a5fd38628ff22a81c871d39e078770c7aaa61c",
+                  "5d365c8d3d393d5c5825f9d5b69af4fb81f197feb905c59c05a60142510a9fc2",
+                  "5fa53383202502fce85fb68228369dcf5101c9da52e9f492cefcab1f77a82dde"
+                ]
+              },
+              {
+                "index": 9,
+                "firstFrame": 72,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0010.bdseq",
+                "bytes": 279398,
+                "sha256": "a43b0210512b55d22d63eb2038f7245e36a462fd4fd367cf6a851e5d5b5415ee",
+                "frameSHA256s": [
+                  "0147f2256a69a143044bdd2fe8886fd75ae2652af6e88eeb373330059b5b4631",
+                  "810359844ed98defd1e2706c2b08359d66caab078b9effa679099e8f617330e2",
+                  "b993bfb065264abb1ca8af4079f79867873ae8c916e9c345a1a24c29978eda2e",
+                  "f82c4972b8e9effd4358161fa402f0eadb848e9edfb39fa83623b91308b212c3",
+                  "e73002029c5f1c76671a3a35ca0ed50387033f79a9b713ed3651bd781bc5bf9d",
+                  "6de12b82162d495637af391b3291ff07fcc59f5b46bb1c172c189f35c675768c",
+                  "6348e90c10c9540307a19225cbdf2f77e5896d7c350334e4ccd42b2120c6d1d2",
+                  "915f9dc3c5bc2ec3ef7270827d1a6292e99e6fb0e8bb6305be83c9ea873eb859"
+                ]
+              },
+              {
+                "index": 10,
+                "firstFrame": 80,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0011.bdseq",
+                "bytes": 284136,
+                "sha256": "af4f2038c5dd13958bea785e33a757f7f3ccf69a29c4daa4b35fb1462928abe0",
+                "frameSHA256s": [
+                  "28f30b23c15be6570694ae2c1754bf00a4971cec9084705515846091e2a251ba",
+                  "da0276f567215c22cbeaaf98c07524a39e286da2aba8f40a113912ad41288032",
+                  "e239f332030ca841680189fe8f38e63f6e5e66562eb1855cb3b7e51cf59dbc1a",
+                  "9a49979671745e46c4278dbeaaa38da08beb03022a8a91ae3ce616ad592f7fdd",
+                  "07b5c9f7b784975e7ad6570f96ddd1e8a008e1a1ef34ba5dde3cb727a84f63d7",
+                  "0f30be44f8f46e7e42bf83294146bd7fa19672050c7579c1089f59f4c2829433",
+                  "2d7ce8dab2b9fd22537e45efd2bf83afc84c2d95171ab580f09dbc9123be34cf",
+                  "ec3cf488e8510314c44b2a41843473a52b90ec161e7c0b9edbd7f7a4360ae3ab"
+                ]
+              },
+              {
+                "index": 11,
+                "firstFrame": 88,
+                "count": 8,
+                "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/pipeline/packed/remaining30-v2-gum-retry02-actual01/gum-surgery/c7a78f01b90581ac/mobile/chunk_0012.bdseq",
+                "bytes": 290084,
+                "sha256": "741e00790d960af011c377e8718cf138d501a7796c0f0b935f676b8fe574a93d",
+                "frameSHA256s": [
+                  "4a6c7e335617669e0a26d41176df6de691a85517072f4c92caab4951c2e2f38d",
+                  "ee7abcd4beae236412a33bf15c6b9da329e4ff5791cc6fe4bd520ec6a5bf4b25",
+                  "ded8a0bb9cd2bc570c3db48bdc67e71be8e80d23cd48098be594376e7ddfb74f",
+                  "2d7d472cb45883502bc98d47c49ef7c8889cda8cc6726b29dfb5dd43e0297c98",
+                  "c7bd5345a0f287a888591f682bfcbf902823acba74025e07851c13ee0ee78012",
+                  "f27ecb8096be85a5fcb4554a9ad0efad3b41912865405f7ed3e11c66a2b54242",
+                  "b53e26701995d551304e47f1f606c5b8e96be1bff450c41b483ac17660581855",
+                  "1c3bdaadf44598028b2d301a99e8bd243fabe7e08a947f7dd4dcf2028eaf62cb"
+                ]
+              }
+            ]
+          },
+          "reencoded": false
+        }
+      },
+      "productionAccepted": true,
+      "review": {
+        "version": 1,
+        "slug": "gum-surgery",
+        "source": {
+          "image": {
+            "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/media/gum-surgery/97e903a3-7380-425b-a5c7-a0377dcdf57c.png",
+            "sha256": "3799f73d29c34b08ad6d61dedadbd0c9589339f9be56d5d8d3a3092eccfce3c0",
+            "sourceJob": "97e903a3-7380-425b-a5c7-a0377dcdf57c",
+            "provider": "higgsfield",
+            "model": "gpt_image_2_5",
+            "generatedAt": "2026-10-18T08:37:22.570Z",
+            "generatedAtBasis": "Submission intent timestamp; provider exact completion time unavailable",
+            "providerParameters": {
+              "model": "gpt_image_2_5",
+              "variant": "flare",
+              "quality": "max",
+              "resolution": "4k",
+              "aspect_ratio": "16:9",
+              "count": 1,
+              "medias": [
+                {
+                  "role": "image",
+                  "value": "08219e85-6b26-478f-9830-ebde690cc2fe"
+                }
+              ],
+              "prompt": "Edit the supplied 3840x2160 periodontal educational illustration. Preserve tooth count and placement, existing surgical region, premium materials, warm neutral background and camera view. Correct the needle-holder mechanics: the closed metal jaws must visibly grasp the METAL BODY of one curved suture needle near its middle, not the blue thread. One continuous blue suture must attach at the needle swage and trail slack behind the needle without loops through the holder jaws. Keep the needle curved, with a clearly visible free pointed tip. Reposition the reflected gingival flap partly toward its adjacent gingival margin so there are two believable neighboring tissue edges and one clear needle entry/exit route; the needle tip is just before entry, not passing through a tooth, bone or empty space. Use a clean non-graphic anatomical teaching-model appearance with modest soft pink/red tissue rather than a large dark bloody open field. No bleeding, no extra needle or tools, no preformed knot, no immediate closed/healed result, no regenerating tissue. No text, labels, logos or watermark. Exact 16:9, 4K, highest detail."
+            },
+            "providerParametersBasis": "Submission intent parameters; provider batch receipt confirms exact job and index",
+            "batchReceipt": {
+              "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/receipts/batch-repair-images-02.json",
+              "sha256": "f383d81d2a37bd820848c20bd1b9f04169373081481172bde414e2d74b8157b4"
+            },
+            "generationReceipt": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/receipts/gum-surgery-image-02-receipt.json",
+            "generationReceiptSHA256": "330f32fa3d6a5053f997c530bfc7ce6beb364078aba68c7f94924b74a8c37869",
+            "submissionIntent": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/receipts/gum-surgery-image-02-intent.json",
+            "submissionIntentSHA256": "0cae7c47ed4822fc4ecfcdc83abc1f3f95bb47a542798f0b2ecf91815db31f62",
+            "downloadReceipt": null
+          },
+          "video": {
+            "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/media/gum-surgery/40f9c3c1-6b01-4fcf-804d-b023326c8641.mp4",
+            "sha256": "cfcc6f218b95c6840340ebba520875f468adb0619960e7b56a57470683accd20",
+            "sourceJob": "40f9c3c1-6b01-4fcf-804d-b023326c8641",
+            "provider": "higgsfield",
+            "model": "kling3_0",
+            "generatedAt": "2026-10-18T12:36:16.422Z",
+            "generatedAtBasis": "Local submission receipt saved timestamp; provider exact generation time unavailable",
+            "providerParameters": {
+              "prompt": "Create one uninterrupted four-second 4K 16:9 silent macro educational-model shot, starting exactly from the attached original START. Locked camera, focus and lighting. Preserve exact anatomy, textures, tooth count, hands and tool identity. Animate physical objects continuously in every interval; no crossfade, hard cut, image replacement, morphing, camera-only movement, text, symbols, logos or watermark. Do not force a fully completed treatment endpoint. Keep the upper-right needle, needle-holder and blue suture stationary outside the tissue throughout. The lower-left spoon-shaped retractor stays under and in continuous physical contact with the SAME existing lower reflected flap. Between0.25 and3.5 seconds, lift the tool tip upward slowly by roughly one third of the exposed field height, visibly carrying the attached free flap edge with it. The existing lower pink flap folds upward as one finite sheet, progressively covering only the lower third of the field. Its free edge and side incisions remain clearly visible and track continuously; the central upper two thirds of the original bone stay exposed and unchanged. At3.5-4 seconds the tool supports that partially lifted position. Do not fill the entire field, generate new pink tissue, erase bone, seal wound edges, form sutures or move the needle. Tissue texture must travel with the existing flap, never appear by a wipe or dissolve.",
+              "aspect_ratio": "16:9",
+              "duration": 4,
+              "reference_images": [
+                "97e903a3-7380-425b-a5c7-a0377dcdf57c"
+              ],
+              "mode": "4k",
+              "sound": "off"
+            },
+            "providerParametersBasis": "Provider response parameters",
+            "batchReceipt": null,
+            "generationReceipt": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/receipts/gum-surgery-video-v2-retry02-receipt.json",
+            "generationReceiptSHA256": "12cc86b8fc8ebd190cca21528bc79ed4e2488e25d73831bd248ed5892a9a4353",
+            "submissionIntent": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/receipts/gum-surgery-video-v2-retry02-intent.json",
+            "submissionIntentSHA256": "01f458be8e6df917d2f3ae713210d4422669a80adb914ec85dea70df65a035cf",
+            "downloadReceipt": {
+              "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/ops-state/media/40f9c3c1-6b01-4fcf-804d-b023326c8641.json",
+              "sha256": "8c19354206f5d905eb6c08af55a2f242f3ba9e3d122e720292b6542b28561d59"
+            }
+          }
+        },
+        "runtimePlaybackExercised": true,
+        "forwardEndpointObserved": true,
+        "reverseEndpointObserved": true,
+        "playbackReviewScope": "real runtime forward/reverse exercised; sampled start/mid/end visuals; not every-frame review",
+        "continuousPlaybackViewed": false,
+        "allFramesVisuallyReviewed": false,
+        "anatomicalReview": true,
+        "anatomicalReviewScope": "sampled visual geometry/action screening, not clinical approval",
+        "visualSampleCount": 23,
+        "clinicalApproval": false,
+        "userQualityApproval": false,
+        "acceptedForIntegration": true,
+        "acceptance": {
+          "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/integration/request-gum1-accepted-20261018.json",
+          "sha256": "f7172fc1e6c117e509fcf690b70ef7591d7754f8b57d70bba6ae8164a7fac220"
+        },
+        "sampleEvidence": {
+          "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/integration/sample-evidence-gum1-20261018.json",
+          "sha256": "cf103544effae41f472a24739f56616587c65fbf473821dc61001fa52be254e7",
+          "pointer": "/profiles/gum-surgery"
+        },
+        "browserEvidence": [
+          {
+            "path": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/reviews/gum1-runtime-identity-linked.json",
+            "sha256": "05931e273b90b76ce38e2ef852f710b5e9c0f4247d119ba59721f63a2608f664",
+            "pointer": "/profiles/gum-surgery"
+          }
+        ],
+        "integrityAllFramesChecked": true,
+        "integrityScope": "Every published WebP frame container and SHA checked; not every-frame visual review",
+        "record": "/Volumes/MSJ_WORK/Workspaces/pfwebengine/clients/bdbddc/.wrangler/treatment-complete-replacement-20261018/remaining30-v2/integration/exports/gum1-after51-20261018-v1/reviews/gum-surgery.json",
+        "recordSHA256": "0eed0030f3ea14c189099ab66bf7cbb0a58888456a6b6d87ef51fea90169c2b0"
       }
     }
   }
