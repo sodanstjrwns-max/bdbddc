@@ -44,7 +44,8 @@ function validate(manifest, options={}) {
   for (const slug of slugs) {
     const image=manifest.images[slug];
     if (!/^[a-z0-9-]+$/.test(slug)) throw Error('Invalid slug: '+slug);
-    if (!/^\/images\/treatment-editorial\/[a-z0-9-]+\/[a-f0-9]{12,64}\/representative\.jpg$/.test(image.src)) throw Error('Unexpected representative path: '+slug);
+    const representativePath=/^\/images\/(treatment-editorial|treatment-process)\/([a-z0-9-]+)\/[a-f0-9]{12,64}\/representative\.jpg$/.exec(image.src);
+    if (!representativePath || (representativePath[1]==='treatment-process' && representativePath[2]!==slug)) throw Error('Unexpected representative path: '+slug);
     if (image.width!==1200 || image.height!==630 || !Number.isInteger(image.bytes) || image.bytes<=0 || image.bytes>300*1024) throw Error('Invalid dimensions or size: '+slug);
     if (!/^[a-f0-9]{64}$/.test(image.sha256)) throw Error('Missing representative SHA: '+slug);
     if (paths.has(image.src) && paths.get(image.src)!==image.sha256) throw Error('One image path has different hashes: '+slug);
@@ -68,7 +69,7 @@ function syncTreatmentPage(html, slug, locale='ko', manifest=readManifest()) {
   const url=canonical(slug,locale), src=origin+image.src, alt=image.alt[locale];
   // Only known representative wrappers are replaced. Clinical cases, staff, and clinic galleries remain intact.
   html=html.replace(/<figure\b[^>]*\bdata-(?:subpage-representative|treatment-editorial-image)(?:=["'][^"']*["'])?[^>]*>[\s\S]*?<\/figure>/gi,'');
-  html=html.replace(/<figure\b[^>]*class=["'][^"']*\btg-guide-photo\b[^"']*["'][^>]*>[\s\S]*?<\/figure>/gi, tag=> /<img\b[^>]*src=["'](?:https:\/\/bdbddc\.com)?\/images\/(?:subpage-cards|treatment-editorial)\//i.test(tag)?'':tag);
+  html=html.replace(/<figure\b[^>]*class=["'][^"']*\btg-guide-photo\b[^"']*["'][^>]*>[\s\S]*?<\/figure>/gi, tag=> /<img\b[^>]*src=["'](?:https:\/\/bdbddc\.com)?\/images\/(?:subpage-cards|treatment-editorial|treatment-process)\//i.test(tag)?'':tag);
   const panel=/<aside\b[^>]*class=["'][^"']*\btg-question-panel\b[^"']*["'][^>]*>/;
   if (!panel.test(html)) throw Error('Missing patient question panel: '+locale+'/'+slug);
   const figure=`<figure class="subpage-representative" data-subpage-representative="${slug}" data-treatment-editorial-image="${slug}"><img src="${src}" width="1200" height="630" alt="${escape(alt)}" loading="eager" fetchpriority="high" decoding="async"><figcaption>${escape(caption(image,locale))}</figcaption></figure>`;
@@ -117,7 +118,7 @@ function syncImageSitemap(xml, manifest=readManifest()) {
     xml=xml.replace(/<url>[\s\S]*?<\/url>/g, block=>{
       if (!block.includes('<loc>'+url+'</loc>')) return block;
       count++;
-      block=block.replace(/\s*<image:image>[\s\S]*?<\/image:image>/g, tag=>/<image:loc>https:\/\/bdbddc\.com\/images\/(?:subpage-cards|treatment-editorial)\//.test(tag)?'':tag);
+      block=block.replace(/\s*<image:image>[\s\S]*?<\/image:image>/g, tag=>/<image:loc>https:\/\/bdbddc\.com\/images\/(?:subpage-cards|treatment-editorial|treatment-process)\//.test(tag)?'':tag);
       return block.replace('</loc>','</loc>\n    '+entry);
     });
     if (count>1) throw Error('Duplicate image sitemap page: '+url);

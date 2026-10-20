@@ -18,6 +18,7 @@ const origin = 'https://bdbddc.com';
 const languages = [{ folder: '', lang: 'ko' }, { folder: 'en', lang: 'en' }, { folder: 'jp', lang: 'ja' }];
 const errors = [], report = [];
 const norm = value => String(value ?? '').replace(/\s+/gu, ' ').trim();
+const absoluteImageURL = value => { if (typeof value!=='string' || !value.trim()) return null; try { return new URL(value, origin).href; } catch { return null; } };
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const read = relative => fs.readFileSync(path.join(root, relative), 'utf8');
 const check = (ok, label, detail) => { if (!ok) errors.push(`${label}: ${detail}`); return !!ok; };
@@ -232,8 +233,7 @@ function checkClinicalBody(doc, main, slug, lang, relative, expectedUrl) {
   check(!!text, relative, 'Clinical process copy is required even without motion');
   const representative=editorialImages[slug], imageURL=representative ? origin+representative.src : null;
   check(!!representative,relative,'Representative image record is missing');
-  const absolute=value=>{try{return new URL(value,origin).href;}catch{return null;}};
-  check(absolute(main.querySelector('img')?.getAttribute('src'))===imageURL,relative,'First body image differs from the representative');
+  check(absoluteImageURL(main.querySelector('img')?.getAttribute('src'))===imageURL,relative,'First body image differs from the representative');
   check(doc.querySelector('meta[property="og:image"]')?.getAttribute('content')===imageURL,relative,'OG image differs from representative');
   check(doc.querySelector('meta[property="og:image:width"]')?.getAttribute('content')==='1200' && doc.querySelector('meta[property="og:image:height"]')?.getAttribute('content')==='630',relative,'Representative OG dimensions must remain 1200x630');
   const journey = one(main, '#tg-journey', relative);
@@ -357,7 +357,7 @@ for (const { folder, lang } of languages) {
       if(visualSet?.kind===CLINICAL_PROCESS_KIND) {
         check(norm(heading?.text)===norm(text?.title),relative,'Scroll title differs from the matched clinical process');
         steps.forEach((step,i)=>check(norm(step.querySelector('h3')?.text)===norm(text?.steps[i]?.title) && norm(step.querySelector('p')?.text)===norm(text?.steps[i]?.text),relative,'Scroll action text differs from the matched clinical process'));
-        check(main.querySelector('img')?.getAttribute('src')===visualSet.poster,relative,'First body image differs from the process representative');
+        check(absoluteImageURL(main.querySelector('img')?.getAttribute('src'))===absoluteImageURL(visualSet.poster),relative,'First body image differs from the process representative');
         check(doc.querySelector('meta[property="og:image"]')?.getAttribute('content')===origin+visualSet.poster,relative,'OG image differs from the process representative');
       }
     }

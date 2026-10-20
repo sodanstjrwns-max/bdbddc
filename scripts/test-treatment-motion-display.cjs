@@ -12,6 +12,7 @@ function test(name,fn){fn();tests.push({name,passed:true});}
 const manifest=JSON.parse(fs.readFileSync(path.join(site,'src/data/treatment-motion-assets.json')));
 const profiles=JSON.parse(fs.readFileSync(path.join(site,'src/data/treatment-scroll.json'))).profiles;
 const copy=readProcessCopy(site),policy=readMotionDisplayPolicy(site,Object.keys(profiles));
+const bodyOnlySlugs=Object.keys(profiles).filter(slug=>motionDisplayDecision(slug,manifest,copy,policy).mode==='body-only');
 function timeline(lengths=[144,144,144]){
  let cursor=0;const transitions=lengths.map((frameCount,i)=>{const value={from:'state-'+(i+1),to:'state-'+(i+2),startFrame:cursor,endFrameExclusive:cursor+frameCount,frameCount,durationSeconds:frameCount/24};cursor+=frameCount;return value;});
  return {version:1,fps:24,frameCount:cursor,playbackRate:1,interpolation:false,padding:false,loop:false,syntheticReverse:false,clinicalNarrativeAnchors:[Math.round(cursor*.12),Math.round(cursor*.36),Math.round(cursor*.61),Math.round(cursor*.85)].map((atFrame,i)=>({id:'step-'+(i+1),atFrame,atSeconds:atFrame/24,startFrame:Math.max(0,atFrame-10),endFrameExclusive:Math.min(cursor,atFrame+11)})),states:[0,...transitions.map(t=>t.endFrameExclusive-1)].map((atFrame,i)=>({id:'state-'+(i+1),atFrame,atSeconds:atFrame/24})),transitions};
@@ -33,8 +34,12 @@ test('display policy requires exact 55 unique detail slugs',()=>{
   assert.throws(()=>motionDisplayDecision('root-canal',manifest,copy,bad));
  }
 });
-test('all 55 installed legacy visual records remain archived without display',()=>{
- for(const slug of Object.keys(profiles)) { const decision=motionDisplayDecision(slug,manifest,copy,policy);assert.equal(decision.mode,'body-only');assert.equal(decision.renderMotion,false);assert.equal(render(profiles[slug],'ko',slug),''); }
+test('installed details display only matched clinical processes and suppress every legacy mapping',()=>{
+ for(const slug of Object.keys(profiles)) {
+  const decision=motionDisplayDecision(slug,manifest,copy,policy),set=manifest.sets[manifest.profiles[slug]],html=render(profiles[slug],'ko',slug);
+  if(set.kind==='clinical-process-sequence') { assert.equal(decision.mode,'clinical-process');assert.equal(decision.renderMotion,true);assert.equal(parse(html).querySelectorAll('.bd-scroll').length,1); }
+  else { assert.equal(decision.mode,'body-only');assert.equal(decision.renderMotion,false);assert.equal(html,''); }
+ }
 });
 test('missing clinical copy cannot become a body-only success',()=>{
  assert.throws(()=>motionDisplayDecision('root-canal',manifest,null,policy));
@@ -50,7 +55,8 @@ test('unknown treatment and missing media mapping fail closed',()=>{
  const bad=clone(manifest);delete bad.sets[bad.profiles['root-canal']];assert.throws(()=>motionDisplayDecision('root-canal',bad,copy,policy));
 });
 test('status relabelling cannot promote an old single shot to a process',()=>{
- const bad=clone(manifest);bad.sets[bad.profiles['root-canal']].status='clinical-process-reviewed';assert.throws(()=>motionDisplayDecision('root-canal',bad,copy,policy));
+ const bad=clone(manifest),legacy=Object.values(manifest.sets).find(set=>set.kind==='single-shot-sequence');assert(legacy,'Archived single-shot fixture must remain available');
+ bad.sets[bad.profiles['root-canal']]=clone(legacy);bad.sets[bad.profiles['root-canal']].status='clinical-process-reviewed';assert.throws(()=>motionDisplayDecision('root-canal',bad,copy,policy));
  bad.sets[bad.profiles['root-canal']].kind='clinical-process-sequence';assert.throws(()=>motionDisplayDecision('root-canal',bad,copy,policy));
 });
 function fixtureManifest(){const set=fixture();set.processCopySHA256=hash(JSON.stringify(copy.rows.find(row=>row.slug==='implant')));const m=clone(manifest);m.sets[m.profiles.implant]=set;return m;}
@@ -69,7 +75,7 @@ function preserved(doc){
  const main=doc.querySelector('main').clone();main.querySelectorAll('.bd-scroll,[data-treatment-motion-alias]').forEach(node=>node.remove());
  return {title:doc.querySelector('title')?.text,canonical:doc.querySelector('link[rel="canonical"]')?.getAttribute('href'),og:doc.querySelectorAll('meta[property^="og:"]').map(node=>node.toString()),mainText:main.text.replace(/\s+/gu,' ').trim(),mainLinks:main.querySelectorAll('a[href]').map(a=>a.getAttribute('href')),images:main.querySelectorAll('img').map(n=>n.toString()),canvas:main.querySelectorAll('canvas').map(n=>n.toString()),originalLoader:doc.querySelectorAll('script').filter(n=>n.text.includes('FRAME_COUNT')).map(n=>n.toString()),schema:doc.querySelectorAll('script[type="application/ld+json"]').map(n=>JSON.parse(n.text))};
 }
-test('all 165 details retain exact body/SEO/schema/original canvas and one valid deep-link alias',()=>{
+test('all 165 details retain body/SEO/schema/original canvas and the active-mode deep link',()=>{
  for(const [folder,lang] of [['','ko'],['en','en'],['jp','ja']])for(const slug of Object.keys(profiles)){
   const html=fs.readFileSync(path.join(site,folder,'treatments',slug+'.html'),'utf8'),out=inject(html,profiles[slug],lang,slug,'test-version'),doc=parse(out,{comment:true}),decision=motionDisplayDecision(slug,manifest,copy,policy);
   assert.deepEqual(displayDOMErrors(doc,decision),[],folder+'/'+slug);
@@ -81,7 +87,9 @@ test('all 165 details retain exact body/SEO/schema/original canvas and one valid
  }
  assert.equal(checkedPages,165);
 });
-const slug='root-canal',good=inject(fs.readFileSync(path.join(site,'treatments',slug+'.html'),'utf8'),profiles[slug],'ko',slug,'test-version'),decision=motionDisplayDecision(slug,manifest,copy,policy);
+// Alias/removal regressions use an actually suppressed page, even after root-canal is activated.
+if(bodyOnlySlugs.length){
+const slug=bodyOnlySlugs[0],good=inject(fs.readFileSync(path.join(site,'treatments',slug+'.html'),'utf8'),profiles[slug],'ko',slug,'test-version'),decision=motionDisplayDecision(slug,manifest,copy,policy);
 test('read-only DOM audit detects a reinserted old block and loader',()=>{
  for(const fragment of ['<section class="bd-scroll"></section>','<div class="bd-scroll-art" data-sequence="{}"></div>','<script src="/static/treatment-scroll.js?v=old"></script>','<link rel="stylesheet" href="/static/treatment-scroll.css?v=old">','<!-- bd-treatment-scroll:start -->']){
   const bad=good.replace('</main>',fragment+'</main>');assert(displayDOMErrors(parse(bad,{comment:true}),decision).length,fragment);
@@ -97,6 +105,7 @@ test('missing or misplaced or duplicate deep-link aliases fail the DOM audit',()
  assert(displayDOMErrors(parse(without.replace('</main>','<span id="treatment-in-motion" data-treatment-motion-alias="clinical-process"></span></main>'),{comment:true}),decision).length);
  assert(displayDOMErrors(parse(good.replace('</main>','<span id="treatment-in-motion"></span></main>'),{comment:true}),decision).length);
 });
+}
 test('enabled motion must not retain the obsolete journey alias',()=>{
  assert(displayDOMErrors(parse('<main><section class="bd-scroll"></section><span data-treatment-motion-alias="clinical-process"></span></main>'),{renderMotion:true}).length);
  assert.deepEqual(displayDOMErrors(parse('<main><section class="bd-scroll"></section></main>'),{renderMotion:true}),[]);
@@ -108,4 +117,4 @@ test('all three hubs remain unchanged apart from current runtime cache version',
   assert.equal(normalize(out),normalize(html),lang+' hub');
  }
 });
-console.log(JSON.stringify({passed:tests.length,checkedDetailPages:checkedPages,scope:'policy and delivery integrity; not visual or clinical approval',fixtureOnly:true,tests},null,2));
+console.log(JSON.stringify({passed:tests.length,checkedDetailPages:checkedPages,scope:'policy and delivery integrity; not visual or clinical approval',fixtureOnly:true,suppressedDetailProfiles:bodyOnlySlugs.length,clinicalDetailProfiles:55-bodyOnlySlugs.length,tests},null,2));

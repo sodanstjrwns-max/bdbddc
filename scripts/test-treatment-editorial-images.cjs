@@ -32,7 +32,7 @@ function verifyPage(html,slug,locale,manifest) {
 function verifySitemap(xml,manifest){
   for(const slug of Object.keys(manifest.images))for(const [locale]of images.locales){
     const url=images.canonical(slug,locale),rows=(xml.match(/<url>[\s\S]*?<\/url>/g)||[]).filter(x=>x.includes('<loc>'+url+'</loc>'));
-    assert.equal(rows.length,1);const editorial=rows[0].match(/<image:loc>https:\/\/bdbddc\.com\/images\/treatment-editorial\/[^<]+<\/image:loc>/g)||[];
+    assert.equal(rows.length,1);const editorial=rows[0].match(/<image:loc>https:\/\/bdbddc\.com\/images\/(?:treatment-editorial|treatment-process)\/[^<]+<\/image:loc>/g)||[];
     assert.deepEqual(editorial,['<image:loc>'+images.origin+manifest.images[slug].src+'</image:loc>']);assert(!rows[0].includes('/images/subpage-cards/'));
   }
 }
@@ -40,7 +40,12 @@ let manifest=images.readManifest();
 if(selfTest){
   manifest={version:1,images:Object.fromEntries(slugs.map((slug,i)=>[slug,{src:`/images/treatment-editorial/${slug}/${crypto.createHash('sha256').update(slug).digest('hex').slice(0,12)}/representative.jpg`,width:1200,height:630,bytes:2048,sha256:crypto.createHash('sha256').update(slug).digest('hex'),generated:true,alt:{ko:`${slug} 교육 모형`,en:`${slug} educational model`,ja:`${slug}の教育用模型`},caption:{ko:'치료 설명을 위한 AI 이미지',en:'AI educational image',ja:'治療説明用のAIイメージ'},review:{status:'sample-reviewed',clinicalApproval:false,reasons:[]}}]))};
   for(const slug of images.coreSlugs)manifest.images[slug].thumbnail={src:manifest.images[slug].src.replace('representative.jpg','thumbnail.jpg')};
+  const processImage=manifest.images['root-canal'];
+  processImage.src=processImage.src.replace('/treatment-editorial/','/treatment-process/');
   images.validate(manifest,{expectedSlugs:slugs});
+  for(const invalid of [processImage.src.replace('/root-canal/','/inlay/'),processImage.src.replace('/treatment-process/','/unknown/'),processImage.src+'?v=1',processImage.src.replace('/root-canal/','/../root-canal/')]){
+    const badPath=structuredClone(manifest);badPath.images['root-canal'].src=invalid;assert.throws(()=>images.validate(badPath),/Unexpected/);
+  }
   const bad=structuredClone(manifest);bad.images[slugs[0]].review.status='hold';assert.throws(()=>images.validate(bad),/not ready/);
   const duplicate=structuredClone(manifest);duplicate.images.invisalign.sha256=duplicate.images.implant.sha256;assert.throws(()=>images.validate(duplicate),/Core representative image reused/);
   const reuse=structuredClone(manifest);reuse.images['implant-hybrid']={...reuse.images.implant,reuseOf:'implant'};assert.equal(images.validate(reuse).uniqueImages,54);

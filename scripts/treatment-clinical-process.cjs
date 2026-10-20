@@ -6,6 +6,10 @@ const CLINICAL_PROCESS_STATUS = 'clinical-process-reviewed';
 const SHA = /^[a-f0-9]{64}$/;
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const near = (a,b,tolerance=1e-6) => typeof a === 'number' && Number.isFinite(a) && Math.abs(a-b) <= tolerance;
+function fluxAligned4kSource(asset) {
+  const m=asset?.metadata,fit=asset?.deliveryTransform;
+  return asset?.provider==='higgsfield' && asset?.model==='flux_3_video' && m?.width===3840 && m?.height===2176 && asset?.generation?.resolution==='4k' && asset?.generation?.aspectRatio==='16:9' && fit?.fit==='contain' && fit?.crop===false && fit?.stretch===false && fit?.background==='#f4f0ea' && fit?.sourceWidth===3840 && fit?.sourceHeight===2176 && JSON.stringify(fit?.desktop)==='[1280,720]' && JSON.stringify(fit?.mobile)==='[800,450]';
+}
 function clinicalProcessErrors(set) {
   const errors = [], add=(ok,message)=>{if(!ok) errors.push(message);};
   if (!set || set.kind !== CLINICAL_PROCESS_KIND) return ['Expected clinical-process-sequence'];
@@ -23,7 +27,7 @@ function clinicalProcessErrors(set) {
   originals.forEach((asset,i)=>{
     const m=asset?.metadata;
     add(SHA.test(asset?.sha256) && typeof asset?.sourceJob === 'string' && !!asset.sourceJob && typeof asset?.provider === 'string' && !!asset.provider && typeof asset?.model === 'string' && !!asset.model && typeof asset?.generatedAt === 'string' && Number.isFinite(Date.parse(asset.generatedAt)), 'Original provenance missing ' + i);
-    add(m && m.sha256 === asset.sha256 && Number.isSafeInteger(m.bytes) && m.bytes>0 && Number.isInteger(m.width) && m.width>=3840 && Number.isInteger(m.height) && m.height>=2160 && near(m.width/m.height,16/9,.01), 'Actual source file dimensions/bytes/SHA missing ' + i);
+    add(m && m.sha256 === asset.sha256 && Number.isSafeInteger(m.bytes) && m.bytes>0 && Number.isInteger(m.width) && m.width>=3840 && Number.isInteger(m.height) && m.height>=2160 && (near(m.width/m.height,16/9,.01) || (i>=4 && fluxAligned4kSource(asset))), 'Actual source file dimensions/bytes/SHA missing ' + i);
     add(asset?.generation?.resolution === '4k' && typeof asset?.generation?.receipt === 'string' && SHA.test(asset?.generation?.receiptSHA256), 'Provider 4K generation receipt missing ' + i);
     add(typeof asset?.path === 'string' && asset.path.startsWith('/Volumes/MSJ_WORK/Workspaces/'), 'Original must use an absolute SSD path ' + i);
   });
@@ -92,7 +96,11 @@ function validateClinicalProcessEvidence(set) {
     if(bytes.length!==asset.metadata.bytes) throw Error('Original byte count mismatch');
     const receipt=JSON.parse(checkedFile(asset.generation.receipt,asset.generation.receiptSHA256,'Generation receipt'));
     for(const [field,expected] of Object.entries({sourceJob:asset.sourceJob,provider:asset.provider,model:asset.model,resolution:'4k'})) if(receipt[field]!==expected) throw Error('Generation provenance mismatch '+field);
-    checkedFile(receipt.rawReceipt?.path,receipt.rawReceipt?.sha256,'Raw provider receipt');
+    const raw=JSON.parse(checkedFile(receipt.rawReceipt?.path,receipt.rawReceipt?.sha256,'Raw provider receipt'));
+    if(fluxAligned4kSource(asset)) {
+      const submitted=raw.structuredContent?.results?.filter(row=>row.id===asset.sourceJob);
+      if(raw.isError || receipt.aspectRatio!=='16:9' || submitted?.length!==1 || submitted[0].type!=='video' || submitted[0].model!=='flux_3_video' || submitted[0].params?.resolution!=='4k' || submitted[0].params?.aspect_ratio!=='16:9') throw Error('FLUX aligned source must bind actual 4K 16:9 submission');
+    }
     if(set.source.keyframes.includes(asset) && receipt.quality!=='max') throw Error('Image generation receipt quality mismatch');
     if(set.source.transitions.includes(asset) && JSON.stringify(receipt.inputImageSHA256s)!==JSON.stringify([asset.startImageSHA256,asset.endImageSHA256])) throw Error('Video input-image receipt mismatch');
   }
@@ -101,6 +109,7 @@ function validateClinicalProcessEvidence(set) {
     const expected={sourceSHA256:clip.sha256,sourceJob:clip.sourceJob,...clip.selection};
     for(const field of ['sourceSHA256','sourceJob','sourceFrameIndices','fps','playbackRate','interpolation','padding','loop','syntheticReverse'])
       if(JSON.stringify(receipt[field])!==JSON.stringify(expected[field])) throw Error('Selection evidence mismatch '+i+' '+field);
+    if(clip.deliveryTransform && JSON.stringify(receipt.deliveryTransform)!==JSON.stringify(clip.deliveryTransform)) throw Error('Selection evidence does not bind contain transform '+i);
     for(const size of ['desktop','mobile']) {
       const segment=set.timeline.transitions[i];
       const hashes=set.technicalOutput.packaging[size].chunks.flatMap(chunk=>chunk.frameSHA256s).slice(segment.startFrame,segment.endFrameExclusive);
@@ -115,4 +124,4 @@ function validateClinicalProcessEvidence(set) {
 function validateClinicalRepresentative(set,editorial) {
   return !!editorial && editorial.src===set.poster && editorial.sha256===set.technicalOutput?.poster?.sha256 && editorial.sourceSha256===set.representative?.sourceImageSHA256 && editorial.sourceJob===set.representative?.sourceJob && editorial.width===1200 && editorial.height===630;
 }
-module.exports={CLINICAL_PROCESS_KIND,CLINICAL_PROCESS_STATUS,clinicalProcessErrors,validateClinicalProcessEvidence,validateClinicalRepresentative};
+module.exports={fluxAligned4kSource,CLINICAL_PROCESS_KIND,CLINICAL_PROCESS_STATUS,clinicalProcessErrors,validateClinicalProcessEvidence,validateClinicalRepresentative};
