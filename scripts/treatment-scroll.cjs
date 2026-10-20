@@ -1,6 +1,9 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const {parse}=require('node-html-parser');
 const root=path.resolve(__dirname,'..');
+const {CLINICAL_PROCESS_KIND,CLINICAL_PROCESS_STATUS,clinicalProcessErrors,validateClinicalProcessEvidence,validateClinicalRepresentative}=require('./treatment-clinical-process.cjs');
+const {readProcessCopy,processProfile,syncProcessJourney}=require('./treatment-process-journey.cjs');
+const {readMotionDisplayPolicy,motionDisplayDecision}=require('./treatment-motion-display.cjs');
 const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 // A new single shot has stronger provenance and integrity requirements than legacy assets.
@@ -99,12 +102,12 @@ function singleShotErrors(set) {
  }
  return errors;
 }
-function validateChunkBytes(bytes, receipt) {
+function validateChunkBytes(bytes, receipt, {framesPerChunk=8}={}) {
  const fail = message => { throw Error(message); };
  if (!Buffer.isBuffer(bytes) || bytes.length < 80 || bytes.length > 2*1024*1024) fail('Invalid chunk byte length');
  if (bytes.subarray(0,8).toString('ascii') !== 'BDSEQ01\n') fail('Invalid chunk magic');
  const firstFrame = bytes.readUInt32LE(8), count = bytes.readUInt16LE(12);
- if (count !== 8 || bytes.readUInt16LE(14) !== 0 || firstFrame !== receipt.firstFrame || receipt.count !== count) fail('Invalid chunk frame range');
+ if (![8,16].includes(framesPerChunk) || count !== framesPerChunk || bytes.readUInt16LE(14) !== 0 || firstFrame !== receipt.firstFrame || receipt.count !== count) fail('Invalid chunk frame range');
  if (receipt.bytes !== bytes.length || crypto.createHash('sha256').update(bytes).digest('hex') !== receipt.sha256) fail('Chunk receipt does not match file bytes');
  let end = 16 + count*8;
  const frames = [];
@@ -130,10 +133,12 @@ function visualConfig(set) {
  if (set.kind === SINGLE_SHOT_KIND) {
   const errors = singleShotErrors(set);
   if (errors.length) throw Error(errors.join('; '));
+ } else if (set.kind === CLINICAL_PROCESS_KIND) {
+  const errors=clinicalProcessErrors(set); if(errors.length) throw Error(errors.join('; '));
  } else if (!['visual-review-passed','process-sample-reviewed'].includes(set.status)) throw Error('Missing configured visual review');
- const {poster,desktop,mobile,anchors,kind,cameraPan,motion,component,processStages}=set;
- const posterSize = kind === SINGLE_SHOT_KIND ? {posterWidth:1200,posterHeight:630} : {};
- return {poster,desktop,mobile,anchors,kind,cameraPan,motion,component,processStages,...posterSize,background:'#f7f7f0',cacheSize:10,mobileBreakpoint:760};
+ const {poster,desktop,mobile,anchors,kind,cameraPan,motion,component,processStages,timeline}=set;
+ const posterSize = [SINGLE_SHOT_KIND,CLINICAL_PROCESS_KIND].includes(kind) ? {posterWidth:1200,posterHeight:630} : {};
+ return {poster,desktop,mobile,anchors,kind,cameraPan,motion,component,processStages,...(timeline?{timeline}:{}),...posterSize,background:'#f7f7f0',cacheSize:10,mobileBreakpoint:760};
 }
 
 const ui={ko:{eyebrow:'SCROLL TO UNDERSTAND · 눈으로 이해하는 치료',skip:'움직임을 건너뛰고 다음 설명으로',pause:'움직임 멈추기',resume:'움직임 켜기',disclaimer:'치료 이해를 돕는 설명용 시각자료입니다. 실제 환자의 치료 전후·결과나 기간을 보여주는 장면이 아닙니다.',step:'설명으로 이동',hubTitle:'내가 걱정하는 부분부터, 차근차근.',hubIntro:'치료 이름을 고르기 전에 불편한 위치와 가능한 선택지, 이후의 생활을 함께 살펴보세요.',hubSteps:[['불편한 곳 찾기','어느 치아가 언제 불편한지, 무엇이 가장 걱정되는지부터 이야기합니다.','내 불편'],['선택지 살펴보기','검사와 상담으로 남길 수 있는 조직과 필요한 치료, 대안을 구분합니다.','선택의 기준'],['계획 이해하기','치료 범위와 단계, 비용·시간과 계획이 달라질 조건을 확인합니다.','치료 계획'],['이후 생활 준비하기','관리 방법과 점검 시점, 예상과 다른 불편이 생겼을 때의 연락 방법을 정리합니다.','치료 이후']]},en:{eyebrow:'SCROLL TO UNDERSTAND',skip:'Skip the motion and continue reading',pause:'Pause motion',resume:'Enable motion',disclaimer:'Illustrative visual guidance, not an actual patient before-and-after, result or treatment timeline.',step:'Go to step',hubTitle:'Start with the part that worries you.',hubIntro:'Explore your concern, the choices and life after treatment before choosing a treatment name.',hubSteps:[['Locate your concern','Explain where and when you feel discomfort, and what worries you most.','Your concern'],['Compare your options','An examination helps distinguish what can be preserved, treatment needs and alternatives.','Your options'],['Understand the plan','Ask about stages, costs, visits and the conditions that may change the plan.','Your plan'],['Prepare for daily life','Discuss maintenance, reviews and whom to contact if something feels unexpected.','After treatment']]},ja:{eyebrow:'SCROLL TO UNDERSTAND · 図で理解する治療',skip:'動きを飛ばして次の説明へ',pause:'動きを止める',resume:'動きを有効にする',disclaimer:'治療を理解するための説明用ビジュアルです。実際の患者の治療前後・結果や期間を示すものではありません。',step:'説明へ移動',hubTitle:'気になっているところから、一つずつ。',hubIntro:'治療名を選ぶ前に、不安や選択肢、治療後の生活を一緒に確認しましょう。',hubSteps:[['気になる場所を伝える','どの歯がいつ気になるか、何が一番不安なのかを整理します。','今の不安'],['選択肢を確認する','診察を通して残せる組織と必要な治療、別の方法を確認します。','選択の基準'],['計画を理解する','治療の範囲と段階、費用や通院、計画が変わる条件を確認します。','治療計画'],['その後の生活に備える','お手入れや定期確認、予想外の不調があった場合の連絡先を整理します。','治療後']]}};
@@ -144,11 +149,32 @@ function visualFor(slug){
  return {key,config:visualConfig(set)};
 }
 function art(visual,title){const {config}=visual;return `<img class="bd-sequence-poster" src="${esc(config.poster)}" width="${config.posterWidth||config.desktop.width}" height="${config.posterHeight||config.desktop.height}" alt="${esc(title)}" loading="lazy" decoding="async">`;}
-function render(profile,locale,slug){const u=ui[locale],p=profile[locale],visual=visualFor(slug);return `<!-- bd-treatment-scroll:start --><section class="bd-scroll" id="treatment-in-motion" aria-labelledby="bd-scroll-heading" data-scene="${esc(profile.scene)}" data-variant="${esc(slug)}" data-visual-set="${esc(visual.key)}"><div class="bd-scroll-intro"><p class="bd-scroll-eyebrow">${u.eyebrow}</p><h2 id="bd-scroll-heading">${esc(p.title)}</h2><p>${esc(p.intro)}</p><a href="#bd-scroll-after" class="bd-scroll-skip">${u.skip}</a></div><div class="bd-scroll-layout"><div class="bd-scroll-visual"><div class="bd-scroll-art" data-sequence="${esc(JSON.stringify(visual.config))}">${art(visual,p.title)}</div><div class="bd-scroll-caption"><span class="bd-scroll-counter">01 / 04</span><span class="bd-scroll-label">${esc(p.steps[0].label)}</span></div><div class="bd-scroll-progress" aria-hidden="true"><i></i></div><div class="bd-scroll-controls">${p.steps.map((step,i)=>`<button type="button" class="bd-scroll-step-control" data-step="${i}" aria-label="${u.step} ${i+1}: ${esc(step.title)}" ${i===0?'aria-current="step"':''}>0${i+1}</button>`).join('')}<button class="bd-scroll-toggle" type="button" data-pause="${u.pause}" data-resume="${u.resume}">${u.pause}</button></div><p class="bd-scroll-disclaimer">${u.disclaimer}</p></div><ol class="bd-scroll-steps">${p.steps.map((step,i)=>`<li class="bd-scroll-step" id="bd-scroll-step-${i+1}" data-label="${esc(step.label)}"><span>0${i+1}</span><h3>${esc(step.title)}</h3><p>${esc(step.text)}</p></li>`).join('')}</ol></div><div id="bd-scroll-after"></div></section><!-- bd-treatment-scroll:end -->`;}
-function inject(html,profile,locale,slug,version){let t=html.replace(/<!-- bd-treatment-scroll:start -->[\s\S]*?<!-- bd-treatment-scroll:end -->\s*/g,'');const d=parse(t,{comment:true});d.querySelectorAll('.bd-scroll').forEach(n=>n.remove());d.querySelectorAll('link[href*="/static/treatment-scroll.css"],script[src*="/static/treatment-scroll.js"]').forEach(n=>n.remove());const body=d.querySelector('main');if(!body)throw Error('Missing main '+slug);const insertion=body.querySelector('#tg-understand')||body.querySelector('.tg-hero');if(!insertion)throw Error('Missing patient intro '+slug);insertion.insertAdjacentHTML('afterend',render(profile,locale,slug));d.querySelector('head').insertAdjacentHTML('beforeend',`<link rel="stylesheet" href="/static/treatment-scroll.css?v=${version}">`);d.querySelector('body').insertAdjacentHTML('beforeend',`<script defer src="/static/treatment-scroll.js?v=${version}"></script>`);return d.toString();}
+function displayFor(slug){const manifest=JSON.parse(fs.readFileSync(path.join(root,'src/data/treatment-motion-assets.json'),'utf8'));const policy=readMotionDisplayPolicy(root,Object.keys(manifest.profiles));return motionDisplayDecision(slug,manifest,readProcessCopy(root),policy);}
+function render(profile,locale,slug){const decision=displayFor(slug);if(!decision.renderMotion)return '';const u=ui[locale],visual=visualFor(slug);if(visual.config.kind===CLINICAL_PROCESS_KIND){const data=readProcessCopy(root);if(!data)throw Error('Clinical process media requires matched process copy');const row=data.rows.find(row=>row.slug===slug),manifest=JSON.parse(fs.readFileSync(path.join(root,'src/data/treatment-motion-assets.json'),'utf8'));if(crypto.createHash('sha256').update(JSON.stringify(row)).digest('hex')!==manifest.sets[visual.key].processCopySHA256)throw Error('Clinical process row differs from matched media '+slug);profile=processProfile(profile,slug,data);}const p=profile[locale];return `<!-- bd-treatment-scroll:start --><section class="bd-scroll" id="treatment-in-motion" aria-labelledby="bd-scroll-heading" data-scene="${esc(profile.scene)}" data-variant="${esc(slug)}" data-visual-set="${esc(visual.key)}"><div class="bd-scroll-intro"><p class="bd-scroll-eyebrow">${u.eyebrow}</p><h2 id="bd-scroll-heading">${esc(p.title)}</h2><p>${esc(p.intro)}</p><a href="#bd-scroll-after" class="bd-scroll-skip">${u.skip}</a></div><div class="bd-scroll-layout"><div class="bd-scroll-visual"><div class="bd-scroll-art" data-sequence="${esc(JSON.stringify(visual.config))}">${art(visual,p.title)}</div><div class="bd-scroll-caption"><span class="bd-scroll-counter">01 / 04</span><span class="bd-scroll-label">${esc(p.steps[0].label)}</span></div><div class="bd-scroll-progress" aria-hidden="true"><i></i></div><div class="bd-scroll-controls">${p.steps.map((step,i)=>`<button type="button" class="bd-scroll-step-control" data-step="${i}" aria-label="${u.step} ${i+1}: ${esc(step.title)}" ${i===0?'aria-current="step"':''}>0${i+1}</button>`).join('')}<button class="bd-scroll-toggle" type="button" data-pause="${u.pause}" data-resume="${u.resume}">${u.pause}</button></div><p class="bd-scroll-disclaimer">${u.disclaimer}</p></div><ol class="bd-scroll-steps">${p.steps.map((step,i)=>`<li class="bd-scroll-step" id="bd-scroll-step-${i+1}" data-label="${esc(step.label)}"><span>0${i+1}</span><h3>${esc(step.title)}</h3><p>${esc(step.text)}</p></li>`).join('')}</ol></div><div id="bd-scroll-after"></div></section><!-- bd-treatment-scroll:end -->`;}
+function inject(html,profile,locale,slug,version){
+ let t=html.replace(/<!-- bd-treatment-scroll:start -->[\s\S]*?<!-- bd-treatment-scroll:end -->\s*/g,'');
+ const d=parse(t,{comment:true});
+ d.querySelectorAll('.bd-scroll').forEach(n=>n.remove());
+ d.querySelectorAll('link[href*="/static/treatment-scroll.css"],script[src*="/static/treatment-scroll.js"]').forEach(n=>n.remove());
+ const body=d.querySelector('main');if(!body)throw Error('Missing main '+slug);
+ const decision=displayFor(slug);
+ if(decision.renderMotion){
+  const insertion=body.querySelector('#tg-understand')||body.querySelector('.tg-hero');if(!insertion)throw Error('Missing patient intro '+slug);
+  insertion.insertAdjacentHTML('afterend',render(profile,locale,slug));
+  d.querySelector('head').insertAdjacentHTML('beforeend',`<link rel="stylesheet" href="/static/treatment-scroll.css?v=${version}">`);
+  d.querySelector('body').insertAdjacentHTML('beforeend',`<script defer src="/static/treatment-scroll.js?v=${version}"></script>`);
+ }
+ const result=parse(syncProcessJourney(d.toString(),slug,locale,readProcessCopy(root)),{comment:true});
+ if(!decision.renderMotion){
+  const journey=result.querySelector('#tg-journey');if(!journey)throw Error('Missing clinical journey '+slug);
+  if(result.querySelector('#treatment-in-motion'))throw Error('Unexpected motion anchor outside the removed section '+slug);
+  journey.insertAdjacentHTML('afterbegin','<span id="treatment-in-motion" data-treatment-motion-alias="clinical-process" aria-hidden="true" style="display:block;scroll-margin-top:8rem"></span>');
+ }
+ return result.toString();
+}
 function assetVersion(){return crypto.createHash('sha256').update([...runtimeFileNames().map(file=>'public/static/'+file),'src/data/treatment-motion-assets.json'].map(file=>fs.readFileSync(path.join(root,file),'utf8')).join('\n')).digest('hex').slice(0,12);}
 function hubProfile(locale){const u=ui[locale];return{scene:'consult',variant:'hub',[locale]:{title:u.hubTitle,intro:u.hubIntro,steps:u.hubSteps.map(([title,text,label])=>({title,text,label}))}};}
 function syncPage(html,slug,locale='ko'){const profiles=JSON.parse(fs.readFileSync(path.join(root,'src/data/treatment-scroll.json'),'utf8')).profiles;const profile=slug==='index'?hubProfile(locale):profiles[slug];if(!profile)throw Error('Missing scroll profile '+slug);return inject(html,profile,locale,slug,assetVersion());}
 function syncAll(destination=root){const data=JSON.parse(fs.readFileSync(path.join(root,'src/data/treatment-scroll.json'),'utf8'));const expected=Object.keys(require('../src/data/treatment-page-editorial.json').profiles).sort();if(JSON.stringify(Object.keys(data.profiles).sort())!==JSON.stringify(expected))throw Error('Scroll profiles must cover all 55 treatments');const version=assetVersion();let count=0;for(const [folder,locale] of [['','ko'],['en','en'],['jp','ja']]){const dir=path.join(destination,folder,'treatments');for(const [slug,profile] of [...Object.entries(data.profiles),['index',hubProfile(locale)]]){const file=path.join(dir,slug+'.html'),html=fs.readFileSync(file,'utf8'),updated=inject(html,profile,locale,slug,version);if(html!==updated){fs.writeFileSync(file,updated);count++;}}}return{updated:count,version,profiles:Object.keys(data.profiles).length};}
-module.exports={art,render,inject,syncPage,syncAll,visualConfig,singleShotErrors,singleShotTimeline,validateRangeFrameRecord,validateSourceRangeEvidence,validateChunkBytes,runtimeFileNames,SINGLE_SHOT_KIND,SINGLE_SHOT_STATUS,CHUNK_FORMAT};
+module.exports={displayFor,CLINICAL_PROCESS_KIND,CLINICAL_PROCESS_STATUS,clinicalProcessErrors,validateClinicalProcessEvidence,validateClinicalRepresentative,art,render,inject,syncPage,syncAll,visualConfig,singleShotErrors,singleShotTimeline,validateRangeFrameRecord,validateSourceRangeEvidence,validateChunkBytes,runtimeFileNames,SINGLE_SHOT_KIND,SINGLE_SHOT_STATUS,CHUNK_FORMAT};
 if(require.main===module)console.log(JSON.stringify(syncAll(process.argv.includes('--dist')?path.join(root,'dist'):root)));

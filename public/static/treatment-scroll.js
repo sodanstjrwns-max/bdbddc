@@ -18,7 +18,10 @@
     const steps = [...section.querySelectorAll('.bd-scroll-step')];
     const visual = section.querySelector('.bd-scroll-visual');
     if (!steps.length || !visual) return null;
+    let clinical=false;
+    try { clinical=JSON.parse(section.querySelector('.bd-scroll-art')?.dataset.sequence||'null')?.kind==='clinical-process-sequence'; } catch (_) { /* Preserve readable fallback. */ }
     const state = {
+      clinical, narrativePositions:[.125,.375,.625,.875],
       section, visual, steps,
       controls: [...section.querySelectorAll('.bd-scroll-step-control')],
       label: section.querySelector('.bd-scroll-label'),
@@ -66,7 +69,7 @@
         const target = window.scrollY + rect.top + rect.height / 2 - readingLine(state);
         // Explicit navigation only. Never intercept wheel, touch, or keyboard scrolling.
         window.scrollTo({ top: Math.max(0, target), behavior: state.paused ? 'auto' : 'smooth' });
-        if (state.paused) paint(state, index / Math.max(1, steps.length - 1), true);
+        if (state.paused) { const measured=state.clinical?measureClinical(state):null; paint(state,measured?measured.positions[index]:index/Math.max(1,steps.length-1),true,measured?.positions); }
       });
     });
     paint(state, 0);
@@ -82,7 +85,7 @@
       const config = JSON.parse(state.art.dataset.sequence);
       state.sequence = module.createSequence({ container: state.art, config, renderFrame: compositor.drawTreatmentFrame, onError: () => { state.section.dataset.assetStatus = 'fallback'; }, onReady: () => { state.section.dataset.assetStatus = 'ready'; } });
       state.sequence.setPaused(state.paused);
-      state.sequence.update(Math.max(0, state.progress));
+      state.sequence.update(Math.max(0, state.progress),state.clinical?{narrativePositions:state.narrativePositions}:{});
     } catch (_) { state.sequenceFailed = true; state.art.classList.remove('has-sequence'); }
     finally { state.sequenceLoading = false; }
   }
@@ -107,14 +110,22 @@
     }
     return headerOffset + Math.max(150, viewport - headerOffset) * .48;
   }
-  function paint(state, progress, instant = false) {
+  function measureClinical(state) {
+    const rects=state.steps.map(step=>step.getBoundingClientRect());
+    const start=rects[0].top,end=rects.at(-1).bottom,span=Math.max(1,end-start);
+    return {progress:(readingLine(state)-start)/span,positions:rects.map(rect=>(rect.top+rect.height/2-start)/span)};
+  }
+  function paint(state, progress, instant = false, positions) {
     const p = clamp(progress);
     const count = state.steps.length;
+    const layoutChanged=state.clinical && positions && positions.some((value,i)=>Math.abs(value-state.narrativePositions[i])>.00001);
+    if(state.clinical && positions) state.narrativePositions=positions;
     const phaseFloat = p * Math.max(1, count - 1);
-    const phase = Math.min(count - 1, Math.round(phaseFloat));
-    if (!instant && Math.abs(state.progress - p) < .0001 && state.phase === phase) return;
+    let phase = Math.min(count - 1, Math.round(phaseFloat));
+    if(state.clinical){phase=0;for(let i=1;i<count;i++)if(p>=(state.narrativePositions[i-1]+state.narrativePositions[i])/2)phase=i;}
+    if (!instant && !layoutChanged && Math.abs(state.progress - p) < .0001 && state.phase === phase) return;
     state.progress = p;
-    state.sequence?.update(p, { instant });
+    state.sequence?.update(p, { instant, ...(state.clinical?{narrativePositions:state.narrativePositions}:{}) });
     state.section.style.setProperty('--bd-progress', p.toFixed(5));
     state.section.style.setProperty('--bd-phase-progress', (phaseFloat % 1).toFixed(5));
     state.section.dataset.activeStep = String(phase);
@@ -139,6 +150,7 @@
     if (document.hidden || reduced) return;
     states.forEach(state => {
       if (!state.near || state.paused) return;
+      if(state.clinical){const measured=measureClinical(state);paint(state,measured.progress,false,measured.positions);return;}
       const first = state.steps[0].getBoundingClientRect();
       const last = state.steps[state.steps.length - 1].getBoundingClientRect();
       const start = first.top + first.height / 2;

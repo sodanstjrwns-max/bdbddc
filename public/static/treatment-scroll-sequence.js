@@ -1,4 +1,4 @@
-import { createFrameChunkLoader } from './treatment-frame-chunks.7865fb72729b.js';
+import { createFrameChunkLoader } from './treatment-frame-chunks.e9f45df59385.js';
 /*
  * A bounded, scroll-driven frame renderer. It never plays video or intercepts scroll.
  *
@@ -26,7 +26,66 @@ const finite = (value, fallback) => Number.isFinite(Number(value)) ? Number(valu
 const positiveInt = (value, fallback) => Math.max(1, Math.round(finite(value, fallback)));
 const abortError = () => new DOMException('Sequence request cancelled', 'AbortError');
 
-function validateSource(source, label) {
+// BEGIN CLINICAL TIMELINE
+function clinicalTimelineErrors(t, count) {
+  const errors = [], add = (ok, message) => { if (!ok) errors.push(message); };
+  const close = (a, b) => typeof a === 'number' && Number.isFinite(a) && Math.abs(a - b) <= 1e-6;
+  add(t && t.version === 1 && t.fps === 24 && t.frameCount === count, 'Clinical timeline version/fps/count mismatch');
+  add(Number.isSafeInteger(count) && count >= 288 && count <= 576 && count % 8 === 0, 'Clinical timeline needs 288..576 whole frames, in eight-frame chunks');
+  add(t?.playbackRate === 1 && ['interpolation','padding','loop','syntheticReverse'].every(key => t?.[key] === false), 'Clinical timeline must preserve source order without fabricated movement');
+  const chapters = t?.states, transitions = t?.transitions;
+  if (!Array.isArray(chapters) || chapters.length !== 4 || !Array.isArray(transitions) || transitions.length !== 3) return [...errors, 'Clinical timeline needs four states and three transitions'];
+  let cursor = 0;
+  transitions.forEach((clip, i) => {
+    add(clip && clip.from === chapters[i]?.id && clip.to === chapters[i + 1]?.id, 'Transition state order mismatch ' + i);
+    add(Number.isSafeInteger(clip?.startFrame) && clip.startFrame === cursor && Number.isSafeInteger(clip?.frameCount) && [96,144,192,288].includes(clip.frameCount) && clip.endFrameExclusive === clip.startFrame + clip.frameCount, 'Transition frame range mismatch ' + i);
+    add(close(clip?.durationSeconds, clip?.frameCount / 24), 'Transition duration mismatch ' + i);
+    cursor = clip?.endFrameExclusive;
+  });
+  add(cursor === count, 'Transitions must cover every delivered frame once');
+  add(new Set(chapters.map(c => c?.id)).size === 4, 'Clinical state IDs must be unique');
+  chapters.forEach((chapter, i) => {
+    const expected = i === 0 ? 0 : transitions[i - 1]?.endFrameExclusive - 1;
+    add(typeof chapter?.id === 'string' && chapter.id === 'state-' + (i + 1), 'Invalid clinical state ID ' + i);
+    add(Number.isSafeInteger(chapter?.atFrame) && chapter.atFrame === expected, 'Clinical state must bind to the actual transition endpoint ' + i);
+    add(close(chapter?.atSeconds, expected / 24), 'Clinical state timestamp mismatch ' + i);
+  });
+  const narrative=t?.clinicalNarrativeAnchors;
+  if(!Array.isArray(narrative) || narrative.length!==4) errors.push('Four actual clinical action anchors are required');
+  else narrative.forEach((anchor,i)=>{
+    add(anchor?.id==='step-'+(i+1) && Number.isSafeInteger(anchor?.atFrame) && anchor.atFrame>0 && anchor.atFrame<count-1 && (!i || anchor.atFrame>narrative[i-1].atFrame), 'Clinical action anchors must be actual ordered interior frames '+i);
+    add(close(anchor?.atSeconds,anchor?.atFrame/24), 'Clinical action timestamp mismatch '+i);
+    add(Number.isSafeInteger(anchor?.startFrame) && Number.isSafeInteger(anchor?.endFrameExclusive) && anchor.startFrame>=0 && anchor.endFrameExclusive<=count && anchor.startFrame<=anchor.atFrame && anchor.atFrame<anchor.endFrameExclusive, 'Action must be visible within its reviewed interval '+i);
+  });
+  return errors;
+}
+function clinicalPositions(value=[.125,.375,.625,.875]) {
+  if(!Array.isArray(value) || value.length!==4 || value.some((p,i)=>typeof p!=='number' || !Number.isFinite(p) || p<=0 || p>=1 || (i && p<=value[i-1]))) throw new TypeError('Clinical narrative screen positions must be four ordered interior points');
+  return [...value];
+}
+function clinicalPhaseAt(progress,positions) {
+  const points=clinicalPositions(positions);
+  let phase=0;for(let i=1;i<points.length;i++) if(progress>=(points[i-1]+points[i])/2)phase=i;
+  return phase;
+}
+function clinicalFrameAt(progress, timeline, positions) {
+  const p=Math.max(0,Math.min(1,progress)), screen=[0,...clinicalPositions(positions),1];
+  const frames=[0,...timeline.clinicalNarrativeAnchors.map(anchor=>anchor.atFrame),timeline.frameCount-1];
+  let segment=0;while(segment<screen.length-2 && p>screen[segment+1])segment++;
+  const fraction=(p-screen[segment])/(screen[segment+1]-screen[segment]);
+  return Math.round(frames[segment]+(frames[segment+1]-frames[segment])*fraction);
+}
+function clinicalChapterBounds(timeline, chapterIndex) {
+  const points = timeline.clinicalNarrativeAnchors.map(anchor => anchor.atFrame);
+  return {
+    start: chapterIndex === 0 ? 0 : Math.ceil((points[chapterIndex - 1] + points[chapterIndex]) / 2),
+    end: chapterIndex === 3 ? timeline.frameCount - 1 : Math.ceil((points[chapterIndex] + points[chapterIndex + 1]) / 2) - 1
+  };
+}
+// END CLINICAL TIMELINE
+export { clinicalTimelineErrors, clinicalFrameAt, clinicalChapterBounds, clinicalPositions, clinicalPhaseAt };
+
+function validateSource(source, label, maximum = 360, chunkSize = 8) {
   if (!source || typeof source.pattern !== 'string' || !source.pattern.includes('{index}')) {
     throw new TypeError(label + ' requires a frame pattern containing {index}');
   }
@@ -35,14 +94,14 @@ function validateSource(source, label) {
   }
   const count = positiveInt(source.count, 1);
   const width = positiveInt(source.width, 0), height = positiveInt(source.height, 0);
-  if (!Number.isInteger(Number(source.count)) || Number(source.count) < 1 || count > 360 ||
+  if (!Number.isInteger(Number(source.count)) || Number(source.count) < 1 || count > maximum ||
       !Number.isInteger(Number(source.width)) || !Number.isInteger(Number(source.height)) ||
       Number(source.width) < 1 || Number(source.height) < 1 || width > 4096 || height > 4096) {
     throw new TypeError(label + ' needs valid frame count and dimensions');
   }
-  if (source.format !== undefined && (source.format !== 'webp-chunks-v1' || source.framesPerChunk !== 8 || source.chunkCount !== Math.ceil(count / 8))) throw new TypeError(label + ' has invalid chunk metadata');
+  if (source.format !== undefined && (source.format !== 'webp-chunks-v1' || source.framesPerChunk !== chunkSize || source.chunkCount !== Math.ceil(count / chunkSize))) throw new TypeError(label + ' has invalid chunk metadata');
   return {
-    ...(source.format ? { format: source.format, framesPerChunk: 8, chunkCount: source.chunkCount } : {}),
+    ...(source.format ? { format: source.format, framesPerChunk: chunkSize, chunkCount: source.chunkCount } : {}),
     pattern: source.pattern,
     count, width, height,
     start: Math.max(0, Math.round(finite(source.start, 1))),
@@ -73,9 +132,17 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   if (!container || typeof container.appendChild !== 'function' || !config) {
     throw new TypeError('createSequence requires a container and frame configuration');
   }
-  const desktop = validateSource(config.desktop, 'desktop');
-  const mobile = config.mobile ? validateSource(config.mobile, 'mobile') : desktop;
-  const anchors = validateAnchors(config.anchors);
+  const clinical = config.kind === 'clinical-process-sequence';
+  const desktop = validateSource(config.desktop, 'desktop', clinical ? 576 : 360, clinical ? 16 : 8);
+  const mobile = config.mobile ? validateSource(config.mobile, 'mobile', clinical ? 576 : 360, clinical ? 16 : 8) : desktop;
+  const timeline = clinical ? config.timeline : null;
+  if (clinical) {
+    const errors = clinicalTimelineErrors(timeline, desktop.count);
+    if (mobile.count !== desktop.count) errors.push('Clinical mobile frame count differs');
+    if (config.processStages || config.motion || config.component || config.cameraPan) errors.push('Clinical timeline cannot use synthetic movement or chapter remapping');
+    if (errors.length) throw new TypeError(errors.join('; '));
+  }
+  const anchors = validateAnchors(clinical ? timeline.states.map(chapter => chapter.atFrame / (desktop.count - 1)) : config.anchors);
   // Each chapter uses its own treatment clip. Chapter boundaries match the
   // four text steps, so brushing frames cannot appear under fixation text.
   const processStages = config.processStages;
@@ -85,6 +152,8 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
         (i > 0 && stage.start <= processStages[i - 1].end)))) {
     throw new TypeError('Process stages need four ordered, non-overlapping frame ranges');
   }
+  let narrativePositions=clinicalPositions();
+  const clinicalPhase=()=>clinicalPhaseAt(progress,narrativePositions);
   const cameraPan = config.cameraPan === true;
   const motion = config.motion || (cameraPan ? { scales: [.78, .88, .94, 1], x: [-.6, -.2, .3, 0], y: [.15, 0, -.15, 0] } : null);
   if (motion) {
@@ -154,6 +223,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
   }
   function active() { return !disposed && near && !reduced && !document.hidden; }
   function mappedFrame(p) {
+    if (timeline) return clinicalFrameAt(p, timeline, narrativePositions);
     if (processStages) {
       const phase = Math.round(clamp(p) * 3);
       const lower = phase === 0 ? 0 : (phase - .5) / 3;
@@ -204,7 +274,7 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     // Show the nearest decoded position immediately. Retaining the last painted
     // frame until the exact target arrives can make a working sequence look frozen.
     let closest = -1, distance = Infinity;
-    const chapter = processStages?.[Math.round(clamp(progress) * 3)];
+    const chapter = timeline ? clinicalChapterBounds(timeline, clinicalPhase()) : processStages?.[Math.round(clamp(progress) * 3)];
     for (const index of cache.keys()) {
       if (chapter && (index < chapter.start || index > chapter.end)) continue;
       const gap = Math.abs(index - target);
@@ -241,8 +311,8 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     if (disposed || reduced || (paused && !snapshotPending && !force) || document.hidden || !canvas.width || !canvas.height) return;
     let index = availableFrame();
     let waiting = false;
-    if (index < 0 && processStages) {
-      const stage = processStages[Math.round(clamp(progress) * 3)];
+    if (index < 0 && (processStages || timeline)) {
+      const stage = timeline ? clinicalChapterBounds(timeline, clinicalPhase()) : processStages[Math.round(clamp(progress) * 3)];
       const candidates = queue.filter(candidate => candidate >= stage.start && candidate <= stage.end);
       if (candidates.length && candidates.every(candidate => failed.has(candidate))) { hideCanvas(); return; }
       // Retain the last real pixels (or SSR poster on first load). A slow decode
@@ -311,6 +381,12 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
     drawnProgress = progress;
     if (index === target) snapshotPending = false;
     canvas.dataset.frame = String(index + source.start);
+    if (timeline) {
+      const actualChapter=timeline.clinicalNarrativeAnchors.findIndex((_,i)=>{const bounds=clinicalChapterBounds(timeline,i);return index>=bounds.start && index<=bounds.end;});
+      canvas.dataset.processState = timeline.clinicalNarrativeAnchors[actualChapter].id;
+      canvas.dataset.targetProcessState = timeline.clinicalNarrativeAnchors[clinicalPhase()].id;
+      canvas.dataset.sourceTimestamp = (index / timeline.fps).toFixed(6);
+    }
     if (processStages) {
       canvas.dataset.processStage = String(nextStage);
       canvas.dataset.targetStage = String(Math.round(clamp(progress) * 3));
@@ -519,15 +595,17 @@ export function createSequence({ container, config, renderFrame, onReady = () =>
       })();
     }
   }
-  function update(value, { instant = false } = {}) {
+  function update(value, { instant = false, narrativePositions: nextPositions } = {}) {
     if (disposed) return;
+    let layoutChanged=false;
+    if(timeline && nextPositions!==undefined){const checked=clinicalPositions(nextPositions);layoutChanged=checked.some((p,i)=>Math.abs(p-narrativePositions[i])>.00001);narrativePositions=checked;}
     const next = clamp(finite(value, 0));
-    if (!instant && Math.abs(next - targetProgress) < .0001) { if (!ready && !paused && !reduced) schedule(); return; }
+    if (!instant && !layoutChanged && Math.abs(next - targetProgress) < .0001) { if (!ready && !paused && !reduced) schedule(); return; }
     direction = next >= targetProgress ? 1 : -1;
     const chapterChanged = processStages && Math.round(next * 3) !== Math.round(progress * 3);
     targetProgress = next;
     canvas.dataset.targetProgress = targetProgress.toFixed(5);
-    if (instant || (chapterChanged && !paused)) {
+    if (instant || layoutChanged || (chapterChanged && !paused)) {
       // A deliberate step selection remains usable while paused. This is one
       // static frame change, not a resumed animation or a new RAF loop.
       stopAnimation();

@@ -51,7 +51,11 @@ function preservation(doc) {
   };
 }
 
-const { inject, singleShotErrors, singleShotTimeline, validateSourceRangeEvidence, validateChunkBytes, runtimeFileNames, SINGLE_SHOT_KIND, SINGLE_SHOT_STATUS } = require('./treatment-scroll.cjs');
+const { inject, singleShotErrors, singleShotTimeline, validateSourceRangeEvidence, validateChunkBytes, runtimeFileNames, SINGLE_SHOT_KIND, SINGLE_SHOT_STATUS, CLINICAL_PROCESS_KIND, CLINICAL_PROCESS_STATUS, clinicalProcessErrors, validateClinicalProcessEvidence, validateClinicalRepresentative } = require('./treatment-scroll.cjs');
+const {readProcessCopy} = require('./treatment-process-journey.cjs');
+const {readMotionDisplayPolicy,motionDisplayDecision,displayDOMErrors} = require('./treatment-motion-display.cjs');
+const processCopy = readProcessCopy(source);
+const editorialImages = JSON.parse(fs.readFileSync(path.join(source,'src/data/treatment-editorial-images.json'),'utf8')).images;
 const scrollData = JSON.parse(fs.readFileSync(path.join(source, 'src/data/treatment-scroll.json'), 'utf8'));
 const motionManifestRelative = 'src/data/treatment-motion-assets.json';
 const motionManifestBytes = fs.readFileSync(path.join(source, motionManifestRelative));
@@ -61,10 +65,18 @@ check(motionManifest.profiles && typeof motionManifest.profiles === 'object' && 
 check(motionManifest.sets && typeof motionManifest.sets === 'object' && !Array.isArray(motionManifest.sets), 'motion manifest', 'Visual sets must be an object');
 const motionProfiles = motionManifest.profiles || {}, motionSets = motionManifest.sets || {};
 const expectedProfiles = Object.keys(scrollData.profiles).sort();
+const displayPolicy=readMotionDisplayPolicy(source,expectedProfiles);
+const displayDecisions=new Map();
+for(const slug of [...expectedProfiles,'index']) {
+  try { displayDecisions.set(slug,motionDisplayDecision(slug,motionManifest,processCopy,displayPolicy)); }
+  catch(error) { check(false,slug,'Display policy: '+error.message); }
+}
+const suppressedDetailMotionProfiles=[...displayDecisions.values()].filter(d=>d.mode==='body-only').length;
+const displayedClinicalProcessProfiles=[...displayDecisions.values()].filter(d=>d.mode==='clinical-process').length;
 check(expectedProfiles.length === 55, 'motion coverage', 'Expected exactly 55 reviewed treatment content profiles');
 check(jsonSame(Object.keys(motionProfiles).sort(), expectedProfiles), 'motion coverage', 'Motion mapping must cover the exact 55 treatment slugs, with no missing or extra slug');
 check(typeof motionManifest.hub === 'string' && !!motionSets[motionManifest.hub], 'motion hub', 'Hub must reference an existing reviewed visual set');
-const allowedKinds = new Set(['generated-sequence', 'existing-sequence', 'clinic-photo-sequence', SINGLE_SHOT_KIND]);
+const allowedKinds = new Set(['generated-sequence', 'existing-sequence', 'clinic-photo-sequence', SINGLE_SHOT_KIND, CLINICAL_PROCESS_KIND]);
 const assetExistenceCache = new Map();
 const visualSetReport = [];
 function resolveVisualAsset(url, label) {
@@ -99,15 +111,15 @@ function frameUrl(config, index) {
   return config.pattern.replace(/%0?(\d*)d/g, (_, width) => String(index).padStart(width ? Number(width) : config.pad, '0'));
 }
 function checkSequence(config, label, set, size) {
-  if (set?.kind === SINGLE_SHOT_KIND) {
-    const timeline = singleShotTimeline(set.source), frameCount = timeline.frameCount, chunkCount = frameCount/8;
-    if (!timeline.valid || !config || config.format !== 'webp-chunks-v1' || config.count !== frameCount || config.chunkCount !== chunkCount || config.framesPerChunk !== 8 || config.start !== 1 || config.pad !== 4) return;
+  if ([SINGLE_SHOT_KIND,CLINICAL_PROCESS_KIND].includes(set?.kind)) {
+    const timeline = set.kind === CLINICAL_PROCESS_KIND ? {valid:!clinicalProcessErrors(set).length,frameCount:set.timeline?.frameCount} : singleShotTimeline(set.source), frameCount = timeline.frameCount, framesPerChunk = set.kind === CLINICAL_PROCESS_KIND ? 16 : 8, chunkCount = frameCount/framesPerChunk;
+    if (!timeline.valid || !config || config.format !== 'webp-chunks-v1' || config.count !== frameCount || config.chunkCount !== chunkCount || config.framesPerChunk !== framesPerChunk || config.start !== 1 || config.pad !== 4) return;
     const receipts = set.technicalOutput?.packaging?.[size]?.chunks;
     if (!Array.isArray(receipts) || receipts.length !== chunkCount) return;
     for (let index = 0; index < chunkCount; index++) {
       const file = resolveVisualAsset(frameUrl(config, index + 1), label);
       if (!file) continue;
-      try { validateChunkBytes(fs.readFileSync(file), receipts[index]); }
+      try { validateChunkBytes(fs.readFileSync(file), receipts[index], {framesPerChunk}); }
       catch (error) { check(false, label + ' chunk ' + (index + 1), error.message); }
     }
     return;
@@ -136,7 +148,7 @@ const referencedSets = new Set([...Object.values(motionProfiles), motionManifest
 for (const setKey of referencedSets) {
   const set = motionSets[setKey];
   if (!set) continue;
-  check((set.kind === SINGLE_SHOT_KIND ? [SINGLE_SHOT_STATUS] : ['visual-review-passed', 'process-sample-reviewed']).includes(set.status), setKey, 'Visual set is missing a recorded review status');
+  check((set.kind === SINGLE_SHOT_KIND ? [SINGLE_SHOT_STATUS] : set.kind === CLINICAL_PROCESS_KIND ? [CLINICAL_PROCESS_STATUS] : ['visual-review-passed', 'process-sample-reviewed']).includes(set.status), setKey, 'Visual set is missing a recorded review status');
   if (set.kind === SINGLE_SHOT_KIND) {
     for (const error of singleShotErrors(set)) check(false, setKey, error);
     try { validateSourceRangeEvidence(set); } catch(error) { check(false,setKey,error.message); }
@@ -148,10 +160,16 @@ for (const setKey of referencedSets) {
     const posterFile = resolveVisualAsset(set.poster, setKey + ' poster');
     if (posterFile) check(fs.statSync(posterFile).size === set.technicalOutput?.poster?.bytes && hash(fs.readFileSync(posterFile)) === set.technicalOutput?.poster?.sha256, setKey, 'Poster bytes differ from the prepared receipt');
   }
+  if (set.kind === CLINICAL_PROCESS_KIND) {
+    for (const error of clinicalProcessErrors(set)) check(false,setKey,error);
+    try { validateClinicalProcessEvidence(set); } catch(error) { check(false,setKey,error.message); }
+    const posterFile=resolveVisualAsset(set.poster,setKey+' shared representative');
+    if(posterFile) check(fs.statSync(posterFile).size===set.technicalOutput?.poster?.bytes && hash(fs.readFileSync(posterFile))===set.technicalOutput?.poster?.sha256,setKey,'Shared representative bytes differ');
+  }
   check(allowedKinds.has(set.kind), setKey, 'Unsupported visual sequence kind');
   check(typeof set.cameraPan === 'boolean', setKey, 'Explicit camera motion policy is required');
   if (set.cameraPan) check(set.desktop?.count === 1 && set.mobile?.count === 1, setKey, 'Camera-only stills must use exactly one reviewed image per size');
-  if (set.kind !== 'existing-sequence' && set.kind !== SINGLE_SHOT_KIND && !set.processStages) check(!!set.motion, setKey, 'Every generated/photo visual must define an explicit visible camera path');
+  if (set.kind !== 'existing-sequence' && set.kind !== SINGLE_SHOT_KIND && set.kind !== CLINICAL_PROCESS_KIND && !set.processStages) check(!!set.motion, setKey, 'Every generated/photo visual must define an explicit visible camera path');
   if (set.motion !== undefined) {
     const m = set.motion;
     check(m && typeof m === 'object' && !Array.isArray(m), setKey, 'Motion must be an object');
@@ -197,6 +215,74 @@ for (const media of ['image','video']) {
     check(new Set(values).size === values.length, 'single-shot sources', 'Replacement treatments must not share ' + media + ' ' + field);
   }
 }
+const clinicalProcessProfiles=Object.entries(motionProfiles).filter(([,key])=>motionSets[key]?.kind===CLINICAL_PROCESS_KIND);
+const processOriginals=[];
+for(const [slug,key] of clinicalProcessProfiles) {
+  const set=motionSets[key], row=processCopy?.rows.find(row=>row.slug===slug);
+  check(!!row && hash(JSON.stringify(row))===set.processCopySHA256,slug,'Clinical media must match the exact installed four-state process row');
+  check(validateClinicalRepresentative(set,editorialImages[slug]),slug,'Poster/hero/OG must reference the same approved representative image');
+  check(['desktop','mobile'].every(size=>set[size]?.pattern?.startsWith('/static/treatment-motion/clinical-process/'+slug+'/')),slug,'Clinical asset namespace belongs to another treatment');
+  processOriginals.push(...(set.source?.keyframes||[]),...(set.source?.transitions||[]));
+}
+for(const field of ['sourceJob','sha256']) check(new Set(processOriginals.map(asset=>asset[field])).size===processOriginals.length,'clinical process originals','Clinical treatment sets must not reuse original '+field);
+
+function checkClinicalBody(doc, main, slug, lang, relative, expectedUrl) {
+  if (slug === 'index') return;
+  const row = processCopy?.rows.find(item => item.slug === slug), text = row?.[lang];
+  check(!!text, relative, 'Clinical process copy is required even without motion');
+  const representative=editorialImages[slug], imageURL=representative ? origin+representative.src : null;
+  check(!!representative,relative,'Representative image record is missing');
+  const absolute=value=>{try{return new URL(value,origin).href;}catch{return null;}};
+  check(absolute(main.querySelector('img')?.getAttribute('src'))===imageURL,relative,'First body image differs from the representative');
+  check(doc.querySelector('meta[property="og:image"]')?.getAttribute('content')===imageURL,relative,'OG image differs from representative');
+  check(doc.querySelector('meta[property="og:image:width"]')?.getAttribute('content')==='1200' && doc.querySelector('meta[property="og:image:height"]')?.getAttribute('content')==='630',relative,'Representative OG dimensions must remain 1200x630');
+  const journey = one(main, '#tg-journey', relative);
+  if (!journey || !text) return;
+  check(journey.getAttribute('data-clinical-process') === slug && journey.getAttribute('data-process-copy-sha256') === hash(JSON.stringify(text)), relative, 'Clinical body must bind the exact installed locale copy');
+  check(norm(journey.querySelector('h2')?.text) === norm(text.title), relative, 'Clinical body heading differs from copy');
+  check(norm(journey.querySelector('.tg-copy')?.text) === norm(text.intro), relative, 'Clinical body introduction differs from copy');
+  const steps = journey.querySelectorAll('ol.tg-steps > li');
+  check(steps.length === 4, relative, 'Clinical body requires four visible treatment steps');
+  steps.forEach((step,index) => {
+    check(step.id === 'tg-process-step-' + (index+1), relative, 'Clinical step anchor differs');
+    check(norm(step.querySelector('h3')?.text) === norm(text.steps[index]?.title) && norm(step.querySelector('p')?.text) === norm(text.steps[index]?.text), relative, 'Clinical body step differs from copy');
+    check(!step.hasAttribute('hidden') && step.getAttribute('aria-hidden') !== 'true', relative, 'Clinical body must remain visible without motion');
+  });
+  if (processCopy.sourceMap) check(jsonSame(journey.querySelectorAll('.tg-process-sources a').map(a => a.getAttribute('href')), row.sourceIds.map(id => processCopy.sourceMap[id].url)), relative, 'Clinical body sources differ from approved source map');
+  function inspectSchema(value) {
+    if (!value || typeof value !== 'object') return;
+    if (Array.isArray(value)) { value.forEach(inspectSchema); return; }
+    const types = Array.isArray(value['@type']) ? value['@type'] : [value['@type']];
+    if (types.includes('MedicalWebPage') && value.url===expectedUrl) {
+      check(value.image===imageURL && value.primaryImageOfPage?.url===imageURL,relative,'Clinical page schema representative differs from visible image');
+    }
+    if (types.includes('HowTo')) {
+      check(value.name === text.title && value.description === text.intro, relative, 'HowTo title/description differs from visible clinical body');
+      check(!['totalTime','prepTime','performTime'].some(key => Object.prototype.hasOwnProperty.call(value,key)), relative, 'HowTo must not retain unsupported duration');
+      const expected = text.steps.map((step,index) => ({'@type':'HowToStep',position:index+1,name:step.title,text:step.text,url:expectedUrl+'#tg-process-step-'+(index+1)}));
+      check(jsonSame(value.step, expected), relative, 'HowTo steps differ from visible clinical body');
+    } else if (types.includes('MedicalProcedure') || types.includes('SurgicalProcedure')) {
+      check(value.howPerformed === text.steps.map(step => step.title+': '+step.text).join(' '), relative, 'Procedure sequence differs from visible clinical body');
+      check(typeof text.followup === 'string' && text.followup.trim() ? value.followup === text.followup.trim() : !Object.prototype.hasOwnProperty.call(value,'followup'), relative, 'Procedure followup differs from installed copy');
+    } else Object.values(value).forEach(inspectSchema);
+  }
+  try { doc.querySelectorAll('script[type="application/ld+json"]').forEach(script => inspectSchema(JSON.parse(script.text))); }
+  catch (error) { check(false, relative, 'Invalid clinical structured data: '+error.message); }
+}
+function checkPreservationAndGeneration(doc, html, profile, lang, slug, relative) {
+  try {
+    preservation(doc);
+    if (baseline) {
+      const old = oldHtml(relative), before = preservation(parse(old)), after = preservation(doc);
+      const markers = text => text.match(/<!--\s*treatment-(?:patient|choice)[\s\S]*?-->/g) || [];
+      check(jsonSame(markers(old),markers(html)), relative, 'Protected patient/choice markers changed');
+      for (const field of Object.keys(before)) check(jsonSame(before[field],after[field]), relative, 'Existing '+field+' changed outside the scroll enhancement');
+    }
+    const regenerated = inject(html, profile, lang, slug, 'idempotence-audit');
+    check(regenerated === inject(regenerated, profile, lang, slug, 'idempotence-audit'), relative, 'Repeated generation must not duplicate or alter the page');
+  } catch (error) { check(false, relative, 'Preservation/generation audit failed: '+error.message); }
+}
+
 const versions = { css: new Set(), js: new Set() };
 const scenes = new Set();
 for (const { folder, lang } of languages) {
@@ -213,10 +299,22 @@ for (const { folder, lang } of languages) {
     const expectedUrl = origin + (folder ? '/' + folder : '') + '/treatments/' + (slug === 'index' ? '' : slug);
     check(canonical?.getAttribute('href') === expectedUrl, relative, 'Canonical URL changed');
     check(doc.querySelector('html')?.getAttribute('lang')?.startsWith(lang), relative, 'Wrong document language');
+    check(norm(doc.querySelector('title')?.text).length>5,relative,'Missing document title');
+    check(norm(doc.querySelector('meta[name="description"]')?.getAttribute('content')).length>10,relative,'Missing page description');
+    check(!doc.querySelectorAll('meta[name="robots"],meta[name="googlebot"],meta[name="bingbot"]').some(meta=>/noindex|none/i.test(meta.getAttribute('content')||'')),relative,'Treatment page must remain indexable');
     const ids = doc.querySelectorAll('[id]').map(node => node.id);
     check(ids.length === new Set(ids).size, relative, 'Duplicate document IDs');
+    const decision=displayDecisions.get(slug);
+    if (!main || !decision) continue;
+    checkClinicalBody(doc,main,slug,lang,relative,expectedUrl);
+    for(const error of displayDOMErrors(doc,decision)) check(false,relative,error);
+    if (!decision.renderMotion) {
+      checkPreservationAndGeneration(doc,html,scrollData.profiles[slug],lang,slug,relative);
+      report.push({path:expectedUrl,mode:decision.mode,scene:null,variant:slug,visualSet:null,clinicalSteps:4,motionDisplayed:false});
+      continue;
+    }
     const scene = one(doc, '.bd-scroll', relative);
-    if (!main || !scene) continue;
+    if (!scene) continue;
     check(scene.closest('main') === main, relative, 'Scroll explanation must be inside main');
     const family = scene.getAttribute('data-scene'), variant = scene.getAttribute('data-variant');
     check(!!family && !!variant, relative, 'Scene family and treatment variant required');
@@ -246,13 +344,23 @@ for (const { folder, lang } of languages) {
     check(poster?.closest('.bd-scroll-art') === art, relative, 'Sequence poster must appear inside the visual panel');
     check(poster?.hasAttribute('alt'), relative, 'Poster needs descriptive alt text or explicit decorative alt');
     check(poster?.getAttribute('src') === visualSet?.poster, relative, 'Poster differs from the reviewed visual set');
-    if (visualSet?.kind === SINGLE_SHOT_KIND) check(poster?.getAttribute('width') === '1200' && poster?.getAttribute('height') === '630', relative, 'Single-shot poster dimensions must match the actual JPEG');
+    if ([SINGLE_SHOT_KIND,CLINICAL_PROCESS_KIND].includes(visualSet?.kind)) check(poster?.getAttribute('width') === '1200' && poster?.getAttribute('height') === '630', relative, 'Single-shot poster dimensions must match the actual JPEG');
     try {
       const config = JSON.parse(art?.getAttribute('data-sequence') || 'null');
       check(config && typeof config === 'object', relative, 'Missing parseable sequence configuration');
-      for (const field of ['poster', 'desktop', 'mobile', 'anchors', 'kind', 'cameraPan', 'motion', 'component', 'processStages']) check(jsonSame(config?.[field], visualSet?.[field]), relative, 'Embedded sequence ' + field + ' differs from the reviewed manifest');
-      if (visualSet?.kind === SINGLE_SHOT_KIND) check(config?.posterWidth === 1200 && config?.posterHeight === 630, relative, 'Embedded poster dimensions differ from the prepared asset');
+      for (const field of ['poster', 'desktop', 'mobile', 'anchors', 'kind', 'cameraPan', 'motion', 'component', 'processStages', 'timeline']) check(jsonSame(config?.[field], visualSet?.[field]), relative, 'Embedded sequence ' + field + ' differs from the reviewed manifest');
+      if ([SINGLE_SHOT_KIND,CLINICAL_PROCESS_KIND].includes(visualSet?.kind)) check(config?.posterWidth === 1200 && config?.posterHeight === 630, relative, 'Embedded poster dimensions differ from the prepared asset');
     } catch (error) { check(false, relative, 'Invalid data-sequence JSON: ' + error.message); }
+    if (slug !== 'index' && processCopy) {
+      const row=processCopy.rows.find(row=>row.slug===slug), text=row?.[lang], journey=one(main,'#tg-journey',relative);
+      check(journey?.getAttribute('data-clinical-process')===slug && journey?.getAttribute('data-process-copy-sha256')===hash(JSON.stringify(text)),relative,'Clinical process body does not match installed copy');
+      if(visualSet?.kind===CLINICAL_PROCESS_KIND) {
+        check(norm(heading?.text)===norm(text?.title),relative,'Scroll title differs from the matched clinical process');
+        steps.forEach((step,i)=>check(norm(step.querySelector('h3')?.text)===norm(text?.steps[i]?.title) && norm(step.querySelector('p')?.text)===norm(text?.steps[i]?.text),relative,'Scroll action text differs from the matched clinical process'));
+        check(main.querySelector('img')?.getAttribute('src')===visualSet.poster,relative,'First body image differs from the process representative');
+        check(doc.querySelector('meta[property="og:image"]')?.getAttribute('content')===origin+visualSet.poster,relative,'OG image differs from the process representative');
+      }
+    }
     const controls = scene.querySelectorAll('button.bd-scroll-step-control');
     check(controls.length === 4, relative, 'Four explicit navigation controls required');
     controls.forEach((button, index) => {
@@ -287,26 +395,13 @@ for (const { folder, lang } of languages) {
       versions.js.add(js.getAttribute('src'));
       check(js.hasAttribute('defer'), relative, 'Scroll runtime must defer until HTML is parsed');
     }
-    try {
-      preservation(doc); // Parsing every JSON-LD also detects accidental HTML corruption.
-      if (baseline) {
-        const old = oldHtml(relative);
-        const before = preservation(parse(old)), afterState = preservation(doc);
-        const markers = text => text.match(/<!--\s*treatment-(?:patient|choice)[\s\S]*?-->/g) || [];
-        check(jsonSame(markers(old), markers(html)), relative, 'Original editorial regeneration markers changed');
-        for (const field of Object.keys(before)) check(jsonSame(before[field], afterState[field]), relative, `Preserved ${field} changed`);
-      }
-    } catch (error) { check(false, relative, error.message); }
-    {
-      const profile = scrollData.profiles[slug] || { scene: family, variant: 'hub', [lang]: { title: heading.text, intro: scene.querySelector('.bd-scroll-intro > p:not(.bd-scroll-eyebrow)').text, steps: steps.map(step => ({ title: step.querySelector('h3').text, text: step.querySelector('p').text, label: step.getAttribute('data-label') })) } };
-      const regenerated = inject(html, profile, lang, slug, 'idempotence-audit');
-      check(regenerated === inject(regenerated, profile, lang, slug, 'idempotence-audit'), relative, 'Repeated generation must not duplicate or alter the page');
-    }
-    report.push({ path: expectedUrl, scene: family, variant, visualSet: visualSetKey, steps: steps.length });
+    const profile = scrollData.profiles[slug] || { scene: family, variant: 'hub', [lang]: { title: heading.text, intro: scene.querySelector('.bd-scroll-intro > p:not(.bd-scroll-eyebrow)').text, steps: steps.map(step => ({ title: step.querySelector('h3').text, text: step.querySelector('p').text, label: step.getAttribute('data-label') })) } };
+    checkPreservationAndGeneration(doc,html,profile,lang,slug,relative);
+    report.push({ path: expectedUrl, mode:decision.mode, scene: family, variant, visualSet: visualSetKey, steps: steps.length,motionDisplayed:true });
   }
 }
 check(report.length === 168, 'coverage', 'Expected all 165 details plus 3 treatment hubs');
-check(scenes.size >= 8, 'coverage', 'Treatment families need distinct explanatory scenes');
+check(new Set(Object.values(scrollData.profiles).map(profile=>profile.scene)).size >= 8, 'coverage', 'Configured treatment families need distinct explanatory scenes');
 const assetDirectory = path.join(root, mode === 'source' ? 'public/static' : 'static');
 const runtimeFiles = runtimeFileNames(source);
 const runtimeBuffers = runtimeFiles.map(file => {
@@ -325,7 +420,7 @@ const sequenceImports = importsFrom(moduleText);
 const chunkHelpers = runtimeFiles.slice(4);
 const expectedChunkImports = chunkHelpers.map(name => './' + name);
 check(sequenceImports.length <= 1 && jsonSame(sequenceImports, expectedChunkImports) && !/\bimport\s*\(/.test(moduleText) && !/\bimport\s*["']/.test(moduleText), 'sequence module', 'Only one content-addressed local chunk helper import is permitted');
-if (singleShotProfiles.length) check(chunkHelpers.length === 1, 'sequence module', 'Single-shot chunks require the reviewed local chunk decoder');
+if (singleShotProfiles.length || clinicalProcessProfiles.length) check(chunkHelpers.length === 1, 'sequence module', 'Single-shot chunks require the reviewed local chunk decoder');
 for (let index = 4; index < runtimeFiles.length; index++) {
   const name = runtimeFiles[index], bytes = runtimeBuffers[index];
   if (!bytes) continue;
@@ -345,7 +440,7 @@ check(!/three\.module|WebGLRenderer|treatment-scroll-3d/.test(compositorText), '
 check(importsFrom(runtimeText).length === 0 && !/\bimport\s*["']/.test(runtimeText), 'scroll runtime', 'Unexpected static runtime module import');
 check(!/treatment-scroll-3d|three\.module/.test(runtimeText), 'scroll runtime', 'Old procedural Three.js module must not be loaded');
 for (const type of ['css', 'js']) {
-  check(versions[type].size === 1, type, 'All treatment pages must use the same versioned asset');
+  check(versions[type].size === 1, type, 'All rendered motion pages must use the same versioned asset');
   for (const url of versions[type]) {
     check(/\?v=[a-zA-Z0-9_-]+/.test(url), type, 'Missing asset cache version');
     check(assetVersion && new URL(url, origin).searchParams.get('v') === assetVersion, type, 'Page asset version does not match current JS + CSS + sequence + compositor + manifest bytes');
@@ -379,11 +474,11 @@ if (baseline) {
 const output = args.find(value => value.startsWith('--output='))?.slice(9);
 if (output) {
   if (!path.isAbsolute(output) || !path.resolve(output).startsWith('/Volumes/MSJ_WORK/Workspaces/')) throw Error('Report output must be an absolute SSD workspace path');
-  fs.writeFileSync(output, JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: !errors.length, checkedAt: new Date().toISOString(), mode, baseline: baseline || null, assetVersion, singleShotProfiles: singleShotProfiles.length, visualSets: visualSetReport, visualAssets: assetExistenceCache.size, checks: report, errors }, null, 2) + '\n', { flag: 'wx' });
+  fs.writeFileSync(output, JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: !errors.length, checkedAt: new Date().toISOString(), mode, baseline: baseline || null, assetVersion, suppressedDetailMotionProfiles, displayedClinicalProcessProfiles, renderedMotionPages:report.filter(item=>item.motionDisplayed).length, singleShotProfiles: singleShotProfiles.length, clinicalProcessProfiles: clinicalProcessProfiles.length, clinicalProcessBodies: processCopy ? processCopy.rows.length : 0, visualSets: visualSetReport, visualAssets: assetExistenceCache.size, checks: report, errors }, null, 2) + '\n', { flag: 'wx' });
 }
 if (errors.length) {
   console.error(JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: false, mode, errors }, null, 2));
   process.exitCode = 1;
 } else {
-  console.log(JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: true, mode, pages: report.length, preservedImplantFrames: implantFrames.length, baseline: baseline || null, sceneFamilies: scenes.size, assetVersion, singleShotProfiles: singleShotProfiles.length, visualSets: visualSetReport.length, visualAssets: assetExistenceCache.size, locales: languages.map(({ folder, lang }) => ({ lang, pages: report.filter(item => new URL(item.path).pathname.startsWith((folder ? '/' + folder : '') + '/treatments/')).length })) }));
+  console.log(JSON.stringify({ scope: 'delivery-integrity', qualityAssessed: false, passed: true, mode, pages: report.length, preservedImplantFrames: implantFrames.length, baseline: baseline || null, sceneFamilies: scenes.size, assetVersion, suppressedDetailMotionProfiles, displayedClinicalProcessProfiles, renderedMotionPages:report.filter(item=>item.motionDisplayed).length, singleShotProfiles: singleShotProfiles.length, clinicalProcessProfiles: clinicalProcessProfiles.length, clinicalProcessBodies: processCopy ? processCopy.rows.length : 0, visualSets: visualSetReport.length, visualAssets: assetExistenceCache.size, locales: languages.map(({ folder, lang }) => ({ lang, pages: report.filter(item => new URL(item.path).pathname.startsWith((folder ? '/' + folder : '') + '/treatments/')).length })) }));
 }
