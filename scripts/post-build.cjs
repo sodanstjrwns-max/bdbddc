@@ -209,6 +209,8 @@ cp.execFileSync(process.execPath, ['--max-old-space-size=256', path.join(__dirna
 console.log('[subpage-cards]', require('./subpage-cards.cjs').syncAll(path.resolve('dist')), 'files updated');
 // Rebuild every localized scroll explanation from the same page profiles.
 console.log('[treatment-scroll]', require('./treatment-scroll.cjs').syncAll(path.resolve('dist')));
+// Connect originals/excerpts keep their public-library provenance after each rebuild.
+console.log('[treatment-connect-video]', require('./treatment-connect-video.cjs').syncAll({destination:path.resolve('dist')}));
 cp.execFileSync(process.execPath, [path.join(__dirname, 'check-treatment-scroll.cjs'), 'dist'], { stdio: 'inherit' });
 cp.execFileSync(process.execPath, [path.join(__dirname, 'normalize-favicons.mjs'), path.resolve('dist')], { stdio: 'inherit' });
 cp.execFileSync(process.execPath, [path.join(__dirname, 'test-subpage-cards.cjs'), path.resolve('dist')], { stdio: 'inherit' });

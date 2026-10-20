@@ -11,7 +11,7 @@ function walk(x,fn) { if (!x||typeof x!=='object')return;fn(x);Object.values(x).
 function protectedSchemas(html) { const rows=[];schemas(html).forEach(x=>walk(x,v=>{if([].concat(v['@type']||[]).some(t=>protectedTypes.has(t)))rows.push(JSON.stringify(v));}));return rows; }
 function verifyPage(html,slug,locale,manifest) {
   const d=parse(html), image=manifest.images[slug],absolute=images.origin+image.src,url=images.canonical(slug,locale);
-  for(const [key,value] of [['og:image',absolute],['og:image:width','1200'],['og:image:height','630'],['og:image:alt',image.alt[locale]],['og:image:type','image/jpeg']]){
+  for(const [key,value] of [['og:image',absolute],['og:image:width',String(image.width)],['og:image:height',String(image.height)],['og:image:alt',image.alt[locale]],['og:image:type','image/jpeg']]){
     const tags=d.querySelectorAll(`meta[property="${key}"]`);assert.equal(tags.length,1,`${locale}/${slug} ${key} count`);assert.equal(tags[0].getAttribute('content'),value);
   }
   assert.equal(d.querySelector('meta[name="twitter:image"]').getAttribute('content'),absolute);
@@ -25,17 +25,72 @@ function verifyPage(html,slug,locale,manifest) {
   schemas(html).forEach(x=>walk(x,v=>{
     if([].concat(v['@type']||[]).some(t=>['MedicalWebPage','WebPage','MedicalProcedure'].includes(t))){
       const u=v.url||(v['@id']?.startsWith(images.origin)?v['@id'].split('#')[0]:'');
-      if(!u||u.replace(/\/$/,'')===url){assert.equal(v.image,absolute);if([].concat(v['@type']).some(t=>t.includes('WebPage'))){pageCount++;assert.equal(v.primaryImageOfPage.contentUrl,absolute);assert.equal(v.primaryImageOfPage.width,1200);assert.equal(v.primaryImageOfPage.height,630);}}
+      if(!u||u.replace(/\/$/,'')===url){assert.equal(v.image,absolute);if([].concat(v['@type']).some(t=>t.includes('WebPage'))){pageCount++;assert.equal(v.primaryImageOfPage.contentUrl,absolute);assert.equal(v.primaryImageOfPage.width,image.width);assert.equal(v.primaryImageOfPage.height,image.height);}}
     }
   }));assert(pageCount>0);
 }
 function verifySitemap(xml,manifest){
   for(const slug of Object.keys(manifest.images))for(const [locale]of images.locales){
     const url=images.canonical(slug,locale),rows=(xml.match(/<url>[\s\S]*?<\/url>/g)||[]).filter(x=>x.includes('<loc>'+url+'</loc>'));
-    assert.equal(rows.length,1);const editorial=rows[0].match(/<image:loc>https:\/\/bdbddc\.com\/images\/(?:treatment-editorial|treatment-process)\/[^<]+<\/image:loc>/g)||[];
+    assert.equal(rows.length,1);const editorial=rows[0].match(/<image:loc>https:\/\/bdbddc\.com\/images\/(?:treatment-editorial|treatment-process|treatment-connect)\/[^<]+<\/image:loc>/g)||[];
     assert.deepEqual(editorial,['<image:loc>'+images.origin+manifest.images[slug].src+'</image:loc>']);assert(!rows[0].includes('/images/subpage-cards/'));
   }
 }
+
+let connectRegressionChecks=0;
+function connectCheck(name,fn){try{fn();connectRegressionChecks++;}catch(error){error.message='Connect representative regression ['+name+']: '+error.message;throw error;}}
+function testConnectProvenance(){
+  const library=JSON.parse(fs.readFileSync(path.join(sourceRoot,'src/data/treatment-connect-library.json'),'utf8'));
+  const item=library.items.find(row=>row.topic_id==='CRN-001'&&row.media.some(m=>m.media_type==='video'&&m.poster_key));
+  assert(item,'Frozen CRN-001 public source required for source-contract tests');
+  const media=item.media.find(m=>m.media_type==='video'&&m.poster_key);
+  const posterPrefix=path.basename(media.poster_key,'.jpg'),videoPrefix=path.basename(media.key,'.mp4');
+  const common={width:1280,height:720,bytes:64,generated:true,alt:{ko:'치료 설명 모형',en:'Treatment explanation model',ja:'治療説明用の模型'},caption:{ko:'기존 AI 설명영상의 장면',en:'Frame from an existing AI educational video',ja:'既存AI説明動画の一場面'},review:{status:'sample-reviewed',clinicalApproval:false,blockingIssues:[]}};
+  const poster={...structuredClone(common),src:'/images/treatment-connect/CRN-001/'+posterPrefix+'.jpg',sha256:posterPrefix+'0'.repeat(64-posterPrefix.length),source:{type:'patient-connect-library',libraryKey:item.key,posterKey:media.poster_key,url:'https://connect.patientfunnel.kr/a/'+media.poster_key}};
+  // Header fixture tests byte binding and the dimension parser only, never media quality or decoding.
+  const jpeg=Buffer.from([0xff,0xd8,0xff,0xc0,0,17,8,2,0xd0,5,0,3,1,0x11,0,2,0x11,0,3,0x11,0,0xff,0xd9]);
+  const digest=crypto.createHash('sha256').update(jpeg).digest('hex');
+  const frame={...structuredClone(common),bytes:jpeg.length,src:'/images/treatment-connect/CRN-001/'+digest.slice(0,12)+'.jpg',sha256:digest,source:{type:'patient-connect-frame',libraryKey:item.key,videoKey:media.key,url:'https://connect.patientfunnel.kr/a/'+media.key,sourceSha256:videoPrefix+'0'.repeat(64-videoPrefix.length),frameSeconds:8}};
+  const one=image=>({version:1,images:{crown:image}});
+  connectCheck('original library poster accepted',()=>assert.equal(images.validate(one(poster)).images,1));
+  connectCheck('source-frame metadata accepted',()=>assert.equal(images.validate(one(frame)).images,1));
+  const mutations=[
+    ['poster unknown source type',poster,x=>x.source.type='arbitrary-url'],
+    ['poster forged URL',poster,x=>x.source.url='https://example.com/a/'+media.poster_key],
+    ['poster library mismatch',poster,x=>x.source.libraryKey='drive:IMP-001'],
+    ['poster other topic',poster,x=>x.src=x.src.replace('/CRN-001/','/IMP-001/')],
+    ['poster key mismatch',poster,x=>x.source.posterKey='library/CRN-001/111111111111.jpg'],
+    ['frame unknown source type',frame,x=>x.source.type='rendered-local'],
+    ['frame forged source URL',frame,x=>x.source.url='https://example.com/a/'+media.key],
+    ['frame other topic key',frame,x=>x.source.videoKey=media.key.replace('/CRN-001/','/IMP-001/')],
+    ['frame unlisted key',frame,x=>x.source.videoKey='library/CRN-001/111111111111.mp4'],
+    ['frame source hash malformed',frame,x=>x.source.sourceSha256='not-a-digest'],
+    ['frame source hash wrong prefix',frame,x=>x.source.sourceSha256='f'.repeat(64)],
+    ['frame negative timestamp',frame,x=>x.source.frameSeconds=-1],
+    ['frame timestamp at duration',frame,x=>x.source.frameSeconds=media.duration_seconds],
+    ['frame timestamp beyond duration',frame,x=>x.source.frameSeconds=media.duration_seconds+1],
+    ['frame timestamp string',frame,x=>x.source.frameSeconds='8'],
+    ['frame timestamp nonfinite',frame,x=>x.source.frameSeconds=Infinity],
+    ['frame output SHA filename mismatch',frame,x=>x.sha256='f'.repeat(64)],
+    ['frame wrong dimensions',frame,x=>x.height=630]
+  ];
+  for(const [name,original,mutate]of mutations)connectCheck('reject '+name,()=>{const x=structuredClone(original);mutate(x);assert.throws(()=>images.validate(one(x)));});
+  const assetRoot=path.join(sourceRoot,'.wrangler/connect-treatment-videos-20261021/tests/editorial-provenance'),file=path.join(assetRoot,'public',frame.src.slice(1));
+  fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,jpeg);
+  connectCheck('source-frame actual bytes match metadata',()=>assert.equal(images.validate(one(frame),{assetRoot}).images,1));
+  connectCheck('source-frame actual byte drift rejected',()=>{const corrupted=Buffer.from(jpeg);corrupted[corrupted.length-1]^=1;fs.writeFileSync(file,corrupted);assert.throws(()=>images.validate(one(frame),{assetRoot}),/file mismatch/);fs.writeFileSync(file,jpeg);});
+  connectCheck('source-frame forged digest with same filename prefix rejected',()=>{const x=structuredClone(frame);x.sha256=x.sha256.slice(0,12)+'0'.repeat(52);assert.throws(()=>images.validate(one(x),{assetRoot}),/file mismatch/);});
+  connectCheck('source-frame actual file size mismatch rejected',()=>{const x=structuredClone(frame);x.bytes++;assert.throws(()=>images.validate(one(x),{assetRoot}),/file mismatch/);});
+  for(const [name,image]of [['poster',poster],['frame',frame]])for(const [locale,folder]of images.locales)connectCheck(name+' 1280x720 metadata and contain rendering '+locale,()=>{
+    const original=fs.readFileSync(path.join(root,folder,'treatments/crown.html'),'utf8'),updated=images.syncTreatmentPage(original,'crown',locale,one(image)),doc=parse(updated);
+    verifyPage(updated,'crown',locale,one(image));
+    assert.equal(doc.querySelector('figure[data-treatment-editorial-image] img').getAttribute('style'),'aspect-ratio:16/9;object-fit:contain');
+    assert.deepEqual(protectedSchemas(updated),protectedSchemas(original));
+    assert.equal(images.syncTreatmentPage(updated,'crown',locale,one(image)),updated);
+  });
+}
+if(selfTest)testConnectProvenance();
+
 let manifest=images.readManifest();
 if(selfTest){
   manifest={version:1,images:Object.fromEntries(slugs.map((slug,i)=>[slug,{src:`/images/treatment-editorial/${slug}/${crypto.createHash('sha256').update(slug).digest('hex').slice(0,12)}/representative.jpg`,width:1200,height:630,bytes:2048,sha256:crypto.createHash('sha256').update(slug).digest('hex'),generated:true,alt:{ko:`${slug} 교육 모형`,en:`${slug} educational model`,ja:`${slug}の教育用模型`},caption:{ko:'치료 설명을 위한 AI 이미지',en:'AI educational image',ja:'治療説明用のAIイメージ'},review:{status:'sample-reviewed',clinicalApproval:false,reasons:[]}}]))};
@@ -81,7 +136,7 @@ if(selfTest){
   const hashes=new Set();
   for(const [slug,image]of Object.entries(manifest.images)){
     const file=path.join(assetRoot,root===sourceRoot?'public':'',image.src.slice(1)),bytes=fs.readFileSync(file);
-    assert.deepEqual(images.jpegSize(bytes),[1200,630]);assert(bytes.length<=307200);assert.equal(bytes.length,image.bytes);const sha=crypto.createHash('sha256').update(bytes).digest('hex');assert.equal(sha,image.sha256);hashes.add(sha);
+    assert.deepEqual(images.jpegSize(bytes),[image.width,image.height]);assert(bytes.length<=307200);assert.equal(bytes.length,image.bytes);const sha=crypto.createHash('sha256').update(bytes).digest('hex');assert.equal(sha,image.sha256);hashes.add(sha);
   }assert(hashes.size>=6);
   const coreHashes=new Set(images.coreSlugs.map(slug=>manifest.images[slug].sha256));assert.equal(coreHashes.size,6);
   images.validate(manifest,{expectedSlugs:slugs});
@@ -101,4 +156,4 @@ for(const [locale,folder]of images.locales){
   localizedHomeCards+=links.length;
 }
 const reuseSummary=images.validate(manifest,{expectedSlugs:slugs});
-console.log(JSON.stringify({passed:true,coverageComplete:pendingSlugs.length===0,pendingSlugs,mode:selfTest?'pure-transform-regression':'integrated-files',pages,images:Object.keys(manifest.images).length,localizedHomeCards,uniqueImages:reuseSummary.uniqueImages,reusedImages:reuseSummary.reusedImages,protectedRecords,clinicalApproval:false,visualQualityAssessed:false}));
+console.log(JSON.stringify({passed:true,coverageComplete:pendingSlugs.length===0,pendingSlugs,mode:selfTest?'pure-transform-regression':'integrated-files',connectRegressionChecks,pages,images:Object.keys(manifest.images).length,localizedHomeCards,uniqueImages:reuseSummary.uniqueImages,reusedImages:reuseSummary.reusedImages,protectedRecords,clinicalApproval:false,visualQualityAssessed:false}));

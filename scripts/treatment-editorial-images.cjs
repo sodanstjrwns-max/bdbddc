@@ -44,10 +44,24 @@ function validate(manifest, options={}) {
   for (const slug of slugs) {
     const image=manifest.images[slug];
     if (!/^[a-z0-9-]+$/.test(slug)) throw Error('Invalid slug: '+slug);
+    const connectPath=/^\/images\/treatment-connect\/([A-Z]{3}-\d{3})\/([a-f0-9]{12})\.jpg$/.exec(image.src);
     const representativePath=/^\/images\/(treatment-editorial|treatment-process)\/([a-z0-9-]+)\/[a-f0-9]{12,64}\/representative\.jpg$/.exec(image.src);
-    if (!representativePath || (representativePath[1]==='treatment-process' && representativePath[2]!==slug)) throw Error('Unexpected representative path: '+slug);
-    if (image.width!==1200 || image.height!==630 || !Number.isInteger(image.bytes) || image.bytes<=0 || image.bytes>300*1024) throw Error('Invalid dimensions or size: '+slug);
+    if ((!representativePath && !connectPath) || (representativePath?.[1]==='treatment-process' && representativePath[2]!==slug)) throw Error('Unexpected representative path: '+slug);
+    if ((connectPath ? (image.width!==1280 || image.height!==720) : (image.width!==1200 || image.height!==630)) || !Number.isInteger(image.bytes) || image.bytes<=0 || image.bytes>300*1024) throw Error('Invalid dimensions or size: '+slug);
     if (!/^[a-f0-9]{64}$/.test(image.sha256)) throw Error('Missing representative SHA: '+slug);
+    if (connectPath) {
+      const source=image.source, library=JSON.parse(fs.readFileSync(path.join(sourceRoot,'src/data/treatment-connect-library.json'),'utf8'));
+      const item=library.items.find(row=>row.key===source?.libraryKey && row.topic_id===connectPath[1]);
+      if (!image.sha256.startsWith(connectPath[2])) throw Error('Connect representative provenance mismatch: '+slug);
+      if (source?.type==='patient-connect-library') {
+        const posterKey='library/'+connectPath[1]+'/'+connectPath[2]+'.jpg';
+        if(source.posterKey!==posterKey || source.url!=='https://connect.patientfunnel.kr/a/'+posterKey || !item?.media.some(m=>m.media_type==='video' && m.poster_key===posterKey)) throw Error('Connect representative provenance mismatch: '+slug);
+      } else if (source?.type==='patient-connect-frame') {
+        const video=item?.media.find(m=>m.media_type==='video' && m.key===source.videoKey);
+        const expectedPrefix=source.videoKey?.split('/').pop()?.split('.')[0];
+        if(!video || source.url!=='https://connect.patientfunnel.kr/a/'+source.videoKey || !/^[a-f0-9]{64}$/.test(source.sourceSha256||'') || !source.sourceSha256.startsWith(expectedPrefix) || !Number.isFinite(source.frameSeconds) || source.frameSeconds<0 || source.frameSeconds>=video.duration_seconds) throw Error('Connect frame provenance mismatch: '+slug);
+      } else throw Error('Connect representative provenance mismatch: '+slug);
+    }
     if (paths.has(image.src) && paths.get(image.src)!==image.sha256) throw Error('One image path has different hashes: '+slug);
     paths.set(image.src,image.sha256);
     if (!hashes.has(image.sha256)) hashes.set(image.sha256,[]);
@@ -58,7 +72,7 @@ function validate(manifest, options={}) {
     if (options.assetRoot) {
       const file=path.join(options.assetRoot,'public',image.src.slice(1));
       const bytes=fs.readFileSync(file);
-      if (bytes.length!==image.bytes || crypto.createHash('sha256').update(bytes).digest('hex')!==image.sha256 || String(jpegSize(bytes))!=='1200,630') throw Error('Representative file mismatch: '+slug);
+      if (bytes.length!==image.bytes || crypto.createHash('sha256').update(bytes).digest('hex')!==image.sha256 || String(jpegSize(bytes))!==[image.width,image.height].join(',')) throw Error('Representative file mismatch: '+slug);
     }
   }
   return { images:slugs.length, pendingSlugs:pending, coverageComplete:pending.length===0, uniqueImages:hashes.size, reusedImages:[...hashes.entries()].filter(([,slugs])=>slugs.length>1).map(([sha256,slugs])=>({sha256,slugs})) };
@@ -69,17 +83,17 @@ function syncTreatmentPage(html, slug, locale='ko', manifest=readManifest()) {
   const url=canonical(slug,locale), src=origin+image.src, alt=image.alt[locale];
   // Only known representative wrappers are replaced. Clinical cases, staff, and clinic galleries remain intact.
   html=html.replace(/<figure\b[^>]*\bdata-(?:subpage-representative|treatment-editorial-image)(?:=["'][^"']*["'])?[^>]*>[\s\S]*?<\/figure>/gi,'');
-  html=html.replace(/<figure\b[^>]*class=["'][^"']*\btg-guide-photo\b[^"']*["'][^>]*>[\s\S]*?<\/figure>/gi, tag=> /<img\b[^>]*src=["'](?:https:\/\/bdbddc\.com)?\/images\/(?:subpage-cards|treatment-editorial|treatment-process)\//i.test(tag)?'':tag);
+  html=html.replace(/<figure\b[^>]*class=["'][^"']*\btg-guide-photo\b[^"']*["'][^>]*>[\s\S]*?<\/figure>/gi, tag=> /<img\b[^>]*src=["'](?:https:\/\/bdbddc\.com)?\/images\/(?:subpage-cards|treatment-editorial|treatment-process|treatment-connect)\//i.test(tag)?'':tag);
   const panel=/<aside\b[^>]*class=["'][^"']*\btg-question-panel\b[^"']*["'][^>]*>/;
   if (!panel.test(html)) throw Error('Missing patient question panel: '+locale+'/'+slug);
-  const figure=`<figure class="subpage-representative" data-subpage-representative="${slug}" data-treatment-editorial-image="${slug}"><img src="${src}" width="1200" height="630" alt="${escape(alt)}" loading="eager" fetchpriority="high" decoding="async"><figcaption>${escape(caption(image,locale))}</figcaption></figure>`;
+  const figure=`<figure class="subpage-representative" data-subpage-representative="${slug}" data-treatment-editorial-image="${slug}"><img src="${src}" width="${image.width}" height="${image.height}" alt="${escape(alt)}"${image.source?.type?.startsWith('patient-connect-') ? ' style="aspect-ratio:16/9;object-fit:contain"' : ''} loading="eager" fetchpriority="high" decoding="async"><figcaption>${escape(caption(image,locale))}</figcaption></figure>`;
   html=html.replace(panel, tag=>tag+figure);
   // Retain the first image-meta position: later favicon/motion passes may append their own head blocks.
   const metadataAnchor='<!-- TREATMENT-EDITORIAL-METADATA-ANCHOR -->';
   let metadataFound=false;
   html=html.replace(/<meta\b[^>]*(?:property=["']og:image(?::(?:width|height|alt|type|secure_url))?["']|name=["']twitter:image(?::alt)?["'])[^>]*>\s*/gi,()=>{if(metadataFound)return '';metadataFound=true;return metadataAnchor;});
   html=html.replace(/<link\b[^>]*rel=["']preload["'][^>]*href=["']\/(?:implant|invisalign|laminate)\/frames\/[^>]*>\s*/gi,'');
-  const tags=[['property','og:image',src],['property','og:image:width','1200'],['property','og:image:height','630'],['property','og:image:type','image/jpeg'],['property','og:image:alt',alt],['name','twitter:image',src],['name','twitter:image:alt',alt]].map(([attr,key,value])=>`<meta ${attr}="${key}" content="${escape(value)}">`).join('\n')+'\n';
+  const tags=[['property','og:image',src],['property','og:image:width',String(image.width)],['property','og:image:height',String(image.height)],['property','og:image:type','image/jpeg'],['property','og:image:alt',alt],['name','twitter:image',src],['name','twitter:image:alt',alt]].map(([attr,key,value])=>`<meta ${attr}="${key}" content="${escape(value)}">`).join('\n')+'\n';
   let pageFound=false;
   html=html.replace(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi, tag=>{
     const data=JSON.parse(tag.slice(tag.indexOf('>')+1,tag.lastIndexOf('</script>')));
@@ -94,7 +108,7 @@ function syncTreatmentPage(html, slug, locale='ko', manifest=readManifest()) {
       const objectUrl=x.url || (x['@id']?.startsWith(origin)?x['@id'].split('#')[0]:'');
       if (page && (!objectUrl || objectUrl.replace(/\/$/,'')===url)) {
         x.image=src;
-        x.primaryImageOfPage={'@type':'ImageObject',url:src,contentUrl:src,width:1200,height:630,caption:alt};
+        x.primaryImageOfPage={'@type':'ImageObject',url:src,contentUrl:src,width:image.width,height:image.height,caption:alt};
         pageFound=changed=true;
       } else if (types.includes('MedicalProcedure') && (!objectUrl || objectUrl.replace(/\/$/,'')===url)) { x.image=src; changed=true; }
       Object.values(x).forEach(visit);
@@ -104,7 +118,7 @@ function syncTreatmentPage(html, slug, locale='ko', manifest=readManifest()) {
   });
   if (!pageFound) {
     const name=html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || alt;
-    html=html.replace('</head>',`<script type="application/ld+json" data-treatment-editorial-schema>${safeJson({'@context':'https://schema.org','@type':'MedicalWebPage','@id':url+'#guidance',url,name,inLanguage:locale,image:src,primaryImageOfPage:{'@type':'ImageObject',url:src,contentUrl:src,width:1200,height:630,caption:alt},publisher:{'@id':origin+'/#dentist'}})}</script>\n</head>`);
+    html=html.replace('</head>',`<script type="application/ld+json" data-treatment-editorial-schema>${safeJson({'@context':'https://schema.org','@type':'MedicalWebPage','@id':url+'#guidance',url,name,inLanguage:locale,image:src,primaryImageOfPage:{'@type':'ImageObject',url:src,contentUrl:src,width:image.width,height:image.height,caption:alt},publisher:{'@id':origin+'/#dentist'}})}</script>\n</head>`);
   }
   if (!html.includes('/static/subpage-cards.css')) html=html.replace('</head>','<link rel="stylesheet" href="/static/subpage-cards.css?v=20261014">\n</head>');
   return metadataFound ? html.replace(metadataAnchor,tags) : html.replace('</head>',tags+'</head>');
@@ -118,7 +132,7 @@ function syncImageSitemap(xml, manifest=readManifest()) {
     xml=xml.replace(/<url>[\s\S]*?<\/url>/g, block=>{
       if (!block.includes('<loc>'+url+'</loc>')) return block;
       count++;
-      block=block.replace(/\s*<image:image>[\s\S]*?<\/image:image>/g, tag=>/<image:loc>https:\/\/bdbddc\.com\/images\/(?:subpage-cards|treatment-editorial|treatment-process)\//.test(tag)?'':tag);
+      block=block.replace(/\s*<image:image>[\s\S]*?<\/image:image>/g, tag=>/<image:loc>https:\/\/bdbddc\.com\/images\/(?:subpage-cards|treatment-editorial|treatment-process|treatment-connect)\//.test(tag)?'':tag);
       return block.replace('</loc>','</loc>\n    '+entry);
     });
     if (count>1) throw Error('Duplicate image sitemap page: '+url);
@@ -146,7 +160,7 @@ function syncLocalizedHome(html, locale, manifest=readManifest()) {
   });
   const {parse}=require('node-html-parser'),dom=parse(html);
   for(const a of dom.querySelectorAll('.treatment-grid > a'))if(cards.some(card=>a.getAttribute('href')===card.url))html=html.replace('        '+a.toString(),'').replace(a.toString(),'');
-  const section=`<!-- TREATMENT-EDITORIAL-CARDS:START -->\n<div id="home-treatment-cards" class="subpage-card-grid" aria-label="${escape(copy.label)}">${cards.map(c=>`<a class="subpage-card" href="${c.url}"><img src="${c.image.thumbnail.src}" alt="${escape(c.image.alt[locale])}" width="600" height="600" loading="lazy" decoding="async"><div class="subpage-card-copy"><h3>${escape(c.name)}</h3><p>${escape(c.question)}</p><span class="subpage-card-more">${escape(copy.more)} <span aria-hidden="true">↗</span></span></div></a>`).join('\n')}</div>\n<p class="section-subtitle">${escape(copy.disclosure)}</p>\n<!-- TREATMENT-EDITORIAL-CARDS:END -->\n`;
+  const section=`<!-- TREATMENT-EDITORIAL-CARDS:START -->\n<div id="home-treatment-cards" class="subpage-card-grid" aria-label="${escape(copy.label)}">${cards.map(c=>`<a class="subpage-card" href="${c.url}"><img src="${c.image.thumbnail.src}" alt="${escape(c.image.thumbnail.alt?.[locale]||c.image.alt[locale])}" width="600" height="600" loading="lazy" decoding="async"><div class="subpage-card-copy"><h3>${escape(c.name)}</h3><p>${escape(c.question)}</p><span class="subpage-card-more">${escape(copy.more)} <span aria-hidden="true">↗</span></span></div></a>`).join('\n')}</div>\n<p class="section-subtitle">${escape(copy.disclosure)}</p>\n<!-- TREATMENT-EDITORIAL-CARDS:END -->\n`;
   html=html.replace(grid,tag=>section+tag);
   const schema={'@context':'https://schema.org','@type':'ItemList','@id':origin+'/'+prefix+'/#treatment-cards',name:copy.label,numberOfItems:cards.length,itemListElement:cards.map((c,i)=>({'@type':'ListItem',position:i+1,name:c.name,url:origin+c.url,image:origin+c.image.thumbnail.src}))};
   if(!html.includes('/static/subpage-cards.css'))html=html.replace('</head>','<link rel="stylesheet" href="/static/subpage-cards.css?v=20261014">\n</head>');

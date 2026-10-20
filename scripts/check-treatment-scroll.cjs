@@ -235,7 +235,7 @@ function checkClinicalBody(doc, main, slug, lang, relative, expectedUrl) {
   check(!!representative,relative,'Representative image record is missing');
   check(absoluteImageURL(main.querySelector('img')?.getAttribute('src'))===imageURL,relative,'First body image differs from the representative');
   check(doc.querySelector('meta[property="og:image"]')?.getAttribute('content')===imageURL,relative,'OG image differs from representative');
-  check(doc.querySelector('meta[property="og:image:width"]')?.getAttribute('content')==='1200' && doc.querySelector('meta[property="og:image:height"]')?.getAttribute('content')==='630',relative,'Representative OG dimensions must remain 1200x630');
+  check(doc.querySelector('meta[property="og:image:width"]')?.getAttribute('content')===String(representative.width) && doc.querySelector('meta[property="og:image:height"]')?.getAttribute('content')===String(representative.height),relative,'Representative OG dimensions must match the exact image');
   const journey = one(main, '#tg-journey', relative);
   if (!journey || !text) return;
   check(journey.getAttribute('data-clinical-process') === slug && journey.getAttribute('data-process-copy-sha256') === hash(JSON.stringify(text)), relative, 'Clinical body must bind the exact installed locale copy');
