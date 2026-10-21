@@ -18,7 +18,9 @@
     "queue:seed:local": "wrangler d1 execute bdbddc-production --local --file=/home/user/gsc-work/seed-column-queue.sql",
     "queue:seed:prod": "wrangler d1 execute bdbddc-production --remote --file=/home/user/gsc-work/seed-column-queue.sql",
     "gate:parity": "esbuild src/column-gate.ts --bundle --format=esm --outfile=/tmp/gate.mjs --log-level=error && node scripts/gate-parity.mjs",
-    "cron:deploy": "wrangler deploy -c scripts/cron-worker/wrangler.jsonc"
+    "cron:deploy": "wrangler deploy -c scripts/cron-worker/wrangler.jsonc",
+    "build:regional-guides": "node scripts/build-regional-guides.mjs && node scripts/sync-regional-guide-links.mjs",
+    "test:regional-guides": "node scripts/test-regional-guides.mjs"
   },
   "dependencies": {
     "hono": "^4.11.1"
