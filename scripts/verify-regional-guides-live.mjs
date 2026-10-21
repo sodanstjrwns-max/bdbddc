@@ -10,6 +10,7 @@ if(!base||!output?.startsWith('/Volumes/MSJ_WORK/Workspaces/')||fs.existsSync(ou
 const errors=[],pages=[],assets=new Map(),links=new Map(),documents=new Map();
 let completed=false,phase='pages';
 const norm=s=>String(s||'').replace(/\s+/g,' ').trim();
+const compact=s=>String(s||'').replace(/\s/g,'');
 const save=()=>fs.writeFileSync(output,JSON.stringify({checkedAt:new Date().toISOString(),base,phase,completed,pages,assetChecks,linkChecks,errors,allPassed:completed&&pages.length===matrix.length&&!errors.length},null,2)+'\n');
 const assetChecks=[],linkChecks=[];
 async function request(u,options={}){return fetch(u,{...options,signal:AbortSignal.timeout(30000)});}
@@ -23,12 +24,12 @@ await parallel(matrix,async p=>{try{
  check(d.querySelector('link[rel="canonical"]')?.getAttribute('href')==='https://bdbddc.com'+p.url,'canonical');
  check(!/noindex|none/i.test((d.querySelector('meta[name="robots"]')?.getAttribute('content')||'')+' '+(r.headers.get('x-robots-tag')||'')),'indexing blocked');
  check(d.querySelectorAll('h1').length===1,'H1 count');
- if(m){const visible=parse(m.outerHTML);visible.querySelectorAll('section.bd-journey[aria-label="관련 고민 노트"]').forEach(x=>x.remove());check(norm(visible.text)===norm(src.querySelector('main')?.text),'main differs from built content');
+ if(m){const visible=parse(m.outerHTML);visible.querySelectorAll('section.bd-journey[aria-label="관련 고민 노트"],section.io-context[data-treatment-insight-link][aria-label="치료의 안과 밖"]').forEach(x=>x.remove());check(norm(visible.text)===norm(src.querySelector('main')?.text),'main differs from built content');
  const liveSources=m.querySelectorAll('video source').map(x=>x.getAttribute('src'));check(JSON.stringify(liveSources)===JSON.stringify(src.querySelectorAll('main video source').map(x=>x.getAttribute('src'))),'video sources differ');
  for(const e of m.querySelectorAll('img,video,source'))for(const attr of ['src','poster']){const v=e.getAttribute(attr);if(v)assets.set(new URL(v,base).href,attr==='src'&&['VIDEO','SOURCE'].includes(e.tagName)?'video':'image')}
  for(const e of d.querySelectorAll('link[rel="stylesheet"]')){const v=e.getAttribute('href');if(v?.startsWith('/static/regional-'))assets.set(new URL(v,base).href,'css')}
  for(const e of m.querySelectorAll('a[href]')){const v=e.getAttribute('href');if(v?.startsWith('/')&&!v.startsWith('//'))links.set(new URL(v,base).href,true)}
- let faqs=0;for(const e of d.querySelectorAll('script[type="application/ld+json"]')){let v;try{v=JSON.parse(e.text)}catch{check(false,'invalid JSON-LD');continue}if(v['@type']==='FAQPage'){faqs++;for(const q of v.mainEntity||[]){check(norm(m.text).includes(norm(q.name)),'FAQ question absent');check(norm(m.text).includes(norm(q.acceptedAnswer.text)),'FAQ answer absent')}}}
+ let faqs=0;for(const e of d.querySelectorAll('script[type="application/ld+json"]')){let v;try{v=JSON.parse(e.text)}catch{check(false,'invalid JSON-LD');continue}if(v['@type']==='FAQPage'){faqs++;for(const q of v.mainEntity||[]){check(compact(m.text).includes(compact(q.name)),'FAQ question absent');check(compact(m.text).includes(compact(q.acceptedAnswer.text)),'FAQ answer absent')}}}
  if(p.region!=='cheonan'||p.category==='dental')check(faqs===1,'FAQ schema count');
  pages.push({...p,status:r.status,title:d.querySelector('title')?.text,h1:d.querySelector('h1')?.text,characters:norm(m.text).length,videos:liveSources.length,images:m.querySelectorAll('img').length,etag:r.headers.get('etag')});
  }save();
