@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-10-20T22:26:06.728642+00:00",
+  "retrievedAt": "2026-10-21T11:54:31.065Z",
   "source": "https://connect.patientfunnel.kr/api/public/library",
   "items": [
     {
@@ -51,7 +51,8 @@
           "media_type": "video",
           "poster_key": "library/GUM-002/dd7dd4142e3f.jpg",
           "duration_seconds": 49.17,
-          "caption": ""
+          "caption": "",
+          "sha256": "1694f334d2dd5fc350ccefdd53b7ebbdc4eec268b9c69e9c521ab61a416eb3b2"
         }
       ]
     },
@@ -68,7 +69,8 @@
           "media_type": "video",
           "poster_key": "library/CRK-001/ab46dbde16dc.jpg",
           "duration_seconds": 50.38,
-          "caption": ""
+          "caption": "",
+          "sha256": "8fad5743c23359922e5a06497e5c40848a2f2a74beadd29e4ab4ba6485e066ac"
         }
       ]
     },
@@ -172,7 +174,8 @@
           "media_type": "video",
           "poster_key": "library/IMC-001/b69dfb2d80a1.jpg",
           "duration_seconds": 45.08,
-          "caption": ""
+          "caption": "",
+          "sha256": "03919be3e0279ee8e9ec31d7efb635287800e83c1ba1ae0d7bd16c0600194898"
         }
       ]
     },
@@ -260,7 +263,8 @@
           "media_type": "video",
           "poster_key": "library/SUR-011/a13bf77ff39d.jpg",
           "duration_seconds": 48.88,
-          "caption": ""
+          "caption": "",
+          "sha256": "5e232ec41e842a3d9a937424be845b5c5479090aa1ea56279c6cb51364398cbf"
         }
       ]
     },
@@ -348,7 +352,8 @@
           "media_type": "video",
           "poster_key": "library/CRN-004/d9ea9dc89acd.jpg",
           "duration_seconds": 47,
-          "caption": ""
+          "caption": "",
+          "sha256": "8797c7e8896d7503413f7071eb964cdf4cf462b00cf7165654086edd64022a96"
         }
       ]
     },
@@ -383,7 +388,8 @@
           "media_type": "video",
           "poster_key": "library/IMC-003/3e3d0065a239.jpg",
           "duration_seconds": 40,
-          "caption": ""
+          "caption": "",
+          "sha256": "ee3d82de236f43f3e2fd2a39fe7382404f86176f36950bb127f005b3b3d1b0f2"
         }
       ]
     },
@@ -436,7 +442,8 @@
           "media_type": "video",
           "poster_key": "library/PRV-002/b4e3239a1aff.jpg",
           "duration_seconds": 64,
-          "caption": ""
+          "caption": "",
+          "sha256": "6ad9fe164699ec49135d98532539c4ea0e0e58444546b11fa8d370632c74d8e3"
         }
       ]
     },
@@ -559,7 +566,8 @@
           "media_type": "video",
           "poster_key": "library/CRN-005/430c2c68f9f5.jpg",
           "duration_seconds": 48,
-          "caption": ""
+          "caption": "",
+          "sha256": "d6f75ef7578269c00e778dea8c1e2b48db03601ac1ee28045fcbcd4ddeac3d4c"
         }
       ]
     },
@@ -664,7 +672,8 @@
           "media_type": "video",
           "poster_key": "library/ORT-004/0fd33f6acf4a.jpg",
           "duration_seconds": 37,
-          "caption": ""
+          "caption": "",
+          "sha256": "991105d2019ade3598a7f1a29e5ae62580d7a472cd245dd216a3e90fdeb8ff42"
         }
       ]
     },
@@ -716,7 +725,8 @@
           "media_type": "video",
           "poster_key": "library/TMJ-013/72fe70f80681.jpg",
           "duration_seconds": 40,
-          "caption": ""
+          "caption": "",
+          "sha256": "ac72b95679c2b129d3f57b1c48c46f161f37d077057a2addf1305389cd20f717"
         }
       ]
     },
@@ -733,7 +743,8 @@
           "media_type": "video",
           "poster_key": "library/TMJ-014/9d7ffc3d2b91.jpg",
           "duration_seconds": 41,
-          "caption": ""
+          "caption": "",
+          "sha256": "77286800570044390ac604d12a19f1a1e7cc568599dc3198cd45a4df5b21aeb8"
         }
       ]
     },
@@ -803,7 +814,8 @@
           "media_type": "video",
           "poster_key": "library/EXT-011/485d1c684dc4.jpg",
           "duration_seconds": 55,
-          "caption": ""
+          "caption": "",
+          "sha256": "a6690bb5dc7f36768755c9920555adb2afb6acdd7db3855af4731ad0abf3ad14"
         }
       ]
     },
@@ -854,7 +866,8 @@
           "media_type": "video",
           "poster_key": "library/CRN-011/b52658550e5d.jpg",
           "duration_seconds": 48,
-          "caption": ""
+          "caption": "",
+          "sha256": "8e75ee02eb03240d0dc5079ee15db3f5128fc675d0a5801ef74ee1bd07e2e865"
         }
       ]
     },
@@ -871,7 +884,8 @@
           "media_type": "video",
           "poster_key": "library/END-011/649750a3b2d8.jpg",
           "duration_seconds": 68,
-          "caption": ""
+          "caption": "",
+          "sha256": "ab1362c04aa3c4b8241efa2077fb406eddbfa506037802be039857a9623d3309"
         }
       ]
     },
@@ -888,7 +902,8 @@
           "media_type": "video",
           "poster_key": "library/CAR-009/15686eb5d87f.jpg",
           "duration_seconds": 64,
-          "caption": ""
+          "caption": "",
+          "sha256": "79159a76eb77a1f39d0c268bd83da0fac47dde2bf90951319305e165f0d975f9"
         }
       ]
     },
@@ -905,7 +920,8 @@
           "media_type": "video",
           "poster_key": "library/END-006/df4e3c646f4e.jpg",
           "duration_seconds": 66,
-          "caption": ""
+          "caption": "",
+          "sha256": "89b5cbf969c15b8e45c66ceaff6361901c6e8cfcb49ccd2bf2ce8f1baf83e329"
         }
       ]
     },
@@ -922,7 +938,8 @@
           "media_type": "video",
           "poster_key": "library/CAR-003/e989e42a9e59.jpg",
           "duration_seconds": 62,
-          "caption": ""
+          "caption": "",
+          "sha256": "5c0d8f129f851ca5488def022fac40db267c81dd68b5152e5ec04f7c730a8a63"
         }
       ]
     },
@@ -956,7 +973,8 @@
           "media_type": "video",
           "poster_key": "library/END-012/07e0b750056c.jpg",
           "duration_seconds": 49,
-          "caption": ""
+          "caption": "",
+          "sha256": "c2fc6926bb91b8755f45bc85e6197ddc148212e551b0d7068973b4d70c8240ed"
         }
       ]
     },
@@ -1059,7 +1077,8 @@
           "media_type": "video",
           "poster_key": "library/EST-011/3cdc52352528.jpg",
           "duration_seconds": 64,
-          "caption": ""
+          "caption": "",
+          "sha256": "9a4b96449e65a5dc3fd31151cf09fb8029d36b19b56692b419a1c123a72e073e"
         }
       ]
     },
@@ -1076,7 +1095,8 @@
           "media_type": "video",
           "poster_key": "library/PED-007/5a625fb94541.jpg",
           "duration_seconds": 60,
-          "caption": ""
+          "caption": "",
+          "sha256": "f2e2a615c30ec779fc3c46c17ca8aea148a76c912e38c2f9e915f5edcba79bf7"
         }
       ]
     },
@@ -1093,7 +1113,8 @@
           "media_type": "video",
           "poster_key": "library/PRV-003/a1ceff3add26.jpg",
           "duration_seconds": 53,
-          "caption": ""
+          "caption": "",
+          "sha256": "de2af726768eb370d9caf4d463f2e4a8f0658607accb5478d1aae47188d76095"
         }
       ]
     },
@@ -1110,7 +1131,8 @@
           "media_type": "video",
           "poster_key": "library/IMC-008/9cabb620b6a5.jpg",
           "duration_seconds": 60,
-          "caption": ""
+          "caption": "",
+          "sha256": "45ec4c7d9983e3bcfe17ed88112bf88a21a9170ae33d5e1931fe1c68df3be1f3"
         }
       ]
     },
@@ -1144,7 +1166,8 @@
           "media_type": "video",
           "poster_key": "library/PER-009/840edd600871.jpg",
           "duration_seconds": 60,
-          "caption": ""
+          "caption": "",
+          "sha256": "c9e9f507e00f7593364cd0ab55397c1ff3a4478dbce8501e7250c54f12aa4340"
         }
       ]
     },
@@ -1558,7 +1581,8 @@
           "media_type": "video",
           "poster_key": "library/PED-010/d29849142bb6.jpg",
           "duration_seconds": 48,
-          "caption": ""
+          "caption": "",
+          "sha256": "aceec7f95e56b5c98acb125c473d13e477229ad17b8777a6297fb2180a9fc8dd"
         }
       ]
     },
@@ -1868,7 +1892,8 @@
           "media_type": "video",
           "poster_key": "library/IMC-004/01ddbafaead9.jpg",
           "duration_seconds": 61,
-          "caption": ""
+          "caption": "",
+          "sha256": "cebbc82c4b6858ed6a7cf2b32b87a2b5a362395b2a243976aa0b934b413dad22"
         }
       ]
     },
@@ -1902,7 +1927,8 @@
           "media_type": "video",
           "poster_key": "library/IMP-001/a68059db09c4.jpg",
           "duration_seconds": 27.04,
-          "caption": ""
+          "caption": "",
+          "sha256": "a702f0f59f8c26adc13abbd19744474cdd9c5c73384d2f08e4ee4789f4457e29"
         }
       ]
     },
@@ -1989,7 +2015,8 @@
           "media_type": "video",
           "poster_key": "library/ORA-013/f3b510d713e3.jpg",
           "duration_seconds": 46,
-          "caption": ""
+          "caption": "",
+          "sha256": "f9ba7e0c4e599b7ddd0ad38e7cccee74c4aef501f1bc1df0f1f22d1012c5da74"
         }
       ]
     },
@@ -2075,7 +2102,8 @@
           "media_type": "video",
           "poster_key": "library/ORT-013/30722327df16.jpg",
           "duration_seconds": 49,
-          "caption": ""
+          "caption": "",
+          "sha256": "4406efa7a0d42486a1a506fb580e11d452a392b7e65c2b637b4833c3402d5ad1"
         }
       ]
     },
@@ -2126,7 +2154,8 @@
           "media_type": "video",
           "poster_key": "library/PED-013/eeab0a4fa217.jpg",
           "duration_seconds": 44,
-          "caption": ""
+          "caption": "",
+          "sha256": "7e2230020493902b6df92b585a5d42e7c3d07456e5258c996caf70082f7d435c"
         }
       ]
     },

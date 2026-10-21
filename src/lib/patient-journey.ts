@@ -38,22 +38,21 @@ export function registerPatientJourney(app: Hono<any>) {
     if (c.res.status !== 200 || !c.res.headers.get('content-type')?.includes('text/html')) return
     const notes = visiblePatientNotes()
     const relevant = (region ? notes.filter(n => n.region === region.name) : guide ? relatedNotes(path, notes) : []).sort((a, b) => (b.publishedAt || '').localeCompare(a.publishedAt || ''))
-    let addition = region || reservation ? visitPreparation(region?.slug) : ''
-    if (relevant.length) addition += `<section class="bd-journey" aria-label="관련 고민 노트"><div class="bd-journey-kicker">설명 다음에는, 내 이야기</div><h2>비슷한 상황에서 이런 걱정을 하셨나요?</h2><p>치료의 전체 설명과 별개로 마음에 걸리는 구체적인 상황을 함께 살펴봅니다.</p>${links(relevant.slice(0, 6))}<a href="/concerns">다른 고민 노트 찾아보기 →</a></section>`
-    if (!addition) return
+    if (!region && !reservation && !relevant.length) return
     let html = await c.res.text()
-    if (html.includes('id="visit-preparation"')) {
-      c.res = new Response(html, { status: c.res.status, headers: c.res.headers })
-      return
+    // A page may provide its own preparation section while still needing live note links.
+    let addition = (region || reservation) && !html.includes('id="visit-preparation"') ? visitPreparation(region?.slug) : ''
+    if (relevant.length) addition += `<section class="bd-journey" aria-label="관련 고민 노트"><div class="bd-journey-kicker">설명 다음에는, 내 이야기</div><h2>비슷한 상황에서 이런 걱정을 하셨나요?</h2><p>치료의 전체 설명과 별개로 마음에 걸리는 구체적인 상황을 함께 살펴봅니다.</p>${links(relevant.slice(0, 6))}<a href="/concerns">다른 고민 노트 찾아보기 →</a></section>`
+    if (addition) {
+      // Replace the original fixed note teaser with the current, publication-aware list.
+      if (guide && relevant.length) html = html.replace(/<!-- patient-notes-links -->\s*<section[\s\S]*?<\/section>/, '')
+      html = html.replace('</head>', '<link rel="stylesheet" href="/static/patient-journey.css?v=20260921"></head>')
+      html = html.includes('</main>') ? html.replace('</main>', addition + '</main>') : html.replace(/<footer\b/, addition + '<footer')
     }
-    // Replace the original fixed note teaser with the current, publication-aware list.
-    if (guide && relevant.length) html = html.replace(/<!-- patient-notes-links -->\s*<section[\s\S]*?<\/section>/, '')
-    html = html.replace('</head>', '<link rel="stylesheet" href="/static/patient-journey.css?v=20260921"></head>')
-    html = html.includes('</main>') ? html.replace('</main>', addition + '</main>') : html.replace(/<footer\b/, addition + '<footer')
-    const headers = new Headers(c.res.headers)
-    headers.delete('content-length'); headers.delete('etag')
+    c.res = new Response(html, { status: c.res.status, headers: c.res.headers })
+    // Hono carries old headers into a replacement response; update the final instance.
+    c.res.headers.delete('content-length'); c.res.headers.delete('etag')
     // Scheduled note links appear only after release time, never via a cached early list.
-    headers.set('Cache-Control', 'no-store')
-    c.res = new Response(html, { status: c.res.status, headers })
+    c.res.headers.set('Cache-Control', 'no-store')
   })
 }

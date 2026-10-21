@@ -3641,13 +3641,14 @@ form:has(input[placeholder="Email"]) { display: none !important; }
   // The implant-cost article keeps its own URL/title and places its existing link near the heading.
   let isImplantCostPost = false
   try { isImplantCostPost = decodeURIComponent(reqPath || '').replace(/\/$/, '') === '/blog/천안임플란트' } catch {}
+  const isAsanOrthodonticsPost = (reqPath || '').replace(/\/$/, '') === '/blog/asan-dental-orthodontics'
   // Inblog hydrates the article and can remove server-added nodes; restore the same visible link.
-  if (isImplantCostPost && !html.includes('/static/blog-implant-link.js')) {
-    html = html.replace('</head>', '<script src="/static/blog-implant-link.js?v=20261008" defer></script></head>')
+  if ((isImplantCostPost || isAsanOrthodonticsPost) && !html.includes('/static/blog-implant-link.js')) {
+    html = html.replace('</head>', '<script src="/static/blog-implant-link.js?v=20261021" defer></script></head>')
   }
   const treatmentKeywordMap: Array<{ kw: string; href: string; label: string }> = [
     { kw: '인비절라인', href: '/treatments/invisalign', label: '인비절라인(투명교정)' },
-    { kw: '치아교정', href: '/treatments/orthodontics', label: '치아교정' },
+    { kw: '치아교정', href: isAsanOrthodonticsPost ? '/area/asan-orthodontics' : '/treatments/orthodontics', label: isAsanOrthodonticsPost ? '아산 치아교정' : '치아교정' },
     { kw: '라미네이트', href: '/treatments/glownate', label: '라미네이트(글로우네이트)' },
     { kw: '임플란트', href: '/treatments/implant', label: isImplantCostPost ? '천안 임플란트' : '임플란트' },
   ]
@@ -3666,7 +3667,7 @@ form:has(input[placeholder="Email"]) { display: none !important; }
 <p style="font-size:0.9rem;color:#736354;margin:0 0 12px;line-height:1.7;"><i class="fas fa-link" style="color:#c9a96e;margin-right:6px;"></i> ${isImplantCostPost ? '비용을 비교하기 전, 치료 과정과 상담에서 확인할 사항도 함께 살펴보세요.' : '이 글에서 다룬 치료 — 서울비디치과 진료 안내'}</p>
 <div style="display:flex;flex-wrap:wrap;gap:10px;">${linksHtml}</div>
 </aside>`
-    if (isImplantCostPost && /<h1\b[^>]*>[\s\S]*?<\/h1>/i.test(html)) {
+    if ((isImplantCostPost || isAsanOrthodonticsPost) && /<h1\b[^>]*>[\s\S]*?<\/h1>/i.test(html)) {
       html = html.replace(/<h1\b[^>]*>[\s\S]*?<\/h1>/i, heading => heading + relatedTreatmentBox)
     } else if (/<\/article>/i.test(html)) {
       html = html.replace(/<\/article>/i, relatedTreatmentBox + '</article>')
