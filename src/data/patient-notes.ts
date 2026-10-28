@@ -10524,6 +10524,310 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-27",
   "publishedAt": "2026-10-27T09:00:00+09:00"
+},
+{
+  "slug": "impacted-upper-canine-exposure-orthodontic-traction",
+  "title": "아이 송곳니가 잇몸 속에 누워 있다는데, 수술로 꺼내 교정해야 하나요?",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "치아교정",
+  "concern": "아이 송곳니를 수술로 드러내고 끌어내자는데, 기다릴 수는 없을까요?",
+  "description": "이미 매복된 위 송곳니를 진단받은 아이와 보호자를 위해 노출 수술과 교정 견인의 차이, 관찰·발치 등 대안, 주변 치아 위험과 통원 계획을 설명합니다.",
+  "situation": "당진에서 아이의 치아교정 상담을 받다가 위 송곳니가 잇몸 속에 누워 있다는 말을 들었습니다. 작은 사슬을 붙여 끌어낸다니 아이는 겁을 먹고, 부모는 좀 더 일찍 알아봤어야 했나 자책하게 됩니다. 아프지도 않은 이를 수술해야 하는 이유와 오래 다닐 일정이 함께 걱정됩니다.",
+  "answer": "매복 송곳니라고 모두 같은 수술을 받는 것은 아닙니다. 치아의 위치·이동 경로·주변 뿌리 상태·공간과 아이의 협조 가능성을 살펴 관찰, 노출 후 견인, 매복치 제거 등 선택지를 비교합니다. 노출 수술은 치아를 한 번에 정상 자리로 빼내는 일이 아니라, 이후 교정으로 움직일 수 있도록 준비하는 단계입니다.",
+  "checks": [
+    "송곳니가 어느 쪽에 얼마나 깊이 있고 주변 앞니 뿌리와 어떤 관계인지",
+    "주변 치아 손상이나 병변이 이미 있는지, 관찰할 경우 무엇을 확인할지",
+    "치아가 나올 공간과 이동 경로, 수술·교정의 순서가 어떻게 되는지"
+  ],
+  "choices": [
+    {
+      "condition": "견인 가능한 위치와 경로가 있고 공간을 마련할 수 있는 경우",
+      "option": "노출 수술과 교정 견인을 연결하는 계획을 상담합니다.",
+      "limit": "치아가 뼈와 붙어 움직이지 않거나 장치 문제가 생기면 계획을 바꿀 수 있습니다."
+    },
+    {
+      "condition": "현재 문제를 일으키지 않고 관찰이 가능한 경우",
+      "option": "정해진 검사와 재평가를 포함한 관찰을 논의합니다.",
+      "limit": "아프지 않다는 사실만으로 주변 뿌리 손상 가능성을 배제하지는 못합니다."
+    },
+    {
+      "condition": "위치가 매우 불리하거나 다른 치아에 문제를 일으키는 경우",
+      "option": "매복치 제거 및 이후 빈자리·유치 관리 계획을 함께 비교합니다.",
+      "limit": "매복치만 제거하면 모든 치료가 끝나는 것은 아니며 아이의 성장 상태도 고려합니다."
+    }
+  ],
+  "unknown": "사진 한 장이나 나이만으로 견인 성공 여부, 필요한 마취, 전체 치료 기간을 확정할 수 없습니다. 수술을 맡는 진료와 교정 진료가 같은 계획을 공유하는지도 확인해야 합니다.",
+  "prepare": [
+    "기존 엑스레이·판독 또는 치료계획 자료와 촬영 날짜",
+    "유치가 빠진 시기, 이전 발치·교정 여부, 아이가 가장 두려워하는 점",
+    "등하교·보호자 근무·당진 출발 통원 일정과 계획 변경 시 연락 방법"
+  ],
+  "localHeading": "당진에서 매복 송곳니 치아교정을 상담하신다면",
+  "localAdvice": "실제 진료 장소는 천안 불당동입니다. 당진에서 오실 때는 기존 영상과 설명받은 치료 순서를 먼저 전달하고, 첫 상담에 필요한 검사·수술 담당 진료와의 연계 여부를 확인해 주세요. 수술 날과 교정 조정 날이 같은 날인지, 긴급한 장치 문제는 어디로 연락하는지도 미리 정하면 보호자 일정에 도움이 됩니다.",
+  "related": [
+    {
+      "title": "치아교정 장치·과정 가이드",
+      "href": "/guide/orthodontics"
+    },
+    {
+      "title": "치아교정의 장단점과 주의사항",
+      "href": "/guide/regret/orthodontics"
+    },
+    {
+      "title": "치아교정 진료 안내",
+      "href": "/treatments/orthodontics"
+    },
+    {
+      "title": "당진에서 방문하는 분을 위한 진료 안내",
+      "href": "/area/dangjin"
+    }
+  ],
+  "sources": [
+    {
+      "title": "영국교정학회(BOS) — 매복 송곳니의 치료 선택지",
+      "href": "https://bos.org.uk/wp-content/uploads/2022/03/British-Orthodontic-Society-ImpactedCanninesJune2019.pdf"
+    },
+    {
+      "title": "리버풀 대학병원 NHS — 매복 위 송곳니 노출 수술",
+      "href": "https://www.uhliverpool.nhs.uk/patients-and-visitors/patient-leaflets/uncovering-impacted-upper-canine-teeth-pif-9458-v2pdf"
+    },
+    {
+      "title": "글로스터셔 병원 NHS — 매복 송곳니 노출과 후속 교정",
+      "href": "https://www.gloshospitals.nhs.uk/your-visit/patient-information-leaflets/exposure-of-impacted-upper-canine-eye-tooth/"
+    }
+  ],
+  "updated": "2026-10-28",
+  "publishedAt": "2026-10-29T09:00:00+09:00"
+},
+{
+  "slug": "implant-overdenture-removable-or-fixed-expectations",
+  "title": "임플란트 두 개로 틀니를 고정한다는데, 이제 빼지 않고 써도 되나요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "임플란트 틀니",
+  "concern": "임플란트에 틀니를 고정하면, 매일 빼는 생활도 끝나는 줄 알았어요.",
+  "description": "임플란트에 연결하는 탈착식 틀니와 고정성 보철의 차이, 두 개라는 숫자의 적용 범위, 매일의 위생관리와 고정장치 교체·조정 가능성을 살펴봅니다.",
+  "situation": "서산에서 쓰던 틀니가 자꾸 들려 임플란트 두 개에 연결하는 치료를 알아보고 있습니다. 고정한다는 설명에 이제 매일 빼지 않아도 되는 줄 알았는데, 청소할 때 분리해야 한다니 다른 치료를 이해한 것은 아닌지 혼란스럽습니다. 수술과 통원 부담을 감수한 뒤 기대가 어긋날까 걱정됩니다.",
+  "answer": "임플란트 틀니 중 오버덴처는 임플란트의 연결장치에 틀니가 걸리도록 하면서 환자분이 직접 분리할 수 있게 만든 보철입니다. 빠지지 않게 잡아 주는 것과 환자분이 빼지 않는 고정성 보철은 다릅니다. 두 개라는 숫자만으로 형태·씹는 능력·위생관리 방법이 결정되지는 않으므로 계획서에서 탈착 여부를 먼저 확인해야 합니다.",
+  "checks": [
+    "제안받은 보철을 환자분이 매일 분리하는지, 진료실에서만 분리하는지",
+    "위턱·아래턱 중 어디를 치료하며 임플란트와 잇몸이 각각 어떻게 힘을 받는지",
+    "손으로 탈착·청소가 가능한지, 연결 부품 마모와 틀니 조정은 어떻게 관리하는지"
+  ],
+  "choices": [
+    {
+      "condition": "탈착식 오버덴처가 구강 상태와 관리 능력에 맞는 경우",
+      "option": "임플란트 연결장치로 유지력을 보완하고 직접 분리해 청소하는 계획을 검토합니다.",
+      "limit": "야간·일상 관리가 계속 필요하고 연결 부품과 틀니가 마모될 수 있습니다."
+    },
+    {
+      "condition": "환자분이 직접 빼지 않는 보철을 원하는 경우",
+      "option": "고정성 보철이 가능한지와 필요한 조건을 별도로 상담합니다.",
+      "limit": "수술·보철 구조가 달라질 수 있고 고정성도 아래 공간과 임플란트 주변을 청소해야 합니다."
+    },
+    {
+      "condition": "수술이나 장기 관리 부담이 큰 경우",
+      "option": "현재 틀니의 조정·재제작 등 수술 외 대안도 비교합니다.",
+      "limit": "어떤 방법이 불편을 얼마나 줄일지는 틀니와 잇몸 상태를 확인해야 알 수 있습니다."
+    }
+  ],
+  "unknown": "“임플란트 두 개”라는 말만으로 모든 분께 적절한 수, 위턱 적용 여부, 당일 사용 가능 여부나 총비용을 판단할 수 없습니다. 검사 결과와 최종 보철 설계, 유지관리 범위를 함께 확인해야 합니다.",
+  "prepare": [
+    "현재 사용하는 틀니, 이전 치료계획서와 사용 중인 연결 부품 정보가 있다면 그 자료",
+    "가장 불편한 음식·말하기 상황, 틀니를 빼고 끼울 때 손 사용의 어려움",
+    "서산에서의 방문 가능 일정, 복용약·전신질환 정보와 돌봄을 도울 분의 참여 가능 여부"
+  ],
+  "localHeading": "서산에서 임플란트 틀니를 비교하신다면",
+  "localAdvice": "실제 진료 장소는 천안 불당동입니다. 서산에서 오실 때는 기존 틀니를 가져오고, 상담에서는 수술 횟수뿐 아니라 완성 후 탈착 연습·정기 관리·부품 교체 시 방문 계획까지 확인해 주세요. “빼는 틀니인지”와 “누가 어떤 부위를 청소하는지”를 먼저 맞춰야 이동과 치료 부담을 현실적으로 비교할 수 있습니다.",
+  "related": [
+    {
+      "title": "틀니 종류와 임플란트 틀니 가이드",
+      "href": "/guide/denture"
+    },
+    {
+      "title": "틀니와 임플란트 선택 기준 비교",
+      "href": "/guide/compare/denture-vs-implant"
+    },
+    {
+      "title": "틀니 진료 안내",
+      "href": "/treatments/denture"
+    },
+    {
+      "title": "서산에서 방문하는 분을 위한 진료 안내",
+      "href": "/area/seosan"
+    }
+  ],
+  "sources": [
+    {
+      "title": "리즈 교육병원 NHS — 탈착식 오버덴처와 고정성 보철·유지관리",
+      "href": "https://www.leedsth.nhs.uk/patients/resources/dental-implants/"
+    },
+    {
+      "title": "ITI 2023 합의 — 임플란트 틀니의 환자 중심 선택과 아래턱 임플란트 수",
+      "href": "https://academy.iti.org/academy/consensus-database/consensus-statement/-/consensus/treatment-effect-of-implant-supported-fixed-complete-dentures-and-implant-overdentures-on-patient-reported-outcomes/2301"
+    },
+    {
+      "title": "케임브리지 대학병원 NHS — 임플란트 치료 전 평가와 장기 관리",
+      "href": "https://www.cuh.nhs.uk/patient-information/dental-implants-in-restorative-dentistry/"
+    },
+    {
+      "title": "NHS — 틀니의 사용·청소·야간 관리",
+      "href": "https://www.nhs.uk/tests-and-treatments/dentures/"
+    }
+  ],
+  "updated": "2026-10-28",
+  "publishedAt": "2026-10-29T09:00:00+09:00"
+},
+{
+  "slug": "blood-pressure-medicine-gum-overgrowth",
+  "title": "혈압약을 먹은 뒤 잇몸이 치아를 덮어요. 약을 끊어야 하나요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "잇몸 증식",
+  "concern": "혈압을 지키려다 잇몸이 상한 걸까요",
+  "description": "아산에서 혈압약 복용 뒤 잇몸이 커져 걱정하는 분을 위해 약물 관련 잇몸 증식의 평가, 임의 중단을 피해야 하는 이유, 처방의와 치과의 협력 과정을 설명합니다.",
+  "situation": "아산에서 혈압약을 꾸준히 복용하고 있습니다. 어느 순간부터 앞니 사이 잇몸이 두꺼워지고 양치할 때 피도 나서 웃을 때 입을 가리게 됩니다. 약을 계속 먹으면 더 커질까 걱정되지만 끊었다가 혈압이 오를까 봐 이러지도 저러지도 못하겠습니다.",
+  "answer": "일부 혈압약은 잇몸이 커지는 데 관여할 수 있지만, 약 이름과 복용 시기만으로 원인을 확정할 수는 없습니다. 혈압약을 스스로 끊거나 줄이지 말고 치과에서 잇몸 상태를 확인한 뒤 처방한 의사와 약 조정 가능성을 상의하세요. 염증 관리와 약물 검토를 함께 진행할 수 있습니다.",
+  "checks": [
+    "약 이름·용량·복용 시작과 변경 시점, 잇몸 변화의 순서를 정리합니다.",
+    "잇몸이 커진 범위, 출혈·통증, 치태·치석과 치아 주변 조직 상태를 평가합니다.",
+    "양치·식사에 미치는 영향과 처방의에게 전달할 소견, 재평가 시기를 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "약물 관련 가능성이 있고 잇몸 염증이 함께 있다면",
+      "option": "맞춤 구강 관리와 필요한 치석 제거·잇몸 치료를 하며 약물 관련성을 검토합니다.",
+      "limit": "약 탓으로만 보거나 양치 부족만으로 설명하지 않습니다."
+    },
+    {
+      "condition": "잇몸이 양치나 식사를 방해하고 약 조정 검토가 필요하다면",
+      "option": "치과 소견을 바탕으로 처방의가 혈압과 다른 질환을 고려해 약 변경 가능성을 판단합니다.",
+      "limit": "모든 환자분에게 대체약이 적절한 것은 아니며 임의 중단·감량은 하지 않습니다."
+    },
+    {
+      "condition": "초기 관리 뒤에도 큰 잇몸이 기능을 방해한다면",
+      "option": "추가 잇몸 치료나 수술·전문 진료가 필요한지 평가합니다.",
+      "limit": "치료 뒤 재발 가능성과 유지 관리를 함께 설명받아야 합니다."
+    }
+  ],
+  "unknown": "일부 칼슘통로차단제는 잇몸 증식과 관련될 수 있지만 모든 혈압약이나 모든 잇몸 부기가 같은 원인은 아닙니다. 복용약 사진만으로 진단하거나 약을 끊어 반응을 시험하지 마세요.",
+  "prepare": [
+    "처방전·약 봉투 또는 약 이름과 용량이 보이는 사진, 함께 먹는 약 목록",
+    "잇몸 변화가 시작된 시기와 이전 사진, 출혈·식사·양치 불편",
+    "평소 혈압 기록이 있다면 준비하고 처방 병원과 다음 진료일 확인"
+  ],
+  "localHeading": "아산에서 잇몸 증식과 혈압약을 함께 상담하려면",
+  "localAdvice": "아산에서 잇몸 증식 상담으로 서울비디치과를 방문하신다면 실제 진료 장소는 천안 불당동입니다. 약 봉투와 잇몸 변화 기록을 준비하고 예약 때 처방 병원 진료일을 알려 주세요. 치과 평가와 약물 검토에 필요한 방문을 조율하되 당일 약 변경이나 잇몸 수술을 전제로 일정을 잡지는 마세요.",
+  "related": [
+    {
+      "title": "잇몸 치료를 결정할 때 확인할 점",
+      "href": "/guide/regret/gum"
+    },
+    {
+      "title": "잇몸 수술의 과정과 확인할 점",
+      "href": "/treatments/gum-surgery"
+    },
+    {
+      "title": "아산에서 방문 전 준비",
+      "href": "/area/asan#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "SDCEP · 약물 관련 잇몸 증식의 평가와 관리",
+      "href": "https://periodontalcare.sdcep.org.uk/guidance/managing-disease/other-periodontal-conditions/drug-influenced-gingival-enlargement/"
+    },
+    {
+      "title": "NHS · 암로디핀 복용과 임의 중단 주의, 2026년 검토",
+      "href": "https://www.nhs.uk/medicines/amlodipine/"
+    },
+    {
+      "title": "영국 공공 구강건강 지침 · 치주질환과 약물 관리, 2025년 개정",
+      "href": "https://www.gov.uk/government/publications/delivering-better-oral-health-an-evidence-based-toolkit-for-prevention/chapter-5-periodontal-diseases"
+    }
+  ],
+  "updated": "2026-10-28",
+  "publishedAt": "2026-10-29T09:00:00+09:00"
+},
+{
+  "slug": "retained-root-tip-after-tooth-extraction",
+  "title": "이를 뺐는데 뿌리 끝이 조금 남았대요. 다시 수술해 모두 빼야 하나요?",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "발치 후 잔존 치근",
+  "concern": "힘들게 뽑았는데 치료가 덜 끝난 걸까요",
+  "description": "천안에서 발치 후 뿌리 끝이 남았다는 설명을 듣고 걱정하는 분을 위해 잔존 치근의 위치·증상·제거 위험을 확인하고 추가 제거와 관찰을 논의하는 순서를 설명합니다.",
+  "situation": "천안에서 어금니를 뺀 뒤 뿌리 끝이 조금 남았다는 말을 들었습니다. 당장은 지켜보자는데 치료가 덜 된 것 같아 마음이 놓이지 않습니다. 다시 잇몸을 열어야 할까 겁나고, 나중에 더 큰 수술이 되기 전에 지금 없애야 하는지도 고민됩니다.",
+  "answer": "뿌리가 남았다는 사실만으로 즉시 재수술 여부를 정하지는 않습니다. 어떤 뿌리가 어디에 얼마나 남았는지, 감염이나 다른 병변이 있는지, 제거할 때 신경·상악동 등 주변 구조에 줄 위험은 어떤지 확인해야 합니다. 관찰을 선택하더라도 이유와 추적 계획, 조기 진료 신호를 설명받으세요.",
+  "checks": [
+    "발치한 치아와 날짜, 남은 조각의 위치·범위 및 현재 통증·부기의 경과를 확인합니다.",
+    "발치 전후 영상과 진료 기록을 바탕으로 남긴 이유와 주변 구조의 관계를 살핍니다.",
+    "추가 제거·전문 진료·관찰의 이득과 위험, 추후 보철 계획을 함께 검토합니다."
+  ],
+  "choices": [
+    {
+      "condition": "남은 뿌리 주변의 감염이나 병변 등 제거 필요성이 확인되면",
+      "option": "현재 문제를 다루면서 추가 제거의 방법·시기와 적절한 진료 기관을 정합니다.",
+      "limit": "통증의 원인이 반드시 남은 뿌리라고 단정하지 않고 발치 부위 전체를 평가합니다."
+    },
+    {
+      "condition": "제거 위험이 크고 관찰이 적절하다고 평가되면",
+      "option": "남은 부위와 판단 이유를 기록하고 재평가 시점·변화 시 연락 방법을 확인합니다.",
+      "limit": "아프지 않다는 이유만으로 모든 잔존 치근을 계속 두어도 된다고 보장할 수는 없습니다."
+    },
+    {
+      "condition": "이후 임플란트나 다른 보철 치료를 계획한다면",
+      "option": "해당 부위의 상태와 보철 계획을 연결해 치근을 언제 어떻게 다룰지 평가합니다.",
+      "limit": "뿌리가 있다는 사실만으로 임플란트 불가능이나 당일 제거·식립을 확정하지 않습니다."
+    }
+  ],
+  "unknown": "이 안내는 일반 발치 뒤 남은 치근 조각에 관한 것입니다. 신경 손상 위험을 줄이려고 미리 계획하는 사랑니 치관절제술과 같은 상황으로 보지 않습니다. 사진이나 혀끝에 느껴지는 감촉만으로 뿌리 잔존과 제거 필요성을 판단하지 마세요.",
+  "prepare": [
+    "발치 날짜·치아 위치와 발치 전후 영상, 진료 기록이나 의뢰서가 있다면 준비",
+    "통증·부기·출혈의 변화와 복용약, 알레르기 및 건강 이력",
+    "추후 임플란트·틀니 등 계획과 다시 진료받을 수 있는 일정"
+  ],
+  "localHeading": "천안에서 발치 후 잔존 치근을 상담한다면",
+  "localAdvice": "천안에서 발치 후 잔존 치근 상담으로 서울비디치과를 방문하신다면 진료 장소는 불당동입니다. 예약할 때 발치 날짜와 남은 뿌리 설명, 현재 통증·부기를 알려 주세요. 기존 영상의 전달 방법과 필요한 진료 범위를 확인하되 심해지는 통증·부기·고름 등은 기록 준비가 끝날 때까지 기다리지 말고 먼저 진료를 요청하세요.",
+  "related": [
+    {
+      "title": "치과에서 진단과 치료 계획을 비교할 때",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "치과 치료가 두려울 때 진정 치료 상담",
+      "href": "/treatments/sedation"
+    },
+    {
+      "title": "계획된 사랑니 치관절제술은 어떤 경우인가요",
+      "href": "/concerns/wisdom-tooth-coronectomy-leaving-roots"
+    },
+    {
+      "title": "천안 불당동 방문 전 준비",
+      "href": "/area/cheonan#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "AAOMS · 사랑니 발치 중 남은 치근 조각의 위험 평가와 관찰 (2026년 9월 갱신)",
+      "href": "https://myoms.org/what-we-do/wisdom-teeth-management/potential-complications-of-wisdom-teeth-extractions/"
+    },
+    {
+      "title": "Newcastle Hospitals NHS · 일반 치아의 외과적 제거와 합병증",
+      "href": "https://www.newcastle-hospitals.nhs.uk/resources/surgical-removal-of-teeth/"
+    },
+    {
+      "title": "University Hospitals of Liverpool NHS · 치아와 치근의 외과적 제거 안내",
+      "href": "https://www.uhliverpool.nhs.uk/patients-and-visitors/patient-leaflets/surgical-removal-teeth-or-roots-pif-833pdf"
+    },
+    {
+      "title": "NCBI Bookshelf 수록 임상 종설 · 잔존 치근의 제거 적응증과 위험 평가",
+      "href": "https://www.ncbi.nlm.nih.gov/books/NBK589696/"
+    }
+  ],
+  "updated": "2026-10-28",
+  "publishedAt": "2026-10-29T09:00:00+09:00"
 }
 ]
 
