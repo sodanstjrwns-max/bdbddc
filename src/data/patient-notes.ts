@@ -10828,6 +10828,334 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-10-28",
   "publishedAt": "2026-10-29T09:00:00+09:00"
+},
+{
+  "slug": "calcified-root-canal-referral-worry",
+  "title": "신경관이 너무 좁아 치료가 어렵대요. 뚫다가 치아가 망가질까 봐 무서워요.",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "석회화된 신경관 치료",
+  "concern": "더 찾아보는 것과 멈추는 것 중 무엇이 치아를 지키는 길일까요",
+  "description": "홍성에서 신경관이 좁거나 잘 보이지 않아 의뢰를 권유받은 분을 위해 치료가 필요한 이유, 석회화된 신경관을 찾을 때의 위험 평가와 전문 진료 준비를 설명합니다.",
+  "situation": "홍성에서 신경치료를 받으려는데 신경관이 너무 좁아 찾기 어렵다는 말을 들었습니다. 다른 곳으로 가 보라니 치아가 심하게 망가진 것 같고, 계속 뚫다가 뿌리에 구멍이 나지 않을지 걱정됩니다. 멀리 다시 다녀야 하는 시간과 비용도 부담됩니다.",
+  "answer": "신경관이 좁다는 것은 치료의 난도를 높일 수 있지만, 그 사실만으로 발치나 치료 실패가 정해지는 것은 아닙니다. 먼저 신경치료가 필요한 진단과 치아를 보존할 조건을 확인하고, 기존 영상·시도한 범위·남은 치아를 바탕으로 접근 방법과 의뢰 시점을 정합니다. 위험이 커질 때 멈추고 재평가하는 것도 치료 계획의 일부입니다.",
+  "checks": [
+    "어느 치아의 어떤 신경관이 좁은지와 신경치료를 권한 진단을 확인합니다.",
+    "과거 외상·치료 기록, 기존 영상과 이미 접근한 위치·범위를 함께 검토합니다.",
+    "추가 영상이나 전문 진료의 목적, 기다리는 동안의 치아 보호와 연락 기준을 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "신경관은 좁지만 현재 신경치료가 필요한 질환이 확인되지 않았다면",
+      "option": "치아 상태에 맞는 관찰과 추적 진료 계획을 논의합니다.",
+      "limit": "안 아프다는 이유만으로 치료가 필요 없다고 스스로 판단하지 않습니다."
+    },
+    {
+      "condition": "치료가 필요하고 신경관의 위치와 안전한 접근 가능성을 평가할 수 있다면",
+      "option": "확대·조명과 필요한 영상 등을 활용한 치료 또는 전문 진료 의뢰를 계획합니다.",
+      "limit": "장비가 있다는 사실만으로 모든 신경관을 찾거나 치아를 보존한다고 보장할 수 없습니다."
+    },
+    {
+      "condition": "이미 시도했지만 계속 진행할 때 손상 위험이 커진다면",
+      "option": "현재 접근 범위를 기록하고 추가 시도와 의뢰, 다른 치료의 이득·위험을 다시 비교합니다.",
+      "limit": "이 글로 수술이나 발치 여부를 결정하지 않고 치아 전체의 상태를 확인합니다."
+    }
+  ],
+  "unknown": "엑스레이에서 신경관이 잘 보이지 않는 것과 실제로 통로가 전혀 없는 것은 같지 않을 수 있습니다. 반대로 희미한 통로가 보인다고 안전하게 치료할 수 있다는 보장도 아닙니다. 석회화라는 설명만으로 감염 여부나 원인을 정하지 않습니다.",
+  "prepare": [
+    "치아 위치, 치료를 시작한 날짜와 중단·의뢰를 권한 이유",
+    "기존 엑스레이·CT 원본, 의뢰서와 치료 진행 기록의 전달 가능 여부",
+    "통증·부기 경과, 복용약·건강 이력과 다시 방문할 수 있는 일정"
+  ],
+  "localHeading": "홍성에서 석회화된 신경관 치료 상담을 준비한다면",
+  "localAdvice": "홍성에서 석회화된 신경관 치료 때문에 서울비디치과 상담을 계획하신다면 실제 진료 장소는 천안 불당동입니다. 예약할 때 치료한 치아와 진행 범위를 알려 기존 영상 전달과 평가 일정을 확인하세요. 방문 당일 치료 가능 여부나 횟수는 미리 확정하지 않으며, 통증·부기가 심해지면 먼 예약일까지 참지 말고 먼저 진료 가능한 치과에 연락하세요.",
+  "related": [
+    {
+      "title": "신경치료 과정과 치아 보존 상담",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "진단과 치료 계획을 비교할 때",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "최근 엑스레이를 찍었는데 CT를 다시 권할 때",
+      "href": "/concerns/dental-ct-after-recent-panoramic-xray"
+    },
+    {
+      "title": "홍성에서 천안 불당동 방문 준비",
+      "href": "/area/hongseong#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "AAE · 신경치료 난도 평가와 의뢰 기준",
+      "href": "https://www.aae.org/specialty/wp-content/uploads/sites/2/2022/01/CaseDifficultyAssessmentFormFINAL2022.pdf"
+    },
+    {
+      "title": "AAE·AAOMR · CBCT 사용 공동 입장문 2025 개정 (2026년 게재)",
+      "href": "https://www.sciencedirect.com/science/article/pii/S0099239925005849"
+    },
+    {
+      "title": "AAE · 현미경과 확대 장비의 역할",
+      "href": "https://www.aae.org/specialty/wp-content/uploads/sites/2/2020/04/UseOfMicroscopes_PositionStatement_v2.pdf"
+    },
+    {
+      "title": "ESE · 외상 후 신경관 폐쇄와 근관치료 판단",
+      "href": "https://onlinelibrary.wiley.com/doi/full/10.1111/iej.13543"
+    },
+    {
+      "title": "AAE · 신경치료의 목적과 치료 뒤 치아 보호",
+      "href": "https://www.aae.org/patients/root-canal-treatment/what-is-a-root-canal/"
+    },
+    {
+      "title": "NHS · 치성 농양과 긴급 진료가 필요한 변화",
+      "href": "https://www.nhs.uk/conditions/dental-abscess/"
+    }
+  ],
+  "updated": "2026-10-30",
+  "publishedAt": "2026-10-30T09:00:00+09:00"
+},
+{
+  "slug": "onlay-or-full-crown-for-damaged-molar",
+  "title": "크라운 대신 일부만 덮는 온레이를 권해요. 덜 씌워도 버틸까요?",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "온레이와 크라운 선택",
+  "concern": "치아를 덜 깎고 싶은데 나중에 다시 깨질까 봐 걱정돼요",
+  "description": "예산에서 손상된 어금니에 온레이 또는 크라운을 권유받은 분을 위해 덮는 범위의 차이, 남은 치아와 씹는 힘의 평가, 치료 후 관리와 계획 변경 질문을 설명합니다.",
+  "situation": "예산에서 오래된 어금니 충전물을 교체하려는데 크라운 대신 씹는 면을 덮는 온레이를 권합니다. 치아를 덜 깎는다는 말은 좋지만, 일부만 붙였다가 깨져 결국 크라운을 또 하게 될까 걱정됩니다. 다른 곳에서는 전체를 씌우자고 해 더 헷갈립니다.",
+  "answer": "온레이는 손상된 부분을 채우면서 약해진 씹는 면을 덮는 수복물이며, 치아 전체를 둘러싸는 크라운과 범위가 다릅니다. 부분적으로 덮는다는 사실만으로 부족한 치료는 아닙니다. 남은 치아의 양과 상태, 균열·충치 범위, 맞물림과 수복 조건에 맞게 어느 부위를 보호할지 판단해야 합니다.",
+  "checks": [
+    "기존 충전물과 충치를 평가한 뒤 남길 수 있는 치아 벽과 보호할 씹는 면을 확인합니다.",
+    "균열 의심 소견, 치수 상태와 신경치료 여부, 씹을 때 힘이 걸리는 관계를 살핍니다.",
+    "온레이·직접 충전·크라운을 비교한 이유와 치료 중 계획 변경 조건을 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "충전만으로 기능을 회복하기에 적절한 손상이라면",
+      "option": "직접 충전 등 더 단순한 수복 방법이 가능한지 검토합니다.",
+      "limit": "작은 치료가 가능하다는 것은 크기만 보고 결정하지 않으며 남은 치아 상태를 함께 봅니다."
+    },
+    {
+      "condition": "일부 치아 벽을 보존하면서 약한 씹는 면의 보호가 필요하다면",
+      "option": "온레이 등 부분 덮개 수복을 검토합니다.",
+      "limit": "온레이가 모든 어금니에 적합하거나 깨짐·탈락·충치를 막는다고 보장하지 않습니다."
+    },
+    {
+      "condition": "손상 범위가 커 다른 설계가 더 적절하다고 판단되면",
+      "option": "크라운 등을 포함한 수복 계획과 남길 수 있는 치아를 비교합니다.",
+      "limit": "전체를 씌운다고 치수·충치·파절 문제가 모두 해결되는 것은 아닙니다."
+    }
+  ],
+  "unknown": "온레이·오버레이 같은 명칭만으로 실제로 어느 면을 덮는지 알기는 어렵습니다. 사진과 진찰·영상에서 확인한 치아 상태를 바탕으로 본인의 설계를 설명받으세요. 온라인 사진만으로 특정 재료나 형태를 선택할 수는 없습니다.",
+  "prepare": [
+    "현재 불편이 생기는 음식·상황과 기존 충전물·신경치료 이력",
+    "받은 치료 계획과 영상이 있다면 전달 가능 여부",
+    "이갈이·이악물기 설명을 들은 적이 있는지, 비용과 재방문 일정의 부담"
+  ],
+  "localHeading": "예산에서 온레이와 크라운 선택을 상담한다면",
+  "localAdvice": "예산에서 온레이와 크라운 선택을 상담하려 서울비디치과를 방문하신다면 실제 진료 장소는 천안 불당동입니다. 기존 치료 계획과 씹을 때 불편을 알려 평가 일정을 확인하세요. 제작 방식에 따라 방문이 나뉠 수 있으므로 당일 완성이나 정해진 횟수를 전제하지 말고, 임시 수복 중 문제가 생겼을 때 연락할 방법도 함께 정하세요.",
+  "related": [
+    {
+      "title": "인레이와 크라운의 차이 비교",
+      "href": "/guide/compare/inlay-vs-crown"
+    },
+    {
+      "title": "레진 충전과 인레이를 비교할 때",
+      "href": "/guide/compare/resin-vs-inlay"
+    },
+    {
+      "title": "크라운을 결정하기 전 확인할 질문",
+      "href": "/guide/regret/crown"
+    },
+    {
+      "title": "예산에서 천안 불당동 방문 준비",
+      "href": "/area/yesan#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "University of Bristol · 인레이·온레이의 구조와 치료 과정",
+      "href": "https://www.bristol.ac.uk/dental/treatment/patient-information/inlays-and-onlays/"
+    },
+    {
+      "title": "Leeds Teaching Hospitals NHS · 크라운의 적응과 대안 (2025년 검토)",
+      "href": "https://www.leedsth.nhs.uk/patients/resources/crowns/"
+    },
+    {
+      "title": "NHSBSA · 인레이·온레이의 정의와 대안 설명",
+      "href": "https://www.nhsbsa.nhs.uk/sites/default/files/2021-04/Article_2_Inlays_And_Onlays_Guidance_Final_V4.pdf"
+    },
+    {
+      "title": "British Endodontic Society · 신경치료 치아의 수복과 교두 보호",
+      "href": "https://britishendodonticsociety.org.uk/_userfiles/pages/files/a4_bes_guidelines_2022_hyperlinked_final.pdf"
+    },
+    {
+      "title": "NHS · 깨지거나 금 간 치아의 평가",
+      "href": "https://www.nhs.uk/conditions/chipped-broken-or-cracked-tooth/"
+    }
+  ],
+  "updated": "2026-10-30",
+  "publishedAt": "2026-10-30T09:00:00+09:00"
+},
+{
+  "slug": "child-supernumerary-tooth-removal-timing",
+  "title": "아이 앞니 사이에 과잉치가 숨어 있대요. 안 아파도 지금 빼야 하나요?",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "아이 과잉치 제거 시기",
+  "concern": "가만히 있는 치아를 건드렸다 영구치까지 다치면 어떡하죠",
+  "description": "당진에서 아이의 앞니 사이 과잉치 제거를 고민하는 보호자를 위해 통증 유무보다 중요한 위치·영구치 발육·제거 위험, 관찰과 수술 시기를 비교하는 질문을 정리합니다.",
+  "situation": "당진에서 아이 치과 검진을 받다가 앞니 사이 잇몸 속에 치아가 하나 더 있다는 말을 들었습니다. 아이는 아프다고 하지 않는데 수술 이야기가 나와 겁이 납니다. 지금 빼야 한다는 설명과 조금 기다리자는 설명 사이에서, 어느 쪽을 택해도 아이에게 미안할 것 같습니다.",
+  "answer": "과잉치는 정상 치아 수보다 더 생긴 치아이며, 앞니 사이의 정중과잉치는 영구치가 나오는 길과 위치에 영향을 줄 수 있습니다. 통증이 없다는 이유만으로 방치하거나 발견 즉시 모두 제거하지는 않습니다. 과잉치의 위치·방향, 주변 영구치의 발육, 현재 생긴 문제와 수술 위험을 함께 보고 제거 시기 또는 관찰 계획을 정해야 합니다.",
+  "checks": [
+    "영상에서 과잉치와 정상 영구치를 구분하고 위치·방향·개수, 가까운 치아와의 관계를 확인합니다.",
+    "영구치가 나오는 길에 실제 방해가 되는지, 주변 치아 손상이나 병변이 있는지 살핍니다.",
+    "지금 제거할 이득과 위험, 기다린다면 재평가할 시점과 계획을 바꿀 기준을 설명받습니다."
+  ],
+  "choices": [
+    {
+      "condition": "영구치 맹출 방해나 주변 치아 영향 등 치료 필요성이 확인되면",
+      "option": "소아치과·구강외과·교정 진료를 연결해 제거 시기와 이후 맹출 관찰을 계획합니다.",
+      "limit": "제거 뒤 영구치가 저절로 나올지와 추가 교정 필요성을 모두 보장할 수는 없습니다."
+    },
+    {
+      "condition": "당장 제거할 이득보다 주변 발육 치아 손상 위험 등 고려할 점이 크다면",
+      "option": "개별 상태에 맞춰 관찰의 이유, 다음 검사 시점과 확인할 변화를 정합니다.",
+      "limit": "통증이 생길 때까지 기다리는 방식으로 관찰을 대신하지 않습니다."
+    },
+    {
+      "condition": "아이의 불안이나 협조 어려움 때문에 치료 환경이 고민이라면",
+      "option": "치료 범위와 건강 상태를 바탕으로 행동 조절·마취 방법·진료 기관을 함께 검토합니다.",
+      "limit": "과잉치가 있다는 이유만으로 전신마취가 필수이거나 간단한 당일 발치가 가능하다고 단정하지 않습니다."
+    }
+  ],
+  "unknown": "이 글은 검사를 통해 과잉치가 확인된 뒤 제거 시기를 상담하는 상황을 다룹니다. 영구치가 늦게 나온다는 사실만으로 과잉치를 진단할 수 없으며, 유치 단계의 과잉치와 영구치 단계의 정중과잉치는 같은 기준으로 판단하지 않습니다.",
+  "prepare": [
+    "기존 영상과 판독·의뢰 내용, 유치가 빠진 시기 및 앞니가 나오는 순서",
+    "아이의 복용약·질환·알레르기, 이전 치과 치료와 마취 경험",
+    "학교 일정, 보호자 동행 가능일, 수술 뒤 연락 및 가까운 진료 기관 확인"
+  ],
+  "localHeading": "당진에서 아이 과잉치 제거 시기를 상담한다면",
+  "localAdvice": "당진에서 서울비디치과의 과잉치 상담을 계획한다면 실제 진료 장소는 천안 불당동입니다. 예약할 때 아이 나이와 발견 위치, 기존 영상 및 의뢰 내용을 알려 필요한 진료 범위를 먼저 확인해 주세요. 상담·검사와 제거가 같은 날 가능한지는 미리 확정할 수 없으며, 이동과 학교 일정뿐 아니라 이후 관찰 방문까지 함께 계획하는 편이 좋습니다.",
+  "related": [
+    {
+      "title": "아이 치과 진료를 준비할 때",
+      "href": "/treatments/pediatric"
+    },
+    {
+      "title": "아이 교정의 목적과 시기 살펴보기",
+      "href": "/guide/orthodontics"
+    },
+    {
+      "title": "유치가 빠졌는데 영구치가 늦게 나올 때",
+      "href": "/concerns/permanent-front-tooth-not-coming-after-baby-tooth"
+    },
+    {
+      "title": "당진에서 천안 불당동 방문 준비",
+      "href": "/area/dangjin#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "AAPD · 소아 구강외과 진료와 과잉치 제거 시기 (2025 개정)",
+      "href": "https://www.aapd.org/media/Policies_Guidelines/BP_OralSurgery.pdf"
+    },
+    {
+      "title": "AAPD · 발육 중인 치열과 과잉치의 평가 (2024 개정)",
+      "href": "https://www.aapd.org/globalassets/media/policies_guidelines/bp_developdentition25.pdf"
+    },
+    {
+      "title": "University College Cork 치과대학 · 과잉치와 제거 위험 안내",
+      "href": "https://www.ucc.ie/en/media/academic/dentalschool/patientinfoleaflets/SupernumeraryTeeth.pdf"
+    },
+    {
+      "title": "AAP·AAPD · 소아 진정치료 전 평가와 안전 관리 (2025 재확인)",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/monitoring-and-management-of-pediatric-patients-before-during-and-after-sedation-for-diagnostic-and-therapeutic-procedures/"
+    }
+  ],
+  "updated": "2026-10-30",
+  "publishedAt": "2026-10-30T09:00:00+09:00"
+},
+{
+  "slug": "child-palatal-expander-turning-anxiety",
+  "title": "아이 입천장을 넓히는 장치를 하자는데, 나사를 돌려도 괜찮나요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "아이 구개 확장장치 관리",
+  "concern": "매일 제 손으로 아이를 아프게 하는 것 같아 겁나요",
+  "description": "서산에서 아이의 구개 확장장치를 준비하는 보호자를 위해 치료 목적, 처방된 활성화 일정 확인, 불편감과 문제 신호, 기록·위생·유지 기간에 관한 질문을 정리합니다.",
+  "situation": "서산에서 아이 교정 상담을 받다가 입천장에 장치를 붙이고 집에서 나사를 돌려야 한다는 설명을 들었습니다. 잘못 돌리면 치아나 턱이 다칠까 겁이 납니다. 아이가 아프다고 할 때 계속해야 하는지, 하루 놓치면 더 돌려야 하는지도 걱정입니다.",
+  "answer": "구개 확장장치는 윗턱의 폭과 맞물림 등을 평가한 뒤 필요한 경우 사용하는 교정장치입니다. 장치 종류와 활성화 계획은 아이마다 다릅니다. 담당 의료진에게 직접 방법을 배우고 지정된 일정만 따라야 하며, 통증·흔들림·조작 실수나 누락이 있으면 임의로 추가하거나 반대로 돌리지 말고 먼저 연락해 다음 지시를 확인하세요.",
+  "checks": [
+    "확장하려는 문제가 윗턱 폭인지 치아 배열인지, 이번 단계의 목표와 이후 교정 계획을 확인합니다.",
+    "장치 종류, 담당자가 지정한 활성화 일정·종료 기준, 보호자 교육과 기록 방법을 확인합니다.",
+    "심한 통증·상처·헐거움이 생길 때의 대응과 연락처, 다음 점검 일정을 준비합니다."
+  ],
+  "choices": [
+    {
+      "condition": "진단상 확장이 필요하고 집에서 활성화하는 장치가 계획되었다면",
+      "option": "진료실에서 보호자가 방법을 확인한 뒤 개별 처방에 따라 기록하며 진행합니다.",
+      "limit": "온라인의 횟수나 다른 아이의 일정을 그대로 적용하지 않습니다."
+    },
+    {
+      "condition": "나사를 잘못 돌렸거나 한 번 돌렸는지 확실하지 않다면",
+      "option": "확실히 기록된 마지막 활성화와 현재 상태를 알려 의료진에게 다음 행동을 확인합니다.",
+      "limit": "빠진 분량을 만회하려고 더 돌리거나 반대로 돌려 스스로 수정하지 않습니다."
+    },
+    {
+      "condition": "심한 통증·장치 흔들림·상처 또는 먹기 어려움이 생기면",
+      "option": "추가 활성화를 멈추고 담당 치과에 연락해 장치와 입안 상태를 평가받습니다.",
+      "limit": "불편하다는 사실만으로 치료 실패를 확정하거나 정상 적응이라고 참게 하지 않습니다."
+    }
+  ],
+  "unknown": "여기서는 성장기 아이에게 처방된 구개 확장장치의 보호자 관리 부담을 다룹니다. 성인의 확장 치료, 수술 또는 골격 고정 장치는 같은 방식으로 설명할 수 없습니다. 확장장치가 모든 부정교합이나 코골이의 해답이라는 뜻도 아닙니다.",
+  "prepare": [
+    "아이의 교정 진단과 장치 이름, 받은 설명서·활성화 기록 및 점검 일정",
+    "아이의 통증·발음·식사 변화, 장치 흔들림이나 상처가 생긴 시점",
+    "실제 돌볼 보호자와 대체 보호자, 이동 가능일 및 문제 발생 시 연락 방법"
+  ],
+  "localHeading": "서산에서 아이 구개 확장장치 관리를 상담한다면",
+  "localAdvice": "서산에서 서울비디치과의 구개 확장장치 상담을 계획한다면 진료 장소는 천안 불당동입니다. 예약 전에 장치 진단·관리 상담의 범위와 기존 기록 전달 방법을 확인해 주세요. 현재 다른 치과에서 치료 중이라면 활성화 횟수와 일정을 임의로 바꾸지 말고 담당 진료팀의 지시를 우선 확인하세요. 통증이나 파손이 있으면 다음 장거리 방문일만 기다리지 말고 먼저 연락해야 합니다.",
+  "related": [
+    {
+      "title": "교정 계획과 장치 선택을 이해하기",
+      "href": "/guide/orthodontics"
+    },
+    {
+      "title": "교정 전 생활 부담과 관리 계획 점검",
+      "href": "/guide/regret/orthodontics"
+    },
+    {
+      "title": "아이 앞니가 거꾸로 물릴 때의 평가",
+      "href": "/concerns/child-front-crossbite-wait-for-permanent-teeth"
+    },
+    {
+      "title": "서산에서 천안 불당동 방문 준비",
+      "href": "/area/seosan#visit-preparation"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국교정학회 AAO · 구개 확장장치의 목적·단계·불편감",
+      "href": "https://aaoinfo.org/whats-trending/palatal-expander/"
+    },
+    {
+      "title": "영국교정학회 BOS · 급속 상악 확장장치와 문제 발생 시 연락 안내",
+      "href": "https://bos.org.uk/wp-content/uploads/2022/03/British-Orthodontic-Society-RMEJune2019.pdf"
+    },
+    {
+      "title": "Nationwide Children’s Hospital · 확장장치의 위생·음식·기록 관리",
+      "href": "https://www.nationwidechildrens.org/family-resources-education/health-wellness-and-safety-resources/helping-hands/dental-wearing-a-palatal-expander"
+    },
+    {
+      "title": "AAPD · 성장기 치열·교차교합의 진단과 치료 계획 (2024 개정)",
+      "href": "https://www.aapd.org/globalassets/media/policies_guidelines/bp_developdentition25.pdf"
+    }
+  ],
+  "updated": "2026-10-30",
+  "publishedAt": "2026-10-30T09:00:00+09:00"
 }
 ]
 
