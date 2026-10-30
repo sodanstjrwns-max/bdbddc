@@ -5,7 +5,7 @@ import { gscLegacyTarget } from './data/gsc-legacy-redirects'
 import videoMetadata from '../data/video-metadata.json'
 import { registerPatientJourney } from './lib/patient-journey'
 import { registerTreatmentInsightLinks, registerTreatmentInsightRoutes } from './lib/treatment-insights'
-import { removeLegacyBlogTestimonials } from './lib/review-copy'
+import { rewriteInblogCopy } from './lib/review-copy'
 import { registerPatientNotes } from './routes/patient-notes'
 import { goneResponse, similarSlug, resolveLegacyEncTerm, TREATMENT_SLUGS } from './lib/gone'
 import { Hono } from 'hono'
@@ -3541,22 +3541,12 @@ async function injectBlogIndexLinks(html: string): Promise<string> {
 }
 
 function cleanInblogHtml(html: string, reqPath?: string): string {
-  html = removeLegacyBlogTestimonials(html)
+  html = rewriteInblogCopy(html)
   // Technical author archives repeat the same clinic listing; individual posts remain indexable.
   if (reqPath?.startsWith('/blog/author/')) {
     html = html.replace(/<meta\b(?=[^>]*\bname=["']robots["'])[^>]*>/gi, '')
     html = html.replace('</head>', '<meta name="robots" content="noindex,follow"></head>')
   }
-
-  // 0) [v5.90] 공포 마케팅 문구 치환 (의료광고 심의 '불안 조성' 리스크 제거)
-  //    /blog/* 원본은 inblog.ai 외부 서비스라 직접 편집 불가 → 프록시 가공 지점에서 치환.
-  //    ⚠ inblog 관리자에서 원문을 고치는 것이 근본 해결. 원문 수정 후에도 이 치환은 무해(no-op).
-  //    본문 HTML과 Next.js 하이드레이션 JSON(문자열 이스케이프) 양쪽에 걸리도록 문장 단위 전역 치환.
-  const FEAR_COPY_FIXES: Array<[RegExp, string]> = [
-    [/놓치면 교정 선택 후회할지도 몰라요!/g, '내 치아가 인비절라인 적응증에 맞는지, 미리 확인해보세요.'],
-    [/지금 확인 안 하면 진짜 놓칠지도 몰라요\./g, '협진 기준을 알면 진료과 선택이 훨씬 쉬워집니다.'],
-  ]
-  for (const [pat, rep] of FEAR_COPY_FIXES) html = html.replace(pat, rep)
 
   // 1) 인블로그 내부 링크를 /blog로 변환
   html = html.replace(/href="\/(?!blog)/g, 'href="/blog/')
@@ -3588,7 +3578,7 @@ form:has(input[placeholder="Email"]) { display: none !important; }
 </style>`
   // 5) AEO 메타 태그 + 스키마 주입 (블로그 SEO/AEO 보강)
   const blogAEOMeta = `
-  <meta name="ai-summary" content="서울비디치과 공식 블로그 — 임플란트, 인비절라인, 글로우네이트, 소아치과 등 치과 치료 정보와 구강건강 가이드를 서울대 출신 전문의가 직접 작성합니다.">
+  <meta name="ai-summary" content="서울비디치과의 치과 치료·관리 정보 — 임플란트, 인비절라인, 글로우네이트, 소아치과와 구강건강을 위한 일반 정보를 안내합니다.">
   <meta name="abstract" content="서울비디치과 공식 블로그 — 치과 치료 정보, 구강건강 가이드, 전문의 칼럼.">
   <meta name="subject" content="치과 블로그, 임플란트 정보, 인비절라인, 구강건강, 서울비디치과">
   `
@@ -3597,7 +3587,7 @@ form:has(input[placeholder="Email"]) { display: none !important; }
   "@context": "https://schema.org",
   "@type": "Blog",
   "name": "서울비디치과 블로그",
-  "description": "서울대 출신 14인 원장이 직접 작성하는 치과 치료 정보 블로그",
+  "description": "서울비디치과의 치과 치료·관리 정보와 구강건강 안내",
   "url": "https://bdbddc.com/blog/",
   "publisher": {
     "@type": "Dentist",

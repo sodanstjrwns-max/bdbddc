@@ -43,49 +43,90 @@ const LEGACY_BLOCKS: Array<[string, string]> = [
   ]
 ]
 
+// These two approved copy changes previously ran outside the Flight framing guard.
+const FEAR_COPY_FIXES: Array<[string, string]> = [
+  ['놓치면 교정 선택 후회할지도 몰라요!', '내 치아가 인비절라인 적응증에 맞는지, 미리 확인해보세요.'],
+  ['지금 확인 안 하면 진짜 놓칠지도 몰라요.', '협진 기준을 알면 진료과 선택이 훨씬 쉬워집니다.'],
+]
+const COPY_REPLACEMENTS = [...LEGACY_BLOCKS, ...FEAR_COPY_FIXES]
 const REMOVED_ANCHORS = ['교정-실사용-후기-핵심-요약-18', '소아-정기검진-방문-후기-핵심-요약-19']
 
 function replaceCopy(text: string): string {
-  const unicodeHtml = (s: string) => s.replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026')
-  for (const [original, replacement] of LEGACY_BLOCKS) {
-    let from = original, to = replacement
-    for (let level = 0; level < 3; level++) {
-      text = text.split(from).join(to)
-      text = text.split(unicodeHtml(from)).join(unicodeHtml(to))
-      from = JSON.stringify(from).slice(1, -1)
-      to = JSON.stringify(to).slice(1, -1)
-    }
-  }
+  for (const [original, replacement] of COPY_REPLACEMENTS) text = text.split(original).join(replacement)
   for (const id of REMOVED_ANCHORS) text = text.replace(new RegExp(`<a\\b[^>]*href="#${id}"[^>]*>[\\s\\S]*?<\\/a>`, 'g'), '')
   return text
+}
+
+function rewriteJsonValue(value: unknown): unknown {
+  if (typeof value === 'string') {
+    // Inblog can serialize JSON (including JSON-LD) inside a Flight string.
+    // Decode each JSON layer before replacing text so inserted quotes stay escaped.
+    if (/^\s*[\[{"]/.test(value)) {
+      try { return rewriteJsonText(value) } catch { /* Ordinary article text or HTML. */ }
+    }
+    return rewriteMarkupCopy(value)
+  }
+  if (Array.isArray(value)) {
+    if (value[0] === '$' && value[1] === 'a' && REMOVED_ANCHORS.includes(value[3]?.href?.slice(1))) return null
+    return value.map(rewriteJsonValue)
+  }
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, rewriteJsonValue(item)]))
+  }
+  return value
+}
+
+function rewriteJsonText(text: string): string {
+  const original = JSON.parse(text)
+  const rewritten = rewriteJsonValue(original)
+  if (JSON.stringify(original) === JSON.stringify(rewritten)) return text
+  return JSON.stringify(rewritten).replace(/</g, '\\u003c')
+}
+
+// Script bodies are not HTML. Parse JSON scripts separately and leave executable
+// scripts intact; Flight calls are protected and reconstructed by the caller.
+function rewriteMarkupCopy(html: string): string {
+  const scripts = /<script\b[^>]*>[\s\S]*?<\/script\s*>/gi
+  let result = '', offset = 0, match: RegExpExecArray | null
+  while ((match = scripts.exec(html)) !== null) {
+    result += replaceCopy(html.slice(offset, match.index))
+    const script = match[0]
+    const parts = script.match(/^(<script\b[^>]*>)([\s\S]*?)(<\/script\s*>)$/i)!
+    if (/\btype\s*=\s*["']application\/(?:ld\+)?json["']/i.test(parts[1])) {
+      try { result += parts[1] + rewriteJsonText(parts[2]) + parts[3] }
+      catch { result += script } // Do not make an already invalid upstream payload worse.
+    } else result += script
+    offset = match.index + script.length
+  }
+  return result + replaceCopy(html.slice(offset))
 }
 
 // React Flight T records declare UTF-8 byte lengths. Replacing HTML inside them
 // without updating the length corrupts hydration, even when SSR looks correct.
 export function rewriteReviewFlight(stream: string): string {
-  const encoder = new TextEncoder(), decoder = new TextDecoder()
+  const encoder = new TextEncoder(), decoder = new TextDecoder('utf-8', { fatal: true })
   const bytes = encoder.encode(stream)
   const result: string[] = []
   let offset = 0
   while (offset < bytes.length) {
-    const header = decoder.decode(bytes.subarray(offset, offset + 80)).match(/^([0-9a-f]+):T([0-9a-f]+),/)
+    // Headers are ASCII. Do not decode a fixed-size slice that may end mid-character.
+    const header = String.fromCharCode(...bytes.subarray(offset, offset + 80)).match(/^([0-9a-f]+):T([0-9a-f]+),/)
     if (header) {
       const start = offset + header[0].length
       const end = start + parseInt(header[2], 16)
       if (end > bytes.length) throw new Error('Incomplete blog Flight text record')
-      const text = replaceCopy(decoder.decode(bytes.subarray(start, end)))
-      result.push(`${header[1]}:T${encoder.encode(text).length.toString(16)},${text}`)
+      const original = decoder.decode(bytes.subarray(start, end))
+      const text = rewriteMarkupCopy(original)
+      result.push(text === original ? header[0] + original : `${header[1]}:T${encoder.encode(text).length.toString(16)},${text}`)
       offset = end
     } else {
       const newline = bytes.indexOf(10, offset)
       const end = newline < 0 ? bytes.length : newline
-      let line = replaceCopy(decoder.decode(bytes.subarray(offset, end)))
-      const row = line.match(/^([0-9a-f]+):(\[.*)$/)
+      let line = decoder.decode(bytes.subarray(offset, end))
+      const row = line.match(/^([0-9a-f]+):([A-Z]*)([\s\S]*)$/)
       if (row) {
-        try {
-          const element = JSON.parse(row[2])
-          if (element[1] === 'a' && REMOVED_ANCHORS.includes(element[3]?.href?.slice(1))) line = `${row[1]}:null`
-        } catch { /* Other Flight row kinds are preserved. */ }
+        try { line = `${row[1]}:${row[2]}${rewriteJsonText(row[3])}` }
+        catch { /* Other Flight row kinds are preserved. */ }
       }
       result.push(line + (newline < 0 ? '' : '\n'))
       offset = end + (newline < 0 ? 0 : 1)
@@ -94,27 +135,43 @@ export function rewriteReviewFlight(stream: string): string {
   return result.join('')
 }
 
-export function removeLegacyBlogTestimonials(html: string): string {
-  // Leave all unrelated blog responses byte-for-byte unchanged.
-  if (!LEGACY_BLOCKS.some(([original]) => html.includes(original))) return html
-  const chunks: Array<{ original: string; payload: any[] }> = []
-  // Protect serialized data from HTML replacements; rebuild its framed stream separately.
-  html = html.replace(/self\.__next_f\.push\((\[[\s\S]*?\])\)/g, (original, payload: string) => {
+export function rewriteInblogCopy(html: string): string {
+  // Avoid parsing unrelated upstream streams; they remain byte-for-byte unchanged.
+  const hasCopy = COPY_REPLACEMENTS.some(([original]) => {
+    const unicodeHtml = (text: string) => text.replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026')
+    let variants = [original, original.replace(/</g, '\\u003c'), unicodeHtml(original)]
+    for (let level = 0; level < 3; level++) {
+      if (variants.some(encoded => html.includes(encoded))) return true
+      variants = variants.flatMap(encoded => {
+        const escaped = JSON.stringify(encoded).slice(1, -1)
+        return [escaped, escaped.replace(/</g, '\\u003c'), unicodeHtml(escaped)]
+      })
+    }
+    return false
+  })
+  if (!hasCopy && !REMOVED_ANCHORS.some(id => html.includes(id))) return html
+  const chunks: Array<{ original: string; payload: [number, string] }> = []
+  // Match the complete JSON string, including escaped quotes and literal "])",
+  // rather than stopping at the first closing bracket inside article text.
+  html = html.replace(/self\.__next_f\.push\((\[\s*1\s*,\s*"(?:\\.|[^"\\])*"\s*\])\)/g, (original, payload: string) => {
     try {
-      const value = JSON.parse(payload)
-      if (value[0] !== 1 || typeof value[1] !== 'string') return original
+      const value: [number, string] = JSON.parse(payload)
       const id = chunks.push({ original, payload: value }) - 1
       return `/*bd-review-flight-${id}*/`
     } catch { return original }
   })
-  html = replaceCopy(html)
+  html = rewriteMarkupCopy(html)
   if (chunks.length) {
-    const stream = rewriteReviewFlight(chunks.map(c => c.payload[1]).join(''))
+    const originalStream = chunks.map(c => c.payload[1]).join('')
+    const stream = rewriteReviewFlight(originalStream)
     chunks.forEach((chunk, i) => {
-      chunk.payload[1] = i === 0 ? stream : ''
-      const call = `self.__next_f.push(${JSON.stringify(chunk.payload).replace(/</g, '\\u003c')})`
-      html = html.replace(`/*bd-review-flight-${i}*/`, call)
+      const call = stream === originalStream ? chunk.original
+        : `self.__next_f.push(${JSON.stringify([chunk.payload[0], i === 0 ? stream : '']).replace(/</g, '\\u003c')})`
+      html = html.replace(`/*bd-review-flight-${i}*/`, () => call)
     })
   }
   return html
 }
+
+// Preserve the existing helper entry point for callers that only need review cleanup.
+export const removeLegacyBlogTestimonials = rewriteInblogCopy
