@@ -164,6 +164,22 @@ test('truncated or mid-character T records are rejected rather than silently cor
   assert.throws(() => rewriteReviewFlight('a:T1,한'), /encoded data was not valid/)
 })
 
+const enrichSource = fs.readFileSync(new URL('../src/routes/blog-enrich.ts', import.meta.url), 'utf8')
+const enrichModule = await transform(enrichSource, { loader: 'ts', format: 'esm', target: 'es2022' })
+const { getBlogEnrichment } = await import(`data:text/javascript;base64,${Buffer.from(enrichModule.code).toString('base64')}`)
+test('blog enrichment retains visible steps without a second, invisible FAQ schema', () => {
+  const enrich = getBlogEnrichment('/blog/dental-over-treatment-guide')
+  assert.ok(enrich.html.includes('data-bd-enrich="overtreatment"'))
+  const structured = jsonLd(enrich.jsonld)
+  assert.deepEqual(structured.map(item => item['@type']), ['HowTo'])
+  assert.equal(structured[0].step.length, 3)
+  for (const step of structured[0].step) {
+    assert.ok(enrich.html.includes(`id="${new URL(step.url).hash.slice(1)}"`))
+  }
+  assert.ok(enrich.html.includes('id="ot-checker"'))
+  assert.equal(getBlogEnrichment('/blog/unrelated-post'), null)
+})
+
 for (const file of process.argv.slice(2)) {
   test(`saved upstream HTML: ${file}`, () => {
     const html = fs.readFileSync(file, 'utf8')
