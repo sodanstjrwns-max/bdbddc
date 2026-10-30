@@ -113,6 +113,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
   <link rel="stylesheet" href="/css/site-v5.css?v=91b2be45">
   <link rel="stylesheet" href="/css/micro.css?v=ac2f0073">
+  <link rel="stylesheet" href="/css/immersive.css?v=f897ec93">
   <style>
     /* ===== Hero 벡터 일러스트 (SVG, Spline 3D 대체) ===== */
     .hero-vector{position:relative;width:100%;max-width:520px;margin:0 auto;animation:vectorFloat 6s ease-in-out infinite}
@@ -920,6 +921,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="video-stat-number" data-count="6" data-suffix="개">6<span>개</span></div>
           <div class="video-stat-label">임플란트 수술방</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ 장면 전환 (스크롤 몰입) ═══════ -->
+  <section class="mx-scene" aria-label="서울비디치과 진료 원칙">
+    <div class="mx-scene-pin">
+      <div class="mx-scene-bg" style="background-image:url('/images/facility/waiting-room.webp')"></div>
+      <div class="mx-scene-veil"></div>
+      <div class="mx-scene-copy">
+        <small>SEOUL BD DENTAL</small>
+        <p><span>서울대 출신 <em>14인 원장</em>이</span><br><span>한 건물, <em>다섯 개 층</em>에서</span><br><span><em>365일</em> 직접 진료합니다.</span></p>
       </div>
     </div>
   </section>
@@ -2193,5 +2206,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
 </script>
 <script src="/js/lang-switcher.js?v=20260813v2" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="/js/immersive.js?v=14c458b4" defer></script>
 </body>
 </html>
