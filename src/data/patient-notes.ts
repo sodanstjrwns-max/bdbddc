@@ -12540,6 +12540,308 @@ export const patientNotes: PatientNote[] = [
     }
   ],
   "updated": "2026-11-05"
+},
+{
+  "slug": "pacemaker-ultrasonic-scaling-dental-care",
+  "publishedAt": "2026-11-06T09:00:00+09:00",
+  "title": "심장박동기가 있는데 스케일링을 받아도 될까요? 기계가 심장에 영향을 줄까 봐 겁나요.",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "스케일링",
+  "concern": "지병 때문에 치료가 걱정돼요",
+  "description": "홍성에서 심장박동기나 삽입형 제세동기를 지닌 채 치과 진료를 준비할 때, 장치 정보·심장 상태·사용 기구를 확인하며 상담하는 방법입니다.",
+  "situation": "홍성에서 심장박동기를 삽입한 뒤 지내고 있습니다. 잇몸에서 피가 나 스케일링을 받고 싶지만, 치과의 초음파 기구가 심장 장치에 영향을 줄까 봐 예약을 미루고 있습니다.",
+  "answer": "심장박동기나 삽입형 제세동기가 있다고 모든 치과 진료가 금지되지는 않습니다. 다만 삽입된 장치와 치과 기구의 종류, 제조사 안내와 현재 심장 상태를 확인해 사용 방법과 필요한 협진을 정해야 합니다. 장치 식별카드와 약 목록을 먼저 알리고, 기계 사용 가능 여부를 환자분이 혼자 판단하지 않는 것이 좋습니다.",
+  "checks": [
+    "박동기인지 제세동기인지, 제조사·모델·삽입 시기를 확인합니다.",
+    "최근 장치 점검 결과와 실신·어지럼·흉통 등 변화가 있었는지 알립니다.",
+    "스케일링·충치 치료 등 이번에 필요한 처치와 사용 기구를 구분해 묻습니다.",
+    "심장 담당 의료진에게 추가로 확인할 내용과 진료 중 불편을 알릴 방법을 정합니다."
+  ],
+  "choices": [
+    {
+      "condition": "장치 정보와 심장 상태를 확인해 예정 진료가 가능하다고 판단되면",
+      "option": "적합한 기구와 사용 조건을 정해 필요한 치과 치료를 계획합니다.",
+      "limit": "같은 박동기 환자라도 모든 장비·처치에 같은 안내를 적용하지 않습니다."
+    },
+    {
+      "condition": "장치 정보가 불명확하거나 최근 심장 증상이 있다면",
+      "option": "심장 담당 의료진과 필요한 정보를 확인한 뒤 진료 순서를 조정합니다.",
+      "limit": "서류 확인이 필요하다는 이유로 심한 통증이나 감염 증상까지 방치하지 않습니다."
+    }
+  ],
+  "unknown": "일반적인 장치 안전 안내만으로 개인의 스케일링 가능 여부를 확정할 수 없습니다. 환자분이 자석을 대거나 장치를 끄고 설정을 바꾸는 방식으로 준비해서는 안 됩니다.",
+  "prepare": [
+    "심장 장치 식별카드 또는 모델 정보",
+    "최근 심장 진료·장치 점검 시기와 연락 가능한 진료과",
+    "처방약·일반약 목록과 최근 바뀐 약",
+    "잇몸 출혈·치통과 심장 증상을 구분한 메모"
+  ],
+  "localHeading": "홍성에서 스케일링 상담을 준비한다면",
+  "localAdvice": "홍성에서 천안 불당동 서울비디치과로 이동하기 전에 심장 장치가 있다는 사실과 원하는 치과 진료를 알려 주세요. 첫 방문에서 필요한 확인과 심장 진료과 자료를 미리 문의하면 이동 계획을 세우는 데 도움이 됩니다. 당일 처치 가능 여부나 모든 기구의 안전성을 전화만으로 보장받으려 하기보다 확인할 순서를 정해 두세요.",
+  "related": [
+    {
+      "title": "스케일링 가이드",
+      "href": "/guide/scaling"
+    },
+    {
+      "title": "잇몸 치료 전 고민 가이드",
+      "href": "/guide/regret/gum"
+    },
+    {
+      "title": "심장 판막과 치과 예방 항생제 상담",
+      "href": "/concerns/heart-valve-antibiotics-before-dental-scaling"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국치과의사협회 ADA — 심장 삽입장치와 전자 치과 기구",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/cardiac-implanted-devices-and-electronic-dental-instruments"
+    },
+    {
+      "title": "미국심장협회 AHA — 박동기·제세동기와 의료 기기 사용",
+      "href": "https://www.heart.org/en/health-topics/arrhythmia/prevention--treatment-of-arrhythmia/devices-that-may-interfere-with-icds-and-pacemakers"
+    },
+    {
+      "title": "미국심장협회 AHA — 박동기 생활 관리와 연락할 증상",
+      "href": "https://www.heart.org/en/health-topics/arrhythmia/prevention--treatment-of-arrhythmia/living-with-your-pacemaker"
+    },
+    {
+      "title": "미국심장협회 AHA — 감염성 심내막염과 예방 항생제 대상",
+      "href": "https://www.heart.org/en/health-topics/infective-endocarditis"
+    }
+  ],
+  "updated": "2026-11-06"
+},
+{
+  "slug": "child-extensive-cavities-general-anesthesia-decision",
+  "publishedAt": "2026-11-06T09:00:00+09:00",
+  "title": "아이 충치가 많아 전신마취를 권해요. 어린아이를 재워서 치료해야 할까요?",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "충치",
+  "concern": "치료 방법을 결정하기 어려워요",
+  "description": "예산에서 여러 유치의 충치로 전신마취 치료를 권유받았을 때, 치료 필요성·다른 방법·마취 평가·돌봄 계획을 나누어 상담하는 방법입니다.",
+  "situation": "예산에서 어린아이의 여러 충치를 치료하려고 합니다. 아이가 입을 오래 벌리기 어려워 전신마취를 권유받았지만 마취 위험과 치료를 미뤘을 때의 문제 사이에서 결정을 못 하고 있습니다.",
+  "answer": "충치 개수나 나이만으로 전신마취를 결정하지 않습니다. 통증·감염과 치료 범위, 아이의 발달·협조 가능성, 이전 진료 경험, 건강 상태와 다른 방법의 한계를 함께 평가합니다. 전신마취가 필요한 근거와 기다리거나 나누어 치료할 때의 부담, 실제 마취 담당자·시설·회복 관찰 계획을 설명받아야 합니다.",
+  "checks": [
+    "치아별로 지금 필요한 치료와 미뤘을 때의 변화를 구분해 묻습니다.",
+    "적응 진료·국소마취·진정 등 다른 방법의 가능성과 한계를 확인합니다.",
+    "알레르기·복용약·코골이·최근 감기·과거 마취 문제를 알립니다.",
+    "마취 평가·감시·회복 확인을 누가 맡고 귀가 후 어디로 연락하는지 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "치료량이 적고 안전하게 협조를 얻을 가능성이 있다면",
+      "option": "적응 과정이나 나누어 치료하는 방법 등을 검토할 수 있습니다.",
+      "limit": "통증·감염이 있는데 적응만 무기한 기다리는 계획은 피합니다."
+    },
+    {
+      "condition": "치료 범위가 크고 다른 방법으로 필요한 진료를 안전하게 하기 어렵다면",
+      "option": "전신마취의 이점·위험과 적합한 진료 환경을 평가합니다.",
+      "limit": "부모나 의료진의 편의만으로 선택하거나 무위험이라고 설명할 수 없습니다."
+    }
+  ],
+  "unknown": "아이마다 건강 상태와 필요한 치과 처치가 달라 마취 방법·치료 시간·귀가 시점을 미리 확정할 수 없습니다. 이 글은 서울비디치과의 소아 전신마취 시행이나 당일 치료 가능 여부를 안내하는 문서가 아닙니다.",
+  "prepare": [
+    "치아별 진단·치료 계획과 기존 영상이 있다면 준비",
+    "아이의 질환·약·알레르기·이전 마취 기록",
+    "잠잘 때 코골이·호흡 문제와 최근 감기·기침 여부",
+    "동행 보호자와 귀가 후 돌봄 가능 시간"
+  ],
+  "localHeading": "예산에서 아이 충치 상담을 준비한다면",
+  "localAdvice": "예산에서 천안 불당동 서울비디치과로 아이 충치 상담을 계획한다면 아이의 나이와 이전 진료 경험, 전신마취 권유 내용을 먼저 알려 주세요. 현재 평가 가능한 범위와 필요한 전문기관 안내 여부를 확인하세요. 실제 마취 진료가 정해진 기관에서는 식사·복약·이동·귀가 후 관찰 지침을 따로 받아야 합니다.",
+  "related": [
+    {
+      "title": "충치 치료 전 고민 가이드",
+      "href": "/guide/regret/cavity"
+    },
+    {
+      "title": "유치 충치 치료가 필요한지 고민될 때",
+      "href": "/concerns/baby-molar-cavity-treat-before-falling-out"
+    },
+    {
+      "title": "아이 웃음가스 진료가 걱정될 때",
+      "href": "/concerns/child-nitrous-oxide-mask-anxiety"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국소아치과학회 AAPD — 행동 유도와 전신마취의 적응·대안",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/behavior-guidance-for-the-pediatric-dental-patient/"
+    },
+    {
+      "title": "미국소아과학회 AAP — 아이 치과 진정·마취와 담당 인력",
+      "href": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/Anesthesia-or-Sedation-for-Your-Childs-Dental-Work.aspx"
+    },
+    {
+      "title": "미국치과의사협회 ADA — 보호자가 물어볼 마취 안전 질문",
+      "href": "https://www.mouthhealthy.org/all-topics-a-z/anesthesia-and-sedation-for-your-child"
+    },
+    {
+      "title": "미국소아과학회 AAP — 소아 전신마취 전 건강 정보와 준비",
+      "href": "https://www.healthychildren.org/English/health-issues/conditions/treatments/Pages/Procedures-With-Anesthesia.aspx"
+    },
+    {
+      "title": "NHS — 치과 감염에서 신속한 평가가 필요한 증상",
+      "href": "https://www.nhs.uk/conditions/dental-abscess/"
+    }
+  ],
+  "updated": "2026-11-06"
+},
+{
+  "slug": "kidney-transplant-immunosuppressants-dental-treatment",
+  "publishedAt": "2026-11-06T09:00:00+09:00",
+  "title": "신장이식 후 면역억제제를 먹는데 치과 치료를 받아도 될까요? 감염이 무서워 미루고 있어요.",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "신장이식",
+  "concern": "지병 때문에 치료가 걱정돼요",
+  "description": "당진에서 신장이식 후 면역억제제를 복용하며 치과 진료를 고민할 때, 이식팀과 확인할 정보·약·감염 증상·치료 시점을 나누어 상담하는 방법입니다.",
+  "situation": "당진에서 신장이식 후 면역억제제를 복용하고 있습니다. 충치나 잇몸 불편이 있어도 치료받다 감염될까 두려워 미뤄 왔고, 약을 잠시 쉬어야 하는지까지 고민됩니다.",
+  "answer": "신장이식 후에도 필요한 구강 평가와 관리가 중요합니다. 치료 시기와 범위는 이식 후 경과, 최근 거부반응 치료·감염 여부, 현재 신장 기능과 약, 필요한 치과 처치를 함께 확인해 정합니다. 면역억제제를 임의로 중단하지 말고 치과와 이식 담당팀이 필요한 정보를 공유하도록 요청하세요.",
+  "checks": [
+    "이식 시기와 최근 입원·거부반응 치료·약 변경을 알립니다.",
+    "현재 약 이름·용량·복용 시각과 약 알레르기를 준비합니다.",
+    "통증·부기·열·입안 상처가 언제부터 어떻게 변했는지 설명합니다.",
+    "첫 진찰과 이후 처치에서 필요한 협진·검사·처방 확인을 나눠 묻습니다."
+  ],
+  "choices": [
+    {
+      "condition": "전신 상태가 안정적이고 예정된 치과 처치 조건이 확인되면",
+      "option": "필요한 치료와 정기 구강 관리를 개별 계획에 따라 진행합니다.",
+      "limit": "이식 후 지난 기간만으로 모든 처치의 안전성을 판단하지 않습니다."
+    },
+    {
+      "condition": "최근 이식·거부반응 치료 또는 상태 변화가 있다면",
+      "option": "긴급성에 따라 이식팀과 진료 시기·장소·약을 조정합니다.",
+      "limit": "정기 치료를 조정하는 것과 감염이 의심되는 증상을 방치하는 것은 다릅니다."
+    },
+    {
+      "condition": "부기·열·전신 불편 등 감염이 의심되면",
+      "option": "치과와 이식팀에 신속히 연락해 평가 경로를 정합니다.",
+      "limit": "숨쉬거나 삼키기 어려운 심한 부기는 응급 평가가 우선입니다."
+    }
+  ],
+  "unknown": "이식 환자 모두에게 같은 대기 기간이나 항생제 처방을 적용할 수 없습니다. 치과 처방약도 기존 약과의 상호작용 및 현재 상태를 확인해야 하며, 전에 남은 약으로 대신하지 않습니다.",
+  "prepare": [
+    "이식 담당 진료과·연락처와 최근 외래 요약",
+    "최신 복약 목록과 최근 변경 내역",
+    "최근 검사 자료 중 의료진이 요청한 항목",
+    "현재 치과 증상과 예정된 치료 설명"
+  ],
+  "localHeading": "당진에서 신장이식 후 치과 상담을 준비한다면",
+  "localAdvice": "당진에서 천안 불당동 서울비디치과로 상담을 준비한다면 이식 사실과 면역억제제 복용, 현재 증상을 예약 때 알려 주세요. 이식 병원 자료가 먼저 필요한지와 첫날 평가 범위를 확인하면 불필요한 이동을 줄일 수 있습니다. 필요한 경우 이식팀과 연계되는 진료기관을 안내받을 수 있으며 모든 치료가 현장에서 가능하다고 미리 가정하지 마세요.",
+  "related": [
+    {
+      "title": "충치 치료 전 고민 가이드",
+      "href": "/guide/regret/cavity"
+    },
+    {
+      "title": "잇몸 치료 전 고민 가이드",
+      "href": "/guide/regret/gum"
+    },
+    {
+      "title": "약 복용 후 구강건조와 충치 상담",
+      "href": "/concerns/dry-mouth-after-medication-new-cavities"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Cambridge University Hospitals NHS — 신장이식 후 감염·약·치과 관리",
+      "href": "https://www.cuh.nhs.uk/patient-information/kidney-transplant-guide-information-for-patients-after-a-kidney-transplant/"
+    },
+    {
+      "title": "Leeds Teaching Hospitals NHS — 신장이식 후 약 변경과 새 약 확인",
+      "href": "https://www.leedsth.nhs.uk/patients/resources/medicines-after-your-renal-transplant/"
+    },
+    {
+      "title": "미국신장재단 NKF — 신장이식 후 면역억제제와 장기 관리",
+      "href": "https://www.kidney.org/kidney-topics/life-kidney-transplant"
+    },
+    {
+      "title": "NHS SDCEP — 면역저하 환자의 치과 감염과 응급 평가",
+      "href": "https://sdcepdentalprescribing.nhs.scot/guidance/bacterial-infections/dental-abscess/"
+    }
+  ],
+  "updated": "2026-11-06"
+},
+{
+  "slug": "hemophilia-tooth-extraction-bleeding-plan",
+  "publishedAt": "2026-11-06T09:00:00+09:00",
+  "title": "혈우병이 있는데 이를 빼야 한대요. 피가 멎지 않을까 봐 치과 치료가 두렵습니다.",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "발치",
+  "concern": "지병 때문에 치료가 걱정돼요",
+  "description": "서산에서 혈우병으로 발치나 치과 치료를 준비할 때, 혈액내과 협진·개별 지혈 계획·진료 장소와 귀가 후 연락 기준을 확인하는 방법입니다.",
+  "situation": "서산에서 혈우병 치료를 받고 있으며 치아를 빼야 한다는 설명을 들었습니다. 과거 피가 오래 났던 기억 때문에 치료가 무섭고, 작은 충치 진료도 모두 위험할까 걱정됩니다.",
+  "answer": "혈우병이 있다고 모든 치과 진료가 불가능한 것은 아닙니다. 다만 발치처럼 출혈 위험이 있는 처치는 혈우병 담당팀과 치과·구강악안면외과가 질환의 유형·중증도·현재 치료·억제인자 여부와 시술 범위를 확인해 개별 지혈 계획을 세워야 합니다. 약·주사 용량이나 일정을 환자분이 스스로 조절하지 않습니다.",
+  "checks": [
+    "정확한 진단과 현재 혈우병 치료, 억제인자 여부를 확인합니다.",
+    "과거 발치·수술 후 출혈과 추가 지혈 치료 경험을 알립니다.",
+    "진찰·충전·마취·발치 등 예정된 처치를 구체적으로 구분합니다.",
+    "사전 지혈 준비·시술 장소·관찰·귀가 후 연락 계획을 문서로 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "출혈 위험이 낮은 평가와 일반 진료가 필요하다면",
+      "option": "담당팀의 안내와 치과 평가에 따라 가능한 진료 범위를 정합니다.",
+      "limit": "모든 처치가 낮은 위험인 것은 아니며 잇몸 상태와 마취 방법도 고려합니다."
+    },
+    {
+      "condition": "발치나 수술 등 출혈 대비가 필요한 처치라면",
+      "option": "혈우병 담당팀과 연계해 지혈 치료와 적절한 기관을 계획합니다.",
+      "limit": "필요한 약·검사·관찰을 제공할 수 있는지 확인하기 전에 시술 일정을 확정하지 않습니다."
+    },
+    {
+      "condition": "이미 출혈이 지속되거나 부기·호흡 문제가 있다면",
+      "option": "기존 응급 계획과 담당팀 안내에 따라 신속히 평가받습니다.",
+      "limit": "심한 출혈·실신 느낌·호흡곤란은 정기 예약을 기다리지 말고 응급 도움을 요청합니다."
+    }
+  ],
+  "unknown": "다른 혈우병 환자분의 주사 용량이나 지혈제 복용법을 그대로 적용할 수 없습니다. 평소 예방 치료를 받고 있어도 이번 치과 시술에 추가 준비가 필요한지는 별도로 판단해야 합니다.",
+  "prepare": [
+    "혈우병 진단·치료 카드와 담당팀 연락처",
+    "현재 치료약과 투여 일정, 최근 변경 사항",
+    "과거 출혈·억제인자·약 이상 반응 관련 기록",
+    "발치할 치아와 예정 시술에 대한 치과 계획"
+  ],
+  "localHeading": "서산에서 혈우병 치과 상담을 준비한다면",
+  "localAdvice": "서산에서 천안 불당동 서울비디치과로 상담을 준비한다면 혈우병 병력과 담당 혈액내과, 발치 권유 내용을 먼저 알려 주세요. 현재 평가 가능한 범위와 협진·의뢰가 필요한 처치를 나누어 확인하세요. 지혈 치료와 관찰이 가능한 전문기관 연계가 필요할 수 있으며, 이동 거리만으로 시술 장소를 정하지 않는 것이 좋습니다.",
+  "related": [
+    {
+      "title": "사랑니 발치 가이드",
+      "href": "/guide/wisdom-tooth"
+    },
+    {
+      "title": "신경치료 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "발치 뒤 출혈이 걱정될 때",
+      "href": "/concerns/extraction-bleeding-at-home-when-to-call"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Oxford University Hospitals NHS — 출혈질환 환자의 치과 진료와 수술 계획",
+      "href": "https://www.ouh.nhs.uk/haematology/services/haemophilia/bleeding-disorders/dental-care/"
+    },
+    {
+      "title": "Nordic Hemophilia Council — 치과 치료·지혈·마취의 협진 지침",
+      "href": "https://guidelines.nordhemophilia.org/hemophilia/16DentalCare.html"
+    },
+    {
+      "title": "NHS — 혈우병 치료와 수술·치과 진료 전 상담",
+      "href": "https://www.nhs.uk/conditions/haemophilia/"
+    },
+    {
+      "title": "NHS West and North London ICB — 조절되지 않는 출혈과 응급 치과 증상",
+      "href": "https://www.westandnorthlondon.icb.nhs.uk/your-health/health-services/dentist"
+    }
+  ],
+  "updated": "2026-11-06"
 }
 ]
 
