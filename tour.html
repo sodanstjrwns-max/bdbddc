@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3D 가상 투어 | 서울비디치과</title>
+<meta name="description" content="서울비디치과 5개 층을 3D로 걸어서 둘러보세요. 교정센터부터 임플란트센터, 종합진료센터까지 층별 배치를 미리 볼 수 있어요.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://bdbddc.com/tour">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="서울비디치과">
+<meta property="og:url" content="https://bdbddc.com/tour">
+<meta property="og:title" content="3D 가상 투어 | 서울비디치과">
+<meta property="og:description" content="서울비디치과 5개 층을 3D로 걸어서 둘러보세요. 교정센터부터 임플란트센터, 종합진료센터까지 층별 배치를 미리 볼 수 있어요.">
+<meta property="og:image" content="https://bdbddc.com/images/og/directions.jpg?v=sq1">
+<meta name="theme-color" content="#FAFAF7">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+<!-- 3D 가상 투어. 원본: bddc/outputs/2026-11-04-clinic-3d-tour/tour.html → build-site.py 로 생성. 이 파일을 직접 고치지 말 것. -->
+<style>
+/* Layout: one full-screen 3D stage. Floating brand plate top-left, floor rail bottom, hotspot card on the right (desktop) or as a bottom sheet (phone). */
+:root{
+  --bg:#FAFAF7; --fg:#2D2A26; --muted:#6B6560; --line:#E4DCCF;
+  --panel:rgba(255,253,249,.92); --panel-solid:#FFFDF9;
+  --gold:#C9A042; --gold-deep:#8B6914; --gold-soft:#F4E7C6; --brown:#6B4226;
+  --sky:#F2EDE4; --ground:#E6DFD2; --fog:#F2EDE4;
+  --shadow:0 10px 30px rgba(45,42,38,.14);
+  --font-display:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --font-body:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15120E; --fg:#F1EAE0; --muted:#A99F92; --line:#3B3328;
+    --panel:rgba(26,22,17,.9); --panel-solid:#1A1611;
+    --gold:#D9B45A; --gold-deep:#C9A042; --gold-soft:#3A3020; --brown:#C08C64;
+    --sky:#1A1611; --ground:#221D16; --fog:#1A1611;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15120E; --fg:#F1EAE0; --muted:#A99F92; --line:#3B3328;
+  --panel:rgba(26,22,17,.9); --panel-solid:#1A1611;
+  --gold:#D9B45A; --gold-deep:#C9A042; --gold-soft:#3A3020; --brown:#C08C64;
+  --sky:#1A1611; --ground:#221D16; --fog:#1A1611;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:14px;line-height:1.5;overflow:hidden}
+#stage{position:fixed;inset:0;background:var(--bg)}
+#c{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+#c.walking{cursor:crosshair}
+#c.dragging{cursor:grabbing}
+
+.plate{position:fixed;left:0;top:0;z-index:5;pointer-events:none;
+  padding-top:calc(14px + env(safe-area-inset-top,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  max-width:min(360px,calc(100% - 32px))}
+.plate .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);font-weight:700}
+.plate h1{font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1.15;margin:4px 0 2px;text-wrap:balance}
+.plate .sub{margin:0;color:var(--muted);font-size:13px}
+.plate .hint{margin:8px 0 0;font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 11px;display:inline-block;backdrop-filter:blur(8px)}
+
+.floorTitle{position:fixed;z-index:5;pointer-events:none;
+  right:max(16px,env(safe-area-inset-right,0px));top:calc(14px + env(safe-area-inset-top,0px));
+  text-align:right;max-width:46%;}
+.floorTitle .big{font-family:var(--font-display);font-weight:700;font-size:38px;line-height:1;color:var(--gold)}
+.floorTitle .name{font-weight:700;font-size:15px}
+.floorTitle .basis{font-size:11px;color:var(--muted)}
+.floorTitle[hidden]{display:none}
+.plate a{pointer-events:auto}
+.plate h1 a.home{color:inherit;text-decoration:none}
+.plate .note{margin:8px 0 0;font-size:11px;color:var(--muted);max-width:300px;text-shadow:0 0 2px var(--bg),0 0 6px var(--bg)}
+.plate .links{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.plate .links a{font-size:12px;font-weight:700;color:var(--fg);text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 11px;backdrop-filter:blur(8px)}
+.plate .links a.rsv{background:var(--brown);border-color:var(--brown);color:#fff}
+.plate .links a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* a soft halo keeps the corner text readable over dark ceilings (5F) */
+.plate .eyebrow,.plate h1,.plate .sub,.floorTitle .big,.floorTitle .name,.floorTitle .basis{text-shadow:0 0 2px var(--bg),0 0 6px var(--bg),0 0 12px var(--bg)}
+
+.rail{position:fixed;left:0;right:0;z-index:6;display:flex;gap:8px;align-items:center;overflow-x:auto;scrollbar-width:none;
+  bottom:0;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));padding-top:10px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.rail::-webkit-scrollbar{display:none}
+.rail button{flex:0 0 auto;font:inherit;font-weight:700;font-size:13px;color:var(--fg);background:var(--panel);border:1px solid var(--line);
+  border-radius:999px;padding:9px 14px;cursor:pointer;backdrop-filter:blur(8px);box-shadow:var(--shadow);transition:transform .15s,background .15s}
+.rail button:hover{transform:translateY(-1px)}
+.rail button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.rail button.on{background:var(--gold);border-color:var(--gold);color:#1B150A}
+.rail button.ghost{font-weight:500;color:var(--muted)}
+.rail .sep{flex:0 0 1px;height:22px;background:var(--line);margin:0 2px}
+.rail button.walk{display:inline-flex;align-items:center;gap:6px}
+.rail button.walk svg{width:14px;height:14px}
+
+.chips{position:fixed;z-index:5;left:0;right:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;
+  bottom:calc(66px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:0 0 auto;font:inherit;font-size:12px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 10px 5px 6px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;backdrop-filter:blur(8px)}
+.chips button .n{width:18px;height:18px;border-radius:50%;background:var(--gold);color:#1B150A;font-size:11px;font-weight:700;display:inline-grid;place-items:center}
+.chips button.on{border-color:var(--gold)}
+.chips[hidden]{display:none}
+
+.card{position:fixed;z-index:7;background:var(--panel-solid);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:16px;
+  right:max(16px,env(safe-area-inset-right,0px));top:calc(96px + env(safe-area-inset-top,0px));width:min(340px,calc(100% - 32px));
+  padding:16px 16px 14px;box-sizing:border-box}
+.card[hidden]{display:none}
+.card .top{display:flex;align-items:center;gap:10px}
+.card .num{width:28px;height:28px;border-radius:50%;background:var(--gold);color:#1B150A;font-weight:700;display:grid;place-items:center;flex:0 0 auto}
+.card h2{margin:0;font-size:17px;font-weight:700;flex:1;min-width:0;text-wrap:balance}
+.card .where{font-size:11px;color:var(--muted);letter-spacing:.06em}
+.card .close{margin-left:auto;background:none;border:0;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:4px;flex:0 0 auto}
+.card .close:focus-visible{outline:2px solid var(--gold);border-radius:6px}
+.card p{margin:10px 0 0;font-size:13.5px}
+.card .video{margin-top:12px;border-radius:10px;background:linear-gradient(135deg,#1E1A14,#3A2E1C);color:#F6EBD2;padding:12px;display:flex;gap:12px;align-items:center;border:1px solid var(--gold-deep)}
+.card .video .play{width:34px;height:34px;border-radius:50%;background:var(--gold);display:grid;place-items:center;flex:0 0 auto}
+.card .video .play svg{width:14px;height:14px;fill:#1B150A;margin-left:2px}
+.card .video .t{font-size:12.5px;font-weight:700;line-height:1.3}
+.card .video .s{font-size:11px;opacity:.8}
+.card a.more{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:13px;font-weight:700;color:var(--gold-deep);text-decoration:none;border-bottom:1px solid var(--gold)}
+.card a.more:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media (max-width:640px){
+  .card{top:auto;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;
+    bottom:calc(104px + env(safe-area-inset-bottom,0px));padding:14px}
+  .chips{display:none}
+  .plate{max-width:54%}
+  .plate h1{font-size:22px}
+  .floorTitle .big{font-size:30px}
+}
+.overlay{position:fixed;inset:0;z-index:9;display:grid;place-items:center;background:var(--bg);color:var(--muted);font-size:14px;transition:opacity .5s}
+.overlay.off{opacity:0;pointer-events:none}
+.overlay .box{text-align:center;max-width:320px;padding:0 16px}
+.overlay .box b{display:block;font-family:var(--font-display);font-size:22px;color:var(--fg);margin-bottom:6px}
+.keys{position:fixed;z-index:5;pointer-events:none;left:50%;transform:translateX(-50%);bottom:calc(104px + env(safe-area-inset-bottom,0px));
+  font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px;backdrop-filter:blur(8px);white-space:nowrap}
+.keys[hidden]{display:none}
+@media (max-width:640px){.keys{bottom:calc(66px + env(safe-area-inset-bottom,0px))}}
+@media (prefers-reduced-motion:reduce){.rail button{transition:none}}
+</style>
+
+<div id="stage"><canvas id="c" aria-label="서울비디치과 3D 가상 공간"></canvas></div>
+
+<header class="plate">
+  <div class="eyebrow">3D Virtual Tour</div>
+  <h1><a class="home" href="/">서울비디치과</a></h1>
+  <p class="sub">천안 불당동 · 5층 전관</p>
+  <p class="hint" id="hint">드래그로 돌려보고, 아래에서 층을 고르세요</p>
+  <p class="note">실제 공간을 단순화한 3D 안내예요. 배치와 마감은 실제와 다를 수 있어요.</p>
+  <div class="links"><a href="/floor-guide">층별 안내</a><a class="rsv" href="/reservation">상담 예약</a></div>
+</header>
+
+<div class="floorTitle" id="floorTitle" hidden>
+  <div class="big" id="ftBig">4F</div>
+  <div class="name" id="ftName">임플란트센터</div>
+  <div class="basis" id="ftBasis">실제 도면을 단순화한 배치예요</div>
+</div>
+
+<div class="chips" id="chips" hidden></div>
+<div class="keys" id="keys" hidden>W A S D 로 걷기 · 드래그로 둘러보기 · 바닥을 눌러 이동</div>
+
+<aside class="card" id="card" hidden aria-live="polite">
+  <div class="top">
+    <div class="num" id="cardNum">1</div>
+    <div style="flex:1;min-width:0">
+      <div class="where" id="cardWhere">4F · 임플란트센터</div>
+      <h2 id="cardTitle">독립 수술실</h2>
+    </div>
+    <button class="close" id="cardClose" aria-label="닫기">×</button>
+  </div>
+  <p id="cardDesc"></p>
+  <a class="more" id="cardLink" href="#" target="_blank" rel="noopener">자세히 보기 →</a>
+</aside>
+
+<nav class="rail" id="rail" aria-label="층 선택">
+  <button data-floor="0" class="on">전관</button>
+  <button data-floor="5">5F</button>
+  <button data-floor="4">4F</button>
+  <button data-floor="3">3F</button>
+  <button data-floor="2">2F</button>
+  <button data-floor="1">1F</button>
+  <div class="sep"></div>
+  <button id="walkBtn" class="walk" aria-pressed="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="1.6"/><path d="M11 20l1.5-6 2.5 2v4M9 11l2-3 3 1 2 3h2M8 20l2-5"/></svg>
+    걸어보기
+  </button>
+</nav>
+
+<div class="overlay" id="overlay"><div class="box"><b>공간을 짓고 있어요</b><span id="ovMsg">잠시만요…</span></div></div>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+
+const $ = (s) => document.querySelector(s);
+const overlay = $('#overlay'), ovMsg = $('#ovMsg');
+// only our own start-up failures count: once the scene is up, or for errors thrown by other scripts on the page (analytics), do nothing
+window.addEventListener('error', (e) => { if (overlay.classList.contains('off')) return; const f = (e.filename || '').split(/[?#]/)[0]; if (!f || (f !== location.href.split(/[?#]/)[0] && !f.includes('/three@'))) return; ovMsg.textContent = '3D 엔진을 불러오지 못했어요. 네트워크를 확인하고 새로고침해 주세요.'; });
+
+/* ---------------- data ---------------- */
+const SITE = '';
+// Plan coordinates follow the 2021-04 interior drawings, in metres: X 0→26.9 (left→right), Y 0→22.4 (top→bottom).
+const BW = 26.9, BD = 22.4, OX = BW / 2, OZ = BD / 2;
+const CLX = 15.5;                      // 1F–4F: the clinic ends at this party wall; the rest of the floor is another tenant
+const WALL_H = 2.8, SLAB = 0.3, CEIL_Y = 2.95;
+const SPACING_REAL = 3.6, SPACING_EXPLODED = 5.6;
+const px = (X) => X - OX, pz = (Y) => Y - OZ;
+// room: plan rect, type, name. opt.doors = [[side, position along that wall, width, kind]], opt.open = sides without a wall, opt.solid = not walkable
+const R = (X0, X1, Y0, Y1, type, name, opt = {}) => ({ x0: px(X0), x1: px(X1), z0: pz(Y0), z1: pz(Y1), type, name, ...opt });
+const H = (num, title, X, Y, desc, link, linkLabel, video, stand) => ({ num, title, x: px(X), z: pz(Y), desc, link, linkLabel, video, stand: stand && { x: px(stand[0]), z: pz(stand[1]) } });
+const BASIS_DWG = '실제 도면을 단순화한 배치예요', BASIS_DWG2 = BASIS_DWG;
+const VIEW_L = { x: px(8.6), z: pz(12.0), r: 30, rp: 40 }, VIEW_FULL = { x: 0, z: pz(12.0), r: 34, rp: 54 };
+// hall, toilets, shafts, lifts and stairs: the same on every floor
+const CORE = () => [
+  R(0, 1.4, 17.5, 22.4, 'outdoor', '', { solid: true, h: 1.0 }),
+  R(1.4, 4.45, 17.5, 22.4, 'wc', '화장실', { doors: [['N', 3.3, 0.9]] }),
+  R(4.45, 7.5, 17.5, 22.4, 'wc', '화장실', { doors: [['N', 6.0, 0.9]] }),
+  R(7.5, 8.7, 17.5, 22.4, 'shaft', '', { solid: true }),
+  R(10.05, 15.5, 17.5, 19.75, 'elev', '엘리베이터', { solid: true }),
+  R(8.7, 15.5, 19.75, 22.4, 'stair', '', { solid: true }),
+  R(10.05, 15.5, 11.4, 15.5, 'stair', '', { solid: true }),
+];
+// Signature pieces per floor follow the 2021 interior proposal renderings.
+// 3F (and the virtual 1F, which borrows its layout): 4-chair room, white reception island, cube stools, globe pendants
+function decorA(g) {
+  for (const [X, Y, ry] of [[1.9, 1.7, 0], [5.4, 1.7, Math.PI], [1.9, 4.9, 0], [5.4, 4.9, Math.PI]]) unitChair(g, px(X), pz(Y), ry, M.uph);
+  counter(g, px(2.9), pz(3.3), 5.2);
+  const rx = px(5.35), rz = pz(9.6);                                             // reception island with rounded ends
+  box(g, 2.6, 1.05, 0.7, M.wood, rx, 0, rz); cyl(g, 0.35, 1.05, M.wood, rx - 1.3, 0, rz); cyl(g, 0.35, 1.05, M.wood, rx + 1.3, 0, rz);
+  box(g, 2.6, 0.04, 0.78, M.woodLight, rx, 1.05, rz); box(g, 2.9, 0.05, 0.02, M.gold, rx, 0.5, rz + 0.36);
+  for (const X of [4.6, 6.1]) { chair(g, px(X), pz(9.0), 0); monitorArm(g, px(X), pz(9.5), Math.PI, 1.3); }
+  [[3.6, 12.3, 0], [4.5, 12.9, 1], [3.7, 13.9, 1], [4.7, 14.4, 0], [5.6, 12.2, 0], [9.2, 10.9, 1], [10.2, 10.6, 0]].forEach(([X, Y, round]) => round ? cyl(g, 0.26, 0.45, M.sage, px(X), 0, pz(Y)) : box(g, 0.48, 0.45, 0.48, M.sage, px(X), 0, pz(Y)));
+  for (const [X, Y] of [[4.2, 13.2], [5.0, 13.6], [4.6, 12.6]]) { sph(g, 0.17, M.lamp, px(X), 2.25, pz(Y)); cyl(g, 0.006, 0.5, M.metal, px(X), 2.42, pz(Y)); }
+  plant(g, px(3.2), pz(15.05), 0.9); plant(g, px(10.9), pz(8.8), 1.0);
+  for (let i = 0; i < 6; i++) box(g, 0.02, 1.7, 0.16, M.lamp, px(7.81), 0.3, pz(4.35 + i * 0.72));   // lit slots of the tall storage wall
+}
+function decor3(g) {
+  decorA(g);
+  [[M.coral, 10.5, 3.3], [M.yellow, 10.9, 3.1], [M.blue, 10.7, 3.6]].forEach(([m, X, Y], i) => { sph(g, 0.2, m, px(X), 2.0 + i * 0.12, pz(Y)); cyl(g, 0.005, 0.9, M.metal, px(X), 0.9 + i * 0.12, pz(Y)); });   // balloons over the kids' corner
+}
+function decor4(g) {
+  bench(g, px(15.0), pz(3.0), -Math.PI / 2, M.sage, 3.6);                                      // charcoal sofa
+  for (const [X, Y] of [[12.3, 2.4], [13.45, 2.4], [12.3, 3.6], [13.45, 3.6]]) box(g, 1.05, 0.42, 1.05, M.sage, px(X), 0, pz(Y));   // ottomans
+  box(g, 3.6, 0.05, 0.5, M.wood, px(13.4), 1.0, pz(0.35)); box(g, 3.6, 1.0, 0.06, M.wood, px(13.4), 0, pz(0.58));                 // bar counter along the windows
+  for (const X of [12.3, 13.4, 14.5]) { cyl(g, 0.17, 0.05, M.brown, px(X), 0.7, pz(0.95)); cyl(g, 0.025, 0.7, M.metal, px(X), 0, pz(0.95)); }
+  counter(g, px(10.65), pz(0.4), 1.2); cyl(g, 0.34, 0.03, M.sky, px(10.65), 1.45, pz(0.1), Math.PI / 2);                           // powder corner, round mirror
+  slats(g, 'x', px(9.95), pz(0.3), pz(3.5), 2.6, M.wood, 1);                                                                       // louvre wall
+  plant(g, px(14.95), pz(0.6), 1.0);
+  // air shower: the only way from the lounge into the surgical corridor
+  box(g, 0.95, 0.1, 1.45, M.metal, px(9.475), 2.25, pz(4.525)); box(g, 0.85, 0.02, 1.3, M.sky, px(9.475), 0.02, pz(4.525));
+  for (const Y of [3.84, 5.21]) for (let i = 0; i < 3; i++) for (let k = 0; k < 3; k++) cyl(g, 0.045, 0.05, M.sky, px(9.2 + i * 0.28), 0.6 + k * 0.6, pz(Y), Math.PI / 2);
+}
+function decor5(g) {
+  // open clinic: 8 chairs along the windows, 5 in the inner row; oak screens and oak islands with black tops
+  for (const [X, ry] of [[1.6, 0], [5.0, Math.PI], [8.4, 0], [11.8, Math.PI], [15.2, 0], [18.6, Math.PI], [22.0, 0], [25.3, Math.PI]]) unitChair(g, px(X), pz(2.0), ry, M.uph);
+  for (const [X, ry] of [[1.6, 0], [5.0, Math.PI], [16.0, Math.PI], [21.0, 0], [25.3, Math.PI]]) unitChair(g, px(X), pz(7.1), ry, M.uph);
+  const screen = (X, Y, len) => { box(g, 0.25, 1.7, len, M.wall, px(X), 0, pz(Y)); box(g, 0.02, 0.6, 1.0, M.screen, px(X) - 0.14, 0.95, pz(Y)); box(g, 0.02, 0.6, 1.0, M.screen, px(X) + 0.14, 0.95, pz(Y)); };
+  for (const X of [6.65, 13.45, 20.3]) screen(X, 2.0, 2.3);
+  for (const X of [6.65, 18.5]) screen(X, 7.1, 2.1);
+  const island = (X, Y, w) => { box(g, w, 0.86, 0.7, M.woodLight, px(X), 0, pz(Y)); box(g, w + 0.04, 0.05, 0.74, M.dark, px(X), 0.86, pz(Y)); };
+  for (const [X, w] of [[1.25, 2.3], [6.8, 4.6], [13.6, 4.6], [20.25, 4.6], [25.7, 2.2]]) island(X, 4.5, w);
+  for (const X of [9.0, 10.3, 11.6]) cart(g, px(X), pz(7.6), Math.PI);                          // mobile cart parking
+  // reception: slatted oak front under a black top, chart cabinets behind
+  const rx = px(22.5), rz = pz(14.45);
+  box(g, 5.8, 1.05, 0.7, M.woodLight, rx, 0, rz); box(g, 5.95, 0.06, 0.85, M.dark, rx, 1.05, rz); slats(g, 'z', rz + 0.35, rx - 2.9, rx + 2.9, 1.0, M.wallTop, 1);
+  for (const X of [20.4, 21.8, 23.2, 24.6]) { chair(g, px(X), pz(13.75), 0); monitorArm(g, px(X), pz(14.3), Math.PI, 1.3); }
+  box(g, 5.6, 0.9, 0.35, M.woodLight, px(22.5), 0, pz(12.5));
+  // long oak table with timber chairs, cream bench sofas along the windows
+  desk(g, px(22.3), pz(18.25), 4.6, 1.0); for (let i = 0; i < 7; i++) { chair(g, px(20.3 + i * 0.67), pz(17.5), 0, M.woodLight); chair(g, px(20.3 + i * 0.67), pz(19.0), Math.PI, M.woodLight); }
+  bench(g, px(20.9), pz(21.75), Math.PI, M.sage, 3.3); bench(g, px(24.6), pz(21.75), Math.PI, M.sage, 3.3); bench(g, px(26.3), pz(17.6), -Math.PI / 2, M.sage, 4.4);
+  plant(g, px(18.3), pz(21.6), 1.1); plant(g, px(26.3), pz(21.0), 1.0); plant(g, px(16.6), pz(15.4), 0.9);
+  // main wall facing the lifts: oak slats and the clinic sign
+  slats(g, 'z', pz(15.5), px(0.3), px(6.5), 2.6, M.wallTop, 1);
+  signPlane(g, '서울비디치과', 'SEOUL BD DENTAL CLINIC', 3.0, 0.8, px(4.6), 1.75, pz(15.5) + 0.17);
+  // doctors' office: eight desks in two rows
+  for (const Y of [9.5, 11.45]) for (const X of [1.3, 2.6, 4.2, 5.5]) { desk(g, px(X), pz(Y), 1.15, 0.6); chair(g, px(X), pz(Y + (Y < 10 ? 0.6 : -0.6)), Y < 10 ? Math.PI : 0); }
+  // prep room: L-shaped counters
+  counter(g, px(10.2), pz(9.2), 5.2); counter(g, px(9.7), pz(13.2), 3.6, Math.PI / 2); for (let i = 0; i < 3; i++) box(g, 0.4, 0.25, 0.3, M.blue, px(8.6 + i * 1.4), 0.92, pz(9.2));
+  // staff pantry: white table for six, black shell chairs
+  box(g, 1.9, 0.04, 0.9, M.white, px(4.3), 0.73, pz(14.1)); for (const sx of [-0.85, 0.85]) box(g, 0.05, 0.73, 0.8, M.white, px(4.3) + sx, 0, pz(14.1));
+  for (let i = 0; i < 3; i++) { chair(g, px(3.65 + i * 0.65), pz(13.4), 0); chair(g, px(3.65 + i * 0.65), pz(14.8), Math.PI); }
+  counter(g, px(5.4), pz(12.5), 2.2);
+}
+
+const FLOORS = [
+  { n: 1, name: '인비절라인 치아교정센터', short: '인비절라인 · 교정', basis: '1층은 실제와 다른 가상 배치예요', view: VIEW_L, decor: decorA, theme: 'white',
+    entrance: { x: px(1.0), z: pz(16.5), yaw: -Math.PI / 2 },
+    rooms: [
+      R(0, 7.3, 0, 6.6, 'none', '교정 진료실', { doors: [['E', 3.25, 1.3]] }),
+      R(7.3, 11.8, 0, 2.55, 'office', '원장실', { doors: [['S', 9.1, 0.9]] }),
+      R(11.8, 15.5, 0, 3.5, 'op', '교정 진료실 2', { doors: [['W', 3.0, 0.9]] }),
+      R(11.8, 15.5, 3.5, 6.55, 'op', '교정 진료실 3', { doors: [['W', 4.0, 0.9]] }),
+      R(9.75, 11.8, 2.55, 6.55, 'prep', '장치실', { open: 'W' }),
+      R(7.3, 7.8, 3.9, 8.35, 'cabwall', '', { solid: true, h: 2.2 }),
+      R(0, 1.95, 6.6, 8.35, 'mech', '기계실', { doors: [['E', 7.5, 0.8]] }),
+      R(1.95, 7.3, 6.6, 8.35, 'prep', '준비실', { doors: [['S', 6.7, 0.9]] }),
+      R(0, 2.85, 8.35, 11.45, 'plan', '클린체크 상담실', { doors: [['E', 10.8, 0.9]] }),
+      R(0, 2.85, 11.45, 13.3, 'powder', '파우더룸', { open: 'E' }),
+      R(0, 2.85, 13.3, 15.5, 'consult', 'iTero 스캐너실', { open: 'E' }),
+      R(2.85, 11.35, 8.35, 11.45, 'none', '대기실 · 접수', { open: 'all' }),
+      R(2.85, 6.95, 11.45, 15.5, 'none', '', { open: 'NWE', doors: [['S', 6.1, 1.6, 'main']] }),
+      R(6.95, 10.05, 12.0, 15.5, 'consult', '상담실', { doors: [['W', 12.6, 0.9]] }),
+      R(11.35, 15.5, 6.55, 8.65, 'pano', 'X-RAY실', { doors: [['W', 8.0, 0.9]] }),
+      R(11.35, 15.5, 8.65, 11.4, 'studio', '촬영실', { doors: [['W', 9.3, 0.9]] }),
+      ...CORE()],
+    hotspots: [
+      H(1, '접수 데스크', 5.35, 10.3, '처음 오시면 여기서 접수합니다. 1층은 인비절라인과 치아교정만 보는 전용 센터예요.', '/treatments/orthodontics', '교정 안내 보기'),
+      H(2, 'iTero 구강스캐너', 1.4, 14.4, '본을 뜨는 대신 iTero 구강스캐너로 치아를 찍어 3D 자료로 만듭니다.', '/treatments/invisalign', '인비절라인 보기', '인비절라인 진행 과정 3D 설명'),
+      H(3, '3D 클린체크 상담', 1.4, 9.9, '스캔 자료로 치아가 어떤 순서로 움직일지 3D 시뮬레이션(클린체크)으로 미리 보면서 상담합니다.', '/treatments/invisalign', '인비절라인 보기', '클린체크로 미리 보는 치아 이동 3D'),
+      H(4, '교정 진료실', 3.65, 3.3, '서울대 교정과 전문의 2인이 진료하는 교정 전담 진료실입니다. 일요일에도 진료해요.', '/treatments/orthodontics', '교정 안내 보기', '브라켓 교정 원리 3D 설명'),
+      H(5, '장치실', 10.8, 4.6, '인비절라인 장치와 유지장치를 다루는 공간입니다.', '/treatments/invisalign', '인비절라인 보기')] },
+  { n: 2, name: '디지털기공센터 · 위생관리센터', short: '기공소 · 소독실', basis: BASIS_DWG, view: VIEW_L,
+    entrance: { x: px(9.1), z: pz(16.6), yaw: 0 },
+    rooms: [
+      R(0, 2.45, 0, 6.35, 'dlabA', '기공실', { doors: [['E', 2.2, 0.95], ['E', 4.7, 0.95]] }),
+      R(2.45, 6.0, 0, 6.35, 'cad', 'CAD/CAM실', { doors: [['S', 3.6, 1.2]] }),
+      R(6.0, 12.75, 0, 6.35, 'seminar', '전략기획실', { open: 'E', doors: [['S', 6.6, 0.95]] }),
+      R(12.75, 15.5, 0, 4.45, 'rest', '직원 휴게실', { doors: [['S', 13.4, 0.9]] }),
+      R(12.75, 15.5, 4.45, 6.35, 'pantry', '', { open: 'W' }),
+      R(0, 2.45, 6.35, 7.65, 'mech', '기계실', { doors: [['E', 7.0, 0.8]] }),
+      R(0, 2.45, 7.65, 8.95, 'mech', '서버실', { doors: [['E', 8.3, 0.8]] }),
+      R(3.65, 8.2, 7.6, 10.15, 'storage', '진료 창고', { doors: [['E', 9.0, 0.9]] }),
+      R(0, 3.65, 8.95, 15.5, 'steril', '소독실 (클린)', { face: 'S', doors: [['N', 3.1, 0.9], ['S', 2.6, 1.2], ['E', 12.8, 0.9]] }),
+      R(3.65, 8.2, 10.15, 15.5, 'steril', '소독실 (오염)', { doors: [['S', 6.6, 1.2]] }),
+      R(8.2, 10.05, 13.5, 15.5, 'none', '', { open: 'NWE', doors: [['S', 9.125, 1.6, 'main']] }),
+      R(10.05, 15.5, 6.35, 8.9, 'locker', '탈의실', { doors: [['W', 8.3, 0.9]] }),
+      R(10.05, 15.5, 8.9, 11.4, 'storage', '데스크 창고', { doors: [['W', 10.1, 0.9]] }),
+      ...CORE()],
+    hotspots: [
+      H(1, 'CAD/CAM실', 4.2, 3.2, '구강스캔 자료를 받아 컴퓨터로 보철물을 설계하고(CAD), 밀링 장비로 깎아 냅니다(CAM).', '/treatments/inlay', '인레이 보기', '스캔에서 보철물까지 3D'),
+      H(2, '기공실', 1.2, 3.2, '기공사 5인이 일하는 원내 기공실입니다. CAD/CAM실과 창으로 이어져 있고, 크라운 같은 보철물을 병원 안에서 직접 만듭니다.', '/treatments/crown', '크라운 보기', '크라운은 어떻게 만들어질까 3D'),
+      H(3, '소독실 (오염 구역)', 5.9, 12.8, '진료에 쓴 기구가 먼저 들어오는 방입니다. 여기서 세척한 뒤 옆의 클린 구역으로 넘깁니다.', '/about', '병원 안내 보기'),
+      H(4, '소독실 (클린 구역)', 1.8, 12.2, '세척을 마친 기구를 포장하고 멸균해 보관하는 방입니다. 오염 구역과 방이 따로 나뉘어 있어요.', '/about', '병원 안내 보기'),
+      H(5, '전략기획실', 9.4, 3.2, '진료실 밖의 일을 맡는 방입니다. 환자 안내와 병원 운영 시스템을 기획합니다.', '/mission', '병원 이야기 보기')] },
+  { n: 3, name: '소아치과센터 · 문석준 원장 진료실', short: '소아치과 · 대표원장', basis: BASIS_DWG2, view: VIEW_L, decor: decor3, theme: 'white',
+    entrance: { x: px(6.1), z: pz(16.6), yaw: 0 },
+    rooms: [
+      R(0, 7.3, 0, 6.6, 'none', '문석준 원장 진료실', { doors: [['E', 3.25, 1.3]] }),
+      R(7.3, 11.8, 0, 2.55, 'office', '원장실', { doors: [['S', 9.1, 0.9]] }),
+      R(11.8, 15.5, 0, 3.5, 'opk', '소아 진료실 1', { doors: [['W', 3.0, 0.9]] }),
+      R(11.8, 15.5, 3.5, 6.55, 'opk', '소아 진료실 2', { doors: [['W', 4.0, 0.9]] }),
+      R(9.75, 11.8, 2.55, 6.55, 'kidswait', '소아 대기실', { open: 'W' }),
+      R(7.3, 7.8, 3.9, 8.35, 'cabwall', '', { solid: true, h: 2.2 }),
+      R(0, 1.95, 6.6, 8.35, 'mech', '기계실', { doors: [['E', 7.5, 0.8]] }),
+      R(1.95, 7.3, 6.6, 8.35, 'prep', '준비실', { doors: [['S', 6.7, 0.9]] }),
+      R(0, 2.85, 8.35, 11.45, 'consult', '상담실 1', { doors: [['E', 10.8, 0.9]] }),
+      R(0, 2.85, 11.45, 13.3, 'powder', '파우더룸', { open: 'E' }),
+      R(0, 2.85, 13.3, 15.5, 'studio', '스튜디오', { open: 'E' }),
+      R(2.85, 11.35, 8.35, 11.45, 'none', '대기실 · 접수', { open: 'all' }),
+      R(2.85, 6.95, 11.45, 15.5, 'none', '', { open: 'NWE', doors: [['S', 6.1, 1.6, 'main']] }),
+      R(6.95, 10.05, 12.0, 15.5, 'consult', '상담실 2', { doors: [['W', 12.6, 0.9]] }),
+      R(11.35, 15.5, 6.55, 8.65, 'pano', 'X-RAY실', { doors: [['W', 8.0, 0.9]] }),
+      R(11.35, 15.5, 8.65, 11.4, 'op', '진단준비실', { doors: [['W', 9.3, 0.9]] }),
+      ...CORE()],
+    hotspots: [
+      H(1, '접수 · 대기실', 5.35, 10.3, '3층에 들어서면 가운데 접수 데스크가 먼저 보입니다. 왼쪽에 상담실과 파우더룸, 안쪽에 진료실이 있어요.', '/floor-guide', '층별 안내 보기'),
+      H(2, '소아 대기실', 10.8, 4.6, '아이들이 따로 기다리는 공간입니다. 바로 옆이 소아 진료실이에요.', '/treatments/pediatric', '소아치과 보기'),
+      H(3, '소아 진료실', 13.65, 1.75, '서울대 소아치과 전문의 3인이 아이 눈높이에서 진료하는 소아 전용 진료실입니다. 무서워하는 아이는 웃음가스로 긴장을 풀고 진료받습니다.', '/treatments/pediatric', '소아치과 보기', '아이 충치 치료, 왜 미루면 안 될까 3D'),
+      H(4, '문석준 대표원장 진료실', 3.65, 3.3, '대표원장 문석준의 진료실입니다. 임플란트와 정밀 진단, 그리고 치과가 무서운 분의 진료를 맡습니다. 환자가 감당할 수 있는 속도로 진행해요.', '/doctors/moon', '문석준 원장 소개'),
+      H(5, 'BDX 정밀검진', 13.4, 9.9, 'X-RAY실과 진단준비실이 나란히 있습니다. 촬영한 영상을 같이 보면서 설명을 듣습니다.', '/floor-guide', '층별 안내 보기', '촬영으로 무엇을 확인하나요 3D'),
+      H(6, '상담실', 8.5, 13.7, '치료를 시작하기 전에 계획과 대안을 설명하는 방입니다.', '/doctors/moon', '문석준 원장 소개')] },
+  { n: 4, name: '임플란트센터', short: '임플란트센터', basis: BASIS_DWG2, view: VIEW_L, decor: decor4, theme: 'dark',
+    entrance: { x: px(9.05), z: pz(16.6), yaw: 0 },
+    rooms: [
+      R(0, 3.55, 0, 3.75, 'surg', '수술실 3', { doors: [['E', 3.1, 0.9]] }),
+      R(3.55, 5.65, 0, 2.3, 'office', '원장실', { doors: [['S', 5.1, 0.85]] }),
+      R(5.65, 9.95, 0, 3.75, 'surg', '수술실 1', { doors: [['W', 3.2, 0.9]] }),
+      R(0, 4.1, 3.75, 7.6, 'surg', '수술실 4', { doors: [['E', 4.3, 0.9]] }),
+      R(0, 4.1, 7.6, 11.45, 'surg', '수술실 5', { doors: [['E', 8.15, 0.9]] }),
+      R(0, 3.55, 11.45, 15.5, 'surg', '수술실 6', { doors: [['E', 12.0, 0.9]] }),
+      R(5.65, 9.95, 5.3, 9.1, 'surg', '수술실 2', { doors: [['W', 5.85, 0.9]] }),
+      R(9.0, 9.95, 3.75, 5.3, 'none', '에어샤워', { doors: [['W', 4.525, 0.9, 'air'], ['E', 4.525, 0.9, 'air']] }),
+      R(5.65, 8.15, 9.1, 12.0, 'pano', 'X-RAY실', { doors: [['W', 10.6, 0.9]] }),
+      R(7.5, 8.15, 12.0, 13.15, 'shaft', '', { solid: true }),
+      R(3.55, 8.15, 13.15, 15.5, 'prep', '준비실', { doors: [['N', 4.6, 0.9]] }),
+      R(8.15, 9.95, 13.5, 15.5, 'none', '', { open: 'NWE', doors: [['S', 9.05, 1.5, 'main']] }),
+      R(9.95, 15.5, 0, 5.3, 'none', '대기실', { open: 'S' }),
+      R(9.95, 11.25, 5.3, 7.5, 'locker', '간이 탈의실', { doors: [['E', 5.85, 0.8]] }),
+      R(9.95, 11.25, 7.5, 9.4, 'mech', '기계실', { doors: [['E', 8.9, 0.8]] }),
+      R(12.85, 15.5, 5.3, 8.15, 'recovery', '회복실', { doors: [['W', 5.9, 0.9]] }),
+      R(12.85, 15.5, 8.15, 11.4, 'consult', '상담실', { doors: [['W', 10.2, 0.9]] }),
+      ...CORE()],
+    hotspots: [
+      H(1, '대기실', 12.7, 2.75, '임플란트센터 전용 대기실입니다. 수술 구역은 여기서 에어샤워를 지나야 들어갈 수 있어요.', '/treatments/implant', '임플란트센터 보기'),
+      H(2, '에어샤워', 9.475, 4.525, '수술 구역 입구의 에어샤워. 옷에 붙은 먼지를 바람으로 털어내는 감염관리 관문입니다.', '/treatments/implant', '임플란트센터 보기', null, [11.4, 4.525]),
+      H(3, '독립 수술실', 7.8, 1.9, '6개의 독립 수술실. 네비게이션 시스템으로 계획한 위치와 깊이에 심습니다.', '/treatments/implant-navigation', '네비게이션 임플란트 보기', '네비게이션 임플란트 수술 과정 3D'),
+      H(4, 'X-RAY실', 6.9, 10.55, '수술 구역 안에 X-RAY실이 따로 있습니다. 뼈 두께와 신경 위치를 확인하는 데 씁니다.', '/guide/implant', '임플란트 가이드 보기', '임플란트 전 촬영으로 보는 것 3D'),
+      H(5, '회복실', 14.2, 6.7, '수면 임플란트 후 안정을 취하는 회복실입니다.', '/treatments/implant-sedation', '수면 임플란트 보기'),
+      H(6, '상담실', 14.2, 9.8, '수술 계획과 주의사항을 설명하는 상담실입니다.', '/guide/implant', '임플란트 가이드 보기')] },
+  { n: 5, name: '종합진료센터', short: '종합진료센터', basis: BASIS_DWG2, view: VIEW_FULL, full: true, decor: decor5, theme: 'oak',
+    entrance: { x: px(14.2), z: pz(16.5), yaw: -Math.PI / 2 },
+    rooms: [
+      R(0, 26.9, 0, 8.8, 'none', '오픈 진료실', { doors: [['S', 7.45, 1.4, 'open'], ['S', 18.6, 1.7, 'open']] }),
+      R(0, 6.65, 8.8, 12.15, 'none', '원장실', { doors: [['E', 9.4, 0.9]] }),
+      R(0, 1.65, 12.15, 13.85, 'locker', '탈의실', { doors: [['E', 13.0, 0.8]] }),
+      R(0, 1.65, 13.85, 15.5, 'wcs', '', { doors: [['E', 14.7, 0.8]] }),
+      R(1.65, 2.85, 12.15, 15.5, 'none', '', { doors: [['E', 14.3, 0.8]] }),
+      R(2.85, 6.65, 12.15, 15.5, 'none', '탕비실', { doors: [['N', 4.5, 1.0]] }),
+      R(6.65, 10.05, 8.8, 15.5, 'none', '준비실', { open: 'E', doors: [['S', 8.5, 1.4]] }),
+      R(10.05, 13.0, 8.8, 11.4, 'none', '', { open: 'W' }),
+      R(13.0, 15.5, 8.8, 11.4, 'pano', 'X-RAY실 1', { doors: [['E', 9.4, 0.85]] }),
+      R(15.5, 17.7, 10.7, 13.05, 'pano', 'X-RAY실 2', { doors: [['N', 17.15, 0.85]] }),
+      R(15.5, 17.7, 13.05, 15.0, 'storage', '차트 · 비품실', { doors: [['E', 13.7, 0.85]] }),
+      R(19.45, 22.6, 10.0, 12.25, 'consult', '상담실 1', { doors: [['N', 20.0, 0.9]] }),
+      R(22.6, 25.5, 10.0, 12.25, 'consult', '상담실 2', { doors: [['N', 23.2, 0.9]] }),
+      R(25.5, 26.9, 8.8, 12.25, 'mech', '기계실', { doors: [['S', 26.15, 0.8]] }),
+      R(17.7, 26.9, 12.25, 22.4, 'none', '대기실 · 접수', { open: 'all' }),
+      R(15.5, 17.7, 17.5, 22.4, 'powder', '파우더룸', { doors: [['E', 18.1, 0.85]] }),
+      ...CORE()],
+    hotspots: [
+      H(1, '접수 · 대기실', 22.5, 16.2, '엘리베이터에서 내리면 넓은 대기실과 접수 데스크로 바로 이어집니다.', '/floor-guide', '층별 안내 보기'),
+      H(2, '오픈 진료실', 10.1, 3.1, '창가를 따라 진료 의자가 늘어선 오픈 진료실입니다. 충치 치료와 신경치료, 스케일링 같은 일반 진료가 여기서 이뤄져요.', '/treatments/cavity', '충치 치료 보기', '충치 진행 단계 3D 설명'),
+      H(3, '잇몸 치료', 23.2, 6.0, '잇몸 치료는 치주 전문 의료진이 맡습니다.', '/treatments/gum', '잇몸 치료 보기', '잇몸병 진행 단계 3D 설명'),
+      H(4, 'X-RAY실', 14.25, 10.1, '사랑니 발치나 신경치료 전에 촬영하는 X-RAY실입니다. 두 개가 있어요.', '/treatments/wisdom-tooth', '사랑니 발치 보기', '사랑니는 왜 문제가 될까 3D'),
+      H(5, '상담실', 21.0, 11.15, '검진 결과를 화면에 올려 놓고 치료 계획과 순서를 설명합니다.', '/about', '병원 안내 보기'),
+      H(6, '준비실', 8.35, 11.6, '진료에 쓸 기구와 재료를 준비하는 방입니다. 오픈 진료실 바로 뒤에 붙어 있어요.', '/about', '병원 안내 보기')] },
+];
+
+/* ---------------- renderer / scene ---------------- */
+const canvas = $('#c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, 1, 0.2, 260);
+
+const hemi = new THREE.HemisphereLight(0xFFF7EA, 0xC9BBA6, 1.25); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xFFF3E0, 2.3);
+sun.position.set(28, 42, 18); sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -34, right: 34, top: 34, bottom: -34, near: 5, far: 140 });
+sun.shadow.bias = -0.0008; sun.shadow.normalBias = 0.02;
+scene.add(sun); scene.add(sun.target);
+const fill = new THREE.DirectionalLight(0xDCE8F0, 0.6); fill.position.set(-30, 20, -24); scene.add(fill);
+const ambient = new THREE.AmbientLight(0xFFF8EE, 0.35); scene.add(ambient);   // lifts interior wall faces when walking
+
+/* materials (shared) */
+const M = {
+  slab: new THREE.MeshStandardMaterial({ color: 0xE9E2D5, roughness: 0.9 }),
+  corridor: new THREE.MeshStandardMaterial({ color: 0xE3DBCC, roughness: 0.95 }),
+  room: new THREE.MeshStandardMaterial({ color: 0xF4EFE6, roughness: 0.95 }),
+  roomKids: new THREE.MeshStandardMaterial({ color: 0xE4EDE4, roughness: 0.95 }),
+  roomSurg: new THREE.MeshStandardMaterial({ color: 0xEAF0F1, roughness: 0.95 }),
+  wall: new THREE.MeshStandardMaterial({ color: 0xF8F5EF, roughness: 0.92 }),
+  wallTop: new THREE.MeshStandardMaterial({ color: 0xD9CFBF, roughness: 0.9 }),
+  ceiling: new THREE.MeshBasicMaterial({ color: 0xF3EFE7 }),   // unlit: reads as a lit ceiling from below
+  gold: new THREE.MeshStandardMaterial({ color: 0xC9A042, metalness: 0.55, roughness: 0.35 }),
+  wood: new THREE.MeshStandardMaterial({ color: 0x8A5A3A, roughness: 0.7 }),
+  brown: new THREE.MeshStandardMaterial({ color: 0x6B4226, roughness: 0.75 }),
+  woodLight: new THREE.MeshStandardMaterial({ color: 0xC9A882, roughness: 0.75 }),
+  sage: new THREE.MeshStandardMaterial({ color: 0x9FB8AE, roughness: 0.85 }),
+  coral: new THREE.MeshStandardMaterial({ color: 0xE7A992, roughness: 0.85 }),
+  sky: new THREE.MeshStandardMaterial({ color: 0x9FC2D1, roughness: 0.85 }),
+  metal: new THREE.MeshStandardMaterial({ color: 0xB9BDC2, metalness: 0.7, roughness: 0.4 }),
+  white: new THREE.MeshStandardMaterial({ color: 0xFBFBF8, roughness: 0.6 }),
+  dark: new THREE.MeshStandardMaterial({ color: 0x2B2A28, roughness: 0.6 }),
+  screen: new THREE.MeshStandardMaterial({ color: 0x1B2B36, emissive: 0x3E7A98, emissiveIntensity: 0.9, roughness: 0.3 }),
+  lamp: new THREE.MeshStandardMaterial({ color: 0xFFFFFF, emissive: 0xFFF2D6, emissiveIntensity: 1.6 }),
+  pot: new THREE.MeshStandardMaterial({ color: 0x7A5236, roughness: 0.9 }),
+  leaf: new THREE.MeshStandardMaterial({ color: 0x4E7A4A, roughness: 0.9 }),
+  glass: new THREE.MeshPhysicalMaterial({ color: 0xBFD9E6, transparent: true, opacity: 0.2, roughness: 0.08, metalness: 0, side: THREE.DoubleSide, depthWrite: false }),
+  mat: new THREE.MeshStandardMaterial({ color: 0xF2C9B3, roughness: 1 }),
+  blue: new THREE.MeshStandardMaterial({ color: 0x7FA7C9, roughness: 0.85 }),
+  yellow: new THREE.MeshStandardMaterial({ color: 0xE8C252, roughness: 0.85 }),
+};
+const GEO = { box: new THREE.BoxGeometry(1, 1, 1), cyl: new THREE.CylinderGeometry(1, 1, 1, 20), sph: new THREE.SphereGeometry(1, 18, 12), torus: new THREE.TorusGeometry(1, 0.12, 10, 36) };
+
+function box(g, w, h, d, mat, x, y, z, ry = 0, rz = 0) {
+  const m = new THREE.Mesh(GEO.box, mat); m.scale.set(w, h, d); m.position.set(x, y + h / 2, z); m.rotation.y = ry; m.rotation.z = rz;
+  m.castShadow = true; m.receiveShadow = true; g.add(m); return m;
+}
+function cyl(g, r, h, mat, x, y, z, rx = 0) {
+  const m = new THREE.Mesh(GEO.cyl, mat); m.scale.set(r, h, r); m.position.set(x, y + h / 2, z); m.rotation.x = rx; m.castShadow = true; m.receiveShadow = true; g.add(m); return m;
+}
+function sph(g, r, mat, x, y, z) { const m = new THREE.Mesh(GEO.sph, mat); m.scale.setScalar(r); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m; }
+
+/* text sprites */
+function textSprite(text, { h = 0.5, fg = '#2D2A26', bg = 'rgba(255,253,249,0.88)', bold = true, px = 48, pad = 22, border = '#C9A042' } = {}) {
+  const c = document.createElement('canvas'); const ctx = c.getContext('2d');
+  const font = `${bold ? '700' : '500'} ${px}px "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif`;
+  ctx.font = font; const tw = Math.ceil(ctx.measureText(text).width);
+  c.width = tw + pad * 2; c.height = px + pad * 1.4;
+  const r = c.height / 2; ctx.fillStyle = bg; ctx.beginPath(); ctx.roundRect(0, 0, c.width, c.height, r); ctx.fill();
+  if (border) { ctx.strokeStyle = border; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(1.5, 1.5, c.width - 3, c.height - 3, r - 1.5); ctx.stroke(); }
+  ctx.font = font; ctx.fillStyle = fg; ctx.textBaseline = 'middle'; ctx.textAlign = 'center'; ctx.fillText(text, c.width / 2, c.height / 2 + 2);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: true, depthWrite: false }));
+  sp.scale.set(h * c.width / c.height, h, 1); return sp;
+}
+function pinSprite(num) {
+  const c = document.createElement('canvas'); c.width = c.height = 160; const ctx = c.getContext('2d');
+  ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 4;
+  ctx.fillStyle = '#C9A042'; ctx.beginPath(); ctx.arc(80, 72, 54, 0, Math.PI * 2); ctx.fill();
+  ctx.shadowColor = 'transparent';
+  ctx.strokeStyle = '#FFFDF9'; ctx.lineWidth = 7; ctx.beginPath(); ctx.arc(80, 72, 54, 0, Math.PI * 2); ctx.stroke();
+  ctx.fillStyle = '#1B150A'; ctx.font = '700 62px "Pretendard","Apple SD Gothic Neo",sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(String(num), 80, 76);
+  ctx.fillStyle = '#C9A042'; ctx.beginPath(); ctx.moveTo(62, 118); ctx.lineTo(98, 118); ctx.lineTo(80, 150); ctx.closePath(); ctx.fill();
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false, depthWrite: false }));
+  sp.scale.set(0.95, 0.95, 1); sp.renderOrder = 10; return sp;
+}
+
+/* ---------------- furniture builders ---------------- */
+function unitChair(g, x, z, ry, mat = M.uph) {
+  const u = new THREE.Group(); u.position.set(x, 0, z); u.rotation.y = ry; g.add(u);
+  box(u, 0.7, 0.12, 0.55, M.white, 0, 0, 0);
+  box(u, 0.32, 0.4, 0.32, M.white, 0.05, 0.12, 0);
+  box(u, 1.05, 0.17, 0.62, mat, 0.45, 0.52, 0);                 // seat + leg rest
+  box(u, 0.82, 0.17, 0.62, mat, -0.52, 0.56, 0, 0, 0.42);       // raised backrest
+  box(u, 0.28, 0.1, 0.3, mat, -0.92, 0.9, 0, 0, 0.42);          // headrest
+  cyl(u, 0.035, 1.35, M.metal, 0.35, 0.5, 0.62);                // light pole
+  box(u, 0.9, 0.05, 0.05, M.metal, -0.1, 1.85, 0.62);           // arm
+  box(u, 0.4, 0.12, 0.26, M.white, -0.55, 1.75, 0.6);           // lamp head
+  box(u, 0.3, 0.02, 0.18, M.lamp, -0.55, 1.73, 0.6);
+  cyl(u, 0.03, 0.8, M.metal, -0.4, 0.3, -0.62);                 // spittoon post
+  cyl(u, 0.17, 0.1, M.white, -0.4, 1.1, -0.62);
+  box(u, 0.55, 0.04, 0.36, M.white, 0.9, 0.98, 0.5);            // delivery tray
+  cyl(u, 0.03, 0.55, M.metal, 0.9, 0.45, 0.5);
+  cyl(u, 0.19, 0.06, M.dark, -1.05, 0.52, -0.55); cyl(u, 0.03, 0.5, M.metal, -1.05, 0.02, -0.55); // stool
+  return u;
+}
+function cabinet(g, x, z, w, ry = 0) { const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = ry; g.add(c); box(c, w, 0.86, 0.5, M.white, 0, 0, 0); box(c, w, 0.04, 0.52, M.woodLight, 0, 0.86, 0); box(c, w - 0.2, 0.03, 0.02, M.gold, 0, 0.6, 0.26); return c; }
+function monitorArm(g, x, z, ry = 0, y = 1.3) { const m = new THREE.Group(); m.position.set(x, 0, z); m.rotation.y = ry; g.add(m); cyl(m, 0.025, y, M.metal, 0, 0, 0); box(m, 0.62, 0.38, 0.04, M.dark, 0, y, 0.02); box(m, 0.56, 0.32, 0.01, M.screen, 0, y + 0.03, 0.045); return m; }
+function plant(g, x, z, s = 1) { cyl(g, 0.26 * s, 0.42 * s, M.pot, x, 0, z); sph(g, 0.45 * s, M.leaf, x, 0.85 * s, z); sph(g, 0.3 * s, M.leaf, x + 0.25 * s, 1.1 * s, z - 0.1 * s); sph(g, 0.26 * s, M.leaf, x - 0.22 * s, 1.05 * s, z + 0.18 * s); }
+function bench(g, x, z, ry = 0, mat = M.sage, len = 1.8) { const b = new THREE.Group(); b.position.set(x, 0, z); b.rotation.y = ry; g.add(b); box(b, len, 0.42, 0.55, mat, 0, 0.1, 0); box(b, len, 0.45, 0.08, mat, 0, 0.52, -0.25); box(b, len + 0.1, 0.1, 0.6, M.wood, 0, 0, 0); return b; }
+function desk(g, x, z, w, d, ry = 0) { const t = new THREE.Group(); t.position.set(x, 0, z); t.rotation.y = ry; g.add(t); box(t, w, 0.04, d, M.woodLight, 0, 0.73, 0); box(t, 0.06, 0.73, d - 0.1, M.wood, -w / 2 + 0.05, 0, 0); box(t, 0.06, 0.73, d - 0.1, M.wood, w / 2 - 0.05, 0, 0); return t; }
+function chair(g, x, z, ry = 0, mat = M.dark) { const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = ry; g.add(c); box(c, 0.45, 0.06, 0.45, mat, 0, 0.44, 0); box(c, 0.45, 0.42, 0.05, mat, 0, 0.5, -0.2); cyl(c, 0.025, 0.44, M.metal, 0, 0, 0); return c; }
+function bed(g, x, z, ry = 0) { const b = new THREE.Group(); b.position.set(x, 0, z); b.rotation.y = ry; g.add(b); box(b, 2.0, 0.5, 0.9, M.white, 0, 0.1, 0); box(b, 1.9, 0.16, 0.86, M.sage, 0, 0.6, 0); box(b, 0.4, 0.1, 0.6, M.white, 0.7, 0.76, 0); box(b, 0.06, 1.0, 0.9, M.woodLight, -1.0, 0.1, 0); cyl(b, 0.02, 1.9, M.metal, 1.1, 0, 0.5); return b; }
+function surgLight(g, x, z) { cyl(g, 0.04, 0.6, M.metal, x, CEIL_Y - 0.6, z); box(g, 1.3, 0.05, 0.06, M.metal, x, CEIL_Y - 0.62, z); cyl(g, 0.3, 0.1, M.white, x - 0.6, CEIL_Y - 0.78, z); cyl(g, 0.3, 0.1, M.white, x + 0.6, CEIL_Y - 0.78, z); cyl(g, 0.24, 0.02, M.lamp, x - 0.6, CEIL_Y - 0.8, z); cyl(g, 0.24, 0.02, M.lamp, x + 0.6, CEIL_Y - 0.8, z); }
+function cart(g, x, z, ry = 0) { const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = ry; g.add(c); box(c, 0.55, 0.9, 0.5, M.white, 0, 0.1, 0); box(c, 0.6, 0.03, 0.55, M.metal, 0, 1.0, 0); for (let i = 0; i < 3; i++) box(c, 0.45, 0.02, 0.02, M.gold, 0, 0.3 + i * 0.25, 0.26); return c; }
+function ctMachine(g, x, z, ry = 0) { const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = ry; g.add(c); box(c, 1.7, 0.08, 1.7, M.metal, 0, 0, 0); box(c, 0.36, 2.35, 0.36, M.white, -0.65, 0.08, 0); box(c, 1.1, 0.14, 0.3, M.white, -0.1, 2.15, 0); const ring = new THREE.Mesh(GEO.torus, M.white); ring.scale.set(0.55, 0.55, 0.55); ring.rotation.x = Math.PI / 2; ring.position.set(0.3, 1.78, 0); ring.castShadow = true; c.add(ring); box(c, 0.5, 0.18, 0.5, M.dark, 0.3, 1.66, 0); cyl(c, 0.03, 1.2, M.metal, 0.3, 0.08, 0); box(c, 0.3, 0.06, 0.2, M.white, 0.3, 1.28, 0); chair(c, 0.3, 0.55, Math.PI, M.sage); return c; }
+function panoMachine(g, x, z, ry = 0) { const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = ry; g.add(c); box(c, 0.9, 0.06, 0.9, M.metal, 0, 0, 0); box(c, 0.3, 2.3, 0.3, M.white, -0.3, 0.06, 0); box(c, 0.9, 0.12, 0.25, M.white, 0.15, 2.1, 0); box(c, 0.18, 0.5, 0.3, M.white, 0.55, 1.6, 0); cyl(c, 0.03, 1.1, M.metal, 0.2, 0.06, 0); box(c, 0.25, 0.05, 0.15, M.white, 0.2, 1.16, 0); return c; }
+function airShower(g, x, z) { const a = new THREE.Group(); a.position.set(x, 0, z); g.add(a); box(a, 0.1, 2.4, 1.6, M.metal, -0.8, 0, 0); box(a, 0.1, 2.4, 1.6, M.metal, 0.8, 0, 0); box(a, 1.7, 0.12, 1.6, M.metal, 0, 2.4, 0); box(a, 1.5, 2.3, 0.04, M.glass, 0, 0.05, 0.8); box(a, 1.5, 2.3, 0.04, M.glass, 0, 0.05, -0.8); for (let i = 0; i < 3; i++) { cyl(a, 0.04, 0.03, M.gold, -0.72, 0.8 + i * 0.5, 0, Math.PI / 2); cyl(a, 0.04, 0.03, M.gold, 0.72, 0.8 + i * 0.5, 0, Math.PI / 2); } return a; }
+function autoclave(g, x, z, ry = 0, y = 0.92) { const a = new THREE.Group(); a.position.set(x, y, z); a.rotation.y = ry; g.add(a); box(a, 0.62, 0.62, 0.72, M.metal, 0, 0, 0); cyl(a, 0.2, 0.03, M.dark, 0, 0.3, 0.36, Math.PI / 2); box(a, 0.4, 0.08, 0.02, M.screen, 0, 0.5, 0.37); return a; }
+function counter(g, x, z, w, ry = 0) { const c = new THREE.Group(); c.position.set(x, 0, z); c.rotation.y = ry; g.add(c); box(c, w, 0.88, 0.62, M.white, 0, 0, 0); box(c, w, 0.04, 0.66, M.metal, 0, 0.88, 0); return c; }
+function millingMachine(g, x, z, ry = 0, y = 0.92) { const m = new THREE.Group(); m.position.set(x, y, z); m.rotation.y = ry; g.add(m); box(m, 0.95, 0.9, 0.85, M.white, 0, 0, 0); box(m, 0.7, 0.4, 0.03, M.screen, 0, 0.3, 0.43); box(m, 0.95, 0.06, 0.85, M.gold, 0, 0.9, 0); return m; }
+function printer3d(g, x, z, y = 0.92) { box(g, 0.45, 0.55, 0.45, M.dark, x, y, z); box(g, 0.35, 0.3, 0.02, M.yellow, x, y + 0.1, z + 0.22); }
+function shelf(g, x, z, w, ry = 0) { const s = new THREE.Group(); s.position.set(x, 0, z); s.rotation.y = ry; g.add(s); for (let i = 0; i < 4; i++) box(s, w, 0.03, 0.4, M.woodLight, 0, 0.3 + i * 0.5, 0); box(s, 0.04, 1.9, 0.4, M.woodLight, -w / 2, 0, 0); box(s, 0.04, 1.9, 0.4, M.woodLight, w / 2, 0, 0); for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) box(s, 0.22, 0.28, 0.3, [M.white, M.sage, M.blue][(i + j) % 3], -w / 2 + 0.3 + j * (w - 0.6) / 2, 0.33 + i * 0.5, 0); return s; }
+
+/* room furnishing by type (cx, cz, w, d are the room's inner dims) */
+function furnish(g, room) {
+  const cx = (room.x0 + room.x1) / 2, cz = (room.z0 + room.z1) / 2, w = room.x1 - room.x0, d = room.z1 - room.z0;
+  const north = room.north ?? cz > 0;    // furnishRoom() passes a local frame whose front is -z
+  const backZ = north ? room.z1 - 0.35 : room.z0 + 0.35;   // wall away from the corridor
+  const frontZ = north ? room.z0 + 0.6 : room.z1 - 0.6;
+  const faceCorr = north ? Math.PI : 0;  // rotation facing the corridor
+  switch (room.type) {
+    case 'lobby': {
+      const dz = north ? 1 : -1;
+      const deskG = new THREE.Group(); deskG.position.set(room.x0 + 2.4, 0, cz + 1.2 * dz); g.add(deskG);
+      box(deskG, 3.2, 1.08, 0.6, M.wood, 0, 0, 0); box(deskG, 3.3, 0.05, 0.75, M.woodLight, 0, 1.08, 0); box(deskG, 3.0, 0.06, 0.02, M.gold, 0, 0.55, 0.31 * -dz);
+      box(deskG, 0.6, 1.08, 1.7, M.wood, 1.9, 0, -0.55 * -dz); box(deskG, 0.65, 0.05, 1.8, M.woodLight, 1.9, 1.08, -0.55 * -dz);
+      box(deskG, 0.5, 0.33, 0.04, M.dark, -0.7, 1.13, 0.1 * dz); box(deskG, 0.45, 0.28, 0.01, M.screen, -0.7, 1.16, 0.08 * dz);
+      chair(deskG, -0.7, 0.75 * dz, north ? Math.PI : 0); chair(deskG, 0.5, 0.75 * dz, north ? Math.PI : 0);
+      // sign wall + brand strip
+      box(g, 3.6, 0.5, 0.08, M.brown, room.x0 + 2.4, 1.9, backZ); box(g, 3.2, 0.06, 0.1, M.gold, room.x0 + 2.4, 2.46, backZ);
+      // waiting benches
+      for (let i = 0; i < 2; i++) bench(g, room.x1 - 1.5 - i * 2.1, cz + 1.0 * dz, north ? Math.PI : 0);
+      for (let i = 0; i < 2; i++) bench(g, room.x1 - 1.5 - i * 2.1, cz - 1.0 * dz, north ? 0 : Math.PI);
+      plant(g, room.x1 - 0.7, backZ, 1.1); plant(g, room.x0 + 0.7, backZ, 0.9);
+      break; }
+    case 'wait': { for (let i = 0; i < 2; i++) { bench(g, room.x0 + 1.4 + i * 2.2, cz + 0.9, Math.PI); bench(g, room.x0 + 1.4 + i * 2.2, cz - 0.9, 0); } plant(g, room.x1 - 0.7, backZ, 1); monitorArm(g, room.x0 + 0.4, cz, Math.PI / 2, 1.7); break; }
+    case 'lounge': { bench(g, cx - 1, backZ - (north ? 0.4 : -0.4), faceCorr, M.coral, 2.2); desk(g, cx + 1.3, cz, 1.0, 1.0); chair(g, cx + 0.6, cz, Math.PI / 2); chair(g, cx + 2.0, cz, -Math.PI / 2); plant(g, room.x1 - 0.8, backZ, 1.1); plant(g, room.x0 + 0.8, backZ, 0.8); break; }
+    case 'kids': {
+      const matPlane = new THREE.Mesh(new THREE.PlaneGeometry(w - 1.6, 2.6), M.mat); matPlane.rotation.x = -Math.PI / 2; matPlane.position.set(cx, 0.03, cz + (north ? 0.9 : -0.9)); matPlane.receiveShadow = true; g.add(matPlane);
+      [[M.coral, 0.45], [M.blue, 0.4], [M.yellow, 0.5], [M.sage, 0.35]].forEach(([m, s], i) => box(g, s, s, s, m, cx - 2 + i * 1.3, 0.03, cz + (north ? 1.0 : -1.0) + (i % 2) * 0.6));
+      box(g, 1.1, 0.45, 0.7, M.woodLight, cx + 1.8, 0, cz - (north ? 0.9 : -0.9)); for (let i = 0; i < 3; i++) cyl(g, 0.17, 0.28, [M.coral, M.blue, M.yellow][i], cx + 1.0 + i * 0.8, 0, cz - (north ? 1.6 : -1.6));
+      shelf(g, room.x0 + 0.3, cz, 2.0, Math.PI / 2); bench(g, room.x1 - 1.4, backZ - (north ? 0.3 : -0.3), faceCorr, M.sage); plant(g, room.x1 - 0.6, frontZ, 0.8);
+      break; }
+    case 'consult': case 'plan': { desk(g, cx, cz, Math.min(w - 1.2, 1.8), 0.9); chair(g, cx - 0.4, cz + 0.8, Math.PI); chair(g, cx + 0.4, cz + 0.8, Math.PI); chair(g, cx, cz - 0.8, 0); monitorArm(g, cx + (room.type === 'plan' ? -0.9 : 0.9), backZ, faceCorr, 1.5); if (room.type === 'plan') monitorArm(g, cx + 0.2, backZ, faceCorr, 1.5); cabinet(g, room.x0 + 0.4, cz, Math.min(d - 1, 2.2), Math.PI / 2); if (room.type === 'consult' && room.name.includes('스캐너')) cart(g, room.x1 - 0.5, cz + 0.5, -Math.PI / 2); break; }
+    case 'op': case 'opk': {
+      const along = w >= d; const ry = along ? 0 : Math.PI / 2;
+      unitChair(g, cx, cz + (along ? 0 : -0.2), ry, M.uph);
+      cabinet(g, along ? cx : room.x0 + 0.3, along ? backZ : cz, Math.min(along ? w - 0.8 : d - 1.2, 2.4), along ? 0 : Math.PI / 2);
+      monitorArm(g, along ? cx - 1.3 : room.x1 - 0.35, along ? backZ : cz + 1.2, along ? faceCorr : -Math.PI / 2, 1.5);
+      if (room.type === 'opk') box(g, 0.5, 0.5, 0.5, M.yellow, room.x1 - 0.45, 0, frontZ);
+      break; }
+    case 'surg': case 'surgk': {
+      const along = w >= d; const ry = along ? 0 : Math.PI / 2;
+      unitChair(g, cx, cz, ry, M.uph);
+      surgLight(g, cx - (along ? 0.3 : 0), cz - (along ? 0 : 0.3));
+      cart(g, along ? room.x0 + 0.5 : cx - 1.2, along ? cz - 1.2 : backZ, along ? Math.PI / 2 : faceCorr);
+      monitorArm(g, along ? room.x1 - 0.4 : cx + 1.2, along ? cz + 1.0 : backZ, along ? -Math.PI / 2 : faceCorr, 1.55); // navigation screen
+      box(g, 0.9, 0.04, 0.5, M.metal, cx + 1.3, 0.9, cz + 1.4); cyl(g, 0.03, 0.9, M.metal, cx + 1.3, 0, cz + 1.4);   // instrument table
+      break; }
+    case 'recovery': { bed(g, cx, cz + 0.3, 0); chair(g, cx - 0.9, cz - 1.0, 0, M.sage); box(g, 0.45, 0.6, 0.45, M.white, cx + 1.3, 0, cz + 0.3); plant(g, room.x0 + 0.5, backZ, 0.7); break; }
+    case 'ct': { ctMachine(g, cx + 0.8, cz, north ? Math.PI / 2 : -Math.PI / 2); box(g, 0.08, 2.1, 2.6, M.glass, room.x0 + 1.9, 0, cz + (north ? 1.2 : -1.2)); desk(g, room.x0 + 1.0, backZ + (north ? -0.6 : 0.6), 1.2, 0.7); chair(g, room.x0 + 1.0, backZ + (north ? -1.3 : 1.3), faceCorr, M.sage); monitorArm(g, room.x0 + 1.0, backZ, faceCorr, 1.4); break; }
+    case 'pano': { const gl = Math.min(2.2, d * 0.5); panoMachine(g, cx + Math.min(0.5, w / 2 - 0.6), cz, Math.PI / 2); box(g, 0.08, 2.1, gl, M.glass, room.x0 + Math.min(1.3, w * 0.42), 0, north ? room.z1 - 0.1 - gl / 2 : room.z0 + 0.1 + gl / 2); monitorArm(g, room.x0 + 0.5, backZ, faceCorr, 1.4); break; }
+    case 'photo': { box(g, 2.0, 2.4, 0.06, M.white, cx + 0.4, 0, backZ); cyl(g, 0.02, 1.4, M.metal, cx + 0.4, 0, frontZ); box(g, 0.25, 0.16, 0.2, M.dark, cx + 0.4, 1.4, frontZ); chair(g, cx + 0.4, backZ + (north ? -0.9 : 0.9), faceCorr, M.sage); cabinet(g, room.x0 + 0.3, cz, 1.6, Math.PI / 2); break; }
+    case 'airshower': { airShower(g, cx, cz); break; }
+    case 'steril': { counter(g, cx, backZ + (north ? 0 : 0), Math.min(w - 0.8, 7)); for (let i = 0; i < Math.min(3, Math.floor(w / 2.4)); i++) autoclave(g, room.x0 + 1.2 + i * 2.2, backZ, faceCorr); box(g, 0.9, 0.3, 0.5, M.metal, room.x1 - 0.9, 0.88, backZ); if (w > 5) { counter(g, cx, frontZ, Math.min(w - 2, 5)); for (let i = 0; i < 4; i++) box(g, 0.4, 0.25, 0.3, M.blue, room.x0 + 1.4 + i * 1.3, 0.92, frontZ); } break; }
+    case 'dlab': { counter(g, cx, backZ, w - 1); millingMachine(g, room.x0 + 1.5, backZ, faceCorr); millingMachine(g, room.x0 + 3.0, backZ, faceCorr); printer3d(g, room.x1 - 1.3, backZ); printer3d(g, room.x1 - 2.0, backZ);
+      desk(g, cx - 1.5, cz - (north ? 0.4 : -0.4), 3.4, 1.0); for (let i = 0; i < 3; i++) { cyl(g, 0.18, 0.06, M.dark, cx - 2.6 + i * 1.1, 0.5, cz - (north ? 1.2 : -1.2)); cyl(g, 0.03, 0.5, M.metal, cx - 2.6 + i * 1.1, 0, cz - (north ? 1.2 : -1.2)); } for (let i = 0; i < 3; i++) monitorArm(g, cx - 2.6 + i * 1.1, cz + (north ? -0.1 : 0.1), 0, 1.0); shelf(g, room.x1 - 0.3, cz, 2.6, -Math.PI / 2); break; }
+    case 'lab': { counter(g, cx, backZ, w - 0.8); millingMachine(g, cx - 0.9, backZ, faceCorr); printer3d(g, cx + 0.9, backZ); desk(g, cx, frontZ + (north ? 0.8 : -0.8), 2.0, 0.8); chair(g, cx, frontZ + (north ? 1.7 : -1.7), faceCorr); break; }
+    case 'seminar': { desk(g, cx, cz, Math.min(w - 2.5, 4.2), 1.2); for (let i = 0; i < 4; i++) { chair(g, cx - 1.5 + i * 1.0, cz + 1.0, Math.PI); chair(g, cx - 1.5 + i * 1.0, cz - 1.0, 0); } box(g, 2.6, 1.5, 0.06, M.dark, cx, 0.9, backZ); box(g, 2.5, 1.4, 0.01, M.screen, cx, 0.95, backZ + (north ? -0.04 : 0.04)); plant(g, room.x1 - 0.6, backZ, 0.9); break; }
+    case 'office': { const big = w > 3; desk(g, cx - (big ? 0.6 : 0), cz, Math.min(w - 0.7, 1.6), 0.8); chair(g, cx - (big ? 0.6 : 0), cz + 0.7, Math.PI); monitorArm(g, cx - (big ? 0.6 : 0), cz - 0.3, 0, 0.95); if (big) { shelf(g, room.x1 - 0.3, cz, Math.min(d - 0.8, 2.0), -Math.PI / 2); plant(g, room.x0 + 0.5, backZ, 0.8); } break; }
+    case 'storage': { shelf(g, room.x0 + 0.3, cz, Math.min(d - 1.2, 3), Math.PI / 2); shelf(g, room.x1 - 0.3, cz, Math.min(d - 1.2, 3), -Math.PI / 2); break; }
+    case 'wc': { for (let i = 0; i < 2; i++) box(g, 0.05, 2.0, 1.4, M.woodLight, room.x0 + 1.1 + i * 1.1, 0, backZ + (north ? -0.4 : 0.4)); for (let i = 0; i < 2; i++) box(g, 0.45, 0.4, 0.6, M.white, room.x0 + 0.55 + i * 1.1, 0, backZ); counter(g, room.x1 - 0.5, cz, Math.min(d - 1, 2.4), Math.PI / 2); break; }
+    case 'mech': { box(g, Math.min(w - 0.5, 0.9), 1.5, 0.55, M.metal, cx - 0.2, 0, backZ); if (w > 1.7) box(g, 0.5, 0.9, 0.5, M.white, Math.min(cx + 0.7, room.x1 - 0.4), 0, backZ); break; }
+    case 'locker': { const n = Math.max(2, Math.floor((w - 0.4) / 0.48)); for (let i = 0; i < n; i++) box(g, 0.45, 1.85, 0.5, i % 2 ? M.woodLight : M.white, room.x0 + 0.45 + i * 0.48, 0, backZ + 0.05); if (d > 2.3 && w > 2.6) bench(g, cx, cz - 0.3, 0, M.wood, Math.min(w - 1.6, 1.8)); break; }
+    case 'pantry': { counter(g, cx, backZ, Math.max(1.2, w - 0.6)); box(g, 0.5, 0.06, 0.4, M.metal, cx - 0.4, 0.9, backZ); cyl(g, 0.02, 0.25, M.metal, cx - 0.4, 0.93, backZ + 0.15); break; }
+    case 'powder': { const cw = Math.min(w - 0.4, 2.4), n = Math.max(1, Math.floor(cw / 1.0));
+      box(g, cw, 0.3, 0.5, M.white, cx, 0.55, backZ + 0.05); box(g, cw + 0.02, 0.04, 0.54, THEME === 'oak' ? M.woodLight : M.white, cx, 0.85, backZ + 0.05);
+      for (let i = 0; i < n; i++) { const x = cx - cw / 2 + 0.6 + i * (n > 1 ? (cw - 1.2) / (n - 1) : 0); cyl(g, 0.17, 0.1, M.white, x, 0.89, backZ + 0.05); cyl(g, 0.015, 0.22, M.dark, x, 0.89, backZ + 0.24);
+        if (THEME !== 'oak') { cyl(g, 0.36, 0.03, M.lamp, x, 1.485, backZ + 0.31, Math.PI / 2); cyl(g, 0.31, 0.04, M.sky, x, 1.48, backZ + 0.3, Math.PI / 2); } }
+      if (THEME === 'oak') { box(g, cw - 0.1, 0.75, 0.03, M.lamp, cx, 1.15, backZ + 0.31); box(g, cw - 0.2, 0.65, 0.03, M.sky, cx, 1.2, backZ + 0.29); }
+      break; }
+    case 'studio': { box(g, Math.min(w - 0.3, 1.8), 2.3, 0.06, M.white, cx, 0, backZ + 0.25); chair(g, cx, backZ - 0.5, Math.PI, M.sage); cyl(g, 0.02, 1.4, M.metal, cx, 0, frontZ + 0.3); box(g, 0.25, 0.16, 0.2, M.dark, cx, 1.4, frontZ + 0.3); break; }
+    case 'cad': { const dw = Math.min(w - 0.8, 3.0); desk(g, cx, backZ - 0.1, dw, 0.8); for (let i = 0; i < 3; i++) { const x = cx - dw / 2 + 0.5 + i * ((dw - 1) / 2); monitorArm(g, x, backZ + 0.1, faceCorr, 1.05); chair(g, x, backZ - 0.85, 0); } millingMachine(g, room.x1 - 0.75, cz + 0.1, -Math.PI / 2, 0); millingMachine(g, room.x1 - 0.75, cz - 1.3, -Math.PI / 2, 0); printer3d(g, room.x0 + 0.5, cz - 0.6, 0); printer3d(g, room.x0 + 0.5, cz + 0.2, 0); break; }
+    case 'dlabA': { counter(g, cx, backZ, w - 0.6); for (let i = 0; i < Math.floor((w - 1) / 1.6); i++) { const x = room.x0 + 1.0 + i * 1.6; cyl(g, 0.18, 0.06, M.dark, x, 0.5, backZ - 0.8); cyl(g, 0.03, 0.5, M.metal, x, 0, backZ - 0.8); box(g, 0.3, 0.25, 0.3, i % 2 ? M.blue : M.yellow, x + 0.3, 0.92, backZ); } box(g, 0.5, 0.06, 0.4, M.metal, room.x0 + 0.7, 0.9, backZ); break; }
+    case 'prep': { counter(g, cx, backZ, w - 0.6); for (let i = 0; i < Math.min(3, Math.floor(w / 1.8)); i++) box(g, 0.4, 0.25, 0.3, M.blue, room.x0 + 0.9 + i * 1.3, 0.92, backZ); if (w > 3.2) autoclave(g, room.x1 - 0.9, backZ, faceCorr); break; }
+    case 'kidswait': { bench(g, cx, backZ - 0.1, faceCorr, M.coral, Math.min(w - 0.6, 2.4)); [[M.blue, 0.4], [M.yellow, 0.45], [M.sage, 0.35]].forEach(([m, sz], i) => box(g, sz, sz, sz, m, cx - 0.9 + i * 0.8, 0.02, cz - 0.4 + (i % 2) * 0.45)); break; }
+    case 'rest': { bench(g, cx, backZ - 0.1, faceCorr, M.coral, Math.min(w - 0.6, 2.0)); desk(g, cx, cz - 0.3, 0.9, 0.9); chair(g, cx - 0.75, cz - 0.3, Math.PI / 2); chair(g, cx + 0.75, cz - 0.3, -Math.PI / 2); plant(g, room.x1 - 0.5, frontZ, 0.8); break; }
+    case 'wcs': { box(g, 0.45, 0.4, 0.6, M.white, cx, 0, backZ); break; }
+    case 'core': {
+      box(g, 3.3, WALL_H, 3.0, M.wall, cx, 0, room.z0 + 1.5);                               // elevator shaft block
+      box(g, 1.0, 2.2, 0.08, M.metal, cx - 0.55, 0, room.z1 - 0.1); box(g, 1.0, 2.2, 0.08, M.metal, cx + 0.55, 0, room.z1 - 0.1);
+      box(g, 2.3, 0.08, 0.1, M.gold, cx, 2.2, room.z1 - 0.1); box(g, 0.08, 2.2, 0.1, M.gold, cx - 1.12, 0, room.z1 - 0.1); box(g, 0.08, 2.2, 0.1, M.gold, cx + 1.12, 0, room.z1 - 0.1);
+      for (let i = 0; i < 9; i++) box(g, 1.1, 0.3, 0.3, M.slab, room.x0 + 0.7, i * 0.3, room.z1 - 0.3 - i * 0.3);  // stairs
+      break; }
+  }
+}
+
+/* ---------------- building ---------------- */
+const floorGroups = [];   // { n, spec, group, ceiling, hotspots: [sprite], roomLabels: [sprite], label, walls: [aabb], floorMeshes: [] }
+const building = new THREE.Group(); scene.add(building);
+M.tenant = new THREE.MeshStandardMaterial({ color: 0xD9D1C3, roughness: 1 });
+M.uph = M.sage;   // dental-unit upholstery; the floor themes override it
+// Finishes per floor, from the 2021 interior proposal: 3F all white on terrazzo, 4F charcoal lounge with stone-floored theatres, 5F oak cladding under a black open ceiling.
+const THEMES = {
+  white: { corridor: 0xDEDCD6, room: 0xECEAE5, roomKids: 0xF4ECD2, roomSurg: 0xE8EBEC, wall: 0xFCFCFA, wallTop: 0xD9D7D1, ceiling: 0xF8F7F3, sage: 0xF2F1ED, wood: 0xF4F3EF, woodLight: 0xE9E6DF, uph: 0x35312E },
+  dark: { corridor: 0xE6DFD0, room: 0xD9D2C4, roomSurg: 0x808285, wall: 0x66676C, wallTop: 0xB9B4AA, ceiling: 0xEEEBE5, sage: 0x4E4F54, wood: 0x3B3A3C, woodLight: 0x6A6660, uph: 0x6B4A3B },
+  oak: { corridor: 0x8C8D8E, room: 0x959697, roomSurg: 0xA3A4A5, wall: 0xD9C4A2, wallTop: 0xB49B77, ceiling: 0x1D1D1F, sage: 0xE9E4DA, wood: 0x2B2A29, woodLight: 0xD9C4A2, uph: 0x4A382F },
+};
+let THEME = ''; const themeCache = {};
+function withTheme(name, fn) {
+  const th = THEMES[name] || {}, saved = {};
+  for (const k in th) { saved[k] = M[k]; const id = name + k; if (!themeCache[id]) { themeCache[id] = M[k].clone(); themeCache[id].color.setHex(th[k]); } M[k] = themeCache[id]; }
+  THEME = name || ''; try { return fn(); } finally { Object.assign(M, saved); THEME = ''; }
+}
+// vertical timber slats in front of a wall face: axis 'z' = a wall running along x at z = c; dir is the side the slats stand on
+function slats(g, axis, c, a, b, h, mat, dir = 1) {
+  const n = Math.max(1, Math.floor((b - a) / 0.17));
+  for (let i = 0; i < n; i++) { const t = a + (i + 0.5) * (b - a) / n; if (axis === 'z') box(g, 0.07, h, 0.05, mat, t, 0, c + dir * 0.09); else box(g, 0.05, h, 0.07, mat, c + dir * 0.09, 0, t); }
+}
+function signPlane(g, title, sub, w, h, x, y, z) {
+  const c = document.createElement('canvas'); c.width = 1024; c.height = Math.round(1024 * h / w); const ctx = c.getContext('2d');
+  ctx.fillStyle = '#1F1F21'; ctx.fillRect(0, 0, c.width, c.height); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#FFFFFF'; ctx.font = `700 ${Math.round(c.height * 0.38)}px "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif`; ctx.fillText(title, c.width / 2, c.height * 0.42);
+  ctx.fillStyle = '#C9A042'; ctx.font = `500 ${Math.round(c.height * 0.13)}px "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif`; ctx.fillText(sub, c.width / 2, c.height * 0.78);
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex })); m.position.set(x, y, z); g.add(m);
+  box(g, w + 0.1, h + 0.1, 0.04, M.dark, x, y - (h + 0.1) / 2, z - 0.03);
+}
+// the side a room is entered from: furniture faces it, labels and "stand here" points lean toward it
+const faceOf = (r) => r.face || (r.doors && r.doors.length ? r.doors[0][0] : (r.open && r.open !== 'all' ? r.open[0] : 'S'));
+
+function addWall(g, walls, x0, x1, z0, z1, h = WALL_H, mat = M.wall) {
+  const w = x1 - x0, d = z1 - z0; if (w <= 0.01 || d <= 0.01) return;
+  box(g, w, h, d, mat, (x0 + x1) / 2, 0, (z0 + z1) / 2);
+  box(g, w + 0.02, 0.04, d + 0.02, M.wallTop, (x0 + x1) / 2, h, (z0 + z1) / 2);
+  walls.push({ x0, x1, z0, z1 });
+}
+// Rooms claim the walls on their own edges; shared edges merge, doors cut gaps, open sides claim nothing.
+// Space no room claims (corridors, the lift hall) is simply left walkable.
+function buildWalls(g, walls, spec, plate) {
+  const T = 0.12, lines = new Map();
+  const L = (axis, c) => { const k = axis + c.toFixed(2); let l = lines.get(k); if (!l) { l = { axis, c, segs: [], doors: [] }; lines.set(k, l); } return l; };
+  const onEdge = (axis, c) => axis === 'x' ? (Math.abs(c - plate.x0) < 0.03 || Math.abs(c - plate.x1) < 0.03) : (Math.abs(c - plate.z0) < 0.03 || Math.abs(c - plate.z1) < 0.03);
+  for (const r of spec.rooms) {
+    if (r.solid) continue;
+    const S = { N: ['z', r.z0, r.x0, r.x1], S: ['z', r.z1, r.x0, r.x1], W: ['x', r.x0, r.z0, r.z1], E: ['x', r.x1, r.z0, r.z1] };
+    const open = r.open || '';
+    for (const s of 'NSWE') { if (open === 'all' || open.includes(s)) continue; const [axis, c, a, b] = S[s]; if (!onEdge(axis, c)) L(axis, c).segs.push([a, b]); }
+    for (const [s, pos, w = 0.95, kind] of (r.doors || [])) { const [axis, c] = S[s]; if (onEdge(axis, c)) continue; const p = axis === 'z' ? px(pos) : pz(pos); L(axis, c).doors.push({ a: p - w / 2, b: p + w / 2, kind: kind || r.type }); }
+  }
+  const seg = (l, a, b) => { if (b - a < 0.04) return; if (l.axis === 'z') addWall(g, walls, a, b, l.c - T / 2, l.c + T / 2); else addWall(g, walls, l.c - T / 2, l.c + T / 2, a, b); };
+  for (const l of lines.values()) {
+    l.segs.sort((p, q) => p[0] - q[0]); const merged = [];
+    for (const s of l.segs) { const m = merged[merged.length - 1]; if (m && s[0] <= m[1] + 0.02) m[1] = Math.max(m[1], s[1]); else merged.push([s[0], s[1]]); }
+    const doors = l.doors.slice().sort((p, q) => p.a - q.a);
+    for (const m of merged) { let cur = m[0]; for (const d of doors) { if (d.b <= m[0] || d.a >= m[1]) continue; if (d.a > cur) seg(l, cur, d.a); cur = Math.max(cur, d.b); } if (cur < m[1]) seg(l, cur, m[1]); }
+    for (const d of doors) {
+      if (d.kind === 'open') continue;                      // a plain wide opening
+      const mid = (d.a + d.b) / 2, w = d.b - d.a, isZ = l.axis === 'z', X = isZ ? mid : l.c, Z = isZ ? l.c : mid, ry = isZ ? 0 : Math.PI / 2;
+      box(g, w + 0.02, WALL_H - 2.1, T, M.wall, X, 2.1, Z, ry);                                              // wall above the door
+      box(g, w + 0.04, d.kind === 'main' ? 0.1 : 0.06, T + 0.03, d.kind === 'main' ? M.gold : d.kind === 'air' ? M.metal : M.woodLight, X, 2.1, Z, ry);
+      if (!['wc', 'wcs', 'storage', 'mech', 'locker'].includes(d.kind)) box(g, w - 0.08, 2.1, 0.04, M.glass, X, 0, Z, ry);   // glass leaf
+    }
+  }
+}
+function solidBlock(g, walls, room) {
+  const w = room.x1 - room.x0, d = room.z1 - room.z0, cx = (room.x0 + room.x1) / 2, cz = (room.z0 + room.z1) / 2, h = room.h || WALL_H;
+  box(g, w, h, d, room.type === 'cabwall' ? M.woodLight : room.type === 'outdoor' ? M.corridor : M.wall, cx, 0, cz); box(g, w + 0.02, 0.04, d + 0.02, M.wallTop, cx, h, cz);
+  walls.push({ x0: room.x0, x1: room.x1, z0: room.z0, z1: room.z1 });
+  if (room.type === 'elev') for (const ex of [cx - w / 4, cx + w / 4]) { box(g, 1.15, 2.15, 0.06, M.metal, ex, 0, room.z0 - 0.03); box(g, 1.35, 0.08, 0.1, M.gold, ex, 2.15, room.z0 - 0.04); box(g, 0.03, 2.15, 0.07, M.dark, ex, 0, room.z0 - 0.045); }
+  if (room.type === 'stair') { const along = w >= d, n = 9; for (let i = 0; i < n; i++) { const t = (i + 0.5) / n - 0.5; if (along) box(g, w * 0.8 / n * 0.6, 0.05, d * 0.7, M.slab, cx + t * w * 0.8, h + 0.04, cz); else box(g, w * 0.7, 0.05, d * 0.8 / n * 0.6, M.slab, cx, h + 0.04, cz + t * d * 0.8); } }
+  if (room.type === 'outdoor') for (let i = 0; i < 3; i++) box(g, 0.8, 0.7, 0.35, M.metal, cx, h, room.z0 + 0.9 + i * 1.4);
+}
+// outer shell: glass on the street sides, a solid party wall where the clinic stops, and the neighbour's part of the floor as a plain block
+function buildShell(g, walls, spec, plate) {
+  const { x0, x1, z0, z1 } = plate;
+  const glassRun = (axis, c, a, b) => {
+    const len = b - a, m = new THREE.Mesh(new THREE.PlaneGeometry(len, WALL_H), M.glass);
+    if (axis === 'z') m.position.set((a + b) / 2, WALL_H / 2, c); else { m.rotation.y = Math.PI / 2; m.position.set(c, WALL_H / 2, (a + b) / 2); }
+    g.add(m); const n = Math.max(1, Math.round(len / 3.3));
+    for (let i = 0; i <= n; i++) { const t = a + len * i / n; box(g, 0.1, WALL_H, 0.1, M.metal, axis === 'z' ? t : c, 0, axis === 'z' ? c : t); }
+  };
+  glassRun('z', z0, x0, x1); glassRun('z', z1, x0, x1); glassRun('x', x0, z0, z1);
+  if (spec.full) glassRun('x', x1, z0, z1);
+  else {
+    box(g, 0.14, WALL_H, z1 - z0, M.wall, x1, 0, 0); box(g, 0.16, 0.04, z1 - z0 + 0.02, M.wallTop, x1, WALL_H, 0);
+    const tw = OX - x1 - 0.07; box(g, tw, WALL_H - 0.06, BD, M.tenant, x1 + 0.07 + tw / 2, 0, 0);
+  }
+  walls.push({ x0: x0 - 1, x1: x0 + 0.08, z0: z0 - 1, z1: z1 + 1 }, { x0: x1 - 0.08, x1: x1 + 1, z0: z0 - 1, z1: z1 + 1 }, { x0: x0 - 1, x1: x1 + 1, z0: z0 - 1, z1: z0 + 0.08 }, { x0: x0 - 1, x1: x1 + 1, z0: z1 - 0.08, z1: z1 + 1 });
+}
+// furniture is laid out in a local frame whose front (-z) is the side the room is entered from
+function furnishRoom(g, room) {
+  if (room.type === 'none') return;
+  const f = faceOf(room), w = room.x1 - room.x0, d = room.z1 - room.z0, ns = f === 'N' || f === 'S';
+  const loc = new THREE.Group(); loc.position.set((room.x0 + room.x1) / 2, 0, (room.z0 + room.z1) / 2); loc.rotation.y = { N: 0, S: Math.PI, E: -Math.PI / 2, W: Math.PI / 2 }[f]; g.add(loc);
+  const lw = ns ? w : d, ld = ns ? d : w;
+  furnish(loc, { ...room, x0: -lw / 2, x1: lw / 2, z0: -ld / 2, z1: ld / 2, north: true });
+}
+function buildFloor(spec) {
+  const g = new THREE.Group(); building.add(g);
+  const walls = [], floorMeshes = [], roomLabels = [], hotspots = [];
+  const plate = { x0: -OX, x1: px(spec.full ? BW : CLX), z0: -OZ, z1: OZ }, pw = plate.x1 - plate.x0, pcx = (plate.x0 + plate.x1) / 2;
+  const slab = box(g, BW + 0.3, SLAB, BD + 0.3, M.slab, 0, -SLAB, 0); slab.userData.floorN = spec.n; floorMeshes.push(slab);
+  const base = new THREE.Mesh(new THREE.PlaneGeometry(pw, BD), M.corridor); base.rotation.x = -Math.PI / 2; base.position.set(pcx, 0.015, 0); base.receiveShadow = true; base.userData.floorN = spec.n; g.add(base); floorMeshes.push(base);
+  const addLabel = (text, cx, cz, wx, wz) => { const lab = textSprite(text, { h: 0.42, px: 44, bold: true, bg: 'rgba(255,253,249,0.86)', border: null, fg: '#5A4A33' }); lab.userData.view = [cx, 3.15, cz]; lab.userData.walk = [wx, 2.4, wz]; lab.position.set(cx, 3.15, cz); g.add(lab); roomLabels.push(lab); };
+  for (const room of spec.rooms) {
+    const w = room.x1 - room.x0, d = room.z1 - room.z0, cx = (room.x0 + room.x1) / 2, cz = (room.z0 + room.z1) / 2;
+    if (room.solid) { solidBlock(g, walls, room); if (room.name) addLabel(room.name, cx, cz, cx, room.z0 - 0.4); continue; }
+    if (room.name) {
+      const mat = ['kids', 'opk', 'kidswait'].includes(room.type) ? M.roomKids : ['surg', 'pano', 'steril', 'prep'].includes(room.type) ? M.roomSurg : M.room;
+      const fl = new THREE.Mesh(new THREE.PlaneGeometry(w, d), mat); fl.rotation.x = -Math.PI / 2; fl.position.set(cx, 0.02, cz); fl.receiveShadow = true; fl.userData.floorN = spec.n; g.add(fl); floorMeshes.push(fl);
+      const v = { N: [0, -1], S: [0, 1], W: [-1, 0], E: [1, 0] }[faceOf(room)], k = room.open === 'all' ? 0 : 1;
+      addLabel(room.name, cx, cz - Math.min(0.9, Math.max(0, d / 2 - 0.45)), cx + k * v[0] * Math.max(0, w / 2 - 0.5), cz + k * v[1] * Math.max(0, d / 2 - 0.5));
+    }
+    furnishRoom(g, room);
+  }
+  buildWalls(g, walls, spec, plate); buildShell(g, walls, spec, plate);
+  if (!spec.full) addLabel('병원 외 공간', px((CLX + BW) / 2), 0, px((CLX + BW) / 2), 0);
+  if (spec.decor) spec.decor(g);
+  // street entrance on 1F: canopy at the west end of the hall
+  if (spec.n === 1) { const zc = pz(16.5); box(g, 0.6, 0.15, 3.0, M.gold, -OX - 0.6, 2.5, zc); box(g, 0.08, 2.5, 0.08, M.metal, -OX - 0.85, 0, zc + 1.3); box(g, 0.08, 2.5, 0.08, M.metal, -OX - 0.85, 0, zc - 1.3); box(g, 0.1, 0.6, 2.6, M.wood, -OX - 0.3, 3.1, zc); box(g, 0.12, 0.08, 2.4, M.gold, -OX - 0.3, 3.5, zc); }
+  // ceiling (walk mode only)
+  const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(pw, BD), M.ceiling); ceiling.rotation.x = Math.PI / 2; ceiling.position.set(pcx, CEIL_Y, 0); ceiling.visible = false; g.add(ceiling);
+  for (let x = plate.x0 + 2; x < plate.x1; x += 4) for (let z = -OZ + 2; z < OZ; z += 4) { const l = new THREE.Mesh(GEO.box, M.lamp); l.scale.set(1.2, 0.03, 0.3); l.position.set(x, CEIL_Y - 0.02, z); l.visible = false; g.add(l); ceiling.userData.lights = (ceiling.userData.lights || []).concat(l); }
+  // hotspots
+  for (const h of spec.hotspots) { const sp = pinSprite(h.num); sp.position.set(h.x, 2.0, h.z); sp.userData.hotspot = { ...h, floor: spec.n }; sp.visible = false; g.add(sp); hotspots.push(sp); }
+  // floor label (overview)
+  const label = textSprite(`${spec.n}F  ${spec.short || spec.name}`, { h: 1.15, px: 54 }); label.position.set(-OX - 1.5 - label.scale.x / 2, 1.6, 0); label.material.depthTest = false; label.renderOrder = 6; g.add(label);
+  const fg = { n: spec.n, spec, group: g, ceiling, hotspots, roomLabels, label, walls, floorMeshes, targetY: 0 };
+  floorGroups.push(fg); return fg;
+}
+// wait briefly for the webfont so canvas labels use it; fall back to the system font
+try { await Promise.race([document.fonts.load('700 48px "Pretendard"'), new Promise((r) => setTimeout(r, 1500))]); } catch (_) { /* system font */ }
+FLOORS.forEach((spec) => withTheme(spec.theme, () => buildFloor(spec)));
+
+// ground
+const ground = new THREE.Mesh(new THREE.CircleGeometry(110, 48), new THREE.MeshStandardMaterial({ color: 0xE6DFD2, roughness: 1 })); ground.rotation.x = -Math.PI / 2; ground.position.y = -SLAB - 0.02; ground.receiveShadow = true; scene.add(ground);
+const plaza = new THREE.Mesh(new THREE.PlaneGeometry(BW + 10, BD + 10), new THREE.MeshStandardMaterial({ color: 0xDED5C5, roughness: 1 })); plaza.rotation.x = -Math.PI / 2; plaza.position.y = -SLAB - 0.01; plaza.receiveShadow = true; scene.add(plaza);
+const outdoor = new THREE.Group(); outdoor.position.y = -SLAB; scene.add(outdoor);
+for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; plant(outdoor, Math.cos(a) * 21, Math.sin(a) * 17 + (i % 2) * 2, 1.6); }
+for (let i = 0; i < 4; i++) bench(outdoor, -BW / 2 - 3.2, -5 + i * 3.3, Math.PI / 2, M.wood, 1.6);
+
+/* ---------------- theme ---------------- */
+function applyTheme() {
+  const cs = getComputedStyle(document.documentElement);
+  const sky = cs.getPropertyValue('--sky').trim() || '#F2EDE4', gr = cs.getPropertyValue('--ground').trim() || '#E6DFD2';
+  scene.background = new THREE.Color(sky); scene.fog = new THREE.Fog(new THREE.Color(sky), 70, 190);
+  ground.material.color.set(gr); plaza.material.color.set(gr).offsetHSL(0, 0, document.documentElement.dataset.theme === 'dark' || (matchMedia('(prefers-color-scheme: dark)').matches && document.documentElement.dataset.theme !== 'light') ? 0.04 : -0.03);
+  const dark = scene.background.getHSL({}).l < 0.4; hemi.intensity = dark ? 0.75 : 1.25; sun.intensity = dark ? 1.6 : 2.3; fill.intensity = dark ? 0.35 : 0.6; ambient.intensity = dark ? 0.25 : 0.35;
+}
+applyTheme();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+/* ---------------- state / camera ---------------- */
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const state = {
+  mode: 'overview',          // overview | floor | walk
+  floor: 0,                  // 1..5 or 0
+  orbit: { theta: -0.7, phi: 1.02, radius: 66, target: new THREE.Vector3(0, 12.6, 0) },
+  walk: { pos: new THREE.Vector3(-12, 1.6, 0), yaw: -Math.PI / 2, pitch: 0, moveTo: null },
+  autoRotate: !reduceMotion,
+  selected: null,
+  transition: null,
+};
+const keys = new Set();
+const portrait = () => camera.aspect > 0 && camera.aspect < 1;
+function fitRadius(base) { const a = camera.aspect > 0 ? camera.aspect : 1.4; return base * THREE.MathUtils.clamp(1.3 / a, 0.9, 1.3); }
+const overviewRadius = () => portrait() ? 68 : fitRadius(66);
+const floorRadius = (n) => { const v = FLOORS[n - 1].view; return portrait() ? v.rp : fitRadius(v.r); };
+function desiredPose() {
+  const pos = new THREE.Vector3(), quat = new THREE.Quaternion(), m = new THREE.Matrix4();
+  if (state.mode === 'walk') {
+    pos.copy(state.walk.pos); pos.y = floorGroups[state.floor - 1].group.position.y + 1.6;
+    const dir = new THREE.Vector3(-Math.sin(state.walk.yaw) * Math.cos(state.walk.pitch), Math.sin(state.walk.pitch), -Math.cos(state.walk.yaw) * Math.cos(state.walk.pitch));
+    m.lookAt(pos, pos.clone().add(dir), new THREE.Vector3(0, 1, 0)); quat.setFromRotationMatrix(m);
+  } else {
+    const o = state.orbit;
+    pos.set(o.target.x + o.radius * Math.sin(o.phi) * Math.sin(o.theta), o.target.y + o.radius * Math.cos(o.phi), o.target.z + o.radius * Math.sin(o.phi) * Math.cos(o.theta));
+    m.lookAt(pos, o.target, new THREE.Vector3(0, 1, 0)); quat.setFromRotationMatrix(m);
+  }
+  return { pos, quat };
+}
+function startTransition(dur = 1.0) { state.transition = { t0: performance.now(), dur: reduceMotion ? 0.01 : dur, fromPos: camera.position.clone(), fromQuat: camera.quaternion.clone() }; }
+const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+/* ---------------- mode changes ---------------- */
+const floorTitle = $('#floorTitle'), ftBig = $('#ftBig'), ftName = $('#ftName'), ftBasis = $('#ftBasis'), hint = $('#hint'), chips = $('#chips'), keysHint = $('#keys'), walkBtn = $('#walkBtn');
+const isTouch = matchMedia('(pointer: coarse)').matches;
+
+function setVisibility() {
+  for (const f of floorGroups) {
+    const inFloorMode = state.mode !== 'overview';
+    f.group.visible = !inFloorMode || f.n <= state.floor;
+    f.label.visible = !inFloorMode;
+    const current = inFloorMode && f.n === state.floor;
+    f.roomLabels.forEach((s) => { s.visible = current; const p = state.mode === 'walk' ? s.userData.walk : s.userData.view; s.position.set(p[0], p[1], p[2]); });
+    f.hotspots.forEach((s) => s.visible = current);
+    f.ceiling.visible = current && state.mode === 'walk';
+    (f.ceiling.userData.lights || []).forEach((l) => l.visible = f.ceiling.visible);
+    f.targetY = inFloorMode ? (f.n - 1) * SPACING_REAL : (f.n - 1) * SPACING_EXPLODED;
+  }
+}
+function updateUI() {
+  document.querySelectorAll('.rail [data-floor]').forEach((b) => b.classList.toggle('on', Number(b.dataset.floor) === (state.mode === 'overview' ? 0 : state.floor)));
+  walkBtn.classList.toggle('on', state.mode === 'walk'); walkBtn.setAttribute('aria-pressed', String(state.mode === 'walk'));
+  walkBtn.lastChild.textContent = state.mode === 'walk' ? ' 둘러보기로' : ' 걸어보기';
+  canvas.classList.toggle('walking', state.mode === 'walk');
+  if (state.mode === 'overview') { floorTitle.hidden = true; chips.hidden = true; keysHint.hidden = true; hint.textContent = isTouch ? '드래그로 돌리고, 층을 눌러 보세요' : '드래그로 돌리고, 휠로 확대 · 층을 클릭해 들어가 보세요'; }
+  else {
+    const spec = FLOORS[state.floor - 1]; floorTitle.hidden = false; ftBig.textContent = `${spec.n}F`; ftName.textContent = spec.name; ftBasis.textContent = spec.basis;
+    chips.hidden = false; chips.innerHTML = spec.hotspots.map((h) => `<button data-h="${h.num}" class="${state.selected && state.selected.num === h.num ? 'on' : ''}"><span class="n">${h.num}</span>${h.title}</button>`).join('');
+    keysHint.hidden = !(state.mode === 'walk' && !isTouch);
+    hint.textContent = state.mode === 'walk' ? (isTouch ? '바닥을 눌러 이동 · 드래그로 둘러보기' : '금색 표시를 눌러 설명을 보세요') : '금색 표시를 눌러 설명 보기';
+  }
+}
+function goOverview() {
+  state.mode = 'overview'; state.floor = 0; state.selected = null; hideCard();
+  state.orbit.target.set(0, (SPACING_EXPLODED * 4 + WALL_H) / 2, 0); state.orbit.radius = overviewRadius(); state.orbit.phi = 1.02;
+  if (portrait()) state.orbit.theta = -Math.PI / 2;   // long axis into the depth on phones
+  setVisibility(); updateUI(); startTransition(1.1);
+}
+function goFloor(n, opts = {}) {
+  const fromWalk = state.mode === 'walk', fromFloor = state.mode === 'floor', v = FLOORS[n - 1].view;
+  state.mode = 'floor'; state.floor = n; if (!opts.keepSelection) { state.selected = null; hideCard(); }
+  state.autoRotate = false;
+  state.orbit.target.set(v.x, (n - 1) * SPACING_REAL + 1.2, v.z); state.orbit.radius = floorRadius(n); state.orbit.phi = 0.72;
+  if (fromWalk) state.orbit.theta = state.walk.yaw; else if (!fromFloor) state.orbit.theta = 0;   // same way up as the drawings: lift hall at the bottom
+  setVisibility(); updateUI(); startTransition(1.0);
+}
+function goWalk(n, at) {
+  const spec = FLOORS[n - 1]; state.mode = 'walk'; state.floor = n; state.autoRotate = false;
+  const e = at || spec.entrance; state.walk.pos.set(e.x, 1.6, e.z); state.walk.yaw = e.yaw; state.walk.pitch = at ? -0.05 : 0; state.walk.moveTo = null;
+  if (!at) { state.selected = null; card.hidden = true; }   // a card from another floor must not follow you
+  setVisibility(); updateUI(); startTransition(1.1);
+}
+
+/* hotspot card */
+const card = $('#card');
+function showHotspot(h) {
+  state.selected = h;
+  $('#cardNum').textContent = h.num; $('#cardTitle').textContent = h.title; $('#cardWhere').textContent = `${h.floor}F · ${FLOORS[h.floor - 1].name}`; $('#cardDesc').textContent = h.desc;
+  const a = $('#cardLink'); a.href = SITE + h.link; a.textContent = `${h.linkLabel} →`;
+  card.hidden = false; updateUI();
+}
+function hideCard() { card.hidden = true; state.selected = null; if (state.mode !== 'overview') updateUI(); }
+$('#cardClose').addEventListener('click', hideCard);
+function focusHotspot(h) {
+  showHotspot(h);
+  const fy = (h.floor - 1) * SPACING_REAL;
+  if (state.mode === 'walk') {
+    // stand between the hotspot and the way into its room, and look at it
+    const room = FLOORS[h.floor - 1].rooms.find((r) => !r.solid && r.name && h.x > r.x0 && h.x < r.x1 && h.z > r.z0 && h.z < r.z1);
+    let sx = h.x, sz = h.z + 1.9;
+    if (h.stand) { sx = h.stand.x; sz = h.stand.z; }
+    else if (room) { const v = { N: [0, -1], S: [0, 1], W: [-1, 0], E: [1, 0] }[faceOf(room)]; sx = THREE.MathUtils.clamp(h.x + v[0] * 1.9, room.x0 + 0.45, room.x1 - 0.45); sz = THREE.MathUtils.clamp(h.z + v[1] * 1.9, room.z0 + 0.45, room.z1 - 0.45); }
+    state.walk.pos.set(sx, 1.6, sz); state.walk.yaw = Math.atan2(-(h.x - sx), -(h.z - sz)); state.walk.pitch = -0.08; state.walk.moveTo = null; startTransition(0.9);
+  } else {
+    state.orbit.target.set(h.x, fy + 1.0, h.z); state.orbit.radius = portrait() ? 14 : fitRadius(11); state.orbit.phi = 0.78; startTransition(0.9);
+  }
+}
+chips.addEventListener('click', (e) => { const b = e.target.closest('button[data-h]'); if (!b) return; const h = FLOORS[state.floor - 1].hotspots.find((x) => x.num === Number(b.dataset.h)); if (h) focusHotspot({ ...h, floor: state.floor }); });
+
+/* rail */
+$('#rail').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.id === 'walkBtn') { if (state.mode === 'walk') goFloor(state.floor); else goWalk(state.floor || 1); return; }
+  const n = Number(b.dataset.floor); if (n === 0) goOverview(); else if (state.mode === 'walk') goWalk(n); else goFloor(n);
+});
+
+/* ---------------- input ---------------- */
+const ray = new THREE.Raycaster(); const ndc = new THREE.Vector2();
+const pointers = new Map(); let dragging = false, downAt = null, pinchDist = 0;
+canvas.addEventListener('pointerdown', (e) => { canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId, { x: e.clientX, y: e.clientY }); downAt = { x: e.clientX, y: e.clientY, t: performance.now() }; dragging = false; state.autoRotate = false; if (pointers.size === 2) { const [a, b] = [...pointers.values()]; pinchDist = Math.hypot(a.x - b.x, a.y - b.y); } });
+canvas.addEventListener('pointermove', (e) => {
+  const p = pointers.get(e.pointerId); if (!p) return;
+  const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+  if (pointers.size === 2) { const [a, b] = [...pointers.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (pinchDist) zoom((pinchDist - d) * 0.004); pinchDist = d; return; }
+  if (downAt && Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y) > 6) { dragging = true; canvas.classList.add('dragging'); }
+  if (!dragging) return;
+  if (state.mode === 'walk') { state.walk.yaw -= dx * 0.0042; state.walk.pitch = THREE.MathUtils.clamp(state.walk.pitch - dy * 0.0032, -0.9, 0.9); }
+  else { state.orbit.theta -= dx * 0.0055; state.orbit.phi = THREE.MathUtils.clamp(state.orbit.phi - dy * 0.0045, 0.12, 1.42); }
+});
+function endPointer(e) {
+  pointers.delete(e.pointerId); canvas.classList.remove('dragging');
+  if (pointers.size === 0 && !dragging && downAt && performance.now() - downAt.t < 450) tap(e.clientX, e.clientY);
+  if (pointers.size === 0) { downAt = null; dragging = false; pinchDist = 0; }
+}
+canvas.addEventListener('pointerup', endPointer); canvas.addEventListener('pointercancel', endPointer);
+canvas.addEventListener('wheel', (e) => { e.preventDefault(); zoom(e.deltaY * 0.0022); }, { passive: false });
+function zoom(a) { if (state.mode === 'walk') { state.walk.pitch = THREE.MathUtils.clamp(state.walk.pitch - a * 0.08, -0.9, 0.9); return; } state.orbit.radius = THREE.MathUtils.clamp(state.orbit.radius * (1 + a), 5, 110); }
+
+function tap(cx, cy) {
+  const r = canvas.getBoundingClientRect(); ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1); ray.setFromCamera(ndc, camera);
+  if (state.mode === 'overview') {
+    const hits = ray.intersectObjects(floorGroups.flatMap((f) => f.floorMeshes), false); if (hits.length) goFloor(hits[0].object.userData.floorN); return;
+  }
+  const f = floorGroups[state.floor - 1];
+  const hs = ray.intersectObjects(f.hotspots, false); if (hs.length) { focusHotspot(hs[0].object.userData.hotspot); return; }
+  if (state.mode === 'walk') {
+    const fl = ray.intersectObjects(f.floorMeshes, false); if (fl.length) { const p = fl[0].point; state.walk.moveTo = new THREE.Vector3(p.x, 1.6, p.z); }
+  } else {
+    // a visible lower floor was tapped → switch to it
+    const hits = ray.intersectObjects(floorGroups.filter((x) => x.group.visible && x.n !== state.floor).flatMap((x) => x.floorMeshes), false);
+    if (hits.length) goFloor(hits[0].object.userData.floorN);
+  }
+}
+window.addEventListener('keydown', (e) => { if (['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) { keys.add(e.code); if (state.mode === 'walk') e.preventDefault(); } if (e.code === 'Escape') hideCard(); });
+window.addEventListener('keyup', (e) => keys.delete(e.code));
+
+/* collision */
+function blocked(f, x, z, rad = 0.32) { for (const w of f.walls) if (x > w.x0 - rad && x < w.x1 + rad && z > w.z0 - rad && z < w.z1 + rad) return true; return false; }
+function tryMove(f, dx, dz) { const p = state.walk.pos; if (!blocked(f, p.x + dx, p.z)) p.x += dx; if (!blocked(f, p.x, p.z + dz)) p.z += dz; }
+
+/* ---------------- resize / loop ---------------- */
+function resize() { const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;   // hidden or not laid out yet: keep the last good size
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w < h ? 62 : 50; camera.updateProjectionMatrix(); if (state.mode === 'overview') state.orbit.radius = overviewRadius(); else if (state.mode === 'floor' && !state.selected) state.orbit.radius = floorRadius(state.floor); }
+new ResizeObserver(resize).observe(canvas); resize();
+
+let last = performance.now(), firstFrame = true; const tmpV = new THREE.Vector3();
+function frame(now) {
+  requestAnimationFrame(frame);
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  // floor spacing animation (exploded in the overview, real spacing inside)
+  for (const f of floorGroups) { f.group.position.y += (f.targetY - f.group.position.y) * Math.min(1, dt * 6); }
+  if (state.autoRotate && state.mode === 'overview') state.orbit.theta += dt * 0.08;
+  // walking
+  if (state.mode === 'walk') {
+    const f = floorGroups[state.floor - 1]; const sp = 2.6 * dt; const fwd = new THREE.Vector2(-Math.sin(state.walk.yaw), -Math.cos(state.walk.yaw)); const right = new THREE.Vector2(-fwd.y, fwd.x);
+    let mx = 0, mz = 0;
+    if (keys.has('KeyW') || keys.has('ArrowUp')) { mx += fwd.x; mz += fwd.y; } if (keys.has('KeyS') || keys.has('ArrowDown')) { mx -= fwd.x; mz -= fwd.y; }
+    if (keys.has('KeyD') || keys.has('ArrowRight')) { mx += right.x; mz += right.y; } if (keys.has('KeyA') || keys.has('ArrowLeft')) { mx -= right.x; mz -= right.y; }
+    if (mx || mz) { const l = Math.hypot(mx, mz); tryMove(f, mx / l * sp, mz / l * sp); state.walk.moveTo = null; }
+    else if (state.walk.moveTo) { const t = state.walk.moveTo, p = state.walk.pos; const dx = t.x - p.x, dz = t.z - p.z, dist = Math.hypot(dx, dz); if (dist < 0.15) state.walk.moveTo = null; else { const step = Math.min(dist, 3.2 * dt); const before = p.clone(); tryMove(f, dx / dist * step, dz / dist * step); if (p.distanceTo(before) < step * 0.3) state.walk.moveTo = null; } }
+  }
+  // camera
+  ambient.intensity += ((state.mode === 'walk' ? 0.7 : 0.35) - ambient.intensity) * Math.min(1, dt * 4);
+  const want = desiredPose();
+  if (state.transition) { const tr = state.transition; const t = Math.min(1, (now - tr.t0) / (tr.dur * 1000)); const k = ease(t); camera.position.lerpVectors(tr.fromPos, want.pos, k); camera.quaternion.slerpQuaternions(tr.fromQuat, want.quat, k); if (t >= 1) state.transition = null; }
+  else { camera.position.copy(want.pos); camera.quaternion.copy(want.quat); }
+  // hotspot bob + selection pulse; in walk mode, shrink pins and hide room labels that are right next to the camera
+  const bob = reduceMotion ? 0 : Math.sin(now / 420) * 0.07;
+  const walking = state.mode === 'walk', camWorld = camera.position;
+  for (const f of floorGroups) {
+    for (const s of f.hotspots) {
+      if (!s.visible) continue; s.position.y = 2.0 + bob;
+      const sel = state.selected && state.selected.num === s.userData.hotspot.num && state.selected.floor === f.n;
+      let sc = sel ? 1.25 + (reduceMotion ? 0 : Math.sin(now / 260) * 0.06) : 0.95;
+      if (walking) { s.getWorldPosition(tmpV); sc *= THREE.MathUtils.clamp(tmpV.distanceTo(camWorld) / 5, 0.25, 1); }
+      s.scale.set(sc, sc, 1);
+    }
+    if (f.n === state.floor && state.mode !== 'overview') for (const l of f.roomLabels) { l.getWorldPosition(tmpV); const dist = tmpV.distanceTo(camWorld); l.material.opacity = walking ? THREE.MathUtils.clamp((dist - 3) / 3, 0, 1) : 1; }
+  }
+  // keep the sun centred on what we look at
+  sun.target.position.set(0, 0, 0); sun.position.set(28, 42 + (state.mode === 'overview' ? 10 : floorGroups[state.floor - 1].group.position.y), 18);
+  renderer.render(scene, camera);
+  if (firstFrame) { firstFrame = false; overlay.classList.add('off'); }
+}
+setVisibility(); updateUI(); resize();
+camera.position.copy(desiredPose().pos); camera.quaternion.copy(desiredPose().quat);
+window.__tour = { state, floorGroups, tap, goFloor, goWalk, goOverview, focusHotspot };
+requestAnimationFrame(frame);
+</script>
+<script>
+// If the 3D module never renders (blocked CDN, old browser), say so instead of spinning forever.
+setTimeout(function () { var o = document.getElementById('overlay'); if (o && !o.classList.contains('off')) document.getElementById('ovMsg').textContent = '3D 엔진을 불러오지 못했어요. 네트워크를 확인하고 새로고침해 주세요.'; }, 9000);
+</script>
+</body>
+</html>
