@@ -12842,6 +12842,298 @@ export const patientNotes: PatientNote[] = [
     }
   ],
   "updated": "2026-11-06"
+},
+{
+  "slug": "long-term-steroids-dental-extraction-medication-plan",
+  "publishedAt": "2026-11-07T09:00:00+09:00",
+  "title": "스테로이드를 오래 먹는데 이를 빼도 될까요? 약을 끊으라는 말과 늘리라는 말이 달라요.",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "발치",
+  "concern": "지병과 약 때문에 치료가 걱정돼요",
+  "description": "천안에서 장기간 스테로이드를 복용하거나 부신기능저하를 진단받은 분이 발치 전 약 조정·치료 범위·응급 계획을 확인하며 상담하는 방법입니다.",
+  "situation": "천안에서 지병 때문에 스테로이드를 꾸준히 먹고 있습니다. 아픈 이를 빼야 한다는 설명을 들었는데, 약을 줄여야 한다는 이야기와 오히려 더 필요하다는 이야기가 섞여 예약을 망설입니다.",
+  "answer": "스테로이드 복용 이유와 최근 용량·기간, 부신기능저하 여부, 예정된 발치 범위와 식사 가능 여부를 함께 확인해야 합니다. 치과 치료를 이유로 약을 스스로 끊거나 다른 사람의 증량표를 따라 하지 마세요. 치과와 약을 처방한 의료진이 이번 처치에 맞는 복용·추가 보충·응급 연락 계획을 정하도록 연결하는 것이 먼저입니다.",
+  "checks": [
+    "약 이름·복용 이유·하루 용량·기간과 최근 감량 또는 중단 시점을 확인합니다.",
+    "부신기능저하 진단, 응급 주사 처방·교육, 스테로이드 관련 안내문 여부를 알립니다.",
+    "검사·국소마취 발치·진정 또는 전신마취 등 계획된 처치 범위를 구분합니다.",
+    "치료 후 약과 물을 삼킬 수 있는지, 구토·발열 때 연락할 곳을 정합니다."
+  ],
+  "choices": [
+    {
+      "condition": "현재 약과 몸 상태, 치과 처치 범위가 확인되면",
+      "option": "기존 복용과 필요한 추가 조치를 의료진이 정한 계획에 따라 진행합니다.",
+      "limit": "추가 약 필요 여부는 모든 스테로이드 복용자에게 같지 않습니다."
+    },
+    {
+      "condition": "최근 감량·부신기능저하·식사 제한 등 확인할 변수가 있다면",
+      "option": "처방 의료진과 구체적인 발치·회복 계획을 공유하고 진료 장소와 순서를 조정합니다.",
+      "limit": "자료가 부족해도 심한 통증·감염·급격한 전신 악화는 별도로 즉시 평가해야 합니다."
+    }
+  ],
+  "unknown": "이 글은 스테로이드 용량을 정하는 표가 아닙니다. 현재 치료 중인 질환과 약의 종류·용량·기간을 모른 채 중단·증량·예방 항생제 필요성을 확정할 수 없습니다.",
+  "prepare": [
+    "처방전 또는 약 이름·용량이 보이는 사진",
+    "최근 감량·중단 날짜와 처방 진료과 연락처",
+    "부신기능 검사·응급 약 안내문이 있다면 해당 자료",
+    "발치 부위의 통증·붓기·식사 상태 메모"
+  ],
+  "localHeading": "천안에서 발치 전 약 계획을 확인한다면",
+  "localAdvice": "천안에서 불당동 서울비디치과에 발치 상담을 예약할 때 장기간 스테로이드 복용 또는 부신기능저하 사실을 먼저 알려 주세요. 이동 전 필요한 약 자료와 담당 진료과 확인 항목을 묻고, 첫 방문이 검사·계획 상담인지 처치까지 고려하는 일정인지 구분하면 도움이 됩니다. 특정 발치 방식이나 당일 시행을 전화로 보장하는 의미는 아닙니다.",
+  "related": [
+    {
+      "title": "사랑니·발치 계획 가이드",
+      "href": "/guide/wisdom-tooth"
+    },
+    {
+      "title": "신경치료와 치아 보존 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "골다공증 약을 쓰는 분의 발치 상담",
+      "href": "/concerns/osteoporosis-medication-before-tooth-extraction"
+    }
+  ],
+  "sources": [
+    {
+      "title": "유럽내분비학회·미국내분비학회 — 스테로이드 유발 부신기능저하 지침",
+      "href": "https://www.endocrine.org/clinical-practice-guidelines/glucocorticoid-induced-adrenal-insufficiency"
+    },
+    {
+      "title": "Cambridge University Hospitals — 부신기능저하의 스테로이드 보충과 응급 계획",
+      "href": "https://www.cuh.nhs.uk/patient-information/steroid-replacement-for-adrenal-insufficiency/"
+    },
+    {
+      "title": "NHS Specialist Pharmacy Service — 일차성 부신기능저하와 치과 처치 계획",
+      "href": "https://www.sps.nhs.uk/articles/what-steroid-supplementation-is-required-for-a-patient-with-primary-adrenal-insufficiency-undergoing-a-dental-procedure/"
+    },
+    {
+      "title": "NHS — 애디슨병과 부신위기",
+      "href": "https://www.nhs.uk/conditions/addisons-disease/"
+    }
+  ],
+  "updated": "2026-11-07"
+},
+{
+  "slug": "stroke-recovery-dental-care-swallowing-mobility",
+  "publishedAt": "2026-11-07T09:00:00+09:00",
+  "title": "뇌졸중 뒤 양치도 치과 치료도 어려워졌어요. 다시 치료를 받아도 괜찮을까요?",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "뇌졸중",
+  "concern": "몸 상태에 맞춰 치료를 받고 싶어요",
+  "description": "아산에서 뇌졸중 회복 중 삼킴·이동·의사소통의 어려움 때문에 치과 방문을 망설이는 분과 가족이 진료 시기와 지원 방법을 함께 정하는 고민 노트입니다.",
+  "situation": "아산에서 뇌졸중 재활을 이어가는데 한쪽 손으로 양치하기 어렵고 치과 의자에 눕는 것도 걱정됩니다. 보호자는 약 때문에 피가 날까 두렵고, 환자분은 말을 천천히 하게 된 뒤 자신의 의견을 전하기가 더 어려워졌습니다.",
+  "answer": "뇌졸중을 겪었다는 이유만으로 치과 치료를 모두 포기하거나, 반대로 퇴원했으니 바로 모든 처치가 가능하다고 판단하지 않습니다. 현재 신경학적 상태와 삼킴·이동·소통 능력, 복용 약, 치과 문제의 긴급도를 나눠 확인하고 재활·진료팀과 방문 계획을 연결해야 합니다. 환자분이 원하는 도움과 중단 신호도 진료 계획의 일부입니다.",
+  "checks": [
+    "뇌졸중 발생·최근 악화 시점과 담당 진료과의 현재 안내를 정리합니다.",
+    "삼킴 평가와 물·음식·약 복용 방법에 대한 기존 지시를 공유합니다.",
+    "휠체어 이동·의자 옮겨 앉기·누운 자세·피로에 필요한 지원을 알립니다.",
+    "항혈소판제·항응고제를 포함한 약 목록과 환자분의 의사 표현 방법을 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "현재 상태가 안정적이고 필요한 지원을 준비할 수 있다면",
+      "option": "검사와 처치의 우선순위를 정하고, 환자분의 체력과 의사소통 속도에 맞춰 진료를 나눕니다.",
+      "limit": "정해진 개월 수 하나로 모든 분의 치료 가능 여부를 결정하지 않습니다."
+    },
+    {
+      "condition": "삼킴·전신 상태·이동 지원에 추가 평가가 필요하다면",
+      "option": "재활·의과 진료팀과 정보를 공유하고 적합한 진료 장소와 처치 범위를 조정합니다.",
+      "limit": "통증·감염이나 새로운 뇌졸중 의심 증상은 계획 진료와 별개로 신속히 평가해야 합니다."
+    }
+  ],
+  "unknown": "이 글만으로 발치·마취 가능 여부나 약 중단 여부를 정할 수 없습니다. 언어 표현이 느린 것과 판단 능력의 저하도 같은 의미가 아니므로 환자분의 의사를 개별적으로 확인해야 합니다.",
+  "prepare": [
+    "퇴원·재활 요약과 담당 진료과 연락처",
+    "현재 약 목록과 복용 시간",
+    "삼킴·자세·식사 형태에 대한 안내문",
+    "이동 보조기와 의사소통·중단 신호 메모"
+  ],
+  "localHeading": "아산에서 뇌졸중 회복 중 치과 방문을 계획한다면",
+  "localAdvice": "아산에서 천안 불당동 서울비디치과로 이동하기 전 뇌졸중 후 삼킴과 이동에 필요한 지원을 구체적으로 알려 주세요. 휠체어 이용과 옮겨 앉기, 동행 인원, 편안한 시간대, 기존 진료팀과 확인할 자료를 먼저 문의하면 불필요한 왕복을 줄이는 데 도움이 됩니다. 필요한 장비나 진료 가능 여부는 실제 상태와 시설 확인 후 정합니다.",
+  "related": [
+    {
+      "title": "스케일링·잇몸 관리 가이드",
+      "href": "/guide/scaling"
+    },
+    {
+      "title": "신경치료와 치아 보존 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "삼키기 어려운 분의 구강 관리 상담",
+      "href": "/concerns/tube-feeding-dysphagia-mouth-care"
+    }
+  ],
+  "sources": [
+    {
+      "title": "NICE — 뇌졸중 재활: 구강 관리·삼킴·의사소통 권고",
+      "href": "https://www.nice.org.uk/guidance/ng236/chapter/Recommendations"
+    },
+    {
+      "title": "Canadian Stroke Best Practices — 삼킴·영양·구강 관리",
+      "href": "https://www.strokebestpractices.ca/recommendations/stroke-rehabilitation-delivery/6-swallowing-nutrition-and-oral-care"
+    },
+    {
+      "title": "미국치과의사협회 — 항응고제·항혈소판제와 치과 처치",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/oral-anticoagulant-and-antiplatelet-medications-and-dental-procedures"
+    },
+    {
+      "title": "NHS — 뇌졸중의 응급 증상",
+      "href": "https://www.nhs.uk/conditions/stroke/symptoms/"
+    }
+  ],
+  "updated": "2026-11-07"
+},
+{
+  "slug": "toddler-front-teeth-white-spots-night-feeding",
+  "publishedAt": "2026-11-07T09:00:00+09:00",
+  "title": "밤중 수유를 했는데 아이 앞니가 하얗게 변했어요. 제 탓으로 충치가 생긴 걸까요?",
+  "region": "홍성",
+  "areaPath": "/area/hongseong",
+  "topic": "충치",
+  "concern": "아이에게 미안하고 치료가 걱정돼요",
+  "description": "홍성에서 어린아이 앞니의 흰 반점과 밤중 수유 때문에 자책하는 보호자가 초기 충치의 평가, 수유·양치 조정, 진료 우선순위를 차분히 확인하는 고민 노트입니다.",
+  "situation": "홍성에서 아이를 재우려고 밤중 수유를 이어 왔는데 윗앞니 잇몸 가까이에 하얀 띠가 보입니다. 아직 아파하지 않아 기다려도 될지, 밤마다 먹인 자신 때문에 치아를 상하게 한 것은 아닌지 마음이 무겁습니다.",
+  "answer": "어린아이의 윗앞니 잇몸 가까운 흰 변화는 초기 충치의 신호일 수 있지만 모든 흰 반점을 사진만으로 충치라고 판단할 수는 없습니다. 수유 방식 하나로 원인과 책임을 단정하지 말고 치아 표면, 식습관, 불소 사용과 양치 조건을 함께 확인해야 합니다. 연령·성장과 영양에 맞는 수유 상담과 치과 평가를 연결해 지금 바꿀 수 있는 일을 정하세요.",
+  "checks": [
+    "반점의 위치와 처음 본 시기, 표면이 패이거나 색이 달라지는지를 알립니다.",
+    "아이의 연령·첫니 시기·성장 및 필요한 영양 공급을 확인합니다.",
+    "밤중 수유와 낮 간식·음료가 반복되는 양상을 하루 단위로 정리합니다.",
+    "불소 치약 사용량·닦는 사람·취침 전 양치 여건을 함께 점검합니다."
+  ],
+  "choices": [
+    {
+      "condition": "표면 손상이 적은 초기 병변이라면",
+      "option": "위험 요인 조정과 불소 관리·경과 관찰 등 진행을 줄이는 계획을 상의합니다.",
+      "limit": "이미 없어진 치아 형태를 양치나 불소만으로 원래대로 되돌린다고 보장하지 않습니다."
+    },
+    {
+      "condition": "구멍·통증·붓기 또는 여러 치아의 진행이 확인된다면",
+      "option": "아이의 협조와 병변 깊이에 맞춰 치료 범위와 방법을 결정합니다.",
+      "limit": "겉모습만으로 발치·전신마취 필요성을 먼저 결론 내리지 않습니다."
+    }
+  ],
+  "unknown": "흰 반점의 원인은 충치 외에도 있을 수 있습니다. 수유의 중단 시기와 방법은 연령·성장·의학적 필요에 따라 다르므로 치아 걱정만으로 필요한 영양 공급을 갑자기 끊지 않습니다.",
+  "prepare": [
+    "처음 발견했을 때와 최근의 자연스러운 치아 사진",
+    "낮·밤의 수유와 간식·음료 기록",
+    "쓰는 치약 제품과 실제 덜어 쓰는 양",
+    "통증 표현·잠·식사 변화와 기존 건강 정보"
+  ],
+  "localHeading": "홍성에서 아이 충치 상담을 준비한다면",
+  "localAdvice": "홍성에서 천안 불당동 서울비디치과로 아이 충치 상담을 오기 전 연령과 흰 반점 위치, 통증·붓기 유무를 알려 주세요. 이동과 낮잠·식사 시간을 함께 고려하고 첫 방문의 검사 범위와 필요한 자료를 문의할 수 있습니다. 진료 가능한 범위와 추가 의뢰 여부는 아이의 상태와 협조 정도를 확인한 뒤 안내받습니다.",
+  "related": [
+    {
+      "title": "충치 치료를 결정하기 전 확인할 점",
+      "href": "/guide/regret/cavity"
+    },
+    {
+      "title": "어린아이 불소 치약 삼킴이 걱정될 때",
+      "href": "/concerns/toddler-fluoride-toothpaste-swallowing-worry"
+    },
+    {
+      "title": "아이 충치에 은불소를 권유받았을 때",
+      "href": "/concerns/child-cavity-silver-fluoride-black-stain"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국소아치과학회 — 영유아기 충치의 분류·결과·예방 정책",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/early-childhood-caries-classifications-consequences-and-preventive-strategies/"
+    },
+    {
+      "title": "미국소아과학회 HealthyChildren — 영유아기 충치의 초기 신호와 예방",
+      "href": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/Bottlemouth-Syndrome.aspx"
+    },
+    {
+      "title": "미국치과의사협회 MouthHealthy — 젖병과 영유아기 충치",
+      "href": "https://www.mouthhealthy.org/all-topics-a-z/tooth-decay-with-baby-bottles"
+    },
+    {
+      "title": "미국 질병통제예방센터 — 안전한 젖병 수유",
+      "href": "https://www.cdc.gov/infant-toddler-nutrition/bottle-feeding/index.html"
+    }
+  ],
+  "updated": "2026-11-07"
+},
+{
+  "slug": "repeated-vomiting-tooth-erosion-dental-visit",
+  "publishedAt": "2026-11-07T09:00:00+09:00",
+  "title": "반복해서 토한 뒤 앞니가 시리고 얇아졌어요. 이유를 말하기가 부끄러워 치과를 못 가겠어요.",
+  "region": "예산",
+  "areaPath": "/area/yesan",
+  "topic": "치아 산부식",
+  "concern": "말하기 어려운 사정 때문에 진료를 미루고 있어요",
+  "description": "예산에서 반복 구토 뒤 치아 시림·산부식이 걱정되지만 원인을 말하기 어려운 분이 비난 없이 치과·의과 진료를 연결하고 보존 치료의 순서를 상담하는 고민 노트입니다.",
+  "situation": "예산에서 지내며 한동안 구토가 반복된 뒤 앞니 끝이 비쳐 보이고 찬물을 마실 때 시립니다. 치과에 가면 이유를 캐묻거나 혼날 것 같고, 모두 씌워야 한다는 말을 들을까 봐 입안 변화를 숨기고 있습니다.",
+  "answer": "반복 구토로 치아가 위산에 노출되면 치아 표면이 닳는 산부식에 영향을 줄 수 있지만, 겉모습만으로 구토의 원인이나 섭식장애를 진단할 수는 없습니다. 치아 상태를 확인하면서 구토의 의학적 원인과 필요한 도움도 별도로 연결해야 합니다. 원인을 완벽히 설명하거나 구토가 완전히 멎은 뒤에야 치과 진료를 받을 수 있는 것은 아닙니다.",
+  "checks": [
+    "시린 부위·치아 모양 변화·깨짐·씹기 불편이 시작된 시점을 정리합니다.",
+    "구토나 역류, 산성 음료 등 산 노출과 기존 치료 정보를 가능한 범위에서 알립니다.",
+    "현재 수분·음식 섭취 가능 여부와 급격한 전신 증상을 확인합니다.",
+    "치아 보호·통증 관리·회복 지원·추후 수복을 나누어 상담합니다."
+  ],
+  "choices": [
+    {
+      "condition": "손상 범위와 원인을 평가하며 보존적으로 관리할 수 있다면",
+      "option": "산 노출을 줄이는 지원, 불소·시림 관리와 경과 관찰을 우선 검토합니다.",
+      "limit": "이미 닳아 없어진 법랑질이 원래 두께로 다시 자란다는 의미는 아닙니다."
+    },
+    {
+      "condition": "형태·기능 손상이나 통증 때문에 수복이 필요하다면",
+      "option": "현재 회복 과정과 치아 상태를 고려해 필요한 부위·시기·재료를 단계적으로 정합니다.",
+      "limit": "구토 이력이 있다는 이유만으로 모든 치아에 크라운을 먼저 결정하지 않습니다."
+    }
+  ],
+  "unknown": "치아 변화만으로 구토의 원인, 섭식장애 유무, 앞으로의 손상 속도를 확정할 수 없습니다. 이 글은 구토를 지속해도 안전한 빈도나 방법을 알려 주는 자료가 아니며 원인 평가와 회복을 위한 진료를 권합니다.",
+  "prepare": [
+    "치아 시림과 모양 변화의 시점",
+    "현재 진료 중인 질환·약·구토 관련 평가 자료",
+    "말 대신 보여 줄 수 있는 짧은 메모",
+    "비용·방문 횟수·설명 방식에서 우선 필요한 도움"
+  ],
+  "localHeading": "예산에서 치아 산부식 상담을 망설이고 있다면",
+  "localAdvice": "예산에서 천안 불당동 서울비디치과로 치아 산부식 상담을 예약할 때 “반복 구토 뒤 치아가 시려 검사받고 싶고, 자세한 사정은 진료실에서 말씀드리고 싶다”고 전할 수 있습니다. 이동 전 현재 먹고 마실 수 있는지와 급한 증상을 먼저 확인하고, 첫 방문의 검사·상담 범위를 문의하세요. 응급 전신 증상은 먼 치과 이동보다 가까운 응급 의료 평가가 우선입니다.",
+  "related": [
+    {
+      "title": "신경치료가 필요한 상황을 확인하는 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "치아 보존을 위한 충치 치료 상담 가이드",
+      "href": "/guide/regret/cavity"
+    },
+    {
+      "title": "역류와 시린 치아가 함께 있을 때",
+      "href": "/concerns/acid-reflux-with-thinning-sensitive-teeth"
+    },
+    {
+      "title": "짧아진 치아에 전체 크라운을 권유받았을 때",
+      "href": "/concerns/worn-short-teeth-full-mouth-crowns-worry"
+    }
+  ],
+  "sources": [
+    {
+      "title": "영국 보건사회복지부 — 치아 마모와 산부식 예방 지침",
+      "href": "https://www.gov.uk/government/publications/delivering-better-oral-health-an-evidence-based-toolkit-for-prevention/chapter-7-tooth-wear"
+    },
+    {
+      "title": "NICE — 섭식장애 진료의 치아 관리·전신 평가 권고",
+      "href": "https://www.nice.org.uk/guidance/ng69/chapter/recommendations"
+    },
+    {
+      "title": "NHS — 폭식증의 도움 요청과 치아 보호",
+      "href": "https://www.nhs.uk/mental-health/conditions/bulimia/"
+    },
+    {
+      "title": "영국 왕립외과의사학회 — 치아 산부식 진료 지침",
+      "href": "https://www.rcseng.ac.uk/-/media/Files/RCS/FDS/Guidelines/Erosion-Guidelines_2021_V4_MJ.pdf"
+    }
+  ],
+  "updated": "2026-11-07"
 }
 ]
 
