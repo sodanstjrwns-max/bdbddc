@@ -141,6 +141,46 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
   font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px;backdrop-filter:blur(8px);white-space:nowrap}
 .keys[hidden]{display:none}
 @media (max-width:640px){.keys{bottom:calc(66px + env(safe-area-inset-bottom,0px))}}
+/* entry: pick a nickname over the slowly swaying exterior */
+.gate{position:fixed;inset:0;z-index:8;display:grid;place-items:center;padding:16px;box-sizing:border-box;pointer-events:none}
+.gate[hidden]{display:none}
+.gbox{pointer-events:auto;width:min(380px,100%);background:var(--panel-solid);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:20px 20px 16px;box-sizing:border-box}
+.gbox .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);font-weight:700}
+.gbox h2{margin:4px 0 6px;font-family:var(--font-display);font-size:21px;line-height:1.25;text-wrap:balance}
+.gbox .gsub{margin:0 0 14px;color:var(--muted);font-size:13px}
+.gbox .gsub b{color:var(--fg)}
+.glabel{display:block;font-size:12px;font-weight:700;margin:0 0 6px}
+.gbox input{width:100%;box-sizing:border-box;font:inherit;font-size:16px;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.gbox input:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.gerr{min-height:18px;font-size:12px;color:#B4442E;margin:5px 0 8px}
+.swatches{display:flex;gap:9px;margin-bottom:16px;flex-wrap:wrap}
+.swatches button{width:32px;height:32px;border-radius:50%;border:2px solid var(--panel-solid);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.swatches button[aria-checked="true"]{box-shadow:0 0 0 2px var(--fg)}
+.swatches button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.gbtn{width:100%;font:inherit;font-weight:700;font-size:15px;padding:12px;border:0;border-radius:12px;background:var(--gold);color:#1B150A;cursor:pointer}
+.gbtn:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.gnote{margin:12px 0 0;font-size:11.5px;color:var(--muted)}
+/* who else is here */
+.who{pointer-events:auto;margin-top:8px;display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:12px;font-weight:700;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;backdrop-filter:blur(8px)}
+.who .dot{width:8px;height:8px;border-radius:50%;background:#9A938A;flex:0 0 auto}
+.who.on .dot{background:#3FA266;box-shadow:0 0 0 3px rgba(63,162,102,.18)}
+.who:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.who[hidden],.whoList[hidden]{display:none}
+.whoList{pointer-events:auto;margin-top:6px;background:var(--panel-solid);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px 10px;font-size:12.5px;max-height:220px;overflow:auto;width:max-content;max-width:230px}
+.whoList div{display:flex;align-items:center;gap:7px;padding:3px 0}
+.whoList i{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+.whoList b{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.whoList span{color:var(--muted);font-size:11px;margin-left:auto;padding-left:10px;flex:0 0 auto}
+/* what you can do where you stand: enter the building, take the lift, step outside */
+.act{position:fixed;z-index:6;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 32px);box-sizing:border-box;
+  background:var(--panel-solid);border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow);padding:6px 6px 6px 14px;font-size:13px;font-weight:700}
+.act[hidden],.rail[hidden]{display:none}
+.act span{margin-right:4px}
+.act button{font:inherit;font-size:13px;font-weight:700;border:0;border-radius:999px;padding:8px 13px;background:var(--gold);color:#1B150A;cursor:pointer}
+.act button.ghost{background:var(--bg);color:var(--fg);border:1px solid var(--line);padding:7px 12px}
+.act button:disabled{background:var(--gold-soft);color:var(--gold-deep);border:0;cursor:default}
+.act button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+@media (max-width:640px){.act{bottom:calc(66px + env(safe-area-inset-bottom,0px));border-radius:16px;padding:8px}}
 @media (prefers-reduced-motion:reduce){.rail button{transition:none}}
 </style>
 
@@ -150,6 +190,8 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
   <div class="eyebrow">3D Virtual Tour</div>
   <h1><a class="home" href="/">서울비디치과</a></h1>
   <p class="sub">천안 불당동 · 5층 전관</p>
+  <button class="who" id="who" type="button" hidden aria-expanded="false" aria-controls="whoList"><span class="dot"></span><span id="whoTxt">연결 중…</span></button>
+  <div class="whoList" id="whoList" hidden></div>
   <p class="hint" id="hint">드래그로 돌려보고, 아래에서 층을 고르세요</p>
   <p class="note">실제 공간을 단순화한 3D 안내예요. 배치와 마감은 실제와 다를 수 있어요.</p>
   <div class="links"><a href="/floor-guide">층별 안내</a><a class="rsv" href="/reservation">상담 예약</a></div>
@@ -162,7 +204,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
 </div>
 
 <div class="chips" id="chips" hidden></div>
-<div class="keys" id="keys" hidden>W A S D 로 걷기 · 드래그로 둘러보기 · 바닥을 눌러 이동</div>
+<div class="keys" id="keys" hidden>W A S D 로 걷기 · 드래그로 방향 바꾸기 · 휠로 멀리 보기 · 바닥을 눌러 이동</div>
 
 <aside class="card" id="card" hidden aria-live="polite">
   <div class="top">
@@ -177,8 +219,26 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
   <a class="more" id="cardLink" href="#" target="_blank" rel="noopener">자세히 보기 →</a>
 </aside>
 
+<div class="gate" id="gate">
+  <form class="gbox" id="gateForm" autocomplete="off" novalidate>
+    <div class="eyebrow">3D Virtual Clinic</div>
+    <h2>닉네임을 정하고 들어오세요</h2>
+    <p class="gsub">건물 앞에서 내 캐릭터로 시작해요. 지금 둘러보는 다른 분들의 캐릭터도 함께 보여요. <b id="gateCount"></b></p>
+    <label class="glabel" for="nick">닉네임</label>
+    <input id="nick" name="nick" maxlength="10" placeholder="예: 불당동 토끼" enterkeyhint="go" spellcheck="false">
+    <div class="gerr" id="gateErr" role="alert"></div>
+    <div class="glabel" id="swLabel">캐릭터 색</div>
+    <div class="swatches" id="swatches" role="radiogroup" aria-labelledby="swLabel"></div>
+    <button type="submit" class="gbtn">입장하기</button>
+    <p class="gnote">닉네임은 다른 방문자에게 그대로 보여요. 실명이나 연락처는 쓰지 마세요. 대화 기능은 없고, 닉네임은 이 기기에만 기억해 두며 서버에는 남기지 않아요.</p>
+  </form>
+</div>
+
+<div class="act" id="act" hidden></div>
+
 <nav class="rail" id="rail" aria-label="층 선택">
-  <button data-floor="0" class="on">전관</button>
+  <button data-floor="out">외관</button>
+  <button data-floor="0">전관</button>
   <button data-floor="5">5F</button>
   <button data-floor="4">4F</button>
   <button data-floor="3">3F</button>
@@ -214,6 +274,8 @@ const px = (X) => X - OX, pz = (Y) => Y - OZ;
 const R = (X0, X1, Y0, Y1, type, name, opt = {}) => ({ x0: px(X0), x1: px(X1), z0: pz(Y0), z1: pz(Y1), type, name, ...opt });
 const H = (num, title, X, Y, desc, link, linkLabel, video, stand) => ({ num, title, x: px(X), z: pz(Y), desc, link, linkLabel, video, stand: stand && { x: px(stand[0]), z: pz(stand[1]) } });
 const BASIS_DWG = '실제 도면을 단순화한 배치예요', BASIS_DWG2 = BASIS_DWG;
+// staff-only rooms (machine, server, storage, chart and supply rooms, lockers, staff lounge): not named or guided, drawn as closed blocks
+const STAFF = (X0, X1, Y0, Y1) => R(X0, X1, Y0, Y1, 'staff', '', { solid: true });
 const VIEW_L = { x: px(8.6), z: pz(12.0), r: 30, rp: 40 }, VIEW_FULL = { x: 0, z: pz(12.0), r: 34, rp: 54 };
 // hall, toilets, shafts, lifts and stairs: the same on every floor
 const CORE = () => [
@@ -265,7 +327,7 @@ function decor5(g) {
   const island = (X, Y, w) => { box(g, w, 0.86, 0.7, M.woodLight, px(X), 0, pz(Y)); box(g, w + 0.04, 0.05, 0.74, M.dark, px(X), 0.86, pz(Y)); };
   for (const [X, w] of [[1.25, 2.3], [6.8, 4.6], [13.6, 4.6], [20.25, 4.6], [25.7, 2.2]]) island(X, 4.5, w);
   for (const X of [9.0, 10.3, 11.6]) cart(g, px(X), pz(7.6), Math.PI);                          // mobile cart parking
-  // reception: slatted oak front under a black top, chart cabinets behind
+  // reception: slatted oak front under a black top, low cabinets behind
   const rx = px(22.5), rz = pz(14.45);
   box(g, 5.8, 1.05, 0.7, M.woodLight, rx, 0, rz); box(g, 5.95, 0.06, 0.85, M.dark, rx, 1.05, rz); slats(g, 'z', rz + 0.35, rx - 2.9, rx + 2.9, 1.0, M.wallTop, 1);
   for (const X of [20.4, 21.8, 23.2, 24.6]) { chair(g, px(X), pz(13.75), 0); monitorArm(g, px(X), pz(14.3), Math.PI, 1.3); }
@@ -281,15 +343,11 @@ function decor5(g) {
   for (const Y of [9.5, 11.45]) for (const X of [1.3, 2.6, 4.2, 5.5]) { desk(g, px(X), pz(Y), 1.15, 0.6); chair(g, px(X), pz(Y + (Y < 10 ? 0.6 : -0.6)), Y < 10 ? Math.PI : 0); }
   // prep room: L-shaped counters
   counter(g, px(10.2), pz(9.2), 5.2); counter(g, px(9.7), pz(13.2), 3.6, Math.PI / 2); for (let i = 0; i < 3; i++) box(g, 0.4, 0.25, 0.3, M.blue, px(8.6 + i * 1.4), 0.92, pz(9.2));
-  // staff pantry: white table for six, black shell chairs
-  box(g, 1.9, 0.04, 0.9, M.white, px(4.3), 0.73, pz(14.1)); for (const sx of [-0.85, 0.85]) box(g, 0.05, 0.73, 0.8, M.white, px(4.3) + sx, 0, pz(14.1));
-  for (let i = 0; i < 3; i++) { chair(g, px(3.65 + i * 0.65), pz(13.4), 0); chair(g, px(3.65 + i * 0.65), pz(14.8), Math.PI); }
-  counter(g, px(5.4), pz(12.5), 2.2);
 }
 
 const FLOORS = [
   { n: 1, name: '인비절라인 치아교정센터', short: '인비절라인 · 교정', basis: '1층은 실제와 다른 가상 배치예요', view: VIEW_L, decor: decorA, theme: 'white',
-    entrance: { x: px(1.0), z: pz(16.5), yaw: -Math.PI / 2 },
+    entrance: { x: px(3.6), z: pz(16.5), yaw: -Math.PI / 2 },
     rooms: [
       R(0, 7.3, 0, 6.6, 'none', '교정 진료실', { doors: [['E', 3.25, 1.3]] }),
       R(7.3, 11.8, 0, 2.55, 'office', '원장실', { doors: [['S', 9.1, 0.9]] }),
@@ -297,7 +355,7 @@ const FLOORS = [
       R(11.8, 15.5, 3.5, 6.55, 'op', '교정 진료실 3', { doors: [['W', 4.0, 0.9]] }),
       R(9.75, 11.8, 2.55, 6.55, 'prep', '장치실', { open: 'W' }),
       R(7.3, 7.8, 3.9, 8.35, 'cabwall', '', { solid: true, h: 2.2 }),
-      R(0, 1.95, 6.6, 8.35, 'mech', '기계실', { doors: [['E', 7.5, 0.8]] }),
+      STAFF(0, 1.95, 6.6, 8.35),
       R(1.95, 7.3, 6.6, 8.35, 'prep', '준비실', { doors: [['S', 6.7, 0.9]] }),
       R(0, 2.85, 8.35, 11.45, 'plan', '클린체크 상담실', { doors: [['E', 10.8, 0.9]] }),
       R(0, 2.85, 11.45, 13.3, 'powder', '파우더룸', { open: 'E' }),
@@ -315,21 +373,21 @@ const FLOORS = [
       H(4, '교정 진료실', 3.65, 3.3, '서울대 교정과 전문의 2인이 진료하는 교정 전담 진료실입니다. 일요일에도 진료해요.', '/treatments/orthodontics', '교정 안내 보기', '브라켓 교정 원리 3D 설명'),
       H(5, '장치실', 10.8, 4.6, '인비절라인 장치와 유지장치를 다루는 공간입니다.', '/treatments/invisalign', '인비절라인 보기')] },
   { n: 2, name: '디지털기공센터 · 위생관리센터', short: '기공소 · 소독실', basis: BASIS_DWG, view: VIEW_L,
-    entrance: { x: px(9.1), z: pz(16.6), yaw: 0 },
+    entrance: { x: px(12.3), z: pz(16.2), yaw: Math.PI / 2 },
     rooms: [
       R(0, 2.45, 0, 6.35, 'dlabA', '기공실', { doors: [['E', 2.2, 0.95], ['E', 4.7, 0.95]] }),
       R(2.45, 6.0, 0, 6.35, 'cad', 'CAD/CAM실', { doors: [['S', 3.6, 1.2]] }),
       R(6.0, 12.75, 0, 6.35, 'seminar', '전략기획실', { open: 'E', doors: [['S', 6.6, 0.95]] }),
-      R(12.75, 15.5, 0, 4.45, 'rest', '직원 휴게실', { doors: [['S', 13.4, 0.9]] }),
-      R(12.75, 15.5, 4.45, 6.35, 'pantry', '', { open: 'W' }),
-      R(0, 2.45, 6.35, 7.65, 'mech', '기계실', { doors: [['E', 7.0, 0.8]] }),
-      R(0, 2.45, 7.65, 8.95, 'mech', '서버실', { doors: [['E', 8.3, 0.8]] }),
-      R(3.65, 8.2, 7.6, 10.15, 'storage', '진료 창고', { doors: [['E', 9.0, 0.9]] }),
+      STAFF(12.75, 15.5, 0, 4.45),
+      STAFF(12.75, 15.5, 4.45, 6.35),
+      STAFF(0, 2.45, 6.35, 7.65),
+      STAFF(0, 2.45, 7.65, 8.95),
+      STAFF(3.65, 8.2, 7.6, 10.15),
       R(0, 3.65, 8.95, 15.5, 'steril', '소독실 (클린)', { face: 'S', doors: [['N', 3.1, 0.9], ['S', 2.6, 1.2], ['E', 12.8, 0.9]] }),
       R(3.65, 8.2, 10.15, 15.5, 'steril', '소독실 (오염)', { doors: [['S', 6.6, 1.2]] }),
       R(8.2, 10.05, 13.5, 15.5, 'none', '', { open: 'NWE', doors: [['S', 9.125, 1.6, 'main']] }),
-      R(10.05, 15.5, 6.35, 8.9, 'locker', '탈의실', { doors: [['W', 8.3, 0.9]] }),
-      R(10.05, 15.5, 8.9, 11.4, 'storage', '데스크 창고', { doors: [['W', 10.1, 0.9]] }),
+      STAFF(10.05, 15.5, 6.35, 8.9),
+      STAFF(10.05, 15.5, 8.9, 11.4),
       ...CORE()],
     hotspots: [
       H(1, 'CAD/CAM실', 4.2, 3.2, '구강스캔 자료를 받아 컴퓨터로 보철물을 설계하고(CAD), 밀링 장비로 깎아 냅니다(CAM).', '/treatments/inlay', '인레이 보기', '스캔에서 보철물까지 3D'),
@@ -338,7 +396,7 @@ const FLOORS = [
       H(4, '소독실 (클린 구역)', 1.8, 12.2, '세척을 마친 기구를 포장하고 멸균해 보관하는 방입니다. 오염 구역과 방이 따로 나뉘어 있어요.', '/about', '병원 안내 보기'),
       H(5, '전략기획실', 9.4, 3.2, '진료실 밖의 일을 맡는 방입니다. 환자 안내와 병원 운영 시스템을 기획합니다.', '/mission', '병원 이야기 보기')] },
   { n: 3, name: '소아치과센터 · 문석준 원장 진료실', short: '소아치과 · 대표원장', basis: BASIS_DWG2, view: VIEW_L, decor: decor3, theme: 'white',
-    entrance: { x: px(6.1), z: pz(16.6), yaw: 0 },
+    entrance: { x: px(12.3), z: pz(16.2), yaw: Math.PI / 2 },
     rooms: [
       R(0, 7.3, 0, 6.6, 'none', '문석준 원장 진료실', { doors: [['E', 3.25, 1.3]] }),
       R(7.3, 11.8, 0, 2.55, 'office', '원장실', { doors: [['S', 9.1, 0.9]] }),
@@ -346,7 +404,7 @@ const FLOORS = [
       R(11.8, 15.5, 3.5, 6.55, 'opk', '소아 진료실 2', { doors: [['W', 4.0, 0.9]] }),
       R(9.75, 11.8, 2.55, 6.55, 'kidswait', '소아 대기실', { open: 'W' }),
       R(7.3, 7.8, 3.9, 8.35, 'cabwall', '', { solid: true, h: 2.2 }),
-      R(0, 1.95, 6.6, 8.35, 'mech', '기계실', { doors: [['E', 7.5, 0.8]] }),
+      STAFF(0, 1.95, 6.6, 8.35),
       R(1.95, 7.3, 6.6, 8.35, 'prep', '준비실', { doors: [['S', 6.7, 0.9]] }),
       R(0, 2.85, 8.35, 11.45, 'consult', '상담실 1', { doors: [['E', 10.8, 0.9]] }),
       R(0, 2.85, 11.45, 13.3, 'powder', '파우더룸', { open: 'E' }),
@@ -365,7 +423,7 @@ const FLOORS = [
       H(5, 'BDX 정밀검진', 13.4, 9.9, 'X-RAY실과 진단준비실이 나란히 있습니다. 촬영한 영상을 같이 보면서 설명을 듣습니다.', '/floor-guide', '층별 안내 보기', '촬영으로 무엇을 확인하나요 3D'),
       H(6, '상담실', 8.5, 13.7, '치료를 시작하기 전에 계획과 대안을 설명하는 방입니다.', '/doctors/moon', '문석준 원장 소개')] },
   { n: 4, name: '임플란트센터', short: '임플란트센터', basis: BASIS_DWG2, view: VIEW_L, decor: decor4, theme: 'dark',
-    entrance: { x: px(9.05), z: pz(16.6), yaw: 0 },
+    entrance: { x: px(12.3), z: pz(16.2), yaw: Math.PI / 2 },
     rooms: [
       R(0, 3.55, 0, 3.75, 'surg', '수술실 3', { doors: [['E', 3.1, 0.9]] }),
       R(3.55, 5.65, 0, 2.3, 'office', '원장실', { doors: [['S', 5.1, 0.85]] }),
@@ -380,8 +438,8 @@ const FLOORS = [
       R(3.55, 8.15, 13.15, 15.5, 'prep', '준비실', { doors: [['N', 4.6, 0.9]] }),
       R(8.15, 9.95, 13.5, 15.5, 'none', '', { open: 'NWE', doors: [['S', 9.05, 1.5, 'main']] }),
       R(9.95, 15.5, 0, 5.3, 'none', '대기실', { open: 'S' }),
-      R(9.95, 11.25, 5.3, 7.5, 'locker', '간이 탈의실', { doors: [['E', 5.85, 0.8]] }),
-      R(9.95, 11.25, 7.5, 9.4, 'mech', '기계실', { doors: [['E', 8.9, 0.8]] }),
+      STAFF(9.95, 11.25, 5.3, 7.5),
+      STAFF(9.95, 11.25, 7.5, 9.4),
       R(12.85, 15.5, 5.3, 8.15, 'recovery', '회복실', { doors: [['W', 5.9, 0.9]] }),
       R(12.85, 15.5, 8.15, 11.4, 'consult', '상담실', { doors: [['W', 10.2, 0.9]] }),
       ...CORE()],
@@ -397,18 +455,15 @@ const FLOORS = [
     rooms: [
       R(0, 26.9, 0, 8.8, 'none', '오픈 진료실', { doors: [['S', 7.45, 1.4, 'open'], ['S', 18.6, 1.7, 'open']] }),
       R(0, 6.65, 8.8, 12.15, 'none', '원장실', { doors: [['E', 9.4, 0.9]] }),
-      R(0, 1.65, 12.15, 13.85, 'locker', '탈의실', { doors: [['E', 13.0, 0.8]] }),
-      R(0, 1.65, 13.85, 15.5, 'wcs', '', { doors: [['E', 14.7, 0.8]] }),
-      R(1.65, 2.85, 12.15, 15.5, 'none', '', { doors: [['E', 14.3, 0.8]] }),
-      R(2.85, 6.65, 12.15, 15.5, 'none', '탕비실', { doors: [['N', 4.5, 1.0]] }),
+      STAFF(0, 6.65, 12.15, 15.5),
       R(6.65, 10.05, 8.8, 15.5, 'none', '준비실', { open: 'E', doors: [['S', 8.5, 1.4]] }),
       R(10.05, 13.0, 8.8, 11.4, 'none', '', { open: 'W' }),
       R(13.0, 15.5, 8.8, 11.4, 'pano', 'X-RAY실 1', { doors: [['E', 9.4, 0.85]] }),
       R(15.5, 17.7, 10.7, 13.05, 'pano', 'X-RAY실 2', { doors: [['N', 17.15, 0.85]] }),
-      R(15.5, 17.7, 13.05, 15.0, 'storage', '차트 · 비품실', { doors: [['E', 13.7, 0.85]] }),
+      STAFF(15.5, 17.7, 13.05, 15.0),
       R(19.45, 22.6, 10.0, 12.25, 'consult', '상담실 1', { doors: [['N', 20.0, 0.9]] }),
       R(22.6, 25.5, 10.0, 12.25, 'consult', '상담실 2', { doors: [['N', 23.2, 0.9]] }),
-      R(25.5, 26.9, 8.8, 12.25, 'mech', '기계실', { doors: [['S', 26.15, 0.8]] }),
+      STAFF(25.5, 26.9, 8.8, 12.25),
       R(17.7, 26.9, 12.25, 22.4, 'none', '대기실 · 접수', { open: 'all' }),
       R(15.5, 17.7, 17.5, 22.4, 'powder', '파우더룸', { doors: [['E', 18.1, 0.85]] }),
       ...CORE()],
@@ -669,7 +724,7 @@ function addWall(g, walls, x0, x1, z0, z1, h = WALL_H, mat = M.wall) {
 }
 // Rooms claim the walls on their own edges; shared edges merge, doors cut gaps, open sides claim nothing.
 // Space no room claims (corridors, the lift hall) is simply left walkable.
-function buildWalls(g, walls, spec, plate) {
+function buildWalls(g, walls, spec, plate, lintels = []) {
   const T = 0.12, lines = new Map();
   const L = (axis, c) => { const k = axis + c.toFixed(2); let l = lines.get(k); if (!l) { l = { axis, c, segs: [], doors: [] }; lines.set(k, l); } return l; };
   const onEdge = (axis, c) => axis === 'x' ? (Math.abs(c - plate.x0) < 0.03 || Math.abs(c - plate.x1) < 0.03) : (Math.abs(c - plate.z0) < 0.03 || Math.abs(c - plate.z1) < 0.03);
@@ -689,6 +744,7 @@ function buildWalls(g, walls, spec, plate) {
     for (const d of doors) {
       if (d.kind === 'open') continue;                      // a plain wide opening
       const mid = (d.a + d.b) / 2, w = d.b - d.a, isZ = l.axis === 'z', X = isZ ? mid : l.c, Z = isZ ? l.c : mid, ry = isZ ? 0 : Math.PI / 2;
+      lintels.push(isZ ? { x0: d.a, x1: d.b, z0: l.c - T / 2, z1: l.c + T / 2 } : { x0: l.c - T / 2, x1: l.c + T / 2, z0: d.a, z1: d.b });
       box(g, w + 0.02, WALL_H - 2.1, T, M.wall, X, 2.1, Z, ry);                                              // wall above the door
       box(g, w + 0.04, d.kind === 'main' ? 0.1 : 0.06, T + 0.03, d.kind === 'main' ? M.gold : d.kind === 'air' ? M.metal : M.woodLight, X, 2.1, Z, ry);
       if (!['wc', 'wcs', 'storage', 'mech', 'locker'].includes(d.kind)) box(g, w - 0.08, 2.1, 0.04, M.glass, X, 0, Z, ry);   // glass leaf
@@ -746,7 +802,7 @@ function buildFloor(spec) {
     }
     furnishRoom(g, room);
   }
-  buildWalls(g, walls, spec, plate); buildShell(g, walls, spec, plate);
+  const lintels = []; buildWalls(g, walls, spec, plate, lintels); buildShell(g, walls, spec, plate);
   if (!spec.full) addLabel('병원 외 공간', px((CLX + BW) / 2), 0, px((CLX + BW) / 2), 0);
   if (spec.decor) spec.decor(g);
   // street entrance on 1F: canopy at the west end of the hall
@@ -758,7 +814,7 @@ function buildFloor(spec) {
   for (const h of spec.hotspots) { const sp = pinSprite(h.num); sp.position.set(h.x, 2.0, h.z); sp.userData.hotspot = { ...h, floor: spec.n }; sp.visible = false; g.add(sp); hotspots.push(sp); }
   // floor label (overview)
   const label = textSprite(`${spec.n}F  ${spec.short || spec.name}`, { h: 1.15, px: 54 }); label.position.set(-OX - 1.5 - label.scale.x / 2, 1.6, 0); label.material.depthTest = false; label.renderOrder = 6; g.add(label);
-  const fg = { n: spec.n, spec, group: g, ceiling, hotspots, roomLabels, label, walls, floorMeshes, targetY: 0 };
+  const fg = { n: spec.n, spec, group: g, ceiling, hotspots, roomLabels, label, walls, camWalls: walls.concat(lintels), floorMeshes, targetY: 0 };
   floorGroups.push(fg); return fg;
 }
 // wait briefly for the webfont so canvas labels use it; fall back to the system font
@@ -768,9 +824,201 @@ FLOORS.forEach((spec) => withTheme(spec.theme, () => buildFloor(spec)));
 // ground
 const ground = new THREE.Mesh(new THREE.CircleGeometry(110, 48), new THREE.MeshStandardMaterial({ color: 0xE6DFD2, roughness: 1 })); ground.rotation.x = -Math.PI / 2; ground.position.y = -SLAB - 0.02; ground.receiveShadow = true; scene.add(ground);
 const plaza = new THREE.Mesh(new THREE.PlaneGeometry(BW + 10, BD + 10), new THREE.MeshStandardMaterial({ color: 0xDED5C5, roughness: 1 })); plaza.rotation.x = -Math.PI / 2; plaza.position.y = -SLAB - 0.01; plaza.receiveShadow = true; scene.add(plaza);
-const outdoor = new THREE.Group(); outdoor.position.y = -SLAB; scene.add(outdoor);
-for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; plant(outdoor, Math.cos(a) * 21, Math.sin(a) * 17 + (i % 2) * 2, 1.6); }
-for (let i = 0; i < 4; i++) bench(outdoor, -BW / 2 - 3.2, -5 + i * 3.3, Math.PI / 2, M.wood, 1.6);
+/* ---------------- exterior ---------------- */
+// Simplified from the clinic's own street photo (homepage images/clinic/building-exterior.jpg). The street side is plan Y = 0 (z = -OZ):
+// seen from the pavement the clinic block (X 0–15.5) is on the right, the other tenant's block on the left.
+const EXT = { group: new THREE.Group(), context: new THREE.Group(), street: new THREE.Group(), walls: [], solids: [], ground: [], doors: [] };
+scene.add(EXT.group, EXT.context, EXT.street);
+const LV = [0, 5.0, 9.0, 13.0, 17.0], ROOF = 23.6, FZ = -OZ;      // floor levels of the real building (1F–5F), parapet top, street face
+const rnd = (i) => { const s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };   // fixed, so every visitor sees the same blinds
+function gridTex(base, line, cw, ch) {
+  const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d');
+  x.fillStyle = base; x.fillRect(0, 0, 256, 256); x.strokeStyle = line; x.lineWidth = 3;
+  for (let i = 0; i <= 4; i++) { const t = i * 64; x.beginPath(); x.moveTo(t, 0); x.lineTo(t, 256); x.moveTo(0, t); x.lineTo(256, t); x.stroke(); }
+  const tex = new THREE.CanvasTexture(c); tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4; tex.userData = { w: cw * 4, h: ch * 4 }; return tex;
+}
+const TEX = { tile: gridTex('#A4A7AA', '#8D9094', 0.9, 0.6), stone: gridTex('#E3E1DC', '#D0CCC5', 1.2, 0.6), side: gridTex('#AEB1B3', '#9A9DA0', 0.9, 0.6), paver: gridTex('#D1CCC3', '#BDB7AC', 0.4, 0.4) };
+// a wall face whose tile grid keeps its real size
+function panel(g, tex, w, h, x, y, z, ry = 0) {
+  const t = tex.clone(); t.repeat.set(w / tex.userData.w, h / tex.userData.h); t.needsUpdate = true;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: t, roughness: 0.88 }));
+  m.position.set(x, y + h / 2, z); m.rotation.y = ry; m.receiveShadow = true; g.add(m); return m;
+}
+// a ground surface (pavement, car park); a tap outside lands on these
+function flat(g, tex, x0, x1, z0, z1, y = 0.004, mat = null) {
+  let material = mat;
+  if (!material) { const t = tex.clone(); t.repeat.set((x1 - x0) / tex.userData.w, (z1 - z0) / tex.userData.h); t.needsUpdate = true; material = new THREE.MeshStandardMaterial({ map: t, roughness: 1 }); }
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(x1 - x0, z1 - z0), material); m.rotation.x = -Math.PI / 2; m.position.set((x0 + x1) / 2, y, (z0 + z1) / 2); m.receiveShadow = true; g.add(m); return m;
+}
+const std = (color, roughness = 0.85, metalness = 0) => new THREE.MeshStandardMaterial({ color, roughness, metalness });
+Object.assign(M, {
+  winGlass: std(0x323C43, 0.2, 0.35), blind: std(0xE4E1DA, 0.9), mullion: std(0x8D9093, 0.5, 0.4), band: std(0x55595E, 0.6),
+  mass: std(0xA9ACAF, 0.9), pier: std(0x9EA1A4, 0.85), cap: std(0x8F9295, 0.8), stoneEdge: std(0xD6D3CD, 0.85),
+  shopLit: new THREE.MeshBasicMaterial({ color: 0xF4ECDD }), shopDim: new THREE.MeshBasicMaterial({ color: 0xB9BCBB }), shopFloor: std(0xE9E4DA, 0.9),
+  asphalt: std(0x4B4D50, 1), curb: std(0xBDB8AE, 1), lot: std(0x6E7073, 1), hedge: std(0x5E7F4E, 1), bollard: std(0x2A2B2D, 0.6),
+  lineW: new THREE.MeshBasicMaterial({ color: 0xE9E7E1 }), lineY: new THREE.MeshBasicMaterial({ color: 0xE2B33C }),
+  neighbour: std(0xC3C2BE, 0.95), neighbour2: std(0x9C9FA2, 0.95),
+  carW: std(0xE8E8E5, 0.4, 0.3), carS: std(0xA9ADB1, 0.4, 0.5), carB: std(0x2E3B52, 0.4, 0.4), carK: std(0x26272A, 0.4, 0.4),
+});
+function star4(ctx, x, y, r) { ctx.beginPath(); for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4 - Math.PI / 2, rr = i % 2 ? r * 0.28 : r; ctx.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } ctx.closePath(); ctx.fill(); }
+// dark sign band with white lettering, as on the building; the group's local -z is the side it faces
+function sign(g, text, w, h, x, y, z, ry = 0, big = false) {
+  const s = new THREE.Group(); s.position.set(x, y, z); s.rotation.y = ry; g.add(s);
+  box(s, w, h, 0.22, M.band, 0, 0, -0.11);
+  const c = document.createElement('canvas'); c.width = 2048; c.height = Math.max(64, Math.round(2048 * h / w)); const ctx = c.getContext('2d'), H = c.height;
+  const font = (wt, size) => `${wt} ${Math.round(size)}px "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif`;
+  ctx.fillStyle = '#56595E'; ctx.fillRect(0, 0, c.width, H); ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+  if (big) {   // round crest, the name, a small 의원 and a four-point sparkle
+    const cx = c.width * 0.16, r = H * 0.3, tx = cx + r * 1.7;
+    ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.arc(cx, H / 2, r, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#A9553F'; ctx.beginPath(); ctx.arc(cx, H / 2, r * 0.78, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#FFFFFF'; ctx.font = font(700, H * 0.42); ctx.fillText('서울비디치과', tx, H * 0.52);
+    const tw = ctx.measureText('서울비디치과').width; ctx.font = font(500, H * 0.2); ctx.fillText('의원', tx + tw + H * 0.06, H * 0.62); star4(ctx, tx + tw + H * 0.62, H * 0.26, H * 0.14);
+  } else {
+    ctx.fillStyle = '#B5634C'; ctx.fillRect(c.width * 0.03, H * 0.28, Math.max(6, H * 0.05), H * 0.44);
+    const x0 = c.width * 0.03 + H * 0.2, room = c.width - x0 - c.width * 0.03; let size = H * 0.4; ctx.font = font(700, size);
+    const tw = ctx.measureText(text).width; if (tw > room) { size *= room / tw; ctx.font = font(700, size); }   // long names shrink to fit the band
+    ctx.fillStyle = '#FFFFFF'; ctx.fillText(text, x0, H * 0.53);
+  }
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex })); m.position.set(0, h / 2, -0.225); m.rotation.y = Math.PI; s.add(m);
+  return s;
+}
+// a run of windows on the street face: dark glass, blinds pulled to different heights, mullions and a transom
+function windows(g, X0, X1, y0, h, seed, z = FZ) {
+  const a = px(X0), b = px(X1), w = b - a, n = Math.max(1, Math.round(w / 1.12)), cx = (a + b) / 2;
+  box(g, w, h, 0.04, M.winGlass, cx, y0, z - 0.02);
+  for (let i = 0; i < n; i++) { const bh = h * (0.15 + rnd(seed + i) * 0.6); box(g, w / n - 0.1, bh, 0.012, M.blind, a + (i + 0.5) * w / n, y0 + h - bh - 0.05, z - 0.046); }
+  for (let i = 0; i <= n; i++) box(g, 0.07, h + 0.1, 0.09, M.mullion, a + i * w / n, y0 - 0.05, z - 0.07);
+  box(g, w + 0.1, 0.08, 0.1, M.mullion, cx, y0 - 0.08, z - 0.07); box(g, w + 0.1, 0.08, 0.1, M.mullion, cx, y0 + h, z - 0.07); box(g, w, 0.06, 0.09, M.mullion, cx, y0 + h * 0.74, z - 0.07);
+}
+// a ground-floor shop front, 3 m deep, lit when it is the clinic
+function storefront(g, X0, X1, lit, doorX) {
+  const a = px(X0), b = px(X1), w = b - a, cx = (a + b) / 2, H1 = 2.9;
+  flat(g, null, a, b, FZ, FZ + 2.95, 0.012, M.shopFloor);
+  const back = new THREE.Mesh(new THREE.PlaneGeometry(w, H1), lit ? M.shopLit : M.shopDim); back.position.set(cx, H1 / 2, FZ + 2.96); back.rotation.y = Math.PI; g.add(back);
+  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(w, 2.95), lit ? M.shopLit : M.shopDim); ceil.rotation.x = Math.PI / 2; ceil.position.set(cx, H1 - 0.01, FZ + 1.48); g.add(ceil);
+  const glass = new THREE.Mesh(new THREE.PlaneGeometry(w, H1), M.glass); glass.position.set(cx, H1 / 2, FZ - 0.01); g.add(glass);
+  const n = Math.max(2, Math.round(w / 2.2));
+  for (let i = 0; i <= n; i++) box(g, 0.08, H1, 0.1, M.mullion, a + i * w / n, 0, FZ - 0.03);
+  box(g, w + 0.1, 0.1, 0.12, M.mullion, cx, H1 - 0.1, FZ - 0.03); box(g, w, 0.06, 0.1, M.mullion, cx, 2.35, FZ - 0.03);
+  if (doorX != null) { const d = px(doorX); box(g, 0.1, 2.3, 0.14, M.dark, d - 0.85, 0, FZ - 0.05); box(g, 0.1, 2.3, 0.14, M.dark, d + 0.85, 0, FZ - 0.05); box(g, 1.8, 0.1, 0.14, M.dark, d, 2.3, FZ - 0.05); box(g, 0.04, 0.7, 0.06, M.metal, d - 0.12, 0.9, FZ - 0.1); box(g, 0.04, 0.7, 0.06, M.metal, d + 0.12, 0.9, FZ - 0.1); }
+}
+function car(g, x, z, mat) {
+  box(g, 4.4, 0.7, 1.8, mat, x, 0.22, z); box(g, 2.3, 0.6, 1.62, M.winGlass, x + 0.15, 0.92, z); box(g, 2.2, 0.06, 1.66, mat, x + 0.15, 1.5, z);
+  for (const [dx, dz] of [[-1.4, -0.86], [1.4, -0.86], [-1.4, 0.86], [1.4, 0.86]]) cyl(g, 0.33, 0.24, M.dark, x + dx, 0.21, z + dz, Math.PI / 2);
+  EXT.walls.push({ x0: x - 2.2, x1: x + 2.2, z0: z - 0.9, z1: z + 0.9 });
+}
+function tree(g, x, z, s = 1, solid = false) {
+  cyl(g, 0.11 * s, 2.6 * s, M.brown, x, 0, z); sph(g, 1.0 * s, M.leaf, x, 3.3 * s, z); sph(g, 0.75 * s, M.leaf, x + 0.5 * s, 2.9 * s, z - 0.3 * s); sph(g, 0.7 * s, M.leaf, x - 0.45 * s, 3.0 * s, z + 0.35 * s);
+  if (solid) EXT.walls.push({ x0: x - 0.2, x1: x + 0.2, z0: z - 0.2, z1: z + 0.2 });
+}
+function buildExterior() {
+  const g = EXT.group;
+  const massTop = box(g, BW - 0.02, ROOF - 2.9, BD - 0.02, M.mass, 0, 2.9, 0), massBase = box(g, BW - 0.02, 2.9, BD - 3.02, M.mass, 0, 0, 1.5);   // the shops are 3 m deep
+  // street face: grey tile on the clinic block; the other tenant's white stone stands proud between 2F and 4F
+  panel(g, TEX.tile, CLX, ROOF - 2.9, px(CLX / 2), 2.9, FZ - 0.005, Math.PI);
+  panel(g, TEX.tile, BW - CLX, ROOF - 17.6, px((CLX + BW) / 2), 17.6, FZ - 0.005, Math.PI);
+  panel(g, TEX.stone, BW - CLX, 17.6 - 2.9, px((CLX + BW) / 2), 2.9, FZ - 0.13, Math.PI);
+  box(g, 0.13, 17.6 - 2.9, 0.13, M.stoneEdge, px(CLX) + 0.065, 2.9, FZ - 0.065); box(g, BW - CLX, 0.13, 0.13, M.stoneEdge, px((CLX + BW) / 2), 17.47, FZ - 0.065);
+  for (let k = 1; k <= 4; k++) { windows(g, 1.0, 7.6, LV[k] + 0.85, 1.85, k * 20); windows(g, 8.4, 15.0, LV[k] + 0.85, 1.85, k * 20 + 9); }
+  windows(g, 16.0, 26.4, LV[4] + 0.85, 1.85, 97); windows(g, 16.2, 22.9, LV[1] + 0.9, 1.75, 131, FZ - 0.13);
+  // the clinic's sign bands, one above each row of windows (names follow today's floor guide)
+  const sx = px((1.3 + 14.9) / 2), sw = 13.6;
+  sign(g, '', sw, 2.6, sx, LV[4] + 2.95, FZ, 0, true);
+  sign(g, '5F 종합진료센터 · 4F 임플란트센터', sw, 1.7, sx, LV[3] + 2.95, FZ);
+  sign(g, '3F 소아치과 · 대표원장 진료', sw, 1.7, sx, LV[2] + 2.95, FZ);
+  sign(g, '2F 디지털기공센터', sw, 1.7, sx, LV[1] + 2.95, FZ);
+  sign(g, '1F 인비절라인 교정센터', 6.0, 1.45, px(4.3), 3.15, FZ);
+  // ground floor: two clinic shop fronts (the right-hand one has the street door), piers, the other tenant's unlit glass
+  storefront(g, 0.6, 7.6, true, 4.3); storefront(g, 8.2, 15.0, true, null); storefront(g, 15.8, 26.6, false, 21.2);
+  for (const [X0, X1] of [[0, 0.6], [7.6, 8.2], [15.0, 15.8], [26.6, BW]]) box(g, X1 - X0, 2.9, 0.3, M.pier, px((X0 + X1) / 2), 0, FZ);
+  box(g, 2.4, 1.0, 0.6, M.white, px(4.3), 0, FZ + 2.3); box(g, 2.5, 0.04, 0.68, M.woodLight, px(4.3), 1.0, FZ + 2.3); plant(g, px(1.3), FZ + 2.3, 0.9); plant(g, px(7.0), FZ + 2.3, 0.8);
+  bench(g, px(11.6), FZ + 2.35, 0, M.sage, 3.0); box(g, 1.6, 0.9, 0.05, M.screen, px(11.6), 1.4, FZ + 2.9);
+  // the other faces, plainer; on the car-park side the lobby door under a canopy (the same door the 1F hall leads to)
+  panel(g, TEX.side, BD, ROOF, -OX - 0.005, 0, 0, -Math.PI / 2); panel(g, TEX.side, BD, ROOF, OX + 0.005, 0, 0, Math.PI / 2); panel(g, TEX.side, BW, ROOF, 0, 0, OZ + 0.005, 0);
+  const lz = pz(16.5);
+  box(g, 0.12, 2.6, 2.6, M.dark, -OX - 0.06, 0, lz);
+  const lg = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.45), M.glass); lg.rotation.y = -Math.PI / 2; lg.position.set(-OX - 0.13, 1.225, lz); g.add(lg);
+  box(g, 0.06, 0.7, 0.04, M.metal, -OX - 0.16, 0.9, lz - 0.12); box(g, 0.06, 0.7, 0.04, M.metal, -OX - 0.16, 0.9, lz + 0.12);
+  box(g, 1.9, 0.16, 3.6, M.gold, -OX - 0.95, 2.95, lz);
+  sign(g, '서울비디치과 로비', 3.4, 0.62, -OX - 0.005, 3.25, lz, Math.PI / 2);
+  for (let k = 1; k <= 4; k++) box(g, 0.06, 1.3, 1.8, M.winGlass, -OX - 0.03, LV[k] + 1.4, pz(21.0));
+  for (let k = 1; k <= 4; k++) for (const X of [2.9, 6.0]) box(g, 0.9, 0.6, 0.06, M.winGlass, px(X), LV[k] + 1.8, OZ + 0.03);
+  // roof: parapet cap, lift machine room over the core, condensers
+  for (const [w, d, x, z] of [[BW, 0.3, 0, -OZ + 0.15], [BW, 0.3, 0, OZ - 0.15], [0.3, BD, -OX + 0.15, 0], [0.3, BD, OX - 0.15, 0]]) box(g, w, 0.35, d, M.cap, x, ROOF, z);
+  const machine = box(g, 5.4, 2.8, 4.9, M.mass, px(12.8), ROOF, pz(19.9));
+  for (let i = 0; i < 4; i++) box(g, 1.3, 1.0, 0.8, M.metal, px(3 + i * 2.2), ROOF, pz(14));
+  g.traverse((o) => { if (o.isMesh) o.castShadow = false; }); for (const m of [massTop, massBase, machine]) m.castShadow = true;
+  EXT.walls.push({ x0: -OX, x1: OX, z0: -OZ, z1: OZ }); EXT.solids.push({ x0: -OX, x1: OX, z0: -OZ, z1: OZ });
+  EXT.doors.push(
+    { id: 'front', title: '1층 정문', x0: px(2.8), x1: px(5.8), z0: FZ - 1.7, z1: FZ, go: () => goWalk(1, IN_FRONT) },
+    { id: 'lobby', title: '1층 로비 출입구', x0: -OX - 1.9, x1: -OX, z0: pz(15.0), z1: pz(18.0), go: () => goWalk(1) });
+}
+// the street around it: neighbours (shown only outside), and the pavement, road and car park (always)
+function buildContext() {
+  const g = EXT.context;
+  const block = (x0, x1, z0, z1, h, mat, rows) => {
+    const m = box(g, x1 - x0, h, z1 - z0, mat, (x0 + x1) / 2, 0, (z0 + z1) / 2); m.castShadow = true;
+    EXT.solids.push({ x0, x1, z0, z1 }); EXT.walls.push({ x0, x1, z0, z1 });
+    for (let i = 0; i < rows; i++) box(g, (x1 - x0) * 0.86, 1.5, 0.05, M.winGlass, (x0 + x1) / 2, 4.2 + i * 3.7, z0 - 0.03).castShadow = false;
+  };
+  block(OX + 0.4, OX + 14.6, FZ + 0.6, OZ - 0.4, 20.5, M.neighbour, 5);
+  block(-OX - 26, -OX - 11.6, FZ + 1.2, OZ + 1, 24, M.neighbour2, 6);
+  block(-OX - 8, OX + 16, OZ + 7, OZ + 21, 12, M.neighbour, 0);
+}
+function buildStreet() {
+  const g = EXT.street, X0 = -OX - 11, X1 = OX + 14.6, Zf = FZ - 4.8, Zb = OZ + 6;
+  box(g, X1 - X0, 0.315, Zb - Zf, M.curb, (X0 + X1) / 2, -0.32, (Zf + Zb) / 2);                      // the raised plot the building stands on (just under the 1F slab)
+  EXT.ground.push(flat(g, TEX.paver, X0, X1, Zf, FZ), flat(g, null, X0, -OX, FZ, Zb, 0.004, M.lot), flat(g, TEX.paver, -OX, X1, OZ, Zb), flat(g, TEX.paver, OX, X1, FZ, OZ));
+  box(g, 140, 0.16, 14.2, M.asphalt, 0, -0.32, Zf - 7.1);
+  flat(g, null, -70, 70, Zf - 7.2, Zf - 7.05, -0.155, M.lineY); flat(g, null, -70, 70, Zf - 7.4, Zf - 7.25, -0.155, M.lineY);
+  for (let x = -66; x < 70; x += 6) { flat(g, null, x, x + 3, Zf - 3.6, Zf - 3.48, -0.155, M.lineW); flat(g, null, x, x + 3, Zf - 10.8, Zf - 10.68, -0.155, M.lineW); }
+  box(g, 140, 0.32, 4, M.curb, 0, -0.32, Zf - 16.2);
+  // hedge and bollards along the kerb, a street lamp, a few trees
+  for (let x = X0 + 0.6; x < X1 - 1; x += 4.6) { const l = Math.min(3.4, X1 - 0.6 - x); box(g, l, 0.55, 0.6, M.hedge, x + l / 2, 0, FZ - 4.15); EXT.walls.push({ x0: x, x1: x + l, z0: FZ - 4.45, z1: FZ - 3.85 }); }
+  for (let x = X0 + 0.4; x < X1; x += 2.3) { cyl(g, 0.09, 0.9, M.bollard, x, 0, FZ - 4.6); cyl(g, 0.095, 0.08, M.yellow, x, 0.62, FZ - 4.6); }
+  const lx = px(15.3), lzs = FZ - 4.55; cyl(g, 0.09, 8.6, M.bollard, lx, 0, lzs); box(g, 0.12, 0.12, 1.8, M.bollard, lx, 8.45, lzs - 0.85); box(g, 0.4, 0.16, 0.7, M.white, lx, 8.3, lzs - 1.7); box(g, 0.3, 0.02, 0.55, M.lamp, lx, 8.29, lzs - 1.7);
+  tree(g, px(20.5), FZ - 4.15, 0.9); tree(g, -OX - 2.5, FZ - 4.15, 0.9); tree(g, -OX - 10.2, FZ + 2.4, 1, true); tree(g, -OX - 10.2, OZ + 3.5, 1, true);
+  // car park beside the building: bays along the far edge, a clear walk to the lobby door
+  for (let k = 0; k <= 7; k++) { const z = FZ + 0.8 + k * 2.6; flat(g, null, -OX - 11, -OX - 6, z - 0.05, z + 0.05, 0.008, M.lineW); }
+  [[0, M.carW], [1, M.carS], [3, M.carB], [4, M.carW], [6, M.carK]].forEach(([k, m]) => car(g, -OX - 8.5, FZ + 0.8 + (k + 0.5) * 2.6, m));
+  g.traverse((o) => { if (o.isMesh) o.castShadow = false; });
+  // keep visitors on this side of the street and inside the plot
+  EXT.walls.push({ x0: -200, x1: 200, z0: -200, z1: FZ - 4.3 }, { x0: -200, x1: 200, z0: Zb - 0.2, z1: 200 }, { x0: -200, x1: X0 + 0.2, z0: -200, z1: 200 }, { x0: X1 - 0.2, x1: 200, z0: -200, z1: 200 });
+}
+buildExterior(); buildContext(); buildStreet();
+
+/* ---------------- characters ---------------- */
+const AV_COLORS = ['#C9A042', '#4F86C6', '#E0735E', '#4E9F6E', '#8C78C2', '#3F4249'];
+const AV_COLOR_NAMES = ['금색', '파랑', '코랄', '초록', '보라', '먹색'];
+const AV_MATS = AV_COLORS.map((c) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.65 }));
+Object.assign(M, { skin: std(0xF2D4B8, 0.8), hair: std(0x3A2A22, 0.8), pants: std(0x3B3F47, 0.8), shoe: std(0x2B2826, 0.8), eye: new THREE.MeshBasicMaterial({ color: 0x1B150A }), ring: new THREE.MeshBasicMaterial({ color: 0xC9A042, transparent: true, opacity: 0.85 }) });
+const outsideGroup = new THREE.Group(); scene.add(outsideGroup);   // characters standing outside; inside, a character belongs to its floor's group
+// a small rounded figure facing local -z, with its nickname above
+function makeAvatar(name, color, mine) {
+  const a = new THREE.Group(), shirt = AV_MATS[color] || AV_MATS[0];
+  const joint = (x, y) => { const p = new THREE.Group(); p.position.set(x, y, 0); a.add(p); return p; };
+  const legL = joint(-0.1, 0.56), legR = joint(0.1, 0.56), armL = joint(-0.27, 1.0), armR = joint(0.27, 1.0);
+  for (const l of [legL, legR]) { box(l, 0.14, 0.5, 0.16, M.pants, 0, -0.52, 0); box(l, 0.15, 0.09, 0.24, M.shoe, 0, -0.56, -0.03); }
+  for (const r of [armL, armR]) { cyl(r, 0.065, 0.42, shirt, 0, -0.42, 0); sph(r, 0.07, M.skin, 0, -0.46, 0); }
+  cyl(a, 0.21, 0.5, shirt, 0, 0.52, 0); sph(a, 0.21, shirt, 0, 1.0, 0).scale.set(0.21, 0.12, 0.21);
+  sph(a, 0.24, M.skin, 0, 1.3, 0); sph(a, 0.25, M.hair, 0, 1.36, 0.05).scale.set(0.25, 0.22, 0.24);
+  sph(a, 0.032, M.eye, -0.085, 1.31, -0.215); sph(a, 0.032, M.eye, 0.085, 1.31, -0.215);
+  if (mine) { const ring = new THREE.Mesh(GEO.torus, M.ring); ring.scale.set(0.45, 0.45, 0.45); ring.rotation.x = Math.PI / 2; ring.position.y = 0.03; a.add(ring); }
+  const tag = textSprite(name, { h: 0.28, px: 40, pad: 16, fg: mine ? '#1B150A' : '#2D2A26', bg: mine ? 'rgba(201,160,66,0.95)' : 'rgba(255,253,249,0.92)', border: mine ? null : '#D9CFBF' });
+  tag.position.y = 1.86; tag.renderOrder = 8; tag.userData.base = [tag.scale.x, tag.scale.y]; a.add(tag);
+  a.userData = { legL, legR, armL, armR, tag, phase: 0, swing: 0 };
+  a.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
+  return a;
+}
+function disposeAvatar(a) { const t = a.userData.tag; if (t) { t.material.map.dispose(); t.material.dispose(); } }
+function placeAvatar(a, f) { const parent = f === 0 ? outsideGroup : floorGroups[f - 1].group; if (a.parent !== parent) parent.add(a); }
+function animateAvatar(a, v, dt) {
+  const u = a.userData;
+  u.swing += ((v > 0.25 ? 1 : 0) - u.swing) * Math.min(1, dt * 8); u.phase += dt * Math.min(v, 4.5) * 3.2;
+  const s = Math.sin(u.phase) * 0.6 * u.swing;
+  u.legL.rotation.x = s; u.legR.rotation.x = -s; u.armL.rotation.x = -s * 0.8; u.armR.rotation.x = s * 0.8;
+}
 
 /* ---------------- theme ---------------- */
 function applyTheme() {
@@ -786,30 +1034,59 @@ new MutationObserver(applyTheme).observe(document.documentElement, { attributes:
 
 /* ---------------- state / camera ---------------- */
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const OUT_SPAWN = { x: px(7.0), z: -OZ - 2.6, yaw: Math.PI };     // the pavement in front of the clinic, facing it
+const OUT_EXIT = { x: -OX - 2.6, z: pz(15.0), yaw: 0 };           // just outside the lobby door, facing the street
+const IN_FRONT = { x: px(6.1), z: pz(12.2), yaw: 0 };            // in through the 1F street door: the waiting area, facing reception
+const LIFT_ZONE = { x0: px(10.1), x1: px(15.45), z0: pz(16.75), z1: pz(17.5) };
+const EXIT_ZONE = { x0: px(0), x1: px(2.3), z0: pz(15.55), z1: pz(17.45) };
+const OUT_BASIS = '병원 외관 사진을 단순화한 모습이에요';
 const state = {
-  mode: 'overview',          // overview | floor | walk
-  floor: 0,                  // 1..5 or 0
-  orbit: { theta: -0.7, phi: 1.02, radius: 66, target: new THREE.Vector3(0, 12.6, 0) },
-  walk: { pos: new THREE.Vector3(-12, 1.6, 0), yaw: -Math.PI / 2, pitch: 0, moveTo: null },
+  mode: 'gate',              // gate (pick a nickname; exterior behind) | walk (your character) | overview | floor
+  floor: 0,                  // floor on screen: 1..5, or 0 for the overview and outside
+  orbit: { theta: Math.PI + 0.35, phi: 1.28, radius: 58, target: new THREE.Vector3(0, 9, -4) },
+  walk: { floor: 0, pos: new THREE.Vector3(OUT_SPAWN.x, 0, OUT_SPAWN.z), yaw: OUT_SPAWN.yaw, face: OUT_SPAWN.yaw, pitch: 0.12, dist: null, moveTo: null, speed: 0, push: 0 },
   autoRotate: !reduceMotion,
   selected: null,
   transition: null,
 };
+const isOutside = () => state.mode === 'gate' || (state.mode === 'walk' && state.walk.floor === 0);
 const keys = new Set();
 const portrait = () => camera.aspect > 0 && camera.aspect < 1;
 function fitRadius(base) { const a = camera.aspect > 0 ? camera.aspect : 1.4; return base * THREE.MathUtils.clamp(1.3 / a, 0.9, 1.3); }
 const overviewRadius = () => portrait() ? 68 : fitRadius(66);
 const floorRadius = (n) => { const v = FLOORS[n - 1].view; return portrait() ? v.rp : fitRadius(v.r); };
+const gateRadius = () => portrait() ? 84 : fitRadius(56);
+const groundY = (f) => f === 0 ? 0 : floorGroups[f - 1].group.position.y;
+const wallsOf = (f) => f === 0 ? EXT.walls : floorGroups[f - 1].walls;
+const followDefault = (f) => f === 0 ? 9 : 3.2;
+const followRange = (f) => f === 0 ? [3, 24] : [1.3, 4.8];
+const inZone = (p, r) => p.x > r.x0 && p.x < r.x1 && p.z > r.z0 && p.z < r.z1;
+const turnToward = (a, b, k) => a + Math.atan2(Math.sin(b - a), Math.cos(b - a)) * Math.min(1, k);
+const wrap = (a) => Math.atan2(Math.sin(a), Math.cos(a));
+function blocked(walls, x, z, rad = 0.32) { for (const w of walls) if (x > w.x0 - rad && x < w.x1 + rad && z > w.z0 - rad && z < w.z1 + rad) return true; return false; }
+function tryMove(walls, dx, dz) { const p = state.walk.pos; if (!blocked(walls, p.x + dx, p.z)) p.x += dx; if (!blocked(walls, p.x, p.z + dz)) p.z += dz; }
+// third-person camera: bring it in front of any wall between it and the character
+function clearDist(T, yaw, e, d, walls) {
+  const ce = Math.max(0.15, Math.cos(e)), hd = d * ce, sx = Math.sin(yaw), sz = Math.cos(yaw);
+  for (let s = 0.3; s < hd; s += 0.12) if (blocked(walls, T.x + sx * s, T.z + sz * s, 0.15)) return Math.max(0.35, s - 0.25) / ce;
+  return d;
+}
+let camDist = 3;
 function desiredPose() {
-  const pos = new THREE.Vector3(), quat = new THREE.Quaternion(), m = new THREE.Matrix4();
+  const pos = new THREE.Vector3(), quat = new THREE.Quaternion(), m = new THREE.Matrix4(), up = new THREE.Vector3(0, 1, 0);
   if (state.mode === 'walk') {
-    pos.copy(state.walk.pos); pos.y = floorGroups[state.floor - 1].group.position.y + 1.6;
-    const dir = new THREE.Vector3(-Math.sin(state.walk.yaw) * Math.cos(state.walk.pitch), Math.sin(state.walk.pitch), -Math.cos(state.walk.yaw) * Math.cos(state.walk.pitch));
-    m.lookAt(pos, pos.clone().add(dir), new THREE.Vector3(0, 1, 0)); quat.setFromRotationMatrix(m);
+    const w = state.walk, out = w.floor === 0, base = groundY(w.floor);
+    const T = new THREE.Vector3(w.pos.x, base + 1.45, w.pos.z);
+    const e = THREE.MathUtils.clamp((out ? 0.3 : 0.4) - w.pitch * 0.55, -0.12, 1.0);   // drag up to look up: the camera drops behind the character
+    const d = clearDist(T, w.yaw, e, w.dist ?? followDefault(w.floor), out ? EXT.solids : floorGroups[w.floor - 1].camWalls); camDist = d;
+    pos.set(T.x + Math.sin(w.yaw) * Math.cos(e) * d, T.y + Math.sin(e) * d, T.z + Math.cos(w.yaw) * Math.cos(e) * d);
+    pos.y = out ? Math.max(pos.y, 0.3) : THREE.MathUtils.clamp(pos.y, base + 0.5, base + CEIL_Y - 0.2);
+    const lift = THREE.MathUtils.clamp(w.pitch, 0, 1) * (out ? 9 : 1), ahead = out ? 0.6 : 1.2;
+    m.lookAt(pos, new THREE.Vector3(T.x - Math.sin(w.yaw) * ahead, T.y + lift, T.z - Math.cos(w.yaw) * ahead), up); quat.setFromRotationMatrix(m);
   } else {
     const o = state.orbit;
     pos.set(o.target.x + o.radius * Math.sin(o.phi) * Math.sin(o.theta), o.target.y + o.radius * Math.cos(o.phi), o.target.z + o.radius * Math.sin(o.phi) * Math.cos(o.theta));
-    m.lookAt(pos, o.target, new THREE.Vector3(0, 1, 0)); quat.setFromRotationMatrix(m);
+    m.lookAt(pos, o.target, up); quat.setFromRotationMatrix(m);
   }
   return { pos, quat };
 }
@@ -817,34 +1094,37 @@ function startTransition(dur = 1.0) { state.transition = { t0: performance.now()
 const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 /* ---------------- mode changes ---------------- */
-const floorTitle = $('#floorTitle'), ftBig = $('#ftBig'), ftName = $('#ftName'), ftBasis = $('#ftBasis'), hint = $('#hint'), chips = $('#chips'), keysHint = $('#keys'), walkBtn = $('#walkBtn');
+const floorTitle = $('#floorTitle'), ftBig = $('#ftBig'), ftName = $('#ftName'), ftBasis = $('#ftBasis'), hint = $('#hint'), chips = $('#chips'), keysHint = $('#keys'), walkBtn = $('#walkBtn'), rail = $('#rail');
 const isTouch = matchMedia('(pointer: coarse)').matches;
 
 function setVisibility() {
+  const out = isOutside(), inFloor = state.mode === 'floor' || state.mode === 'walk';
+  EXT.group.visible = out; EXT.context.visible = out;
   for (const f of floorGroups) {
-    const inFloorMode = state.mode !== 'overview';
-    f.group.visible = !inFloorMode || f.n <= state.floor;
-    f.label.visible = !inFloorMode;
-    const current = inFloorMode && f.n === state.floor;
+    f.group.visible = !out && (!inFloor || f.n <= state.floor);
+    f.label.visible = state.mode === 'overview';
+    const current = !out && inFloor && f.n === state.floor;
     f.roomLabels.forEach((s) => { s.visible = current; const p = state.mode === 'walk' ? s.userData.walk : s.userData.view; s.position.set(p[0], p[1], p[2]); });
     f.hotspots.forEach((s) => s.visible = current);
     f.ceiling.visible = current && state.mode === 'walk';
     (f.ceiling.userData.lights || []).forEach((l) => l.visible = f.ceiling.visible);
-    f.targetY = inFloorMode ? (f.n - 1) * SPACING_REAL : (f.n - 1) * SPACING_EXPLODED;
+    f.targetY = state.mode === 'overview' ? (f.n - 1) * SPACING_EXPLODED : (f.n - 1) * SPACING_REAL;
   }
 }
 function updateUI() {
-  document.querySelectorAll('.rail [data-floor]').forEach((b) => b.classList.toggle('on', Number(b.dataset.floor) === (state.mode === 'overview' ? 0 : state.floor)));
+  const out = isOutside(), cur = state.mode === 'overview' ? '0' : state.mode === 'gate' ? '' : out ? 'out' : String(state.floor);
+  document.querySelectorAll('.rail [data-floor]').forEach((b) => b.classList.toggle('on', b.dataset.floor === cur));
+  rail.hidden = state.mode === 'gate';
   walkBtn.classList.toggle('on', state.mode === 'walk'); walkBtn.setAttribute('aria-pressed', String(state.mode === 'walk'));
-  walkBtn.lastChild.textContent = state.mode === 'walk' ? ' 둘러보기로' : ' 걸어보기';
+  walkBtn.lastChild.textContent = state.mode === 'walk' ? ' 둘러보기로' : ' 내 캐릭터로';
   canvas.classList.toggle('walking', state.mode === 'walk');
-  if (state.mode === 'overview') { floorTitle.hidden = true; chips.hidden = true; keysHint.hidden = true; hint.textContent = isTouch ? '드래그로 돌리고, 층을 눌러 보세요' : '드래그로 돌리고, 휠로 확대 · 층을 클릭해 들어가 보세요'; }
-  else {
-    const spec = FLOORS[state.floor - 1]; floorTitle.hidden = false; ftBig.textContent = `${spec.n}F`; ftName.textContent = spec.name; ftBasis.textContent = spec.basis;
-    chips.hidden = false; chips.innerHTML = spec.hotspots.map((h) => `<button data-h="${h.num}" class="${state.selected && state.selected.num === h.num ? 'on' : ''}"><span class="n">${h.num}</span>${h.title}</button>`).join('');
-    keysHint.hidden = !(state.mode === 'walk' && !isTouch);
-    hint.textContent = state.mode === 'walk' ? (isTouch ? '바닥을 눌러 이동 · 드래그로 둘러보기' : '금색 표시를 눌러 설명을 보세요') : '금색 표시를 눌러 설명 보기';
-  }
+  keysHint.hidden = !(state.mode === 'walk' && !isTouch);
+  if (state.mode === 'gate') { floorTitle.hidden = true; chips.hidden = true; hint.textContent = '닉네임을 정하면 건물 앞에서 시작해요'; return; }
+  if (state.mode === 'overview') { floorTitle.hidden = true; chips.hidden = true; hint.textContent = isTouch ? '드래그로 돌리고, 층을 눌러 보세요' : '드래그로 돌리고, 휠로 확대 · 층을 클릭해 들어가 보세요'; return; }
+  if (out) { floorTitle.hidden = false; ftBig.textContent = '외관'; ftName.textContent = '서울비디치과 건물 앞'; ftBasis.textContent = OUT_BASIS; chips.hidden = true; hint.textContent = '건물 입구로 걸어가면 들어갈 수 있어요'; return; }
+  const spec = FLOORS[state.floor - 1]; floorTitle.hidden = false; ftBig.textContent = `${spec.n}F`; ftName.textContent = spec.name; ftBasis.textContent = spec.basis;
+  chips.hidden = false; chips.innerHTML = spec.hotspots.map((h) => `<button data-h="${h.num}" class="${state.selected && state.selected.num === h.num ? 'on' : ''}"><span class="n">${h.num}</span>${h.title}</button>`).join('');
+  hint.textContent = state.mode === 'walk' ? (isTouch ? '바닥을 눌러 이동 · 드래그로 둘러보기' : '금색 표시를 눌러 설명을 보세요') : '금색 표시를 눌러 설명 보기';
 }
 function goOverview() {
   state.mode = 'overview'; state.floor = 0; state.selected = null; hideCard();
@@ -860,11 +1140,19 @@ function goFloor(n, opts = {}) {
   if (fromWalk) state.orbit.theta = state.walk.yaw; else if (!fromFloor) state.orbit.theta = 0;   // same way up as the drawings: lift hall at the bottom
   setVisibility(); updateUI(); startTransition(1.0);
 }
+// put your character on floor n (0 = outside), at a given spot or the usual way in
 function goWalk(n, at) {
-  const spec = FLOORS[n - 1]; state.mode = 'walk'; state.floor = n; state.autoRotate = false;
-  const e = at || spec.entrance; state.walk.pos.set(e.x, 1.6, e.z); state.walk.yaw = e.yaw; state.walk.pitch = at ? -0.05 : 0; state.walk.moveTo = null;
-  if (!at) { state.selected = null; card.hidden = true; }   // a card from another floor must not follow you
-  setVisibility(); updateUI(); startTransition(1.1);
+  const out = n === 0, e = at || (out ? OUT_SPAWN : FLOORS[n - 1].entrance), w = state.walk;
+  if (!at || n !== w.floor) { state.selected = null; card.hidden = true; }   // a card from another floor must not follow you
+  state.mode = 'walk'; state.floor = n; w.floor = n; state.autoRotate = false;
+  w.pos.set(e.x, 0, e.z); w.yaw = e.yaw; w.face = e.yaw; w.pitch = out ? 0.12 : 0; w.moveTo = null; w.dist = null; w.push = 0;
+  placeMe(); setVisibility(); updateUI(); startTransition(1.1); liveSend(true);
+}
+// back to your character wherever you left it
+function resumeWalk() {
+  const w = state.walk; state.mode = 'walk'; state.floor = w.floor; state.autoRotate = false; w.moveTo = null;
+  if (state.selected && state.selected.floor !== w.floor) { state.selected = null; card.hidden = true; }
+  setVisibility(); updateUI(); startTransition(1.0);
 }
 
 /* hotspot card */
@@ -881,12 +1169,12 @@ function focusHotspot(h) {
   showHotspot(h);
   const fy = (h.floor - 1) * SPACING_REAL;
   if (state.mode === 'walk') {
-    // stand between the hotspot and the way into its room, and look at it
+    // your character steps between the hotspot and the way into its room, and turns to it
     const room = FLOORS[h.floor - 1].rooms.find((r) => !r.solid && r.name && h.x > r.x0 && h.x < r.x1 && h.z > r.z0 && h.z < r.z1);
     let sx = h.x, sz = h.z + 1.9;
     if (h.stand) { sx = h.stand.x; sz = h.stand.z; }
     else if (room) { const v = { N: [0, -1], S: [0, 1], W: [-1, 0], E: [1, 0] }[faceOf(room)]; sx = THREE.MathUtils.clamp(h.x + v[0] * 1.9, room.x0 + 0.45, room.x1 - 0.45); sz = THREE.MathUtils.clamp(h.z + v[1] * 1.9, room.z0 + 0.45, room.z1 - 0.45); }
-    state.walk.pos.set(sx, 1.6, sz); state.walk.yaw = Math.atan2(-(h.x - sx), -(h.z - sz)); state.walk.pitch = -0.08; state.walk.moveTo = null; startTransition(0.9);
+    const w = state.walk; w.pos.set(sx, 0, sz); w.yaw = Math.atan2(-(h.x - sx), -(h.z - sz)); w.face = w.yaw; w.pitch = 0; w.moveTo = null; startTransition(0.9); liveSend(true);
   } else {
     state.orbit.target.set(h.x, fy + 1.0, h.z); state.orbit.radius = portrait() ? 14 : fitRadius(11); state.orbit.phi = 0.78; startTransition(0.9);
   }
@@ -894,10 +1182,11 @@ function focusHotspot(h) {
 chips.addEventListener('click', (e) => { const b = e.target.closest('button[data-h]'); if (!b) return; const h = FLOORS[state.floor - 1].hotspots.find((x) => x.num === Number(b.dataset.h)); if (h) focusHotspot({ ...h, floor: state.floor }); });
 
 /* rail */
-$('#rail').addEventListener('click', (e) => {
+rail.addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
-  if (b.id === 'walkBtn') { if (state.mode === 'walk') goFloor(state.floor); else goWalk(state.floor || 1); return; }
-  const n = Number(b.dataset.floor); if (n === 0) goOverview(); else if (state.mode === 'walk') goWalk(n); else goFloor(n);
+  if (b.id === 'walkBtn') { if (state.mode === 'walk') { if (state.walk.floor === 0) goOverview(); else goFloor(state.walk.floor); } else resumeWalk(); return; }
+  const v = b.dataset.floor; if (v === 'out') { goWalk(0); return; }
+  const n = Number(v); if (n === 0) goOverview(); else if (state.mode === 'walk') goWalk(n); else goFloor(n);
 });
 
 /* ---------------- input ---------------- */
@@ -920,56 +1209,235 @@ function endPointer(e) {
 }
 canvas.addEventListener('pointerup', endPointer); canvas.addEventListener('pointercancel', endPointer);
 canvas.addEventListener('wheel', (e) => { e.preventDefault(); zoom(e.deltaY * 0.0022); }, { passive: false });
-function zoom(a) { if (state.mode === 'walk') { state.walk.pitch = THREE.MathUtils.clamp(state.walk.pitch - a * 0.08, -0.9, 0.9); return; } state.orbit.radius = THREE.MathUtils.clamp(state.orbit.radius * (1 + a), 5, 110); }
+function zoom(a) {
+  if (state.mode === 'walk') { const f = state.walk.floor, [lo, hi] = followRange(f); state.walk.dist = THREE.MathUtils.clamp((state.walk.dist ?? followDefault(f)) * (1 + a), lo, hi); return; }
+  state.orbit.radius = THREE.MathUtils.clamp(state.orbit.radius * (1 + a), 5, 110);
+}
 
 function tap(cx, cy) {
   const r = canvas.getBoundingClientRect(); ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1); ray.setFromCamera(ndc, camera);
+  if (state.mode === 'gate') return;
   if (state.mode === 'overview') {
     const hits = ray.intersectObjects(floorGroups.flatMap((f) => f.floorMeshes), false); if (hits.length) goFloor(hits[0].object.userData.floorN); return;
   }
+  if (state.mode === 'walk' && state.walk.floor === 0) { const g = ray.intersectObjects(EXT.ground, false); if (g.length) state.walk.moveTo = new THREE.Vector3(g[0].point.x, 0, g[0].point.z); return; }
   const f = floorGroups[state.floor - 1];
   const hs = ray.intersectObjects(f.hotspots, false); if (hs.length) { focusHotspot(hs[0].object.userData.hotspot); return; }
   if (state.mode === 'walk') {
-    const fl = ray.intersectObjects(f.floorMeshes, false); if (fl.length) { const p = fl[0].point; state.walk.moveTo = new THREE.Vector3(p.x, 1.6, p.z); }
+    const fl = ray.intersectObjects(f.floorMeshes, false); if (fl.length) { const p = fl[0].point; state.walk.moveTo = new THREE.Vector3(p.x, 0, p.z); }
   } else {
     // a visible lower floor was tapped → switch to it
     const hits = ray.intersectObjects(floorGroups.filter((x) => x.group.visible && x.n !== state.floor).flatMap((x) => x.floorMeshes), false);
     if (hits.length) goFloor(hits[0].object.userData.floorN);
   }
 }
-window.addEventListener('keydown', (e) => { if (['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) { keys.add(e.code); if (state.mode === 'walk') e.preventDefault(); } if (e.code === 'Escape') hideCard(); });
+const MOVE_KEYS = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+window.addEventListener('keydown', (e) => {
+  if (e.target && e.target.closest && e.target.closest('input, textarea, select')) return;   // typing a nickname must not walk
+  if (MOVE_KEYS.includes(e.code)) { keys.add(e.code); if (state.mode === 'walk') e.preventDefault(); }
+  if (e.code === 'Escape') hideCard();
+  if ((e.code === 'Enter' || e.code === 'KeyE') && state.mode === 'walk' && !(e.target.closest && e.target.closest('button, a'))) { const bs = actEl.querySelectorAll('button:not([disabled])'); if (bs.length === 1) { e.preventDefault(); bs[0].click(); } }
+});
 window.addEventListener('keyup', (e) => keys.delete(e.code));
+window.addEventListener('blur', () => keys.clear());
 
-/* collision */
-function blocked(f, x, z, rad = 0.32) { for (const w of f.walls) if (x > w.x0 - rad && x < w.x1 + rad && z > w.z0 - rad && z < w.z1 + rad) return true; return false; }
-function tryMove(f, dx, dz) { const p = state.walk.pos; if (!blocked(f, p.x + dx, p.z)) p.x += dx; if (!blocked(f, p.x, p.z + dz)) p.z += dz; }
+/* ---------------- entry: nickname ---------------- */
+const me = { name: '', color: 0, av: null };
+const gate = $('#gate'), gateForm = $('#gateForm'), nickIn = $('#nick'), gateErr = $('#gateErr'), gateCount = $('#gateCount'), swatchesEl = $('#swatches');
+const whoEl = $('#who'), whoTxt = $('#whoTxt'), whoList = $('#whoList'), actEl = $('#act');
+// Kept in step with checkName() in the live server (outputs/2026-11-04-clinic-3d-tour/live/worker.js): the page explains, the server enforces.
+const BAD = ['시발', '씨발', '씨빨', 'ㅅㅂ', 'ㅆㅂ', '병신', 'ㅂㅅ', '븅신', '개새', '개색', '좆', '존나', 'ㅈㄴ', '지랄', 'ㅈㄹ', '꺼져', '미친', '염병', '썅', '니미', '느금', '섹스', '야동', '보지', '자지', 'fuck', 'shit', 'bitch', 'sex', 'porn'];
+const RESERVED = ['원장', '대표', '관리자', '운영자', '직원', '간호', '위생사', '의사', '실장', '상담사', '서울비디', '비디치과', 'admin', 'staff', 'doctor', 'official'];
+function checkName(raw) {
+  if (typeof raw !== 'string') return { reason: 'len' };
+  const s = raw.normalize('NFC').replace(/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/gu, '').replace(/\s+/g, ' ').trim();
+  const n = [...s].length;
+  if (n < 1 || n > 10) return { reason: 'len' };
+  if (!/^[\p{L}\p{N} _.~♡☆★-]+$/u.test(s)) return { reason: 'chars' };
+  if (/\d{4,}/.test(s.replace(/[\s_.~-]/g, ''))) return { reason: 'digits' };
+  const flat = s.toLowerCase().replace(/[\s_.~♡☆★0-9-]/g, '');
+  if (BAD.some((w) => flat.includes(w))) return { reason: 'bad' };
+  if (RESERVED.some((w) => flat.includes(w))) return { reason: 'reserved' };
+  return { name: s };
+}
+const NAME_ERR = { len: '닉네임은 1~10자로 지어 주세요.', chars: '한글, 영문, 숫자와 - _ . ~ ♡ ☆ ★ 만 쓸 수 있어요.', digits: '연락처로 보일 수 있어 숫자를 4개 넘게 이어 쓸 수 없어요.', bad: '다른 닉네임을 써 주세요.', reserved: '병원 직원으로 오해할 수 있는 이름은 쓸 수 없어요.' };
+try { const s = JSON.parse(localStorage.getItem('bd-tour-me') || 'null'); if (s && typeof s.name === 'string') nickIn.value = s.name.slice(0, 10); if (s && Number.isInteger(s.color) && s.color >= 0 && s.color < AV_COLORS.length) me.color = s.color; } catch (_) { /* storage blocked: start blank */ }
+function paintSwatches() { [...swatchesEl.children].forEach((b, i) => { b.setAttribute('aria-checked', String(i === me.color)); b.tabIndex = i === me.color ? 0 : -1; }); }
+AV_COLORS.forEach((c, i) => { const b = document.createElement('button'); b.type = 'button'; b.style.background = c; b.setAttribute('role', 'radio'); b.setAttribute('aria-label', AV_COLOR_NAMES[i]); b.addEventListener('click', () => { me.color = i; paintSwatches(); }); swatchesEl.appendChild(b); });
+swatchesEl.addEventListener('keydown', (e) => { const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]; if (!d) return; e.preventDefault(); me.color = (me.color + d + AV_COLORS.length) % AV_COLORS.length; paintSwatches(); swatchesEl.children[me.color].focus(); });
+paintSwatches();
+nickIn.addEventListener('input', () => { gateErr.textContent = ''; });
+gateForm.addEventListener('submit', (e) => { e.preventDefault(); const r = checkName(nickIn.value); if (!r.name) { gateErr.textContent = NAME_ERR[r.reason]; nickIn.focus(); return; } enterWorld(r.name, me.color); });
+function enterWorld(name, color) {
+  me.name = name; me.color = color;
+  try { localStorage.setItem('bd-tour-me', JSON.stringify({ name, color })); } catch (_) { /* private mode: nothing remembered */ }
+  if (me.av) { me.av.removeFromParent(); disposeAvatar(me.av); }
+  me.av = makeAvatar(name, color, true);
+  gate.hidden = true; nickIn.blur(); live.want = { name, color };
+  goWalk(0); liveJoin(); liveStatus();
+}
+function backToGate(msg) {
+  if (me.av) { me.av.removeFromParent(); disposeAvatar(me.av); me.av = null; }
+  live.joined = false; state.mode = 'gate'; state.floor = 0; state.selected = null; card.hidden = true;
+  state.orbit.target.set(0, 9, -4); state.orbit.radius = gateRadius(); state.orbit.phi = 1.28; state.autoRotate = !reduceMotion;
+  gate.hidden = false; gateErr.textContent = msg || ''; setVisibility(); updateUI(); startTransition(1.0); liveStatus();
+}
+function placeMe() { if (me.av) placeAvatar(me.av, state.walk.floor); }
+// a character is drawn when it stands where the camera is looking
+function avShown(f) {
+  if (state.mode === 'gate') return f === 0;
+  if (state.mode === 'walk') return f === state.walk.floor;
+  if (state.mode === 'floor') return f === 0 || f <= state.floor;
+  return true;
+}
+
+/* ---------------- live: other visitors ---------------- */
+const LIVE_ROOMS = 8;
+const LIVE_URL = (() => { try { const q = new URLSearchParams(location.search).get('live'); if (q && /^wss?:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/ws$/.test(q)) return q; } catch (_) { /* no query */ } return 'wss://bdbddc-tour-live.sodanstjrwns.workers.dev/ws'; })();
+const live = { ws: null, id: null, room: 1, hops: 0, joined: false, want: null, peers: new Map(), wait: 1500, fails: 0, sent: { t: 0, f: -1, x: 0, z: 0, y: 0 } };
+function liveConnect() {
+  if (!('WebSocket' in window)) { live.fails = 9; liveStatus(); return; }
+  let ws; try { ws = new WebSocket(LIVE_URL + '?room=' + live.room); } catch (_) { live.fails++; liveStatus(); return; }
+  live.ws = ws; let hello = false;
+  ws.onmessage = (ev) => { let m; try { m = JSON.parse(ev.data); } catch (_) { return; } if (!Array.isArray(m)) return; if (m[0] === 'hi') hello = true; onLive(m); };
+  ws.onclose = () => {
+    if (live.ws !== ws) return;
+    live.ws = null; live.id = null; live.joined = false; clearPeers(); if (!hello) live.fails++;
+    const again = (ms) => setTimeout(liveConnect, ms);
+    if (!hello && live.hops < LIVE_ROOMS - 1) {
+      // refused before hello: a full room if the server still answers, otherwise it is out of reach for now
+      fetch(LIVE_URL.replace(/^ws/, 'http').replace(/\/ws$/, '/health'), { mode: 'no-cors', cache: 'no-store' })
+        .then(() => { live.hops++; live.room = live.room % LIVE_ROOMS + 1; again(250); }, () => { live.wait = Math.min(30000, live.wait * 2); again(live.wait); });
+    } else { live.hops = 0; live.wait = hello ? 1500 : Math.min(30000, live.wait * 2); again(live.wait); }
+    liveStatus();
+  };
+}
+function onLive(m) {
+  switch (m[0]) {
+    case 'hi': live.id = m[1]; live.wait = 1500; live.hops = 0; for (const p of (Array.isArray(m[2]) ? m[2] : [])) addPeer(p); liveJoin(); break;
+    case 'ok': live.joined = true; liveSend(true); break;
+    case 'no': live.want = null; live.joined = false; backToGate(NAME_ERR[m[1]] || NAME_ERR.bad); break;
+    case 'in': addPeer(m.slice(1)); break;
+    case 'p': { const p = live.peers.get(m[1]); if (p) movePeer(p, m[2], m[3], m[4], m[5]); break; }
+    case 'out': removePeer(m[1]); break;
+  }
+  liveStatus();
+}
+function addPeer(a) {
+  if (!Array.isArray(a)) return; const [id, name, color, f, x, z, y] = a;
+  if (typeof id !== 'string' || id === live.id || typeof name !== 'string') return;
+  removePeer(id);
+  const p = { id, name: name.slice(0, 12), color: Number.isInteger(color) && color >= 0 && color < AV_COLORS.length ? color : 0, f: 0, x: 0, z: 0, face: 0, snap: true };
+  p.av = makeAvatar(p.name, p.color, false); movePeer(p, f, x, z, y); p.snap = true; live.peers.set(id, p); placeAvatar(p.av, p.f);
+}
+function movePeer(p, f, x, z, y) {
+  const nf = Number.isInteger(f) && f >= 0 && f <= 5 ? f : 0, nx = Number.isFinite(x) ? x : 0, nz = Number.isFinite(z) ? z : 0;
+  if (nf !== p.f || Math.hypot(nx - p.x, nz - p.z) > 5) p.snap = true;
+  p.f = nf; p.x = nx; p.z = nz; p.face = Number.isFinite(y) ? y : 0;
+}
+function removePeer(id) { const p = live.peers.get(id); if (!p) return; p.av.removeFromParent(); disposeAvatar(p.av); live.peers.delete(id); }
+function clearPeers() { for (const id of [...live.peers.keys()]) removePeer(id); }
+const r2 = (v) => Math.round(v * 100) / 100;
+function liveJoin() {
+  const ws = live.ws; if (!live.want || !ws || ws.readyState !== 1 || !live.id) return;
+  const w = state.walk; ws.send(JSON.stringify(['join', live.want.name, live.want.color, w.floor, r2(w.pos.x), r2(w.pos.z), r2(wrap(w.face))]));
+}
+function liveSend(force) {
+  const ws = live.ws; if (!live.joined || !ws || ws.readyState !== 1) return;
+  const w = state.walk, s = live.sent, now = performance.now(), f = w.floor, x = r2(w.pos.x), z = r2(w.pos.z), y = r2(wrap(w.face));
+  const changed = f !== s.f || Math.abs(x - s.x) > 0.04 || Math.abs(z - s.z) > 0.04 || Math.abs(y - s.y) > 0.05;
+  if (!force && (!changed || now - s.t < 110)) return;
+  ws.send(JSON.stringify(['p', f, x, z, y])); Object.assign(s, { t: now, f, x, z, y });
+}
+setInterval(() => { if (live.ws && live.ws.readyState === 1) live.ws.send('ping'); }, 25000);
+window.addEventListener('pagehide', () => { try { if (live.ws) live.ws.close(1000); } catch (_) { /* closing anyway */ } });
+function liveStatus() {
+  const on = !!(live.ws && live.id), others = live.peers.size, n = others + (live.joined ? 1 : 0);
+  whoEl.hidden = state.mode === 'gate';
+  whoEl.classList.toggle('on', on);
+  whoTxt.textContent = on ? (live.joined ? (others ? `지금 ${n}명이 함께 있어요` : '지금은 나 혼자 있어요') : '연결 중…') : (live.fails > 1 ? '혼자 둘러보는 중' : '연결 중…');
+  gateCount.textContent = on && others ? `지금 ${others}명이 둘러보고 있어요.` : '';
+  if (!whoList.hidden) renderWho();
+}
+function renderWho() {
+  const rows = [];
+  if (me.av) rows.push([`${me.name} (나)`, me.color, state.walk.floor]);
+  for (const p of [...live.peers.values()].sort((a, b) => a.name.localeCompare(b.name, 'ko'))) rows.push([p.name, p.color, p.f]);
+  if (!rows.length) { const d = document.createElement('div'); d.textContent = '아직 아무도 없어요'; whoList.replaceChildren(d); return; }
+  whoList.replaceChildren(...rows.slice(0, 40).map(([name, c, f]) => {
+    const d = document.createElement('div'), i = document.createElement('i'), b = document.createElement('b'), s = document.createElement('span');
+    i.style.background = AV_COLORS[c] || AV_COLORS[0]; b.textContent = name; s.textContent = f === 0 ? '건물 앞' : `${f}F`; d.append(i, b, s); return d;
+  }));
+}
+whoEl.addEventListener('click', () => { whoList.hidden = !whoList.hidden; whoEl.setAttribute('aria-expanded', String(!whoList.hidden)); if (!whoList.hidden) renderWho(); });
+
+/* what you can do where you stand */
+let actKey = '';
+function updateAct() {
+  const w = state.walk; let key = '';
+  if (state.mode === 'walk') {
+    if (w.floor === 0) { const d = EXT.doors.find((x) => inZone(w.pos, x)); if (d) key = 'door:' + d.id; }
+    else if (inZone(w.pos, LIFT_ZONE)) key = 'lift:' + w.floor;
+    else if (w.floor === 1 && inZone(w.pos, EXIT_ZONE)) key = 'exit';
+  }
+  if (key === actKey) return;
+  actKey = key; actEl.replaceChildren(); actEl.hidden = !key; if (!key) return;
+  const label = (t) => { const s = document.createElement('span'); s.textContent = t; actEl.appendChild(s); };
+  const btn = (t, fn, ghost) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; if (ghost) b.className = 'ghost'; b.addEventListener('click', fn); actEl.appendChild(b); return b; };
+  if (key.startsWith('door:')) { const d = EXT.doors.find((x) => 'door:' + x.id === key); label(d.title); btn('들어가기', d.go); }
+  else if (key.startsWith('lift:')) {
+    label('엘리베이터');
+    for (let n = 1; n <= 5; n++) { const b = btn(`${n}F`, () => goWalk(n), true); if (n === w.floor) { b.disabled = true; b.className = ''; b.setAttribute('aria-current', 'true'); } }
+    if (w.floor === 1) btn('밖으로', () => goWalk(0, OUT_EXIT), true);
+  } else if (key === 'exit') { label('1층 로비 출입구'); btn('밖으로 나가기', () => goWalk(0, OUT_EXIT)); }
+}
 
 /* ---------------- resize / loop ---------------- */
 function resize() { const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;   // hidden or not laid out yet: keep the last good size
-  renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w < h ? 62 : 50; camera.updateProjectionMatrix(); if (state.mode === 'overview') state.orbit.radius = overviewRadius(); else if (state.mode === 'floor' && !state.selected) state.orbit.radius = floorRadius(state.floor); }
+  renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w < h ? 62 : 50; camera.updateProjectionMatrix();
+  if (state.mode === 'overview') state.orbit.radius = overviewRadius(); else if (state.mode === 'gate') state.orbit.radius = gateRadius(); else if (state.mode === 'floor' && !state.selected) state.orbit.radius = floorRadius(state.floor); }
 new ResizeObserver(resize).observe(canvas); resize();
 
-let last = performance.now(), firstFrame = true; const tmpV = new THREE.Vector3();
+let last = performance.now(), firstFrame = true; const tmpV = new THREE.Vector3(), before = new THREE.Vector3();
+// name tags stay readable from afar and small up close; your own is hidden while you walk (the gold ring marks you)
+function scaleTag(a, mine) { const t = a.userData.tag; t.visible = !(mine && state.mode === 'walk'); if (!t.visible) return; t.getWorldPosition(tmpV); const k = THREE.MathUtils.clamp(tmpV.distanceTo(camera.position) / 6, 0.6, 7); t.scale.set(t.userData.base[0] * k, t.userData.base[1] * k, 1); }
 function frame(now) {
   requestAnimationFrame(frame);
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
   // floor spacing animation (exploded in the overview, real spacing inside)
   for (const f of floorGroups) { f.group.position.y += (f.targetY - f.group.position.y) * Math.min(1, dt * 6); }
   if (state.autoRotate && state.mode === 'overview') state.orbit.theta += dt * 0.08;
-  // walking
+  if (state.autoRotate && state.mode === 'gate') state.orbit.theta = Math.PI + 0.35 + Math.sin(now / 1000 * 0.13) * 0.42;
+  // walking your character
+  const w = state.walk;
   if (state.mode === 'walk') {
-    const f = floorGroups[state.floor - 1]; const sp = 2.6 * dt; const fwd = new THREE.Vector2(-Math.sin(state.walk.yaw), -Math.cos(state.walk.yaw)); const right = new THREE.Vector2(-fwd.y, fwd.x);
-    let mx = 0, mz = 0;
+    const walls = wallsOf(w.floor), out = w.floor === 0, sp = (out ? 3.4 : 2.6) * dt;
+    const fwd = new THREE.Vector2(-Math.sin(w.yaw), -Math.cos(w.yaw)); const right = new THREE.Vector2(-fwd.y, fwd.x);
+    let mx = 0, mz = 0, want = 0; before.copy(w.pos);
     if (keys.has('KeyW') || keys.has('ArrowUp')) { mx += fwd.x; mz += fwd.y; } if (keys.has('KeyS') || keys.has('ArrowDown')) { mx -= fwd.x; mz -= fwd.y; }
     if (keys.has('KeyD') || keys.has('ArrowRight')) { mx += right.x; mz += right.y; } if (keys.has('KeyA') || keys.has('ArrowLeft')) { mx -= right.x; mz -= right.y; }
-    if (mx || mz) { const l = Math.hypot(mx, mz); tryMove(f, mx / l * sp, mz / l * sp); state.walk.moveTo = null; }
-    else if (state.walk.moveTo) { const t = state.walk.moveTo, p = state.walk.pos; const dx = t.x - p.x, dz = t.z - p.z, dist = Math.hypot(dx, dz); if (dist < 0.15) state.walk.moveTo = null; else { const step = Math.min(dist, 3.2 * dt); const before = p.clone(); tryMove(f, dx / dist * step, dz / dist * step); if (p.distanceTo(before) < step * 0.3) state.walk.moveTo = null; } }
-  }
+    if (mx || mz) { const l = Math.hypot(mx, mz); tryMove(walls, mx / l * sp, mz / l * sp); w.moveTo = null; want = sp; }
+    else if (w.moveTo) { const t = w.moveTo, dx = t.x - w.pos.x, dz = t.z - w.pos.z, dist = Math.hypot(dx, dz); if (dist < 0.15) w.moveTo = null; else { const step = Math.min(dist, (out ? 4 : 3.2) * dt); tryMove(walls, dx / dist * step, dz / dist * step); want = step; if (w.pos.distanceTo(before) < step * 0.3) w.moveTo = null; } }
+    const mdx = w.pos.x - before.x, mdz = w.pos.z - before.z, moved = Math.hypot(mdx, mdz);
+    w.speed = moved / Math.max(dt, 1e-3);
+    if (moved > 1e-4) w.face = turnToward(w.face, Math.atan2(-mdx, -mdz), dt * 12);
+    const door = out ? EXT.doors.find((d) => inZone(w.pos, d)) : null;          // keep walking into a door and you go in
+    if (door && want > 0 && moved < want * 0.3) { w.push += dt; if (w.push > 0.35) door.go(); } else w.push = 0;
+  } else w.speed = 0;
   // camera
-  ambient.intensity += ((state.mode === 'walk' ? 0.7 : 0.35) - ambient.intensity) * Math.min(1, dt * 4);
-  const want = desiredPose();
-  if (state.transition) { const tr = state.transition; const t = Math.min(1, (now - tr.t0) / (tr.dur * 1000)); const k = ease(t); camera.position.lerpVectors(tr.fromPos, want.pos, k); camera.quaternion.slerpQuaternions(tr.fromQuat, want.quat, k); if (t >= 1) state.transition = null; }
-  else { camera.position.copy(want.pos); camera.quaternion.copy(want.quat); }
+  ambient.intensity += ((state.mode === 'walk' && w.floor > 0 ? 0.7 : 0.35) - ambient.intensity) * Math.min(1, dt * 4);
+  const pose = desiredPose();
+  if (state.transition) { const tr = state.transition; const t = Math.min(1, (now - tr.t0) / (tr.dur * 1000)); const k = ease(t); camera.position.lerpVectors(tr.fromPos, pose.pos, k); camera.quaternion.slerpQuaternions(tr.fromQuat, pose.quat, k); if (t >= 1) state.transition = null; }
+  else { camera.position.copy(pose.pos); camera.quaternion.copy(pose.quat); }
+  // characters: yours follows the walk state, the others ease toward what the server last said
+  if (me.av) { placeMe(); me.av.position.set(w.pos.x, 0, w.pos.z); me.av.rotation.y = w.face; animateAvatar(me.av, w.speed, dt); me.av.visible = state.mode !== 'gate' && avShown(w.floor) && !(state.mode === 'walk' && camDist < 0.8); if (me.av.visible) scaleTag(me.av, true); }
+  const kk = 1 - Math.exp(-dt * 9);
+  for (const p of live.peers.values()) {
+    const a = p.av; placeAvatar(a, p.f); const ox = a.position.x, oz = a.position.z; let v = 0;
+    if (p.snap) { a.position.set(p.x, 0, p.z); a.rotation.y = p.face; p.snap = false; }
+    else { a.position.x += (p.x - ox) * kk; a.position.z += (p.z - oz) * kk; a.rotation.y = turnToward(a.rotation.y, p.face, dt * 10); v = Math.hypot(a.position.x - ox, a.position.z - oz) / Math.max(dt, 1e-3); }
+    animateAvatar(a, v, dt); a.visible = avShown(p.f); if (a.visible) scaleTag(a);
+  }
   // hotspot bob + selection pulse; in walk mode, shrink pins and hide room labels that are right next to the camera
   const bob = reduceMotion ? 0 : Math.sin(now / 420) * 0.07;
   const walking = state.mode === 'walk', camWorld = camera.position;
@@ -983,15 +1451,18 @@ function frame(now) {
     }
     if (f.n === state.floor && state.mode !== 'overview') for (const l of f.roomLabels) { l.getWorldPosition(tmpV); const dist = tmpV.distanceTo(camWorld); l.material.opacity = walking ? THREE.MathUtils.clamp((dist - 3) / 3, 0, 1) : 1; }
   }
-  // keep the sun centred on what we look at
-  sun.target.position.set(0, 0, 0); sun.position.set(28, 42 + (state.mode === 'overview' ? 10 : floorGroups[state.floor - 1].group.position.y), 18);
+  updateAct(); liveSend(false);
+  // the sun: in front of the building outside so the street face is lit, otherwise over what we look at
+  sun.target.position.set(0, 0, 0);
+  if (isOutside()) sun.position.set(-24, 50, -36); else sun.position.set(28, 42 + (state.mode === 'overview' ? 10 : floorGroups[state.floor - 1].group.position.y), 18);
   renderer.render(scene, camera);
-  if (firstFrame) { firstFrame = false; overlay.classList.add('off'); }
+  if (firstFrame) { firstFrame = false; overlay.classList.add('off'); if (!isTouch && !gate.hidden) nickIn.focus({ preventScroll: true }); }
 }
-setVisibility(); updateUI(); resize();
+setVisibility(); updateUI(); resize(); liveStatus();
 camera.position.copy(desiredPose().pos); camera.quaternion.copy(desiredPose().quat);
-window.__tour = { state, floorGroups, tap, goFloor, goWalk, goOverview, focusHotspot };
+window.__tour = { state, floorGroups, tap, goFloor, goWalk, goOverview, focusHotspot, resumeWalk, enterWorld, checkName, live, EXT };
 requestAnimationFrame(frame);
+liveConnect();
 </script>
 <script>
 // If the 3D module never renders (blocked CDN, old browser), say so instead of spinning forever.
