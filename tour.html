@@ -142,9 +142,10 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
 .keys[hidden]{display:none}
 @media (max-width:640px){.keys{bottom:calc(66px + env(safe-area-inset-bottom,0px))}}
 /* entry: pick a nickname over the slowly swaying exterior */
-.gate{position:fixed;inset:0;z-index:8;display:grid;place-items:center;padding:16px;box-sizing:border-box;pointer-events:none}
+.gate{position:fixed;inset:0;z-index:8;display:flex;overflow-y:auto;padding:16px;box-sizing:border-box;pointer-events:none}
+.gate:has(.gbox:focus-within),.gate.tall{pointer-events:auto}
 .gate[hidden]{display:none}
-.gbox{pointer-events:auto;width:min(380px,100%);background:var(--panel-solid);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:20px 20px 16px;box-sizing:border-box}
+.gbox{pointer-events:auto;margin:auto;width:min(380px,100%);background:var(--panel-solid);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:20px 20px 16px;box-sizing:border-box}
 .gbox .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);font-weight:700}
 .gbox h2{margin:4px 0 6px;font-family:var(--font-display);font-size:21px;line-height:1.25;text-wrap:balance}
 .gbox .gsub{margin:0 0 14px;color:var(--muted);font-size:13px}
@@ -181,6 +182,41 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
 .act button:disabled{background:var(--gold-soft);color:var(--gold-deep);border:0;cursor:default}
 .act button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
 @media (max-width:640px){.act{bottom:calc(66px + env(safe-area-inset-bottom,0px));border-radius:16px;padding:8px}}
+/* while walking: photo, reactions, invite, sky */
+.tools{position:fixed;z-index:6;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.tools[hidden],.card:not([hidden]) ~ .tools{display:none}
+.toolWrap{position:relative;display:flex}
+.tool{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:12.5px;font-weight:700;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 12px;cursor:pointer;backdrop-filter:blur(8px);box-shadow:var(--shadow)}
+.tool svg{width:16px;height:16px;flex:0 0 auto}
+.tool.main{background:var(--gold);border-color:var(--gold);color:#1B150A}
+.tool[hidden]{display:none}
+.tool:focus-visible,.emo button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.emo{position:absolute;right:calc(100% + 8px);top:50%;transform:translateY(-50%);display:flex;gap:4px;background:var(--panel-solid);border:1px solid var(--line);border-radius:999px;padding:4px;box-shadow:var(--shadow)}
+.emo[hidden]{display:none}
+.emo button{width:40px;height:40px;border-radius:50%;border:0;background:transparent;font-size:22px;line-height:1;cursor:pointer;padding:0}
+.emo button:hover{background:var(--gold-soft)}
+.who.teeth .tooth{font-size:13px;line-height:1}
+.who.teeth.on{background:var(--gold);border-color:var(--gold);color:#1B150A}
+.whoList .room{color:var(--muted);font-size:11px;padding-bottom:4px;border-bottom:1px solid var(--line);margin-bottom:2px}
+.whoList .tip{color:var(--muted);font-size:11px;padding-top:4px}
+.toast{position:fixed;z-index:10;left:50%;transform:translateX(-50%);bottom:calc(196px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);font-size:13px;font-weight:700;border-radius:999px;padding:9px 16px;box-shadow:var(--shadow);max-width:calc(100% - 32px);box-sizing:border-box;text-align:center;opacity:0;transition:opacity .25s;pointer-events:none;text-wrap:balance}
+.toast.on{opacity:1}
+.shot{position:fixed;inset:0;z-index:11;display:grid;place-items:center;background:rgba(20,16,12,.62);padding:16px;box-sizing:border-box}
+.shot[hidden]{display:none}
+.shotBox{background:var(--panel-solid);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:14px;width:min(340px,100%);box-sizing:border-box;text-align:center}
+.shotBox img{display:block;max-width:100%;max-height:min(62vh,520px);aspect-ratio:9/16;margin:0 auto;border-radius:12px;background:var(--bg)}
+.shotBox p{margin:10px 0 0;font-size:11.5px;color:var(--muted)}
+.shotRow{display:flex;gap:8px;margin-top:12px}
+.shotRow a,.shotRow button{flex:1;font:inherit;font-size:14px;font-weight:700;padding:11px 6px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;text-decoration:none;text-align:center}
+.shotRow .main{background:var(--gold);border-color:var(--gold);color:#1B150A}
+.shotRow [hidden]{display:none}
+.shotRow a:focus-visible,.shotRow button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.accs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.accs button{font:inherit;font-size:12.5px;font-weight:700;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.accs button[aria-checked="true"]{background:var(--gold);border-color:var(--gold);color:#1B150A}
+.accs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media (max-width:640px){.toast{bottom:calc(126px + env(safe-area-inset-bottom,0px))}.tool .t{display:none}.tool{padding:10px}}
+@media (max-height:640px){.gbox .gsub{display:none}.gbox h2{font-size:18px}.swatches,.accs{margin-bottom:10px}}
 @media (prefers-reduced-motion:reduce){.rail button{transition:none}}
 </style>
 
@@ -192,6 +228,8 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
   <p class="sub">천안 불당동 · 5층 전관</p>
   <button class="who" id="who" type="button" hidden aria-expanded="false" aria-controls="whoList"><span class="dot"></span><span id="whoTxt">연결 중…</span></button>
   <div class="whoList" id="whoList" hidden></div>
+  <button class="who teeth" id="teeth" type="button" hidden aria-expanded="false" aria-controls="teethList"><span class="tooth" aria-hidden="true">🦷</span><span id="teethTxt">숨은 치아 친구 0/5</span></button>
+  <div class="whoList" id="teethList" hidden></div>
   <p class="hint" id="hint">드래그로 돌려보고, 아래에서 층을 고르세요</p>
   <p class="note">실제 공간을 단순화한 3D 안내예요. 배치와 마감은 실제와 다를 수 있어요.</p>
   <div class="links"><a href="/floor-guide">층별 안내</a><a class="rsv" href="/reservation">상담 예약</a></div>
@@ -223,18 +261,37 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
   <form class="gbox" id="gateForm" autocomplete="off" novalidate>
     <div class="eyebrow">3D Virtual Clinic</div>
     <h2>닉네임을 정하고 들어오세요</h2>
-    <p class="gsub">건물 앞에서 내 캐릭터로 시작해요. 지금 둘러보는 다른 분들의 캐릭터도 함께 보여요. <b id="gateCount"></b></p>
+    <p class="gsub">건물 앞에서 내 캐릭터로 시작해요. 지금 둘러보는 다른 분들의 캐릭터도 함께 보여요. <b id="gateCount"></b> <span id="gateRoom"></span></p>
     <label class="glabel" for="nick">닉네임</label>
     <input id="nick" name="nick" maxlength="10" placeholder="예: 불당동 토끼" enterkeyhint="go" spellcheck="false">
     <div class="gerr" id="gateErr" role="alert"></div>
     <div class="glabel" id="swLabel">캐릭터 색</div>
     <div class="swatches" id="swatches" role="radiogroup" aria-labelledby="swLabel"></div>
+    <div class="glabel" id="accLabel">소품</div>
+    <div class="accs" id="accs" role="radiogroup" aria-labelledby="accLabel"></div>
     <button type="submit" class="gbtn">입장하기</button>
     <p class="gnote">닉네임은 다른 방문자에게 그대로 보여요. 실명이나 연락처는 쓰지 마세요. 대화 기능은 없고, 닉네임은 이 기기에만 기억해 두며 서버에는 남기지 않아요.</p>
   </form>
 </div>
 
 <div class="act" id="act" hidden></div>
+<div class="tools" id="tools" hidden>
+  <button class="tool main" id="shotBtn" type="button" aria-label="인증샷 찍기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="t">인증샷</span></button>
+  <div class="toolWrap">
+    <div class="emo" id="emo" hidden role="group" aria-label="반응 고르기"></div>
+    <button class="tool" id="emoBtn" type="button" aria-label="반응 보내기" aria-expanded="false" aria-controls="emo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c1.8 2 5.2 2 7 0M9 9.5h.01M15 9.5h.01"/></svg><span class="t">반응</span></button>
+  </div>
+  <button class="tool" id="inviteBtn" type="button" aria-label="친구 초대 링크"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg><span class="t">친구 초대</span></button>
+  <button class="tool" id="skyBtn" type="button" aria-label="하늘 바꾸기" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span class="t" id="skyTxt">하늘 · 지금</span></button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="shot" id="shot" hidden role="dialog" aria-modal="true" aria-label="인증샷">
+  <div class="shotBox">
+    <img id="shotImg" alt="병원에 서 있는 내 캐릭터 사진">
+    <div class="shotRow"><a class="main" id="shotSave" href="#" download="bdbddc-tour.png">저장하기</a><button type="button" id="shotShare" hidden>공유하기</button><button type="button" id="shotClose">닫기</button></div>
+    <p>사진은 이 기기에서만 만들어요. 서버로 보내지 않아요.</p>
+  </div>
+</div>
 
 <nav class="rail" id="rail" aria-label="층 선택">
   <button data-floor="out">외관</button>
@@ -829,6 +886,7 @@ const plaza = new THREE.Mesh(new THREE.PlaneGeometry(BW + 10, BD + 10), new THRE
 // seen from the pavement the clinic block (X 0–15.5) is on the right, the other tenant's block on the left.
 const EXT = { group: new THREE.Group(), context: new THREE.Group(), street: new THREE.Group(), walls: [], solids: [], ground: [], doors: [] };
 scene.add(EXT.group, EXT.context, EXT.street);
+const NIGHT = { lamp: new THREE.PointLight(0xFFD49A, 0, 30, 1.4) };   // the street lamp, on after dark
 const LV = [0, 5.0, 9.0, 13.0, 17.0], ROOF = 23.6, FZ = -OZ;      // floor levels of the real building (1F–5F), parapet top, street face
 const rnd = (i) => { const s = Math.sin(i * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };   // fixed, so every visitor sees the same blinds
 function gridTex(base, line, cw, ch) {
@@ -852,7 +910,7 @@ function flat(g, tex, x0, x1, z0, z1, y = 0.004, mat = null) {
 }
 const std = (color, roughness = 0.85, metalness = 0) => new THREE.MeshStandardMaterial({ color, roughness, metalness });
 Object.assign(M, {
-  winGlass: std(0x323C43, 0.2, 0.35), blind: std(0xE4E1DA, 0.9), mullion: std(0x8D9093, 0.5, 0.4), band: std(0x55595E, 0.6),
+  winGlass: std(0x323C43, 0.2, 0.35), winB: std(0x323C43, 0.2, 0.35), winN: std(0x3A4349, 0.3, 0.3), blind: std(0xE4E1DA, 0.9), mullion: std(0x8D9093, 0.5, 0.4), band: std(0x55595E, 0.6),
   mass: std(0xA9ACAF, 0.9), pier: std(0x9EA1A4, 0.85), cap: std(0x8F9295, 0.8), stoneEdge: std(0xD6D3CD, 0.85),
   shopLit: new THREE.MeshBasicMaterial({ color: 0xF4ECDD }), shopDim: new THREE.MeshBasicMaterial({ color: 0xB9BCBB }), shopFloor: std(0xE9E4DA, 0.9),
   asphalt: std(0x4B4D50, 1), curb: std(0xBDB8AE, 1), lot: std(0x6E7073, 1), hedge: std(0x5E7F4E, 1), bollard: std(0x2A2B2D, 0.6),
@@ -886,7 +944,7 @@ function sign(g, text, w, h, x, y, z, ry = 0, big = false) {
 // a run of windows on the street face: dark glass, blinds pulled to different heights, mullions and a transom
 function windows(g, X0, X1, y0, h, seed, z = FZ) {
   const a = px(X0), b = px(X1), w = b - a, n = Math.max(1, Math.round(w / 1.12)), cx = (a + b) / 2;
-  box(g, w, h, 0.04, M.winGlass, cx, y0, z - 0.02);
+  box(g, w, h, 0.04, M.winB, cx, y0, z - 0.02);
   for (let i = 0; i < n; i++) { const bh = h * (0.15 + rnd(seed + i) * 0.6); box(g, w / n - 0.1, bh, 0.012, M.blind, a + (i + 0.5) * w / n, y0 + h - bh - 0.05, z - 0.046); }
   for (let i = 0; i <= n; i++) box(g, 0.07, h + 0.1, 0.09, M.mullion, a + i * w / n, y0 - 0.05, z - 0.07);
   box(g, w + 0.1, 0.08, 0.1, M.mullion, cx, y0 - 0.08, z - 0.07); box(g, w + 0.1, 0.08, 0.1, M.mullion, cx, y0 + h, z - 0.07); box(g, w, 0.06, 0.09, M.mullion, cx, y0 + h * 0.74, z - 0.07);
@@ -942,8 +1000,8 @@ function buildExterior() {
   box(g, 0.06, 0.7, 0.04, M.metal, -OX - 0.16, 0.9, lz - 0.12); box(g, 0.06, 0.7, 0.04, M.metal, -OX - 0.16, 0.9, lz + 0.12);
   box(g, 1.9, 0.16, 3.6, M.gold, -OX - 0.95, 2.95, lz);
   sign(g, '서울비디치과 로비', 3.4, 0.62, -OX - 0.005, 3.25, lz, Math.PI / 2);
-  for (let k = 1; k <= 4; k++) box(g, 0.06, 1.3, 1.8, M.winGlass, -OX - 0.03, LV[k] + 1.4, pz(21.0));
-  for (let k = 1; k <= 4; k++) for (const X of [2.9, 6.0]) box(g, 0.9, 0.6, 0.06, M.winGlass, px(X), LV[k] + 1.8, OZ + 0.03);
+  for (let k = 1; k <= 4; k++) box(g, 0.06, 1.3, 1.8, M.winB, -OX - 0.03, LV[k] + 1.4, pz(21.0));
+  for (let k = 1; k <= 4; k++) for (const X of [2.9, 6.0]) box(g, 0.9, 0.6, 0.06, M.winB, px(X), LV[k] + 1.8, OZ + 0.03);
   // roof: parapet cap, lift machine room over the core, condensers
   for (const [w, d, x, z] of [[BW, 0.3, 0, -OZ + 0.15], [BW, 0.3, 0, OZ - 0.15], [0.3, BD, -OX + 0.15, 0], [0.3, BD, OX - 0.15, 0]]) box(g, w, 0.35, d, M.cap, x, ROOF, z);
   const machine = box(g, 5.4, 2.8, 4.9, M.mass, px(12.8), ROOF, pz(19.9));
@@ -960,7 +1018,7 @@ function buildContext() {
   const block = (x0, x1, z0, z1, h, mat, rows) => {
     const m = box(g, x1 - x0, h, z1 - z0, mat, (x0 + x1) / 2, 0, (z0 + z1) / 2); m.castShadow = true;
     EXT.solids.push({ x0, x1, z0, z1 }); EXT.walls.push({ x0, x1, z0, z1 });
-    for (let i = 0; i < rows; i++) box(g, (x1 - x0) * 0.86, 1.5, 0.05, M.winGlass, (x0 + x1) / 2, 4.2 + i * 3.7, z0 - 0.03).castShadow = false;
+    for (let i = 0; i < rows; i++) box(g, (x1 - x0) * 0.86, 1.5, 0.05, M.winN, (x0 + x1) / 2, 4.2 + i * 3.7, z0 - 0.03).castShadow = false;
   };
   block(OX + 0.4, OX + 14.6, FZ + 0.6, OZ - 0.4, 20.5, M.neighbour, 5);
   block(-OX - 26, -OX - 11.6, FZ + 1.2, OZ + 1, 24, M.neighbour2, 6);
@@ -977,7 +1035,7 @@ function buildStreet() {
   // hedge and bollards along the kerb, a street lamp, a few trees
   for (let x = X0 + 0.6; x < X1 - 1; x += 4.6) { const l = Math.min(3.4, X1 - 0.6 - x); box(g, l, 0.55, 0.6, M.hedge, x + l / 2, 0, FZ - 4.15); EXT.walls.push({ x0: x, x1: x + l, z0: FZ - 4.45, z1: FZ - 3.85 }); }
   for (let x = X0 + 0.4; x < X1; x += 2.3) { cyl(g, 0.09, 0.9, M.bollard, x, 0, FZ - 4.6); cyl(g, 0.095, 0.08, M.yellow, x, 0.62, FZ - 4.6); }
-  const lx = px(15.3), lzs = FZ - 4.55; cyl(g, 0.09, 8.6, M.bollard, lx, 0, lzs); box(g, 0.12, 0.12, 1.8, M.bollard, lx, 8.45, lzs - 0.85); box(g, 0.4, 0.16, 0.7, M.white, lx, 8.3, lzs - 1.7); box(g, 0.3, 0.02, 0.55, M.lamp, lx, 8.29, lzs - 1.7);
+  const lx = px(15.3), lzs = FZ - 4.55; cyl(g, 0.09, 8.6, M.bollard, lx, 0, lzs); box(g, 0.12, 0.12, 1.8, M.bollard, lx, 8.45, lzs - 0.85); box(g, 0.4, 0.16, 0.7, M.white, lx, 8.3, lzs - 1.7); box(g, 0.3, 0.02, 0.55, M.lamp, lx, 8.29, lzs - 1.7); NIGHT.lamp.position.set(lx, 7.9, lzs - 1.7); g.add(NIGHT.lamp);
   tree(g, px(20.5), FZ - 4.15, 0.9); tree(g, -OX - 2.5, FZ - 4.15, 0.9); tree(g, -OX - 10.2, FZ + 2.4, 1, true); tree(g, -OX - 10.2, OZ + 3.5, 1, true);
   // car park beside the building: bays along the far edge, a clear walk to the lobby door
   for (let k = 0; k <= 7; k++) { const z = FZ + 0.8 + k * 2.6; flat(g, null, -OX - 11, -OX - 6, z - 0.05, z + 0.05, 0.008, M.lineW); }
@@ -994,34 +1052,340 @@ const AV_COLOR_NAMES = ['금색', '파랑', '코랄', '초록', '보라', '먹�
 const AV_MATS = AV_COLORS.map((c) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.65 }));
 Object.assign(M, { skin: std(0xF2D4B8, 0.8), hair: std(0x3A2A22, 0.8), pants: std(0x3B3F47, 0.8), shoe: std(0x2B2826, 0.8), eye: new THREE.MeshBasicMaterial({ color: 0x1B150A }), ring: new THREE.MeshBasicMaterial({ color: 0xC9A042, transparent: true, opacity: 0.85 }) });
 const outsideGroup = new THREE.Group(); scene.add(outsideGroup);   // characters standing outside; inside, a character belongs to its floor's group
-// a small rounded figure facing local -z, with its nickname above
-function makeAvatar(name, color, mine) {
-  const a = new THREE.Group(), shirt = AV_MATS[color] || AV_MATS[0];
+Object.assign(M, { coat: std(0x222326, 0.85), logo: new THREE.MeshBasicMaterial({ color: 0xE6E1D8 }), frame: std(0x24211E, 0.4, 0.3), stubble: std(0x5A4A40, 0.95), bow: std(0xE0735E, 0.6), tooth: std(0xFFFFFF, 0.35), cheek: new THREE.MeshBasicMaterial({ color: 0xF4A9A0 }) });
+GEO.smile = new THREE.TorusGeometry(1, 0.2, 6, 14, Math.PI);
+const ACC_NAMES = ['없음', '모자', '리본', '안경', '치아 인형'];
+// a little tooth with a face: the plush a character can carry, and the friends hidden on each floor
+function toothFigure(s = 1, face = true) {
+  const t = new THREE.Group(), part = (mat, sx, sy, sz, x, y, z) => { const m = new THREE.Mesh(GEO.sph, mat); m.scale.set(sx * s, sy * s, sz * s); m.position.set(x * s, y * s, z * s); t.add(m); return m; };
+  part(M.tooth, 0.33, 0.27, 0.28, 0, 0.62, 0);
+  for (const k of [-1, 1]) {
+    const r = new THREE.Mesh(GEO.cyl, M.tooth); r.scale.set(0.095 * s, 0.34 * s, 0.095 * s); r.position.set(k * 0.13 * s, 0.37 * s, 0); r.rotation.z = -k * 0.16; t.add(r);
+    part(M.tooth, 0.09, 0.09, 0.09, k * 0.16, 0.21, 0);
+    if (face) { part(M.eye, 0.03, 0.03, 0.03, k * 0.1, 0.67, -0.255); part(M.cheek, 0.045, 0.025, 0.01, k * 0.17, 0.6, -0.236); }
+  }
+  if (face) { const m = new THREE.Mesh(GEO.smile, M.eye); m.scale.setScalar(0.045 * s); m.rotation.z = Math.PI; m.position.set(0, 0.62 * s, -0.272 * s); t.add(m); }
+  t.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  return t;
+}
+function glasses(a) {
+  for (const k of [-1, 1]) { const r = new THREE.Mesh(GEO.torus, M.frame); r.scale.setScalar(0.062); r.position.set(k * 0.088, 1.315, -0.232); a.add(r); }
+  box(a, 0.05, 0.012, 0.012, M.frame, 0, 1.312, -0.238);
+}
+// a small rounded figure facing local -z, with its nickname above.
+// acc: one of ACC_NAMES. look: a doctor from the homepage photos — black scrubs, the clinic patch, their hair and glasses
+function makeAvatar(name, color, mine, acc = 0, look = null) {
+  const a = new THREE.Group(), shirt = look ? M.coat : (AV_MATS[color] || AV_MATS[0]), pants = look ? M.coat : M.pants, shoe = look ? M.white : M.shoe;
   const joint = (x, y) => { const p = new THREE.Group(); p.position.set(x, y, 0); a.add(p); return p; };
   const legL = joint(-0.1, 0.56), legR = joint(0.1, 0.56), armL = joint(-0.27, 1.0), armR = joint(0.27, 1.0);
-  for (const l of [legL, legR]) { box(l, 0.14, 0.5, 0.16, M.pants, 0, -0.52, 0); box(l, 0.15, 0.09, 0.24, M.shoe, 0, -0.56, -0.03); }
+  for (const l of [legL, legR]) { box(l, 0.14, 0.5, 0.16, pants, 0, -0.52, 0); box(l, 0.15, 0.09, 0.24, shoe, 0, -0.56, -0.03); }
   for (const r of [armL, armR]) { cyl(r, 0.065, 0.42, shirt, 0, -0.42, 0); sph(r, 0.07, M.skin, 0, -0.46, 0); }
   cyl(a, 0.21, 0.5, shirt, 0, 0.52, 0); sph(a, 0.21, shirt, 0, 1.0, 0).scale.set(0.21, 0.12, 0.21);
   sph(a, 0.24, M.skin, 0, 1.3, 0); sph(a, 0.25, M.hair, 0, 1.36, 0.05).scale.set(0.25, 0.22, 0.24);
   sph(a, 0.032, M.eye, -0.085, 1.31, -0.215); sph(a, 0.032, M.eye, 0.085, 1.31, -0.215);
+  const fringe = () => sph(a, 1, M.hair, 0, 1.47, -0.14).scale.set(0.2, 0.07, 0.11);
+  if (look) {
+    if (look.hair === 'part') sph(a, 1, M.hair, 0.07, 1.5, -0.04).scale.set(0.16, 0.07, 0.17);
+    if (look.hair === 'bob') { for (const k of [-1, 1]) box(a, 0.07, 0.3, 0.34, M.hair, k * 0.215, 1.08, 0.03); box(a, 0.42, 0.3, 0.1, M.hair, 0, 1.08, 0.17); fringe(); }
+    if (look.hair === 'tied') { sph(a, 0.1, M.hair, 0, 1.41, 0.27); box(a, 0.08, 0.22, 0.08, M.hair, 0, 1.1, 0.27); }
+    if (look.hair === 'long') { box(a, 0.44, 0.55, 0.12, M.hair, 0, 0.95, 0.16); for (const k of [-1, 1]) box(a, 0.07, 0.42, 0.3, M.hair, k * 0.215, 1.0, 0.04); fringe(); }
+    if (look.glasses) glasses(a);
+    if (look.beard) sph(a, 1, M.stubble, 0, 1.2, -0.08).scale.set(0.17, 0.08, 0.15);
+    box(a, 0.07, 0.07, 0.012, M.logo, 0.1, 0.8, -0.212);   // the clinic patch on the chest
+  }
+  if (acc === 1) { sph(a, 1, shirt, 0, 1.45, 0.03).scale.set(0.258, 0.15, 0.26); box(a, 0.3, 0.025, 0.2, shirt, 0, 1.43, -0.2); }
+  if (acc === 2) { sph(a, 0.035, M.bow, 0.13, 1.55, -0.05); for (const dx of [0.06, 0.2]) sph(a, 1, M.bow, dx, 1.57, -0.05).scale.set(0.07, 0.045, 0.035); }
+  if (acc === 3) glasses(a);
+  if (acc === 4) { const p = toothFigure(0.3); p.position.set(0, -0.62, -0.1); armR.add(p); }
+  const tag = look
+    ? textSprite(name, { h: 0.27, px: 40, pad: 16, fg: '#FFFDF9', bg: 'rgba(45,42,38,0.94)', border: '#C9A042' })
+    : textSprite(name, { h: 0.28, px: 40, pad: 16, fg: mine ? '#1B150A' : '#2D2A26', bg: mine ? 'rgba(201,160,66,0.95)' : 'rgba(255,253,249,0.92)', border: mine ? null : '#D9CFBF' });
   if (mine) { const ring = new THREE.Mesh(GEO.torus, M.ring); ring.scale.set(0.45, 0.45, 0.45); ring.rotation.x = Math.PI / 2; ring.position.y = 0.03; a.add(ring); }
-  const tag = textSprite(name, { h: 0.28, px: 40, pad: 16, fg: mine ? '#1B150A' : '#2D2A26', bg: mine ? 'rgba(201,160,66,0.95)' : 'rgba(255,253,249,0.92)', border: mine ? null : '#D9CFBF' });
   tag.position.y = 1.86; tag.renderOrder = 8; tag.userData.base = [tag.scale.x, tag.scale.y]; a.add(tag);
-  a.userData = { legL, legR, armL, armR, tag, phase: 0, swing: 0 };
+  a.userData = { legL, legR, armL, armR, tag, phase: 0, swing: 0, wave: -1e9 };
   a.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
   return a;
 }
-function disposeAvatar(a) { const t = a.userData.tag; if (t) { t.material.map.dispose(); t.material.dispose(); } }
+function disposeAvatar(a) { const t = a.userData.tag; if (t) { t.material.map.dispose(); t.material.dispose(); } const r = a.userData.react; if (r) r.sp.material.dispose(); }
 function placeAvatar(a, f) { const parent = f === 0 ? outsideGroup : floorGroups[f - 1].group; if (a.parent !== parent) parent.add(a); }
 function animateAvatar(a, v, dt) {
   const u = a.userData;
   u.swing += ((v > 0.25 ? 1 : 0) - u.swing) * Math.min(1, dt * 8); u.phase += dt * Math.min(v, 4.5) * 3.2;
   const s = Math.sin(u.phase) * 0.6 * u.swing;
   u.legL.rotation.x = s; u.legR.rotation.x = -s; u.armL.rotation.x = -s * 0.8; u.armR.rotation.x = s * 0.8;
+  const wt = (performance.now() - u.wave) / 1000;   // a wave lifts the right arm for a moment
+  if (wt < 1.5) { u.armR.rotation.x = 0; u.armR.rotation.z = 2.5 + Math.sin(wt * 13) * 0.3; } else u.armR.rotation.z = 0;
+}
+
+/* reactions: a short emoji over the head, for everyone in the room */
+const REACT = ['👋', '❤️', '👍', '🦷'];
+const reactTex = REACT.map((ch) => {
+  const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d');
+  x.font = '96px "Apple Color Emoji","Segoe UI Emoji",sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(ch, 64, 72);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+});
+function showReaction(a, k) {
+  if (!a || !Number.isInteger(k) || k < 0 || k >= REACT.length) return;
+  let u = a.userData.react;
+  if (!u) { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: reactTex[k], transparent: true, depthWrite: false })); sp.renderOrder = 9; a.add(sp); u = a.userData.react = { sp, t0: 0 }; }
+  u.sp.material.map = reactTex[k]; u.sp.material.needsUpdate = true; u.t0 = performance.now(); u.sp.visible = true;
+  if (k === 0) a.userData.wave = performance.now();
+}
+function tickReaction(a, now) {
+  const u = a && a.userData.react; if (!u || !u.sp.visible) return;
+  const age = (now - u.t0) / 1000; if (age > 2.4) { u.sp.visible = false; return; }
+  u.sp.getWorldPosition(tmpV); const k = THREE.MathUtils.clamp(tmpV.distanceTo(camera.position) / 6, 1, 5);
+  const pop = age < 0.18 ? age / 0.18 * 1.15 : age < 0.3 ? 1.15 - (age - 0.18) / 0.12 * 0.15 : 1, s = 0.5 * k * pop;
+  u.sp.scale.set(s, s, 1); u.sp.position.y = 2.2 + age * 0.22 + (k - 1) * 0.14; u.sp.material.opacity = age > 1.8 ? 1 - (age - 1.8) / 0.6 : 1;
+}
+
+/* doctors at work: the clinic's own doctors (homepage doctors/*.html photos, today's floor guide). They make rounds on their floor:
+   a route stop is [plan X, Y, faces X, faces Y, seconds there]; a bare [X, Y] is a corner on the way through a door or an aisle */
+const DOCTORS = [
+  ['kim-mg', 1, '김민규', '원장', { hair: 'part', glasses: true }, '치과교정과 전문의. 인비절라인과 디지털 교정을 맡아요.',
+    [[3.65, 2.1, 1.9, 1.7, 5], [6.3, 3.25], [5.9, 3.95], [3.65, 3.95, 1.9, 4.9, 5], [5.9, 3.95], [6.6, 3.25], [8.6, 3.25], [8.6, 7.9], [8.2, 9.9, 5.35, 9.6, 5], [8.6, 7.9], [8.6, 3.25], [6.3, 3.25]]],
+  ['lim', 1, '임지원', '원장', { hair: 'tied' }, '치아교정, 비수술 교정을 맡아요. 인비절라인 인증의예요.',
+    [[12.5, 2.75, 13.65, 1.75, 5], [11.4, 3.3], [11.4, 4.0], [12.3, 4.0], [12.4, 5.7, 13.65, 5.0, 5], [12.3, 4.0], [11.4, 4.0], [11.4, 3.3]]],
+  ['moon', 3, '문석준', '대표원장', { hair: 'part' }, '통합치의학과 전문의. 치과가 무서운 분도 감당할 수 있는 속도로 진료해요. 임플란트와 수면진료를 맡아요.',
+    [[3.65, 2.1, 1.9, 1.7, 6], [6.6, 3.25], [8.6, 3.25], [8.6, 7.6], [10.9, 8.0, 13.4, 8.0, 4], [8.6, 9.8, 5.35, 9.6, 5], [8.6, 7.6], [8.6, 3.25], [6.6, 3.25], [5.9, 3.95], [3.65, 3.95, 1.9, 4.9, 5], [5.9, 3.95], [6.6, 3.25]]],
+  ['kim-mj', 3, '김민진', '원장', { hair: 'long' }, '소아치과 전문의. 영유아 구강검진과 성장기 교정을 맡아요.',
+    [[12.5, 2.75, 13.65, 1.75, 5], [11.4, 3.3], [11.2, 5.0, 10.0, 4.3, 4], [11.4, 3.3]]],
+  ['seo', 3, '서희원', '원장', { hair: 'tied' }, '소아치과 전문의. 아이의 긴장을 덜어 주는 행동조절과 성장기 교정을 맡아요.',
+    [[12.5, 5.9, 13.65, 5.0, 5], [12.3, 4.0], [11.4, 4.0], [10.4, 6.1, 9.9, 4.6, 4], [11.4, 4.0], [12.3, 4.0]]],
+  ['park', 3, '박상현', '원장', { hair: 'part' }, '소아치과 전문의. 소아 외과 치료와 웃음가스 진정치료를 맡아요.',
+    [[10.0, 5.2, 9.9, 4.2, 5], [9.3, 5.6], [9.3, 7.6], [10.9, 9.3], [11.9, 9.3], [11.9, 10.5, 13.4, 10.0, 5], [11.9, 9.3], [10.9, 9.3], [9.3, 7.6], [9.3, 5.6]]],
+  ['lee', 4, '이승엽', '임플란트센터장', { hair: 'short' }, '임플란트센터장. 뼈이식과 전악 임플란트 같은 임플란트 수술을 맡아요.',
+    [[7.0, 3.0, 7.8, 1.9, 6], [6.0, 3.2], [4.85, 3.2], [4.85, 5.85], [5.2, 5.85, 7.8, 7.2, 4], [4.85, 5.85], [4.85, 8.15], [3.4, 8.4, 2.05, 9.5, 6], [4.85, 8.15], [4.85, 3.2], [6.0, 3.2]]],
+  ['kim', 4, '김민수', '대표원장', { hair: 'part', glasses: true }, '통합치의학과 전문의. 임플란트와 보철을 맡아요.',
+    [[13.5, 6.2, 14.2, 7.0, 5], [12.4, 5.9], [12.6, 4.6, 12.9, 3.0, 5], [12.2, 5.6], [12.2, 9.6], [12.4, 10.4, 14.2, 10.0, 4], [12.2, 9.6], [12.2, 5.6], [12.4, 5.9]]],
+  ['choi', 5, '최종훈', '종합진료센터장', { hair: 'short', glasses: true }, '종합진료센터장, 통합치의학과 전문의. 사랑니 발치와 종합진료를 맡아요.',
+    [[10.1, 3.45, 11.8, 2.0, 5], [8.6, 3.45, 8.4, 2.0, 5], [12.4, 3.45, 11.8, 2.0, 4], [15.0, 3.45, 15.2, 2.0, 5]]],
+  ['park-sb', 5, '박수빈', '원장', { hair: 'tied' }, '글로우네이트, 심미레진과 종합진료를 맡아요.',
+    [[17.0, 3.45, 18.6, 2.0, 5], [19.9, 3.45, 18.6, 2.0, 4], [17.0, 3.45], [16.9, 5.8, 16.0, 7.1, 5]]],
+  ['kang-mj', 5, '강민지', '원장', { hair: 'bob' }, '치과보존과 전문의. 자연치아를 살리는 보존 치료와 신경치료를 맡아요.',
+    [[1.6, 3.45, 1.6, 2.0, 5], [3.4, 3.45], [5.0, 3.45, 5.0, 2.0, 5], [3.4, 3.45], [3.4, 5.7], [1.6, 6.0, 1.6, 7.1, 5], [3.4, 5.7], [5.0, 6.0, 5.0, 7.1, 5], [3.4, 5.7], [3.4, 3.45]]],
+  ['jo', 5, '조설아', '원장', { hair: 'tied' }, '치과보존과 전문의. 재신경치료와 자연치아 보존을 맡아요.',
+    [[22.0, 3.45, 22.0, 2.0, 5], [23.6, 3.45], [25.3, 3.45, 25.3, 2.0, 5], [23.6, 3.45], [23.6, 5.7], [25.3, 6.0, 25.3, 7.1, 5], [23.6, 5.7], [21.0, 6.0, 21.0, 7.1, 4], [23.6, 5.7], [23.6, 3.45]]],
+  ['hyun', 5, '현정민', '대표원장', { hair: 'short', glasses: true }, '통합치의학과 전문의. 글로우네이트(라미네이트)와 심미레진을 맡아요.',
+    [[16.0, 5.9, 16.0, 7.1, 5], [12.4, 5.9], [10.3, 6.1, 10.3, 7.6, 4], [12.4, 5.9], [17.7, 6.4], [17.7, 8.4], [18.6, 8.4], [18.6, 9.4], [18.6, 12.9], [20.2, 13.3, 22.5, 14.45, 5], [18.6, 12.9], [18.6, 9.4], [18.6, 8.4], [17.7, 8.4], [17.7, 6.4]]],
+  ['lee-bm', 5, '이병민', '원장', { hair: 'short', glasses: true, beard: true }, '구강내과 전문의. 턱관절장애, 만성 구강안면통증, 이갈이를 진료해요.',
+    [[18.6, 11.2, 18.6, 13.0, 4], [18.6, 9.4], [20.0, 9.4], [20.0, 10.3], [20.35, 10.4, 21.0, 11.1, 6], [20.0, 10.3], [20.0, 9.4], [23.2, 9.4], [23.2, 10.3], [23.6, 10.4, 24.05, 11.1, 5], [23.2, 10.3], [23.2, 9.4], [18.6, 9.4]]],
+].map(([id, f, name, role, look, desc, route]) => ({ id, f, name, role, look, desc, route: route.map(([X, Y, LX, LY, wait]) => ({ x: px(X), z: pz(Y), look: LX == null ? null : { x: px(LX), z: pz(LY) }, wait: wait || 0 })) }));
+const NPCS = [], NPC_SPEED = 1.05;
+for (const d of DOCTORS) {
+  const fg = floorGroups[d.f - 1], s0 = d.route[0], av = makeAvatar(`${d.name} ${d.role}`, 0, false, 0, d.look);
+  av.position.set(s0.x, 0, s0.z); av.rotation.y = Math.atan2(-(s0.look.x - s0.x), -(s0.look.z - s0.z));
+  av.userData.armL.rotation.order = av.userData.armR.rotation.order = 'YXZ';
+  const k = NPCS.length;
+  Object.assign(av.userData, { npc: d, seed: rnd(k + 300) * 6, greeted: -1e9 });
+  fg.group.add(av);
+  // start each doctor part-way through a pause so they do not all set off together
+  const n = { d, av, fg, x: s0.x, z: s0.z, i: 0, until: performance.now() + 1500 + rnd(k + 330) * 5000, speed: 0, hold: 0 };
+  NPCS.push(n); (fg.npcs = fg.npcs || []).push(n);
+}
+// arms crossed as in the photos while they stand; arms swing while they walk; a wave when they greet you
+function animateNpc(n, now, dt) {
+  const a = n.av, u = a.userData, wt = (now - u.wave) / 1000, walk = n.speed > 0.2;
+  u.swing += ((walk ? 1 : 0) - u.swing) * Math.min(1, dt * 6); u.phase += dt * n.speed * 3.4;
+  const s = Math.sin(u.phase) * 0.55 * u.swing;
+  u.legL.rotation.x = s; u.legR.rotation.x = -s;
+  if (u.swing > 0.5) { u.armL.rotation.set(-s * 0.8, 0, 0); u.armR.rotation.set(s * 0.8, 0, 0); }
+  else { u.armL.rotation.set(1.3, -0.74, 0); u.armR.rotation.set(1.44, 0.74, 0); }
+  if (wt < 1.6) u.armR.rotation.set(0, 0, 2.5 + Math.sin(wt * 13) * 0.3);
+  a.scale.y = 1 + Math.sin(now / 1000 * 1.7 + u.seed) * 0.012;
+}
+function tickNpcs(now, dt) {
+  const w = state.walk, walking = state.mode === 'walk';
+  for (const n of NPCS) {
+    const a = n.av, here = walking && w.floor === n.fg.n, r = n.d.route;
+    let face = null, step = 0;
+    // you are close: stop, turn to you, wave once in a while
+    const dx = w.pos.x - n.x, dz = w.pos.z - n.z, dist = here ? Math.hypot(dx, dz) : 99;
+    if (dist < 2.6) { n.hold = now + 1500; if (now - a.userData.greeted > 30000) { a.userData.greeted = now; showReaction(a, 0); } }
+    if (here && dist < 4.5 && (dist < 2.6 || now < n.hold)) face = Math.atan2(-dx, -dz);
+    if (now < n.hold || now < n.until) { const st = r[n.i]; if (face == null && st.look && now < n.until) face = Math.atan2(-(st.look.x - n.x), -(st.look.z - n.z)); }
+    else {
+      const nx = (n.i + 1) % r.length, t = r[nx], ex = t.x - n.x, ez = t.z - n.z, len = Math.hypot(ex, ez);
+      step = Math.min(len, NPC_SPEED * dt);
+      if (len > 1e-4) { n.x += ex / len * step; n.z += ez / len * step; if (face == null) face = Math.atan2(-ex, -ez); }
+      if (len - step < 0.02) { n.i = nx; n.until = now + t.wait * 1000 * (0.8 + rnd(n.i + now % 97) * 0.4); }
+    }
+    n.speed = step / Math.max(dt, 1e-3);
+    a.position.set(n.x, 0, n.z);
+    if (face != null) a.rotation.y = turnToward(a.rotation.y, face, dt * (step ? 8 : 4));
+    if (!n.fg.group.visible) continue;
+    animateNpc(n, now, dt); tickReaction(a, now);
+    const t = a.userData.tag, cur = n.fg.n === state.floor && (walking || state.mode === 'floor');
+    t.visible = false; if (cur) { t.getWorldPosition(tmpV); const d = tmpV.distanceTo(camera.position); if (!walking) { t.visible = true; t.scale.set(t.userData.base[0] * 1.5, t.userData.base[1] * 1.5, 1); } else if (d < 16) { t.visible = true; sizeTag(t, d); } }
+  }
+}
+function openDoctor(n) {
+  const d = n.d;
+  showHotspot({ num: d.name[0], title: `${d.name} ${d.role}`, floor: n.fg.n, desc: d.desc, link: `/doctors/${d.id}`, linkLabel: '원장 소개 보기', x: n.x, z: n.z, npc: true });
+  n.av.userData.greeted = performance.now(); showReaction(n.av, 0); n.hold = performance.now() + 8000;   // they wait for you
+  if (state.mode === 'walk') { const w = state.walk, dx = n.x - w.pos.x, dz = n.z - w.pos.z, dist = Math.hypot(dx, dz); if (dist > 2.2) w.moveTo = new THREE.Vector3(n.x - dx / dist * 1.4, 0, n.z - dz / dist * 1.4); }
+  else { state.orbit.target.set(n.x, n.fg.group.position.y + 1.0, n.z); state.orbit.radius = portrait() ? 12 : fitRadius(9); state.orbit.phi = 0.9; startTransition(0.9); }
+}
+
+/* hidden tooth friends: one on each floor, found by walking up to them; remembered on this device only */
+const TEETH = [
+  { f: 1, X: 10.6, Y: 9.3, hint: '대기실 근처' },
+  { f: 2, X: 11.9, Y: 1.4, hint: '회의하는 방 구석' },
+  { f: 3, X: 11.4, Y: 6.2, hint: '아이들이 기다리는 곳' },
+  { f: 4, X: 11.0, Y: 4.7, hint: '대기실 소파 근처' },
+  { f: 5, X: 18.9, Y: 20.9, hint: '창가 화분 옆' },
+];
+const teethFound = new Set();
+try { for (const f of JSON.parse(localStorage.getItem('bd-tour-teeth') || '[]')) if (TEETH.some((t) => t.f === f)) teethFound.add(f); } catch (_) { /* storage blocked: start over */ }
+for (const t of TEETH) {
+  const fg = floorGroups[t.f - 1], g = toothFigure(0.62, true);
+  g.position.set(px(t.X), 0.12, pz(t.Y)); g.userData.tooth = t; g.visible = false; fg.group.add(g);
+  t.obj = g; (fg.teeth = fg.teeth || []).push(g);
+}
+function tickTeeth(now, dt) {
+  const w = state.walk;
+  for (const t of TEETH) {
+    const g = t.obj, popping = t.pop && now - t.pop < 700, show = state.mode === 'walk' && w.floor === t.f && (!teethFound.has(t.f) || popping);
+    g.visible = show; if (!show) continue;
+    if (popping) { const k = (now - t.pop) / 700; g.scale.setScalar(1 + k * 0.9); g.position.y = 0.12 + k * 1.4; g.rotation.y += dt * 10; continue; }
+    g.position.y = 0.12 + Math.sin(now / 380 + t.f) * 0.07; g.rotation.y += dt * 1.4;
+    if (Math.hypot(w.pos.x - g.position.x, w.pos.z - g.position.z) < 1.15) foundTooth(t, now);
+  }
+}
+function foundTooth(t, now) {
+  teethFound.add(t.f); t.pop = now;
+  try { localStorage.setItem('bd-tour-teeth', JSON.stringify([...teethFound])); } catch (_) { /* not remembered */ }
+  const n = teethFound.size, all = n === TEETH.length;
+  toast(all ? '숨은 치아 친구를 모두 찾았어요! 인증샷에 금색 테두리가 생겨요' : `치아 친구를 찾았어요 (${n}/${TEETH.length})`, all ? 4200 : 2600);
+  if (all) track('tour_teeth_all');
+  showReaction(me.av, 3); renderTeeth();
+}
+
+/* ---------------- sky: the time of day in Korea, clouds, stars and the season (outside only) ---------------- */
+const skyState = { on: false, dirty: true, n: 0, h: 12, pick: 0, next: 0 };
+const RISE = [7.7, 7.4, 6.9, 6.2, 5.6, 5.2, 5.3, 5.7, 6.1, 6.5, 7.0, 7.5], SET = [17.7, 18.2, 18.6, 19.0, 19.4, 19.8, 19.9, 19.5, 18.9, 18.2, 17.5, 17.3];   // Cheonan, by month
+// hour → zenith, horizon, light colour, light, sky light, night (0 day … 1 night); drawn for a 07:00 sunrise and 17:24 sunset, then moved to the month
+const SKY_KEYS = [
+  [0, 0x0A1330, 0x1C2848, 0x8EA4D6, 0.35, 0.42, 1],
+  [5.4, 0x16234A, 0x34406A, 0x9DAEDB, 0.4, 0.45, 1],
+  [6.5, 0x46628F, 0xEDB088, 0xFFC596, 1.3, 0.85, 0.35],
+  [7.6, 0x6CA0D6, 0xD8E5EE, 0xFFEFD9, 2.1, 1.15, 0],
+  [12, 0x5A97DB, 0xD3E5F3, 0xFFF6E8, 2.4, 1.25, 0],
+  [16.2, 0x699ED5, 0xE5DCC6, 0xFFE8C8, 2.2, 1.15, 0],
+  [17.2, 0x51679C, 0xF2A470, 0xFFB078, 1.6, 0.9, 0.15],
+  [18.1, 0x2B3465, 0xB66A6C, 0xEE8868, 0.9, 0.62, 0.6],
+  [19.1, 0x131B3B, 0x303358, 0x98A6D6, 0.45, 0.45, 1],
+  [24, 0x0A1330, 0x1C2848, 0x8EA4D6, 0.35, 0.42, 1],
+];
+const SKY_NAMES = ['지금', '낮', '노을', '밤'];
+const kst = () => { const d = new Date(Date.now() + 9 * 3600e3); return { h: d.getUTCHours() + d.getUTCMinutes() / 60, m: d.getUTCMonth() + 1 }; };
+const SEASON = (() => { const m = kst().m; return m === 12 || m <= 2 ? 'snow' : m <= 4 ? 'petal' : m >= 10 ? 'leaf' : ''; })();
+const skyGroup = new THREE.Group(); skyGroup.visible = false; scene.add(skyGroup);
+const skyU = { top: { value: new THREE.Color() }, hor: { value: new THREE.Color() }, sunDir: { value: new THREE.Vector3(0, 0.3, 1) }, sunCol: { value: new THREE.Color() }, sunVis: { value: 1 }, moonDir: { value: new THREE.Vector3(0, 0.5, 1) }, moonVis: { value: 0 } };
+const skyDome = new THREE.Mesh(new THREE.SphereGeometry(230, 32, 20), new THREE.ShaderMaterial({
+  uniforms: skyU, side: THREE.BackSide, depthWrite: false, fog: false,
+  vertexShader: 'varying vec3 vDir; void main() { vDir = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: `uniform vec3 top; uniform vec3 hor; uniform vec3 sunDir; uniform vec3 sunCol; uniform float sunVis; uniform vec3 moonDir; uniform float moonVis; varying vec3 vDir;
+    void main() {
+      vec3 d = normalize(vDir); float h = d.y;
+      vec3 c = mix(hor, top, pow(clamp(h, 0.0, 1.0), 0.55));
+      c = mix(c, hor * 0.9, clamp(-h * 4.0, 0.0, 1.0));
+      float sd = max(dot(d, normalize(sunDir)), 0.0);
+      c += sunCol * (pow(sd, 6.0) * 0.25 + pow(sd, 64.0) * 0.4) * sunVis;
+      c = mix(c, sunCol * 1.2 + 0.2, smoothstep(0.9992, 0.9996, sd) * sunVis);
+      float md = max(dot(d, normalize(moonDir)), 0.0);
+      c += vec3(0.45, 0.5, 0.65) * pow(md, 24.0) * 0.14 * moonVis;
+      c = mix(c, vec3(0.94, 0.95, 0.99), smoothstep(0.99955, 0.9998, md) * moonVis);
+      gl_FragColor = vec4(c, 1.0);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }`,
+}));
+skyDome.frustumCulled = false; skyDome.renderOrder = -10; skyGroup.add(skyDome);
+const stars = (() => {
+  const p = []; for (let i = 0; i < 420; i++) { const th = rnd(i + 500) * Math.PI * 2, ph = Math.acos(1 - rnd(i + 900) * 0.94); p.push(Math.sin(ph) * Math.cos(th) * 210, Math.cos(ph) * 210, Math.sin(ph) * Math.sin(th) * 210); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3));
+  const s = new THREE.Points(g, new THREE.PointsMaterial({ color: 0xFFFFFF, size: 1.7, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false, fog: false }));
+  s.renderOrder = -9; s.frustumCulled = false; skyGroup.add(s); return s;
+})();
+function cloudTex(seed) {
+  const c = document.createElement('canvas'); c.width = 256; c.height = 128; const x = c.getContext('2d');
+  for (let i = 0; i < 9; i++) {
+    const cx = 44 + rnd(seed + i) * 168, cy = 70 + (rnd(seed + i + 40) - 0.5) * 30, r = 24 + rnd(seed + i + 80) * 30, g = x.createRadialGradient(cx, cy, 0, cx, cy, r);
+    g.addColorStop(0, 'rgba(255,255,255,0.95)'); g.addColorStop(0.55, 'rgba(255,255,255,0.55)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fill();
+  }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+const cloudGroup = new THREE.Group(); skyGroup.add(cloudGroup);
+const cloudMats = [];
+for (let i = 0; i < 11; i++) {
+  const az = i / 11 * Math.PI * 2 + rnd(i + 700) * 0.4, el = 0.2 + rnd(i + 720) * 0.42, r = 175, w = 60 + rnd(i + 740) * 50;
+  const m = new THREE.SpriteMaterial({ map: cloudTex(i * 13), transparent: true, depthWrite: false, fog: false, opacity: 0.85 }); cloudMats.push(m);
+  const s = new THREE.Sprite(m); s.position.set(Math.sin(az) * Math.cos(el) * r, Math.sin(el) * r, Math.cos(az) * Math.cos(el) * r); s.scale.set(w, w * 0.45, 1); s.renderOrder = -8; cloudGroup.add(s);
+}
+// falling snow (Dec–Feb), petals (Mar–Apr) or leaves (Oct–Nov) over the street; none if motion is reduced
+function flakeTex(kind) {
+  const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'); x.fillStyle = '#FFFFFF';
+  if (kind === 'snow') { const g = x.createRadialGradient(32, 32, 0, 32, 32, 30); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.5, 'rgba(255,255,255,0.8)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); }
+  else if (kind === 'petal') { x.translate(32, 32); x.rotate(0.5); x.beginPath(); x.ellipse(0, 0, 24, 14, 0, 0, Math.PI * 2); x.fill(); x.globalCompositeOperation = 'destination-out'; x.beginPath(); x.arc(24, 0, 6, 0, Math.PI * 2); x.fill(); }
+  else { x.translate(32, 32); x.rotate(-0.6); x.beginPath(); x.moveTo(-26, 0); x.quadraticCurveTo(0, -18, 26, 0); x.quadraticCurveTo(0, 18, -26, 0); x.fill(); x.globalCompositeOperation = 'destination-out'; x.lineWidth = 2.5; x.beginPath(); x.moveTo(-22, 0); x.lineTo(22, 0); x.stroke(); }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+const fall = (() => {
+  if (!SEASON || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+  const N = SEASON === 'snow' ? 520 : SEASON === 'petal' ? 240 : 170, pos = new Float32Array(N * 3), col = new Float32Array(N * 3), seed = new Float32Array(N), c = new THREE.Color();
+  const pal = SEASON === 'leaf' ? [0xD9822B, 0xB5532E, 0xE3B23C, 0x9C6B30] : SEASON === 'petal' ? [0xF6C9D3, 0xF9DDE3, 0xF2B5C4] : [0xFFFFFF];
+  for (let i = 0; i < N; i++) { pos[i * 3] = -34 + rnd(i + 1000) * 68; pos[i * 3 + 1] = rnd(i + 2000) * 26; pos[i * 3 + 2] = FZ - 26 + rnd(i + 3000) * 34; c.setHex(pal[i % pal.length]); col.set([c.r, c.g, c.b], i * 3); seed[i] = rnd(i + 4000) * 6.28; }
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: SEASON === 'snow' ? 0.22 : 0.36, map: flakeTex(SEASON), vertexColors: true, transparent: true, alphaTest: 0.15, depthWrite: false }));
+  pts.frustumCulled = false; pts.visible = false; scene.add(pts);
+  return { pts, geo, pos, seed, N, speed: SEASON === 'snow' ? 0.9 : SEASON === 'petal' ? 0.7 : 1.2, sway: SEASON === 'snow' ? 0.35 : 0.8 };
+})();
+function tickFall(now, dt) {
+  const f = fall, t = now / 1000;
+  for (let i = 0; i < f.N; i++) {
+    const k = i * 3; f.pos[k + 1] -= f.speed * dt * (0.7 + 0.3 * Math.sin(f.seed[i])); f.pos[k] += Math.sin(t * 0.9 + f.seed[i]) * dt * f.sway; f.pos[k + 2] += Math.cos(t * 0.7 + f.seed[i]) * dt * 0.3;
+    if (f.pos[k + 1] < -0.1) f.pos[k + 1] = 24 + rnd(i + t) * 2;
+  }
+  f.geo.attributes.position.needsUpdate = true;
+}
+const _c1 = new THREE.Color(), _c3 = new THREE.Color();
+function updateSky(now, dt) {
+  const want = isOutside();
+  if (want !== skyState.on) { skyState.on = want; skyGroup.visible = want; if (fall) fall.pts.visible = want; skyState.dirty = true; if (!want) { applyTheme(); return; } }
+  if (!want) return;
+  skyGroup.position.copy(camera.position); cloudGroup.rotation.y += dt * 0.004;
+  if (fall) tickFall(now, dt);
+  if (!skyState.dirty && now < skyState.next) return;
+  skyState.dirty = false; skyState.next = now + 20000;   // the clock moves slowly: read it again every 20 s
+  const { h: hNow, m } = kst(), rise = RISE[m - 1], set = SET[m - 1];
+  const h = [hNow, 12.5, set + 0.15, 21.5][skyState.pick];
+  const keys = SKY_KEYS.map((k) => [k[0] + (k[0] > 4 && k[0] < 9 ? rise - 7.0 : k[0] > 15 && k[0] < 20 ? set - 17.4 : 0), ...k.slice(1)]);
+  let i = 0; while (i < keys.length - 2 && keys[i + 1][0] <= h) i++;
+  const A = keys[i], B = keys[i + 1], f0 = THREE.MathUtils.clamp((h - A[0]) / Math.max(1e-3, B[0] - A[0]), 0, 1), f = f0 * f0 * (3 - 2 * f0);
+  const mixHex = (out, a, b) => out.setHex(a).lerp(_c3.setHex(b), f);
+  mixHex(skyU.top.value, A[1], B[1]); mixHex(skyU.hor.value, A[2], B[2]); mixHex(skyU.sunCol.value, A[3], B[3]);
+  const light = A[4] + (B[4] - A[4]) * f, hemiI = A[5] + (B[5] - A[5]) * f, n = A[6] + (B[6] - A[6]) * f; skyState.n = n; skyState.h = h;
+  // the sun crosses the sky behind the building (+z, the way you look from the street); the moon rises at night
+  const df = (h - rise) / (set - rise), up = Math.sin(Math.PI * THREE.MathUtils.clamp(df, -0.15, 1.15));
+  skyU.sunDir.value.set(Math.cos(Math.PI * df) * 0.9, up * 0.75, 0.55).normalize(); skyU.sunVis.value = THREE.MathUtils.clamp((up + 0.08) * 6, 0, 1);
+  const nf = ((h - set + 24) % 24) / (24 - (set - rise)); skyU.moonDir.value.set(Math.cos(Math.PI * nf) * 0.8, 0.22 + Math.sin(Math.PI * nf) * 0.5, 0.75).normalize(); skyU.moonVis.value = THREE.MathUtils.clamp((n - 0.5) * 2, 0, 1);
+  if (!(scene.background && scene.background.isColor)) scene.background = new THREE.Color(); scene.background.copy(skyU.hor.value); if (scene.fog) scene.fog.color.copy(skyU.hor.value);
+  hemi.color.copy(skyU.top.value).lerp(_c3.setHex(0xFFFFFF), 0.55); hemi.groundColor.setHex(0xC9BBA6).multiplyScalar(1 - 0.55 * n); hemi.intensity = hemiI;
+  sun.color.copy(skyU.sunCol.value); sun.intensity = light; fill.intensity = 0.6 * (1 - 0.6 * n);
+  stars.material.opacity = 0.9 * THREE.MathUtils.clamp((n - 0.4) / 0.6, 0, 1);
+  _c1.setHex(0xFFFFFF).lerp(skyU.hor.value, 0.25 + 0.25 * n).multiplyScalar(1 - 0.5 * n); for (const cm of cloudMats) { cm.color.copy(_c1); cm.opacity = 0.85 - 0.4 * n; }
+  // after dark the windows, blinds and the street lamp come on
+  M.winB.emissive.setHex(0xFFC98A); M.winB.emissiveIntensity = 0.85 * n;
+  M.blind.emissive.setHex(0xFFE0B0); M.blind.emissiveIntensity = 0.6 * n;
+  M.winN.emissive.setHex(0xFFD7A0); M.winN.emissiveIntensity = 0.4 * n;
+  NIGHT.lamp.intensity = 55 * n;
+  skyTxt.textContent = `하늘 · ${SKY_NAMES[skyState.pick]}`;
 }
 
 /* ---------------- theme ---------------- */
 function applyTheme() {
+  hemi.color.setHex(0xFFF7EA); hemi.groundColor.setHex(0xC9BBA6); sun.color.setHex(0xFFF3E0); fill.color.setHex(0xDCE8F0); NIGHT.lamp.intensity = 0; skyState.dirty = true;   // the sky sets its own while outside
   const cs = getComputedStyle(document.documentElement);
   const sky = cs.getPropertyValue('--sky').trim() || '#F2EDE4', gr = cs.getPropertyValue('--ground').trim() || '#E6DFD2';
   scene.background = new THREE.Color(sky); scene.fog = new THREE.Fog(new THREE.Color(sky), 70, 190);
@@ -1096,6 +1460,7 @@ const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 /* ---------------- mode changes ---------------- */
 const floorTitle = $('#floorTitle'), ftBig = $('#ftBig'), ftName = $('#ftName'), ftBasis = $('#ftBasis'), hint = $('#hint'), chips = $('#chips'), keysHint = $('#keys'), walkBtn = $('#walkBtn'), rail = $('#rail');
 const isTouch = matchMedia('(pointer: coarse)').matches;
+const toolsEl = $('#tools'), skyBtn = $('#skyBtn'), skyTxt = $('#skyTxt'), emoEl = $('#emo'), emoBtn = $('#emoBtn'), teethEl = $('#teeth'), teethTxt = $('#teethTxt'), teethList = $('#teethList');
 
 function setVisibility() {
   const out = isOutside(), inFloor = state.mode === 'floor' || state.mode === 'walk';
@@ -1112,6 +1477,8 @@ function setVisibility() {
   }
 }
 function updateUI() {
+  toolsEl.hidden = state.mode !== 'walk'; skyBtn.hidden = !(state.mode === 'walk' && state.walk.floor === 0); teethEl.hidden = state.mode === 'gate';
+  if (state.mode !== 'walk') { emoEl.hidden = true; emoBtn.setAttribute('aria-expanded', 'false'); } if (state.mode === 'gate') teethList.hidden = true;
   const out = isOutside(), cur = state.mode === 'overview' ? '0' : state.mode === 'gate' ? '' : out ? 'out' : String(state.floor);
   document.querySelectorAll('.rail [data-floor]').forEach((b) => b.classList.toggle('on', b.dataset.floor === cur));
   rail.hidden = state.mode === 'gate';
@@ -1223,6 +1590,10 @@ function tap(cx, cy) {
   if (state.mode === 'walk' && state.walk.floor === 0) { const g = ray.intersectObjects(EXT.ground, false); if (g.length) state.walk.moveTo = new THREE.Vector3(g[0].point.x, 0, g[0].point.z); return; }
   const f = floorGroups[state.floor - 1];
   const hs = ray.intersectObjects(f.hotspots, false); if (hs.length) { focusHotspot(hs[0].object.userData.hotspot); return; }
+  // a doctor: their card; a tooth friend: walk to it
+  const nh = f.npcs ? ray.intersectObjects(f.npcs.map((n) => n.av), true) : [];
+  if (nh.length) { let o = nh[0].object; while (o && !o.userData.npc) o = o.parent; const n = o && NPCS.find((q) => q.av === o); if (n) { openDoctor(n); return; } }
+  if (state.mode === 'walk' && f.teeth) { const th = ray.intersectObjects(f.teeth.filter((t) => t.visible), true); if (th.length) { let o = th[0].object; while (o && !o.userData.tooth) o = o.parent; if (o) { state.walk.moveTo = new THREE.Vector3(o.position.x, 0, o.position.z); return; } } }
   if (state.mode === 'walk') {
     const fl = ray.intersectObjects(f.floorMeshes, false); if (fl.length) { const p = fl[0].point; state.walk.moveTo = new THREE.Vector3(p.x, 0, p.z); }
   } else {
@@ -1235,14 +1606,15 @@ const MOVE_KEYS = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'Arro
 window.addEventListener('keydown', (e) => {
   if (e.target && e.target.closest && e.target.closest('input, textarea, select')) return;   // typing a nickname must not walk
   if (MOVE_KEYS.includes(e.code)) { keys.add(e.code); if (state.mode === 'walk') e.preventDefault(); }
-  if (e.code === 'Escape') hideCard();
+  if (e.code === 'Escape') { if (!shotEl.hidden) closeShot(); else hideCard(); }
+  if (state.mode === 'walk' && /^Digit[1-4]$/.test(e.code)) sendReaction(Number(e.code.slice(5)) - 1);
   if ((e.code === 'Enter' || e.code === 'KeyE') && state.mode === 'walk' && !(e.target.closest && e.target.closest('button, a'))) { const bs = actEl.querySelectorAll('button:not([disabled])'); if (bs.length === 1) { e.preventDefault(); bs[0].click(); } }
 });
 window.addEventListener('keyup', (e) => keys.delete(e.code));
 window.addEventListener('blur', () => keys.clear());
 
 /* ---------------- entry: nickname ---------------- */
-const me = { name: '', color: 0, av: null };
+const me = { name: '', color: 0, acc: 0, av: null };
 const gate = $('#gate'), gateForm = $('#gateForm'), nickIn = $('#nick'), gateErr = $('#gateErr'), gateCount = $('#gateCount'), swatchesEl = $('#swatches');
 const whoEl = $('#who'), whoTxt = $('#whoTxt'), whoList = $('#whoList'), actEl = $('#act');
 // Kept in step with checkName() in the live server (outputs/2026-11-04-clinic-3d-tour/live/worker.js): the page explains, the server enforces.
@@ -1261,20 +1633,25 @@ function checkName(raw) {
   return { name: s };
 }
 const NAME_ERR = { len: '닉네임은 1~10자로 지어 주세요.', chars: '한글, 영문, 숫자와 - _ . ~ ♡ ☆ ★ 만 쓸 수 있어요.', digits: '연락처로 보일 수 있어 숫자를 4개 넘게 이어 쓸 수 없어요.', bad: '다른 닉네임을 써 주세요.', reserved: '병원 직원으로 오해할 수 있는 이름은 쓸 수 없어요.' };
-try { const s = JSON.parse(localStorage.getItem('bd-tour-me') || 'null'); if (s && typeof s.name === 'string') nickIn.value = s.name.slice(0, 10); if (s && Number.isInteger(s.color) && s.color >= 0 && s.color < AV_COLORS.length) me.color = s.color; } catch (_) { /* storage blocked: start blank */ }
+try { const s = JSON.parse(localStorage.getItem('bd-tour-me') || 'null'); if (s && typeof s.name === 'string') nickIn.value = s.name.slice(0, 10); if (s && Number.isInteger(s.color) && s.color >= 0 && s.color < AV_COLORS.length) me.color = s.color; if (s && Number.isInteger(s.acc) && s.acc >= 0 && s.acc < ACC_NAMES.length) me.acc = s.acc; } catch (_) { /* storage blocked: start blank */ }
 function paintSwatches() { [...swatchesEl.children].forEach((b, i) => { b.setAttribute('aria-checked', String(i === me.color)); b.tabIndex = i === me.color ? 0 : -1; }); }
 AV_COLORS.forEach((c, i) => { const b = document.createElement('button'); b.type = 'button'; b.style.background = c; b.setAttribute('role', 'radio'); b.setAttribute('aria-label', AV_COLOR_NAMES[i]); b.addEventListener('click', () => { me.color = i; paintSwatches(); }); swatchesEl.appendChild(b); });
 swatchesEl.addEventListener('keydown', (e) => { const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]; if (!d) return; e.preventDefault(); me.color = (me.color + d + AV_COLORS.length) % AV_COLORS.length; paintSwatches(); swatchesEl.children[me.color].focus(); });
 paintSwatches();
+const accsEl = $('#accs');
+function paintAccs() { [...accsEl.children].forEach((b, i) => { b.setAttribute('aria-checked', String(i === me.acc)); b.tabIndex = i === me.acc ? 0 : -1; }); }
+ACC_NAMES.forEach((n, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = n; b.setAttribute('role', 'radio'); b.addEventListener('click', () => { me.acc = i; paintAccs(); }); accsEl.appendChild(b); });
+accsEl.addEventListener('keydown', (e) => { const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]; if (!d) return; e.preventDefault(); me.acc = (me.acc + d + ACC_NAMES.length) % ACC_NAMES.length; paintAccs(); accsEl.children[me.acc].focus(); });
+paintAccs();
 nickIn.addEventListener('input', () => { gateErr.textContent = ''; });
-gateForm.addEventListener('submit', (e) => { e.preventDefault(); const r = checkName(nickIn.value); if (!r.name) { gateErr.textContent = NAME_ERR[r.reason]; nickIn.focus(); return; } enterWorld(r.name, me.color); });
-function enterWorld(name, color) {
-  me.name = name; me.color = color;
-  try { localStorage.setItem('bd-tour-me', JSON.stringify({ name, color })); } catch (_) { /* private mode: nothing remembered */ }
+gateForm.addEventListener('submit', (e) => { e.preventDefault(); const r = checkName(nickIn.value); if (!r.name) { gateErr.textContent = NAME_ERR[r.reason]; nickIn.focus(); return; } enterWorld(r.name, me.color, me.acc); });
+function enterWorld(name, color, acc = 0) {
+  me.name = name; me.color = color; me.acc = acc;
+  try { localStorage.setItem('bd-tour-me', JSON.stringify({ name, color, acc })); } catch (_) { /* private mode: nothing remembered */ }
   if (me.av) { me.av.removeFromParent(); disposeAvatar(me.av); }
-  me.av = makeAvatar(name, color, true);
-  gate.hidden = true; nickIn.blur(); live.want = { name, color };
-  goWalk(0); liveJoin(); liveStatus();
+  me.av = makeAvatar(name, color, true, acc);
+  gate.hidden = true; nickIn.blur(); live.want = { name, color, acc };
+  goWalk(0); liveJoin(); liveStatus(); track('tour_enter');
 }
 function backToGate(msg) {
   if (me.av) { me.av.removeFromParent(); disposeAvatar(me.av); me.av = null; }
@@ -1295,6 +1672,9 @@ function avShown(f) {
 const LIVE_ROOMS = 8;
 const LIVE_URL = (() => { try { const q = new URLSearchParams(location.search).get('live'); if (q && /^wss?:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/ws$/.test(q)) return q; } catch (_) { /* no query */ } return 'wss://bdbddc-tour-live.sodanstjrwns.workers.dev/ws'; })();
 const live = { ws: null, id: null, room: 1, hops: 0, joined: false, want: null, peers: new Map(), wait: 1500, fails: 0, sent: { t: 0, f: -1, x: 0, z: 0, y: 0 } };
+// a friend's invite link (?room=3) starts you in their room
+const inviteRoom = (() => { try { const r = parseInt(new URLSearchParams(location.search).get('room'), 10); return r >= 1 && r <= LIVE_ROOMS ? r : 0; } catch (_) { return 0; } })();
+if (inviteRoom) { live.room = inviteRoom; $('#gateRoom').textContent = `친구가 보낸 링크예요. 친구와 같은 방(${inviteRoom}번)에서 시작해요.`; }
 function liveConnect() {
   if (!('WebSocket' in window)) { live.fails = 9; liveStatus(); return; }
   let ws; try { ws = new WebSocket(LIVE_URL + '?room=' + live.room); } catch (_) { live.fails++; liveStatus(); return; }
@@ -1313,6 +1693,11 @@ function liveConnect() {
   };
 }
 function onLive(m) {
+  if (m[0] === 'P') {   // everyone who moved in the last tick
+    let floors = false;
+    if (Array.isArray(m[1])) for (const e of m[1]) { if (!Array.isArray(e) || e[0] === live.id) continue; const p = live.peers.get(e[0]); if (!p) continue; if (p.f !== e[1]) floors = true; movePeer(p, e[1], e[2], e[3], e[4]); }
+    if (floors) liveStatus(); return;
+  }
   switch (m[0]) {
     case 'hi': live.id = m[1]; live.wait = 1500; live.hops = 0; for (const p of (Array.isArray(m[2]) ? m[2] : [])) addPeer(p); liveJoin(); break;
     case 'ok': live.joined = true; liveSend(true); break;
@@ -1320,15 +1705,16 @@ function onLive(m) {
     case 'in': addPeer(m.slice(1)); break;
     case 'p': { const p = live.peers.get(m[1]); if (p) movePeer(p, m[2], m[3], m[4], m[5]); break; }
     case 'out': removePeer(m[1]); break;
+    case 'e': { const p = live.peers.get(m[1]); if (p) showReaction(p.av, m[2]); return; }
   }
   liveStatus();
 }
 function addPeer(a) {
-  if (!Array.isArray(a)) return; const [id, name, color, f, x, z, y] = a;
+  if (!Array.isArray(a)) return; const [id, name, color, f, x, z, y, acc] = a;
   if (typeof id !== 'string' || id === live.id || typeof name !== 'string') return;
   removePeer(id);
-  const p = { id, name: name.slice(0, 12), color: Number.isInteger(color) && color >= 0 && color < AV_COLORS.length ? color : 0, f: 0, x: 0, z: 0, face: 0, snap: true };
-  p.av = makeAvatar(p.name, p.color, false); movePeer(p, f, x, z, y); p.snap = true; live.peers.set(id, p); placeAvatar(p.av, p.f);
+  const p = { id, name: name.slice(0, 12), color: Number.isInteger(color) && color >= 0 && color < AV_COLORS.length ? color : 0, acc: Number.isInteger(acc) && acc >= 0 && acc < ACC_NAMES.length ? acc : 0, f: 0, x: 0, z: 0, face: 0, snap: true };
+  p.av = makeAvatar(p.name, p.color, false, p.acc); movePeer(p, f, x, z, y); p.snap = true; live.peers.set(id, p); placeAvatar(p.av, p.f);
 }
 function movePeer(p, f, x, z, y) {
   const nf = Number.isInteger(f) && f >= 0 && f <= 5 ? f : 0, nx = Number.isFinite(x) ? x : 0, nz = Number.isFinite(z) ? z : 0;
@@ -1340,7 +1726,7 @@ function clearPeers() { for (const id of [...live.peers.keys()]) removePeer(id);
 const r2 = (v) => Math.round(v * 100) / 100;
 function liveJoin() {
   const ws = live.ws; if (!live.want || !ws || ws.readyState !== 1 || !live.id) return;
-  const w = state.walk; ws.send(JSON.stringify(['join', live.want.name, live.want.color, w.floor, r2(w.pos.x), r2(w.pos.z), r2(wrap(w.face))]));
+  const w = state.walk; ws.send(JSON.stringify(['join', live.want.name, live.want.color, w.floor, r2(w.pos.x), r2(w.pos.z), r2(wrap(w.face)), live.want.acc || 0]));
 }
 function liveSend(force) {
   const ws = live.ws; if (!live.joined || !ws || ws.readyState !== 1) return;
@@ -1363,13 +1749,100 @@ function renderWho() {
   const rows = [];
   if (me.av) rows.push([`${me.name} (나)`, me.color, state.walk.floor]);
   for (const p of [...live.peers.values()].sort((a, b) => a.name.localeCompare(b.name, 'ko'))) rows.push([p.name, p.color, p.f]);
-  if (!rows.length) { const d = document.createElement('div'); d.textContent = '아직 아무도 없어요'; whoList.replaceChildren(d); return; }
-  whoList.replaceChildren(...rows.slice(0, 40).map(([name, c, f]) => {
+  if (!rows.length) { const d = document.createElement('div'); d.textContent = '아직 아무도 없어요'; whoList.replaceChildren(roomRow(), d); return; }
+  whoList.replaceChildren(roomRow(), ...rows.slice(0, 40).map(([name, c, f]) => {
     const d = document.createElement('div'), i = document.createElement('i'), b = document.createElement('b'), s = document.createElement('span');
     i.style.background = AV_COLORS[c] || AV_COLORS[0]; b.textContent = name; s.textContent = f === 0 ? '건물 앞' : `${f}F`; d.append(i, b, s); return d;
   }));
 }
 whoEl.addEventListener('click', () => { whoList.hidden = !whoList.hidden; whoEl.setAttribute('aria-expanded', String(!whoList.hidden)); if (!whoList.hidden) renderWho(); });
+function roomRow() { const d = document.createElement('div'); d.className = 'room'; d.textContent = live.id ? `방 ${live.room}` : '서버에 연결하지 않았어요'; return d; }
+
+/* ---------------- tools: photo, reactions, invite, sky, tooth friends ---------------- */
+function track(name) { try { if (typeof window.gtag === 'function') window.gtag('event', name, { event_category: '3d_tour' }); } catch (_) { /* no analytics here */ } }
+const toastEl = $('#toast'); let toastT = 0;
+function toast(msg, ms = 2600) { toastEl.textContent = msg; toastEl.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('on'), ms); }
+function sendReaction(k) {
+  if (!me.av || state.mode !== 'walk') return;
+  const now = performance.now(); if (now - (sendReaction.t || 0) < 700) return; sendReaction.t = now;
+  showReaction(me.av, k); emoEl.hidden = true; emoBtn.setAttribute('aria-expanded', 'false');
+  if (live.joined && live.ws && live.ws.readyState === 1) live.ws.send(JSON.stringify(['e', k]));
+}
+REACT.forEach((ch, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = ch; b.setAttribute('aria-label', ['손 흔들기', '하트', '좋아요', '치아'][i]); b.addEventListener('click', () => sendReaction(i)); emoEl.appendChild(b); });
+emoBtn.addEventListener('click', () => { emoEl.hidden = !emoEl.hidden; emoBtn.setAttribute('aria-expanded', String(!emoEl.hidden)); });
+async function invite() {
+  const u = new URL(location.href); u.hash = ''; if (live.id) u.searchParams.set('room', String(live.room)); const url = u.toString();
+  track('tour_invite');
+  if (isTouch && navigator.share) { try { await navigator.share({ title: '서울비디치과 3D 투어', text: '같은 방에서 만나요. 닉네임을 정하고 들어오면 서로 캐릭터가 보여요.', url }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+  try { await navigator.clipboard.writeText(url); toast(live.id ? `링크를 복사했어요. 친구가 열면 방 ${live.room}에서 만나요` : '링크를 복사했어요'); }
+  catch (_) { toast('이 화면에서는 복사가 막혀 있어요. 주소창의 링크를 보내 주세요', 3600); }
+}
+$('#inviteBtn').addEventListener('click', invite);
+skyBtn.addEventListener('click', () => { skyState.pick = (skyState.pick + 1) % SKY_NAMES.length; skyState.dirty = true; });
+function renderTeeth() {
+  const n = teethFound.size, all = n === TEETH.length;
+  teethTxt.textContent = all ? '치아 친구 5/5 모두 찾았어요' : `숨은 치아 친구 ${n}/${TEETH.length}`; teethEl.classList.toggle('on', all);
+  const rows = TEETH.map((t) => { const d = document.createElement('div'), b = document.createElement('b'), s = document.createElement('span'); b.textContent = `${t.f}F`; s.textContent = teethFound.has(t.f) ? '찾았어요 ✓' : t.hint; d.append(b, s); return d; });
+  const tip = document.createElement('div'); tip.className = 'tip'; tip.textContent = all ? '인증샷에 금색 테두리가 생겼어요' : '층마다 하나씩, 가까이 걸어가면 찾아져요';
+  teethList.replaceChildren(...rows, tip);
+}
+teethEl.addEventListener('click', () => { teethList.hidden = !teethList.hidden; teethEl.setAttribute('aria-expanded', String(!teethList.hidden)); });
+renderTeeth();
+
+/* photo: your character in front of the clinic (or where you stand inside), 1080×1920 for stories */
+const shotEl = $('#shot'), shotImg = $('#shotImg'), shotSave = $('#shotSave'), shotShare = $('#shotShare');
+let shotUrl = '', shotFile = null;
+function takePhoto() {
+  if (!me.av || state.mode !== 'walk') return;
+  const W = 1080, H = 1920, w = state.walk, out = w.floor === 0, cx = w.pos.x, cz = w.pos.z, base = groundY(w.floor);
+  const cam = new THREE.PerspectiveCamera(out ? 86 : 64, W / H, 0.2, 300);
+  if (out) { cam.position.set(cx, 0.9, cz - 6.2); cam.lookAt(cx, 7.65, cz + 3.8); }   // a low, wide shot from in front: you, the whole building and the sky above it
+  else { const p = desiredPose(); cam.position.copy(p.pos); cam.lookAt(cx, base + 1.1, cz); }
+  const yaw = me.av.rotation.y, wasVisible = me.av.visible, tag = me.av.userData.tag, tagVis = tag.visible;
+  me.av.rotation.y = Math.atan2(-(cam.position.x - cx), -(cam.position.z - cz)); me.av.visible = true;
+  tag.visible = true; tag.getWorldPosition(tmpV); sizeTag(tag, tmpV.distanceTo(cam.position));
+  if (skyState.on) skyGroup.position.copy(cam.position);
+  const pr = renderer.getPixelRatio(), size = renderer.getSize(new THREE.Vector2());
+  renderer.setPixelRatio(1); renderer.setSize(W, H, false); renderer.render(scene, cam);
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
+  x.drawImage(renderer.domElement, 0, 0, W, H);
+  renderer.setPixelRatio(pr); renderer.setSize(size.x, size.y, false); resize();
+  me.av.rotation.y = yaw; me.av.visible = wasVisible; tag.visible = tagVis;
+  const font = (wt, s) => `${wt} ${s}px "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif`;
+  let g = x.createLinearGradient(0, 0, 0, 430); g.addColorStop(0, 'rgba(18,14,10,0.62)'); g.addColorStop(1, 'rgba(18,14,10,0)'); x.fillStyle = g; x.fillRect(0, 0, W, 430);
+  g = x.createLinearGradient(0, H - 430, 0, H); g.addColorStop(0, 'rgba(18,14,10,0)'); g.addColorStop(1, 'rgba(18,14,10,0.6)'); x.fillStyle = g; x.fillRect(0, H - 430, W, 430);
+  const d = new Date(Date.now() + 9 * 3600e3), date = `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(2, '0')}.${String(d.getUTCDate()).padStart(2, '0')}`;
+  const where = out ? '건물 앞' : `${w.floor}F ${FLOORS[w.floor - 1].short}`;
+  x.textAlign = 'left'; x.textBaseline = 'alphabetic';
+  x.fillStyle = '#E8C66C'; x.font = font(700, 30); x.fillText('SEOUL BD DENTAL · 3D TOUR', 72, 118);
+  x.fillStyle = '#FFFFFF'; x.font = font(700, 78); x.fillText('서울비디치과', 72, 208);
+  let s = 38, line = `${me.name} · ${where} · ${date}`; x.font = font(500, s); while (x.measureText(line).width > W - 144 && s > 24) { s -= 2; x.font = font(500, s); }
+  x.fillStyle = 'rgba(255,255,255,0.94)'; x.fillText(line, 72, 270);
+  const msg = 'bdbddc.com/tour 에서 같이 걸어요'; x.font = font(700, 38); const pw = x.measureText(msg).width + 110, ph = 92, pxx = (W - pw) / 2, py = H - 200;
+  x.fillStyle = 'rgba(255,253,249,0.95)'; x.beginPath(); x.roundRect(pxx, py, pw, ph, ph / 2); x.fill();
+  x.fillStyle = '#C9A042'; x.beginPath(); x.arc(pxx + 46, py + ph / 2, 10, 0, Math.PI * 2); x.fill();
+  x.fillStyle = '#2D2A26'; x.textBaseline = 'middle'; x.fillText(msg, pxx + 70, py + ph / 2 + 2);
+  if (teethFound.size === TEETH.length) {   // all five tooth friends found: a gold frame and a badge
+    x.strokeStyle = '#C9A042'; x.lineWidth = 26; x.strokeRect(13, 13, W - 26, H - 26);
+    x.strokeStyle = 'rgba(255,253,249,0.9)'; x.lineWidth = 4; x.strokeRect(34, 34, W - 68, H - 68);
+    const bt = '🦷 치아 친구 5/5'; x.font = font(700, 32); const bw = x.measureText(bt).width + 56, bh = 70, bx = W - bw - 64, by = 74;
+    x.fillStyle = '#C9A042'; x.beginPath(); x.roundRect(bx, by, bw, bh, bh / 2); x.fill(); x.fillStyle = '#1B150A'; x.textBaseline = 'middle'; x.fillText(bt, bx + 28, by + bh / 2 + 2);
+  }
+  c.toBlob((blob) => {
+    if (!blob) { toast('사진을 만들지 못했어요'); return; }
+    if (shotUrl) URL.revokeObjectURL(shotUrl);
+    shotUrl = URL.createObjectURL(blob); shotImg.src = shotUrl; shotSave.href = shotUrl; shotSave.download = `bdbddc-tour-${date.replace(/\./g, '')}.png`;
+    shotFile = typeof File === 'function' ? new File([blob], shotSave.download, { type: 'image/png' }) : null;
+    shotShare.hidden = !(shotFile && navigator.canShare && navigator.canShare({ files: [shotFile] }));
+    shotEl.hidden = false; $('#shotClose').focus({ preventScroll: true }); track('tour_photo');
+  }, 'image/png');
+}
+$('#shotBtn').addEventListener('click', takePhoto);
+shotSave.addEventListener('click', () => track('tour_photo_save'));
+shotShare.addEventListener('click', async () => { try { await navigator.share({ files: [shotFile], title: '서울비디치과 3D 투어', text: 'bdbddc.com/tour' }); track('tour_photo_share'); } catch (_) { /* cancelled */ } });
+function closeShot() { shotEl.hidden = true; }
+$('#shotClose').addEventListener('click', closeShot);
+shotEl.addEventListener('click', (e) => { if (e.target === shotEl) closeShot(); });
 
 /* what you can do where you stand */
 let actKey = '';
@@ -1393,14 +1866,17 @@ function updateAct() {
 }
 
 /* ---------------- resize / loop ---------------- */
-function resize() { const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;   // hidden or not laid out yet: keep the last good size
+function resize() { gate.classList.toggle('tall', gate.scrollHeight > gate.clientHeight + 1);   // a short screen: let the entry box scroll
+  const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;   // hidden or not laid out yet: keep the last good size
   renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w < h ? 62 : 50; camera.updateProjectionMatrix();
   if (state.mode === 'overview') state.orbit.radius = overviewRadius(); else if (state.mode === 'gate') state.orbit.radius = gateRadius(); else if (state.mode === 'floor' && !state.selected) state.orbit.radius = floorRadius(state.floor); }
 new ResizeObserver(resize).observe(canvas); resize();
 
 let last = performance.now(), firstFrame = true; const tmpV = new THREE.Vector3(), before = new THREE.Vector3();
 // name tags stay readable from afar and small up close; your own is hidden while you walk (the gold ring marks you)
-function scaleTag(a, mine) { const t = a.userData.tag; t.visible = !(mine && state.mode === 'walk'); if (!t.visible) return; t.getWorldPosition(tmpV); const k = THREE.MathUtils.clamp(tmpV.distanceTo(camera.position) / 6, 0.6, 7); t.scale.set(t.userData.base[0] * k, t.userData.base[1] * k, 1); }
+const TAG_MAX = 8;
+function sizeTag(t, d) { const k = THREE.MathUtils.clamp(d / 6, 0.6, 7); t.scale.set(t.userData.base[0] * k, t.userData.base[1] * k, 1); }
+function scaleTag(a, mine) { const t = a.userData.tag; t.visible = !(mine && state.mode === 'walk'); if (!t.visible) return; t.getWorldPosition(tmpV); sizeTag(t, tmpV.distanceTo(camera.position)); }
 function frame(now) {
   requestAnimationFrame(frame);
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
@@ -1425,19 +1901,25 @@ function frame(now) {
     if (door && want > 0 && moved < want * 0.3) { w.push += dt; if (w.push > 0.35) door.go(); } else w.push = 0;
   } else w.speed = 0;
   // camera
-  ambient.intensity += ((state.mode === 'walk' && w.floor > 0 ? 0.7 : 0.35) - ambient.intensity) * Math.min(1, dt * 4);
+  ambient.intensity += ((state.mode === 'walk' && w.floor > 0 ? 0.7 : skyState.on ? 0.35 - 0.2 * skyState.n : 0.35) - ambient.intensity) * Math.min(1, dt * 4);
   const pose = desiredPose();
   if (state.transition) { const tr = state.transition; const t = Math.min(1, (now - tr.t0) / (tr.dur * 1000)); const k = ease(t); camera.position.lerpVectors(tr.fromPos, pose.pos, k); camera.quaternion.slerpQuaternions(tr.fromQuat, pose.quat, k); if (t >= 1) state.transition = null; }
   else { camera.position.copy(pose.pos); camera.quaternion.copy(pose.quat); }
   // characters: yours follows the walk state, the others ease toward what the server last said
-  if (me.av) { placeMe(); me.av.position.set(w.pos.x, 0, w.pos.z); me.av.rotation.y = w.face; animateAvatar(me.av, w.speed, dt); me.av.visible = state.mode !== 'gate' && avShown(w.floor) && !(state.mode === 'walk' && camDist < 0.8); if (me.av.visible) scaleTag(me.av, true); }
-  const kk = 1 - Math.exp(-dt * 9);
+  if (me.av) { placeMe(); me.av.position.set(w.pos.x, 0, w.pos.z); me.av.rotation.y = w.face; animateAvatar(me.av, w.speed, dt); me.av.visible = state.mode !== 'gate' && avShown(w.floor) && !(state.mode === 'walk' && camDist < 0.8); if (me.av.visible) scaleTag(me.av, true); tickReaction(me.av, now); }
+  const kk = 1 - Math.exp(-dt * 9), near = [];
   for (const p of live.peers.values()) {
     const a = p.av; placeAvatar(a, p.f); const ox = a.position.x, oz = a.position.z; let v = 0;
     if (p.snap) { a.position.set(p.x, 0, p.z); a.rotation.y = p.face; p.snap = false; }
     else { a.position.x += (p.x - ox) * kk; a.position.z += (p.z - oz) * kk; a.rotation.y = turnToward(a.rotation.y, p.face, dt * 10); v = Math.hypot(a.position.x - ox, a.position.z - oz) / Math.max(dt, 1e-3); }
-    animateAvatar(a, v, dt); a.visible = avShown(p.f); if (a.visible) scaleTag(a);
+    animateAvatar(a, v, dt); a.visible = avShown(p.f); tickReaction(a, now);
+    const t = a.userData.tag; t.visible = false; if (a.visible) { t.getWorldPosition(tmpV); near.push([tmpV.distanceTo(camera.position), t]); }
   }
+  // only the nearest few name tags, so a crowd stays readable
+  near.sort((a, b) => a[0] - b[0]);
+  const tagFar = state.mode === 'walk' && !isOutside() ? 14 : 45;
+  for (let i = 0; i < Math.min(TAG_MAX, near.length); i++) { const [d, t] = near[i]; if (d < tagFar) { t.visible = true; sizeTag(t, d); } }
+  tickNpcs(now, dt); tickTeeth(now, dt);
   // hotspot bob + selection pulse; in walk mode, shrink pins and hide room labels that are right next to the camera
   const bob = reduceMotion ? 0 : Math.sin(now / 420) * 0.07;
   const walking = state.mode === 'walk', camWorld = camera.position;
@@ -1455,12 +1937,13 @@ function frame(now) {
   // the sun: in front of the building outside so the street face is lit, otherwise over what we look at
   sun.target.position.set(0, 0, 0);
   if (isOutside()) sun.position.set(-24, 50, -36); else sun.position.set(28, 42 + (state.mode === 'overview' ? 10 : floorGroups[state.floor - 1].group.position.y), 18);
+  updateSky(now, dt);
   renderer.render(scene, camera);
   if (firstFrame) { firstFrame = false; overlay.classList.add('off'); if (!isTouch && !gate.hidden) nickIn.focus({ preventScroll: true }); }
 }
 setVisibility(); updateUI(); resize(); liveStatus();
 camera.position.copy(desiredPose().pos); camera.quaternion.copy(desiredPose().quat);
-window.__tour = { state, floorGroups, tap, goFloor, goWalk, goOverview, focusHotspot, resumeWalk, enterWorld, checkName, live, EXT };
+window.__tour = { state, floorGroups, tap, goFloor, goWalk, goOverview, focusHotspot, resumeWalk, enterWorld, checkName, live, EXT, NPCS, TEETH, teethFound, takePhoto, sendReaction, invite, openDoctor, skyState, renderer, camera };
 requestAnimationFrame(frame);
 liveConnect();
 </script>
