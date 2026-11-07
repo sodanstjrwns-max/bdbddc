@@ -13134,6 +13134,290 @@ export const patientNotes: PatientNote[] = [
     }
   ],
   "updated": "2026-11-07"
+},
+{
+  "slug": "joint-replacement-antibiotics-before-dental-treatment",
+  "publishedAt": "2026-11-08T09:00:00+09:00",
+  "title": "인공무릎 수술 뒤 치과 갈 때마다 항생제를 먹으래요. 꼭 필요한가요?",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "치과 치료",
+  "concern": "지병과 약 때문에 치료가 걱정돼요",
+  "description": "당진에서 인공무릎·고관절 수술 뒤 치과 치료 전 예방 항생제와 진료 시기를 고민하는 분을 위한 상담 안내입니다.",
+  "situation": "당진에서 인공무릎 수술 후 회복 중입니다. 잇몸 치료를 받으려니 항생제를 꼭 먹으라는 말과 필요 없다는 말을 함께 들어, 어렵게 받은 인공관절이 잘못될까 불안합니다.",
+  "answer": "인공관절이 있다는 이유만으로 모든 치과 진료 전에 예방 항생제를 자동으로 복용하는 것이 현재의 일반 원칙은 아닙니다. 관절 수술의 시기와 합병증 이력, 몸 상태, 실제 치과 처치를 확인해 치과·정형외과와 함께 결정해야 합니다. 이미 받은 개인 처방을 혼자 취소하거나 남은 항생제를 미리 먹지 말고, 이번 진료에 적용할 한 가지 계획으로 확인하세요.",
+  "checks": [
+    "인공관절 수술 부위·날짜와 수술 뒤 감염 또는 재수술 이력을 알립니다.",
+    "예정된 치과 처치와 현재 통증·붓기 등 감염 의심 증상을 구분합니다.",
+    "면역에 영향을 주는 질환·복용약과 별도의 심장질환 유무를 전달합니다.",
+    "항생제를 권한 의료진에게 이번 처치의 이유·처방 담당자·복용 안내를 확인합니다."
+  ],
+  "choices": [
+    {
+      "condition": "인공관절 외 별도의 위험 요인이 확인되지 않으면",
+      "option": "현재 근거와 예정 처치를 바탕으로 통상적인 구강 진료 계획을 상담합니다.",
+      "limit": "예방 항생제를 생략한다는 원칙이 모든 개인의 처방을 취소한다는 뜻은 아닙니다."
+    },
+    {
+      "condition": "수술 합병증·최근 회복 상태·다른 질환을 함께 고려해야 한다면",
+      "option": "치과와 정형외과가 처치 시기와 필요한 약을 구체적으로 조율합니다.",
+      "limit": "확인 과정에서도 급성 치아 감염과 전신 악화는 별도로 빨리 평가해야 합니다."
+    }
+  ],
+  "unknown": "이 글만으로 예방 항생제의 종류·용량·복용 시점이나 수술 후 대기 기간을 정할 수 없습니다. 인공무릎·고관절 지침을 다른 모든 금속 삽입물과 심장판막에 그대로 적용하지 않습니다.",
+  "prepare": [
+    "수술 날짜·부위와 정형외과 진료 요약",
+    "현재 복용약과 항생제 알레르기·심한 설사 이력",
+    "치과에서 계획한 처치 설명",
+    "의료진에게 받은 서로 다른 안내문"
+  ],
+  "localHeading": "당진에서 인공관절 수술 뒤 치과 치료를 준비한다면",
+  "localAdvice": "당진에서 천안 불당동 서울비디치과로 치과 치료 상담을 오기 전 인공관절 수술 날짜와 받은 안내문을 알려 주세요. 검사와 처치 일정, 정형외과에 확인할 내용, 이동 중 자세와 동행 필요를 나누어 상의하면 도움이 됩니다. 당진에 별도 분원이 있다는 뜻이나 특정 약 처방·당일 치료를 보장하는 안내는 아닙니다.",
+  "related": [
+    {
+      "title": "스케일링·잇몸 관리 가이드",
+      "href": "/guide/scaling"
+    },
+    {
+      "title": "사랑니·발치 계획 가이드",
+      "href": "/guide/wisdom-tooth"
+    },
+    {
+      "title": "심장판막 때문에 치과 항생제를 고민한다면",
+      "href": "/concerns/heart-valve-antibiotics-before-dental-scaling"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국치과의사협회 — 치과 진료 전 예방 항생제",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/antibiotic-prophylaxis"
+    },
+    {
+      "title": "미국정형외과학회 — 2024 인공무릎·고관절 치과 진료 지침 발표",
+      "href": "https://www.aaos.org/aaos-home/newsroom/press-releases/aaos-updates-clinical-practice-guideline-to-prevent-total-hip-and-knee-arthroplasty-periprosthetic-joint-infection-in-patients-undergoing-dental-procedures/"
+    },
+    {
+      "title": "미국치과의사협회 — 인공관절 예방 항생제 상담 자료",
+      "href": "https://www.ada.org/-/media/project/ada-organization/ada/ada-org/files/resources/research/ada_chairside_guide_prosthetics.pdf"
+    }
+  ],
+  "updated": "2026-11-08"
+},
+{
+  "slug": "child-injured-immature-permanent-tooth-root-growth",
+  "publishedAt": "2026-11-08T09:00:00+09:00",
+  "title": "아이 다친 앞니 뿌리가 아직 덜 자랐대요. 신경치료를 하면 성장이 멈추나요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "치아 외상",
+  "concern": "아이 치아를 어떻게 지킬지 걱정돼요",
+  "description": "서산에서 아이의 다친 미성숙 영구치에 치수 보존·신경치료·재생 근관치료 설명을 들은 보호자가 뿌리 성장과 추적 관찰을 상담하는 방법입니다.",
+  "situation": "서산에서 아이가 앞니를 다친 뒤 영구치 뿌리가 아직 덜 자랐다는 설명을 들었습니다. 신경을 살려야 한다는 말과 치료를 서둘러야 한다는 말 사이에서 아이의 평생 치아를 잘못 결정할까 두렵습니다.",
+  "answer": "다친 영구치의 뿌리가 덜 자랐다면 치수 상태와 외상 유형, 감염 여부, 치아를 수복할 수 있는지를 함께 살펴야 합니다. 살아 있는 치수를 보존하는 치료와 치수가 괴사했을 때 고려하는 치료는 목표가 다릅니다. 재생 치료도 뿌리 성장과 원래 조직 회복을 보장하지 않으므로 현재 진단·가능한 선택·추적 관찰 기준을 나누어 설명받으세요.",
+  "checks": [
+    "다친 날짜·상황과 처음 받은 처치·촬영 자료를 준비합니다.",
+    "영구치 여부와 뿌리 발달 단계, 치수 상태를 확인합니다.",
+    "치수 보존과 감염 치료 중 현재 우선 목표가 무엇인지 묻습니다.",
+    "정기 관찰 날짜와 통증·붓기 등 예약 전 연락 기준을 받습니다."
+  ],
+  "choices": [
+    {
+      "condition": "살아 있는 치수를 보존할 조건이 있다면",
+      "option": "손상 정도와 치수 진단에 맞는 생활치수치료를 상담합니다.",
+      "limit": "겉으로 작게 깨졌다는 이유만으로 내부 조직 상태를 확정할 수 없습니다."
+    },
+    {
+      "condition": "치수 괴사·감염 등으로 다른 접근이 필요하면",
+      "option": "근단 장벽 형성·재생 근관치료 등 가능한 선택과 의뢰 필요를 비교합니다.",
+      "limit": "뿌리 성장과 장기 보존은 치료 이름만으로 보장되지 않으며 반복 관찰이 필요합니다."
+    }
+  ],
+  "unknown": "아이의 나이와 치아 색, 한 번의 반응 검사만으로 치료를 정할 수 없습니다. 이 글은 응급 외상 진료나 진단을 대신하지 않으며 특정 기관에서 모든 재생 치료를 제공한다는 뜻이 아닙니다.",
+  "prepare": [
+    "외상 발생 시점과 치아가 흔들리거나 위치가 변했는지 메모",
+    "기존 방사선 사진·진료 기록과 받은 처치 설명",
+    "통증·색·붓기·잇몸 변화의 날짜별 기록",
+    "학교·이동 일정과 장기 관찰이 가능한 진료기관 정보"
+  ],
+  "localHeading": "서산에서 아이 치아 외상 후 치료를 이어 간다면",
+  "localAdvice": "서산에서 천안 불당동 서울비디치과에 치아 외상 상담을 계획할 때 다친 시점과 기존 처치 자료를 먼저 알려 주세요. 필요한 평가·의뢰와 장기 관찰을 어디서 이어 갈지 상의하고, 학교 일정과 이동 부담도 전달해 주세요. 서산 분원이 있다는 뜻이나 재생 치료·당일 시행을 보장하는 안내는 아닙니다.",
+  "related": [
+    {
+      "title": "신경치료와 치아 보존 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "다친 앞니가 어두워졌을 때의 고민",
+      "href": "/concerns/front-tooth-turning-dark-after-injury"
+    },
+    {
+      "title": "깊은 충치에서 신경 보존을 고민한다면",
+      "href": "/concerns/deep-cavity-can-the-nerve-be-preserved"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국소아치과학회 — 유치·미성숙 영구치 치수치료",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/pulp-therapy-for-primary-and-immature-permanent-teeth/"
+    },
+    {
+      "title": "미국근관치료학회 — 외상 치아 안내",
+      "href": "https://www.aae.org/patients/dental-symptoms/traumatic-dental-injuries/"
+    },
+    {
+      "title": "미국근관치료학회 — 치수가 괴사한 미성숙 영구치의 치료 결정",
+      "href": "https://www.aae.org/specialty/decision-making-for-managing-immature-permanent-teeth-with-necrotic-pulp/"
+    },
+    {
+      "title": "국제치아외상학회 — 영구치 파절·탈구 지침",
+      "href": "https://onlinelibrary.wiley.com/doi/full/10.1111/edt.12578"
+    }
+  ],
+  "updated": "2026-11-08"
+},
+{
+  "slug": "hearing-loss-dental-treatment-communication",
+  "publishedAt": "2026-11-08T09:00:00+09:00",
+  "title": "보청기를 껴도 치과 설명을 놓쳐요. 알아들은 척하다 치료를 결정할까 봐 걱정됩니다.",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "치과 치료",
+  "concern": "진료 과정이 두렵고 막막해요",
+  "description": "천안에서 난청·청각장애로 치과 설명과 치료 중 신호가 걱정되는 분이 선호하는 소통 방식과 이해 확인, 보청기·동행·진료 후 안내를 준비하는 방법입니다.",
+  "situation": "천안에서 잇몸과 치아 치료를 미루고 있습니다. 보청기를 써도 마스크를 쓴 의료진의 말이 잘 들리지 않고, 여러 번 되묻다가 결국 고개를 끄덕인 경험 때문에 상담이 두렵습니다.",
+  "answer": "잘 들리지 않는 상황에서는 더 큰 소리만으로 해결하기보다 조용한 설명 환경, 한 사람씩 말하기, 글·그림·수어 등 본인에게 맞는 방법과 이해 확인이 필요합니다. 치료 전 중단 신호를 정하고 선택·비용·주의사항을 확인 가능한 형태로 받으세요. 청각장애나 보청기 사용이 곧 이해·판단 능력의 문제라는 뜻은 아닙니다.",
+  "checks": [
+    "본인이 편한 소통 방식과 잘 들리는 방향을 예약 전에 알립니다.",
+    "치료 설명과 선택 사항은 입안 처치를 시작하기 전에 확인합니다.",
+    "손을 들면 멈춘다는 등 서로 알아볼 신호를 실제로 맞춰 봅니다.",
+    "진료 후 약·주의사항·다음 일정과 연락 방법을 글 등 필요한 형태로 받습니다."
+  ],
+  "choices": [
+    {
+      "condition": "말소리와 글을 함께 보면 이해하기 편하다면",
+      "option": "조용한 곳에서 짧게 나누어 듣고 핵심 내용을 적어 확인합니다.",
+      "limit": "글이나 입 모양만으로 모든 사람의 의사소통이 해결되는 것은 아닙니다."
+    },
+    {
+      "condition": "수어 통역·동행·보조 기기 등 지원이 필요하다면",
+      "option": "진료 전에 가능한 지원과 준비 주체·시간을 함께 확인합니다.",
+      "limit": "특정 통역·장비가 모든 기관에서 즉시 제공된다고 가정하지 않습니다."
+    }
+  ],
+  "unknown": "이 글은 청력검사나 보청기 조정을 대신하지 않습니다. 진료 중 보청기 착용 여부와 보조 장비는 개인 기기·치료 환경에 맞춰 의료진 및 청각 전문가와 확인해야 합니다.",
+  "prepare": [
+    "편한 소통 방법과 놓치기 쉬운 상황 메모",
+    "충전 또는 배터리를 확인한 보청기와 보관함",
+    "치료 선택·비용·진료 후 관리에 관한 질문",
+    "원하는 동행 범위와 연락 가능한 방법"
+  ],
+  "localHeading": "천안에서 설명을 충분히 들으며 치과 치료를 받으려면",
+  "localAdvice": "천안 불당동 서울비디치과에 치과 치료 상담을 예약할 때 난청·청각장애와 선호하는 소통 방법을 먼저 알려 주세요. 글 설명, 동행, 수어 통역 등 필요한 지원이 가능한지와 준비할 내용을 사전에 확인하면 도움이 됩니다. 특정 장비·통역 제공이나 당일 치료를 보장하는 안내는 아닙니다.",
+  "related": [
+    {
+      "title": "스케일링·잇몸 관리 가이드",
+      "href": "/guide/scaling"
+    },
+    {
+      "title": "신경치료와 치아 보존 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "치과 마취 뒤 두근거림과 알레르기 걱정",
+      "href": "/concerns/heart-racing-after-dental-local-anesthetic"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국 국립난청·의사소통장애연구소 — 마스크 착용 상황의 소통",
+      "href": "https://www.nidcd.nih.gov/about/nidcd-director-message/cloth-face-coverings-and-distancing-pose-communication-challenges-many/improving-communication-when-wearing-face-covering-text-version"
+    },
+    {
+      "title": "Alberta Health Services — 난청이 있을 때의 의사소통",
+      "href": "https://myhealth.alberta.ca/speech-language-hearing/hearing/for-adults/communicating-when-you-have-hearing-loss"
+    },
+    {
+      "title": "영국 치과의료 규제기관 GDC — 환자와의 효과적인 의사소통 원칙",
+      "href": "https://standards.gdc-uk.org/pages/principle2/principle2"
+    },
+    {
+      "title": "미국언어청각협회 — 소음 환경에서의 대화 방법",
+      "href": "https://www.asha.org/siteassets/ais/ais-tips-for-improving-conversation-in-noisy-environments.pdf"
+    }
+  ],
+  "updated": "2026-11-08"
+},
+{
+  "slug": "latex-allergy-rubber-dam-dental-care",
+  "publishedAt": "2026-11-08T09:00:00+09:00",
+  "title": "라텍스 알레르기가 있는데 신경치료를 받아도 될까요? 고무막과 장갑이 무서워요.",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "신경치료",
+  "concern": "지병과 약 때문에 치료가 걱정돼요",
+  "description": "아산에서 라텍스 알레르기 때문에 신경치료의 장갑·러버댐이 두려운 분이 과거 반응과 제품 확인, 대체 재료·응급 계획을 상담하는 방법입니다.",
+  "situation": "아산에서 신경치료가 필요하다는 설명을 들었습니다. 예전에 고무장갑이나 의료용품에 접촉한 뒤 반응이 있었고, 입안에 고무막을 씌운다는 말을 듣자 치료를 못 받는 건 아닐지 걱정됩니다.",
+  "answer": "천연고무 라텍스 단백질에 대한 알레르기와 피부 자극·첨가물에 대한 접촉 반응은 구분이 필요합니다. 확인된 알레르기나 의심 반응은 예약 전에 알려야 하며, 의료진이 사용 제품과 환경을 확인하고 필요한 대체 재료를 준비해야 합니다. 비라텍스 장갑·러버댐을 사용할 수 있는 경우가 있으므로 알레르기 때문에 보호막을 무조건 생략한다고 생각하지 마세요.",
+  "checks": [
+    "어떤 제품에 닿은 뒤 몇 분·몇 시간 후 어떤 반응이 생겼는지 알립니다.",
+    "진단서·검사 결과와 응급 약·개인 대처 계획이 있으면 준비합니다.",
+    "장갑뿐 아니라 러버댐 등 이번 처치에 쓰는 재료 확인을 요청합니다.",
+    "제품 확인과 필요한 진료 환경·응급 대응을 마친 뒤 치료 계획을 정합니다."
+  ],
+  "choices": [
+    {
+      "condition": "천연고무 라텍스 알레르기가 확인돼 있다면",
+      "option": "관련 노출을 피하는 재료·환경과 필요한 의료진 협의를 확인합니다.",
+      "limit": "가루 없는 장갑이나 저자극 표시만으로 적합성을 확정하지 않습니다."
+    },
+    {
+      "condition": "반응의 원인과 종류가 아직 분명하지 않다면",
+      "option": "기존 반응 기록과 치과의 급한 문제를 나누어 평가하고 필요한 알레르기 진료를 연결합니다.",
+      "limit": "집에서 제품을 다시 대어 보거나 예방 약만 믿고 노출을 시도하지 않습니다."
+    }
+  ],
+  "unknown": "이 글은 알레르기를 진단하거나 특정 제품의 안전성을 보장하지 않습니다. 신경치료의 재료·환경은 실제 제품 정보와 개인 반응 이력에 따라 확인해야 하며 심한 반응은 즉시 응급 대응이 필요합니다.",
+  "prepare": [
+    "알레르기 진단·검사·응급실 진료 기록이 있다면 해당 자료",
+    "문제가 됐던 제품 이름과 반응 발생 시간 메모",
+    "현재 약과 처방된 응급 약·사용 교육 내용",
+    "치과 통증·붓기·식사 상태와 최근 변화"
+  ],
+  "localHeading": "아산에서 라텍스 알레르기를 알리고 신경치료를 준비한다면",
+  "localAdvice": "아산에서 천안 불당동 서울비디치과에 신경치료 상담을 예약할 때 라텍스 알레르기 진단 또는 의심 반응을 먼저 알려 주세요. 이동 전에 확인할 자료와 제품·환경 준비가 필요한지 상의하면 도움이 됩니다. 아산 분원이 있다는 뜻이나 모든 대체 재료의 상시 보유·당일 처치를 보장하는 안내는 아닙니다.",
+  "related": [
+    {
+      "title": "신경치료와 치아 보존 가이드",
+      "href": "/guide/root-canal"
+    },
+    {
+      "title": "러버댐을 쓰면 숨쉬기 어려울까 걱정된다면",
+      "href": "/concerns/root-canal-rubber-dam-breathing-fear"
+    },
+    {
+      "title": "치과 마취 뒤 심장이 두근거렸던 고민",
+      "href": "/concerns/heart-racing-after-dental-local-anesthetic"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국치과의사협회 — 라텍스 알레르기",
+      "href": "https://www.ada.org/resources/ada-library/oral-health-topics/latex-allergy"
+    },
+    {
+      "title": "미국근관치료학회 — 라텍스 알레르기 입장문",
+      "href": "https://www.aae.org/specialty/wp-content/uploads/sites/2/2024/06/LatexAllergy_PositionStatement_v1.pdf"
+    },
+    {
+      "title": "Cambridge University Hospitals — 라텍스 알레르기 환자 안내",
+      "href": "https://www.cuh.nhs.uk/patient-information/information-for-patients-with-latex-allergy/"
+    },
+    {
+      "title": "호주·뉴질랜드 임상면역알레르기학회 — 치과 환경의 라텍스 관리",
+      "href": "https://www.allergy.org.au/hp/papers/management-of-latex-allergic-patients/the-dental-environment"
+    }
+  ],
+  "updated": "2026-11-08"
 }
 ]
 
