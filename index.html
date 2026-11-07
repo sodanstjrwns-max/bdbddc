@@ -577,6 +577,26 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <link rel="stylesheet" href="/static/subpage-cards.css?v=20261014">
 <script type="application/ld+json" id="home-treatment-cards-schema">{"@context":"https://schema.org","@type":"ItemList","@id":"https://bdbddc.com/#treatment-cards","name":"궁금한 진료부터 살펴보기","numberOfItems":6,"itemListElement":[{"@type":"ListItem","position":1,"name":"천안 임플란트","url":"https://bdbddc.com/treatments/implant","image":"https://bdbddc.com/images/treatment-editorial/implant/4043c51b9f1d4b56/thumbnail.jpg"},{"@type":"ListItem","position":2,"name":"천안 교정·인비절라인","url":"https://bdbddc.com/treatments/invisalign","image":"https://bdbddc.com/images/treatment-editorial/invisalign/70de63e6bb0b7bb4/thumbnail.jpg"},{"@type":"ListItem","position":3,"name":"천안 글로우네이트","url":"https://bdbddc.com/treatments/glownate","image":"https://bdbddc.com/images/treatment-editorial/glownate/9bb87e91ad25d393/thumbnail.jpg"},{"@type":"ListItem","position":4,"name":"천안 사랑니 발치","url":"https://bdbddc.com/treatments/wisdom-tooth","image":"https://bdbddc.com/images/treatment-editorial/wisdom-tooth/256ef33eb3eb7c4b/thumbnail.jpg"},{"@type":"ListItem","position":5,"name":"천안 소아치과","url":"https://bdbddc.com/treatments/pediatric","image":"https://bdbddc.com/images/treatment-editorial/pediatric/8f17d13986873e7d/thumbnail.jpg"},{"@type":"ListItem","position":6,"name":"천안 충치치료","url":"https://bdbddc.com/treatments/cavity","image":"https://bdbddc.com/images/treatment-editorial/cavity/81583dd586bb2974/thumbnail.jpg"}]}</script>
 <link rel="stylesheet" href="/static/regional-links.css?v=14105a8571dd">
+<style>
+/* 3D floors from the real drawings (rendered by the /tour engine), switched by the floor cards and tabs */
+.bd-f3d{text-align:center}
+.bd-f3d-stage{position:relative;width:100%;max-width:440px;margin:0 auto;aspect-ratio:2/3;border-radius:20px;overflow:hidden;background:#F7F3EC;box-shadow:0 12px 40px rgba(107,66,38,.12);border:3px solid rgba(200,169,126,.2)}
+.bd-f3d-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s ease,transform .5s ease}
+.bd-f3d-stage .bd-f3d-one{opacity:0;transform:scale(.97)}
+.bd-f3d-stage .bd-f3d-one.on{opacity:1;transform:none}
+.bd-f3d.one .bd-f3d-all{opacity:0;transform:scale(1.03)}
+.bd-f3d-tag{position:absolute;left:12px;top:12px;max-width:calc(100% - 24px);box-sizing:border-box;background:rgba(255,253,249,.94);border:1px solid rgba(200,169,126,.4);border-radius:999px;padding:5px 12px;font-size:.82rem;font-weight:700;color:#6B4226;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bd-f3d-tabs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.bd-f3d-tabs button{font:inherit;font-size:.82rem;font-weight:700;min-width:44px;padding:7px 12px;border-radius:999px;border:1px solid rgba(200,169,126,.5);background:#fff;color:#6B4226;cursor:pointer}
+.bd-f3d-tabs button[aria-pressed="true"]{background:#6B4226;border-color:#6B4226;color:#fff}
+.bd-f3d-tabs button:focus-visible,.bd-f3d-walk:focus-visible{outline:2px solid #C8A97E;outline-offset:2px}
+.bd-f3d-walk{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;color:#8B6914;text-decoration:none}
+.bd-f3d-walk:hover{text-decoration:underline}
+.f3d-on{border-color:rgba(200,169,126,.95)!important;box-shadow:0 10px 28px rgba(107,66,38,.14)!important}
+[data-f3d-card]{cursor:pointer}
+@media (max-width:900px){.bd-f3d-stage{max-width:340px}}
+@media (prefers-reduced-motion:reduce){.bd-f3d-stage img{transition:none}}
+</style>
 </head>
 
 <body>
@@ -1471,42 +1491,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="floor-side">
         <!-- 왼쪽: 일러스트 (스크롤 시 sticky) -->
         <div class="floor-side-illust reveal">
-          <picture>
-            <source srcset="/images/floor-illustration-v2.webp?v=3fe71576" type="image/webp">
-            <img src="/images/floor-illustration-v2.png?v=3fe71576" alt="서울비디치과 층별 안내 일러스트 — 1F 인비절라인 교정센터, 2F 디지털기공·위생관리센터, 3F BDX검진·소아치과센터, 4F 임플란트센터(6개 수술방), 5F 종합진료센터" loading="lazy" width="686" height="1024">
-          </picture>
-          <p class="illust-caption">
-            <i class="fas fa-palette" style="color:var(--brand-gold);margin-right:4px;"></i>
-            400평, 5개 층 전문 진료 공간
-          </p>
+          <div class="bd-f3d" data-f3d data-names='{"0": "전관 · 5개 층", "5": "5F 종합진료센터", "4": "4F 임플란트센터", "3": "3F BDX검진 · 소아치과센터", "2": "2F 디지털기공 · 위생관리센터", "1": "1F 인비절라인 치아교정센터"}'>
+  <div class="bd-f3d-stage">
+    <img class="bd-f3d-all" src="/images/floors3d/all.webp?v=3cf5fe75" alt="서울비디치과 5개 층을 실제 도면대로 쌓아 올린 3D 그림. 위에서부터 5F 종합진료센터, 4F 임플란트센터, 3F BDX검진·소아치과센터, 2F 디지털기공·위생관리센터, 1F 인비절라인 치아교정센터" width="880" height="1320" loading="lazy" decoding="async">
+    <img class="bd-f3d-one" data-f="5" data-src="/images/floors3d/5f.webp?v=e002ddfc" alt="5F 종합진료센터 3D 배치 (실제 도면 기반)" width="880" height="1320" decoding="async">
+    <img class="bd-f3d-one" data-f="4" data-src="/images/floors3d/4f.webp?v=dc58ef23" alt="4F 임플란트센터 3D 배치 (실제 도면 기반)" width="880" height="1320" decoding="async">
+    <img class="bd-f3d-one" data-f="3" data-src="/images/floors3d/3f.webp?v=4a52f04f" alt="3F BDX검진 · 소아치과센터 3D 배치 (실제 도면 기반)" width="880" height="1320" decoding="async">
+    <img class="bd-f3d-one" data-f="2" data-src="/images/floors3d/2f.webp?v=c2d1aebc" alt="2F 디지털기공 · 위생관리센터 3D 배치 (실제 도면 기반)" width="880" height="1320" decoding="async">
+    <img class="bd-f3d-one" data-f="1" data-src="/images/floors3d/1f.webp?v=655a5fc3" alt="1F 인비절라인 치아교정센터 3D 배치 (실제 도면 기반)" width="880" height="1320" decoding="async">
+    <span class="bd-f3d-tag" aria-live="polite">전관 · 5개 층</span>
+  </div>
+  <div class="bd-f3d-tabs" role="group" aria-label="층 고르기"><button type="button" data-f="0" aria-pressed="true">전관</button><button type="button" data-f="5" aria-pressed="false">5F</button><button type="button" data-f="4" aria-pressed="false">4F</button><button type="button" data-f="3" aria-pressed="false">3F</button><button type="button" data-f="2" aria-pressed="false">2F</button><button type="button" data-f="1" aria-pressed="false">1F</button></div>
+  <p class="illust-caption"><i class="fas fa-cube" style="color:var(--brand-gold);margin-right:4px;"></i> 400평, 5개 층 전문 진료 공간 · 실제 도면을 단순화한 3D예요 · 층을 고르면 그 층을 보여 드려요</p>
+</div>
         </div>
 
         <!-- 오른쪽: 층별 카드 -->
         <div class="floor-side-cards">
           <div class="floor-stack">
-            <div class="floor-item reveal delay-1">
+            <div class="floor-item reveal delay-1" data-f3d-card="5">
               <div class="floor-number">5F</div>
-              <div class="floor-info"><h3>종합진료센터</h3><p>일반진료, 사랑니, 잇몸, 신경, 미백</p></div>
+              <div class="floor-info"><h3>종합진료센터</h3><p>일반진료, 사랑니, 잇몸, 신경, 미백</p><a class="bd-f3d-walk" href="/tour?floor=5">3D로 이 층 걷기 →</a></div>
               <div class="floor-icon"><i class="fas fa-stethoscope"></i></div>
             </div>
-            <div class="floor-item reveal delay-2">
+            <div class="floor-item reveal delay-2" data-f3d-card="4">
               <div class="floor-number">4F</div>
-              <div class="floor-info"><h3>임플란트센터</h3><p>6개 수술방, 2개 회복실, 네비게이션</p></div>
+              <div class="floor-info"><h3>임플란트센터</h3><p>6개 수술방, 2개 회복실, 네비게이션</p><a class="bd-f3d-walk" href="/tour?floor=4">3D로 이 층 걷기 →</a></div>
               <div class="floor-icon"><i class="fas fa-tooth"></i></div>
             </div>
-            <div class="floor-item reveal delay-3">
+            <div class="floor-item reveal delay-3" data-f3d-card="3">
               <div class="floor-number">3F</div>
-              <div class="floor-info"><h3>BDX검진센터 · 소아치과센터</h3><p>정밀검진, 소아전문의 3인</p></div>
+              <div class="floor-info"><h3>BDX검진센터 · 소아치과센터</h3><p>정밀검진, 소아전문의 3인</p><a class="bd-f3d-walk" href="/tour?floor=3">3D로 이 층 걷기 →</a></div>
               <div class="floor-icon"><i class="fas fa-child"></i></div>
             </div>
-            <div class="floor-item reveal delay-4">
+            <div class="floor-item reveal delay-4" data-f3d-card="2">
               <div class="floor-number">2F</div>
-              <div class="floor-info"><h3>디지털기공센터 · 위생관리센터</h3><p>원내 기공소, 위생관리, 전략기획실</p></div>
+              <div class="floor-info"><h3>디지털기공센터 · 위생관리센터</h3><p>원내 기공소, 위생관리, 전략기획실</p><a class="bd-f3d-walk" href="/tour?floor=2">3D로 이 층 걷기 →</a></div>
               <div class="floor-icon"><i class="fas fa-cogs"></i></div>
             </div>
-            <div class="floor-item reveal delay-1">
+            <div class="floor-item reveal delay-1" data-f3d-card="1">
               <div class="floor-number">1F</div>
-              <div class="floor-info"><h3>인비절라인 치아교정센터</h3><p>서울대 교정 전문의 2인, 대규모</p></div>
+              <div class="floor-info"><h3>인비절라인 치아교정센터</h3><p>서울대 교정 전문의 2인, 대규모</p><a class="bd-f3d-walk" href="/tour?floor=1">3D로 이 층 걷기 →</a></div>
               <div class="floor-icon"><i class="fas fa-teeth"></i></div>
             </div>
           </div>
@@ -2213,5 +2238,36 @@ if('serviceWorker' in navigator){window.addEventListener('load',function(){navig
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="/js/immersive.js?v=14c458b4" defer></script>
+<script>
+(function () {
+  var root = document.querySelector('[data-f3d]'); if (!root) return;
+  var tag = root.querySelector('.bd-f3d-tag'), names = JSON.parse(root.getAttribute('data-names') || '{}');
+  var tabs = [].slice.call(root.querySelectorAll('.bd-f3d-tabs button')), ones = {};
+  [].forEach.call(root.querySelectorAll('.bd-f3d-one'), function (im) { ones[im.getAttribute('data-f')] = im; });
+  var cards = [].slice.call(document.querySelectorAll('[data-f3d-card]')), cur = '0', back = 0;
+  function load(f) { var im = ones[f]; if (im && !im.getAttribute('src')) im.setAttribute('src', im.getAttribute('data-src')); }
+  function show(f) {
+    f = String(f); clearTimeout(back); if (f === cur) return; cur = f; if (f !== '0') load(f);
+    root.classList.toggle('one', f !== '0');
+    for (var k in ones) ones[k].classList.toggle('on', k === f);
+    tabs.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === f)); });
+    cards.forEach(function (c) { c.classList.toggle('f3d-on', c.getAttribute('data-f3d-card') === f); });
+    tag.textContent = names[f] || '';
+  }
+  tabs.forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-f')); }); });
+  cards.forEach(function (c) {
+    var f = c.getAttribute('data-f3d-card');
+    c.addEventListener('mouseenter', function () { show(f); });
+    c.addEventListener('focusin', function () { show(f); });
+    c.addEventListener('click', function (e) { if (!e.target.closest('a')) show(f); });
+  });
+  if (cards.length) cards[0].parentElement.addEventListener('mouseleave', function () { back = setTimeout(function () { show('0'); }, 800); });
+  // fetch the five floor pictures once the section is close, so switching is instant
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); setTimeout(function () { for (var k in ones) load(k); }, 900); } }, { rootMargin: '300px' });
+    io.observe(root);
+  }
+})();
+</script>
 </body>
 </html>

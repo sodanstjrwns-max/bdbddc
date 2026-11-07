@@ -157,6 +157,26 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
 <link rel="alternate" hreflang="ko" href="https://bdbddc.com/floor-guide">
 <link rel="alternate" hreflang="ja" href="https://bdbddc.com/jp/floor-guide">
 <link rel="alternate" hreflang="x-default" href="https://bdbddc.com/floor-guide">
+<style>
+/* 3D floors from the real drawings (rendered by the /tour engine), switched by the floor cards and tabs */
+.bd-f3d{text-align:center}
+.bd-f3d-stage{position:relative;width:100%;max-width:440px;margin:0 auto;aspect-ratio:2/3;border-radius:20px;overflow:hidden;background:#F7F3EC;box-shadow:0 12px 40px rgba(107,66,38,.12);border:3px solid rgba(200,169,126,.2)}
+.bd-f3d-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s ease,transform .5s ease}
+.bd-f3d-stage .bd-f3d-one{opacity:0;transform:scale(.97)}
+.bd-f3d-stage .bd-f3d-one.on{opacity:1;transform:none}
+.bd-f3d.one .bd-f3d-all{opacity:0;transform:scale(1.03)}
+.bd-f3d-tag{position:absolute;left:12px;top:12px;max-width:calc(100% - 24px);box-sizing:border-box;background:rgba(255,253,249,.94);border:1px solid rgba(200,169,126,.4);border-radius:999px;padding:5px 12px;font-size:.82rem;font-weight:700;color:#6B4226;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bd-f3d-tabs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.bd-f3d-tabs button{font:inherit;font-size:.82rem;font-weight:700;min-width:44px;padding:7px 12px;border-radius:999px;border:1px solid rgba(200,169,126,.5);background:#fff;color:#6B4226;cursor:pointer}
+.bd-f3d-tabs button[aria-pressed="true"]{background:#6B4226;border-color:#6B4226;color:#fff}
+.bd-f3d-tabs button:focus-visible,.bd-f3d-walk:focus-visible{outline:2px solid #C8A97E;outline-offset:2px}
+.bd-f3d-walk{display:inline-block;margin-top:6px;font-size:.82rem;font-weight:700;color:#8B6914;text-decoration:none}
+.bd-f3d-walk:hover{text-decoration:underline}
+.f3d-on{border-color:rgba(200,169,126,.95)!important;box-shadow:0 10px 28px rgba(107,66,38,.14)!important}
+[data-f3d-card]{cursor:pointer}
+@media (max-width:900px){.bd-f3d-stage{max-width:340px}}
+@media (prefers-reduced-motion:reduce){.bd-f3d-stage img{transition:none}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -379,18 +399,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="fg-side-layout">
         <div class="fg-side-illust reveal">
-          <picture>
-            <source srcset="/images/floor-illustration-v2.webp?v=3fe71576" type="image/webp">
-            <img src="/images/floor-illustration-v2.png?v=3fe71576" alt="ソウルBD歯科 階別案内イラスト — 1F インビザライン矯正センター, 2F デジタル技工·衛生管理センター, 3F BDX検診·小児歯科センター, 4F インプラントセンター(手術室6室), 5F 総合診療センター" loading="lazy" width="686" height="1024">
-          </picture>
-          <p class="fg-caption">
-            <i class="fas fa-palette" style="color:var(--brand-gold);margin-right:4px;"></i>
-            5つのフロア、それぞれの専門診療スペース
-          </p>
+          <div class="bd-f3d" data-f3d data-names='{"0": "全館 · 5フロア", "5": "5F 総合診療センター", "4": "4F インプラントセンター", "3": "3F BDX検診 · 小児歯科センター", "2": "2F デジタル技工 · 衛生管理センター", "1": "1F インビザライン矯正センター"}'>
+  <div class="bd-f3d-stage">
+    <img class="bd-f3d-all" src="/images/floors3d/all.webp?v=3cf5fe75" alt="ソウルBD歯科の5フロアを実際の図面どおりに積み重ねた3D図。上から5F 総合診療センター、4F インプラントセンター、3F BDX検診・小児歯科センター、2F デジタル技工・衛生管理センター、1F インビザライン矯正センター" width="880" height="1320" loading="lazy" decoding="async">
+    <img class="bd-f3d-one" data-f="5" data-src="/images/floors3d/5f.webp?v=e002ddfc" alt="5F 総合診療センターの3Dレイアウト（実際の図面をもとに作成）" width="880" height="1320" decoding="async">
+    <img class="bd-f3d-one" data-f="4" data-src="/images/floors3d/4f.webp?v=dc58ef23" alt="4F インプラントセンターの3Dレイアウト（実際の図面をもとに作成）" width="880" height="1320" decoding="async">
+    <img class="bd-f3d-one" data-f="3" data-src="/images/floors3d/3f.webp?v=4a52f04f" alt="3F BDX検診 · 小児歯科センターの3Dレイアウト（実際の図面をもとに作成）" width="880" height="1320" decoding="async">
+    <img class="bd-f3d-one" data-f="2" data-src="/images/floors3d/2f.webp?v=c2d1aebc" alt="2F デジタル技工 · 衛生管理センターの3Dレイアウト（実際の図面をもとに作成）" width="880" height="1320" decoding="async">
+    <img class="bd-f3d-one" data-f="1" data-src="/images/floors3d/1f.webp?v=655a5fc3" alt="1F インビザライン矯正センターの3Dレイアウト（実際の図面をもとに作成）" width="880" height="1320" decoding="async">
+    <span class="bd-f3d-tag" aria-live="polite">全館 · 5フロア</span>
+  </div>
+  <div class="bd-f3d-tabs" role="group" aria-label="フロアを選ぶ"><button type="button" data-f="0" aria-pressed="true">全館</button><button type="button" data-f="5" aria-pressed="false">5F</button><button type="button" data-f="4" aria-pressed="false">4F</button><button type="button" data-f="3" aria-pressed="false">3F</button><button type="button" data-f="2" aria-pressed="false">2F</button><button type="button" data-f="1" aria-pressed="false">1F</button></div>
+  <p class="fg-caption"><i class="fas fa-cube" style="color:var(--brand-gold);margin-right:4px;"></i> 5つのフロア、それぞれの専門診療スペース · 実際の図面を簡略化した3Dです · フロアを選ぶとそのフロアを表示します</p>
+</div>
         </div>
 
         <div class="fg-side-cards">
-      <div class="floor-card f5 reveal">
+      <div class="floor-card f5 reveal" data-f3d-card="5">
         <div class="floor-badge"><span class="floor-badge-num">5F</span><span class="floor-badge-label">Floor</span></div>
         <div class="floor-body">
           <h3>総合診療センター</h3><p class="floor-en">General Treatment Center</p>
@@ -406,7 +431,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="floor-card f4 reveal">
+      <div class="floor-card f4 reveal" data-f3d-card="4">
         <div class="floor-badge"><span class="floor-badge-num">4F</span><span class="floor-badge-label">Floor</span></div>
         <div class="floor-body">
           <h3>インプラントセンター</h3><p class="floor-en">Implant Center</p>
@@ -422,7 +447,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="floor-card f3 reveal">
+      <div class="floor-card f3 reveal" data-f3d-card="3">
         <div class="floor-badge"><span class="floor-badge-num">3F</span><span class="floor-badge-label">Floor</span></div>
         <div class="floor-body">
           <h3>BDX検診センター · 小児歯科センター</h3><p class="floor-en">BDX Checkup &amp; Pediatric Center</p>
@@ -437,7 +462,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="floor-card f2 reveal">
+      <div class="floor-card f2 reveal" data-f3d-card="2">
         <div class="floor-badge"><span class="floor-badge-num">2F</span><span class="floor-badge-label">Floor</span></div>
         <div class="floor-body">
           <h3>デジタル技工センター · 衛生管理センター</h3><p class="floor-en">Digital Lab &amp; Hygiene Center</p>
@@ -452,7 +477,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="floor-card f1 reveal">
+      <div class="floor-card f1 reveal" data-f3d-card="1">
         <div class="floor-badge"><span class="floor-badge-num">1F</span><span class="floor-badge-label">Floor</span></div>
         <div class="floor-body">
           <h3>インビザライン 矯正センター</h3><p class="floor-en">Invisalign Orthodontic Center</p>
@@ -681,5 +706,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(){})});}
 </script>
 <script src="/js/lang-switcher.js?v=20260813v2" defer></script>
+<script>
+(function () {
+  var root = document.querySelector('[data-f3d]'); if (!root) return;
+  var tag = root.querySelector('.bd-f3d-tag'), names = JSON.parse(root.getAttribute('data-names') || '{}');
+  var tabs = [].slice.call(root.querySelectorAll('.bd-f3d-tabs button')), ones = {};
+  [].forEach.call(root.querySelectorAll('.bd-f3d-one'), function (im) { ones[im.getAttribute('data-f')] = im; });
+  var cards = [].slice.call(document.querySelectorAll('[data-f3d-card]')), cur = '0', back = 0;
+  function load(f) { var im = ones[f]; if (im && !im.getAttribute('src')) im.setAttribute('src', im.getAttribute('data-src')); }
+  function show(f) {
+    f = String(f); clearTimeout(back); if (f === cur) return; cur = f; if (f !== '0') load(f);
+    root.classList.toggle('one', f !== '0');
+    for (var k in ones) ones[k].classList.toggle('on', k === f);
+    tabs.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === f)); });
+    cards.forEach(function (c) { c.classList.toggle('f3d-on', c.getAttribute('data-f3d-card') === f); });
+    tag.textContent = names[f] || '';
+  }
+  tabs.forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-f')); }); });
+  cards.forEach(function (c) {
+    var f = c.getAttribute('data-f3d-card');
+    c.addEventListener('mouseenter', function () { show(f); });
+    c.addEventListener('focusin', function () { show(f); });
+    c.addEventListener('click', function (e) { if (!e.target.closest('a')) show(f); });
+  });
+  if (cards.length) cards[0].parentElement.addEventListener('mouseleave', function () { back = setTimeout(function () { show('0'); }, 800); });
+  // fetch the five floor pictures once the section is close, so switching is instant
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); setTimeout(function () { for (var k in ones) load(k); }, 900); } }, { rootMargin: '300px' });
+    io.observe(root);
+  }
+})();
+</script>
 </body>
 </html>

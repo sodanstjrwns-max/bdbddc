@@ -2661,7 +2661,7 @@ function enterWorld(name, color, acc = 0, hair = me.hair) {
   if (me.av) { me.av.removeFromParent(); disposeAvatar(me.av); }
   me.av = makeAvatar(name, color, true, me.acc, null, me.hair, me.title);
   gate.hidden = true; nickIn.blur(); live.want = { name, color, acc: me.acc, hair: me.hair, title: me.title };
-  goWalk(0); liveJoin(); liveStatus(); track('tour_enter'); countVisit();
+  goWalk(startFloor); liveJoin(); liveStatus(); track('tour_enter', { floor: startFloor }); countVisit();
 }
 function backToGate(msg) {
   if (me.av) { me.av.removeFromParent(); disposeAvatar(me.av); me.av = null; }
@@ -2685,6 +2685,9 @@ const live = { ws: null, id: null, room: 1, hops: 0, joined: false, want: null, 
 // a friend's invite link (?room=3) starts you in their room
 const inviteRoom = (() => { try { const r = parseInt(new URLSearchParams(location.search).get('room'), 10); return r >= 1 && r <= LIVE_ROOMS ? r : 0; } catch (_) { return 0; } })();
 if (inviteRoom) { live.room = inviteRoom; $('#gateRoom').textContent = `친구가 보낸 링크예요. 친구와 같은 방(${inviteRoom}번)에서 시작해요.`; }
+// a floor card on the homepage links here as ?floor=3: after entering you start on that floor
+const startFloor = (() => { try { const f = parseInt(new URLSearchParams(location.search).get('floor'), 10); return f >= 1 && f <= 6 ? f : 0; } catch (_) { return 0; } })();
+if (startFloor) $('#gateRoom').textContent += ` 입장하면 ${startFloor === RF ? '옥상' : startFloor + '층'}에서 시작해요.`;
 function liveConnect() {
   if (!('WebSocket' in window)) { live.fails = 9; liveStatus(); return; }
   let ws; try { ws = new WebSocket(LIVE_URL + '?room=' + live.room); } catch (_) { live.fails++; liveStatus(); return; }
