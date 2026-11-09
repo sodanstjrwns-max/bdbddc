@@ -439,7 +439,7 @@ const px = (X) => X - OX, pz = (Y) => Y - OZ;
 // room: plan rect, type, name. opt.doors = [[side, position along that wall, width, kind]], opt.open = sides without a wall, opt.solid = not walkable
 const R = (X0, X1, Y0, Y1, type, name, opt = {}) => ({ x0: px(X0), x1: px(X1), z0: pz(Y0), z1: pz(Y1), type, name, ...opt });
 const H = (num, title, X, Y, desc, link, linkLabel, video, stand) => ({ num, title, x: px(X), z: pz(Y), desc, link, linkLabel, video, stand: stand && { x: px(stand[0]), z: pz(stand[1]) } });
-const BASIS_DWG = '실제 도면을 단순화한 배치예요', BASIS_DWG2 = BASIS_DWG;
+const BASIS_DWG = '실제 도면을 단순화한 배치예요', BASIS_DWG2 = BASIS_DWG, BASIS_DWG3 = BASIS_DWG;
 // staff-only rooms (machine, server, storage, chart and supply rooms, lockers, staff lounge): not named or guided, drawn as closed blocks
 const STAFF = (X0, X1, Y0, Y1) => R(X0, X1, Y0, Y1, 'staff', '', { solid: true });
 const VIEW_L = { x: px(8.6), z: pz(12.0), r: 30, rp: 40 }, VIEW_FULL = { x: 0, z: pz(12.0), r: 34, rp: 54 };
@@ -453,8 +453,21 @@ const CORE = () => [
   R(8.7, 15.5, 19.75, 22.4, 'stair', '', { solid: true }),
   R(10.05, 15.5, 11.4, 15.5, 'stair', '', { solid: true }),
 ];
-// Signature pieces per floor follow the 2021 interior proposal renderings.
-// 3F (and the virtual 1F, which borrows its layout): 4-chair room, white reception island, cube stools, globe pendants
+// 1F behind the clinic (2025 drawing): toilets and the management room against the clinic's back wall, the stair up behind
+// its back door, the stair down, then the building lobby with the lifts and the side door; the clinic itself opens onto the street
+const CORE1 = () => [
+  R(0, 2.3, 11.45, 12.9, 'wc', '화장실', { doors: [['S', 1.3, 0.9]] }),
+  R(2.3, 5.6, 11.45, 12.9, 'wc', '화장실', { doors: [['S', 4.4, 0.9]] }),
+  STAFF(5.6, 8.25, 11.45, 12.9),
+  R(8.25, 10.05, 11.45, 15.5, 'flight', '', { solid: true, h: 0.02 }),
+  R(10.05, 15.5, 11.45, 15.5, 'stair', '', { solid: true }),
+  STAFF(0, 7.5, 17.5, 22.4),
+  R(7.5, 8.7, 17.5, 22.4, 'shaft', '', { solid: true }),
+  R(10.05, 15.5, 17.5, 19.75, 'elev', '엘리베이터', { solid: true }),
+  R(8.7, 15.5, 19.75, 22.4, 'stair', '', { solid: true }),
+];
+// Signature pieces per floor follow the 2021 interior proposal renderings (1F: the 2025 ones).
+// 3F: 4-chair room, white reception island, cube stools, globe pendants
 function decorA(g) {
   for (const [X, Y, ry] of [[1.9, 1.7, 0], [5.4, 1.7, Math.PI], [1.9, 4.9, 0], [5.4, 4.9, Math.PI]]) unitChair(g, px(X), pz(Y), ry, M.uph);
   counter(g, px(2.9), pz(3.3), 5.2);
@@ -511,33 +524,144 @@ function decor5(g) {
   counter(g, px(10.2), pz(9.2), 5.2); counter(g, px(9.7), pz(13.2), 3.6, Math.PI / 2); for (let i = 0; i < 3; i++) box(g, 0.4, 0.25, 0.3, M.blue, px(8.6 + i * 1.4), 0.92, pz(9.2));
 }
 
+// 1F (2025 drawing and renderings): white walls on pale grey tile, blue frames with orange stripes, white sofas with orange
+// cushions, blue aligner boxes (Invisalign storage) along the party wall, grey cabinets under white tops, a TV where each patient looks
+let K1 = null;
+function decor1(g, walls) {
+  const X = px, Y = pz, block = (x0, x1, y0, y1) => walls.push({ x0: px(x0), x1: px(x1), z0: pz(y0), z1: pz(y1) }), flatShade = (m) => { m.castShadow = false; return m; };
+  if (!K1) {
+    const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d');
+    x.fillStyle = '#F7F8F9'; x.fillRect(0, 0, 128, 128); x.fillStyle = '#2F8FD2';
+    for (let i = 0; i < 4; i++) for (let k = 0; k < 4; k++) { x.beginPath(); x.roundRect(i * 32 + 2.5, k * 32 + 2.5, 27, 27, 3); x.fill(); }
+    const boxes = new THREE.CanvasTexture(c); boxes.wrapS = boxes.wrapT = THREE.RepeatWrapping; boxes.colorSpace = THREE.SRGBColorSpace; boxes.anisotropy = 4;
+    const l = document.createElement('canvas'); l.width = 1024; l.height = 150; const y = l.getContext('2d');
+    y.fillStyle = '#FFFFFF'; y.fillRect(0, 0, 1024, 150); y.textAlign = 'center'; y.textBaseline = 'middle';
+    y.fillStyle = '#26324A'; y.font = '700 66px "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif'; y.fillText('서울비디치과', 300, 80);
+    y.fillStyle = '#2F8FD2'; y.font = '700 46px "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif'; y.fillText('인비절라인 치아교정센터', 740, 82);
+    const logo = new THREE.CanvasTexture(l); logo.colorSpace = THREE.SRGBColorSpace; logo.anisotropy = 4;
+    K1 = { tile: gridTex('#E8E9EA', '#D6D9DC', 1.2, 0.6), boxes, logo, arc: new THREE.TorusGeometry(0.26, 0.012, 6, 18, Math.PI) };
+  }
+  // large pale grey tiles over the whole clinic
+  const tt = K1.tile.clone(); tt.repeat.set(15.5 / K1.tile.userData.w, 11.45 / K1.tile.userData.h); tt.needsUpdate = true;
+  const tile = new THREE.Mesh(new THREE.PlaneGeometry(15.5, 11.45), new THREE.MeshStandardMaterial({ map: tt, roughness: 0.55 })); tile.rotation.x = -Math.PI / 2; tile.position.set(X(7.75), 0.026, Y(5.725)); tile.receiveShadow = true; g.add(tile);
+  // dental chairs (8): heads toward the room, feet toward a TV
+  for (const yc of [1.25, 3.77, 6.3, 8.83]) unitChair(g, X(1.25), Y(yc), Math.PI);          // window row
+  for (const xc of [7.11, 4.59]) unitChair(g, X(xc), Y(10.1), -Math.PI / 2);                // back row
+  unitChair(g, X(11.7), Y(10.4), Math.PI);                                                   // 특진실 1
+  unitChair(g, X(6.45), Y(1.45), 0);                                                         // 특진실 2
+  const tv = (xp, yp, y, ry, w = 1.25, hang = false) => {
+    const t = new THREE.Group(); t.position.set(X(xp), y, Y(yp)); t.rotation.y = ry; g.add(t);
+    box(t, w + 0.06, 0.76, 0.05, M.dark, 0, 0, 0); box(t, w, 0.68, 0.012, M.screen, 0, 0.04, 0.03);
+    if (hang) for (const k of [-1, 1]) flatShade(cyl(t, 0.012, CEIL_Y - y - 0.76, M.metal, k * w * 0.3, 0.76, 0));
+  };
+  for (const yc of [1.25, 3.77, 6.3, 8.83]) tv(0.16, yc, 1.05, Math.PI / 2, 1.3);
+  for (const xc of [7.08, 4.5]) tv(xc, 11.36, 1.1, Math.PI, 1.3);
+  tv(10.45, 10.2, 1.1, Math.PI / 2, 1.2); tv(8.05, 1.45, 1.1, -Math.PI / 2, 1.2);
+  tv(11.75, 7.55, 1.95, Math.PI, 1.25, true); tv(13.0, 0.9, 1.95, -Math.PI / 2, 1.1, true);    // the two ceiling TVs of the waiting room
+  // high partitions between chairs: frosted glass on a blue rail
+  const part = (x0, x1, y0, y1, h = 1.6) => {
+    const w = Math.max(0.06, x1 - x0), d = Math.max(0.06, y1 - y0), cx = X((x0 + x1) / 2), cz = Y((y0 + y1) / 2);
+    flatShade(box(g, w, h, d, M.frost, cx, 0, cz)); box(g, w + 0.02, 0.06, d + 0.02, M.oblue, cx, h, cz); box(g, w + 0.01, 0.12, d + 0.01, M.oblue, cx, 0.9, cz);
+    walls.push({ x0: cx - w / 2, x1: cx + w / 2, z0: cz - d / 2, z1: cz + d / 2 });
+  };
+  for (const yp of [2.5, 5.04, 7.57]) part(1.0, 2.2, yp, yp);
+  part(5.73, 5.73, 9.35, 10.55);
+  // cabinets: grey doors under a white top, light grey wall units above (side = the wall they stand against)
+  const cab = (x0, x1, y0, y1, side) => {
+    const w = x1 - x0, d = y1 - y0, cx = X((x0 + x1) / 2), cz = Y((y0 + y1) / 2);
+    box(g, w, 0.84, d, M.ogrey, cx, 0, cz); box(g, w + 0.01, 0.025, d + 0.01, M.dark, cx, 0.66, cz); box(g, w + 0.02, 0.05, d + 0.02, M.white, cx, 0.84, cz);
+    const u = 0.35, [a0, a1, b0, b1] = side === 'W' ? [x0, x0 + u, y0, y1] : side === 'E' ? [x1 - u, x1, y0, y1] : side === 'N' ? [x0, x1, y0, y0 + u] : [x0, x1, y1 - u, y1];
+    box(g, a1 - a0, 0.7, b1 - b0, M.ogreyL, X((a0 + a1) / 2), 1.55, Y((b0 + b1) / 2));
+    block(x0, x1, y0, y1);
+  };
+  const sink = (xp, yp) => { box(g, 0.42, 0.012, 0.32, M.metal, X(xp), 0.885, Y(yp)); cyl(g, 0.012, 0.22, M.metal, X(xp), 0.89, Y(yp)); };
+  cab(3.55, 4.05, 0.3, 2.45, 'E'); sink(3.8, 2.1);
+  cab(3.55, 4.05, 4.9, 6.0, 'E'); monitorArm(g, X(3.85), Y(5.45), -Math.PI / 2, 0.95);
+  cab(3.55, 6.0, 7.34, 7.84, 'N'); monitorArm(g, X(4.7), Y(7.55), 0, 0.95);
+  cab(13.44, 14.94, 10.95, 11.39, 'S'); sink(14.4, 11.15);
+  cab(4.11, 4.6, 0.3, 1.5, 'W');
+  // Invisalign storage: a white case along the party wall faced with blue aligner boxes
+  const aligner = (y0, y1) => {
+    const L = y1 - y0, zc = Y((y0 + y1) / 2);
+    box(g, 0.5, 2.35, L, M.white, X(15.2), 0, zc);
+    const t = K1.boxes.clone(); t.repeat.set(L / 1.44, 1.8 / 1.44); t.needsUpdate = true;
+    const f = new THREE.Mesh(new THREE.PlaneGeometry(L, 1.8), new THREE.MeshStandardMaterial({ map: t, roughness: 0.6 })); f.rotation.y = -Math.PI / 2; f.position.set(X(14.95) - 0.006, 1.3, zc); g.add(f);
+    block(14.95, 15.5, y0, y1);
+  };
+  aligner(0.25, 2.45); aligner(2.75, 5.9); aligner(6.2, 9.0); aligner(9.3, 11.3);
+  box(g, 0.5, 0.44, 3.15, M.white, X(15.2), 2.35, Y(4.33));
+  const sg = new THREE.Mesh(new THREE.PlaneGeometry(2.9, 0.42), new THREE.MeshBasicMaterial({ map: K1.logo })); sg.rotation.y = -Math.PI / 2; sg.position.set(X(14.95) - 0.006, 2.57, Y(4.33)); g.add(sg);
+  // reception: a tall white front with a blue line at the foot, two work places behind
+  box(g, 0.28, 1.08, 2.5, M.white, X(13.37), 0, Y(3.87)); box(g, 0.34, 0.04, 2.56, M.ogreyL, X(13.37), 1.08, Y(3.87)); box(g, 0.29, 0.05, 2.51, M.oblue, X(13.37), 0.06, Y(3.87));
+  box(g, 0.45, 0.74, 2.5, M.white, X(13.73), 0, Y(3.87)); box(g, 0.85, 1.08, 0.24, M.white, X(13.66), 0, Y(5.24));
+  block(13.23, 13.96, 2.62, 5.36);
+  for (const yp of [3.3, 4.55]) { chair(g, X(14.4), Y(yp), -Math.PI / 2); monitorArm(g, X(13.78), Y(yp), Math.PI / 2, 0.95); }
+  // consult rooms: a white desk against the storage, arc pendants over it
+  const consult = (yd, near, far) => {
+    desk(g, X(14.34), Y(yd), 1.2, 0.7); block(13.74, 14.94, yd - 0.35, yd + 0.35);
+    for (const xp of [14.0, 14.65]) chair(g, X(xp), Y(far), far > yd ? Math.PI : 0, M.white);
+    chair(g, X(14.34), Y(near), near > yd ? Math.PI : 0, M.white);
+    monitorArm(g, X(14.34), Y(yd + (near > yd ? 0.18 : -0.18)), far > yd ? 0 : Math.PI, 0.95);   // on the consultant's side, turned to the patients
+    for (const xp of [14.05, 14.62]) { const a = new THREE.Mesh(K1.arc, M.lamp); a.position.set(X(xp), 1.95, Y(yd)); g.add(a); flatShade(cyl(g, 0.004, CEIL_Y - 2.21, M.metal, X(xp), 2.21, Y(yd))); }
+  };
+  consult(1.2, 0.55, 1.8); consult(7.82, 8.5, 7.15);
+  // blue pilasters where the glass fronts meet, orange stripes beside them
+  const pil = (xp, yp, mat = M.oblue, w = 0.22, d = 0.3) => { box(g, w, WALL_H, d, mat, X(xp), 0, Y(yp)); block(xp - w / 2, xp + w / 2, yp - d / 2, yp + d / 2); };
+  pil(13.2, 0.16); pil(13.2, 2.68); pil(13.2, 5.97); pil(13.2, 8.55);
+  pil(13.2, 2.9, M.oorange, 0.12, 0.14); pil(13.2, 5.75, M.oorange, 0.12, 0.14);
+  const face = (xp, yp, w, d, mat) => box(g, w, WALL_H - 0.02, d, mat, X(xp), 0, Y(yp));
+  face(10.425, 4.31, 0.03, 0.32, M.oblue); face(10.425, 4.57, 0.03, 0.2, M.oorange);           // behind the end of the long sofa
+  face(9.45, 7.355, 0.2, 0.03, M.oorange); face(9.95, 7.355, 0.5, 0.03, M.oblue);              // the corridor wall by the X-RAY door
+  // waiting: the long sofa against the X-RAY wall, a curved corner sofa by the windows, a glass side table
+  const cushion = (b, xs) => { for (const xl of xs) box(b, 0.42, 0.36, 0.13, M.oorange, xl, 0.52, -0.16); };
+  cushion(bench(g, X(10.68), Y(5.6), Math.PI / 2, M.sage, 2.95), [-1.0, 0, 1.0]);
+  cushion(bench(g, X(9.35), Y(2.78), Math.PI, M.sage, 1.85), [-0.5, 0.45]);
+  cushion(bench(g, X(8.47), Y(1.6), Math.PI / 2, M.sage, 1.5), [0.1]);
+  cyl(g, 0.3, 0.025, M.white, X(9.4), 0.42, Y(1.5)); cyl(g, 0.03, 0.42, M.metal, X(9.4), 0, Y(1.5)); block(9.12, 9.68, 1.22, 1.78);
+  plant(g, X(10.75), Y(0.5), 0.85);
+  for (let i = 0; i < 16; i++) flatShade(box(g, 0.17, 2.6, 0.04, M.curtain, X(8.45 + i * 0.16), 0.05, Y(0.15 + (i % 2) * 0.05)));   // sheer curtains
+  // the blue frame hung from the waiting-room ceiling
+  for (const [w, d, xp, yp] of [[2.1, 0.09, 11.85, 2.2], [2.1, 0.09, 11.85, 6.6], [0.09, 4.4, 10.8, 4.4], [0.09, 4.4, 12.9, 4.4]]) flatShade(box(g, w, 0.07, d, M.oblue, X(xp), 2.7, Y(yp)));
+  // the street door: dark frame, mat inside
+  for (const xp of [11.04, 12.78]) box(g, 0.08, 2.35, 0.14, M.dark, X(xp), 0, Y(0.03));
+  box(g, 1.82, 0.1, 0.14, M.dark, X(11.91), 2.3, Y(0.03)); box(g, 1.8, 0.012, 0.3, M.ogrey, X(11.91), 0, Y(0.46));
+  // corridor: a TV niche over a low cabinet beside the back-door room
+  tv(8.78, 9.11, 1.15, Math.PI, 0.8); box(g, 0.85, 0.75, 0.32, M.white, X(8.78), 0, Y(8.97)); block(8.35, 9.2, 8.81, 9.13);
+  // behind the glass back door: the building stair going up, walled off from the lobby
+  for (let k = 0; k < 14; k++) box(g, 1.7, 0.18 * (k + 1), 0.28, M.ogreyL, X(9.15), 0, Y(11.69 + k * 0.28));
+  box(g, 0.12, WALL_H, 2.6, M.wall, X(8.25), 0, Y(14.2)); box(g, 1.8, WALL_H, 0.12, M.wall, X(9.15), 0, Y(15.5));
+}
+
 const FLOORS = [
-  { n: 1, name: '인비절라인 치아교정센터', short: '인비절라인 · 교정', basis: '1층은 실제와 다른 가상 배치예요', view: VIEW_L, decor: decorA, theme: 'white',
-    entrance: { x: px(3.6), z: pz(16.5), yaw: -Math.PI / 2 },
+  // 1F: the 2025-04 interior drawing (180 m², 8 chairs) and its 3D renderings. You come in from the street; the back door
+  // only opens onto the building stair, and the lobby behind (lifts, toilets) is reached through the building's side door
+  { n: 1, name: '인비절라인 치아교정센터', short: '인비절라인 · 교정', basis: BASIS_DWG3, view: VIEW_L, decor: decor1, theme: 'ortho',
+    entrance: { x: px(11.9), z: pz(1.35), yaw: Math.PI },
     rooms: [
-      R(0, 7.3, 0, 6.6, 'none', '교정 진료실', { doors: [['E', 3.25, 1.3]] }),
-      R(7.3, 11.8, 0, 2.55, 'office', '원장실', { doors: [['S', 9.1, 0.9]] }),
-      R(11.8, 15.5, 0, 3.5, 'op', '교정 진료실 2', { doors: [['W', 3.0, 0.9]] }),
-      R(11.8, 15.5, 3.5, 6.55, 'op', '교정 진료실 3', { doors: [['W', 4.0, 0.9]] }),
-      R(9.75, 11.8, 2.55, 6.55, 'prep', '장치실', { open: 'W' }),
-      R(7.3, 7.8, 3.9, 8.35, 'cabwall', '', { solid: true, h: 2.2 }),
-      STAFF(0, 1.95, 6.6, 8.35),
-      R(1.95, 7.3, 6.6, 8.35, 'prep', '준비실', { doors: [['S', 6.7, 0.9]] }),
-      R(0, 2.85, 8.35, 11.45, 'plan', '클린체크 상담실', { doors: [['E', 10.8, 0.9]] }),
-      R(0, 2.85, 11.45, 13.3, 'powder', '파우더룸', { open: 'E' }),
-      R(0, 2.85, 13.3, 15.5, 'consult', 'iTero 스캐너실', { open: 'E' }),
-      R(2.85, 11.35, 8.35, 11.45, 'none', '대기실 · 접수', { open: 'all' }),
-      R(2.85, 6.95, 11.45, 15.5, 'none', '', { open: 'NWE', doors: [['S', 6.1, 1.6, 'main']] }),
-      R(6.95, 10.05, 12.0, 15.5, 'consult', '상담실', { doors: [['W', 12.6, 0.9]] }),
-      R(11.35, 15.5, 6.55, 8.65, 'pano', 'X-RAY실', { doors: [['W', 8.0, 0.9]] }),
-      R(11.35, 15.5, 8.65, 11.4, 'studio', '촬영실', { doors: [['W', 9.3, 0.9]] }),
-      ...CORE()],
+      R(0, 4.05, 0, 10.1, 'none', '오픈 진료실', { open: 'all' }),
+      R(4.05, 8.25, 7.28, 11.45, 'none', '', { open: 'all' }),
+      STAFF(0, 3.15, 10.1, 11.45),
+      R(4.05, 8.15, 0, 2.55, 'none', '특진실 2', { doors: [['S', 4.65, 0.9]] }),
+      R(5.55, 8.15, 2.55, 4.83, 'office', '원장실', { doors: [['W', 3.25, 0.9]] }),
+      R(4.05, 8.15, 4.83, 7.28, 'steril', '소독실', { doors: [['N', 4.75, 0.9], ['S', 6.8, 0.9]] }),
+      R(8.15, 10.35, 3.1, 4.83, 'powder', '파우더룸', { doors: [['E', 3.62, 0.9, 'open']] }),
+      R(8.15, 10.35, 4.83, 7.28, 'pano', 'X-RAY실', { doors: [['S', 8.7, 0.9]] }),
+      R(8.25, 10.35, 9.2, 11.45, 'none', '', { glass: 'S', doors: [['N', 9.75, 1.0], ['S', 9.3, 1.0]] }),
+      R(10.35, 13.25, 8.65, 11.45, 'none', '특진실 1', { open: 'E', doors: [['N', 12.6, 1.0]] }),
+      R(13.25, 15.5, 9.15, 11.45, 'none', '특진실 1', { open: 'W', nolabel: true }),
+      R(13.25, 15.5, 6.05, 9.15, 'none', '상담실 2', { glass: 'W', doors: [['W', 6.67, 1.0]] }),
+      R(13.25, 15.5, 2.6, 6.05, 'none', '안내 데스크', { open: 'W' }),
+      R(13.25, 15.5, 0, 2.6, 'none', '상담실 1', { glass: 'W', doors: [['W', 1.98, 1.0]] }),
+      R(10.35, 13.25, 0, 8.65, 'none', '대기실', { open: 'all' }),
+      R(8.15, 10.35, 0, 3.1, 'none', '', { open: 'all' }),
+      STAFF(7.65, 8.35, 0, 0.58), STAFF(0, 0.55, 0, 0.55),
+      ...CORE1()],
     hotspots: [
-      H(1, '접수 데스크', 5.35, 10.3, '처음 오시면 여기서 접수합니다. 1층은 인비절라인과 치아교정만 보는 전용 센터예요.', '/treatments/orthodontics', '교정 안내 보기'),
-      H(2, 'iTero 구강스캐너', 1.4, 14.4, '본을 뜨는 대신 iTero 구강스캐너로 치아를 찍어 3D 자료로 만듭니다.', '/treatments/invisalign', '인비절라인 보기', '인비절라인 진행 과정 3D 설명'),
-      H(3, '3D 클린체크 상담', 1.4, 9.9, '스캔 자료로 치아가 어떤 순서로 움직일지 3D 시뮬레이션(클린체크)으로 미리 보면서 상담합니다.', '/treatments/invisalign', '인비절라인 보기', '클린체크로 미리 보는 치아 이동 3D'),
-      H(4, '교정 진료실', 3.65, 3.3, '서울대 교정과 전문의 2인이 진료하는 교정 전담 진료실입니다. 일요일에도 진료해요.', '/treatments/orthodontics', '교정 안내 보기', '브라켓 교정 원리 3D 설명'),
-      H(5, '장치실', 10.8, 4.6, '인비절라인 장치와 유지장치를 다루는 공간입니다.', '/treatments/invisalign', '인비절라인 보기')] },
+      H(1, '안내 데스크', 12.8, 4.3, '정문으로 들어오면 바로 옆이 안내 데스크예요. 1층은 인비절라인과 치아교정만 보는 전용 센터예요.', '/treatments/orthodontics', '교정 안내 보기', null, [11.6, 4.3]),
+      H(2, '오픈 진료실', 3.0, 5.05, '창가와 안쪽 벽을 따라 진료 의자 6대가 놓인 교정 진료실이에요. 본을 뜨는 대신 iTero 구강스캐너로 치아를 찍어 3D 자료로 만들어요.', '/treatments/invisalign', '인비절라인 보기', '인비절라인 진행 과정 3D 설명'),
+      H(3, '3D 클린체크 상담', 14.3, 6.75, '스캔 자료로 치아가 어떤 순서로 움직일지 3D 시뮬레이션(클린체크)으로 미리 보면서 상담해요.', '/treatments/invisalign', '인비절라인 보기', '클린체크로 미리 보는 치아 이동 3D'),
+      H(4, '특진실', 12.0, 10.0, '문을 닫고 따로 진료하는 독립 진료실이 2곳 있어요. 1층 교정 진료는 서울대 교정과 전문의 2인이 맡고, 일요일에도 진료해요.', '/treatments/orthodontics', '교정 안내 보기', '브라켓 교정 원리 3D 설명', [12.5, 9.25]),
+      H(5, 'X-RAY실', 9.25, 6.0, '교정을 시작하기 전에 치아와 턱뼈 상태를 보는 X-RAY를 찍는 방이에요.', '/treatments/orthodontics', '교정 안내 보기', null, [8.7, 7.9])] },
   { n: 2, name: '디지털기공센터 · 위생관리센터', short: '기공소 · 소독실', basis: BASIS_DWG, view: VIEW_L,
     entrance: { x: px(12.3), z: pz(16.2), yaw: Math.PI / 2 },
     rooms: [
@@ -689,6 +813,14 @@ const M = {
   mat: new THREE.MeshStandardMaterial({ color: 0xF2C9B3, roughness: 1 }),
   blue: new THREE.MeshStandardMaterial({ color: 0x7FA7C9, roughness: 0.85 }),
   yellow: new THREE.MeshStandardMaterial({ color: 0xE8C252, roughness: 0.85 }),
+  // 1F (2025 renderings): the blue frames and orange stripes, grey cabinets, navy upholstery, sheer curtains, frosted partitions
+  oblue: new THREE.MeshStandardMaterial({ color: 0x2F8FD2, roughness: 0.55 }),
+  oorange: new THREE.MeshStandardMaterial({ color: 0xE8892E, roughness: 0.6 }),
+  ogrey: new THREE.MeshStandardMaterial({ color: 0xAEB3B9, roughness: 0.6 }),
+  ogreyL: new THREE.MeshStandardMaterial({ color: 0xD5D8DC, roughness: 0.6 }),
+  navy: new THREE.MeshStandardMaterial({ color: 0x2B3F63, roughness: 0.7 }),
+  curtain: new THREE.MeshStandardMaterial({ color: 0xEFE9DF, roughness: 1, transparent: true, opacity: 0.78 }),
+  frost: new THREE.MeshStandardMaterial({ color: 0xF2F6F8, roughness: 0.3, transparent: true, opacity: 0.55 }),
 };
 const GEO = { box: new THREE.BoxGeometry(1, 1, 1), cyl: new THREE.CylinderGeometry(1, 1, 1, 20), sph: new THREE.SphereGeometry(1, 18, 12), torus: new THREE.TorusGeometry(1, 0.12, 10, 36) };
 
@@ -859,6 +991,7 @@ const THEMES = {
   white: { corridor: 0xDEDCD6, room: 0xECEAE5, roomKids: 0xF4ECD2, roomSurg: 0xE8EBEC, wall: 0xFCFCFA, wallTop: 0xD9D7D1, ceiling: 0xF8F7F3, sage: 0xF2F1ED, wood: 0xF4F3EF, woodLight: 0xE9E6DF, uph: 0x35312E },
   dark: { corridor: 0xE6DFD0, room: 0xD9D2C4, roomSurg: 0x808285, wall: 0x66676C, wallTop: 0xB9B4AA, ceiling: 0xEEEBE5, sage: 0x4E4F54, wood: 0x3B3A3C, woodLight: 0x6A6660, uph: 0x6B4A3B },
   oak: { corridor: 0x8C8D8E, room: 0x959697, roomSurg: 0xA3A4A5, wall: 0xD9C4A2, wallTop: 0xB49B77, ceiling: 0x1D1D1F, sage: 0xE9E4DA, wood: 0x2B2A29, woodLight: 0xD9C4A2, uph: 0x4A382F },
+  ortho: { corridor: 0xDFE1E3, room: 0xE6E8EA, roomKids: 0xE6E8EA, roomSurg: 0xE3E6E9, wall: 0xFBFBFB, wallTop: 0xD4D7DA, ceiling: 0xF7F8F8, sage: 0xE6E5E1, wood: 0xEDEDEB, woodLight: 0xC3C8CD, uph: 0x2B3F63 },
 };
 let THEME = ''; const themeCache = {};
 function withTheme(name, fn) {
@@ -892,28 +1025,37 @@ function addWall(g, walls, x0, x1, z0, z1, h = WALL_H, mat = M.wall) {
 // Rooms claim the walls on their own edges; shared edges merge, doors cut gaps, open sides claim nothing.
 // Space no room claims (corridors, the lift hall) is simply left walkable.
 function buildWalls(g, walls, spec, plate, lintels = []) {
-  const T = 0.12, lines = new Map();
-  const L = (axis, c) => { const k = axis + c.toFixed(2); let l = lines.get(k); if (!l) { l = { axis, c, segs: [], doors: [] }; lines.set(k, l); } return l; };
+  const T = 0.12, lines = new Map(), ortho = THEME === 'ortho';
+  const L = (axis, c) => { const k = axis + c.toFixed(2); let l = lines.get(k); if (!l) { l = { axis, c, segs: [], glass: [], doors: [] }; lines.set(k, l); } return l; };
   const onEdge = (axis, c) => axis === 'x' ? (Math.abs(c - plate.x0) < 0.03 || Math.abs(c - plate.x1) < 0.03) : (Math.abs(c - plate.z0) < 0.03 || Math.abs(c - plate.z1) < 0.03);
   for (const r of spec.rooms) {
     if (r.solid) continue;
     const S = { N: ['z', r.z0, r.x0, r.x1], S: ['z', r.z1, r.x0, r.x1], W: ['x', r.x0, r.z0, r.z1], E: ['x', r.x1, r.z0, r.z1] };
-    const open = r.open || '';
-    for (const s of 'NSWE') { if (open === 'all' || open.includes(s)) continue; const [axis, c, a, b] = S[s]; if (!onEdge(axis, c)) L(axis, c).segs.push([a, b]); }
+    const open = r.open || '', glass = r.glass || '';
+    for (const s of 'NSWE') { if (open === 'all' || open.includes(s)) continue; const [axis, c, a, b] = S[s]; if (!onEdge(axis, c)) L(axis, c)[glass.includes(s) ? 'glass' : 'segs'].push([a, b]); }
     for (const [s, pos, w = 0.95, kind] of (r.doors || [])) { const [axis, c] = S[s]; if (onEdge(axis, c)) continue; const p = axis === 'z' ? px(pos) : pz(pos); L(axis, c).doors.push({ a: p - w / 2, b: p + w / 2, kind: kind || r.type }); }
   }
   const seg = (l, a, b) => { if (b - a < 0.04) return; if (l.axis === 'z') addWall(g, walls, a, b, l.c - T / 2, l.c + T / 2); else addWall(g, walls, l.c - T / 2, l.c + T / 2, a, b); };
+  // a glass front (opt.glass): a pane in a frame, solid for walking; on 1F the frame is the blue of the renderings, with a band at hand height
+  const pane = (l, a, b) => {
+    if (b - a < 0.04) return;
+    const isZ = l.axis === 'z', len = b - a, mid = (a + b) / 2, X = isZ ? mid : l.c, Z = isZ ? l.c : mid, ry = isZ ? 0 : Math.PI / 2, fr = ortho ? M.oblue : M.metal, top = ortho ? 0.3 : 0.1;
+    box(g, len, WALL_H, 0.04, M.glass, X, 0, Z, ry).castShadow = false;
+    box(g, len, top, T, fr, X, WALL_H - top, Z, ry); box(g, len, 0.06, T, fr, X, 0, Z, ry);
+    if (ortho) box(g, len, 0.14, 0.05, M.oblue, X, 0.9, Z, ry);
+    walls.push(isZ ? { x0: a, x1: b, z0: l.c - T / 2, z1: l.c + T / 2 } : { x0: l.c - T / 2, x1: l.c + T / 2, z0: a, z1: b });
+  };
+  const merge = (list) => { list.sort((p, q) => p[0] - q[0]); const out = []; for (const sg of list) { const m = out[out.length - 1]; if (m && sg[0] <= m[1] + 0.02) m[1] = Math.max(m[1], sg[1]); else out.push([sg[0], sg[1]]); } return out; };
   for (const l of lines.values()) {
-    l.segs.sort((p, q) => p[0] - q[0]); const merged = [];
-    for (const s of l.segs) { const m = merged[merged.length - 1]; if (m && s[0] <= m[1] + 0.02) m[1] = Math.max(m[1], s[1]); else merged.push([s[0], s[1]]); }
     const doors = l.doors.slice().sort((p, q) => p.a - q.a);
-    for (const m of merged) { let cur = m[0]; for (const d of doors) { if (d.b <= m[0] || d.a >= m[1]) continue; if (d.a > cur) seg(l, cur, d.a); cur = Math.max(cur, d.b); } if (cur < m[1]) seg(l, cur, m[1]); }
+    for (const [list, put] of [[l.segs, seg], [l.glass, pane]]) for (const m of merge(list)) { let cur = m[0]; for (const d of doors) { if (d.b <= m[0] || d.a >= m[1]) continue; if (d.a > cur) put(l, cur, d.a); cur = Math.max(cur, d.b); } if (cur < m[1]) put(l, cur, m[1]); }
     for (const d of doors) {
       if (d.kind === 'open') continue;                      // a plain wide opening
       const mid = (d.a + d.b) / 2, w = d.b - d.a, isZ = l.axis === 'z', X = isZ ? mid : l.c, Z = isZ ? l.c : mid, ry = isZ ? 0 : Math.PI / 2;
       lintels.push(isZ ? { x0: d.a, x1: d.b, z0: l.c - T / 2, z1: l.c + T / 2 } : { x0: l.c - T / 2, x1: l.c + T / 2, z0: d.a, z1: d.b });
       box(g, w + 0.02, WALL_H - 2.1, T, M.wall, X, 2.1, Z, ry);                                              // wall above the door
-      box(g, w + 0.04, d.kind === 'main' ? 0.1 : 0.06, T + 0.03, d.kind === 'main' ? M.gold : d.kind === 'air' ? M.metal : M.woodLight, X, 2.1, Z, ry);
+      box(g, w + 0.04, d.kind === 'main' ? 0.1 : 0.06, T + 0.03, d.kind === 'main' ? M.gold : d.kind === 'air' ? M.metal : ortho ? M.oblue : M.woodLight, X, 2.1, Z, ry);
+      if (ortho) for (const e of [d.a + 0.03, d.b - 0.03]) box(g, 0.06, 2.1, T + 0.03, M.oblue, isZ ? e : l.c, 0, isZ ? l.c : e, ry);   // blue door frames (1F renderings)
       if (!['wc', 'wcs', 'storage', 'mech', 'locker'].includes(d.kind)) box(g, w - 0.08, 2.1, 0.04, M.glass, X, 0, Z, ry);   // glass leaf
     }
   }
@@ -965,13 +1107,13 @@ function buildFloor(spec) {
       const mat = ['kids', 'opk', 'kidswait'].includes(room.type) ? M.roomKids : ['surg', 'pano', 'steril', 'prep'].includes(room.type) ? M.roomSurg : M.room;
       const fl = new THREE.Mesh(new THREE.PlaneGeometry(w, d), mat); fl.rotation.x = -Math.PI / 2; fl.position.set(cx, 0.02, cz); fl.receiveShadow = true; fl.userData.floorN = spec.n; g.add(fl); floorMeshes.push(fl);
       const v = { N: [0, -1], S: [0, 1], W: [-1, 0], E: [1, 0] }[faceOf(room)], k = room.open === 'all' ? 0 : 1;
-      addLabel(room.name, cx, cz - Math.min(0.9, Math.max(0, d / 2 - 0.45)), cx + k * v[0] * Math.max(0, w / 2 - 0.5), cz + k * v[1] * Math.max(0, d / 2 - 0.5));
+      if (!room.nolabel) addLabel(room.name, cx, cz - Math.min(0.9, Math.max(0, d / 2 - 0.45)), cx + k * v[0] * Math.max(0, w / 2 - 0.5), cz + k * v[1] * Math.max(0, d / 2 - 0.5));
     }
     furnishRoom(g, room);
   }
   const lintels = []; buildWalls(g, walls, spec, plate, lintels); buildShell(g, walls, spec, plate);
   if (!spec.full) addLabel('병원 외 공간', px((CLX + BW) / 2), 0, px((CLX + BW) / 2), 0);
-  if (spec.decor) spec.decor(g);
+  if (spec.decor) spec.decor(g, walls);
   // street entrance on 1F: canopy at the west end of the hall
   if (spec.n === 1) { const zc = pz(16.5); box(g, 0.6, 0.15, 3.0, M.gold, -OX - 0.6, 2.5, zc); box(g, 0.08, 2.5, 0.08, M.metal, -OX - 0.85, 0, zc + 1.3); box(g, 0.08, 2.5, 0.08, M.metal, -OX - 0.85, 0, zc - 1.3); box(g, 0.1, 0.6, 2.6, M.wood, -OX - 0.3, 3.1, zc); box(g, 0.12, 0.08, 2.4, M.gold, -OX - 0.3, 3.5, zc); }
   // ceiling (walk mode only)
@@ -1111,12 +1253,14 @@ function buildExterior() {
   sign(g, '5F 종합진료센터 · 4F 임플란트센터', sw, 1.7, sx, LV[3] + 2.95, FZ);
   sign(g, '3F 소아치과 · 대표원장 진료', sw, 1.7, sx, LV[2] + 2.95, FZ);
   sign(g, '2F 디지털기공센터', sw, 1.7, sx, LV[1] + 2.95, FZ);
-  sign(g, '1F 인비절라인 교정센터', 6.0, 1.45, px(4.3), 3.15, FZ);
-  // ground floor: two clinic shop fronts (the right-hand one has the street door), piers, the other tenant's unlit glass
-  storefront(g, 0.6, 7.6, true, 4.3); storefront(g, 8.2, 15.0, true, null); storefront(g, 15.8, 26.6, false, 21.2);
+  sign(g, '1F 인비절라인 교정센터', 6.0, 1.45, px(11.6), 3.15, FZ);
+  // ground floor: two clinic shop fronts (the street door is in the second, as in the 2025 drawing), piers, the other tenant's unlit glass
+  storefront(g, 0.6, 7.6, true, null); storefront(g, 8.2, 15.0, true, 11.9); storefront(g, 15.8, 26.6, false, 21.2);
   for (const [X0, X1] of [[0, 0.6], [7.6, 8.2], [15.0, 15.8], [26.6, BW]]) box(g, X1 - X0, 2.9, 0.3, M.pier, px((X0 + X1) / 2), 0, FZ);
-  box(g, 2.4, 1.0, 0.6, M.white, px(4.3), 0, FZ + 2.3); box(g, 2.5, 0.04, 0.68, M.woodLight, px(4.3), 1.0, FZ + 2.3); plant(g, px(1.3), FZ + 2.3, 0.9); plant(g, px(7.0), FZ + 2.3, 0.8);
-  bench(g, px(11.6), FZ + 2.35, 0, M.sage, 3.0); box(g, 1.6, 0.9, 0.05, M.screen, px(11.6), 1.4, FZ + 2.9);
+  // behind the glass, as inside: chairs and a blue pilaster on the left, the corner sofa, blue and orange frames and a TV on the right
+  unitChair(g, px(1.6), FZ + 1.35, Math.PI, M.navy); unitChair(g, px(6.45), FZ + 1.45, 0, M.navy); box(g, 0.2, 2.85, 0.2, M.oblue, px(4.05), 0, FZ + 2.75); plant(g, px(7.0), FZ + 2.4, 0.8);
+  { const sb = bench(g, px(9.35), FZ + 2.55, Math.PI, M.white, 1.8); for (const xl of [-0.45, 0.45]) box(sb, 0.42, 0.36, 0.13, M.oorange, xl, 0.52, -0.16); }
+  box(g, 0.2, 2.85, 0.24, M.oblue, px(13.2), 0, FZ + 0.2); box(g, 0.1, 2.85, 0.12, M.oorange, px(13.2), 0, FZ + 0.42); box(g, 1.6, 0.9, 0.05, M.screen, px(14.1), 1.3, FZ + 2.9);
   // the other faces, plainer; on the car-park side the lobby door under a canopy (the same door the 1F hall leads to)
   panel(g, TEX.side, BD, ROOF, -OX - 0.005, 0, 0, -Math.PI / 2); panel(g, TEX.side, BD, ROOF, OX + 0.005, 0, 0, Math.PI / 2); panel(g, TEX.side, BW, ROOF, 0, 0, OZ + 0.005, 0);
   const lz = pz(16.5);
@@ -1134,8 +1278,8 @@ function buildExterior() {
   g.traverse((o) => { if (o.isMesh) o.castShadow = false; }); for (const m of [massTop, massBase, machine]) m.castShadow = true;
   EXT.walls.push({ x0: -OX, x1: OX, z0: -OZ, z1: OZ }); EXT.solids.push({ x0: -OX, x1: OX, z0: -OZ, z1: OZ });
   EXT.doors.push(
-    { id: 'front', title: '1층 정문', x0: px(2.8), x1: px(5.8), z0: FZ - 1.7, z1: FZ, go: () => goWalk(1, IN_FRONT) },
-    { id: 'lobby', title: '1층 로비 출입구', x0: -OX - 1.9, x1: -OX, z0: pz(15.0), z1: pz(18.0), go: () => goWalk(1) });
+    { id: 'front', title: '1층 정문', x0: px(10.6), x1: px(13.2), z0: FZ - 1.7, z1: FZ, go: () => goWalk(1, IN_FRONT) },
+    { id: 'lobby', title: '1층 로비 출입구', x0: -OX - 1.9, x1: -OX, z0: pz(15.0), z1: pz(18.0), go: () => goWalk(1, LOBBY_IN) });
 }
 // the street around it: neighbours (shown only outside), and the pavement, road and car park (always)
 function buildContext() {
@@ -1489,9 +1633,9 @@ const QUIZ = {
 };
 const DOCTORS = [
   ['kim-mg', 1, '김민규', '원장', { hair: 'part', glasses: true }, '치과교정과 전문의. 인비절라인과 디지털 교정을 맡아요.',
-    [[3.65, 2.1, 1.9, 1.7, 5], [6.3, 3.25], [5.9, 3.95], [3.65, 3.95, 1.9, 4.9, 5], [5.9, 3.95], [6.6, 3.25], [8.6, 3.25], [8.6, 7.9], [8.2, 9.9, 5.35, 9.6, 5], [8.6, 7.9], [8.6, 3.25], [6.3, 3.25]]],
+    [[3.0, 1.4, 2.0, 1.25, 5], [3.0, 3.77, 2.0, 3.77, 5], [3.0, 6.3, 2.0, 6.3, 5], [3.0, 8.83, 2.0, 8.83, 4], [3.3, 8.45], [4.6, 8.45, 4.59, 9.5, 5], [7.1, 8.45, 7.11, 9.5, 5], [3.3, 8.45], [3.0, 7.0]]],
   ['lim', 1, '임지원', '원장', { hair: 'tied' }, '치아교정, 비수술 교정을 맡아요. 인비절라인 인증의예요.',
-    [[12.5, 2.75, 13.65, 1.75, 5], [11.4, 3.3], [11.4, 4.0], [12.3, 4.0], [12.4, 5.7, 13.65, 5.0, 5], [12.3, 4.0], [11.4, 4.0], [11.4, 3.3]]],
+    [[13.0, 9.5, 12.4, 10.4, 6], [12.6, 9.15], [12.6, 8.2], [12.9, 6.67], [13.7, 6.67], [13.6, 6.9, 14.34, 7.82, 5], [13.7, 6.67], [12.9, 6.67], [12.7, 4.4, 13.6, 4.4, 4], [12.6, 8.2], [12.6, 9.15]]],
   ['moon', 3, '문석준', '대표원장', { hair: 'part' }, '통합치의학과 전문의. 치과가 무서운 분도 감당할 수 있는 속도로 진료해요. 임플란트와 수면진료를 맡아요.',
     [[3.65, 2.1, 1.9, 1.7, 6], [6.6, 3.25], [8.6, 3.25], [8.6, 7.6], [10.9, 8.0, 13.4, 8.0, 4], [8.6, 9.8, 5.35, 9.6, 5], [8.6, 7.6], [8.6, 3.25], [6.6, 3.25], [5.9, 3.95], [3.65, 3.95, 1.9, 4.9, 5], [5.9, 3.95], [6.6, 3.25]]],
   ['kim-mj', 3, '김민진', '원장', { hair: 'long' }, '소아치과 전문의. 영유아 구강검진과 성장기 교정을 맡아요.',
@@ -1584,12 +1728,12 @@ function openDoctor(n) {
 /* tooth friends: 20 to collect. Ten are always out; the others only at night, at sunset, in one season, on fireworks nights,
    or once every doctor's stamp is in. Plan X/Y in metres; floor 0 is outside, 6 the rooftop. Found ones are remembered on this device */
 const FRIENDS = [
-  { id: 'c1', f: 1, X: 10.6, Y: 9.3, name: '방긋이', hint: '1층 대기실 근처' },
+  { id: 'c1', f: 1, X: 11.5, Y: 3.6, name: '방긋이', hint: '1층 대기실 근처' },
   { id: 'c2', f: 2, X: 11.9, Y: 1.4, name: '꼼꼼이', look: 'glasses', hint: '2층 회의하는 방 구석' },
   { id: 'c3', f: 3, X: 11.4, Y: 6.2, name: '콩콩이', look: 'ribbon', hint: '3층 아이들이 기다리는 곳' },
   { id: 'c4', f: 4, X: 11.0, Y: 4.7, name: '든든이', look: 'cap', hint: '4층 대기실 소파 근처' },
   { id: 'c5', f: 5, X: 18.9, Y: 20.9, name: '반짝이', look: 'star', hint: '5층 창가 화분 옆' },
-  { id: 'c6', f: 1, X: 2.3, Y: 8.9, name: '줄맞춤이', look: 'band', hint: '1층 클린체크 상담실' },
+  { id: 'c6', f: 1, X: 14.2, Y: 6.6, name: '줄맞춤이', look: 'band', hint: '1층 상담실 2' },
   { id: 'c7', f: 2, X: 5.4, Y: 5.6, name: '깎깎이', look: 'goldcap', hint: '2층 CAD/CAM실 안쪽' },
   { id: 'c8', f: 3, X: 1.0, Y: 14.7, name: '찰칵이', look: 'flower', hint: '3층 스튜디오 구석' },
   { id: 'c9', f: 4, X: 15.0, Y: 7.7, name: '쿨쿨이', look: 'nightcap', hint: '4층 회복실 안쪽' },
@@ -1600,7 +1744,7 @@ const FRIENDS = [
   { id: 's2', f: 0, X: -2.2, Y: 12.5, name: '주황이', look: 'sunset', when: 'sunset', hint: '주차장 쪽 길' },
   { id: 'a1', f: 0, X: 19.6, Y: -2.7, name: '단풍이', look: 'leaf', when: 'leaf', hint: '건물 앞 나무 옆' },
   { id: 'a2', f: RF, X: 24.0, Y: 9.0, name: '눈송이', look: 'muffs', when: 'snow', hint: '옥상 구석' },
-  { id: 'a3', f: 1, X: 6.0, Y: 13.6, name: '꽃잎이', look: 'flower', when: 'petal', hint: '1층 정문 안쪽' },
+  { id: 'a3', f: 1, X: 10.2, Y: 1.6, name: '꽃잎이', look: 'flower', when: 'petal', hint: '1층 정문 안쪽' },
   { id: 'a4', f: 5, X: 24.6, Y: 16.6, name: '수박이', look: 'melon', when: 'summer', hint: '5층 대기실' },
   { id: 'l1', f: RF, X: 13.0, Y: 6.0, name: '불꽃이', look: 'crown', when: 'fireworks', hint: '옥상 가운데' },
   { id: 'l2', f: 5, X: 4.6, Y: 16.2, name: '황금이', look: 'gold', when: 'doctors', hint: '5층 메인 월 앞' },
@@ -1675,7 +1819,7 @@ function renderDexChip() {
 
 /* things to do around the building: walk up to one and the bar below offers it */
 const STATIONS = [
-  { id: 'puzzle', f: 1, X: 8.0, Y: 9.9, label: '🎮 치아 줄 맞추기', act: '미니게임 · 치아 줄 맞추기', go: () => openGame('puzzle') },
+  { id: 'puzzle', f: 1, X: 12.3, Y: 6.9, label: '🎮 치아 줄 맞추기', act: '미니게임 · 치아 줄 맞추기', go: () => openGame('puzzle') },
   { id: 'mill', f: 2, X: 3.4, Y: 5.3, label: '🎮 보철 깎기', act: '미니게임 · 보철 깎기', go: () => openGame('mill') },
   { id: 'germs', f: 3, X: 10.6, Y: 4.4, label: '🎮 충치균 잡기', act: '미니게임 · 충치균 잡기', go: () => openGame('germs') },
   { id: 'brush', f: 3, X: 1.9, Y: 12.4, label: '🪥 양치 2분 거울', act: '양치 2분 챌린지', go: () => openGame('brush') },
@@ -2390,9 +2534,12 @@ new MutationObserver(applyTheme).observe(document.documentElement, { attributes:
 
 /* ---------------- state / camera ---------------- */
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const OUT_SPAWN = { x: px(7.0), z: -OZ - 2.6, yaw: Math.PI };     // the pavement in front of the clinic, facing it
+const OUT_SPAWN = { x: px(10.0), z: -OZ - 2.6, yaw: Math.PI };    // the pavement in front of the clinic, facing it
 const OUT_EXIT = { x: -OX - 2.6, z: pz(15.0), yaw: 0 };           // just outside the lobby door, facing the street
-const IN_FRONT = { x: px(6.1), z: pz(12.2), yaw: 0 };            // in through the 1F street door: the waiting area, facing reception
+const OUT_FRONT = { x: px(11.9), z: -OZ - 2.3, yaw: 0 };          // out through the 1F street door, facing the street
+const IN_FRONT = { x: px(11.9), z: pz(1.35), yaw: Math.PI };      // in through the 1F street door: the waiting room, reception beside it
+const LOBBY_IN = { x: px(3.6), z: pz(16.5), yaw: -Math.PI / 2 };  // in through the building's side door: the lobby behind the clinic
+const FRONT_ZONE = { x0: px(11.05), x1: px(12.8), z0: pz(0.08), z1: pz(0.85) }, FRONT_DOOR = { go: () => goWalk(0, OUT_FRONT) };
 const LIFT_ZONE = { x0: px(10.1), x1: px(15.45), z0: pz(16.75), z1: pz(17.5) };
 const EXIT_ZONE = { x0: px(0), x1: px(2.3), z0: pz(15.55), z1: pz(17.45) };
 const OUT_BASIS = '병원 외관 사진을 단순화한 모습이에요';
@@ -2974,6 +3121,7 @@ function updateAct() {
     else if (w.floor === RF) { if (inZone(w.pos, RF_LIFT)) key = 'lift:' + RF; }
     else if (inZone(w.pos, LIFT_ZONE)) key = 'lift:' + w.floor;
     else if (w.floor === 1 && inZone(w.pos, EXIT_ZONE)) key = 'exit';
+    else if (w.floor === 1 && inZone(w.pos, FRONT_ZONE)) key = 'front';
   }
   if (key === actKey) return;
   actKey = key; actEl.replaceChildren(); actEl.hidden = !key; if (!key) return;
@@ -2984,8 +3132,9 @@ function updateAct() {
   else if (key.startsWith('lift:')) {
     label('엘리베이터');
     for (let n = 1; n <= RF; n++) { const b = btn(n === RF ? 'RF 옥상' : `${n}F`, () => goWalk(n), true); if (n === w.floor) { b.disabled = true; b.className = ''; b.setAttribute('aria-current', 'true'); } }
-    if (w.floor === 1) btn('밖으로', () => goWalk(0, OUT_EXIT), true);
+    if (w.floor === 1) { btn('1층 병원 입구', () => goWalk(1), true); btn('밖으로', () => goWalk(0, OUT_EXIT), true); }
   } else if (key === 'exit') { label('1층 로비 출입구'); btn('밖으로 나가기', () => goWalk(0, OUT_EXIT)); }
+  else if (key === 'front') { label('1층 정문'); btn('밖으로 나가기', () => goWalk(0, OUT_FRONT)); }
 }
 
 /* ---------------- resize / loop ---------------- */
@@ -3021,7 +3170,7 @@ function frame(now) {
     const mdx = w.pos.x - before.x, mdz = w.pos.z - before.z, moved = Math.hypot(mdx, mdz);
     w.speed = moved / Math.max(dt, 1e-3);
     if (moved > 1e-4) w.face = turnToward(w.face, Math.atan2(-mdx, -mdz), dt * 12);
-    const door = w.floor === 0 ? EXT.doors.find((d) => inZone(w.pos, d)) : null;          // keep walking into a door and you go in
+    const door = w.floor === 0 ? EXT.doors.find((d) => inZone(w.pos, d)) : w.floor === 1 && inZone(w.pos, FRONT_ZONE) ? FRONT_DOOR : null;   // keep walking into a door and you go through
     if (door && want > 0 && moved < want * 0.3) { w.push += dt; if (w.push > 0.35) door.go(); } else w.push = 0;
   } else w.speed = 0;
   tickAir(now);
