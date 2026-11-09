@@ -1495,8 +1495,11 @@ function glasses(a) {
 // a small rounded figure facing local -z, with its nickname above. The body sits in a group of its own, so a dance, a jump or
 // sitting down moves the body while the outer group keeps facing where the character faces.
 // acc: ACC_NAMES. hair: HAIR_NAMES. title: TITLES, shown before the name. look: a doctor from the homepage photos — black scrubs, the clinic patch, their hair and glasses
+// characters (you, other visitors, the doctors) are drawn at 80%: at full size the big-headed 1.6 m figure made the rooms
+// look small (user, 2026-11-09). Only the body is scaled; name tags keep their size, and seats and the camera allow for it.
+const AV_K = 0.8;
 function makeAvatar(name, color, mine, acc = 0, look = null, hair = 0, title = 0) {
-  const a = new THREE.Group(), b = new THREE.Group(); a.add(b);
+  const a = new THREE.Group(), b = new THREE.Group(); b.scale.setScalar(AV_K); a.add(b);
   const shirt = look ? M.coat : (AV_MATS[color] || AV_MATS[0]), pants = look ? M.coat : M.pants, shoe = look ? M.white : M.shoe;
   const joint = (x, y) => { const p = new THREE.Group(); p.position.set(x, y, 0); b.add(p); return p; };
   const legL = joint(-0.1, 0.56), legR = joint(0.1, 0.56), armL = joint(-0.27, 1.0), armR = joint(0.27, 1.0);
@@ -1522,7 +1525,7 @@ function makeAvatar(name, color, mine, acc = 0, look = null, hair = 0, title = 0
     ? textSprite(name, { h: 0.27, px: 40, pad: 16, fg: '#FFFDF9', bg: 'rgba(45,42,38,0.94)', border: '#C9A042' })
     : textSprite(t ? `${t} · ${name}` : name, { h: 0.28, px: 40, pad: 16, fg: mine ? '#1B150A' : '#2D2A26', bg: mine ? 'rgba(201,160,66,0.95)' : 'rgba(255,253,249,0.92)', border: mine ? null : t ? '#C9A042' : '#D9CFBF' });
   if (mine) { const ring = new THREE.Mesh(GEO.torus, M.ring); ring.scale.set(0.45, 0.45, 0.45); ring.rotation.x = Math.PI / 2; ring.position.y = 0.03; a.add(ring); }
-  tag.position.y = 1.86; tag.renderOrder = 8; tag.userData.base = [tag.scale.x, tag.scale.y]; a.add(tag);
+  tag.position.y = 0.3 + 1.56 * AV_K; tag.renderOrder = 8; tag.userData.base = [tag.scale.x, tag.scale.y]; a.add(tag);
   a.userData = { body: b, legL, legR, armL, armR, tag, phase: 0, swing: 0, wave: -1e9, act: null, sit: null };
   a.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = false; } });
   return a;
@@ -1563,10 +1566,10 @@ function animateAvatar(a, v, dt) {
 const SIT = { unit: { lean: 0.9, seat: 0.69, legs: 0.82 }, bench: { lean: 0.12, seat: 0.53, legs: 1.42 }, floor: { lean: 0, seat: 0.1, legs: 1.52 } };
 function applyPose(a) {
   const u = a.userData, b = u.body; if (!b) return;
-  b.position.set(0, 0, 0); b.rotation.set(0, 0, 0); b.scale.set(1, 1, 1);
+  b.position.set(0, 0, 0); b.rotation.set(0, 0, 0); b.scale.setScalar(AV_K);
   if (u.sit) {
     const p = SIT[u.sit] || SIT.floor;
-    b.rotation.x = p.lean; b.position.set(0, p.seat - 0.56 * Math.cos(p.lean), -0.56 * Math.sin(p.lean));
+    b.rotation.x = p.lean; b.position.set(0, p.seat - 0.56 * AV_K * Math.cos(p.lean), -0.56 * AV_K * Math.sin(p.lean));
     u.legL.rotation.set(p.legs, 0, 0); u.legR.rotation.set(p.legs, 0, 0); u.armL.rotation.set(0.45, 0, 0.12); u.armR.rotation.set(0.45, 0, -0.12);
     return;
   }
@@ -1580,7 +1583,7 @@ function applyPose(a) {
   } else if (act.k === 5) {   // a jump
     if (t > 0.75) { u.act = null; return; }
     const k = t / 0.75, sq = k < 0.12 ? 1 - k * 1.2 : k > 0.9 ? 1 - (1 - k) * 1.5 : 1.04;
-    b.position.y = 4 * 0.55 * k * (1 - k); b.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
+    b.position.y = 4 * 0.55 * k * (1 - k); b.scale.set(AV_K / Math.sqrt(sq), AV_K * sq, AV_K / Math.sqrt(sq));
     u.armL.rotation.set(0, 0, -2.2 * Math.sin(Math.PI * k)); u.armR.rotation.set(0, 0, 2.2 * Math.sin(Math.PI * k));
   } else if (act.k === 9) {   // the air shower blows on you (only you see it)
     if (t > 1.6) { u.act = null; return; }
@@ -1609,7 +1612,7 @@ function tickReaction(a, now) {
   const age = (now - u.t0) / 1000; if (age > 2.4) { u.sp.visible = false; return; }
   u.sp.getWorldPosition(tmpV); const k = THREE.MathUtils.clamp(tmpV.distanceTo(camera.position) / 6, 1, 5);
   const pop = age < 0.18 ? age / 0.18 * 1.15 : age < 0.3 ? 1.15 - (age - 0.18) / 0.12 * 0.15 : 1, s = 0.5 * k * pop;
-  u.sp.scale.set(s, s, 1); u.sp.position.y = 2.2 + age * 0.22 + (k - 1) * 0.14; u.sp.material.opacity = age > 1.8 ? 1 - (age - 1.8) / 0.6 : 1;
+  u.sp.scale.set(s, s, 1); u.sp.position.y = 1.9 + age * 0.22 + (k - 1) * 0.14; u.sp.material.opacity = age > 1.8 ? 1 - (age - 1.8) / 0.6 : 1;
 }
 
 /* doctors at work: the clinic's own doctors (homepage doctors/*.html photos, today's floor guide). They make rounds on their floor:
@@ -1744,7 +1747,7 @@ const FRIENDS = [
   { id: 's2', f: 0, X: -2.2, Y: 12.5, name: '주황이', look: 'sunset', when: 'sunset', hint: '주차장 쪽 길' },
   { id: 'a1', f: 0, X: 19.6, Y: -2.7, name: '단풍이', look: 'leaf', when: 'leaf', hint: '건물 앞 나무 옆' },
   { id: 'a2', f: RF, X: 24.0, Y: 9.0, name: '눈송이', look: 'muffs', when: 'snow', hint: '옥상 구석' },
-  { id: 'a3', f: 1, X: 10.2, Y: 1.6, name: '꽃잎이', look: 'flower', when: 'petal', hint: '1층 정문 안쪽' },
+  { id: 'a3', f: 1, X: 12.7, Y: 2.6, name: '꽃잎이', look: 'flower', when: 'petal', hint: '1층 정문 안쪽' },
   { id: 'a4', f: 5, X: 24.6, Y: 16.6, name: '수박이', look: 'melon', when: 'summer', hint: '5층 대기실' },
   { id: 'l1', f: RF, X: 13.0, Y: 6.0, name: '불꽃이', look: 'crown', when: 'fireworks', hint: '옥상 가운데' },
   { id: 'l2', f: 5, X: 4.6, Y: 16.2, name: '황금이', look: 'gold', when: 'doctors', hint: '5층 메인 월 앞' },
@@ -1819,7 +1822,7 @@ function renderDexChip() {
 
 /* things to do around the building: walk up to one and the bar below offers it */
 const STATIONS = [
-  { id: 'puzzle', f: 1, X: 12.3, Y: 6.9, label: '🎮 치아 줄 맞추기', act: '미니게임 · 치아 줄 맞추기', go: () => openGame('puzzle') },
+  { id: 'puzzle', f: 1, X: 9.7, Y: 2.2, label: '🎮 치아 줄 맞추기', act: '미니게임 · 치아 줄 맞추기', go: () => openGame('puzzle') },
   { id: 'mill', f: 2, X: 3.4, Y: 5.3, label: '🎮 보철 깎기', act: '미니게임 · 보철 깎기', go: () => openGame('mill') },
   { id: 'germs', f: 3, X: 10.6, Y: 4.4, label: '🎮 충치균 잡기', act: '미니게임 · 충치균 잡기', go: () => openGame('germs') },
   { id: 'brush', f: 3, X: 1.9, Y: 12.4, label: '🪥 양치 2분 거울', act: '양치 2분 챌린지', go: () => openGame('brush') },
@@ -2581,7 +2584,7 @@ function desiredPose() {
   const pos = new THREE.Vector3(), quat = new THREE.Quaternion(), m = new THREE.Matrix4(), up = new THREE.Vector3(0, 1, 0);
   if (state.mode === 'walk') {
     const w = state.walk, out = w.floor === 0 || w.floor === RF, base = groundY(w.floor);
-    const T = new THREE.Vector3(w.pos.x, base + 1.45, w.pos.z);
+    const T = new THREE.Vector3(w.pos.x, base + 1.3, w.pos.z);
     const e = THREE.MathUtils.clamp((out ? 0.3 : 0.4) - w.pitch * 0.55, -0.12, 1.0);   // drag up to look up: the camera drops behind the character
     const d = clearDist(T, w.yaw, e, w.dist ?? followDefault(w.floor), w.floor === 0 ? EXT.solids : w.floor === RF ? ROOFT.camWalls : floorGroups[w.floor - 1].camWalls); camDist = d;
     pos.set(T.x + Math.sin(w.yaw) * Math.cos(e) * d, T.y + Math.sin(e) * d, T.z + Math.cos(w.yaw) * Math.cos(e) * d);
@@ -3031,10 +3034,10 @@ function takePhoto(group = false) {
       for (let i = 0; i < 16; i++) { const a = view + (i % 2 ? 1 : -1) * Math.ceil(i / 2) * Math.PI / 8, cd = clearDist({ x: mx, z: mz }, a, 0.2, want, walls); if (!best || cd > best[1] + 0.3) best = [a, cd]; if (cd >= want) { best = [a, cd]; break; } }
       yaw = best[0]; d = Math.max(1.4, best[1]); if (d < want) cam.fov = 84;
     }
-    cam.position.set(mx + Math.sin(yaw) * d, base + 1.55, mz + Math.cos(yaw) * d); cam.lookAt(mx, base + 0.95, mz);
+    cam.position.set(mx + Math.sin(yaw) * d, base + 1.45, mz + Math.cos(yaw) * d); cam.lookAt(mx, base + 0.8, mz);
   } else if (out) { cam.position.set(cx, 0.9, cz - 6.2); cam.lookAt(cx, 7.65, cz + 3.8); }   // a low, wide shot from in front: you, the whole building and the sky above it
   else if (roof) { const fx = -Math.sin(w.face), fz = -Math.cos(w.face); cam.position.set(cx + fx * 3.6, base + 0.7, cz + fz * 3.6); cam.lookAt(cx, base + 2.2, cz); }   // from in front, looking up: you and the sky
-  else { const p = desiredPose(); cam.position.copy(p.pos); cam.lookAt(cx, base + 1.1, cz); }
+  else { const p = desiredPose(); cam.position.copy(p.pos); cam.lookAt(cx, base + 0.95, cz); }
   cam.updateProjectionMatrix();
   const { c, x } = renderShot(cam, W, H, members);
   let g = x.createLinearGradient(0, 0, 0, 430); g.addColorStop(0, 'rgba(18,14,10,0.62)'); g.addColorStop(1, 'rgba(18,14,10,0)'); x.fillStyle = g; x.fillRect(0, 0, W, 430);
