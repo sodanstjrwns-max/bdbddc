@@ -87,10 +87,36 @@ MARK = 'data-bdtube-latest'
 BLOCK_RE = re.compile(r'\n?<section[^>]*' + MARK + r'[^>]*>.*?</section><!-- /bdtube-latest -->', re.S)
 
 
+STYLE = (
+    '<style>'
+    '.bdv-box{background:#faf7f3;border-radius:20px;padding:28px 24px;border:1px solid #ede6dd}'
+    '.bdv-h{font-size:1.15rem;font-weight:800;color:#6B4226;margin:0 0 6px;display:flex;align-items:center;gap:8px}'
+    '.bdv-sub{font-size:14px;color:#78716C;margin:0 0 18px;line-height:1.6}'
+    '.bdv-label{font-size:13px;font-weight:800;color:#78716C;letter-spacing:.04em;margin:18px 0 10px}'
+    '.bdv-label:first-of-type{margin-top:0}'
+    # 가로 영상과 쇼츠는 줄을 따로 쓴다. auto-fill 이라 개수가 적어도 카드가 늘어나지 않고 왼쪽부터 같은 크기로 선다.
+    '.bdv-long{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}'
+    '.bdv-short{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}'
+    '.bdv-card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #ede6dd;display:flex;flex-direction:column}'
+    '.bdv-frame{position:relative;height:0;background:#000}'
+    '.bdv-long .bdv-frame{padding-bottom:56.25%}.bdv-short .bdv-frame{padding-bottom:177.78%}'
+    '.bdv-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}'
+    '.bdv-text{padding:10px 12px 12px}'
+    # 제목은 두 줄로 자르고 두 줄 높이를 항상 확보해 카드 높이를 맞춘다.
+    '.bdv-title{font-size:14px;font-weight:700;color:#292524;line-height:1.45;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.9em}'
+    '.bdv-credit{font-size:13px;color:#78716C;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+    '.bdv-credit a{color:#6B4226;font-weight:700;text-decoration:none}'
+    '.bdv-more{margin-top:16px}.bdv-more>summary{cursor:pointer;font-size:15px;font-weight:700;color:#6B4226;padding:10px 0}'
+    '.bdv-more[open]>summary{margin-bottom:8px}'
+    '.bdv-link{margin:16px 0 0;font-size:14px}.bdv-link a{color:#6B4226;font-weight:700}'
+    '@media(max-width:640px){.bdv-box{padding:22px 16px}.bdv-long{grid-template-columns:1fr}.bdv-short{grid-template-columns:repeat(2,1fr)}}'
+    '</style>'
+)
+
+
 def card(vid, show_doctor):
     title, shorts = VIDEOS[vid]
     t = html.escape(title, quote=True)
-    ratio = '177.78%' if shorts else '56.25%'
     thumb = f'https://i.ytimg.com/vi/{vid}/hqdefault.jpg'
     srcdoc = (
         "<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%;background:#000}"
@@ -100,40 +126,42 @@ def card(vid, show_doctor):
         f"<a href=https://www.youtube-nocookie.com/embed/{vid}?autoplay=1><img src={thumb} alt='{t}' loading=lazy><span>▶</span></a>"
     )
     name, dept, slug = WHO[vid]
-    credit = (f'<a href="/doctors/{slug}" style="color:#6B4226;font-weight:700;text-decoration:none;">{name}</a>{" (" + dept + ")" if dept else ""} · '
-              if show_doctor else '')
-    kind = '쇼츠' if shorts else '영상'
-    # 가로 영상은 두 칸을 차지해 세로 쇼츠와 높이를 맞춘다. 좁은 화면에서는 쇼츠가 두 개씩 나란히 놓인다.
-    span = '' if shorts else 'grid-column:span 2;'
+    credit = f'<div class="bdv-credit"><a href="/doctors/{slug}">{name}</a></div>' if show_doctor else ''
     return (
-        f'<div style="{span}background:#fff;border-radius:14px;overflow:hidden;border:1px solid #ede6dd;">'
-        f'<div style="position:relative;padding-bottom:{ratio};height:0;background:#000;">'
-        f'<iframe loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" '
-        f'src="https://www.youtube-nocookie.com/embed/{vid}" srcdoc="{html.escape(srcdoc, quote=True)}" title="{t}" '
+        '<div class="bdv-card"><div class="bdv-frame">'
+        f'<iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{vid}" srcdoc="{html.escape(srcdoc, quote=True)}" title="{t}" '
         'allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>'
-        f'<div style="padding:10px 12px;"><div style="font-size:14px;font-weight:700;color:#292524;line-height:1.45;word-break:keep-all;">{t}</div>'
-        f'<div style="font-size:13px;color:#78716C;margin-top:6px;">{credit}쉽디 쉬운 치과이야기 · {kind}</div></div></div>'
+        f'<div class="bdv-text"><div class="bdv-title">{t}</div>{credit}</div></div>'
     )
 
 
-def block(heading, sub, vids, show_doctor, first=8):
-    grid = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;align-items:start;'
-    head = ''.join(card(v, show_doctor) for v in vids[:first])
-    rest = vids[first:]
+def rows(vids, show_doctor, labels):
+    longs = [v for v in vids if not VIDEOS[v][1]]
+    shorts = [v for v in vids if VIDEOS[v][1]]
+    out = ''
+    if longs:
+        out += (f'<p class="bdv-label">영상</p>' if labels else '') + '<div class="bdv-long">' + ''.join(card(v, show_doctor) for v in longs) + '</div>'
+    if shorts:
+        out += (f'<p class="bdv-label">쇼츠</p>' if labels else '') + '<div class="bdv-short">' + ''.join(card(v, show_doctor) for v in shorts) + '</div>'
+    return out
+
+
+def block(heading, sub, vids, show_doctor, first_long=3, first_short=6):
+    longs = [v for v in vids if not VIDEOS[v][1]]
+    shorts = [v for v in vids if VIDEOS[v][1]]
+    head = longs[:first_long] + shorts[:first_short]
+    rest = longs[first_long:] + shorts[first_short:]
+    labels = bool(longs and shorts)
     more = ''
     if rest:
-        more = (f'<details style="margin-top:14px;"><summary style="cursor:pointer;font-size:15px;font-weight:700;color:#6B4226;padding:10px 0;">'
-                f'영상 {len(rest)}편 더 보기</summary><div style="{grid}margin-top:12px;">'
-                + ''.join(card(v, show_doctor) for v in rest) + '</div></details>')
+        more = f'<details class="bdv-more"><summary>영상 {len(rest)}편 더 보기</summary>{rows(rest, show_doctor, labels)}</details>'
     return (
-        f'\n<section class="section-sm" {MARK} aria-label="{html.escape(heading, quote=True)}" style="padding:32px 0 0;">'
-        '<div class="container"><div style="background:#faf7f3;border-radius:20px;padding:28px 24px;border:1px solid #ede6dd;">'
-        f'<h2 style="font-size:1.15rem;font-weight:800;color:#6B4226;margin:0 0 6px;display:flex;align-items:center;gap:8px;">'
-        f'<i class="fab fa-youtube" style="color:#f00;"></i> {html.escape(heading)}</h2>'
-        f'<p style="font-size:14px;color:#78716C;margin:0 0 16px;line-height:1.6;">{html.escape(sub)}</p>'
-        f'<div style="{grid}">{head}</div>{more}'
-        '<p style="margin:16px 0 0;font-size:14px;"><a href="https://www.youtube.com/@BDtube" target="_blank" rel="noopener" '
-        'style="color:#6B4226;font-weight:700;">쉽디 쉬운 치과이야기 채널에서 더 보기 →</a></p>'
+        f'\n<section class="section-sm" {MARK} aria-label="{html.escape(heading, quote=True)}" style="padding:32px 0 0;">{STYLE}'
+        '<div class="container"><div class="bdv-box">'
+        f'<h2 class="bdv-h"><i class="fab fa-youtube" style="color:#f00;"></i> {html.escape(heading)}</h2>'
+        f'<p class="bdv-sub">{html.escape(sub)}</p>'
+        f'{rows(head, show_doctor, labels)}{more}'
+        '<p class="bdv-link"><a href="https://www.youtube.com/@BDtube" target="_blank" rel="noopener">쉽디 쉬운 치과이야기 채널에서 더 보기 →</a></p>'
         '</div></div></section><!-- /bdtube-latest -->'
     )
 
@@ -171,7 +199,7 @@ for slug, vids in sorted(TREATMENTS.items()):
         skipped.append(slug)
         continue
     put(f'treatments/{slug}.html',
-        block('의료진이 설명하는 영상', f'서울비디치과 원장이 쉽디 쉬운 치과이야기에서 직접 설명한 영상 {len(vids)}편입니다.', vids, True, first=6),
+        block('의료진이 설명하는 영상', f'서울비디치과 원장이 쉽디 쉬운 치과이야기에서 직접 설명한 영상 {len(vids)}편입니다.', vids, True),
         ANCHOR_T)
 
 print('doctors', {k: len(v[2]) for k, v in DOCTORS.items()})
