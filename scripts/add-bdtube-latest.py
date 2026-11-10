@@ -29,6 +29,29 @@ for v in sorted(CAST, key=lambda v: (v['date'][:7], not v['shorts'], v['date']),
     DOCTORS.setdefault(slug, (TITLE.get(slug, v['doctor'] + ' 원장'), DEPT.get(slug, ''), []))[2].append(v['id'])
 WHO = {vid: (name, dept, slug) for slug, (name, dept, vids) in DOCTORS.items() for vid in vids}
 
+# 본인 채널이 있는 원장의 소개 페이지는 그 채널 영상을 쓴다 (2026-11-11 문석준 대표원장 지시).
+# 진료 페이지에는 쉽디 쉬운 치과이야기 출연 영상이 그대로 들어간다.
+JJ_PAGES = {v['id']: v['slug'] for v in json.loads((ROOT / 'data/jinjeong-videos.json').read_text(encoding='utf-8'))}
+OWN = {
+    'moon': {
+        'data': 'data/jinjeong-cast.json', 'who': '문석준 대표원장', 'channel': '진정 임플란트 문석준',
+        'about': '논문을 근거로 임플란트를 설명합니다.',
+        'url': 'https://www.youtube.com/@%EC%A7%84%EC%A0%95%EC%9E%84%ED%94%8C%EB%9E%80%ED%8A%B8%EB%AC%B8%EC%84%9D%EC%A4%80',
+        'extra': ' &nbsp;·&nbsp; <a href="/video/jinjeong/">영상 해설 모아 보기 →</a>',
+    },
+    'hyun': {
+        'data': 'data/hyun-cast.json', 'who': '현정민 대표원장', 'channel': '앞니는 현정민',
+        'about': '라미네이트와 앞니 심미치료를 설명합니다.',
+        'url': 'https://www.youtube.com/@%EC%95%9E%EB%8B%88%EB%8A%94%ED%98%84%EC%A0%95%EB%AF%BC',
+        'extra': '',
+    },
+}
+for slug, own in OWN.items():
+    own['videos'] = sorted(json.loads((ROOT / own['data']).read_text(encoding='utf-8')), key=lambda v: v['date'], reverse=True)
+    for v in own['videos']:
+        VIDEOS.setdefault(v['id'], (v['title'], v['shorts']))
+        WHO.setdefault(v['id'], (own['who'], '', slug))
+
 # 진료 페이지 배치: 영상 제목(없으면 같은 묶음의 대표 영상 제목)의 주제어로 정한다.
 RULES = [
     (r'풀아치|올온', ['implant-full-mouth', 'implant-hybrid']),
@@ -127,6 +150,8 @@ def card(vid, show_doctor):
     )
     name, dept, slug = WHO[vid]
     credit = f'<div class="bdv-credit"><a href="/doctors/{slug}">{name}</a></div>' if show_doctor else ''
+    if vid in JJ_PAGES and not show_doctor:
+        credit = f'<div class="bdv-credit"><a href="/video/jinjeong/{JJ_PAGES[vid]}">글로 정리한 해설 읽기 →</a></div>'
     return (
         '<div class="bdv-card"><div class="bdv-frame">'
         f'<iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/{vid}" srcdoc="{html.escape(srcdoc, quote=True)}" title="{t}" '
@@ -146,7 +171,7 @@ def rows(vids, show_doctor, labels):
     return out
 
 
-def block(heading, sub, vids, show_doctor, first_long=3, first_short=6):
+def block(heading, sub, vids, show_doctor, first_long=3, first_short=6, link=None):
     longs = [v for v in vids if not VIDEOS[v][1]]
     shorts = [v for v in vids if VIDEOS[v][1]]
     head = longs[:first_long] + shorts[:first_short]
@@ -161,7 +186,7 @@ def block(heading, sub, vids, show_doctor, first_long=3, first_short=6):
         f'<h2 class="bdv-h"><i class="fab fa-youtube" style="color:#f00;"></i> {html.escape(heading)}</h2>'
         f'<p class="bdv-sub">{html.escape(sub)}</p>'
         f'{rows(head, show_doctor, labels)}{more}'
-        '<p class="bdv-link"><a href="https://www.youtube.com/@BDtube" target="_blank" rel="noopener">쉽디 쉬운 치과이야기 채널에서 더 보기 →</a></p>'
+        + (link or '<p class="bdv-link"><a href="https://www.youtube.com/@BDtube" target="_blank" rel="noopener">쉽디 쉬운 치과이야기 채널에서 더 보기 →</a></p>') +
         '</div></div></section><!-- /bdtube-latest -->'
     )
 
@@ -186,6 +211,14 @@ for old in list((ROOT / 'doctors').glob('*.html')) + list((ROOT / 'treatments').
 
 # 원장 페이지: 「원장 소개 영상」 섹션 바로 뒤
 for slug, (name, dept, vids) in DOCTORS.items():
+    if slug in OWN:
+        own = OWN[slug]
+        ids = [v['id'] for v in own['videos']]
+        put(f'doctors/{slug}.html',
+            block(f"{own['who']} 채널 영상", f"{own['who']}이 운영하는 유튜브 채널 「{own['channel']}」의 영상 {len(ids)}편입니다. {own['about']}", ids, False,
+                  link=f'<p class="bdv-link"><a href="{own["url"]}" target="_blank" rel="noopener">{own["channel"]} 채널에서 더 보기 →</a>{own["extra"]}</p>'),
+            re.compile(r'<section class="video-intro-section">.*?</section>', re.S))
+        continue
     put(f'doctors/{slug}.html',
         block(f'{name} 출연 영상', f'{name}이 쉽디 쉬운 치과이야기에서 직접 설명한 영상 {len(vids)}편입니다.', vids, False),
         re.compile(r'<section class="video-intro-section">.*?</section>', re.S))
