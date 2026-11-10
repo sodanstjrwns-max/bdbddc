@@ -21,6 +21,8 @@ const parts = [
  ['contraindications','04','금기증','피하거나 먼저 조절할 조건'],
  ['care','05','주의사항','치료 전후의 준비']
 ];
+// 2026-11-10 문석준 대표원장 지시: 기존 후회 가이드 17쪽은 제목만 2026-10-07 이전 문구를 쓴다(그 뒤 검색 클릭 -88%).
+const LEGACY_TITLES = {"/guide/regret/implant": "임플란트 후회 6가지와 부작용 총정리 — 치과의사가 먼저 말씀드립니다", "/guide/regret/orthodontics": "치아교정 후회 6가지와 부작용 총정리 — 시작 전에 꼭 읽어보세요", "/guide/regret/invisalign": "인비절라인 후회 5가지와 부작용 총정리 — 투명교정 시작 전 필독", "/guide/regret/laminate": "라미네이트 후회 5가지와 부작용 총정리 — 비가역적 치료, 시작 전 필독", "/guide/regret/whitening": "치아미백 후회 4가지와 부작용 총정리 — 기대치부터 맞추고 시작하세요", "/guide/regret/cavity": "충치치료 후회 4가지와 부작용 총정리 — 과잉진료와 방치 사이", "/guide/regret/resin": "레진 후회 5가지와 부작용 총정리 — 하루 만에 떨어지는 이유가 있습니다", "/guide/regret/inlay": "인레이 후회 5가지와 부작용 총정리 — 시린 이와 재충치, 왜 생기나요", "/guide/regret/crown": "크라운 후회 4가지와 부작용 총정리 — 재질 선택부터 잇몸 경계까지", "/guide/regret/root-canal": "신경치료 후회 4가지와 부작용 총정리 — 중단하면 발치로 갑니다", "/guide/regret/bridge": "브릿지 후회 5가지와 부작용 총정리 — 멀쩡한 옆 치아를 깎습니다", "/guide/regret/denture": "틀니 후회 4가지와 부작용 총정리 — 적응 기간을 모르면 서랍행입니다", "/guide/regret/scaling": "스케일링 후회와 부작용 총정리 — \"이가 시려졌어요\"의 진실", "/guide/regret/gum": "잇몸치료 후회 4가지와 부작용 총정리 — 녹은 뼈는 돌아오지 않습니다", "/guide/regret/wisdom-tooth": "사랑니 발치 후회 4가지와 부작용 총정리 — 미루다 후회 vs 잘못 빼서 후회", "/guide/regret/bruxism": "이갈이 후회 5가지와 부작용 총정리 — 나이트가드는 치료가 아니라 보호막입니다", "/guide/regret/sedation": "치과 수면마취 후회 5가지와 부작용 총정리 — 완전히 자는 게 아닙니다"};
 const find = slug => topics.find(t => t.slug === slug);
 const href = t => t.path + (t.mode === 'existing-treatment' ? '#inside-out' : '');
 function references(t) {
@@ -37,7 +39,7 @@ ${(t.depth?.[key] || []).map(d => `<div class="io-depth"><h3>${esc(d.title)}</h3
 <p class="io-evidence"><a href="#${embedded?'inside-out-':''}sources">이 설명의 근거와 한계 확인 ↓</a></p></section>`).join('\n');
 }
 function render(t) {
- const title = t.mode === 'existing-guide' ? `${t.name} 후회·부작용을 줄이기 위한 장단점과 주의사항 | ${series} | 서울비디치과` : `${t.name} 장단점·주의사항·적응증·금기증 | ${series} | 서울비디치과`;
+ const title = t.mode === 'existing-guide' ? (LEGACY_TITLES[t.path] || `${t.name} 후회·부작용을 줄이기 위한 장단점과 주의사항 | ${series} | 서울비디치과`) : `${t.name} 장단점·주의사항·적응증·금기증 | ${series} | 서울비디치과`;
  const description = `${t.name}을 고민하는 분을 위한 ${series}. ${t.title}. 장점·단점·주의사항·적응증·금기증과 상황별 판단, 상담 질문을 함께 살펴봅니다.`;
  const schema = {'@context':'https://schema.org','@type':'MedicalWebPage',name:title,description,url:'https://bdbddc.com'+t.path,inLanguage:'ko-KR',dateModified:t.updated,publisher:{'@type':'Organization',name:'서울비디치과',url:'https://bdbddc.com'}};
  return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
