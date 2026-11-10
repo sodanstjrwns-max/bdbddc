@@ -183,6 +183,9 @@
   ];
   function ready() {
     resolveArea();
+    // The page_view on this site is sent by the tag setup without our page tags (checked live 2026-11-11),
+    // so one page_context event per load carries page_type / treatment_topic / page_lang for path and funnel reports.
+    emitOnce('page_context', 'page_context', {});
     if (pageType === 'reservation') reservationFunnel();
 
     if (typeof IntersectionObserver === 'function') {

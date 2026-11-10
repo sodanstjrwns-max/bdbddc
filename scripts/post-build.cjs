@@ -98,7 +98,7 @@ function injectTrackingFile(full, stats) {
   html = html.replace(/((?:src=["'])(?:\.\.\/)*\/?js\/(?:main|analytics)\.js)(?:\?[^"']*)?/g, '$1?v=20261111');
   html = html.replace(/((?:src=["'])\/static\/bd-smart-cta\.js)(?:\?[^"']*)?/g, '$1?v=20261110c');
   html = html.replace(/((?:src=["'])\/static\/chatbot\.js)(?:\?[^"']*)?/g, '$1?v=20260923-consent');
-  html = html.replace(/((?:src=["'])\/static\/bd-conversions\.js)(?:\?[^"']*)?/g, '$1?v=20261111');
+  html = html.replace(/((?:src=["'])\/static\/bd-conversions\.js)(?:\?[^"']*)?/g, '$1?v=20261111b');
   html = gaContext.applyContext(html); // 페이지 유형·진료 분야 꼬리표 (scripts/ga-context.cjs)
   if (html !== beforeVersions) fs.writeFileSync(full, html);
   stats.scanned++;
