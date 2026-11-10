@@ -258,6 +258,68 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
 .mrow button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
 .mrow button:disabled{opacity:.5;cursor:default}
 .mrow [hidden]{display:none}
+
+.card button.video{width:100%;font:inherit;text-align:left;cursor:pointer;box-sizing:border-box}
+.card .video[hidden]{display:none}
+.card .video .vt{display:grid;min-width:0}
+.card button.video:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.vbox{width:min(720px,100%)}
+.vbox video{width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;display:block}
+.vmore{font-size:13px;font-weight:700;color:var(--gold-deep);text-decoration:none}
+.vmore:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+/* guide bar, first-visit chooser, welcome sheet, "more" on phones */
+.guide{position:fixed;z-index:7;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:8px;width:max-content;max-width:min(520px,calc(100% - 20px));box-sizing:border-box;background:var(--fg);color:var(--bg);border-radius:14px;padding:8px 8px 8px 12px;box-shadow:var(--shadow);font-size:13px;font-weight:700;line-height:1.35}
+.guide[hidden]{display:none}
+.guide .gi{font-size:16px;flex:0 0 auto}
+.guide #guideTxt{min-width:0;text-wrap:pretty}
+.guide button{flex:0 0 auto;font:inherit;font-size:12px;font-weight:700;color:var(--fg);background:var(--bg);border:0;border-radius:10px;padding:6px 10px;cursor:pointer}
+.guide button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.fvList{display:grid;gap:8px}
+.fvList button{font:inherit;font-size:14px;font-weight:700;text-align:left;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;display:flex;gap:10px;align-items:baseline}
+.fvList button b{color:var(--gold-deep);font-family:var(--font-display);font-size:16px;flex:0 0 auto}
+.fvList button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.hello{position:fixed;z-index:7;left:50%;transform:translateX(-50%);bottom:calc(78px + env(safe-area-inset-bottom,0px));width:min(360px,calc(100% - 24px));box-sizing:border-box;background:var(--panel-solid);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:10px 12px 12px;display:grid;gap:8px}
+.hello[hidden]{display:none}
+.hello .ht{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--muted)}
+.hello .ht b{color:var(--fg);font-size:14px}
+.hello .ht .close{margin-left:auto;background:none;border:0;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:2px 4px}
+.hello .hrow{display:flex;gap:8px}
+.hello .hrow button{flex:1;font:inherit;font-size:13px;font-weight:700;padding:10px 6px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.hello .hrow .main{background:var(--gold);border-color:var(--gold);color:#1B150A;flex:1.3}
+.hello button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.gate{background:rgba(20,16,12,.5);pointer-events:auto}
+.gtop{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.gtop h2{flex:1;margin:0}
+.gtop .close{background:none;border:0;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;padding:4px}
+.gtop .close:focus-visible{outline:2px solid var(--gold);border-radius:6px}
+#moreBtn,.tool.ph{display:none}
+.plate .hint{transition:opacity .6s}
+.calm .plate .hint,.calm .plate .note{opacity:0}
+@media (max-width:640px){
+  /* phones: the room first. One gold button and "more" on the right, every floor on one row, small print fades after a few seconds */
+  .plate{max-width:56%}
+  .plate .eyebrow,.plate .sub{display:none}
+  .plate h1{font-size:16px;margin:0}
+  .plate .who,.plate .hint{margin-top:6px}
+  body.alone .plate #who{display:none}
+  .plate #teeth{display:none}
+  .plate .note{transition:opacity .6s;max-width:none}
+  .floorTitle .big{font-size:24px}
+  .floorTitle .name{font-size:12px}
+  #moreBtn,.tool.ph{display:inline-flex}
+  .tools:not(.open) > :not(#shotBtn):not(#moreBtn){display:none}
+  .tools{top:auto;transform:none;bottom:calc(124px + env(safe-area-inset-bottom,0px));gap:6px}
+  .tools.open .tool .t{display:inline}
+  .tools.open .tool{padding:8px 12px}
+  .rail{gap:4px;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));justify-content:center}
+  .rail button{padding:8px 0;min-width:35px;font-size:12px;border-radius:12px;flex:1 1 0;max-width:46px}
+  .rail .sep{display:none}
+  .rail button.walk{flex:0 0 38px}
+  .rail button.walk svg{margin:0 auto}
+  .rail button.walk .wl{display:none}
+  body.guiding .plate,body.guiding .floorTitle{display:none}
+  .guide{font-size:12.5px}
+}
 #gameCv{display:block;width:100%;max-width:min(340px,48dvh);aspect-ratio:1;margin:0 auto;border-radius:14px;background:var(--bg);touch-action:none;user-select:none;-webkit-user-select:none}
 .gstat{text-align:center;font-weight:700;font-size:14px;min-height:20px}
 /* the quiz on a doctor's card */
@@ -324,6 +386,10 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
     <button class="close" id="cardClose" aria-label="닫기">×</button>
   </div>
   <p id="cardDesc"></p>
+  <button type="button" class="video" id="cardVideo" hidden>
+    <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+    <span class="vt"><span class="t" id="cardVideoT"></span><span class="s" id="cardVideoS"></span></span>
+  </button>
   <div class="quiz" id="cardQuiz" hidden>
     <div class="qh" id="quizHead">원장님 OX 퀴즈</div>
     <p class="qq" id="quizQ"></p>
@@ -333,11 +399,10 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
   <a class="more" id="cardLink" href="#" target="_blank" rel="noopener">자세히 보기 →</a>
 </aside>
 
-<div class="gate" id="gate">
+<div class="gate" id="gate" hidden>
   <form class="gbox" id="gateForm" autocomplete="off" novalidate>
-    <div class="eyebrow">3D Virtual Clinic</div>
-    <h2>닉네임을 정하고 들어오세요</h2>
-    <p class="gsub">건물 앞에서 내 캐릭터로 시작해요. 지금 둘러보는 다른 분들의 캐릭터도 함께 보여요. <b id="gateCount"></b> <span id="gateRoom"></span></p>
+    <div class="gtop"><h2>내 캐릭터</h2><button type="button" class="close" id="gateClose" aria-label="닫기">×</button></div>
+    <p class="gsub">닉네임과 모습을 바꿀 수 있어요. 지금 둘러보는 다른 분들에게도 이렇게 보여요. <b id="gateCount"></b> <span id="gateRoom"></span></p>
     <div class="gnews" id="gateNews" hidden></div>
     <label class="glabel" for="nick">닉네임</label>
     <input id="nick" name="nick" maxlength="10" placeholder="예: 불당동 토끼" enterkeyhint="go" spellcheck="false">
@@ -348,13 +413,32 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
     <div class="accs" id="hairs" role="radiogroup" aria-labelledby="hairLabel"></div>
     <div class="glabel" id="accLabel">소품</div>
     <div class="accs" id="accs" role="radiogroup" aria-labelledby="accLabel"></div>
-    <button type="submit" class="gbtn">입장하기</button>
-    <button type="button" class="glink" id="gateBrush">🪥 양치 2분 타이머만 열기</button>
+    <button type="submit" class="gbtn">적용하기</button>
     <p class="gnote">닉네임은 다른 방문자에게 그대로 보여요. 실명이나 연락처는 쓰지 마세요. 대화 기능은 없어요. 닉네임은 이 기기에만 기억하고 서버에는 남기지 않아요. 발자국과 방명록 스티커는 이름 없이 잠깐 남아요.</p>
   </form>
 </div>
 
 <div class="act" id="act" hidden></div>
+<div class="guide" id="guide" hidden role="status"><span class="gi" aria-hidden="true">🧭</span><span id="guideTxt"></span><button type="button" id="guideStop">그만</button></div>
+<div class="hello" id="hello" hidden>
+  <div class="ht"><b id="helloName"></b><span>님으로 들어왔어요</span><button type="button" class="close" id="helloClose" aria-label="닫기">×</button></div>
+  <div class="hrow"><button type="button" class="main" id="helloFirst">🧭 첫 방문 미리 걷기</button><button type="button" id="helloMe">이름·캐릭터 바꾸기</button></div>
+</div>
+<div class="modal" id="vidM" hidden role="dialog" aria-modal="true" aria-labelledby="vidTitle">
+  <div class="mbox vbox">
+    <div class="mtop"><b id="vidTitle"></b><button type="button" class="close" id="vidClose" aria-label="닫기">×</button></div>
+    <video id="vidEl" controls playsinline preload="none"></video>
+    <p class="msub" id="vidNote">소리 없이 자막으로 설명하는 영상이에요.</p>
+    <a class="vmore" id="vidPage" href="#" target="_blank" rel="noopener">진료 안내에서 더 보기 →</a>
+  </div>
+</div>
+<div class="modal" id="firstM" hidden role="dialog" aria-modal="true" aria-labelledby="firstTitle">
+  <div class="mbox">
+    <div class="mtop"><b id="firstTitle">첫 방문 미리 걷기</b><button type="button" class="close" id="firstClose" aria-label="닫기">×</button></div>
+    <p class="msub">주차장에서 그 층 접수·대기하는 곳까지, 오시는 길을 미리 걸어 봐요. 바닥의 금색 점을 따라가면 돼요. 어느 층으로 오세요?</p>
+    <div class="fvList" id="firstList"></div>
+  </div>
+</div>
 <div class="tools" id="tools" hidden>
   <button class="tool main" id="shotBtn" type="button" aria-label="인증샷 찍기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="t">인증샷</span></button>
   <div class="toolWrap">
@@ -364,6 +448,10 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
   <button class="tool" id="inviteBtn" type="button" aria-label="친구 초대 링크"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg><span class="t">친구 초대</span></button>
   <button class="tool" id="brushBtn" type="button" aria-label="양치 2분 타이머"><span aria-hidden="true" style="font-size:15px;line-height:1">🪥</span><span class="t">양치 2분</span></button>
   <button class="tool" id="skyBtn" type="button" aria-label="하늘 바꾸기" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span class="t" id="skyTxt">하늘 · 지금</span></button>
+  <button class="tool" id="firstBtn" type="button" aria-label="첫 방문 미리 걷기"><span aria-hidden="true" style="font-size:15px;line-height:1">🧭</span><span class="t">첫 방문 미리 걷기</span></button>
+  <button class="tool" id="meBtn" type="button" aria-label="내 캐릭터 바꾸기"><span aria-hidden="true" style="font-size:15px;line-height:1">🙂</span><span class="t">내 캐릭터</span></button>
+  <button class="tool ph" id="dexBtn" type="button" aria-label="내 도감"><span aria-hidden="true" style="font-size:15px;line-height:1">📖</span><span class="t">내 도감</span></button>
+  <button class="tool" id="moreBtn" type="button" aria-label="더 보기" aria-expanded="false"><span aria-hidden="true" style="font-size:16px;line-height:1;font-weight:700">⋯</span></button>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="scopeMask" id="scopeMask" hidden></div>
@@ -413,7 +501,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);
   <div class="sep"></div>
   <button id="walkBtn" class="walk" aria-pressed="false">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="1.6"/><path d="M11 20l1.5-6 2.5 2v4M9 11l2-3 3 1 2 3h2M8 20l2-5"/></svg>
-    걸어보기
+    <span class="wl">걸어보기</span>
   </button>
 </nav>
 
@@ -439,6 +527,21 @@ const px = (X) => X - OX, pz = (Y) => Y - OZ;
 // room: plan rect, type, name. opt.doors = [[side, position along that wall, width, kind]], opt.open = sides without a wall, opt.solid = not walkable
 const R = (X0, X1, Y0, Y1, type, name, opt = {}) => ({ x0: px(X0), x1: px(X1), z0: pz(Y0), z1: pz(Y1), type, name, ...opt });
 const H = (num, title, X, Y, desc, link, linkLabel, video, stand) => ({ num, title, x: px(X), z: pz(Y), desc, link, linkLabel, video, stand: stand && { x: px(stand[0]), z: pz(stand[1]) } });
+// Explainer clips for hotspot cards: the clinic's own library on Patient Connect, the same files the treatment pages embed.
+// Only topics whose published file passes the quality ledger (outputs/2026-10-15-library-quality-audit, pediatric: 2026-10-16
+// re-inspection) as of 2026-11-10 are listed; the path carries the file's hash, so a replaced clip stops matching instead of
+// slipping in unreviewed. Horizontal, about 30–60 s, no sound, captions burned in. t = the clip's own title.
+const VIDEO_BASE = 'https://connect.patientfunnel.kr/a/library/';
+const VIDEOS = {
+  'ORT-012': { t: '교정 장치를 붙이는 날', v: 'ORT-012/157db9c9172e.mp4', p: 'ORT-012/57e245437b7a.jpg', sec: 41, page: '/treatments/orthodontics#tcv-orthodontics-1' },
+  'CAR-006': { t: '인레이 치료 과정', v: 'CAR-006/33864a0f0f77.mp4', p: 'CAR-006/30748793b20b.jpg', sec: 46, page: '/treatments/inlay#tcv-inlay-0' },
+  'CRN-001': { t: '자연치 크라운 치료 과정', v: 'CRN-001/b87f2ec16bd7.mp4', p: 'CRN-001/6381740f5a30.jpg', sec: 48, page: '/treatments/crown#tcv-crown-0' },
+  'PED-006': { t: '유치를 금속관으로 감싸는 치료 예', v: 'PED-006/dbae140d1a74.mp4', p: 'PED-006/3a9b23a738d3.jpg', sec: 44, page: '/treatments/pediatric#tcv-pediatric-0' },
+  'SUR-001': { t: '임플란트 식립의 일반 과정', v: 'SUR-001/fe8f94ba1a89.mp4', p: 'SUR-001/aa136fea80f7.jpg', sec: 28, page: '/treatments/implant-navigation#tcv-implant-navigation-0' },
+  'CAR-003': { t: '치아 사이 충치의 진행', v: 'CAR-003/5c0d8f129f85.mp4', p: 'CAR-003/e989e42a9e59.jpg', sec: 62, page: '/treatments/cavity#tcv-cavity-2' },
+  'GUM-002': { t: '치주염이 진행할 때 달라지는 조직', v: 'GUM-002/1694f334d2dd.mp4', p: 'GUM-002/dd7dd4142e3f.jpg', sec: 49, page: '/treatments/gum#tcv-gum-2' },
+  'EXT-004': { t: '사랑니와 아래턱 신경의 관계', v: 'EXT-004/b9881f8fb7ed.mp4', p: 'EXT-004/558a8a1f9c61.jpg', sec: 45, page: '/treatments/wisdom-tooth#tcv-wisdom-tooth-1' },
+};
 const BASIS_DWG = '실제 도면을 단순화한 배치예요', BASIS_DWG2 = BASIS_DWG, BASIS_DWG3 = BASIS_DWG;
 // staff-only rooms (machine, server, storage, chart and supply rooms, lockers, staff lounge): not named or guided, drawn as closed blocks
 const STAFF = (X0, X1, Y0, Y1) => R(X0, X1, Y0, Y1, 'staff', '', { solid: true });
@@ -636,7 +739,7 @@ const FLOORS = [
   // 1F: the 2025-04 interior drawing (180 m², 8 chairs) and its 3D renderings. You come in from the street; the back door
   // only opens onto the building stair, and the lobby behind (lifts, toilets) is reached through the building's side door
   { n: 1, name: '인비절라인 치아교정센터', short: '인비절라인 · 교정', basis: BASIS_DWG3, view: VIEW_L, decor: decor1, theme: 'ortho',
-    entrance: { x: px(11.9), z: pz(1.35), yaw: Math.PI },
+    entrance: { x: px(11.9), z: pz(2.5), yaw: Math.PI },
     rooms: [
       R(0, 4.05, 0, 10.1, 'none', '오픈 진료실', { open: 'all' }),
       R(4.05, 8.25, 7.28, 11.45, 'none', '', { open: 'all' }),
@@ -658,9 +761,9 @@ const FLOORS = [
       ...CORE1()],
     hotspots: [
       H(1, '안내 데스크', 12.8, 4.3, '정문으로 들어오면 바로 옆이 안내 데스크예요. 1층은 인비절라인과 치아교정만 보는 전용 센터예요.', '/treatments/orthodontics', '교정 안내 보기', null, [11.6, 4.3]),
-      H(2, '오픈 진료실', 3.0, 5.05, '창가와 안쪽 벽을 따라 진료 의자 6대가 놓인 교정 진료실이에요. 본을 뜨는 대신 iTero 구강스캐너로 치아를 찍어 3D 자료로 만들어요.', '/treatments/invisalign', '인비절라인 보기', '인비절라인 진행 과정 3D 설명'),
-      H(3, '3D 클린체크 상담', 14.3, 6.75, '스캔 자료로 치아가 어떤 순서로 움직일지 3D 시뮬레이션(클린체크)으로 미리 보면서 상담해요.', '/treatments/invisalign', '인비절라인 보기', '클린체크로 미리 보는 치아 이동 3D'),
-      H(4, '특진실', 12.0, 10.0, '문을 닫고 따로 진료하는 독립 진료실이 2곳 있어요. 1층 교정 진료는 서울대 교정과 전문의 2인이 맡고, 일요일에도 진료해요.', '/treatments/orthodontics', '교정 안내 보기', '브라켓 교정 원리 3D 설명', [12.5, 9.25]),
+      H(2, '오픈 진료실', 3.0, 5.05, '창가와 안쪽 벽을 따라 진료 의자 6대가 놓인 교정 진료실이에요. 본을 뜨는 대신 iTero 구강스캐너로 치아를 찍어 3D 자료로 만들어요.', '/treatments/invisalign', '인비절라인 보기'),
+      H(3, '3D 클린체크 상담', 14.3, 6.75, '스캔 자료로 치아가 어떤 순서로 움직일지 3D 시뮬레이션(클린체크)으로 미리 보면서 상담해요.', '/treatments/invisalign', '인비절라인 보기'),
+      H(4, '특진실', 12.0, 10.0, '문을 닫고 따로 진료하는 독립 진료실이 2곳 있어요. 1층 교정 진료는 서울대 교정과 전문의 2인이 맡고, 일요일에도 진료해요.', '/treatments/orthodontics', '교정 안내 보기', 'ORT-012', [12.5, 9.25]),
       H(5, 'X-RAY실', 9.25, 6.0, '교정을 시작하기 전에 치아와 턱뼈 상태를 보는 X-RAY를 찍는 방이에요.', '/treatments/orthodontics', '교정 안내 보기', null, [8.7, 7.9])] },
   { n: 2, name: '디지털기공센터 · 위생관리센터', short: '기공소 · 소독실', basis: BASIS_DWG, view: VIEW_L,
     entrance: { x: px(12.3), z: pz(16.2), yaw: Math.PI / 2 },
@@ -680,8 +783,8 @@ const FLOORS = [
       STAFF(10.05, 15.5, 8.9, 11.4),
       ...CORE()],
     hotspots: [
-      H(1, 'CAD/CAM실', 4.2, 3.2, '구강스캔 자료를 받아 컴퓨터로 보철물을 설계하고(CAD), 밀링 장비로 깎아 냅니다(CAM).', '/treatments/inlay', '인레이 보기', '스캔에서 보철물까지 3D'),
-      H(2, '기공실', 1.2, 3.2, '기공사 5인이 일하는 원내 기공실입니다. CAD/CAM실과 창으로 이어져 있고, 크라운 같은 보철물을 병원 안에서 직접 만듭니다.', '/treatments/crown', '크라운 보기', '크라운은 어떻게 만들어질까 3D'),
+      H(1, 'CAD/CAM실', 4.2, 3.2, '구강스캔 자료를 받아 컴퓨터로 보철물을 설계하고(CAD), 밀링 장비로 깎아 냅니다(CAM).', '/treatments/inlay', '인레이 보기', 'CAR-006'),
+      H(2, '기공실', 1.2, 3.2, '기공사 5인이 일하는 원내 기공실입니다. CAD/CAM실과 창으로 이어져 있고, 크라운 같은 보철물을 병원 안에서 직접 만듭니다.', '/treatments/crown', '크라운 보기', 'CRN-001'),
       H(3, '소독실 (오염 구역)', 5.9, 12.8, '진료에 쓴 기구가 먼저 들어오는 방입니다. 여기서 세척한 뒤 옆의 클린 구역으로 넘깁니다.', '/about', '병원 안내 보기'),
       H(4, '소독실 (클린 구역)', 1.8, 12.2, '세척을 마친 기구를 포장하고 멸균해 보관하는 방입니다. 오염 구역과 방이 따로 나뉘어 있어요.', '/about', '병원 안내 보기'),
       H(5, '전략기획실', 9.4, 3.2, '진료실 밖의 일을 맡는 방입니다. 환자 안내와 병원 운영 시스템을 기획합니다.', '/mission', '병원 이야기 보기')] },
@@ -708,9 +811,9 @@ const FLOORS = [
     hotspots: [
       H(1, '접수 · 대기실', 5.35, 10.3, '3층에 들어서면 가운데 접수 데스크가 먼저 보입니다. 왼쪽에 상담실과 파우더룸, 안쪽에 진료실이 있어요.', '/floor-guide', '층별 안내 보기'),
       H(2, '소아 대기실', 10.8, 4.6, '아이들이 따로 기다리는 공간입니다. 바로 옆이 소아 진료실이에요.', '/treatments/pediatric', '소아치과 보기'),
-      H(3, '소아 진료실', 13.65, 1.75, '서울대 소아치과 전문의 3인이 아이 눈높이에서 진료하는 소아 전용 진료실입니다. 무서워하는 아이는 웃음가스로 긴장을 풀고 진료받습니다.', '/treatments/pediatric', '소아치과 보기', '아이 충치 치료, 왜 미루면 안 될까 3D'),
+      H(3, '소아 진료실', 13.65, 1.75, '서울대 소아치과 전문의 3인이 아이 눈높이에서 진료하는 소아 전용 진료실입니다. 무서워하는 아이는 웃음가스로 긴장을 풀고 진료받습니다.', '/treatments/pediatric', '소아치과 보기', 'PED-006'),
       H(4, '문석준 대표원장 진료실', 3.65, 3.3, '대표원장 문석준의 진료실입니다. 임플란트와 정밀 진단, 그리고 치과가 무서운 분의 진료를 맡습니다. 환자가 감당할 수 있는 속도로 진행해요.', '/doctors/moon', '문석준 원장 소개'),
-      H(5, 'BDX 정밀검진', 13.4, 9.9, 'X-RAY실과 진단준비실이 나란히 있습니다. 촬영한 영상을 같이 보면서 설명을 듣습니다.', '/floor-guide', '층별 안내 보기', '촬영으로 무엇을 확인하나요 3D'),
+      H(5, 'BDX 정밀검진', 13.4, 9.9, 'X-RAY실과 진단준비실이 나란히 있습니다. 촬영한 영상을 같이 보면서 설명을 듣습니다.', '/floor-guide', '층별 안내 보기'),
       H(6, '상담실', 8.5, 13.7, '치료를 시작하기 전에 계획과 대안을 설명하는 방입니다.', '/doctors/moon', '문석준 원장 소개')] },
   { n: 4, name: '임플란트센터', short: '임플란트센터', basis: BASIS_DWG2, view: VIEW_L, decor: decor4, theme: 'dark',
     entrance: { x: px(12.3), z: pz(16.2), yaw: Math.PI / 2 },
@@ -736,8 +839,8 @@ const FLOORS = [
     hotspots: [
       H(1, '대기실', 12.7, 2.75, '임플란트센터 전용 대기실입니다. 수술 구역은 여기서 에어샤워를 지나야 들어갈 수 있어요.', '/treatments/implant', '임플란트센터 보기'),
       H(2, '에어샤워', 9.475, 4.525, '수술 구역 입구의 에어샤워. 옷에 붙은 먼지를 바람으로 털어내는 감염관리 관문입니다.', '/treatments/implant', '임플란트센터 보기', null, [11.4, 4.525]),
-      H(3, '독립 수술실', 7.8, 1.9, '6개의 독립 수술실. 네비게이션 시스템으로 계획한 위치와 깊이에 심습니다.', '/treatments/implant-navigation', '네비게이션 임플란트 보기', '네비게이션 임플란트 수술 과정 3D'),
-      H(4, 'X-RAY실', 6.9, 10.55, '수술 구역 안에 X-RAY실이 따로 있습니다. 뼈 두께와 신경 위치를 확인하는 데 씁니다.', '/guide/implant', '임플란트 가이드 보기', '임플란트 전 촬영으로 보는 것 3D'),
+      H(3, '독립 수술실', 7.8, 1.9, '6개의 독립 수술실. 네비게이션 시스템으로 계획한 위치와 깊이에 심습니다.', '/treatments/implant-navigation', '네비게이션 임플란트 보기', 'SUR-001'),
+      H(4, 'X-RAY실', 6.9, 10.55, '수술 구역 안에 X-RAY실이 따로 있습니다. 뼈 두께와 신경 위치를 확인하는 데 씁니다.', '/guide/implant', '임플란트 가이드 보기'),
       H(5, '회복실', 14.2, 6.7, '수면 임플란트 후 안정을 취하는 회복실입니다.', '/treatments/implant-sedation', '수면 임플란트 보기'),
       H(6, '상담실', 14.2, 9.8, '수술 계획과 주의사항을 설명하는 상담실입니다.', '/guide/implant', '임플란트 가이드 보기')] },
   { n: 5, name: '종합진료센터', short: '종합진료센터', basis: BASIS_DWG2, view: VIEW_FULL, full: true, decor: decor5, theme: 'oak',
@@ -759,9 +862,9 @@ const FLOORS = [
       ...CORE()],
     hotspots: [
       H(1, '접수 · 대기실', 22.5, 16.2, '엘리베이터에서 내리면 넓은 대기실과 접수 데스크로 바로 이어집니다.', '/floor-guide', '층별 안내 보기'),
-      H(2, '오픈 진료실', 10.1, 3.1, '창가를 따라 진료 의자가 늘어선 오픈 진료실입니다. 충치 치료와 신경치료, 스케일링 같은 일반 진료가 여기서 이뤄져요.', '/treatments/cavity', '충치 치료 보기', '충치 진행 단계 3D 설명'),
-      H(3, '잇몸 치료', 23.2, 6.0, '잇몸 치료는 치주 전문 의료진이 맡습니다.', '/treatments/gum', '잇몸 치료 보기', '잇몸병 진행 단계 3D 설명'),
-      H(4, 'X-RAY실', 14.25, 10.1, '사랑니 발치나 신경치료 전에 촬영하는 X-RAY실입니다. 두 개가 있어요.', '/treatments/wisdom-tooth', '사랑니 발치 보기', '사랑니는 왜 문제가 될까 3D'),
+      H(2, '오픈 진료실', 10.1, 3.1, '창가를 따라 진료 의자가 늘어선 오픈 진료실입니다. 충치 치료와 신경치료, 스케일링 같은 일반 진료가 여기서 이뤄져요.', '/treatments/cavity', '충치 치료 보기', 'CAR-003'),
+      H(3, '잇몸 치료', 23.2, 6.0, '잇몸 치료는 치주 전문 의료진이 맡습니다.', '/treatments/gum', '잇몸 치료 보기', 'GUM-002'),
+      H(4, 'X-RAY실', 14.25, 10.1, '사랑니 발치나 신경치료 전에 촬영하는 X-RAY실입니다. 두 개가 있어요.', '/treatments/wisdom-tooth', '사랑니 발치 보기', 'EXT-004'),
       H(5, '상담실', 21.0, 11.15, '검진 결과를 화면에 올려 놓고 치료 계획과 순서를 설명합니다.', '/about', '병원 안내 보기'),
       H(6, '준비실', 8.35, 11.6, '진료에 쓸 기구와 재료를 준비하는 방입니다. 오픈 진료실 바로 뒤에 붙어 있어요.', '/about', '병원 안내 보기')] },
 ];
@@ -1308,7 +1411,9 @@ function buildStreet() {
   tree(g, px(20.5), FZ - 4.15, 0.9); tree(g, -OX - 2.5, FZ - 4.15, 0.9); tree(g, -OX - 10.2, FZ + 2.4, 1, true); tree(g, -OX - 10.2, OZ + 3.5, 1, true);
   // car park beside the building: bays along the far edge, a clear walk to the lobby door
   for (let k = 0; k <= 7; k++) { const z = FZ + 0.8 + k * 2.6; flat(g, null, -OX - 11, -OX - 6, z - 0.05, z + 0.05, 0.008, M.lineW); }
-  [[0, M.carW], [1, M.carS], [3, M.carB], [4, M.carW], [6, M.carK]].forEach(([k, m]) => car(g, -OX - 8.5, FZ + 0.8 + (k + 0.5) * 2.6, m));
+  // bays 1–3 stay empty: beside the slide's landing they are the only way on foot between the street front and the lobby door,
+  // and bay 2 is where the first-visit walk starts ("you have just parked")
+  [[0, M.carW], [4, M.carB], [6, M.carK]].forEach(([k, m]) => car(g, -OX - 8.5, FZ + 0.8 + (k + 0.5) * 2.6, m));
   g.traverse((o) => { if (o.isMesh) o.castShadow = false; });
   // keep visitors on this side of the street and inside the plot
   EXT.walls.push({ x0: -200, x1: 200, z0: -200, z1: FZ - 4.3 }, { x0: -200, x1: 200, z0: Zb - 0.2, z1: 200 }, { x0: -200, x1: X0 + 0.2, z0: -200, z1: 200 }, { x0: X1 - 0.2, x1: 200, z0: -200, z1: 200 });
@@ -1565,11 +1670,11 @@ function animateAvatar(a, v, dt) {
 // sitting (lain back in a dental chair, sat up on a sofa or the floor), a dance, a jump, and the air shower's gust
 const SIT = { unit: { lean: 0.9, seat: 0.69, legs: 0.82 }, bench: { lean: 0.12, seat: 0.53, legs: 1.42 }, floor: { lean: 0, seat: 0.1, legs: 1.52 } };
 function applyPose(a) {
-  const u = a.userData, b = u.body; if (!b) return;
-  b.position.set(0, 0, 0); b.rotation.set(0, 0, 0); b.scale.setScalar(AV_K);
+  const u = a.userData, b = u.body, K = u.k || AV_K; if (!b) return;
+  b.position.set(0, 0, 0); b.rotation.set(0, 0, 0); b.scale.setScalar(K);
   if (u.sit) {
     const p = SIT[u.sit] || SIT.floor;
-    b.rotation.x = p.lean; b.position.set(0, p.seat - 0.56 * AV_K * Math.cos(p.lean), -0.56 * AV_K * Math.sin(p.lean));
+    b.rotation.x = p.lean; b.position.set(0, p.seat - 0.56 * K * Math.cos(p.lean), -0.56 * K * Math.sin(p.lean));
     u.legL.rotation.set(p.legs, 0, 0); u.legR.rotation.set(p.legs, 0, 0); u.armL.rotation.set(0.45, 0, 0.12); u.armR.rotation.set(0.45, 0, -0.12);
     return;
   }
@@ -1583,7 +1688,7 @@ function applyPose(a) {
   } else if (act.k === 5) {   // a jump
     if (t > 0.75) { u.act = null; return; }
     const k = t / 0.75, sq = k < 0.12 ? 1 - k * 1.2 : k > 0.9 ? 1 - (1 - k) * 1.5 : 1.04;
-    b.position.y = 4 * 0.55 * k * (1 - k); b.scale.set(AV_K / Math.sqrt(sq), AV_K * sq, AV_K / Math.sqrt(sq));
+    b.position.y = 4 * 0.55 * k * (1 - k); b.scale.set(K / Math.sqrt(sq), K * sq, K / Math.sqrt(sq));
     u.armL.rotation.set(0, 0, -2.2 * Math.sin(Math.PI * k)); u.armR.rotation.set(0, 0, 2.2 * Math.sin(Math.PI * k));
   } else if (act.k === 9) {   // the air shower blows on you (only you see it)
     if (t > 1.6) { u.act = null; return; }
@@ -1677,6 +1782,45 @@ for (const d of DOCTORS) {
   const n = { d, av, fg, x: s0.x, z: s0.z, i: 0, until: performance.now() + 1500 + rnd(k + 330) * 5000, speed: 0, hold: 0 };
   NPCS.push(n); (fg.npcs = fg.npcs || []).push(n);
 }
+
+/* patients and reception staff: scenery, the same for every visitor (user, 2026-11-10: people being treated and people
+   waiting, so the clinic looks busy). Half the dental chairs have a patient lying in them — first the chairs a doctor stops
+   at, so a doctor is seen with a patient — some sofa places are taken, and a few people stand or sit at the reception desks.
+   A taken seat is skipped when a visitor sits down. Lighter figures than the visitors': no name, no shadow, fewer parts. */
+const PEOPLE = [];
+function makeFigure(shirt, pants, hairKind, k = AV_K) {
+  const a = new THREE.Group(), b = new THREE.Group(); b.scale.setScalar(k); a.add(b);
+  const joint = (x, y) => { const p = new THREE.Group(); p.position.set(x, y, 0); b.add(p); return p; };
+  const legL = joint(-0.1, 0.56), legR = joint(0.1, 0.56), armL = joint(-0.27, 1.0), armR = joint(0.27, 1.0);
+  for (const l of [legL, legR]) box(l, 0.14, 0.56, 0.18, pants, 0, -0.56, -0.01);
+  for (const r of [armL, armR]) cyl(r, 0.065, 0.46, shirt, 0, -0.46, 0);
+  cyl(b, 0.21, 0.5, shirt, 0, 0.52, 0); sph(b, 0.24, M.skin, 0, 1.3, 0); sph(b, 0.25, M.hair, 0, 1.36, 0.05).scale.set(0.25, 0.22, 0.24);
+  sph(b, 0.032, M.eye, -0.085, 1.31, -0.215); sph(b, 0.032, M.eye, 0.085, 1.31, -0.215);
+  if (hairKind === 1) box(b, 0.44, 0.5, 0.12, M.hair, 0, 0.98, 0.16);                // long hair
+  if (hairKind === 2) sph(b, 0.1, M.hair, 0, 1.41, 0.27);                            // tied back
+  a.userData = { body: b, legL, legR, armL, armR, sit: null, act: null, k };
+  a.traverse((o) => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
+  return a;
+}
+{
+  const put = (fg, x, z, yaw, sit, i, k = AV_K, staff = false) => {
+    const a = makeFigure(staff ? M.navy : AV_MATS[Math.floor(rnd(i * 3 + 7) * AV_MATS.length)], staff ? M.navy : M.pants, Math.floor(rnd(i * 5 + 11) * 3), k);
+    a.position.set(x, 0, z); a.rotation.y = yaw; a.userData.sit = sit; applyPose(a); fg.group.add(a); PEOPLE.push(a); return a;
+  };
+  let i = 0;
+  for (const fg of floorGroups) {
+    const seats = SEATS[fg.n] || [], looks = NPCS.filter((n) => n.fg === fg).flatMap((n) => n.d.route.filter((r) => r.look).map((r) => r.look));
+    const child = (p) => fg.spec.rooms.some((r) => ['opk', 'kids', 'kidswait'].includes(r.type) && p.x > r.x0 && p.x < r.x1 && p.z > r.z0 && p.z < r.z1);
+    const units = seats.filter((p) => p.kind === 'unit').map((p, k) => ({ p, sc: rnd(fg.n * 50 + k) + (looks.some((l) => Math.hypot(l.x - p.x, l.z - p.z) < 1.3) ? 0.6 : 0) })).sort((p, q) => q.sc - p.sc);
+    for (const { p } of units.slice(0, Math.round(units.length * 0.5))) { p.taken = true; put(fg, p.x, p.z, p.yaw, 'unit', i++, child(p) ? AV_K * 0.72 : AV_K); }
+    seats.filter((p) => p.kind === 'bench').forEach((p, k) => { if (rnd(fg.n * 110 + k) > 0.42) return; p.taken = true; put(fg, p.x, p.z, p.yaw, 'bench', i++, child(p) && rnd(fg.n * 130 + k) < 0.6 ? AV_K * 0.72 : AV_K); });
+  }
+  // reception: staff seated behind the desks (navy), a patient or two standing in front. [floor, X, Y, yaw, seated, staff]
+  for (const [f, X, Y, yaw, sit, staff] of [
+    [1, 14.4, 3.3, Math.PI / 2, 1, 1], [1, 14.4, 4.55, Math.PI / 2, 1, 1], [1, 12.85, 3.9, -Math.PI / 2, 0, 0],
+    [3, 4.6, 9.0, Math.PI, 1, 1], [3, 6.1, 9.0, Math.PI, 1, 1], [3, 5.5, 10.55, 0, 0, 0],
+    [5, 21.8, 13.75, Math.PI, 1, 1], [5, 23.2, 13.75, Math.PI, 1, 1], [5, 21.5, 15.35, 0, 0, 0], [5, 23.7, 15.4, 0.25, 0, 0]]) put(floorGroups[f - 1], px(X), pz(Y), yaw, sit ? 'bench' : null, i++, AV_K, !!staff);
+}
 // today's doctor (the same for everyone; changes at midnight in Korea) wears a gold party hat on their usual rounds: find them
 const DAILY = (() => { const d = kstDay(); let h = 7; for (const ch of d) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return NPCS[h % NPCS.length]; })();
 { const b = DAILY.av.userData.body, hat = new THREE.Mesh(GEO.cone, M.gold); hat.scale.set(0.15, 0.32, 0.15); hat.position.set(0.02, 1.7, 0.03); hat.rotation.z = -0.2; b.add(hat); const pom = new THREE.Mesh(GEO.sph, M.bow); pom.scale.setScalar(0.05); pom.position.set(0.055, 1.86, 0.03); b.add(pom); }
@@ -1747,7 +1891,7 @@ const FRIENDS = [
   { id: 's2', f: 0, X: -2.2, Y: 12.5, name: '주황이', look: 'sunset', when: 'sunset', hint: '주차장 쪽 길' },
   { id: 'a1', f: 0, X: 19.6, Y: -2.7, name: '단풍이', look: 'leaf', when: 'leaf', hint: '건물 앞 나무 옆' },
   { id: 'a2', f: RF, X: 24.0, Y: 9.0, name: '눈송이', look: 'muffs', when: 'snow', hint: '옥상 구석' },
-  { id: 'a3', f: 1, X: 12.7, Y: 2.6, name: '꽃잎이', look: 'flower', when: 'petal', hint: '1층 정문 안쪽' },
+  { id: 'a3', f: 1, X: 12.6, Y: 4.0, name: '꽃잎이', look: 'flower', when: 'petal', hint: '1층 정문 안쪽' },
   { id: 'a4', f: 5, X: 24.6, Y: 16.6, name: '수박이', look: 'melon', when: 'summer', hint: '5층 대기실' },
   { id: 'l1', f: RF, X: 13.0, Y: 6.0, name: '불꽃이', look: 'crown', when: 'fireworks', hint: '옥상 가운데' },
   { id: 'l2', f: 5, X: 4.6, Y: 16.2, name: '황금이', look: 'gold', when: 'doctors', hint: '5층 메인 월 앞' },
@@ -2394,7 +2538,6 @@ function renderNews() {
   gateNews.replaceChildren(...lines.map((t) => elm('span', null, t))); gateNews.hidden = !lines.length;
 }
 $('#brushBtn').addEventListener('click', () => openGame('brush'));
-$('#gateBrush').addEventListener('click', () => openGame('brush'));
 function initExtras() {
   renderDexChip(); renderNews(); drawWall(); loadStats(); setInterval(renderNews, 60000);
   try { if (new URLSearchParams(location.search).get('brush') === '1') openGame('brush'); } catch (_) { /* no query */ }
@@ -2537,10 +2680,10 @@ new MutationObserver(applyTheme).observe(document.documentElement, { attributes:
 
 /* ---------------- state / camera ---------------- */
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const OUT_SPAWN = { x: px(10.0), z: -OZ - 2.6, yaw: Math.PI };    // the pavement in front of the clinic, facing it
+const OUT_SPAWN = { x: px(11.9), z: -OZ - 3.0, yaw: Math.PI };    // the pavement in front of the street door (a gap in the hedge behind you), facing it
 const OUT_EXIT = { x: -OX - 2.6, z: pz(15.0), yaw: 0 };           // just outside the lobby door, facing the street
 const OUT_FRONT = { x: px(11.9), z: -OZ - 2.3, yaw: 0 };          // out through the 1F street door, facing the street
-const IN_FRONT = { x: px(11.9), z: pz(1.35), yaw: Math.PI };      // in through the 1F street door: the waiting room, reception beside it
+const IN_FRONT = { x: px(11.9), z: pz(2.5), yaw: Math.PI };      // in through the 1F street door: the waiting room, reception beside it
 const LOBBY_IN = { x: px(3.6), z: pz(16.5), yaw: -Math.PI / 2 };  // in through the building's side door: the lobby behind the clinic
 const FRONT_ZONE = { x0: px(11.05), x1: px(12.8), z0: pz(0.08), z1: pz(0.85) }, FRONT_DOOR = { go: () => goWalk(0, OUT_FRONT) };
 const LIFT_ZONE = { x0: px(10.1), x1: px(15.45), z0: pz(16.75), z1: pz(17.5) };
@@ -2579,18 +2722,36 @@ function clearDist(T, yaw, e, d, walls) {
   for (let s = 0.3; s < hd; s += 0.12) if (blocked(walls, T.x + sx * s, T.z + sz * s, 0.15)) return Math.max(0.35, s - 0.25) / ce;
   return d;
 }
-let camDist = 3;
-function desiredPose() {
+let camDist = 3, baseFov = 50;
+// First person: when a wall pushes the follow camera up against the back of your head (small rooms, a spawn by a wall) the view
+// moves to your own eyes and your character is hidden, so the room is what you see; lying in a dental chair you see what a
+// patient sees — the ceiling and the TV at the foot of the chair. FP.on switches with some slack, FP.mix eases between the two.
+const FP = { on: false, mix: 0, EYE: 1.45 };
+function desiredPose(third = false, yawOver = null) {
   const pos = new THREE.Vector3(), quat = new THREE.Quaternion(), m = new THREE.Matrix4(), up = new THREE.Vector3(0, 1, 0);
   if (state.mode === 'walk') {
-    const w = state.walk, out = w.floor === 0 || w.floor === RF, base = groundY(w.floor);
+    const w = state.walk, out = w.floor === 0 || w.floor === RF, base = groundY(w.floor), yaw = yawOver ?? w.yaw;
     const T = new THREE.Vector3(w.pos.x, base + 1.3, w.pos.z);
     const e = THREE.MathUtils.clamp((out ? 0.3 : 0.4) - w.pitch * 0.55, -0.12, 1.0);   // drag up to look up: the camera drops behind the character
-    const d = clearDist(T, w.yaw, e, w.dist ?? followDefault(w.floor), w.floor === 0 ? EXT.solids : w.floor === RF ? ROOFT.camWalls : floorGroups[w.floor - 1].camWalls); camDist = d;
-    pos.set(T.x + Math.sin(w.yaw) * Math.cos(e) * d, T.y + Math.sin(e) * d, T.z + Math.cos(w.yaw) * Math.cos(e) * d);
+    const d = clearDist(T, yaw, e, w.dist ?? followDefault(w.floor), w.floor === 0 ? EXT.solids : w.floor === RF ? ROOFT.camWalls : floorGroups[w.floor - 1].camWalls);
+    pos.set(T.x + Math.sin(yaw) * Math.cos(e) * d, T.y + Math.sin(e) * d, T.z + Math.cos(yaw) * Math.cos(e) * d);
     pos.y = out ? Math.max(pos.y, base + 0.3) : THREE.MathUtils.clamp(pos.y, base + 0.5, base + CEIL_Y - 0.2);
     const lift = THREE.MathUtils.clamp(w.pitch, 0, 1) * (out ? 9 : 1), ahead = out ? 0.6 : 1.2;
-    m.lookAt(pos, new THREE.Vector3(T.x - Math.sin(w.yaw) * ahead, T.y + lift, T.z - Math.cos(w.yaw) * ahead), up); quat.setFromRotationMatrix(m);
+    const look = new THREE.Vector3(T.x - Math.sin(yaw) * ahead, T.y + lift, T.z - Math.cos(yaw) * ahead);
+    if (!third) {
+      camDist = d;
+      const lying = w.sit === 'unit', want = !state.ride && (lying || (!out && d < (FP.on ? 1.75 : 1.3)));
+      if (want !== FP.on) { FP.on = want; }
+      if (FP.mix > 0.001) {
+        // eyes: standing at adult eye level; lying, at the headrest, looking along the body and up
+        const fx = -Math.sin(lying ? w.yaw : yaw), fz = -Math.cos(lying ? w.yaw : yaw), bx = -Math.sin(w.face), bz = -Math.cos(w.face);
+        const eye = lying ? new THREE.Vector3(w.pos.x - bx * 0.42, base + 1.12, w.pos.z - bz * 0.42) : new THREE.Vector3(w.pos.x + fx * 0.1, base + FP.EYE, w.pos.z + fz * 0.1);
+        const el = THREE.MathUtils.clamp(w.pitch * 1.1 + (lying ? 0.32 : -0.04), -0.7, 1.25);
+        const at = new THREE.Vector3(eye.x + fx * Math.cos(el) * 2, eye.y + Math.sin(el) * 2, eye.z + fz * Math.cos(el) * 2);
+        pos.lerp(eye, FP.mix); look.lerp(at, FP.mix);
+      }
+    }
+    m.lookAt(pos, look, up); quat.setFromRotationMatrix(m);
   } else {
     const o = state.orbit;
     pos.set(o.target.x + o.radius * Math.sin(o.phi) * Math.sin(o.theta), o.target.y + o.radius * Math.cos(o.phi), o.target.z + o.radius * Math.sin(o.phi) * Math.cos(o.theta));
@@ -2620,14 +2781,16 @@ function setVisibility() {
     f.targetY = state.mode === 'overview' ? (f.n - 1) * SPACING_EXPLODED : (f.n - 1) * SPACING_REAL;
   }
 }
+let calmT = 0;
 function updateUI() {
+  document.body.classList.remove('calm'); clearTimeout(calmT); calmT = setTimeout(() => document.body.classList.add('calm'), 7000);
   toolsEl.hidden = state.mode !== 'walk'; skyBtn.hidden = !(state.mode === 'walk' && isOutside()); teethEl.hidden = state.mode === 'gate';
   if (state.mode !== 'walk') { emoEl.hidden = true; emoBtn.setAttribute('aria-expanded', 'false'); }
   const out = isOutside(), cur = state.mode === 'overview' ? '0' : state.mode === 'gate' ? '' : out ? (state.walk.floor === RF ? '6' : 'out') : String(state.floor);
   document.querySelectorAll('.rail [data-floor]').forEach((b) => b.classList.toggle('on', b.dataset.floor === cur));
   rail.hidden = state.mode === 'gate';
   walkBtn.classList.toggle('on', state.mode === 'walk'); walkBtn.setAttribute('aria-pressed', String(state.mode === 'walk'));
-  walkBtn.lastChild.textContent = state.mode === 'walk' ? ' 둘러보기로' : ' 내 캐릭터로';
+  walkBtn.querySelector('.wl').textContent = state.mode === 'walk' ? '둘러보기로' : '내 캐릭터로'; walkBtn.setAttribute('aria-label', state.mode === 'walk' ? '둘러보기로' : '내 캐릭터로');
   canvas.classList.toggle('walking', state.mode === 'walk');
   keysHint.hidden = !(state.mode === 'walk' && !isTouch);
   if (state.mode === 'gate') { floorTitle.hidden = true; chips.hidden = true; hint.textContent = '닉네임을 정하면 건물 앞에서 시작해요'; return; }
@@ -2674,12 +2837,26 @@ const card = $('#card');
 function showHotspot(h) {
   state.selected = h;
   $('#cardNum').textContent = h.num; $('#cardTitle').textContent = h.title; $('#cardWhere').textContent = `${h.floor}F · ${FLOORS[h.floor - 1].name}`; $('#cardDesc').textContent = h.desc;
+  const vd = VIDEOS[h.video], v = $('#cardVideo'); v.hidden = !vd; if (vd) { $('#cardVideoT').textContent = vd.t; $('#cardVideoS').textContent = `설명 영상 · ${vd.sec}초 · 소리 없이 자막으로`; v.dataset.v = h.video; }
   const a = $('#cardLink'); a.href = SITE + h.link; a.textContent = `${h.linkLabel} →`;
   renderQuiz(h.doctor);
   card.hidden = false; updateUI();
 }
 function hideCard() { card.hidden = true; state.selected = null; if (state.mode !== 'overview') updateUI(); }
 $('#cardClose').addEventListener('click', hideCard);
+/* the explainer clip of a card: played here, with the treatment page a tap away */
+const vidM = $('#vidM'), vidEl = $('#vidEl');
+function openVideo(id) {
+  const vd = VIDEOS[id]; if (!vd) return;
+  $('#vidTitle').textContent = vd.t; $('#vidNote').textContent = '소리 없이 자막으로 설명하는 영상이에요.'; $('#vidPage').href = SITE + vd.page;
+  vidEl.poster = VIDEO_BASE + vd.p; vidEl.src = VIDEO_BASE + vd.v; vidM.hidden = false; keys.clear(); track('tour_video', { topic: id });
+  vidEl.play().catch(() => { /* the poster and the play button stay */ });
+}
+function closeVideo() { vidEl.pause(); vidEl.removeAttribute('src'); vidEl.load(); vidM.hidden = true; }
+vidEl.addEventListener('error', () => { if (!vidM.hidden && vidEl.getAttribute('src')) $('#vidNote').textContent = '여기서는 영상을 불러오지 못했어요. 아래 진료 안내 페이지에서 볼 수 있어요.'; });
+$('#cardVideo').addEventListener('click', (e) => openVideo(e.currentTarget.dataset.v));
+$('#vidClose').addEventListener('click', closeVideo);
+vidM.addEventListener('click', (e) => { if (e.target === vidM) closeVideo(); });
 function focusHotspot(h) {
   showHotspot(h);
   const fy = (h.floor - 1) * SPACING_REAL;
@@ -2756,9 +2933,9 @@ function tap(cx, cy) {
 const MOVE_KEYS = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 window.addEventListener('keydown', (e) => {
   if (e.target && e.target.closest && e.target.closest('input, textarea, select')) return;   // typing a nickname must not walk
-  const modal = !gameEl.hidden || !stkM.hidden || !dexEl.hidden;
+  const modal = !gameEl.hidden || !stkM.hidden || !dexEl.hidden || !vidM.hidden || !firstM.hidden || !gate.hidden;
   if (MOVE_KEYS.includes(e.code) && !modal) { keys.add(e.code); if (state.mode === 'walk') e.preventDefault(); }
-  if (e.code === 'Escape') { if (!gameEl.hidden) closeGame(); else if (!stkM.hidden) closeSticker(); else if (!dexEl.hidden) closeDex(); else if (!shotEl.hidden) closeShot(); else hideCard(); }
+  if (e.code === 'Escape') { if (!vidM.hidden) closeVideo(); else if (!firstM.hidden) firstM.hidden = true; else if (!gate.hidden) closeMe(false); else if (!gameEl.hidden) closeGame(); else if (!stkM.hidden) closeSticker(); else if (!dexEl.hidden) closeDex(); else if (!shotEl.hidden) closeShot(); else hideCard(); }
   if (state.mode === 'walk' && !modal && /^Digit[1-7]$/.test(e.code)) sendReaction(Number(e.code.slice(5)) - 1);
   if ((e.code === 'Enter' || e.code === 'KeyE') && state.mode === 'walk' && !modal && !(e.target.closest && e.target.closest('button, a'))) { const bs = actEl.querySelectorAll('button:not([disabled])'); if (bs.length === 1) { e.preventDefault(); bs[0].click(); } }
 });
@@ -2804,21 +2981,43 @@ const accsEl = $('#accs'), hairsEl = $('#hairs');
 chipRadio(accsEl, ACC_NAMES, () => me.acc, (i) => { me.acc = i; });
 chipRadio(hairsEl, HAIR_NAMES, () => me.hair, (i) => { me.hair = i; });
 nickIn.addEventListener('input', () => { gateErr.textContent = ''; });
-gateForm.addEventListener('submit', (e) => { e.preventDefault(); const r = checkName(nickIn.value); if (!r.name) { gateErr.textContent = NAME_ERR[r.reason]; nickIn.focus(); return; } enterWorld(r.name, me.color, me.acc, me.hair); });
+// The form is no longer a gate (first week: 11 visitors, 6 touched the nickname field, almost none came in). You walk in at once with
+// a made-up nickname, or the one this device remembers, and this form is where you change it: "내 캐릭터" in the tools.
+const helloEl = $('#hello'); let meSnap = null, helloT = 0;
+function autoName() { const A = ['불당동', '천안', '두정동', '쌍용동', '백석동', '신방동', '성정동', '청수동'], B = ['토끼', '고래', '다람쥐', '수달', '판다', '코알라', '펭귄', '고양이', '강아지', '여우', '햇님', '구름']; return `${A[Math.floor(Math.random() * A.length)]} ${B[Math.floor(Math.random() * B.length)]}`; }
+function openMe(msg) {
+  if (state.mode !== 'walk') resumeWalk(); helloEl.hidden = true; meSnap = { color: me.color, acc: me.acc, hair: me.hair };
+  nickIn.value = me.name; gateErr.textContent = msg || ''; paintSwatches(); chipRadio(accsEl, ACC_NAMES, () => me.acc, (i) => { me.acc = i; }); chipRadio(hairsEl, HAIR_NAMES, () => me.hair, (i) => { me.hair = i; });
+  gate.hidden = false; resize(); keys.clear();
+}
+function closeMe(keep) { if (!keep && meSnap) Object.assign(me, meSnap); meSnap = null; gate.hidden = true; nickIn.blur(); }
+gateForm.addEventListener('submit', (e) => { e.preventDefault(); const r = checkName(nickIn.value); if (!r.name) { gateErr.textContent = NAME_ERR[r.reason]; nickIn.focus(); return; } me.name = r.name; closeMe(true); rebuildMe(); toast('바꿨어요', 1600); });
+$('#gateClose').addEventListener('click', () => closeMe(false));
+gate.addEventListener('click', (e) => { if (e.target === gate) closeMe(false); });
 function enterWorld(name, color, acc = 0, hair = me.hair) {
   me.name = name; me.color = color; me.acc = accOpen(acc) ? acc : 0; me.hair = Number.isInteger(hair) ? hair : 0;
   grantOnEntry(); saveMe();
   if (me.av) { me.av.removeFromParent(); disposeAvatar(me.av); }
   me.av = makeAvatar(name, color, true, me.acc, null, me.hair, me.title);
   gate.hidden = true; nickIn.blur(); live.want = { name, color, acc: me.acc, hair: me.hair, title: me.title };
-  goWalk(startFloor); liveJoin(); liveStatus(); track('tour_enter', { floor: startFloor }); countVisit();
+  goWalk(startFloor); liveJoin(); liveStatus(); track('tour_enter', { floor: startFloor, back: enterWorld.back ? 1 : 0, guide: startDoctor ? 'doctor' : startGuideKind }); countVisit();
 }
-function backToGate(msg) {
-  if (me.av) { me.av.removeFromParent(); disposeAvatar(me.av); me.av = null; }
-  live.joined = false; state.mode = 'gate'; state.floor = 0; state.selected = null; card.hidden = true;
-  state.orbit.target.set(0, 9, -4); state.orbit.radius = gateRadius(); state.orbit.phi = 1.28; state.autoRotate = !reduceMotion;
-  gate.hidden = false; gateErr.textContent = msg || ''; setVisibility(); updateUI(); startTransition(1.0); liveStatus();
+// called once the scene is up: in you go
+function autoEnter() {
+  let saved = null; try { saved = JSON.parse(localStorage.getItem('bd-tour-me') || 'null'); } catch (_) { /* first visit */ }
+  const kept = saved && typeof saved.name === 'string' ? checkName(saved.name).name : '';
+  if (!kept) me.color = Math.floor(Math.random() * AV_COLORS.length);
+  enterWorld.back = !!kept; enterWorld(kept || autoName(), me.color, me.acc, me.hair);
+  if (inviteRoom) toast(`친구가 보낸 링크예요. 같은 방(${inviteRoom}번)에서 만나요`, 3800);
+  if (startDoctor && findDoctor(startDoctor)) return;
+  if (startGuideKind) { if (FIRST_FLOORS.includes(startFloor)) startFirst(startFloor); else openFirst(); return; }
+  $('#helloName').textContent = me.name; helloEl.hidden = false; clearTimeout(helloT); helloT = setTimeout(() => { helloEl.hidden = true; }, 15000);
 }
+$('#helloClose').addEventListener('click', () => { helloEl.hidden = true; });
+$('#helloFirst').addEventListener('click', openFirst);
+$('#helloMe').addEventListener('click', () => openMe());
+// the server refused the nickname: carry on under a made-up one and open the form with the reason
+function backToGate(msg) { me.name = autoName(); rebuildMe(); openMe(msg); }
 function placeMe() { if (me.av) placeAvatar(me.av, state.walk.floor); }
 // a character is drawn when it stands where the camera is looking
 function avShown(f) {
@@ -2837,6 +3036,9 @@ const inviteRoom = (() => { try { const r = parseInt(new URLSearchParams(locatio
 if (inviteRoom) { live.room = inviteRoom; $('#gateRoom').textContent = `친구가 보낸 링크예요. 친구와 같은 방(${inviteRoom}번)에서 시작해요.`; }
 // a floor card on the homepage links here as ?floor=3: after entering you start on that floor
 const startFloor = (() => { try { const f = parseInt(new URLSearchParams(location.search).get('floor'), 10); return f >= 1 && f <= 6 ? f : 0; } catch (_) { return 0; } })();
+// ?guide=first opens the first-visit walk (with ?floor=N, straight to that floor's walk); ?doctor=<id> leads you to that doctor
+const startGuideKind = (() => { try { return new URLSearchParams(location.search).get('guide') === 'first' ? 'first' : ''; } catch (_) { return ''; } })();
+const startDoctor = (() => { try { return (new URLSearchParams(location.search).get('doctor') || '').replace(/[^a-z-]/g, '').slice(0, 24); } catch (_) { return ''; } })();
 if (startFloor) $('#gateRoom').textContent += ` 입장하면 ${startFloor === RF ? '옥상' : startFloor + '층'}에서 시작해요.`;
 function liveConnect() {
   if (!('WebSocket' in window)) { live.fails = 9; liveStatus(); return; }
@@ -2918,7 +3120,7 @@ window.addEventListener('pagehide', () => { try { if (live.ws) live.ws.close(100
 function liveStatus() {
   const on = !!(live.ws && live.id), others = live.peers.size, n = others + (live.joined ? 1 : 0);
   whoEl.hidden = state.mode === 'gate';
-  whoEl.classList.toggle('on', on);
+  whoEl.classList.toggle('on', on); document.body.classList.toggle('alone', !others);
   whoTxt.textContent = on ? (live.joined ? (others ? `지금 ${n}명이 함께 있어요` : '지금은 나 혼자 있어요') : '연결 중…') : (live.fails > 1 ? '혼자 둘러보는 중' : '연결 중…');
   gateCount.textContent = on && others ? `지금 ${others}명이 둘러보고 있어요.` : '';
   if (!whoList.hidden) renderWho();
@@ -2956,7 +3158,7 @@ emoBtn.addEventListener('click', () => { emoEl.hidden = !emoEl.hidden; emoBtn.se
 function nearestSeat(f, x, z, max = 1.6) {
   let best = null, bd = max;
   for (const s of (SEATS[f] || [])) {
-    const d = Math.hypot(s.x - x, s.z - z); if (d >= bd) continue;
+    const d = Math.hypot(s.x - x, s.z - z); if (d >= bd || s.taken) continue;   // taken: a patient is in it
     let taken = false; for (const p of live.peers.values()) if (p.f === f && p.av.userData.sit && Math.hypot(p.x - s.x, p.z - s.z) < 0.3) taken = true;
     if (!taken) { bd = d; best = s; }
   }
@@ -2968,10 +3170,10 @@ function sitMe() {
   if (w.sit) { standMe(); liveSend(true); setTimeout(sendSit, 180); return; }
   const s = w.floor === 0 ? null : nearestSeat(w.floor, w.pos.x, w.pos.z);
   w.moveTo = null; keys.clear();
-  if (s) { w.pos.set(s.x, 0, s.z); w.face = s.yaw; w.yaw = s.yaw + (s.kind === 'unit' ? 2.3 : Math.PI * 0.8); }
+  if (s) { w.pos.set(s.x, 0, s.z); w.face = s.yaw; w.yaw = s.kind === 'unit' ? s.yaw : s.yaw + Math.PI * 0.8; if (s.kind === 'unit') w.pitch = 0; }
   w.sit = s ? s.kind : 'floor'; me.av.userData.sit = w.sit; me.av.userData.act = null;
   liveSend(true); setTimeout(() => { if (state.walk.sit) sendSit(); }, 180);   // after the position, so others find the same seat
-  toast(s ? (s.kind === 'unit' ? '진료 의자에 앉았어요. 인증샷 한 장 어때요? 📸' : '앉았어요') : '바닥에 앉았어요', 2200); track('tour_sit', { kind: w.sit });
+  toast(s ? (s.kind === 'unit' ? '진료 의자에 누웠어요. 환자 눈에 보이는 모습이에요 · 드래그로 둘러보기' : '앉았어요') : '바닥에 앉았어요', s && s.kind === 'unit' ? 3600 : 2200); track('tour_sit', { kind: w.sit });
 }
 function standMe() {
   const w = state.walk; if (!w.sit) return; w.sit = null; if (me.av) me.av.userData.sit = null;
@@ -2990,6 +3192,12 @@ async function invite() {
   catch (_) { toast('이 화면에서는 복사가 막혀 있어요. 주소창의 링크를 보내 주세요', 3600); }
 }
 $('#inviteBtn').addEventListener('click', invite);
+const moreBtn = $('#moreBtn'), closeMore = () => { toolsEl.classList.remove('open'); moreBtn.setAttribute('aria-expanded', 'false'); };
+moreBtn.addEventListener('click', () => { const on = toolsEl.classList.toggle('open'); moreBtn.setAttribute('aria-expanded', String(on)); });
+toolsEl.addEventListener('click', (e) => { const b = e.target.closest('.tool'); if (b && b !== moreBtn && b.id !== 'emoBtn') closeMore(); });
+$('#firstBtn').addEventListener('click', openFirst);
+$('#meBtn').addEventListener('click', () => openMe());
+$('#dexBtn').addEventListener('click', () => openDex());
 skyBtn.addEventListener('click', () => { skyState.pick = (skyState.pick + 1) % SKY_NAMES.length; skyState.dirty = true; });
 teethEl.addEventListener('click', () => openDex());
 
@@ -3037,7 +3245,7 @@ function takePhoto(group = false) {
     cam.position.set(mx + Math.sin(yaw) * d, base + 1.45, mz + Math.cos(yaw) * d); cam.lookAt(mx, base + 0.8, mz);
   } else if (out) { cam.position.set(cx, 0.9, cz - 6.2); cam.lookAt(cx, 7.65, cz + 3.8); }   // a low, wide shot from in front: you, the whole building and the sky above it
   else if (roof) { const fx = -Math.sin(w.face), fz = -Math.cos(w.face); cam.position.set(cx + fx * 3.6, base + 0.7, cz + fz * 3.6); cam.lookAt(cx, base + 2.2, cz); }   // from in front, looking up: you and the sky
-  else { const p = desiredPose(); cam.position.copy(p.pos); cam.lookAt(cx, base + 0.95, cz); }
+  else { const p = desiredPose(true, w.sit === 'unit' ? w.face + 2.3 : null); cam.position.copy(p.pos); cam.lookAt(cx, base + 0.95, cz); }
   cam.updateProjectionMatrix();
   const { c, x } = renderShot(cam, W, H, members);
   let g = x.createLinearGradient(0, 0, 0, 430); g.addColorStop(0, 'rgba(18,14,10,0.62)'); g.addColorStop(1, 'rgba(18,14,10,0)'); x.fillStyle = g; x.fillRect(0, 0, W, 430);
@@ -3113,6 +3321,124 @@ function closeShot() { shotEl.hidden = true; }
 $('#shotClose').addEventListener('click', closeShot);
 shotEl.addEventListener('click', (e) => { if (e.target === shotEl) closeShot(); });
 
+/* ---------------- guide: gold dots on the floor to where you are going ---------------- */
+// For the first-visit walk (car park → lobby door → lift → where you check in on your floor) and "find this doctor" links.
+// The way is found on a coarse grid from the same walls you collide with, and laid again as you move. Between floors it
+// leads to the door or lift you need next, and the bar at the top says what to do there.
+const GUIDE = { on: false, floor: 0, x: 0, z: 0, title: '', npc: null, done: null, kind: '', at: 0, f: -1, n: 0, t0: 0, px: 0, pz: 0, tx: 0, tz: 0 };
+const guideEl = $('#guide'), guideTxt = $('#guideTxt'), GUIDE_DOTS = [], GUIDE_GRIDS = {}, guideRing = new THREE.Mesh(GEO.torus, M.gold);
+{ const geo = new THREE.CircleGeometry(0.085, 14), mat = new THREE.MeshBasicMaterial({ color: 0xC9A042 });
+  for (let i = 0; i < 70; i++) { const m = new THREE.Mesh(geo, mat); m.rotation.x = -Math.PI / 2; m.visible = false; m.renderOrder = 3; GUIDE_DOTS.push(m); }
+  guideRing.rotation.x = Math.PI / 2; guideRing.visible = false; }
+function guideGrid(f) {
+  if (GUIDE_GRIDS[f]) return GUIDE_GRIDS[f];
+  const C = 0.25, b = f === 0 ? { x0: -OX - 16, x1: OX + 4, z0: -OZ - 8, z1: OZ + 4 } : { x0: -OX, x1: OX, z0: -OZ, z1: OZ };
+  const nx = Math.ceil((b.x1 - b.x0) / C), nz = Math.ceil((b.z1 - b.z0) / C);
+  return (GUIDE_GRIDS[f] = { C, ...b, nx, nz, free: new Int8Array(nx * nz), walls: wallsOf(f) });
+}
+function findPath(f, sx, sz, tx, tz) {
+  const G = guideGrid(f), { C, nx, nz, free, walls } = G;
+  const ok = (i, k) => { if (i < 0 || k < 0 || i >= nx || k >= nz) return false; const id = k * nx + i; if (!free[id]) free[id] = blocked(walls, G.x0 + (i + 0.5) * C, G.z0 + (k + 0.5) * C, 0.3) ? -1 : 1; return free[id] === 1; };
+  const cell = (x, z) => {   // the nearest open cell: you may stand against a wall, the goal may be at a counter
+    const i0 = Math.floor((x - G.x0) / C), k0 = Math.floor((z - G.z0) / C);
+    for (let r = 0; r <= 6; r++) for (let di = -r; di <= r; di++) for (let dk = -r; dk <= r; dk++) { if (Math.max(Math.abs(di), Math.abs(dk)) !== r) continue; if (ok(i0 + di, k0 + dk)) return [i0 + di, k0 + dk]; }
+    return null;
+  };
+  const S = cell(sx, sz), T = cell(tx, tz); if (!S || !T) return null;
+  const N = nx * nz, g = new Float32Array(N).fill(Infinity), from = new Int32Array(N).fill(-1), closed = new Uint8Array(N), heap = [];
+  const h = (i, k) => Math.hypot(i - T[0], k - T[1]);
+  const push = (id, v) => { heap.push([v, id]); let c = heap.length - 1; while (c > 0) { const p = (c - 1) >> 1; if (heap[p][0] <= heap[c][0]) break; [heap[p], heap[c]] = [heap[c], heap[p]]; c = p; } };
+  const pop = () => { const top = heap[0], last = heap.pop(); if (heap.length) { heap[0] = last; let p = 0; for (;;) { const l = p * 2 + 1, r = l + 1; let m = p; if (l < heap.length && heap[l][0] < heap[m][0]) m = l; if (r < heap.length && heap[r][0] < heap[m][0]) m = r; if (m === p) break; [heap[p], heap[m]] = [heap[m], heap[p]]; p = m; } } return top; };
+  const sid = S[1] * nx + S[0], tid = T[1] * nx + T[0]; g[sid] = 0; push(sid, h(S[0], S[1]));
+  while (heap.length) {
+    const id = pop()[1]; if (closed[id]) continue; closed[id] = 1; if (id === tid) break;
+    const i = id % nx, k = (id - i) / nx;
+    for (let di = -1; di <= 1; di++) for (let dk = -1; dk <= 1; dk++) {
+      if (!di && !dk) continue; const a = i + di, c = k + dk; if (!ok(a, c)) continue; if (di && dk && (!ok(a, k) || !ok(i, c))) continue;   // no cutting corners
+      const nid = c * nx + a, ng = g[id] + (di && dk ? 1.414 : 1); if (ng < g[nid]) { g[nid] = ng; from[nid] = id; push(nid, ng + h(a, c)); }
+    }
+  }
+  if (!closed[tid]) return null;
+  const pts = []; for (let id = tid; id >= 0; id = from[id]) { const i = id % nx, k = (id - i) / nx; pts.push({ x: G.x0 + (i + 0.5) * C, z: G.z0 + (k + 0.5) * C }); if (id === sid) break; }
+  pts.reverse(); pts[0] = { x: sx, z: sz };
+  // straighten: keep a point only where the line of sight breaks
+  const see = (p, q) => { const d = Math.hypot(q.x - p.x, q.z - p.z), n = Math.ceil(d / 0.2); for (let j = 1; j < n; j++) { const t = j / n; if (blocked(walls, p.x + (q.x - p.x) * t, p.z + (q.z - p.z) * t, 0.3)) return false; } return true; };
+  const out = [pts[0]]; let a = 0;
+  while (a < pts.length - 1) { let b = Math.min(pts.length - 1, a + 40); while (b > a + 1 && !see(pts[a], pts[b])) b--; out.push(pts[b]); a = b; }
+  return out;
+}
+function guideStage() {
+  const f = state.walk.floor, T = GUIDE, fl = (n) => n === RF ? '옥상(RF)' : `${n}F`, mid = (r, msg) => ({ x: (r.x0 + r.x1) / 2, z: (r.z0 + r.z1) / 2, msg });
+  if (f === T.floor) return { x: T.x, z: T.z, msg: `${T.title}까지 바닥의 금색 점을 따라가세요`, alt: f === 1 ? [mid(EXIT_ZONE, '옆문으로 나가서 건물 정면의 정문으로 들어가세요')] : null };
+  if (f === 0) return mid(EXT.doors.find((d) => d.id === (T.floor === 1 ? 'front' : 'lobby')), T.floor === 1 ? '건물 정면의 1층 정문으로 들어가세요' : '건물 옆 로비 문으로 들어가세요');
+  if (f === RF) return mid(RF_LIFT, `엘리베이터에서 ${fl(T.floor)} 버튼을 누르세요`);
+  return { ...mid(LIFT_ZONE, `엘리베이터에서 ${fl(T.floor)} 버튼을 누르세요`), alt: f === 1 ? [mid(FRONT_ZONE, '정문으로 나가서 건물 옆 로비 문으로 가세요')] : null };
+}
+function layGuide() {
+  const w = state.walk, st = guideStage(); let path = findPath(w.floor, w.pos.x, w.pos.z, st.x, st.z), msg = st.msg;
+  if (!path && st.alt) for (const a of st.alt) { path = findPath(w.floor, w.pos.x, w.pos.z, a.x, a.z); if (path) { msg = a.msg; break; } }
+  guideTxt.textContent = msg;
+  const g = groupOf(w.floor); let n = 0;
+  if (path) {
+    let carry = 0.9;   // the first dot a step ahead of your feet
+    for (let i = 0; i < path.length - 1 && n < GUIDE_DOTS.length; i++) {
+      const p = path[i], q = path[i + 1], d = Math.hypot(q.x - p.x, q.z - p.z); let t = carry;
+      for (; t < d && n < GUIDE_DOTS.length; t += 0.55) { const m = GUIDE_DOTS[n++]; if (m.parent !== g) g.add(m); m.position.set(p.x + (q.x - p.x) * t / d, 0.07, p.z + (q.z - p.z) * t / d); m.visible = true; }
+      carry = t - d;
+    }
+    const e = path[path.length - 1]; if (guideRing.parent !== g) g.add(guideRing); guideRing.position.set(e.x, 0.08, e.z); guideRing.visible = true;
+  } else guideRing.visible = false;
+  for (let i = n; i < GUIDE_DOTS.length; i++) GUIDE_DOTS[i].visible = false;
+  GUIDE.n = n; return path;
+}
+function startGuide(o) {
+  Object.assign(GUIDE, { on: true, npc: null, done: null, kind: '', ...o, at: 0, f: -1, t0: performance.now() });
+  guideEl.hidden = false; document.body.classList.add('guiding'); helloEl.hidden = true; actKey = '~';
+  track('tour_guide_start', { kind: GUIDE.kind, floor: GUIDE.floor });
+}
+function stopGuide(arrived) {
+  if (!GUIDE.on) return; GUIDE.on = false; guideEl.hidden = true; document.body.classList.remove('guiding');
+  for (const m of GUIDE_DOTS) m.visible = false; guideRing.visible = false; actKey = '~';
+  track(arrived ? 'tour_guide_done' : 'tour_guide_stop', { kind: GUIDE.kind, floor: GUIDE.floor, sec: Math.round((performance.now() - GUIDE.t0) / 1000) });
+}
+$('#guideStop').addEventListener('click', () => stopGuide(false));
+function tickGuide(now) {
+  if (!GUIDE.on) return;
+  const w = state.walk;
+  if (state.mode !== 'walk' || state.ride) { for (let i = 0; i < GUIDE.n; i++) GUIDE_DOTS[i].visible = false; guideRing.visible = false; GUIDE.f = -1; return; }
+  if (GUIDE.npc) { GUIDE.floor = GUIDE.npc.fg.n; GUIDE.x = GUIDE.npc.x; GUIDE.z = GUIDE.npc.z; }
+  if (w.floor === GUIDE.floor && Math.hypot(w.pos.x - GUIDE.x, w.pos.z - GUIDE.z) < (GUIDE.npc ? 2.2 : 1.6)) { const done = GUIDE.done; stopGuide(true); if (done) done(); return; }
+  if (GUIDE.f !== w.floor || now - GUIDE.at > 650) {
+    const moved = GUIDE.f !== w.floor || Math.hypot(w.pos.x - GUIDE.px, w.pos.z - GUIDE.pz) > 0.35 || Math.hypot(GUIDE.x - GUIDE.tx, GUIDE.z - GUIDE.tz) > 0.5;
+    GUIDE.at = now;
+    if (moved) {
+      const fresh = GUIDE.f !== w.floor; GUIDE.f = w.floor; GUIDE.px = w.pos.x; GUIDE.pz = w.pos.z; GUIDE.tx = GUIDE.x; GUIDE.tz = GUIDE.z;
+      const path = layGuide();
+      if (fresh && path && path[1] && !w.sit) { w.yaw = w.face = Math.atan2(-(path[1].x - w.pos.x), -(path[1].z - w.pos.z)); w.pitch = 0; startTransition(0.6); }   // new floor: face the way to go
+    }
+  }
+  const k = now / 260; for (let i = 0; i < GUIDE.n; i++) GUIDE_DOTS[i].scale.setScalar(0.75 + 0.5 * Math.max(0, Math.sin(k - i * 0.55)));
+  guideRing.scale.setScalar(0.42 + Math.sin(now / 300) * 0.05);
+}
+/* the first-visit walk: from the car park to where you check in or wait on your floor (each floor's first hotspot) */
+const FIRST_SPAWN = { x: -OX - 8.5, z: FZ + 0.8 + 2.5 * 2.6, yaw: -Math.PI / 2 };   // an empty parking bay beside the building, facing it
+const firstM = $('#firstM'), FIRST_FLOORS = [1, 3, 4, 5];
+for (const n of FIRST_FLOORS) { const b = document.createElement('button'); b.type = 'button'; b.append(elm('b', null, `${n}F`), elm('span', null, FLOORS[n - 1].name)); b.addEventListener('click', () => startFirst(n)); $('#firstList').appendChild(b); }
+function openFirst() { if (state.mode !== 'walk') resumeWalk(); helloEl.hidden = true; firstM.hidden = false; track('tour_first_open'); }
+function startFirst(n) {
+  firstM.hidden = true; const h = FLOORS[n - 1].hotspots[0], t = h.stand || h;
+  hideCard(); standMe(); goWalk(0, FIRST_SPAWN);
+  startGuide({ kind: 'first', floor: n, x: t.x, z: t.z, title: `${n}F ${h.title}`, done: () => { showHotspot({ ...h, floor: n }); toast('도착했어요! 실제로 오실 때도 이 길이에요 👏', 4200); } });
+}
+$('#firstClose').addEventListener('click', () => { firstM.hidden = true; });
+firstM.addEventListener('click', (e) => { if (e.target === firstM) firstM.hidden = true; });
+function findDoctor(id) {
+  const n = NPCS.find((x) => x.d.id === id); if (!n) return false;
+  if (state.walk.floor !== n.fg.n) goWalk(n.fg.n);
+  startGuide({ kind: 'doctor', npc: n, floor: n.fg.n, x: n.x, z: n.z, title: `${n.d.name} ${n.d.role}`, done: () => openDoctor(n) });
+  return true;
+}
+
 /* what you can do where you stand */
 let actKey = '';
 function updateAct() {
@@ -3121,8 +3447,8 @@ function updateAct() {
     const st = nearStation();
     if (st) key = 'st:' + st.id;
     else if (w.floor === 0) { const d = EXT.doors.find((x) => inZone(w.pos, x)); if (d) key = 'door:' + d.id; }
-    else if (w.floor === RF) { if (inZone(w.pos, RF_LIFT)) key = 'lift:' + RF; }
-    else if (inZone(w.pos, LIFT_ZONE)) key = 'lift:' + w.floor;
+    else if (w.floor === RF) { if (inZone(w.pos, RF_LIFT)) key = 'lift:' + RF + (GUIDE.on ? '>' + GUIDE.floor : ''); }
+    else if (inZone(w.pos, LIFT_ZONE)) key = 'lift:' + w.floor + (GUIDE.on ? '>' + GUIDE.floor : '');
     else if (w.floor === 1 && inZone(w.pos, EXIT_ZONE)) key = 'exit';
     else if (w.floor === 1 && inZone(w.pos, FRONT_ZONE)) key = 'front';
   }
@@ -3133,8 +3459,8 @@ function updateAct() {
   if (key.startsWith('st:')) { const st = STATIONS.find((x) => 'st:' + x.id === key); label(st.act); btn(st.btn || '시작', st.go); }
   else if (key.startsWith('door:')) { const d = EXT.doors.find((x) => 'door:' + x.id === key); label(d.title); btn('들어가기', d.go); }
   else if (key.startsWith('lift:')) {
-    label('엘리베이터');
-    for (let n = 1; n <= RF; n++) { const b = btn(n === RF ? 'RF 옥상' : `${n}F`, () => goWalk(n), true); if (n === w.floor) { b.disabled = true; b.className = ''; b.setAttribute('aria-current', 'true'); } }
+    label('엘리베이터');   // with a guide on, the floor it wants is the gold button
+    for (let n = 1; n <= RF; n++) { const b = btn(n === RF ? 'RF 옥상' : `${n}F`, () => goWalk(n), !(GUIDE.on && n === GUIDE.floor)); if (n === w.floor) { b.disabled = true; b.className = ''; b.setAttribute('aria-current', 'true'); } }
     if (w.floor === 1) { btn('1층 병원 입구', () => goWalk(1), true); btn('밖으로', () => goWalk(0, OUT_EXIT), true); }
   } else if (key === 'exit') { label('1층 로비 출입구'); btn('밖으로 나가기', () => goWalk(0, OUT_EXIT)); }
   else if (key === 'front') { label('1층 정문'); btn('밖으로 나가기', () => goWalk(0, OUT_FRONT)); }
@@ -3143,7 +3469,7 @@ function updateAct() {
 /* ---------------- resize / loop ---------------- */
 function resize() { gate.classList.toggle('tall', gate.scrollHeight > gate.clientHeight + 1);   // a short screen: let the entry box scroll
   const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;   // hidden or not laid out yet: keep the last good size
-  renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w < h ? 62 : 50; camera.updateProjectionMatrix();
+  renderer.setSize(w, h, false); camera.aspect = w / h; baseFov = w < h ? 62 : 50; camera.fov = baseFov + 10 * FP.mix; camera.updateProjectionMatrix();
   if (state.mode === 'overview') state.orbit.radius = overviewRadius(); else if (state.mode === 'gate') state.orbit.radius = gateRadius(); else if (state.mode === 'floor' && !state.selected) state.orbit.radius = floorRadius(state.floor); }
 new ResizeObserver(resize).observe(canvas); resize();
 
@@ -3179,11 +3505,13 @@ function frame(now) {
   tickAir(now);
   // camera
   ambient.intensity += ((state.mode === 'walk' && w.floor > 0 ? 0.7 : skyState.on ? 0.35 - 0.2 * skyState.n : 0.35) - ambient.intensity) * Math.min(1, dt * 4);
+  FP.mix += ((state.mode === 'walk' && FP.on ? 1 : 0) - FP.mix) * Math.min(1, dt * 7); if (state.mode !== 'walk') { FP.on = false; }
+  { const fov = baseFov + 10 * FP.mix; if (Math.abs(camera.fov - fov) > 0.05) { camera.fov = fov; camera.updateProjectionMatrix(); } }
   const pose = desiredPose();
   if (state.transition) { const tr = state.transition; const t = Math.min(1, (now - tr.t0) / (tr.dur * 1000)); const k = ease(t); camera.position.lerpVectors(tr.fromPos, pose.pos, k); camera.quaternion.slerpQuaternions(tr.fromQuat, pose.quat, k); if (t >= 1) state.transition = null; }
   else { camera.position.copy(pose.pos); camera.quaternion.copy(pose.quat); }
   // characters: yours follows the walk state, the others ease toward what the server last said
-  if (me.av) { placeMe(); me.av.position.set(w.pos.x, 0, w.pos.z); me.av.rotation.y = w.face; animateAvatar(me.av, w.speed, dt); me.av.visible = state.mode !== 'gate' && avShown(w.floor) && !(state.mode === 'walk' && camDist < 0.8); if (me.av.visible) scaleTag(me.av, true); tickReaction(me.av, now); }
+  if (me.av) { placeMe(); me.av.position.set(w.pos.x, 0, w.pos.z); me.av.rotation.y = w.face; animateAvatar(me.av, w.speed, dt); me.av.visible = state.mode !== 'gate' && avShown(w.floor) && !(state.mode === 'walk' && (camDist < 0.8 || FP.mix > 0.45)); if (me.av.visible) scaleTag(me.av, true); tickReaction(me.av, now); }
   tickRide(now); tickScope(now);
   const kk = 1 - Math.exp(-dt * 9), near = [];
   for (const p of live.peers.values()) {
@@ -3198,7 +3526,7 @@ function frame(now) {
   near.sort((a, b) => a[0] - b[0]);
   const tagFar = state.mode === 'walk' && !isOutside() ? 14 : 45;
   for (let i = 0; i < Math.min(TAG_MAX, near.length); i++) { const [d, t] = near[i]; if (d < tagFar) { t.visible = true; sizeTag(t, d); } }
-  tickNpcs(now, dt); tickFriends(now, dt); tickStations(now); tickFireworks(now, dt); tickGroupBtn(now); tickBulbs();
+  tickNpcs(now, dt); tickFriends(now, dt); tickStations(now); tickGuide(now); tickFireworks(now, dt); tickGroupBtn(now); tickBulbs();
   // hotspot bob + selection pulse; in walk mode, shrink pins and hide room labels that are right next to the camera
   const bob = reduceMotion ? 0 : Math.sin(now / 420) * 0.07;
   const walking = state.mode === 'walk', camWorld = camera.position;
@@ -3223,10 +3551,11 @@ function frame(now) {
 setVisibility(); updateUI(); resize(); liveStatus();
 camera.position.copy(desiredPose().pos); camera.quaternion.copy(desiredPose().quat);
 window.__tour = { state, floorGroups, tap, goFloor, goWalk, goOverview, focusHotspot, resumeWalk, enterWorld, checkName, live, EXT, NPCS, FRIENDS, friendsFound, takePhoto, sendReaction, invite, openDoctor, skyState, renderer, camera,
-  prog, me, CLOCK, DAILY, STATIONS, SEATS, ROOFT, roofGroup, SLIDE, openGame, closeGame, openDex, makeCard, startSlide, lookScope, eventState, recordBrush, answerQuiz, stampDoctor, sitMe, standMe, foundFriend, renderTrail, STATS, drawWall, GAMES, GM };
+  prog, me, CLOCK, DAILY, STATIONS, SEATS, ROOFT, roofGroup, SLIDE, openGame, closeGame, openDex, makeCard, startSlide, lookScope, eventState, recordBrush, answerQuiz, stampDoctor, sitMe, standMe, foundFriend, renderTrail, STATS, drawWall, GAMES, GM, PEOPLE, FP, GUIDE, startFirst, openFirst, findDoctor, findPath, openVideo, openMe, VIDEOS, FIRST_SPAWN };
 initExtras();
 requestAnimationFrame(frame);
 liveConnect();
+autoEnter();
 </script>
 <script>
 // If the 3D module never renders (blocked CDN, old browser), say so instead of spinning forever.
