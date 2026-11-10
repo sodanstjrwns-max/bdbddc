@@ -48,7 +48,8 @@ try {
     const page = schema['@graph'].find(s => s['@type'] === 'MedicalWebPage')
     assert.equal(page.spatialCoverage.name, note.region)
     assert.equal(page.publisher.address.addressLocality, '천안시')
-    assert.equal(page.reviewedBy, undefined)
+    // 2026-11-10 사용자(문석준 대표원장) 결정: 노트에 대표원장 감수를 표시한다.
+    assert.equal(page.reviewedBy?.name, '문석준')
     assert.ok(html.includes(note.answer), 'Core answer is server-rendered')
     assert.ok(dom.querySelector('.site-header .site-logo'), 'Uses the clinic header')
     assert.ok(dom.querySelector('#mobileNav'), 'Shared mobile navigation exists')

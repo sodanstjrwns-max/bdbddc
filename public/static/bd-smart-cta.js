@@ -1,5 +1,5 @@
 /**
- * bd-smart-cta.js v1.0 (2026-09-04)
+ * bd-smart-cta.js v1.1 (2026-11-10: 모바일 하단 바를 사이트 공통 4버튼 구성으로 통일)
  * 콘텐츠 페이지(가이드·칼럼·블로그) 전용 스마트 CTA
  *
  * ── 배경 ──────────────────────────────────────────────────────────
@@ -40,6 +40,7 @@
   // 기존 대표번호·네이버예약 링크 재사용 (전 사이트 공통)
   var TEL = 'tel:041-415-2892';
   var NAVER = 'https://naver.me/5yPnKmqQ';
+  var KAKAO = 'https://pf.kakao.com/_Cxivlxb';
 
   var geoArea = ''; // 'cheonan' | 'asan' | ''
   var geoLocal = false;
@@ -62,6 +63,39 @@
     return [telBtn, nvBtn];
   }
 
+  // 모바일 하단 고정 바 — 사이트 공통 하단 버튼(전화·카카오톡·예약·오시는 길)과 같은 구성 (2026-11-10)
+  function buildBar() {
+    var items = [
+      ['전화', TEL, 'tel', false],
+      ['카카오톡', KAKAO, 'kakao', true],
+      ['예약', '/reservation', 'reserve', false],
+      ['오시는 길', '/directions', 'location', false]
+    ];
+    return items.map(function (it) {
+      var a = document.createElement('a');
+      a.href = it[1];
+      a.className = 'bd-scta-bar__btn bd-scta-bar__btn--' + it[2];
+      a.textContent = it[0];
+      a.setAttribute('data-cta-location', 'floating');
+      if (it[3]) { a.target = '_blank'; a.rel = 'noopener'; }
+      return a;
+    });
+  }
+
+  // 공통 스타일(site-v5.css)과 아이콘 글꼴이 있는 페이지에서는 다른 페이지와 똑같은 하단 버튼을 그대로 쓴다.
+  function buildSharedBar() {
+    if (!document.querySelector('link[href*="site-v5.css"]') || !document.querySelector('link[href*="fontawesome"]')) return null;
+    var bar = document.createElement('div');
+    bar.className = 'mobile-bottom-cta mobile-only';
+    bar.setAttribute('aria-label', '빠른 연락');
+    bar.setAttribute('data-cta-location', 'floating');
+    bar.innerHTML = '<a href="' + TEL + '" class="mobile-cta-btn phone"><i class="fas fa-phone-alt"></i><span>전화</span></a>'
+      + '<a href="' + KAKAO + '" target="_blank" rel="noopener" class="mobile-cta-btn kakao"><i class="fas fa-comment"></i><span>카카오톡</span></a>'
+      + '<a href="/reservation" class="mobile-cta-btn reserve primary"><i class="fas fa-calendar-check"></i><span>예약</span></a>'
+      + '<a href="/directions" class="mobile-cta-btn location"><i class="fas fa-map-marker-alt"></i><span>오시는 길</span></a>';
+    return bar;
+  }
+
   function injectStyles() {
     var css = ''
       + '.bd-scta{max-width:900px;margin:48px auto 32px;padding:0 24px}'
@@ -78,10 +112,10 @@
       + '.bd-scta__btn--naver:hover{background:#C8A97E;color:#fff}'
       + '.bd-scta-bar{display:none}'
       + '@media(max-width:768px){'
-      +   '.bd-scta-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:9990;background:#fff;border-top:1px solid #e8e0d6;box-shadow:0 -4px 16px rgba(0,0,0,.08);padding:10px 12px calc(10px + env(safe-area-inset-bottom));gap:10px}'
+      +   '.bd-scta-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:9990;background:#fff;border-top:1px solid #e8e0d6;box-shadow:0 -4px 16px rgba(0,0,0,.08);padding:10px 10px calc(10px + env(safe-area-inset-bottom));gap:6px}'
       +   '.bd-scta-bar__btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;border-radius:12px;font-size:.95rem;font-weight:700;text-decoration:none}'
-      +   '.bd-scta-bar__btn--tel{background:#6B4226;color:#fff}'
-      +   '.bd-scta-bar__btn--naver{background:#fff;color:#6B4226;border:2px solid #C8A97E}'
+      +   '.bd-scta-bar__btn{background:#fff;color:#44403C;border:1px solid #e8e0d6;white-space:nowrap;padding:0 4px}'
+      +   '.bd-scta-bar__btn--reserve{background:#6B4226;color:#fff;border-color:#6B4226}'
       +   'body.bd-scta-pad{padding-bottom:76px}'
       + '}';
     var st = document.createElement('style');
@@ -132,11 +166,18 @@
     else document.body.appendChild(wrap);
 
     // 2) 모바일 하단 고정 바 (CSS 미디어쿼리로 모바일에서만 표시)
-    var bar = document.createElement('div');
-    bar.className = 'bd-scta-bar';
-    buildButtons('bd-scta-bar').forEach(function (b) { bar.appendChild(b); });
-    document.body.appendChild(bar);
-    document.body.classList.add('bd-scta-pad');
+    // 페이지에 공통 하단 버튼이 이미 있으면 겹쳐 넣지 않는다.
+    if (!document.querySelector('.mobile-bottom-cta')) {
+      var bar = buildSharedBar();
+      if (!bar) {
+        bar = document.createElement('div');
+        bar.className = 'bd-scta-bar';
+        bar.setAttribute('aria-label', '빠른 연락');
+        buildBar().forEach(function (b) { bar.appendChild(b); });
+      }
+      document.body.appendChild(bar);
+      document.body.classList.add('bd-scta-pad');
+    }
 
     // 3) 지역 감지 — 실패해도 CTA는 그대로 (배너만 생략)
     try {

@@ -4416,7 +4416,7 @@ app.get('/column/', async (c) => {
       ? `<div class="cc-thumb">${picture(col.thumbnailImage, col.title, 'width="688" height="384"')}${col.category ? `<span class="cc-cat">${attrEsc(col.category)}</span>` : ''}</div>`
       : `<div class="cc-thumb cc-thumb-empty"><div class="cc-thumb-placeholder"><i class="fas fa-pen-nib"></i></div>${col.category ? `<span class="cc-cat">${col.category}</span>` : ''}</div>`
     const avatarHtml = slug 
-      ? `<img src="/images/doctors/${slug}-profile.webp" alt="${col.doctorName}" class="cc-avatar-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="cc-avatar-fb" style="display:none">${(col.doctorName || '').charAt(0)}</span>`
+      ? `<img src="/images/doctors/${slug}-profile.webp" alt="${col.doctorName}" class="cc-avatar-img" width="36" height="36" loading="lazy" decoding="async" onerror"this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="cc-avatar-fb" style="display:none">${(col.doctorName || '').charAt(0)}</span>`
       : `<span class="cc-avatar-fb">${(col.doctorName || '서').charAt(0)}</span>`
     return `<a href="/column/${colSlug(col)}" class="cc-card">
 ${thumbHtml}

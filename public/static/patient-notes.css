@@ -122,3 +122,13 @@
 .pn-reserve{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:var(--radius-full);background:var(--brand);color:var(--white);font-size:14px;font-weight:600;white-space:nowrap}
 .pn-reserve:hover{background:var(--brand-dark);color:var(--white)}
 @media(max-width:639px){.pn .header-container{gap:8px}.pn .header-actions{gap:10px}.pn-reserve{font-size:12px;padding:10px 14px}.pn-reserve i{display:none}}
+/* 2026-11-10: 감수 표시 · 관련 진료 링크 · 목록 상담 수단 */
+.pn-meta{font-size:13px}
+.pn-reviewer{color:var(--brand);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.pn-treatment{margin:40px 0 0;padding:24px 28px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius-xl)}
+.pn-treatment .pn-eyebrow{display:block;margin-bottom:10px}
+.pn-treatment>a{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:18px;font-weight:700;color:var(--gray-800)}
+.pn-treatment>a span{color:var(--brand)}
+.pn-hub-contact{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 22px;margin-top:22px;padding-top:26px;border-top:1px solid var(--gray-200)}
+.pn-hub-contact .pn-call,.pn-hub-contact .pn-kakao{display:inline-block;margin:0;font-size:15px;font-weight:700;color:var(--gray-700);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:768px){body.pn{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}}

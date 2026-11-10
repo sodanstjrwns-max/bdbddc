@@ -90,7 +90,7 @@ function injectTrackingFile(full, stats) {
   let html = fs.readFileSync(full, 'utf8');
   const beforeVersions = html;
   html = html.replace(/((?:src=["'])(?:\.\.\/)*\/?js\/(?:main|analytics)\.js)(?:\?[^"']*)?/g, '$1?v=20260921-r2');
-  html = html.replace(/((?:src=["'])\/static\/bd-smart-cta\.js)(?:\?[^"']*)?/g, '$1?v=20260921');
+  html = html.replace(/((?:src=["'])\/static\/bd-smart-cta\.js)(?:\?[^"']*)?/g, '$1?v=20261110');
   html = html.replace(/((?:src=["'])\/static\/chatbot\.js)(?:\?[^"']*)?/g, '$1?v=20260923-consent');
   if (html !== beforeVersions) fs.writeFileSync(full, html);
   stats.scanned++;
@@ -201,6 +201,7 @@ fs.writeFileSync('dist/tables/treatments/implant.html', redirectHtml('/pricing')
 
 // Promote revision consultations in Korean static menus, including without JS.
 console.log('[treatment-navigation]', require('./treatment-navigation.cjs').syncBuiltNavigation('dist'), 'pages updated');
+console.log('[treatment-reviewer]', require('./treatment-reviewer.cjs').syncTreatmentReviewer('dist'), 'pages updated');
 
 // SEO release maintenance + blocking validation; report remains behind /admin/* authentication.
 cp.execFileSync(process.execPath, ['--max-old-space-size=256', path.join(__dirname, 'seo-release.cjs')], { stdio: 'inherit' });
