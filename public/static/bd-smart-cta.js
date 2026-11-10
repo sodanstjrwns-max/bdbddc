@@ -139,10 +139,11 @@
     var st = document.createElement('style');
     st.textContent = css;
     document.head.appendChild(st);
+    return st;
   }
 
   function render() {
-    injectStyles();
+    var styleEl = injectStyles();
 
     // 1) 본문 하단 CTA 카드 — <main> 끝, 없으면 footer 앞, 그것도 없으면 body 끝
     var wrap = document.createElement('div');
@@ -187,11 +188,14 @@
     }
     wrap.appendChild(card);
 
-    var main = document.querySelector('main');
-    var footer = document.querySelector('footer');
-    if (main) main.appendChild(wrap);
-    else if (footer && footer.parentNode) footer.parentNode.insertBefore(wrap, footer);
-    else document.body.appendChild(wrap);
+    function placeCard() {
+      var main = document.querySelector('main');
+      var footer = document.querySelector('footer');
+      if (main) main.appendChild(wrap);
+      else if (footer && footer.parentNode) footer.parentNode.insertBefore(wrap, footer);
+      else document.body.appendChild(wrap);
+    }
+    placeCard();
 
     // 2) 모바일 하단 고정 바 (CSS 미디어쿼리로 모바일에서만 표시)
     // 페이지에 공통 하단 버튼이 이미 있으면 겹쳐 넣지 않는다.
@@ -205,6 +209,26 @@
       }
       document.body.appendChild(bar);
       document.body.classList.add('bd-scta-pad');
+    }
+
+    // 블로그(외부 서비스 화면)는 화면을 다시 그리면서 우리가 넣은 카드·버튼·스타일을 지운다.
+    // 지워지면 다시 붙인다. 다른 페이지에서는 감시하지 않는다.
+    if (path.indexOf('/blog') === 0 && window.MutationObserver) {
+      var pending = false;
+      var barEl = document.querySelector('.bd-scta-bar, .mobile-bottom-cta');
+      var restore = function () {
+        pending = false;
+        if (!styleEl.isConnected) document.head.appendChild(styleEl);
+        if (!wrap.isConnected) placeCard();
+        if (barEl && !barEl.isConnected) document.body.appendChild(barEl);
+      };
+      var watcher = new MutationObserver(function () {
+        if (pending || (styleEl.isConnected && wrap.isConnected && (!barEl || barEl.isConnected))) return;
+        pending = true;
+        setTimeout(restore, 50);
+      });
+      watcher.observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('pagehide', function () { watcher.disconnect(); }, { once: true });
     }
 
     // 3) 지역 감지 — 실패해도 CTA는 그대로 (배너만 생략)
