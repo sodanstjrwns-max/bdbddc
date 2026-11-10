@@ -44,10 +44,11 @@ return{type:t,topic:o,lang:l}};
 (function(){var c=window.bdClassify(location.pathname),a='unknown';
 try{var v=JSON.parse(localStorage.getItem('bd_area')||'null');if(v&&v.a&&Date.now()-v.t<6048e5)a=v.a}catch(e){}
 c.area=a;c.version='20261111';window.bdPage=c;window.bdLive=location.hostname==='bdbddc.com';
+var P={page_type:c.type,treatment_topic:c.topic,page_lang:c.lang,measurement_version:c.version,user_properties:{visitor_area:a}};
 gtag('set',{page_type:c.type,treatment_topic:c.topic,page_lang:c.lang,measurement_version:c.version});
 gtag('set','user_properties',{visitor_area:a});
-if(window.bdLive){gtag('config', 'G-3NQP355YQM', { send_page_view: false });
-gtag('config', 'G-LM9VKJSB9F');}})();
+if(window.bdLive){gtag('config', 'G-3NQP355YQM', Object.assign({ send_page_view: false },P));
+gtag('config', 'G-LM9VKJSB9F', P);}})();
 </script>
 <script src="/static/bd-conversions.js?v=20261111" defer></script>
 <!-- Microsoft Clarity -->
