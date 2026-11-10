@@ -202,6 +202,7 @@ fs.writeFileSync('dist/tables/treatments/implant.html', redirectHtml('/pricing')
 // Promote revision consultations in Korean static menus, including without JS.
 console.log('[treatment-navigation]', require('./treatment-navigation.cjs').syncBuiltNavigation('dist'), 'pages updated');
 console.log('[treatment-reviewer]', require('./treatment-reviewer.cjs').syncTreatmentReviewer('dist'), 'pages updated');
+console.log('[treatment-glance]', JSON.stringify(require('./treatment-glance.cjs').syncTreatmentGlance('dist')));
 console.log('[page-dates]', JSON.stringify(require('./page-dates.cjs').syncPageDates('dist')));
 
 // SEO release maintenance + blocking validation; report remains behind /admin/* authentication.
