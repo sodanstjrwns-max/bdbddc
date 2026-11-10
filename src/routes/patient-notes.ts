@@ -82,6 +82,10 @@ function renderNote(shell: NoteShell, note: PatientNote, live: boolean) {
     reviewedBy: { '@type': 'Person', name: reviewer.name, jobTitle: reviewer.role, url: origin + reviewer.url },
     isPartOf: { '@id': origin + base }, citation: note.sources.map(s => s.href),
     publisher: { '@type': 'Dentist', name: '서울비디치과의원 불당본점', url: origin, telephone: '+82-41-415-2892', address: { '@type': 'PostalAddress', streetAddress: '서북구 불당34길 14, 1~5층', addressLocality: '천안시', addressRegion: '충청남도', addressCountry: 'KR' } }
+  }, {
+    // 본문의 「조금 더 물어보고 싶은 것들」 질문·답변을 그대로 싣는다. 화면에 없는 문답은 넣지 않는다.
+    '@type': 'FAQPage', '@id': origin + url(note) + '#faq',
+    mainEntity: detail.questions.map(q => ({ '@type': 'Question', name: q.question, acceptedAnswer: { '@type': 'Answer', text: q.answer } }))
   }], live)
 }
 
@@ -113,6 +117,14 @@ export function registerPatientNotes(app: Hono<any>, shell: NoteShell) {
       return c.html(document(shell, '노트를 찾을 수 없습니다', '지역과 주제를 다시 선택해 주세요.', base, `<main id="main" class="pn-detail"><h1>해당 목록이 없습니다.</h1><a href="${base}">전체 노트로 돌아가기</a></main>`, [], live(c.req.url), true), 404)
     }
     return c.html(renderHub(shell, region, topic, page, live(c.req.url)))
+  })
+  // AI 검색용 목록: 공개된 노트만, 제목·주소·한 줄 설명. /llms.txt 가 이 주소를 안내한다.
+  app.get(`${base}/llms.txt`, c => {
+    const notes = visiblePatientNotes(!live(c.req.url))
+    c.header('Cache-Control', 'no-store')
+    c.header('Content-Type', 'text/plain; charset=utf-8')
+    const lines = notes.map(n => `- [${n.title}](${origin}${url(n)}): ${n.description} (${n.topic} · ${n.region} · updated ${n.updated})`)
+    return c.body(`# 서울비디치과 · 나의 고민 해결 노트 (Patient Concern Notes)\n\n> 치과 치료를 앞둔 환자의 걱정을 질문 형태로 정리한 일반 안내입니다. 가상 상황을 바탕으로 썼고 실제 환자 후기가 아닙니다. 감수: ${reviewer.name} ${reviewer.role}. 개별 진찰을 대신하지 않습니다.\n\n- Hub: ${origin}${base}\n- Sitemap: ${origin}/sitemap-concerns.xml\n- Notes: ${notes.length}\n\n## Notes\n\n${lines.join('\n')}\n`)
   })
   app.get(`${base}/:slug`, c => {
     c.header('Cache-Control', 'no-store')

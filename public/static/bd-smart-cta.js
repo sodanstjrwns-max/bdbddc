@@ -96,6 +96,24 @@
     return bar;
   }
 
+  var BLOG_TREATMENTS = [
+    [/임플란트/, 'implant', '임플란트'], [/틀니/, 'denture', '틀니'], [/인비절라인|투명교정/, 'invisalign', '인비절라인'],
+    [/교정|유지장치/, 'orthodontics', '치아교정'], [/라미네이트/, 'glownate', '라미네이트(글로우네이트)'], [/미백/, 'whitening', '치아미백'],
+    [/사랑니/, 'wisdom-tooth', '사랑니 발치'], [/신경치료/, 'root-canal', '신경치료'], [/크라운/, 'crown', '크라운'], [/레진/, 'resin', '레진치료'],
+    [/충치/, 'cavity', '충치치료'], [/스케일링|치석/, 'scaling', '스케일링'], [/잇몸|치주/, 'gum', '잇몸치료'],
+    [/턱관절/, 'tmj', '턱관절장애'], [/이갈이/, 'bruxism', '이갈이·이악물기'], [/소아|어린이|아이 /, 'pediatric', '소아치과'],
+    [/치실|칫솔|치간|구강세정기|혀클리너|가글|치약|양치/, 'prevention', '예방 진료']
+  ];
+  function relatedTreatment() {
+    if (!/^\/blog\/[^/]+/.test(path)) return null;
+    var h1 = document.querySelector('main h1') || document.querySelector('h1');
+    var title = h1 ? h1.textContent : document.title;
+    for (var i = 0; i < BLOG_TREATMENTS.length; i++) {
+      if (BLOG_TREATMENTS[i][0].test(title)) return ['/treatments/' + BLOG_TREATMENTS[i][1], BLOG_TREATMENTS[i][2]];
+    }
+    return null;
+  }
+
   function injectStyles() {
     var css = ''
       + '.bd-scta{max-width:900px;margin:48px auto 32px;padding:0 24px}'
@@ -157,6 +175,16 @@
     prep.textContent = '첫 상담 준비 · 지역별 방문 안내 →';
     prep.style.cssText = 'display:inline-block;margin-top:16px;color:#6B4226;text-decoration:underline;font-size:.9rem';
     card.appendChild(prep);
+    // 블로그 글: 제목의 주제어에 맞는 진료 안내를 카드 안에서 바로 연결한다 (2026-11-10).
+    var related = relatedTreatment();
+    if (related) {
+      var rel = document.createElement('a');
+      rel.href = related[0];
+      rel.textContent = '관련 진료 안내 · ' + related[1] + ' →';
+      rel.setAttribute('data-cta-location', 'article_related');
+      rel.style.cssText = 'display:block;margin-top:12px;color:#6B4226;font-weight:700;text-decoration:underline;font-size:.95rem';
+      card.appendChild(rel);
+    }
     wrap.appendChild(card);
 
     var main = document.querySelector('main');

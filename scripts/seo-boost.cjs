@@ -329,7 +329,7 @@ function updateDoctors() {
   let html = fs.readFileSync(file, 'utf-8');
   html = html.replace(
     '<title>의료진 소개 | 서울비디치과</title>',
-    '<title>의료진 소개 | 천안 임플란트·인비절라인·라미네이트 전문의 — 서울비디치과</title>'
+    '<title>의료진 소개 | 서울대 출신 치과의사 14인 협진 — 서울비디치과</title>'
   );
   html = html.replace(
     /(<meta name="description" content=")([^"]*)(">)/,
@@ -338,7 +338,7 @@ function updateDoctors() {
   if (html.includes('name="keywords"')) {
     html = html.replace(
       /(<meta name="keywords" content=")([^"]*)(">)/,
-      '$1서울비디치과 의료진, 천안 치과 원장, 임플란트 전문의, 교정 전문의, 라미네이트 전문의, 서울대 치과의사$3'
+      '$1서울비디치과 의료진, 천안 치과 원장, 임플란트 진료, 교정 전문의, 라미네이트 진료, 서울대 치과의사$3'
     );
   }
   fs.writeFileSync(file, html, 'utf-8');

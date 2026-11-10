@@ -20,7 +20,7 @@ const BRAND_GOLD = '#C8A97E';
 const BRAND_BG = 'linear-gradient(135deg, #FAF6F1, #F3ECE4)';
 
 const categoryMeta = {
-  implant: { icon: 'fa-tooth', emoji: '🦷', color: BRAND, bgGrad: BRAND_BG, expertTitle: '임플란트 전문의', badge: '전문센터' },
+  implant: { icon: 'fa-tooth', emoji: '🦷', color: BRAND, bgGrad: BRAND_BG, expertTitle: '임플란트 진료', badge: '전문센터' },
   invisalign: { icon: 'fa-teeth', emoji: '😁', color: BRAND, bgGrad: BRAND_BG, expertTitle: '인비절라인 교정 전문의', badge: '다이아몬드 등급' },
   orthodontics: { icon: 'fa-teeth-open', emoji: '🦷', color: BRAND, bgGrad: BRAND_BG, expertTitle: '교정 전문의', badge: '전문센터' },
   glownate: { icon: 'fa-star', emoji: '✨', color: BRAND, bgGrad: BRAND_BG, expertTitle: '심미치료 전문의', badge: 'HOT' },
