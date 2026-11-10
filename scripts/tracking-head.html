@@ -32,11 +32,41 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 window._bdGtagDone = 1;
 gtag('js', new Date());
-gtag('config', 'G-3NQP355YQM', { send_page_view: false });
-gtag('config', 'G-LM9VKJSB9F');
+window.bdClassify=function(p){var m=p.match(/^\/(en|jp|cn|vi|th|ru)(?=\/|$)/),l=m?m[1]:'ko',q=(m?p.slice(m[0].length):p)||'/',s=q.split('/')[1]||'',t='other';
+if(q==='/'||q==='/index.html')t='home';
+else if(s==='treatments')t=/^\/treatments\/?(index\.html)?$/.test(q)?'treatment_index':'treatment';
+else if(s==='doctors')t=/^\/doctors\/?(index\.html)?$/.test(q)?'doctor_index':'doctor';
+else if(/^pricing/.test(s))t='pricing';
+else if(/^reservation/.test(s))t='reservation';
+else if({area:1,guide:1,column:1,blog:1,encyclopedia:1,cases:1,video:1}[s])t=s;
+else if(s==='concerns')t='concern';
+else if(/^faq/.test(s))t='faq';
+else if(/^symptom-checker/.test(s))t='tool';
+else if(/^(about|directions|floor-guide|mission|notice|careers|tour|privacy|terms)/.test(s))t='info';
+else if(/^(games?|flight|run|checkup)/.test(s))t='game';
+else if(/^(auth|admin)/.test(s))t='account';
+var k=q.toLowerCase(),o='none';try{k=decodeURIComponent(k)}catch(e){}
+if(/implant|fixture|sinus|all-on|bone-graft|임플란트/.test(k))o='implant';
+else if(/invisalign|ortho|retainer|malocclusion|교정/.test(k))o='orthodontics';
+else if(/glownate|laminate|whitening|aesthetic|front-teeth|라미네이트|미백/.test(k))o='aesthetic';
+else if(/pediatric|child|소아/.test(k))o='pediatric';
+else if(/gum|perio|scaling|잇몸|치주|스케일링/.test(k))o='gum';
+else if(/tmj|bruxism|oral-medicine|jaw|턱관절|이갈이/.test(k))o='oral_medicine';
+else if(/root-canal|cavity|resin|inlay|crown|apico|tooth-crack|신경치료|충치|크라운|레진/.test(k))o='restorative';
+else if(/wisdom|extraction|사랑니|발치/.test(k))o='extraction';
+else if(/denture|bridge|틀니|브릿지/.test(k))o='prosthetic';
+else if(/sedation|수면/.test(k))o='sedation';
+return{type:t,topic:o,lang:l}};
+(function(){var c=window.bdClassify(location.pathname),a='unknown';
+try{var v=JSON.parse(localStorage.getItem('bd_area')||'null');if(v&&v.a&&Date.now()-v.t<6048e5)a=v.a}catch(e){}
+c.area=a;c.version='20261111';window.bdPage=c;window.bdLive=location.hostname==='bdbddc.com';
+gtag('set',{page_type:c.type,treatment_topic:c.topic,page_lang:c.lang,measurement_version:c.version});
+gtag('set','user_properties',{visitor_area:a});
+if(window.bdLive){gtag('config', 'G-3NQP355YQM', { send_page_view: false });
+gtag('config', 'G-LM9VKJSB9F');}})();
 </script>
 <!--BD-BLOCK consultation bd-conversions.js-->
-<script src="/static/bd-conversions.js?v=20260921-r3" defer></script>
+<script src="/static/bd-conversions.js?v=20261111" defer></script>
 <!--BD-BLOCK clarity wb39d7gn5x-->
 <!-- Microsoft Clarity -->
 <script type="text/javascript">

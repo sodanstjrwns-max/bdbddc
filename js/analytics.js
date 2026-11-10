@@ -53,6 +53,9 @@
   function gtag() {
     // Explicit routing is required by the current connected-tag/GTM configuration.
     // Leave config/pageview ownership unchanged; route only this module's custom events.
+    // 측정 정의 20261111: 운영 도메인 밖에서는 보내지 않는다. page_type 은 공통 분류(window.bdPage)를 쓴다.
+    if (arguments[0] === 'event' && location.hostname !== 'bdbddc.com') return;
+    if (arguments[0] === 'event' && arguments[2] && arguments[2].page_type && window.bdPage) arguments[2].page_type = window.bdPage.type;
     if (arguments[0] === 'event') arguments[2] = Object.assign({ send_to: ['G-LM9VKJSB9F', 'G-3NQP355YQM'] }, arguments[2] || {});
     window.dataLayer.push(arguments);
   }

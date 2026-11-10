@@ -86,12 +86,20 @@ const TRACKING_BLOCKS = (function () {
   return out;
 })();
 
+const gaContext = require('./ga-context.cjs');
+// 서버 렌더링 쪽(src/lib/layout.ts)에도 같은 꼬리표 코드가 있어야 한다. 어긋나면 빌드를 멈춘다.
+if (!fs.readFileSync(path.join(__dirname, '..', 'src/lib/layout.ts'), 'utf8').includes("c.version='20261111'")) {
+  throw new Error('src/lib/layout.ts 의 GA 꼬리표 코드가 scripts/ga-context.cjs 와 다릅니다.');
+}
+
 function injectTrackingFile(full, stats) {
   let html = fs.readFileSync(full, 'utf8');
   const beforeVersions = html;
-  html = html.replace(/((?:src=["'])(?:\.\.\/)*\/?js\/(?:main|analytics)\.js)(?:\?[^"']*)?/g, '$1?v=20260921-r2');
+  html = html.replace(/((?:src=["'])(?:\.\.\/)*\/?js\/(?:main|analytics)\.js)(?:\?[^"']*)?/g, '$1?v=20261111');
   html = html.replace(/((?:src=["'])\/static\/bd-smart-cta\.js)(?:\?[^"']*)?/g, '$1?v=20261110c');
   html = html.replace(/((?:src=["'])\/static\/chatbot\.js)(?:\?[^"']*)?/g, '$1?v=20260923-consent');
+  html = html.replace(/((?:src=["'])\/static\/bd-conversions\.js)(?:\?[^"']*)?/g, '$1?v=20261111');
+  html = gaContext.applyContext(html); // 페이지 유형·진료 분야 꼬리표 (scripts/ga-context.cjs)
   if (html !== beforeVersions) fs.writeFileSync(full, html);
   stats.scanned++;
 
