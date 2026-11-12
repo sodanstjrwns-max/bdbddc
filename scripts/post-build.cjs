@@ -164,7 +164,7 @@ const routes = {
     '/sitemap-intl.xml',
     '/favicon.ico','/apple-touch-icon.png',
     '/robots.txt','/6f74445f7ec14eccb522a4d3f253128c.txt','/bdbddc2026indexnow.txt',
-    '/llms.txt','/llms-full.txt','/sw.js','/report/*','/videos/*',
+    '/llms.txt','/llms-full.txt','/sw.js','/videos/*', // '/report/*' 는 2026-11-12 제외 목록에서 뺌 — 내부 보고서라 워커의 관리자 인증을 거쳐야 한다
     '/laminate/frames/frame_0*',
     '/implant/frames/frame_0*',
     '/invisalign/frames/frame_0*',

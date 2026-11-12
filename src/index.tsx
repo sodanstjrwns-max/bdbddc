@@ -496,6 +496,17 @@ const gscReportGuard = async (c: any, next: any) => {
 app.use('/gsc-report', gscReportGuard)
 app.use('/gsc-report/*', gscReportGuard)
 
+// === /report/* 내부 보고서 (2026-11-12): 로그인 없이 열리던 것을 관리자 세션 뒤로 옮김 ===
+// SEO 감사·검색 성과·병원 벤치마크 보고서는 내부 자료다. 관리자 세션이 있어야 열리고 검색에서도 제외한다.
+const reportGuard = async (c: any, next: any) => {
+  c.header('X-Robots-Tag', 'noindex, nofollow')
+  c.header('Cache-Control', 'private, no-store')
+  return gscReportGuard(c, next)
+}
+app.use('/report', reportGuard)
+app.use('/report/*', reportGuard)
+app.use('/report/*', strictStatic())
+
 // === 사이트 통계 (중앙 대시보드 연동, 인증 미들웨어 뒤에 등록) ===
 app.get('/admin/stats', async (c) => {
   c.header('Cache-Control', 'private, no-store')
@@ -7756,7 +7767,7 @@ app.get('/floor-guide', serveStatic())
 app.get('/privacy', serveStatic())
 app.get('/terms', serveStatic())
 app.get('/mission', serveStatic())
-app.get('/blueprint', serveStatic())
+// '/blueprint'(제작 기획서)는 내부 자료라 2026-11-12 공개 경로에서 내렸다 (docs/internal/ 로 이동)
 
 // 게임 (플레이)
 app.get('/flight', serveStatic())
