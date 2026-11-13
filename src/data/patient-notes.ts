@@ -13974,6 +13974,290 @@ export const patientNotes: PatientNote[] = [
   ],
   "updated": "2026-11-10",
   "publishedAt": "2026-11-10T10:20:14+09:00"
+},
+{
+  "slug": "liver-cirrhosis-tooth-extraction-bleeding-plan",
+  "title": "간경변이 있는데 이를 빼야 한대요. 피가 안 멎을까 봐 치료를 못 받겠어요.",
+  "region": "당진",
+  "areaPath": "/area/dangjin",
+  "topic": "간경변과 발치",
+  "concern": "몸 상태 때문에 치료를 시작하기가 두려워요",
+  "description": "당진에서 간경변을 치료 중이며 발치를 권유받았을 때, 출혈 불안과 검사 수치의 의미, 간 진료팀과 치과의 확인 사항을 나누어 준비하는 고민 노트입니다.",
+  "situation": "당진에서 간경변 진료를 받는 중인데 어금니를 빼야 한다는 말을 들었습니다. 평소 멍이 잘 들고 혈소판 수치가 낮다는 설명도 들어, 치과 의자에 앉는 것부터 걱정됩니다.",
+  "answer": "간경변이라는 병명만으로 모든 발치를 금지하거나 안전하다고 단정하지 않습니다. 현재 간질환 상태, 출혈 이력, 검사와 복용 약, 발치 범위 및 지혈 계획을 함께 평가하고 필요한 경우 간 진료팀과 협의해 장소와 시기를 정합니다.",
+  "checks": [
+    "최근 간 진료 날짜, 혈액검사와 입원 여부, 평소와 달라진 몸 상태를 알립니다.",
+    "이전에 이를 뽑거나 수술한 뒤 피가 오래 났던 경험과 복용 약 전체를 확인합니다.",
+    "치과에서 제안한 발치 범위, 지혈 방법, 진료 후 연락처와 필요한 협진 내용을 묻습니다."
+  ],
+  "choices": [
+    {
+      "condition": "전신 상태가 안정적이고 계획한 발치를 시행할 수 있다고 평가되면",
+      "option": "개인별 지혈·약물 계획과 재확인 일정에 따라 치료합니다.",
+      "limit": "병명이나 검사 한 가지로 당일 발치를 보장할 수 없습니다."
+    },
+    {
+      "condition": "몸 상태 변화나 출혈 위험 확인이 더 필요하면",
+      "option": "간 진료팀과 검사·치료 시기·적절한 진료 장소를 조정합니다.",
+      "limit": "협의가 필요하다는 말은 치과 치료를 영구히 못 한다는 뜻이 아닙니다."
+    },
+    {
+      "condition": "치과 감염이나 통증이 빠르게 심해진다면",
+      "option": "예약일까지 참지 말고 현재 증상을 전달해 진료 우선순위를 다시 판단받습니다.",
+      "limit": "응급 증상이 있는데 서류가 모두 준비될 때까지 기다리지 않습니다."
+    }
+  ],
+  "unknown": "이 글에는 스스로 발치 가능 여부를 정할 혈소판·INR 기준이나 약 용량을 제시하지 않습니다. 간경변에서 INR 하나만으로 출혈 위험을 정확히 예측할 수 없으며, 수치를 바꾸기 위한 약·수혈 여부도 담당 의료진의 판단입니다.",
+  "prepare": [
+    "최근 검사 결과와 간 진료기관·담당 진료과 정보",
+    "처방약, 일반약, 한약·보충제 목록과 이전 출혈 경험",
+    "발치를 권유받은 치아와 현재 통증·붓기, 이동·동행 가능 일정"
+  ],
+  "localHeading": "당진에서 간경변과 발치 상담을 준비한다면",
+  "localAdvice": "당진에서 간경변과 발치 상담을 준비한다면 장거리 이동 전에 간 진료 자료를 어떤 방식으로 전달할지 확인하세요. 첫 방문의 평가와 실제 발치 날짜가 나뉠 수 있고, 전신 상태에 맞는 기관으로 연결될 수도 있습니다. 서울비디치과의 진료 장소는 천안 불당동이며 당진 분원을 뜻하지 않습니다.",
+  "related": [
+    {
+      "title": "발치와 치아 보존을 고민할 때",
+      "href": "/guide/regret/extraction"
+    },
+    {
+      "title": "치과 상담 준비와 선택",
+      "href": "/guide/cheonan-dentist-choice"
+    },
+    {
+      "title": "이를 뺀 뒤 출혈이 걱정될 때",
+      "href": "/concerns/extraction-bleeding-at-home-when-to-call"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국간학회 AASLD — 간경변 환자의 시술 전후 출혈 위험 평가",
+      "href": "https://www.aasld.org/liver-fellow-network/core-series/clinical-pearls/peri-procedural-management-bleeding-risk-cirrhosis"
+    },
+    {
+      "title": "영국 UCLH NHS — 발치 후 출혈과 상처 관리",
+      "href": "https://www.uclh.nhs.uk/patients-and-visitors/patient-information-pages/dental-extractions-post-operative-instructions"
+    },
+    {
+      "title": "영국 NHS — 간경변 증상과 약물 확인",
+      "href": "https://www.nhs.uk/conditions/cirrhosis/"
+    }
+  ],
+  "updated": "2026-11-14",
+  "publishedAt": "2026-11-14T09:00:00+09:00"
+},
+{
+  "slug": "child-baby-molar-pulpotomy-or-pulpectomy",
+  "title": "아이 유치 신경치료를 조금만 한다는데, 신경을 남겨도 괜찮을까요?",
+  "region": "서산",
+  "areaPath": "/area/seosan",
+  "topic": "유치 치수 치료",
+  "concern": "같은 신경치료라는 말인데 범위가 달라 혼란스러워요",
+  "description": "서산에서 아이 유치의 깊은 충치로 부분적인 치수 치료를 권유받았을 때, 치수절단술과 치수절제술의 차이, 치료 중 계획 변경과 관찰 기준을 이해하는 고민 노트입니다.",
+  "situation": "서산에서 아이 유치 어금니의 깊은 충치 상담을 받았습니다. 신경을 전부 없애는 대신 위쪽만 치료하고 남은 부분을 지켜보자는 설명이, 덜 치료하는 것은 아닌지 걱정됩니다.",
+  "answer": "유치 안의 치수 상태와 치아를 복구할 수 있는 범위에 따라 필요한 치료가 다릅니다. 치수절단술은 보존 가능한 뿌리 쪽 치수를 남기는 치료이며, 치수 전체를 제거하는 치수절제술과 목적·적응 조건이 다릅니다. 범위를 작게 한다는 말만으로 부족한 치료라고 판단하지 않습니다.",
+  "checks": [
+    "자발통·밤중 통증·붓기·고름 등의 경험과 현재 검사 결과를 전달하고 확인합니다.",
+    "남기려는 치수의 상태, 치아 뿌리와 주변 조직의 소견을 설명받습니다.",
+    "치료 중 확인 결과에 따라 계획이 바뀌는 조건과 최종 수복·추적 일정을 묻습니다."
+  ],
+  "choices": [
+    {
+      "condition": "남아 있는 치수를 보존할 수 있다고 평가하면",
+      "option": "간접 치수 치료 또는 치수절단술 등 상태에 맞는 방법을 검토합니다.",
+      "limit": "치료 이름만으로 모든 유치에 같은 방법을 적용하지 않습니다."
+    },
+    {
+      "condition": "치수 감염이나 치아·뿌리 상태 때문에 다른 치료가 필요하면",
+      "option": "치수절제술이나 발치 등 대안과 이유를 비교합니다.",
+      "limit": "현재 증상과 영상, 수복 가능성 및 유치가 할 역할을 함께 평가합니다."
+    },
+    {
+      "condition": "치료 중 처음 예상과 다른 소견을 확인하면",
+      "option": "변경이 필요한 이유와 범위를 보호자에게 설명하고 계획을 조정합니다.",
+      "limit": "처음 상담에서 모든 내부 상태를 확정할 수는 없습니다."
+    }
+  ],
+  "unknown": "아이의 통증 표현만으로 치수가 살아 있는지, 어느 치료가 필요한지 판정할 수 없습니다. 유치의 치료 원칙과 성인 영구치의 신경치료를 그대로 같은 것으로 보지 마세요.",
+  "prepare": [
+    "아팠던 시간·밤잠과 식사에 미친 영향, 붓기나 잇몸 뾰루지 여부",
+    "이전 영상과 충치 치료 내역, 아이의 협조 어려움",
+    "후속 진료 가능 일정과 치료 중 계획 변경에 대한 질문"
+  ],
+  "localHeading": "서산에서 유치 치수 치료 상담을 준비한다면",
+  "localAdvice": "서산에서 유치 치수 치료 상담을 준비한다면 긴 이동 뒤 아이가 지치지 않도록 첫날 평가와 실제 치료 가능 범위를 나누어 문의하세요. 이후 수복과 경과 확인이 필요할 수 있으므로 통원 계획도 함께 세웁니다. 서울비디치과의 진료 장소는 천안 불당동입니다.",
+  "related": [
+    {
+      "title": "유치 충치를 치료해야 하는 이유",
+      "href": "/concerns/baby-molar-cavity-treat-before-falling-out"
+    },
+    {
+      "title": "아이 유치 크라운이 걱정될 때",
+      "href": "/concerns/child-baby-molar-stainless-steel-crown-worry"
+    },
+    {
+      "title": "충치 치료 선택 가이드",
+      "href": "/guide/regret/cavity"
+    }
+  ],
+  "sources": [
+    {
+      "title": "미국소아치과학회 AAPD — 유치 생활치수 치료 지침 2024",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/vital_pulp_therapies_in_primary_teeth_with_deep_caries_lesions/"
+    },
+    {
+      "title": "미국소아치과학회 AAPD — 유치·미성숙 영구치 치수 치료, 2026 개정",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/pulp-therapy-for-primary-and-immature-permanent-teeth"
+    },
+    {
+      "title": "국제소아치과학회 IAPD — 유치와 어린 영구치의 치수 치료",
+      "href": "https://iapdworld.org/pulp-therapy-for-primary-and-young-permanent-teeth/"
+    }
+  ],
+  "updated": "2026-11-14",
+  "publishedAt": "2026-11-14T09:00:00+09:00"
+},
+{
+  "slug": "dental-implants-after-periodontitis-treatment",
+  "title": "풍치로 이를 잃었는데 임플란트도 똑같이 빠질까 봐 무서워요.",
+  "region": "천안",
+  "areaPath": "/area/cheonan",
+  "topic": "치주염 치료 후 임플란트",
+  "concern": "다시 큰 치료를 해도 같은 일이 반복될까 봐 두려워요",
+  "description": "천안에서 치주염으로 치아를 잃은 뒤 임플란트를 고민할 때, 과거 병력과 현재 잇몸 상태, 치료 순서와 유지관리 부담을 나누어 살피는 고민 노트입니다.",
+  "situation": "천안에서 잇몸 치료를 받았지만 결국 어금니를 뺐습니다. 이제 임플란트를 권유받았는데, 잇몸이 약한 사람은 새로 심어도 또 빠지는 것은 아닌지 걱정됩니다.",
+  "answer": "치주염 병력이 있으면 임플란트 주위질환의 위험을 더 주의해서 평가해야 하지만, 과거에 풍치로 이를 잃었다는 사실만으로 모두 실패하거나 모두 치료 불가능한 것은 아닙니다. 활동성 치주염을 먼저 관리하고, 남은 치아와 위험 요인·청소 가능성·지속 관리 계획까지 함께 검토합니다.",
+  "checks": [
+    "치아를 잃은 이유와 기존 잇몸 치료 기록, 현재 남은 치아의 상태를 확인합니다.",
+    "활동성 염증이 조절됐는지, 흡연·당뇨 등 확인할 위험 요인이 있는지 설명받습니다.",
+    "임플란트 보철을 실제로 닦을 수 있는지와 장기 점검 계획·비용을 상담합니다."
+  ],
+  "choices": [
+    {
+      "condition": "활동성 치주염이나 관리가 필요한 위험 요인이 남아 있다면",
+      "option": "염증 관리와 재평가를 먼저 진행하고 임플란트 치료 순서를 상의합니다.",
+      "limit": "이를 뽑았다는 사실만으로 입안 전체의 치주염이 해결됐다고 보지 않습니다."
+    },
+    {
+      "condition": "현재 상태를 평가한 뒤 임플란트를 검토할 수 있다면",
+      "option": "뼈·잇몸과 보철 계획, 유지관리 가능성을 포함해 개인별 장단점을 비교합니다.",
+      "limit": "위험이 줄어도 재발이나 임플란트 손상 가능성이 완전히 사라지는 것은 아닙니다."
+    },
+    {
+      "condition": "수술이나 지속 관리의 부담이 크다면",
+      "option": "브리지·틀니 등 다른 회복 방법도 현재 치아 상태에 맞게 상담합니다.",
+      "limit": "대안에도 관리와 한계가 있으므로 수술 유무만으로 우열을 정하지 않습니다."
+    }
+  ],
+  "unknown": "과거 치주염, 흡연 여부 또는 영상 한 장만으로 개인의 성공률이나 사용할 수 있는 기간을 계산할 수 없습니다. 임플란트는 충치가 생기지 않는다는 설명과 주변 잇몸·뼈에 질환이 생기지 않는다는 말은 다릅니다.",
+  "prepare": [
+    "발치 이유와 잇몸 치료·정기 점검 이력",
+    "흡연·혈당 관리·복용 약과 양치에 어려운 부분",
+    "예산, 통원 가능 간격, 선호하는 회복 방법과 걱정"
+  ],
+  "localHeading": "천안에서 치주염 치료 후 임플란트 상담을 준비한다면",
+  "localAdvice": "천안에서 치주염 치료 후 임플란트 상담을 준비한다면 식사 불편을 줄이고 싶은 마음과 다시 잃을까 두려운 마음을 함께 말해 주세요. 수술 일정뿐 아니라 이후 점검을 지속할 수 있는지도 계획에 포함합니다. 서울비디치과의 실제 진료 장소는 천안 불당동입니다.",
+  "related": [
+    {
+      "title": "임플란트 치료 가이드",
+      "href": "/guide/implant"
+    },
+    {
+      "title": "잇몸 치료 뒤 계속 관리받는 이유",
+      "href": "/concerns/periodontal-maintenance-every-three-months"
+    },
+    {
+      "title": "임플란트 주변 출혈이 있을 때",
+      "href": "/concerns/implant-gums-bleed-without-pain"
+    }
+  ],
+  "sources": [
+    {
+      "title": "유럽치주학회 EFP — 치주염 병력과 임플란트 상담",
+      "href": "https://www.efp.org/for-patients/dental-implants/faqs/"
+    },
+    {
+      "title": "스코틀랜드 치과임상효과프로그램 SDCEP — 임플란트 주위질환 위험 요인, 2025 지침",
+      "href": "https://periodontalcare.sdcep.org.uk/guidance/dental-implants/risk-factors-for-peri-implant-disease/"
+    },
+    {
+      "title": "유럽치주학회 EFP — 임플란트 주위질환 예방·치료 S3 지침",
+      "href": "https://doi.org/10.1111/jcpe.13823"
+    }
+  ],
+  "updated": "2026-11-14",
+  "publishedAt": "2026-11-14T09:00:00+09:00"
+},
+{
+  "slug": "child-loose-permanent-tooth-trauma-splint",
+  "title": "아이 영구치가 다쳐 흔들리는데, 고정하고 지켜보자는 말이 불안해요.",
+  "region": "아산",
+  "areaPath": "/area/asan",
+  "topic": "영구치 외상 후 고정",
+  "concern": "시간을 보내다가 살릴 기회를 놓칠까 봐 걱정돼요",
+  "description": "아산에서 아이의 다친 영구치를 고정한 뒤 관찰하자는 설명을 들었을 때, 고정의 목적과 신경치료 판단, 후속 검사의 의미를 나누어 이해하는 고민 노트입니다.",
+  "situation": "아산에서 아이가 넘어져 영구치 앞니가 흔들렸습니다. 치과에서 옆 치아와 연결해 고정하고 다시 보자고 했는데, 신경치료를 바로 하지 않아도 치아를 살릴 수 있는지 걱정됩니다.",
+  "answer": "다친 치아의 흔들림, 위치 변화, 뿌리와 주변 뼈 손상 정도에 따라 고정 여부와 기간, 치수 치료 계획이 달라집니다. 고정은 다친 치아를 지지하는 처치이며 치수 상태를 확정하거나 모든 손상을 해결하는 치료는 아닙니다. 손상 유형에 맞춘 재검사와 관찰이 함께 필요합니다.",
+  "checks": [
+    "다친 시각과 상황, 영구치 여부, 치아 위치와 맞물림 변화 및 이미 받은 처치를 확인합니다.",
+    "정확한 손상 이름, 뿌리 성숙도, 고정의 목적과 제거 계획을 설명받습니다.",
+    "치수 반응과 영상 등을 언제 다시 볼지, 계획보다 일찍 연락할 변화를 묻습니다."
+  ],
+  "choices": [
+    {
+      "condition": "위치 변화 없이 흔들림만 있는 손상이라면",
+      "option": "진찰 결과에 따라 관찰하거나 필요할 때 유연한 고정을 적용합니다.",
+      "limit": "흔들리는 영구치 모두에 같은 고정이나 신경치료가 필요한 것은 아닙니다."
+    },
+    {
+      "condition": "치아 위치가 바뀌거나 뿌리·주변 뼈 손상이 있다면",
+      "option": "손상 유형에 맞는 처치와 고정·치수 평가 계획을 세웁니다.",
+      "limit": "스스로 치아를 밀어 넣거나 집에서 철사·접착제로 고정하지 않습니다."
+    },
+    {
+      "condition": "이후 치수 감염이나 다른 좋지 않은 변화가 확인되면",
+      "option": "뿌리 발달과 손상 상태에 맞춰 추가 치료를 검토합니다.",
+      "limit": "처음 고정했다는 사실만으로 나중의 치료 필요성이 모두 없어지는 것은 아닙니다."
+    }
+  ],
+  "unknown": "이 노트는 이미 치과에서 평가받은 뒤의 상담을 돕습니다. 아직 진료 전이고 다친 영구치가 흔들리거나 위치가 달라졌다면 빨리 치과에 연락하세요. 두부 손상·의식 변화·심한 출혈 등은 치아 상담보다 응급 평가가 우선입니다.",
+  "prepare": [
+    "다친 시각·충격 방향·처치받은 기관과 날짜, 이전 사진·영상",
+    "현재 통증, 물리는 느낌, 치아 색·잇몸 변화와 고정 상태",
+    "학교 급식·체육활동과 재진 가능한 일정"
+  ],
+  "localHeading": "아산에서 영구치 외상 후 고정 상담을 준비한다면",
+  "localAdvice": "아산에서 영구치 외상 후 고정 상담을 준비한다면 처음 처치한 기관의 기록과 고정한 날짜를 함께 알려 주세요. 가까운 곳에서 응급 처치를 받은 뒤 다른 곳에서 관찰한다면 역할과 다음 방문 시점을 연결해야 합니다. 서울비디치과의 진료 장소는 천안 불당동입니다.",
+  "related": [
+    {
+      "title": "어린 영구치의 뿌리 성장과 치수 치료",
+      "href": "/concerns/child-injured-immature-permanent-tooth-root-growth"
+    },
+    {
+      "title": "다친 앞니가 어두워질 때",
+      "href": "/concerns/front-tooth-turning-dark-after-injury"
+    },
+    {
+      "title": "신경치료를 결정하기 전 가이드",
+      "href": "/guide/root-canal"
+    }
+  ],
+  "sources": [
+    {
+      "title": "국제치아외상학회 IADT — 영구치 파절·탈구 지침, AAPD 수록",
+      "href": "https://www.aapd.org/research/oral-health-policies--recommendations/guidelines-for-the-management-of-traumatic-dental-injuries-1-fracture-and-luxations-or-permanent-teeth/"
+    },
+    {
+      "title": "국제치아외상학회 IADT — 2020 원문, 아탈구 고정과 치수 반응 추적",
+      "href": "https://onlinelibrary.wiley.com/doi/10.1111/edt.12578"
+    },
+    {
+      "title": "브리스톨대학교 치과 — 치아 외상 치료 후 관리와 고정 장치",
+      "href": "https://www.bristol.ac.uk/dental/treatment/patient-information/care-for-your-mouth-after-dental-trauma/"
+    }
+  ],
+  "updated": "2026-11-14",
+  "publishedAt": "2026-11-14T09:00:00+09:00"
 }
 ]
 
