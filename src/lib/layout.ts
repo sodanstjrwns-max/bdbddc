@@ -7,10 +7,11 @@
 export const TRACKING_HEAD = `<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KKVMVZHK');</script>
 <!-- End Google Tag Manager -->
-<!-- ★ v5.67 Google 태그 직접 삽입 (GA4 2개 속성: G-3NQP355YQM / G-LM9VKJSB9F)
-     GTM 경유만으로는 GSC/GA4 "태그되지 않음" 판정이 남아, 정상 페이지(/pricing 등)와
-     동일하게 gtag 를 직접 넣는다. 두 속성 전송은 의도된 구성이므로 제거 금지. -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NQP355YQM"></script>
+<!-- GA4 2개 속성(G-3NQP355YQM 백업 / G-LM9VKJSB9F 메인) 설정. 두 속성 전송은 의도된 구성이므로 제거 금지.
+     ⚠ gtag/js 를 페이지에 직접 넣지 말 것(2026-11-22 제거). GTM 의 Google 태그가 같은 스크립트를 불러온다.
+       직접 넣은 스크립트가 GTM 보다 먼저 도착하면 그 페이지의 page_view 가 나가지 않았다
+       (첫 방문 재현 8회 중 2회 누락, GA 실측 약 23% 누락 = 시작 페이지 미상의 원인).
+       따라서 GA 수집은 GTM(GTM-KKVMVZHK)의 Google 태그(G-3NQP355YQM)에 의존한다. 그 태그를 끄면 GA 가 멈춘다. -->
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}

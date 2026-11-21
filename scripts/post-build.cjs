@@ -100,6 +100,9 @@ function injectTrackingFile(full, stats) {
   html = html.replace(/((?:src=["'])\/static\/chatbot\.js)(?:\?[^"']*)?/g, '$1?v=20260923-consent');
   html = html.replace(/((?:src=["'])\/static\/bd-conversions\.js)(?:\?[^"']*)?/g, '$1?v=20261122a');
   html = gaContext.applyContext(html); // 페이지 유형·진료 분야 꼬리표 (scripts/ga-context.cjs)
+  // gtag/js 직접 로더 제거(2026-11-22): GTM 보다 먼저 도착하면 그 페이지의 page_view 가 나가지 않았다.
+  // 원본 HTML·생성 스크립트에 남아 있어도 dist 에서는 항상 지운다. 로더는 GTM 의 Google 태그가 불러온다.
+  html = html.replace(/[ \t]*(?:<!-- Google 태그 로더 \(GA4\) -->\s*)?<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+"><\/script>[ \t]*\r?\n?/g, '');
   if (html !== beforeVersions) fs.writeFileSync(full, html);
   stats.scanned++;
 
@@ -151,6 +154,26 @@ for (const e of fs.readdirSync('dist', { withFileTypes: true })) {
 // 루트 정적 HTML(index / pricing / blueprint / symptom-checker 등)도 대상.
 injectTracking('dist', trkStats, false);
 console.log('[tracking-inject]', JSON.stringify(trkStats));
+
+// 주입 제외 폴더(auth 등)에도 원본에 gtag/js 직접 로더가 남아 있다. 같은 순서 문제가 있으므로 지우고,
+// dist 어디에도 직접 로더가 없는지 확인한다(2026-11-22, GTM 보다 먼저 도착하면 page_view 누락).
+(function stripDirectGtagLoader(dir) {
+  const LOADER_RE = /[ \t]*(?:<!-- Google 태그 로더 \(GA4\) -->\s*)?<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-[A-Z0-9]+"><\/script>[ \t]*\r?\n?/g;
+  const left = [];
+  (function walk(d) {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const full = path.join(d, e.name);
+      if (e.isDirectory()) { walk(full); continue; }
+      if (!/\.html$/i.test(e.name)) continue;
+      const html = fs.readFileSync(full, 'utf8');
+      if (!html.includes('gtag/js?id=')) continue;
+      const next = html.replace(LOADER_RE, '');
+      if (next !== html) fs.writeFileSync(full, next);
+      if (next.includes('gtag/js?id=')) left.push(full);
+    }
+  })(dir);
+  if (left.length) throw new Error('gtag/js 직접 로더가 남은 페이지: ' + left.slice(0, 5).join(', '));
+})('dist');
 
 // _routes.json 패치
 // include /* : 모든 요청이 Worker 경유 (seoulbddc.com → bdbddc.com 리디렉트 필요)
