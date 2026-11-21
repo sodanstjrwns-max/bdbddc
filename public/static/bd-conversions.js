@@ -35,7 +35,7 @@
     if (!live) { if (after) after(); return; }
     // The live GTM/connected-tag configuration does not reliably route the default group.
     // Explicit destinations preserve the two existing properties without another config/pageview.
-    var data = Object.assign({ send_to: ['G-LM9VKJSB9F', 'G-3NQP355YQM'], page_type: pageType, treatment_topic: page.topic, page_lang: page.lang, page_path: path, measurement_version: '20261111' }, extra || {});
+    var data = Object.assign({ send_to: ['G-LM9VKJSB9F', 'G-3NQP355YQM'], page_type: pageType, treatment_topic: page.topic, page_lang: page.lang, page_path: path, measurement_version: '20261122' }, extra || {});
     window.dataLayer = window.dataLayer || [];
     var g = window.gtag || function () { window.dataLayer.push(arguments); };
     if (after) {
@@ -109,7 +109,7 @@
     if (live && typeof window.fbq === 'function') { try { window.fbq('track', 'Lead', { content_name: 'consultation_request' }); } catch (_) {} }
     return true;
   }
-  window.bdConversions = { intent: intent, reservationAccepted: reservationAccepted, version: '20261111' };
+  window.bdConversions = { intent: intent, reservationAccepted: reservationAccepted, version: '20261122' };
 
   var navigating = false;
   document.addEventListener('click', function (e) {
@@ -165,10 +165,19 @@
       emit('reservation_submit_error', { funnel_step: 3, attempt: attempts, error_kind: reason });
     }
     // Only the fact and kind of failure are sent, never the field contents or message text.
-    form.addEventListener('invalid', function () { failed('missing_required'); }, true);
+    // error_kind names the check that stopped the request (field id or server status), e.g.
+    // missing_rsvMsg, rejected_message, rejected_server_400, rejected_network. Never field values.
+    form.addEventListener('invalid', function (e) {
+      var f = e.target && (e.target.id || e.target.name);
+      failed(f && /^[A-Za-z0-9_-]{1,30}$/.test(f) ? 'missing_' + f : 'missing_required');
+    }, true);
     var err = document.getElementById('rsvErr');
     if (err && typeof MutationObserver === 'function') {
-      new MutationObserver(function () { if (err.textContent.trim()) failed('rejected'); })
+      new MutationObserver(function () {
+        if (!err.textContent.trim()) return;
+        var k = err.getAttribute('data-kind');
+        failed(k && /^[a-z0-9_]{1,30}$/.test(k) ? 'rejected_' + k : 'rejected');
+      })
         .observe(err, { childList: true, characterData: true, subtree: true });
     }
   }
