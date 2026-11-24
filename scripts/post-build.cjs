@@ -166,8 +166,9 @@ console.log('[tracking-inject]', JSON.stringify(trkStats));
       if (e.isDirectory()) { walk(full); continue; }
       if (!/\.html$/i.test(e.name)) continue;
       const html = fs.readFileSync(full, 'utf8');
-      // 옛 사업자 정보(312-29-72180·만남로 주소) 푸터가 다시 들어오면 빌드 실패(2026-11-23). 올바른 번호는 228-11-02956.
-      if (html.includes('312-29-72180')) oldBiz.push(full);
+      // 옛·가짜 사업자 정보가 다시 들어오면 빌드 실패(2026-11-23~24).
+      // 올바른 값: 228-11-02956 / 불당34길 14, 1~5층 / 우편번호 31156(우체국 기준, 불당동 1841).
+      if (/312-29-72180|만남로|메디캠프|비디메디컬|"postalCode"\s*:\s*"(?!31156")\d+"/.test(html)) oldBiz.push(full);
       if (!html.includes('gtag/js?id=')) continue;
       const next = html.replace(LOADER_RE, '');
       if (next !== html) fs.writeFileSync(full, next);
@@ -175,7 +176,7 @@ console.log('[tracking-inject]', JSON.stringify(trkStats));
     }
   })(dir);
   if (left.length) throw new Error('gtag/js 직접 로더가 남은 페이지: ' + left.slice(0, 5).join(', '));
-  if (oldBiz.length) throw new Error('옛 사업자등록번호(312-29-72180)가 남은 페이지: ' + oldBiz.slice(0, 5).join(', '));
+  if (oldBiz.length) throw new Error('옛 사업자 정보(312-29-72180·만남로·틀린 우편번호)가 남은 페이지: ' + oldBiz.slice(0, 5).join(', '));
 })('dist');
 
 // _routes.json 패치

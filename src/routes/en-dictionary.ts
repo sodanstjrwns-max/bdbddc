@@ -1834,7 +1834,7 @@ const NAV = `<nav class="iv2-nav"><div class="iv2-nav__inner"><a href="/en/" cla
 
 const FOOTER = `<footer class="ed-foot"><div class="ed-wrap">
 <p class="ed-foot__name">Seoul BD Dental · 서울비디치과</p>
-<p>14, Buldang 34-gil, Seobuk-gu, Cheonan-si, Chungcheongnam-do 31120, Korea</p>
+<p>14, Buldang 34-gil, Seobuk-gu, Cheonan-si, Chungcheongnam-do 31156, Korea</p>
 <p>Tel <a href="tel:${TEL}">${TEL}</a> · Open 365 days · Mon–Fri 09:00–20:00 · Sat/Sun/Holidays 09:00–13:00</p>
 <p>About 30 minutes by car from Camp Humphreys · 10 minutes from KTX Cheonan-Asan Station</p>
 <p class="ed-foot__disc">This dictionary provides general dental information for educational purposes. It is not a diagnosis and does not replace an in-person examination by a licensed dentist.</p>

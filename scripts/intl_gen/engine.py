@@ -39,7 +39,7 @@ def _jsonld_dentist(page):
         "medicalSpecialty":["Dentistry","Orthodontic","OralSurgery","PediatricDentistry"],
         "address":{"@type":"PostalAddress","streetAddress":"14, Buldang 34-gil, Seobuk-gu",
                    "addressLocality":"Cheonan-si","addressRegion":"Chungcheongnam-do",
-                   "postalCode":"31120","addressCountry":"KR"},
+                   "postalCode":"31156","addressCountry":"KR"},
         "geo":{"@type":"GeoCoordinates","latitude":GEO[0],"longitude":GEO[1]},
         "availableLanguage":["ko","en","ja","zh","vi","th","ru"],
         "openingHoursSpecification":[

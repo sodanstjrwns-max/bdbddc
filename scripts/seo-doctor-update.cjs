@@ -456,7 +456,7 @@ function buildPersonSchema(d) {
         "streetAddress": "불당34길 14, 1~5층",
         "addressLocality": "천안시 서북구",
         "addressRegion": "충청남도",
-        "postalCode": "31166",
+        "postalCode": "31156",
         "addressCountry": "KR"
       },
       "telephone": "+82-41-415-2892",
