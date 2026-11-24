@@ -1228,9 +1228,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
   // --- Share ---
   function shareKakao() {
     var result = window._chbtiResult || {};
-    var shareText = (result.emoji || '🦷') + ' I\'m ' + (result.code || '????') + ' ' + (result.name || '') + '!
-What about you? 👀 Try ChiBTI!
-#ChiBTI #SeoulBDDental';
+    var shareText = (result.emoji || '🦷') + ' I\'m ' + (result.code || '????') + ' ' + (result.name || '') + '!\nWhat about you? 👀 Try ChiBTI!\n#ChiBTI #SeoulBDDental';
     
     try {
       if (window.Kakao) {
@@ -1274,9 +1272,7 @@ What about you? 👀 Try ChiBTI!
     if (window.bdAnalytics && bdAnalytics.trackGameShare) {
       bdAnalytics.trackGameShare('chbti', 'link_copy', { result_type: result.code, type_name: result.name });
     }
-    var text = (result.emoji || '🦷') + ' I\'m ' + (result.code || '') + ' ' + (result.name || '') + '!
-What about you? 👀 Try ChiBTI!
-https://bdbddc.com/checkup';
+    var text = (result.emoji || '🦷') + ' I\'m ' + (result.code || '') + ' ' + (result.name || '') + '!\nWhat about you? 👀 Try ChiBTI!\nhttps://bdbddc.com/checkup';
     
     if (navigator.share) {
       navigator.share({ title: ' I\'m ' + (result.code || '') + '! What about you?', text: text, url: 'https://bdbddc.com/checkup' }).catch(function(){});

@@ -1971,9 +1971,7 @@ src="https://www.facebook.com/tr?id=971255062435276&ev=PageView&noscript=1"
     if (window.bdAnalytics && bdAnalytics.trackGameShare) {
       bdAnalytics.trackGameShare('chistone_flight', 'link_copy', { score: result.score, grade: result.grade });
     }
-    var text = result.emoji + ' Tartar Flight ' + (result.score || 0).toLocaleString() + 'pts! ' + result.grade + '
-What\'s your score? 👀
-https://bdbddc.com/flight';
+    var text = result.emoji + ' Tartar Flight ' + (result.score || 0).toLocaleString() + 'pts! ' + result.grade + '\nWhat\'s your score? 👀\nhttps://bdbddc.com/flight';
 
     if (navigator.share) {
       navigator.share({ title: 'Tartar Flight!', text: text, url: 'https://bdbddc.com/flight' }).catch(function(){});

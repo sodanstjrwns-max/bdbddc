@@ -537,7 +537,8 @@ body{
   .guide-section h2{font-size:1.35rem;gap:10px}
   .sec-num{width:32px;height:32px;font-size:.8rem}
   .guide-toc{padding:22px 20px;margin:32px 16px}
-  .compare-table{font-size:.84rem}
+  /* 열이 많은 표는 화면을 밀지 않고 표 안에서만 가로로 넘긴다 (2026-11-24) */
+  .compare-table{font-size:.84rem;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table th,.compare-table td{padding:10px 8px}
   .glow-promo{padding:24px 20px}
   .cta-banner{padding:30px 22px}
