@@ -98,7 +98,7 @@ function injectTrackingFile(full, stats) {
   html = html.replace(/((?:src=["'])(?:\.\.\/)*\/?js\/(?:main|analytics)\.js)(?:\?[^"']*)?/g, '$1?v=20261111');
   html = html.replace(/((?:src=["'])\/static\/bd-smart-cta\.js)(?:\?[^"']*)?/g, '$1?v=20261110c');
   html = html.replace(/((?:src=["'])\/static\/chatbot\.js)(?:\?[^"']*)?/g, '$1?v=20260923-consent');
-  html = html.replace(/((?:src=["'])\/static\/bd-conversions\.js)(?:\?[^"']*)?/g, '$1?v=20261122a');
+  html = html.replace(/((?:src=["'])\/static\/bd-conversions\.js)(?:\?[^"']*)?/g, '$1?v=20261127a');
   html = gaContext.applyContext(html); // 페이지 유형·진료 분야 꼬리표 (scripts/ga-context.cjs)
   // gtag/js 직접 로더 제거(2026-11-22): GTM 보다 먼저 도착하면 그 페이지의 page_view 가 나가지 않았다.
   // 원본 HTML·생성 스크립트에 남아 있어도 dist 에서는 항상 지운다. 로더는 GTM 의 Google 태그가 불러온다.

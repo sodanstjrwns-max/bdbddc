@@ -99,6 +99,21 @@
     var target = classify(u.pathname);
     return NAV_TARGETS[target.type] ? target : null;
   }
+  // Naver ads conversion tracking (common key, 2026-11-27). wcslog.js reads only the page address,
+  // referrer and Naver's ad-click cookie; no form fields are ever passed to it.
+  var NAVER_KEY = 's_4abdeb4c0db3';
+  function naverTag(fn) {
+    if (!live) return;
+    try { window.wcs_add = window.wcs_add || {}; window.wcs_add.wa = NAVER_KEY; if (window.wcs) fn(window.wcs); } catch (_) {}
+  }
+  function loadNaver() {
+    if (!live || document.querySelector('script[src*="wcs.naver.net/wcslog.js"]')) return;
+    var s = document.createElement('script');
+    s.src = 'https://wcs.naver.net/wcslog.js';
+    s.async = true;
+    s.onload = function () { naverTag(function (wcs) { wcs.inflow('bdbddc.com'); window.wcs_do(); }); };
+    document.head.appendChild(s);
+  }
   function reservationAccepted(id, after) {
     if (typeof id !== 'string' || !/^rsv-\d+-[a-z0-9]+$/.test(id) || sent[id]) { if (after) after(); return false; }
     var key = 'bd_lead_sent:' + id;
@@ -107,6 +122,8 @@
     // The identifier is used only in this tab, never in analytics payloads.
     emit('generate_lead', { method: 'reservation_form', lead_stage: 'request_saved' }, after);
     if (live && typeof window.fbq === 'function') { try { window.fbq('track', 'Lead', { content_name: 'consultation_request' }); } catch (_) {} }
+    naverTag(function (wcs) { wcs.trans({ type: 'lead' }); });
+    if (debug) (window.bdEventLog = window.bdEventLog || []).push(['naver_lead', {}]);
     return true;
   }
   window.bdConversions = { intent: intent, reservationAccepted: reservationAccepted, version: '20261122' };
@@ -191,6 +208,7 @@
     ['.bd-scta__card', 'closing_contact'],
   ];
   function ready() {
+    loadNaver();
     resolveArea();
     // The page_view on this site is sent by the tag setup without our page tags (checked live 2026-11-11),
     // so one page_context event per load carries page_type / treatment_topic / page_lang for path and funnel reports.
